@@ -244,7 +244,7 @@ function LessonRoute() {
 }
 
 export default function App() {
-  return <BrowserRouter>
+  return <BrowserRouter useTransitions={false}>
     <ScrollToTop />
     <Routes>
       <Route path="/" element={<HomeRoute />} />
