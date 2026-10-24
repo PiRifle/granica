@@ -1,7 +1,8 @@
 import type { MdxBody } from '../types'
 import type { ModuleData, SolutionData } from './model'
-import type { CourseLesson, CourseModule, CourseSolution, LessonMeta } from '../types'
+import type { Course, CourseDefinition, CourseLesson, CourseModule, CourseSolution, LessonMeta } from '../types'
 import { lessonMeta } from 'virtual:lesson-meta'
+import { courseCollection } from './courses'
 
 // Solver registry: solutions are discovered eagerly so ids stay stable.
 type DataModule<T> = { default: T }
@@ -63,12 +64,50 @@ export const modules: CourseModule[] = Object.values(moduleEntries)
 export const lessons: CourseLesson[] = modules.flatMap((module) => module.lessons)
 export const workedSolutions: CourseSolution[] = Object.values(solutionEntries).sort((a, b) => a.id.localeCompare(b.id))
 
+export const modulesById = new Map(modules.map((module) => [module.id, module]))
+export const lessonEntriesById = new Map(lessons.map((lesson) => [lesson.id, lesson]))
+
+function buildCourse(definition: CourseDefinition): Course {
+  const courseModules = definition.moduleIds
+    .map((id) => modulesById.get(id))
+    .filter((module): module is CourseModule => Boolean(module))
+  const courseLessons = courseModules.flatMap((module) => module.lessons)
+  return {
+    ...definition,
+    modules: courseModules,
+    lessons: courseLessons,
+    totalDuration: courseLessons.reduce((sum, lesson) => sum + lesson.totalMinutes, 0),
+  }
+}
+
+export const courses: Course[] = courseCollection.map(buildCourse)
+export const defaultCourse = courses[0]
+
+export function findCourse(id: string | undefined): Course | undefined {
+  if (!id) return undefined
+  return courses.find((course) => course.id === id)
+}
+
+export function getCourse(id: string | undefined): Course {
+  return findCourse(id) ?? defaultCourse
+}
+
+export function getCourseForModule(moduleId: string | undefined): Course | undefined {
+  if (!moduleId) return undefined
+  return courses.find((course) => course.modules.some((module) => module.id === moduleId))
+}
+
+export function getCourseForLesson(lessonId: string | undefined): Course | undefined {
+  if (!lessonId) return undefined
+  return courses.find((course) => course.lessons.some((lesson) => lesson.id === lessonId))
+}
+
 export function getLesson(id: string): CourseLesson {
-  return lessonEntries[id] ?? lessons[0]
+  return lessonEntriesById.get(id) ?? lessons[0]
 }
 
 export function getModule(id: string): CourseModule {
-  return modules.find((module) => module.id === id) ?? modules[0]
+  return modulesById.get(id) ?? modules[0]
 }
 
 export function getModuleForLesson(lesson: LessonMeta): CourseModule {
@@ -83,6 +122,9 @@ export function lessonIndex(id: string): number {
   return lessons.findIndex((lesson) => lesson.id === id)
 }
 
+export function lessonIndexInCourse(course: Course, id: string): number {
+  return course.lessons.findIndex((lesson) => lesson.id === id)
+}
+
 export const lessonIds = lessons.map((lesson) => lesson.id)
 export const totalDuration = lessons.reduce((sum, lesson) => sum + lesson.totalMinutes, 0)
-export const modulesById = new Map(modules.map((module) => [module.id, module]))

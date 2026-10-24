@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { Award, CheckCircle2, Clock, RefreshCw, Target, XCircle } from 'lucide-react'
 import { examBank } from '../content/exam/exam-bank'
-import type { Question } from '../types'
+import type { Course, Question } from '../types'
+import { courseThemeStyle } from '../lib/courseTheme'
 import tools from './Tools.module.css'
 import exam from './Exam.module.css'
 
@@ -26,15 +27,17 @@ const local = (names: string) =>
 const EXAM_SIZE = 20
 const EXAM_SECONDS = 20 * 60
 
-function buildPool(): ExamQuestion[] {
-  return examBank.map((question, index) => ({
-    key: `${question.lessonId}-${index}`,
-    lessonId: question.lessonId,
-    lessonTitle: question.lessonTitle,
-    moduleId: question.moduleId,
-    moduleTitle: question.moduleId,
-    question,
-  }))
+function buildPool(course: Course): ExamQuestion[] {
+  return examBank
+    .filter((question) => course.moduleIds.includes(question.moduleId))
+    .map((question, index) => ({
+      key: `${question.lessonId}-${index}`,
+      lessonId: question.lessonId,
+      lessonTitle: question.lessonTitle,
+      moduleId: question.moduleId,
+      moduleTitle: question.moduleId,
+      question,
+    }))
 }
 
 function shuffle<T>(values: T[]): T[] {
@@ -56,21 +59,13 @@ function formatTime(seconds: number): string {
   return `${String(minutes).padStart(2, '0')}:${String(rest).padStart(2, '0')}`
 }
 
-const moduleNames: Record<string, string> = {
-  foundations: 'Fundamenty',
-  axial: 'Rozciąganie i ściskanie',
-  material: 'Materiał i temperatura',
-  geometry: 'Geometria przekrojów',
-  shear: 'Ścinanie i skręcanie',
-  bending: 'Zginanie',
-  'stress-state': 'Stan naprężenia',
-  'strain-state': 'Stan odkształcenia',
-  criteria: 'Hipotezy wytężeniowe',
-  design: 'Projektowanie',
-}
-
-export function Exam({ onBack }: { onBack: () => void }) {
-  const pool = useMemo(buildPool, [])
+export function Exam({ course, onBack }: { course: Course; onBack: () => void }) {
+  const moduleNames = useMemo(
+    () => Object.fromEntries(course.modules.map((module) => [module.id, module.shortTitle])),
+    [course],
+  )
+  const themeStyle = courseThemeStyle(course.theme)
+  const pool = useMemo(() => buildPool(course), [course])
   const [phase, setPhase] = useState<'intro' | 'running' | 'done'>('intro')
   const [questions, setQuestions] = useState<ExamQuestion[]>([])
   const [answers, setAnswers] = useState<Record<number, number>>({})
@@ -127,7 +122,7 @@ export function Exam({ onBack }: { onBack: () => void }) {
 
   if (phase === 'intro') {
     return (
-      <div className={local('tool-page')}>
+      <div className={local('tool-page')} style={themeStyle}>
         <header className={local('tool-header')}>
           <button className={local('button button-quiet button-small')} onClick={onBack}>
             ← Wróć do kursu
@@ -175,7 +170,7 @@ export function Exam({ onBack }: { onBack: () => void }) {
     const item = questions[index]
     const answeredCount = Object.keys(answers).length
     return (
-      <div className={local('tool-page exam-running')}>
+      <div className={local('tool-page exam-running')} style={themeStyle}>
         <header className={local('exam-bar')}>
           <button className={local('button button-quiet button-small')} onClick={finish}>
             Zakończ
@@ -243,7 +238,7 @@ export function Exam({ onBack }: { onBack: () => void }) {
   }
 
   return (
-    <div className={local('tool-page')}>
+    <div className={local('tool-page')} style={themeStyle}>
       <header className={local('tool-header')}>
         <button className={local('button button-quiet button-small')} onClick={onBack}>
           ← Wróć do kursu

@@ -2,30 +2,111 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import katex from 'katex'
-import { lessonIds, lessons, modules, syllabus, totalDuration, workedSolutions } from './course'
+import {
+  courses,
+  defaultCourse,
+  getCourseForLesson,
+  getCourseForModule,
+  lessonIds,
+  lessons,
+  modules,
+  totalDuration,
+  workedSolutions,
+} from './course'
 import { examBank } from './exam/exam-bank'
 import { literature, openSources } from './literature'
 import { labRegistry } from '../components/LabRegistry'
 import { labMeta } from '../labs/labMeta'
 import { splitFormula, tokenizeFormula } from '../lib/mathAnimation'
 
-describe('integralność kursu', () => {
-  it('ma dokładnie 10 modułów i 70 lekcji', () => {
-    expect(modules).toHaveLength(10)
-    expect(lessons).toHaveLength(70)
+const strength = courses.find((course) => course.id === 'wytrzymalosc')!
+const statics = courses.find((course) => course.id === 'statyka')!
+
+describe('kolekcja kursów', () => {
+  it('ma dwa kursy z unikalnymi identyfikatorami i motywami', () => {
+    expect(courses).toHaveLength(2)
+    expect(new Set(courses.map((course) => course.id)).size).toBe(courses.length)
+    expect(defaultCourse.id).toBe('wytrzymalosc')
+    for (const course of courses) {
+      expect(course.title.trim().length, course.id).toBeGreaterThan(3)
+      expect(course.description.trim().length, course.id).toBeGreaterThan(20)
+      expect(course.marketing.tagline.trim().length, course.id).toBeGreaterThan(3)
+      expect(course.marketing.highlights.length, course.id).toBeGreaterThan(0)
+      expect(course.theme.accent, course.id).toMatch(/^#[0-9a-f]{6}$/i)
+      expect(course.theme.highlight, course.id).toMatch(/^#[0-9a-f]{6}$/i)
+    }
   })
 
+  it('przypisuje każdy moduł i lekcję do dokładnie jednego kursu', () => {
+    const assignedModules = courses.flatMap((course) => course.moduleIds)
+    expect(new Set(assignedModules).size).toBe(assignedModules.length)
+    for (const moduleId of assignedModules) {
+      expect(
+        modules.some((module) => module.id === moduleId),
+        moduleId,
+      ).toBe(true)
+      expect(getCourseForModule(moduleId), moduleId).toBeDefined()
+    }
+    for (const lesson of lessons) {
+      const owners = courses.filter((course) => course.lessons.some((item) => item.id === lesson.id))
+      expect(owners, lesson.id).toHaveLength(1)
+      expect(getCourseForLesson(lesson.id)?.id, lesson.id).toBe(owners[0].id)
+    }
+  })
+
+  it('mapuje syllabusa każdego kursu na jego moduły', () => {
+    for (const course of courses) {
+      expect(course.syllabus, course.id).toHaveLength(course.modules.length)
+      for (const item of course.syllabus) {
+        expect(
+          course.modules.some((module) => module.id === item.moduleId),
+          `${course.id}: ${item.moduleId}`,
+        ).toBe(true)
+        expect(item.label.trim().length, `${course.id}: ${item.moduleId}`).toBeGreaterThan(10)
+      }
+    }
+  })
+
+  it('ma pełny kurs wytrzymałości: 10 modułów i 70 lekcji', () => {
+    expect(strength.modules).toHaveLength(10)
+    expect(strength.lessons).toHaveLength(70)
+    expect(strength.modules.map((module) => module.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    for (const module of strength.modules) {
+      expect(module.lessons, module.id).toHaveLength(7)
+      expect(module.status ?? 'ready', module.id).toBe('ready')
+    }
+    expect(strength.totalDuration).toBeGreaterThan(600)
+    expect(strength.tools).toEqual({
+      training: true,
+      exam: true,
+      cheatsheet: true,
+      syllabus: true,
+      library: true,
+    })
+  })
+
+  it('ma statykę jako planowany kurs z siedmioma modułami', () => {
+    expect(statics.modules).toHaveLength(7)
+    expect(statics.lessons).toHaveLength(0)
+    expect(statics.status).toBe('planned')
+    expect(statics.modules.map((module) => module.number)).toEqual([1, 2, 3, 4, 5, 6, 7])
+    for (const module of statics.modules) {
+      expect(module.status, module.id).toBe('planned')
+      expect(module.lessons, module.id).toHaveLength(0)
+    }
+    expect(statics.tools.training).toBe(false)
+    expect(statics.tools.syllabus).toBe(true)
+  })
+})
+
+describe('integralność kursu', () => {
   it('ma unikalne identyfikatory modułów i lekcji', () => {
     expect(new Set(modules.map((module) => module.id)).size).toBe(modules.length)
     expect(new Set(lessonIds).size).toBe(lessonIds.length)
   })
 
-  it('numeruje moduły od 1 do 10 bez luk', () => {
-    expect(modules.map((module) => module.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-  })
-
-  it('ma po 7 lekcji w module i wyliczony czas z treści', () => {
-    for (const module of modules) {
+  it('ma po 7 lekcji w module wytrzymałości i wyliczony czas z treści', () => {
+    for (const module of strength.modules) {
       expect(module.lessons, module.id).toHaveLength(7)
       for (const lesson of module.lessons) {
         expect(lesson.outcomes.length, lesson.id).toBeGreaterThan(0)
@@ -134,10 +215,7 @@ describe('integralność kursu', () => {
       expect(question.correct, question.question).toBeLessThan(question.answers.length)
       expect(question.explanation.trim().length, question.question).toBeGreaterThan(10)
       expect(question.hint.trim().length, question.question).toBeGreaterThan(5)
-      expect(
-        modules.some((module) => module.id === question.moduleId),
-        question.moduleId,
-      ).toBe(true)
+      expect(strength.moduleIds.includes(question.moduleId), question.moduleId).toBe(true)
     }
   })
 
@@ -197,16 +275,6 @@ describe('integralność kursu', () => {
       if (solution.figure.kind === 'rosette') {
         expect(solution.figure.gauges.length, solution.id).toBeGreaterThanOrEqual(3)
       }
-    }
-  })
-
-  it('mapa sylabusa pokrywa wszystkie moduły', () => {
-    expect(syllabus).toHaveLength(modules.length)
-    for (const item of syllabus) {
-      expect(
-        modules.some((module) => module.id === item.moduleId),
-        item.moduleId,
-      ).toBe(true)
     }
   })
 })

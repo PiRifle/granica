@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Award, BookOpen, Check, ChevronRight, Lightbulb, Menu, X } from 'lucide-react'
-import { getModuleForLesson, getSolution, lessonIndex, lessons, modules } from '../content/course'
+import { getSolution } from '../content/course'
 import { useCourseStore } from '../store'
-import type { CourseLesson, LessonId } from '../types'
-import type { View } from '../lib/navigation'
+import type { Course, CourseLesson, CourseTool, LessonId } from '../types'
+import { courseThemeStyle } from '../lib/courseTheme'
 import { CourseProgress } from './UI'
 import { SolutionPlayer } from './SolutionPlayer'
 import { LessonBody } from '../mdx/LessonBody'
@@ -14,43 +14,47 @@ import { classNames, cx } from '../lib/css'
 const l = classNames(lessonView)
 
 export function LessonView({
+  course,
   lesson,
   onHome,
   onLesson,
   onModule,
   onTool,
 }: {
+  course: Course
   lesson: CourseLesson
   onHome: () => void
   onLesson: (id: LessonId) => void
   onModule: (id: string) => void
-  onTool: (view: View) => void
+  onTool: (view: CourseTool) => void
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const { completed, setLastLesson } = useCourseStore()
-  const module = getModuleForLesson(lesson)
-  const index = lessonIndex(lesson.id)
-  const prevLesson = lessons[index - 1]
-  const nextLesson = lessons[index + 1]
+  const courseLessonIds = new Set(course.lessons.map((item) => item.id))
+  const courseCompleted = completed.filter((id) => courseLessonIds.has(id))
+  const module = (course.modules.find((entry) => entry.id === lesson.moduleId) ?? course.modules[0])!
+  const index = course.lessons.findIndex((item) => item.id === lesson.id)
+  const prevLesson = course.lessons[index - 1]
+  const nextLesson = course.lessons[index + 1]
   const solution = lesson.solutionId ? getSolution(lesson.solutionId) : undefined
 
   useEffect(() => {
-    setLastLesson(lesson.id)
+    setLastLesson(course.id, lesson.id)
     window.scrollTo(0, 0)
-  }, [lesson.id, setLastLesson])
+  }, [course.id, lesson.id, setLastLesson])
 
   return (
-    <div className={l('lesson-page')}>
+    <div className={l('lesson-page')} style={courseThemeStyle(course.theme)}>
       <header className={l('lesson-header')}>
-        <Logo onClick={onHome} />
+        <Logo onClick={onHome} subtitle={course.shortTitle} />
         <div className={l('lesson-header-progress')}>
           <span>
             Twój postęp{' '}
             <strong>
-              {completed.length}/{lessons.length}
+              {courseCompleted.length}/{course.lessons.length}
             </strong>
           </span>
-          <CourseProgress value={(completed.length / lessons.length) * 100} />
+          <CourseProgress value={course.lessons.length ? (courseCompleted.length / course.lessons.length) * 100 : 0} />
         </div>
         <button
           className={l('icon-button mobile-menu')}
@@ -61,14 +65,14 @@ export function LessonView({
         </button>
         <button className={l('button button-small button-quiet')} onClick={onHome}>
           <X size={16} />
-          Zamknij lekcję
+          Wróć do kursu
         </button>
       </header>
       <div className={l('lesson-layout')}>
         <aside className={cx(l('lesson-sidebar'), menuOpen && l('open'))}>
-          <span className={l('sidebar-label')}>TWOJA ŚCIEŻKA · {modules.length} MODUŁÓW</span>
+          <span className={l('sidebar-label')}>TWOJA ŚCIEŻKA · {course.modules.length} MODUŁÓW</span>
           <nav className={l('sidebar-nav')} aria-label="Lekcje kursu">
-            {modules.map((moduleEntry) => (
+            {course.modules.map((moduleEntry) => (
               <div key={moduleEntry.id} className={l('sidebar-module')}>
                 <button className={l('sidebar-module-title')} onClick={() => onModule(moduleEntry.id)}>
                   {String(moduleEntry.number).padStart(2, '0')} · {moduleEntry.shortTitle}
@@ -102,7 +106,7 @@ export function LessonView({
         </aside>
         <main className={l('lesson-main')}>
           <div className={l('lesson-breadcrumb')}>
-            <button onClick={onHome}>Kurs</button>
+            <button onClick={onHome}>{course.shortTitle}</button>
             <ChevronRight size={14} />
             <button onClick={() => onModule(module.id)}>
               Moduł {module.number}: {module.shortTitle}
@@ -144,9 +148,12 @@ export function LessonView({
                 <ArrowRight />
               </button>
             ) : (
-              <button className={l('button button-primary')} onClick={() => onTool('exam')}>
-                Przejdź do kolokwium
-                <Award />
+              <button
+                className={l('button button-primary')}
+                onClick={() => (course.tools.exam ? onTool('exam') : onHome())}
+              >
+                {course.tools.exam ? 'Przejdź do kolokwium' : 'Wróć do kursu'}
+                {course.tools.exam ? <Award /> : <ArrowRight />}
               </button>
             )}
           </div>
