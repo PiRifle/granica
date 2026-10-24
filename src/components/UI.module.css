@@ -1,43 +1,44 @@
 .lab {
-  background: #fff;
-  border: 1px solid #dfe4d8;
-  border-radius: 15px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 30px #35402508;
+  box-shadow: 0 10px 30px #17202a08;
 }
 .lab-heading {
   padding: 22px 24px 19px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  border-bottom: 1px solid #e7eae2;
+  border-bottom: 1px solid var(--line);
 }
 .lab-tag {
   display: flex;
   align-items: center;
-  gap: 6px;
-  color: #8c9b70;
+  gap: 7px;
+  color: var(--accent-strong);
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 9px;
 }
 .lab-tag i {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #a3bd65;
-  box-shadow: 0 0 0 3px #a3bd6520;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px #ff6b4518;
 }
 .lab-heading h2 {
-  font-size: 18px;
-  letter-spacing: -0.025em;
+  font-size: 19px;
+  letter-spacing: -0.03em;
   margin-bottom: 7px;
 }
 .lab-heading p {
   font-size: 11px;
-  line-height: 1.5;
-  color: #848c7c;
+  line-height: 1.55;
+  color: var(--muted);
   max-width: 650px;
   margin: 0;
 }
@@ -48,13 +49,13 @@
 }
 .lab-visual {
   min-width: 0;
-  background: #fafbf8;
+  background: var(--surface-subtle);
   padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #626b5c;
+  color: #556273;
   overflow: hidden;
 }
 .lab-visual > svg {
@@ -62,9 +63,9 @@
   max-height: 330px;
 }
 .lab-controls {
-  border-left: 1px solid #e7eae2;
+  border-left: 1px solid var(--line);
   padding: 21px 20px;
-  background: #fff;
+  background: var(--paper);
 }
 .lab-controls h3 {
   font-size: 11px;
@@ -79,18 +80,19 @@
   align-items: center;
   justify-content: space-between;
   font-size: 10px;
-  color: #7a8272;
+  color: var(--muted);
   margin-bottom: 13px;
   gap: 8px;
 }
 .control-label strong {
-  color: #414a3c;
-  font-size: 12px;
+  color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
   white-space: nowrap;
 }
 .control-label small {
   font-size: 9px;
-  color: #7e8876;
+  color: #74808e;
   font-weight: 500;
 }
 .slider-root {
@@ -103,14 +105,14 @@
   height: 15px;
 }
 .slider-track {
-  background: #e8ece2;
+  background: #e3e7ed;
   position: relative;
   flex: 1;
   border-radius: 10px;
   height: 4px;
 }
 .slider-range {
-  background: #a7c65f;
+  background: var(--accent);
   position: absolute;
   border-radius: inherit;
   height: 100%;
@@ -120,9 +122,9 @@
   width: 16px;
   height: 16px;
   background: #fff;
-  border: 4px solid #8ead4e;
+  border: 4px solid var(--accent);
   border-radius: 50%;
-  box-shadow: 0 1px 5px #35402522;
+  box-shadow: 0 1px 5px #17202a22;
   cursor: grab;
 }
 .slider-thumb:active {
@@ -131,14 +133,15 @@
 .control-range {
   display: flex;
   justify-content: space-between;
-  color: #adb2a5;
+  color: #98a1ab;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 8px;
   margin-top: 3px;
 }
 .segmented {
   display: flex;
   gap: 4px;
-  background: #f1f3ed;
+  background: #edf0f3;
   border-radius: 7px;
   padding: 3px;
 }
@@ -149,47 +152,49 @@
   border-radius: 5px;
   padding: 7px 4px;
   font-size: 9px;
-  color: #788170;
+  color: #6f7b87;
 }
 .segment.active {
-  background: white;
-  color: #4d6037;
+  background: #fff;
+  color: var(--accent-strong);
   font-weight: 700;
-  box-shadow: 0 1px 4px #35402514;
+  box-shadow: 0 1px 4px #17202a14;
 }
 .metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid #e5e8df;
+  border-top: 1px solid var(--line);
 }
 .metric {
   padding: 17px 23px;
   min-width: 0;
 }
 .metric + .metric {
-  border-left: 1px solid #e5e8df;
+  border-left: 1px solid var(--line);
 }
 .metric > span {
   display: block;
-  color: #899180;
-  font-size: 9px;
+  color: #7e8995;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.04em;
   margin-bottom: 6px;
 }
 .metric strong {
-  font-family: 'Manrope', sans-serif;
-  font-size: 21px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px;
   letter-spacing: -0.03em;
-  font-weight: 700;
+  font-weight: 500;
 }
 .metric strong small {
   font-family: 'DM Sans', sans-serif;
   font-size: 10px;
-  color: #818a78;
+  color: #7c8792;
   font-weight: 500;
   letter-spacing: 0;
 }
 .metric.accent strong {
-  color: #708e35;
+  color: var(--accent-strong);
 }
 
 @media (max-width: 1000px) {

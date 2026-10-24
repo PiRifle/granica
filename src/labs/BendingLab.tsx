@@ -91,7 +91,7 @@ export function BendingLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10z" fill="#e76f51" />
+                <path d="M0 0L10 5L0 10z" fill="#ff6b45" />
               </marker>
               <marker
                 id="bending-reaction"
@@ -102,13 +102,13 @@ export function BendingLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10z" fill="#2a9d8f" />
+                <path d="M0 0L10 5L0 10z" fill="#27835a" />
               </marker>
               <linearGradient id="bending-section" x1="0" y1="0" x2="0" y2="1">
-                <stop stopColor="#4f86c6" />
-                <stop offset="0.48" stopColor="#4f86c6" stopOpacity="0.15" />
-                <stop offset="0.52" stopColor="#e76f51" stopOpacity="0.15" />
-                <stop offset="1" stopColor="#e76f51" />
+                <stop stopColor="#4f6df5" />
+                <stop offset="0.48" stopColor="#4f6df5" stopOpacity="0.15" />
+                <stop offset="0.52" stopColor="#ff6b45" stopOpacity="0.15" />
+                <stop offset="1" stopColor="#ff6b45" />
               </linearGradient>
             </defs>
             <line
@@ -130,11 +130,11 @@ export function BendingLab() {
               y1="40"
               x2="290"
               y2="119"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth={forceStroke}
               markerEnd="url(#bending-force)"
             />
-            <text x="305" y="63" fontSize="15" fill="#e76f51">
+            <text x="305" y="63" fontSize="15" fill="#ff6b45">
               P = {forceKN} kN
             </text>
             <line
@@ -142,7 +142,7 @@ export function BendingLab() {
               y1="211"
               x2={beamLeft}
               y2="176"
-              stroke="#2a9d8f"
+              stroke="#27835a"
               strokeWidth={reactionStroke}
               markerEnd="url(#bending-reaction)"
             />
@@ -151,14 +151,14 @@ export function BendingLab() {
               y1="211"
               x2={beamRight}
               y2="176"
-              stroke="#2a9d8f"
+              stroke="#27835a"
               strokeWidth={reactionStroke}
               markerEnd="url(#bending-reaction)"
             />
-            <text x={beamLeft - 32} y="215" fontSize="13" fill="#2a9d8f">
+            <text x={beamLeft - 32} y="215" fontSize="13" fill="#27835a">
               RA
             </text>
-            <text x={beamRight + 13} y="215" fontSize="13" fill="#2a9d8f">
+            <text x={beamRight + 13} y="215" fontSize="13" fill="#27835a">
               RB
             </text>
             <text x="290" y="158" textAnchor="middle" fontSize="13" fill="currentColor">
@@ -181,10 +181,10 @@ export function BendingLab() {
               stroke="currentColor"
               strokeDasharray="6 4"
             />
-            <text x="625" y={126 - sectionR - 10} textAnchor="middle" fontSize="13" fill="#4f86c6">
+            <text x="625" y={126 - sectionR - 10} textAnchor="middle" fontSize="13" fill="#4f6df5">
               ściskanie (−σ)
             </text>
-            <text x="625" y={126 + sectionR + 18} textAnchor="middle" fontSize="13" fill="#e76f51">
+            <text x="625" y={126 + sectionR + 18} textAnchor="middle" fontSize="13" fill="#ff6b45">
               rozciąganie (+σ)
             </text>
             <text x="625" y={126 + sectionR + 34} textAnchor="middle" fontSize="12" fill="currentColor">
@@ -215,7 +215,7 @@ export function BendingLab() {
                   type="linear"
                   dataKey="shearKN"
                   name="T [kN]"
-                  stroke="#e9a23b"
+                  stroke="#e0a14b"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}
@@ -246,7 +246,7 @@ export function BendingLab() {
                   type="linear"
                   dataKey="momentKNM"
                   name="M [kN·m]"
-                  stroke="#4f86c6"
+                  stroke="#4f6df5"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}

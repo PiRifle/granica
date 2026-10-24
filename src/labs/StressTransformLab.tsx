@@ -108,7 +108,7 @@ export function StressTransformLab() {
               markerHeight="6"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10z" fill="#ff6b45" />
             </marker>
             <marker
               id="transform-axis-arrow"
@@ -130,7 +130,7 @@ export function StressTransformLab() {
               markerHeight="6"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10z" fill="#e9a23b" />
+              <path d="M0 0L10 5L0 10z" fill="#e0a14b" />
             </marker>
           </defs>
           <text x="170" y="28" textAnchor="middle" fontSize="16" fill="currentColor">
@@ -157,9 +157,9 @@ export function StressTransformLab() {
               y="115"
               width="130"
               height="130"
-              fill="#4f86c6"
+              fill="#4f6df5"
               fillOpacity="0.14"
-              stroke="#4f86c6"
+              stroke="#4f6df5"
               strokeWidth="3"
             />
             <line
@@ -167,7 +167,7 @@ export function StressTransformLab() {
               y1="180"
               x2={105 - sxSign * sxHalf}
               y2="180"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerEnd="url(#transform-normal-arrow)"
             />
@@ -176,7 +176,7 @@ export function StressTransformLab() {
               y1="180"
               x2={235 + sxSign * sxHalf}
               y2="180"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerEnd="url(#transform-normal-arrow)"
             />
@@ -185,7 +185,7 @@ export function StressTransformLab() {
               y1="115"
               x2="170"
               y2={115 - sySign * syHalf}
-              stroke="#e9a23b"
+              stroke="#e0a14b"
               strokeWidth="3"
               markerEnd="url(#transform-normal-arrow)"
             />
@@ -194,7 +194,7 @@ export function StressTransformLab() {
               y1="245"
               x2="170"
               y2={245 + sySign * syHalf}
-              stroke="#e9a23b"
+              stroke="#e0a14b"
               strokeWidth="3"
               markerEnd="url(#transform-normal-arrow)"
             />
@@ -203,7 +203,7 @@ export function StressTransformLab() {
               y1="121"
               x2={170 + (tauSign * tauHalf) / 2}
               y2="121"
-              stroke="#e9a23b"
+              stroke="#e0a14b"
               strokeWidth="2.5"
               markerEnd="url(#transform-shear-arrow)"
             />
@@ -212,7 +212,7 @@ export function StressTransformLab() {
               y1="239"
               x2={170 - (tauSign * tauHalf) / 2}
               y2="239"
-              stroke="#e9a23b"
+              stroke="#e0a14b"
               strokeWidth="2.5"
               markerEnd="url(#transform-shear-arrow)"
             />
@@ -220,15 +220,15 @@ export function StressTransformLab() {
               x={170 - sxSign * (sxHalf + 8)}
               y="176"
               fontSize="12"
-              fill="#e76f51"
+              fill="#ff6b45"
               textAnchor={sxSign > 0 ? 'end' : 'start'}
             >
               σx
             </text>
-            <text x="178" y={115 - sySign * (syHalf + 6)} fontSize="12" fill="#e9a23b">
+            <text x="178" y={115 - sySign * (syHalf + 6)} fontSize="12" fill="#e0a14b">
               σy
             </text>
-            <text x={170 + tauSign * (tauHalf / 2 + 6)} y="112" fontSize="12" fill="#e9a23b">
+            <text x={170 + tauSign * (tauHalf / 2 + 6)} y="112" fontSize="12" fill="#e0a14b">
               τ
             </text>
             <line
@@ -256,10 +256,10 @@ export function StressTransformLab() {
               t
             </text>
           </motion.g>
-          <text x="170" y="318" textAnchor="middle" fontSize="14" fill="#e76f51">
+          <text x="170" y="318" textAnchor="middle" fontSize="14" fill="#ff6b45">
             σn = {fmt(transformed.sigmaN)} MPa
           </text>
-          <text x="170" y="341" textAnchor="middle" fontSize="14" fill="#e9a23b">
+          <text x="170" y="341" textAnchor="middle" fontSize="14" fill="#e0a14b">
             σt = {fmt(transformed.sigmaT)} MPa
           </text>
           <text x="170" y="364" textAnchor="middle" fontSize="14" fill="currentColor">
@@ -280,16 +280,16 @@ export function StressTransformLab() {
           </text>
           <motion.circle
             cy={originY}
-            fill="#4f86c6"
+            fill="#4f6df5"
             fillOpacity="0.12"
-            stroke="#4f86c6"
+            stroke="#4f6df5"
             strokeWidth="3"
             animate={{ cx: centerX, r: radius }}
             transition={{ type: 'spring', stiffness: 150, damping: 23 }}
           />
           <motion.line
             y1={originY}
-            stroke="#e9a23b"
+            stroke="#e0a14b"
             strokeWidth="2"
             strokeDasharray="5 4"
             animate={{ x1: centerX, x2: pointNX, y2: pointNY }}
@@ -297,20 +297,20 @@ export function StressTransformLab() {
           />
           <motion.circle
             r="6"
-            fill="#e76f51"
+            fill="#ff6b45"
             stroke="white"
             strokeWidth="1.5"
             animate={{ cx: pointNX, cy: pointNY }}
             transition={{ type: 'spring', stiffness: 150, damping: 23 }}
           />
-          <circle cx={originX + circle.sigma1MPa * scale} cy={originY} r="4" fill="#2a9d8f" />
-          <circle cx={originX + circle.sigma2MPa * scale} cy={originY} r="4" fill="#2a9d8f" />
+          <circle cx={originX + circle.sigma1MPa * scale} cy={originY} r="4" fill="#27835a" />
+          <circle cx={originX + circle.sigma2MPa * scale} cy={originY} r="4" fill="#27835a" />
           <text
             x={originX + circle.sigma1MPa * scale}
             y={originY + 20}
             textAnchor="middle"
             fontSize="12"
-            fill="#2a9d8f"
+            fill="#27835a"
           >
             σ₁
           </text>
@@ -319,14 +319,14 @@ export function StressTransformLab() {
             y={originY + 20}
             textAnchor="middle"
             fontSize="12"
-            fill="#2a9d8f"
+            fill="#27835a"
           >
             σ₂
           </text>
           <text x={centerX} y={originY + 18} textAnchor="middle" fontSize="12" fill="currentColor">
             C = {fmt(circle.centerMPa)}
           </text>
-          <text x={pointNX} y={pointNY - 12} textAnchor="middle" fontSize="13" fill="#e76f51">
+          <text x={pointNX} y={pointNY - 12} textAnchor="middle" fontSize="13" fill="#ff6b45">
             N(σn, τnt)
           </text>
           <text x="555" y="347" textAnchor="middle" fontSize="13" fill="currentColor">

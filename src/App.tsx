@@ -57,9 +57,11 @@ function SyllabusRoute() {
   return <SyllabusMap onBack={() => navigate('/')} />
 }
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+
 export default function App() {
   return (
-    <BrowserRouter useTransitions={false}>
+    <BrowserRouter basename={basename} useTransitions={false}>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomeRoute />} />

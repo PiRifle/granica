@@ -94,7 +94,7 @@ export function ThermalLab() {
               markerHeight="7"
               orient="auto-start-reverse"
             >
-              <path d="M0 0L10 5L0 10z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10z" fill="#ff6b45" />
             </marker>
           </defs>
           <text x="90" y="35" fontSize="13" fill="currentColor">
@@ -146,7 +146,7 @@ export function ThermalLab() {
                 y1="152"
                 x2="103"
                 y2="152"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth="3"
                 markerEnd="url(#thermal-reaction)"
               />
@@ -155,23 +155,23 @@ export function ThermalLab() {
                 y1="152"
                 x2={rightX + 7}
                 y2="152"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth="3"
                 markerEnd="url(#thermal-reaction)"
               />
-              <text x={midX} y="115" textAnchor="middle" fontSize="14" fill="#e76f51">
+              <text x={midX} y="115" textAnchor="middle" fontSize="14" fill="#ff6b45">
                 Reakcje podpór równoważą siłę termiczną
               </text>
             </>
           ) : (
             <motion.g animate={{ x: visualDelta }} transition={{ type: 'spring', stiffness: 160, damping: 24 }}>
-              <line x1={rightX} y1="120" x2={rightX} y2="194" stroke="#2a9d8f" strokeWidth="3" strokeDasharray="4 3" />
-              <text x={rightX} y="108" textAnchor="middle" fontSize="13" fill="#2a9d8f">
+              <line x1={rightX} y1="120" x2={rightX} y2="194" stroke="#27835a" strokeWidth="3" strokeDasharray="4 3" />
+              <text x={rightX} y="108" textAnchor="middle" fontSize="13" fill="#27835a">
                 koniec swobodny
               </text>
             </motion.g>
           )}
-          <line x1="110" y1="239" x2={freeRightX} y2="239" stroke="#2a9d8f" strokeWidth="2" />
+          <line x1="110" y1="239" x2={freeRightX} y2="239" stroke="#27835a" strokeWidth="2" />
           <text x={midX} y="260" textAnchor="middle" fontSize="14" fill="currentColor">
             {mode === 'free'
               ? `Swobodnie: ΔL = αΔTL = ${fmt(freeDeltaMM, 3)} mm, σ = 0`

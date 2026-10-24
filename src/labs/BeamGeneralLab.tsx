@@ -84,7 +84,7 @@ export function BeamGeneralLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10z" fill="#e76f51" />
+                <path d="M0 0L10 5L0 10z" fill="#ff6b45" />
               </marker>
               <marker
                 id="general-beam-reaction"
@@ -95,7 +95,7 @@ export function BeamGeneralLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10z" fill="#2a9d8f" />
+                <path d="M0 0L10 5L0 10z" fill="#27835a" />
               </marker>
             </defs>
             <line x1="100" y1="125" x2="620" y2="125" stroke="currentColor" strokeWidth="9" strokeLinecap="round" />
@@ -107,11 +107,11 @@ export function BeamGeneralLab() {
                 y1="35"
                 x2="360"
                 y2="113"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth={loadStroke}
                 markerEnd="url(#general-beam-force)"
               />
-              <text x="375" y="57" fontSize="15" fill="#e76f51">
+              <text x="375" y="57" fontSize="15" fill="#ff6b45">
                 P = {forceKN} kN
               </text>
             </motion.g>
@@ -120,7 +120,7 @@ export function BeamGeneralLab() {
               y1="202"
               x2="100"
               y2="169"
-              stroke="#2a9d8f"
+              stroke="#27835a"
               strokeWidth={reactionStroke}
               markerEnd="url(#general-beam-reaction)"
             />
@@ -129,14 +129,14 @@ export function BeamGeneralLab() {
               y1="202"
               x2="620"
               y2="169"
-              stroke="#2a9d8f"
+              stroke="#27835a"
               strokeWidth={reactionStroke}
               markerEnd="url(#general-beam-reaction)"
             />
-            <text x="100" y="224" textAnchor="middle" fontSize="14" fill="#2a9d8f">
+            <text x="100" y="224" textAnchor="middle" fontSize="14" fill="#27835a">
               RA = {fmt(reactionAKN, 2)} kN
             </text>
-            <text x="620" y="224" textAnchor="middle" fontSize="14" fill="#2a9d8f">
+            <text x="620" y="224" textAnchor="middle" fontSize="14" fill="#27835a">
               RB = {fmt(reactionBKN, 2)} kN
             </text>
             <text x="82" y="118" textAnchor="end" fontSize="15" fill="currentColor">
@@ -177,7 +177,7 @@ export function BeamGeneralLab() {
                   type="linear"
                   dataKey="shearKN"
                   name="T [kN]"
-                  stroke="#e9a23b"
+                  stroke="#e0a14b"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}
@@ -208,7 +208,7 @@ export function BeamGeneralLab() {
                   x={distanceAMM / 1000}
                   y={maxMomentKNM}
                   r={5}
-                  fill="#e76f51"
+                  fill="#ff6b45"
                   stroke="white"
                   strokeWidth={2}
                 />
@@ -216,7 +216,7 @@ export function BeamGeneralLab() {
                   type="linear"
                   dataKey="momentKNM"
                   name="M [kN·m]"
-                  stroke="#4f86c6"
+                  stroke="#4f6df5"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}

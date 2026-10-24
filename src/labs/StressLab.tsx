@@ -57,7 +57,7 @@ export function StressLab() {
               markerHeight="7"
               orient="auto-start-reverse"
             >
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#e76f51" />
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6b45" />
             </marker>
           </defs>
           <text x="360" y="28" textAnchor="middle" fontSize="16" fill="currentColor">
@@ -69,11 +69,11 @@ export function StressLab() {
               y1="160"
               x2={174 - arrowLength}
               y2="160"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerEnd="url(#stress-arrow)"
             />
-            <text x={174 - arrowLength / 2} y="140" textAnchor="middle" fontSize="16" fill="#e76f51">
+            <text x={174 - arrowLength / 2} y="140" textAnchor="middle" fontSize="16" fill="#ff6b45">
               F = {forceKN} kN
             </text>
           </motion.g>
@@ -83,11 +83,11 @@ export function StressLab() {
               y1="160"
               x2={546 + arrowLength}
               y2="160"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerEnd="url(#stress-arrow)"
             />
-            <text x={546 + arrowLength / 2} y="140" textAnchor="middle" fontSize="16" fill="#e76f51">
+            <text x={546 + arrowLength / 2} y="140" textAnchor="middle" fontSize="16" fill="#ff6b45">
               F = {forceKN} kN
             </text>
           </motion.g>

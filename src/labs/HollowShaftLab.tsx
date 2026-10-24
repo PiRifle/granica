@@ -85,12 +85,12 @@ export function HollowShaftLab() {
           </desc>
           <defs>
             <radialGradient id="hollow-solid-stress">
-              <stop stopColor="#4f86c6" stopOpacity="0.12" />
-              <stop offset="1" stopColor="#e76f51" stopOpacity="0.9" />
+              <stop stopColor="#4f6df5" stopOpacity="0.12" />
+              <stop offset="1" stopColor="#ff6b45" stopOpacity="0.9" />
             </radialGradient>
             <radialGradient id="hollow-tube-stress">
-              <stop stopColor="#4f86c6" stopOpacity="0.2" />
-              <stop offset="1" stopColor="#e76f51" stopOpacity="0.95" />
+              <stop stopColor="#4f6df5" stopOpacity="0.2" />
+              <stop offset="1" stopColor="#ff6b45" stopOpacity="0.95" />
             </radialGradient>
             <marker
               id="hollow-shaft-arrow"
@@ -101,7 +101,7 @@ export function HollowShaftLab() {
               markerHeight="7"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10z" fill="#ff6b45" />
             </marker>
           </defs>
           <text x="190" y="32" textAnchor="middle" fontSize="17" fill="currentColor">
@@ -131,7 +131,7 @@ export function HollowShaftLab() {
           <motion.circle
             cx="530"
             cy="155"
-            fill="var(--bg, #17212b)"
+            fill="var(--bg, #17202a)"
             stroke="currentColor"
             strokeWidth="2"
             animate={{ r: Math.max(0.5, innerRadius) }}
@@ -142,7 +142,7 @@ export function HollowShaftLab() {
           <motion.path
             d={torqueArc(190)}
             fill="none"
-            stroke="#e76f51"
+            stroke="#ff6b45"
             strokeWidth={torqueStroke}
             markerEnd="url(#hollow-shaft-arrow)"
             animate={{ d: torqueArc(190) }}
@@ -150,15 +150,15 @@ export function HollowShaftLab() {
           <motion.path
             d={torqueArc(530)}
             fill="none"
-            stroke="#e76f51"
+            stroke="#ff6b45"
             strokeWidth={torqueStroke}
             markerEnd="url(#hollow-shaft-arrow)"
             animate={{ d: torqueArc(530) }}
           />
-          <text x="190" y={155 - outerRadius - 12} textAnchor="middle" fontSize="14" fill="#e76f51">
+          <text x="190" y={155 - outerRadius - 12} textAnchor="middle" fontSize="14" fill="#ff6b45">
             T = {torqueNM} N·m
           </text>
-          <text x="530" y={155 - outerRadius - 12} textAnchor="middle" fontSize="14" fill="#e76f51">
+          <text x="530" y={155 - outerRadius - 12} textAnchor="middle" fontSize="14" fill="#ff6b45">
             T = {torqueNM} N·m
           </text>
           <line x1={190 - outerRadius - 8} y1="259" x2={190 + outerRadius + 8} y2="259" stroke="currentColor" />
@@ -175,10 +175,10 @@ export function HollowShaftLab() {
           <text x="530" y="308" textAnchor="middle" fontSize="14" fill="currentColor">
             A = {fmt(hollowAreaMM2)} mm²
           </text>
-          <text x="190" y="334" textAnchor="middle" fontSize="14" fill="#e76f51">
+          <text x="190" y="334" textAnchor="middle" fontSize="14" fill="#ff6b45">
             τmax = {fmt(tauSolidMPa)} MPa
           </text>
-          <text x="530" y="334" textAnchor="middle" fontSize="14" fill="#e76f51">
+          <text x="530" y="334" textAnchor="middle" fontSize="14" fill="#ff6b45">
             τmax = {fmt(tauHollowMPa)} MPa
           </text>
         </svg>

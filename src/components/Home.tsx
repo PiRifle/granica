@@ -65,21 +65,21 @@ export function Home({ onStart, onTool }: { onStart: (id: LessonId) => void; onT
         <section className={h('hero')}>
           <div className={h('hero-copy')}>
             <div className={h('eyebrow')}>
-              <span /> KURS OD ZERA · 10 MODUŁÓW · PEŁNY SYLABUS
+              <span /> INTERAKTYWNY KURS WYTRZYMAŁOŚCI MATERIAŁÓW
             </div>
             <h1>
-              Zobacz, co czuje
+              Zrozum, zanim
               <br />
-              <em>materiał.</em>
+              <em>się złamie.</em>
             </h1>
             <p>
-              Wytrzymałość materiałów przez eksperymenty, animowane rozwiązania i policzalne zadania. Dotknij siły,
-              zmień kształt i zobacz, skąd naprawdę biorą się wzory.
+              Nie zgaduj, jak zadziała konstrukcja. Zmieniaj siły, obserwuj odkształcenia i przechodź przez zadania krok
+              po kroku — od pierwszej reakcji po pełny obraz naprężeń.
             </p>
             <div className={h('hero-actions')}>
               <button className={h('button button-primary')} onClick={() => onStart(resume)}>
                 <Play size={17} fill="currentColor" />
-                {completed.length ? 'Kontynuuj naukę' : 'Uruchom pierwszą lekcję'}
+                {completed.length ? 'Wróć do laboratorium' : 'Wejdź do laboratorium'}
               </button>
               <span>
                 {modules.length} modułów <i /> {lessons.length} lekcji <i /> {Math.round(totalDuration / 60)} godzin

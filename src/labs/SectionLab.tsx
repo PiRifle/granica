@@ -65,8 +65,8 @@ export function SectionLab() {
           <text x="520" y="25" textAnchor="middle" fontSize="16" fill="currentColor">
             Dwuteownik
           </text>
-          <rect x={rectangleX} y={rectangleY} width={drawnWidth} height={drawnHeight} fill="#4f86c6" opacity="0.8" />
-          <path d={iPath} fill="#e9a23b" opacity="0.9" />
+          <rect x={rectangleX} y={rectangleY} width={drawnWidth} height={drawnHeight} fill="#4f6df5" opacity="0.8" />
+          <path d={iPath} fill="#e0a14b" opacity="0.9" />
           <line
             x1={rectangleX - 18}
             y1="145"

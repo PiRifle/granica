@@ -19,9 +19,9 @@ export function RosetteLab() {
   const p1Half = 28 + (Math.abs(sigma1) / principalScale) * 72
   const p2Half = 28 + (Math.abs(sigma2) / principalScale) * 72
   const gauges = [
-    { angle: 0, value: e0Micro, color: '#4f86c6', label: 'ε₀' },
-    { angle: 45, value: e45Micro, color: '#e9a23b', label: 'ε₄₅' },
-    { angle: 90, value: e90Micro, color: '#2a9d8f', label: 'ε₉₀' },
+    { angle: 0, value: e0Micro, color: '#4f6df5', label: 'ε₀' },
+    { angle: 45, value: e45Micro, color: '#e0a14b', label: 'ε₄₅' },
+    { angle: 90, value: e90Micro, color: '#27835a', label: 'ε₉₀' },
   ]
 
   return (
@@ -105,7 +105,7 @@ export function RosetteLab() {
               markerHeight="6"
               orient="auto-start-reverse"
             >
-              <path d="M0 0L10 5L0 10Z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10Z" fill="#ff6b45" />
             </marker>
           </defs>
           <text x="200" y="28" textAnchor="middle" fontSize="16" fill="currentColor">
@@ -131,13 +131,13 @@ export function RosetteLab() {
             </g>
           ))}
           <circle cx="200" cy="170" r="7" fill="currentColor" />
-          <text x="200" y="218" textAnchor="middle" fontSize="14" fill="#4f86c6">
+          <text x="200" y="218" textAnchor="middle" fontSize="14" fill="#4f6df5">
             ε₀ = {e0Micro} µε
           </text>
-          <text x="77" y="74" textAnchor="middle" fontSize="14" fill="#e9a23b">
+          <text x="77" y="74" textAnchor="middle" fontSize="14" fill="#e0a14b">
             ε₄₅ = {e45Micro} µε
           </text>
-          <text x="315" y="78" textAnchor="middle" fontSize="14" fill="#2a9d8f">
+          <text x="315" y="78" textAnchor="middle" fontSize="14" fill="#27835a">
             ε₉₀ = {e90Micro} µε
           </text>
           <text x="329" y="175" fontSize="14" fill="currentColor">
@@ -158,7 +158,7 @@ export function RosetteLab() {
               y="120"
               width="100"
               height="100"
-              fill="#4f86c6"
+              fill="#4f6df5"
               fillOpacity="0.1"
               stroke="currentColor"
               strokeWidth="2"
@@ -168,7 +168,7 @@ export function RosetteLab() {
               y1="170"
               x2={555 + p1Half}
               y2="170"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerStart="url(#rosette-principal-arrow)"
               markerEnd="url(#rosette-principal-arrow)"
@@ -178,15 +178,15 @@ export function RosetteLab() {
               y1={170 - p2Half}
               x2="555"
               y2={170 + p2Half}
-              stroke="#e9a23b"
+              stroke="#e0a14b"
               strokeWidth="3"
               markerStart="url(#rosette-principal-arrow)"
               markerEnd="url(#rosette-principal-arrow)"
             />
-            <text x={555 + p1Half + 8} y="175" fontSize="15" fill="#e76f51">
+            <text x={555 + p1Half + 8} y="175" fontSize="15" fill="#ff6b45">
               1
             </text>
-            <text x="560" y={170 - p2Half - 6} fontSize="15" fill="#e9a23b">
+            <text x="560" y={170 - p2Half - 6} fontSize="15" fill="#e0a14b">
               2
             </text>
           </motion.g>

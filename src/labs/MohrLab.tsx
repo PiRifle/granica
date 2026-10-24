@@ -126,9 +126,9 @@ export function MohrLab() {
             cy={originY}
             r={radius}
             animate={{ cx: centerX, cy: originY, r: radius }}
-            fill="#4f86c6"
+            fill="#4f6df5"
             fillOpacity="0.12"
-            stroke="#4f86c6"
+            stroke="#4f6df5"
             strokeWidth="3"
             transition={{ type: 'spring', stiffness: 150, damping: 24 }}
           />
@@ -138,7 +138,7 @@ export function MohrLab() {
             x2={pointAX}
             y2={pointAY}
             animate={{ x1: centerX, y1: originY, x2: pointAX, y2: pointAY }}
-            stroke="#e9a23b"
+            stroke="#e0a14b"
             strokeWidth="2"
             strokeDasharray="5 4"
             transition={{ type: 'spring', stiffness: 150, damping: 24 }}
@@ -155,13 +155,13 @@ export function MohrLab() {
           />
           <motion.circle
             r="6"
-            fill="#e76f51"
+            fill="#ff6b45"
             animate={{ cx: pointAX, cy: pointAY }}
             transition={{ type: 'spring', stiffness: 150, damping: 24 }}
           />
           <motion.circle
             r="6"
-            fill="#e9a23b"
+            fill="#e0a14b"
             animate={{ cx: pointBX, cy: pointBY }}
             transition={{ type: 'spring', stiffness: 150, damping: 24 }}
           />
@@ -171,12 +171,12 @@ export function MohrLab() {
             animate={{ cx: centerX, cy: originY }}
             transition={{ type: 'spring', stiffness: 150, damping: 24 }}
           />
-          <circle cx={sigma1X} cy={originY} r="5" fill="#2a9d8f" />
-          <circle cx={sigma2X} cy={originY} r="5" fill="#2a9d8f" />
-          <text x={pointAX + 9} y={pointAY - 9} fontSize="13" fill="#e76f51">
+          <circle cx={sigma1X} cy={originY} r="5" fill="#27835a" />
+          <circle cx={sigma2X} cy={originY} r="5" fill="#27835a" />
+          <text x={pointAX + 9} y={pointAY - 9} fontSize="13" fill="#ff6b45">
             A(σx, τxy)
           </text>
-          <text x={pointBX + 9} y={pointBY + 17} fontSize="13" fill="#e9a23b">
+          <text x={pointBX + 9} y={pointBY + 17} fontSize="13" fill="#e0a14b">
             B(σy, −τxy)
           </text>
           <text x={centerX} y={originY - 11} textAnchor="middle" fontSize="13" fill="currentColor">
@@ -187,14 +187,14 @@ export function MohrLab() {
             y={(originY + pointAY) / 2 - 8}
             textAnchor="middle"
             fontSize="13"
-            fill="#e9a23b"
+            fill="#e0a14b"
           >
             R = {fmt(circle.radiusMPa)} MPa
           </text>
-          <text x={sigma1X} y={originY - 12} textAnchor="middle" fontSize="13" fill="#2a9d8f">
+          <text x={sigma1X} y={originY - 12} textAnchor="middle" fontSize="13" fill="#27835a">
             σ₁
           </text>
-          <text x={sigma2X} y={originY - 12} textAnchor="middle" fontSize="13" fill="#2a9d8f">
+          <text x={sigma2X} y={originY - 12} textAnchor="middle" fontSize="13" fill="#27835a">
             σ₂
           </text>
           <text x="360" y="315" textAnchor="middle" fontSize="12" fill="currentColor">

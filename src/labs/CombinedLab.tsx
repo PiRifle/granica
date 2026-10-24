@@ -29,8 +29,8 @@ export function CombinedLab() {
         ? 'Obie hipotezy dają tutaj zgodny współczynnik n.'
         : 'HMH daje mniejsze n dla tego stanu.'
   const chartData = [
-    { name: 'HMH', stress: vonMises, color: '#4f86c6' },
-    { name: 'Tresca', stress: tresca, color: '#e9a23b' },
+    { name: 'HMH', stress: vonMises, color: '#4f6df5' },
+    { name: 'Tresca', stress: tresca, color: '#e0a14b' },
   ]
   const torqueDirection = torqueNM < 0 ? -1 : 1
   const forceLen = 28 + Math.min(46, Math.abs(forceKN) / 2)
@@ -110,7 +110,7 @@ export function CombinedLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10Z" fill="#e76f51" />
+                <path d="M0 0L10 5L0 10Z" fill="#ff6b45" />
               </marker>
               <marker
                 id="combined-moment-arrow"
@@ -121,7 +121,7 @@ export function CombinedLab() {
                 markerHeight="6"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10Z" fill="#4f86c6" />
+                <path d="M0 0L10 5L0 10Z" fill="#4f6df5" />
               </marker>
               <marker
                 id="combined-tau-arrow"
@@ -132,12 +132,12 @@ export function CombinedLab() {
                 markerHeight="6"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10Z" fill="#e9a23b" />
+                <path d="M0 0L10 5L0 10Z" fill="#e0a14b" />
               </marker>
               <linearGradient id="combined-section-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop stopColor="#4f86c6" stopOpacity="0.9" />
+                <stop stopColor="#4f6df5" stopOpacity="0.9" />
                 <stop offset="0.5" stopColor="#ffffff" stopOpacity="0.12" />
-                <stop offset="1" stopColor="#e76f51" stopOpacity="0.85" />
+                <stop offset="1" stopColor="#ff6b45" stopOpacity="0.85" />
               </linearGradient>
             </defs>
             <text x="220" y="27" textAnchor="middle" fontSize="16" fill="currentColor">
@@ -154,7 +154,7 @@ export function CombinedLab() {
               width="270"
               height="66"
               rx="4"
-              fill="#729fc7"
+              fill="#8fa4f8"
               stroke="currentColor"
               strokeWidth="1.5"
             />
@@ -167,7 +167,7 @@ export function CombinedLab() {
                     y1="170"
                     x2={91 - forceLen}
                     y2="170"
-                    stroke="#e76f51"
+                    stroke="#ff6b45"
                     strokeWidth="3"
                     markerEnd="url(#combined-force-arrow)"
                   />
@@ -176,7 +176,7 @@ export function CombinedLab() {
                     y1="170"
                     x2={375 + forceLen}
                     y2="170"
-                    stroke="#e76f51"
+                    stroke="#ff6b45"
                     strokeWidth="3"
                     markerEnd="url(#combined-force-arrow)"
                   />
@@ -188,7 +188,7 @@ export function CombinedLab() {
                     y1="170"
                     x2="91"
                     y2="170"
-                    stroke="#e76f51"
+                    stroke="#ff6b45"
                     strokeWidth="3"
                     markerEnd="url(#combined-force-arrow)"
                   />
@@ -197,7 +197,7 @@ export function CombinedLab() {
                     y1="170"
                     x2="375"
                     y2="170"
-                    stroke="#e76f51"
+                    stroke="#ff6b45"
                     strokeWidth="3"
                     markerEnd="url(#combined-force-arrow)"
                   />
@@ -210,22 +210,22 @@ export function CombinedLab() {
             <path
               d="M70 105C25 75 35 45 85 52"
               fill="none"
-              stroke="#4f86c6"
+              stroke="#4f6df5"
               strokeWidth="3"
               markerEnd="url(#combined-moment-arrow)"
             />
-            <text x="31" y="95" fontSize="14" fill="#4f86c6">
+            <text x="31" y="95" fontSize="14" fill="#4f6df5">
               M = {fmt(momentKNM, 1)} kN·m
             </text>
             <motion.path
               d={torqueDirection > 0 ? 'M330 105C380 70 430 100 402 130' : 'M402 130C430 100 380 70 330 105'}
               animate={{ opacity: torqueNM === 0 ? 0.2 : 1 }}
               fill="none"
-              stroke="#e9a23b"
+              stroke="#e0a14b"
               strokeWidth="3"
               markerEnd="url(#combined-tau-arrow)"
             />
-            <text x="341" y="86" fontSize="14" fill="#e9a23b">
+            <text x="341" y="86" fontSize="14" fill="#e0a14b">
               T = {torqueNM} N·m
             </text>
             <text x="220" y="244" textAnchor="middle" fontSize="13" fill="currentColor">
@@ -247,8 +247,8 @@ export function CombinedLab() {
               animate={{ opacity: 0.7 + Math.min(Math.abs(sigmaX) / 500, 0.3) }}
             />
             <line x1="475" y1="165" x2="695" y2="165" stroke="currentColor" strokeDasharray="5 4" opacity="0.5" />
-            <circle cx="585" cy="65" r="6" fill="#e76f51" stroke="white" strokeWidth="2" />
-            <text x="600" y="57" fontSize="15" fill="#e76f51">
+            <circle cx="585" cy="65" r="6" fill="#ff6b45" stroke="white" strokeWidth="2" />
+            <text x="600" y="57" fontSize="15" fill="#ff6b45">
               A
             </text>
             <motion.line
@@ -257,7 +257,7 @@ export function CombinedLab() {
               x2={585 + torqueDirection * tauLen}
               y2="65"
               animate={{ opacity: torqueNM === 0 ? 0.15 : 1 }}
-              stroke="#e9a23b"
+              stroke="#e0a14b"
               strokeWidth="4"
               markerEnd="url(#combined-tau-arrow)"
             />
@@ -266,12 +266,12 @@ export function CombinedLab() {
               y1="88"
               x2={585 - momentLen}
               y2="88"
-              stroke="#4f86c6"
+              stroke="#4f6df5"
               strokeWidth="3"
               markerEnd="url(#combined-moment-arrow)"
               animate={{ x2: 585 - momentLen }}
             />
-            <text x={585 - momentLen - 4} y="83" textAnchor="end" fontSize="12" fill="#4f86c6">
+            <text x={585 - momentLen - 4} y="83" textAnchor="end" fontSize="12" fill="#4f6df5">
               σM
             </text>
             <text x="585" y="105" textAnchor="middle" fontSize="13" fill="currentColor">
@@ -286,7 +286,7 @@ export function CombinedLab() {
             <text x="585" y="286" textAnchor="middle" fontSize="14" fill="currentColor">
               σx(A) = {fmt(sigmaX, 1)} MPa
             </text>
-            <text x="585" y="308" textAnchor="middle" fontSize="14" fill="#e9a23b">
+            <text x="585" y="308" textAnchor="middle" fontSize="14" fill="#e0a14b">
               τ(A) = {fmt(tau, 1)} MPa
             </text>
             <text x="380" y="336" textAnchor="middle" fontSize="12" fill="currentColor">
@@ -310,7 +310,7 @@ export function CombinedLab() {
                 <Tooltip />
                 <ReferenceLine
                   y={yieldMPa}
-                  stroke="#e76f51"
+                  stroke="#ff6b45"
                   strokeDasharray="5 4"
                   label={{ value: `Re = ${yieldMPa} MPa`, position: 'insideTopRight', fontSize: 12 }}
                 />

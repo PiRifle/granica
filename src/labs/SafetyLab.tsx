@@ -75,16 +75,16 @@ export function SafetyLab() {
           <text x="70" y="46" fontSize="17" fill="currentColor">
             σ = {fmt(sigma)} MPa
           </text>
-          <text x="650" y="46" textAnchor="end" fontSize="17" fill={safe ? '#718233' : '#c45f42'}>
+          <text x="650" y="46" textAnchor="end" fontSize="17" fill={safe ? '#3155d9' : '#c65c43'}>
             {safe ? '✓ warunek spełniony' : '✕ warunek niespełniony'}
           </text>
-          <rect x="70" y="78" width="580" height="52" rx="8" fill="#edf0e8" />
+          <rect x="70" y="78" width="580" height="52" rx="8" fill="#edf1ff" />
           <motion.rect
             x="70"
             y="78"
             height="52"
             rx="8"
-            fill={safe ? '#9dbb62' : '#df8063'}
+            fill={safe ? '#4f6df5' : '#ff6b45'}
             animate={{ width: 5.8 * gaugeWidth }}
             transition={{ type: 'spring', stiffness: 150, damping: 23 }}
           />
@@ -93,7 +93,7 @@ export function SafetyLab() {
             y1="65"
             x2={70 + 5.8 * limitWidth}
             y2="145"
-            stroke="#455537"
+            stroke="#3155d9"
             strokeWidth="3"
             strokeDasharray="6 4"
           />
@@ -106,11 +106,11 @@ export function SafetyLab() {
           <text x="650" y="190" textAnchor="end" fontSize="12" fill="currentColor">
             skala: {fmt(scaleMaxMPa)} MPa
           </text>
-          <rect x="70" y="215" width="580" height="72" rx="10" fill="#f0f5e7" />
+          <rect x="70" y="215" width="580" height="72" rx="10" fill="#edf7f1" />
           <text x="360" y="242" textAnchor="middle" fontSize="15" fill="currentColor">
             σ ≤ σdop ⇔ Re/σ ≥ n ⇔ A ≥ F·1000·n/Re
           </text>
-          <text x="360" y="270" textAnchor="middle" fontSize="13" fill={safe ? '#718233' : '#c45f42'}>
+          <text x="360" y="270" textAnchor="middle" fontSize="13" fill={safe ? '#3155d9' : '#c65c43'}>
             {safe
               ? `Zapas pola: ${fmt(areaMM2 - requiredArea)} mm²`
               : `Brakuje pola: ${fmt(requiredArea - areaMM2)} mm²`}

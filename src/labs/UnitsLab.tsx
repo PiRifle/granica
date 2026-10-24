@@ -45,7 +45,7 @@ export function UnitsLab() {
           <text x="90" y="38" fontSize="17" fill="currentColor">
             Siła: 1 kN = 1000 N
           </text>
-          <text x="630" y="38" textAnchor="end" fontSize="16" fill="#e76f51">
+          <text x="630" y="38" textAnchor="end" fontSize="16" fill="#ff6b45">
             F = {fmt(forceKN, 0)} kN = {fmt(forceN, 0)} N
           </text>
           <line x1="90" y1="82" x2="630" y2="82" stroke="currentColor" strokeWidth="3" />
@@ -65,13 +65,13 @@ export function UnitsLab() {
             )
           })}
           <motion.g animate={{ x: forcePointerX }} transition={spring}>
-            <line x1="0" y1="52" x2="0" y2="96" stroke="#e76f51" strokeWidth="3" />
-            <path d="M-7 48L0 58L7 48Z" fill="#e76f51" />
+            <line x1="0" y1="52" x2="0" y2="96" stroke="#ff6b45" strokeWidth="3" />
+            <path d="M-7 48L0 58L7 48Z" fill="#ff6b45" />
           </motion.g>
           <text x="90" y="177" fontSize="17" fill="currentColor">
             Naprężenie: 1 MPa = 1 N/mm² = 0,1 kN/cm²
           </text>
-          <text x="630" y="177" textAnchor="end" fontSize="16" fill="#4f86c6">
+          <text x="630" y="177" textAnchor="end" fontSize="16" fill="#4f6df5">
             σ = {fmt(sigmaMPa, 0)} MPa
           </text>
           <line x1="90" y1="221" x2="630" y2="221" stroke="currentColor" strokeWidth="3" />
@@ -91,8 +91,8 @@ export function UnitsLab() {
             )
           })}
           <motion.g animate={{ x: stressPointerX }} transition={spring}>
-            <line x1="0" y1="191" x2="0" y2="235" stroke="#4f86c6" strokeWidth="3" />
-            <path d="M-7 187L0 197L7 187Z" fill="#4f86c6" />
+            <line x1="0" y1="191" x2="0" y2="235" stroke="#4f6df5" strokeWidth="3" />
+            <path d="M-7 187L0 197L7 187Z" fill="#4f6df5" />
           </motion.g>
           <text x="360" y="310" textAnchor="middle" fontSize="14" fill="currentColor">
             MPa i N/mm² mają tę samą wartość liczbową; kN/cm² jest 10 razy mniejszą liczbą.

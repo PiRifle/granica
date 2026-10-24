@@ -91,7 +91,7 @@ export function SteppedBarLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10Z" fill="#e76f51" />
+                <path d="M0 0L10 5L0 10Z" fill="#ff6b45" />
               </marker>
             </defs>
             <text x="360" y="28" textAnchor="middle" fontSize="15" fill="currentColor">
@@ -134,11 +134,11 @@ export function SteppedBarLab() {
               y1="110"
               x2={172 + qArrowLength}
               y2="110"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerEnd="url(#fund-stepped-force)"
             />
-            <text x={172 + qArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#e76f51">
+            <text x={172 + qArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#ff6b45">
               Q = {forceQ} kN
             </text>
             <line
@@ -146,11 +146,11 @@ export function SteppedBarLab() {
               y1="110"
               x2={endX + 8 + pArrowLength}
               y2="110"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="4"
               markerEnd="url(#fund-stepped-force)"
             />
-            <text x={endX + 8 + pArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#e76f51">
+            <text x={endX + 8 + pArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#ff6b45">
               P = {forceP} kN
             </text>
             <line
@@ -158,11 +158,11 @@ export function SteppedBarLab() {
               y1="110"
               x2={84 - rArrowLength}
               y2="110"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerEnd="url(#fund-stepped-force)"
             />
-            <text x={84 - rArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#e76f51">
+            <text x={84 - rArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#ff6b45">
               R = {fmt(reactionKN, 1)} kN
             </text>
             {segments.map((segment) => (
@@ -215,7 +215,7 @@ export function SteppedBarLab() {
                   type="linear"
                   dataKey="normalKN"
                   name="N [kN]"
-                  stroke="#4f86c6"
+                  stroke="#4f6df5"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}
@@ -247,7 +247,7 @@ export function SteppedBarLab() {
                   type="linear"
                   dataKey="sigmaMPa"
                   name="σ [MPa]"
-                  stroke="#e76f51"
+                  stroke="#ff6b45"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}

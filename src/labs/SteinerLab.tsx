@@ -61,7 +61,7 @@ export function SteinerLab() {
             Niebieski prostokąt ma własną oś xC. Wymiar d łączy ją z równoległą osią x₀. Pasek obok pokazuje udział obu
             składników wzoru.
           </desc>
-          <line x1="65" y1={axisY} x2="570" y2={axisY} stroke="#354025" strokeWidth="2.5" />
+          <line x1="65" y1={axisY} x2="570" y2={axisY} stroke="#17202a" strokeWidth="2.5" />
           <text x="575" y={axisY + 5} fontSize="15" fill="currentColor">
             x₀
           </text>
@@ -70,11 +70,11 @@ export function SteinerLab() {
             y1={rectangleY}
             x2="570"
             y2={rectangleY}
-            stroke="#7d9b45"
+            stroke="#3155d9"
             strokeWidth="2"
             strokeDasharray="7 5"
           />
-          <text x="575" y={rectangleY + 5} fontSize="15" fill="#718233">
+          <text x="575" y={rectangleY + 5} fontSize="15" fill="#3155d9">
             xC
           </text>
           <motion.rect
@@ -82,9 +82,9 @@ export function SteinerLab() {
             y={rectangleY - (heightMM * scale) / 2}
             width={widthMM * scale}
             height={Math.max(3, heightMM * scale)}
-            fill="#86a9c2"
+            fill="#8fa4f8"
             fillOpacity="0.75"
-            stroke="#4f7897"
+            stroke="#3155d9"
             strokeWidth="2"
             animate={{
               x: centerX - (widthMM * scale) / 2,
@@ -110,22 +110,22 @@ export function SteinerLab() {
           >
             b = {widthMM} mm
           </text>
-          <line x1="100" y1={axisY} x2="100" y2={rectangleY} stroke="#e77451" strokeWidth="2" />
-          <line x1="91" y1={axisY} x2="109" y2={axisY} stroke="#e77451" strokeWidth="2" />
-          <line x1="91" y1={rectangleY} x2="109" y2={rectangleY} stroke="#e77451" strokeWidth="2" />
-          <text x="113" y={(axisY + rectangleY) / 2 + 5} fontSize="14" fill="#d36343">
+          <line x1="100" y1={axisY} x2="100" y2={rectangleY} stroke="#ff6b45" strokeWidth="2" />
+          <line x1="91" y1={axisY} x2="109" y2={axisY} stroke="#ff6b45" strokeWidth="2" />
+          <line x1="91" y1={rectangleY} x2="109" y2={rectangleY} stroke="#ff6b45" strokeWidth="2" />
+          <text x="113" y={(axisY + rectangleY) / 2 + 5} fontSize="14" fill="#c65c43">
             d = {distanceMM} mm
           </text>
           <text x="135" y={rectangleY + 5} fontSize="12" fill="currentColor">
             h = {heightMM} mm
           </text>
-          <rect x="630" y="45" width="35" height="210" rx="6" fill="#edf0e8" />
+          <rect x="630" y="45" width="35" height="210" rx="6" fill="#edf1ff" />
           <motion.rect
             x="630"
             y={255 - (210 * ownShare) / 100}
             width="35"
             height={(210 * ownShare) / 100}
-            fill="#86a9c2"
+            fill="#8fa4f8"
             animate={{ y: 255 - (210 * ownShare) / 100, height: (210 * ownShare) / 100 }}
           />
           <motion.rect
@@ -133,16 +133,16 @@ export function SteinerLab() {
             y="45"
             width="35"
             height={(210 * parallelAxisTerm) / totalInertia}
-            fill="#9dbb62"
+            fill="#4f6df5"
             animate={{ height: (210 * parallelAxisTerm) / totalInertia }}
           />
           <text x="648" y="275" textAnchor="middle" fontSize="12" fill="currentColor">
             100% I
           </text>
-          <text x="615" y="53" textAnchor="end" fontSize="12" fill="#718233">
+          <text x="615" y="53" textAnchor="end" fontSize="12" fill="#3155d9">
             Ad²
           </text>
-          <text x="615" y="245" textAnchor="end" fontSize="12" fill="#4f7897">
+          <text x="615" y="245" textAnchor="end" fontSize="12" fill="#3155d9">
             I₀
           </text>
           <text x="360" y="309" textAnchor="middle" fontSize="13" fill="currentColor">

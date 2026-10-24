@@ -68,7 +68,7 @@ export function ShearJointLab() {
               markerHeight="7"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10z" fill="#ff6b45" />
             </marker>
             <linearGradient id="shear-joint-rivet" x1="0" y1="0" x2="1" y2="0">
               <stop stopColor="#596775" />
@@ -81,14 +81,14 @@ export function ShearJointLab() {
           </text>
           {mode === 'single' ? (
             <>
-              <rect x="105" y="105" width="310" height="65" rx="4" fill="#4f86c6" opacity="0.82" />
-              <rect x="305" y="170" width="310" height="65" rx="4" fill="#e9a23b" opacity="0.82" />
+              <rect x="105" y="105" width="310" height="65" rx="4" fill="#4f6df5" opacity="0.82" />
+              <rect x="305" y="170" width="310" height="65" rx="4" fill="#e0a14b" opacity="0.82" />
               <line
                 x1="105"
                 y1="137"
                 x2="42"
                 y2="137"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth={forceStroke}
                 markerEnd="url(#shear-joint-force)"
               />
@@ -97,14 +97,14 @@ export function ShearJointLab() {
                 y1="202"
                 x2="678"
                 y2="202"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth={forceStroke}
                 markerEnd="url(#shear-joint-force)"
               />
-              <text x="70" y="120" textAnchor="middle" fontSize="15" fill="#e76f51">
+              <text x="70" y="120" textAnchor="middle" fontSize="15" fill="#ff6b45">
                 F
               </text>
-              <text x="650" y="185" textAnchor="middle" fontSize="15" fill="#e76f51">
+              <text x="650" y="185" textAnchor="middle" fontSize="15" fill="#ff6b45">
                 F
               </text>
               <motion.line
@@ -112,27 +112,27 @@ export function ShearJointLab() {
                 x2="435"
                 y1="170"
                 y2="170"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth="3"
                 strokeDasharray="7 5"
                 animate={{ opacity: [0.45, 1, 0.45] }}
                 transition={{ duration: 1.8, repeat: Infinity }}
               />
-              <text x="448" y="175" fontSize="14" fill="#e76f51">
+              <text x="448" y="175" fontSize="14" fill="#ff6b45">
                 płaszczyzna 1
               </text>
             </>
           ) : (
             <>
-              <rect x="105" y="85" width="510" height="48" rx="4" fill="#4f86c6" opacity="0.78" />
-              <rect x="185" y="133" width="350" height="74" rx="4" fill="#e9a23b" opacity="0.85" />
-              <rect x="105" y="207" width="510" height="48" rx="4" fill="#4f86c6" opacity="0.78" />
+              <rect x="105" y="85" width="510" height="48" rx="4" fill="#4f6df5" opacity="0.78" />
+              <rect x="185" y="133" width="350" height="74" rx="4" fill="#e0a14b" opacity="0.85" />
+              <rect x="105" y="207" width="510" height="48" rx="4" fill="#4f6df5" opacity="0.78" />
               <line
                 x1="105"
                 y1="109"
                 x2="42"
                 y2="109"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth={forceStroke}
                 markerEnd="url(#shear-joint-force)"
               />
@@ -141,7 +141,7 @@ export function ShearJointLab() {
                 y1="231"
                 x2="42"
                 y2="231"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth={forceStroke}
                 markerEnd="url(#shear-joint-force)"
               />
@@ -150,17 +150,17 @@ export function ShearJointLab() {
                 y1="170"
                 x2="678"
                 y2="170"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth={forceStroke}
                 markerEnd="url(#shear-joint-force)"
               />
-              <text x="70" y="92" textAnchor="middle" fontSize="15" fill="#e76f51">
+              <text x="70" y="92" textAnchor="middle" fontSize="15" fill="#ff6b45">
                 F/2
               </text>
-              <text x="70" y="260" textAnchor="middle" fontSize="15" fill="#e76f51">
+              <text x="70" y="260" textAnchor="middle" fontSize="15" fill="#ff6b45">
                 F/2
               </text>
-              <text x="645" y="151" textAnchor="middle" fontSize="15" fill="#e76f51">
+              <text x="645" y="151" textAnchor="middle" fontSize="15" fill="#ff6b45">
                 F
               </text>
               {[133, 207].map((y, index) => (
@@ -170,13 +170,13 @@ export function ShearJointLab() {
                     x2="435"
                     y1={y}
                     y2={y}
-                    stroke="#e76f51"
+                    stroke="#ff6b45"
                     strokeWidth="3"
                     strokeDasharray="7 5"
                     animate={{ opacity: [0.45, 1, 0.45] }}
                     transition={{ duration: 1.8, repeat: Infinity, delay: index * 0.25 }}
                   />
-                  <text x="448" y={y + 5} fontSize="14" fill="#e76f51">
+                  <text x="448" y={y + 5} fontSize="14" fill="#ff6b45">
                     płaszczyzna {index + 1}
                   </text>
                 </g>

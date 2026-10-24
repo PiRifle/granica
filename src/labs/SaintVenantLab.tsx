@@ -83,15 +83,15 @@ export function SaintVenantLab() {
               markerHeight="7"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10Z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10Z" fill="#ff6b45" />
             </marker>
           </defs>
           <text x="550" y="31" textAnchor="middle" fontSize="15" fill="currentColor">
             Profil σ na przekroju [MPa]
           </text>
           <line x1="460" y1="54" x2="460" y2="215" stroke="currentColor" strokeWidth="2" />
-          <line x1="482" y1="54" x2="482" y2="215" stroke="#2a9d8f" strokeDasharray="4 4" />
-          <text x="482" y="48" textAnchor="middle" fontSize="11" fill="#2a9d8f">
+          <line x1="482" y1="54" x2="482" y2="215" stroke="#27835a" strokeDasharray="4 4" />
+          <text x="482" y="48" textAnchor="middle" fontSize="11" fill="#27835a">
             σśr
           </text>
           {profile.map((value, index) => (
@@ -101,7 +101,7 @@ export function SaintVenantLab() {
               y={62 + index * 9}
               height="7"
               rx="2"
-              fill={index > 5 && index < 11 ? '#e76f51' : '#4f86c6'}
+              fill={index > 5 && index < 11 ? '#ff6b45' : '#4f6df5'}
               opacity={0.55 + (value / modelMaxMPa) * 0.4}
               animate={{ width: Math.max(1, (value / nominalMPa) * 22) }}
               transition={spring}
@@ -112,22 +112,22 @@ export function SaintVenantLab() {
           </text>
           <path d="M75 224L100 249V294L75 319Z" fill="currentColor" opacity="0.3" />
           <line x1="100" y1="218" x2="100" y2="318" stroke="currentColor" strokeWidth="5" />
-          <rect x="100" y="249" width="300" height="45" rx="3" fill="#4f86c6" opacity="0.55" />
+          <rect x="100" y="249" width="300" height="45" rx="3" fill="#4f6df5" opacity="0.55" />
           <line
             x1="400"
             y1="271"
             x2={400 + forceArrowLength}
             y2="271"
-            stroke="#e76f51"
+            stroke="#ff6b45"
             strokeWidth="4"
             markerEnd="url(#fund-saint-force)"
           />
-          <text x={400 + forceArrowLength / 2} y="254" textAnchor="middle" fontSize="14" fill="#e76f51">
+          <text x={400 + forceArrowLength / 2} y="254" textAnchor="middle" fontSize="14" fill="#ff6b45">
             P = {forceKN} kN
           </text>
           <motion.g animate={{ x: sectionX }} transition={spring}>
-            <line x1="0" y1="232" x2="0" y2="311" stroke="#e9a23b" strokeWidth="3" strokeDasharray="5 4" />
-            <text x="0" y="226" textAnchor="middle" fontSize="13" fill="#e9a23b">
+            <line x1="0" y1="232" x2="0" y2="311" stroke="#e0a14b" strokeWidth="3" strokeDasharray="5 4" />
+            <text x="0" y="226" textAnchor="middle" fontSize="13" fill="#e0a14b">
               badany przekrój
             </text>
           </motion.g>

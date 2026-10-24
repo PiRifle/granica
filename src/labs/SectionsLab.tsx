@@ -92,7 +92,7 @@ export function SectionsLab() {
               markerHeight="7"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10Z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10Z" fill="#ff6b45" />
             </marker>
             <marker
               id="fund-sections-normal"
@@ -103,7 +103,7 @@ export function SectionsLab() {
               markerHeight="7"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10Z" fill="#4f86c6" />
+              <path d="M0 0L10 5L0 10Z" fill="#4f6df5" />
             </marker>
           </defs>
           <text x="360" y="27" textAnchor="middle" fontSize="16" fill="currentColor">
@@ -115,15 +115,15 @@ export function SectionsLab() {
             x="110"
             width="430"
             rx="4"
-            fill="#4f86c6"
+            fill="#4f6df5"
             opacity="0.8"
             animate={{ y: barY, height: barHeight }}
             transition={spring}
           />
           <line x1="90" y1="102" x2="110" y2="102" stroke="currentColor" strokeWidth="5" />
           <motion.g animate={{ x: cutX }} transition={spring}>
-            <line x1="0" y1="53" x2="0" y2="151" stroke="#e9a23b" strokeWidth="3" strokeDasharray="6 4" />
-            <text x="0" y="46" textAnchor="middle" fontSize="14" fill="#e9a23b">
+            <line x1="0" y1="53" x2="0" y2="151" stroke="#e0a14b" strokeWidth="3" strokeDasharray="6 4" />
+            <text x="0" y="46" textAnchor="middle" fontSize="14" fill="#e0a14b">
               przekrój x
             </text>
           </motion.g>
@@ -132,11 +132,11 @@ export function SectionsLab() {
             y1="102"
             x2={550 + forceArrowLength}
             y2="102"
-            stroke="#e76f51"
+            stroke="#ff6b45"
             strokeWidth="4"
             markerEnd="url(#fund-sections-force)"
           />
-          <text x={550 + forceArrowLength / 2} y="83" textAnchor="middle" fontSize="15" fill="#e76f51">
+          <text x={550 + forceArrowLength / 2} y="83" textAnchor="middle" fontSize="15" fill="#ff6b45">
             P = {forceKN} kN
           </text>
           <line x1="110" y1="163" x2={cutX} y2="163" stroke="currentColor" />
@@ -159,7 +159,7 @@ export function SectionsLab() {
           <motion.rect
             x="110"
             rx="4"
-            fill="#4f86c6"
+            fill="#4f6df5"
             opacity="0.45"
             animate={{ width: cutX - 110, y: detailY, height: detailHeight }}
             transition={spring}
@@ -170,25 +170,25 @@ export function SectionsLab() {
             y1="269"
             x2={104 - reactionArrowLength}
             y2="269"
-            stroke="#e76f51"
+            stroke="#ff6b45"
             strokeWidth="3"
             markerEnd="url(#fund-sections-force)"
           />
-          <text x={104 - reactionArrowLength / 2} y="253" textAnchor="middle" fontSize="14" fill="#e76f51">
+          <text x={104 - reactionArrowLength / 2} y="253" textAnchor="middle" fontSize="14" fill="#ff6b45">
             R = P
           </text>
           <motion.g animate={{ x: cutX }} transition={spring}>
-            <line x1="0" y1="240" x2="0" y2="298" stroke="#e9a23b" strokeWidth="3" />
+            <line x1="0" y1="240" x2="0" y2="298" stroke="#e0a14b" strokeWidth="3" />
             <line
               x1="6"
               y1="269"
               x2={6 + normalArrowLength}
               y2="269"
-              stroke="#4f86c6"
+              stroke="#4f6df5"
               strokeWidth="4"
               markerEnd="url(#fund-sections-normal)"
             />
-            <text x={6 + normalArrowLength / 2} y="253" textAnchor="middle" fontSize="14" fill="#4f86c6">
+            <text x={6 + normalArrowLength / 2} y="253" textAnchor="middle" fontSize="14" fill="#4f6df5">
               N = {fmt(normalKN, 1)} kN
             </text>
           </motion.g>

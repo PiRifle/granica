@@ -71,12 +71,12 @@ export function TorsionLab() {
           </desc>
           <defs>
             <linearGradient id="shaft-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop stopColor="#a8c5df" />
-              <stop offset="0.45" stopColor="#4f86c6" />
-              <stop offset="1" stopColor="#285a88" />
+              <stop stopColor="#c3cdf9" />
+              <stop offset="0.45" stopColor="#4f6df5" />
+              <stop offset="1" stopColor="#3155d9" />
             </linearGradient>
             <radialGradient id="torsion-tau">
-              <stop stopColor="#457b9d" stopOpacity="0.25" />
+              <stop stopColor="#4f6df5" stopOpacity="0.25" />
               <stop offset="1" stopColor={`hsl(${205 - intensity * 205} 80% 52%)`} stopOpacity="0.95" />
             </radialGradient>
             <marker
@@ -88,7 +88,7 @@ export function TorsionLab() {
               markerHeight="7"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10z" fill="#ff6b45" />
             </marker>
           </defs>
           <text x="280" y="30" textAnchor="middle" fontSize="16" fill="currentColor">
@@ -101,14 +101,14 @@ export function TorsionLab() {
             fill="url(#shaft-fill)"
             animate={{ y: 155 - halfHeight, height: 2 * halfHeight }}
           />
-          <motion.ellipse cx="130" cy="155" rx="22" fill="#729fc7" animate={{ ry: halfHeight }} />
-          <motion.ellipse cx="430" cy="155" rx="22" fill="#376f9f" animate={{ ry: halfHeight }} />
+          <motion.ellipse cx="130" cy="155" rx="22" fill="#8fa4f8" animate={{ ry: halfHeight }} />
+          <motion.ellipse cx="430" cy="155" rx="22" fill="#3155d9" animate={{ ry: halfHeight }} />
           <path d="M130 155H430" stroke="white" strokeDasharray="4 4" opacity="0.35" />
           <motion.path
             d={twistPath}
             animate={{ d: twistPath }}
             fill="none"
-            stroke="#ffe66d"
+            stroke="#e0a14b"
             strokeWidth="4"
             strokeLinecap="round"
             transition={{ type: 'spring', stiffness: 130, damping: 22 }}
@@ -116,12 +116,12 @@ export function TorsionLab() {
           <motion.path
             d="M405 65C445 40 490 65 475 105"
             fill="none"
-            stroke="#e76f51"
+            stroke="#ff6b45"
             strokeWidth={torqueStroke}
             markerEnd="url(#torsion-arrow)"
             animate={{ strokeWidth: torqueStroke }}
           />
-          <text x="470" y="48" fontSize="15" fill="#e76f51">
+          <text x="470" y="48" fontSize="15" fill="#ff6b45">
             T = {torqueNM} N·m
           </text>
           <line x1="130" y1="251" x2="430" y2="251" stroke="currentColor" />
@@ -164,7 +164,7 @@ export function TorsionLab() {
             d={tauArc}
             animate={{ d: tauArc }}
             fill="none"
-            stroke="#e76f51"
+            stroke="#ff6b45"
             strokeWidth="3"
             markerEnd="url(#torsion-arrow)"
           />

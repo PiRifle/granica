@@ -2,11 +2,15 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  background: #fff;
-  border: 1px solid #dfe4d8;
+  background: var(--paper);
+  border: 1px solid #d9dfe5;
   border-radius: 10px;
   padding: 0 14px;
-  color: #8d9584;
+  color: #85919d;
+}
+.search-field:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px #4f6df512;
 }
 .search-field input {
   border: 0;
@@ -23,20 +27,19 @@
   flex-wrap: wrap;
 }
 .filter-chips button {
-  border: 1px solid #dfe4d8;
-  background: #fff;
-  color: #7d8574;
-  border-radius: 20px;
+  border: 1px solid #d9dfe5;
+  background: var(--paper);
+  color: #6f7b88;
+  border-radius: 7px;
   padding: 7px 11px;
   font-size: 9px;
 }
 .filter-chips button.active {
-  background: #e7f0d8;
-  border-color: #bdd196;
-  color: #526b2f;
+  background: var(--surface-accent);
+  border-color: #acbaf0;
+  color: var(--accent-strong);
   font-weight: 700;
 }
-
 .cheatsheet-tools {
   display: flex;
   justify-content: space-between;
@@ -64,10 +67,11 @@
   height: 32px;
   flex: 0 0 32px;
   border-radius: 8px;
-  background: #eef4e2;
-  color: #7c9747;
-  font-size: 10px;
-  font-weight: 800;
+  background: var(--surface-accent);
+  color: var(--accent-strong);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
 }
 .cheatsheet-heading h2 {
   font-size: 17px;
@@ -75,7 +79,7 @@
 }
 .cheatsheet-heading p {
   font-size: 10px;
-  color: #8b9380;
+  color: #7d8995;
   margin: 0;
   line-height: 1.5;
 }
@@ -85,18 +89,19 @@
   gap: 11px;
 }
 .cheatsheet-card {
-  border: 1px solid #e0e4da;
-  background: #fff;
+  border: 1px solid var(--line);
+  background: var(--paper);
   border-radius: 11px;
   padding: 16px;
 }
 .cheatsheet-lesson {
   display: block;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #8ba554;
+  color: var(--accent);
   margin-bottom: 9px;
 }
 .cheatsheet-card :global(.formula-card) {
@@ -112,26 +117,25 @@
 }
 .cheatsheet-card > p {
   font-size: 10px;
-  color: #7d8574;
+  color: #6f7b88;
   line-height: 1.55;
   margin: 0;
 }
-
 .syllabus-list {
   display: grid;
   gap: 12px;
 }
 .syllabus-card {
-  border: 1px solid #e0e4da;
-  background: #fff;
+  border: 1px solid var(--line);
+  background: var(--paper);
   border-radius: 12px;
   padding: 18px 20px;
 }
 .syllabus-card.complete {
-  border-color: #b8cf8e;
+  border-color: #abd1bd;
 }
 .syllabus-card.in-progress {
-  border-color: #cfdab8;
+  border-color: #b5c1ef;
 }
 .syllabus-card-head {
   display: grid;
@@ -146,17 +150,17 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #9aa48e;
+  color: #8d98a3;
 }
 .syllabus-number svg {
   width: 21px;
 }
 .syllabus-card.complete .syllabus-number {
-  color: #7a9a40;
+  color: var(--success);
 }
 .syllabus-card-head :global(.section-kicker) {
   margin-bottom: 4px;
-  color: #8ba554;
+  color: var(--accent);
 }
 .syllabus-card-head h2 {
   font-size: 15px;
@@ -164,22 +168,22 @@
 }
 .syllabus-card-head p {
   font-size: 10px;
-  color: #858d7a;
+  color: #74808d;
   margin: 0;
   line-height: 1.5;
 }
 .syllabus-percent {
-  font-family: 'Manrope', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: #5f7147;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--accent-strong);
   text-align: right;
 }
 .syllabus-percent small {
   display: block;
   font-family: 'DM Sans', sans-serif;
   font-size: 8px;
-  color: #99a18e;
+  color: #8a959f;
   font-weight: 400;
 }
 .syllabus-outcomes {
@@ -192,16 +196,16 @@
   align-items: center;
   gap: 6px;
   font-size: 9px;
-  color: #9aa18f;
+  color: #8a959f;
 }
 .syllabus-outcomes span.covered {
-  color: #687c4a;
+  color: #52705f;
 }
 .syllabus-lessons {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  border-top: 1px solid #eef0ea;
+  border-top: 1px solid #e8ecef;
   padding-top: 11px;
 }
 .syllabus-lessons span {
@@ -209,14 +213,14 @@
   align-items: center;
   gap: 4px;
   font-size: 8px;
-  color: #9aa18f;
-  background: #f5f7f0;
-  border-radius: 20px;
+  color: #7d8995;
+  background: #f1f3f5;
+  border-radius: 5px;
   padding: 4px 8px;
 }
 .syllabus-lessons span.done {
-  color: #5e7a36;
-  background: #e7f1d5;
+  color: #42735a;
+  background: var(--success-soft);
 }
 
 @media (max-width: 760px) {

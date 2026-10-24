@@ -8,8 +8,8 @@
   margin-bottom: 25px;
 }
 .exam-intro-grid article {
-  border: 1px solid #e0e4da;
-  background: #fff;
+  border: 1px solid var(--line);
+  background: var(--paper);
   border-radius: 12px;
   padding: 22px;
   display: flex;
@@ -18,7 +18,7 @@
   gap: 6px;
 }
 .exam-intro-grid svg {
-  color: #829e48;
+  color: var(--accent);
   width: 22px;
 }
 .exam-intro-grid strong {
@@ -27,14 +27,14 @@
 }
 .exam-intro-grid span {
   font-size: 10px;
-  color: #8b9380;
+  color: #7d8995;
   line-height: 1.5;
 }
 .exam-bar {
   display: flex;
   align-items: center;
   gap: 18px;
-  background: #fff;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 11px 16px;
@@ -49,8 +49,9 @@
   flex: 1;
 }
 .exam-progress > span {
-  font-size: 10px;
-  color: #8b9380;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #7d8995;
   white-space: nowrap;
 }
 .exam-progress :global(.progress-root) {
@@ -60,13 +61,14 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #606b52;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #526070;
   font-variant-numeric: tabular-nums;
 }
 .exam-timer.danger {
-  color: #c26348;
+  color: var(--danger);
 }
 .exam-main {
   max-width: 760px;
@@ -75,7 +77,7 @@
 .exam-main h1 {
   font-size: clamp(20px, 2.6vw, 28px);
   line-height: 1.35;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   margin: 12px 0 22px;
 }
 .exam-nav {
@@ -86,8 +88,9 @@
   margin-top: 22px;
 }
 .exam-nav > span {
-  font-size: 10px;
-  color: #90988a;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #87929e;
 }
 .exam-results {
   display: grid;
@@ -95,8 +98,8 @@
   gap: 14px;
 }
 .exam-result-block {
-  border: 1px solid #e0e4da;
-  background: #fff;
+  border: 1px solid var(--line);
+  background: var(--paper);
   border-radius: 12px;
   padding: 19px 20px;
 }
@@ -111,19 +114,20 @@
   gap: 9px;
   margin-bottom: 9px;
   font-size: 10px;
-  color: #7b8474;
+  color: #6f7b88;
 }
 .result-row :global(.progress-root) {
   height: 4px;
 }
 .result-row strong {
   text-align: right;
-  font-size: 10px;
-  color: #5e6a4f;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #4d5b6c;
 }
 .exam-review {
   margin-top: 20px;
-  border: 1px solid #e8d4c9;
+  border: 1px solid #ead9cf;
   background: #fffaf7;
   border-radius: 12px;
   padding: 20px;
@@ -156,7 +160,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  color: #63813b !important;
+  color: var(--success) !important;
 }
 
 @media (max-width: 760px) {

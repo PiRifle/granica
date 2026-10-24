@@ -1,19 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Manrope:wght@500;600;700;800&display=swap');
 
 :root {
   font-family: 'DM Sans', sans-serif;
-  color: #262c25;
-  background: #f7f8f3;
+  color: #17202a;
+  background: #f5f5f1;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --ink: #262c25;
-  --muted: #73796e;
-  --line: #e2e5dc;
+  --ink: #17202a;
+  --muted: #68727e;
+  --line: #dfe3e7;
   --paper: #fff;
-  --lime: #c6e675;
-  --lime-dark: #719233;
-  --lime-pale: #f0f7df;
-  --orange: #e77451;
+  --canvas: #f5f5f1;
+  --surface-subtle: #f8f9fa;
+  --surface-accent: #edf1ff;
+  --accent: #4f6df5;
+  --accent-hover: #3d5de3;
+  --accent-strong: #3155d9;
+  --success: #27835a;
+  --success-soft: #edf7f1;
+  --danger: #c65c43;
+  --danger-soft: #fff2ed;
+  --warning: #ae7627;
+  --warning-soft: #fff7e9;
+  --cobalt: #4f6df5;
+  --orange: #ff6b45;
   --sidebar: 248px;
 }
 
@@ -42,7 +52,7 @@ button {
 button:focus-visible,
 a:focus-visible,
 [role='slider']:focus-visible {
-  outline: 3px solid #789c37;
+  outline: 3px solid var(--cobalt);
   outline-offset: 4px;
 }
 button:disabled {
@@ -88,24 +98,24 @@ svg {
   transform: translateY(-2px);
 }
 .button-primary {
-  background: var(--lime);
-  color: #26331a;
-  box-shadow: 0 5px 14px #74983022;
+  background: var(--cobalt);
+  color: #fff;
+  box-shadow: 0 7px 18px #3155d926;
 }
 .button-primary:hover {
-  background: #b7db60;
-  box-shadow: 0 7px 20px #74983035;
+  background: #3d5de3;
+  box-shadow: 0 9px 24px #3155d938;
 }
 .button-dark {
   background: var(--ink);
   color: white;
 }
 .button-dark:hover {
-  background: #3b4438;
+  background: #2b3642;
 }
 .button-quiet {
-  background: #f1f3ed;
-  color: #545c4e;
+  background: #eceef1;
+  color: #46515e;
 }
 .button-small {
   padding: 10px 15px;
@@ -124,76 +134,64 @@ svg {
   transition: background 0.2s;
 }
 .icon-button:hover {
-  background: #f1f3ed;
+  background: #edf1ff;
 }
 .section-kicker {
   display: block;
-  color: #788163;
-  font-size: 11px;
-  font-weight: 800;
+  color: var(--cobalt);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
   letter-spacing: 0.13em;
   margin-bottom: 12px;
 }
 
 .logo {
   display: inline-flex;
-  gap: 11px;
+  gap: 10px;
   align-items: center;
   border: 0;
   background: transparent;
   padding: 0;
-  font-size: 16px;
+  color: var(--ink);
+  font-size: 22px;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.055em;
+  line-height: 1;
   text-align: left;
+}
+.logo-type {
+  display: block;
+}
+.logo-dot {
+  color: var(--orange);
 }
 .logo small {
   display: block;
-  font-family: 'DM Sans', sans-serif;
-  color: #838a7b;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  margin-top: 1px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #75808c;
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: 0.095em;
+  line-height: 1.4;
+  margin-top: 5px;
   text-transform: uppercase;
 }
 .logo-mark {
-  width: 35px;
-  height: 35px;
-  border-radius: 9px;
-  background: var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  transform: rotate(-3deg);
-}
-.logo-mark span {
-  display: block;
-  width: 4px;
-  border-radius: 2px;
-  background: var(--lime);
-  transform: rotate(18deg);
-}
-.logo-mark span:nth-child(1) {
-  height: 12px;
-}
-.logo-mark span:nth-child(2) {
-  height: 22px;
-}
-.logo-mark span:nth-child(3) {
-  height: 16px;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
 }
 
 .progress-root {
   height: 5px;
-  background: #e6e9df;
+  background: #e5e8ed;
   border-radius: 10px;
   overflow: hidden;
   display: block;
 }
 .progress-indicator {
-  background: #a8cc57;
+  background: var(--cobalt);
   width: 100%;
   height: 100%;
   transition: transform 0.4s;
@@ -201,8 +199,8 @@ svg {
 }
 
 .formula-card {
-  background: #f7f9f2;
-  border: 1px solid #e6ebdc;
+  background: #f5f7fc;
+  border: 1px solid #e1e6f0;
   border-radius: 10px;
   text-align: center;
   padding: 13px 20px 15px;
@@ -214,11 +212,11 @@ svg {
 }
 .formula-card .katex {
   font-size: 1.45em;
-  color: #3f4b34;
+  color: #34445c;
 }
 .formula-card p {
   font-size: 10px;
-  color: #818b75;
+  color: #788493;
   line-height: 1.5;
   margin: 0;
 }
@@ -228,7 +226,7 @@ svg {
 }
 .recharts-default-tooltip {
   border-radius: 8px !important;
-  border-color: #dfe4d8 !important;
+  border-color: var(--line) !important;
   font-size: 10px !important;
 }
 

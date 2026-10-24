@@ -79,7 +79,7 @@ export function HookeLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10z" fill="#e76f51" />
+                <path d="M0 0L10 5L0 10z" fill="#ff6b45" />
               </marker>
             </defs>
             <path d="M105 50L130 85L105 120Z" fill="currentColor" opacity="0.25" />
@@ -98,7 +98,7 @@ export function HookeLab() {
               y="70"
               height="40"
               rx="4"
-              fill="#4f86c6"
+              fill="#4f6df5"
               animate={{ width: 300 + visualDelta }}
               transition={{ type: 'spring', stiffness: 170, damping: 25 }}
             />
@@ -108,11 +108,11 @@ export function HookeLab() {
                 y1="90"
                 x2={430 + forceArrowLength}
                 y2="90"
-                stroke="#e76f51"
+                stroke="#ff6b45"
                 strokeWidth="3"
                 markerEnd="url(#hooke-arrow)"
               />
-              <text x={430 + forceArrowLength / 2} y="72" textAnchor="middle" fill="#e76f51" fontSize="15">
+              <text x={430 + forceArrowLength / 2} y="72" textAnchor="middle" fill="#ff6b45" fontSize="15">
                 F = {fmt(forceKN, 1)} kN
               </text>
             </motion.g>
@@ -126,7 +126,7 @@ export function HookeLab() {
               y1="145"
               y2="145"
               animate={{ x1: 430, x2: 430 + visualDelta, y1: 145, y2: 145 }}
-              stroke="#2a9d8f"
+              stroke="#27835a"
               strokeWidth="3"
             />
             <text x="575" y="124" fontSize="13" fill="currentColor">
@@ -157,7 +157,7 @@ export function HookeLab() {
                   type="linear"
                   dataKey="stress"
                   name={`σ [MPa], ${materials[material].label}`}
-                  stroke="#4f86c6"
+                  stroke="#4f6df5"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}
@@ -166,7 +166,7 @@ export function HookeLab() {
                   x={strain * 1000}
                   y={sigma}
                   r={6}
-                  fill="#e76f51"
+                  fill="#ff6b45"
                   stroke="white"
                   strokeWidth={2}
                   label={{ value: 'stan bieżący', position: 'top', fontSize: 12 }}

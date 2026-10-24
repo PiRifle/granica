@@ -97,7 +97,7 @@ export function SelfWeightLab() {
               y1={rodBottom}
               x2="260"
               y2="28"
-              stroke="#7d9b45"
+              stroke="#3155d9"
               strokeWidth="2"
               markerEnd="url(#self-weight-axis)"
             />
@@ -111,13 +111,13 @@ export function SelfWeightLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10Z" fill="#7d9b45" />
+                <path d="M0 0L10 5L0 10Z" fill="#3155d9" />
               </marker>
             </defs>
-            <text x="273" y="35" fontSize="13" fill="#718233">
+            <text x="273" y="35" fontSize="13" fill="#3155d9">
               x = L
             </text>
-            <motion.text x="273" fontSize="13" fill="#718233" animate={{ y: rodBottom + 4 }}>
+            <motion.text x="273" fontSize="13" fill="#3155d9" animate={{ y: rodBottom + 4 }}>
               x = 0
             </motion.text>
             <text x="340" y="48" fontSize="14" fill="currentColor">
@@ -129,7 +129,7 @@ export function SelfWeightLab() {
             <text x="340" y="108" fontSize="12" fill="currentColor">
               x w mm, γ w kN/m³, A w mm²
             </text>
-            <text x="340" y="132" fontSize="12" fill="#e77451">
+            <text x="340" y="132" fontSize="12" fill="#ff6b45">
               N(L) = {fmt(maximumForceKN, 2)} kN
             </text>
             <text x="340" y="150" fontSize="12" fill="currentColor">
@@ -170,7 +170,7 @@ export function SelfWeightLab() {
                   type="linear"
                   dataKey="forceKN"
                   name="N [kN]"
-                  stroke="#4f86c6"
+                  stroke="#4f6df5"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}
@@ -180,7 +180,7 @@ export function SelfWeightLab() {
                   type="linear"
                   dataKey="stress"
                   name="σ [MPa]"
-                  stroke="#e77451"
+                  stroke="#ff6b45"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}

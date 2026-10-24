@@ -74,7 +74,7 @@ export function ReactionsLab() {
               markerHeight="7"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10Z" fill="#e76f51" />
+              <path d="M0 0L10 5L0 10Z" fill="#ff6b45" />
             </marker>
             <marker
               id="fund-reactions-support"
@@ -85,7 +85,7 @@ export function ReactionsLab() {
               markerHeight="7"
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10Z" fill="#2a9d8f" />
+              <path d="M0 0L10 5L0 10Z" fill="#27835a" />
             </marker>
           </defs>
           <text x="360" y="28" textAnchor="middle" fontSize="16" fill="currentColor">
@@ -101,11 +101,11 @@ export function ReactionsLab() {
               y1="50"
               x2="0"
               y2="124"
-              stroke="#e76f51"
+              stroke="#ff6b45"
               strokeWidth="4"
               markerEnd="url(#fund-reactions-force)"
             />
-            <text x="10" y="69" fontSize="15" fill="#e76f51">
+            <text x="10" y="69" fontSize="15" fill="#ff6b45">
               P = {forceKN} kN
             </text>
           </motion.g>
@@ -114,7 +114,7 @@ export function ReactionsLab() {
             y1="229"
             x2="100"
             y2="183"
-            stroke="#2a9d8f"
+            stroke="#27835a"
             strokeWidth={2 + (leftKN / forceKN) * 2}
             markerEnd="url(#fund-reactions-support)"
           />
@@ -123,14 +123,14 @@ export function ReactionsLab() {
             y1="229"
             x2="600"
             y2="183"
-            stroke="#2a9d8f"
+            stroke="#27835a"
             strokeWidth={2 + (rightKN / forceKN) * 2}
             markerEnd="url(#fund-reactions-support)"
           />
-          <text x="72" y="218" textAnchor="end" fontSize="14" fill="#2a9d8f">
+          <text x="72" y="218" textAnchor="end" fontSize="14" fill="#27835a">
             RA = {fmt(leftKN, 2)} kN
           </text>
-          <text x="628" y="218" fontSize="14" fill="#2a9d8f">
+          <text x="628" y="218" fontSize="14" fill="#27835a">
             RB = {fmt(rightKN, 2)} kN
           </text>
           <text x="83" y="196" fontSize="14" fill="currentColor">

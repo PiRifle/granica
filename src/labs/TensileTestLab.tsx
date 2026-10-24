@@ -124,7 +124,7 @@ export function TensileTestLab() {
                 markerHeight="7"
                 orient="auto"
               >
-                <path d="M0 0L10 5L0 10Z" fill="#e77451" />
+                <path d="M0 0L10 5L0 10Z" fill="#ff6b45" />
               </marker>
             </defs>
             <line
@@ -132,7 +132,7 @@ export function TensileTestLab() {
               y1="67"
               x2={95 - forceArrowLength}
               y2="67"
-              stroke="#e77451"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerEnd="url(#tensile-arrow)"
             />
@@ -141,14 +141,14 @@ export function TensileTestLab() {
               y1="67"
               x2={625 + forceArrowLength}
               y2="67"
-              stroke="#e77451"
+              stroke="#ff6b45"
               strokeWidth="3"
               markerEnd="url(#tensile-arrow)"
             />
-            <text x={95 - forceArrowLength / 2} y="46" textAnchor="middle" fontSize="13" fill="#e77451">
+            <text x={95 - forceArrowLength / 2} y="46" textAnchor="middle" fontSize="13" fill="#ff6b45">
               F = {fmt(forceKN)} kN
             </text>
-            <text x={625 + forceArrowLength / 2} y="46" textAnchor="middle" fontSize="13" fill="#e77451">
+            <text x={625 + forceArrowLength / 2} y="46" textAnchor="middle" fontSize="13" fill="#ff6b45">
               F
             </text>
             <path
@@ -162,11 +162,11 @@ export function TensileTestLab() {
               y="57"
               height="20"
               rx="4"
-              fill="#e9a38b"
+              fill="#ffb39f"
               animate={{ width: 190 + currentStrain * 300 }}
               transition={{ type: 'spring', stiffness: 180, damping: 24 }}
             />
-            <line x1="360" y1="99" x2="360" y2="118" stroke="#718233" strokeWidth="2" />
+            <line x1="360" y1="99" x2="360" y2="118" stroke="#3155d9" strokeWidth="2" />
             <text x="360" y="130" textAnchor="middle" fontSize="12" fill="currentColor">
               ε = {fmt(currentStrain * 1000)}‰ · εmax = {fmt(maximumPerMille)}‰
             </text>
@@ -195,19 +195,19 @@ export function TensileTestLab() {
                 <ReferenceArea
                   x1={yieldStrain * 1000}
                   x2={200}
-                  fill="#e9c46a"
+                  fill="#e0a14b"
                   fillOpacity={0.1}
                   label={{ value: 'zakres plastyczny', position: 'insideTopRight', fontSize: 11 }}
                 />
                 <ReferenceLine
                   y={Re}
-                  stroke="#7d9b45"
+                  stroke="#3155d9"
                   strokeDasharray="5 4"
                   label={{ value: 'Re', position: 'insideTopLeft', fontSize: 12 }}
                 />
                 <ReferenceLine
                   y={Rm}
-                  stroke="#d9854b"
+                  stroke="#ff6b45"
                   strokeDasharray="5 4"
                   label={{ value: 'Rm', position: 'insideTopLeft', fontSize: 12 }}
                 />
@@ -215,7 +215,7 @@ export function TensileTestLab() {
                   type="monotone"
                   dataKey="stress"
                   name="obciążanie"
-                  stroke="#4f86c6"
+                  stroke="#4f6df5"
                   strokeWidth={3}
                   dot={false}
                   isAnimationActive={false}
@@ -224,19 +224,19 @@ export function TensileTestLab() {
                   type="linear"
                   dataKey="unloadingStress"
                   name="odciążanie"
-                  stroke="#7d9b45"
+                  stroke="#3155d9"
                   strokeWidth={3}
                   dot={false}
                   connectNulls={false}
                   isAnimationActive={false}
                 />
-                <ReferenceDot x={strainPerMille} y={sigma} r={6} fill="#e77451" stroke="white" strokeWidth={2} />
+                <ReferenceDot x={strainPerMille} y={sigma} r={6} fill="#ff6b45" stroke="white" strokeWidth={2} />
                 {permanentStrain > 0 && (
                   <ReferenceDot
                     x={permanentStrain * 1000}
                     y={0}
                     r={5}
-                    fill="#7d9b45"
+                    fill="#3155d9"
                     label={{ value: 'εp', position: 'top', fontSize: 12 }}
                   />
                 )}

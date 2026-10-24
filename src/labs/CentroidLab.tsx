@@ -21,13 +21,13 @@ export function CentroidLab() {
   const totalArea = parts.reduce((sum, part) => sum + part.areaMM2, 0)
   const firstMoment = parts.reduce((sum, part) => sum + part.areaMM2 * part.yMM, 0)
   const rectangles = [
-    { x: 0, y: baseHeight / 2, width: baseWidth, height: baseHeight, color: '#9dbb62', label: '1' },
+    { x: 0, y: baseHeight / 2, width: baseWidth, height: baseHeight, color: '#4f6df5', label: '1' },
     {
       x: -baseWidth / 2 - gapMM - stemWidth / 2,
       y: baseHeight + liftMM + stemHeight / 2,
       width: stemWidth,
       height: stemHeight,
-      color: '#86a9c2',
+      color: '#8fa4f8',
       label: '2',
     },
     {
@@ -35,7 +35,7 @@ export function CentroidLab() {
       y: baseHeight + liftMM + stemHeight / 2,
       width: stemWidth,
       height: stemHeight,
-      color: '#e6a087',
+      color: '#ffb39f',
       label: '3',
     },
   ]
@@ -146,8 +146,8 @@ export function CentroidLab() {
                 stroke={rect.color}
                 strokeWidth="2"
               />
-              <circle r="4" fill="#354025" />
-              <text y="5" textAnchor="middle" fontSize="13" fill="#354025">
+              <circle r="4" fill="#17202a" />
+              <text y="5" textAnchor="middle" fontSize="13" fill="#17202a">
                 {rect.label}
               </text>
             </motion.g>
@@ -156,20 +156,20 @@ export function CentroidLab() {
             animate={{ x: originX, y: svgY(centroidY) }}
             transition={{ type: 'spring', stiffness: 150, damping: 24 }}
           >
-            <circle r="9" fill="#fff" stroke="#d36343" strokeWidth="3" />
-            <line x1="-14" x2="14" stroke="#d36343" strokeWidth="2" />
-            <line y1="-14" y2="14" stroke="#d36343" strokeWidth="2" />
+            <circle r="9" fill="#fff" stroke="#c65c43" strokeWidth="3" />
+            <line x1="-14" x2="14" stroke="#c65c43" strokeWidth="2" />
+            <line y1="-14" y2="14" stroke="#c65c43" strokeWidth="2" />
           </motion.g>
           <motion.line
             x1="50"
             x2={originX - 18}
             y1={svgY(centroidY)}
             y2={svgY(centroidY)}
-            stroke="#d36343"
+            stroke="#c65c43"
             strokeDasharray="4 3"
             animate={{ y1: svgY(centroidY), y2: svgY(centroidY) }}
           />
-          <motion.text x="48" y={svgY(centroidY) - 8} fontSize="13" fill="#c45f42" animate={{ y: svgY(centroidY) - 8 }}>
+          <motion.text x="48" y={svgY(centroidY) - 8} fontSize="13" fill="#c65c43" animate={{ y: svgY(centroidY) - 8 }}>
             yC = {fmt(centroidY, 1)} mm
           </motion.text>
           <text x="360" y="313" textAnchor="middle" fontSize="13" fill="currentColor">
