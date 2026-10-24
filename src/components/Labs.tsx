@@ -66,7 +66,6 @@ export function StressLab() {
   const color = `hsl(${210 - intensity * 210} 78% 52%)`
   const level = sigma < 100 ? 'niski' : sigma < 250 ? 'umiarkowany' : 'wysoki'
   const arrowLength = 45 + forceKN / 30 * 65
-  const arrowStroke = 2 + forceKN / 10
 
   return <Lab
     title="Naprężenie normalne w pręcie"
@@ -91,11 +90,11 @@ export function StressLab() {
       </defs>
       <text x="360" y="28" textAnchor="middle" fontSize="16" fill="currentColor">σ = F/A = const na przekroju</text>
       <motion.g animate={{ x: [-5, -11, -5] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>
-        <line x1="174" y1="160" x2={174 - arrowLength} y2="160" stroke="#e76f51" strokeWidth={arrowStroke} markerEnd="url(#stress-arrow)" />
+        <line x1="174" y1="160" x2={174 - arrowLength} y2="160" stroke="#e76f51" strokeWidth="3" markerEnd="url(#stress-arrow)" />
         <text x={174 - arrowLength / 2} y="140" textAnchor="middle" fontSize="16" fill="#e76f51">F = {forceKN} kN</text>
       </motion.g>
       <motion.g animate={{ x: [5, 11, 5] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>
-        <line x1="546" y1="160" x2={546 + arrowLength} y2="160" stroke="#e76f51" strokeWidth={arrowStroke} markerEnd="url(#stress-arrow)" />
+        <line x1="546" y1="160" x2={546 + arrowLength} y2="160" stroke="#e76f51" strokeWidth="3" markerEnd="url(#stress-arrow)" />
         <text x={546 + arrowLength / 2} y="140" textAnchor="middle" fontSize="16" fill="#e76f51">F = {forceKN} kN</text>
       </motion.g>
       <motion.rect x="180" width="360" rx="5" animate={{ y: 160 - rodHeight / 2, height: rodHeight, fill: color }} transition={{ type: 'spring', stiffness: 170, damping: 25 }} />
@@ -142,7 +141,6 @@ export function HookeLab() {
   const visualDelta = deltaL * visualScale
   const maxStrain = Math.max(0.004, strain * 1.2)
   const forceArrowLength = 55 + forceKN / 20 * 85
-  const forceStroke = 2 + forceKN / 5
   const chartData = Array.from({ length: 31 }, (_, index) => {
     const currentStrain = maxStrain * index / 30
     return {
@@ -178,7 +176,7 @@ export function HookeLab() {
         <line x1="130" y1="135" x2={430 + visualDelta} y2="135" stroke="currentColor" strokeDasharray="5 5" opacity="0.45" />
         <motion.rect x="130" y="70" height="40" rx="4" fill="#4f86c6" animate={{ width: 300 + visualDelta }} transition={{ type: 'spring', stiffness: 170, damping: 25 }} />
         <motion.g animate={{ x: visualDelta }} transition={{ type: 'spring', stiffness: 170, damping: 25 }}>
-          <line x1="430" y1="90" x2={430 + forceArrowLength} y2="90" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#hooke-arrow)" />
+          <line x1="430" y1="90" x2={430 + forceArrowLength} y2="90" stroke="#e76f51" strokeWidth="3" markerEnd="url(#hooke-arrow)" />
           <text x={430 + forceArrowLength / 2} y="72" textAnchor="middle" fill="#e76f51" fontSize="15">F = {fmt(forceKN, 1)} kN</text>
         </motion.g>
         <line x1="130" y1="145" x2="430" y2="145" stroke="currentColor" opacity="0.45" />
@@ -224,7 +222,6 @@ export function ThermalLab() {
   const midX = (110 + freeRightX) / 2
   const initialMidX = 110 + barWidth / 2
   const thermalArrowLength = 15 + Math.min(45, Math.abs(sigma) / 300 * 45)
-  const thermalStroke = 2 + Math.min(3, Math.abs(sigma) / 150)
 
   return <Lab
     title="Odkształcenia i naprężenia termiczne"
@@ -263,8 +260,8 @@ export function ThermalLab() {
       {mode === 'fixed' ? <>
         <line x1={rightX} y1="110" x2={rightX} y2="200" stroke="currentColor" strokeWidth="5" />
         <path d={`M${rightX + 25} 120 L${rightX} 155 L${rightX + 25} 190 Z`} fill="currentColor" opacity="0.35" />
-        <line x1={103 - thermalArrowLength} y1="152" x2="103" y2="152" stroke="#e76f51" strokeWidth={thermalStroke} markerEnd="url(#thermal-reaction)" />
-        <line x1={rightX + 7 + thermalArrowLength} y1="152" x2={rightX + 7} y2="152" stroke="#e76f51" strokeWidth={thermalStroke} markerEnd="url(#thermal-reaction)" />
+        <line x1={103 - thermalArrowLength} y1="152" x2="103" y2="152" stroke="#e76f51" strokeWidth="3" markerEnd="url(#thermal-reaction)" />
+        <line x1={rightX + 7 + thermalArrowLength} y1="152" x2={rightX + 7} y2="152" stroke="#e76f51" strokeWidth="3" markerEnd="url(#thermal-reaction)" />
         <text x={midX} y="115" textAnchor="middle" fontSize="14" fill="#e76f51">Reakcje podpór równoważą siłę termiczną</text>
       </> : <motion.g animate={{ x: visualDelta }} transition={{ type: 'spring', stiffness: 160, damping: 24 }}>
         <line x1={rightX} y1="120" x2={rightX} y2="194" stroke="#2a9d8f" strokeWidth="3" strokeDasharray="4 3" />

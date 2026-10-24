@@ -75,7 +75,6 @@ export function TensileTestLab() {
     }
   })
   const forceArrowLength = 25 + Math.min(60, forceKN)
-  const forceStroke = 2 + Math.min(4, forceKN / 15)
   const phase = unloading
     ? 'odciążanie sprężyste'
     : maximumStrain <= yieldStrain
@@ -116,8 +115,8 @@ export function TensileTestLab() {
         <title>Próbka do rozciągania</title>
         <desc>Siła wynika z naprężenia i pola 100 milimetrów kwadratowych. Pomarańczowa część wskazuje odkształcenie próbki.</desc>
         <defs><marker id="tensile-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#e77451" /></marker></defs>
-        <line x1="95" y1="67" x2={95 - forceArrowLength} y2="67" stroke="#e77451" strokeWidth={forceStroke} markerEnd="url(#tensile-arrow)" />
-        <line x1="625" y1="67" x2={625 + forceArrowLength} y2="67" stroke="#e77451" strokeWidth={forceStroke} markerEnd="url(#tensile-arrow)" />
+        <line x1="95" y1="67" x2={95 - forceArrowLength} y2="67" stroke="#e77451" strokeWidth="3" markerEnd="url(#tensile-arrow)" />
+        <line x1="625" y1="67" x2={625 + forceArrowLength} y2="67" stroke="#e77451" strokeWidth="3" markerEnd="url(#tensile-arrow)" />
         <text x={95 - forceArrowLength / 2} y="46" textAnchor="middle" fontSize="13" fill="#e77451">F = {fmt(forceKN)} kN</text>
         <text x={625 + forceArrowLength / 2} y="46" textAnchor="middle" fontSize="13" fill="#e77451">F</text>
         <path d="M95 47H220L265 57H455L500 47H625V87H500L455 77H265L220 87H95Z" fill="#dce5ec" stroke="#708495" strokeWidth="2" />

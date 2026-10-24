@@ -178,7 +178,6 @@ export function CombinedLab() {
     { name: 'Tresca', stress: tresca, color: '#e9a23b' },
   ]
   const torqueDirection = torqueNM < 0 ? -1 : 1
-  const forceStroke = 2 + Math.min(4, Math.abs(forceKN) / 20)
   const forceLen = 28 + Math.min(46, Math.abs(forceKN) / 2)
   const momentLen = 18 + momentKNM / 4 * 52
   const tauLen = 24 + Math.min(46, Math.abs(torqueNM) / 2000 * 46)
@@ -232,11 +231,11 @@ export function CombinedLab() {
         <line x1="98" y1="170" x2="383" y2="170" stroke="white" strokeDasharray="5 4" opacity="0.6" />
         <motion.g animate={{ opacity: forceKN === 0 ? 0.2 : 1 }}>
           {forceKN >= 0 ? <>
-            <line x1="91" y1="170" x2={91 - forceLen} y2="170" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#combined-force-arrow)" />
-            <line x1="375" y1="170" x2={375 + forceLen} y2="170" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#combined-force-arrow)" />
+            <line x1="91" y1="170" x2={91 - forceLen} y2="170" stroke="#e76f51" strokeWidth="3" markerEnd="url(#combined-force-arrow)" />
+            <line x1="375" y1="170" x2={375 + forceLen} y2="170" stroke="#e76f51" strokeWidth="3" markerEnd="url(#combined-force-arrow)" />
           </> : <>
-            <line x1={91 - forceLen} y1="170" x2="91" y2="170" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#combined-force-arrow)" />
-            <line x1={375 + forceLen} y1="170" x2="375" y2="170" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#combined-force-arrow)" />
+            <line x1={91 - forceLen} y1="170" x2="91" y2="170" stroke="#e76f51" strokeWidth="3" markerEnd="url(#combined-force-arrow)" />
+            <line x1={375 + forceLen} y1="170" x2="375" y2="170" stroke="#e76f51" strokeWidth="3" markerEnd="url(#combined-force-arrow)" />
           </>}
         </motion.g>
         <text x="225" y="163" textAnchor="middle" fontSize="14" fill="white">N = {forceKN} kN</text>

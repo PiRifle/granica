@@ -179,7 +179,6 @@ export function SectionsLab() {
   const forceArrowLength = 45 + forceKN / 40 * 70
   const reactionArrowLength = 28 + forceKN / 40 * 37
   const normalArrowLength = 32 + forceKN / 40 * 36
-  const forceStroke = 2 + forceKN / 10
   const updateLength = (next: number) => {
     setLengthMM(next)
     setSectionMM((current) => Math.min(current, next - 50))
@@ -216,7 +215,7 @@ export function SectionsLab() {
         <line x1="0" y1="53" x2="0" y2="151" stroke="#e9a23b" strokeWidth="3" strokeDasharray="6 4" />
         <text x="0" y="46" textAnchor="middle" fontSize="14" fill="#e9a23b">przekrój x</text>
       </motion.g>
-      <line x1="550" y1="102" x2={550 + forceArrowLength} y2="102" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#fund-sections-force)" />
+      <line x1="550" y1="102" x2={550 + forceArrowLength} y2="102" stroke="#e76f51" strokeWidth="4" markerEnd="url(#fund-sections-force)" />
       <text x={550 + forceArrowLength / 2} y="83" textAnchor="middle" fontSize="15" fill="#e76f51">P = {forceKN} kN</text>
       <line x1="110" y1="163" x2={cutX} y2="163" stroke="currentColor" />
       <line x1="110" y1="156" x2="110" y2="170" stroke="currentColor" />
@@ -225,11 +224,11 @@ export function SectionsLab() {
       <text x="360" y="218" textAnchor="middle" fontSize="16" fill="currentColor">2. Odsłoń siłę N i zapisz równowagę lewej części</text>
       <motion.rect x="110" rx="4" fill="#4f86c6" opacity="0.45" animate={{ width: cutX - 110, y: detailY, height: detailHeight }} transition={spring} />
       <line x1="90" y1="238" x2="90" y2="302" stroke="currentColor" strokeWidth="5" />
-      <line x1="104" y1="269" x2={104 - reactionArrowLength} y2="269" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#fund-sections-force)" />
+      <line x1="104" y1="269" x2={104 - reactionArrowLength} y2="269" stroke="#e76f51" strokeWidth="3" markerEnd="url(#fund-sections-force)" />
       <text x={104 - reactionArrowLength / 2} y="253" textAnchor="middle" fontSize="14" fill="#e76f51">R = P</text>
       <motion.g animate={{ x: cutX }} transition={spring}>
         <line x1="0" y1="240" x2="0" y2="298" stroke="#e9a23b" strokeWidth="3" />
-        <line x1="6" y1="269" x2={6 + normalArrowLength} y2="269" stroke="#4f86c6" strokeWidth={forceStroke} markerEnd="url(#fund-sections-normal)" />
+        <line x1="6" y1="269" x2={6 + normalArrowLength} y2="269" stroke="#4f86c6" strokeWidth="4" markerEnd="url(#fund-sections-normal)" />
         <text x={6 + normalArrowLength / 2} y="253" textAnchor="middle" fontSize="14" fill="#4f86c6">N = {fmt(normalKN, 1)} kN</text>
       </motion.g>
       <text x="360" y="328" textAnchor="middle" fontSize="15" fill="currentColor">ΣFx = 0:  N − P = 0  →  N = P = {fmt(normalKN, 2)} kN</text>
@@ -255,7 +254,6 @@ export function SaintVenantLab() {
   const uniformity = nominalMPa / modelMaxMPa * 100
   const sectionX = 400 - distanceMM / 600 * 280
   const forceArrowLength = 40 + forceKN / 50 * 45
-  const forceStroke = 2 + forceKN / 10
 
   return <Lab
     title="Zasada de Saint-Venanta"
@@ -296,7 +294,7 @@ export function SaintVenantLab() {
       <path d="M75 224L100 249V294L75 319Z" fill="currentColor" opacity="0.3" />
       <line x1="100" y1="218" x2="100" y2="318" stroke="currentColor" strokeWidth="5" />
       <rect x="100" y="249" width="300" height="45" rx="3" fill="#4f86c6" opacity="0.55" />
-      <line x1="400" y1="271" x2={400 + forceArrowLength} y2="271" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#fund-saint-force)" />
+      <line x1="400" y1="271" x2={400 + forceArrowLength} y2="271" stroke="#e76f51" strokeWidth="4" markerEnd="url(#fund-saint-force)" />
       <text x={400 + forceArrowLength / 2} y="254" textAnchor="middle" fontSize="14" fill="#e76f51">P = {forceKN} kN</text>
       <motion.g animate={{ x: sectionX }} transition={spring}>
         <line x1="0" y1="232" x2="0" y2="311" stroke="#e9a23b" strokeWidth="3" strokeDasharray="5 4" />
@@ -348,7 +346,6 @@ export function SteppedBarLab() {
   const pArrowLength = 30 + forceP / 40 * 45
   const qArrowLength = 20 + forceQ / 30 * 45
   const rArrowLength = 30 + reactionKN / 70 * 45
-  const forceStroke = 2 + Math.max(forceP, forceQ, reactionKN) / 30
 
   return <Lab
     title="Pręt schodkowy: wykresy N i σ"
@@ -386,11 +383,11 @@ export function SteppedBarLab() {
             <text x={x + 75} y="60" textAnchor="middle" fontSize="12" fill="currentColor">N = {fmt(segment.normalKN, 1)} kN</text>
           </g>
         })}
-        <line x1="172" y1="110" x2={172 + qArrowLength} y2="110" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#fund-stepped-force)" />
+        <line x1="172" y1="110" x2={172 + qArrowLength} y2="110" stroke="#e76f51" strokeWidth="3" markerEnd="url(#fund-stepped-force)" />
         <text x={172 + qArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#e76f51">Q = {forceQ} kN</text>
-        <line x1={endX + 8} y1="110" x2={endX + 8 + pArrowLength} y2="110" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#fund-stepped-force)" />
+        <line x1={endX + 8} y1="110" x2={endX + 8 + pArrowLength} y2="110" stroke="#e76f51" strokeWidth="4" markerEnd="url(#fund-stepped-force)" />
         <text x={endX + 8 + pArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#e76f51">P = {forceP} kN</text>
-        <line x1="84" y1="110" x2={84 - rArrowLength} y2="110" stroke="#e76f51" strokeWidth={forceStroke} markerEnd="url(#fund-stepped-force)" />
+        <line x1="84" y1="110" x2={84 - rArrowLength} y2="110" stroke="#e76f51" strokeWidth="3" markerEnd="url(#fund-stepped-force)" />
         <text x={84 - rArrowLength / 2} y="91" textAnchor="middle" fontSize="14" fill="#e76f51">R = {fmt(reactionKN, 1)} kN</text>
         {segments.map((segment) => <g key={`dimension-${segment.index}`}>
           <line x1={90 + segment.index * 150} y1="224" x2={240 + segment.index * 150} y2="224" stroke="currentColor" />

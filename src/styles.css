@@ -154,11 +154,6 @@ footer > span { font-size: 11px; color: #8a9183; }
 .lesson-title h1 { font-size: clamp(27px, 3vw, 38px); letter-spacing: -.045em; margin-bottom: 10px; }
 .lesson-title > p { color: #747d6c; font-size: 14px; line-height: 1.6; margin-bottom: 11px; }
 .lesson-time { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #92998a; }
-.learning-path { display: flex; align-items: center; gap: 30px; margin: 25px 0 19px; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
-.learning-path span { display: flex; align-items: center; gap: 7px; color: #999f91; font-size: 10px; font-weight: 600; }
-.learning-path i { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #e9ece4; font-style: normal; font-size: 9px; }
-.learning-path .active { color: #687d46; }
-.learning-path .active i { background: #dcebbd; color: #536d2d; }
 .mobile-menu { display: none; }
 
 /* Laboratories */
@@ -299,8 +294,6 @@ footer > span { font-size: 11px; color: #8a9183; }
   .lab-controls h3 { grid-column: 1 / -1; margin-bottom: 18px; }
   .control { margin-bottom: 18px; }
   .segmented-control { grid-column: 1 / -1; }
-  .learning-path { gap: 15px; justify-content: space-between; }
-  .learning-path span { font-size: 9px; }
 }
 
 @media (max-width: 480px) {

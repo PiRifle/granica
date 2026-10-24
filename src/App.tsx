@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 import {
   ArrowLeft, ArrowRight, Atom, Award, BookOpen, Check, CheckCircle2,
   ChevronRight, ClipboardList, Clock, FlaskConical, Gauge, Layers3, Lightbulb,
@@ -7,7 +8,7 @@ import {
   Target, Thermometer, X, Zap,
 } from 'lucide-react'
 import {
-  getLesson, getModuleForLesson, getSolution, lessons, lessonIndex,
+  getLesson, getModuleForLesson, getSolution, lessons, lessonIds, lessonIndex,
   modules, totalDuration,
 } from './data/course'
 import { useCourseStore } from './store'
@@ -185,7 +186,6 @@ function LessonView({ lesson, onHome, onLesson, onTool }: { lesson: Lesson; onHo
     <div className="lesson-layout">
       <aside className={`lesson-sidebar ${menuOpen ? 'open' : ''}`}><span className="sidebar-label">TWOJA ŚCIEŻKA · {modules.length} MODUŁÓW</span><nav className="sidebar-nav" aria-label="Lekcje kursu">{modules.map((moduleEntry) => <div key={moduleEntry.id} className="sidebar-module"><span className="sidebar-module-title">{String(moduleEntry.number).padStart(2, '0')} · {moduleEntry.shortTitle}</span>{moduleEntry.lessons.map((item) => <button key={item.id} className={`sidebar-lesson ${item.id === lesson.id ? 'active' : ''}`} onClick={() => { onLesson(item.id); setMenuOpen(false) }}><span className="sidebar-number">{completed.includes(item.id) ? <Check size={14} /> : item.number}</span><span>{item.shortTitle}<small>{item.duration} min</small></span></button>)}</div>)}</nav><div className="sidebar-tip"><Lightbulb /><strong>Ucz się po swojemu</strong><p>Możesz wracać do eksperymentów. Postęp zapisuje się na tym urządzeniu.</p></div></aside>
       <main className="lesson-main"><div className="lesson-breadcrumb"><button onClick={onHome}>Kurs</button><ChevronRight size={14} /><span>Moduł {module.number}: {module.shortTitle}</span><ChevronRight size={14} /><span>Lekcja {lesson.number}</span></div><div className="lesson-title"><span className="section-kicker">{lesson.eyebrow.toUpperCase()}</span><h1>{lesson.title}</h1><p>{lesson.description}</p><span className="lesson-time"><BookOpen size={15} /> około {lesson.duration} min · eksperyment + {lesson.questions.length} pytania{solution ? ' + animowane rozwiązanie' : ''}</span></div>
-        <div className="learning-path"><span className="active"><i>1</i>Eksperymentuj</span><span><i>2</i>Zrozum</span><span><i>3</i>Przykład</span><span><i>4</i>Sprawdź się</span></div>
         <motion.div key={`lab-${lesson.id}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{ActiveLab ? <ActiveLab /> : <div className="lab-fallback">Laboratorium dla tej lekcji nie jest jeszcze dostępne.</div>}</motion.div>
         <section className="explanation"><div className="explanation-heading"><span className="round-icon"><Lightbulb /></span><div><span className="section-kicker">CO WŁAŚNIE ZA OBSERWOWAŁEŚ?</span><h2>Wzór jest skrótem obserwacji.</h2></div></div><p className="intuition">{lesson.intuition}</p><Formula note={lesson.formulaNote}>{lesson.formula}</Formula><div className="key-insight"><Sparkles /><div><strong>Jedna rzecz do zapamiętania</strong><p>{lesson.insight}</p></div></div></section>
         <WorkedExample lesson={lesson} />
@@ -197,18 +197,70 @@ function LessonView({ lesson, onHome, onLesson, onTool }: { lesson: Lesson; onHo
   </div>
 }
 
-export default function App() {
-  const [view, setView] = useState<View>('home')
-  const [activeLesson, setActiveLesson] = useState<LessonId>(lessons[0].id)
-  const openLesson = (id: LessonId) => { setActiveLesson(id); setView('lesson'); window.scrollTo(0, 0) }
-  const openTool = (next: View) => { setView(next); window.scrollTo(0, 0) }
-  const home = () => setView('home')
+const toolPaths: Record<'training' | 'exam' | 'cheatsheet' | 'syllabus', string> = {
+  training: '/training',
+  exam: '/exam',
+  cheatsheet: '/cheatsheet',
+  syllabus: '/syllabus',
+}
 
-  if (view === 'training') return <Training onBack={home} />
-  if (view === 'exam') return <Exam onBack={home} />
-  if (view === 'cheatsheet') return <CheatSheet onBack={home} />
-  if (view === 'syllabus') return <SyllabusMap onBack={home} />
-  if (view === 'lesson') return <LessonView lesson={getLesson(activeLesson)} onHome={home} onLesson={openLesson} onTool={openTool} />
-  return <Home onStart={openLesson} onTool={openTool} />
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
+
+function HomeRoute() {
+  const navigate = useNavigate()
+  const openTool = (view: View) => navigate(view === 'home' ? '/' : view === 'lesson' ? '/' : toolPaths[view])
+  return <Home onStart={(id) => navigate(`/lesson/${id}`)} onTool={openTool} />
+}
+
+function TrainingRoute() {
+  const navigate = useNavigate()
+  return <Training onBack={() => navigate('/')} />
+}
+
+function ExamRoute() {
+  const navigate = useNavigate()
+  return <Exam onBack={() => navigate('/')} />
+}
+
+function CheatSheetRoute() {
+  const navigate = useNavigate()
+  return <CheatSheet onBack={() => navigate('/')} />
+}
+
+function SyllabusRoute() {
+  const navigate = useNavigate()
+  return <SyllabusMap onBack={() => navigate('/')} />
+}
+
+function LessonRoute() {
+  const { lessonId } = useParams()
+  const navigate = useNavigate()
+  if (!lessonId || !lessonIds.includes(lessonId)) return <Navigate to="/" replace />
+  const openTool = (view: View) => navigate(view === 'home' || view === 'lesson' ? '/' : toolPaths[view])
+  return <LessonView
+    lesson={getLesson(lessonId)}
+    onHome={() => navigate('/')}
+    onLesson={(id) => navigate(`/lesson/${id}`)}
+    onTool={openTool}
+  />
+}
+
+export default function App() {
+  return <BrowserRouter>
+    <ScrollToTop />
+    <Routes>
+      <Route path="/" element={<HomeRoute />} />
+      <Route path="/lesson/:lessonId" element={<LessonRoute />} />
+      <Route path="/training" element={<TrainingRoute />} />
+      <Route path="/exam" element={<ExamRoute />} />
+      <Route path="/cheatsheet" element={<CheatSheetRoute />} />
+      <Route path="/syllabus" element={<SyllabusRoute />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  </BrowserRouter>
 }
 
