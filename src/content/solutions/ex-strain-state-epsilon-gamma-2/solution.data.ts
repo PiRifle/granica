@@ -101,7 +101,7 @@ export default {
       visual: 'rosette',
       focus: { metric: 'principal' },
       formula:
-        '\\varepsilon_{I,II}=150\\pm353{,}55\\,\\mu\\varepsilon,\\qquad \\tan2\\varphi_I=\\frac{500}{500}=1\\ \\Rightarrow\\ \\varphi_I=22{,}5^\\circ',
+        '\\varepsilon_{I,II}=150\\pm353{,}55\\,\\mu\\varepsilon,\\qquad \\tan2\\varphi_I=\\frac{500}{500}=1\\;\\Rightarrow\\ \\varphi_I=22{,}5^\\circ',
     },
   ],
 } satisfies SolutionData

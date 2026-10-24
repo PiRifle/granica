@@ -54,7 +54,7 @@ export default {
       visual: 'cube',
       focus: { metric: 'principal' },
       formula:
-        '\\sigma_{1,2}=60\\pm50\\ \\text{MPa}\\ \\Rightarrow\\ \\sigma_1=110\\ \\text{MPa},\\ \\sigma_2=10\\ \\text{MPa}',
+        '\\sigma_{1,2}=60\\pm50\\ \\text{MPa}\\;\\Rightarrow\\ \\sigma_1=110\\ \\text{MPa},\\ \\sigma_2=10\\ \\text{MPa}',
     },
     {
       title: 'Maksymalne ścinanie i kąt',
@@ -64,7 +64,7 @@ export default {
       visual: 'cube',
       focus: { metric: 'angle' },
       formula:
-        '\\tau_{\\max}^{(xy)}=R=50\\ \\text{MPa},\\quad 2\\theta_p=53{,}13^\\circ\\ \\Rightarrow\\ \\theta_p\\approx26{,}57^\\circ',
+        '\\tau_{\\max}^{(xy)}=R=50\\ \\text{MPa},\\quad 2\\theta_p=53{,}13^\\circ\\;\\Rightarrow\\ \\theta_p\\approx26{,}57^\\circ',
     },
   ],
 } satisfies SolutionData

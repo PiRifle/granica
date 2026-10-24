@@ -62,7 +62,7 @@ export default {
       caption: 'Do orientacji potrzebna jest dodatkowa informacja o znaku τ_xy.',
       visual: 'cube',
       focus: { metric: 'angle' },
-      formula: '\\cos2\\theta_p=20/40=0{,}5\\ \\Rightarrow\\ 2\\theta_p=60^\\circ,\\ \\theta_p=30^\\circ',
+      formula: '\\cos2\\theta_p=20/40=0{,}5\\;\\Rightarrow\\ 2\\theta_p=60^\\circ,\\ \\theta_p=30^\\circ',
     },
   ],
 } satisfies SolutionData

@@ -95,7 +95,7 @@ export default {
       visual: 'rosette',
       focus: { metric: 'principal' },
       formula:
-        '\\varepsilon_{I,II}=360\\pm576{,}28\\,\\mu\\varepsilon,\\qquad \\tan2\\varphi_I=\\frac{900}{720}=1{,}25\\ \\Rightarrow\\ \\varphi_I=25{,}67^\\circ',
+        '\\varepsilon_{I,II}=360\\pm576{,}28\\,\\mu\\varepsilon,\\qquad \\tan2\\varphi_I=\\frac{900}{720}=1{,}25\\;\\Rightarrow\\ \\varphi_I=25{,}67^\\circ',
     },
   ],
 } satisfies SolutionData

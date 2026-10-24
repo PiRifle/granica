@@ -37,7 +37,7 @@ export default {
       visual: 'beam',
       focus: { metric: 'T' },
       formula:
-        'x_1=1\\ \\text{m},\\qquad N=0,\\qquad 16-V=0\\ \\Rightarrow\\ V=+16\\ \\text{kN},\\qquad M-16\\cdot1=0\\ \\Rightarrow\\ M=+16\\ \\text{kN·m}',
+        'x_1=1\\ \\text{m},\\qquad N=0,\\qquad 16-V=0\\;\\Rightarrow\\ V=+16\\ \\text{kN},\\qquad M-16\\cdot1=0\\;\\Rightarrow\\ M=+16\\ \\text{kN·m}',
     },
     {
       title: 'Cięcie w x = 4 m: N, V, M',
@@ -47,7 +47,7 @@ export default {
       visual: 'beam',
       focus: { metric: 'T' },
       formula:
-        'x_2=4\\ \\text{m},\\qquad N=0,\\qquad 16-24-V=0\\ \\Rightarrow\\ V=-8\\ \\text{kN},\\qquad M-16\\cdot4+24\\cdot(4-2)=0\\ \\Rightarrow\\ M=+16\\ \\text{kN·m}',
+        'x_2=4\\ \\text{m},\\qquad N=0,\\qquad 16-24-V=0\\;\\Rightarrow\\ V=-8\\ \\text{kN},\\qquad M-16\\cdot4+24\\cdot(4-2)=0\\;\\Rightarrow\\ M=+16\\ \\text{kN·m}',
     },
     {
       title: 'Kontrola z prawej strony',

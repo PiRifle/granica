@@ -54,7 +54,7 @@ export default {
       visual: 'cube',
       focus: { metric: 'principal' },
       formula:
-        '\\sigma_{1,2}=20\\pm50\\ \\text{MPa}\\ \\Rightarrow\\ \\sigma_1=70\\ \\text{MPa},\\ \\sigma_2=-30\\ \\text{MPa}',
+        '\\sigma_{1,2}=20\\pm50\\ \\text{MPa}\\;\\Rightarrow\\ \\sigma_1=70\\ \\text{MPa},\\ \\sigma_2=-30\\ \\text{MPa}',
     },
     {
       title: 'Właściwa gałąź kąta',
@@ -63,7 +63,7 @@ export default {
       caption: 'Kąt na kole jest podwojony; trzeba wybrać właściwą gałąź funkcji tangens.',
       visual: 'cube',
       focus: { metric: 'angle' },
-      formula: '2\\theta_p=-36{,}87^\\circ+180^\\circ=143{,}13^\\circ\\ \\Rightarrow\\ \\theta_p\\approx71{,}57^\\circ',
+      formula: '2\\theta_p=-36{,}87^\\circ+180^\\circ=143{,}13^\\circ\\;\\Rightarrow\\ \\theta_p\\approx71{,}57^\\circ',
     },
   ],
 } satisfies SolutionData

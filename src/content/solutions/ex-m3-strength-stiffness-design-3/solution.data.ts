@@ -91,7 +91,7 @@ export default {
       visual: 'axial',
       focus: { metric: 'examples' },
       formula:
-        'L=2000\\ \\text{mm}:\\ N_\\delta=100\\ \\text{kN}>75\\ \\text{kN}\\ \\Rightarrow\\ N_{\\max}=75\\ \\text{kN}',
+        'L=2000\\ \\text{mm}:\\ N_\\delta=100\\ \\text{kN}>75\\ \\text{kN}\\;\\Rightarrow\\ N_{\\max}=75\\ \\text{kN}',
     },
     {
       title: 'Sprawdzenie dla L = 3 m',
