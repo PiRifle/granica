@@ -36,6 +36,7 @@ export interface Lesson {
   questions: Question[]
   workedExample?: WorkedExample
   solutionId?: string
+  solutionIds?: string[]
 }
 
 export interface CourseLesson extends Lesson {

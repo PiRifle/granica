@@ -45,7 +45,7 @@ export default {
       "correct": 1,
       "hint": "Składowe redukujemy dopiero po ich wyznaczeniu we właściwym punkcie.",
       "explanation": "HMH daje σred = √(90² + 3·50²) = √15 600 = 124,90 MPa. Brak pierwiastka zmieniłby jednostkę z MPa na MPa².",
-      "outcome": "W2"
+      "outcome": "U1"
     },
     {
       "question": "Z wytrzymałości wyszło d = 31,4 mm, a z sztywności d = 35,1 mm; dostępne wymiary co 1 mm. Jaka decyzja końcowa jest poprawna?",

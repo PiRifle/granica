@@ -56,7 +56,7 @@ export default {
       "correct": 1,
       "hint": "Pozostaje wyraz τxy sin2θ.",
       "explanation": "Dla θ = 45° mamy sin90° = 1, więc σn = 50 MPa. Czyste ścinanie jest więc równoważne rozciąganiu i ściskaniu o wartości 50 MPa w kierunkach głównych.",
-      "outcome": "W2"
+      "outcome": "U1"
     }
   ],
   "workedExample": {

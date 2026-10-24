@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "L występuje w liczniku φ = TL/(GJ_o).",
-      "explanation": "Każdy odcinek wału dokłada swój względny obrót, więc trzykrotnie dłuższy wał ma trzykrotnie większy całkowity kąt skręcenia."
+      "explanation": "Każdy odcinek wału dokłada swój względny obrót, więc trzykrotnie dłuższy wał ma trzykrotnie większy całkowity kąt skręcenia.",
+      "outcome": "W3"
     },
     {
       "question": "Średnicę pełnego wału zwiększono dwukrotnie. Jak zmieni się φ przy pozostałych danych bez zmian?",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Dla wału pełnego J_o jest proporcjonalne do d⁴.",
-      "explanation": "J_o wzrasta 2⁴ = 16 razy. Ponieważ φ jest odwrotnie proporcjonalne do J_o, kąt skręcenia spada 16 razy."
+      "explanation": "J_o wzrasta 2⁴ = 16 razy. Ponieważ φ jest odwrotnie proporcjonalne do J_o, kąt skręcenia spada 16 razy.",
+      "outcome": "W3"
     },
     {
       "question": "Obliczony kąt φ = 0,02 rad. Ile to stopni?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Pomnóż radiany przez 180/π ≈ 57,3.",
-      "explanation": "φ = 0,02·180/π ≈ 1,146°, czyli około 1,15°. Radiany i stopnie nie mogą być mieszane bez przeliczenia."
+      "explanation": "φ = 0,02·180/π ≈ 1,146°, czyli około 1,15°. Radiany i stopnie nie mogą być mieszane bez przeliczenia.",
+      "outcome": "U1"
     }
   ],
   "workedExample": {

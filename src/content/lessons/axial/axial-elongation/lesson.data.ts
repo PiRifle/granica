@@ -21,6 +21,7 @@ export default {
     "U2 — wiąże odkształcenia z jednoosiowym stanem naprężenia",
     "U3 — ocenia sztywność i przemieszczenia przy doborze przekroju"
   ],
+  "solutionId": "cw2-1",
   "questions": [
     {
       "question": "Przy niezmienionych N, E i A długość pręta rośnie trzy razy. Jak zmieni się jego sprężyste wydłużenie?",

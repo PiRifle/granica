@@ -44,7 +44,7 @@ export default {
       "correct": 1,
       "hint": "Jest to położenie środka odpowiedniego koła na osi σ.",
       "explanation": "Na płaszczyźnie τmax naprężenie normalne odpowiada środkowi koła: (σ1 + σ2)/2. Ścinanie maksymalne nie oznacza zniknięcia naprężenia normalnego.",
-      "outcome": "W2"
+      "outcome": "U2"
     },
     {
       "question": "Dla czystego ścinania τxy = 70 MPa, przy σx = σy = σz = 0, ile wynosi τmax(abs)?",
@@ -56,7 +56,7 @@ export default {
       "correct": 1,
       "hint": "Naprężeniami głównymi w płaszczyźnie są +70 i −70 MPa.",
       "explanation": "Naprężenia główne wynoszą 70, 0 i −70 MPa. Największa różnica to 140 MPa, więc τmax(abs) = 70 MPa, zgodnie z wyjściowym ścinaniem.",
-      "outcome": "W1"
+      "outcome": "U1"
     }
   ],
   "workedExample": {

@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Odejmij moment bezwładności pustego wnętrza od momentu pełnego koła.",
-      "explanation": "Dla koła J = πD⁴/32, więc dla rury J_o = πD⁴/32 − πd⁴/32. Ostatnie wyrażenie opisuje pole przekroju, nie moment bezwładności."
+      "explanation": "Dla koła J = πD⁴/32, więc dla rury J_o = πD⁴/32 − πd⁴/32. Ostatnie wyrażenie opisuje pole przekroju, nie moment bezwładności.",
+      "outcome": "W3"
     },
     {
       "question": "Przy tym samym momencie T i tej samej średnicy zewnętrznej D rura ma zwykle w porównaniu z wałem pełnym:",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Usunięcie wnętrza odejmuje dodatni składnik πd⁴/32.",
-      "explanation": "Rura ma mniejsze J_o oraz mniejsze W_o = J_o/(D/2), więc przy tym samym T osiąga większe τmax. Może jednak być korzystniejsza w przeliczeniu na masę."
+      "explanation": "Rura ma mniejsze J_o oraz mniejsze W_o = J_o/(D/2), więc przy tym samym T osiąga większe τmax. Może jednak być korzystniejsza w przeliczeniu na masę.",
+      "outcome": "W3"
     },
     {
       "question": "Dla cienkościennej rury największe naprężenie styczne od skręcania występuje:",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "W ogólnym wzorze τ(r) = Tr/J_o największe r jest na zewnątrz.",
-      "explanation": "Naprężenie rośnie liniowo z r, więc maksimum jest dla r = D/2. W przybliżeniu cienkościennym rozkład po grubości bywa uśredniany, ale nie zmienia to maksimum modelu ogólnego."
+      "explanation": "Naprężenie rośnie liniowo z r, więc maksimum jest dla r = D/2. W przybliżeniu cienkościennym rozkład po grubości bywa uśredniany, ale nie zmienia to maksimum modelu ogólnego.",
+      "outcome": "W2"
     }
   ],
   "workedExample": {

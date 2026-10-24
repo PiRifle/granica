@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Całkowanie stałego q daje funkcję liniową, a całkowanie funkcji liniowej — kwadratową.",
-      "explanation": "Z dT/dx = −q wynika T = −qx + C. Następnie dM/dx = T daje M jako wielomian drugiego stopnia."
+      "explanation": "Z dT/dx = −q wynika T = −qx + C. Następnie dM/dx = T daje M jako wielomian drugiego stopnia.",
+      "outcome": "W1"
     },
     {
       "question": "Dla belki swobodnie podpartej o L z równomiernym q maksymalny moment występuje:",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Z symetrii siła tnąca zmienia znak w połowie rozpiętości.",
-      "explanation": "T(x) = qL/2−qx znika dla x = L/2 i zmienia znak z + na −. Tam M osiąga maksimum qL²/8."
+      "explanation": "T(x) = qL/2−qx znika dla x = L/2 i zmienia znak z + na −. Tam M osiąga maksimum qL²/8.",
+      "outcome": "U1"
     },
     {
       "question": "Na wykresie M(x) pojawia się załamanie, choć T jest ciągłe i nie przyłożono momentu skupionego. Co należy zrobić?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Nachylenie M jest równe T; zastanów się, co oznacza ciągłość T dla stycznej do M.",
-      "explanation": "Jeżeli T jest ciągłe, nachylenie M także zmienia się ciągle, więc M nie ma załamania. Skok M może natomiast wywołać przyłożony moment skupiony."
+      "explanation": "Jeżeli T jest ciągłe, nachylenie M także zmienia się ciągle, więc M nie ma załamania. Skok M może natomiast wywołać przyłożony moment skupiony.",
+      "outcome": "W1"
     }
   ],
   "workedExample": {

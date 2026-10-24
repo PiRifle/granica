@@ -56,7 +56,7 @@ export default {
       "correct": 0,
       "hint": "ΔLdop znajduje się w mianowniku Amin,Δ = NL/(EΔLdop).",
       "explanation": "Bardziej rygorystyczny limit przemieszczenia wymaga sztywniejszego przekroju. Zmniejszenie ΔLdop o połowę podwaja Amin,Δ.",
-      "outcome": "U3"
+      "outcome": "U1"
     }
   ],
   "workedExample": {

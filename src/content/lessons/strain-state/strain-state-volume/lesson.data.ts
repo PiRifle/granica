@@ -32,7 +32,7 @@ export default {
       "correct": 0,
       "hint": "Dodaj trzy odkształcenia liniowe z uwzględnieniem znaków.",
       "explanation": "ΔV/V0 ≈ 0,002 − 0,0005 − 0,0004 = 0,0011. Objętość rośnie o 0,11%, mimo skurczu w dwóch kierunkach.",
-      "outcome": "U1"
+      "outcome": "W3"
     },
     {
       "question": "Jak czyste ścinanie wpływa na objętość w teorii małych odkształceń?",
@@ -44,7 +44,7 @@ export default {
       "correct": 0,
       "hint": "Ślad tensora odkształcenia zawiera składowe normalne, nie styczne.",
       "explanation": "Dla czystego ścinania εx = εy = εz = 0, więc ΔV/V0 ≈ 0. Zmieniają się kąty i kształt, lecz nie objętość w przybliżeniu pierwszego rzędu.",
-      "outcome": "W1"
+      "outcome": "W3"
     },
     {
       "question": "Dla p = 100 MPa i K = 2 GPa jaka jest względna zmiana objętości?",

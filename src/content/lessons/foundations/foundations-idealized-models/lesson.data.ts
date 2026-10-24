@@ -32,7 +32,7 @@ export default {
       "correct": 1,
       "hint": "Zastanów się, jaką własność materiału ma opisywać wzór ΔL = NL/(EA).",
       "explanation": "Ciało idealnie sztywne nie zmienia kształtu ani wymiarów pod obciążeniem. Taki model może służyć do analizy równowagi, lecz usuwa zjawisko, które chcemy obliczyć.",
-      "outcome": "W1"
+      "outcome": "W2"
     },
     {
       "question": "Czy zastąpienie równomiernego obciążenia q jego wypadkową qL jest poprawne przy wyznaczaniu reakcji belki?",

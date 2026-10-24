@@ -63,10 +63,10 @@ export default {
     "given": "Pomiar główny: ε1 = 600 µε, ε2 = 100 µε. Materiał w płaskim stanie naprężenia: E = 70 GPa, ν = 0,33, Re = 180 MPa.",
     "steps": [
       "Wspólny czynnik E/(1−ν²) = 70 000/(1−0,1089) = 78 554,6 MPa.",
-      "σ1 = 78 554,6·(0,0006 + 0,33·0,0001) = 49,62 MPa.",
-      "σ2 = 78 554,6·(0,0001 + 0,33·0,0006) = 23,42 MPa.",
-      "Dla prostego porównania maksymalnego rozciągania n = 180/49,62 = 3,63; pełna ocena wymaga kryterium właściwego dla materiału."
+      "σ1 = 78 554,6·(0,0006 + 0,33·0,0001) = 49,73 MPa.",
+      "σ2 = 78 554,6·(0,0001 + 0,33·0,0006) = 23,41 MPa.",
+      "Dla prostego porównania maksymalnego rozciągania n = 180/49,73 = 3,62; pełna ocena wymaga kryterium właściwego dla materiału."
     ],
-    "result": "σ1 ≈ 49,6 MPa i σ2 ≈ 23,4 MPa. Zapas względem Re dla σ1 wynosi około 3,63, ale decyzja projektowa wymaga jeszcze właściwej hipotezy, wymaganego n i kontroli sztywności."
+    "result": "σ1 ≈ 49,7 MPa i σ2 ≈ 23,4 MPa. Zapas względem Re dla σ1 wynosi około 3,62, ale decyzja projektowa wymaga jeszcze właściwej hipotezy, wymaganego n i kontroli sztywności."
   }
 } satisfies LessonData

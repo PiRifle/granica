@@ -32,7 +32,7 @@ export default {
       "correct": 0,
       "hint": "Podziel zmianę długości przez długość początkową, używając tych samych jednostek.",
       "explanation": "ε = 0,30/200 = 0,0015 = 1500·10⁻⁶ = 1500 µε. Odpowiada to wydłużeniu względnemu 0,15%.",
-      "outcome": "U1"
+      "outcome": "W1"
     },
     {
       "question": "Początkowo prosty kąt zmniejszył się o 0,002 rad przy dodatniej konwencji ścinania. Ile wynoszą γxy i tensorowe εxy?",
@@ -56,7 +56,7 @@ export default {
       "correct": 0,
       "hint": "Przedrostek µ oznacza milionową część, a minus skrócenie.",
       "explanation": "−800 µε = −800·10⁻⁶ = −0,0008, czyli skrócenie o 0,08% długości pomiarowej. Nie jest to miara kątowa.",
-      "outcome": "W2"
+      "outcome": "W1"
     }
   ],
   "workedExample": {

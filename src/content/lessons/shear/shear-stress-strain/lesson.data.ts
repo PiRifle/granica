@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Zamień 80 GPa na 80 000 MPa i użyj γ = τ/G.",
-      "explanation": "γ = 80 MPa / 80 000 MPa = 0,001 rad. Jest to kąt odkształcenia, czyli około 0,0573°, a nie 1°."
+      "explanation": "γ = 80 MPa / 80 000 MPa = 0,001 rad. Jest to kąt odkształcenia, czyli około 0,0573°, a nie 1°.",
+      "outcome": "U1"
     },
     {
       "question": "Jakie naprężenia główne odpowiadają czystemu ścinaniu τ = 50 MPa?",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Koło ma środek C = 0 i promień R = τ.",
-      "explanation": "Dla czystego ścinania σ1 = C + R = τ, a σ2 = C − R = −τ. Przy τ = 50 MPa otrzymujemy odpowiednio +50 i −50 MPa."
+      "explanation": "Dla czystego ścinania σ1 = C + R = τ, a σ2 = C − R = −τ. Przy τ = 50 MPa otrzymujemy odpowiednio +50 i −50 MPa.",
+      "outcome": "U2"
     },
     {
       "question": "W liniowym zakresie sprężystym naprężenie styczne rośnie dwukrotnie, a G nie zmienia się. Co stanie się z γ?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Prawo Hooke’a dla ścinania jest wprost proporcjonalne: τ = Gγ.",
-      "explanation": "Przy stałym G zachodzi γ = τ/G, więc podwojenie τ podwaja γ. Dotyczy to tylko liniowego zakresu sprężystego."
+      "explanation": "Przy stałym G zachodzi γ = τ/G, więc podwojenie τ podwaja γ. Dotyczy to tylko liniowego zakresu sprężystego.",
+      "outcome": "U1"
     }
   ],
   "workedExample": {

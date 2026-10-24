@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "We wzorze τ(r) = Tr/J_o promień r jest w liczniku.",
-      "explanation": "Przy stałych T i J_o naprężenie jest wprost proporcjonalne do r. Dlatego τ(0) = 0, a maksimum występuje dla r = d/2."
+      "explanation": "Przy stałych T i J_o naprężenie jest wprost proporcjonalne do r. Dlatego τ(0) = 0, a maksimum występuje dla r = d/2.",
+      "outcome": "W2"
     },
     {
       "question": "Średnica wału pełnego wzrasta dwukrotnie przy niezmienionym momencie T. Jak zmieni się τmax?",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 1,
       "hint": "W τmax = 16T/(πd³) średnica jest w trzeciej potędze.",
-      "explanation": "Po podstawieniu 2d mianownik rośnie (2d)³/d³ = 8 razy. Maksymalne naprężenie spada więc ośmiokrotnie."
+      "explanation": "Po podstawieniu 2d mianownik rośnie (2d)³/d³ = 8 razy. Maksymalne naprężenie spada więc ośmiokrotnie.",
+      "outcome": "W3"
     },
     {
       "question": "Wał d = 40 mm przenosi T = 0,628 kN·m. Jakie jest w przybliżeniu τmax?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Użyj T = 628 000 N·mm i τmax = 16T/(πd³).",
-      "explanation": "τmax = 16·628 000/(π·40³) ≈ 50 MPa. Moment w kN·m trzeba najpierw zamienić na N·mm."
+      "explanation": "τmax = 16·628 000/(π·40³) ≈ 50 MPa. Moment w kN·m trzeba najpierw zamienić na N·mm.",
+      "outcome": "U1"
     }
   ],
   "workedExample": {

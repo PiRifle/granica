@@ -61,7 +61,7 @@ export default {
     }
   ],
   "workedExample": {
-    "given": "Pręt ma N = 24 kN, L = 1,2 m, A = 300 mm², E = 200 GPa i k = 120 MPa.",
+    "given": "Pręt ma N = 24 kN, L = 1,2 m, A = 300 mm², E = 200 GPa, k = 120 MPa i Re = 240 MPa.",
     "steps": [
       "σ = 24 000/300 = 80 MPa ≤ 120 MPa.",
       "Rzeczywisty zapas przy Re = 240 MPa wynosi n = 240/80 = 3.",

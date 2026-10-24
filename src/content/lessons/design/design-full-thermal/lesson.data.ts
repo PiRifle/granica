@@ -22,6 +22,7 @@ export default {
     "U3 — dobieram materiał i przekrój z wymaganym bezpieczeństwem oraz sprawdzam warunek sztywności."
   ],
   "solutionId": "cw2-1",
+  "solutionIds": ["cw2-1", "cw2-3"],
   "questions": [
     {
       "question": "Co jest warunkiem zgodności dla jednorodnego pręta utwierdzonego na obu końcach, bez luzu?",

@@ -56,7 +56,7 @@ export default {
       "correct": 0,
       "hint": "Ten punkt leży na poziomej osi σ.",
       "explanation": "Prawy koniec średnicy ma współrzędne (σavg + R, 0), czyli σ1 i zerowe ścinanie. Maksymalne ścinanie odpowiada natomiast górnemu lub dolnemu punktowi koła.",
-      "outcome": "W1"
+      "outcome": "U2"
     }
   ],
   "workedExample": {

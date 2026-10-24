@@ -56,7 +56,7 @@ export default {
       "correct": 1,
       "hint": "To właśnie brak jednej składowej wyróżnia te płaszczyzny.",
       "explanation": "Na płaszczyznach głównych τ = 0. Naprężenie normalne może być dodatnie, ujemne lub zerowe, a wartości główne mogą się różnić.",
-      "outcome": "W2"
+      "outcome": "W1"
     }
   ],
   "workedExample": {

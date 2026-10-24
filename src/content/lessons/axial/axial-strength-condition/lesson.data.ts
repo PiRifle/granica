@@ -32,7 +32,7 @@ export default {
       "correct": 0,
       "hint": "Naprężenie dopuszczalne jest mniejsze od granicznego: podziel przez n.",
       "explanation": "σdop = 240/1,5 = 160 MPa. Mnożenie przez n zwiększyłoby dopuszczalne naprężenie ponad granicę, co jest sprzeczne z ideą zapasu.",
-      "outcome": "U3"
+      "outcome": "U1"
     },
     {
       "question": "Przy |N| = 90 kN i σdop = 160 MPa minimalne pole przekroju wynosi:",

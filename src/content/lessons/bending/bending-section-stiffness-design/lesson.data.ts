@@ -21,6 +21,7 @@ export default {
     "U2 — wykorzystuje koło Mohra do analizy stanu naprężenia w zginanym elemencie",
     "U3 — dobiera przekrój belki z warunków bezpieczeństwa, wytrzymałości i sztywności"
   ],
+  "solutionId": "cw9-1",
   "questions": [
     {
       "question": "Dla Mmax = 16 kN·m i σdop = 160 MPa minimalny wskaźnik wytrzymałości przekroju wynosi:",
@@ -31,7 +32,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Zamień M na 16 000 000 N·mm; wynik w mm³ podziel przez 1000, aby otrzymać cm³.",
-      "explanation": "Wmin = 16 000 000/160 = 100 000 mm³ = 100 cm³. Przyjęty przekrój musi mieć W co najmniej takiej wartości."
+      "explanation": "Wmin = 16 000 000/160 = 100 000 mm³ = 100 cm³. Przyjęty przekrój musi mieć W co najmniej takiej wartości.",
+      "outcome": "U3"
     },
     {
       "question": "Przekrój spełnia warunek σmax ≤ σdop, ale ugięcie przekracza fdop. Co to oznacza?",
@@ -42,7 +44,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Oba warunki muszą być spełnione jednocześnie.",
-      "explanation": "Naprężeniowy warunek bezpieczeństwa nie zastępuje kontroli odkształcalności. Ugięcie maleje ze wzrostem EI, więc można dobrać większy I lub inny materiał/schemat."
+      "explanation": "Naprężeniowy warunek bezpieczeństwa nie zastępuje kontroli odkształcalności. Ugięcie maleje ze wzrostem EI, więc można dobrać większy I lub inny materiał/schemat.",
+      "outcome": "U3"
     },
     {
       "question": "Dla prostokąta o stałej szerokości b wysokość h wzrasta dwukrotnie. Jak zmieni się I = bh³/12 i ugięcie przy pozostałych danych bez zmian?",
@@ -53,7 +56,8 @@ export default {
       ],
       "correct": 0,
       "hint": "h jest w trzeciej potędze, a f jest odwrotnie proporcjonalne do I.",
-      "explanation": "I rośnie 2³ = 8 razy. Ponieważ f = PL³/(48EI), przy stałych P, L i E ugięcie spada ośmiokrotnie."
+      "explanation": "I rośnie 2³ = 8 razy. Ponieważ f = PL³/(48EI), przy stałych P, L i E ugięcie spada ośmiokrotnie.",
+      "outcome": "W3"
     }
   ],
   "workedExample": {

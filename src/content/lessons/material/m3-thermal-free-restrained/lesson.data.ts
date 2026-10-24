@@ -21,6 +21,7 @@ export default {
     "U2 — określa znak naprężenia osiowego do analizy kołem Mohra",
     "U3 — projektuje odkształcenia i naprężenia bez przekroczenia warunków bezpieczeństwa"
   ],
+  "solutionId": "cw2-2",
   "questions": [
     {
       "question": "Stalowy pręt L = 2 m ogrzano o 50°C. Dla α = 12·10⁻⁶ 1/°C swobodne wydłużenie wynosi:",

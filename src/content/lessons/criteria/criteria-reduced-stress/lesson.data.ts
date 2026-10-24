@@ -44,7 +44,7 @@ export default {
       "correct": 1,
       "hint": "Naprężenie zredukowane zależy od przyjętego modelu.",
       "explanation": "Składowe naprężenia są te same, ale hipotezy inaczej je redukują. Wynik należy porównać z wytrzymałością zgodnie z zasadami właściwymi dla wybranej hipotezy.",
-      "outcome": "U1"
+      "outcome": "W2"
     },
     {
       "question": "Przy Re = 240 MPa obliczono σred = 120 MPa. Ile wynosi rzeczywisty współczynnik bezpieczeństwa?",

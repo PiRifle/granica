@@ -44,7 +44,7 @@ export default {
       "correct": 0,
       "hint": "tan2θp = 80/80 = 1; wybierz 2θp = 45°, a nie kąt o 180° dalszy.",
       "explanation": "2θp = 45° daje θp = 22,5°. Podstawienie do σn daje 40 + 40·cos45° + 40·sin45° ≈ 96,57 MPa, czyli większą wartość główną; drugi kierunek jest o 90°.",
-      "outcome": "U1"
+      "outcome": "U2"
     },
     {
       "question": "Dlaczego samo wyrażenie 0,5·arctan[2τxy/(σx−σy)] może wskazać niewłaściwą z dwóch osi głównych?",

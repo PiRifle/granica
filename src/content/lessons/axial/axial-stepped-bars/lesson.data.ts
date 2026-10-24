@@ -21,6 +21,7 @@ export default {
     "U2 — opisuje stan naprężenia osobno dla każdego odcinka",
     "U3 — dobiera najsłabszy odcinek z zachowaniem bezpieczeństwa"
   ],
+  "solutionId": "cw1-2",
   "questions": [
     {
       "question": "Pręt schodkowy bez obciążeń pośrednich ma dwa odcinki o polach 300 i 150 mm². Gdzie występuje większe nominalne |σ|?",

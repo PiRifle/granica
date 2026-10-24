@@ -59,7 +59,7 @@ export default {
       "correct": 0,
       "explanation": "σ = |M|c/I = |M|/W. Strona z większym c ma mniejsze W i większe bezwzględne naprężenie przy tym samym momencie.",
       "hint": "Przy stałych M i I naprężenie rośnie wraz z odległością c.",
-      "outcome": "U3"
+      "outcome": "W3"
     }
   ],
   "workedExample": {

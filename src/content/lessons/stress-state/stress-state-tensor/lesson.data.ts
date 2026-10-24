@@ -56,7 +56,7 @@ export default {
       "correct": 1,
       "hint": "Odróżnij fizyczne obciążenie od sposobu jego zapisu.",
       "explanation": "Obrót osi przekształca składowe tensora według ścisłych zależności. Niezmienniki, naprężenia główne i fizyczne skutki pozostają takie same, więc sama zmiana opisu nie zmienia bezpieczeństwa.",
-      "outcome": "U3"
+      "outcome": "W1"
     }
   ],
   "workedExample": {

@@ -65,7 +65,7 @@ export default {
     "steps": [
       "Wwym na skręcanie: Wo = T/τdop = 400 000/40 = 10 000 mm³.",
       "Dla pełnego koła Wo = πD³/16.",
-      "Dmin = ∛(16Wo/π) = ∛(160 000/π) = 37,06 mm.",
+      "Dmin = ∛(16Wo/π) = ∛(160 000/π) = 37,07 mm.",
       "Przyjmujemy np. D = 38 mm i następnie sprawdzamy kąt skręcenia."
     ],
     "result": "Z warunku wytrzymałości Dmin ≈ 37,1 mm; po zaokrągleniu D = 38 mm wymaga kontroli sztywności."

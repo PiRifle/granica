@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Porównaj n = 1 i n = 2 we wzorze F/(nA).",
-      "explanation": "W połączeniu dwuciętym pole ścinania wynosi 2A, więc τsr = F/(2A). To dokładnie połowa wartości F/A dla jednego cięcia."
+      "explanation": "W połączeniu dwuciętym pole ścinania wynosi 2A, więc τsr = F/(2A). To dokładnie połowa wartości F/A dla jednego cięcia.",
+      "outcome": "W1"
     },
     {
       "question": "Sworzeń d = 10 mm jest dwucięty siłą F = 15,7 kN. Jakie jest przybliżone τsr?",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Najpierw policz πd²/4, a potem pomnóż pole przez dwa.",
-      "explanation": "A = π·10²/4 ≈ 78,54 mm², a 2A ≈ 157,08 mm². Zatem τsr = 15 700/157,08 ≈ 100 MPa."
+      "explanation": "A = π·10²/4 ≈ 78,54 mm², a 2A ≈ 157,08 mm². Zatem τsr = 15 700/157,08 ≈ 100 MPa.",
+      "outcome": "U1"
     },
     {
       "question": "W symetrycznym połączeniu trzech blach środkowa przenosi F, a zewnętrzne razem odprowadzają F. Ile płaszczyzn ścinania ma sworzeń?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Wyobraź sobie rozdzielenie blach i zaznacz miejsca przecięcia sworznia.",
-      "explanation": "Sworzeń przecina się na dwóch stykach blach. Każdy z dwóch przekrojów przenosi F/2, co daje łączne pole ścinania 2A."
+      "explanation": "Sworzeń przecina się na dwóch stykach blach. Każdy z dwóch przekrojów przenosi F/2, co daje łączne pole ścinania 2A.",
+      "outcome": "W1"
     }
   ],
   "workedExample": {

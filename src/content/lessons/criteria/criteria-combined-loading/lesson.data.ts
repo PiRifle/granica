@@ -55,7 +55,7 @@ export default {
       ],
       "correct": 1,
       "hint": "Rozłóż wpływ zginania, siły osiowej i skręcania na osobne składowe.",
-      "explanation": "Na osi obojętnej naprężenie od zginania znika, lecz N/A może pozostać. W skręcanym pełnym przekroju τ na osi jest zerowe, ale w innych przekrojach trzeba sprawdzić rozkład.",
+      "explanation": "Na osi obojętnej naprężenie od zginania znika, lecz N/A może pozostać. W pełnym przekroju kołowym τ od skręcania znika tylko w środku, a w pozostałych punktach osi obojętnej rośnie wraz z odległością od środka; trzeba też sprawdzić ścinanie od siły poprzecznej.",
       "outcome": "W1"
     }
   ],

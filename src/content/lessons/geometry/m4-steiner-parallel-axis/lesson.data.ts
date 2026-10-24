@@ -21,6 +21,7 @@ export default {
     "U2 — utrzymuje spójny układ osi dla analizy naprężeń i koła Mohra",
     "U3 — zwiększa sztywność przez racjonalne oddalanie materiału od osi"
   ],
+  "solutionId": "cw5-2",
   "questions": [
     {
       "question": "Prostokąt ma Ixc = 2·10⁶ mm⁴ i A = 2000 mm². Ile wynosi moment względem osi równoległej oddalonej o a = 30 mm?",
@@ -66,10 +67,10 @@ export default {
     "given": "Dla przekroju teowego z poprzedniej lekcji: środnik 20 × 100 mm, półka 120 × 20 mm, wspólne ȳ = 82,73 mm od dołu.",
     "steps": [
       "Środnik: Ixc1 = 20·100³/12 = 1,667·10⁶ mm⁴; odległość jego środka od osi centralnej a₁ = |82,73 − 50| = 32,73 mm.",
-      "Moment środnika: I₁ = 1,667·10⁶ + 2000·32,73² ≈ 3,810·10⁶ mm⁴.",
+      "Moment środnika: I₁ = 1,667·10⁶ + 2000·32,73² ≈ 3,809·10⁶ mm⁴.",
       "Półka: Ixc2 = 120·20³/12 = 0,080·10⁶ mm⁴; a₂ = |110 − 82,73| = 27,27 mm.",
-      "Moment półki: I₂ = 0,080·10⁶ + 2400·27,27² ≈ 1,866·10⁶ mm⁴; suma Ix = I₁ + I₂ ≈ 5,676·10⁶ mm⁴."
+      "Moment półki: I₂ = 0,080·10⁶ + 2400·27,27² ≈ 1,865·10⁶ mm⁴; suma Ix = I₁ + I₂ ≈ 5,674·10⁶ mm⁴."
     ],
-    "result": "Moment bezwładności przekroju teowego względem poziomej osi centralnej wynosi około 5,68·10⁶ mm⁴."
+    "result": "Moment bezwładności przekroju teowego względem poziomej osi centralnej wynosi około 5,67·10⁶ mm⁴."
   }
 } satisfies LessonData

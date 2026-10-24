@@ -21,6 +21,7 @@ export default {
     "U2 — przekształca pomiary rozety w koło Mohra odkształceń i wielkości główne",
     "U3 — dobiera parametry materiałowe i geometryczne z uwagi na bezpieczeństwo oraz sztywność"
   ],
+  "solutionId": "cw7-2",
   "questions": [
     {
       "question": "Rozeta dała ε0 = 600 µε, ε45 = 300 µε, ε90 = −200 µε. Ile wynosi γxy?",
@@ -32,7 +33,7 @@ export default {
       "correct": 0,
       "hint": "Użyj 2ε45 − ε0 − ε90 i zachowaj znaki.",
       "explanation": "γxy = 2·300 − 600 − (−200) = 200 µrad. Wszystkie odczyty są w µε, więc wynik wychodzi bezpośrednio w mikroradianach.",
-      "outcome": "U1"
+      "outcome": "U2"
     },
     {
       "question": "Dla εx = 500 µε, εy = 100 µε i γxy = 600 µrad ile wynoszą odkształcenia główne?",

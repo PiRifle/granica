@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Z momentów względem A: RB·6 = P·2; następnie RA = P − RB.",
-      "explanation": "RB = 24·2/6 = 8 kN, a RA = 24−8 = 16 kN. Siła jest bliżej A, dlatego lewa reakcja jest większa."
+      "explanation": "RB = 24·2/6 = 8 kN, a RA = 24−8 = 16 kN. Siła jest bliżej A, dlatego lewa reakcja jest większa.",
+      "outcome": "U1"
     },
     {
       "question": "Jeżeli po rozwiązaniu równań reakcja ma znak ujemny, co to oznacza?",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Znak odnosi się do zwrotu przyjętego przed obliczeniami.",
-      "explanation": "Ujemna reakcja ma wartość równą modułowi wyniku, lecz działa przeciwnie do strzałki przyjętej na schemacie. Sam znak nie przesądza o stateczności."
+      "explanation": "Ujemna reakcja ma wartość równą modułowi wyniku, lecz działa przeciwnie do strzałki przyjętej na schemacie. Sam znak nie przesądza o stateczności.",
+      "outcome": "W1"
     },
     {
       "question": "Dlaczego w belce z siłą przyłożoną poza środkiem reakcje zwykle nie są równe?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Sama suma sił nie określa podziału obciążenia między podpory.",
-      "explanation": "Równowaga sił daje RA + RB = P, a równowaga momentów określa ich podział według ramion siły. Dlatego położenie P zmienia reakcje."
+      "explanation": "Równowaga sił daje RA + RB = P, a równowaga momentów określa ich podział według ramion siły. Dlatego położenie P zmienia reakcje.",
+      "outcome": "W1"
     }
   ],
   "workedExample": {

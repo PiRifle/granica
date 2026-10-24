@@ -44,7 +44,7 @@ export default {
       "correct": 0,
       "hint": "Przy stałym σ odkształcenie ε = σ/E maleje ze wzrostem E.",
       "explanation": "Większy moduł Younga oznacza większą sztywność sprężystą. Dla tego samego σ materiał 1 ma mniejsze ε, mimo jednakowej granicy proporcjonalności.",
-      "outcome": "W2"
+      "outcome": "W1"
     },
     {
       "question": "Co oznacza przekroczenie zakresu sprężystego?",

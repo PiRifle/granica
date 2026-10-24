@@ -44,7 +44,7 @@ export default {
       "correct": 0,
       "hint": "Porównaj rzeczywisty zapas z wymaganym i osobno naprężenie z granicą.",
       "explanation": "250 < 400 MPa, więc granica nie jest przekroczona, ale 1,6 < 2, więc wymagany zapas nie jest zapewniony. O sztywności ten wynik nic nie mówi.",
-      "outcome": "W2"
+      "outcome": "U3"
     },
     {
       "question": "Jak zmieni się rzeczywiste n, jeśli przy niezmienionym materiale σred wzrośnie z 100 do 125 MPa?",

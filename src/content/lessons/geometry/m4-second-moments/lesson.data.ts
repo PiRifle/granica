@@ -21,6 +21,7 @@ export default {
     "U2 — rozróżnia osie i kierunki potrzebne do analizy naprężeń",
     "U3 — porównuje sztywność różnych ustawień przekroju"
   ],
+  "solutionId": "cw5-1",
   "questions": [
     {
       "question": "Prostokąt ma b = 100 mm i h = 200 mm. Moment bezwładności względem poziomej osi środkowej x wynosi:",
@@ -66,7 +67,7 @@ export default {
     "given": "Porównujemy prostokąt 100 × 200 mm względem osi poziomej x oraz względem jego dolnej podstawy.",
     "steps": [
       "Względem osi środkowej Ixc = bh³/12 = 100·200³/12 = 66,67·10⁶ mm⁴.",
-      "Względem podstawy można potraktować prostokąt jako trójkątnie rozmieszczone pole w definicji całki lub użyć wzoru bh³/3.",
+      "Względem podstawy szerokość przekroju jest stała, więc Ixb = ∫₀ʰ b·y² dy = bh³/3.",
       "Ixb = bh³/3 = 100·200³/3 = 200·10⁶ mm⁴.",
       "Moment względem podstawy jest większy, bo oś jest odsunięta od środka ciężkości; zależność między nimi wyjaśni twierdzenie Steinera."
     ],

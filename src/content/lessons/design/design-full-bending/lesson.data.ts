@@ -22,6 +22,7 @@ export default {
     "U3 — dobieram materiał i przekrój z wymaganym bezpieczeństwem oraz sprawdzam warunek sztywności."
   ],
   "solutionId": "cw5-1",
+  "solutionIds": ["cw5-1", "cw9-2"],
   "questions": [
     {
       "question": "Belka o L = 4 m ma siłę P = 20 kN na środku. Ile wynosi Mmax?",
@@ -45,7 +46,7 @@ export default {
       "correct": 2,
       "hint": "20 kN·m = 20 000 000 N·mm.",
       "explanation": "Wwym = 20 000 000/160 = 125 000 mm³. Poprawna zamiana jednostek zapobiega błędowi tysiąckrotnemu.",
-      "outcome": "U3"
+      "outcome": "U1"
     },
     {
       "question": "Warunek wytrzymałości wymaga I ≥ 8·10⁶ mm⁴, a warunek ugięcia I ≥ 11·10⁶ mm⁴. Które I przyjąć?",

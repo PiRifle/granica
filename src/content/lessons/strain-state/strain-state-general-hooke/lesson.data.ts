@@ -21,6 +21,7 @@ export default {
     "U2 — przekształca pomiary rozety w koło Mohra odkształceń i wielkości główne",
     "U3 — dobiera parametry materiałowe i geometryczne z uwagi na bezpieczeństwo oraz sztywność"
   ],
+  "solutionId": "cw7-1",
   "questions": [
     {
       "question": "Dla E = 200 GPa, ν = 0,25, σx = 100 MPa, σy = 50 MPa i σz = 0 ile wynosi εx?",
@@ -44,7 +45,7 @@ export default {
       "correct": 1,
       "hint": "Chociaż σz = 0, naprężenia x i y wywołują skurcz poprzeczny.",
       "explanation": "εz = [0 − 0,33(60 + 60)]/70 000 = −39,6/70 000 ≈ −0,000566. Kierunek z ulega skróceniu mimo zerowego σz.",
-      "outcome": "W1"
+      "outcome": "U1"
     },
     {
       "question": "Dla τxy = 60 MPa i G = 80 GPa ile wynosi inżynierskie γxy?",
@@ -60,13 +61,13 @@ export default {
     }
   ],
   "workedExample": {
-    "given": "Aluminium: E = 70 000 MPa, ν = 0,33, G = 26 000 MPa. Stan: σx = 90 MPa, σy = −30 MPa, σz = 0, τxy = 40 MPa.",
+    "given": "Aluminium: E = 70 000 MPa, ν = 0,33, G = 26 316 MPa. Stan: σx = 90 MPa, σy = −30 MPa, σz = 0, τxy = 40 MPa.",
     "steps": [
       "εx = [90 − 0,33(−30 + 0)]/70 000 = 99,9/70 000 = 0,0014271.",
       "εy = [−30 − 0,33(0 + 90)]/70 000 = −59,7/70 000 = −0,0008529.",
       "εz = [0 − 0,33(90 − 30)]/70 000 = −19,8/70 000 = −0,0002829.",
-      "γxy = 40/26 000 = 0,0015385 rad."
+      "γxy = 40/26 316 = 0,0015200 rad."
     ],
-    "result": "εx ≈ 1427 µε, εy ≈ −853 µε, εz ≈ −283 µε i γxy ≈ 1538 µrad. Wszystkie składowe wynikają z jednoczesnego działania naprężeń."
+    "result": "εx ≈ 1427 µε, εy ≈ −853 µε, εz ≈ −283 µε i γxy ≈ 1520 µrad. Wszystkie składowe wynikają z jednoczesnego działania naprężeń."
   }
 } satisfies LessonData

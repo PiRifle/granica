@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Reakcje wynoszą po 10 kN, a pod siłą wykres skacze o 20 kN.",
-      "explanation": "Przed siłą T = RA = +10 kN. Pod P następuje spadek o 20 kN, więc za siłą T = 10−20 = −10 kN."
+      "explanation": "Przed siłą T = RA = +10 kN. Pod P następuje spadek o 20 kN, więc za siłą T = 10−20 = −10 kN.",
+      "outcome": "U1"
     },
     {
       "question": "Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres T(x) jest:",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Skoro q = 0, to dT/dx = −q = 0.",
-      "explanation": "Zależność dT/dx = −q oznacza przy q = 0 stałą wartość T. Może ona być dodatnia lub ujemna, nie musi być zerowa."
+      "explanation": "Zależność dT/dx = −q oznacza przy q = 0 stałą wartość T. Może ona być dodatnia lub ujemna, nie musi być zerowa.",
+      "outcome": "W1"
     },
     {
       "question": "W punkcie przyłożenia pionowej siły skupionej 30 kN w dół wykres T, czytany od lewej do prawej:",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Odjęta część belki musi zrównoważyć nową siłę w dół.",
-      "explanation": "Przy przyjętej konwencji siła w dół zmniejsza T o 30 kN. Wartość skoku odpowiada sile skupionej; w idealizowanym punkcie przyłożenia wykres jest nieciągły."
+      "explanation": "Przy przyjętej konwencji siła w dół zmniejsza T o 30 kN. Wartość skoku odpowiada sile skupionej; w idealizowanym punkcie przyłożenia wykres jest nieciągły.",
+      "outcome": "W1"
     }
   ],
   "workedExample": {

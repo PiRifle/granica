@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Skorzystaj z zależności T = dM/dx.",
-      "explanation": "Stały niezerowy moment ma zerową pochodną, więc T = 0. To właśnie czyste zginanie; stałe niezerowe T powodowałoby liniową zmianę M."
+      "explanation": "Stały niezerowy moment ma zerową pochodną, więc T = 0. To właśnie czyste zginanie; stałe niezerowe T powodowałoby liniową zmianę M.",
+      "outcome": "W2"
     },
     {
       "question": "Czy przy czystym zginaniu naprężenia normalne w przekroju znikają?",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Rozróżnij naprężenia normalne od momentu i styczne od siły tnącej.",
-      "explanation": "Moment zginający wytwarza σ = My/I niezależnie od tego, że T = 0. Znikają naprężenia styczne związane z siłą tnącą, a nie normalne od zginania."
+      "explanation": "Moment zginający wytwarza σ = My/I niezależnie od tego, że T = 0. Znikają naprężenia styczne związane z siłą tnącą, a nie normalne od zginania.",
+      "outcome": "W2"
     },
     {
       "question": "W teście zginania czteropunktowego między dwiema równymi siłami moment jest stały. Jaki jest tam wykres T?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Między siłami nie ma q, a stały M ma zerową pochodną.",
-      "explanation": "Ponieważ dM/dx = T, stały moment wymusza T = 0. Odcinek między siłami jest klasycznym przykładem czystego zginania."
+      "explanation": "Ponieważ dM/dx = T, stały moment wymusza T = 0. Odcinek między siłami jest klasycznym przykładem czystego zginania.",
+      "outcome": "W2"
     }
   ],
   "workedExample": {

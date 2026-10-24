@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "W σ = My/I wielkość y występuje w pierwszej potędze.",
-      "explanation": "Przy ustalonych M i I naprężenie jest wprost proporcjonalne do y. Dla y = 0 wynosi zero, a po przeciwnych stronach osi ma przeciwne znaki."
+      "explanation": "Przy ustalonych M i I naprężenie jest wprost proporcjonalne do y. Dla y = 0 wynosi zero, a po przeciwnych stronach osi ma przeciwne znaki.",
+      "outcome": "W3"
     },
     {
       "question": "Prostokąt ma b = 60 mm i h = 120 mm. Ile wynosi jego wskaźnik Wz względem osi poziomej?",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Dla prostokąta Wz = bh²/6.",
-      "explanation": "Wz = 60·120²/6 = 60·14 400/6 = 144 000 mm³. Wskaźnik ma jednostkę mm³, a nie mm⁴ jak moment bezwładności."
+      "explanation": "Wz = 60·120²/6 = 60·14 400/6 = 144 000 mm³. Wskaźnik ma jednostkę mm³, a nie mm⁴ jak moment bezwładności.",
+      "outcome": "U1"
     },
     {
       "question": "Przy dodatnim momencie zginającym belkę w dół typowe naprężenia w przekroju symetrycznym to:",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Wygięta belka skraca górne włókna, a wydłuża dolne.",
-      "explanation": "Górne włókna ulegają skróceniu, więc są ściskane; dolne wydłużają się, więc są rozciągane. Oś obojętna dzieli te obszary."
+      "explanation": "Górne włókna ulegają skróceniu, więc są ściskane; dolne wydłużają się, więc są rozciągane. Oś obojętna dzieli te obszary.",
+      "outcome": "W3"
     }
   ],
   "workedExample": {

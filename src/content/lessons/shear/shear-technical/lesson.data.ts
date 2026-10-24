@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Zamień 12 kN na niutony i podziel przez pole ścinania.",
-      "explanation": "τsr = F/A_s = 12 000 N / 150 mm² = 80 N/mm² = 80 MPa. Pole przekroju, nie obwód sworznia, występuje w mianowniku."
+      "explanation": "τsr = F/A_s = 12 000 N / 150 mm² = 80 N/mm² = 80 MPa. Pole przekroju, nie obwód sworznia, występuje w mianowniku.",
+      "outcome": "U1"
     },
     {
       "question": "Przy niezmienionej sile pole ścinania wzrasta trzykrotnie. Jak zmieni się średnie naprężenie styczne?",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Pole znajduje się w mianowniku wzoru τsr = F/A_s.",
-      "explanation": "Przy stałym F mamy τsr,2 = F/(3A_s) = τsr,1/3. Trzy razy większe pole przejmuje siłę przy trzy razy mniejszym średnim naprężeniu."
+      "explanation": "Przy stałym F mamy τsr,2 = F/(3A_s) = τsr,1/3. Trzy razy większe pole przejmuje siłę przy trzy razy mniejszym średnim naprężeniu.",
+      "outcome": "W3"
     },
     {
       "question": "Dlaczego wzoru τsr = F/A_s nie należy traktować jako dokładnego rozkładu naprężeń w każdym punkcie sworznia?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Zwróć uwagę na słowo „średnie” i założenie rozkładu równomiernego.",
-      "explanation": "W ścinaniu technicznym zastępujemy rzeczywisty, zwykle nierównomierny rozkład wartością średnią. W pobliżu docisku i krawędzi otworów mogą występować dodatkowe, miejscowo większe naprężenia."
+      "explanation": "W ścinaniu technicznym zastępujemy rzeczywisty, zwykle nierównomierny rozkład wartością średnią. W pobliżu docisku i krawędzi otworów mogą występować dodatkowe, miejscowo większe naprężenia.",
+      "outcome": "W2"
     }
   ],
   "workedExample": {

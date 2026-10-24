@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 2,
       "hint": "Przyjęta średnica musi spełniać jednocześnie obie nierówności.",
-      "explanation": "Średnica 48 mm spełnia oba warunki, natomiast 42 mm nie spełnia warunku sztywności. Nie uśredniamy wymaganych minimów — wybieramy większą wartość."
+      "explanation": "Średnica 48 mm spełnia oba warunki, natomiast 42 mm nie spełnia warunku sztywności. Nie uśredniamy wymaganych minimów — wybieramy większą wartość.",
+      "outcome": "U3"
     },
     {
       "question": "Po doborze średnicy katalogowej większej od obliczonej wartości minimalnej należy:",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Projekt kończy się weryfikacją rzeczywiście przyjętego przekroju.",
-      "explanation": "Dla przyjętego d oblicza się rzeczywiste τmax i φ oraz porównuje je z granicami. Większa średnica zmniejsza obie wielkości, ale sprawdzenie potwierdza poprawność jednostek i obliczeń."
+      "explanation": "Dla przyjętego d oblicza się rzeczywiste τmax i φ oraz porównuje je z granicami. Większa średnica zmniejsza obie wielkości, ale sprawdzenie potwierdza poprawność jednostek i obliczeń.",
+      "outcome": "U3"
     },
     {
       "question": "Do warunku sztywności podstawiono φdop = 1°, bez zamiany na radiany. Jaki to błąd?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Wzór φ = TL/(GJ_o) daje wynik w radianach.",
-      "explanation": "Dopuszczalny kąt musi być wyrażony w tej samej miarze co obliczany. 1° = π/180 = 0,01745 rad; podstawienie liczby 1 zamiast 0,01745 da błędną średnicę."
+      "explanation": "Dopuszczalny kąt musi być wyrażony w tej samej miarze co obliczany. 1° = π/180 = 0,01745 rad; podstawienie liczby 1 zamiast 0,01745 da błędną średnicę.",
+      "outcome": "U3"
     }
   ],
   "workedExample": {

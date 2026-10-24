@@ -56,7 +56,7 @@ export default {
       "correct": 0,
       "hint": "Rozdziel Re w warunku wytrzymałości od E w prawie Hooke’a.",
       "explanation": "Większe Re zwiększa k i zapas n. Przy niezmienionych E, A, L i P wydłużenie PL/(EA) pozostaje takie samo.",
-      "outcome": "W2"
+      "outcome": "U3"
     }
   ],
   "workedExample": {

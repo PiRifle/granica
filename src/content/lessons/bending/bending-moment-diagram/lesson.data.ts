@@ -31,7 +31,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Nachylenie wykresu M jest równe T.",
-      "explanation": "dM/dx = T = 5 kN, więc wykres M jest prostą rosnącą. Jednostką nachylenia jest kN, bo moment w kN·m dzielimy przez długość w m."
+      "explanation": "dM/dx = T = 5 kN, więc wykres M jest prostą rosnącą. Jednostką nachylenia jest kN, bo moment w kN·m dzielimy przez długość w m.",
+      "outcome": "W1"
     },
     {
       "question": "Dla siły P na środku belki swobodnie podpartej o rozpiętości L maksymalny moment wynosi:",
@@ -42,7 +43,8 @@ export default {
       ],
       "correct": 1,
       "hint": "Reakcja wynosi P/2, a ramię od podpory do środka L/2.",
-      "explanation": "Mmax = RA·L/2 = (P/2)(L/2) = PL/4. Moment jest największy pod siłą, gdzie T zmienia znak."
+      "explanation": "Mmax = RA·L/2 = (P/2)(L/2) = PL/4. Moment jest największy pod siłą, gdzie T zmienia znak.",
+      "outcome": "U1"
     },
     {
       "question": "T(x) przechodzi przez zero i zmienia znak z dodatniego na ujemny. Co dzieje się z M(x)?",
@@ -53,7 +55,8 @@ export default {
       ],
       "correct": 0,
       "hint": "Najpierw moment rośnie, a potem maleje.",
-      "explanation": "Dodatnie T oznacza rosnący M, a ujemne T malejący M. Zmiana znaku z + na − wyznacza więc lokalne maksimum momentu."
+      "explanation": "Dodatnie T oznacza rosnący M, a ujemne T malejący M. Zmiana znaku z + na − wyznacza więc lokalne maksimum momentu.",
+      "outcome": "W1"
     }
   ],
   "workedExample": {

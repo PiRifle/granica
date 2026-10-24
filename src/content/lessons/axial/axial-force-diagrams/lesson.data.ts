@@ -21,6 +21,7 @@ export default {
     "U2 — przygotowuje dane N do analizy naprężeń przekrojowych",
     "U3 — lokalizuje odcinki decydujące o wymiarowaniu"
   ],
+  "solutionId": "cw1-3",
   "questions": [
     {
       "question": "Jak zmienia się N między dwiema sąsiednimi siłami osiowymi skupionymi, jeśli na tym odcinku nie ma obciążenia rozłożonego?",
@@ -32,7 +33,7 @@ export default {
       "correct": 0,
       "hint": "W przekroju na tym odcinku zestaw sił po jednej stronie nie zmienia się.",
       "explanation": "Bez obciążenia rozłożonego nie pojawiają się nowe siły wraz z przesuwaniem przekroju między punktami przyłożenia. Równowaga daje więc stałe N na całym odcinku.",
-      "outcome": "W2"
+      "outcome": "W3"
     },
     {
       "question": "Na wolnym końcu pręta działa osiowa siła 5 kN rozciągająca. Ile wynosi N na odcinku bez innych obciążeń tuż przy tym końcu?",
@@ -63,11 +64,11 @@ export default {
     "given": "Pręt jest utwierdzony w A (x = 0). W kolejnych przekrojach działają: 20 kN w prawo, potem 10 kN w lewo, a na wolnym końcu 5 kN w prawo. Między siłami nie ma obciążenia rozłożonego.",
     "steps": [
       "Zacznij od wolnego końca. Na ostatnim odcinku jedyną siłą zewnętrzną odciętej prawej części jest 5 kN, więc N₃ = +5 kN.",
-      "Na środkowym odcinku po prawej stronie działają 20 kN w prawo i 5 kN w prawo, więc N₂ = +25 kN.",
+      "Na środkowym odcinku po prawej stronie działają 10 kN w lewo i 5 kN w prawo, więc N₂ = −10 + 5 = −5 kN.",
       "Na pierwszym odcinku po prawej stronie działają 20 kN w prawo, 10 kN w lewo i 5 kN w prawo, więc N₁ = +(20 − 10 + 5) = +15 kN.",
       "Z równowagi całego pręta reakcja w A wynosi 15 kN w lewo, co potwierdza N₁ = +15 kN.",
-      "Narysuj trzy poziome stopnie: +15, +25 i +5 kN, ze skokami w przekrojach przyłożenia sił."
+      "Narysuj trzy poziome stopnie: +15, −5 i +5 kN, ze skokami w przekrojach przyłożenia sił."
     ],
-    "result": "Od utwierdzenia do wolnego końca: N = +15 kN, +25 kN, +5 kN; wszystkie odcinki są rozciągane."
+    "result": "Od utwierdzenia do wolnego końca: N = +15 kN, −5 kN, +5 kN; środkowy odcinek jest ściskany, a pozostałe rozciągane."
   }
 } satisfies LessonData

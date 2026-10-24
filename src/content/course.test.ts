@@ -47,28 +47,32 @@ describe('integralność kursu', () => {
     }
   })
 
-  it('ma poprawne odpowiedzi i wyjaśnienia w pytaniach', () => {
-    for (const lesson of lessons) {
-      for (const question of lesson.questions) {
-        expect(question.answers.length, lesson.id).toBeGreaterThanOrEqual(3)
-        expect(question.correct, lesson.id).toBeGreaterThanOrEqual(0)
-        expect(question.correct, lesson.id).toBeLessThan(question.answers.length)
-        expect(question.explanation.trim().length, lesson.id).toBeGreaterThan(10)
-        expect(question.hint.trim().length, lesson.id).toBeGreaterThan(5)
-      }
+  it('ma poprawne odpowiedzi, wyjaśnienia i efekty we wszystkich 210 pytaniach', () => {
+    const outcomes = new Set(['W1', 'W2', 'W3', 'U1', 'U2', 'U3'])
+    const questions = lessons.flatMap((lesson) => lesson.questions.map((question) => ({ lesson, question })))
+    expect(questions).toHaveLength(210)
+    for (const { lesson, question } of questions) {
+      expect(question.answers.length, lesson.id).toBeGreaterThanOrEqual(3)
+      expect(question.correct, lesson.id).toBeGreaterThanOrEqual(0)
+      expect(question.correct, lesson.id).toBeLessThan(question.answers.length)
+      expect(question.explanation.trim().length, lesson.id).toBeGreaterThan(10)
+      expect(question.hint.trim().length, lesson.id).toBeGreaterThan(5)
+      expect(outcomes.has(question.outcome ?? ''), `${lesson.id}: ${question.question}`).toBe(true)
     }
   })
 
-  it('podpina istniejące rozwiązania do lekcji', () => {
+  it('podpina wszystkie 12 istniejących rozwiązań do lekcji', () => {
     const solutionIds = new Set(workedSolutions.map((solution) => solution.id))
     expect(workedSolutions).toHaveLength(12)
     expect(solutionIds.size).toBe(workedSolutions.length)
-    const linked = lessons.filter((lesson) => lesson.solutionId)
-    expect(linked.length).toBeGreaterThanOrEqual(5)
-    for (const lesson of linked) {
-      expect(solutionIds.has(lesson.solutionId as string), lesson.id).toBe(true)
-      const solution = workedSolutions.find((item) => item.id === lesson.solutionId)
-      expect(solution?.scenes.length, lesson.solutionId).toBeGreaterThanOrEqual(7)
+    const linkedIds = lessons.flatMap((lesson) => [lesson.solutionId, ...(lesson.solutionIds ?? [])])
+      .filter((id): id is string => Boolean(id))
+    expect(new Set(linkedIds)).toEqual(solutionIds)
+    for (const id of linkedIds) {
+      expect(solutionIds.has(id), id).toBe(true)
+    }
+    for (const solution of workedSolutions) {
+      expect(solution.scenes.length, solution.id).toBeGreaterThanOrEqual(7)
     }
   })
 

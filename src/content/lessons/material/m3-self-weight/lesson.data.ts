@@ -70,6 +70,6 @@ export default {
       "Obciążenie liniowe q = G/L = 92,4/4 = 23,1 N/m.",
       "Największe naprężenie przy zawieszeniu: σmax = G/A = 92,4/300 = 0,308 N/mm² = 0,308 MPa; to samo daje ρgL po przeliczeniu jednostek."
     ],
-    "result": "Pręt waży około 9,42 kg, jego ciężar wynosi 92,4 N, a największe naprężenie od ciężaru własnego to około 0,308 MPa."
+    "result": "Pręt ma masę około 9,42 kg, jego ciężar wynosi 92,4 N, a największe naprężenie od ciężaru własnego to około 0,308 MPa."
   }
 } satisfies LessonData
