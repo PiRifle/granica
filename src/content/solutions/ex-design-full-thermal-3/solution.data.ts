@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { ThermalLimitDesignAnimation } from './animation'
 
 export default {
   id: 'ex-design-full-thermal-3',
@@ -6,7 +7,8 @@ export default {
   duration: 7,
   given: ['k_c=160 MPa', 'E=200 GPa', 'alpha=12·10⁻⁶ 1/K'],
   result:
-    'Zadania termiczne najłatwiej pomylić przez pominięcie warunku zgodności lub przez złe ustalenie znaku. Poniższa lista porządkuje typowe pułapki.',
+    'Największa dopuszczalna zmiana temperatury dla stali wynosi około 66,7 K. Dla aluminium o E=70 GPa i α=23·10⁻⁶ 1/K limit wypada przy około 99,4 K, bo decyduje iloczyn Eα. Alternatywą dla większego przekroju jest luz: przy ΔT=80 K i L=1500 mm potrzeba g≈1,44 mm. Dla smukłego pręta trzeba jeszcze sprawdzić wyboczenie.',
+  animation: ThermalLimitDesignAnimation,
   figure: {
     kind: 'axial',
     top: 'fixed',
@@ -29,53 +31,61 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Dla pręta idealnie zablokowanego pytamy, jaka maksymalna zmiana temperatury jest dopuszczalna, jeśli naprężenie ściskające nie może przekroczyć k_c=160 MPa. Dla stali E=200 GPa i α=12·10^-6 1/K mamy |σ|=EαΔ T, więc Δ T_max=k_c/(Eα)=160/(200 000·12·10^-6)≈66,7 K.',
-      caption:
-        'Dla pręta idealnie zablokowanego pytamy, jaka maksymalna zmiana temperatury jest dopuszczalna, jeśli naprężenie ściskające nie…',
-      visual: 'axial',
-      focus: { metric: 'σ', segment: '1' },
-      formula: 'k_c=160\\ \\text{MPa}',
+        'Pręt jest idealnie zablokowany na obu końcach. Dla stali E = 200 GPa, α = 12·10⁻⁶ 1/K, a dopuszczalne naprężenie ściskające k_c = 160 MPa. Szukamy największej dopuszczalnej zmiany temperatury.',
+      caption: 'Oba końce nieruchome; szukamy ΔT, przy którym |σ| osiąga k_c.',
+      visual: 'thermal',
+      focus: { metric: 'model' },
+      formula: '|\\sigma|=E\\alpha\\Delta T\\le k_c=160\\ \\text{MPa}',
     },
     {
-      title: 'Krok 2',
+      title: 'Naprężenie rośnie z temperaturą',
       narration:
-        'Dla aluminium o E=70 GPa i α=23·10^-6 1/K iloczyn Eα wynosi około 1,61 MPa/K, więc Δ T_max≈160/1,61≈99,4 K. Aluminium znosi większą zmianę temperatury przy tym samym naprężeniu dopuszczalnym, ponieważ iloczyn Eα jest mniejszy, mimo większego współczynnika rozszerzalności.',
-      caption:
-        'Dla aluminium o E=70 GPa i α=23·10^-6 1/K iloczyn Eα wynosi około 1,61 MPa/K, więc Δ T_max≈160/1,61≈99,4 K. Aluminium znosi…',
-      visual: 'axial',
-      focus: { metric: 'σ', segment: '1' },
-      formula: 'E=70\\ \\text{GPa}',
+        'Przy ogrzewaniu swobodne wydłużenie rośnie, ale końce są nieruchome. Odkształcenie mechaniczne kompensuje termiczne, a naprężenie rośnie liniowo: |σ| = EαΔT = 2,4·ΔT MPa. Przy ΔT = 50 K jest już równe 120 MPa.',
+      caption: 'Wzrost jest liniowy; nachylenie wykresu wyznacza iloczyn Eα.',
+      visual: 'thermal',
+      focus: { metric: 'ramp' },
+      formula:
+        '|\\sigma|=E\\alpha\\Delta T=200\\,000\\cdot12\\cdot10^{-6}\\cdot\\Delta T=2{,}4\\,\\Delta T\\ \\text{MPa}',
     },
     {
-      title: 'Krok 3',
+      title: 'Granica dopuszczalna',
       narration:
-        'Wariant odwrotny można też odwrócić inaczej: mając dopuszczalne naprężenie i znaną temperaturę, obliczyć wymagany luz. Dla Δ T=80 K i L=1500 mm luz całkowicie usuwający naprężenie wynosi g=αΔ T L=12·10^-6·80·1500=1,44 mm. Taki luz jest rozwiązaniem alternatywnym do zwiększania przekroju, które w przypadku idealnego zablokowania i tak nie zmniejsza naprężenia.',
-      caption:
-        'Wariant odwrotny można też odwrócić inaczej: mając dopuszczalne naprężenie i znaną temperaturę, obliczyć wymagany luz. Dla Δ T=80…',
-      visual: 'axial',
-      focus: { metric: 'ΔL_T', segment: '1' },
-      formula: '\\Delta T=80\\ \\text{K}',
+        'Granica 160 MPa zostaje osiągnięta przy ΔT_max = k_c/(Eα) = 160/(200 000·12·10⁻⁶) ≈ 66,7 K. To jest dopuszczalna zmiana temperatury dla tego pręta.',
+      caption: 'Powyżej 66,7 K naprężenie przekracza k_c.',
+      visual: 'thermal',
+      focus: { metric: 'limit' },
+      formula:
+        '\\Delta T_{\\max}=\\frac{k_c}{E\\alpha}=\\frac{160}{200\\,000\\cdot12\\cdot10^{-6}}\\approx66{,}7\\ \\text{K}',
     },
     {
-      title: 'Krok 4',
+      title: 'Porównanie materiałów',
       narration:
-        'Porównanie stali i aluminium nie jest jednoznaczne. Aluminium ma większe α, ale mniejsze E, więc iloczyn Eα może być mniejszy. Trzeba jednak pamiętać, że aluminium ma również mniejszą granicę plastyczności, więc k_c nie musi być takie samo. Porównanie naprężenia termicznego przy tej samej Δ T to dopiero jeden z elementów decyzji.',
-      caption:
-        'Porównanie stali i aluminium nie jest jednoznaczne. Aluminium ma większe α, ale mniejsze E, więc iloczyn Eα może być mniejszy.…',
-      visual: 'axial',
-      focus: { metric: 'αΔT', segment: '1' },
-      formula: '\\alpha',
+        'Dla aluminium E = 70 GPa i α = 23·10⁻⁶ 1/K iloczyn Eα ≈ 1,61 MPa/K, więc ΔT_max ≈ 160/1,61 ≈ 99,4 K. Aluminium znosi większą zmianę temperatury mimo większego α, bo decyduje iloczyn Eα. Trzeba jednak pamiętać o jego mniejszej granicy plastyczności.',
+      caption: 'Porównuj Eα, nie samo α; dla aluminium limit wypada przy około 99,4 K.',
+      visual: 'thermal',
+      focus: { metric: 'materials' },
+      formula:
+        'E\\alpha=70\\,000\\cdot23\\cdot10^{-6}\\approx1{,}61\\ \\text{MPa/K}\\quad\\Rightarrow\\quad \\Delta T_{\\max}\\approx99{,}4\\ \\text{K}',
     },
     {
-      title: 'Krok 5',
+      title: 'Luz zamiast większego przekroju',
       narration:
-        'Zadania termiczne najłatwiej pomylić przez pominięcie warunku zgodności lub przez złe ustalenie znaku. Poniższa lista porządkuje typowe pułapki.',
-      caption:
-        'Zadania termiczne najłatwiej pomylić przez pominięcie warunku zgodności lub przez złe ustalenie znaku. Poniższa lista porządkuje…',
-      visual: 'axial',
-      focus: { metric: 'σ', segment: '1' },
+        'Zamiast zwiększać przekrój, można dobrać luz. Przy ΔT = 80 K i L = 1500 mm swobodne wydłużenie wynosi g = αΔTL = 12·10⁻⁶·80·1500 ≈ 1,44 mm. Taki luz całkowicie usuwa naprężenie przy tej temperaturze.',
+      caption: 'Luz 1,44 mm domyka się dokładnie przy 80 K; σ pozostaje zerowe.',
+      visual: 'thermal',
+      focus: { metric: 'gap' },
+      formula: 'g=\\alpha\\Delta T L=12\\cdot10^{-6}\\cdot80\\cdot1500\\approx1{,}44\\ \\text{mm}',
+    },
+    {
+      title: 'Sprawdzenie stateczności',
+      narration:
+        'Warunek naprężeniowy to jeszcze nie wszystko. Ściskany pręt może wyboczyć się przed osiągnięciem k_c, jeśli jest smukły. Wtedy o dopuszczalnej temperaturze decyduje stateczność, a nie sama wytrzymałość materiału.',
+      caption: 'Sprawdź wyboczenie; dla smukłego pręta może ono wystąpić przed σ = 160 MPa.',
+      visual: 'thermal',
+      focus: { metric: 'buckling' },
+      formula: '|\\sigma|\\le k_c\\quad\\text{oraz}\\quad \\text{sprawdzenie wyboczenia}',
     },
   ],
 } satisfies SolutionData

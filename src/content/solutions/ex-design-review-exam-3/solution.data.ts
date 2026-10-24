@@ -1,12 +1,14 @@
 import type { SolutionData } from '../../model'
+import { DesignReviewExam3Animation } from './animation'
 
 export default {
   id: 'ex-design-review-exam-3',
   title: 'Powtórka mieszana i strategia kolokwium — przykład 3',
   duration: 7,
-  given: ['M=3 kN·m', 'k=150 MPa'],
+  animation: DesignReviewExam3Animation,
+  given: ['M = 3 kN·m', 'k = 150 MPa'],
   result:
-    'Wariant odwrotny uczy, że kontrola rzędu wielkości jest częścią rozwiązania. Średnica 0,6 mm lub 5,9 mm powinna natychmiast wzbudzić podejrzenie. Podobnie moment 18 200 N·mm zamiast 18 200 000 N·mm daje wskaźnik tysiąc razy za mały, a średnicę około dziesięć razy za małą. Zawsze warto zapytać, czy otrzymany wymiar jest realistyczny dla danej konstrukcji.',
+    'Wariant odwrotny uczy, że kontrola rzędu wielkości jest częścią rozwiązania. Moment 3 kN·m to 3 000 000 N·mm, a nie 3. Poprawny wskaźnik wynosi 20 000 mm³, a średnica 60 mm jest realistyczna. Wynik 0,6 mm odrzucamy, bo powstał przez pominięcie zamiany jednostek.',
   figure: {
     kind: 'beam',
     length: 2,
@@ -57,62 +59,61 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model belki',
       narration:
-        'Na kolokwium często trzeba ocenić gotowe rozwiązanie. Przypuśćmy, że student oblicza belkę dla M=3 kN·m i k=150 MPa, a następnie zapisuje W=3/150=0,02 mm^3 i wnioskuje, że średnica może wynosić około 0,6 mm. Wynik jest absurdalny, więc trzeba znaleźć błąd.',
-      caption:
-        'Na kolokwium często trzeba ocenić gotowe rozwiązanie. Przypuśćmy, że student oblicza belkę dla M=3 kN·m i k=150 MPa, a następnie…',
+        'Belka swobodnie podparta ma rozpiętość L = 2 m i jest obciążona siłą P = 6 kN w środku. Dopuszczalne naprężenie wynosi k = 150 MPa. Najpierw ustalamy model i obciążenie, a dopiero potem szukamy przekroju.',
+      caption: 'Model: belka, dwa podparcia i siła w środku rozpiętości. Szukamy średnicy przekroju kołowego.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'M=3\\ \\text{kN}\\cdot\\text{m}',
+      focus: { metric: 'loads' },
+      formula: 'P=6\\ \\text{kN},\\quad L=2\\ \\text{m},\\quad k=150\\ \\text{MPa}',
     },
     {
-      title: 'Krok 2',
+      title: 'Reakcje i siła tnąca',
       narration:
-        'Błąd polega na pominięciu zamiany jednostek. Moment 3 kN·m to 3 000 000 N·mm, a nie 3. Poprawny wskaźnik wynosi W=3 000 000/150=20 000 mm^3. Dla pełnego koła d=∛(32W/π)=∛(640 000/π)≈58,8 mm, więc sensowny wymiar to 60 mm.',
-      caption:
-        'Błąd polega na pominięciu zamiany jednostek. Moment 3 kN·m to 3 000 000 N·mm, a nie 3. Poprawny wskaźnik wynosi W=3 000…',
+        'Z symetrii reakcje wynoszą R_A = R_B = P/2 = 3 kN. Siła tnąca ma wartość +3 kN po lewej stronie siły i −3 kN po prawej, więc zmienia znak dokładnie pod siłą.',
+      caption: 'Reakcje po 3 kN, a siła tnąca zmienia znak pod obciążeniem. To zapowiada ekstremum momentu.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '3\\ \\text{kN}\\cdot\\text{m}',
+      focus: { metric: 'shear' },
+      formula: 'R_A=R_B=\\frac{P}{2}=3\\ \\text{kN},\\quad T=\\pm3\\ \\text{kN}',
     },
     {
-      title: 'Krok 3',
+      title: 'Moment maksymalny',
       narration:
-        'Sprawdzenie przyjętego wymiaru: W=π·60^3/32≈21 206 mm^3, a σ=3 000 000/21 206≈141,5 MPa≤150 MPa. Wynik jest poprawny i ma niewielki zapas. Gdyby student użył 3000/150=20 mm^3, otrzymałby d≈5,9 mm, co również jest absurdalne dla belki o takim momencie.',
-      caption:
-        'Sprawdzenie przyjętego wymiaru: W=π·60^3/32≈21 206 mm^3, a σ=3 000 000/21 206≈141,5 MPa≤150 MPa. Wynik jest poprawny i ma…',
+        'Moment zginający rośnie liniowo od podpór i osiąga maksimum pod siłą. Dla siły w środku M_max = PL/4 = 6·2/4 = 3 kN·m. Ten moment trafia do warunku wytrzymałości.',
+      caption: 'Wykres momentu jest trójkątny; maksimum 3 kN·m wypada w środku rozpiętości.',
+      visual: 'beam',
+      focus: { metric: 'moment' },
+      formula: 'M_{\\max}=\\frac{PL}{4}=\\frac{6\\cdot2}{4}=3\\ \\text{kN}\\cdot\\text{m}',
+    },
+    {
+      title: 'Jednostki i dobór średnicy',
+      narration:
+        'Student podstawia M = 3 zamiast 3 000 000 N·mm i otrzymuje W = 0,02 mm³, a potem d ≈ 0,6 mm. To absurd. Poprawnie: W_min = 3 000 000/150 = 20 000 mm³, d_min ≈ 58,8 mm, więc przyjmujemy 60 mm.',
+      caption: 'Przekrój rośnie od nierealnych 0,6 mm do poprawnego wymiaru 60 mm. Decyduje zamiana jednostek momentu.',
+      visual: 'beam',
+      focus: { metric: 'design' },
+      formula:
+        'W_{\\min}=\\frac{3\\,000\\,000}{150}=20\\,000\\ \\text{mm}^3\\quad d_{\\min}=\\sqrt[3]{\\frac{32W_{\\min}}{\\pi}}\\approx58{,}8\\ \\text{mm}\\quad d=60\\ \\text{mm}',
+    },
+    {
+      title: 'Kontrola naprężeń',
+      narration:
+        'Dla przyjętej średnicy 60 mm wskaźnik wynosi W = π·60³/32 ≈ 21 206 mm³. Naprężenie σ = 3 000 000/21 206 ≈ 141,5 MPa jest mniejsze od 150 MPa, ale zapas jest niewielki.',
+      caption: 'Rozkład naprężeń jest liniowy od osi obojętnej. Wykorzystanie granicy wynosi około 94%.',
       visual: 'beam',
       focus: { metric: 'stress' },
-      formula: 'W=\\pi\\cdot60^3/32\\approx21\\,206\\ \\text{mm}^3',
+      formula:
+        'W=\\frac{\\pi\\cdot60^3}{32}\\approx21\\,206\\ \\text{mm}^3,\\quad \\sigma=\\frac{3\\,000\\,000}{21\\,206}\\approx141{,}5\\ \\text{MPa}\\le150\\ \\text{MPa}',
     },
     {
-      title: 'Krok 4',
+      title: 'Decyzja i rząd wielkości',
       narration:
-        'Przy przyjętym obciążeniu reakcje wynoszą po 3 kN, a siła tnąca na obu odcinkach ma wartość 3 kN. Moment maksymalny w środku to 3 kN·m.',
+        'Kontrola rzędu wielkości jest częścią rozwiązania: 0,6 mm jest absurdalne dla belki o takim momencie, a 60 mm jest realistyczne. Wynik 0,6 mm odrzucamy, bo powstał przez pominięcie zamiany kN·m na N·mm. Przyjmujemy d = 60 mm.',
       caption:
-        'Przy przyjętym obciążeniu reakcje wynoszą po 3 kN, a siła tnąca na obu odcinkach ma wartość 3 kN. Moment maksymalny w środku to 3 kN·m.',
+        'Odpowiedź: d = 60 mm, σ ≈ 141,5 MPa ≤ 150 MPa. Błąd jednostek został wychwycony przez kontrolę rzędu wielkości.',
       visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A=R_B=3\\ \\text{kN}',
-    },
-    {
-      title: 'Siła tnąca',
-      narration: 'Siła tnąca wynosi T = R_A = 3 kN po lewej stronie siły i T = -R_B = -3 kN po prawej.',
-      caption: 'Siła tnąca wynosi T = R_A = 3 kN po lewej stronie siły i T = -R_B = -3 kN po prawej.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T = R_A = 3\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 5',
-      narration:
-        'Wariant odwrotny uczy, że kontrola rzędu wielkości jest częścią rozwiązania. Średnica 0,6 mm lub 5,9 mm powinna natychmiast wzbudzić podejrzenie. Podobnie moment 18 200 N·mm zamiast 18 200 000 N·mm daje wskaźnik tysiąc razy za mały, a średnicę około dziesięć razy za małą. Zawsze warto zapytać, czy otrzymany wymiar jest realistyczny dla danej konstrukcji.',
-      caption:
-        'Wariant odwrotny uczy, że kontrola rzędu wielkości jest częścią rozwiązania. Średnica 0,6 mm lub 5,9 mm powinna natychmiast…',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: '0{,}6\\ \\text{mm}',
+      focus: { metric: 'check' },
+      formula: 'd=60\\ \\text{mm},\\quad \\sigma\\approx141{,}5\\ \\text{MPa}\\le k=150\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

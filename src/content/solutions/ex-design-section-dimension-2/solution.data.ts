@@ -1,10 +1,12 @@
 import type { SolutionData } from '../../model'
+import { SectionDimension2Animation } from './animation'
 
 export default {
   id: 'ex-design-section-dimension-2',
   title: 'Dobór wymiaru z warunku wytrzymałości — przykład 2',
   duration: 7,
   given: ['h=2b', 'L=2 m', 'P=12 kN', 'k=160 MPa'],
+  animation: SectionDimension2Animation,
   result:
     'Warto porównać przekrój prostokątny z kołem o tym samym W. Dla koła W=42 667 daje d^3=32W/π≈ 434 500, czyli d≈ 75,7 mm. Pole koła wynosi około 4500 mm^2, a pole prostokąta 3200 mm^2. Prostokąt jest więc lżejszy przy podobnej nośności, ponieważ materiał jest odsunięty dalej od osi obojętnej. To pierwsza ilustracja tego, że kształt przekroju ma znaczenie.',
   figure: {
@@ -62,60 +64,57 @@ export default {
   },
   scenes: [
     {
-      title: 'Reakcje',
-      narration: 'Przy symetrycznym obciążeniu reakcje wynoszą R_A = R_B = P/2 = 12/2 = 6 kN.',
-      caption: 'Przy symetrycznym obciążeniu reakcje wynoszą R_A = R_B = P/2 = 12/2 = 6 kN.',
-      visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A = R_B = P/2 = 12/2 = 6\\ \\text{kN}',
-    },
-    {
-      title: 'Siła tnąca',
-      narration: 'Siła tnąca wynosi T = R_A = 6 kN po lewej stronie siły i T = -R_B = -6 kN po prawej.',
-      caption: 'Siła tnąca wynosi T = R_A = 6 kN po lewej stronie siły i T = -R_B = -6 kN po prawej.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T = R_A = 6\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 1',
+      title: 'Model i obciążenie',
       narration:
-        'Rozważmy belkę o tym samym schemacie, ale z przekrojem prostokątnym o proporcji h=2b. Dane: L=2 m, P=12 kN, k=160 MPa. Moment maksymalny wynosi M_max=12· 2/4=6 kN·m=6 000 000 N·mm.',
+        'Belka swobodnie podparta ma L = 2 m i jest obciążona siłą P = 12 kN w środku. Reakcje wynoszą po 6 kN, a moment maksymalny M_max = PL/4 = 6 kN·m = 6 000 000 N·mm.',
       caption:
-        'Rozważmy belkę o tym samym schemacie, ale z przekrojem prostokątnym o proporcji h=2b. Dane: L=2 m, P=12 kN, k=160 MPa. Moment…',
+        'Belka swobodnie podparta ma L = 2 m i jest obciążona siłą P = 12 kN w środku. Reakcje wynoszą po 6 kN, a moment maksymalny M_max = PL/4 = 6 kN·m = 6 000 000 N·mm.',
       visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'h=2b',
+      focus: { metric: 'load' },
+      formula: 'M_{\\max}=PL/4=12\\,000\\cdot 2000/4=6\\,000\\,000\\ \\text{N}\\cdot\\text{mm}',
     },
     {
-      title: 'Krok 2',
+      title: 'Wymagany wskaźnik',
       narration:
-        'Wymagany wskaźnik to W_min=6 000 000/160=37 500 mm^3. Dla h=2b mamy W=bh^2/6=b· 4b^2/6=2b^3/3. Po przekształceniu b^3≥ 3W_min/2=56 250, więc b≥ 38,3 mm.',
+        'Wymagany wskaźnik to W_min = 6 000 000/160 = 37 500 mm³. Dla prostokąta o proporcji h = 2b mamy W = bh²/6 = 2b³/3, więc b_min = ∛(3W_min/2) ≈ 38,3 mm.',
       caption:
-        'Wymagany wskaźnik to W_min=6 000 000/160=37 500 mm^3. Dla h=2b mamy W=bh^2/6=b· 4b^2/6=2b^3/3. Po przekształceniu b^3≥…',
+        'Wymagany wskaźnik to W_min = 6 000 000/160 = 37 500 mm³. Dla prostokąta o proporcji h = 2b mamy W = bh²/6 = 2b³/3, więc b_min = ∛(3W_min/2) ≈ 38,3 mm.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'W_{\\min}=6\\,000\\,000/160=37\\,500\\ \\text{mm}^3',
+      focus: { metric: 'required' },
+      formula:
+        'W_{\\min}=\\frac{M_{\\max}}{k}=37\\,500\\ \\text{mm}^3\\quad\\Rightarrow\\quad b_{\\min}=\\sqrt[3]{\\frac{3W_{\\min}}{2}}\\approx38{,}3\\ \\text{mm}',
     },
     {
-      title: 'Krok 3',
+      title: 'Przyjęty przekrój',
       narration:
-        'Przyjmujemy b=40 mm i h=80 mm. Rzeczywisty wskaźnik wynosi W=40· 80^2/6=42 667 mm^3, a naprężenie σ=6 000 000/42 667=140,6 MPa, czyli mniej niż 160 MPa.',
+        'Przyjmujemy b = 40 mm i h = 2b = 80 mm. Rzeczywisty wskaźnik wynosi W = 40·80²/6 = 42 667 mm³, czyli więcej niż wymagane 37 500 mm³.',
       caption:
-        'Przyjmujemy b=40 mm i h=80 mm. Rzeczywisty wskaźnik wynosi W=40· 80^2/6=42 667 mm^3, a naprężenie σ=6 000 000/42 667=140,6 MPa,…',
+        'Przyjmujemy b = 40 mm i h = 2b = 80 mm. Rzeczywisty wskaźnik wynosi W = 40·80²/6 = 42 667 mm³, czyli więcej niż wymagane 37 500 mm³.',
+      visual: 'beam',
+      focus: { metric: 'selection' },
+      formula:
+        'b=40\\ \\text{mm},\\quad h=2b=80\\ \\text{mm}\\quad\\Rightarrow\\quad W=\\frac{40\\cdot80^2}{6}=42\\,667\\ \\text{mm}^3',
+    },
+    {
+      title: 'Kontrola naprężeń',
+      narration:
+        'Naprężenie wynosi σ_max = 6 000 000/42 667 ≈ 140,6 MPa, czyli mniej niż k = 160 MPa. Wykorzystanie przekroju to około 88%, więc warunek jest spełniony z niewielkim zapasem.',
+      caption:
+        'Naprężenie wynosi σ_max = 6 000 000/42 667 ≈ 140,6 MPa, czyli mniej niż k = 160 MPa. Wykorzystanie przekroju to około 88%, więc warunek jest spełniony z niewielkim zapasem.',
       visual: 'beam',
       focus: { metric: 'stress' },
-      formula: 'b=40\\ \\text{mm}',
+      formula:
+        '\\sigma_{\\max}=\\frac{M_{\\max}}{W}=\\frac{6\\,000\\,000}{42\\,667}\\approx140{,}6\\ \\text{MPa}\\le160\\ \\text{MPa}',
     },
     {
-      title: 'Krok 4',
+      title: 'Porównanie kształtów',
       narration:
-        'Warto porównać przekrój prostokątny z kołem o tym samym W. Dla koła W=42 667 daje d^3=32W/π≈ 434 500, czyli d≈ 75,7 mm. Pole koła wynosi około 4500 mm^2, a pole prostokąta 3200 mm^2. Prostokąt jest więc lżejszy przy podobnej nośności, ponieważ materiał jest odsunięty dalej od osi obojętnej. To pierwsza ilustracja tego, że kształt przekroju ma znaczenie.',
+        'Koło o tym samym W = 42 667 mm³ miałoby d ≈ 75,7 mm i pole około 4500 mm². Prostokąt 40 × 80 mm ma pole 3200 mm², więc jest lżejszy przy podobnej nośności, ponieważ materiał jest odsunięty dalej od osi obojętnej.',
       caption:
-        'Warto porównać przekrój prostokątny z kołem o tym samym W. Dla koła W=42 667 daje d^3=32W/π≈ 434 500, czyli d≈ 75,7 mm. Pole koła…',
+        'Koło o tym samym W = 42 667 mm³ miałoby d ≈ 75,7 mm i pole około 4500 mm². Prostokąt 40 × 80 mm ma pole 3200 mm², więc jest lżejszy przy podobnej nośności, ponieważ materiał jest odsunięty dalej od osi obojętnej.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'W',
+      focus: { metric: 'shape' },
+      formula: 'W=\\frac{\\pi d^3}{32}=42\\,667\\ \\text{mm}^3\\quad\\Rightarrow\\quad d\\approx75{,}7\\ \\text{mm}',
     },
   ],
 } satisfies SolutionData

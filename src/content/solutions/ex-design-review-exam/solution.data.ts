@@ -1,10 +1,12 @@
 import type { SolutionData } from '../../model'
+import { DesignReviewExam1Animation } from './animation'
 
 export default {
   id: 'ex-design-review-exam',
   title: 'Powtórka mieszana i strategia kolokwium — przykład 1',
   duration: 7,
   given: ['M=800 N·m', 'T=600 N·m', 'R_e=235 MPa', 'n=2'],
+  animation: DesignReviewExam1Animation,
   result:
     'Przyjęto d=45 mm. Naprężenie zredukowane wynosi około 106,6 MPa i jest mniejsze od dopuszczalnego 117,5 MPa, a rzeczywisty zapas względem R_e wynosi około 2,20.',
   figure: {
@@ -108,97 +110,60 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Naprężenie dopuszczalne: k=R_e/n=235/2=117,5 MPa.',
-      caption: 'Naprężenie dopuszczalne: k=R_e/n=235/2=117,5 MPa.',
+      title: 'Model i obciążenia',
+      narration:
+        'Wał pełny przenosi jednocześnie moment zginający M = 800 N·m i moment skręcający T = 600 N·m. Z danych materiałowych wynika naprężenie dopuszczalne k = R_e/n = 235/2 = 117,5 MPa. Średnica nie jest jeszcze znana.',
+      caption:
+        'Model: jeden przekrój, dwa rodzaje obciążenia. Moment zginający i moment skręcający działają równocześnie.',
       visual: 'section',
-      focus: {
-        metric: 'stress',
-      },
-      formula: 'k=R_e/n=235/2=117{,}5\\ \\text{MPa}',
+      focus: { metric: 'loads' },
+      formula: 'k=\\frac{R_e}{n}=\\frac{235}{2}=117{,}5\\ \\text{MPa}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Moment równoważny: M_eq=√(M^2+0,75T^2)=√(800^2+0,75·600^2)≈953,9 N·m.',
-      caption: 'Moment równoważny: M_eq=√(M^2+0,75T^2)=√(800^2+0,75·600^2)≈953,9 N·m.',
+      title: 'Stan naprężenia w przekroju',
+      narration:
+        'W skrajnym włóknie zginanie daje naprężenie normalne σ = M/W, a skręcanie daje naprężenie styczne τ = T/W_o na obwodzie. Oba naprężenia dotyczą tego samego punktu, więc nie można ich porównywać z k osobno.',
+      caption: 'σ zmienia znak po przeciwnych stronach osi obojętnej, a τ rośnie liniowo od środka do obwodu.',
       visual: 'section',
-      focus: {
-        metric: 'M',
-      },
-      formula:
-        'M_{\\mathrm{eq}}=\\sqrt{M^2+0{,}75T^2}=\\sqrt{800^2+0{,}75\\cdot600^2}\\approx953{,}9\\ \\text{N}\\cdot\\text{m}',
+      focus: { metric: 'stress' },
+      formula: '\\sigma=\\frac{M}{W},\\qquad \\tau=\\frac{T}{W_o}',
     },
     {
-      title: 'Krok 3',
-      narration: 'Zamiana jednostek: M_eq≈953 900 N·mm, k=117,5 N/mm^2.',
-      caption: 'Zamiana jednostek: M_eq≈953 900 N·mm, k=117,5 N/mm^2.',
+      title: 'Kryterium HMH',
+      narration:
+        'Naprężenie zredukowane łączy oba składniki: σ_red = √(σ² + 3τ²). Na płaszczyźnie σ–τ warunek σ_red ≤ k jest wnętrzem elipsy. Punkt (89,4; 33,5) MPa leży wewnątrz obszaru bezpiecznego.',
+      caption: 'Elipsa HMH to granica σ² + 3τ² = k². Położenie punktu względem granicy decyduje o bezpieczeństwie.',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'M_{\\mathrm{eq}}\\approx953\\,900\\ \\text{N}\\cdot\\text{mm}',
+      focus: { metric: 'criterion' },
+      formula: '\\sigma_{\\mathrm{red}}=\\sqrt{\\sigma^2+3\\tau^2}\\le k',
     },
     {
-      title: 'Krok 4',
-      narration: 'Wymagana średnica: d≥∛(32M_eq/(π k))=∛(32·953 900/(π·117,5))≈43,6 mm.',
-      caption: 'Wymagana średnica: d≥∛(32M_eq/(π k))=∛(32·953 900/(π·117,5))≈43,6 mm.',
+      title: 'Moment równoważny i średnica',
+      narration:
+        'Dla przekroju kołowego W_o = 2W, więc cały warunek można zapisać przez moment równoważny M_eq = √(M² + 0,75T²) ≈ 953,9 N·m. Wymagana średnica wynosi 43,6 mm, więc przyjmujemy 45 mm.',
+      caption: 'Przekrój rośnie od wymaganego minimum 43,6 mm do najbliższego wymiaru 45 mm.',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula:
-        'd\\ge\\sqrt[3]{32M_{\\mathrm{eq}}/(\\pi k)}=\\sqrt[3]{32\\cdot953\\,900/(\\pi\\cdot117{,}5)}\\approx43{,}6\\ \\text{mm}',
+      focus: { metric: 'design' },
+      formula: 'd\\ge\\sqrt[3]{\\frac{32M_{\\mathrm{eq}}}{\\pi k}}\\approx43{,}6\\ \\text{mm}\\quad d=45\\ \\text{mm}',
     },
     {
-      title: 'Krok 5',
-      narration: 'Przyjmujemy d=45 mm z szeregu wymiarów co 5 mm.',
-      caption: 'Przyjmujemy d=45 mm z szeregu wymiarów co 5 mm.',
+      title: 'Kontrola dla d = 45 mm',
+      narration:
+        'Dla średnicy 45 mm wskaźniki wynoszą W ≈ 8 946 mm³ i W_o ≈ 17 892 mm³, a naprężenia σ ≈ 89,4 MPa i τ ≈ 33,5 MPa. Naprężenie zredukowane 106,6 MPa jest mniejsze od dopuszczalnego 117,5 MPa.',
+      caption: 'Wykorzystanie granicy wynosi około 91%, więc warunek wytrzymałości jest spełniony.',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'd=45\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Wskaźniki: W=π·45^3/32≈8946 mm^3, W_o=2W≈17 892 mm^3.',
-      caption: 'Wskaźniki: W=π·45^3/32≈8946 mm^3, W_o=2W≈17 892 mm^3.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'W=\\pi\\cdot45^3/32\\approx8946\\ \\text{mm}^3',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Naprężenia: σ=800 000/8946≈89,4 MPa, τ=600 000/17 892≈33,5 MPa.',
-      caption: 'Naprężenia: σ=800 000/8946≈89,4 MPa, τ=600 000/17 892≈33,5 MPa.',
-      visual: 'section',
-      focus: {
-        metric: 'stress',
-      },
-      formula: '\\sigma=800\\,000/8946\\approx89{,}4\\ \\text{MPa}',
-    },
-    {
-      title: 'Krok 8',
-      narration: 'Naprężenie zredukowane: σ_red=√(89,4^2+3·33,5^2)≈106,6 MPa≤117,5 MPa.',
-      caption: 'Naprężenie zredukowane: σ_red=√(89,4^2+3·33,5^2)≈106,6 MPa≤117,5 MPa.',
-      visual: 'section',
-      focus: {
-        metric: 'stress',
-      },
+      focus: { metric: 'check' },
       formula:
         '\\sigma_{\\mathrm{red}}=\\sqrt{89{,}4^2+3\\cdot33{,}5^2}\\approx106{,}6\\ \\text{MPa}\\le117{,}5\\ \\text{MPa}',
     },
     {
-      title: 'Krok 9',
-      narration: 'Zapas rzeczywisty: n_rz=235/106,6≈2,20, czyli więcej niż wymagane 2.',
-      caption: 'Zapas rzeczywisty: n_rz=235/106,6≈2,20, czyli więcej niż wymagane 2.',
+      title: 'Zapas i decyzja',
+      narration:
+        'Rzeczywisty zapas n_rz = R_e/σ_red = 235/106,6 ≈ 2,20 jest większy od wymaganego 2. Decyduje warunek wytrzymałości, a przyjęta średnica 45 mm spełnia wszystkie warunki zadania.',
+      caption: 'Zapas 2,20 przekracza wymagane 2. Odpowiedź zawiera wymiar, warunek decydujący i kontrolę.',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'n_{rz}=235/106{,}6\\approx2{,}20',
+      focus: { metric: 'safety' },
+      formula: 'n_{rz}=\\frac{R_e}{\\sigma_{\\mathrm{red}}}=\\frac{235}{106{,}6}\\approx2{,}20>2',
     },
   ],
 } satisfies SolutionData

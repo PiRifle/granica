@@ -1,12 +1,14 @@
 import type { SolutionData } from '../../model'
+import { FullBendingDesign1Animation } from './animation'
 
 export default {
   id: 'ex-design-full-bending',
   title: 'Pełne zadanie: dobór belki na zginanie — przykład 1',
   duration: 7,
-  given: ['L=4 m', 'P=20 kN', 'a=1,4 m', 'k=160 MPa', 'E=200 GPa'],
+  given: ['L=4 m', 'P=20 kN', 'a=1,4 m', 'k=160 MPa', 'E=200 GPa', 'f_dop=16 mm'],
   result:
-    'Decyduje wytrzymałość: wymagana średnica wynosi około 105 mm, a przyjęto 110 mm. Naprężenie 139,3 MPa jest mniejsze od 160 MPa, a ugięcie 15,4 mm nie przekracza 16 mm.',
+    'Przyjęta średnica 110 mm spełnia oba warunki: σ_max = 139,3 MPa < 160 MPa oraz f = 15,4 mm < 16 mm. Ugięcie jest jednak bliskie granicy, więc o zapasie decyduje sztywność.',
+  animation: FullBendingDesign1Animation,
   figure: {
     kind: 'beam',
     length: 4,
@@ -59,98 +61,65 @@ export default {
       { label: 'f', value: '15,4 mm', focus: 'design' },
       { label: 'f_dop', value: '16,0 mm', focus: 'design' },
     ],
-    note: 'Maksimum momentu wypada pod siłą P; decyduje warunek wytrzymałości, a ugięcie jest bliskie granicy.',
+    note: 'Maksimum momentu wypada pod siłą P; przyjęty wymiar spełnia oba warunki, a ugięcie jest bliskie granicy.',
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Odległość od prawej podpory: b=L-a=4-1,4=2,6 m.',
-      caption: 'Odległość od prawej podpory: b=L-a=4-1,4=2,6 m.',
+      title: 'Model i dane',
+      narration:
+        'Belka swobodnie podparta ma L = 4 m i jest obciążona siłą P = 20 kN w odległości a = 1,4 m od lewej podpory. Przyjmujemy k = 160 MPa, E = 200 GPa, przekrój pełnego koła i ugięcie dopuszczalne f_dop = L/250 = 16 mm.',
+      caption: 'Schemat, obciążenie i dane materiałowe — bez założonego z góry wymiaru przekroju.',
       visual: 'beam',
-      focus: { metric: 'load' },
-      formula: 'b=L-a=4-1{,}4=2{,}6\\ \\text{m}',
-    },
-    {
-      title: 'Krok 2',
-      narration: 'Reakcje: R_A=Pb/L=20·2,6/4=13 kN, R_B=Pa/L=20·1,4/4=7 kN.',
-      caption: 'Reakcje: R_A=Pb/L=20·2,6/4=13 kN, R_B=Pa/L=20·1,4/4=7 kN.',
-      visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A=Pb/L=20\\cdot2{,}6/4=13\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Siła tnąca jest stała na każdym odcinku: T=R_A=13 kN po lewej stronie, T=-R_B=-7 kN po prawej.',
-      caption: 'Siła tnąca jest stała na każdym odcinku: T=R_A=13 kN po lewej stronie, T=-R_B=-7 kN po prawej.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T=R_A=13\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Moment maksymalny pod siłą: M_max=R_Aa=13·1,4=18,2 kN·m=18 200 000 N·mm.',
-      caption: 'Moment maksymalny pod siłą: M_max=R_Aa=13·1,4=18,2 kN·m=18 200 000 N·mm.',
-      visual: 'beam',
-      focus: { metric: 'M' },
+      focus: { metric: 'model' },
       formula:
-        'M_{\\max}=R_Aa=13\\cdot1{,}4=18{,}2\\ \\text{kN}\\cdot\\text{m}=18\\,200\\,000\\ \\text{N}\\cdot\\text{mm}',
+        'L=4\\ \\text{m},\\quad a=1{,}4\\ \\text{m},\\quad b=2{,}6\\ \\text{m},\\quad P=20\\ \\text{kN},\\quad k=160\\ \\text{MPa}',
     },
     {
-      title: 'Krok 5',
-      narration: 'Wymagany wskaźnik: W_min=18 200 000/160=113 750 mm^3.',
-      caption: 'Wymagany wskaźnik: W_min=18 200 000/160=113 750 mm^3.',
+      title: 'Reakcje i moment maksymalny',
+      narration:
+        'Reakcje wynoszą R_A = P b/L = 20·2,6/4 = 13 kN oraz R_B = P a/L = 20·1,4/4 = 7 kN. Moment rośnie liniowo do wierzchołka pod siłą: M_max = R_A a = 13·1,4 = 18,2 kN·m = 18 200 000 N·mm.',
+      caption: 'Wierzchołek wykresu M wypada pod siłą, a nie w środku rozpiętości.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'W_{\\min}=18\\,200\\,000/160=113\\,750\\ \\text{mm}^3',
+      focus: { metric: 'moment' },
+      formula: 'R_A=13\\ \\text{kN},\\qquad M_{\\max}=13\\cdot1{,}4=18{,}2\\ \\text{kN}\\cdot\\text{m}',
     },
     {
-      title: 'Krok 6',
-      narration: 'Średnica z warunku wytrzymałości: d_min=∛(32·113 750/π)=∛(1 158 650)≈105,0 mm.',
-      caption: 'Średnica z warunku wytrzymałości: d_min=∛(32·113 750/π)=∛(1 158 650)≈105,0 mm.',
+      title: 'Warunek wytrzymałości',
+      narration:
+        'Wymagany wskaźnik wynosi W_min = M_max/k = 18 200 000/160 = 113 750 mm³. Dla pełnego koła W = πd³/32, więc d_min = ∛(32·113 750/π) ≈ 105,0 mm.',
+      caption: 'Warunek wytrzymałości daje średnicę minimalną 105,0 mm; to jeszcze nie dobrany wymiar.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'd_{\\min}=\\sqrt[3]{32\\cdot113\\,750/\\pi}=\\sqrt[3]{1\\,158\\,650}\\approx105{,}0\\ \\text{mm}',
+      focus: { metric: 'strength' },
+      formula:
+        'W_{\\min}=\\frac{18\\,200\\,000}{160}=113\\,750\\ \\text{mm}^3,\\qquad d_{\\min}=\\sqrt[3]{\\frac{32\\cdot113\\,750}{\\pi}}\\approx105{,}0\\ \\text{mm}',
     },
     {
-      title: 'Krok 7',
-      narration: 'Przyjmujemy d=110 mm z szeregu wymiarów co 5 mm, ponieważ 105 mm jest zbyt małe.',
-      caption: 'Przyjmujemy d=110 mm z szeregu wymiarów co 5 mm, ponieważ 105 mm jest zbyt małe.',
+      title: 'Dobór przekroju',
+      narration:
+        'Przyjmujemy d = 110 mm z szeregu wymiarów co 5 mm, ponieważ dostępne 105 mm jest mniejsze od wymaganego 105,0 mm. Rzeczywisty wskaźnik W = π·110³/32 ≈ 130 669 mm³, a moment bezwładności I = π·110⁴/64 ≈ 7 186 875 mm⁴.',
+      caption: 'Średnica 110 mm daje zapas wskaźnika względem W_min i zwiększa sztywność.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'd=110\\ \\text{mm}',
+      focus: { metric: 'section' },
+      formula:
+        'd=110\\ \\text{mm},\\qquad W=\\frac{\\pi\\cdot110^3}{32}\\approx130\\,669\\ \\text{mm}^3,\\qquad I=\\frac{\\pi\\cdot110^4}{64}\\approx7\\,186\\,875\\ \\text{mm}^4',
     },
     {
-      title: 'Krok 8',
-      narration: 'Rzeczywisty wskaźnik: W=π·110^3/32≈130 669 mm^3, więc σ=18 200 000/130 669≈139,3 MPa≤160 MPa.',
-      caption: 'Rzeczywisty wskaźnik: W=π·110^3/32≈130 669 mm^3, więc σ=18 200 000/130 669≈139,3 MPa≤160 MPa.',
+      title: 'Kontrola naprężeń',
+      narration:
+        'Naprężenie maksymalne wynosi σ_max = M_max/W = 18 200 000/130 669 ≈ 139,3 MPa. Jest mniejsze od k = 160 MPa, więc warunek wytrzymałości jest spełniony z zapasem około 13%.',
+      caption: 'σ_max = 139,3 MPa ≤ 160 MPa — warunek wytrzymałości spełniony.',
       visual: 'beam',
       focus: { metric: 'stress' },
-      formula: 'W=\\pi\\cdot110^3/32\\approx130\\,669\\ \\text{mm}^3',
+      formula: '\\sigma_{\\max}=\\frac{18\\,200\\,000}{130\\,669}\\approx139{,}3\\ \\text{MPa}\\le160\\ \\text{MPa}',
     },
     {
-      title: 'Krok 9',
-      narration: 'Moment bezwładności: I=π·110^4/64≈7 186 875 mm^4.',
-      caption: 'Moment bezwładności: I=π·110^4/64≈7 186 875 mm^4.',
+      title: 'Kontrola ugięcia',
+      narration:
+        'Ugięcie pod siłą wynosi f = P a²b²/(3EIL) = 20 000·1400²·2600²/(3·200 000·7 186 875·4000) ≈ 15,4 mm. Jest mniejsze od f_dop = L/250 = 16 mm, więc oba warunki są spełnione, ale zapas sztywności jest niewielki.',
+      caption: 'f = 15,4 mm ≤ 16 mm — oba warunki spełnione; o zapasie decyduje sztywność.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'I=\\pi\\cdot110^4/64\\approx7\\,186\\,875\\ \\text{mm}^4',
-    },
-    {
-      title: 'Krok 10',
-      narration: 'Ugięcie pod siłą: f=Pa^2b^2/(3EIL)=20 000·1400^2·2600^2/(3·200 000·7 186 875·4000)≈15,4 mm.',
-      caption: 'Ugięcie pod siłą: f=Pa^2b^2/(3EIL)=20 000·1400^2·2600^2/(3·200 000·7 186 875·4000)≈15,4 mm.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula:
-        'f=Pa^2b^2/(3EIL)=20\\,000\\cdot1400^2\\cdot2600^2/(3\\cdot200\\,000\\cdot7\\,186\\,875\\cdot4000)\\approx15{,}4\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 11',
-      narration: 'Wartość dopuszczalna: L/250=4000/250=16 mm, więc 15,4 mm≤16 mm.',
-      caption: 'Wartość dopuszczalna: L/250=4000/250=16 mm, więc 15,4 mm≤16 mm.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'L/250=4000/250=16\\ \\text{mm}',
+      focus: { metric: 'deflection' },
+      formula: 'f=\\frac{P a^2b^2}{3EIL}\\approx15{,}4\\ \\text{mm}\\le\\frac{L}{250}=16\\ \\text{mm}',
     },
   ],
 } satisfies SolutionData
