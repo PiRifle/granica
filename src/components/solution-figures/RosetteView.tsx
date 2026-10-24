@@ -2,7 +2,6 @@ import { motion } from 'motion/react'
 import type { RosetteFigure, SolutionScene } from '../../types'
 import { resolveFocus, type Focus } from './focus'
 import { formatNumber, local } from './shared'
-import { ValueLookup } from './ValueLookup'
 
 export function RosetteView({
   figure,
@@ -136,13 +135,6 @@ export function RosetteView({
             </g>
           )}
         </svg>
-        <ValueLookup
-          values={figure.values}
-          focus={focus.metric}
-          revealed={revealedFocus}
-          sceneIndex={sceneIndex}
-          revealedMath={revealedMath}
-        />
       </div>
       {figure.note && <p className={local('note')}>{figure.note}</p>}
     </div>

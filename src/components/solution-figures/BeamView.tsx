@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'motion/react'
 import type { BeamFigure, SolutionScene } from '../../types'
 import { resolveFocus, type Focus } from './focus'
 import { formatNumber, local, parseFigureNumber, valueRevealed } from './shared'
-import { ValueLookup } from './ValueLookup'
 
 const BEAM_BANDS = [
   { key: 'shear' as const, label: 'T', baseline: 178, height: 34, color: '#4f6df5' },
@@ -371,13 +370,6 @@ export function BeamView({
             </AnimatePresence>
           </svg>
         </div>
-        <ValueLookup
-          values={figure.values}
-          focus={focus.metric}
-          revealed={revealedFocus}
-          sceneIndex={sceneIndex}
-          revealedMath={revealedMath}
-        />
       </div>
       {figure.note && <p className={local('note')}>{figure.note}</p>}
     </div>
