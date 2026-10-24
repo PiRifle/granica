@@ -40,30 +40,54 @@ export function SectionView({
     <div className={local('figure')}>
       <div className={local('figure-canvas')}>
         <svg viewBox="0 0 460 300" role="img" aria-label="Przekrój poprzeczny z osią centralną i wymiarami">
-          {figure.parts.map((part, index) => (
-            <g key={`part-${index}`}>
-              <rect
-                x={px(part.x)}
-                y={py(part.y + part.height)}
-                width={part.width * scale}
-                height={part.height * scale}
-                fill={part.tone === 'accent' ? '#edf1ff' : part.tone === 'solid' ? '#dfe6f2' : '#f2f5fa'}
+          {figure.shape === 'circle' ? (
+            <g>
+              <circle
+                cx={px(figure.width / 2)}
+                cy={py(figure.height / 2)}
+                r={(Math.min(figure.width, figure.height) * scale) / 2}
+                fill={figure.parts[0]?.tone === 'solid' ? '#dfe6f2' : '#f2f5fa'}
                 stroke="#7d8fa5"
                 strokeWidth={1.4}
               />
-              {part.label && part.width * scale > 40 && part.height * scale > 8 && (
+              {figure.parts[0]?.label && (
                 <text
-                  x={px(part.x + part.width / 2)}
-                  y={py(part.y + part.height / 2) + 3}
+                  x={px(figure.width / 2)}
+                  y={py(figure.height / 2) + 3}
                   textAnchor="middle"
                   fontSize={9}
                   fill="#7d8fa5"
                 >
-                  {part.label}
+                  {figure.parts[0].label}
                 </text>
               )}
             </g>
-          ))}
+          ) : (
+            figure.parts.map((part, index) => (
+              <g key={`part-${index}`}>
+                <rect
+                  x={px(part.x)}
+                  y={py(part.y + part.height)}
+                  width={part.width * scale}
+                  height={part.height * scale}
+                  fill={part.tone === 'accent' ? '#edf1ff' : part.tone === 'solid' ? '#dfe6f2' : '#f2f5fa'}
+                  stroke="#7d8fa5"
+                  strokeWidth={1.4}
+                />
+                {part.label && part.width * scale > 40 && part.height * scale > 8 && (
+                  <text
+                    x={px(part.x + part.width / 2)}
+                    y={py(part.y + part.height / 2) + 3}
+                    textAnchor="middle"
+                    fontSize={9}
+                    fill="#7d8fa5"
+                  >
+                    {part.label}
+                  </text>
+                )}
+              </g>
+            ))
+          )}
           {(figure.holes ?? []).map((hole, index) => (
             <g key={`hole-${index}`}>
               <circle

@@ -11,25 +11,109 @@ export default {
     kind: 'section',
     width: 70,
     height: 70,
-    parts: [{ x: 0, y: 0, width: 70, height: 70, label: 'rura ∅70', tone: 'light' }],
-    holes: [{ cx: 35, cy: 35, r: 21.65, label: '∅43,3' }],
-    centroid: { x: 35, y: 35 },
+    parts: [
+      {
+        x: 0,
+        y: 0,
+        width: 70,
+        height: 70,
+        label: 'rura ∅70',
+        tone: 'light',
+      },
+    ],
+    holes: [
+      {
+        cx: 35,
+        cy: 35,
+        r: 21.65,
+        label: '∅43,3',
+      },
+    ],
+    centroid: {
+      x: 35,
+      y: 35,
+    },
     values: [
-      { label: 'd wału pełnego', value: '55 mm', focus: 'design', reveal: 0 },
-      { label: 'D rury', value: '70 mm', focus: 'design', reveal: 0 },
-      { label: 'T', value: '1200 N·m', focus: 'load', reveal: 0 },
-      { label: 'J_o wału pełnego', value: '898 360 mm⁴', focus: 'design', reveal: 0 },
-      { label: 'd rury', value: '43,3 mm', focus: 'design', reveal: 1 },
-      { label: 'J_o rury', value: '2 010 000 mm⁴', focus: 'design' },
-      { label: 'J_o rury / J_o wału', value: '2,24', focus: 'design', reveal: 1 },
-      { label: 'τ rury', value: '20,9 MPa', focus: 'stress', reveal: 2 },
-      { label: 'τ wału pełnego', value: '36,7 MPa', focus: 'stress', reveal: 2 },
-      { label: 'φ rury', value: '0,512°', focus: 'design', reveal: 2 },
-      { label: 'φ wału pełnego', value: '1,15°', focus: 'design', reveal: 2 },
-      { label: 'W_o rury', value: '57 500 mm³', focus: 'design', reveal: 4 },
-      { label: 'W_o wału pełnego', value: '32 668 mm³', focus: 'design', reveal: 1 },
+      {
+        label: 'd wału pełnego',
+        value: '55 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'D rury',
+        value: '70 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'T',
+        value: '1200 N·m',
+        focus: 'load',
+        reveal: 0,
+      },
+      {
+        label: 'J_o wału pełnego',
+        value: '898 360 mm⁴',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'd rury',
+        value: '43,3 mm',
+        focus: 'design',
+        reveal: 1,
+      },
+      {
+        label: 'J_o rury',
+        value: '2 010 000 mm⁴',
+        focus: 'design',
+      },
+      {
+        label: 'J_o rury / J_o wału',
+        value: '2,24',
+        focus: 'design',
+        reveal: 1,
+      },
+      {
+        label: 'τ rury',
+        value: '20,9 MPa',
+        focus: 'stress',
+        reveal: 2,
+      },
+      {
+        label: 'τ wału pełnego',
+        value: '36,7 MPa',
+        focus: 'stress',
+        reveal: 2,
+      },
+      {
+        label: 'φ rury',
+        value: '0,512°',
+        focus: 'design',
+        reveal: 2,
+      },
+      {
+        label: 'φ wału pełnego',
+        value: '1,15°',
+        focus: 'design',
+        reveal: 2,
+      },
+      {
+        label: 'W_o rury',
+        value: '57 500 mm³',
+        focus: 'design',
+        reveal: 4,
+      },
+      {
+        label: 'W_o wału pełnego',
+        value: '32 668 mm³',
+        focus: 'design',
+        reveal: 1,
+      },
     ],
     note: 'Przy równej masie rura ∅70/∅43,3 ma ponad dwukrotnie większy J_o od wału pełnego ∅55.',
+    shape: 'circle',
   },
   scenes: [
     {
@@ -39,7 +123,9 @@ export default {
       caption:
         'Porównajmy teraz wał pełny i rurę przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Wał pełny ma d=55 mm i pole…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'd=55\\ \\text{mm}',
     },
     {
@@ -49,7 +135,9 @@ export default {
       caption:
         'Z równości pól: π(70^2-d^2)/4=2376, czyli d^2=70^2-4·2376/π≈1875. Stąd d≈43,3 mm. Moment bezwładności rury wynosi…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: '\\pi(70^2-d^2)/4=2376',
     },
     {
@@ -59,7 +147,9 @@ export default {
       caption:
         'Przy tym samym momencie T=1200 N·m naprężenie w rurze wynosi około 20,9 MPa zamiast 36,7 MPa, a kąt skręcenia około 0,512°…',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
       formula: 'T=1200\\ \\text{N}\\cdot\\text{m}',
     },
     {
@@ -69,7 +159,9 @@ export default {
       caption:
         'Cena tego rozwiązania to większa średnica zewnętrzna, a więc większe wymagania gabarytowe i większa podatność cienkiej ścianki na…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
     },
     {
       title: 'Krok 5',
@@ -78,7 +170,9 @@ export default {
       caption:
         'Przy tej samej masie rura ma większy J_o, a w naszym przykładzie także większy W_o niż wał pełny o średnicy 55 mm, ponieważ jej…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'J_o',
     },
   ],

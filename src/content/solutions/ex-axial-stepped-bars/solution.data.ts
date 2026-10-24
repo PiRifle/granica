@@ -4,7 +4,7 @@ export default {
   id: 'ex-axial-stepped-bars',
   title: 'Pręty schodkowe: ta sama siła, inne σ — przykład 1',
   duration: 7,
-  given: ['N = 60 kN', 'A₁ = 300 mm', 'A₂ = 150 mm', 'A₃ = 250 mm'],
+  given: ['N = 60 kN', 'A₁ = 300 mm²', 'A₂ = 150 mm²', 'A₃ = 250 mm²'],
   result:
     'σ₁ = 200 MPa, σ₂ = 400 MPa, σ₃ = 240 MPa. Przekrój krytyczny to odcinek drugi, a przy σdop = 160 MPa każde pole musi wynosić co najmniej 375 mm².',
   figure: {
@@ -59,7 +59,9 @@ export default {
       narration: 'Ponieważ nie ma obciążeń pośrednich, N₁ = N₂ = N₃ = +60 000 N.',
       caption: 'Ponieważ nie ma obciążeń pośrednich, N₁ = N₂ = N₃ = +60 000 N.',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'N_{1} = N_{2} = N_{3} = +60\\,000 N',
     },
     {
@@ -67,7 +69,10 @@ export default {
       narration: 'Dla pierwszego odcinka: σ₁ = 60 000/300 = 200 MPa.',
       caption: 'Dla pierwszego odcinka: σ₁ = 60 000/300 = 200 MPa.',
       visual: 'axial',
-      focus: { metric: 'σ', segment: '1' },
+      focus: {
+        metric: 'σ',
+        segment: '1',
+      },
       formula: '\\sigma_{1} = 60\\,000/300 = 200 MPa',
     },
     {
@@ -75,7 +80,10 @@ export default {
       narration: 'Dla drugiego odcinka: σ₂ = 60 000/150 = 400 MPa.',
       caption: 'Dla drugiego odcinka: σ₂ = 60 000/150 = 400 MPa.',
       visual: 'axial',
-      focus: { metric: 'σ', segment: '2' },
+      focus: {
+        metric: 'σ',
+        segment: '2',
+      },
       formula: '\\sigma_{2} = 60\\,000/150 = 400 MPa',
     },
     {
@@ -83,7 +91,10 @@ export default {
       narration: 'Dla trzeciego odcinka: σ₃ = 60 000/250 = 240 MPa.',
       caption: 'Dla trzeciego odcinka: σ₃ = 60 000/250 = 240 MPa.',
       visual: 'axial',
-      focus: { metric: 'σ', segment: '3' },
+      focus: {
+        metric: 'σ',
+        segment: '3',
+      },
       formula: '\\sigma_{3} = 60\\,000/250 = 240 MPa',
     },
     {
@@ -91,7 +102,10 @@ export default {
       narration: 'Porównaj wartości bezwzględne: 400 MPa jest największe, więc decyduje odcinek drugi.',
       caption: 'Porównaj wartości bezwzględne: 400 MPa jest największe, więc decyduje odcinek drugi.',
       visual: 'axial',
-      focus: { metric: 'σ', segment: '2' },
+      focus: {
+        metric: 'σ',
+        segment: '2',
+      },
     },
     {
       title: 'Krok 6',
@@ -100,7 +114,9 @@ export default {
       caption:
         'Sprawdź warunek wytrzymałości: wszystkie naprężenia przekraczają 160 MPa, więc żaden odcinek nie spełnia wymagania.',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
     },
     {
       title: 'Krok 7',
@@ -109,7 +125,9 @@ export default {
       caption:
         'Wyznacz minimalne pola: 375, 375 i 375 mm². Dla stałej N i wspólnego σdop każde pole musi wynosić co najmniej 375 mm².',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
     },
   ],
 } satisfies SolutionData

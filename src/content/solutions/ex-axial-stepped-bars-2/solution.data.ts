@@ -4,7 +4,7 @@ export default {
   id: 'ex-axial-stepped-bars-2',
   title: 'Pręty schodkowe: ta sama siła, inne σ — przykład 2',
   duration: 7,
-  given: ['A_1=500 mm^2', 'A_2=150 mm^2', 'P=30 kN', 'Q=20 kN'],
+  given: ['A_1=500 mm²', 'A_2=150 mm²', 'P=30 kN', 'Q=20 kN'],
   result:
     'Przy σ_dop=160 MPa pierwszy odcinek spełnia warunek, a drugi nie. Minimalne pole drugiego odcinka wynosi 30 000/160=187,5 mm^2. Zwiększanie pola pierwszego odcinka nie pomoże, dopóki drugi pozostaje zbyt cienki. To praktyczna ilustracja zasady najsłabszego ogniwa.',
   figure: {
@@ -58,7 +58,9 @@ export default {
       caption:
         'Tym razem siła osiowa zmienia się na długości. Pręt jest utwierdzony lewym końcem. Odcinek pierwszy, przy utwierdzeniu, ma pole…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: 'A_1=500\\ \\text{mm}^2',
     },
     {
@@ -68,7 +70,9 @@ export default {
       caption:
         'Zaczynamy od prawego końca. W drugim odcinku działa tylko siła P, więc N_2=+30 kN. W pierwszym odcinku dochodzi siła Q, więc…',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'P',
     },
     {
@@ -78,7 +82,9 @@ export default {
       caption:
         'Naprężenia wynoszą σ_1=50 000/500=100 MPa oraz σ_2=30 000/150=200 MPa. Mimo że pierwszy odcinek przenosi większą siłę, to drugi…',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '\\sigma_1=50\\,000/500=100\\ \\text{MPa}',
     },
     {
@@ -88,7 +94,9 @@ export default {
       caption:
         'Przy σ_dop=160 MPa pierwszy odcinek spełnia warunek, a drugi nie. Minimalne pole drugiego odcinka wynosi 30 000/160=187,5 mm^2.…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: '\\sigma_{\\mathrm{dop}}=160\\ \\text{MPa}',
     },
   ],

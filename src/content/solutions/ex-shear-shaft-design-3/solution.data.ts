@@ -11,23 +11,94 @@ export default {
     kind: 'section',
     width: 90,
     height: 90,
-    parts: [{ x: 0, y: 0, width: 90, height: 90, label: 'rura ∅90', tone: 'light' }],
-    holes: [{ cx: 45, cy: 45, r: 35, label: '∅70' }],
-    centroid: { x: 45, y: 45 },
+    parts: [
+      {
+        x: 0,
+        y: 0,
+        width: 90,
+        height: 90,
+        label: 'rura ∅90',
+        tone: 'light',
+      },
+    ],
+    holes: [
+      {
+        cx: 45,
+        cy: 45,
+        r: 35,
+        label: '∅70',
+      },
+    ],
+    centroid: {
+      x: 45,
+      y: 45,
+    },
     values: [
-      { label: 'D', value: '90 mm', focus: 'design', reveal: 0 },
-      { label: 'd', value: '70 mm', focus: 'design', reveal: 0 },
-      { label: 'L', value: '2500 mm', focus: 'design', reveal: 0 },
-      { label: 'G', value: '80 GPa', focus: 'design', reveal: 0 },
-      { label: 'τ_dop', value: '40 MPa', focus: 'stress', reveal: 0 },
-      { label: 'J_o', value: '4 084 070 mm⁴', focus: 'design' },
-      { label: 'W_o', value: '90 757 mm³', focus: 'design' },
-      { label: 'T z wytrzymałości', value: '3,63 kN·m', focus: 'design', reveal: 2 },
-      { label: 'T ze sztywności', value: '2,28 kN·m', focus: 'design' },
-      { label: 'T_max', value: '2,28 kN·m', focus: 'design' },
-      { label: 'τ przy T_max', value: '25,1 MPa', focus: 'stress', reveal: 3 },
+      {
+        label: 'D',
+        value: '90 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'd',
+        value: '70 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'L',
+        value: '2500 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'G',
+        value: '80 GPa',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'τ_dop',
+        value: '40 MPa',
+        focus: 'stress',
+        reveal: 0,
+      },
+      {
+        label: 'J_o',
+        value: '4 084 070 mm⁴',
+        focus: 'design',
+      },
+      {
+        label: 'W_o',
+        value: '90 757 mm³',
+        focus: 'design',
+      },
+      {
+        label: 'T z wytrzymałości',
+        value: '3,63 kN·m',
+        focus: 'design',
+        reveal: 2,
+      },
+      {
+        label: 'T ze sztywności',
+        value: '2,28 kN·m',
+        focus: 'design',
+      },
+      {
+        label: 'T_max',
+        value: '2,28 kN·m',
+        focus: 'design',
+      },
+      {
+        label: 'τ przy T_max',
+        value: '25,1 MPa',
+        focus: 'stress',
+        reveal: 3,
+      },
     ],
     note: 'Dla długiego wału o D = 90 mm i d = 70 mm o nośności decyduje sztywność.',
+    shape: 'circle',
   },
   scenes: [
     {
@@ -37,7 +108,9 @@ export default {
       caption:
         'Mamy istniejący wał rurowy o D = 90 mm i d = 70 mm, wykonany ze stali o G = 80 GPa. Dopuszczalne naprężenie wynosi τ_dop = 40…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'D = 90\\ \\text{mm}',
     },
     {
@@ -47,7 +120,9 @@ export default {
       caption:
         'Najpierw obliczamy geometrię: 90^4-70^4 = 65 610 000-24 010 000 = 41 600 000 mm^4, więc J_o = π · 41 600 000/32 = 4 084 070 mm^4.…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: '90^4-70^4 = 65\\,610\\,000-24\\,010\\,000 = 41\\,600\\,000\\ \\text{mm}^4',
     },
     {
@@ -57,7 +132,9 @@ export default {
       caption:
         'Z warunku wytrzymałości T ≤ τ_dopW_o = 40 · 90 757 = 3 630 280 N·mm, czyli około 3,63 kN·m. Z warunku sztywności, po zamianie…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'T \\le \\tau_{dop}W_o = 40 \\cdot 90\\,757 = 3\\,630\\,280\\ \\text{N}\\cdot\\text{mm}',
     },
     {
@@ -67,7 +144,9 @@ export default {
       caption:
         'Decyduje sztywność. Bezpieczny moment wynosi około 2,28 kN·m. Przy tej wartości naprężenie wynosi 2 281 000 · 45/4 084 070 = 25,1…',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
       formula: '2{,}28\\ \\text{kN}\\cdot\\text{m}',
     },
     {
@@ -77,7 +156,9 @@ export default {
       caption:
         'Wariant odwrotny pokazuje, że ten sam przekrój może mieć różne ograniczenia w zależności od długości i wymaganego kąta. Dla…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
     },
   ],
 } satisfies SolutionData

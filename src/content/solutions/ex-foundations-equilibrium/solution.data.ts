@@ -114,8 +114,7 @@ export default {
     },
     {
       title: 'Kontrola momentów względem B',
-      narration:
-        'Kontrola momentów względem B: A_y · 5,0 − 12 · 2,0 − 30 · 2,5 = 99 − 24 − 75 = 0.',
+      narration: 'Kontrola momentów względem B: A_y · 5,0 − 12 · 2,0 − 30 · 2,5 = 99 − 24 − 75 = 0.',
       caption: 'Bilans momentów względem B zamyka się do zera.',
       visual: 'beam',
       focus: { metric: 'reaction' },
@@ -128,8 +127,7 @@ export default {
       caption: 'Maksimum momentu 32,4 kN·m wypada pod siłą P.',
       visual: 'beam',
       focus: { metric: 'M' },
-      formula:
-        'M_{\\max}=A_y\\cdot 3{,}0-q\\cdot 3{,}0\\cdot 1{,}5=59{,}4-27=32{,}4\\ \\text{kN·m}',
+      formula: 'M_{\\max}=A_y\\cdot 3{,}0-q\\cdot 3{,}0\\cdot 1{,}5=59{,}4-27=32{,}4\\ \\text{kN·m}',
     },
     {
       title: 'Kontrola bilansu sił',

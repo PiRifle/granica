@@ -4,7 +4,7 @@ export default {
   id: 'ex-axial-hooke-law-3',
   title: 'Prawo Hooke’a: proporcjonalne odkształcenie — przykład 3',
   duration: 7,
-  given: ['L=2 m', 'A=250 mm^2', 'E=200 GPa', 'L_{dop}=1'],
+  given: ['L=2 m', 'A=250 mm²', 'E=200 GPa', 'L_{dop}=1'],
   result:
     'Widzimy, że o dopuszczalnej sile może decydować sztywność, a nie wytrzymałość. Przy większym dopuszczalnym wydłużeniu limit siły wzrósłby proporcjonalnie. Przy większym polu również wzrósłby, bo większy przekrój jest sztywniejszy. Przy dłuższym pręcie limit siły zmalałby, bo ten sam przyrost długości rozkłada się na większą długość początkową.',
   figure: {
@@ -57,7 +57,9 @@ export default {
       caption:
         'Tym razem ogranicza nas dopuszczalne wydłużenie, a szukamy maksymalnej siły. Pręt stalowy ma długość L=2 m, pole A=250 mm^2 i…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: 'L=2\\ \\text{m}',
     },
     {
@@ -67,7 +69,9 @@ export default {
       caption:
         'Przekształcamy wzór Δ L=NL/(EA) do postaci N=EAΔ L/L. Podstawiamy E=200 000 MPa, A=250 mm^2, Δ L=1,5 mm i L=2000 mm. Otrzymujemy…',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: '\\Delta L=NL/(EA)',
     },
     {
@@ -77,7 +81,9 @@ export default {
       caption:
         'Sprawdźmy naprężenie: σ=37 500/250=150 MPa. Jest ono poniżej typowej granicy plastyczności stali, więc założenie liniowo…',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '\\sigma=37\\,500/250=150\\ \\text{MPa}',
     },
     {
@@ -87,7 +93,9 @@ export default {
       caption:
         'Widzimy, że o dopuszczalnej sile może decydować sztywność, a nie wytrzymałość. Przy większym dopuszczalnym wydłużeniu limit siły…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
     },
   ],
 } satisfies SolutionData

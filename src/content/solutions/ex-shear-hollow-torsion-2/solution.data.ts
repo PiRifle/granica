@@ -11,22 +11,89 @@ export default {
     kind: 'section',
     width: 94.34,
     height: 94.34,
-    parts: [{ x: 0, y: 0, width: 94.34, height: 94.34, label: 'rura ∅94,3', tone: 'light' }],
-    holes: [{ cx: 47.17, cy: 47.17, r: 25, label: '∅50' }],
-    centroid: { x: 47.17, y: 47.17 },
+    parts: [
+      {
+        x: 0,
+        y: 0,
+        width: 94.34,
+        height: 94.34,
+        label: 'rura ∅94,3',
+        tone: 'light',
+      },
+    ],
+    holes: [
+      {
+        cx: 47.17,
+        cy: 47.17,
+        r: 25,
+        label: '∅50',
+      },
+    ],
+    centroid: {
+      x: 47.17,
+      y: 47.17,
+    },
     values: [
-      { label: 'T', value: '2,5 kN·m', focus: 'load', reveal: 0 },
-      { label: 'D_wału', value: '80 mm', focus: 'design', reveal: 0 },
-      { label: 'd_rury', value: '50 mm', focus: 'design', reveal: 0 },
-      { label: 'A_0', value: '5 027 mm²', focus: 'design', reveal: 1 },
-      { label: 'D_rury', value: '94,34 mm', focus: 'design' },
-      { label: 'grubość ścianki', value: '22,17 mm', focus: 'design', reveal: 1 },
-      { label: 'J_o', value: '7 162 831 mm⁴', focus: 'design' },
-      { label: 'τ_max', value: '16,5 MPa', focus: 'stress', reveal: 2 },
-      { label: 'τ wału pełnego', value: '24,9 MPa', focus: 'stress', reveal: 2 },
-      { label: 'redukcja naprężenia', value: '34 %', focus: 'design' },
+      {
+        label: 'T',
+        value: '2,5 kN·m',
+        focus: 'load',
+        reveal: 0,
+      },
+      {
+        label: 'D_wału',
+        value: '80 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'd_rury',
+        value: '50 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'A_0',
+        value: '5 027 mm²',
+        focus: 'design',
+        reveal: 1,
+      },
+      {
+        label: 'D_rury',
+        value: '94,34 mm',
+        focus: 'design',
+      },
+      {
+        label: 'grubość ścianki',
+        value: '22,17 mm',
+        focus: 'design',
+        reveal: 1,
+      },
+      {
+        label: 'J_o',
+        value: '7 162 831 mm⁴',
+        focus: 'design',
+      },
+      {
+        label: 'τ_max',
+        value: '16,5 MPa',
+        focus: 'stress',
+        reveal: 2,
+      },
+      {
+        label: 'τ wału pełnego',
+        value: '24,9 MPa',
+        focus: 'stress',
+        reveal: 2,
+      },
+      {
+        label: 'redukcja naprężenia',
+        value: '34 %',
+        focus: 'design',
+      },
     ],
     note: 'Przy równej masie rura ma większą średnicę zewnętrzną, ale mniejsze naprężenie od wału pełnego.',
+    shape: 'circle',
   },
   scenes: [
     {
@@ -36,7 +103,9 @@ export default {
       caption:
         'Porównajmy teraz rurę z wałem pełnym przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Przyjmijmy, że wał pełny ma…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: '80\\ \\text{mm}',
     },
     {
@@ -46,7 +115,9 @@ export default {
       caption:
         'Pole wału pełnego wynosi A_0 = π · 80^2/4 = 5 027 mm^2. Dla rury A = π(D^2-50^2)/4. Przyrównanie pól daje D^2-2500 = 6400, czyli D…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'A_0 = \\pi \\cdot 80^2/4 = 5027\\ \\text{mm}^2',
     },
     {
@@ -56,7 +127,9 @@ export default {
       caption:
         'Dla takiej rury J_o = π(94,34^4-50^4)/32 = 7 162 831 mm^4. Przy momencie 2,5 kN·m maksymalne naprężenie wynosi τ_max = 2 500 000…',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
       formula: 'J_o = \\pi(94{,}34^4-50^4)/32 = 7\\,162\\,831\\ \\text{mm}^4',
     },
     {
@@ -66,7 +139,9 @@ export default {
       caption:
         'Przy tej samej masie rura przenosi więc ten sam moment przy naprężeniu mniejszym o około 34%. Jej wadą jest większa średnica…',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
       formula: '34\\%',
     },
     {
@@ -76,7 +151,9 @@ export default {
       caption:
         'Ten przykład pokazuje, dlaczego samo stwierdzenie „rura jest lżejsza” nie wystarcza. Trzeba podać, co pozostaje stałe: średnica…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
     },
   ],
 } satisfies SolutionData

@@ -4,7 +4,7 @@ export default {
   id: 'ex-axial-normal-stress-2',
   title: 'Naprężenie normalne: siła na przekroju — przykład 2',
   duration: 7,
-  given: ['N=30 kN', 'A_1=300 mm^2', 'A_2=150 mm^2'],
+  given: ['N=30 kN', 'A_1=300 mm²', 'A_2=150 mm²'],
   result:
     'Gdyby dopuszczalne naprężenie wynosiło 160 MPa, pierwszy pręt spełniałby warunek, a drugi nie. Aby go spełnić, drugi pręt musiałby mieć pole co najmniej A_2,min=30 000/160=187,5 mm^2. To pokazuje, że dobór przekroju nie polega na skopiowaniu sąsiedniego elementu, lecz na sprawdzeniu każdego elementu osobno.',
   figure: {
@@ -46,7 +46,9 @@ export default {
       caption:
         'Rozważmy dwa niezależne pręty, z których każdy przenosi tę samą siłę rozciągającą N=30 kN. Pierwszy ma pole A_1=300 mm^2, drugi…',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'N=30\\ \\text{kN}',
     },
     {
@@ -56,7 +58,10 @@ export default {
       caption:
         'Dla pierwszego pręta naprężenie wynosi σ_1=30 000/300=100 MPa. Dla drugiego σ_2=30 000/150=200 MPa. Oba pręty są rozciągane, więc…',
       visual: 'axial',
-      focus: { metric: 'σ', segment: '2' },
+      focus: {
+        metric: 'σ',
+        segment: '2',
+      },
       formula: '\\sigma_1=30\\,000/300=100\\ \\text{MPa}',
     },
     {
@@ -66,7 +71,9 @@ export default {
       caption:
         'Ten przykład pokazuje, że „równolegle” nie oznacza „po równo”. Jeśli pręty mają różne sztywności, to przy wspólnym…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
     },
     {
       title: 'Krok 4',
@@ -75,7 +82,9 @@ export default {
       caption:
         'Warto zauważyć różnicę między połączeniem szeregowym a równoległym. W szeregowym pręcie schodkowym wszystkie odcinki przenoszą tę…',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '\\sigma=N/A',
     },
     {
@@ -85,7 +94,9 @@ export default {
       caption:
         'Gdyby dopuszczalne naprężenie wynosiło 160 MPa, pierwszy pręt spełniałby warunek, a drugi nie. Aby go spełnić, drugi pręt…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: '160\\ \\text{MPa}',
     },
   ],

@@ -110,6 +110,7 @@ export interface BeamFigure {
 
 export interface SectionFigure {
   kind: 'section'
+  shape?: 'rect' | 'circle'
   width: number
   height: number
   parts: Array<{

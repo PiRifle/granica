@@ -4,7 +4,7 @@ export default {
   id: 'ex-axial-normal-stress',
   title: 'Naprężenie normalne: siła na przekroju — przykład 1',
   duration: 7,
-  given: ['A = 250 mm'],
+  given: ['A = 250 mm²', 'N = 50 kN'],
   result:
     'σ = +200 MPa, czyli naprężenie rozciągające. Pręt jest blisko granicy plastyczności typowej stali, więc zapas byłby niewielki.',
   figure: {
@@ -51,7 +51,9 @@ export default {
       narration: 'Przyjmij N = +50 kN, ponieważ pręt jest rozciągany.',
       caption: 'Przyjmij N = +50 kN, ponieważ pręt jest rozciągany.',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'N = +50 kN',
     },
     {
@@ -59,7 +61,9 @@ export default {
       narration: 'Przelicz siłę na niutony: N = 50 000 N.',
       caption: 'Przelicz siłę na niutony: N = 50 000 N.',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'N = 50\\,000 N',
     },
     {
@@ -67,14 +71,18 @@ export default {
       narration: 'Zachowaj pole w milimetrach kwadratowych: A = 250 mm².',
       caption: 'Zachowaj pole w milimetrach kwadratowych: A = 250 mm².',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
     },
     {
       title: 'Krok 4',
       narration: 'Podstaw do wzoru: σ = 50 000/250 = 200 N/mm².',
       caption: 'Podstaw do wzoru: σ = 50 000/250 = 200 N/mm².',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '\\sigma = 50\\,000/250 = 200 N/mm^{2}',
     },
     {
@@ -82,7 +90,9 @@ export default {
       narration: 'Zapisz N/mm² jako MPa i pozostaw znak dodatni.',
       caption: 'Zapisz N/mm² jako MPa i pozostaw znak dodatni.',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
     },
     {
       title: 'Krok 6',
@@ -91,7 +101,9 @@ export default {
       caption:
         'Sprawdź rząd wielkości: 200 MPa to typowe naprężenie robocze stali konstrukcyjnej, poniżej granicy plastyczności około 235 MPa.',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
     },
     {
       title: 'Krok 7',
@@ -100,7 +112,9 @@ export default {
       caption:
         'Gdyby ta sama siła działała w drugą stronę, N byłoby ujemne, a naprężenie wyniosłoby −200 MPa. Wartość bezwzględna byłaby ta…',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
     },
   ],
 } satisfies SolutionData

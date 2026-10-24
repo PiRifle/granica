@@ -81,8 +81,7 @@ export default {
     },
     {
       title: 'Reakcja momentowa',
-      narration:
-        'Reakcja momentowa równoważy moment od siły pionowej: M_A − 19,2 = 0, więc M_A = 19,2 kN·m.',
+      narration: 'Reakcja momentowa równoważy moment od siły pionowej: M_A − 19,2 = 0, więc M_A = 19,2 kN·m.',
       caption: 'M_A = 19,2 kN·m przeciwnie do ruchu wskazówek zegara.',
       visual: 'beam',
       focus: { metric: 'reaction' },

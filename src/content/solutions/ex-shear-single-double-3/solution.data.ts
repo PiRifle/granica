@@ -11,19 +11,69 @@ export default {
     kind: 'section',
     width: 22,
     height: 22,
-    parts: [{ x: 0, y: 0, width: 22, height: 22, label: 'sworzeń ∅22', tone: 'solid' }],
-    centroid: { x: 11, y: 11 },
+    parts: [
+      {
+        x: 0,
+        y: 0,
+        width: 22,
+        height: 22,
+        label: 'sworzeń ∅22',
+        tone: 'solid',
+      },
+    ],
+    centroid: {
+      x: 11,
+      y: 11,
+    },
     values: [
-      { label: 'F', value: '90 kN', focus: 'load', reveal: 0 },
-      { label: 'τ_dop', value: '120 MPa', focus: 'stress', reveal: 0 },
-      { label: 'A_s,min', value: '750 mm²', focus: 'design' },
-      { label: 'A_min', value: '375 mm²', focus: 'design', reveal: 1 },
-      { label: 'd_min', value: '21,85 mm', focus: 'design', reveal: 2 },
-      { label: 'd', value: '22 mm', focus: 'design' },
-      { label: 'A', value: '380,13 mm²', focus: 'design' },
-      { label: 'τ_sr', value: '118,4 MPa', focus: 'stress', reveal: 3 },
+      {
+        label: 'F',
+        value: '90 kN',
+        focus: 'load',
+        reveal: 0,
+      },
+      {
+        label: 'τ_dop',
+        value: '120 MPa',
+        focus: 'stress',
+        reveal: 0,
+      },
+      {
+        label: 'A_s,min',
+        value: '750 mm²',
+        focus: 'design',
+      },
+      {
+        label: 'A_min',
+        value: '375 mm²',
+        focus: 'design',
+        reveal: 1,
+      },
+      {
+        label: 'd_min',
+        value: '21,85 mm',
+        focus: 'design',
+        reveal: 2,
+      },
+      {
+        label: 'd',
+        value: '22 mm',
+        focus: 'design',
+      },
+      {
+        label: 'A',
+        value: '380,13 mm²',
+        focus: 'design',
+      },
+      {
+        label: 'τ_sr',
+        value: '118,4 MPa',
+        focus: 'stress',
+        reveal: 3,
+      },
     ],
     note: 'Przyjęto średnicę handlową 22 mm; naprężenie 118,4 MPa jest poniżej 120 MPa.',
+    shape: 'circle',
   },
   scenes: [
     {
@@ -33,7 +83,9 @@ export default {
       caption:
         'Zaprojektujmy średnicę sworznia dwuciętego dla siły F = 90 kN i naprężenia dopuszczalnego τ_dop = 120 MPa. Tym razem szukamy…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'F = 90\\ \\text{kN}',
     },
     {
@@ -43,7 +95,9 @@ export default {
       caption:
         'Wymagane łączne pole ścinania wynosi A_s ≥ F/τ_dop = 90 000/120 = 750 mm^2. Dla jednego sworznia dwuciętego A_s = 2A, więc pole…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'A_s \\ge F/\\tau_{dop} = 90\\,000/120 = 750\\ \\text{mm}^2',
     },
     {
@@ -53,7 +107,9 @@ export default {
       caption:
         'Z zależności A = π d^2/4 otrzymujemy d ≥ √(4A/π) = √(4 · 375/π) = √(477,46) = 21,85 mm. Najmniejsza dopuszczalna średnica to…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'A = \\pi d^2/4',
     },
     {
@@ -63,7 +119,9 @@ export default {
       caption:
         'Wybieramy średnicę handlową 22 mm i sprawdzamy ponownie. Pole wynosi A = π · 22^2/4 = 380,13 mm^2, łączne pole 2A = 760,27 mm^2,…',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
       formula: 'A = \\pi \\cdot 22^2/4 = 380{,}13\\ \\text{mm}^2',
     },
     {
@@ -73,7 +131,9 @@ export default {
       caption:
         'Zwróć uwagę, że zaokrąglenie średnicy w górę zwiększa pole, ale nie zmienia liczby płaszczyzn. Gdyby wynik był blisko granicy,…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
     },
     {
       title: 'Krok 6',
@@ -82,7 +142,9 @@ export default {
       caption:
         'W praktyce projektant często iteruje: dobiera średnicę, sprawdza rozstaw i odległości od krawędzi, a potem wraca do obliczeń.…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
     },
   ],
 } satisfies SolutionData

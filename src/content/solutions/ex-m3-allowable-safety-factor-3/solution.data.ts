@@ -4,7 +4,7 @@ export default {
   id: 'ex-m3-allowable-safety-factor-3',
   title: 'Naprężenie dopuszczalne i współczynnik bezpieczeństwa — przykład 3',
   duration: 7,
-  given: ['A=500 mm^2', 'R_e=235 MPa', 'n=2'],
+  given: ['A=500 mm²', 'R_e=235 MPa', 'n=2'],
   result:
     'Zależność jest odwrotnie proporcjonalna do n. Podwojenie wymaganego zapasu oznacza w tym modelu dwukrotne zmniejszenie dopuszczalnej siły przy tym samym przekroju. W praktyce oznacza to konieczność zwiększenia pola albo zmiany materiału, a nie „lepszego wykorzystania” istniejącego pręta.',
   figure: {
@@ -53,7 +53,9 @@ export default {
       caption:
         'Rozważmy istniejący pręt o polu A=500 mm^2 wykonany ze stali o R_e=235 MPa. Wymagany współczynnik bezpieczeństwa wynosi n=2.…',
       visual: 'thermal',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: 'R_{e} = 235 MPa',
     },
     {
@@ -61,14 +63,18 @@ export default {
       narration: 'Naprężenie dopuszczalne jest równe',
       caption: 'Naprężenie dopuszczalne jest równe',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
     },
     {
       title: 'Krok 3',
       narration: 'Zapis matematyczny.',
       caption: 'σ_dop=(235)/(2)=117,5 MPa.',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '\\sigma_{\\mathrm{dop}}=\\frac{235}{2}=117{,}5\\ \\text{MPa}.',
     },
     {
@@ -76,14 +82,18 @@ export default {
       narration: 'Maksymalna siła wynosi więc',
       caption: 'Maksymalna siła wynosi więc',
       visual: 'thermal',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
     },
     {
       title: 'Krok 5',
       narration: 'Zapis matematyczny.',
       caption: 'N_max=σ_dopA=117,5·500=58 750 N≈58,8 kN.',
       visual: 'thermal',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'N_{\\max}=\\sigma_{\\mathrm{dop}}A=117{,}5\\cdot500=58\\,750\\ \\text{N}\\approx58{,}8\\ \\text{kN}.',
     },
     {
@@ -93,7 +103,9 @@ export default {
       caption:
         'Przy sile 50 kN naprężenie wynosi 100 MPa, a rzeczywisty współczynnik n_rz=235/100=2,35, więc element ma zapas większy od…',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: 'n_{rz} = 235/100 = 2{,}35',
     },
     {
@@ -101,7 +113,9 @@ export default {
       narration: 'Jeżeli wymaganie wzrośnie do n=2,5, maksymalna siła maleje do',
       caption: 'Jeżeli wymaganie wzrośnie do n=2,5, maksymalna siła maleje do',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: 'n = 2{,}5',
     },
     {
@@ -109,7 +123,9 @@ export default {
       narration: 'Zapis matematyczny.',
       caption: 'N_max=(235·500)/(2,5)=47 000 N=47 kN.',
       visual: 'thermal',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'N_{\\max}=\\frac{235\\cdot500}{2{,}5}=47\\,000\\ \\text{N}=47\\ \\text{kN}.',
     },
     {
@@ -119,7 +135,9 @@ export default {
       caption:
         'Zależność jest odwrotnie proporcjonalna do n. Podwojenie wymaganego zapasu oznacza w tym modelu dwukrotne zmniejszenie…',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
     },
   ],
 } satisfies SolutionData

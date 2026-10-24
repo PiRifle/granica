@@ -4,7 +4,7 @@ export default {
   id: 'ex-m3-hooke-stiffness',
   title: 'Prawo Hooke’a i sztywność osiowa — przykład 1',
   duration: 7,
-  given: ['L=2 m', 'A=250 mm^2', 'N=50 kN', 'E=200 GPa'],
+  given: ['L=2 m', 'A=250 mm²', 'N=50 kN', 'E=200 GPa'],
   result:
     'Pręt ma naprężenie 200 MPa, odkształcenie 0,001 i wydłuża się o 2 mm, o ile pozostaje w zakresie sprężystym. Jego sztywność osiowa wynosi około 25 MN/m.',
   figure: {
@@ -55,7 +55,9 @@ export default {
       narration: 'Naprężenie: σ=N/A=50 000/250=200 MPa.',
       caption: 'Naprężenie: σ=N/A=50 000/250=200 MPa.',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '\\sigma=N/A=50\\,000/250=200\\ \\text{MPa}',
     },
     {
@@ -63,7 +65,9 @@ export default {
       narration: 'Odkształcenie z prawa Hooke’a: ε=σ/E=200/200 000=0,001.',
       caption: 'Odkształcenie z prawa Hooke’a: ε=σ/E=200/200 000=0,001.',
       visual: 'thermal',
-      focus: { metric: 'ε' },
+      focus: {
+        metric: 'ε',
+      },
       formula: '\\varepsilon=\\sigma/E=200/200\\,000=0{,}001',
     },
     {
@@ -71,7 +75,9 @@ export default {
       narration: 'Wydłużenie: Δ L=ε L=0,001· 2000 mm=2 mm.',
       caption: 'Wydłużenie: Δ L=ε L=0,001· 2000 mm=2 mm.',
       visual: 'thermal',
-      focus: { metric: 'ΔL' },
+      focus: {
+        metric: 'ΔL',
+      },
       formula: '\\Delta L=\\varepsilon L=0{,}001\\cdot 2000\\ \\text{mm}=2\\ \\text{mm}',
     },
     {
@@ -79,7 +85,9 @@ export default {
       narration: 'Ten sam wynik daje Δ L=NL/(EA)=50 000· 2000/(200 000· 250)=2 mm.',
       caption: 'Ten sam wynik daje Δ L=NL/(EA)=50 000· 2000/(200 000· 250)=2 mm.',
       visual: 'thermal',
-      focus: { metric: 'ΔL' },
+      focus: {
+        metric: 'ΔL',
+      },
       formula: '\\Delta L=NL/(EA)=50\\,000\\cdot 2000/(200\\,000\\cdot 250)=2\\ \\text{mm}',
     },
     {
@@ -87,7 +95,9 @@ export default {
       narration: 'Sztywność: k=EA/L=200 000· 250/2000=25 000 N/mm, czyli 25 MN/m.',
       caption: 'Sztywność: k=EA/L=200 000· 250/2000=25 000 N/mm, czyli 25 MN/m.',
       visual: 'thermal',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: 'k=EA/L=200\\,000\\cdot 250/2000=25\\,000\\ \\text{N/mm}',
     },
     {
@@ -95,7 +105,9 @@ export default {
       narration: 'Kontrola: kΔ L=25 000· 2=50 000 N, zgodnie z zadaną siłą.',
       caption: 'Kontrola: kΔ L=25 000· 2=50 000 N, zgodnie z zadaną siłą.',
       visual: 'thermal',
-      focus: { metric: 'ΔL' },
+      focus: {
+        metric: 'ΔL',
+      },
       formula: 'k\\Delta L=25\\,000\\cdot 2=50\\,000\\ \\text{N}',
     },
     {
@@ -105,7 +117,9 @@ export default {
       caption:
         'Sprawdzenie zakresu: 200 MPa jest mniejsze od typowej granicy plastyczności stali 235 MPa, więc wynik jest wiarygodny.',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '200\\ \\text{MPa}',
     },
   ],

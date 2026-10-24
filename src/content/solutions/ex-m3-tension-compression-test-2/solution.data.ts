@@ -4,7 +4,7 @@ export default {
   id: 'ex-m3-tension-compression-test-2',
   title: 'Próba rozciągania i ściskania — przykład 2',
   duration: 7,
-  given: ['b=12', 't=4 mm', 'A_0=50 mm^2', 'L_0=50 mm', 'N=10 kN'],
+  given: ['b=12', 't=4 mm', 'A_0=50 mm²', 'L_0=50 mm', 'N=10 kN'],
   result:
     'Zauważ, że druga próbka ma identyczną długość pomiarową, więc różnica wydłużenia wynika wyłącznie z różnicy naprężenia. Gdyby dodatkowo zmienić długość, do porównania trzeba by użyć odkształcenia względnego, a nie samego wydłużenia. To właśnie dlatego krzywa materiału jest rysowana w układzie σ – ε, a nie siła–wydłużenie.',
   figure: {
@@ -57,7 +57,9 @@ export default {
       caption:
         'Rozważmy płaską próbkę stalową o szerokości b=12,5 mm i grubości t=4 mm. Pole przekroju wynosi A_0=50 mm^2, długość pomiarowa…',
       visual: 'thermal',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: 'b = 12{,}5 mm',
     },
     {
@@ -65,7 +67,9 @@ export default {
       narration: 'Zapis matematyczny.',
       caption: 'σ=(10 000)/(50)=200 MPa.',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '\\sigma=\\frac{10\\,000}{50}=200\\ \\text{MPa}.',
     },
     {
@@ -73,7 +77,9 @@ export default {
       narration: 'Przy module E=200 GPa odkształcenie wynosi ε=200/200 000=0,001, a wydłużenie',
       caption: 'Przy module E=200 GPa odkształcenie wynosi ε=200/200 000=0,001, a wydłużenie',
       visual: 'thermal',
-      focus: { metric: 'ε' },
+      focus: {
+        metric: 'ε',
+      },
       formula: 'E = 200 GPa',
     },
     {
@@ -81,7 +87,9 @@ export default {
       narration: 'Zapis matematyczny.',
       caption: 'Δ L=ε L_0=0,001· 50=0,05 mm.',
       visual: 'thermal',
-      focus: { metric: 'ΔL' },
+      focus: {
+        metric: 'ΔL',
+      },
       formula: '\\Delta L=\\varepsilon L_0=0{,}001\\cdot 50=0{,}05\\ \\text{mm}.',
     },
     {
@@ -91,7 +99,9 @@ export default {
       caption:
         'Gdyby ta sama siła działała na próbkę o polu 25 mm^2, naprężenie wzrosłoby do 400 MPa. To już przekracza typową granicę…',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '400/200\\,000 = 0{,}002',
     },
     {
@@ -101,7 +111,9 @@ export default {
       caption:
         'Ten przykład pokazuje, dlaczego w zadaniach trzeba sprawdzać nie tylko wynik arytmetyczny, ale także zakres modelu. Liczba 400…',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
     },
     {
       title: 'Krok 7',
@@ -110,7 +122,9 @@ export default {
       caption:
         'Zauważ, że druga próbka ma identyczną długość pomiarową, więc różnica wydłużenia wynika wyłącznie z różnicy naprężenia. Gdyby…',
       visual: 'thermal',
-      focus: { metric: 'ε' },
+      focus: {
+        metric: 'ε',
+      },
     },
   ],
 } satisfies SolutionData

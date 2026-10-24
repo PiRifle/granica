@@ -4,7 +4,7 @@ export default {
   id: 'ex-axial-strength-condition-3',
   title: 'Warunek wytrzymałości i zapas bezpieczeństwa — przykład 3',
   duration: 7,
-  given: ['A=500 mm^2', 'R_e=235 MPa', 'n=2'],
+  given: ['A=500 mm²', 'R_e=235 MPa', 'n=2'],
   result:
     'Widzimy, że współczynnik bezpieczeństwa nie jest dodatkiem do wyniku, lecz parametrem, który bezpośrednio zmienia nośność. Podwojenie n przy stałym przekroju w przybliżeniu o połowę zmniejsza dopuszczalną siłę. To dlatego dobór n musi być świadomą decyzją, a nie przypadkową liczbą.',
   figure: {
@@ -53,7 +53,9 @@ export default {
       caption:
         'Tym razem mamy gotowy przekrój i wymagany zapas, a szukamy maksymalnej dopuszczalnej siły. Pręt o polu A=500 mm^2 wykonano ze…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: 'A=500\\ \\text{mm}^2',
     },
     {
@@ -63,7 +65,9 @@ export default {
       caption:
         'Naprężenie dopuszczalne to σ_dop=235/2,5=94 MPa. Maksymalna siła wynosi N_max=σ_dopA=94·500=47 000 N, czyli 47 kN. Przy n=1,5 ten…',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: '\\sigma_{\\mathrm{dop}}=235/2{,}5=94\\ \\text{MPa}',
     },
     {
@@ -73,7 +77,9 @@ export default {
       caption:
         'Odwrotne pytanie brzmi: jakie pole jest potrzebne dla siły 60 kN przy n=2? Wtedy σ_dop=117,5 MPa i A_min=60 000/117,5=510,6 mm^2.…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: '60\\ \\text{kN}',
     },
     {
@@ -83,7 +89,9 @@ export default {
       caption:
         'Widzimy, że współczynnik bezpieczeństwa nie jest dodatkiem do wyniku, lecz parametrem, który bezpośrednio zmienia nośność.…',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: 'n',
     },
   ],

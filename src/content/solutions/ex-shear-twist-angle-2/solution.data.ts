@@ -11,24 +11,100 @@ export default {
     kind: 'section',
     width: 35,
     height: 35,
-    parts: [{ x: 0, y: 0, width: 35, height: 35, label: 'wał ∅35', tone: 'solid' }],
-    centroid: { x: 17.5, y: 17.5 },
+    parts: [
+      {
+        x: 0,
+        y: 0,
+        width: 35,
+        height: 35,
+        label: 'wał ∅35',
+        tone: 'solid',
+      },
+    ],
+    centroid: {
+      x: 17.5,
+      y: 17.5,
+    },
     values: [
-      { label: 'P', value: '30 kW', focus: 'load', reveal: 0 },
-      { label: 'n', value: '1470 obr/min', focus: 'load', reveal: 0 },
-      { label: 'd', value: '35 mm', focus: 'design', reveal: 0 },
-      { label: 'L', value: '1000 mm', focus: 'design', reveal: 0 },
-      { label: 'G', value: '80 GPa', focus: 'design', reveal: 0 },
-      { label: 'ω', value: '153,94 rad/s', focus: 'load' },
-      { label: 'T', value: '194,9 N·m', focus: 'load', reveal: 1 },
-      { label: 'J_o', value: '147 324 mm⁴', focus: 'design' },
-      { label: 'φ', value: '0,947°', focus: 'design', reveal: 2 },
-      { label: 'τ_max', value: '23,1 MPa', focus: 'stress', reveal: 2 },
-      { label: 'J_o (d = 40)', value: '251 327 mm⁴', focus: 'design', reveal: 3 },
-      { label: 'φ (d = 40)', value: '0,555°', focus: 'design', reveal: 3 },
-      { label: 'τ (d = 40)', value: '15,5 MPa', focus: 'stress', reveal: 3 },
+      {
+        label: 'P',
+        value: '30 kW',
+        focus: 'load',
+        reveal: 0,
+      },
+      {
+        label: 'n',
+        value: '1470 obr/min',
+        focus: 'load',
+        reveal: 0,
+      },
+      {
+        label: 'd',
+        value: '35 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'L',
+        value: '1000 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'G',
+        value: '80 GPa',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'ω',
+        value: '153,94 rad/s',
+        focus: 'load',
+      },
+      {
+        label: 'T',
+        value: '194,9 N·m',
+        focus: 'load',
+        reveal: 1,
+      },
+      {
+        label: 'J_o',
+        value: '147 324 mm⁴',
+        focus: 'design',
+      },
+      {
+        label: 'φ',
+        value: '0,947°',
+        focus: 'design',
+        reveal: 2,
+      },
+      {
+        label: 'τ_max',
+        value: '23,1 MPa',
+        focus: 'stress',
+        reveal: 2,
+      },
+      {
+        label: 'J_o (d = 40)',
+        value: '251 327 mm⁴',
+        focus: 'design',
+        reveal: 3,
+      },
+      {
+        label: 'φ (d = 40)',
+        value: '0,555°',
+        focus: 'design',
+        reveal: 3,
+      },
+      {
+        label: 'τ (d = 40)',
+        value: '15,5 MPa',
+        focus: 'stress',
+        reveal: 3,
+      },
     ],
     note: 'Zwiększenie średnicy z 35 do 40 mm wyraźnie zmniejsza kąt skręcenia i naprężenie.',
+    shape: 'circle',
   },
   scenes: [
     {
@@ -38,7 +114,9 @@ export default {
       caption:
         'Rozważmy wał napędowy przenoszący moc P = 30 kW przy prędkości obrotowej n = 1470 obr/min. Średnica wału wynosi d = 35 mm,…',
       visual: 'section',
-      focus: { metric: 'load' },
+      focus: {
+        metric: 'load',
+      },
       formula: 'P = 30\\ \\text{kW}',
     },
     {
@@ -48,7 +126,9 @@ export default {
       caption:
         'Najpierw zamieniamy prędkość obrotową na prędkość kątową: ω = 2π n/60 = 2π · 1470/60 = 153,94 rad/s. Moment wynosi T = P/ω = 30…',
       visual: 'section',
-      focus: { metric: 'load' },
+      focus: {
+        metric: 'load',
+      },
       formula: '\\omega = 2\\pi n/60 = 2\\pi \\cdot 1470/60 = 153{,}94\\ \\text{rad/s}',
     },
     {
@@ -58,7 +138,9 @@ export default {
       caption:
         'Biegunowy moment bezwładności to J_o = π · 35^4/32 = 147 324 mm^4. Kąt skręcenia wynosi φ = 194 900 · 1000/(80 000 · 147 324) =…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'J_o = \\pi \\cdot 35^4/32 = 147\\,324\\ \\text{mm}^4',
     },
     {
@@ -68,7 +150,9 @@ export default {
       caption:
         'Naprężenie jest niewielkie, ale kąt bliski jednemu stopniowi na metr może już być zauważalny w precyzyjnym napędzie. Gdyby…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: '40\\ \\text{mm}',
     },
     {
@@ -78,7 +162,9 @@ export default {
       caption:
         'Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy…',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
     },
     {
       title: 'Krok 6',
@@ -87,7 +173,9 @@ export default {
       caption:
         'W obliczeniach napędu trzeba też pamiętać o sprawności przekładni i o tym, że moment na wale nie jest stały w czasie rozruchu.…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
     },
   ],
 } satisfies SolutionData

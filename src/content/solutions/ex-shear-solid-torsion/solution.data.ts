@@ -11,20 +11,74 @@ export default {
     kind: 'section',
     width: 60,
     height: 60,
-    parts: [{ x: 0, y: 0, width: 60, height: 60, label: 'wał ∅60', tone: 'solid' }],
-    centroid: { x: 30, y: 30 },
+    parts: [
+      {
+        x: 0,
+        y: 0,
+        width: 60,
+        height: 60,
+        label: 'wał ∅60',
+        tone: 'solid',
+      },
+    ],
+    centroid: {
+      x: 30,
+      y: 30,
+    },
     values: [
-      { label: 'd', value: '60 mm', focus: 'design', reveal: 0 },
-      { label: 'T', value: '1,5 kN·m', focus: 'load', reveal: 0 },
-      { label: 'L', value: '1200 mm', focus: 'design', reveal: 0 },
-      { label: 'G', value: '80 GPa', focus: 'design', reveal: 0 },
-      { label: 'W_o', value: '42 412 mm³', focus: 'design' },
-      { label: 'τ_max', value: '35,4 MPa', focus: 'stress', reveal: 2 },
-      { label: 'J_o', value: '1 272 345 mm⁴', focus: 'design' },
-      { label: 'φ', value: '0,01768 rad', focus: 'design' },
-      { label: 'φ', value: '1,013°', focus: 'design' },
+      {
+        label: 'd',
+        value: '60 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'T',
+        value: '1,5 kN·m',
+        focus: 'load',
+        reveal: 0,
+      },
+      {
+        label: 'L',
+        value: '1200 mm',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'G',
+        value: '80 GPa',
+        focus: 'design',
+        reveal: 0,
+      },
+      {
+        label: 'W_o',
+        value: '42 412 mm³',
+        focus: 'design',
+      },
+      {
+        label: 'τ_max',
+        value: '35,4 MPa',
+        focus: 'stress',
+        reveal: 2,
+      },
+      {
+        label: 'J_o',
+        value: '1 272 345 mm⁴',
+        focus: 'design',
+      },
+      {
+        label: 'φ',
+        value: '0,01768 rad',
+        focus: 'design',
+      },
+      {
+        label: 'φ',
+        value: '1,013°',
+        focus: 'design',
+      },
     ],
     note: 'Naprężenie styczne rośnie liniowo od zera w osi do τ_max na powierzchni wału.',
+    shape: 'circle',
   },
   scenes: [
     {
@@ -32,7 +86,9 @@ export default {
       narration: 'Zamień moment: T = 1,5 kN·m = 1 500 000 N·mm.',
       caption: 'Zamień moment: T = 1,5 kN·m = 1 500 000 N·mm.',
       visual: 'section',
-      focus: { metric: 'load' },
+      focus: {
+        metric: 'load',
+      },
       formula: 'T = 1{,}5\\ \\text{kN}\\cdot\\text{m} = 1\\,500\\,000\\ \\text{N}\\cdot\\text{mm}',
     },
     {
@@ -40,7 +96,9 @@ export default {
       narration: 'Oblicz wskaźnik wytrzymałości: W_o = π · 60^3/16 = 42 411,5 mm^3.',
       caption: 'Oblicz wskaźnik wytrzymałości: W_o = π · 60^3/16 = 42 411,5 mm^3.',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'W_o = \\pi \\cdot 60^3/16 = 42\\,411{,}5\\ \\text{mm}^3',
     },
     {
@@ -48,7 +106,9 @@ export default {
       narration: 'Maksymalne naprężenie: τ_max = 1 500 000/42 411,5 = 35,37 MPa.',
       caption: 'Maksymalne naprężenie: τ_max = 1 500 000/42 411,5 = 35,37 MPa.',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
       formula: '\\tau_{max} = 1\\,500\\,000/42\\,411{,}5 = 35{,}37\\ \\text{MPa}',
     },
     {
@@ -56,7 +116,9 @@ export default {
       narration: 'Oblicz biegunowy moment bezwładności: J_o = π · 60^4/32 = 1 272 345 mm^4.',
       caption: 'Oblicz biegunowy moment bezwładności: J_o = π · 60^4/32 = 1 272 345 mm^4.',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'J_o = \\pi \\cdot 60^4/32 = 1\\,272\\,345\\ \\text{mm}^4',
     },
     {
@@ -64,7 +126,9 @@ export default {
       narration: 'Zamień długość na mm: L = 1,2 m = 1200 mm.',
       caption: 'Zamień długość na mm: L = 1,2 m = 1200 mm.',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'L = 1{,}2\\ \\text{m} = 1200\\ \\text{mm}',
     },
     {
@@ -72,7 +136,9 @@ export default {
       narration: 'Kąt skręcenia: φ = 1 500 000 · 1200/(80 000 · 1 272 345) = 0,01768 rad.',
       caption: 'Kąt skręcenia: φ = 1 500 000 · 1200/(80 000 · 1 272 345) = 0,01768 rad.',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: '\\varphi = 1\\,500\\,000 \\cdot 1200/(80\\,000 \\cdot 1\\,272\\,345) = 0{,}01768\\ \\text{rad}',
     },
     {
@@ -80,7 +146,9 @@ export default {
       narration: 'Zamień na stopnie: 0,01768 · 180/π = 1,013°.',
       caption: 'Zamień na stopnie: 0,01768 · 180/π = 1,013°.',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: '0{,}01768 \\cdot 180/\\pi = 1{,}013^\\circ',
     },
   ],

@@ -4,7 +4,7 @@ export default {
   id: 'ex-axial-stiffness-condition-2',
   title: 'Warunek sztywności: bezpiecznie i bez nadmiernych ruchów — przykład 2',
   duration: 7,
-  given: ['L_1=1 m', 'A_1=300 mm^2', 'E_1=200 GPa', 'L_2=1 m', 'A_2=500 mm^2', 'E_2=70 GPa'],
+  given: ['L_1=1 m', 'A_1=300 mm²', 'E_1=200 GPa', 'L_2=1 m', 'A_2=500 mm²', 'E_2=70 GPa'],
   result:
     'Gdyby drugi odcinek był stalowy, wystarczyłoby około 214 mm^2, aby uzyskać to samo wydłużenie. Materiał o większym E jest więc bardziej efektywny, jeśli chodzi o sztywność, ale może być droższy lub cięższy. W tym przykładzie o doborze decyduje aluminium o mniejszym module, a nie najbardziej wytężony odcinek. To kolejna ilustracja różnicy między warunkiem wytrzymałości a warunkiem sztywności.',
   figure: {
@@ -57,7 +57,9 @@ export default {
       caption:
         'Rozważmy pręt złożony z dwóch odcinków o różnych materiałach. Pierwszy odcinek jest stalowy: L_1=1 m, A_1=300 mm^2, E_1=200 GPa.…',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'L_1=1\\ \\text{m}',
     },
     {
@@ -67,7 +69,9 @@ export default {
       caption:
         'Wydłużenia wynoszą Δ L_1=30 000·1000/(200 000·300)=0,50 mm oraz Δ L_2=30 000·1000/(70 000·500)=0,857 mm. Suma 1,357 mm przekracza…',
       visual: 'axial',
-      focus: { metric: 'ΔL' },
+      focus: {
+        metric: 'ΔL',
+      },
       formula: '\\Delta L_1=30\\,000\\cdot1000/(200\\,000\\cdot300)=0{,}50\\ \\text{mm}',
     },
     {
@@ -77,7 +81,9 @@ export default {
       caption:
         'Aby spełnić warunek sztywności, zwiększamy pole odcinka aluminiowego. Pozostałe odcinki mają już ustalone wydłużenie 0,50 mm,…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: '0{,}50\\ \\text{mm}',
     },
     {
@@ -87,16 +93,19 @@ export default {
       caption:
         'Gdyby drugi odcinek był stalowy, wystarczyłoby około 214 mm^2, aby uzyskać to samo wydłużenie. Materiał o większym E jest więc…',
       visual: 'axial',
-      focus: { metric: 'A' },
+      focus: {
+        metric: 'A',
+      },
       formula: '214\\ \\text{mm}^2',
     },
-
     {
       title: 'Krok 5',
       narration: 'Odkształcenia odcinków: ε₁ = 100/200 000 = 0,0005 oraz ε₂ = 60/70 000 ≈ 0,000857.',
       caption: 'Aluminium odkształca się bardziej mimo mniejszego naprężenia, bo ma mniejszy moduł Younga.',
       visual: 'axial',
-      focus: { metric: 'ε' },
+      focus: {
+        metric: 'ε',
+      },
       formula: '\\varepsilon_1=100/200\\,000=0{,}0005,\\qquad \\varepsilon_2=60/70\\,000\\approx0{,}000857',
     },
   ],

@@ -11,18 +11,63 @@ export default {
     kind: 'section',
     width: 30,
     height: 30,
-    parts: [{ x: 0, y: 0, width: 30, height: 30, label: 'sworzeń ∅30', tone: 'solid' }],
-    centroid: { x: 15, y: 15 },
+    parts: [
+      {
+        x: 0,
+        y: 0,
+        width: 30,
+        height: 30,
+        label: 'sworzeń ∅30',
+        tone: 'solid',
+      },
+    ],
+    centroid: {
+      x: 15,
+      y: 15,
+    },
     values: [
-      { label: 'F', value: '50 kN', focus: 'load', reveal: 0 },
-      { label: 'τ_dop', value: '80 MPa', focus: 'stress', reveal: 0 },
-      { label: 'A_s,min', value: '625 mm²', focus: 'design' },
-      { label: 'd_min', value: '28,2 mm', focus: 'design', reveal: 1 },
-      { label: 'd', value: '30 mm', focus: 'design' },
-      { label: 'A', value: '706,86 mm²', focus: 'design' },
-      { label: 'τ_sr', value: '70,7 MPa', focus: 'stress', reveal: 2 },
+      {
+        label: 'F',
+        value: '50 kN',
+        focus: 'load',
+        reveal: 0,
+      },
+      {
+        label: 'τ_dop',
+        value: '80 MPa',
+        focus: 'stress',
+        reveal: 0,
+      },
+      {
+        label: 'A_s,min',
+        value: '625 mm²',
+        focus: 'design',
+      },
+      {
+        label: 'd_min',
+        value: '28,2 mm',
+        focus: 'design',
+        reveal: 1,
+      },
+      {
+        label: 'd',
+        value: '30 mm',
+        focus: 'design',
+      },
+      {
+        label: 'A',
+        value: '706,86 mm²',
+        focus: 'design',
+      },
+      {
+        label: 'τ_sr',
+        value: '70,7 MPa',
+        focus: 'stress',
+        reveal: 2,
+      },
     ],
     note: 'Po zaokrągleniu do 30 mm naprężenie spada do 70,7 MPa, poniżej 80 MPa.',
+    shape: 'circle',
   },
   scenes: [
     {
@@ -32,7 +77,9 @@ export default {
       caption:
         'Załóżmy, że znamy dopuszczalne naprężenie styczne i chcemy dobrać średnicę sworznia. Połączenie jest jednocięte, siła wynosi F =…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'F = 50\\ \\text{kN}',
     },
     {
@@ -42,7 +89,9 @@ export default {
       caption:
         'Najpierw wyznaczamy wymagane pole ścinane: A_s ≥ F/τ_dop = 50 000/80 = 625 mm^2. Dla jednej płaszczyzny ścinania A_s = π d^2/4,…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
       formula: 'A_s \\ge F/\\tau_{dop} = 50\\,000/80 = 625\\ \\text{mm}^2',
     },
     {
@@ -52,7 +101,9 @@ export default {
       caption:
         'Najmniejsza średnica z warunku wytrzymałości to około 28,2 mm. W praktyce wybieramy najbliższy dostępny wymiar większy od tej…',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
       formula: 'A = \\pi \\cdot 30^2/4 = 706{,}86\\ \\text{mm}^2',
     },
     {
@@ -62,7 +113,9 @@ export default {
       caption:
         'Ten przykład pokazuje typową kolejność pracy projektowej. Najpierw przekształcasz wzór, potem zaokrąglasz wynik w górę do wymiaru…',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: {
+        metric: 'design',
+      },
     },
     {
       title: 'Krok 5',
@@ -71,7 +124,9 @@ export default {
       caption:
         'Zwróć uwagę, że zaokrąglenie średnicy w górę jest bezpieczne, ale nie zawsze wystarcza. Przy średnicy 30 mm naprężenie spadło do…',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: {
+        metric: 'stress',
+      },
     },
   ],
 } satisfies SolutionData

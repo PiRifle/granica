@@ -4,7 +4,7 @@ export default {
   id: 'ex-axial-elongation',
   title: 'Wydłużenia i skrócenia prętów — przykład 1',
   duration: 7,
-  given: ['N = 24 kN', 'L₁ = 1,2 m', 'A₁ = 240 mm', 'L₂ = 0,8 m', 'A₂ = 120 mm', 'E = 200 GPa'],
+  given: ['N = 24 kN', 'L₁ = 1,2 m', 'A₁ = 240 mm²', 'L₂ = 0,8 m', 'A₂ = 120 mm²', 'E = 200 GPa'],
   result:
     'ΔL₁ = 0,60 mm, ΔL₂ = 0,80 mm, a całkowite wydłużenie pręta wynosi 1,40 mm. Odkształcenie drugiego odcinka jest dwa razy większe, mimo że jego wkład w wydłużenie jest tylko o jedną trzecią większy, bo odcinek jest krótszy.',
   figure: {
@@ -55,7 +55,9 @@ export default {
       narration: 'Przelicz dane: N = 24 000 N, L₁ = 1200 mm, L₂ = 800 mm, E = 200 000 MPa.',
       caption: 'Przelicz dane: N = 24 000 N, L₁ = 1200 mm, L₂ = 800 mm, E = 200 000 MPa.',
       visual: 'axial',
-      focus: { metric: 'N' },
+      focus: {
+        metric: 'N',
+      },
       formula: 'N = 24\\,000 N, L_{1} = 1200 mm, L_{2} = 800 mm, E = 200\\,000 MPa',
     },
     {
@@ -63,7 +65,10 @@ export default {
       narration: 'Odcinek 1: ΔL₁ = 24 000·1200/(200 000·240) = 0,60 mm.',
       caption: 'Odcinek 1: ΔL₁ = 24 000·1200/(200 000·240) = 0,60 mm.',
       visual: 'axial',
-      focus: { metric: 'ΔL', segment: '1' },
+      focus: {
+        metric: 'ΔL',
+        segment: '1',
+      },
       formula: '\\Delta L_{1} = 24\\,000\\cdot 1200/(200\\,000\\cdot 240) = 0{,}60 mm',
     },
     {
@@ -71,7 +76,10 @@ export default {
       narration: 'Odcinek 2: ΔL₂ = 24 000·800/(200 000·120) = 0,80 mm.',
       caption: 'Odcinek 2: ΔL₂ = 24 000·800/(200 000·120) = 0,80 mm.',
       visual: 'axial',
-      focus: { metric: 'ΔL', segment: '2' },
+      focus: {
+        metric: 'ΔL',
+        segment: '2',
+      },
       formula: '\\Delta L_{2} = 24\\,000\\cdot 800/(200\\,000\\cdot 120) = 0{,}80 mm',
     },
     {
@@ -79,7 +87,9 @@ export default {
       narration: 'Oba odcinki są rozciągane, więc oba wkłady są dodatnie: ΔL = ΔL₁ + ΔL₂.',
       caption: 'Oba odcinki są rozciągane, więc oba wkłady są dodatnie: ΔL = ΔL₁ + ΔL₂.',
       visual: 'axial',
-      focus: { metric: 'ΔL' },
+      focus: {
+        metric: 'ΔL',
+      },
       formula: '\\Delta L = \\Delta L_{1} + \\Delta L_{2}',
     },
     {
@@ -87,7 +97,9 @@ export default {
       narration: 'Całkowite wydłużenie: ΔL = 0,60 + 0,80 = 1,40 mm.',
       caption: 'Całkowite wydłużenie: ΔL = 0,60 + 0,80 = 1,40 mm.',
       visual: 'axial',
-      focus: { metric: 'ΔL' },
+      focus: {
+        metric: 'ΔL',
+      },
       formula: '\\Delta L = 0{,}60 + 0{,}80 = 1{,}40 mm',
     },
     {
@@ -95,7 +107,9 @@ export default {
       narration: 'Sprawdź odkształcenia: ε₁ = 0,60/1200 = 0,0005, ε₂ = 0,80/800 = 0,001.',
       caption: 'Sprawdź odkształcenia: ε₁ = 0,60/1200 = 0,0005, ε₂ = 0,80/800 = 0,001.',
       visual: 'axial',
-      focus: { metric: 'ε' },
+      focus: {
+        metric: 'ε',
+      },
       formula: '\\varepsilon_{1} = 0{,}60/1200 = 0{,}0005, \\varepsilon_{2} = 0{,}80/800 = 0{,}001',
     },
     {
@@ -105,7 +119,9 @@ export default {
       caption:
         'Sprawdź naprężenia: σ₁ = 24 000/240 = 100 MPa, σ₂ = 24 000/120 = 200 MPa. Oba są poniżej typowej granicy plastyczności stali 235…',
       visual: 'axial',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'σ',
+      },
       formula: '\\sigma_{1} = 24\\,000/240 = 100 MPa, \\sigma_{2} = 24\\,000/120 = 200 MPa',
     },
   ],
