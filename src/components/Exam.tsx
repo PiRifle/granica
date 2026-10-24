@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { Award, CheckCircle2, Clock, RefreshCw, Target, XCircle } from 'lucide-react'
-import { lessons } from '../data/course'
+import { lessons } from '../content/course'
 import type { Question } from '../types'
 import tools from './Tools.module.css'
 import exam from './Exam.module.css'

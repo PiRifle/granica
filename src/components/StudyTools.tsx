@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BookOpen, CheckCircle2, Circle, ClipboardList, Search } from 'lucide-react'
-import { lessons, modules, syllabus } from '../data/course'
+import { lessons, modules, syllabus } from '../content/course'
 import { useCourseStore } from '../store'
 import { Formula } from './UI'
 import tools from './Tools.module.css'

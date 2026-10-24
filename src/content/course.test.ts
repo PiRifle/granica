@@ -7,7 +7,7 @@ import {
   totalDuration,
   workedSolutions,
 } from './course'
-import { contentInventory } from '../content/registry'
+import { contentInventory } from './registry'
 import { labRegistry } from '../components/LabRegistry'
 
 describe('integralność kursu', () => {

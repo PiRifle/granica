@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { LessonId } from './types'
-import { lessonIds, lessons } from './data/course'
+import { lessonIds, lessons } from './content/course'
 
 const firstLesson = lessons[0]?.id ?? 'foundations-si-units'
 
