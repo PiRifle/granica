@@ -31,94 +31,59 @@ $$
 </Formula>
 
 <Insight>
-Duża wytrzymałość nie oznacza automatycznie dużego E. Wytrzymałość mówi o granicy bezpiecznego obciążenia, a moduł Younga o sztywności sprężystej.
+  Duża wytrzymałość nie oznacza automatycznie dużego E. Wytrzymałość mówi o granicy bezpiecznego obciążenia, a moduł
+  Younga o sztywności sprężystej.
 </Insight>
 
 <WorkedExample>
-<Given>
-Stalowy pręt o L = 2 m ma E = 200 GPa i pracuje przy rozciągającym σ = 150 MPa w zakresie liniowo sprężystym. Oblicz ε i ΔL.
-</Given>
-<Steps>
-<Step>
-Przelicz E = 200 GPa = 200 000 MPa, aby zgodzić jednostki z σ.
-</Step>
-<Step>
-Z prawa Hooke’a: ε = σ/E = 150/200 000 = 0,00075.
-</Step>
-<Step>
-Przelicz długość L = 2 m = 2000 mm.
-</Step>
-<Step>
-Wydłużenie: ΔL = εL = 0,00075 · 2000 mm = 1,5 mm.
-</Step>
-<Step>
-Odkształcenie procentowe wynosi 100%·ε = 0,075%.
-</Step>
-</Steps>
-<Result>
-ε = 0,00075 = 0,075%, a wydłużenie sprężyste ΔL = 1,5 mm.
-</Result>
+  <Given>
+    Stalowy pręt o L = 2 m ma E = 200 GPa i pracuje przy rozciągającym σ = 150 MPa w zakresie liniowo sprężystym. Oblicz
+    ε i ΔL.
+  </Given>
+  <Steps>
+    <Step>Przelicz E = 200 GPa = 200 000 MPa, aby zgodzić jednostki z σ.</Step>
+    <Step>Z prawa Hooke’a: ε = σ/E = 150/200 000 = 0,00075.</Step>
+    <Step>Przelicz długość L = 2 m = 2000 mm.</Step>
+    <Step>Wydłużenie: ΔL = εL = 0,00075 · 2000 mm = 1,5 mm.</Step>
+    <Step>Odkształcenie procentowe wynosi 100%·ε = 0,075%.</Step>
+  </Steps>
+  <Result>ε = 0,00075 = 0,075%, a wydłużenie sprężyste ΔL = 1,5 mm.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Przy σ = 150 MPa i E = 200 000 MPa odkształcenie względne wynosi:
-</Prompt>
-<Answer correct>
-0,00075
-</Answer>
-<Answer>
-0,075
-</Answer>
-<Answer>
-1333
-</Answer>
-<Hint>
-Przekształć prawo Hooke’a do ε = σ/E.
-</Hint>
-<Explanation>
-ε = 150/200 000 = 0,00075. Odpowiada to 0,075%, a nie 0,075. Jednostki MPa skracają się w ilorazie, więc wynik jest bezwymiarowy.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Dwa materiały mają tę samą granicę proporcjonalności, ale E₁ &gt; E₂. Przy tym samym małym naprężeniu:
-</Prompt>
-<Answer correct>
-materiał 1 odkształci się mniej
-</Answer>
-<Answer>
-materiał 2 odkształci się mniej
-</Answer>
-<Answer>
-odkształcenia muszą być jednakowe
-</Answer>
-<Hint>
-Przy stałym σ odkształcenie ε = σ/E maleje ze wzrostem E.
-</Hint>
-<Explanation>
-Większy moduł Younga oznacza większą sztywność sprężystą. Przy tym samym σ materiał 1 ma mniejsze ε, mimo jednakowej granicy proporcjonalności.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Co oznacza przekroczenie zakresu sprężystego?
-</Prompt>
-<Answer correct>
-Po odciążeniu może pozostać trwałe odkształcenie
-</Answer>
-<Answer>
-Moduł Younga staje się nieskończony
-</Answer>
-<Answer>
-Naprężenie i odkształcenie zawsze są zerowe
-</Answer>
-<Hint>
-Pomyśl o sprężynie rozciągniętej zbyt mocno.
-</Hint>
-<Explanation>
-Poza zakresem sprężystym zależność przestaje być odwracalna i prostoliniowa. Po usunięciu obciążenia część odkształcenia może pozostać trwale, dlatego projektuje się z zapasem względem granicy sprężystości.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Przy σ = 150 MPa i E = 200 000 MPa odkształcenie względne wynosi:</Prompt>
+    <Answer correct>0,00075</Answer>
+    <Answer>0,075</Answer>
+    <Answer>1333</Answer>
+    <Hint>Przekształć prawo Hooke’a do ε = σ/E.</Hint>
+    <Explanation>
+      ε = 150/200 000 = 0,00075. Odpowiada to 0,075%, a nie 0,075. Jednostki MPa skracają się w ilorazie, więc wynik
+      jest bezwymiarowy.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Dwa materiały mają tę samą granicę proporcjonalności, ale E₁ &gt; E₂. Przy tym samym małym naprężeniu:
+    </Prompt>
+    <Answer correct>materiał 1 odkształci się mniej</Answer>
+    <Answer>materiał 2 odkształci się mniej</Answer>
+    <Answer>odkształcenia muszą być jednakowe</Answer>
+    <Hint>Przy stałym σ odkształcenie ε = σ/E maleje ze wzrostem E.</Hint>
+    <Explanation>
+      Większy moduł Younga oznacza większą sztywność sprężystą. Przy tym samym σ materiał 1 ma mniejsze ε, mimo
+      jednakowej granicy proporcjonalności.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Co oznacza przekroczenie zakresu sprężystego?</Prompt>
+    <Answer correct>Po odciążeniu może pozostać trwałe odkształcenie</Answer>
+    <Answer>Moduł Younga staje się nieskończony</Answer>
+    <Answer>Naprężenie i odkształcenie zawsze są zerowe</Answer>
+    <Hint>Pomyśl o sprężynie rozciągniętej zbyt mocno.</Hint>
+    <Explanation>
+      Poza zakresem sprężystym zależność przestaje być odwracalna i prostoliniowa. Po usunięciu obciążenia część
+      odkształcenia może pozostać trwale, dlatego projektuje się z zapasem względem granicy sprężystości.
+    </Explanation>
+  </Question>
 </Quiz>

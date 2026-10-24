@@ -43,88 +43,50 @@ $$
 </Formula>
 
 <Insight>
-Większe σred oznacza mniejszy zapas n = Re/σred. Nie wolno porównywać wyniku HMH z granicą ścinania wyprowadzoną z Tresca ani odwrotnie — hipoteza i granica muszą do siebie pasować.
+  Większe σred oznacza mniejszy zapas n = Re/σred. Nie wolno porównywać wyniku HMH z granicą ścinania wyprowadzoną z
+  Tresca ani odwrotnie — hipoteza i granica muszą do siebie pasować.
 </Insight>
 
 <WorkedExample>
-<Given>
-Dla σ = 120 MPa, τ = 40 MPa i Re = 300 MPa porównaj HMH i Tresca.
-</Given>
-<Steps>
-<Step>
-HMH: √(120² + 3·40²) = √19 200 = 138,56 MPa.
-</Step>
-<Step>
-Tresca: √(120² + 4·40²) = √20 800 = 144,22 MPa.
-</Step>
-<Step>
-Zapasy: nHMH = 300/138,56 = 2,17; nT = 300/144,22 = 2,08.
-</Step>
-</Steps>
-<Result>
-Tresca daje ostrzejszą ocenę: σT = 144,2 MPa i n = 2,08, podczas gdy HMH daje 138,6 MPa i n = 2,17.
-</Result>
+  <Given>Dla σ = 120 MPa, τ = 40 MPa i Re = 300 MPa porównaj HMH i Tresca.</Given>
+  <Steps>
+    <Step>HMH: √(120² + 3·40²) = √19 200 = 138,56 MPa.</Step>
+    <Step>Tresca: √(120² + 4·40²) = √20 800 = 144,22 MPa.</Step>
+    <Step>Zapasy: nHMH = 300/138,56 = 2,17; nT = 300/144,22 = 2,08.</Step>
+  </Steps>
+  <Result>Tresca daje ostrzejszą ocenę: σT = 144,2 MPa i n = 2,08, podczas gdy HMH daje 138,6 MPa i n = 2,17.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dla σ = 0 i τ = 100 MPa jakie wartości dadzą HMH i Tresca?
-</Prompt>
-<Answer>
-HMH 100 MPa, Tresca 100 MPa
-</Answer>
-<Answer correct>
-HMH 173,2 MPa, Tresca 200 MPa
-</Answer>
-<Answer>
-HMH 200 MPa, Tresca 173,2 MPa
-</Answer>
-<Hint>
-Podstaw odpowiednio współczynniki 3 i 4 przy τ².
-</Hint>
-<Explanation>
-HMH: √3·100 = 173,2 MPa. Tresca: 2·100 = 200 MPa. Przy czystym ścinaniu Tresca daje większe wytężenie.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Przy Re = 250 MPa HMH daje 125 MPa, a Tresca 140 MPa. Jakie są odpowiednie zapasy?
-</Prompt>
-<Answer correct>
-2,00 i 1,79
-</Answer>
-<Answer>
-1,79 i 2,00
-</Answer>
-<Answer>
-Oba 2,00
-</Answer>
-<Hint>
-Dla każdej hipotezy osobno oblicz n = Re/σred.
-</Hint>
-<Explanation>
-nHMH = 250/125 = 2,00, a nT = 250/140 = 1,79. Większe naprężenie zredukowane daje mniejszy zapas.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Kiedy HMH i Tresca dają ten sam wynik dla σx = σ, σy = 0?
-</Prompt>
-<Answer>
-Przy każdym τ
-</Answer>
-<Answer correct>
-Przy τ = 0
-</Answer>
-<Answer>
-Tylko przy σ = 0
-</Answer>
-<Hint>
-Porównaj wyrażenia pod pierwiastkami.
-</Hint>
-<Explanation>
-Przy τ = 0 oba wzory redukują się do |σ|. Przy czystym ścinaniu (σ = 0) wyniki są różne: √3·|τ| dla HMH oraz 2|τ| dla Tresca.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Dla σ = 0 i τ = 100 MPa jakie wartości dadzą HMH i Tresca?</Prompt>
+    <Answer>HMH 100 MPa, Tresca 100 MPa</Answer>
+    <Answer correct>HMH 173,2 MPa, Tresca 200 MPa</Answer>
+    <Answer>HMH 200 MPa, Tresca 173,2 MPa</Answer>
+    <Hint>Podstaw odpowiednio współczynniki 3 i 4 przy τ².</Hint>
+    <Explanation>
+      HMH: √3·100 = 173,2 MPa. Tresca: 2·100 = 200 MPa. Przy czystym ścinaniu Tresca daje większe wytężenie.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Przy Re = 250 MPa HMH daje 125 MPa, a Tresca 140 MPa. Jakie są odpowiednie zapasy?</Prompt>
+    <Answer correct>2,00 i 1,79</Answer>
+    <Answer>1,79 i 2,00</Answer>
+    <Answer>Oba 2,00</Answer>
+    <Hint>Dla każdej hipotezy osobno oblicz n = Re/σred.</Hint>
+    <Explanation>
+      nHMH = 250/125 = 2,00, a nT = 250/140 = 1,79. Większe naprężenie zredukowane daje mniejszy zapas.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy HMH i Tresca dają ten sam wynik dla σx = σ, σy = 0?</Prompt>
+    <Answer>Przy każdym τ</Answer>
+    <Answer correct>Przy τ = 0</Answer>
+    <Answer>Tylko przy σ = 0</Answer>
+    <Hint>Porównaj wyrażenia pod pierwiastkami.</Hint>
+    <Explanation>
+      Przy τ = 0 oba wzory redukują się do |σ|. Przy czystym ścinaniu (σ = 0) wyniki są różne: √3·|τ| dla HMH oraz 2|τ|
+      dla Tresca.
+    </Explanation>
+  </Question>
 </Quiz>

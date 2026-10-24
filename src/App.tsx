@@ -10,7 +10,9 @@ import { CheatSheet, SyllabusMap } from './components/StudyTools'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
   return null
 }
 
@@ -25,12 +27,14 @@ function LessonRoute() {
   const navigate = useNavigate()
   if (!lessonId || !lessonIds.includes(lessonId)) return <Navigate to="/" replace />
   const openTool = (view: View) => navigate(view === 'home' || view === 'lesson' ? '/' : toolPaths[view])
-  return <LessonView
-    lesson={getLesson(lessonId)}
-    onHome={() => navigate('/')}
-    onLesson={(id) => navigate(`/lesson/${id}`)}
-    onTool={openTool}
-  />
+  return (
+    <LessonView
+      lesson={getLesson(lessonId)}
+      onHome={() => navigate('/')}
+      onLesson={(id) => navigate(`/lesson/${id}`)}
+      onTool={openTool}
+    />
+  )
 }
 
 function TrainingRoute() {
@@ -54,16 +58,18 @@ function SyllabusRoute() {
 }
 
 export default function App() {
-  return <BrowserRouter useTransitions={false}>
-    <ScrollToTop />
-    <Routes>
-      <Route path="/" element={<HomeRoute />} />
-      <Route path="/lesson/:lessonId" element={<LessonRoute />} />
-      <Route path="/training" element={<TrainingRoute />} />
-      <Route path="/exam" element={<ExamRoute />} />
-      <Route path="/cheatsheet" element={<CheatSheetRoute />} />
-      <Route path="/syllabus" element={<SyllabusRoute />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
-  </BrowserRouter>
+  return (
+    <BrowserRouter useTransitions={false}>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomeRoute />} />
+        <Route path="/lesson/:lessonId" element={<LessonRoute />} />
+        <Route path="/training" element={<TrainingRoute />} />
+        <Route path="/exam" element={<ExamRoute />} />
+        <Route path="/cheatsheet" element={<CheatSheetRoute />} />
+        <Route path="/syllabus" element={<SyllabusRoute />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }

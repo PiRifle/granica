@@ -32,91 +32,59 @@ $$
 </Formula>
 
 <Insight>
-Nie wolno zastępować I iloczynem pola i zwykłej odległości: w definicji występuje kwadrat odległości. Zamiana b z h w prostokącie zmienia sztywność zginania, choć pole pozostaje takie samo.
+  Nie wolno zastępować I iloczynem pola i zwykłej odległości: w definicji występuje kwadrat odległości. Zamiana b z h w
+  prostokącie zmienia sztywność zginania, choć pole pozostaje takie samo.
 </Insight>
 
 <WorkedExample>
-<Given>
-Porównujemy prostokąt 100 × 200 mm względem poziomej osi środkowej x oraz względem jego dolnej podstawy.
-</Given>
-<Steps>
-<Step>
-Względem osi środkowej Ixc = bh³/12 = 100·200³/12 = 66,67·10⁶ mm⁴.
-</Step>
-<Step>
-Względem podstawy szerokość przekroju jest stała, więc Ixb = ∫₀ʰ b·y² dy = bh³/3.
-</Step>
-<Step>
-Ixb = bh³/3 = 100·200³/3 = 200·10⁶ mm⁴.
-</Step>
-<Step>
-Moment względem podstawy jest większy, bo oś jest odsunięta od środka ciężkości; zależność między nimi wyjaśnia twierdzenie Steinera.
-</Step>
-</Steps>
-<Result>
-Ixc = 66,67·10⁶ mm⁴, natomiast względem dolnej podstawy Ixb = 200·10⁶ mm⁴.
-</Result>
+  <Given>
+    Porównujemy prostokąt 100 × 200 mm względem poziomej osi środkowej x oraz względem jego dolnej podstawy.
+  </Given>
+  <Steps>
+    <Step>Względem osi środkowej Ixc = bh³/12 = 100·200³/12 = 66,67·10⁶ mm⁴.</Step>
+    <Step>Względem podstawy szerokość przekroju jest stała, więc Ixb = ∫₀ʰ b·y² dy = bh³/3.</Step>
+    <Step>Ixb = bh³/3 = 100·200³/3 = 200·10⁶ mm⁴.</Step>
+    <Step>
+      Moment względem podstawy jest większy, bo oś jest odsunięta od środka ciężkości; zależność między nimi wyjaśnia
+      twierdzenie Steinera.
+    </Step>
+  </Steps>
+  <Result>Ixc = 66,67·10⁶ mm⁴, natomiast względem dolnej podstawy Ixb = 200·10⁶ mm⁴.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Prostokąt ma b = 100 mm i h = 200 mm. Moment bezwładności względem poziomej osi środkowej x wynosi:
-</Prompt>
-<Answer>
-6,667·10⁶ mm⁴
-</Answer>
-<Answer correct>
-66,67·10⁶ mm⁴
-</Answer>
-<Answer>
-200·10⁶ mm⁴
-</Answer>
-<Hint>
-Do osi poziomej x odległość mierzymy pionowo, więc h wchodzi w trzeciej potędze.
-</Hint>
-<Explanation>
-Iₓ = bh³/12 = 100·200³/12 = 66,67·10⁶ mm⁴. Wartość 200·10⁶ mm⁴ dotyczy osi na dolnej podstawie.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Ten sam prostokąt obrócono o 90° w płaszczyźnie przekroju, zachowując nazwę osi zginania. Jak zmieni się I względem osi poziomej?
-</Prompt>
-<Answer>
-Nie zmieni się, bo pole jest stałe
-</Answer>
-<Answer correct>
-Zmaleje cztery razy
-</Answer>
-<Answer>
-Wzrośnie cztery razy
-</Answer>
-<Hint>
-Po obrocie szerokość i wysokość zamieniają się miejscami.
-</Hint>
-<Explanation>
-Początkowo I₁ = 100·200³/12. Po obrocie I₂ = 200·100³/12, więc I₂/I₁ = 100²/200² = 1/4.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Dla rury o średnicy zewnętrznej D i wewnętrznej d prawidłowy moment bezwładności względem osi środkowej to:
-</Prompt>
-<Answer>
-π(D − d)⁴/64
-</Answer>
-<Answer correct>
-π(D⁴ − d⁴)/64
-</Answer>
-<Answer>
-πD⁴/64 zawsze, bez korekty
-</Answer>
-<Hint>
-Odejmuj momenty bezwładności dwóch współśrodkowych kół.
-</Hint>
-<Explanation>
-Od momentu pełnego koła odejmujemy moment otworu: I = πD⁴/64 − πd⁴/64. Nie wolno najpierw odejmować średnic i podnosić różnicy do czwartej potęgi.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Prostokąt ma b = 100 mm i h = 200 mm. Moment bezwładności względem poziomej osi środkowej x wynosi:</Prompt>
+    <Answer>6,667·10⁶ mm⁴</Answer>
+    <Answer correct>66,67·10⁶ mm⁴</Answer>
+    <Answer>200·10⁶ mm⁴</Answer>
+    <Hint>Do osi poziomej x odległość mierzymy pionowo, więc h wchodzi w trzeciej potędze.</Hint>
+    <Explanation>
+      Iₓ = bh³/12 = 100·200³/12 = 66,67·10⁶ mm⁴. Wartość 200·10⁶ mm⁴ dotyczy osi na dolnej podstawie.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Ten sam prostokąt obrócono o 90° w płaszczyźnie przekroju, zachowując nazwę osi zginania. Jak zmieni się I
+      względem osi poziomej?
+    </Prompt>
+    <Answer>Nie zmieni się, bo pole jest stałe</Answer>
+    <Answer correct>Zmaleje cztery razy</Answer>
+    <Answer>Wzrośnie cztery razy</Answer>
+    <Hint>Po obrocie szerokość i wysokość zamieniają się miejscami.</Hint>
+    <Explanation>Początkowo I₁ = 100·200³/12. Po obrocie I₂ = 200·100³/12, więc I₂/I₁ = 100²/200² = 1/4.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla rury o średnicy zewnętrznej D i wewnętrznej d prawidłowy moment bezwładności względem osi środkowej to:
+    </Prompt>
+    <Answer>π(D − d)⁴/64</Answer>
+    <Answer correct>π(D⁴ − d⁴)/64</Answer>
+    <Answer>πD⁴/64 zawsze, bez korekty</Answer>
+    <Hint>Odejmuj momenty bezwładności dwóch współśrodkowych kół.</Hint>
+    <Explanation>
+      Od momentu pełnego koła odejmujemy moment otworu: I = πD⁴/64 − πd⁴/64. Nie wolno najpierw odejmować średnic i
+      podnosić różnicy do czwartej potęgi.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -37,91 +37,54 @@ $$
 </Formula>
 
 <Insight>
-Najpierw zaznacz X i Y, potem środek jako środek odcinka XY, a na końcu okrąg. Przecięcia z osią σ dają naprężenia główne, a najwyższy i najniższy punkt koła wyznaczają ±R.
+  Najpierw zaznacz X i Y, potem środek jako środek odcinka XY, a na końcu okrąg. Przecięcia z osią σ dają naprężenia
+  główne, a najwyższy i najniższy punkt koła wyznaczają ±R.
 </Insight>
 
 <WorkedExample>
-<Given>
-Narysuj koło dla σx = 90 MPa, σy = 30 MPa, τxy = 40 MPa.
-</Given>
-<Steps>
-<Step>
-Zaznacz X = (90,40) MPa i Y = (30,−40) MPa.
-</Step>
-<Step>
-Wyznacz środek C = ((90 + 30)/2,0) = (60,0) MPa.
-</Step>
-<Step>
-Oblicz R = √[(90 − 60)² + (40 − 0)²] = 50 MPa i zakreśl okrąg.
-</Step>
-<Step>
-Odczytaj przecięcia z osią σ: 60 − 50 = 10 MPa i 60 + 50 = 110 MPa.
-</Step>
-</Steps>
-<Result>
-Koło ma środek (60,0) MPa i promień 50 MPa. Daje σ1 = 110 MPa, σ2 = 10 MPa oraz płaskie |τ|max = 50 MPa.
-</Result>
+  <Given>Narysuj koło dla σx = 90 MPa, σy = 30 MPa, τxy = 40 MPa.</Given>
+  <Steps>
+    <Step>Zaznacz X = (90,40) MPa i Y = (30,−40) MPa.</Step>
+    <Step>Wyznacz środek C = ((90 + 30)/2,0) = (60,0) MPa.</Step>
+    <Step>Oblicz R = √[(90 − 60)² + (40 − 0)²] = 50 MPa i zakreśl okrąg.</Step>
+    <Step>Odczytaj przecięcia z osią σ: 60 − 50 = 10 MPa i 60 + 50 = 110 MPa.</Step>
+  </Steps>
+  <Result>
+    Koło ma środek (60,0) MPa i promień 50 MPa. Daje σ1 = 110 MPa, σ2 = 10 MPa oraz płaskie |τ|max = 50 MPa.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U2">
-<Prompt>
-Jakie współrzędne mają X i Y dla σx = 70 MPa, σy = 10 MPa, τxy = 20 MPa w przyjętej konwencji?
-</Prompt>
-<Answer correct>
-X = (70, 20), Y = (10, −20)
-</Answer>
-<Answer>
-X = (70, −20), Y = (10, 20)
-</Answer>
-<Answer>
-X = (40, 20), Y = (40, −20)
-</Answer>
-<Hint>
-Pierwsza współrzędna to naprężenie normalne na danej ścianie.
-</Hint>
-<Explanation>
-Przy tej konwencji X = (σx, τxy) = (70,20), a Y = (σy,−τxy) = (10,−20), wszystko w MPa. Środek odcinka XY leży przy σ = 40 MPa.
-</Explanation>
-</Question>
-<Question outcome="U2">
-<Prompt>
-Dlaczego kąt między promieniami CX i CY wynosi 180°, mimo że ściany x i y są prostopadłe?
-</Prompt>
-<Answer correct>
-Bo kąty fizyczne są na kole podwojone
-</Answer>
-<Answer>
-Bo ściany są równoległe
-</Answer>
-<Answer>
-To błąd: powinno być 90°
-</Answer>
-<Hint>
-We wzorach transformacji występuje 2θ.
-</Hint>
-<Explanation>
-Fizyczne 90° odpowiada 2·90° = 180° na kole. Punkty X i Y są więc przeciwległymi końcami średnicy.
-</Explanation>
-</Question>
-<Question outcome="U2">
-<Prompt>
-Co odczytujesz z najbardziej wysuniętego w prawo punktu koła?
-</Prompt>
-<Answer correct>
-Największe naprężenie główne w danej płaszczyźnie
-</Answer>
-<Answer>
-Maksymalne ścinanie
-</Answer>
-<Answer>
-Zawsze zerowe naprężenie
-</Answer>
-<Hint>
-Ten punkt leży na poziomej osi σ.
-</Hint>
-<Explanation>
-Prawy koniec średnicy ma współrzędne (σavg + R, 0), czyli σ1 i zerowe ścinanie. Maksymalne ścinanie odpowiada natomiast górnemu lub dolnemu punktowi koła.
-</Explanation>
-</Question>
+  <Question outcome="U2">
+    <Prompt>Jakie współrzędne mają X i Y dla σx = 70 MPa, σy = 10 MPa, τxy = 20 MPa w przyjętej konwencji?</Prompt>
+    <Answer correct>X = (70, 20), Y = (10, −20)</Answer>
+    <Answer>X = (70, −20), Y = (10, 20)</Answer>
+    <Answer>X = (40, 20), Y = (40, −20)</Answer>
+    <Hint>Pierwsza współrzędna to naprężenie normalne na danej ścianie.</Hint>
+    <Explanation>
+      Przy tej konwencji X = (σx, τxy) = (70,20), a Y = (σy,−τxy) = (10,−20), wszystko w MPa. Środek odcinka XY leży
+      przy σ = 40 MPa.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dlaczego kąt między promieniami CX i CY wynosi 180°, mimo że ściany x i y są prostopadłe?</Prompt>
+    <Answer correct>Bo kąty fizyczne są na kole podwojone</Answer>
+    <Answer>Bo ściany są równoległe</Answer>
+    <Answer>To błąd: powinno być 90°</Answer>
+    <Hint>We wzorach transformacji występuje 2θ.</Hint>
+    <Explanation>
+      Fizyczne 90° odpowiada 2·90° = 180° na kole. Punkty X i Y są więc przeciwległymi końcami średnicy.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Co odczytujesz z najbardziej wysuniętego w prawo punktu koła?</Prompt>
+    <Answer correct>Największe naprężenie główne w danej płaszczyźnie</Answer>
+    <Answer>Maksymalne ścinanie</Answer>
+    <Answer>Zawsze zerowe naprężenie</Answer>
+    <Hint>Ten punkt leży na poziomej osi σ.</Hint>
+    <Explanation>
+      Prawy koniec średnicy ma współrzędne (σavg + R, 0), czyli σ1 i zerowe ścinanie. Maksymalne ścinanie odpowiada
+      natomiast górnemu lub dolnemu punktowi koła.
+    </Explanation>
+  </Question>
 </Quiz>

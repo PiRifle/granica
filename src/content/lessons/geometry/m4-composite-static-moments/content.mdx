@@ -31,91 +31,60 @@ $$
 </Formula>
 
 <Insight>
-Najczęstszy błąd to uśrednianie samych współrzędnych środków bez uwzględnienia pól. Środek figury złożonej jest średnią ważoną polami, a moment statyczny względem osi przechodzącej przez środek ciężkości wynosi zero.
+  Najczęstszy błąd to uśrednianie samych współrzędnych środków bez uwzględnienia pól. Środek figury złożonej jest
+  średnią ważoną polami, a moment statyczny względem osi przechodzącej przez środek ciężkości wynosi zero.
 </Insight>
 
 <WorkedExample>
-<Given>
-Przekrój teowy składa się z pionowego środnika 20 × 100 mm i poziomej półki 120 × 20 mm. Współrzędną y mierzymy od dolnego końca środnika; półka leży na jego górze.
-</Given>
-<Steps>
-<Step>
-Środnik: A₁ = 20·100 = 2000 mm², y₁ = 50 mm. Półka: A₂ = 120·20 = 2400 mm², y₂ = 100 + 10 = 110 mm.
-</Step>
-<Step>
-Pole całkowite A = 2000 + 2400 = 4400 mm².
-</Step>
-<Step>
-Moment statyczny względem dolnej osi x: Sₓ = 2000·50 + 2400·110 = 364 000 mm³.
-</Step>
-<Step>
-Środek: ȳ = Sₓ/A = 364 000/4400 = 82,73 mm. Wynik leży między 50 a 110 mm i jest przesunięty ku większej półce.
-</Step>
-</Steps>
-<Result>
-Pole przekroju wynosi 4400 mm², a środek ciężkości leży 82,73 mm nad dolnym końcem środnika.
-</Result>
+  <Given>
+    Przekrój teowy składa się z pionowego środnika 20 × 100 mm i poziomej półki 120 × 20 mm. Współrzędną y mierzymy od
+    dolnego końca środnika; półka leży na jego górze.
+  </Given>
+  <Steps>
+    <Step>Środnik: A₁ = 20·100 = 2000 mm², y₁ = 50 mm. Półka: A₂ = 120·20 = 2400 mm², y₂ = 100 + 10 = 110 mm.</Step>
+    <Step>Pole całkowite A = 2000 + 2400 = 4400 mm².</Step>
+    <Step>Moment statyczny względem dolnej osi x: Sₓ = 2000·50 + 2400·110 = 364 000 mm³.</Step>
+    <Step>
+      Środek: ȳ = Sₓ/A = 364 000/4400 = 82,73 mm. Wynik leży między 50 a 110 mm i jest przesunięty ku większej półce.
+    </Step>
+  </Steps>
+  <Result>Pole przekroju wynosi 4400 mm², a środek ciężkości leży 82,73 mm nad dolnym końcem środnika.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dwie części mają A₁ = 1000 mm², y₁ = 20 mm oraz A₂ = 2000 mm², y₂ = 80 mm. Współrzędna ȳ całości wynosi:
-</Prompt>
-<Answer>
-50 mm
-</Answer>
-<Answer correct>
-60 mm
-</Answer>
-<Answer>
-66,7 mm
-</Answer>
-<Hint>
-Zważ współrzędne środków polami obu części.
-</Hint>
-<Explanation>
-ȳ = (1000·20 + 2000·80)/(1000 + 2000) = 180 000/3000 = 60 mm. Nie jest to zwykła średnia 50 mm.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Jak uwzględnić kołowy otwór przy obliczaniu środka ciężkości metodą figur złożonych?
-</Prompt>
-<Answer>
-Jako pole dodatnie, tak jak pozostałe części przekroju
-</Answer>
-<Answer correct>
-Jako pole ujemne z rzeczywistym położeniem środka otworu
-</Answer>
-<Answer>
-Otwór nigdy nie wpływa na położenie środka ciężkości
-</Answer>
-<Hint>
-Usunięcie pola oznacza znak przeciwny do dodanego materiału.
-</Hint>
-<Explanation>
-Otwór usuwa materiał, więc jego pole i moment statyczny odejmujemy. Przyjmujemy Aᵢ &lt; 0 i używamy współrzędnych rzeczywistego środka otworu.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Ile wynosi moment statyczny całego przekroju względem osi x przechodzącej przez jego środek ciężkości?
-</Prompt>
-<Answer correct>
-Zawsze zero
-</Answer>
-<Answer>
-Zawsze pole razy wysokość
-</Answer>
-<Answer>
-Tyle co moment bezwładności
-</Answer>
-<Hint>
-Skorzystaj z zależności Sₓ = A·ȳ w układzie osi przechodzącej przez środek.
-</Hint>
-<Explanation>
-Z definicji ȳ = Sₓ/A. Jeżeli oś x przechodzi przez środek ciężkości, w jej układzie ȳ = 0, więc także Sₓ = 0.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dwie części mają A₁ = 1000 mm², y₁ = 20 mm oraz A₂ = 2000 mm², y₂ = 80 mm. Współrzędna ȳ całości wynosi:
+    </Prompt>
+    <Answer>50 mm</Answer>
+    <Answer correct>60 mm</Answer>
+    <Answer>66,7 mm</Answer>
+    <Hint>Zważ współrzędne środków polami obu części.</Hint>
+    <Explanation>
+      ȳ = (1000·20 + 2000·80)/(1000 + 2000) = 180 000/3000 = 60 mm. Nie jest to zwykła średnia 50 mm.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Jak uwzględnić kołowy otwór przy obliczaniu środka ciężkości metodą figur złożonych?</Prompt>
+    <Answer>Jako pole dodatnie, tak jak pozostałe części przekroju</Answer>
+    <Answer correct>Jako pole ujemne z rzeczywistym położeniem środka otworu</Answer>
+    <Answer>Otwór nigdy nie wpływa na położenie środka ciężkości</Answer>
+    <Hint>Usunięcie pola oznacza znak przeciwny do dodanego materiału.</Hint>
+    <Explanation>
+      Otwór usuwa materiał, więc jego pole i moment statyczny odejmujemy. Przyjmujemy Aᵢ &lt; 0 i używamy współrzędnych
+      rzeczywistego środka otworu.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Ile wynosi moment statyczny całego przekroju względem osi x przechodzącej przez jego środek ciężkości?
+    </Prompt>
+    <Answer correct>Zawsze zero</Answer>
+    <Answer>Zawsze pole razy wysokość</Answer>
+    <Answer>Tyle co moment bezwładności</Answer>
+    <Hint>Skorzystaj z zależności Sₓ = A·ȳ w układzie osi przechodzącej przez środek.</Hint>
+    <Explanation>
+      Z definicji ȳ = Sₓ/A. Jeżeli oś x przechodzi przez środek ciężkości, w jej układzie ȳ = 0, więc także Sₓ = 0.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -43,88 +43,51 @@ $$
 </Formula>
 
 <Insight>
-W stanie płaskim naprężenie główne prostopadłe do płaszczyzny jest równe zeru. Jeśli σ1 i σ2 mają ten sam znak, zero staje się skrajną wartością i pominięcie go zaniża σT.
+  W stanie płaskim naprężenie główne prostopadłe do płaszczyzny jest równe zeru. Jeśli σ1 i σ2 mają ten sam znak, zero
+  staje się skrajną wartością i pominięcie go zaniża σT.
 </Insight>
 
 <WorkedExample>
-<Given>
-Naprężenia główne wynoszą σ1 = 120 MPa, σ2 = 20 MPa, σ3 = −40 MPa.
-</Given>
-<Steps>
-<Step>
-Największą wartością jest σmax = σ1 = 120 MPa.
-</Step>
-<Step>
-Najmniejszą wartością jest σmin = σ3 = −40 MPa.
-</Step>
-<Step>
-σT = 120 − (−40) = 160 MPa, a τmax = σT/2 = 80 MPa.
-</Step>
-</Steps>
-<Result>
-Naprężenie zredukowane Tresca wynosi 160 MPa; największe ścinanie wynosi 80 MPa.
-</Result>
+  <Given>Naprężenia główne wynoszą σ1 = 120 MPa, σ2 = 20 MPa, σ3 = −40 MPa.</Given>
+  <Steps>
+    <Step>Największą wartością jest σmax = σ1 = 120 MPa.</Step>
+    <Step>Najmniejszą wartością jest σmin = σ3 = −40 MPa.</Step>
+    <Step>σT = 120 − (−40) = 160 MPa, a τmax = σT/2 = 80 MPa.</Step>
+  </Steps>
+  <Result>Naprężenie zredukowane Tresca wynosi 160 MPa; największe ścinanie wynosi 80 MPa.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dla σ1 = 100 MPa, σ2 = 40 MPa, σ3 = 0 ile wynosi σT?
-</Prompt>
-<Answer>
-60 MPa
-</Answer>
-<Answer correct>
-100 MPa
-</Answer>
-<Answer>
-140 MPa
-</Answer>
-<Hint>
-Skrajne wartości to 100 i 0 MPa, nie 100 i 40 MPa.
-</Hint>
-<Explanation>
-σT = σmax − σmin = 100 − 0 = 100 MPa. Różnica 100 − 40 = 60 MPa pomija trzecie naprężenie główne równe zero i dlatego jest błędna.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Dla σ = 60 MPa i τ = 80 MPa ile wynosi σred według hipotezy Tresca?
-</Prompt>
-<Answer correct>
-170,9 MPa
-</Answer>
-<Answer>
-140 MPa
-</Answer>
-<Answer>
-200 MPa
-</Answer>
-<Hint>
-Zastosuj σT = √(σ² + 4τ²).
-</Hint>
-<Explanation>
-σT = √(60² + 4·80²) = √(3600 + 25 600) = √29 200 = 170,88 MPa. Współczynnik 4 przy τ² odróżnia ten wynik od HMH, gdzie występuje współczynnik 3.
-</Explanation>
-</Question>
-<Question outcome="U2">
-<Prompt>
-Dlaczego przy czystym ścinaniu Tresca daje σT = 2τ?
-</Prompt>
-<Answer correct>
-Bo naprężenia główne wynoszą τ i −τ
-</Answer>
-<Answer>
-Bo σ1 = σ2 = τ
-</Answer>
-<Answer>
-Bo naprężenie normalne zawsze jest zerowe
-</Answer>
-<Hint>
-Znajdź przecięcia koła Mohra dla czystego ścinania z osią σ.
-</Hint>
-<Explanation>
-Koło ma środek w zerze i promień τ, więc σ1 = τ, a σ2 = −τ. Średnica koła wynosi 2τ i to jest σT.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Dla σ1 = 100 MPa, σ2 = 40 MPa, σ3 = 0 ile wynosi σT?</Prompt>
+    <Answer>60 MPa</Answer>
+    <Answer correct>100 MPa</Answer>
+    <Answer>140 MPa</Answer>
+    <Hint>Skrajne wartości to 100 i 0 MPa, nie 100 i 40 MPa.</Hint>
+    <Explanation>
+      σT = σmax − σmin = 100 − 0 = 100 MPa. Różnica 100 − 40 = 60 MPa pomija trzecie naprężenie główne równe zero i
+      dlatego jest błędna.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla σ = 60 MPa i τ = 80 MPa ile wynosi σred według hipotezy Tresca?</Prompt>
+    <Answer correct>170,9 MPa</Answer>
+    <Answer>140 MPa</Answer>
+    <Answer>200 MPa</Answer>
+    <Hint>Zastosuj σT = √(σ² + 4τ²).</Hint>
+    <Explanation>
+      σT = √(60² + 4·80²) = √(3600 + 25 600) = √29 200 = 170,88 MPa. Współczynnik 4 przy τ² odróżnia ten wynik od HMH,
+      gdzie występuje współczynnik 3.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dlaczego przy czystym ścinaniu Tresca daje σT = 2τ?</Prompt>
+    <Answer correct>Bo naprężenia główne wynoszą τ i −τ</Answer>
+    <Answer>Bo σ1 = σ2 = τ</Answer>
+    <Answer>Bo naprężenie normalne zawsze jest zerowe</Answer>
+    <Hint>Znajdź przecięcia koła Mohra dla czystego ścinania z osią σ.</Hint>
+    <Explanation>
+      Koło ma środek w zerze i promień τ, więc σ1 = τ, a σ2 = −τ. Średnica koła wynosi 2τ i to jest σT.
+    </Explanation>
+  </Question>
 </Quiz>

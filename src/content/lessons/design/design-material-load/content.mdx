@@ -43,88 +43,54 @@ $$
 </Formula>
 
 <Insight>
-Dobierając Pdop z kilku warunków, przyjmujemy najmniejszą wartość. Przy doborze średnicy z kilku warunków przyjmujemy największy wymagany wymiar.
+  Dobierając Pdop z kilku warunków, przyjmujemy najmniejszą wartość. Przy doborze średnicy z kilku warunków przyjmujemy
+  największy wymagany wymiar.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pręt o A = 250 mm² ma k = 160 MPa. Z warunku wydłużenia wynika P ≤ 32 kN.
-</Given>
-<Steps>
-<Step>
-Z wytrzymałości: Pdop = kA = 160·250 = 40 000 N = 40 kN.
-</Step>
-<Step>
-Z warunku sztywności: Pdop = 32 kN.
-</Step>
-<Step>
-Przyjmujemy mniejszą wartość: min(40, 32) = 32 kN.
-</Step>
-</Steps>
-<Result>
-Obciążenie dopuszczalne wynosi 32 kN i decyduje o nim warunek sztywności.
-</Result>
+  <Given>Pręt o A = 250 mm² ma k = 160 MPa. Z warunku wydłużenia wynika P ≤ 32 kN.</Given>
+  <Steps>
+    <Step>Z wytrzymałości: Pdop = kA = 160·250 = 40 000 N = 40 kN.</Step>
+    <Step>Z warunku sztywności: Pdop = 32 kN.</Step>
+    <Step>Przyjmujemy mniejszą wartość: min(40, 32) = 32 kN.</Step>
+  </Steps>
+  <Result>Obciążenie dopuszczalne wynosi 32 kN i decyduje o nim warunek sztywności.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Pręt ma A = 200 mm², k = 150 MPa, a P jest siłą obliczeniową. Ile wynosi Pdop z wytrzymałości?
-</Prompt>
-<Answer correct>
-30 kN
-</Answer>
-<Answer>
-75 kN
-</Answer>
-<Answer>
-300 kN
-</Answer>
-<Hint>
-P = kA; 1 MPa·mm² = 1 N.
-</Hint>
-<Explanation>
-Pdop = 150·200 = 30 000 N = 30 kN. Współczynnik obciążenia nie jest ponownie stosowany, bo P jest obliczeniowe.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Warunek wytrzymałości daje Pdop = 42 kN, a warunek wydłużenia 35 kN. Jaką wartość przyjąć?
-</Prompt>
-<Answer>
-42 kN
-</Answer>
-<Answer>
-38,5 kN
-</Answer>
-<Answer correct>
-35 kN
-</Answer>
-<Hint>
-Oba warunki muszą być spełnione jednocześnie.
-</Hint>
-<Explanation>
-Przyjmujemy min(42, 35) = 35 kN. Przy większej sile warunek sztywności zostałby naruszony, mimo zapasu wytrzymałości.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Dwa materiały mają takie samo E, ale różne Re. Jak zmiana na większe Re wpłynie na pręt przy stałej sile i geometrii?
-</Prompt>
-<Answer correct>
-Zwiększy zapas, ale nie zmieni sprężystego wydłużenia
-</Answer>
-<Answer>
-Zmniejszy wydłużenie o połowę
-</Answer>
-<Answer>
-Nie zmieni niczego
-</Answer>
-<Hint>
-Rozdziel Re w warunku wytrzymałości od E w prawie Hooke’a.
-</Hint>
-<Explanation>
-Większe Re zwiększa k i zapas n. Przy niezmienionych E, A, L i P wydłużenie PL/(EA) pozostaje takie samo, ponieważ zależy od E, a nie od Re.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Pręt ma A = 200 mm², k = 150 MPa, a P jest siłą obliczeniową. Ile wynosi Pdop z wytrzymałości?</Prompt>
+    <Answer correct>30 kN</Answer>
+    <Answer>75 kN</Answer>
+    <Answer>300 kN</Answer>
+    <Hint>P = kA; 1 MPa·mm² = 1 N.</Hint>
+    <Explanation>
+      Pdop = 150·200 = 30 000 N = 30 kN. Współczynnik obciążenia nie jest ponownie stosowany, bo P jest obliczeniowe.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Warunek wytrzymałości daje Pdop = 42 kN, a warunek wydłużenia 35 kN. Jaką wartość przyjąć?</Prompt>
+    <Answer>42 kN</Answer>
+    <Answer>38,5 kN</Answer>
+    <Answer correct>35 kN</Answer>
+    <Hint>Oba warunki muszą być spełnione jednocześnie.</Hint>
+    <Explanation>
+      Przyjmujemy min(42, 35) = 35 kN. Przy większej sile warunek sztywności zostałby naruszony, mimo zapasu
+      wytrzymałości.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Dwa materiały mają takie samo E, ale różne Re. Jak zmiana na większe Re wpłynie na pręt przy stałej sile i
+      geometrii?
+    </Prompt>
+    <Answer correct>Zwiększy zapas, ale nie zmieni sprężystego wydłużenia</Answer>
+    <Answer>Zmniejszy wydłużenie o połowę</Answer>
+    <Answer>Nie zmieni niczego</Answer>
+    <Hint>Rozdziel Re w warunku wytrzymałości od E w prawie Hooke’a.</Hint>
+    <Explanation>
+      Większe Re zwiększa k i zapas n. Przy niezmienionych E, A, L i P wydłużenie PL/(EA) pozostaje takie samo, ponieważ
+      zależy od E, a nie od Re.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -32,91 +32,56 @@ $$
 </Formula>
 
 <Insight>
-Twierdzenie Steinera stosujemy zawsze od osi własnego środka ciężkości do osi równoległej, a nie dowolnie między dwiema osiami zewnętrznymi. W figurze złożonej każda część ma własną odległość a od wspólnej osi centralnej.
+  Twierdzenie Steinera stosujemy zawsze od osi własnego środka ciężkości do osi równoległej, a nie dowolnie między
+  dwiema osiami zewnętrznymi. W figurze złożonej każda część ma własną odległość a od wspólnej osi centralnej.
 </Insight>
 
 <WorkedExample>
-<Given>
-Dla przekroju teowego z poprzedniej lekcji: środnik 20 × 100 mm, półka 120 × 20 mm, wspólne ȳ = 82,73 mm od dołu.
-</Given>
-<Steps>
-<Step>
-Środnik: Ixc1 = 20·100³/12 = 1,667·10⁶ mm⁴; odległość jego środka od osi centralnej a₁ = |82,73 − 50| = 32,73 mm.
-</Step>
-<Step>
-Moment środnika: I₁ = 1,667·10⁶ + 2000·32,73² ≈ 3,809·10⁶ mm⁴.
-</Step>
-<Step>
-Półka: Ixc2 = 120·20³/12 = 0,080·10⁶ mm⁴; a₂ = |110 − 82,73| = 27,27 mm.
-</Step>
-<Step>
-Moment półki: I₂ = 0,080·10⁶ + 2400·27,27² ≈ 1,865·10⁶ mm⁴; suma Ix = I₁ + I₂ ≈ 5,674·10⁶ mm⁴.
-</Step>
-</Steps>
-<Result>
-Moment bezwładności przekroju teowego względem poziomej osi centralnej wynosi około 5,67·10⁶ mm⁴.
-</Result>
+  <Given>
+    Dla przekroju teowego z poprzedniej lekcji: środnik 20 × 100 mm, półka 120 × 20 mm, wspólne ȳ = 82,73 mm od dołu.
+  </Given>
+  <Steps>
+    <Step>
+      Środnik: Ixc1 = 20·100³/12 = 1,667·10⁶ mm⁴; odległość jego środka od osi centralnej a₁ = |82,73 − 50| = 32,73 mm.
+    </Step>
+    <Step>Moment środnika: I₁ = 1,667·10⁶ + 2000·32,73² ≈ 3,809·10⁶ mm⁴.</Step>
+    <Step>Półka: Ixc2 = 120·20³/12 = 0,080·10⁶ mm⁴; a₂ = |110 − 82,73| = 27,27 mm.</Step>
+    <Step>Moment półki: I₂ = 0,080·10⁶ + 2400·27,27² ≈ 1,865·10⁶ mm⁴; suma Ix = I₁ + I₂ ≈ 5,674·10⁶ mm⁴.</Step>
+  </Steps>
+  <Result>Moment bezwładności przekroju teowego względem poziomej osi centralnej wynosi około 5,67·10⁶ mm⁴.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Prostokąt ma Ixc = 2·10⁶ mm⁴ i A = 2000 mm². Ile wynosi moment względem osi równoległej oddalonej o a = 30 mm?
-</Prompt>
-<Answer>
-2,06·10⁶ mm⁴
-</Answer>
-<Answer correct>
-3,8·10⁶ mm⁴
-</Answer>
-<Answer>
-8·10⁶ mm⁴
-</Answer>
-<Hint>
-Najpierw podnieś odległość do kwadratu, potem pomnóż przez pole.
-</Hint>
-<Explanation>
-Aa² = 2000·30² = 1,8·10⁶ mm⁴. Zatem Ix = 2·10⁶ + 1,8·10⁶ = 3,8·10⁶ mm⁴.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Co jest poprawne przy odejmowaniu oddalonego od osi otworu kołowego?
-</Prompt>
-<Answer>
-Odejmujemy tylko pole otworu
-</Answer>
-<Answer correct>
-Odejmujemy Ixc otworu oraz jego składnik Aa²
-</Answer>
-<Answer>
-Dodajemy składnik Aa², bo otwór jest pusty
-</Answer>
-<Hint>
-Twierdzenie Steinera dotyczy całej figury, również tej odejmowanej.
-</Hint>
-<Explanation>
-Otwór jest figurą o polu ujemnym, więc odejmujemy cały moment względem wspólnej osi: Iotw = Ixc + |A|a². Jego oddalenie ma istotne znaczenie.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Dla ustalonej figury, względem której z osi równoległych moment bezwładności jest najmniejszy?
-</Prompt>
-<Answer>
-Osi najbardziej oddalonej od figury
-</Answer>
-<Answer correct>
-Osi przechodzącej przez środek ciężkości
-</Answer>
-<Answer>
-Zawsze osi na dolnej krawędzi
-</Answer>
-<Hint>
-Znajdź położenie osi, dla którego dodatkowy składnik znika.
-</Hint>
-<Explanation>
-I = Ic + Aa², a składnik Aa² jest nieujemny i najmniejszy dla a = 0. Dlatego minimum odpowiada osi centralnej równoległej.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>
+      Prostokąt ma Ixc = 2·10⁶ mm⁴ i A = 2000 mm². Ile wynosi moment względem osi równoległej oddalonej o a = 30 mm?
+    </Prompt>
+    <Answer>2,06·10⁶ mm⁴</Answer>
+    <Answer correct>3,8·10⁶ mm⁴</Answer>
+    <Answer>8·10⁶ mm⁴</Answer>
+    <Hint>Najpierw podnieś odległość do kwadratu, potem pomnóż przez pole.</Hint>
+    <Explanation>Aa² = 2000·30² = 1,8·10⁶ mm⁴. Zatem Ix = 2·10⁶ + 1,8·10⁶ = 3,8·10⁶ mm⁴.</Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Co jest poprawne przy odejmowaniu oddalonego od osi otworu kołowego?</Prompt>
+    <Answer>Odejmujemy tylko pole otworu</Answer>
+    <Answer correct>Odejmujemy Ixc otworu oraz jego składnik Aa²</Answer>
+    <Answer>Dodajemy składnik Aa², bo otwór jest pusty</Answer>
+    <Hint>Twierdzenie Steinera dotyczy całej figury, również tej odejmowanej.</Hint>
+    <Explanation>
+      Otwór jest figurą o polu ujemnym, więc odejmujemy cały moment względem wspólnej osi: Iotw = Ixc + |A|a². Jego
+      oddalenie ma istotne znaczenie.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dla ustalonej figury, względem której z osi równoległych moment bezwładności jest najmniejszy?</Prompt>
+    <Answer>Osi najbardziej oddalonej od figury</Answer>
+    <Answer correct>Osi przechodzącej przez środek ciężkości</Answer>
+    <Answer>Zawsze osi na dolnej krawędzi</Answer>
+    <Hint>Znajdź położenie osi, dla którego dodatkowy składnik znika.</Hint>
+    <Explanation>
+      I = Ic + Aa², a składnik Aa² jest nieujemny i najmniejszy dla a = 0. Dlatego minimum odpowiada osi centralnej
+      równoległej.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -5,7 +5,6 @@ import { lessonIds, lessons, modules, syllabus, totalDuration, workedSolutions }
 import { examBank } from './exam/exam-bank'
 import { labRegistry } from '../components/LabRegistry'
 
-
 describe('integralność kursu', () => {
   it('ma dokładnie 10 modułów i 70 lekcji', () => {
     expect(modules).toHaveLength(10)
@@ -24,7 +23,10 @@ describe('integralność kursu', () => {
   it('ma po 7 lekcji w module i 60 minut na moduł', () => {
     for (const module of modules) {
       expect(module.lessons, module.id).toHaveLength(7)
-      expect(module.lessons.reduce((sum, lesson) => sum + lesson.duration, 0), module.id).toBe(60)
+      expect(
+        module.lessons.reduce((sum, lesson) => sum + lesson.duration, 0),
+        module.id,
+      ).toBe(60)
       for (const lesson of module.lessons) {
         expect(lesson.outcomes.length, lesson.id).toBeGreaterThan(0)
         expect(lesson.title.trim().length, lesson.id).toBeGreaterThan(0)
@@ -77,7 +79,10 @@ describe('integralność kursu', () => {
       expect(question.correct, question.question).toBeLessThan(question.answers.length)
       expect(question.explanation.trim().length, question.question).toBeGreaterThan(10)
       expect(question.hint.trim().length, question.question).toBeGreaterThan(5)
-      expect(modules.some((module) => module.id === question.moduleId), question.moduleId).toBe(true)
+      expect(
+        modules.some((module) => module.id === question.moduleId),
+        question.moduleId,
+      ).toBe(true)
     }
   })
 
@@ -97,7 +102,10 @@ describe('integralność kursu', () => {
   it('mapa sylabusa pokrywa wszystkie moduły', () => {
     expect(syllabus).toHaveLength(modules.length)
     for (const item of syllabus) {
-      expect(modules.some((module) => module.id === item.moduleId), item.moduleId).toBe(true)
+      expect(
+        modules.some((module) => module.id === item.moduleId),
+        item.moduleId,
+      ).toBe(true)
     }
   })
 })

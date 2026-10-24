@@ -39,91 +39,54 @@ $$
 </Formula>
 
 <Insight>
-Zapis 500 µε oznacza 500·10⁻⁶ = 0,0005, czyli 0,05%. Nie należy wstawiać do wzorów liczby 500 bez przeliczenia ani utożsamiać γxy z εxy.
+  Zapis 500 µε oznacza 500·10⁻⁶ = 0,0005, czyli 0,05%. Nie należy wstawiać do wzorów liczby 500 bez przeliczenia ani
+  utożsamiać γxy z εxy.
 </Insight>
 
 <WorkedExample>
-<Given>
-Baza pomiarowa L0 = 50 mm wydłużyła się o 0,075 mm, a prosty kąt zmienił się tak, że γxy = 0,0012 rad.
-</Given>
-<Steps>
-<Step>
-Odkształcenie liniowe: εx = 0,075/50 = 0,0015.
-</Step>
-<Step>
-Zapis w mikroodkształceniach: 0,0015·10⁶ = 1500 µε.
-</Step>
-<Step>
-Odkształcenie postaciowe inżynierskie pozostaje γxy = 0,0012 = 1200 µrad.
-</Step>
-<Step>
-Składowa tensorowa: εxy = 0,0012/2 = 0,0006.
-</Step>
-</Steps>
-<Result>
-εx = 1500 µε (wydłużenie 0,15%), γxy = 0,0012 rad, a εxy = 0,0006. Są to różne miary deformacji i nie wolno ich mieszać.
-</Result>
+  <Given>Baza pomiarowa L0 = 50 mm wydłużyła się o 0,075 mm, a prosty kąt zmienił się tak, że γxy = 0,0012 rad.</Given>
+  <Steps>
+    <Step>Odkształcenie liniowe: εx = 0,075/50 = 0,0015.</Step>
+    <Step>Zapis w mikroodkształceniach: 0,0015·10⁶ = 1500 µε.</Step>
+    <Step>Odkształcenie postaciowe inżynierskie pozostaje γxy = 0,0012 = 1200 µrad.</Step>
+    <Step>Składowa tensorowa: εxy = 0,0012/2 = 0,0006.</Step>
+  </Steps>
+  <Result>
+    εx = 1500 µε (wydłużenie 0,15%), γxy = 0,0012 rad, a εxy = 0,0006. Są to różne miary deformacji i nie wolno ich
+    mieszać.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W1">
-<Prompt>
-Odcinek o długości 200 mm wydłużył się o 0,30 mm. Ile wynosi odkształcenie?
-</Prompt>
-<Answer correct>
-0,0015
-</Answer>
-<Answer>
-0,015
-</Answer>
-<Answer>
-1,5
-</Answer>
-<Hint>
-Podziel zmianę długości przez długość początkową, używając tych samych jednostek.
-</Hint>
-<Explanation>
-ε = 0,30/200 = 0,0015 = 1500·10⁻⁶ = 1500 µε. Odpowiada to wydłużeniu względnemu 0,15%.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Początkowo prosty kąt zmniejszył się o 0,002 rad. Przy konwencji, w której dodatnie γ oznacza zmniejszenie tego kąta, ile wynoszą γxy i tensorowe εxy?
-</Prompt>
-<Answer correct>
-γxy = 0,002, εxy = 0,001
-</Answer>
-<Answer>
-γxy = 0,001, εxy = 0,002
-</Answer>
-<Answer>
-Obie wielkości wynoszą 0,002
-</Answer>
-<Hint>
-Składowa tensorowa jest połową odkształcenia inżynierskiego.
-</Hint>
-<Explanation>
-Inżynierskie γxy opisuje pełną zmianę kąta i wynosi 0,002 rad. Do tensora wpisujemy εxy = γxy/2 = 0,001.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Tensometr wskazuje −800 µε. Co oznacza znak i wartość?
-</Prompt>
-<Answer correct>
-Skrócenie względne 0,0008
-</Answer>
-<Answer>
-Wydłużenie względne 0,08
-</Answer>
-<Answer>
-Zmianę kąta o 800 rad
-</Answer>
-<Hint>
-Przedrostek µ oznacza milionową część, a minus skrócenie.
-</Hint>
-<Explanation>
-−800 µε = −800·10⁻⁶ = −0,0008, czyli skrócenie o 0,08% długości pomiarowej. Nie jest to miara kątowa.
-</Explanation>
-</Question>
+  <Question outcome="W1">
+    <Prompt>Odcinek o długości 200 mm wydłużył się o 0,30 mm. Ile wynosi odkształcenie?</Prompt>
+    <Answer correct>0,0015</Answer>
+    <Answer>0,015</Answer>
+    <Answer>1,5</Answer>
+    <Hint>Podziel zmianę długości przez długość początkową, używając tych samych jednostek.</Hint>
+    <Explanation>ε = 0,30/200 = 0,0015 = 1500·10⁻⁶ = 1500 µε. Odpowiada to wydłużeniu względnemu 0,15%.</Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Początkowo prosty kąt zmniejszył się o 0,002 rad. Przy konwencji, w której dodatnie γ oznacza zmniejszenie tego
+      kąta, ile wynoszą γxy i tensorowe εxy?
+    </Prompt>
+    <Answer correct>γxy = 0,002, εxy = 0,001</Answer>
+    <Answer>γxy = 0,001, εxy = 0,002</Answer>
+    <Answer>Obie wielkości wynoszą 0,002</Answer>
+    <Hint>Składowa tensorowa jest połową odkształcenia inżynierskiego.</Hint>
+    <Explanation>
+      Inżynierskie γxy opisuje pełną zmianę kąta i wynosi 0,002 rad. Do tensora wpisujemy εxy = γxy/2 = 0,001.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Tensometr wskazuje −800 µε. Co oznacza znak i wartość?</Prompt>
+    <Answer correct>Skrócenie względne 0,0008</Answer>
+    <Answer>Wydłużenie względne 0,08</Answer>
+    <Answer>Zmianę kąta o 800 rad</Answer>
+    <Hint>Przedrostek µ oznacza milionową część, a minus skrócenie.</Hint>
+    <Explanation>
+      −800 µε = −800·10⁻⁶ = −0,0008, czyli skrócenie o 0,08% długości pomiarowej. Nie jest to miara kątowa.
+    </Explanation>
+  </Question>
 </Quiz>

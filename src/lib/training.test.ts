@@ -1,16 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import {
-  createTask,
-  generateTasks,
-  isAnswerClose,
-  seededRandom,
-  taskTopics,
-  type TaskTopic,
-} from './training'
-import {
-  compositeCentroidY,
-  safetyFactor,
-} from './advanced'
+import { createTask, generateTasks, isAnswerClose, seededRandom, taskTopics, type TaskTopic } from './training'
+import { compositeCentroidY, safetyFactor } from './advanced'
 import {
   bendingStressMPa,
   constrainedThermalStressMPa,
@@ -105,26 +95,26 @@ describe('generator treningu liczbowego', () => {
     const task = taskFor('reaction', 7)
     const numbers = task.prompt.match(/\d+(?:[.,]\d+)?/g)?.map((value) => Number(value.replace(',', '.'))) ?? []
     const [length, force, position] = numbers
-    expect(task.answer).toBeCloseTo(force * (length - position) / length, 6)
+    expect(task.answer).toBeCloseTo((force * (length - position)) / length, 6)
   })
 
   it('liczy środek ciężkości dwóch prostokątów', () => {
     const task = taskFor('centroid', 8)
     const numbers = task.prompt.match(/\d+(?:[.,]\d+)?/g)?.map((value) => Number(value.replace(',', '.'))) ?? []
     const [b1, h1, y1, b2, h2, y2] = numbers
-    expect(task.answer).toBeCloseTo(compositeCentroidY([
-      { areaMM2: b1 * h1, yMM: y1 },
-      { areaMM2: b2 * h2, yMM: y2 },
-    ]), 6)
+    expect(task.answer).toBeCloseTo(
+      compositeCentroidY([
+        { areaMM2: b1 * h1, yMM: y1 },
+        { areaMM2: b2 * h2, yMM: y2 },
+      ]),
+      6,
+    )
   })
 
   it('liczy moment bezwładności z twierdzenia Steinera', () => {
     const task = taskFor('steiner', 9)
     const numbers = task.prompt.match(/\d+(?:[.,]\d+)?/g)?.map((value) => Number(value.replace(',', '.'))) ?? []
     const [width, height, distance] = numbers
-    expect(task.answer).toBeCloseTo(
-      (rectangleInertiaMM4(width, height) + width * height * distance ** 2) / 1e4,
-      6,
-    )
+    expect(task.answer).toBeCloseTo((rectangleInertiaMM4(width, height) + width * height * distance ** 2) / 1e4, 6)
   })
 })

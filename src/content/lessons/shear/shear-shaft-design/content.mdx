@@ -33,94 +33,57 @@ $$
 </Formula>
 
 <Insight>
-Oblicz d osobno z obu warunków, przyjmij większą średnicę, zaokrąglij ją w górę do dostępnego wymiaru i sprawdź ponownie naprężenie oraz kąt.
+  Oblicz d osobno z obu warunków, przyjmij większą średnicę, zaokrąglij ją w górę do dostępnego wymiaru i sprawdź
+  ponownie naprężenie oraz kąt.
 </Insight>
 
 <WorkedExample>
-<Given>
-Wał pełny: T = 1,5 kN·m, L = 2 m, G = 80 GPa, τdop = 60 MPa, φdop = 1° = 0,017453 rad.
-</Given>
-<Steps>
-<Step>
-Przyjmij T = 1 500 000 N·mm, L = 2000 mm i G = 80 000 MPa.
-</Step>
-<Step>
-Z wytrzymałości: d ≥ [16·1 500 000/(π·60)]^(1/3) = 50,3 mm.
-</Step>
-<Step>
-Ze sztywności: d ≥ [32·1 500 000·2000/(π·80 000·0,017453)]^(1/4) = 68,4 mm.
-</Step>
-<Step>
-Warunek sztywności jest decydujący. Przyjmij przykładowo d = 70 mm.
-</Step>
-<Step>
-Kontrola: τmax = 16T/(π·70³) = 22,3 MPa &lt; 60 MPa; φ = TL/(GJ_o) ≈ 0,0159 rad = 0,91° &lt; 1°.
-</Step>
-</Steps>
-<Result>
-Przyjęto d = 70 mm; oba warunki są spełnione, a decyduje sztywność.
-</Result>
+  <Given>Wał pełny: T = 1,5 kN·m, L = 2 m, G = 80 GPa, τdop = 60 MPa, φdop = 1° = 0,017453 rad.</Given>
+  <Steps>
+    <Step>Przyjmij T = 1 500 000 N·mm, L = 2000 mm i G = 80 000 MPa.</Step>
+    <Step>Z wytrzymałości: d ≥ [16·1 500 000/(π·60)]^(1/3) = 50,3 mm.</Step>
+    <Step>Ze sztywności: d ≥ [32·1 500 000·2000/(π·80 000·0,017453)]^(1/4) = 68,4 mm.</Step>
+    <Step>Warunek sztywności jest decydujący. Przyjmij przykładowo d = 70 mm.</Step>
+    <Step>Kontrola: τmax = 16T/(π·70³) = 22,3 MPa &lt; 60 MPa; φ = TL/(GJ_o) ≈ 0,0159 rad = 0,91° &lt; 1°.</Step>
+  </Steps>
+  <Result>Przyjęto d = 70 mm; oba warunki są spełnione, a decyduje sztywność.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U3">
-<Prompt>
-Z warunku wytrzymałości wyszło d ≥ 42 mm, a ze sztywności d ≥ 48 mm. Jaką minimalną średnicę należy przyjąć przed zaokrągleniem do wymiaru katalogowego?
-</Prompt>
-<Answer>
-42 mm
-</Answer>
-<Answer>
-45 mm jako średnią
-</Answer>
-<Answer correct>
-48 mm
-</Answer>
-<Hint>
-Przyjęta średnica musi spełniać jednocześnie obie nierówności.
-</Hint>
-<Explanation>
-Średnica 48 mm spełnia oba warunki, natomiast 42 mm nie spełnia warunku sztywności. Nie uśredniamy wymaganych minimów — wybieramy większą wartość.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Po doborze średnicy katalogowej większej od obliczonej wartości minimalnej należy:
-</Prompt>
-<Answer correct>
-Sprawdzić ponownie τmax i φ dla przyjętego wymiaru
-</Answer>
-<Answer>
-Pominąć obliczenia, bo większy wał zawsze działa tak samo
-</Answer>
-<Answer>
-Sprawdzić wyłącznie masę wału
-</Answer>
-<Hint>
-Projekt kończy się weryfikacją rzeczywiście przyjętego przekroju.
-</Hint>
-<Explanation>
-Dla przyjętego d oblicza się rzeczywiste τmax i φ oraz porównuje je z granicami. Większa średnica zmniejsza obie wielkości, ale sprawdzenie potwierdza poprawność jednostek i obliczeń.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Do warunku sztywności podstawiono φdop = 1°, bez zamiany na radiany. Jaki to błąd?
-</Prompt>
-<Answer>
-Brak błędu, bo wzór zawsze wymaga stopni
-</Answer>
-<Answer correct>
-Błąd jednostek; należy użyć 0,01745 rad
-</Answer>
-<Answer>
-Błąd znaku; kąt musi być ujemny
-</Answer>
-<Hint>
-Wzór φ = TL/(GJ_o) daje wynik w radianach.
-</Hint>
-<Explanation>
-Dopuszczalny kąt musi być wyrażony w tej samej miarze co obliczany. 1° = π/180 = 0,01745 rad; podstawienie liczby 1 zamiast 0,01745 da błędną średnicę.
-</Explanation>
-</Question>
+  <Question outcome="U3">
+    <Prompt>
+      Z warunku wytrzymałości wyszło d ≥ 42 mm, a ze sztywności d ≥ 48 mm. Jaką minimalną średnicę należy przyjąć przed
+      zaokrągleniem do wymiaru katalogowego?
+    </Prompt>
+    <Answer>42 mm</Answer>
+    <Answer>45 mm jako średnią</Answer>
+    <Answer correct>48 mm</Answer>
+    <Hint>Przyjęta średnica musi spełniać jednocześnie obie nierówności.</Hint>
+    <Explanation>
+      Średnica 48 mm spełnia oba warunki, natomiast 42 mm nie spełnia warunku sztywności. Nie uśredniamy wymaganych
+      minimów — wybieramy większą wartość.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Po doborze średnicy katalogowej większej od obliczonej wartości minimalnej należy:</Prompt>
+    <Answer correct>Sprawdzić ponownie τmax i φ dla przyjętego wymiaru</Answer>
+    <Answer>Pominąć obliczenia, bo większy wał zawsze działa tak samo</Answer>
+    <Answer>Sprawdzić wyłącznie masę wału</Answer>
+    <Hint>Projekt kończy się weryfikacją rzeczywiście przyjętego przekroju.</Hint>
+    <Explanation>
+      Dla przyjętego d oblicza się rzeczywiste τmax i φ oraz porównuje je z granicami. Większa średnica zmniejsza obie
+      wielkości, ale sprawdzenie potwierdza poprawność jednostek i obliczeń.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Do warunku sztywności podstawiono φdop = 1°, bez zamiany na radiany. Jaki to błąd?</Prompt>
+    <Answer>Brak błędu, bo wzór zawsze wymaga stopni</Answer>
+    <Answer correct>Błąd jednostek; należy użyć 0,01745 rad</Answer>
+    <Answer>Błąd znaku; kąt musi być ujemny</Answer>
+    <Hint>Wzór φ = TL/(GJ_o) daje wynik w radianach.</Hint>
+    <Explanation>
+      Dopuszczalny kąt musi być wyrażony w tej samej miarze co obliczany. 1° = π/180 = 0,01745 rad; podstawienie liczby
+      1 zamiast 0,01745 da błędną średnicę.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -43,88 +43,57 @@ $$
 </Formula>
 
 <Insight>
-Naprężenie zredukowane nie jest nową siłą ani dodatkową składową w przekroju. To wielkość obliczeniowa: jej wartość zależy od przyjętej hipotezy, dlatego zawsze trzeba podać, którą hipotezę zastosowano.
+  Naprężenie zredukowane nie jest nową siłą ani dodatkową składową w przekroju. To wielkość obliczeniowa: jej wartość
+  zależy od przyjętej hipotezy, dlatego zawsze trzeba podać, którą hipotezę zastosowano.
 </Insight>
 
 <WorkedExample>
-<Given>
-Element ze stali o Re = 250 MPa ma σred = 125 MPa, a projekt wymaga n_wym ≥ 1,5.
-</Given>
-<Steps>
-<Step>
-Oblicz rzeczywisty zapas: n_rz = Re/σred = 250/125 = 2.
-</Step>
-<Step>
-Porównaj go z wymaganiem: 2 ≥ 1,5, więc zapas jest wystarczający.
-</Step>
-<Step>
-Alternatywnie oblicz kr = Re/n_wym = 250/1,5 = 166,7 MPa i sprawdź: 125 ≤ 166,7 MPa.
-</Step>
-</Steps>
-<Result>
-Warunek jest spełniony; rzeczywisty współczynnik bezpieczeństwa wynosi 2, czyli jest większy od wymaganego 1,5.
-</Result>
+  <Given>Element ze stali o Re = 250 MPa ma σred = 125 MPa, a projekt wymaga n_wym ≥ 1,5.</Given>
+  <Steps>
+    <Step>Oblicz rzeczywisty zapas: n_rz = Re/σred = 250/125 = 2.</Step>
+    <Step>Porównaj go z wymaganiem: 2 ≥ 1,5, więc zapas jest wystarczający.</Step>
+    <Step>Alternatywnie oblicz kr = Re/n_wym = 250/1,5 = 166,7 MPa i sprawdź: 125 ≤ 166,7 MPa.</Step>
+  </Steps>
+  <Result>
+    Warunek jest spełniony; rzeczywisty współczynnik bezpieczeństwa wynosi 2, czyli jest większy od wymaganego 1,5.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W2">
-<Prompt>
-W elemencie działają jednocześnie σ = 90 MPa i τ = 40 MPa. Dlaczego nie wolno sprawdzić wytrzymałości warunkiem 90 + 40 ≤ Re?
-</Prompt>
-<Answer>
-Bo MPa nie wolno dodawać
-</Answer>
-<Answer correct>
-Bo trzeba zastosować hipotezę opisującą współdziałanie składowych
-</Answer>
-<Answer>
-Bo τ zawsze należy pominąć
-</Answer>
-<Hint>
-Obie wartości mają te same jednostki, ale różne skutki fizyczne.
-</Hint>
-<Explanation>
-Jednostki są te same (MPa), więc dodawanie jest formalnie wykonalne, ale fizycznie błędne: σ i τ działają inaczej i nie sumują się liniowo. Dopiero hipoteza, np. HMH lub Tresca, określa, jak wspólnie wytężają materiał.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Dla tego samego stanu naprężenia HMH daje 130 MPa, a Tresca 145 MPa. Co oznacza różnica?
-</Prompt>
-<Answer>
-Pomiar naprężeń był błędny
-</Answer>
-<Answer correct>
-Hipotezy inaczej opisują mechanizm zniszczenia
-</Answer>
-<Answer>
-Tresca zawsze jest błędna
-</Answer>
-<Hint>
-Naprężenie zredukowane zależy od przyjętego modelu.
-</Hint>
-<Explanation>
-Składowe naprężenia są te same, ale hipotezy inaczej je redukują: Tresca jest zwykle bardziej zachowawcza. Wynik trzeba porównać z wytrzymałością według tej samej hipotezy, którą zastosowano do redukcji.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Przy Re = 240 MPa obliczono σred = 120 MPa. Ile wynosi rzeczywisty współczynnik bezpieczeństwa?
-</Prompt>
-<Answer>
-0,5
-</Answer>
-<Answer correct>
-2
-</Answer>
-<Answer>
-120
-</Answer>
-<Hint>
-Podziel granicę plastyczności przez naprężenie zredukowane.
-</Hint>
-<Explanation>
-n = Re/σred = 240/120 = 2. Oznacza to, że przy dwukrotnie większym obciążeniu — o ile materiał pozostaje sprężysty i liniowy — naprężenie osiągnie granicę plastyczności.
-</Explanation>
-</Question>
+  <Question outcome="W2">
+    <Prompt>
+      W elemencie działają jednocześnie σ = 90 MPa i τ = 40 MPa. Dlaczego nie wolno sprawdzić wytrzymałości warunkiem 90
+      + 40 ≤ Re?
+    </Prompt>
+    <Answer>Bo MPa nie wolno dodawać</Answer>
+    <Answer correct>Bo trzeba zastosować hipotezę opisującą współdziałanie składowych</Answer>
+    <Answer>Bo τ zawsze należy pominąć</Answer>
+    <Hint>Obie wartości mają te same jednostki, ale różne skutki fizyczne.</Hint>
+    <Explanation>
+      Jednostki są te same (MPa), więc dodawanie jest formalnie wykonalne, ale fizycznie błędne: σ i τ działają inaczej
+      i nie sumują się liniowo. Dopiero hipoteza, np. HMH lub Tresca, określa, jak wspólnie wytężają materiał.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dla tego samego stanu naprężenia HMH daje 130 MPa, a Tresca 145 MPa. Co oznacza różnica?</Prompt>
+    <Answer>Pomiar naprężeń był błędny</Answer>
+    <Answer correct>Hipotezy inaczej opisują mechanizm zniszczenia</Answer>
+    <Answer>Tresca zawsze jest błędna</Answer>
+    <Hint>Naprężenie zredukowane zależy od przyjętego modelu.</Hint>
+    <Explanation>
+      Składowe naprężenia są te same, ale hipotezy inaczej je redukują: Tresca jest zwykle bardziej zachowawcza. Wynik
+      trzeba porównać z wytrzymałością według tej samej hipotezy, którą zastosowano do redukcji.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Przy Re = 240 MPa obliczono σred = 120 MPa. Ile wynosi rzeczywisty współczynnik bezpieczeństwa?</Prompt>
+    <Answer>0,5</Answer>
+    <Answer correct>2</Answer>
+    <Answer>120</Answer>
+    <Hint>Podziel granicę plastyczności przez naprężenie zredukowane.</Hint>
+    <Explanation>
+      n = Re/σred = 240/120 = 2. Oznacza to, że przy dwukrotnie większym obciążeniu — o ile materiał pozostaje sprężysty
+      i liniowy — naprężenie osiągnie granicę plastyczności.
+    </Explanation>
+  </Question>
 </Quiz>

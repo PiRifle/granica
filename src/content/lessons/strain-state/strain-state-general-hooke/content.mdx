@@ -40,91 +40,55 @@ $$
 </Formula>
 
 <Insight>
-Nawet przy σx = 0 może istnieć εx różne od zera, jeśli działają σy lub σz. Zerowe naprężenie w danym kierunku nie oznacza automatycznie zerowego odkształcenia.
+  Nawet przy σx = 0 może istnieć εx różne od zera, jeśli działają σy lub σz. Zerowe naprężenie w danym kierunku nie
+  oznacza automatycznie zerowego odkształcenia.
 </Insight>
 
 <WorkedExample>
-<Given>
-Aluminium: E = 70 000 MPa, ν = 0,33, G = 26 316 MPa. Stan: σx = 90 MPa, σy = −30 MPa, σz = 0, τxy = 40 MPa.
-</Given>
-<Steps>
-<Step>
-εx = [90 − 0,33(−30 + 0)]/70 000 = 99,9/70 000 = 0,0014271.
-</Step>
-<Step>
-εy = [−30 − 0,33(0 + 90)]/70 000 = −59,7/70 000 = −0,0008529.
-</Step>
-<Step>
-εz = [0 − 0,33(90 − 30)]/70 000 = −19,8/70 000 = −0,0002829.
-</Step>
-<Step>
-γxy = 40/26 316 = 0,0015200 rad.
-</Step>
-</Steps>
-<Result>
-εx ≈ 1427 µε, εy ≈ −853 µε, εz ≈ −283 µε i γxy ≈ 1520 µrad. Wszystkie składowe wynikają z jednoczesnego działania naprężeń.
-</Result>
+  <Given>
+    Aluminium: E = 70 000 MPa, ν = 0,33, G = 26 316 MPa. Stan: σx = 90 MPa, σy = −30 MPa, σz = 0, τxy = 40 MPa.
+  </Given>
+  <Steps>
+    <Step>εx = [90 − 0,33(−30 + 0)]/70 000 = 99,9/70 000 = 0,0014271.</Step>
+    <Step>εy = [−30 − 0,33(0 + 90)]/70 000 = −59,7/70 000 = −0,0008529.</Step>
+    <Step>εz = [0 − 0,33(90 − 30)]/70 000 = −19,8/70 000 = −0,0002829.</Step>
+    <Step>γxy = 40/26 316 = 0,0015200 rad.</Step>
+  </Steps>
+  <Result>
+    εx ≈ 1427 µε, εy ≈ −853 µε, εz ≈ −283 µε i γxy ≈ 1520 µrad. Wszystkie składowe wynikają z jednoczesnego działania
+    naprężeń.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dla E = 200 GPa, ν = 0,25, σx = 100 MPa, σy = 50 MPa i σz = 0 ile wynosi εx?
-</Prompt>
-<Answer correct>
-0,0004375
-</Answer>
-<Answer>
-0,0005
-</Answer>
-<Answer>
-0,0005625
-</Answer>
-<Hint>
-Odejmij νσy od σx i podziel przez 200 000 MPa.
-</Hint>
-<Explanation>
-εx = [100 − 0,25(50 + 0)]/200 000 = 87,5/200 000 = 0,0004375 = 437,5 µε. Efekt Poissona zmniejsza wydłużenie x.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Przy σx = σy = 60 MPa, σz = 0, E = 70 GPa i ν = 0,33 jaki znak ma εz?
-</Prompt>
-<Answer>
-Dodatni
-</Answer>
-<Answer correct>
-Ujemny
-</Answer>
-<Answer>
-Zawsze zerowy
-</Answer>
-<Hint>
-Chociaż σz = 0, naprężenia x i y wywołują skurcz poprzeczny.
-</Hint>
-<Explanation>
-εz = [0 − 0,33(60 + 60)]/70 000 = −39,6/70 000 ≈ −0,000566. Kierunek z ulega skróceniu mimo zerowego σz.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Dla τxy = 60 MPa i G = 80 GPa ile wynosi inżynierskie γxy?
-</Prompt>
-<Answer correct>
-0,00075
-</Answer>
-<Answer>
-0,0015
-</Answer>
-<Answer>
-750
-</Answer>
-<Hint>
-Zamień 80 GPa na 80 000 MPa i podziel τ przez G.
-</Hint>
-<Explanation>
-γxy = 60/80 000 = 0,00075 rad = 750 µrad. Tensorowe εxy wyniosłoby połowę, czyli 0,000375.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Dla E = 200 GPa, ν = 0,25, σx = 100 MPa, σy = 50 MPa i σz = 0 ile wynosi εx?</Prompt>
+    <Answer correct>0,0004375</Answer>
+    <Answer>0,0005</Answer>
+    <Answer>0,0005625</Answer>
+    <Hint>Odejmij νσy od σx i podziel przez 200 000 MPa.</Hint>
+    <Explanation>
+      εx = [100 − 0,25(50 + 0)]/200 000 = 87,5/200 000 = 0,0004375 = 437,5 µε. Efekt Poissona zmniejsza wydłużenie x.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Przy σx = σy = 60 MPa, σz = 0, E = 70 GPa i ν = 0,33 jaki znak ma εz?</Prompt>
+    <Answer>Dodatni</Answer>
+    <Answer correct>Ujemny</Answer>
+    <Answer>Zawsze zerowy</Answer>
+    <Hint>Chociaż σz = 0, naprężenia x i y wywołują skurcz poprzeczny.</Hint>
+    <Explanation>
+      εz = [0 − 0,33(60 + 60)]/70 000 = −39,6/70 000 ≈ −0,000566. Kierunek z ulega skróceniu mimo zerowego σz.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla τxy = 60 MPa i G = 80 GPa ile wynosi inżynierskie γxy?</Prompt>
+    <Answer correct>0,00075</Answer>
+    <Answer>0,0015</Answer>
+    <Answer>750</Answer>
+    <Hint>Zamień 80 GPa na 80 000 MPa i podziel τ przez G.</Hint>
+    <Explanation>
+      γxy = 60/80 000 = 0,00075 rad = 750 µrad. Tensorowe εxy wyniosłoby połowę, czyli 0,000375.
+    </Explanation>
+  </Question>
 </Quiz>

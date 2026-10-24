@@ -34,91 +34,64 @@ $$
 </Formula>
 
 <Insight>
-Swobodne odkształcenie termiczne nie musi oznaczać naprężenia. Naprężenie powstaje z ograniczenia odkształcenia, a nie z samej obecności temperatury.
+  Swobodne odkształcenie termiczne nie musi oznaczać naprężenia. Naprężenie powstaje z ograniczenia odkształcenia, a nie
+  z samej obecności temperatury.
 </Insight>
 
 <WorkedExample>
-<Given>
-Szyna stalowa ma długość L = 12 m, α = 12·10⁻⁶ 1/°C i ogrzewa się o ΔT = 30°C. E = 200 GPa.
-</Given>
-<Steps>
-<Step>
-Swobodne wydłużenie: ΔLₜ = αΔTL = 12·10⁻⁶·30·12 000 = 4,32 mm.
-</Step>
-<Step>
-Jeśli końce są swobodne, ta zmiana długości nie wymaga reakcji osiowej i nie wywołuje naprężenia termicznego.
-</Step>
-<Step>
-Przy pełnym zablokowaniu ε = 0, więc sprężyste odkształcenie mechaniczne równoważy odkształcenie termiczne: εₘ = −αΔT = −0,00036.
-</Step>
-<Step>
-Naprężenie zablokowanej szyny: σ = Eεₘ = 200 000·(−0,00036) = −72 MPa.
-</Step>
-</Steps>
-<Result>
-Swobodna szyna wydłuży się o 4,32 mm bez naprężenia od samej temperatury; całkowite zablokowanie dałoby w modelu sprężystym 72 MPa ściskania.
-</Result>
+  <Given>Szyna stalowa ma długość L = 12 m, α = 12·10⁻⁶ 1/°C i ogrzewa się o ΔT = 30°C. E = 200 GPa.</Given>
+  <Steps>
+    <Step>Swobodne wydłużenie: ΔLₜ = αΔTL = 12·10⁻⁶·30·12 000 = 4,32 mm.</Step>
+    <Step>
+      Jeśli końce są swobodne, ta zmiana długości nie wymaga reakcji osiowej i nie wywołuje naprężenia termicznego.
+    </Step>
+    <Step>
+      Przy pełnym zablokowaniu ε = 0, więc sprężyste odkształcenie mechaniczne równoważy odkształcenie termiczne: εₘ =
+      −αΔT = −0,00036.
+    </Step>
+    <Step>Naprężenie zablokowanej szyny: σ = Eεₘ = 200 000·(−0,00036) = −72 MPa.</Step>
+  </Steps>
+  <Result>
+    Swobodna szyna wydłuży się o 4,32 mm bez naprężenia od samej temperatury; całkowite zablokowanie dałoby w modelu
+    sprężystym 72 MPa ściskania.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Stalowy pręt L = 2 m ogrzano o 50°C. Dla α = 12·10⁻⁶ 1/°C swobodne wydłużenie wynosi:
-</Prompt>
-<Answer>
-0,12 mm
-</Answer>
-<Answer correct>
-1,2 mm
-</Answer>
-<Answer>
-12 mm
-</Answer>
-<Hint>
-Podstaw długość w mm; współczynnik 10⁻⁶ oznacza milionowe części.
-</Hint>
-<Explanation>
-ΔLₜ = αΔTL = 12·10⁻⁶·50·2000 mm = 1,2 mm.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Ten sam pręt jest idealnie zablokowany między nieruchomymi podporami. Przy E = 200 GPa ogrzanie o 50°C wywołuje w modelu liniowo sprężystym:
-</Prompt>
-<Answer>
-120 MPa rozciągania
-</Answer>
-<Answer correct>
-120 MPa ściskania
-</Answer>
-<Answer>
-zerowe naprężenie, bo temperatura działa równomiernie
-</Answer>
-<Hint>
-Najpierw oblicz odkształcenie termiczne αΔT, a potem pomnóż przez E i ustal znak.
-</Hint>
-<Explanation>
-|σ| = EαΔT = 200 000·12·10⁻⁶·50 = 120 MPa. Podpory hamują rozszerzanie, więc pręt jest ściskany. Równomierność temperatury nie usuwa ograniczenia odkształcenia.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Pręt ma luz 2 mm i podczas ogrzewania najpierw wydłuża się swobodnie, aż zamknie ten luz. Co dzieje się z naprężeniem przy dalszym wzroście temperatury?
-</Prompt>
-<Answer>
-Naprężenie pozostanie zerowe przy każdej temperaturze
-</Answer>
-<Answer correct>
-Naprężenie ściskające może narastać dopiero po zamknięciu luzu
-</Answer>
-<Answer>
-Pojawi się wyłącznie rozciąganie
-</Answer>
-<Hint>
-Rozdziel ruch przed kontaktem i ograniczenie ruchu po kontakcie.
-</Hint>
-<Explanation>
-Przed wykorzystaniem luzu odkształcenie jest swobodne. Po kontakcie dalsza rozszerzalność jest ograniczana, więc reakcja przeszkody wywołuje ściskanie.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Stalowy pręt L = 2 m ogrzano o 50°C. Dla α = 12·10⁻⁶ 1/°C swobodne wydłużenie wynosi:</Prompt>
+    <Answer>0,12 mm</Answer>
+    <Answer correct>1,2 mm</Answer>
+    <Answer>12 mm</Answer>
+    <Hint>Podstaw długość w mm; współczynnik 10⁻⁶ oznacza milionowe części.</Hint>
+    <Explanation>ΔLₜ = αΔTL = 12·10⁻⁶·50·2000 mm = 1,2 mm.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Ten sam pręt jest idealnie zablokowany między nieruchomymi podporami. Przy E = 200 GPa ogrzanie o 50°C wywołuje w
+      modelu liniowo sprężystym:
+    </Prompt>
+    <Answer>120 MPa rozciągania</Answer>
+    <Answer correct>120 MPa ściskania</Answer>
+    <Answer>zerowe naprężenie, bo temperatura działa równomiernie</Answer>
+    <Hint>Najpierw oblicz odkształcenie termiczne αΔT, a potem pomnóż przez E i ustal znak.</Hint>
+    <Explanation>
+      |σ| = EαΔT = 200 000·12·10⁻⁶·50 = 120 MPa. Podpory hamują rozszerzanie, więc pręt jest ściskany. Równomierność
+      temperatury nie usuwa ograniczenia odkształcenia.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Pręt ma luz 2 mm i podczas ogrzewania najpierw wydłuża się swobodnie, aż zamknie ten luz. Co dzieje się z
+      naprężeniem przy dalszym wzroście temperatury?
+    </Prompt>
+    <Answer>Naprężenie pozostanie zerowe przy każdej temperaturze</Answer>
+    <Answer correct>Naprężenie ściskające może narastać dopiero po zamknięciu luzu</Answer>
+    <Answer>Pojawi się wyłącznie rozciąganie</Answer>
+    <Hint>Rozdziel ruch przed kontaktem i ograniczenie ruchu po kontakcie.</Hint>
+    <Explanation>
+      Przed wykorzystaniem luzu odkształcenie jest swobodne. Po kontakcie dalsza rozszerzalność jest ograniczana, więc
+      reakcja przeszkody wywołuje ściskanie.
+    </Explanation>
+  </Question>
 </Quiz>

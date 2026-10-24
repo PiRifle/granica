@@ -31,91 +31,71 @@ $$
 </Formula>
 
 <Insight>
-Dwuteownik jest racjonalny przy zginaniu w swojej mocnej płaszczyźnie, a cienkościenna rura dobrze wykorzystuje materiał przy skręcaniu. Nie istnieje jeden najlepszy kształt dla każdego obciążenia.
+  Dwuteownik jest racjonalny przy zginaniu w swojej mocnej płaszczyźnie, a cienkościenna rura dobrze wykorzystuje
+  materiał przy skręcaniu. Nie istnieje jeden najlepszy kształt dla każdego obciążenia.
 </Insight>
 
 <WorkedExample>
-<Given>
-Porównujemy pełny przekrój kołowy o średnicy 100 mm z rurą D = 100 mm, d = 90 mm. Oba mają tę samą średnicę zewnętrzną.
-</Given>
-<Steps>
-<Step>
-Pole pełnego koła Ap = π·100²/4 = 7854 mm²; pole rury Ar = π(100² − 90²)/4 = 1492 mm², czyli około 19% pola pełnego.
-</Step>
-<Step>
-Moment pełnego koła Ip = π·100⁴/64 = 4,909·10⁶ mm⁴.
-</Step>
-<Step>
-Moment rury Ir = π(100⁴ − 90⁴)/64 = 1,688·10⁶ mm⁴, czyli około 34% Ip.
-</Step>
-<Step>
-Ponieważ oba przekroje mają cmax = 50 mm, stosunek W jest taki sam jak stosunek I. Rura zachowuje około 34% W przy około 19% masy na tej samej długości.
-</Step>
-</Steps>
-<Result>
-Rura ma około 19% masy przekroju pełnego, zachowując około 34% jego I i W; lepiej wykorzystuje materiał, choć ma mniejszą bezwzględną nośność i sztywność.
-</Result>
+  <Given>
+    Porównujemy pełny przekrój kołowy o średnicy 100 mm z rurą D = 100 mm, d = 90 mm. Oba mają tę samą średnicę
+    zewnętrzną.
+  </Given>
+  <Steps>
+    <Step>
+      Pole pełnego koła Ap = π·100²/4 = 7854 mm²; pole rury Ar = π(100² − 90²)/4 = 1492 mm², czyli około 19% pola
+      pełnego.
+    </Step>
+    <Step>Moment pełnego koła Ip = π·100⁴/64 = 4,909·10⁶ mm⁴.</Step>
+    <Step>Moment rury Ir = π(100⁴ − 90⁴)/64 = 1,688·10⁶ mm⁴, czyli około 34% Ip.</Step>
+    <Step>
+      Ponieważ oba przekroje mają cmax = 50 mm, stosunek W jest taki sam jak stosunek I. Rura zachowuje około 34% W przy
+      około 19% masy na tej samej długości.
+    </Step>
+  </Steps>
+  <Result>
+    Rura ma około 19% masy przekroju pełnego, zachowując około 34% jego I i W; lepiej wykorzystuje materiał, choć ma
+    mniejszą bezwzględną nośność i sztywność.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Dlaczego usunięcie materiału blisko osi obojętnej często mniej zmniejsza I niż usunięcie takiego samego pola przy skrajnych włóknach?
-</Prompt>
-<Answer correct>
-Bo blisko osi r jest małe, a w I występuje r²
-</Answer>
-<Answer>
-Bo naprężenie zginające jest największe na osi
-</Answer>
-<Answer>
-Bo moment bezwładności zależy wyłącznie od masy
-</Answer>
-<Hint>
-Oceń wkład tego samego dA przy dwóch różnych odległościach r.
-</Hint>
-<Explanation>
-Wkład elementu pola do I wynosi r²dA. Przy małej odległości r od osi ten wkład jest niewielki, natomiast przy dużej rośnie kwadratowo.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Pełny pręt i rura mają takie samo pole przekroju oraz materiał. Dla typowej rury o cienkiej ściance, z materiałem średnio dalej od środka:
-</Prompt>
-<Answer correct>
-moment bezwładności zwykle jest większy
-</Answer>
-<Answer>
-moment bezwładności zawsze jest mniejszy
-</Answer>
-<Answer>
-I zależy tylko od pola, więc jest identyczne
-</Answer>
-<Hint>
-Porównaj rozmieszczenie pola, a nie tylko jego sumę.
-</Hint>
-<Explanation>
-Przy równym polu rura rozmieszcza materiał przeciętnie dalej od osi, co zwiększa ∫r²dA. Ostateczny wynik zależy od wymiarów, ale to podstawowa zaleta przekroju rurowego.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Które stwierdzenie o dwuteowniku jest najtrafniejsze?
-</Prompt>
-<Answer>
-Jest jednakowo racjonalny przy każdym obciążeniu i w każdym kierunku
-</Answer>
-<Answer correct>
-Jego półki oddalone od osi zwiększają I i W w mocnej płaszczyźnie zginania
-</Answer>
-<Answer>
-Im cieńsze ścianki, tym lepiej, bez żadnych ograniczeń
-</Answer>
-<Hint>
-Połącz położenie półek z twierdzeniem Steinera i pamiętaj o innych warunkach projektowania.
-</Hint>
-<Explanation>
-Oddalone półki dają duży wkład Aa² do momentu bezwładności i zwiększają W. Jednak kierunek obciążenia oraz stateczność cienkich ścianek ograniczają dobór.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>
+      Dlaczego usunięcie materiału blisko osi obojętnej często mniej zmniejsza I niż usunięcie takiego samego pola przy
+      skrajnych włóknach?
+    </Prompt>
+    <Answer correct>Bo blisko osi r jest małe, a w I występuje r²</Answer>
+    <Answer>Bo naprężenie zginające jest największe na osi</Answer>
+    <Answer>Bo moment bezwładności zależy wyłącznie od masy</Answer>
+    <Hint>Oceń wkład tego samego dA przy dwóch różnych odległościach r.</Hint>
+    <Explanation>
+      Wkład elementu pola do I wynosi r²dA. Przy małej odległości r od osi ten wkład jest niewielki, natomiast przy
+      dużej rośnie kwadratowo.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Pełny pręt i rura mają takie samo pole przekroju oraz materiał. Dla typowej rury o cienkiej ściance, z materiałem
+      średnio dalej od środka:
+    </Prompt>
+    <Answer correct>moment bezwładności zwykle jest większy</Answer>
+    <Answer>moment bezwładności zawsze jest mniejszy</Answer>
+    <Answer>I zależy tylko od pola, więc jest identyczne</Answer>
+    <Hint>Porównaj rozmieszczenie pola, a nie tylko jego sumę.</Hint>
+    <Explanation>
+      Przy równym polu rura rozmieszcza materiał przeciętnie dalej od osi, co zwiększa ∫r²dA. Ostateczny wynik zależy od
+      wymiarów, ale to podstawowa zaleta przekroju rurowego.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Które stwierdzenie o dwuteowniku jest najtrafniejsze?</Prompt>
+    <Answer>Jest jednakowo racjonalny przy każdym obciążeniu i w każdym kierunku</Answer>
+    <Answer correct>Jego półki oddalone od osi zwiększają I i W w mocnej płaszczyźnie zginania</Answer>
+    <Answer>Im cieńsze ścianki, tym lepiej, bez żadnych ograniczeń</Answer>
+    <Hint>Połącz położenie półek z twierdzeniem Steinera i pamiętaj o innych warunkach projektowania.</Hint>
+    <Explanation>
+      Oddalone półki dają duży wkład Aa² do momentu bezwładności i zwiększają W. Jednak kierunek obciążenia oraz
+      stateczność cienkich ścianek ograniczają dobór.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -43,88 +43,52 @@ $$
 </Formula>
 
 <Insight>
-Wymagane W rośnie liniowo z momentem, ale średnica — dopiero z pierwiastkiem trzeciego stopnia z W. Dlatego podwojenie momentu nie wymaga podwojenia średnicy; średnica musi wzrosnąć o około 26%.
+  Wymagane W rośnie liniowo z momentem, ale średnica — dopiero z pierwiastkiem trzeciego stopnia z W. Dlatego podwojenie
+  momentu nie wymaga podwojenia średnicy; średnica musi wzrosnąć o około 26%.
 </Insight>
 
 <WorkedExample>
-<Given>
-Zginany pręt pełny ma M = 1 kN·m i k = 125 MPa.
-</Given>
-<Steps>
-<Step>
-M = 1 000 000 N·mm; wymagane W = 1 000 000/125 = 8000 mm³.
-</Step>
-<Step>
-dmin = ∛(32W/π) = ∛(32·8000/π) = 43,35 mm.
-</Step>
-<Step>
-Przy doborze co 1 mm przyjmujemy d = 44 mm, czyli najmniejszy dostępny wymiar nie mniejszy od dmin.
-</Step>
-</Steps>
-<Result>
-Wymagane W = 8000 mm³, a przyjmowana średnica to 44 mm.
-</Result>
+  <Given>Zginany pręt pełny ma M = 1 kN·m i k = 125 MPa.</Given>
+  <Steps>
+    <Step>M = 1 000 000 N·mm; wymagane W = 1 000 000/125 = 8000 mm³.</Step>
+    <Step>dmin = ∛(32W/π) = ∛(32·8000/π) = 43,35 mm.</Step>
+    <Step>Przy doborze co 1 mm przyjmujemy d = 44 mm, czyli najmniejszy dostępny wymiar nie mniejszy od dmin.</Step>
+  </Steps>
+  <Result>Wymagane W = 8000 mm³, a przyjmowana średnica to 44 mm.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Moment wynosi 2 kN·m, a k = 100 MPa. Ile wynosi wymagane W?
-</Prompt>
-<Answer>
-20 mm³
-</Answer>
-<Answer>
-2000 mm³
-</Answer>
-<Answer correct>
-20 000 mm³
-</Answer>
-<Hint>
-2 kN·m = 2 000 000 N·mm, a 100 MPa = 100 N/mm².
-</Hint>
-<Explanation>
-W = M/k = 2 000 000/100 = 20 000 mm³. Bez zamiany kN·m na N·mm wynik byłby 1000 razy za mały.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Jak zmieni się minimalna średnica, gdy moment wzrośnie 8 razy?
-</Prompt>
-<Answer correct>
-Wzrośnie 2 razy
-</Answer>
-<Answer>
-Wzrośnie 8 razy
-</Answer>
-<Answer>
-Zmniejszy się dwukrotnie
-</Answer>
-<Hint>
-d jest proporcjonalne do pierwiastka trzeciego stopnia z M.
-</Hint>
-<Explanation>
-d2/d1 = ∛8 = 2. Ośmiokrotny moment wymaga dwukrotnej średnicy, bo W pełnego koła rośnie z d³.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Obliczenia dają dmin = 37,2 mm, a dostępne są średnice co 1 mm. Którą wybrać przy braku innych wymagań?
-</Prompt>
-<Answer>
-37 mm
-</Answer>
-<Answer correct>
-38 mm
-</Answer>
-<Answer>
-Dowolną, różnica jest mała
-</Answer>
-<Hint>
-Wybierz najbliższy wymiar nie mniejszy od wymaganego.
-</Hint>
-<Explanation>
-37 mm dałoby W poniżej wymaganego i nadmierne naprężenie. 38 mm jest najmniejszą dostępną średnicą spełniającą warunek.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Moment wynosi 2 kN·m, a k = 100 MPa. Ile wynosi wymagane W?</Prompt>
+    <Answer>20 mm³</Answer>
+    <Answer>2000 mm³</Answer>
+    <Answer correct>20 000 mm³</Answer>
+    <Hint>2 kN·m = 2 000 000 N·mm, a 100 MPa = 100 N/mm².</Hint>
+    <Explanation>
+      W = M/k = 2 000 000/100 = 20 000 mm³. Bez zamiany kN·m na N·mm wynik byłby 1000 razy za mały.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Jak zmieni się minimalna średnica, gdy moment wzrośnie 8 razy?</Prompt>
+    <Answer correct>Wzrośnie 2 razy</Answer>
+    <Answer>Wzrośnie 8 razy</Answer>
+    <Answer>Zmniejszy się dwukrotnie</Answer>
+    <Hint>d jest proporcjonalne do pierwiastka trzeciego stopnia z M.</Hint>
+    <Explanation>
+      d2/d1 = ∛8 = 2. Ośmiokrotny moment wymaga dwukrotnej średnicy, bo W pełnego koła rośnie z d³.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Obliczenia dają dmin = 37,2 mm, a dostępne są średnice co 1 mm. Którą wybrać przy braku innych wymagań?
+    </Prompt>
+    <Answer>37 mm</Answer>
+    <Answer correct>38 mm</Answer>
+    <Answer>Dowolną, różnica jest mała</Answer>
+    <Hint>Wybierz najbliższy wymiar nie mniejszy od wymaganego.</Hint>
+    <Explanation>
+      37 mm dałoby W poniżej wymaganego i nadmierne naprężenie. 38 mm jest najmniejszą dostępną średnicą spełniającą
+      warunek.
+    </Explanation>
+  </Question>
 </Quiz>

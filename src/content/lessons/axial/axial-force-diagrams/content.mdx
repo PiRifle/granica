@@ -32,94 +32,71 @@ $$
 </Formula>
 
 <Insight>
-Reakcja w utwierdzeniu równoważy sumę obciążeń zewnętrznych, więc jej wartość jest związana z N na pierwszym odcinku. Wykres trzeba jednak budować przekrój po przekroju — jedna wartość N nie musi opisywać całego pręta.
+  Reakcja w utwierdzeniu równoważy sumę obciążeń zewnętrznych, więc jej wartość jest związana z N na pierwszym odcinku.
+  Wykres trzeba jednak budować przekrój po przekroju — jedna wartość N nie musi opisywać całego pręta.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pręt jest utwierdzony w A (x = 0). W kolejnych przekrojach działają: 20 kN w prawo, potem 10 kN w lewo, a na wolnym końcu 5 kN w prawo. Między siłami nie ma obciążenia rozłożonego.
-</Given>
-<Steps>
-<Step>
-Zacznij od wolnego końca. Na ostatnim odcinku jedyną siłą zewnętrzną odciętej prawej części jest 5 kN, więc N₃ = +5 kN.
-</Step>
-<Step>
-Na środkowym odcinku po prawej stronie działają 10 kN w lewo i 5 kN w prawo, więc N₂ = −10 + 5 = −5 kN.
-</Step>
-<Step>
-Na pierwszym odcinku po prawej stronie działają 20 kN w prawo, 10 kN w lewo i 5 kN w prawo, więc N₁ = +(20 − 10 + 5) = +15 kN.
-</Step>
-<Step>
-Z równowagi całego pręta reakcja w A wynosi 15 kN w lewo, co potwierdza N₁ = +15 kN.
-</Step>
-<Step>
-Narysuj trzy poziome stopnie: +15, −5 i +5 kN, ze skokami w przekrojach przyłożenia sił.
-</Step>
-</Steps>
-<Result>
-Od utwierdzenia do wolnego końca: N = +15 kN, −5 kN, +5 kN; środkowy odcinek jest ściskany, a pozostałe rozciągane.
-</Result>
+  <Given>
+    Pręt jest utwierdzony w A (x = 0). W kolejnych przekrojach działają: 20 kN w prawo, potem 10 kN w lewo, a na wolnym
+    końcu 5 kN w prawo. Między siłami nie ma obciążenia rozłożonego.
+  </Given>
+  <Steps>
+    <Step>
+      Zacznij od wolnego końca. Na ostatnim odcinku jedyną siłą zewnętrzną odciętej prawej części jest 5 kN, więc N₃ =
+      +5 kN.
+    </Step>
+    <Step>Na środkowym odcinku po prawej stronie działają 10 kN w lewo i 5 kN w prawo, więc N₂ = −10 + 5 = −5 kN.</Step>
+    <Step>
+      Na pierwszym odcinku po prawej stronie działają 20 kN w prawo, 10 kN w lewo i 5 kN w prawo, więc N₁ = +(20 − 10 +
+      5) = +15 kN.
+    </Step>
+    <Step>Z równowagi całego pręta reakcja w A wynosi 15 kN w lewo, co potwierdza N₁ = +15 kN.</Step>
+    <Step>Narysuj trzy poziome stopnie: +15, −5 i +5 kN, ze skokami w przekrojach przyłożenia sił.</Step>
+  </Steps>
+  <Result>
+    Od utwierdzenia do wolnego końca: N = +15 kN, −5 kN, +5 kN; środkowy odcinek jest ściskany, a pozostałe rozciągane.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Jak zmienia się N między dwiema sąsiednimi siłami osiowymi skupionymi, jeśli na tym odcinku nie ma obciążenia rozłożonego?
-</Prompt>
-<Answer correct>
-Jest stałe
-</Answer>
-<Answer>
-Zawsze rośnie liniowo
-</Answer>
-<Answer>
-Zawsze wynosi zero
-</Answer>
-<Hint>
-W przekroju na tym odcinku zestaw sił po jednej stronie nie zmienia się.
-</Hint>
-<Explanation>
-Bez obciążenia rozłożonego nie pojawiają się nowe siły przy przesuwaniu przekroju między punktami przyłożenia obciążeń skupionych. Równowaga daje więc stałe N na całym odcinku.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Na wolnym końcu pręta działa osiowa siła 5 kN rozciągająca. Ile wynosi N na odcinku bez innych obciążeń tuż przy tym końcu?
-</Prompt>
-<Answer>
-0 kN, bo koniec jest wolny
-</Answer>
-<Answer correct>
-+5 kN
-</Answer>
-<Answer>
-−5 kN
-</Answer>
-<Hint>
-Odcięta część przy wolnym końcu musi równoważyć przyłożone 5 kN.
-</Hint>
-<Explanation>
-Swobodny koniec nie oznacza zerowej siły wewnętrznej przy obciążeniu. Z równowagi niewielkiej części końcowej N = +5 kN, a znak plus oznacza rozciąganie.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Co powoduje skok wykresu N w miejscu osiowej siły skupionej?
-</Prompt>
-<Answer correct>
-Nowa siła zewnętrzna wchodzi do równowagi odciętej części
-</Answer>
-<Answer>
-Nagły wzrost modułu Younga
-</Answer>
-<Answer>
-Zmiana jednostki długości pręta
-</Answer>
-<Hint>
-Porównaj zestaw sił po tej samej stronie tuż przed i tuż za punktem przyłożenia.
-</Hint>
-<Explanation>
-Przekrój przesunięty za siłę skupioną obejmuje dodatkowe obciążenie zewnętrzne. Zmienia się równanie równowagi, więc N zmienia skokowo o wartość związaną z tą siłą.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>
+      Jak zmienia się N między dwiema sąsiednimi siłami osiowymi skupionymi, jeśli na tym odcinku nie ma obciążenia
+      rozłożonego?
+    </Prompt>
+    <Answer correct>Jest stałe</Answer>
+    <Answer>Zawsze rośnie liniowo</Answer>
+    <Answer>Zawsze wynosi zero</Answer>
+    <Hint>W przekroju na tym odcinku zestaw sił po jednej stronie nie zmienia się.</Hint>
+    <Explanation>
+      Bez obciążenia rozłożonego nie pojawiają się nowe siły przy przesuwaniu przekroju między punktami przyłożenia
+      obciążeń skupionych. Równowaga daje więc stałe N na całym odcinku.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Na wolnym końcu pręta działa osiowa siła 5 kN rozciągająca. Ile wynosi N na odcinku bez innych obciążeń tuż przy
+      tym końcu?
+    </Prompt>
+    <Answer>0 kN, bo koniec jest wolny</Answer>
+    <Answer correct>+5 kN</Answer>
+    <Answer>−5 kN</Answer>
+    <Hint>Odcięta część przy wolnym końcu musi równoważyć przyłożone 5 kN.</Hint>
+    <Explanation>
+      Swobodny koniec nie oznacza zerowej siły wewnętrznej przy obciążeniu. Z równowagi niewielkiej części końcowej N =
+      +5 kN, a znak plus oznacza rozciąganie.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Co powoduje skok wykresu N w miejscu osiowej siły skupionej?</Prompt>
+    <Answer correct>Nowa siła zewnętrzna wchodzi do równowagi odciętej części</Answer>
+    <Answer>Nagły wzrost modułu Younga</Answer>
+    <Answer>Zmiana jednostki długości pręta</Answer>
+    <Hint>Porównaj zestaw sił po tej samej stronie tuż przed i tuż za punktem przyłożenia.</Hint>
+    <Explanation>
+      Przekrój przesunięty za siłę skupioną obejmuje dodatkowe obciążenie zewnętrzne. Zmienia się równanie równowagi,
+      więc N zmienia skokowo o wartość związaną z tą siłą.
+    </Explanation>
+  </Question>
 </Quiz>

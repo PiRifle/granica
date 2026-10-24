@@ -32,91 +32,61 @@ $$
 </Formula>
 
 <Insight>
-Nie wystarczy znaleźć maksymalnej |N| dla całego pręta. Decyduje największa wartość ilorazu |Ni|/Ai, dlatego trzeba sprawdzić wszystkie odcinki.
+  Nie wystarczy znaleźć maksymalnej |N| dla całego pręta. Decyduje największa wartość ilorazu |Ni|/Ai, dlatego trzeba
+  sprawdzić wszystkie odcinki.
 </Insight>
 
 <WorkedExample>
-<Given>
-Dwa szeregowo połączone odcinki przenoszą rozciągającą N = 60 kN. Ich pola wynoszą A₁ = 300 mm² i A₂ = 150 mm². Oblicz naprężenia nominalne.
-</Given>
-<Steps>
-<Step>
-Ponieważ nie ma obciążeń pośrednich, N₁ = N₂ = +60 000 N.
-</Step>
-<Step>
-Dla pierwszego odcinka: σ₁ = 60 000/300 = 200 MPa.
-</Step>
-<Step>
-Dla drugiego odcinka: σ₂ = 60 000/150 = 400 MPa.
-</Step>
-<Step>
-Porównaj wartości bezwzględne: 400 MPa &gt; 200 MPa, więc decyduje węższy odcinek.
-</Step>
-</Steps>
-<Result>
-σ₁ = +200 MPa, σ₂ = +400 MPa; maksymalne nominalne naprężenie rozciągające wynosi 400 MPa.
-</Result>
+  <Given>
+    Dwa szeregowo połączone odcinki przenoszą rozciągającą N = 60 kN. Ich pola wynoszą A₁ = 300 mm² i A₂ = 150 mm².
+    Oblicz naprężenia nominalne.
+  </Given>
+  <Steps>
+    <Step>Ponieważ nie ma obciążeń pośrednich, N₁ = N₂ = +60 000 N.</Step>
+    <Step>Dla pierwszego odcinka: σ₁ = 60 000/300 = 200 MPa.</Step>
+    <Step>Dla drugiego odcinka: σ₂ = 60 000/150 = 400 MPa.</Step>
+    <Step>Porównaj wartości bezwzględne: 400 MPa &gt; 200 MPa, więc decyduje węższy odcinek.</Step>
+  </Steps>
+  <Result>σ₁ = +200 MPa, σ₂ = +400 MPa; maksymalne nominalne naprężenie rozciągające wynosi 400 MPa.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Pręt schodkowy bez obciążeń pośrednich ma dwa odcinki o polach 300 i 150 mm². Gdzie występuje większe nominalne |σ|?
-</Prompt>
-<Answer correct>
-Na odcinku 150 mm²
-</Answer>
-<Answer>
-Na odcinku 300 mm²
-</Answer>
-<Answer>
-Naprężenia są zawsze jednakowe
-</Answer>
-<Hint>
-Oba odcinki przenoszą tę samą N.
-</Hint>
-<Explanation>
-Przy tej samej N mniejsze pole daje większą wartość |N/A|. Dla 150 mm² naprężenie jest dwa razy większe niż dla 300 mm².
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Na kolejnych odcinkach |N| wynosi 20 i 30 kN, a pola 200 i 400 mm². Który odcinek decyduje o maksymalnym |σ|?
-</Prompt>
-<Answer correct>
-Pierwszy: 100 MPa
-</Answer>
-<Answer>
-Drugi: 75 MPa
-</Answer>
-<Answer>
-Żaden, trzeba uśrednić naprężenia
-</Answer>
-<Hint>
-Oblicz osobno oba ilorazy |N|/A, pamiętając o kN → N.
-</Hint>
-<Explanation>
-Pierwszy odcinek: 20 000/200 = 100 MPa. Drugi: 30 000/400 = 75 MPa. Mimo większej siły na drugim odcinku decyduje pierwszy.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Dlaczego naprężenie N/A przy nagłym zwężeniu nazywamy nominalnym?
-</Prompt>
-<Answer correct>
-Bo nie opisuje lokalnej koncentracji przy przejściu geometrycznym
-</Answer>
-<Answer>
-Bo nie zależy od siły osiowej
-</Answer>
-<Answer>
-Bo jest zawsze równe zero w mniejszym przekroju
-</Answer>
-<Hint>
-Prosty wzór zakłada równomierny rozkład z dala od zakłóceń.
-</Hint>
-<Explanation>
-Nagła zmian geometrii zaburza równomierny rozkład i może powodować karb. N/A opisuje naprężenie nominalne, a lokalne maksimum wymaga dodatkowego współczynnika lub dokładniejszej analizy.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>
+      Pręt schodkowy bez obciążeń pośrednich ma dwa odcinki o polach 300 i 150 mm². Gdzie występuje większe nominalne
+      |σ|?
+    </Prompt>
+    <Answer correct>Na odcinku 150 mm²</Answer>
+    <Answer>Na odcinku 300 mm²</Answer>
+    <Answer>Naprężenia są zawsze jednakowe</Answer>
+    <Hint>Oba odcinki przenoszą tę samą N.</Hint>
+    <Explanation>
+      Przy tej samej N mniejsze pole daje większą wartość |N/A|. Dla 150 mm² naprężenie jest dwa razy większe niż dla
+      300 mm².
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Na kolejnych odcinkach |N| wynosi 20 i 30 kN, a pola 200 i 400 mm². Który odcinek decyduje o maksymalnym |σ|?
+    </Prompt>
+    <Answer correct>Pierwszy: 100 MPa</Answer>
+    <Answer>Drugi: 75 MPa</Answer>
+    <Answer>Żaden, trzeba uśrednić naprężenia</Answer>
+    <Hint>Oblicz osobno oba ilorazy |N|/A, pamiętając o kN → N.</Hint>
+    <Explanation>
+      Pierwszy odcinek: 20 000/200 = 100 MPa. Drugi: 30 000/400 = 75 MPa. Mimo większej siły na drugim odcinku decyduje
+      pierwszy.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dlaczego naprężenie N/A przy nagłym zwężeniu nazywamy nominalnym?</Prompt>
+    <Answer correct>Bo nie opisuje lokalnej koncentracji przy przejściu geometrycznym</Answer>
+    <Answer>Bo nie zależy od siły osiowej</Answer>
+    <Answer>Bo jest zawsze równe zero w mniejszym przekroju</Answer>
+    <Hint>Prosty wzór zakłada równomierny rozkład z dala od zakłóceń.</Hint>
+    <Explanation>
+      Nagła zmian geometrii zaburza równomierny rozkład i może powodować karb. N/A opisuje naprężenie nominalne, a
+      lokalne maksimum wymaga dodatkowego współczynnika lub dokładniejszej analizy.
+    </Explanation>
+  </Question>
 </Quiz>

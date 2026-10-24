@@ -44,91 +44,50 @@ $$
 </Formula>
 
 <Insight>
-Przy stałym T i L warunek wytrzymałości wyznacza wymagane Wo, a warunek sztywności wymagane Jo. To różne wielkości geometryczne.
+  Przy stałym T i L warunek wytrzymałości wyznacza wymagane Wo, a warunek sztywności wymagane Jo. To różne wielkości
+  geometryczne.
 </Insight>
 
 <WorkedExample>
-<Given>
-Wał pełny przenosi T = 400 N·m; dopuszczalne naprężenie styczne wynosi τdop = 40 MPa.
-</Given>
-<Steps>
-<Step>
-Wymagany wskaźnik: Wo = T/τdop = 400 000/40 = 10 000 mm³.
-</Step>
-<Step>
-Dla pełnego koła Wo = πD³/16.
-</Step>
-<Step>
-Dmin = ∛(16Wo/π) = ∛(160 000/π) = 37,07 mm.
-</Step>
-<Step>
-Przyjmujemy np. D = 38 mm i sprawdzamy kąt skręcenia.
-</Step>
-</Steps>
-<Result>
-Z warunku wytrzymałości Dmin ≈ 37,1 mm; po zaokrągleniu do 38 mm pozostaje kontrola sztywności.
-</Result>
+  <Given>Wał pełny przenosi T = 400 N·m; dopuszczalne naprężenie styczne wynosi τdop = 40 MPa.</Given>
+  <Steps>
+    <Step>Wymagany wskaźnik: Wo = T/τdop = 400 000/40 = 10 000 mm³.</Step>
+    <Step>Dla pełnego koła Wo = πD³/16.</Step>
+    <Step>Dmin = ∛(16Wo/π) = ∛(160 000/π) = 37,07 mm.</Step>
+    <Step>Przyjmujemy np. D = 38 mm i sprawdzamy kąt skręcenia.</Step>
+  </Steps>
+  <Result>Z warunku wytrzymałości Dmin ≈ 37,1 mm; po zaokrągleniu do 38 mm pozostaje kontrola sztywności.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Wał ma T = 500 N·m i Wo = 20 000 mm³. Ile wynosi τmax?
-</Prompt>
-<Answer>
-2,5 MPa
-</Answer>
-<Answer correct>
-25 MPa
-</Answer>
-<Answer>
-250 MPa
-</Answer>
-<Hint>
-500 N·m = 500 000 N·mm.
-</Hint>
-<Explanation>
-τmax = T/Wo = 500 000/20 000 = 25 N/mm² = 25 MPa.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Jak zmieni się kąt skręcenia wału pełnego, jeśli średnica wzrośnie 2 razy?
-</Prompt>
-<Answer correct>
-Zmniejszy się szesnastokrotnie
-</Answer>
-<Answer>
-Zmniejszy się czterokrotnie
-</Answer>
-<Answer>
-Wzrośnie szesnastokrotnie
-</Answer>
-<Hint>
-Jo pełnego koła jest proporcjonalne do D⁴.
-</Hint>
-<Explanation>
-φ = TL/(GJo), a Jo pełnego koła jest proporcjonalne do D⁴. Gdy D rośnie dwa razy, Jo rośnie 2⁴ = 16 razy, więc przy pozostałych danych bez zmian kąt maleje szesnastokrotnie.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Z wytrzymałości wychodzi D ≥ 42 mm, a z kąta skręcenia D ≥ 48 mm. Co przyjąć?
-</Prompt>
-<Answer>
-42 mm
-</Answer>
-<Answer>
-45 mm
-</Answer>
-<Answer correct>
-Co najmniej 48 mm
-</Answer>
-<Hint>
-Większa średnica jest potrzebna, by spełnić oba warunki.
-</Hint>
-<Explanation>
-Należy przyjąć co najmniej 48 mm. Przy 42 mm spełniony byłby warunek naprężeniowy, lecz kąt przekroczyłby wartość dopuszczalną.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Wał ma T = 500 N·m i Wo = 20 000 mm³. Ile wynosi τmax?</Prompt>
+    <Answer>2,5 MPa</Answer>
+    <Answer correct>25 MPa</Answer>
+    <Answer>250 MPa</Answer>
+    <Hint>500 N·m = 500 000 N·mm.</Hint>
+    <Explanation>τmax = T/Wo = 500 000/20 000 = 25 N/mm² = 25 MPa.</Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Jak zmieni się kąt skręcenia wału pełnego, jeśli średnica wzrośnie 2 razy?</Prompt>
+    <Answer correct>Zmniejszy się szesnastokrotnie</Answer>
+    <Answer>Zmniejszy się czterokrotnie</Answer>
+    <Answer>Wzrośnie szesnastokrotnie</Answer>
+    <Hint>Jo pełnego koła jest proporcjonalne do D⁴.</Hint>
+    <Explanation>
+      φ = TL/(GJo), a Jo pełnego koła jest proporcjonalne do D⁴. Gdy D rośnie dwa razy, Jo rośnie 2⁴ = 16 razy, więc
+      przy pozostałych danych bez zmian kąt maleje szesnastokrotnie.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Z wytrzymałości wychodzi D ≥ 42 mm, a z kąta skręcenia D ≥ 48 mm. Co przyjąć?</Prompt>
+    <Answer>42 mm</Answer>
+    <Answer>45 mm</Answer>
+    <Answer correct>Co najmniej 48 mm</Answer>
+    <Hint>Większa średnica jest potrzebna, by spełnić oba warunki.</Hint>
+    <Explanation>
+      Należy przyjąć co najmniej 48 mm. Przy 42 mm spełniony byłby warunek naprężeniowy, lecz kąt przekroczyłby wartość
+      dopuszczalną.
+    </Explanation>
+  </Question>
 </Quiz>

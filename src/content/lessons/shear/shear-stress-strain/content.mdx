@@ -35,88 +35,54 @@ $$
 </Formula>
 
 <Insight>
-W stanie czystego ścinania koło Mohra ma środek w początku układu i promień R = τ. Na płaszczyznach głównych, obróconych o 45° względem płaszczyzn ścinania, nie ma naprężeń stycznych, a naprężenia normalne wynoszą +τ i −τ.
+  W stanie czystego ścinania koło Mohra ma środek w początku układu i promień R = τ. Na płaszczyznach głównych,
+  obróconych o 45° względem płaszczyzn ścinania, nie ma naprężeń stycznych, a naprężenia normalne wynoszą +τ i −τ.
 </Insight>
 
 <WorkedExample>
-<Given>
-Element jest w stanie czystego ścinania τ = 80 MPa. Moduł ścinania G = 80 GPa.
-</Given>
-<Steps>
-<Step>
-Ujednolić jednostki: G = 80 GPa = 80 000 MPa.
-</Step>
-<Step>
-Oblicz odkształcenie: γ = τ/G = 80/80 000 = 0,001 rad, czyli około 0,0573°.
-</Step>
-<Step>
-Koło Mohra ma C = 0 i R = 80 MPa, więc σ1 = +80 MPa, a σ2 = −80 MPa.
-</Step>
-</Steps>
-<Result>
-γ = 0,001 rad, czyli około 0,057°; naprężenia główne wynoszą +80 MPa i −80 MPa.
-</Result>
+  <Given>Element jest w stanie czystego ścinania τ = 80 MPa. Moduł ścinania G = 80 GPa.</Given>
+  <Steps>
+    <Step>Ujednolić jednostki: G = 80 GPa = 80 000 MPa.</Step>
+    <Step>Oblicz odkształcenie: γ = τ/G = 80/80 000 = 0,001 rad, czyli około 0,0573°.</Step>
+    <Step>Koło Mohra ma C = 0 i R = 80 MPa, więc σ1 = +80 MPa, a σ2 = −80 MPa.</Step>
+  </Steps>
+  <Result>γ = 0,001 rad, czyli około 0,057°; naprężenia główne wynoszą +80 MPa i −80 MPa.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Przy τ = 80 MPa i G = 80 GPa odkształcenie postaciowe γ wynosi:
-</Prompt>
-<Answer>
-0,0001
-</Answer>
-<Answer correct>
-0,001
-</Answer>
-<Answer>
-0,01
-</Answer>
-<Hint>
-Zamień 80 GPa na 80 000 MPa i skorzystaj z γ = τ/G.
-</Hint>
-<Explanation>
-γ = 80 MPa / 80 000 MPa = 0,001 rad, czyli około 0,057°. Odkształcenie postaciowe jest kątem w radianach; nie należy go mylić z kątem wyrażonym w stopniach.
-</Explanation>
-</Question>
-<Question outcome="U2">
-<Prompt>
-Jakie naprężenia główne odpowiadają czystemu ścinaniu τ = 50 MPa?
-</Prompt>
-<Answer correct>
-σ1 = 50 MPa, σ2 = −50 MPa
-</Answer>
-<Answer>
-σ1 = σ2 = 50 MPa
-</Answer>
-<Answer>
-σ1 = 100 MPa, σ2 = 0
-</Answer>
-<Hint>
-Koło Mohra ma środek C = 0 i promień R = τ.
-</Hint>
-<Explanation>
-W czystym ścinaniu σ1 = C + R = τ, a σ2 = C − R = −τ. Przy τ = 50 MPa otrzymujemy więc +50 MPa i −50 MPa.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-W zakresie liniowo sprężystym naprężenie styczne τ wzrasta dwukrotnie, a moduł G się nie zmienia. Jak zmieni się odkształcenie γ?
-</Prompt>
-<Answer correct>
-Wzrośnie dwukrotnie
-</Answer>
-<Answer>
-Spadnie dwukrotnie
-</Answer>
-<Answer>
-Nie zmieni się
-</Answer>
-<Hint>
-Prawo Hooke’a dla ścinania ma postać τ = Gγ, więc γ jest wprost proporcjonalne do τ.
-</Hint>
-<Explanation>
-Przy stałym G zachodzi γ = τ/G. Podwojenie τ podwaja więc γ. Zależność obowiązuje tylko w liniowym zakresie sprężystym.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Przy τ = 80 MPa i G = 80 GPa odkształcenie postaciowe γ wynosi:</Prompt>
+    <Answer>0,0001</Answer>
+    <Answer correct>0,001</Answer>
+    <Answer>0,01</Answer>
+    <Hint>Zamień 80 GPa na 80 000 MPa i skorzystaj z γ = τ/G.</Hint>
+    <Explanation>
+      γ = 80 MPa / 80 000 MPa = 0,001 rad, czyli około 0,057°. Odkształcenie postaciowe jest kątem w radianach; nie
+      należy go mylić z kątem wyrażonym w stopniach.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Jakie naprężenia główne odpowiadają czystemu ścinaniu τ = 50 MPa?</Prompt>
+    <Answer correct>σ1 = 50 MPa, σ2 = −50 MPa</Answer>
+    <Answer>σ1 = σ2 = 50 MPa</Answer>
+    <Answer>σ1 = 100 MPa, σ2 = 0</Answer>
+    <Hint>Koło Mohra ma środek C = 0 i promień R = τ.</Hint>
+    <Explanation>
+      W czystym ścinaniu σ1 = C + R = τ, a σ2 = C − R = −τ. Przy τ = 50 MPa otrzymujemy więc +50 MPa i −50 MPa.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      W zakresie liniowo sprężystym naprężenie styczne τ wzrasta dwukrotnie, a moduł G się nie zmienia. Jak zmieni się
+      odkształcenie γ?
+    </Prompt>
+    <Answer correct>Wzrośnie dwukrotnie</Answer>
+    <Answer>Spadnie dwukrotnie</Answer>
+    <Answer>Nie zmieni się</Answer>
+    <Hint>Prawo Hooke’a dla ścinania ma postać τ = Gγ, więc γ jest wprost proporcjonalne do τ.</Hint>
+    <Explanation>
+      Przy stałym G zachodzi γ = τ/G. Podwojenie τ podwaja więc γ. Zależność obowiązuje tylko w liniowym zakresie
+      sprężystym.
+    </Explanation>
+  </Question>
 </Quiz>

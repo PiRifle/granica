@@ -37,91 +37,54 @@ $$
 </Formula>
 
 <Insight>
-Na osi obojętnej σ = 0, a naprężenie rośnie liniowo z odległością |y|. W jednorodnym przekroju symetrycznym względem osi zginania oś obojętna przechodzi przez środek ciężkości.
+  Na osi obojętnej σ = 0, a naprężenie rośnie liniowo z odległością |y|. W jednorodnym przekroju symetrycznym względem
+  osi zginania oś obojętna przechodzi przez środek ciężkości.
 </Insight>
 
 <WorkedExample>
-<Given>
-Przekrój prostokątny b = 80 mm, h = 160 mm przenosi moment M = 8 kN·m.
-</Given>
-<Steps>
-<Step>
-Iz = bh³/12 = 80·160³/12 = 27 306 667 mm⁴.
-</Step>
-<Step>
-Najdalsze włókno ma c = h/2 = 80 mm, więc Wz = Iz/c = 341 333 mm³.
-</Step>
-<Step>
-M = 8 kN·m = 8 000 000 N·mm.
-</Step>
-<Step>
-σmax = M/Wz = 8 000 000/341 333 = 23,44 MPa; na osi obojętnej σ = 0.
-</Step>
-</Steps>
-<Result>
-Naprężenia skrajne mają wartość bezwzględną 23,4 MPa: ściskanie po jednej i rozciąganie po drugiej stronie osi.
-</Result>
+  <Given>Przekrój prostokątny b = 80 mm, h = 160 mm przenosi moment M = 8 kN·m.</Given>
+  <Steps>
+    <Step>Iz = bh³/12 = 80·160³/12 = 27 306 667 mm⁴.</Step>
+    <Step>Najdalsze włókno ma c = h/2 = 80 mm, więc Wz = Iz/c = 341 333 mm³.</Step>
+    <Step>M = 8 kN·m = 8 000 000 N·mm.</Step>
+    <Step>σmax = M/Wz = 8 000 000/341 333 = 23,44 MPa; na osi obojętnej σ = 0.</Step>
+  </Steps>
+  <Result>
+    Naprężenia skrajne mają wartość bezwzględną 23,4 MPa: ściskanie po jednej i rozciąganie po drugiej stronie osi.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Jak zmienia się naprężenie normalne od zginania w funkcji odległości y od osi obojętnej?
-</Prompt>
-<Answer correct>
-Liniowo; jest zerowe dla y = 0
-</Answer>
-<Answer>
-Jest stałe w całym przekroju
-</Answer>
-<Answer>
-Rośnie proporcjonalnie do y² i nigdy nie zmienia znaku
-</Answer>
-<Hint>
-W σ = My/I wielkość y występuje w pierwszej potędze.
-</Hint>
-<Explanation>
-Przy ustalonych M i I naprężenie jest wprost proporcjonalne do y. Dla y = 0 wynosi zero, a po przeciwnych stronach osi ma przeciwne znaki.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Prostokąt ma b = 60 mm i h = 120 mm. Ile wynosi jego wskaźnik Wz względem osi poziomej?
-</Prompt>
-<Answer>
-72 000 mm³
-</Answer>
-<Answer correct>
-144 000 mm³
-</Answer>
-<Answer>
-864 000 mm³
-</Answer>
-<Hint>
-Dla prostokąta Wz = bh²/6.
-</Hint>
-<Explanation>
-Wz = 60·120²/6 = 60·14 400/6 = 144 000 mm³. Wskaźnik ma jednostkę mm³, a nie mm⁴ jak moment bezwładności.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Przy dodatnim momencie zginającym belkę w dół typowe naprężenia w przekroju symetrycznym to:
-</Prompt>
-<Answer correct>
-Ściskanie u góry i rozciąganie u dołu
-</Answer>
-<Answer>
-Rozciąganie u góry i ściskanie u dołu
-</Answer>
-<Answer>
-Wyłącznie rozciąganie w całym przekroju
-</Answer>
-<Hint>
-Wygięta belka skraca górne włókna, a wydłuża dolne.
-</Hint>
-<Explanation>
-Ugięcie w dół wydłuża dolne włókna i skraca górne. Dlatego u góry występuje ściskanie, a u dołu rozciąganie; oś obojętna dzieli te obszary.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>Jak zmienia się naprężenie normalne od zginania w funkcji odległości y od osi obojętnej?</Prompt>
+    <Answer correct>Liniowo; jest zerowe dla y = 0</Answer>
+    <Answer>Jest stałe w całym przekroju</Answer>
+    <Answer>Rośnie proporcjonalnie do y² i nigdy nie zmienia znaku</Answer>
+    <Hint>W σ = My/I wielkość y występuje w pierwszej potędze.</Hint>
+    <Explanation>
+      Przy ustalonych M i I naprężenie jest wprost proporcjonalne do y. Dla y = 0 wynosi zero, a po przeciwnych stronach
+      osi ma przeciwne znaki.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Prostokąt ma b = 60 mm i h = 120 mm. Ile wynosi jego wskaźnik Wz względem osi poziomej?</Prompt>
+    <Answer>72 000 mm³</Answer>
+    <Answer correct>144 000 mm³</Answer>
+    <Answer>864 000 mm³</Answer>
+    <Hint>Dla prostokąta Wz = bh²/6.</Hint>
+    <Explanation>
+      Wz = 60·120²/6 = 60·14 400/6 = 144 000 mm³. Wskaźnik ma jednostkę mm³, a nie mm⁴ jak moment bezwładności.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Przy dodatnim momencie zginającym belkę w dół typowe naprężenia w przekroju symetrycznym to:</Prompt>
+    <Answer correct>Ściskanie u góry i rozciąganie u dołu</Answer>
+    <Answer>Rozciąganie u góry i ściskanie u dołu</Answer>
+    <Answer>Wyłącznie rozciąganie w całym przekroju</Answer>
+    <Hint>Wygięta belka skraca górne włókna, a wydłuża dolne.</Hint>
+    <Explanation>
+      Ugięcie w dół wydłuża dolne włókna i skraca górne. Dlatego u góry występuje ściskanie, a u dołu rozciąganie; oś
+      obojętna dzieli te obszary.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -35,88 +35,52 @@ $$
 </Formula>
 
 <Insight>
-Nie wolno liczyć J_o jako π(D−d)⁴/32. Odejmuje się czwarte potęgi średnic, ponieważ moment bezwładności zależy od kwadratu odległości elementów pola od osi.
+  Nie wolno liczyć J_o jako π(D−d)⁴/32. Odejmuje się czwarte potęgi średnic, ponieważ moment bezwładności zależy od
+  kwadratu odległości elementów pola od osi.
 </Insight>
 
 <WorkedExample>
-<Given>
-Rura o D = 60 mm i d = 40 mm przenosi T = 2 kN·m = 2 000 000 N·mm.
-</Given>
-<Steps>
-<Step>
-Oblicz J_o = π(60⁴−40⁴)/32 = 1 021 018 mm⁴.
-</Step>
-<Step>
-Ponieważ zewnętrzny promień wynosi 30 mm, W_o = J_o/30 = 34 033,9 mm³.
-</Step>
-<Step>
-Oblicz τmax = T/W_o = 2 000 000/34 033,9 = 58,77 MPa.
-</Step>
-</Steps>
-<Result>
-τmax ≈ 58,8 MPa na zewnętrznej powierzchni rury.
-</Result>
+  <Given>Rura o D = 60 mm i d = 40 mm przenosi T = 2 kN·m = 2 000 000 N·mm.</Given>
+  <Steps>
+    <Step>Oblicz J_o = π(60⁴−40⁴)/32 = 1 021 018 mm⁴.</Step>
+    <Step>Ponieważ zewnętrzny promień wynosi 30 mm, W_o = J_o/30 = 34 033,9 mm³.</Step>
+    <Step>Oblicz τmax = T/W_o = 2 000 000/34 033,9 = 58,77 MPa.</Step>
+  </Steps>
+  <Result>τmax ≈ 58,8 MPa na zewnętrznej powierzchni rury.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Które wyrażenie poprawnie opisuje J_o rury o średnicach D i d?
-</Prompt>
-<Answer correct>
-π(D⁴−d⁴)/32
-</Answer>
-<Answer>
-π(D−d)⁴/32
-</Answer>
-<Answer>
-π(D²−d²)/4
-</Answer>
-<Hint>
-Odejmij moment bezwładności pustego wnętrza od momentu pełnego koła.
-</Hint>
-<Explanation>
-Dla koła J = πD⁴/32, więc dla rury J_o = πD⁴/32 − πd⁴/32. Ostatnie wyrażenie opisuje pole przekroju, a nie moment bezwładności.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Przy tym samym momencie T i tej samej średnicy zewnętrznej D rura ma w porównaniu z wałem pełnym:
-</Prompt>
-<Answer correct>
-Mniejsze J_o i większe τmax
-</Answer>
-<Answer>
-Większe J_o i mniejsze τmax
-</Answer>
-<Answer>
-Identyczne J_o i τmax
-</Answer>
-<Hint>
-Usunięcie wnętrza odejmuje dodatni składnik πd⁴/32.
-</Hint>
-<Explanation>
-Usunięcie wnętrza zmniejsza J_o, a wraz z nim W_o = J_o/(D/2). Przy tym samym T daje to większe τmax. Zaletą rury jest jednak mniejsza masa i lepsze wykorzystanie materiału.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Dla cienkościennej rury największe naprężenie styczne od skręcania występuje:
-</Prompt>
-<Answer correct>
-Na promieniu zewnętrznym
-</Answer>
-<Answer>
-Zawsze na promieniu wewnętrznym
-</Answer>
-<Answer>
-Wszędzie dokładnie jednakowe, niezależnie od modelu
-</Answer>
-<Hint>
-W ogólnym wzorze τ(r) = Tr/J_o największe r jest na zewnątrz.
-</Hint>
-<Explanation>
-W modelu rury o przekroju kołowym naprężenie rośnie liniowo z r, więc maksimum wypada dla r = D/2. W uproszczeniu cienkościennym rozkład po grubości bywa uśredniany, ale maksimum nadal leży na zewnątrz.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>Które wyrażenie poprawnie opisuje J_o rury o średnicach D i d?</Prompt>
+    <Answer correct>π(D⁴−d⁴)/32</Answer>
+    <Answer>π(D−d)⁴/32</Answer>
+    <Answer>π(D²−d²)/4</Answer>
+    <Hint>Odejmij moment bezwładności pustego wnętrza od momentu pełnego koła.</Hint>
+    <Explanation>
+      Dla koła J = πD⁴/32, więc dla rury J_o = πD⁴/32 − πd⁴/32. Ostatnie wyrażenie opisuje pole przekroju, a nie moment
+      bezwładności.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Przy tym samym momencie T i tej samej średnicy zewnętrznej D rura ma w porównaniu z wałem pełnym:</Prompt>
+    <Answer correct>Mniejsze J_o i większe τmax</Answer>
+    <Answer>Większe J_o i mniejsze τmax</Answer>
+    <Answer>Identyczne J_o i τmax</Answer>
+    <Hint>Usunięcie wnętrza odejmuje dodatni składnik πd⁴/32.</Hint>
+    <Explanation>
+      Usunięcie wnętrza zmniejsza J_o, a wraz z nim W_o = J_o/(D/2). Przy tym samym T daje to większe τmax. Zaletą rury
+      jest jednak mniejsza masa i lepsze wykorzystanie materiału.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dla cienkościennej rury największe naprężenie styczne od skręcania występuje:</Prompt>
+    <Answer correct>Na promieniu zewnętrznym</Answer>
+    <Answer>Zawsze na promieniu wewnętrznym</Answer>
+    <Answer>Wszędzie dokładnie jednakowe, niezależnie od modelu</Answer>
+    <Hint>W ogólnym wzorze τ(r) = Tr/J_o największe r jest na zewnątrz.</Hint>
+    <Explanation>
+      W modelu rury o przekroju kołowym naprężenie rośnie liniowo z r, więc maksimum wypada dla r = D/2. W uproszczeniu
+      cienkościennym rozkład po grubości bywa uśredniany, ale maksimum nadal leży na zewnątrz.
+    </Explanation>
+  </Question>
 </Quiz>

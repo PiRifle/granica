@@ -31,91 +31,57 @@ $$
 </Formula>
 
 <Insight>
-Większe n oznacza mniejsze naprężenie dopuszczalne, a więc większy wymagany przekrój przy tej samej sile. Nie można jednak przyjmować, że Rₘ zawsze jest właściwą granicą: dla stali plastycznej decyduje zwykle Rₑ, ponieważ nadmierne odkształcenie trwałe pojawia się wcześniej niż zerwanie.
+  Większe n oznacza mniejsze naprężenie dopuszczalne, a więc większy wymagany przekrój przy tej samej sile. Nie można
+  jednak przyjmować, że Rₘ zawsze jest właściwą granicą: dla stali plastycznej decyduje zwykle Rₑ, ponieważ nadmierne
+  odkształcenie trwałe pojawia się wcześniej niż zerwanie.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pręt z materiału o Rₑ = 250 MPa ma przenieść siłę N = 30 kN. Wymagany współczynnik bezpieczeństwa wynosi n = 2.
-</Given>
-<Steps>
-<Step>
-Naprężenie dopuszczalne: σdop = Rₑ/n = 250/2 = 125 MPa.
-</Step>
-<Step>
-Wymagane pole przekroju: Amin = N/σdop = 30 000/125 = 240 mm².
-</Step>
-<Step>
-Przyjmujemy dostępny przekrój A = 250 mm², który nie jest mniejszy od minimum.
-</Step>
-<Step>
-Rzeczywiste naprężenie σ = 30 000/250 = 120 MPa ≤ 125 MPa, więc warunek wytrzymałości jest spełniony.
-</Step>
-</Steps>
-<Result>
-Potrzebne jest co najmniej 240 mm². Przekrój 250 mm² spełnia warunek, a naprężenie wynosi w nim 120 MPa.
-</Result>
+  <Given>
+    Pręt z materiału o Rₑ = 250 MPa ma przenieść siłę N = 30 kN. Wymagany współczynnik bezpieczeństwa wynosi n = 2.
+  </Given>
+  <Steps>
+    <Step>Naprężenie dopuszczalne: σdop = Rₑ/n = 250/2 = 125 MPa.</Step>
+    <Step>Wymagane pole przekroju: Amin = N/σdop = 30 000/125 = 240 mm².</Step>
+    <Step>Przyjmujemy dostępny przekrój A = 250 mm², który nie jest mniejszy od minimum.</Step>
+    <Step>Rzeczywiste naprężenie σ = 30 000/250 = 120 MPa ≤ 125 MPa, więc warunek wytrzymałości jest spełniony.</Step>
+  </Steps>
+  <Result>
+    Potrzebne jest co najmniej 240 mm². Przekrój 250 mm² spełnia warunek, a naprężenie wynosi w nim 120 MPa.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dla stali Rₑ = 240 MPa przyjęto n = 1,5. Ile wynosi naprężenie dopuszczalne?
-</Prompt>
-<Answer correct>
-160 MPa
-</Answer>
-<Answer>
-150 MPa
-</Answer>
-<Answer>
-360 MPa
-</Answer>
-<Hint>
-Naprężenie dopuszczalne jest mniejsze od granicy, więc podziel Rₑ przez n.
-</Hint>
-<Explanation>
-σdop = Rₑ/n = 240/1,5 = 160 MPa. Wartość 360 MPa powstaje z błędnego mnożenia przez n.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Pręt przenosi N = 32 kN, a σdop = 160 MPa. Jakie minimalne pole przekroju jest potrzebne w samym warunku wytrzymałości?
-</Prompt>
-<Answer>
-20 mm²
-</Answer>
-<Answer correct>
-200 mm²
-</Answer>
-<Answer>
-512 mm²
-</Answer>
-<Hint>
-Z warunku N/A ≤ σdop wyznacz A.
-</Hint>
-<Explanation>
-Amin = N/σdop = 32 000 N/(160 N/mm²) = 200 mm². To minimum wynika wyłącznie z przyjętego warunku naprężeniowego.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Przy niezmienionej granicy materiału zwiększono wymagane n z 1,5 do 2. Co to oznacza?
-</Prompt>
-<Answer>
-Naprężenie dopuszczalne rośnie
-</Answer>
-<Answer correct>
-Naprężenie dopuszczalne maleje do 75% poprzedniej wartości
-</Answer>
-<Answer>
-Rzeczywiste Rₑ materiału rośnie
-</Answer>
-<Hint>
-Porównaj Rgr/2 z Rgr/1,5.
-</Hint>
-<Explanation>
-σdop = Rgr/n. Stosunek nowej wartości do starej wynosi 1,5/2 = 0,75. Zmiana wymagania nie zmienia własności samego materiału.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Dla stali Rₑ = 240 MPa przyjęto n = 1,5. Ile wynosi naprężenie dopuszczalne?</Prompt>
+    <Answer correct>160 MPa</Answer>
+    <Answer>150 MPa</Answer>
+    <Answer>360 MPa</Answer>
+    <Hint>Naprężenie dopuszczalne jest mniejsze od granicy, więc podziel Rₑ przez n.</Hint>
+    <Explanation>σdop = Rₑ/n = 240/1,5 = 160 MPa. Wartość 360 MPa powstaje z błędnego mnożenia przez n.</Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Pręt przenosi N = 32 kN, a σdop = 160 MPa. Jakie minimalne pole przekroju jest potrzebne w samym warunku
+      wytrzymałości?
+    </Prompt>
+    <Answer>20 mm²</Answer>
+    <Answer correct>200 mm²</Answer>
+    <Answer>512 mm²</Answer>
+    <Hint>Z warunku N/A ≤ σdop wyznacz A.</Hint>
+    <Explanation>
+      Amin = N/σdop = 32 000 N/(160 N/mm²) = 200 mm². To minimum wynika wyłącznie z przyjętego warunku naprężeniowego.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Przy niezmienionej granicy materiału zwiększono wymagane n z 1,5 do 2. Co to oznacza?</Prompt>
+    <Answer>Naprężenie dopuszczalne rośnie</Answer>
+    <Answer correct>Naprężenie dopuszczalne maleje do 75% poprzedniej wartości</Answer>
+    <Answer>Rzeczywiste Rₑ materiału rośnie</Answer>
+    <Hint>Porównaj Rgr/2 z Rgr/1,5.</Hint>
+    <Explanation>
+      σdop = Rgr/n. Stosunek nowej wartości do starej wynosi 1,5/2 = 0,75. Zmiana wymagania nie zmienia własności samego
+      materiału.
+    </Explanation>
+  </Question>
 </Quiz>

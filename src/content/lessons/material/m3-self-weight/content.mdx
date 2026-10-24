@@ -31,91 +31,63 @@ $$
 </Formula>
 
 <Insight>
-W pionowym pręcie wiszącym naprężenie od ciężaru własnego nie zależy od pola przekroju: zgrubienie zwiększa równocześnie nośność i ciężar. Rośnie natomiast całkowita siła w podporze.
+  W pionowym pręcie wiszącym naprężenie od ciężaru własnego nie zależy od pola przekroju: zgrubienie zwiększa
+  równocześnie nośność i ciężar. Rośnie natomiast całkowita siła w podporze.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pionowy stalowy pręt o A = 300 mm² i L = 4 m jest zawieszony u góry. ρ = 7850 kg/m³, g = 9,81 m/s².
-</Given>
-<Steps>
-<Step>
-Pole A = 300 mm² = 0,0003 m²; objętość V = AL = 0,0012 m³.
-</Step>
-<Step>
-Masa m = ρV = 7850·0,0012 = 9,42 kg, a ciężar G = mg ≈ 92,4 N.
-</Step>
-<Step>
-Obciążenie liniowe q = G/L = 92,4/4 = 23,1 N/m.
-</Step>
-<Step>
-Największe naprężenie przy zawieszeniu: σmax = G/A = 92,4/300 = 0,308 N/mm² = 0,308 MPa; ten sam wynik daje ρgL po przeliczeniu jednostek.
-</Step>
-</Steps>
-<Result>
-Pręt ma masę około 9,42 kg, jego ciężar wynosi 92,4 N, a największe naprężenie od ciężaru własnego to około 0,308 MPa.
-</Result>
+  <Given>Pionowy stalowy pręt o A = 300 mm² i L = 4 m jest zawieszony u góry. ρ = 7850 kg/m³, g = 9,81 m/s².</Given>
+  <Steps>
+    <Step>Pole A = 300 mm² = 0,0003 m²; objętość V = AL = 0,0012 m³.</Step>
+    <Step>Masa m = ρV = 7850·0,0012 = 9,42 kg, a ciężar G = mg ≈ 92,4 N.</Step>
+    <Step>Obciążenie liniowe q = G/L = 92,4/4 = 23,1 N/m.</Step>
+    <Step>
+      Największe naprężenie przy zawieszeniu: σmax = G/A = 92,4/300 = 0,308 N/mm² = 0,308 MPa; ten sam wynik daje ρgL po
+      przeliczeniu jednostek.
+    </Step>
+  </Steps>
+  <Result>
+    Pręt ma masę około 9,42 kg, jego ciężar wynosi 92,4 N, a największe naprężenie od ciężaru własnego to około 0,308
+    MPa.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Stalowy pręt ma A = 200 mm², L = 3 m i ρ = 7850 kg/m³. Jaki jest jego ciężar przy g = 9,81 m/s²?
-</Prompt>
-<Answer>
-około 4,62 N
-</Answer>
-<Answer correct>
-około 46,2 N
-</Answer>
-<Answer>
-około 462 N
-</Answer>
-<Hint>
-Najpierw zamień 200 mm² na 0,0002 m², potem oblicz objętość i masę.
-</Hint>
-<Explanation>
-Objętość V = 0,0002·3 = 0,0006 m³, masa m = 7850·0,0006 = 4,71 kg. Ciężar G = 4,71·9,81 ≈ 46,2 N. Wartość 4,62 N powstała z dziesięciokrotnego błędu w przeliczeniu jednostek.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Jak zmieni się największe naprężenie od ciężaru własnego w pionowym, jednorodnym pręcie wiszącym po podwojeniu pola przekroju przy tej samej długości?
-</Prompt>
-<Answer correct>
-Nie zmieni się
-</Answer>
-<Answer>
-Wzrośnie dwa razy
-</Answer>
-<Answer>
-Zmaleje dwa razy
-</Answer>
-<Hint>
-Zapisz naprężenie jako ciężar podzielony przez pole i sprawdź, co się skróci.
-</Hint>
-<Explanation>
-σmax = G/A = ρgAL/A = ρgL. Pole się skraca, więc naprężenie nie zależy od A, choć całkowity ciężar rośnie.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Gdzie w pionowym pręcie zawieszonym u góry występuje największa siła osiowa od jego własnego ciężaru?
-</Prompt>
-<Answer>
-Na dolnym, swobodnym końcu
-</Answer>
-<Answer correct>
-Przy górnym zawieszeniu
-</Answer>
-<Answer>
-W połowie długości, gdzie wypada środek ciężkości
-</Answer>
-<Hint>
-Pomyśl, jaka część pręta znajduje się poniżej rozpatrywanego przekroju.
-</Hint>
-<Explanation>
-Przekrój przy górnym zawieszeniu przenosi ciężar całego pręta. Na swobodnym dolnym końcu siła osiowa od ciężaru jest zerowa i rośnie liniowo w górę.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Stalowy pręt ma A = 200 mm², L = 3 m i ρ = 7850 kg/m³. Jaki jest jego ciężar przy g = 9,81 m/s²?</Prompt>
+    <Answer>około 4,62 N</Answer>
+    <Answer correct>około 46,2 N</Answer>
+    <Answer>około 462 N</Answer>
+    <Hint>Najpierw zamień 200 mm² na 0,0002 m², potem oblicz objętość i masę.</Hint>
+    <Explanation>
+      Objętość V = 0,0002·3 = 0,0006 m³, masa m = 7850·0,0006 = 4,71 kg. Ciężar G = 4,71·9,81 ≈ 46,2 N. Wartość 4,62 N
+      powstała z dziesięciokrotnego błędu w przeliczeniu jednostek.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Jak zmieni się największe naprężenie od ciężaru własnego w pionowym, jednorodnym pręcie wiszącym po podwojeniu
+      pola przekroju przy tej samej długości?
+    </Prompt>
+    <Answer correct>Nie zmieni się</Answer>
+    <Answer>Wzrośnie dwa razy</Answer>
+    <Answer>Zmaleje dwa razy</Answer>
+    <Hint>Zapisz naprężenie jako ciężar podzielony przez pole i sprawdź, co się skróci.</Hint>
+    <Explanation>
+      σmax = G/A = ρgAL/A = ρgL. Pole się skraca, więc naprężenie nie zależy od A, choć całkowity ciężar rośnie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Gdzie w pionowym pręcie zawieszonym u góry występuje największa siła osiowa od jego własnego ciężaru?
+    </Prompt>
+    <Answer>Na dolnym, swobodnym końcu</Answer>
+    <Answer correct>Przy górnym zawieszeniu</Answer>
+    <Answer>W połowie długości, gdzie wypada środek ciężkości</Answer>
+    <Hint>Pomyśl, jaka część pręta znajduje się poniżej rozpatrywanego przekroju.</Hint>
+    <Explanation>
+      Przekrój przy górnym zawieszeniu przenosi ciężar całego pręta. Na swobodnym dolnym końcu siła osiowa od ciężaru
+      jest zerowa i rośnie liniowo w górę.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -29,7 +29,8 @@ export default defineConfig({
       manifest: {
         name: 'Wytrzymałość interaktywnie',
         short_name: 'Wytrzymałość',
-        description: 'Interaktywny kurs wytrzymałości materiałów: laboratoria, animowane rozwiązania, trening i kolokwium próbne.',
+        description:
+          'Interaktywny kurs wytrzymałości materiałów: laboratoria, animowane rozwiązania, trening i kolokwium próbne.',
         lang: 'pl',
         start_url: '/',
         scope: '/',
@@ -44,8 +45,18 @@ export default defineConfig({
           { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
         shortcuts: [
-          { name: 'Trening liczbowy', short_name: 'Trening', url: '/training', icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
-          { name: 'Kolokwium próbne', short_name: 'Kolokwium', url: '/exam', icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
+          {
+            name: 'Trening liczbowy',
+            short_name: 'Trening',
+            url: '/training',
+            icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }],
+          },
+          {
+            name: 'Kolokwium próbne',
+            short_name: 'Kolokwium',
+            url: '/exam',
+            icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }],
+          },
         ],
       },
       workbox: {

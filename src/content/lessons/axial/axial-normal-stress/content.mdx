@@ -31,91 +31,55 @@ $$
 </Formula>
 
 <Insight>
-Znak naprężenia ma znaczenie fizyczne: dodatnie σ wydłuża włókna, ujemne je skraca. Duże ściskanie smukłego pręta może dodatkowo wymagać sprawdzenia wyboczenia.
+  Znak naprężenia ma znaczenie fizyczne: dodatnie σ wydłuża włókna, ujemne je skraca. Duże ściskanie smukłego pręta może
+  dodatkowo wymagać sprawdzenia wyboczenia.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pręt o A = 250 mm² przenosi osiową siłę rozciągającą 50 kN. Oblicz naprężenie normalne.
-</Given>
-<Steps>
-<Step>
-Przyjmij N = +50 kN, ponieważ pręt jest rozciągany.
-</Step>
-<Step>
-Przelicz N = 50 000 N i zachowaj A = 250 mm².
-</Step>
-<Step>
-Podstaw: σ = N/A = 50 000/250 = 200 N/mm².
-</Step>
-<Step>
-Zapisz N/mm² jako MPa i pozostaw znak dodatni, odpowiadający rozciąganiu.
-</Step>
-</Steps>
-<Result>
-σ = +200 MPa, czyli naprężenie rozciągające.
-</Result>
+  <Given>Pręt o A = 250 mm² przenosi osiową siłę rozciągającą 50 kN. Oblicz naprężenie normalne.</Given>
+  <Steps>
+    <Step>Przyjmij N = +50 kN, ponieważ pręt jest rozciągany.</Step>
+    <Step>Przelicz N = 50 000 N i zachowaj A = 250 mm².</Step>
+    <Step>Podstaw: σ = N/A = 50 000/250 = 200 N/mm².</Step>
+    <Step>Zapisz N/mm² jako MPa i pozostaw znak dodatni, odpowiadający rozciąganiu.</Step>
+  </Steps>
+  <Result>σ = +200 MPa, czyli naprężenie rozciągające.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Dwa pręty przenoszą tę samą siłę rozciągającą. Pierwszy ma pole dwa razy mniejsze niż drugi. Jak porównają się ich naprężenia?
-</Prompt>
-<Answer correct>
-Pierwszy ma naprężenie dwa razy większe
-</Answer>
-<Answer>
-Oba mają jednakowe naprężenie
-</Answer>
-<Answer>
-Pierwszy ma naprężenie dwa razy mniejsze
-</Answer>
-<Hint>
-Przy stałym N naprężenie jest odwrotnie proporcjonalne do A.
-</Hint>
-<Explanation>
-σ = N/A, więc zmniejszenie pola o połowę przy niezmienionym N podwaja naprężenie. To pokazuje, dlaczego sama siła nie wystarcza do oceny bezpieczeństwa.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Siła osiowa wynosi N = −40 kN, a pole A = 200 mm². Jaki jest pełny wynik naprężenia?
-</Prompt>
-<Answer>
-+200 MPa, rozciąganie
-</Answer>
-<Answer correct>
-−200 MPa, ściskanie
-</Answer>
-<Answer>
-−0,2 MPa, ściskanie
-</Answer>
-<Hint>
-Zachowaj znak N i przelicz 40 kN na 40 000 N.
-</Hint>
-<Explanation>
-σ = −40 000 N / 200 mm² = −200 MPa. Minus oznacza ściskanie; pominięcie przeliczenia kN dałoby błędne −0,2 MPa.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Kiedy prosty wzór σ = N/A nie wystarcza do oceny smukłego ściskanego pręta?
-</Prompt>
-<Answer correct>
-Gdy istnieje ryzyko wyboczenia mimo naprężenia poniżej granicy materiału
-</Answer>
-<Answer>
-Wyłącznie gdy pręt jest rozciągany
-</Answer>
-<Answer>
-Gdy pole przekroju jest stałe
-</Answer>
-<Hint>
-Utrata stateczności może nastąpić przed zniszczeniem materiału.
-</Hint>
-<Explanation>
-Ściskany smukły pręt może się wyboczyć przy naprężeniu mniejszym niż wytrzymałość materiału. Wtedy oprócz σ = N/A potrzebna jest analiza stateczności.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>
+      Dwa pręty przenoszą tę samą siłę rozciągającą. Pierwszy ma pole dwa razy mniejsze niż drugi. Jak porównają się ich
+      naprężenia?
+    </Prompt>
+    <Answer correct>Pierwszy ma naprężenie dwa razy większe</Answer>
+    <Answer>Oba mają jednakowe naprężenie</Answer>
+    <Answer>Pierwszy ma naprężenie dwa razy mniejsze</Answer>
+    <Hint>Przy stałym N naprężenie jest odwrotnie proporcjonalne do A.</Hint>
+    <Explanation>
+      σ = N/A, więc zmniejszenie pola o połowę przy niezmienionym N podwaja naprężenie. To pokazuje, dlaczego sama siła
+      nie wystarcza do oceny bezpieczeństwa.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła osiowa wynosi N = −40 kN, a pole A = 200 mm². Jaki jest pełny wynik naprężenia?</Prompt>
+    <Answer>+200 MPa, rozciąganie</Answer>
+    <Answer correct>−200 MPa, ściskanie</Answer>
+    <Answer>−0,2 MPa, ściskanie</Answer>
+    <Hint>Zachowaj znak N i przelicz 40 kN na 40 000 N.</Hint>
+    <Explanation>
+      σ = −40 000 N / 200 mm² = −200 MPa. Minus oznacza ściskanie; pominięcie przeliczenia kN dałoby błędne −0,2 MPa.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy prosty wzór σ = N/A nie wystarcza do oceny smukłego ściskanego pręta?</Prompt>
+    <Answer correct>Gdy istnieje ryzyko wyboczenia mimo naprężenia poniżej granicy materiału</Answer>
+    <Answer>Wyłącznie gdy pręt jest rozciągany</Answer>
+    <Answer>Gdy pole przekroju jest stałe</Answer>
+    <Hint>Utrata stateczności może nastąpić przed zniszczeniem materiału.</Hint>
+    <Explanation>
+      Ściskany smukły pręt może się wyboczyć przy naprężeniu mniejszym niż wytrzymałość materiału. Wtedy oprócz σ = N/A
+      potrzebna jest analiza stateczności.
+    </Explanation>
+  </Question>
 </Quiz>

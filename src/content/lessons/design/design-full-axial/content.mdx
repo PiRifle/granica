@@ -44,88 +44,54 @@ $$
 </Formula>
 
 <Insight>
-Najpierw wykres N, potem tabela przedziałów. Taki porządek ogranicza pomylenie długości, pola lub znaku siły.
+  Najpierw wykres N, potem tabela przedziałów. Taki porządek ogranicza pomylenie długości, pola lub znaku siły.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pręt jest rozciągany siłą N = 24 kN; ma L = 1,2 m, A = 300 mm², E = 200 GPa, k = 120 MPa i Re = 240 MPa.
-</Given>
-<Steps>
-<Step>
-σ = N/A = 24 000/300 = 80 MPa ≤ k = 120 MPa.
-</Step>
-<Step>
-Rzeczywisty zapas względem Re = 240 MPa wynosi n = Re/σ = 240/80 = 3.
-</Step>
-<Step>
-ΔL = NL/(EA) = 24 000·1200/(200 000·300) = 0,48 mm.
-</Step>
-</Steps>
-<Result>
-Pręt spełnia warunek wytrzymałości; wydłużenie wynosi 0,48 mm, a zapas względem granicy plastyczności jest równy 3.
-</Result>
+  <Given>
+    Pręt jest rozciągany siłą N = 24 kN; ma L = 1,2 m, A = 300 mm², E = 200 GPa, k = 120 MPa i Re = 240 MPa.
+  </Given>
+  <Steps>
+    <Step>σ = N/A = 24 000/300 = 80 MPa ≤ k = 120 MPa.</Step>
+    <Step>Rzeczywisty zapas względem Re = 240 MPa wynosi n = Re/σ = 240/80 = 3.</Step>
+    <Step>ΔL = NL/(EA) = 24 000·1200/(200 000·300) = 0,48 mm.</Step>
+  </Steps>
+  <Result>
+    Pręt spełnia warunek wytrzymałości; wydłużenie wynosi 0,48 mm, a zapas względem granicy plastyczności jest równy 3.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W1">
-<Prompt>
-Odcinek 1 ma N = 40 kN i A = 500 mm², a odcinek 2 N = 30 kN i A = 200 mm². Który decyduje o wytrzymałości?
-</Prompt>
-<Answer>
-Odcinek 1, bo ma większe N
-</Answer>
-<Answer correct>
-Odcinek 2, bo ma większe N/A
-</Answer>
-<Answer>
-Oba mają takie samo naprężenie
-</Answer>
-<Hint>
-Oblicz osobno naprężenia w MPa.
-</Hint>
-<Explanation>
-σ1 = 40 000/500 = 80 MPa, a σ2 = 30 000/200 = 150 MPa. O decydującym odcinku nie rozstrzyga sama siła, lecz iloraz N/A.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Dwa odcinki mają N = 20 kN, L = 0,5 m, E = 200 GPa i A = 400 mm². Jakie jest ich łączne wydłużenie?
-</Prompt>
-<Answer>
-0,125 mm
-</Answer>
-<Answer correct>
-0,25 mm
-</Answer>
-<Answer>
-0,5 mm
-</Answer>
-<Hint>
-Każdy odcinek daje NL/(EA) = 0,125 mm.
-</Hint>
-<Explanation>
-Pojedyncze wydłużenie: 20 000·500/(200 000·400) = 0,125 mm. Dwa odcinki dają 0,25 mm.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Dlaczego wynik |N|/A ≤ k nie wystarcza dla bardzo smukłego ściskanego pręta?
-</Prompt>
-<Answer>
-Bo ściskanie nie wywołuje naprężeń
-</Answer>
-<Answer correct>
-Bo może nastąpić wyboczenie przed osiągnięciem granicy materiału
-</Answer>
-<Answer>
-Bo E nie dotyczy ściskania
-</Answer>
-<Hint>
-Pomyśl o utracie prostoliniowej postaci równowagi.
-</Hint>
-<Explanation>
-Wyboczenie jest zagadnieniem stateczności i może wystąpić przy naprężeniu poniżej k. Wymaga osobnej kontroli zależnej m.in. od smukłości i podparcia.
-</Explanation>
-</Question>
+  <Question outcome="W1">
+    <Prompt>
+      Odcinek 1 ma N = 40 kN i A = 500 mm², a odcinek 2 N = 30 kN i A = 200 mm². Który decyduje o wytrzymałości?
+    </Prompt>
+    <Answer>Odcinek 1, bo ma większe N</Answer>
+    <Answer correct>Odcinek 2, bo ma większe N/A</Answer>
+    <Answer>Oba mają takie samo naprężenie</Answer>
+    <Hint>Oblicz osobno naprężenia w MPa.</Hint>
+    <Explanation>
+      σ1 = 40 000/500 = 80 MPa, a σ2 = 30 000/200 = 150 MPa. O decydującym odcinku nie rozstrzyga sama siła, lecz iloraz
+      N/A.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dwa odcinki mają N = 20 kN, L = 0,5 m, E = 200 GPa i A = 400 mm². Jakie jest ich łączne wydłużenie?</Prompt>
+    <Answer>0,125 mm</Answer>
+    <Answer correct>0,25 mm</Answer>
+    <Answer>0,5 mm</Answer>
+    <Hint>Każdy odcinek daje NL/(EA) = 0,125 mm.</Hint>
+    <Explanation>Pojedyncze wydłużenie: 20 000·500/(200 000·400) = 0,125 mm. Dwa odcinki dają 0,25 mm.</Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego wynik |N|/A ≤ k nie wystarcza dla bardzo smukłego ściskanego pręta?</Prompt>
+    <Answer>Bo ściskanie nie wywołuje naprężeń</Answer>
+    <Answer correct>Bo może nastąpić wyboczenie przed osiągnięciem granicy materiału</Answer>
+    <Answer>Bo E nie dotyczy ściskania</Answer>
+    <Hint>Pomyśl o utracie prostoliniowej postaci równowagi.</Hint>
+    <Explanation>
+      Wyboczenie jest zagadnieniem stateczności i może wystąpić przy naprężeniu poniżej k. Wymaga osobnej kontroli
+      zależnej m.in. od smukłości i podparcia.
+    </Explanation>
+  </Question>
 </Quiz>

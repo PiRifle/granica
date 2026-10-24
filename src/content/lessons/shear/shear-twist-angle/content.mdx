@@ -35,91 +35,51 @@ $$
 </Formula>
 
 <Insight>
-Kąt rośnie liniowo z T i L, a maleje z G i J_o. Ponieważ J_o zależy od d⁴, nawet niewielkie zwiększenie średnicy wyraźnie ogranicza skręcenie.
+  Kąt rośnie liniowo z T i L, a maleje z G i J_o. Ponieważ J_o zależy od d⁴, nawet niewielkie zwiększenie średnicy
+  wyraźnie ogranicza skręcenie.
 </Insight>
 
 <WorkedExample>
-<Given>
-Wał pełny o d = 40 mm i L = 1 m, wykonany z materiału o G = 80 GPa, przenosi T = 1 kN·m.
-</Given>
-<Steps>
-<Step>
-Zapisz dane w N i mm: T = 1 000 000 N·mm, L = 1000 mm, G = 80 000 MPa.
-</Step>
-<Step>
-Policz J_o = π·40⁴/32 = 251 327 mm⁴.
-</Step>
-<Step>
-φ = TL/(GJ_o) = 1 000 000·1000/(80 000·251 327) = 0,04974 rad.
-</Step>
-<Step>
-Przelicz kąt: 0,04974·180/π = 2,85°.
-</Step>
-</Steps>
-<Result>
-Całkowity kąt skręcenia wynosi około 0,0497 rad, czyli 2,85°.
-</Result>
+  <Given>Wał pełny o d = 40 mm i L = 1 m, wykonany z materiału o G = 80 GPa, przenosi T = 1 kN·m.</Given>
+  <Steps>
+    <Step>Zapisz dane w N i mm: T = 1 000 000 N·mm, L = 1000 mm, G = 80 000 MPa.</Step>
+    <Step>Policz J_o = π·40⁴/32 = 251 327 mm⁴.</Step>
+    <Step>φ = TL/(GJ_o) = 1 000 000·1000/(80 000·251 327) = 0,04974 rad.</Step>
+    <Step>Przelicz kąt: 0,04974·180/π = 2,85°.</Step>
+  </Steps>
+  <Result>Całkowity kąt skręcenia wynosi około 0,0497 rad, czyli 2,85°.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Długość wału rośnie trzykrotnie, a T, G i J_o pozostają bez zmian. Jak zmieni się kąt skręcenia?
-</Prompt>
-<Answer correct>
-Wzrośnie trzykrotnie
-</Answer>
-<Answer>
-Spadnie trzykrotnie
-</Answer>
-<Answer>
-Wzrośnie dziewięciokrotnie
-</Answer>
-<Hint>
-L występuje w liczniku φ = TL/(GJ_o).
-</Hint>
-<Explanation>
-Każdy odcinek wału dokłada swój względny obrót, więc trzykrotnie dłuższy wał ma trzykrotnie większy całkowity kąt skręcenia.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Średnicę pełnego wału zwiększono dwukrotnie. Jak zmieni się φ przy pozostałych danych bez zmian?
-</Prompt>
-<Answer correct>
-Spadnie 16 razy
-</Answer>
-<Answer>
-Spadnie 8 razy
-</Answer>
-<Answer>
-Spadnie 2 razy
-</Answer>
-<Hint>
-Dla wału pełnego J_o jest proporcjonalne do d⁴.
-</Hint>
-<Explanation>
-J_o wzrasta 2⁴ = 16 razy. Ponieważ φ jest odwrotnie proporcjonalne do J_o, kąt skręcenia spada 16 razy.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Obliczony kąt φ = 0,02 rad. Ile to stopni?
-</Prompt>
-<Answer>
-Około 0,02°
-</Answer>
-<Answer correct>
-Około 1,15°
-</Answer>
-<Answer>
-Około 11,46°
-</Answer>
-<Hint>
-Pomnóż radiany przez 180/π ≈ 57,3.
-</Hint>
-<Explanation>
-φ = 0,02·180/π ≈ 1,146°, czyli około 1,15°. Radianów i stopni nie można mieszać bez przeliczenia.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>Długość wału rośnie trzykrotnie, a T, G i J_o pozostają bez zmian. Jak zmieni się kąt skręcenia?</Prompt>
+    <Answer correct>Wzrośnie trzykrotnie</Answer>
+    <Answer>Spadnie trzykrotnie</Answer>
+    <Answer>Wzrośnie dziewięciokrotnie</Answer>
+    <Hint>L występuje w liczniku φ = TL/(GJ_o).</Hint>
+    <Explanation>
+      Każdy odcinek wału dokłada swój względny obrót, więc trzykrotnie dłuższy wał ma trzykrotnie większy całkowity kąt
+      skręcenia.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Średnicę pełnego wału zwiększono dwukrotnie. Jak zmieni się φ przy pozostałych danych bez zmian?</Prompt>
+    <Answer correct>Spadnie 16 razy</Answer>
+    <Answer>Spadnie 8 razy</Answer>
+    <Answer>Spadnie 2 razy</Answer>
+    <Hint>Dla wału pełnego J_o jest proporcjonalne do d⁴.</Hint>
+    <Explanation>
+      J_o wzrasta 2⁴ = 16 razy. Ponieważ φ jest odwrotnie proporcjonalne do J_o, kąt skręcenia spada 16 razy.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Obliczony kąt φ = 0,02 rad. Ile to stopni?</Prompt>
+    <Answer>Około 0,02°</Answer>
+    <Answer correct>Około 1,15°</Answer>
+    <Answer>Około 11,46°</Answer>
+    <Hint>Pomnóż radiany przez 180/π ≈ 57,3.</Hint>
+    <Explanation>
+      φ = 0,02·180/π ≈ 1,146°, czyli około 1,15°. Radianów i stopni nie można mieszać bez przeliczenia.
+    </Explanation>
+  </Question>
 </Quiz>

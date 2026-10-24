@@ -1,7 +1,4 @@
-import {
-  compositeCentroidY,
-  safetyFactor,
-} from './advanced'
+import { compositeCentroidY, safetyFactor } from './advanced'
 import {
   bendingStressMPa,
   constrainedThermalStressMPa,
@@ -98,9 +95,13 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
       const areaMM2 = pick(rand, 100, 1200, 25)
       const answer = stressMPa(forceKN, areaMM2)
       return task(
-        id, topic, 'Naprężenie normalne',
+        id,
+        topic,
+        'Naprężenie normalne',
         `Pręt o polu przekroju ${areaMM2} mm² przenosi siłę osiową ${forceKN} kN. Oblicz naprężenie normalne.`,
-        'MPa', answer, '\\sigma=\\frac{N}{A}',
+        'MPa',
+        answer,
+        '\\sigma=\\frac{N}{A}',
         'Zamień kN na N: 1 kN = 1000 N. Dziel przez pole w mm², a wynik będzie w MPa.',
         `σ = ${forceKN * 1000} N / ${areaMM2} mm² = ${answer.toFixed(2)} MPa`,
       )
@@ -112,9 +113,13 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
       const youngGPa = choose(rand, [70, 200])
       const answer = elongationMM(forceKN, lengthMM, areaMM2, youngGPa)
       return task(
-        id, topic, 'Wydłużenie pręta',
+        id,
+        topic,
+        'Wydłużenie pręta',
         `Pręt o długości ${lengthMM} mm i polu ${areaMM2} mm² jest rozciągany siłą ${forceKN} kN. Moduł Younga wynosi ${youngGPa} GPa. Oblicz wydłużenie.`,
-        'mm', answer, '\\Delta L=\\frac{NL}{EA}',
+        'mm',
+        answer,
+        '\\Delta L=\\frac{NL}{EA}',
         'Najpierw σ = N/A, potem ε = σ/E, a na końcu ΔL = ε·L. Utrzymaj E w MPa (GPa × 1000).',
         `ΔL = (${forceKN * 1000}·${lengthMM}) / (${youngGPa * 1000}·${areaMM2}) = ${answer.toFixed(3)} mm`,
       )
@@ -125,9 +130,13 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
       const youngGPa = choose(rand, [70, 200])
       const answer = Math.abs(constrainedThermalStressMPa(alpha, deltaT, youngGPa))
       return task(
-        id, topic, 'Naprężenie termiczne',
+        id,
+        topic,
+        'Naprężenie termiczne',
         `Pręt o α = ${(alpha * 1e6).toFixed(0)}·10⁻⁶ 1/K i E = ${youngGPa} GPa jest utwierdzony z obu stron. Oblicz wartość bezwzględną naprężenia po ogrzaniu o ${deltaT} K.`,
-        'MPa', answer, '\\sigma_T=-E\\alpha\\Delta T',
+        'MPa',
+        answer,
+        '\\sigma_T=-E\\alpha\\Delta T',
         'Pręt nie może się wydłużyć, więc naprężenie jest ściskające. Licz wartość bezwzględną E·α·ΔT.',
         `|σ| = ${youngGPa * 1000}·${alpha}·${deltaT} = ${answer.toFixed(2)} MPa (ściskanie)`,
       )
@@ -137,9 +146,13 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
       const diameterMM = pick(rand, 20, 100, 2)
       const answer = torsionShearMPa(torqueNM, diameterMM)
       return task(
-        id, topic, 'Skręcanie wału',
+        id,
+        topic,
+        'Skręcanie wału',
         `Pełny wał o średnicy ${diameterMM} mm przenosi moment skręcający ${torqueNM} N·m. Oblicz maksymalne naprężenie styczne.`,
-        'MPa', answer, '\\tau_{max}=\\frac{16T}{\\pi d^3}',
+        'MPa',
+        answer,
+        '\\tau_{max}=\\frac{16T}{\\pi d^3}',
         'Zamień moment na N·mm: 1 N·m = 1000 N·mm. Średnica jest w trzeciej potędze.',
         `τmax = 16·${torqueNM * 1000} / (π·${diameterMM}³) = ${answer.toFixed(2)} MPa`,
       )
@@ -149,9 +162,13 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
       const modulusCM3 = pick(rand, 50, 600, 10)
       const answer = bendingStressMPa(momentKNM, modulusCM3 * 1000)
       return task(
-        id, topic, 'Naprężenie zginające',
+        id,
+        topic,
+        'Naprężenie zginające',
         `Przekrój o wskaźniku wytrzymałości W = ${modulusCM3} cm³ jest zginany momentem M = ${momentKNM} kN·m. Oblicz maksymalne naprężenie normalne.`,
-        'MPa', answer, '\\sigma_{max}=\\frac{M}{W}',
+        'MPa',
+        answer,
+        '\\sigma_{max}=\\frac{M}{W}',
         'Zamień M na N·mm i W na mm³. 1 kN·m = 10⁶ N·mm, 1 cm³ = 10³ mm³.',
         `σmax = ${momentKNM * 1e6} / ${modulusCM3 * 1000} = ${answer.toFixed(2)} MPa`,
       )
@@ -161,9 +178,13 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
       const actualMPa = pick(rand, 40, 200, 5)
       const answer = safetyFactor(limitMPa, actualMPa)
       return task(
-        id, topic, 'Współczynnik bezpieczeństwa',
+        id,
+        topic,
+        'Współczynnik bezpieczeństwa',
         `Materiał ma granicę wytrzymałości ${limitMPa} MPa, a w elemencie panuje naprężenie ${actualMPa} MPa. Oblicz współczynnik bezpieczeństwa n.`,
-        '—', answer, 'n=\\frac{R_e}{\\sigma}',
+        '—',
+        answer,
+        'n=\\frac{R_e}{\\sigma}',
         'Współczynnik bezpieczeństwa to stosunek nośności do rzeczywistego wytężenia.',
         `n = ${limitMPa} / ${actualMPa} = ${answer.toFixed(2)}`,
       )
@@ -172,11 +193,15 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
       const forceKN = pick(rand, 4, 40, 1)
       const lengthM = pick(rand, 2, 8, 0.5)
       const positionM = pick(rand, 0.5, lengthM - 0.5, 0.5)
-      const answer = forceKN * (lengthM - positionM) / lengthM
+      const answer = (forceKN * (lengthM - positionM)) / lengthM
       return task(
-        id, topic, 'Reakcje belki',
+        id,
+        topic,
+        'Reakcje belki',
         `Belka swobodnie podparta ma rozpiętość ${lengthM} m. Siła ${forceKN} kN działa w odległości ${positionM} m od lewej podpory. Oblicz reakcję lewej podpory.`,
-        'kN', answer, 'R_A=\\frac{P(L-a)}{L}',
+        'kN',
+        answer,
+        'R_A=\\frac{P(L-a)}{L}',
         'Weź moment względem prawej podpory: R_A·L = P·(L − a).',
         `R_A = ${forceKN}·(${lengthM} − ${positionM}) / ${lengthM} = ${answer.toFixed(2)} kN`,
       )
@@ -193,9 +218,13 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
         { areaMM2: b2 * h2, yMM: y2 },
       ])
       return task(
-        id, topic, 'Środek ciężkości',
+        id,
+        topic,
+        'Środek ciężkości',
         `Przekrój składa się z prostokąta ${b1}×${h1} mm (dolny, y = ${y1} mm) oraz prostokąta ${b2}×${h2} mm ustawionego na nim (y = ${y2} mm). Oblicz współrzędną y środka ciężkości.`,
-        'mm', answer, 'y_c=\\frac{\\sum A_i y_i}{\\sum A_i}',
+        'mm',
+        answer,
+        'y_c=\\frac{\\sum A_i y_i}{\\sum A_i}',
         'Policz pola obu prostokątów, a potem średnią ważoną ich położeń.',
         `y_c = (${b1 * h1}·${y1} + ${b2 * h2}·${y2}) / (${b1 * h1} + ${b2 * h2}) = ${answer.toFixed(2)} mm`,
       )
@@ -206,9 +235,13 @@ export function createTask(topic: TaskTopic, rand: RandomSource = Math.random, i
       const distanceMM = pick(rand, 20, 300, 10)
       const answer = (rectangleInertiaMM4(widthMM, heightMM) + widthMM * heightMM * distanceMM ** 2) / 1e4
       return task(
-        id, topic, 'Twierdzenie Steinera',
+        id,
+        topic,
+        'Twierdzenie Steinera',
         `Prostokąt ${widthMM}×${heightMM} mm ma środek ciężkości odległy o ${distanceMM} mm od osi odniesienia. Oblicz moment bezwładności względem tej osi w cm⁴.`,
-        'cm⁴', answer, 'I=I_0+Ad^2',
+        'cm⁴',
+        answer,
+        'I=I_0+Ad^2',
         'I₀ = bh³/12. Dodaj pole A = b·h pomnożone przez kwadrat odległości d². Na końcu zamień mm⁴ na cm⁴ (÷10⁴).',
         `I₀ = ${widthMM}·${heightMM}³/12 = ${rectangleInertiaMM4(widthMM, heightMM).toFixed(0)} mm⁴; I = I₀ + ${widthMM * heightMM}·${distanceMM}² = ${(answer * 1e4).toFixed(0)} mm⁴ = ${answer.toFixed(2)} cm⁴`,
       )

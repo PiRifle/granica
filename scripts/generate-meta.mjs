@@ -31,11 +31,14 @@ for (const file of files) {
   }
   const expectedModule = relative.split('/')[1]
   const expectedId = relative.split('/')[2]
-  if (data.moduleId !== expectedModule) errors.push(`${relative}: moduleId "${data.moduleId}" nie zgadza się ze ścieżką "${expectedModule}"`)
+  if (data.moduleId !== expectedModule)
+    errors.push(`${relative}: moduleId "${data.moduleId}" nie zgadza się ze ścieżką "${expectedModule}"`)
   if (data.id !== expectedId) errors.push(`${relative}: id "${data.id}" nie zgadza się ze ścieżką "${expectedId}"`)
-  if (typeof data.number !== 'number' || !Number.isInteger(data.number) || data.number < 1) errors.push(`${relative}: number musi być liczbą całkowitą > 0`)
+  if (typeof data.number !== 'number' || !Number.isInteger(data.number) || data.number < 1)
+    errors.push(`${relative}: number musi być liczbą całkowitą > 0`)
   if (typeof data.duration !== 'number' || data.duration <= 0) errors.push(`${relative}: duration musi być > 0`)
-  if (!Array.isArray(data.outcomes) || data.outcomes.length === 0) errors.push(`${relative}: outcomes musi być niepustą tablicą`)
+  if (!Array.isArray(data.outcomes) || data.outcomes.length === 0)
+    errors.push(`${relative}: outcomes musi być niepustą tablicą`)
   entries.push({
     id: data.id,
     moduleId: data.moduleId,
@@ -68,5 +71,8 @@ if (errors.length) {
 
 entries.sort((a, b) => a.id.localeCompare(b.id))
 fs.mkdirSync(path.dirname(outFile), { recursive: true })
-fs.writeFileSync(outFile, `// Plik generowany przez scripts/generate-meta.mjs.\nimport type { LessonMeta } from '../model'\n\nexport const lessonMeta = ${JSON.stringify(entries, null, 2)} satisfies LessonMeta[]\n`)
+fs.writeFileSync(
+  outFile,
+  `// Plik generowany przez scripts/generate-meta.mjs.\nimport type { LessonMeta } from '../model'\n\nexport const lessonMeta = ${JSON.stringify(entries, null, 2)} satisfies LessonMeta[]\n`,
+)
 console.log(`Wygenerowano metadane ${entries.length} lekcji do ${path.relative(process.cwd(), outFile)}`)

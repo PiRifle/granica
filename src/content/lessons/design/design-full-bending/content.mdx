@@ -44,91 +44,54 @@ $$
 </Formula>
 
 <Insight>
-Ten sam moment zginający może dać różne naprężenia w przekrojach o tym samym polu. Decyduje rozmieszczenie materiału, opisane przez I i W.
+  Ten sam moment zginający może dać różne naprężenia w przekrojach o tym samym polu. Decyduje rozmieszczenie materiału,
+  opisane przez I i W.
 </Insight>
 
 <WorkedExample>
-<Given>
-Belka swobodnie podparta ma L = 3 m, P = 12 kN na środku i k = 150 MPa.
-</Given>
-<Steps>
-<Step>
-Reakcje z symetrii: RA = RB = 6 kN.
-</Step>
-<Step>
-Mmax = PL/4 = 12·3/4 = 9 kN·m = 9·10⁶ N·mm.
-</Step>
-<Step>
-Wwym = 9·10⁶/150 = 60 000 mm³.
-</Step>
-<Step>
-Po doborze przekroju trzeba jeszcze sprawdzić ugięcie f = PL³/(48EI) względem wartości dopuszczalnej.
-</Step>
-</Steps>
-<Result>
-Wymagany wskaźnik wytrzymałości przekroju wynosi 60 000 mm³; dobór wymaga też kontroli ugięcia.
-</Result>
+  <Given>Belka swobodnie podparta ma L = 3 m, P = 12 kN na środku i k = 150 MPa.</Given>
+  <Steps>
+    <Step>Reakcje z symetrii: RA = RB = 6 kN.</Step>
+    <Step>Mmax = PL/4 = 12·3/4 = 9 kN·m = 9·10⁶ N·mm.</Step>
+    <Step>Wwym = 9·10⁶/150 = 60 000 mm³.</Step>
+    <Step>Po doborze przekroju trzeba jeszcze sprawdzić ugięcie f = PL³/(48EI) względem wartości dopuszczalnej.</Step>
+  </Steps>
+  <Result>Wymagany wskaźnik wytrzymałości przekroju wynosi 60 000 mm³; dobór wymaga też kontroli ugięcia.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Belka o L = 4 m ma siłę P = 20 kN na środku. Ile wynosi Mmax?
-</Prompt>
-<Answer correct>
-20 kN·m
-</Answer>
-<Answer>
-40 kN·m
-</Answer>
-<Answer>
-80 kN·m
-</Answer>
-<Hint>
-Dla tego schematu Mmax = PL/4.
-</Hint>
-<Explanation>
-Mmax = 20·4/4 = 20 kN·m. Reakcje wynoszą po 10 kN, a moment na środku to 10 kN·2 m = 20 kN·m.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Przy Mmax = 20 kN·m i k = 160 MPa ile wynosi Wwym?
-</Prompt>
-<Answer>
-125 mm³
-</Answer>
-<Answer>
-12 500 mm³
-</Answer>
-<Answer correct>
-125 000 mm³
-</Answer>
-<Hint>
-20 kN·m = 20 000 000 N·mm.
-</Hint>
-<Explanation>
-Wwym = 20 000 000/160 = 125 000 mm³. Poprawna zamiana jednostek zapobiega błędowi tysiąckrotnemu.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Dla rozważanego kształtu przekroju warunek wytrzymałości wymaga I ≥ 8·10⁶ mm⁴, a warunek ugięcia I ≥ 11·10⁶ mm⁴. Które I przyjąć?
-</Prompt>
-<Answer>
-8·10⁶ mm⁴
-</Answer>
-<Answer>
-9,5·10⁶ mm⁴
-</Answer>
-<Answer correct>
-Co najmniej 11·10⁶ mm⁴
-</Answer>
-<Hint>
-Jedno I musi spełnić obie nierówności.
-</Hint>
-<Explanation>
-Przyjmujemy większą wymaganą wartość. Przy 8·10⁶ mm⁴ belka byłaby wystarczająco wytrzymała, ale zbyt podatna, więc ugięcie przekroczyłoby wartość dopuszczalną.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Belka o L = 4 m ma siłę P = 20 kN na środku. Ile wynosi Mmax?</Prompt>
+    <Answer correct>20 kN·m</Answer>
+    <Answer>40 kN·m</Answer>
+    <Answer>80 kN·m</Answer>
+    <Hint>Dla tego schematu Mmax = PL/4.</Hint>
+    <Explanation>
+      Mmax = 20·4/4 = 20 kN·m. Reakcje wynoszą po 10 kN, a moment na środku to 10 kN·2 m = 20 kN·m.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Przy Mmax = 20 kN·m i k = 160 MPa ile wynosi Wwym?</Prompt>
+    <Answer>125 mm³</Answer>
+    <Answer>12 500 mm³</Answer>
+    <Answer correct>125 000 mm³</Answer>
+    <Hint>20 kN·m = 20 000 000 N·mm.</Hint>
+    <Explanation>
+      Wwym = 20 000 000/160 = 125 000 mm³. Poprawna zamiana jednostek zapobiega błędowi tysiąckrotnemu.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Dla rozważanego kształtu przekroju warunek wytrzymałości wymaga I ≥ 8·10⁶ mm⁴, a warunek ugięcia I ≥ 11·10⁶ mm⁴.
+      Które I przyjąć?
+    </Prompt>
+    <Answer>8·10⁶ mm⁴</Answer>
+    <Answer>9,5·10⁶ mm⁴</Answer>
+    <Answer correct>Co najmniej 11·10⁶ mm⁴</Answer>
+    <Hint>Jedno I musi spełnić obie nierówności.</Hint>
+    <Explanation>
+      Przyjmujemy większą wymaganą wartość. Przy 8·10⁶ mm⁴ belka byłaby wystarczająco wytrzymała, ale zbyt podatna, więc
+      ugięcie przekroczyłoby wartość dopuszczalną.
+    </Explanation>
+  </Question>
 </Quiz>

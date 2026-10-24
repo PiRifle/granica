@@ -43,91 +43,57 @@ $$
 </Formula>
 
 <Insight>
-Małe odkształcenie nie dowodzi dużego zapasu wytrzymałości. Warunki σred ≤ k i ugięcia lub przemieszczenia sprawdza się niezależnie.
+  Małe odkształcenie nie dowodzi dużego zapasu wytrzymałości. Warunki σred ≤ k i ugięcia lub przemieszczenia sprawdza
+  się niezależnie.
 </Insight>
 
 <WorkedExample>
-<Given>
-Stal ma Re = 355 MPa. W elemencie σHMH = 142 MPa, a projekt wymaga n_wym ≥ 2,2.
-</Given>
-<Steps>
-<Step>
-Rzeczywisty zapas: n_rz = Re/σred = 355/142 = 2,50.
-</Step>
-<Step>
-Porównanie: 2,50 ≥ 2,2, więc warunek jest spełniony.
-</Step>
-<Step>
-Dopuszczalne naprężenie: k = Re/n_wym = 355/2,2 = 161,36 MPa.
-</Step>
-<Step>
-Kontrola alternatywna: 142 ≤ 161,36 MPa.
-</Step>
-</Steps>
-<Result>
-Element spełnia warunek bezpieczeństwa; zapas rzeczywisty wynosi około 2,50, czyli przekracza wymagane 2,2.
-</Result>
+  <Given>Stal ma Re = 355 MPa. W elemencie σHMH = 142 MPa, a projekt wymaga n_wym ≥ 2,2.</Given>
+  <Steps>
+    <Step>Rzeczywisty zapas: n_rz = Re/σred = 355/142 = 2,50.</Step>
+    <Step>Porównanie: 2,50 ≥ 2,2, więc warunek jest spełniony.</Step>
+    <Step>Dopuszczalne naprężenie: k = Re/n_wym = 355/2,2 = 161,36 MPa.</Step>
+    <Step>Kontrola alternatywna: 142 ≤ 161,36 MPa.</Step>
+  </Steps>
+  <Result>
+    Element spełnia warunek bezpieczeństwa; zapas rzeczywisty wynosi około 2,50, czyli przekracza wymagane 2,2.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U3">
-<Prompt>
-Materiał ma Re = 300 MPa, wymagane n = 2. Jakie jest naprężenie dopuszczalne?
-</Prompt>
-<Answer correct>
-150 MPa
-</Answer>
-<Answer>
-300 MPa
-</Answer>
-<Answer>
-600 MPa
-</Answer>
-<Hint>
-Podziel granicę przez wymagany współczynnik.
-</Hint>
-<Explanation>
-k = Re/n_wym = 300/2 = 150 MPa. Naprężenie dopuszczalne jest mniejsze od granicy, ponieważ rezerwujemy zapas.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Dla Rm = 400 MPa i σred = 250 MPa materiał kruchy ma zapas n = 1,6, a projekt wymaga n ≥ 2. Jaki jest wynik sprawdzenia wymaganego zapasu?
-</Prompt>
-<Answer correct>
-Warunek n ≥ 2 nie jest spełniony
-</Answer>
-<Answer>
-Element na pewno ma za małą sztywność
-</Answer>
-<Answer>
-Naprężenie przekracza Rm
-</Answer>
-<Hint>
-Porównaj rzeczywisty zapas z wymaganym i osobno naprężenie z granicą.
-</Hint>
-<Explanation>
-250 &lt; 400 MPa, więc granica nie jest przekroczona, ale 1,6 &lt; 2, więc wymagany zapas nie jest zapewniony. O sztywności ten wynik nic nie mówi.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Jak zmieni się rzeczywiste n, jeśli przy niezmienionym materiale σred wzrośnie z 100 do 125 MPa?
-</Prompt>
-<Answer>
-Wzrośnie o 25%
-</Answer>
-<Answer correct>
-Zmniejszy się do 80% poprzedniej wartości
-</Answer>
-<Answer>
-Nie zmieni się
-</Answer>
-<Hint>
-n jest odwrotnie proporcjonalne do σred.
-</Hint>
-<Explanation>
-Stosunek nowego i starego zapasu wynosi 100/125 = 0,8, więc zapas spada do 80% poprzedniej wartości. Wzrost wytężenia o 25% nie zmniejsza zapasu o 25%, bo zależność jest odwrotnie proporcjonalna.
-</Explanation>
-</Question>
+  <Question outcome="U3">
+    <Prompt>Materiał ma Re = 300 MPa, wymagane n = 2. Jakie jest naprężenie dopuszczalne?</Prompt>
+    <Answer correct>150 MPa</Answer>
+    <Answer>300 MPa</Answer>
+    <Answer>600 MPa</Answer>
+    <Hint>Podziel granicę przez wymagany współczynnik.</Hint>
+    <Explanation>
+      k = Re/n_wym = 300/2 = 150 MPa. Naprężenie dopuszczalne jest mniejsze od granicy, ponieważ rezerwujemy zapas.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Dla Rm = 400 MPa i σred = 250 MPa materiał kruchy ma zapas n = 1,6, a projekt wymaga n ≥ 2. Jaki jest wynik
+      sprawdzenia wymaganego zapasu?
+    </Prompt>
+    <Answer correct>Warunek n ≥ 2 nie jest spełniony</Answer>
+    <Answer>Element na pewno ma za małą sztywność</Answer>
+    <Answer>Naprężenie przekracza Rm</Answer>
+    <Hint>Porównaj rzeczywisty zapas z wymaganym i osobno naprężenie z granicą.</Hint>
+    <Explanation>
+      250 &lt; 400 MPa, więc granica nie jest przekroczona, ale 1,6 &lt; 2, więc wymagany zapas nie jest zapewniony. O
+      sztywności ten wynik nic nie mówi.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Jak zmieni się rzeczywiste n, jeśli przy niezmienionym materiale σred wzrośnie z 100 do 125 MPa?</Prompt>
+    <Answer>Wzrośnie o 25%</Answer>
+    <Answer correct>Zmniejszy się do 80% poprzedniej wartości</Answer>
+    <Answer>Nie zmieni się</Answer>
+    <Hint>n jest odwrotnie proporcjonalne do σred.</Hint>
+    <Explanation>
+      Stosunek nowego i starego zapasu wynosi 100/125 = 0,8, więc zapas spada do 80% poprzedniej wartości. Wzrost
+      wytężenia o 25% nie zmniejsza zapasu o 25%, bo zależność jest odwrotnie proporcjonalna.
+    </Explanation>
+  </Question>
 </Quiz>

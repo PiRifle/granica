@@ -37,91 +37,55 @@ $$
 </Formula>
 
 <Insight>
-Siła skupiona powoduje skok T o wartość tej siły. Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres T jest poziomy.
+  Siła skupiona powoduje skok T o wartość tej siły. Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres T
+  jest poziomy.
 </Insight>
 
 <WorkedExample>
-<Given>
-Belka swobodnie podparta o L = 4 m, siła P = 20 kN w x = 2 m; obciążenie ciągłe q = 0.
-</Given>
-<Steps>
-<Step>
-Z symetrii reakcje wynoszą RA = RB = 10 kN.
-</Step>
-<Step>
-Dla 0 &lt; x &lt; 2 m: T(x) = RA = +10 kN.
-</Step>
-<Step>
-W x = 2 m występuje skok o P = 20 kN w dół.
-</Step>
-<Step>
-Dla 2 &lt; x &lt; 4 m: T(x) = 10 − 20 = −10 kN; reakcja RB wraca wykres do zera.
-</Step>
-</Steps>
-<Result>
-T = +10 kN na lewym odcinku i −10 kN na prawym, ze skokiem 20 kN pod siłą.
-</Result>
+  <Given>Belka swobodnie podparta o L = 4 m, siła P = 20 kN w x = 2 m; obciążenie ciągłe q = 0.</Given>
+  <Steps>
+    <Step>Z symetrii reakcje wynoszą RA = RB = 10 kN.</Step>
+    <Step>Dla 0 &lt; x &lt; 2 m: T(x) = RA = +10 kN.</Step>
+    <Step>W x = 2 m występuje skok o P = 20 kN w dół.</Step>
+    <Step>Dla 2 &lt; x &lt; 4 m: T(x) = 10 − 20 = −10 kN; reakcja RB wraca wykres do zera.</Step>
+  </Steps>
+  <Result>T = +10 kN na lewym odcinku i −10 kN na prawym, ze skokiem 20 kN pod siłą.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Na belce swobodnie podpartej o L = 4 m działa P = 20 kN na środku. Jakie wartości ma T po lewej i prawej stronie siły?
-</Prompt>
-<Answer correct>
-+10 kN i −10 kN
-</Answer>
-<Answer>
-+20 kN i −20 kN
-</Answer>
-<Answer>
-0 kN i +20 kN
-</Answer>
-<Hint>
-Reakcje wynoszą po 10 kN, a pod siłą wykres skacze o 20 kN.
-</Hint>
-<Explanation>
-Przed siłą T = RA = +10 kN. Pod P następuje spadek o 20 kN, więc za siłą T = 10 − 20 = −10 kN.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres T(x) jest:
-</Prompt>
-<Answer correct>
-Stały
-</Answer>
-<Answer>
-Zawsze paraboliczny
-</Answer>
-<Answer>
-Zawsze równy zero
-</Answer>
-<Hint>
-Skoro q = 0, to dT/dx = −q = 0.
-</Hint>
-<Explanation>
-Z zależności dT/dx = −q przy q = 0 wynika, że T jest stałe. Stała wartość może być dodatnia, ujemna lub równa zero.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-W punkcie przyłożenia pionowej siły skupionej 30 kN w dół wykres T, czytany od lewej do prawej:
-</Prompt>
-<Answer correct>
-Wykonuje skok w dół o 30 kN
-</Answer>
-<Answer>
-Wykonuje skok w górę o 30 kN
-</Answer>
-<Answer>
-Pozostaje zawsze ciągły
-</Answer>
-<Hint>
-Odjęta część belki musi zrównoważyć nową siłę w dół.
-</Hint>
-<Explanation>
-Przy przyjętej konwencji siła działająca w dół zmniejsza T o 30 kN. W idealnym punkcie przyłożenia wykres jest nieciągły, a skok ma wartość siły.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>
+      Na belce swobodnie podpartej o L = 4 m działa P = 20 kN na środku. Jakie wartości ma T po lewej i prawej stronie
+      siły?
+    </Prompt>
+    <Answer correct>+10 kN i −10 kN</Answer>
+    <Answer>+20 kN i −20 kN</Answer>
+    <Answer>0 kN i +20 kN</Answer>
+    <Hint>Reakcje wynoszą po 10 kN, a pod siłą wykres skacze o 20 kN.</Hint>
+    <Explanation>
+      Przed siłą T = RA = +10 kN. Pod P następuje spadek o 20 kN, więc za siłą T = 10 − 20 = −10 kN.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres T(x) jest:</Prompt>
+    <Answer correct>Stały</Answer>
+    <Answer>Zawsze paraboliczny</Answer>
+    <Answer>Zawsze równy zero</Answer>
+    <Hint>Skoro q = 0, to dT/dx = −q = 0.</Hint>
+    <Explanation>
+      Z zależności dT/dx = −q przy q = 0 wynika, że T jest stałe. Stała wartość może być dodatnia, ujemna lub równa
+      zero.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>W punkcie przyłożenia pionowej siły skupionej 30 kN w dół wykres T, czytany od lewej do prawej:</Prompt>
+    <Answer correct>Wykonuje skok w dół o 30 kN</Answer>
+    <Answer>Wykonuje skok w górę o 30 kN</Answer>
+    <Answer>Pozostaje zawsze ciągły</Answer>
+    <Hint>Odjęta część belki musi zrównoważyć nową siłę w dół.</Hint>
+    <Explanation>
+      Przy przyjętej konwencji siła działająca w dół zmniejsza T o 30 kN. W idealnym punkcie przyłożenia wykres jest
+      nieciągły, a skok ma wartość siły.
+    </Explanation>
+  </Question>
 </Quiz>

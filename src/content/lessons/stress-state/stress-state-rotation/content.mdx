@@ -37,91 +37,56 @@ $$
 </Formula>
 
 <Insight>
-Suma naprężeń normalnych na dwóch prostopadłych ścianach, σn + σt, jest równa σx + σy i nie zmienia się przy obrocie. Zmieniają się poszczególne składowe, ale średnia i naprężenia główne pozostają niezmienne.
+  Suma naprężeń normalnych na dwóch prostopadłych ścianach, σn + σt, jest równa σx + σy i nie zmienia się przy obrocie.
+  Zmieniają się poszczególne składowe, ale średnia i naprężenia główne pozostają niezmienne.
 </Insight>
 
 <WorkedExample>
-<Given>
-σx = 120 MPa, σy = 40 MPa, τxy = 30 MPa. Wyznacz składowe dla θ = 30°.
-</Given>
-<Steps>
-<Step>
-Obliczamy σavg = (120 + 40)/2 = 80 MPa oraz a = (120 − 40)/2 = 40 MPa.
-</Step>
-<Step>
-Dla 2θ = 60°: cos60° = 0,5 i sin60° ≈ 0,8660.
-</Step>
-<Step>
-σn = 80 + 40·0,5 + 30·0,8660 = 125,98 MPa.
-</Step>
-<Step>
-τnt = −40·0,8660 + 30·0,5 = −19,64 MPa.
-</Step>
-</Steps>
-<Result>
-Na obróconym przekroju σn ≈ 126,0 MPa i τnt ≈ −19,6 MPa. Na przekroju prostopadłym σt = 160 − 125,98 = 34,02 MPa, co potwierdza stałość sumy.
-</Result>
+  <Given>σx = 120 MPa, σy = 40 MPa, τxy = 30 MPa. Wyznacz składowe dla θ = 30°.</Given>
+  <Steps>
+    <Step>Obliczamy σavg = (120 + 40)/2 = 80 MPa oraz a = (120 − 40)/2 = 40 MPa.</Step>
+    <Step>Dla 2θ = 60°: cos60° = 0,5 i sin60° ≈ 0,8660.</Step>
+    <Step>σn = 80 + 40·0,5 + 30·0,8660 = 125,98 MPa.</Step>
+    <Step>τnt = −40·0,8660 + 30·0,5 = −19,64 MPa.</Step>
+  </Steps>
+  <Result>
+    Na obróconym przekroju σn ≈ 126,0 MPa i τnt ≈ −19,6 MPa. Na przekroju prostopadłym σt = 160 − 125,98 = 34,02 MPa, co
+    potwierdza stałość sumy.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dla σx = 100 MPa, σy = 20 MPa i τxy = 0 ile wynoszą σn i τnt po obrocie osi o 45°?
-</Prompt>
-<Answer correct>
-σn = 60 MPa, τnt = −40 MPa
-</Answer>
-<Answer>
-σn = 120 MPa, τnt = 0
-</Answer>
-<Answer>
-σn = 40 MPa, τnt = 60 MPa
-</Answer>
-<Hint>
-Dla 2θ = 90° cosinus jest zerowy, a sinus równy 1.
-</Hint>
-<Explanation>
-σavg = 60 MPa i a = 40 MPa. Zatem σn = 60 + 40·0 + 0 = 60 MPa, a τnt = −40·1 + 0 = −40 MPa. Znak τ opisuje stronę działania w przyjętym układzie.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Która wielkość nie zmienia się przy obrocie osi w płaszczyźnie xy?
-</Prompt>
-<Answer>
-σx − σy
-</Answer>
-<Answer correct>
-σx + σy
-</Answer>
-<Answer>
-τxy
-</Answer>
-<Hint>
-Dodaj do siebie naprężenia normalne na dwóch prostopadłych ścianach.
-</Hint>
-<Explanation>
-Pierwszy niezmiennik płaskiego stanu wynosi σx + σy. Pojedyncze składowe i różnica ulegają transformacji, ale ich suma pozostaje stała.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-W czystym ścinaniu σx = σy = 0 i τxy = 50 MPa. Jakie naprężenie normalne występuje dla θ = 45°?
-</Prompt>
-<Answer>
-0 MPa
-</Answer>
-<Answer correct>
-50 MPa
-</Answer>
-<Answer>
-100 MPa
-</Answer>
-<Hint>
-Pozostaje wyraz τxy sin2θ.
-</Hint>
-<Explanation>
-Dla θ = 45° mamy sin90° = 1, więc σn = 50 MPa. Czyste ścinanie jest więc równoważne rozciąganiu i ściskaniu o wartości 50 MPa w kierunkach głównych.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Dla σx = 100 MPa, σy = 20 MPa i τxy = 0 ile wynoszą σn i τnt po obrocie osi o 45°?</Prompt>
+    <Answer correct>σn = 60 MPa, τnt = −40 MPa</Answer>
+    <Answer>σn = 120 MPa, τnt = 0</Answer>
+    <Answer>σn = 40 MPa, τnt = 60 MPa</Answer>
+    <Hint>Dla 2θ = 90° cosinus jest zerowy, a sinus równy 1.</Hint>
+    <Explanation>
+      σavg = 60 MPa i a = 40 MPa. Zatem σn = 60 + 40·0 + 0 = 60 MPa, a τnt = −40·1 + 0 = −40 MPa. Znak τ opisuje stronę
+      działania w przyjętym układzie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Która wielkość nie zmienia się przy obrocie osi w płaszczyźnie xy?</Prompt>
+    <Answer>σx − σy</Answer>
+    <Answer correct>σx + σy</Answer>
+    <Answer>τxy</Answer>
+    <Hint>Dodaj do siebie naprężenia normalne na dwóch prostopadłych ścianach.</Hint>
+    <Explanation>
+      Pierwszy niezmiennik płaskiego stanu wynosi σx + σy. Pojedyncze składowe i różnica ulegają transformacji, ale ich
+      suma pozostaje stała.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W czystym ścinaniu σx = σy = 0 i τxy = 50 MPa. Jakie naprężenie normalne występuje dla θ = 45°?</Prompt>
+    <Answer>0 MPa</Answer>
+    <Answer correct>50 MPa</Answer>
+    <Answer>100 MPa</Answer>
+    <Hint>Pozostaje wyraz τxy sin2θ.</Hint>
+    <Explanation>
+      Dla θ = 45° mamy sin90° = 1, więc σn = 50 MPa. Czyste ścinanie jest więc równoważne rozciąganiu i ściskaniu o
+      wartości 50 MPa w kierunkach głównych.
+    </Explanation>
+  </Question>
 </Quiz>

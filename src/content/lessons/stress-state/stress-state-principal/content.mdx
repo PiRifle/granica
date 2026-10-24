@@ -37,91 +37,61 @@ $$
 </Formula>
 
 <Insight>
-Średnia wyznacza środek przedziału możliwych naprężeń normalnych, a promień R — odległość od tego środka do wartości głównych. Wzrost ścinania zwiększa R, nawet gdy naprężenia normalne się nie zmieniają.
+  Średnia wyznacza środek przedziału możliwych naprężeń normalnych, a promień R — odległość od tego środka do wartości
+  głównych. Wzrost ścinania zwiększa R, nawet gdy naprężenia normalne się nie zmieniają.
 </Insight>
 
 <WorkedExample>
-<Given>
-Element ma σx = −20 MPa, σy = 60 MPa, τxy = 30 MPa i σz = 0.
-</Given>
-<Steps>
-<Step>
-Średnia płaska: σavg = (−20 + 60)/2 = 20 MPa.
-</Step>
-<Step>
-Połowa różnicy: a = (−20 − 60)/2 = −40 MPa; w promieniu występuje jej kwadrat, więc znak a nie wpływa na R.
-</Step>
-<Step>
-R = √[(−40)² + 30²] = 50 MPa.
-</Step>
-<Step>
-Płaskie wartości to 20 + 50 = 70 MPa oraz 20 − 50 = −30 MPa.
-</Step>
-</Steps>
-<Result>
-Po dodaniu σz = 0 i uporządkowaniu: σI = 70 MPa, σII = 0, σIII = −30 MPa. Występuje zarówno rozciąganie, jak i ściskanie.
-</Result>
+  <Given>Element ma σx = −20 MPa, σy = 60 MPa, τxy = 30 MPa i σz = 0.</Given>
+  <Steps>
+    <Step>Średnia płaska: σavg = (−20 + 60)/2 = 20 MPa.</Step>
+    <Step>
+      Połowa różnicy: a = (−20 − 60)/2 = −40 MPa; w promieniu występuje jej kwadrat, więc znak a nie wpływa na R.
+    </Step>
+    <Step>R = √[(−40)² + 30²] = 50 MPa.</Step>
+    <Step>Płaskie wartości to 20 + 50 = 70 MPa oraz 20 − 50 = −30 MPa.</Step>
+  </Steps>
+  <Result>
+    Po dodaniu σz = 0 i uporządkowaniu: σI = 70 MPa, σII = 0, σIII = −30 MPa. Występuje zarówno rozciąganie, jak i
+    ściskanie.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dla σx = 90 MPa, σy = 30 MPa i τxy = 40 MPa ile wynoszą płaskie naprężenia główne?
-</Prompt>
-<Answer>
-60 MPa i 40 MPa
-</Answer>
-<Answer correct>
-110 MPa i 10 MPa
-</Answer>
-<Answer>
-130 MPa i −10 MPa
-</Answer>
-<Hint>
-Średnia wynosi 60 MPa, a promień oblicz z połowy różnicy i τxy.
-</Hint>
-<Explanation>
-σavg = 60 MPa, połowa różnicy to 30 MPa, więc R = √(30² + 40²) = 50 MPa. Stąd σ1 = 60 + 50 = 110 MPa i σ2 = 60 − 50 = 10 MPa.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-W stanie płaskim obliczono σ1 = 20 MPa i σ2 = −70 MPa, a σz = 0. Jakie jest najmniejsze naprężenie główne w opisie przestrzennym?
-</Prompt>
-<Answer>
-0 MPa
-</Answer>
-<Answer correct>
-−70 MPa
-</Answer>
-<Answer>
-20 MPa
-</Answer>
-<Hint>
-Uwzględnij także kierunek z i uporządkuj trzy liczby.
-</Hint>
-<Explanation>
-Zbiór naprężeń głównych to &#123;20, 0, −70&#125; MPa. Najmniejsze wynosi −70 MPa. Zerowe σz nie zawsze jest skrajną wartością i nie wolno go pominąć.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Co jest wspólne dla wszystkich kierunków głównych?
-</Prompt>
-<Answer>
-Naprężenie normalne zawsze jest dodatnie
-</Answer>
-<Answer correct>
-Naprężenie styczne na odpowiadających im płaszczyznach wynosi zero
-</Answer>
-<Answer>
-Naprężenia główne zawsze są równe co do wartości
-</Answer>
-<Hint>
-To właśnie brak jednej składowej wyróżnia te płaszczyzny.
-</Hint>
-<Explanation>
-Na płaszczyznach głównych τ = 0. Naprężenie normalne może być dodatnie, ujemne lub zerowe, a wartości główne mogą się różnić.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Dla σx = 90 MPa, σy = 30 MPa i τxy = 40 MPa ile wynoszą płaskie naprężenia główne?</Prompt>
+    <Answer>60 MPa i 40 MPa</Answer>
+    <Answer correct>110 MPa i 10 MPa</Answer>
+    <Answer>130 MPa i −10 MPa</Answer>
+    <Hint>Średnia wynosi 60 MPa, a promień oblicz z połowy różnicy i τxy.</Hint>
+    <Explanation>
+      σavg = 60 MPa, połowa różnicy to 30 MPa, więc R = √(30² + 40²) = 50 MPa. Stąd σ1 = 60 + 50 = 110 MPa i σ2 = 60 −
+      50 = 10 MPa.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      W stanie płaskim obliczono σ1 = 20 MPa i σ2 = −70 MPa, a σz = 0. Jakie jest najmniejsze naprężenie główne w opisie
+      przestrzennym?
+    </Prompt>
+    <Answer>0 MPa</Answer>
+    <Answer correct>−70 MPa</Answer>
+    <Answer>20 MPa</Answer>
+    <Hint>Uwzględnij także kierunek z i uporządkuj trzy liczby.</Hint>
+    <Explanation>
+      Zbiór naprężeń głównych to &#123;20, 0, −70&#125; MPa. Najmniejsze wynosi −70 MPa. Zerowe σz nie zawsze jest
+      skrajną wartością i nie wolno go pominąć.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Co jest wspólne dla wszystkich kierunków głównych?</Prompt>
+    <Answer>Naprężenie normalne zawsze jest dodatnie</Answer>
+    <Answer correct>Naprężenie styczne na odpowiadających im płaszczyznach wynosi zero</Answer>
+    <Answer>Naprężenia główne zawsze są równe co do wartości</Answer>
+    <Hint>To właśnie brak jednej składowej wyróżnia te płaszczyzny.</Hint>
+    <Explanation>
+      Na płaszczyznach głównych τ = 0. Naprężenie normalne może być dodatnie, ujemne lub zerowe, a wartości główne mogą
+      się różnić.
+    </Explanation>
+  </Question>
 </Quiz>

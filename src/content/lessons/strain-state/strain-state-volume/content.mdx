@@ -39,91 +39,51 @@ $$
 </Formula>
 
 <Insight>
-Czyste ścinanie zmienia kształt, ale nie daje pierwszorzędowej zmiany objętości. Dla ν = 0,5 model przewiduje K → ∞, czyli nieściśliwość.
+  Czyste ścinanie zmienia kształt, ale nie daje pierwszorzędowej zmiany objętości. Dla ν = 0,5 model przewiduje K → ∞,
+  czyli nieściśliwość.
 </Insight>
 
 <WorkedExample>
-<Given>
-Stal: E = 210 GPa, ν = 0,30. Hydrostatyczne ściskanie: σx = σy = σz = −90 MPa.
-</Given>
-<Steps>
-<Step>
-Suma naprężeń wynosi −270 MPa, a 1 − 2ν = 0,4.
-</Step>
-<Step>
-ΔV/V0 = 0,4·(−270)/210 000 = −108/210 000 = −0,000514286.
-</Step>
-<Step>
-Kontrolnie K = 210 000/[3·0,4] = 175 000 MPa.
-</Step>
-<Step>
-Ciśnienie p = −(−270)/3 = 90 MPa, więc −p/K = −90/175 000 = −0,000514286.
-</Step>
-</Steps>
-<Result>
-Objętość zmniejsza się o około 0,000514, czyli 0,0514%. Obie metody dają ten sam wynik.
-</Result>
+  <Given>Stal: E = 210 GPa, ν = 0,30. Hydrostatyczne ściskanie: σx = σy = σz = −90 MPa.</Given>
+  <Steps>
+    <Step>Suma naprężeń wynosi −270 MPa, a 1 − 2ν = 0,4.</Step>
+    <Step>ΔV/V0 = 0,4·(−270)/210 000 = −108/210 000 = −0,000514286.</Step>
+    <Step>Kontrolnie K = 210 000/[3·0,4] = 175 000 MPa.</Step>
+    <Step>Ciśnienie p = −(−270)/3 = 90 MPa, więc −p/K = −90/175 000 = −0,000514286.</Step>
+  </Steps>
+  <Result>Objętość zmniejsza się o około 0,000514, czyli 0,0514%. Obie metody dają ten sam wynik.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Dla εx = 0,002, εy = −0,0005 i εz = −0,0004 ile wynosi przybliżona zmiana objętości?
-</Prompt>
-<Answer correct>
-+0,0011
-</Answer>
-<Answer>
-−0,0011
-</Answer>
-<Answer>
-+0,0029
-</Answer>
-<Hint>
-Dodaj trzy odkształcenia liniowe z uwzględnieniem znaków.
-</Hint>
-<Explanation>
-ΔV/V0 ≈ 0,002 − 0,0005 − 0,0004 = 0,0011. Objętość rośnie o 0,11%, mimo skurczu w dwóch kierunkach.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Jak czyste ścinanie wpływa na objętość w teorii małych odkształceń?
-</Prompt>
-<Answer correct>
-Nie powoduje zmiany objętości w pierwszym rzędzie
-</Answer>
-<Answer>
-Zmniejsza objętość o połowę
-</Answer>
-<Answer>
-Zwiększa objętość proporcjonalnie do γ
-</Answer>
-<Hint>
-Ślad tensora odkształcenia zawiera składowe normalne, nie styczne.
-</Hint>
-<Explanation>
-Dla czystego ścinania εx = εy = εz = 0, więc ΔV/V0 ≈ 0. Zmieniają się kąty i kształt, lecz nie objętość w przybliżeniu pierwszego rzędu.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Dla p = 100 MPa i K = 2 GPa jaka jest względna zmiana objętości?
-</Prompt>
-<Answer correct>
-−0,05
-</Answer>
-<Answer>
-−0,005
-</Answer>
-<Answer>
-+0,02
-</Answer>
-<Hint>
-2 GPa = 2000 MPa; ciśnienie ściskające zmniejsza objętość.
-</Hint>
-<Explanation>
-ΔV/V0 = −p/K = −100/2000 = −0,05, czyli zmniejszenie o 5%. Znak wynika z przyjęcia dodatniego p jako ściskania.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>Dla εx = 0,002, εy = −0,0005 i εz = −0,0004 ile wynosi przybliżona zmiana objętości?</Prompt>
+    <Answer correct>+0,0011</Answer>
+    <Answer>−0,0011</Answer>
+    <Answer>+0,0029</Answer>
+    <Hint>Dodaj trzy odkształcenia liniowe z uwzględnieniem znaków.</Hint>
+    <Explanation>
+      ΔV/V0 ≈ 0,002 − 0,0005 − 0,0004 = 0,0011. Objętość rośnie o 0,11%, mimo skurczu w dwóch kierunkach.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Jak czyste ścinanie wpływa na objętość w teorii małych odkształceń?</Prompt>
+    <Answer correct>Nie powoduje zmiany objętości w pierwszym rzędzie</Answer>
+    <Answer>Zmniejsza objętość o połowę</Answer>
+    <Answer>Zwiększa objętość proporcjonalnie do γ</Answer>
+    <Hint>Ślad tensora odkształcenia zawiera składowe normalne, nie styczne.</Hint>
+    <Explanation>
+      Dla czystego ścinania εx = εy = εz = 0, więc ΔV/V0 ≈ 0. Zmieniają się kąty i kształt, lecz nie objętość w
+      przybliżeniu pierwszego rzędu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla p = 100 MPa i K = 2 GPa jaka jest względna zmiana objętości?</Prompt>
+    <Answer correct>−0,05</Answer>
+    <Answer>−0,005</Answer>
+    <Answer>+0,02</Answer>
+    <Hint>2 GPa = 2000 MPa; ciśnienie ściskające zmniejsza objętość.</Hint>
+    <Explanation>
+      ΔV/V0 = −p/K = −100/2000 = −0,05, czyli zmniejszenie o 5%. Znak wynika z przyjęcia dodatniego p jako ściskania.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -20,10 +20,11 @@ export const useCourseStore = create<CourseState>()(
       completed: [],
       scores: {},
       lastLesson: firstLesson,
-      completeLesson: (id, score) => set((state) => ({
-        completed: state.completed.includes(id) ? state.completed : [...state.completed, id],
-        scores: { ...state.scores, [id]: Math.max(score, state.scores[id] ?? 0) },
-      })),
+      completeLesson: (id, score) =>
+        set((state) => ({
+          completed: state.completed.includes(id) ? state.completed : [...state.completed, id],
+          scores: { ...state.scores, [id]: Math.max(score, state.scores[id] ?? 0) },
+        })),
       setLastLesson: (lastLesson) => set({ lastLesson }),
       resetProgress: () => set({ completed: [], scores: {}, lastLesson: firstLesson }),
     }),

@@ -37,88 +37,49 @@ $$
 </Formula>
 
 <Insight>
-Stała dodatnia wartość T daje liniowo rosnący M. Zerowa wartość T oznacza poziome styczne wykresu M, ale moment nie musi być wtedy równy zero.
+  Stała dodatnia wartość T daje liniowo rosnący M. Zerowa wartość T oznacza poziome styczne wykresu M, ale moment nie
+  musi być wtedy równy zero.
 </Insight>
 
 <WorkedExample>
-<Given>
-Belka swobodnie podparta o L = 4 m z siłą P = 20 kN na środku; RA = RB = 10 kN.
-</Given>
-<Steps>
-<Step>
-Dla 0 ≤ x ≤ 2 m: M(x) = RA·x = 10x kN·m.
-</Step>
-<Step>
-Pod siłą M(2) = 10·2 = 20 kN·m.
-</Step>
-<Step>
-Na prawym odcinku moment maleje liniowo do M(4) = 0; maksimum PL/4 = 20 kN·m występuje pod siłą.
-</Step>
-</Steps>
-<Result>
-Mmax = 20 kN·m pod siłą; wykres M ma kształt trójkąta.
-</Result>
+  <Given>Belka swobodnie podparta o L = 4 m z siłą P = 20 kN na środku; RA = RB = 10 kN.</Given>
+  <Steps>
+    <Step>Dla 0 ≤ x ≤ 2 m: M(x) = RA·x = 10x kN·m.</Step>
+    <Step>Pod siłą M(2) = 10·2 = 20 kN·m.</Step>
+    <Step>Na prawym odcinku moment maleje liniowo do M(4) = 0; maksimum PL/4 = 20 kN·m występuje pod siłą.</Step>
+  </Steps>
+  <Result>Mmax = 20 kN·m pod siłą; wykres M ma kształt trójkąta.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W1">
-<Prompt>
-Jeżeli na pewnym odcinku T(x) = +5 kN jest stałe, to M(x):
-</Prompt>
-<Answer correct>
-Rośnie liniowo z nachyleniem 5 kN
-</Answer>
-<Answer>
-Jest stałe i równe 5 kN·m
-</Answer>
-<Answer>
-Maleje parabolicznie
-</Answer>
-<Hint>
-Nachylenie wykresu M jest równe T.
-</Hint>
-<Explanation>
-dM/dx = T = 5 kN, więc wykres M jest prostą rosnącą. Nachylenie ma jednostkę kN, ponieważ moment w kN·m dzielimy przez długość w m.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Dla siły P na środku belki swobodnie podpartej o rozpiętości L maksymalny moment wynosi:
-</Prompt>
-<Answer>
-PL/2
-</Answer>
-<Answer correct>
-PL/4
-</Answer>
-<Answer>
-PL
-</Answer>
-<Hint>
-Reakcja wynosi P/2, a ramię od podpory do środka L/2.
-</Hint>
-<Explanation>
-Mmax = RA·L/2 = (P/2)(L/2) = PL/4. Moment jest największy pod siłą, gdzie T zmienia znak.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-T(x) przechodzi przez zero i zmienia znak z dodatniego na ujemny. Co dzieje się z M(x)?
-</Prompt>
-<Answer correct>
-Osiąga lokalne maksimum
-</Answer>
-<Answer>
-Osiąga lokalne minimum
-</Answer>
-<Answer>
-Musi wynosić zero
-</Answer>
-<Hint>
-Najpierw moment rośnie, a potem maleje.
-</Hint>
-<Explanation>
-Dodatnie T oznacza rosnący M, a ujemne T — malejący M. Zmiana znaku z plusa na minus wyznacza więc lokalne maksimum momentu.
-</Explanation>
-</Question>
+  <Question outcome="W1">
+    <Prompt>Jeżeli na pewnym odcinku T(x) = +5 kN jest stałe, to M(x):</Prompt>
+    <Answer correct>Rośnie liniowo z nachyleniem 5 kN</Answer>
+    <Answer>Jest stałe i równe 5 kN·m</Answer>
+    <Answer>Maleje parabolicznie</Answer>
+    <Hint>Nachylenie wykresu M jest równe T.</Hint>
+    <Explanation>
+      dM/dx = T = 5 kN, więc wykres M jest prostą rosnącą. Nachylenie ma jednostkę kN, ponieważ moment w kN·m dzielimy
+      przez długość w m.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla siły P na środku belki swobodnie podpartej o rozpiętości L maksymalny moment wynosi:</Prompt>
+    <Answer>PL/2</Answer>
+    <Answer correct>PL/4</Answer>
+    <Answer>PL</Answer>
+    <Hint>Reakcja wynosi P/2, a ramię od podpory do środka L/2.</Hint>
+    <Explanation>Mmax = RA·L/2 = (P/2)(L/2) = PL/4. Moment jest największy pod siłą, gdzie T zmienia znak.</Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>T(x) przechodzi przez zero i zmienia znak z dodatniego na ujemny. Co dzieje się z M(x)?</Prompt>
+    <Answer correct>Osiąga lokalne maksimum</Answer>
+    <Answer>Osiąga lokalne minimum</Answer>
+    <Answer>Musi wynosić zero</Answer>
+    <Hint>Najpierw moment rośnie, a potem maleje.</Hint>
+    <Explanation>
+      Dodatnie T oznacza rosnący M, a ujemne T — malejący M. Zmiana znaku z plusa na minus wyznacza więc lokalne
+      maksimum momentu.
+    </Explanation>
+  </Question>
 </Quiz>

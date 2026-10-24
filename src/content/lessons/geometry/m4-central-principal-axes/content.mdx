@@ -31,91 +31,68 @@ $$
 </Formula>
 
 <Insight>
-W analizie przekroju osie główne przyjmujemy jako centralne, więc każda z nich przechodzi przez środek ciężkości. Nie każda para osi centralnych jest jednak główna: dla przekroju niesymetrycznego kierunki główne mogą być obrócone względem krawędzi.
+  W analizie przekroju osie główne przyjmujemy jako centralne, więc każda z nich przechodzi przez środek ciężkości. Nie
+  każda para osi centralnych jest jednak główna: dla przekroju niesymetrycznego kierunki główne mogą być obrócone
+  względem krawędzi.
 </Insight>
 
 <WorkedExample>
-<Given>
-Prostokąt b × h ma centralne osie x i y równoległe do boków. Sprawdzamy warunki Sxc = Syc = 0 oraz Ixy = 0 dla tych osi.
-</Given>
-<Steps>
-<Step>
-Osie przechodzą przez środek ciężkości, więc odległość środka od każdej z nich wynosi zero.
-</Step>
-<Step>
-Z Sxc = A·ȳ i Syc = A·x̄ otrzymujemy Sxc = Syc = 0.
-</Step>
-<Step>
-Obie osie są osiami symetrii prostokąta; każda para symetrycznych elementów pola daje przeciwne składniki xy dA.
-</Step>
-<Step>
-Po zsumowaniu Ixy = ∫A xy dA = 0, więc centralne osie x i y są również główne, choć na ogół Ix ≠ Iy.
-</Step>
-</Steps>
-<Result>
-Dla prostokąta osie środkowe równoległe do boków są osiami głównymi: momenty statyczne i moment dewiacyjny wynoszą zero.
-</Result>
+  <Given>
+    Prostokąt b × h ma centralne osie x i y równoległe do boków. Sprawdzamy warunki Sxc = Syc = 0 oraz Ixy = 0 dla tych
+    osi.
+  </Given>
+  <Steps>
+    <Step>Osie przechodzą przez środek ciężkości, więc odległość środka od każdej z nich wynosi zero.</Step>
+    <Step>Z Sxc = A·ȳ i Syc = A·x̄ otrzymujemy Sxc = Syc = 0.</Step>
+    <Step>
+      Obie osie są osiami symetrii prostokąta; każda para symetrycznych elementów pola daje przeciwne składniki xy dA.
+    </Step>
+    <Step>Po zsumowaniu Ixy = ∫A xy dA = 0, więc centralne osie x i y są również główne, choć na ogół Ix ≠ Iy.</Step>
+  </Steps>
+  <Result>
+    Dla prostokąta osie środkowe równoległe do boków są osiami głównymi: momenty statyczne i moment dewiacyjny wynoszą
+    zero.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W3">
-<Prompt>
-Które zdanie poprawnie opisuje relację między osiami centralnymi i głównymi?
-</Prompt>
-<Answer>
-Każda oś centralna jest automatycznie główna
-</Answer>
-<Answer correct>
-Osie główne są centralne i spełniają Ixy = 0
-</Answer>
-<Answer>
-Żadna oś główna nie musi przechodzić przez środek ciężkości
-</Answer>
-<Hint>
-Warunek główności zawiera zarówno położenie osi, jak i wartość Ixy.
-</Hint>
-<Explanation>
-Główne osie bezwładności przekroju przechodzą przez środek ciężkości i mają zerowy moment dewiacyjny. Zwykłe osie centralne mogą mieć Ixy różne od zera.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Przekrój ma poziomą oś symetrii. Co można powiedzieć o tej osi i osi pionowej przechodzącej przez środek ciężkości?
-</Prompt>
-<Answer correct>
-Tworzą układ osi głównych
-</Answer>
-<Answer>
-Na pewno mają równe momenty bezwładności
-</Answer>
-<Answer>
-Moment dewiacyjny musi być dodatni
-</Answer>
-<Hint>
-Symetria upraszcza moment dewiacyjny, ale nie wymusza równych bezwładności.
-</Hint>
-<Explanation>
-Oś symetrii przechodzi przez środek ciężkości i daje Ixy = 0 względem osi prostopadłej przez ten środek. Nie oznacza to równości Ix i Iy.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Niesymetryczny kątownik ma osie x i y równoległe do półek i przechodzące przez środek ciężkości, ale Ixy ≠ 0. Co to oznacza?
-</Prompt>
-<Answer>
-Środek ciężkości został źle wyznaczony, bo Ixy musi być zerowe
-</Answer>
-<Answer correct>
-Osie są centralne, lecz nie są główne
-</Answer>
-<Answer>
-Momenty statyczne na pewno są niezerowe
-</Answer>
-<Hint>
-Rozdziel warunek centralności od warunku główności.
-</Hint>
-<Explanation>
-Osie przechodzą przez środek ciężkości, więc są centralne i dają zerowe momenty statyczne. Niezerowe Ixy oznacza jedynie, że kierunki główne są obrócone względem tych osi.
-</Explanation>
-</Question>
+  <Question outcome="W3">
+    <Prompt>Które zdanie poprawnie opisuje relację między osiami centralnymi i głównymi?</Prompt>
+    <Answer>Każda oś centralna jest automatycznie główna</Answer>
+    <Answer correct>Osie główne są centralne i spełniają Ixy = 0</Answer>
+    <Answer>Żadna oś główna nie musi przechodzić przez środek ciężkości</Answer>
+    <Hint>Warunek główności zawiera zarówno położenie osi, jak i wartość Ixy.</Hint>
+    <Explanation>
+      Główne osie bezwładności przekroju przechodzą przez środek ciężkości i mają zerowy moment dewiacyjny. Zwykłe osie
+      centralne mogą mieć Ixy różne od zera.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Przekrój ma poziomą oś symetrii. Co można powiedzieć o tej osi i osi pionowej przechodzącej przez środek
+      ciężkości?
+    </Prompt>
+    <Answer correct>Tworzą układ osi głównych</Answer>
+    <Answer>Na pewno mają równe momenty bezwładności</Answer>
+    <Answer>Moment dewiacyjny musi być dodatni</Answer>
+    <Hint>Symetria upraszcza moment dewiacyjny, ale nie wymusza równych bezwładności.</Hint>
+    <Explanation>
+      Oś symetrii przechodzi przez środek ciężkości i daje Ixy = 0 względem osi prostopadłej przez ten środek. Nie
+      oznacza to równości Ix i Iy.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Niesymetryczny kątownik ma osie x i y równoległe do półek i przechodzące przez środek ciężkości, ale Ixy ≠ 0. Co
+      to oznacza?
+    </Prompt>
+    <Answer>Środek ciężkości został źle wyznaczony, bo Ixy musi być zerowe</Answer>
+    <Answer correct>Osie są centralne, lecz nie są główne</Answer>
+    <Answer>Momenty statyczne na pewno są niezerowe</Answer>
+    <Hint>Rozdziel warunek centralności od warunku główności.</Hint>
+    <Explanation>
+      Osie przechodzą przez środek ciężkości, więc są centralne i dają zerowe momenty statyczne. Niezerowe Ixy oznacza
+      jedynie, że kierunki główne są obrócone względem tych osi.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -43,91 +43,58 @@ $$
 </Formula>
 
 <Insight>
-Nie sumuj momentu zginającego ze skręcającym jako liczb. Najpierw wyznacz σ i τ w tym samym punkcie, a dopiero potem zredukuj je według wybranej hipotezy.
+  Nie sumuj momentu zginającego ze skręcającym jako liczb. Najpierw wyznacz σ i τ w tym samym punkcie, a dopiero potem
+  zredukuj je według wybranej hipotezy.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pręt ma N/A = 20 MPa, M/W = 80 MPa oraz T/Wo = 50 MPa. W wybranym włóknie wszystkie składowe działają łącznie.
-</Given>
-<Steps>
-<Step>
-Naprężenie normalne: σ = N/A + M/W = 20 + 80 = 100 MPa; w tym włóknie obie składowe mają ten sam znak.
-</Step>
-<Step>
-Naprężenie styczne od skręcania: τ = T/Wo = 50 MPa.
-</Step>
-<Step>
-HMH: σred = √(100² + 3·50²) = 132,29 MPa.
-</Step>
-<Step>
-Tresca: σred = √(100² + 4·50²) = 141,42 MPa.
-</Step>
-</Steps>
-<Result>
-W tym punkcie σ = 100 MPa i τ = 50 MPa; σHMH = 132,3 MPa, σT = 141,4 MPa.
-</Result>
+  <Given>
+    Pręt ma N/A = 20 MPa, M/W = 80 MPa oraz T/Wo = 50 MPa. W wybranym włóknie wszystkie składowe działają łącznie.
+  </Given>
+  <Steps>
+    <Step>Naprężenie normalne: σ = N/A + M/W = 20 + 80 = 100 MPa; w tym włóknie obie składowe mają ten sam znak.</Step>
+    <Step>Naprężenie styczne od skręcania: τ = T/Wo = 50 MPa.</Step>
+    <Step>HMH: σred = √(100² + 3·50²) = 132,29 MPa.</Step>
+    <Step>Tresca: σred = √(100² + 4·50²) = 141,42 MPa.</Step>
+  </Steps>
+  <Result>W tym punkcie σ = 100 MPa i τ = 50 MPa; σHMH = 132,3 MPa, σT = 141,4 MPa.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-W skrajnym włóknie N/A = 30 MPa, a zginanie daje tam rozciąganie M/W = 90 MPa. Ile wynosi σ przed redukcją?
-</Prompt>
-<Answer>
-60 MPa
-</Answer>
-<Answer>
-90 MPa
-</Answer>
-<Answer correct>
-120 MPa
-</Answer>
-<Hint>
-Oba naprężenia normalne są w tym punkcie rozciągające.
-</Hint>
-<Explanation>
-σ = N/A + M/W = 30 + 90 = 120 MPa. Gdyby na przeciwnej stronie przekroju zginanie dawało ściskanie, znak M/W byłby przeciwny i suma byłaby mniejsza.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-W punkcie σ = 100 MPa i τ = 60 MPa. Ile wynosi σHMH po połączeniu obciążeń?
-</Prompt>
-<Answer>
-116,6 MPa
-</Answer>
-<Answer correct>
-144,2 MPa
-</Answer>
-<Answer>
-160 MPa
-</Answer>
-<Hint>
-Użyj wzoru z współczynnikiem 3 przy τ².
-</Hint>
-<Explanation>
-σHMH = √(100² + 3·60²) = √20 800 = 144,22 MPa. To nie jest suma 100 + 60 = 160 MPa, ponieważ σ i τ wchodzą do hipotezy przez kwadraty.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Dlaczego w punkcie na osi obojętnej pełnego przekroju nie wystarczy sprawdzić tylko M/W?
-</Prompt>
-<Answer>
-Bo zginanie daje tam maksimum
-</Answer>
-<Answer correct>
-Bo M/W = 0, ale mogą tam działać N/A oraz τ od skręcania i siły poprzecznej
-</Answer>
-<Answer>
-Bo skręcanie zawsze daje tam maksimum
-</Answer>
-<Hint>
-Rozłóż wpływ zginania, siły osiowej, skręcania i siły poprzecznej na osobne składowe.
-</Hint>
-<Explanation>
-Na osi obojętnej naprężenie od zginania jest zerowe, lecz N/A może być różne od zera. W przekroju kołowym τ od skręcania rośnie z odległością od środka, więc na osi obojętnej na ogół nie znika; dochodzi jeszcze ścinanie od siły poprzecznej. Punkt decydujący trzeba wybrać po porównaniu wszystkich składowych.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>
+      W skrajnym włóknie N/A = 30 MPa, a zginanie daje tam rozciąganie M/W = 90 MPa. Ile wynosi σ przed redukcją?
+    </Prompt>
+    <Answer>60 MPa</Answer>
+    <Answer>90 MPa</Answer>
+    <Answer correct>120 MPa</Answer>
+    <Hint>Oba naprężenia normalne są w tym punkcie rozciągające.</Hint>
+    <Explanation>
+      σ = N/A + M/W = 30 + 90 = 120 MPa. Gdyby na przeciwnej stronie przekroju zginanie dawało ściskanie, znak M/W byłby
+      przeciwny i suma byłaby mniejsza.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W punkcie σ = 100 MPa i τ = 60 MPa. Ile wynosi σHMH po połączeniu obciążeń?</Prompt>
+    <Answer>116,6 MPa</Answer>
+    <Answer correct>144,2 MPa</Answer>
+    <Answer>160 MPa</Answer>
+    <Hint>Użyj wzoru z współczynnikiem 3 przy τ².</Hint>
+    <Explanation>
+      σHMH = √(100² + 3·60²) = √20 800 = 144,22 MPa. To nie jest suma 100 + 60 = 160 MPa, ponieważ σ i τ wchodzą do
+      hipotezy przez kwadraty.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Dlaczego w punkcie na osi obojętnej pełnego przekroju nie wystarczy sprawdzić tylko M/W?</Prompt>
+    <Answer>Bo zginanie daje tam maksimum</Answer>
+    <Answer correct>Bo M/W = 0, ale mogą tam działać N/A oraz τ od skręcania i siły poprzecznej</Answer>
+    <Answer>Bo skręcanie zawsze daje tam maksimum</Answer>
+    <Hint>Rozłóż wpływ zginania, siły osiowej, skręcania i siły poprzecznej na osobne składowe.</Hint>
+    <Explanation>
+      Na osi obojętnej naprężenie od zginania jest zerowe, lecz N/A może być różne od zera. W przekroju kołowym τ od
+      skręcania rośnie z odległością od środka, więc na osi obojętnej na ogół nie znika; dochodzi jeszcze ścinanie od
+      siły poprzecznej. Punkt decydujący trzeba wybrać po porównaniu wszystkich składowych.
+    </Explanation>
+  </Question>
 </Quiz>

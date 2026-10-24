@@ -39,91 +39,71 @@ $$
 </Formula>
 
 <Insight>
-Nie wolno używać σ = Eε osobno dla każdej osi przy ogólnym stanie wieloosiowym: pomija to efekt Poissona. Bezpieczny dobór wymaga właściwego modelu stanu, współczynnika bezpieczeństwa i kontroli deformacji.
+  Nie wolno używać σ = Eε osobno dla każdej osi przy ogólnym stanie wieloosiowym: pomija to efekt Poissona. Bezpieczny
+  dobór wymaga właściwego modelu stanu, współczynnika bezpieczeństwa i kontroli deformacji.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pomiar główny: ε1 = 600 µε, ε2 = 100 µε. Materiał w płaskim stanie naprężenia: E = 70 GPa, ν = 0,33, Re = 180 MPa.
-</Given>
-<Steps>
-<Step>
-Wspólny czynnik E/(1−ν²) = 70 000/(1−0,1089) = 78 554,6 MPa.
-</Step>
-<Step>
-σ1 = 78 554,6·(0,0006 + 0,33·0,0001) = 49,73 MPa.
-</Step>
-<Step>
-σ2 = 78 554,6·(0,0001 + 0,33·0,0006) = 23,41 MPa.
-</Step>
-<Step>
-Dla wstępnego porównania największego rozciągania n = 180/49,73 = 3,62; pełna ocena wymaga jednak kryterium właściwego dla materiału.
-</Step>
-</Steps>
-<Result>
-σ1 ≈ 49,7 MPa i σ2 ≈ 23,4 MPa. Zapas względem Re dla σ1 wynosi około 3,62, ale decyzja projektowa wymaga jeszcze właściwej hipotezy, wymaganego n i kontroli sztywności.
-</Result>
+  <Given>
+    Pomiar główny: ε1 = 600 µε, ε2 = 100 µε. Materiał w płaskim stanie naprężenia: E = 70 GPa, ν = 0,33, Re = 180 MPa.
+  </Given>
+  <Steps>
+    <Step>Wspólny czynnik E/(1−ν²) = 70 000/(1−0,1089) = 78 554,6 MPa.</Step>
+    <Step>σ1 = 78 554,6·(0,0006 + 0,33·0,0001) = 49,73 MPa.</Step>
+    <Step>σ2 = 78 554,6·(0,0001 + 0,33·0,0006) = 23,41 MPa.</Step>
+    <Step>
+      Dla wstępnego porównania największego rozciągania n = 180/49,73 = 3,62; pełna ocena wymaga jednak kryterium
+      właściwego dla materiału.
+    </Step>
+  </Steps>
+  <Result>
+    σ1 ≈ 49,7 MPa i σ2 ≈ 23,4 MPa. Zapas względem Re dla σ1 wynosi około 3,62, ale decyzja projektowa wymaga jeszcze
+    właściwej hipotezy, wymaganego n i kontroli sztywności.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-W płaskim stanie naprężenia zmierzono ε1 = 1000 µε, ε2 = −200 µε. Dla E = 200 GPa i ν = 0,30 ile wynosi σ1?
-</Prompt>
-<Answer correct>
-Około 206,6 MPa
-</Answer>
-<Answer>
-200 MPa
-</Answer>
-<Answer>
-Około 193,4 MPa
-</Answer>
-<Hint>
-Zastosuj E/(1−ν²) do sumy ε1 + νε2.
-</Hint>
-<Explanation>
-σ1 = 200 000/(1−0,09)·[0,001 + 0,30·(−0,0002)] = 219 780,22·0,00094 ≈ 206,59 MPa. Proste Eε1 dałoby błędne 200 MPa.
-</Explanation>
-</Question>
-<Question outcome="W1">
-<Prompt>
-Dlaczego kierunki główne naprężeń i odkształceń pokrywają się dla izotropowego materiału liniowo-sprężystego?
-</Prompt>
-<Answer correct>
-Bo izotropowy materiał nie wyróżnia żadnego kierunku, więc tensory naprężenia i odkształcenia mają wspólne kierunki główne
-</Answer>
-<Answer>
-Bo wszystkie odkształcenia styczne są zawsze zerowe
-</Answer>
-<Answer>
-Bo ν zawsze wynosi zero
-</Answer>
-<Hint>
-Izotropia oznacza brak wyróżnionych kierunków materiałowych.
-</Hint>
-<Explanation>
-W izotropowym prawie Hooke’a nie ma osobnych osi materiałowych obracających odpowiedź. Tensory naprężenia i odkształcenia mają wspólne kierunki własne, choć ich wartości główne są powiązane przez E i ν.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Pomiar wykazał małe odkształcenia i naprężenia poniżej granicy plastyczności. Czy element na pewno spełnia wymagania projektowe?
-</Prompt>
-<Answer>
-Tak, zawsze
-</Answer>
-<Answer correct>
-Nie, trzeba jeszcze sprawdzić wymagane n, przemieszczenia i warunki użytkowania
-</Answer>
-<Answer>
-Tylko jeśli γxy = 0
-</Answer>
-<Hint>
-Brak uplastycznienia nie wyklucza nadmiernego ugięcia ani zbyt małego zapasu.
-</Hint>
-<Explanation>
-Trzeba porównać naprężenie równoważne z dopuszczalnym, sprawdzić wymagany współczynnik bezpieczeństwa oraz ograniczenia odkształceń i przemieszczeń. Sam fakt pozostania w zakresie sprężystym nie wystarcza.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>
+      W płaskim stanie naprężenia zmierzono ε1 = 1000 µε, ε2 = −200 µε. Dla E = 200 GPa i ν = 0,30 ile wynosi σ1?
+    </Prompt>
+    <Answer correct>Około 206,6 MPa</Answer>
+    <Answer>200 MPa</Answer>
+    <Answer>Około 193,4 MPa</Answer>
+    <Hint>Zastosuj E/(1−ν²) do sumy ε1 + νε2.</Hint>
+    <Explanation>
+      σ1 = 200 000/(1−0,09)·[0,001 + 0,30·(−0,0002)] = 219 780,22·0,00094 ≈ 206,59 MPa. Proste Eε1 dałoby błędne 200
+      MPa.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Dlaczego kierunki główne naprężeń i odkształceń pokrywają się dla izotropowego materiału liniowo-sprężystego?
+    </Prompt>
+    <Answer correct>
+      Bo izotropowy materiał nie wyróżnia żadnego kierunku, więc tensory naprężenia i odkształcenia mają wspólne
+      kierunki główne
+    </Answer>
+    <Answer>Bo wszystkie odkształcenia styczne są zawsze zerowe</Answer>
+    <Answer>Bo ν zawsze wynosi zero</Answer>
+    <Hint>Izotropia oznacza brak wyróżnionych kierunków materiałowych.</Hint>
+    <Explanation>
+      W izotropowym prawie Hooke’a nie ma osobnych osi materiałowych obracających odpowiedź. Tensory naprężenia i
+      odkształcenia mają wspólne kierunki własne, choć ich wartości główne są powiązane przez E i ν.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Pomiar wykazał małe odkształcenia i naprężenia poniżej granicy plastyczności. Czy element na pewno spełnia
+      wymagania projektowe?
+    </Prompt>
+    <Answer>Tak, zawsze</Answer>
+    <Answer correct>Nie, trzeba jeszcze sprawdzić wymagane n, przemieszczenia i warunki użytkowania</Answer>
+    <Answer>Tylko jeśli γxy = 0</Answer>
+    <Hint>Brak uplastycznienia nie wyklucza nadmiernego ugięcia ani zbyt małego zapasu.</Hint>
+    <Explanation>
+      Trzeba porównać naprężenie równoważne z dopuszczalnym, sprawdzić wymagany współczynnik bezpieczeństwa oraz
+      ograniczenia odkształceń i przemieszczeń. Sam fakt pozostania w zakresie sprężystym nie wystarcza.
+    </Explanation>
+  </Question>
 </Quiz>

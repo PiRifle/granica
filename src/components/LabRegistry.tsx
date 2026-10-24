@@ -35,10 +35,15 @@ const shearBeamLabs = {
 } as const
 
 function fromGroup<T extends Record<string, string>>(load: () => Promise<Record<string, ComponentType>>, group: T) {
-  return Object.fromEntries(Object.entries(group).map(([id, name]) => [id, lazy(async () => {
-    const module = await load()
-    return { default: module[name] }
-  })]))
+  return Object.fromEntries(
+    Object.entries(group).map(([id, name]) => [
+      id,
+      lazy(async () => {
+        const module = await load()
+        return { default: module[name] }
+      }),
+    ]),
+  )
 }
 
 export const labRegistry: Record<string, ComponentType> = {

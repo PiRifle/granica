@@ -13,7 +13,9 @@
     "predev": "npm run content:meta",
     "prebuild": "npm run content:meta",
     "pretest": "npm run content:meta",
-    "prevalidate:content": "npm run content:meta"
+    "prevalidate:content": "npm run content:meta",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@mdx-js/rollup": "^3.1.1",
@@ -42,6 +44,7 @@
     "@types/react-katex": "^3.0.4",
     "@vitejs/plugin-react": "^6.1.2",
     "jsdom": "^30.1.3",
+    "prettier": "^3.9.10",
     "typescript": "^7.0.2",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"

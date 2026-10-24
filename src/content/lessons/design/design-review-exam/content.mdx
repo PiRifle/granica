@@ -44,91 +44,55 @@ $$
 </Formula>
 
 <Insight>
-Po obliczeniu wymiaru nie kończ zadania: przyjmij wymiar katalogowy, podstaw go z powrotem i zapisz, który warunek jest decydujący.
+  Po obliczeniu wymiaru nie kończ zadania: przyjmij wymiar katalogowy, podstaw go z powrotem i zapisz, który warunek
+  jest decydujący.
 </Insight>
 
 <WorkedExample>
-<Given>
-Dobierany pręt musi mieć A ≥ 450 mm² ze względu na wytrzymałość i A ≥ 520 mm² ze względu na dopuszczalne wydłużenie. Dostępny przekrój ma A = 550 mm², E = 200 GPa, L = 2 m, a siła wynosi P = 30 kN.
-</Given>
-<Steps>
-<Step>
-Warunek decydujący: A ≥ max(450, 520) = 520 mm².
-</Step>
-<Step>
-Przyjmujemy A = 550 mm², ponieważ 550 ≥ 520.
-</Step>
-<Step>
-Kontrola wydłużenia: ΔL = PL/(EA) = 30 000·2000/(200 000·550) = 0,545 mm.
-</Step>
-<Step>
-Zapis końcowy powinien wskazać przyjęty przekrój i potwierdzić spełnienie obu warunków.
-</Step>
-</Steps>
-<Result>
-Przyjmujemy A = 550 mm²; decyduje sztywność, a obliczone wydłużenie wynosi około 0,545 mm.
-</Result>
+  <Given>
+    Dobierany pręt musi mieć A ≥ 450 mm² ze względu na wytrzymałość i A ≥ 520 mm² ze względu na dopuszczalne wydłużenie.
+    Dostępny przekrój ma A = 550 mm², E = 200 GPa, L = 2 m, a siła wynosi P = 30 kN.
+  </Given>
+  <Steps>
+    <Step>Warunek decydujący: A ≥ max(450, 520) = 520 mm².</Step>
+    <Step>Przyjmujemy A = 550 mm², ponieważ 550 ≥ 520.</Step>
+    <Step>Kontrola wydłużenia: ΔL = PL/(EA) = 30 000·2000/(200 000·550) = 0,545 mm.</Step>
+    <Step>Zapis końcowy powinien wskazać przyjęty przekrój i potwierdzić spełnienie obu warunków.</Step>
+  </Steps>
+  <Result>Przyjmujemy A = 550 mm²; decyduje sztywność, a obliczone wydłużenie wynosi około 0,545 mm.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Moment M = 3 kN·m dzielisz przez k = 150 MPa, by otrzymać W. Które podstawienie jest poprawne?
-</Prompt>
-<Answer>
-3/150 m³
-</Answer>
-<Answer>
-3000/150 mm³
-</Answer>
-<Answer correct>
-3 000 000/150 mm³
-</Answer>
-<Hint>
-Najpierw zamień kN·m na N·mm.
-</Hint>
-<Explanation>
-3 kN·m = 3000 N·m = 3 000 000 N·mm. Zatem W = 3 000 000/150 = 20 000 mm³.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-W obciążeniu złożonym obliczono σ = 90 MPa i τ = 50 MPa. Jaki następny krok jest poprawny dla HMH?
-</Prompt>
-<Answer>
-σred = 90 + 50
-</Answer>
-<Answer correct>
-σred = √(90² + 3·50²)
-</Answer>
-<Answer>
-σred = 90² + 3·50² bez pierwiastka
-</Answer>
-<Hint>
-Składowe redukujemy dopiero po ich wyznaczeniu we właściwym punkcie.
-</Hint>
-<Explanation>
-HMH daje σred = √(90² + 3·50²) = √15 600 = 124,90 MPa. Brak pierwiastka zmieniłby jednostkę z MPa na MPa².
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Z wytrzymałości wyszło d = 31,4 mm, a z sztywności d = 35,1 mm; dostępne wymiary co 1 mm. Jaka decyzja końcowa jest poprawna?
-</Prompt>
-<Answer>
-31 mm, bo wytrzymałość jest ważniejsza
-</Answer>
-<Answer>
-35 mm, bo to średnia praktyczna
-</Answer>
-<Answer correct>
-36 mm, a potem kontrola obu warunków
-</Answer>
-<Hint>
-Wybierz maksimum wymagań i zaokrąglij w górę.
-</Hint>
-<Explanation>
-Decyduje większa wartość 35,1 mm. Najbliższy dostępny wymiar 35 mm jest mniejszy od wymaganego, więc przyjmujemy 36 mm i sprawdzamy naprężenie oraz odkształcenie dla tej średnicy.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Moment M = 3 kN·m dzielisz przez k = 150 MPa, by otrzymać W. Które podstawienie jest poprawne?</Prompt>
+    <Answer>3/150 m³</Answer>
+    <Answer>3000/150 mm³</Answer>
+    <Answer correct>3 000 000/150 mm³</Answer>
+    <Hint>Najpierw zamień kN·m na N·mm.</Hint>
+    <Explanation>3 kN·m = 3000 N·m = 3 000 000 N·mm. Zatem W = 3 000 000/150 = 20 000 mm³.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W obciążeniu złożonym obliczono σ = 90 MPa i τ = 50 MPa. Jaki następny krok jest poprawny dla HMH?</Prompt>
+    <Answer>σred = 90 + 50</Answer>
+    <Answer correct>σred = √(90² + 3·50²)</Answer>
+    <Answer>σred = 90² + 3·50² bez pierwiastka</Answer>
+    <Hint>Składowe redukujemy dopiero po ich wyznaczeniu we właściwym punkcie.</Hint>
+    <Explanation>
+      HMH daje σred = √(90² + 3·50²) = √15 600 = 124,90 MPa. Brak pierwiastka zmieniłby jednostkę z MPa na MPa².
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Z wytrzymałości wyszło d = 31,4 mm, a z sztywności d = 35,1 mm; dostępne wymiary co 1 mm. Jaka decyzja końcowa
+      jest poprawna?
+    </Prompt>
+    <Answer>31 mm, bo wytrzymałość jest ważniejsza</Answer>
+    <Answer>35 mm, bo to średnia praktyczna</Answer>
+    <Answer correct>36 mm, a potem kontrola obu warunków</Answer>
+    <Hint>Wybierz maksimum wymagań i zaokrąglij w górę.</Hint>
+    <Explanation>
+      Decyduje większa wartość 35,1 mm. Najbliższy dostępny wymiar 35 mm jest mniejszy od wymaganego, więc przyjmujemy
+      36 mm i sprawdzamy naprężenie oraz odkształcenie dla tej średnicy.
+    </Explanation>
+  </Question>
 </Quiz>

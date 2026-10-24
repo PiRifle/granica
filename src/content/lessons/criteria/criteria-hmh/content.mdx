@@ -43,88 +43,51 @@ $$
 </Formula>
 
 <Insight>
-Przy czystym ścinaniu HMH daje σred = √3·τ. Wynika stąd, że granica plastyczności przy ścinaniu wynosi Re/√3, a nie Re — to częsty błąd w zadaniach.
+  Przy czystym ścinaniu HMH daje σred = √3·τ. Wynika stąd, że granica plastyczności przy ścinaniu wynosi Re/√3, a nie Re
+  — to częsty błąd w zadaniach.
 </Insight>
 
 <WorkedExample>
-<Given>
-Wał ma w pewnym punkcie σ = 80 MPa oraz τ = 60 MPa. Materiał ma Re = 235 MPa.
-</Given>
-<Steps>
-<Step>
-Dla płaskiego stanu z σx = σ, σy = 0 i τxy = τ stosujemy σHMH = √(σ² + 3τ²).
-</Step>
-<Step>
-σHMH = √(80² + 3·60²) = √17 200 = 131,15 MPa.
-</Step>
-<Step>
-Współczynnik bezpieczeństwa: n = Re/σHMH = 235/131,15 = 1,79.
-</Step>
-</Steps>
-<Result>
-Naprężenie zredukowane HMH wynosi 131,2 MPa, a współczynnik bezpieczeństwa około 1,79.
-</Result>
+  <Given>Wał ma w pewnym punkcie σ = 80 MPa oraz τ = 60 MPa. Materiał ma Re = 235 MPa.</Given>
+  <Steps>
+    <Step>Dla płaskiego stanu z σx = σ, σy = 0 i τxy = τ stosujemy σHMH = √(σ² + 3τ²).</Step>
+    <Step>σHMH = √(80² + 3·60²) = √17 200 = 131,15 MPa.</Step>
+    <Step>Współczynnik bezpieczeństwa: n = Re/σHMH = 235/131,15 = 1,79.</Step>
+  </Steps>
+  <Result>Naprężenie zredukowane HMH wynosi 131,2 MPa, a współczynnik bezpieczeństwa około 1,79.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dla σ = 100 MPa i τ = 50 MPa ile wynosi σHMH?
-</Prompt>
-<Answer>
-111,8 MPa
-</Answer>
-<Answer correct>
-132,3 MPa
-</Answer>
-<Answer>
-150 MPa
-</Answer>
-<Hint>
-Użyj √(σ² + 3τ²), nie √(σ² + τ²).
-</Hint>
-<Explanation>
-σHMH = √(100² + 3·50²) = √17 500 = 132,29 MPa. Czynnik 3 przy τ² wynika z pełnego wzoru HMH; pominięcie go zaniżyłoby wynik.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Jakie σHMH odpowiada stanowi σ1 = σ2 = σ3 = −120 MPa?
-</Prompt>
-<Answer correct>
-0 MPa
-</Answer>
-<Answer>
-120 MPa
-</Answer>
-<Answer>
-360 MPa
-</Answer>
-<Hint>
-Podstaw równe naprężenia główne do pełnego wzoru.
-</Hint>
-<Explanation>
-Po podstawieniu suma kwadratów wynosi 3·120², a suma iloczynów par również 3·120², więc różnica jest zerowa. Jednostajne ciśnienie hydrostatyczne nie wywołuje zmiany postaci w modelu HMH.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Dla czystego ścinania τ = 80 MPa i Re = 240 MPa jaki zapas daje HMH?
-</Prompt>
-<Answer correct>
-1,73
-</Answer>
-<Answer>
-2,60
-</Answer>
-<Answer>
-3,00
-</Answer>
-<Hint>
-Najpierw σred = √3·τ, potem n = Re/σred.
-</Hint>
-<Explanation>
-σred = √3·80 = 138,56 MPa, więc n = 240/138,56 = 1,73. Wartość 3,00 powstałaby z błędnego przyjęcia σred = τ.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Dla σ = 100 MPa i τ = 50 MPa ile wynosi σHMH?</Prompt>
+    <Answer>111,8 MPa</Answer>
+    <Answer correct>132,3 MPa</Answer>
+    <Answer>150 MPa</Answer>
+    <Hint>Użyj √(σ² + 3τ²), nie √(σ² + τ²).</Hint>
+    <Explanation>
+      σHMH = √(100² + 3·50²) = √17 500 = 132,29 MPa. Czynnik 3 przy τ² wynika z pełnego wzoru HMH; pominięcie go
+      zaniżyłoby wynik.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Jakie σHMH odpowiada stanowi σ1 = σ2 = σ3 = −120 MPa?</Prompt>
+    <Answer correct>0 MPa</Answer>
+    <Answer>120 MPa</Answer>
+    <Answer>360 MPa</Answer>
+    <Hint>Podstaw równe naprężenia główne do pełnego wzoru.</Hint>
+    <Explanation>
+      Po podstawieniu suma kwadratów wynosi 3·120², a suma iloczynów par również 3·120², więc różnica jest zerowa.
+      Jednostajne ciśnienie hydrostatyczne nie wywołuje zmiany postaci w modelu HMH.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Dla czystego ścinania τ = 80 MPa i Re = 240 MPa jaki zapas daje HMH?</Prompt>
+    <Answer correct>1,73</Answer>
+    <Answer>2,60</Answer>
+    <Answer>3,00</Answer>
+    <Hint>Najpierw σred = √3·τ, potem n = Re/σred.</Hint>
+    <Explanation>
+      σred = √3·80 = 138,56 MPa, więc n = 240/138,56 = 1,73. Wartość 3,00 powstałaby z błędnego przyjęcia σred = τ.
+    </Explanation>
+  </Question>
 </Quiz>

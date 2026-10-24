@@ -31,91 +31,55 @@ $$
 </Formula>
 
 <Insight>
-Model ciała sztywnego wystarcza do wyznaczenia reakcji statycznie wyznaczalnych, ale do obliczenia odkształceń trzeba uwzględnić podatność materiału.
+  Model ciała sztywnego wystarcza do wyznaczenia reakcji statycznie wyznaczalnych, ale do obliczenia odkształceń trzeba
+  uwzględnić podatność materiału.
 </Insight>
 
 <WorkedExample>
-<Given>
-Na odcinku L = 3 m działa równomierne obciążenie q = 4 kN/m. Zastąp je jedną siłą do analizy równowagi.
-</Given>
-<Steps>
-<Step>
-Oblicz wypadkową jako pole wykresu obciążenia: P = qL.
-</Step>
-<Step>
-Podstaw dane: P = 4 kN/m · 3 m = 12 kN.
-</Step>
-<Step>
-Dla obciążenia równomiernego środek wykresu leży w połowie długości.
-</Step>
-<Step>
-Przyłóż wypadkową w odległości xP = L/2 = 1,5 m od początku odcinka, w kierunku zgodnym z q.
-</Step>
-</Steps>
-<Result>
-Model równoważny dla reakcji: jedna siła P = 12 kN przyłożona 1,5 m od początku obciążonego odcinka.
-</Result>
+  <Given>Na odcinku L = 3 m działa równomierne obciążenie q = 4 kN/m. Zastąp je jedną siłą do analizy równowagi.</Given>
+  <Steps>
+    <Step>Oblicz wypadkową jako pole wykresu obciążenia: P = qL.</Step>
+    <Step>Podstaw dane: P = 4 kN/m · 3 m = 12 kN.</Step>
+    <Step>Dla obciążenia równomiernego środek wykresu leży w połowie długości.</Step>
+    <Step>Przyłóż wypadkową w odległości xP = L/2 = 1,5 m od początku odcinka, w kierunku zgodnym z q.</Step>
+  </Steps>
+  <Result>Model równoważny dla reakcji: jedna siła P = 12 kN przyłożona 1,5 m od początku obciążonego odcinka.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="W2">
-<Prompt>
-Dlaczego przy obliczaniu wydłużenia pręta nie wolno przyjąć modelu idealnie sztywnego?
-</Prompt>
-<Answer>
-Bo nie można wtedy narysować osi pręta
-</Answer>
-<Answer correct>
-Bo model sztywny z definicji pomija odkształcenia
-</Answer>
-<Answer>
-Bo siła osiowa zawsze wynosi zero
-</Answer>
-<Hint>
-Zastanów się, jaką własność materiału ma opisywać wzór ΔL = NL/(EA).
-</Hint>
-<Explanation>
-Ciało idealnie sztywne nie zmienia kształtu ani wymiarów pod obciążeniem. Taki model może służyć do analizy równowagi, ale usuwa zjawisko, które chcemy obliczyć.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Czy zastąpienie równomiernego obciążenia q jego wypadkową qL jest poprawne przy wyznaczaniu reakcji belki?
-</Prompt>
-<Answer correct>
-Tak, jeśli wypadkową przyłożymy w połowie obciążonego odcinka
-</Answer>
-<Answer>
-Tak, ale wypadkową trzeba przyłożyć na końcu obciążonego odcinka
-</Answer>
-<Answer>
-Nie, bo obciążenie rozłożone nie ma wypadkowej
-</Answer>
-<Hint>
-Wypadkowa musi dać tę samą sumę sił i momentów.
-</Hint>
-<Explanation>
-Dla równomiernego q wypadkowa wynosi qL i działa w środku obciążonego odcinka. Daje tę samą sumę sił i ten sam moment względem dowolnego punktu, więc nadaje się do równowagi całej belki.
-</Explanation>
-</Question>
-<Question outcome="W3">
-<Prompt>
-Który szczegół jest najistotniejszy w modelu pręta osiowo rozciąganego z dala od mocowania?
-</Prompt>
-<Answer>
-Kolor powierzchni
-</Answer>
-<Answer correct>
-Pole przekroju i moduł Younga
-</Answer>
-<Answer>
-Dokładny kształt drobnej faktury powierzchni
-</Answer>
-<Hint>
-Wybierz wielkości występujące w σ = N/A i ΔL = NL/(EA).
-</Hint>
-<Explanation>
-Pole A decyduje o średnim naprężeniu, a E i A o sztywności osiowej. Drobne detale powierzchni można pominąć w tym modelu, o ile nie tworzą istotnego karbu.
-</Explanation>
-</Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego przy obliczaniu wydłużenia pręta nie wolno przyjąć modelu idealnie sztywnego?</Prompt>
+    <Answer>Bo nie można wtedy narysować osi pręta</Answer>
+    <Answer correct>Bo model sztywny z definicji pomija odkształcenia</Answer>
+    <Answer>Bo siła osiowa zawsze wynosi zero</Answer>
+    <Hint>Zastanów się, jaką własność materiału ma opisywać wzór ΔL = NL/(EA).</Hint>
+    <Explanation>
+      Ciało idealnie sztywne nie zmienia kształtu ani wymiarów pod obciążeniem. Taki model może służyć do analizy
+      równowagi, ale usuwa zjawisko, które chcemy obliczyć.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Czy zastąpienie równomiernego obciążenia q jego wypadkową qL jest poprawne przy wyznaczaniu reakcji belki?
+    </Prompt>
+    <Answer correct>Tak, jeśli wypadkową przyłożymy w połowie obciążonego odcinka</Answer>
+    <Answer>Tak, ale wypadkową trzeba przyłożyć na końcu obciążonego odcinka</Answer>
+    <Answer>Nie, bo obciążenie rozłożone nie ma wypadkowej</Answer>
+    <Hint>Wypadkowa musi dać tę samą sumę sił i momentów.</Hint>
+    <Explanation>
+      Dla równomiernego q wypadkowa wynosi qL i działa w środku obciążonego odcinka. Daje tę samą sumę sił i ten sam
+      moment względem dowolnego punktu, więc nadaje się do równowagi całej belki.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Który szczegół jest najistotniejszy w modelu pręta osiowo rozciąganego z dala od mocowania?</Prompt>
+    <Answer>Kolor powierzchni</Answer>
+    <Answer correct>Pole przekroju i moduł Younga</Answer>
+    <Answer>Dokładny kształt drobnej faktury powierzchni</Answer>
+    <Hint>Wybierz wielkości występujące w σ = N/A i ΔL = NL/(EA).</Hint>
+    <Explanation>
+      Pole A decyduje o średnim naprężeniu, a E i A o sztywności osiowej. Drobne detale powierzchni można pominąć w tym
+      modelu, o ile nie tworzą istotnego karbu.
+    </Explanation>
+  </Question>
 </Quiz>

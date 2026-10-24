@@ -31,94 +31,58 @@ $$
 </Formula>
 
 <Insight>
-Po doborze trzeba sprawdzić rzeczywiście przyjęty przekrój, nie tylko Amin. Zaokrąglenie wymiaru w dół może zwiększyć naprężenie ponad wartość dopuszczalną.
+  Po doborze trzeba sprawdzić rzeczywiście przyjęty przekrój, nie tylko Amin. Zaokrąglenie wymiaru w dół może zwiększyć
+  naprężenie ponad wartość dopuszczalną.
 </Insight>
 
 <WorkedExample>
-<Given>
-Pręt rozciągany siłą N = 90 kN wykonano z materiału o σlim = 240 MPa. Wymagany współczynnik bezpieczeństwa n = 1,5. Dobierz A i sprawdź przekrój 600 mm².
-</Given>
-<Steps>
-<Step>
-Oblicz naprężenie dopuszczalne: σdop = σlim/n = 240/1,5 = 160 MPa.
-</Step>
-<Step>
-Wyznacz minimum: Amin = |N|/σdop = 90 000/160 = 562,5 mm².
-</Step>
-<Step>
-Przyjęte A = 600 mm² jest większe od Amin, więc przechodzi wstępny dobór.
-</Step>
-<Step>
-Sprawdź rzeczywiste naprężenie: σ = 90 000/600 = 150 MPa ≤ 160 MPa.
-</Step>
-<Step>
-Oblicz zapas: nrzecz = 240/150 = 1,6 ≥ 1,5.
-</Step>
-</Steps>
-<Result>
-Amin = 562,5 mm². Przekrój 600 mm² spełnia warunek: σ = 150 MPa i nrzecz = 1,6.
-</Result>
+  <Given>
+    Pręt rozciągany siłą N = 90 kN wykonano z materiału o σlim = 240 MPa. Wymagany współczynnik bezpieczeństwa n = 1,5.
+    Dobierz A i sprawdź przekrój 600 mm².
+  </Given>
+  <Steps>
+    <Step>Oblicz naprężenie dopuszczalne: σdop = σlim/n = 240/1,5 = 160 MPa.</Step>
+    <Step>Wyznacz minimum: Amin = |N|/σdop = 90 000/160 = 562,5 mm².</Step>
+    <Step>Przyjęte A = 600 mm² jest większe od Amin, więc przechodzi wstępny dobór.</Step>
+    <Step>Sprawdź rzeczywiste naprężenie: σ = 90 000/600 = 150 MPa ≤ 160 MPa.</Step>
+    <Step>Oblicz zapas: nrzecz = 240/150 = 1,6 ≥ 1,5.</Step>
+  </Steps>
+  <Result>Amin = 562,5 mm². Przekrój 600 mm² spełnia warunek: σ = 150 MPa i nrzecz = 1,6.</Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Dla σlim = 240 MPa i wymaganego n = 1,5 naprężenie dopuszczalne wynosi:
-</Prompt>
-<Answer correct>
-160 MPa
-</Answer>
-<Answer>
-240 MPa
-</Answer>
-<Answer>
-360 MPa
-</Answer>
-<Hint>
-Naprężenie dopuszczalne jest mniejsze od granicznego: podziel przez n.
-</Hint>
-<Explanation>
-σdop = 240/1,5 = 160 MPa. Mnożenie przez n zwiększyłoby naprężenie dopuszczalne ponad wartość graniczną, co jest sprzeczne z ideą zapasu bezpieczeństwa.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Przy |N| = 90 kN i σdop = 160 MPa minimalne pole przekroju wynosi:
-</Prompt>
-<Answer>
-56,25 mm²
-</Answer>
-<Answer correct>
-562,5 mm²
-</Answer>
-<Answer>
-1440 mm²
-</Answer>
-<Hint>
-Użyj Amin = |N|/σdop i zamień 90 kN na 90 000 N.
-</Hint>
-<Explanation>
-Amin = 90 000 N / 160 N/mm² = 562,5 mm². Przyjęty przekrój powinien mieć pole co najmniej równe temu minimum, a następnie należy sprawdzić rzeczywiste σ.
-</Explanation>
-</Question>
-<Question outcome="U3">
-<Prompt>
-Przyjęto A = 600 mm² dla N = 90 kN. Jaki jest rzeczywisty współczynnik zapasu względem σlim = 240 MPa?
-</Prompt>
-<Answer>
-1,2
-</Answer>
-<Answer correct>
-1,6
-</Answer>
-<Answer>
-2,4
-</Answer>
-<Hint>
-Najpierw oblicz rzeczywiste σ, a potem nrzecz = σlim/σ.
-</Hint>
-<Explanation>
-σ = 90 000/600 = 150 MPa. Rzeczywisty zapas nrzecz = 240/150 = 1,6, więc spełnia wymaganie nrzecz ≥ 1,5.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Dla σlim = 240 MPa i wymaganego n = 1,5 naprężenie dopuszczalne wynosi:</Prompt>
+    <Answer correct>160 MPa</Answer>
+    <Answer>240 MPa</Answer>
+    <Answer>360 MPa</Answer>
+    <Hint>Naprężenie dopuszczalne jest mniejsze od granicznego: podziel przez n.</Hint>
+    <Explanation>
+      σdop = 240/1,5 = 160 MPa. Mnożenie przez n zwiększyłoby naprężenie dopuszczalne ponad wartość graniczną, co jest
+      sprzeczne z ideą zapasu bezpieczeństwa.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Przy |N| = 90 kN i σdop = 160 MPa minimalne pole przekroju wynosi:</Prompt>
+    <Answer>56,25 mm²</Answer>
+    <Answer correct>562,5 mm²</Answer>
+    <Answer>1440 mm²</Answer>
+    <Hint>Użyj Amin = |N|/σdop i zamień 90 kN na 90 000 N.</Hint>
+    <Explanation>
+      Amin = 90 000 N / 160 N/mm² = 562,5 mm². Przyjęty przekrój powinien mieć pole co najmniej równe temu minimum, a
+      następnie należy sprawdzić rzeczywiste σ.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Przyjęto A = 600 mm² dla N = 90 kN. Jaki jest rzeczywisty współczynnik zapasu względem σlim = 240 MPa?
+    </Prompt>
+    <Answer>1,2</Answer>
+    <Answer correct>1,6</Answer>
+    <Answer>2,4</Answer>
+    <Hint>Najpierw oblicz rzeczywiste σ, a potem nrzecz = σlim/σ.</Hint>
+    <Explanation>
+      σ = 90 000/600 = 150 MPa. Rzeczywisty zapas nrzecz = 240/150 = 1,6, więc spełnia wymaganie nrzecz ≥ 1,5.
+    </Explanation>
+  </Question>
 </Quiz>

@@ -12,7 +12,11 @@ const moduleOverviewFiles = import.meta.glob<BodyModule>('./modules/*/overview.m
 const solutionDataFiles = import.meta.glob<DataModule<SolutionData>>('./solutions/*/solution.data.ts', { eager: true })
 const solutionBodyFiles = import.meta.glob<BodyModule>('./solutions/*/content.mdx')
 
-function resolveLoader<T>(files: Record<string, () => Promise<T>>, dataPath: string, extension: string): () => Promise<T> {
+function resolveLoader<T>(
+  files: Record<string, () => Promise<T>>,
+  dataPath: string,
+  extension: string,
+): () => Promise<T> {
   const bodyPath = dataPath.replace(/[^/]+$/, extension)
   const loader = files[bodyPath]
   if (!loader) throw new Error(`Brak treści MDX dla ${dataPath}`)
@@ -39,7 +43,10 @@ export const moduleEntries = Object.fromEntries(
 export const solutionEntries = Object.fromEntries(
   Object.entries(solutionDataFiles).map(([dataPath, module]) => {
     const data = module.default
-    return [data.id, { ...data, loadBody: resolveLoader(solutionBodyFiles, dataPath, 'content.mdx') } satisfies CourseSolution]
+    return [
+      data.id,
+      { ...data, loadBody: resolveLoader(solutionBodyFiles, dataPath, 'content.mdx') } satisfies CourseSolution,
+    ]
   }),
 ) as Record<string, CourseSolution>
 

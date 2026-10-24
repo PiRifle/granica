@@ -39,88 +39,52 @@ $$
 </Formula>
 
 <Insight>
-Przy ν bliskim 0,5 materiał jest prawie nieściśliwy w zakresie małych odkształceń. Poprzeczne skurcze nie oznaczają same w sobie zniszczenia — są częścią sprężystej odpowiedzi materiału.
+  Przy ν bliskim 0,5 materiał jest prawie nieściśliwy w zakresie małych odkształceń. Poprzeczne skurcze nie oznaczają
+  same w sobie zniszczenia — są częścią sprężystej odpowiedzi materiału.
 </Insight>
 
 <WorkedExample>
-<Given>
-Stalowy pręt o ν = 0,29 i średnicy 20 mm rozciągano tak, że εx = 1000 µε.
-</Given>
-<Steps>
-<Step>
-Odkształcenie osiowe w zapisie bezwymiarowym: εx = 0,001.
-</Step>
-<Step>
-Odkształcenie średnicy: εd = −ν εx = −0,29·0,001 = −0,00029.
-</Step>
-<Step>
-Zmiana średnicy: Δd = εd·d0 = −0,00029·20 = −0,0058 mm.
-</Step>
-</Steps>
-<Result>
-Średnica zmniejsza się o 0,0058 mm, czyli 5,8 µm, do około 19,9942 mm. Jest to skutek sprężystego efektu Poissona.
-</Result>
+  <Given>Stalowy pręt o ν = 0,29 i średnicy 20 mm rozciągano tak, że εx = 1000 µε.</Given>
+  <Steps>
+    <Step>Odkształcenie osiowe w zapisie bezwymiarowym: εx = 0,001.</Step>
+    <Step>Odkształcenie średnicy: εd = −ν εx = −0,29·0,001 = −0,00029.</Step>
+    <Step>Zmiana średnicy: Δd = εd·d0 = −0,00029·20 = −0,0058 mm.</Step>
+  </Steps>
+  <Result>
+    Średnica zmniejsza się o 0,0058 mm, czyli 5,8 µm, do około 19,9942 mm. Jest to skutek sprężystego efektu Poissona.
+  </Result>
 </WorkedExample>
 
 <Quiz>
-<Question outcome="U1">
-<Prompt>
-Pręt ma εx = 0,002, a ν = 0,30. Ile wynoszą εy i εz przy jednoosiowym rozciąganiu?
-</Prompt>
-<Answer correct>
-−0,0006
-</Answer>
-<Answer>
-+0,0006
-</Answer>
-<Answer>
-−0,006
-</Answer>
-<Hint>
-Odkształcenie poprzeczne to −ν razy odkształcenie osiowe.
-</Hint>
-<Explanation>
-εy = εz = −0,30·0,002 = −0,0006, czyli −600 µε. Oba kierunki poprzeczne ulegają skróceniu.
-</Explanation>
-</Question>
-<Question outcome="U1">
-<Prompt>
-Mierzono εosi = 1200 µε i εpoprz = −360 µε. Jaki jest współczynnik Poissona?
-</Prompt>
-<Answer correct>
-0,30
-</Answer>
-<Answer>
-3,33
-</Answer>
-<Answer>
-−0,30
-</Answer>
-<Hint>
-Weź minus iloraz odkształcenia poprzecznego i osiowego.
-</Hint>
-<Explanation>
-ν = −(−360)/1200 = 0,30. Znak minus we wzorze powoduje, że dla zwykłego materiału ν jest dodatnie.
-</Explanation>
-</Question>
-<Question outcome="W2">
-<Prompt>
-Co oznacza ν bliskie 0,5 dla izotropowego materiału sprężystego?
-</Prompt>
-<Answer correct>
-Bardzo małą zmianę objętości przy odkształceniu
-</Answer>
-<Answer>
-Brak odkształceń poprzecznych
-</Answer>
-<Answer>
-Zerowy moduł Younga
-</Answer>
-<Hint>
-Dla małych odkształceń zmiana objętości zależy od sumy trzech ε.
-</Hint>
-<Explanation>
-Przy jednoosiowym obciążeniu suma wynosi εx(1 − 2ν). Dla ν → 0,5 dąży ona do zera, czyli materiał staje się prawie nieściśliwy; odkształcenia poprzeczne nadal występują.
-</Explanation>
-</Question>
+  <Question outcome="U1">
+    <Prompt>Pręt ma εx = 0,002, a ν = 0,30. Ile wynoszą εy i εz przy jednoosiowym rozciąganiu?</Prompt>
+    <Answer correct>−0,0006</Answer>
+    <Answer>+0,0006</Answer>
+    <Answer>−0,006</Answer>
+    <Hint>Odkształcenie poprzeczne to −ν razy odkształcenie osiowe.</Hint>
+    <Explanation>
+      εy = εz = −0,30·0,002 = −0,0006, czyli −600 µε. Oba kierunki poprzeczne ulegają skróceniu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Mierzono εosi = 1200 µε i εpoprz = −360 µε. Jaki jest współczynnik Poissona?</Prompt>
+    <Answer correct>0,30</Answer>
+    <Answer>3,33</Answer>
+    <Answer>−0,30</Answer>
+    <Hint>Weź minus iloraz odkształcenia poprzecznego i osiowego.</Hint>
+    <Explanation>
+      ν = −(−360)/1200 = 0,30. Znak minus we wzorze powoduje, że dla zwykłego materiału ν jest dodatnie.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Co oznacza ν bliskie 0,5 dla izotropowego materiału sprężystego?</Prompt>
+    <Answer correct>Bardzo małą zmianę objętości przy odkształceniu</Answer>
+    <Answer>Brak odkształceń poprzecznych</Answer>
+    <Answer>Zerowy moduł Younga</Answer>
+    <Hint>Dla małych odkształceń zmiana objętości zależy od sumy trzech ε.</Hint>
+    <Explanation>
+      Przy jednoosiowym obciążeniu suma wynosi εx(1 − 2ν). Dla ν → 0,5 dąży ona do zera, czyli materiał staje się prawie
+      nieściśliwy; odkształcenia poprzeczne nadal występują.
+    </Explanation>
+  </Question>
 </Quiz>
