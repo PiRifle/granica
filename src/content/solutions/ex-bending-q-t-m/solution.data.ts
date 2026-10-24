@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BendingQtmAnimation } from './animation'
 
 export default {
   id: 'ex-bending-q-t-m',
@@ -50,64 +51,52 @@ export default {
     ],
     note: 'T maleje liniowo od +20 kN do -20 kN i zeruje się w środku, gdzie moment osiąga 25 kN·m.',
   },
+  animation: BendingQtmAnimation,
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Reakcje z symetrii: R_A = R_B = qL/2 = 8 · 5 / 2 = 20 kN.',
-      caption: 'Reakcje z symetrii: R_A = R_B = qL/2 = 8 · 5 / 2 = 20 kN.',
+      title: 'Model i obciążenie',
+      narration:
+        'Belka swobodnie podparta o L = 5 m jest obciążona równomiernie q = 8 kN/m. Obciążenie działa w dół na każdym metrze, a jego wypadkowa Q = qL = 40 kN działa w środku rozpiętości.',
+      caption: 'Model i dane: dwa podparcia A i B, rozpiętość 5 m oraz stałe obciążenie 8 kN/m.',
+      visual: 'beam',
+      focus: { metric: 'load' },
+      formula: 'Q = qL = 8 \\cdot 5 = 40\\ \\text{kN}',
+    },
+    {
+      title: 'Reakcje z symetrii',
+      narration:
+        'Obciążenie jest symetryczne, więc obie reakcje są równe: R_A = R_B = qL/2 = 20 kN. Te wartości są warunkami początkowymi dla wykresu siły tnącej.',
+      caption: 'Reakcje równe 20 kN zamykają równowagę sił pionowych.',
       visual: 'beam',
       focus: { metric: 'reaction' },
-      formula: 'R_A = R_B = qL/2 = 8 \\cdot 5 / 2 = 20',
+      formula: 'R_A = R_B = \\frac{qL}{2} = \\frac{8 \\cdot 5}{2} = 20\\ \\text{kN}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Siła tnąca: T(x) = R_A - qx = 20 - 8x kN.',
-      caption: 'Siła tnąca: T(x) = R_A - qx = 20 - 8x kN.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T(x) = R_A - qx = 20 - 8x',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Miejsce zerowe: 20 - 8x = 0 daje x = 2,5 m.',
-      caption: 'Miejsce zerowe: 20 - 8x = 0 daje x = 2,5 m.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: '20 - 8x = 0',
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Moment: M(x) = R_A x - qx^2/2 = 20x - 4x^2 kN·m.',
-      caption: 'Moment: M(x) = R_A x - qx^2/2 = 20x - 4x^2 kN·m.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M(x) = R_A x - qx^2/2 = 20x - 4x^2',
-    },
-    {
-      title: 'Krok 5',
-      narration: 'Maksimum: M(2,5) = 50 - 25 = 25 kN·m.',
-      caption: 'Maksimum: M(2,5) = 50 - 25 = 25 kN·m.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M(2{,}5) = 50 - 25 = 25',
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Kontrola wzorem: qL^2/8 = 8 · 25 / 8 = 25 kN·m.',
-      caption: 'Kontrola wzorem: qL^2/8 = 8 · 25 / 8 = 25 kN·m.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'qL^2/8 = 8 \\cdot 25 / 8 = 25',
-    },
-    {
-      title: 'Krok 7',
+      title: 'Siła tnąca z nachylenia −q',
       narration:
-        'Kontrola jednostek: q = 8 kN/m = 8 N/mm, L = 5000 mm, R_A = 20 000 N, a moment w N·mm wynosi 20 000 · 2500 - 8 · 2500^2/2 = 25 000 000 N·mm, czyli 25 kN·m.',
-      caption:
-        'Kontrola jednostek: q = 8 kN/m = 8 N/mm, L = 5000 mm, R_A = 20 000 N, a moment w N·mm wynosi 20 000 · 2500 - 8 · 2500^2/2 = 25…',
+        'Siła tnąca wynosi T(x) = R_A − qx = 20 − 8x. Pochodna dT/dx = −q jest stała i ujemna, dlatego wykres T jest liniowo opadający. W x = 2,5 m siła tnąca znika.',
+      caption: 'Stałe q daje liniowe T; w połowie rozpiętości T = 0.',
+      visual: 'beam',
+      focus: { metric: 'T' },
+      formula: 'T(x) = 20 - 8x,\\qquad \\frac{dT}{dx} = -q = -8\\ \\text{kN/m}',
+    },
+    {
+      title: 'Moment jako całka siły tnącej',
+      narration:
+        'Całkując T(x), otrzymujemy M(x) = 20x − 4x². Nachylenie wykresu M w każdym punkcie jest równe T(x), a pole pod wykresem T od 0 do x daje przyrost momentu.',
+      caption: 'T steruje nachyleniem M: dM/dx = T. Obszar pod T rośnie razem z momentem.',
       visual: 'beam',
       focus: { metric: 'M' },
-      formula: 'q = 8',
+      formula: 'M(x) = 20x - 4x^2,\\qquad \\frac{dM}{dx} = T(x)',
+    },
+    {
+      title: 'Maksimum tam, gdzie T = 0',
+      narration:
+        'W x = 2,5 m siła tnąca zmienia znak, więc moment osiąga maksimum M = 25 kN·m. Druga pochodna d²M/dx² = −q jest ujemna, dlatego parabola jest wypukła do góry.',
+      caption: 'Ekstremum M wypada przy zerze T, a nie przy największej wartości T.',
+      visual: 'beam',
+      focus: { metric: 'M' },
+      formula: 'M(2{,}5) = 25\\ \\text{kN·m},\\qquad \\frac{d^2M}{dx^2} = -q',
     },
   ],
 } satisfies SolutionData

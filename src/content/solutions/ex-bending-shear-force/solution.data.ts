@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BendingShearForceExample1Animation } from './animation'
 
 export default {
   id: 'ex-bending-shear-force',
@@ -50,62 +51,61 @@ export default {
     ],
     note: 'Pod siłą wykres T skacze w dół o 18 kN, a reakcja R_B domyka go do zera.',
   },
+  animation: BendingShearForceExample1Animation,
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Z sumy momentów względem A: R_B · 6 = 18 · 2, więc R_B = 6 kN.',
-      caption: 'Z sumy momentów względem A: R_B · 6 = 18 · 2, więc R_B = 6 kN.',
+      title: 'Model i dane',
+      narration:
+        'Belka swobodnie podparta ma rozpiętość L = 6 m. Siła P = 18 kN działa w dół w odległości a = 2 m od lewej podpory A. Obciążenie ciągłe jest pomijalne, więc wykres T będzie się składał z dwóch poziomych odcinków.',
+      caption: 'Schemat belki: P = 18 kN w x = 2 m, rozpiętość L = 6 m.',
+      visual: 'beam',
+      focus: { metric: 'model' },
+      formula: 'L=6\\ \\text{m},\\qquad P=18\\ \\text{kN},\\qquad a=2\\ \\text{m}',
+    },
+    {
+      title: 'Reakcje podporowe',
+      narration:
+        'Z sumy momentów względem A: R_B · 6 = 18 · 2, więc R_B = 6 kN. Z sumy sił pionowych: R_A = 18 − 6 = 12 kN. Reakcje są pierwszymi wartościami, od których zacznie się wykres T.',
+      caption: 'R_A = 12 kN, R_B = 6 kN; reakcje równoważą siłę P.',
       visual: 'beam',
       focus: { metric: 'reaction' },
-      formula: 'R_B \\cdot 6 = 18 \\cdot 2',
+      formula: 'R_B=\\frac{P a}{L}=\\frac{18\\cdot2}{6}=6\\ \\text{kN},\\qquad R_A=P-R_B=12\\ \\text{kN}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Z sumy sił pionowych: R_A = 18 - 6 = 12 kN.',
-      caption: 'Z sumy sił pionowych: R_A = 18 - 6 = 12 kN.',
+      title: 'T(x) na lewym odcinku',
+      narration:
+        'Przecinamy belkę w odległości x od lewej podpory i odrzucamy prawą część. Na odcinku od x = 0 do x = 2 m nie ma obciążenia ciągłego, więc dT/dx = 0. Siła tnąca jest stała i startuje od reakcji R_A = +12 kN.',
+      caption: 'Lewy odcinek: pozioma linia T = +12 kN.',
       visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A = 18 - 6 = 12',
+      focus: { metric: 'T-left' },
+      formula: 'T(x)=R_A=+12\\ \\text{kN}\\quad\\text{dla }0<x<2\\ \\text{m}',
     },
     {
-      title: 'Krok 3',
-      narration: 'Na odcinku od x = 0 do x = 2 m nie ma obciążenia ciągłego, więc T = +12 kN.',
-      caption: 'Na odcinku od x = 0 do x = 2 m nie ma obciążenia ciągłego, więc T = +12 kN.',
+      title: 'Skok pod siłą P',
+      narration:
+        'Pod siłą wykres skacze w dół o wartość P: 12 − 18 = −6 kN. Skok jest pionowy, bo siła skupiona zmienia sumę sił po lewej stronie cięcia w jednym przekroju.',
+      caption: 'Skok o 18 kN w dół w miejscu przyłożenia siły.',
       visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'x = 0',
+      focus: { metric: 'T-jump' },
+      formula: 'T(2^{+})=12-18=-6\\ \\text{kN}',
     },
     {
-      title: 'Krok 4',
-      narration: 'Pod siłą wykres skacze w dół o 18 kN: 12 - 18 = -6 kN.',
-      caption: 'Pod siłą wykres skacze w dół o 18 kN: 12 - 18 = -6 kN.',
+      title: 'Prawy odcinek i zamknięcie',
+      narration:
+        'Na odcinku od x = 2 m do x = 6 m siła tnąca pozostaje równa −6 kN. Przy prawej podporze reakcja R_B = 6 kN w górę domyka wykres do zera. Kontrola: całkowita zmiana T wynosi +12 − 18 + 6 = 0.',
+      caption: 'Prawy odcinek: T = −6 kN; reakcja R_B domyka wykres.',
       visual: 'beam',
-      focus: { metric: 'T' },
-      formula: '12 - 18 = -6',
+      focus: { metric: 'T-right' },
+      formula: 'T(x)=-6\\ \\text{kN}\\quad\\text{dla }2<x<6\\ \\text{m},\\qquad -6+R_B=0',
     },
     {
-      title: 'Krok 5',
-      narration: 'Na odcinku od x = 2 m do x = 6 m siła tnąca pozostaje równa -6 kN.',
-      caption: 'Na odcinku od x = 2 m do x = 6 m siła tnąca pozostaje równa -6 kN.',
+      title: 'Przekrój krytyczny',
+      narration:
+        'Największa bezwzględna wartość siły tnącej występuje tuż przed siłą P i wynosi 12 kN. W przekroju x = 2 m wykres zmienia znak, więc właśnie tam leży przekrój krytyczny dla ścinania.',
+      caption: 'Przekrój krytyczny w x = 2 m: |T|max = 12 kN.',
       visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'x = 2',
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Przy prawej podporze reakcja R_B = 6 kN w górę domyka wykres do zera.',
-      caption: 'Przy prawej podporze reakcja R_B = 6 kN w górę domyka wykres do zera.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'R_B = 6',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Kontrola: całkowita zmiana T wynosi +12 - 18 + 6 = 0.',
-      caption: 'Kontrola: całkowita zmiana T wynosi +12 - 18 + 6 = 0.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T',
+      focus: { metric: 'critical' },
+      formula: '|T|_{\\max}=12\\ \\text{kN}\\quad\\text{w przekroju }x=2\\ \\text{m}',
     },
   ],
 } satisfies SolutionData

@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SectionStiffnessDesign3Animation } from './animation'
 
 export default {
   id: 'ex-bending-section-stiffness-design-3',
@@ -7,6 +8,7 @@ export default {
   given: ['L = 3,5 m', 'P = 8 kN', 'E = 200 GPa', 'f_{dop} = 10 mm', 'b = 50 mm'],
   result:
     'czyli jest mniejsze od 10 mm. Sprawdźmy jeszcze wytrzymałość: M_max = P L/4 = 7 kN·m, W = 83,333 mm³, więc σ_max = 84 MPa, znacznie poniżej typowego σ_dop. W tym zadaniu o wymiarze decyduje sztywność, a nie wytrzymałość.',
+  animation: SectionStiffnessDesign3Animation,
   figure: {
     kind: 'beam',
     length: 3.5,
@@ -55,73 +57,54 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Tym razem to sztywność jest znana, a szukamy wymiaru. Belka swobodnie podparta ma L = 3,5 m, siłę P = 8 kN w środku, E = 200 GPa i dopuszczalne ugięcie f_dop = 10 mm. Szerokość przekroju jest narzucona: b = 50 mm. Jaka wysokość jest potrzebna?',
-      caption:
-        'Tym razem to sztywność jest znana, a szukamy wymiaru. Belka swobodnie podparta ma L = 3,5 m, siłę P = 8 kN w środku, E = 200 GPa…',
+        'Tym razem sztywność jest znana, a szukamy wymiaru. Belka swobodnie podparta ma L = 3,5 m, siłę P = 8 kN w środku, E = 200 GPa i dopuszczalne ugięcie f_dop = 10 mm. Szerokość jest narzucona: b = 50 mm. Jaka wysokość jest potrzebna?',
+      caption: 'Belka i przekrój o znanej szerokości b = 50 mm; wysokość h jest szukana.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'L = 3{,}5 m',
-    },
-    {
-      title: 'Krok 2',
-      narration: 'Z warunku f = P L^3/(48EI) ≤ f_dop wynika',
-      caption: 'Z warunku f = P L^3/(48EI) ≤ f_dop wynika',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'f = P L^{3}/(48EI) \\le f_{dop}',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Zapis matematyczny.',
-      caption: 'I_min = (P L^3)/(48 E f_dop) = (8000 · 3500^3)/(48 · 200,000 · 10) = 3,573 · 10^6 mm^4.',
-      visual: 'beam',
-      focus: { metric: 'design' },
+      focus: { metric: 'model' },
       formula:
-        'I_{\\min} = \\frac{P L^3}{48 E f_{dop}}\n= \\frac{8000 \\cdot 3500^3}{48 \\cdot 200{,}000 \\cdot 10}\n= 3{,}573 \\cdot 10^6\\ \\text{mm}^4.',
+        'L = 3{,}5\\ \\text{m},\\quad P = 8\\ \\text{kN},\\quad b = 50\\ \\text{mm},\\quad f_{dop}=10\\ \\text{mm}',
     },
     {
-      title: 'Krok 4',
-      narration: 'Dla prostokąta I = b h^3/12, więc',
-      caption: 'Dla prostokąta I = b h^3/12, więc',
-      visual: 'beam',
-      focus: { metric: 'design' },
-    },
-    {
-      title: 'Krok 5',
-      narration: 'Zapis matematyczny.',
-      caption: 'h ≥ ∛((12 I_min)/(b)) = ∛((12 · 3,573 · 10^6)/(50)) ≈ 95,0 mm.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula:
-        'h \\ge \\sqrt[3]{\\frac{12 I_{\\min}}{b}}\n= \\sqrt[3]{\\frac{12 \\cdot 3{,}573 \\cdot 10^6}{50}} \\approx 95{,}0\\ \\text{mm}.',
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Przyjmujemy h = 100 mm. Wtedy I = 50 · 100^3/12 = 4,167 · 10^6 mm⁴, a ugięcie wynosi',
-      caption: 'Przyjmujemy h = 100 mm. Wtedy I = 50 · 100^3/12 = 4,167 · 10^6 mm⁴, a ugięcie wynosi',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'h = 100 mm',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Zapis matematyczny.',
-      caption: 'f = (8000 · 3500^3)/(48 · 200,000 · 4,167 · 10^6) = 8,57 mm,',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'f = \\frac{8000 \\cdot 3500^3}{48 \\cdot 200{,}000 \\cdot 4{,}167 \\cdot 10^6}\n= 8{,}57\\ \\text{mm},',
-    },
-    {
-      title: 'Krok 8',
+      title: 'Wymaganie sztywności',
       narration:
-        'czyli jest mniejsze od 10 mm. Sprawdźmy jeszcze wytrzymałość: M_max = P L/4 = 7 kN·m, W = 83,333 mm³, więc σ_max = 84 MPa, znacznie poniżej typowego σ_dop. W tym zadaniu o wymiarze decyduje sztywność, a nie wytrzymałość.',
-      caption:
-        'czyli jest mniejsze od 10 mm. Sprawdźmy jeszcze wytrzymałość: M_max = P L/4 = 7 kN·m, W = 83,333 mm³, więc σ_max = 84 MPa,…',
+        'Z warunku f = P L³/(48EI) ≤ f_dop wynika minimalny moment bezwładności I_min = P L³/(48 E f_dop) = 8000·3500³/(48·200 000·10) = 3,573·10⁶ mm⁴.',
+      caption: 'Wymaganie sztywności daje I ≥ 3,573·10⁶ mm⁴.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'M_{max} = P L/4 = 7 kN\\cdot m',
+      focus: { metric: 'stiffness' },
+      formula:
+        'I_{\\min}=\\frac{P L^3}{48 E f_{dop}}=\\frac{8000\\cdot3500^3}{48\\cdot200\\,000\\cdot10}=3{,}573\\cdot10^6\\ \\text{mm}^4',
+    },
+    {
+      title: 'Wymagana wysokość',
+      narration:
+        'Dla prostokąta I = b h³/12, więc h ≥ ∛(12 I_min/b) = ∛(12·3,573·10⁶/50) ≈ 95,0 mm. Przyjmujemy h = 100 mm. Wtedy I = 50·100³/12 = 4,167·10⁶ mm⁴.',
+      caption: 'h ≥ 95,0 mm; przyjęto h = 100 mm, więc I = 4,167·10⁶ mm⁴.',
+      visual: 'beam',
+      focus: { metric: 'section' },
+      formula:
+        'h\\ge\\sqrt[3]{\\frac{12 I_{\\min}}{b}}=\\sqrt[3]{\\frac{12\\cdot3{,}573\\cdot10^6}{50}}\\approx95{,}0\\ \\text{mm}',
+    },
+    {
+      title: 'Kontrola ugięcia',
+      narration:
+        'Po przyjęciu h = 100 mm ugięcie wynosi f = 8000·3500³/(48·200 000·4,167·10⁶) = 8,57 mm. Jest mniejsze od f_dop = 10 mm, więc warunek sztywności jest spełniony.',
+      caption: 'f = 8,57 mm ≤ 10 mm — wykorzystanie limitu około 86%.',
+      visual: 'beam',
+      focus: { metric: 'deflection' },
+      formula:
+        'f=\\frac{8000\\cdot3500^3}{48\\cdot200\\,000\\cdot4{,}167\\cdot10^6}=8{,}57\\ \\text{mm}\\le10\\ \\text{mm}',
+    },
+    {
+      title: 'Kontrola naprężeń i wniosek',
+      narration:
+        'M_max = P L/4 = 7 kN·m, a W = 50·100²/6 = 83 333 mm³, więc σ_max = 7·10⁶/83 333 = 84 MPa. To znacznie poniżej typowego σ_dop = 160 MPa. O wymiarze decyduje sztywność: ugięcie wykorzystuje 86% limitu, a wytrzymałość tylko około 53%.',
+      caption: 'σ_max = 84 MPa ≪ 160 MPa — decyduje sztywność, nie wytrzymałość.',
+      visual: 'beam',
+      focus: { metric: 'stress' },
+      formula:
+        '\\sigma_{\\max}=\\frac{M_{\\max}}{W}=\\frac{7\\cdot10^6}{83\\,333}=84\\ \\text{MPa}\\ll160\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

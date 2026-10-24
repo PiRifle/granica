@@ -1,9 +1,10 @@
 import type { SolutionData } from '../../model'
+import { BendingMomentExample2Animation } from './animation'
 
 export default {
   id: 'ex-bending-moment-diagram-2',
   title: 'Moment zginający M(x) — przykład 2',
-  duration: 7,
+  duration: 8,
   given: ['L = 6 m', 'q = 6 kN/m'],
   result:
     'Ten wynik zgadza się ze wzorem qL^2/8 = 6 · 36 / 8 = 27 kN·m. Warto zapamiętać ten przypadek jako punkt odniesienia: dla równomiernego obciążenia na całej rozpiętości maksimum momentu występuje w połowie i wynosi qL^2/8. Nachylenie wykresu M jest równe T = 18 - 6x, więc w środku, gdzie T = 0, styczna do wykresu jest pozioma.',
@@ -45,62 +46,52 @@ export default {
     ],
     note: 'Siła tnąca zeruje się w środku rozpiętości, gdzie moment osiąga maksimum qL²/8 = 27 kN·m.',
   },
+  animation: BendingMomentExample2Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Belka swobodnie podparta o rozpiętości L = 6 m jest obciążona równomiernie q = 6 kN/m na całej długości. Reakcje z symetrii wynoszą R_A = R_B = qL/2 = 18 kN. Moment w przekroju x liczony od lewej podpory ma postać',
-      caption:
-        'Belka swobodnie podparta o rozpiętości L = 6 m jest obciążona równomiernie q = 6 kN/m na całej długości. Reakcje z symetrii…',
+        'Belka swobodnie podparta o rozpiętości L = 6 m jest obciążona równomiernie q = 6 kN/m na całej długości. Oś x biegnie od lewej podpory A do prawej podpory B.',
+      caption: 'Model: obciążenie ciągłe q na całej rozpiętości L.',
+      visual: 'beam',
+      focus: { metric: 'load' },
+      formula: 'L = 6\\ \\text{m},\\quad q = 6\\ \\text{kN/m}',
+    },
+    {
+      title: 'Reakcje z symetrii',
+      narration:
+        'Obciążenie jest symetryczne, więc reakcje są równe i wynoszą po połowie wypadkowej obciążenia: R_A = R_B = qL/2 = 18 kN.',
+      caption: 'Reakcje z symetrii: R_A = R_B = qL/2 = 18 kN.',
       visual: 'beam',
       focus: { metric: 'reaction' },
-      formula: 'L = 6 m',
+      formula: 'R_A = R_B = \\frac{qL}{2} = \\frac{6 \\cdot 6}{2} = 18\\ \\text{kN}',
     },
     {
-      title: 'Siła tnąca T(x)',
+      title: 'Siła tnąca i miejsce zerowe',
       narration:
-        'Po wyznaczeniu reakcji siła tnąca maleje liniowo od R_A = 18 kN przy lewej podporze do -18 kN przy prawej. Nachylenie wykresu wynosi -q = -6 kN/m.',
-      caption: 'T(x) = 18 - 6x kN.',
+        'Po wyznaczeniu reakcji siła tnąca maleje liniowo od R_A = 18 kN przy lewej podporze do −18 kN przy prawej. Nachylenie wykresu wynosi −q = −6 kN/m, a zero wypada w x = 3 m.',
+      caption: 'T(x) = 18 − 6x zeruje się w środku rozpiętości.',
       visual: 'beam',
       focus: { metric: 'T' },
-      formula: 'T(x)=R_A-qx=18-6x\\ \\text{kN}',
+      formula: 'T(x) = 18 - 6x = 0\\quad \\Rightarrow\\quad x = 3\\ \\text{m}',
     },
     {
-      title: 'Miejsce zerowe siły tnącej',
+      title: 'Wykres M(x)',
       narration:
-        'Siła tnąca zeruje się w x = 3 m. Właśnie tam moment zginający osiąga ekstremum, a styczna do wykresu M jest pozioma.',
-      caption: 'T = 0 w środku rozpiętości.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: '18-6x=0\\quad\\Rightarrow\\quad x=3\\ \\text{m}',
-    },
-    {
-      title: 'Krok 2',
-      narration: 'Zapis matematyczny.',
-      caption: 'M(x) = R_A x - (q x^2)/(2) = 18x - 3x^2 kN·m.',
+        'Moment jest całką siły tnącej: M(x) = R_A x − qx²/2 = 18x − 3x² kN·m. Wykres jest parabolą, która startuje w zerze, rośnie do maksimum i wraca do zera na prawej podporze.',
+      caption: 'M(x) = 18x − 3x² kN·m — parabola z maksimum w środku.',
       visual: 'beam',
       focus: { metric: 'M' },
-      formula: 'M(x) = R_A x - \\frac{q x^2}{2} = 18x - 3x^2\\ \\text{kN·m}.',
+      formula: 'M(x) = R_A x - \\frac{q x^2}{2} = 18x - 3x^2\\ \\text{kN·m}',
     },
     {
-      title: 'Krok 3',
+      title: 'Maksimum w środku',
       narration:
-        'Sprawdźmy wartości na granicach. Na lewej podporze M(0) = 0. W środku rozpiętości M(3) = 54 - 27 = 27 kN·m. Na prawej podporze M(6) = 108 - 108 = 0. Moment jest dodatni na całej długości, a jego maksimum wynosi 27 kN·m.',
-      caption:
-        'Sprawdźmy wartości na granicach. Na lewej podporze M(0) = 0. W środku rozpiętości M(3) = 54 - 27 = 27 kN·m. Na prawej podporze…',
+        'W środku, gdzie T = 0, moment osiąga maksimum: M(3) = 54 − 27 = 27 kN·m. To zgadza się z gotowym wzorem qL²/8 = 6 · 36 / 8 = 27 kN·m.',
+      caption: 'Maksimum 27 kN·m w środku rozpiętości, tam gdzie T = 0.',
       visual: 'beam',
       focus: { metric: 'M' },
-      formula: 'M(0) = 0',
-    },
-    {
-      title: 'Krok 4',
-      narration:
-        'Ten wynik zgadza się ze wzorem qL^2/8 = 6 · 36 / 8 = 27 kN·m. Warto zapamiętać ten przypadek jako punkt odniesienia: dla równomiernego obciążenia na całej rozpiętości maksimum momentu występuje w połowie i wynosi qL^2/8. Nachylenie wykresu M jest równe T = 18 - 6x, więc w środku, gdzie T = 0, styczna do wykresu jest pozioma.',
-      caption:
-        'Ten wynik zgadza się ze wzorem qL^2/8 = 6 · 36 / 8 = 27 kN·m. Warto zapamiętać ten przypadek jako punkt odniesienia: dla…',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'qL^{2}/8 = 6 \\cdot 36 / 8 = 27 kN\\cdot m',
+      formula: 'M_{\\max} = M(3) = 18 \\cdot 3 - 3 \\cdot 3^2 = 27\\ \\text{kN·m} = \\frac{qL^2}{8}',
     },
   ],
 } satisfies SolutionData

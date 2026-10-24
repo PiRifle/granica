@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BendingShearForceExample2Animation } from './animation'
 
 export default {
   id: 'ex-bending-shear-force-2',
@@ -52,51 +53,61 @@ export default {
     ],
     note: 'Nachylenie wykresu T wynosi -q = -4 kN/m, a zero wypada w połowie rozpiętości.',
   },
+  animation: BendingShearForceExample2Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Rozważmy belkę swobodnie podpartą o rozpiętości L = 5 m, obciążoną równomiernie na całej długości q = 4 kN/m. Z symetrii reakcje wynoszą R_A = R_B = qL/2 = 10 kN. Tym razem wykres siły tnącej nie składa się z poziomych odcinków, lecz z jednej linii prostej.',
-      caption:
-        'Rozważmy belkę swobodnie podpartą o rozpiętości L = 5 m, obciążoną równomiernie na całej długości q = 4 kN/m. Z symetrii reakcje…',
+        'Belka swobodnie podparta ma rozpiętość L = 5 m i jest obciążona równomiernie na całej długości q = 4 kN/m. Tym razem siła tnąca nie będzie stała: obciążenie ciągłe zmienia ją w sposób ciągły na całej rozpiętości.',
+      caption: 'Schemat belki: równomierne q = 4 kN/m na całej rozpiętości.',
+      visual: 'beam',
+      focus: { metric: 'model' },
+      formula: 'L=5\\ \\text{m},\\qquad q=4\\ \\text{kN/m}',
+    },
+    {
+      title: 'Reakcje z symetrii',
+      narration:
+        'Obciążenie i geometria są symetryczne, więc reakcje dzielą wypadkową qL = 20 kN po połowie. Z symetrii reakcje wynoszą R_A = R_B = qL/2 = 10 kN.',
+      caption: 'R_A = R_B = 10 kN; suma reakcji równoważy qL = 20 kN.',
       visual: 'beam',
       focus: { metric: 'reaction' },
-      formula: 'L = 5 m',
+      formula: 'R_A=R_B=\\frac{qL}{2}=\\frac{4\\cdot5}{2}=10\\ \\text{kN}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Dla x od 0 do 5 m mamy',
-      caption: 'Dla x od 0 do 5 m mamy',
-      visual: 'beam',
-      focus: { metric: 'T' },
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Zapis matematyczny.',
-      caption: 'T(x) = R_A - qx = 10 - 4x kN.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T(x) = R_A - qx = 10 - 4x\\ \\text{kN}.',
-    },
-    {
-      title: 'Krok 4',
+      title: 'T(x) maleje liniowo',
       narration:
-        'Na lewym końcu T(0) = +10 kN. W połowie rozpiętości T(2,5) = 0. Na prawym końcu, tuż przed podporą, T(5) = -10 kN. Reakcja R_B = 10 kN w górę domyka wykres do zera. Nachylenie wynosi -4 kN/m, czyli dokładnie -q, zgodnie z zależnością dT/dx = -q.',
-      caption:
-        'Na lewym końcu T(0) = +10 kN. W połowie rozpiętości T(2,5) = 0. Na prawym końcu, tuż przed podporą, T(5) = -10 kN. Reakcja R_B =…',
+        'Po przecięciu w x i odrzuceniu prawej części równowaga pionowa daje T(x) = R_A − qx = 10 − 4x kN. Nachylenie wykresu wynosi −q = −4 kN/m, więc linia opada liniowo od +10 kN.',
+      caption: 'T(x) = 10 − 4x kN; nachylenie −4 kN/m.',
       visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T(0) = +10 kN',
+      focus: { metric: 'T-left' },
+      formula: 'T(x)=R_A-qx=10-4x\\ \\text{kN}\\quad\\text{dla }0\\le x\\le2{,}5\\ \\text{m}',
     },
     {
-      title: 'Krok 5',
+      title: 'Miejsce zerowe T = 0',
       narration:
-        'Miejsce, w którym T = 0, jest ważne. Oznacza ono, że na lewo od tego punktu wypadkowa sił pionowych równoważy się z reakcją, a na prawo przeważa obciążenie. W następnej lekcji zobaczysz, że właśnie tam moment zginający osiąga ekstremum.',
-      caption:
-        'Miejsce, w którym T = 0, jest ważne. Oznacza ono, że na lewo od tego punktu wypadkowa sił pionowych równoważy się z reakcją, a na…',
+        'W połowie rozpiętości T = 0. To chwilowa równowaga: wypadkowa obciążenia po lewej stronie przekroju równa się reakcji R_A. W następnej lekcji zobaczysz, że właśnie tam moment zginający osiąga ekstremum.',
+      caption: 'T = 0 w x = 2,5 m; znak siły tnącej zmienia się.',
       visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T = 0',
+      focus: { metric: 'T-zero' },
+      formula: '10-4x=0\\quad\\Rightarrow\\quad x=2{,}5\\ \\text{m}',
+    },
+    {
+      title: 'Prawy koniec i domknięcie',
+      narration:
+        'Na prawym końcu T(5) = 10 − 4 · 5 = −10 kN. Reakcja R_B = 10 kN w górę domyka wykres do zera, a suma zmian od lewej do prawej wynosi zero.',
+      caption: 'T(5) = −10 kN; reakcja R_B domyka wykres.',
+      visual: 'beam',
+      focus: { metric: 'T-close' },
+      formula: 'T(5)=10-4\\cdot5=-10\\ \\text{kN},\\qquad -10+R_B=0',
+    },
+    {
+      title: 'Przekrój krytyczny',
+      narration:
+        'Przekrój x = 2,5 m jest szczególny: T zmienia tam znak, a moment zginający osiąga ekstremum. Dla samego ścinania największe |T| występuje przy podporach, ale zero wykresu jest kluczowe dla dalszej analizy.',
+      caption: 'Przekrój krytyczny w x = 2,5 m: T = 0 i zmiana znaku.',
+      visual: 'beam',
+      focus: { metric: 'critical' },
+      formula: 'T(2{,}5)=0,\\qquad \\left.\\frac{dM}{dx}\\right|_{x=2{,}5}=0',
     },
   ],
 } satisfies SolutionData

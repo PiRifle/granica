@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BeamReactionsExample1Animation } from './animation'
 
 export default {
   id: 'ex-bending-beams-reactions',
@@ -55,62 +56,54 @@ export default {
     ],
     note: 'Wypadkowa Q = 12 kN działa w x = 3 m, a maksimum momentu wypada pod siłą P.',
   },
+  animation: BeamReactionsExample1Animation,
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Oblicz wypadkową obciążenia ciągłego: Q = qL = 2 · 6 = 12 kN.',
-      caption: 'Oblicz wypadkową obciążenia ciągłego: Q = qL = 2 · 6 = 12 kN.',
+      title: 'Model i dane',
+      narration:
+        'Belka swobodnie podparta ma przegub w A i rolkę w B oraz rozpiętość L = 6 m. Na całej długości działa obciążenie równomierne q = 2 kN/m, a w odległości a = 4 m od A siła skupiona P = 24 kN w dół.',
+      caption: 'Schemat swobodnego ciała: podpory A i B, obciążenie ciągłe q oraz siła skupiona P.',
+      visual: 'beam',
+      focus: { metric: 'model' },
+      formula: 'L = 6\\ \\text{m},\\quad q = 2\\ \\text{kN/m},\\quad P = 24\\ \\text{kN}',
+    },
+    {
+      title: 'Wypadkowa obciążenia ciągłego',
+      narration:
+        'Obciążenie równomierne zastępujemy wypadkową Q = qL = 2 · 6 = 12 kN. Działa ona w środku ciężkości, czyli 3 m od A.',
+      caption: 'Q = 12 kN w x_Q = 3 m zastępuje obciążenie ciągłe tylko w równaniach równowagi.',
       visual: 'beam',
       focus: { metric: 'load' },
-      formula: 'Q = qL = 2 \\cdot 6 = 12',
+      formula: 'Q = qL = 2 \\cdot 6 = 12\\ \\text{kN},\\quad x_Q = \\frac{L}{2} = 3\\ \\text{m}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Wypadkowa Q działa w połowie rozpiętości, czyli w odległości 3 m od A.',
-      caption: 'Wypadkowa Q działa w połowie rozpiętości, czyli w odległości 3 m od A.',
-      visual: 'beam',
-      focus: { metric: 'load' },
-      formula: 'x_Q=\\frac{L}{2}=\\frac{6}{2}=3\\,\\mathrm{m}',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Suma momentów względem A: R_B · 6 = P · 4 + Q · 3 = 24 · 4 + 12 · 3.',
-      caption: 'Suma momentów względem A: R_B · 6 = P · 4 + Q · 3 = 24 · 4 + 12 · 3.',
+      title: 'Moment względem A — reakcja R_B',
+      narration:
+        'Suma momentów względem A: R_B · 6 = P · 4 + Q · 3 = 24 · 4 + 12 · 3. Reakcja R_B działa w górę, a jej ramię wynosi 6 m.',
+      caption: 'R_B · 6 = 96 + 36 = 132, więc R_B = 22 kN.',
       visual: 'beam',
       focus: { metric: 'reaction' },
-      formula: 'R_B \\cdot 6 = P \\cdot 4 + Q \\cdot 3 = 24 \\cdot 4 + 12 \\cdot 3',
+      formula:
+        'R_B \\cdot 6 = P \\cdot 4 + Q \\cdot 3 = 24 \\cdot 4 + 12 \\cdot 3 = 132 \\\\ R_B = \\frac{132}{6} = 22\\ \\text{kN}',
     },
     {
-      title: 'Krok 4',
-      narration: 'Stąd R_B · 6 = 96 + 36 = 132, więc R_B = 22 kN.',
-      caption: 'Stąd R_B · 6 = 96 + 36 = 132, więc R_B = 22 kN.',
+      title: 'Suma sił — reakcja R_A',
+      narration:
+        'Suma sił pionowych: R_A + R_B = P + Q, więc R_A = 24 + 12 − 22 = 14 kN. Obie reakcje działają w górę, przeciwnie do obciążeń.',
+      caption: 'R_A = 14 kN dopełnia równowagę sił pionowych.',
       visual: 'beam',
       focus: { metric: 'reaction' },
-      formula: 'R_B \\cdot 6 = 96 + 36 = 132',
+      formula: 'R_A = P + Q - R_B = 24 + 12 - 22 = 14\\ \\text{kN}',
     },
     {
-      title: 'Krok 5',
-      narration: 'Suma sił pionowych: R_A = P + Q - R_B = 24 + 12 - 22 = 14 kN.',
-      caption: 'Suma sił pionowych: R_A = P + Q - R_B = 24 + 12 - 22 = 14 kN.',
+      title: 'Kontrola równowagi i moment pod P',
+      narration:
+        'Kontrola momentów względem B: R_A · 6 − P · 2 − Q · 3 = 84 − 48 − 36 = 0. Moment pod siłą P wynosi M = R_A · 4 − q · 4 · 2 = 40 kN·m.',
+      caption: 'Suma momentów wraca do zera, a maksimum momentu wypada pod siłą P.',
       visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A = P + Q - R_B = 24 + 12 - 22 = 14',
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Kontrola momentów względem B: R_A · 6 - P · 2 - Q · 3 = 84 - 48 - 36 = 0.',
-      caption: 'Kontrola momentów względem B: R_A · 6 - P · 2 - Q · 3 = 84 - 48 - 36 = 0.',
-      visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A \\cdot 6 - P \\cdot 2 - Q \\cdot 3 = 84 - 48 - 36 = 0',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Moment pod siłą: M = R_A · 4 - q · 4 · 2 = 56 - 16 = 40 kN·m.',
-      caption: 'Moment pod siłą: M = R_A · 4 - q · 4 · 2 = 56 - 16 = 40 kN·m.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M = R_A \\cdot 4 - q \\cdot 4 \\cdot 2 = 56 - 16 = 40',
+      focus: { metric: 'check' },
+      formula:
+        'R_A \\cdot 6 - P \\cdot 2 - Q \\cdot 3 = 84 - 48 - 36 = 0 \\\\ M = R_A \\cdot 4 - q \\cdot 4 \\cdot 2 = 56 - 16 = 40\\ \\text{kN·m}',
     },
   ],
 } satisfies SolutionData

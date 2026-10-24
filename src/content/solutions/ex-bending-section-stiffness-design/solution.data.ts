@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SectionStiffnessDesign1Animation } from './animation'
 
 export default {
   id: 'ex-bending-section-stiffness-design',
@@ -7,6 +8,7 @@ export default {
   given: ['L = 4 m', 'P = 10 kN', 'E = 210 GPa', 'sigma_{dop} = 160 MPa', 'b = 50 mm', 'h = 100 mm'],
   result:
     'Przekrój 50 × 100 mm spełnia oba warunki: σ_max = 120 MPa oraz f_max = 15,24 mm. Zapas sztywności jest niewielki, więc każdy wzrost obciążenia lub rozpiętości wymaga ponownego sprawdzenia ugięcia.',
+  animation: SectionStiffnessDesign1Animation,
   figure: {
     kind: 'beam',
     length: 4,
@@ -57,70 +59,60 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Maksymalny moment: M_max = P L/4 = 10 · 4/4 = 10 kN·m = 10 · 10^6 N·mm.',
-      caption: 'Maksymalny moment: M_max = P L/4 = 10 · 4/4 = 10 kN·m = 10 · 10^6 N·mm.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M_{\\max} = P L/4 = 10 \\cdot 4/4 = 10',
-    },
-    {
-      title: 'Krok 2',
-      narration: 'Wymagany wskaźnik: W_min = 10 · 10^6/160 = 62,500 mm³.',
-      caption: 'Wymagany wskaźnik: W_min = 10 · 10^6/160 = 62,500 mm³.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'W_{\\min} = 10 \\cdot 10^6/160 = 62{,}500',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Wymagany moment bezwładności: I_min = 10,000 · 4000^3/(48 · 210,000 · 16) = 3,968 · 10^6 mm⁴.',
-      caption: 'Wymagany moment bezwładności: I_min = 10,000 · 4000^3/(48 · 210,000 · 16) = 3,968 · 10^6 mm⁴.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'I_{\\min} = 10{,}000 \\cdot 4000^3/(48 \\cdot 210{,}000 \\cdot 16) = 3{,}968 \\cdot 10^6',
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Dla przekroju 50 × 100: W = 50 · 100^2/6 = 83,333 mm³, czyli W ≥ W_min.',
-      caption: 'Dla przekroju 50 × 100: W = 50 · 100^2/6 = 83,333 mm³, czyli W ≥ W_min.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '50 \\times 100',
-    },
-    {
-      title: 'Krok 5',
-      narration: 'I = 50 · 100^3/12 = 4,167 · 10^6 mm⁴, czyli I ≥ I_min.',
-      caption: 'I = 50 · 100^3/12 = 4,167 · 10^6 mm⁴, czyli I ≥ I_min.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'I = 50 \\cdot 100^3/12 = 4{,}167 \\cdot 10^6',
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Kontrola naprężenia: σ_max = 10 · 10^6/83,333 = 120 MPa ≤ 160 MPa.',
-      caption: 'Kontrola naprężenia: σ_max = 10 · 10^6/83,333 = 120 MPa ≤ 160 MPa.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '\\sigma_{\\max} = 10 \\cdot 10^6/83{,}333 = 120',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Kontrola ugięcia: f = 10,000 · 4000^3/(48 · 210,000 · 4,167 · 10^6) = 15,24 mm ≤ 16 mm.',
-      caption: 'Kontrola ugięcia: f = 10,000 · 4000^3/(48 · 210,000 · 4,167 · 10^6) = 15,24 mm ≤ 16 mm.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'f = 10{,}000 \\cdot 4000^3/(48 \\cdot 210{,}000 \\cdot 4{,}167 \\cdot 10^6) = 15{,}24',
-    },
-    {
-      title: 'Krok 8',
+      title: 'Model i dane',
       narration:
-        'Siła tnąca T = P/2 = 5 kN, więc τ_max = 1,5 T/A = 1,5 · 5000/5000 = 1,5 MPa. Naprężenia styczne są pomijalne.',
-      caption:
-        'Siła tnąca T = P/2 = 5 kN, więc τ_max = 1,5 T/A = 1,5 · 5000/5000 = 1,5 MPa. Naprężenia styczne są pomijalne.',
+        'Belka swobodnie podparta ma L = 4 m i siłę P = 10 kN w środku. Przyjmujemy E = 210 GPa, σ_dop = 160 MPa oraz f_dop = L/250 = 16 mm. Rozważamy prostokąt b = 50 mm, h = 100 mm.',
+      caption: 'Belka, obciążenie i przekrój 50 × 100 mm — dwa niezależne warunki projektowe.',
       visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T = P/2 = 5',
+      focus: { metric: 'model' },
+      formula: 'L = 4\\ \\text{m},\\quad P = 10\\ \\text{kN},\\quad b\\times h = 50\\times100\\ \\text{mm}',
+    },
+    {
+      title: 'Warunek wytrzymałości',
+      narration:
+        'Maksymalny moment wynosi M_max = P L/4 = 10 · 4/4 = 10 kN·m. Warunek σ_max ≤ σ_dop wymaga W ≥ W_min = M_max/σ_dop = 10·10⁶/160 = 62 500 mm³. Przekrój ma W = b h²/6 = 83 333 mm³, więc warunek jest spełniony.',
+      caption: 'W_min = 62 500 mm³ < W = 83 333 mm³ — zapas wytrzymałości około 33%.',
+      visual: 'beam',
+      focus: { metric: 'strength' },
+      formula: 'W_{\\min}=\\frac{M_{\\max}}{\\sigma_{dop}}=\\frac{10\\cdot10^6}{160}=62\\,500\\ \\text{mm}^3',
+    },
+    {
+      title: 'Warunek sztywności',
+      narration:
+        'Ugięcie f = P L³/(48 E I) nie może przekroczyć f_dop. Stąd I ≥ I_min = P L³/(48 E f_dop) = 10 000·4000³/(48·210 000·16) = 3,968·10⁶ mm⁴. Przekrój ma I = b h³/12 = 4,167·10⁶ mm⁴.',
+      caption: 'I_min = 3,968·10⁶ mm⁴ < I = 4,167·10⁶ mm⁴ — zapas sztywności tylko około 5%.',
+      visual: 'beam',
+      focus: { metric: 'stiffness' },
+      formula:
+        'I_{\\min}=\\frac{P L^3}{48 E f_{dop}}=\\frac{10\\,000\\cdot4000^3}{48\\cdot210\\,000\\cdot16}=3{,}968\\cdot10^6\\ \\text{mm}^4',
+    },
+    {
+      title: 'Decyduje sztywność',
+      narration:
+        'Oba warunki są spełnione, ale ich wykorzystanie jest różne. Naprężenie osiąga 120/160 = 75% wartości dopuszczalnej, a ugięcie 15,24/16 = 95%. O wymiarze decyduje więc sztywność, a zapas nośności pozostaje duży.',
+      caption: 'Naprężenie wykorzystane w 75%, ugięcie w 95% — decyduje sztywność.',
+      visual: 'beam',
+      focus: { metric: 'governing' },
+      formula: '\\frac{\\sigma_{\\max}}{\\sigma_{dop}}=0{,}75,\\qquad \\frac{f_{\\max}}{f_{dop}}=0{,}95',
+    },
+    {
+      title: 'Kontrola naprężeń',
+      narration:
+        'Naprężenie maksymalne wynosi σ_max = M_max/W = 10·10⁶/83 333 = 120 MPa. Jest mniejsze od σ_dop = 160 MPa, więc warunek wytrzymałości jest spełniony.',
+      caption: 'σ_max = 120 MPa ≤ 160 MPa — warunek wytrzymałości spełniony.',
+      visual: 'beam',
+      focus: { metric: 'stress' },
+      formula: '\\sigma_{\\max}=\\frac{10\\cdot10^6}{83\\,333}=120\\ \\text{MPa}\\le160\\ \\text{MPa}',
+    },
+    {
+      title: 'Kontrola ugięcia',
+      narration:
+        'Rzeczywiste ugięcie wynosi f = 10 000·4000³/(48·210 000·4,167·10⁶) = 15,24 mm. Jest mniejsze od f_dop = 16 mm, więc warunek sztywności jest spełniony, choć zapas jest niewielki.',
+      caption: 'f_max = 15,24 mm ≤ 16 mm — zapas 0,76 mm.',
+      visual: 'beam',
+      focus: { metric: 'deflection' },
+      formula:
+        'f=\\frac{10\\,000\\cdot4000^3}{48\\cdot210\\,000\\cdot4{,}167\\cdot10^6}=15{,}24\\ \\text{mm}\\le16\\ \\text{mm}',
     },
   ],
 } satisfies SolutionData

@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BendingStressNeutralAxisAnimation } from './animation'
 
 export default {
   id: 'ex-bending-stress-neutral-axis',
@@ -7,6 +8,7 @@ export default {
   given: ['b = 80 mm', 'h = 160 mm', 'M = 8 kN·m', 'E = 200 GPa'],
   result:
     'Naprężenia skrajne mają wartość bezwzględną 23,4 MPa: ściskanie u góry i rozciąganie u dołu. Na osi obojętnej naprężenie wynosi zero, a w połowie wysokości jest dwa razy mniejsze.',
+  animation: BendingStressNeutralAxisAnimation,
   figure: {
     kind: 'beam',
     length: 4,
@@ -48,60 +50,60 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Moment bezwładności: I_z = b h^3/12 = 80 · 160^3/12 = 27,31 · 10^6 mm⁴.',
-      caption: 'Moment bezwładności: I_z = b h^3/12 = 80 · 160^3/12 = 27,31 · 10^6 mm⁴.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'I_z = b h^3/12 = 80 \\cdot 160^3/12 = 27{,}31 \\cdot 10^6',
+      title: 'Model i dane',
+      narration:
+        'Mamy prostokątny przekrój belki b = 80 mm i h = 160 mm, obciążony czystym zginaniem momentem M = 8 kN·m. Materiał jest liniowo sprężysty, a przekrój symetryczny względem osi poziomej.',
+      caption: 'Przekrój 80 × 160 mm poddany czystemu zginaniu momentem M = 8 kN·m.',
+      visual: 'section',
+      focus: { metric: 'model' },
+      formula: 'b=80\\ \\text{mm},\\qquad h=160\\ \\text{mm},\\qquad M=8\\ \\text{kN·m},\\qquad E=200\\ \\text{GPa}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Skrajne włókno: c = h/2 = 80 mm, więc W_z = I_z/c = 341,333 mm³.',
-      caption: 'Skrajne włókno: c = h/2 = 80 mm, więc W_z = I_z/c = 341,333 mm³.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'c = h/2 = 80',
+      title: 'Oś obojętna',
+      narration:
+        'W przekroju symetrycznym oś obojętna przechodzi przez środek ciężkości, czyli w połowie wysokości. Od tej osi mierzymy y: dodatnie w dół. Na samej osi odkształcenie i naprężenie normalne są zerowe.',
+      caption: 'Oś obojętna przechodzi przez środek ciężkości, c = h/2 = 80 mm od góry.',
+      visual: 'section',
+      focus: { metric: 'neutral-axis' },
+      formula: 'y_c=\\frac{h}{2}=80\\ \\text{mm},\\qquad \\sigma(y=0)=0',
     },
     {
-      title: 'Krok 3',
-      narration: 'Moment w N·mm: M = 8 · 10^6 N·mm.',
-      caption: 'Moment w N·mm: M = 8 · 10^6 N·mm.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M = 8 \\cdot 10^6',
+      title: 'Liniowy rozkład naprężeń',
+      narration:
+        'Przekroje płaskie pozostają płaskie, więc naprężenie rośnie liniowo z odległością od osi obojętnej. Po stronie ściskanej, czyli u góry, naprężenie jest ujemne; po stronie rozciąganej, u dołu, dodatnie.',
+      caption: 'Naprężenie rośnie liniowo od zera na osi obojętnej do skrajnych włókien.',
+      visual: 'section',
+      focus: { metric: 'stress' },
+      formula: '\\sigma_x(y)=\\frac{M\\,y}{I_z},\\qquad I_z=\\frac{b h^3}{12}',
     },
     {
-      title: 'Krok 4',
-      narration: 'Naprężenie maksymalne: σ_max = 8 · 10^6/341,333 = 23,44 MPa.',
-      caption: 'Naprężenie maksymalne: σ_max = 8 · 10^6/341,333 = 23,44 MPa.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '\\sigma_{\\max} = 8 \\cdot 10^6/341{,}333 = 23{,}44',
+      title: 'Skrajne włókna',
+      narration:
+        'Największe naprężenie występuje na skrajnych włóknach, w odległości c = 80 mm od osi. Wskaźnik wytrzymałości W_z = I_z/c pozwala obliczyć σ_max bez osobnego liczenia I_z za każdym razem.',
+      caption: 'Ściskanie u góry (−23,4 MPa) i rozciąganie u dołu (+23,4 MPa).',
+      visual: 'section',
+      focus: { metric: 'extremes' },
+      formula:
+        'c=\\frac{h}{2}=80\\ \\text{mm},\\qquad W_z=\\frac{I_z}{c}=341\\,333\\ \\text{mm}^3,\\qquad \\sigma_{\\max}=\\frac{M}{W_z}=23{,}44\\ \\text{MPa}',
     },
     {
-      title: 'Krok 5',
-      narration: 'Naprężenie w połowie drogi do osi, przy y = 40 mm: σ = 8 · 10^6 · 40/27,31 · 10^6 = 11,72 MPa.',
-      caption: 'Naprężenie w połowie drogi do osi, przy y = 40 mm: σ = 8 · 10^6 · 40/27,31 · 10^6 = 11,72 MPa.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'y = 40',
+      title: 'Włókno pośrednie',
+      narration:
+        'Sprawdzamy włókno w połowie drogi do osi, przy y = 40 mm. Naprężenie jest dokładnie dwa razy mniejsze niż na skraju. To bezpośredni skutek liniowego rozkładu σ = My/I.',
+      caption: 'Połowa odległości od osi obojętnej daje połowę naprężenia: 11,72 MPa.',
+      visual: 'section',
+      focus: { metric: 'middle' },
+      formula: '\\sigma(40)=\\frac{8\\cdot10^6\\cdot40}{27{,}31\\cdot10^6}=11{,}72\\ \\text{MPa}',
     },
     {
-      title: 'Krok 6',
-      narration: 'Krzywizna: κ = 8 · 10^6/(200,000 · 27,31 · 10^6) = 1,465 · 10^-6 1/mm, czyli ρ ≈ 683 m.',
-      caption: 'Krzywizna: κ = 8 · 10^6/(200,000 · 27,31 · 10^6) = 1,465 · 10^-6 1/mm, czyli ρ ≈ 683 m.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '\\kappa = 8 \\cdot 10^6/(200{,}000 \\cdot 27{,}31 \\cdot 10^6) = 1{,}465 \\cdot 10^{-6}',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Odkształcenie skrajne: ε = σ/E = 23,44/200,000 = 1,17 · 10^-4.',
-      caption: 'Odkształcenie skrajne: ε = σ/E = 23,44/200,000 = 1,17 · 10^-4.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '\\varepsilon = \\sigma/E = 23{,}44/200{,}000 = 1{,}17 \\cdot 10^{-4}',
+      title: 'Krzywizna i odkształcenie',
+      narration:
+        'Zginanie oznacza zakrzywienie osi belki. Krzywizna κ = M/(EI_z) daje promień ρ ≈ 683 m. Oś obojętna nie zmienia długości, a skrajne włókna odkształcają się przeciwnie: górne skraca się, dolne wydłuża.',
+      caption: 'Oś obojętna pozostaje bez zmian długości; skrajne włókna mają ε = ±1,17·10⁻⁴.',
+      visual: 'section',
+      focus: { metric: 'curvature' },
+      formula:
+        '\\kappa=\\frac{M}{E I_z}=1{,}465\\cdot10^{-6}\\ \\text{mm}^{-1},\\qquad \\rho\\approx683\\ \\text{m},\\qquad \\varepsilon_{\\max}=\\frac{\\sigma_{\\max}}{E}=1{,}17\\cdot10^{-4}',
     },
   ],
 } satisfies SolutionData

@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BeamReactionsExample2Animation } from './animation'
 
 export default {
   id: 'ex-bending-beams-reactions-2',
@@ -42,78 +43,52 @@ export default {
     ],
     note: 'Utwierdzenie A przenosi reakcję pionową R = 16 kN oraz moment M_R = 27,5 kN·m; koniec B jest swobodny.',
   },
+  animation: BeamReactionsExample2Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Rozważmy belkę wspornikową o długości L = 2,5 m, utwierdzoną w lewym końcu. Na całej długości działa obciążenie równomierne q = 4 kN/m, a na swobodnym końcu działa siła skupiona P = 6 kN w dół. Tym razem podpora w utwierdzeniu daje nie tylko siłę pionową, ale także moment reakcyjny.',
-      caption:
-        'Rozważmy belkę wspornikową o długości L = 2,5 m, utwierdzoną w lewym końcu. Na całej długości działa obciążenie równomierne q = 4…',
+        'Belka wspornikowa o długości L = 2,5 m jest utwierdzona w lewym końcu A. Na całej długości działa q = 4 kN/m, a na swobodnym końcu B siła P = 6 kN w dół. Utwierdzenie może przenieść siłę pionową i moment reakcyjny.',
+      caption: 'Koniec B jest swobodny; reakcje w A to siła R i moment M_R.',
       visual: 'beam',
-      focus: { metric: 'load' },
-      formula: 'L = 2{,}5 m',
+      focus: { metric: 'model' },
+      formula: 'L = 2{,}5\\ \\text{m},\\quad q = 4\\ \\text{kN/m},\\quad P = 6\\ \\text{kN}',
     },
     {
-      title: 'Krok 2',
+      title: 'Wypadkowa obciążenia ciągłego',
       narration:
-        'Wypadkowa obciążenia ciągłego wynosi Q = qL = 4 · 2,5 = 10 kN i działa w odległości 1,25 m od utwierdzenia. Suma sił pionowych daje reakcję R = P + Q = 16 kN. Moment reakcyjny musi zrównoważyć moment obu obciążeń względem utwierdzenia:',
-      caption:
-        'Wypadkowa obciążenia ciągłego wynosi Q = qL = 4 · 2,5 = 10 kN i działa w odległości 1,25 m od utwierdzenia. Suma sił pionowych…',
+        'Wypadkowa obciążenia ciągłego Q = qL = 4 · 2,5 = 10 kN działa w odległości L/2 = 1,25 m od utwierdzenia. To ramię decyduje o momencie obciążenia ciągłego względem A.',
+      caption: 'Q = 10 kN działa w środku rozpiętości, 1,25 m od A.',
       visual: 'beam',
       focus: { metric: 'load' },
-      formula: 'Q = qL = 4 \\cdot 2{,}5 = 10 kN',
-    },
-    {
-      title: 'Położenie wypadkowej obciążenia ciągłego',
-      narration:
-        'Wypadkowa Q działa w środku rozpiętości, czyli w odległości L/2 od utwierdzenia. To ramię decyduje o momencie obciążenia ciągłego względem A.',
-      caption: 'Wypadkowa Q działa 1,25 m od A.',
-      visual: 'beam',
-      focus: { metric: 'load' },
-      formula: 'x_Q=\\frac{L}{2}=1{,}25\\ \\text{m}',
+      formula: 'Q = qL = 4 \\cdot 2{,}5 = 10\\ \\text{kN},\\quad x_Q = \\frac{L}{2} = 1{,}25\\ \\text{m}',
     },
     {
       title: 'Reakcja pionowa utwierdzenia',
+      narration: 'Suma sił pionowych: R = P + Q = 6 + 10 = 16 kN. Reakcja działa w górę, przeciwnie do obu obciążeń.',
+      caption: 'R = 16 kN równoważy pionowe obciążenia.',
+      visual: 'beam',
+      focus: { metric: 'reaction' },
+      formula: 'R = P + Q = 6 + 10 = 16\\ \\text{kN}',
+    },
+    {
+      title: 'Moment reakcyjny utwierdzenia',
       narration:
-        'Suma sił pionowych daje reakcję R = P + Q. Zwrot reakcji jest przeciwny do obciążeń, a jej wartość wynosi 16 kN.',
-      caption: 'R = 16 kN.',
-      visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R=P+Q=6+10=16\\ \\text{kN}',
-    },
-    {
-      title: 'Moment od obciążenia ciągłego',
-      narration: 'Moment wypadkowej Q względem utwierdzenia wynosi Q razy L/2.',
-      caption: 'M_Q = 12,5 kN·m.',
-      visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'M_Q=Q\\cdot\\frac{L}{2}=10\\cdot1{,}25=12{,}5\\ \\text{kN·m}',
-    },
-    {
-      title: 'Kontrola równowagi momentów',
-      narration: 'Moment reakcyjny równoważy sumę momentów od siły P i wypadkowej Q.',
-      caption: 'Bilans momentów się zgadza.',
-      visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'M_R=P L+Q\\cdot\\frac{L}{2}=15+12{,}5=27{,}5\\ \\text{kN·m}',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Zapis matematyczny.',
-      caption: 'M_R = P L + Q · (L)/(2) = 6 · 2,5 + 10 · 1,25 = 15 + 12,5 = 27,5 kN·m.',
+        'Moment od obciążenia ciągłego względem A wynosi Q · L/2 = 12,5 kN·m, a od siły P: P · L = 15 kN·m. Reakcja momentowa M_R działa przeciwnie do ruchu wskazówek zegara i wynosi 27,5 kN·m.',
+      caption: 'M_R = 15 + 12,5 = 27,5 kN·m, zwrot przeciwny do momentu obciążeń.',
       visual: 'beam',
       focus: { metric: 'reaction' },
       formula:
-        'M_R = P L + Q \\cdot \\frac{L}{2} = 6 \\cdot 2{,}5 + 10 \\cdot 1{,}25 = 15 + 12{,}5 = 27{,}5\\ \\text{kN·m}.',
+        'M_Q = Q \\cdot \\frac{L}{2} = 10 \\cdot 1{,}25 = 12{,}5\\ \\text{kN·m} \\\\ M_R = P L + Q \\cdot \\frac{L}{2} = 15 + 12{,}5 = 27{,}5\\ \\text{kN·m}',
     },
     {
-      title: 'Krok 4',
+      title: 'Kontrola równowagi',
       narration:
-        'Reakcja momentowa ma więc wartość 27,5 kN·m i działa przeciwnie do wypadkowego momentu obciążeń. Ten przykład pokazuje, że utwierdzenie przenosi trzy wielkości: dwie siły i moment. Jeżeli w zadaniu pominiesz moment reakcyjny, belka nie będzie w równowadze, choć suma sił się zgodzi.',
-      caption:
-        'Reakcja momentowa ma więc wartość 27,5 kN·m i działa przeciwnie do wypadkowego momentu obciążeń. Ten przykład pokazuje, że…',
+        'Kontrola: suma sił R − P − Q = 16 − 6 − 10 = 0 oraz suma momentów M_R − P L − Q · L/2 = 27,5 − 15 − 12,5 = 0. Utwierdzenie przenosi więc dwie siły i moment; pominięcie M_R łamie równowagę mimo zgodnej sumy sił.',
+      caption: 'Oba warunki równowagi są spełnione; moment reakcyjny jest niezbędny.',
       visual: 'beam',
-      focus: { metric: 'reaction' },
+      focus: { metric: 'check' },
+      formula: 'R - P - Q = 16 - 6 - 10 = 0 \\\\ M_R - P L - Q \\cdot \\frac{L}{2} = 27{,}5 - 15 - 12{,}5 = 0',
     },
   ],
 } satisfies SolutionData

@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BendingQtmInverseAnimation } from './animation'
 
 export default {
   id: 'ex-bending-q-t-m-3',
@@ -52,82 +53,52 @@ export default {
     ],
     note: 'Z funkcji M(x) = 12x - 2x² otrzymujemy T(x) = 12 - 4x oraz stałe q = 4 kN/m.',
   },
+  animation: BendingQtmInverseAnimation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Dany moment M(x)',
       narration:
-        'Tym razem znamy funkcję momentu i odtwarzamy obciążenie. Dla belki swobodnie podpartej o L = 6 m moment opisuje wzór',
-      caption:
-        'Tym razem znamy funkcję momentu i odtwarzamy obciążenie. Dla belki swobodnie podpartej o L = 6 m moment opisuje wzór',
+        'Tym razem znamy funkcję momentu i odtwarzamy obciążenie. Dla belki swobodnie podpartej o L = 6 m moment opisuje wzór M(x) = 12x − 2x² kN·m. Parabola startuje z zera, osiąga 18 kN·m w środku i wraca do zera na podporze B.',
+      caption: 'Model i dana funkcja momentu; wykres M jest parabolą wypukłą do góry.',
       visual: 'beam',
       focus: { metric: 'M' },
-      formula: 'L = 6 m',
+      formula: 'M(x) = 12x - 2x^2\\ \\text{kN·m},\\qquad 0 \\le x \\le 6\\ \\text{m}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Zapis matematyczny.',
-      caption: 'M(x) = 12x - 2x^2 kN·m, 0 ≤ x ≤ 6 m.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M(x) = 12x - 2x^2\\ \\text{kN·m}, \\qquad 0 \\le x \\le 6\\ \\text{m}.',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Jaka jest siła tnąca, obciążenie i reakcje? Różniczkujemy moment:',
-      caption: 'Jaka jest siła tnąca, obciążenie i reakcje? Różniczkujemy moment:',
-      visual: 'beam',
-      focus: { metric: 'T' },
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Zapis matematyczny.',
-      caption: 'T(x) = (dM)/(dx) = 12 - 4x kN.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T(x) = \\frac{dM}{dx} = 12 - 4x\\ \\text{kN}.',
-    },
-    {
-      title: 'Krok 5',
-      narration: 'Następnie różniczkujemy siłę tnącą:',
-      caption: 'Następnie różniczkujemy siłę tnącą:',
-      visual: 'beam',
-      focus: { metric: 'load' },
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Zapis matematyczny.',
-      caption: 'q(x) = -(dT)/(dx) = 4 kN/m.',
-      visual: 'beam',
-      focus: { metric: 'load' },
-      formula: 'q(x) = -\\frac{dT}{dx} = 4\\ \\text{kN/m}.',
-    },
-    {
-      title: 'Krok 7',
+      title: 'Różniczkujemy M i otrzymujemy T',
       narration:
-        'Obciążenie jest więc stałe i działa w dół. Reakcje odczytujemy z końców wykresu T: R_A = T(0) = 12 kN, a R_B = -T(6) = 12 kN. Suma reakcji wynosi 24 kN, czyli tyle, ile wypadkowa obciążenia qL = 4 · 6 = 24 kN. Maksimum momentu wypada tam, gdzie T = 0, czyli w x = 3 m:',
-      caption:
-        'Obciążenie jest więc stałe i działa w dół. Reakcje odczytujemy z końców wykresu T: R_A = T(0) = 12 kN, a R_B = -T(6) = 12 kN.…',
+        'Pochodna momentu jest siłą tnącą: T(x) = dM/dx = 12 − 4x kN. Styczna do wykresu M ma w każdym punkcie nachylenie równe T(x); na lewej podporze T = 12 kN, w środku T = 0, a na prawej T = −12 kN.',
+      caption: 'Nachylenie M maleje liniowo i przechodzi przez zero razem z T.',
+      visual: 'beam',
+      focus: { metric: 'T' },
+      formula: 'T(x) = \\frac{dM}{dx} = 12 - 4x\\ \\text{kN}',
+    },
+    {
+      title: 'Różniczkujemy T i otrzymujemy q',
+      narration:
+        'Pochodna siły tnącej wynosi dT/dx = −4 kN/m, więc q = −dT/dx = 4 kN/m. Ujemne nachylenie T oznacza dodatnie obciążenie działające w dół, stałe na całej długości belki.',
+      caption: 'Stała pochodna T oznacza stałe obciążenie q; na wykresie pojawiają się strzałki q.',
+      visual: 'beam',
+      focus: { metric: 'load' },
+      formula: 'q(x) = -\\frac{dT}{dx} = 4\\ \\text{kN/m}',
+    },
+    {
+      title: 'Reakcje z końców wykresu T',
+      narration:
+        'Reakcje odczytujemy z końców wykresu T: R_A = T(0) = 12 kN oraz R_B = −T(6) = 12 kN. Suma reakcji wynosi 24 kN, czyli tyle, ile wypadkowa obciążenia qL = 4 · 6 = 24 kN.',
+      caption: 'Początek i koniec wykresu T wyznaczają reakcje podporowe.',
       visual: 'beam',
       focus: { metric: 'reaction' },
-      formula: 'R_{A} = T(0) = 12 kN',
+      formula: 'R_A = T(0) = 12\\ \\text{kN},\\qquad R_B = -T(6) = 12\\ \\text{kN}',
     },
     {
-      title: 'Krok 8',
-      narration: 'Zapis matematyczny.',
-      caption: 'M_max = M(3) = 36 - 18 = 18 kN·m.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M_{\\max} = M(3) = 36 - 18 = 18\\ \\text{kN·m}.',
-    },
-    {
-      title: 'Krok 9',
+      title: 'Kontrola maksimum momentu',
       narration:
-        'Kontrola wzorem qL^2/8 = 4 · 36 / 8 = 18 kN·m potwierdza wynik. Ten wariant pokazuje, że cała informacja o obciążeniu jest zawarta w drugiej pochodnej momentu.',
-      caption:
-        'Kontrola wzorem qL^2/8 = 4 · 36 / 8 = 18 kN·m potwierdza wynik. Ten wariant pokazuje, że cała informacja o obciążeniu jest…',
+        'Siła tnąca znika w x = 3 m, więc moment osiąga tam maksimum M(3) = 18 kN·m. Pole pod wykresem T od 0 do 3 m też wynosi 18, a kontrola qL²/8 = 18 kN·m potwierdza wynik.',
+      caption: 'T = 0 wskazuje maksimum M; pole pod T i wzór qL²/8 dają tę samą wartość.',
       visual: 'beam',
       focus: { metric: 'M' },
-      formula: 'qL^{2}/8 = 4 \\cdot 36 / 8 = 18 kN\\cdot m',
+      formula: 'M_{\\max} = M(3) = 18\\ \\text{kN·m},\\qquad \\frac{qL^2}{8} = 18\\ \\text{kN·m}',
     },
   ],
 } satisfies SolutionData

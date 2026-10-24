@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BendingShearForceExample3Animation } from './animation'
 
 export default {
   id: 'ex-bending-shear-force-3',
@@ -50,52 +51,52 @@ export default {
     ],
     note: 'Skok wykresu T ma wartość 12 - (-8) = 20 kN i wyznacza siłę P działającą w x = 2 m.',
   },
+  animation: BendingShearForceExample3Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Dany wykres T',
       narration:
-        'Tym razem z wykresu T odtwarzamy obciążenie. Belka swobodnie podparta ma L = 5 m. Wykres siły tnącej jest stały i równy +12 kN od lewej podpory do x = 2 m, a następnie skacze do -8 kN i pozostaje taki do prawej podpory. Jaka siła skupiona działa na belkę i gdzie?',
-      caption:
-        'Tym razem z wykresu T odtwarzamy obciążenie. Belka swobodnie podparta ma L = 5 m. Wykres siły tnącej jest stały i równy +12 kN od…',
+        'Tym razem z wykresu T odtwarzamy obciążenie. Belka swobodnie podparta ma L = 5 m. Wykres siły tnącej jest stały i równy +12 kN od lewej podpory do x = 2 m, a następnie skacze do −8 kN i pozostaje taki do prawej podpory. Jaka siła skupiona działa na belkę i gdzie?',
+      caption: 'Dany wykres: +12 kN, skok w x = 2 m, potem −8 kN do podpory B.',
       visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'L = 5 m',
+      focus: { metric: 'given' },
+      formula: 'T=+12\\ \\text{kN}\\ (0<x<2\\ \\text{m}),\\qquad T=-8\\ \\text{kN}\\ (2<x<5\\ \\text{m})',
     },
     {
-      title: 'Krok 2',
+      title: 'Skok wskazuje siłę P',
       narration:
-        'Skok wykresu ma wartość 12 - (-8) = 20 kN, więc siła skupiona wynosi P = 20 kN i działa w miejscu skoku, czyli w x = 2 m. Reakcje odczytujemy z poziomych odcinków: R_A = 12 kN oraz R_B = 8 kN. Kontrola momentów względem A:',
-      caption:
-        'Skok wykresu ma wartość 12 - (-8) = 20 kN, więc siła skupiona wynosi P = 20 kN i działa w miejscu skoku, czyli w x = 2 m. Reakcje…',
+        'Skok wykresu ma wartość 12 − (−8) = 20 kN, więc siła skupiona wynosi P = 20 kN i działa w miejscu skoku, czyli w x = 2 m. Kierunek skoku w dół odpowiada sile działającej w dół.',
+      caption: 'Skok 20 kN w x = 2 m odtwarza siłę P = 20 kN.',
       visual: 'beam',
-      focus: { metric: 'load' },
-      formula: '12 - (-8) = 20 kN',
+      focus: { metric: 'jump' },
+      formula: 'P=12-(-8)=20\\ \\text{kN},\\qquad x=2\\ \\text{m}',
     },
     {
-      title: 'Reakcje z wykresu siły tnącej',
+      title: 'Reakcje z poziomych odcinków',
       narration:
-        'Poziome odcinki wykresu T odpowiadają reakcjom: R_A = 12 kN na lewym końcu i R_B = 8 kN na prawym. Ich suma równa się sile P.',
-      caption: 'R_A = 12 kN, R_B = 8 kN.',
+        'Poziome odcinki wykresu T odpowiadają reakcjom: R_A = 12 kN na lewym końcu i R_B = 8 kN na prawym. Ich suma równa się sile P, więc wykres jest spójny z równowagą całej belki.',
+      caption: 'R_A = 12 kN, R_B = 8 kN; R_A + R_B = 20 kN.',
       visual: 'beam',
       focus: { metric: 'reaction' },
       formula: 'R_A=12\\ \\text{kN},\\qquad R_B=8\\ \\text{kN},\\qquad R_A+R_B=20\\ \\text{kN}',
     },
     {
-      title: 'Krok 3',
-      narration: 'Zapis matematyczny.',
-      caption: 'R_B L = 8 · 5 = 40 kN·m, P a = 20 · 2 = 40 kN·m.',
+      title: 'Kontrola momentów',
+      narration:
+        'Kontrola względem A: R_B · L = 8 · 5 = 40 kN·m oraz P · a = 20 · 2 = 40 kN·m. Obie strony są równe, więc odtworzone obciążenie jest poprawne. Na schemacie widać przeciwne zwroty momentów od P i od R_B.',
+      caption: 'Momenty względem A: 40 kN·m = 40 kN·m.',
       visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_B L = 8 \\cdot 5 = 40\\ \\text{kN·m}, \\qquad P a = 20 \\cdot 2 = 40\\ \\text{kN·m}.',
+      focus: { metric: 'check' },
+      formula: 'R_B L=8\\cdot5=40\\ \\text{kN·m},\\qquad P a=20\\cdot2=40\\ \\text{kN·m}',
     },
     {
-      title: 'Krok 4',
+      title: 'Przekrój krytyczny',
       narration:
-        'Obie strony są równe, więc odtworzone obciążenie jest poprawne. Ten wariant pokazuje, że wykres T niesie pełną informację o siłach skupionych: wartość skoku to siła, a jego położenie to miejsce przyłożenia.',
-      caption:
-        'Obie strony są równe, więc odtworzone obciążenie jest poprawne. Ten wariant pokazuje, że wykres T niesie pełną informację o…',
+        'Wykres T niesie pełną informację o siłach skupionych: wartość skoku to siła, a jego położenie to miejsce przyłożenia. Największa bezwzględna wartość T występuje przed siłą, a przekrój krytyczny wypada w x = 2 m.',
+      caption: 'Przekrój krytyczny w x = 2 m: skok 20 kN i |T|max = 12 kN.',
       visual: 'beam',
-      focus: { metric: 'T' },
+      focus: { metric: 'critical' },
+      formula: '|T|_{\\max}=12\\ \\text{kN}\\quad\\text{w przekroju }x=2\\ \\text{m}',
     },
   ],
 } satisfies SolutionData

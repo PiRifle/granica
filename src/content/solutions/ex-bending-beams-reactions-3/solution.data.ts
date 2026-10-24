@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BeamReactionsExample3Animation } from './animation'
 
 export default {
   id: 'ex-bending-beams-reactions-3',
@@ -23,44 +24,43 @@ export default {
     ],
     note: 'Większa reakcja R_A = 30 kN potwierdza, że siła P działa bliżej lewej podpory.',
   },
+  animation: BeamReactionsExample3Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Tym razem znamy reakcje, a szukamy obciążenia. Belka swobodnie podparta ma rozpiętość L = 8 m. Z obliczeń wiadomo, że R_A = 30 kN i R_B = 10 kN, a na belkę działa jedna siła skupiona P w odległości a od lewej podpory. Chcemy odtworzyć P oraz a.',
-      caption:
-        'Tym razem znamy reakcje, a szukamy obciążenia. Belka swobodnie podparta ma rozpiętość L = 8 m. Z obliczeń wiadomo, że R_A = 30 kN…',
+        'Belka swobodnie podparta ma rozpiętość L = 8 m. Znamy reakcje R_A = 30 kN i R_B = 10 kN. Na belkę działa jedna siła skupiona P w nieznanej odległości a od lewej podpory; chcemy odtworzyć P oraz a.',
+      caption: 'Znane reakcje działają w górę; położenie i wartość siły P są niewiadome.',
       visual: 'beam',
-      focus: { metric: 'load' },
-      formula: 'L = 8 m',
+      focus: { metric: 'model' },
+      formula: 'L = 8\\ \\text{m},\\quad R_A = 30\\ \\text{kN},\\quad R_B = 10\\ \\text{kN}',
     },
     {
-      title: 'Krok 2',
+      title: 'Suma sił — wartość P',
       narration:
-        'Najpierw suma sił pionowych daje P = R_A + R_B = 40 kN. Następnie korzystamy z zależności R_B = P a / L, która wynika z sumy momentów względem A. Po przekształceniu otrzymujemy',
-      caption:
-        'Najpierw suma sił pionowych daje P = R_A + R_B = 40 kN. Następnie korzystamy z zależności R_B = P a / L, która wynika z sumy…',
+        'Suma sił pionowych daje P = R_A + R_B = 30 + 10 = 40 kN. Siła działa w dół; jej położenie a nadal trzeba wyznaczyć z momentów.',
+      caption: 'P = 40 kN, ale odległość a pozostaje niewiadoma.',
       visual: 'beam',
       focus: { metric: 'load' },
-      formula: 'P = R_{A} + R_{B} = 40 kN',
+      formula: 'P = R_A + R_B = 30 + 10 = 40\\ \\text{kN}',
     },
     {
-      title: 'Krok 3',
-      narration: 'Zapis matematyczny.',
-      caption: 'a = (R_B L)/(P) = (10 · 8)/(40) = 2 m.',
+      title: 'Moment względem A — położenie a',
+      narration:
+        'Z sumy momentów względem A: R_B · L = P · a, czyli a = R_B L / P = 10 · 8 / 40 = 2 m. Siła leży bliżej lewej podpory, dlatego R_A jest większa od R_B.',
+      caption: 'a = 2 m od A; siła przesuwa się na wyznaczone miejsce.',
       visual: 'beam',
       focus: { metric: 'load' },
-      formula: 'a = \\frac{R_B L}{P} = \\frac{10 \\cdot 8}{40} = 2\\ \\text{m}.',
+      formula: 'R_B L = P a \\Rightarrow a = \\frac{R_B L}{P} = \\frac{10 \\cdot 8}{40} = 2\\ \\text{m}',
     },
     {
-      title: 'Krok 4',
+      title: 'Kontrola i interpretacja',
       narration:
-        'Kontrola: R_A = P (L - a) / L = 40 · 6 / 8 = 30 kN, czyli się zgadza. Taki wariant uczy czytać reakcje jako informację o położeniu obciążenia: większa reakcja po lewej stronie oznacza, że siła jest bliżej lewej podpory.',
-      caption:
-        'Kontrola: R_A = P (L - a) / L = 40 · 6 / 8 = 30 kN, czyli się zgadza. Taki wariant uczy czytać reakcje jako informację o…',
+        'Kontrola: R_A = P (L − a) / L = 40 · 6 / 8 = 30 kN, czyli się zgadza. Większa reakcja po lewej stronie oznacza, że siła jest bliżej lewej podpory.',
+      caption: 'Reakcje i położenie siły tworzą spójny schemat równowagi.',
       visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_{A} = P (L - a) / L = 40 \\cdot 6 / 8 = 30 kN',
+      focus: { metric: 'check' },
+      formula: 'R_A = \\frac{P(L-a)}{L} = \\frac{40 \\cdot 6}{8} = 30\\ \\text{kN}',
     },
   ],
 } satisfies SolutionData

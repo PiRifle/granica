@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BendingQtmPointLoadAnimation } from './animation'
 
 export default {
   id: 'ex-bending-q-t-m-2',
@@ -51,68 +52,52 @@ export default {
     ],
     note: 'Pod siłą T skacze z +6 kN do -6 kN, a moment osiąga maksimum 31,5 kN·m.',
   },
+  animation: BendingQtmPointLoadAnimation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model: q oraz siła P',
       narration:
-        'Rozważmy belkę swobodnie podpartą o L = 6 m, obciążoną równomiernie q = 3 kN/m oraz siłą skupioną P = 12 kN w połowie rozpiętości. Obciążenie jest symetryczne, więc reakcje są równe: R_A = R_B = (qL + P)/2 = (18 + 12)/2 = 15 kN.',
-      caption:
-        'Rozważmy belkę swobodnie podpartą o L = 6 m, obciążoną równomiernie q = 3 kN/m oraz siłą skupioną P = 12 kN w połowie…',
+        'Belka swobodnie podparta o L = 6 m jest obciążona równomiernie q = 3 kN/m oraz siłą skupioną P = 12 kN w połowie rozpiętości. Obciążenie jest symetryczne, więc wypadkowa qL = 18 kN działa w środku, podobnie jak siła P.',
+      caption: 'Model i dane: rozpiętość 6 m, obciążenie ciągłe 3 kN/m i siła 12 kN w środku.',
+      visual: 'beam',
+      focus: { metric: 'load' },
+      formula: 'L = 6\\ \\text{m},\\quad q = 3\\ \\text{kN/m},\\quad P = 12\\ \\text{kN}',
+    },
+    {
+      title: 'Reakcje z symetrii',
+      narration:
+        'Obciążenie jest symetryczne, więc reakcje są równe: R_A = R_B = (qL + P)/2 = 15 kN. To warunki startowe dla wykresu T po obu stronach belki.',
+      caption: 'Obie reakcje wynoszą 15 kN i domykają sumę obciążeń 18 + 12 = 30 kN.',
       visual: 'beam',
       focus: { metric: 'reaction' },
-      formula: 'L = 6 m',
+      formula: 'R_A = R_B = \\frac{qL + P}{2} = \\frac{18 + 12}{2} = 15\\ \\text{kN}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Na lewym odcinku, od x = 0 do x = 3 m, siła tnąca wynosi',
-      caption: 'Na lewym odcinku, od x = 0 do x = 3 m, siła tnąca wynosi',
+      title: 'Siła tnąca i skok pod P',
+      narration:
+        'Na lewym odcinku T(x) = 15 − 3x, więc tuż przed siłą T = +6 kN. Pod siłą P siła tnąca skacze w dół o 12 kN do −6 kN, a dalej maleje liniowo do −15 kN. Na obu odcinkach nachylenie pozostaje równe −q.',
+      caption: 'Stałe q daje dwa równoległe odcinki liniowe; siła skupiona tworzy skok T.',
       visual: 'beam',
       focus: { metric: 'T' },
-      formula: 'x = 0',
+      formula: 'T(x) = 15 - 3x\\ \\text{ dla } x < 3,\\qquad \\frac{dT}{dx} = -q',
     },
     {
-      title: 'Krok 3',
-      narration: 'Zapis matematyczny.',
-      caption: 'T(x) = 15 - 3x kN.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T(x) = 15 - 3x\\ \\text{kN}.',
-    },
-    {
-      title: 'Krok 4',
+      title: 'Moment całkuje siłę tnącą',
       narration:
-        'Tuż przed siłą T(3) = 15 - 9 = +6 kN. Pod siłą następuje skok w dół o 12 kN, więc tuż za nią T = -6 kN. Na prawym odcinku T(x) = 3 - 3x kN, co daje -6 kN przy x = 3 i -15 kN przy x = 6. Reakcja R_B domyka wykres do zera.',
-      caption:
-        'Tuż przed siłą T(3) = 15 - 9 = +6 kN. Pod siłą następuje skok w dół o 12 kN, więc tuż za nią T = -6 kN. Na prawym odcinku T(x) =…',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T(3) = 15 - 9 = +6 kN',
-    },
-    {
-      title: 'Krok 5',
-      narration:
-        'Siła tnąca nie przechodzi przez zero w sposób ciągły, ale pod siłą przeskakuje z wartości dodatniej na ujemną. To wystarcza, żeby moment osiągnął maksimum właśnie tam. Moment w środku obliczamy z lewej części:',
-      caption:
-        'Siła tnąca nie przechodzi przez zero w sposób ciągły, ale pod siłą przeskakuje z wartości dodatniej na ujemną. To wystarcza, żeby…',
+        'Moment M(x) = 15x − 1,5x² jest paraboliczny, a jego nachylenie w każdym punkcie jest równe T(x). Ponieważ T jest dodatnie przed środkiem, moment rośnie; za środkiem T jest ujemne, więc moment maleje.',
+      caption: 'Pole pod T zmienia M. Ciągłość M i skok T dają załamanie stycznej, nie skok momentu.',
       visual: 'beam',
       focus: { metric: 'M' },
+      formula: 'M(x) = 15x - \\frac{3x^2}{2},\\qquad \\frac{dM}{dx} = T(x)',
     },
     {
-      title: 'Krok 6',
-      narration: 'Zapis matematyczny.',
-      caption: 'M(3) = 15 · 3 - (3 · 3^2)/(2) = 45 - 13,5 = 31,5 kN·m.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M(3) = 15 \\cdot 3 - \\frac{3 \\cdot 3^2}{2} = 45 - 13{,}5 = 31{,}5\\ \\text{kN·m}.',
-    },
-    {
-      title: 'Krok 7',
+      title: 'Maksimum przy skoku T',
       narration:
-        'Wykres momentu jest paraboliczny na obu odcinkach, ale w środku ma charakterystyczne załamanie stycznej, ponieważ siła tnąca zmienia się skokowo. To przykład, w którym załamanie wykresu M nie oznacza błędu: pochodna M jest nieciągła, bo T jest nieciągła.',
-      caption:
-        'Wykres momentu jest paraboliczny na obu odcinkach, ale w środku ma charakterystyczne załamanie stycznej, ponieważ siła tnąca…',
+        'Pod siłą P siła tnąca przechodzi z +6 kN na −6 kN, więc moment osiąga maksimum M(3) = 31,5 kN·m. Po obu stronach d²M/dx² = −q, ale pochodna M jest nieciągła, bo nieciągła jest T.',
+      caption: 'Załamanie wykresu M jest poprawne: T zmienia znak skokowo, a M pozostaje ciągły.',
       visual: 'beam',
       focus: { metric: 'M' },
+      formula: 'M(3) = 31{,}5\\ \\text{kN·m},\\qquad \\frac{d^2M}{dx^2} = -q',
     },
   ],
 } satisfies SolutionData

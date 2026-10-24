@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SectionStiffnessDesign2Animation } from './animation'
 
 export default {
   id: 'ex-bending-section-stiffness-design-2',
@@ -7,6 +8,7 @@ export default {
   given: ['L = 4 m', 'q = 9 kN/m', 'sigma_{dop} = 160 MPa', 'E = 210 GPa'],
   result:
     'Ten przykład pokazuje typową iterację projektową. Nie wystarczy dobrać przekroju „na naprężenie” i zakończyć. Po każdej zmianie wymiarów trzeba przeliczyć I, W i ugięcie, ponieważ wszystkie te wielkości zmieniają się razem.',
+  animation: SectionStiffnessDesign2Animation,
   figure: {
     kind: 'beam',
     length: 4,
@@ -54,79 +56,61 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Rozważmy belkę swobodnie podpartą o L = 4 m, obciążoną równomiernie q = 9 kN/m. Przyjmij σ_dop = 160 MPa, E = 210 GPa i f_dop = L/250 = 16 mm. Najpierw obliczamy moment maksymalny:',
-      caption:
-        'Rozważmy belkę swobodnie podpartą o L = 4 m, obciążoną równomiernie q = 9 kN/m. Przyjmij σ_dop = 160 MPa, E = 210 GPa i f_dop =…',
+        'Belka swobodnie podparta ma L = 4 m i jest obciążona równomiernie q = 9 kN/m. Przyjmujemy σ_dop = 160 MPa, E = 210 GPa i f_dop = L/250 = 16 mm. Wstępnie rozważamy prostokąt b = 60 mm, h = 120 mm.',
+      caption: 'Belka, obciążenie ciągłe i wstępny przekrój 60 × 120 mm.',
       visual: 'beam',
-      focus: { metric: 'load' },
-      formula: 'L = 4 m',
+      focus: { metric: 'model' },
+      formula: 'L = 4\\ \\text{m},\\quad q = 9\\ \\text{kN/m},\\quad b\\times h = 60\\times120\\ \\text{mm}',
     },
     {
-      title: 'Reakcje z symetrii',
+      title: 'Warunek wytrzymałości',
       narration:
-        'Obciążenie jest równomierne na całej rozpiętości, więc reakcje są równe. Każda z nich przenosi połowę wypadkowej qL.',
-      caption: 'R_A = R_B = 18 kN.',
+        'Maksymalny moment wynosi M_max = q L²/8 = 9·4²/8 = 18 kN·m. Wymagany wskaźnik to W_min = 18·10⁶/160 = 112 500 mm³. Przyjęty przekrój 60 × 120 mm ma W = 144 000 mm³, a naprężenie σ_max = 18·10⁶/144 000 = 125 MPa. Warunek wytrzymałości jest spełniony.',
+      caption: 'W_min = 112 500 mm³ < W = 144 000 mm³ — wytrzymałość spełniona.',
       visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A=R_B=\\frac{qL}{2}=\\frac{9\\cdot4}{2}=18\\ \\text{kN}',
+      focus: { metric: 'strength' },
+      formula: 'W_{\\min}=\\frac{M_{\\max}}{\\sigma_{dop}}=\\frac{18\\cdot10^6}{160}=112\\,500\\ \\text{mm}^3',
     },
     {
-      title: 'Krok 2',
-      narration: 'Zapis matematyczny.',
-      caption: 'M_max = (q L^2)/(8) = (9 · 4^2)/(8) = 18 kN·m.',
-      visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M_{\\max} = \\frac{q L^2}{8} = \\frac{9 \\cdot 4^2}{8} = 18\\ \\text{kN·m}.',
-    },
-    {
-      title: 'Krok 3',
+      title: 'Warunek sztywności',
       narration:
-        'Wymagany wskaźnik wynosi W_min = 18 · 10^6/160 = 112,500 mm³. Przyjmijmy prostokąt o b = h/2. Wtedy W = h^3/12, więc h ≥ ∛(12 · 112,500) ≈ 110,5 mm. Wybieramy b = 60 mm i h = 120 mm. Dla tego przekroju W = 144,000 mm³, a naprężenie wynosi 18 · 10^6/144,000 = 125 MPa, czyli warunek wytrzymałości jest spełniony.',
-      caption:
-        'Wymagany wskaźnik wynosi W_min = 18 · 10^6/160 = 112,500 mm³. Przyjmijmy prostokąt o b = h/2. Wtedy W = h^3/12, więc h ≥ ∛(12 ·…',
+        'Dla obciążenia równomiernego f = 5qL⁴/(384EI). Przekrój 60 × 120 mm ma I = 60·120³/12 = 8,64·10⁶ mm⁴, więc f = 16,53 mm. To więcej niż f_dop = 16 mm, mimo że naprężenie jest bezpieczne. Warunek sztywności nie jest spełniony.',
+      caption: 'f = 16,53 mm > f_dop = 16 mm — o wymiarze musi decydować sztywność.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'W_{min} = 18 \\cdot 10^{6}/160 = 112{,}500 mm^{3}',
-    },
-    {
-      title: 'Krok 4',
-      narration:
-        'Sprawdźmy ugięcie. Dla obciążenia równomiernego f = 5qL^4/(384EI), a I = 60 · 120^3/12 = 8,64 · 10^6 mm⁴. Po podstawieniu q = 9 N/mm i L = 4000 mm otrzymujemy',
-      caption:
-        'Sprawdźmy ugięcie. Dla obciążenia równomiernego f = 5qL^4/(384EI), a I = 60 · 120^3/12 = 8,64 · 10^6 mm⁴. Po podstawieniu q = 9…',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'f = 5qL^{4}/(384EI)',
-    },
-    {
-      title: 'Krok 5',
-      narration: 'Zapis matematyczny.',
-      caption: 'f = (5 · 9 · 4000^4)/(384 · 210,000 · 8,64 · 10^6) = 16,53 mm.',
-      visual: 'beam',
-      focus: { metric: 'design' },
+      focus: { metric: 'stiffness' },
       formula:
-        'f = \\frac{5 \\cdot 9 \\cdot 4000^4}{384 \\cdot 210{,}000 \\cdot 8{,}64 \\cdot 10^6}\n= 16{,}53\\ \\text{mm}.',
+        'f=\\frac{5qL^4}{384EI}=\\frac{5\\cdot9\\cdot4000^4}{384\\cdot210\\,000\\cdot8{,}64\\cdot10^6}=16{,}53\\ \\text{mm}>16\\ \\text{mm}',
     },
     {
-      title: 'Krok 6',
+      title: 'Iteracja — zwiększamy wysokość',
       narration:
-        'To więcej niż f_dop = 16 mm, mimo że naprężenie jest bezpieczne. Warunek sztywności decyduje więc o wymiarze. Zwiększamy wysokość do h = 140 mm, pozostawiając b = 60 mm. Wtedy I = 13,72 · 10^6 mm⁴, W = 196,000 mm³, naprężenie spada do 91,8 MPa, a ugięcie do około 10,4 mm. Dopiero ten przekrój spełnia oba warunki.',
-      caption:
-        'To więcej niż f_dop = 16 mm, mimo że naprężenie jest bezpieczne. Warunek sztywności decyduje więc o wymiarze. Zwiększamy wysokość…',
+        'Zwiększamy wysokość z 120 do 140 mm, pozostawiając b = 60 mm. Moment bezwładności rośnie z 8,64·10⁶ do 13,72·10⁶ mm⁴, a ugięcie spada do około 10,4 mm. W rośnie do 196 000 mm³, więc wytrzymałość pozostaje zachowana.',
+      caption: 'Wzrost h z 120 do 140 mm zmniejsza ugięcie z 16,53 do około 10,4 mm.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'f_{dop} = 16 mm',
+      focus: { metric: 'iteration' },
+      formula:
+        'h: 120\\ \\text{mm}\\to140\\ \\text{mm},\\qquad I: 8{,}64\\cdot10^6\\to13{,}72\\cdot10^6\\ \\text{mm}^4',
     },
     {
-      title: 'Krok 7',
+      title: 'Kontrola naprężeń',
       narration:
-        'Ten przykład pokazuje typową iterację projektową. Nie wystarczy dobrać przekroju „na naprężenie” i zakończyć. Po każdej zmianie wymiarów trzeba przeliczyć I, W i ugięcie, ponieważ wszystkie te wielkości zmieniają się razem.',
-      caption:
-        'Ten przykład pokazuje typową iterację projektową. Nie wystarczy dobrać przekroju „na naprężenie” i zakończyć. Po każdej zmianie…',
+        'Dla przekroju 60 × 140 mm wskaźnik wynosi W = 60·140²/6 = 196 000 mm³. Naprężenie σ_max = 18·10⁶/196 000 = 91,8 MPa jest znacznie mniejsze od σ_dop = 160 MPa.',
+      caption: 'σ_max = 91,8 MPa ≤ 160 MPa — duży zapas wytrzymałości.',
       visual: 'beam',
-      focus: { metric: 'design' },
+      focus: { metric: 'stress' },
+      formula: '\\sigma_{\\max}=\\frac{18\\cdot10^6}{196\\,000}=91{,}8\\ \\text{MPa}\\le160\\ \\text{MPa}',
+    },
+    {
+      title: 'Kontrola ugięcia',
+      narration:
+        'Po zwiększeniu wysokości ugięcie wynosi f = 5·9·4000⁴/(384·210 000·13,72·10⁶) ≈ 10,4 mm. Jest mniejsze od f_dop = 16 mm, więc dopiero teraz oba warunki są spełnione.',
+      caption: 'f ≈ 10,4 mm ≤ 16 mm — warunek sztywności spełniony z zapasem około 35%.',
+      visual: 'beam',
+      focus: { metric: 'deflection' },
+      formula:
+        'f=\\frac{5\\cdot9\\cdot4000^4}{384\\cdot210\\,000\\cdot13{,}72\\cdot10^6}\\approx10{,}4\\ \\text{mm}\\le16\\ \\text{mm}',
     },
   ],
 } satisfies SolutionData

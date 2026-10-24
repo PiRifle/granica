@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { BendingStressNeutralAxis3Animation } from './animation'
 
 export default {
   id: 'ex-bending-stress-neutral-axis-3',
@@ -7,6 +8,7 @@ export default {
   given: ['sigma_{dop} = 140 MPa', 'M = 10 kN·m'],
   result:
     'Wariant odwrotny pokazuje, że dobór przekroju nie polega na zgadywaniu. Z warunku na naprężenie wynika minimalny wskaźnik W, a z niego — wymiary. Dopiero po wybraniu konkretnego przekroju sprawdza się rzeczywiste naprężenie i ewentualnie koryguje wymiary.',
+  animation: BendingStressNeutralAxis3Animation,
   figure: {
     kind: 'beam',
     length: 4,
@@ -48,59 +50,51 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Tym razem znamy dopuszczalne naprężenie i moment, a szukamy wymiarów przekroju. Przyjmijmy σ_dop = 140 MPa i M = 10 kN·m. Wymagany wskaźnik wytrzymałości wynosi',
-      caption:
-        'Tym razem znamy dopuszczalne naprężenie i moment, a szukamy wymiarów przekroju. Przyjmijmy σ_dop = 140 MPa i M = 10 kN·m.…',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '\\sigma_{\\mathrm{dop}} = 140 MPa',
+        'Tym razem znamy dopuszczalne naprężenie i moment, a szukamy wymiarów przekroju. Przyjmijmy σ_dop = 140 MPa i M = 10 kN·m. Przekrój ma być prostokątem o stosunku b = h/2, więc pozostaje dobrać wysokość h.',
+      caption: 'Dane: M = 10 kN·m i σ_dop = 140 MPa; szukamy h przy b = h/2.',
+      visual: 'section',
+      focus: { metric: 'data' },
+      formula: '\\sigma_{\\mathrm{dop}}=140\\ \\text{MPa},\\qquad M=10\\ \\text{kN·m},\\qquad b=\\frac{h}{2}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Zapis matematyczny.',
-      caption: 'W_min = (M)/(σ_dop) = (10 · 10^6)/(140) = 71,429 mm^3.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'W_{\\min} = \\frac{M}{\\sigma_{dop}} = \\frac{10 \\cdot 10^6}{140} = 71{,}429\\ \\text{mm}^3.',
-    },
-    {
-      title: 'Krok 3',
+      title: 'Wymagany wskaźnik wytrzymałości',
       narration:
-        'Wybierzmy prostokąt o stosunku b = h/2, czyli dwukrotnie wyższy niż szeroki. Wtedy W = b h^2/6 = h^3/12, więc',
-      caption:
-        'Wybierzmy prostokąt o stosunku b = h/2, czyli dwukrotnie wyższy niż szeroki. Wtedy W = b h^2/6 = h^3/12, więc',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'b = h/2',
+        'Z warunku σ_max ≤ σ_dop wynika minimalny wskaźnik wytrzymałości W_min = M/σ_dop. Dla M = 10·10⁶ N·mm i σ_dop = 140 MPa otrzymujemy 71 429 mm³. Przy takim przekroju naprężenie osiąga dokładnie granicę dopuszczalną.',
+      caption: 'W_min = 71 429 mm³; przy tej wartości σ = σ_dop = 140 MPa.',
+      visual: 'section',
+      focus: { metric: 'required' },
+      formula: 'W_{\\min}=\\frac{M}{\\sigma_{\\mathrm{dop}}}=\\frac{10\\cdot10^6}{140}=71\\,429\\ \\text{mm}^3',
     },
     {
-      title: 'Krok 4',
-      narration: 'Zapis matematyczny.',
-      caption: 'h ≥ ∛(12 W_min) = ∛(857,143) ≈ 95,0 mm.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'h \\ge \\sqrt[3]{12 W_{\\min}} = \\sqrt[3]{857{,}143} \\approx 95{,}0\\ \\text{mm}.',
-    },
-    {
-      title: 'Krok 5',
+      title: 'Dobór wymiarów',
       narration:
-        'Przyjmujemy h = 100 mm i b = 50 mm. Wtedy W = 50 · 100^2/6 = 83,333 mm³, a naprężenie wynosi σ_max = 10 · 10^6/83,333 = 120 MPa, czyli mieści się w granicy 140 MPa. Moment bezwładności I = 50 · 100^3/12 = 4,167 · 10^6 mm⁴.',
-      caption:
-        'Przyjmujemy h = 100 mm i b = 50 mm. Wtedy W = 50 · 100^2/6 = 83,333 mm³, a naprężenie wynosi σ_max = 10 · 10^6/83,333 = 120 MPa,…',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'h = 100 mm',
+        'Przy b = h/2 wskaźnik wynosi W = b h²/6 = h³/12. Z warunku W ≥ W_min dostajemy h ≥ ∛(12·71 429) ≈ 95,0 mm. Przyjmujemy h = 100 mm i b = 50 mm; przekrój jest nieco większy od minimalnego.',
+      caption: 'Minimalna wysokość to około 95 mm; przyjęto 50 × 100 mm.',
+      visual: 'section',
+      focus: { metric: 'adopt' },
+      formula:
+        'b=\\frac{h}{2},\\qquad W=\\frac{h^3}{12},\\qquad h\\ge\\sqrt[3]{12W_{\\min}}=\\sqrt[3]{857\\,143}\\approx95{,}0\\ \\text{mm}',
     },
     {
-      title: 'Krok 6',
+      title: 'Liniowy rozkład naprężeń',
       narration:
-        'Wariant odwrotny pokazuje, że dobór przekroju nie polega na zgadywaniu. Z warunku na naprężenie wynika minimalny wskaźnik W, a z niego — wymiary. Dopiero po wybraniu konkretnego przekroju sprawdza się rzeczywiste naprężenie i ewentualnie koryguje wymiary.',
-      caption:
-        'Wariant odwrotny pokazuje, że dobór przekroju nie polega na zgadywaniu. Z warunku na naprężenie wynika minimalny wskaźnik W, a z…',
-      visual: 'beam',
-      focus: { metric: 'design' },
+        'W przyjętym przekroju 50 × 100 mm oś obojętna przechodzi przez środek wysokości. Naprężenie zmienia się liniowo od zera na osi do wartości maksymalnej na skrajnych włóknach. Górna połowa jest ściskana, a dolna rozciągana.',
+      caption: 'Naprężenie rośnie liniowo od osi obojętnej; I_z = 4,167·10⁶ mm⁴.',
+      visual: 'section',
+      focus: { metric: 'distribution' },
+      formula: '\\sigma(y)=\\frac{M\\,y}{I_z},\\qquad I_z=\\frac{50\\cdot100^3}{12}=4{,}167\\cdot10^6\\ \\text{mm}^4',
+    },
+    {
+      title: 'Sprawdzenie skrajnego włókna',
+      narration:
+        'Dla przyjętego przekroju W = 50·100²/6 = 83 333 mm³, więc σ_max = 10·10⁶/83 333 = 120 MPa. To mniej niż σ_dop = 140 MPa, czyli przekrój jest bezpieczny. Wskaźnik W jest większy od wymaganego W_min.',
+      caption: 'σ_max = 120 MPa < 140 MPa; przyjęty przekrój 50 × 100 mm jest bezpieczny.',
+      visual: 'section',
+      focus: { metric: 'check' },
+      formula:
+        'W=\\frac{50\\cdot100^2}{6}=83\\,333\\ \\text{mm}^3,\\qquad \\sigma_{\\max}=\\frac{10\\cdot10^6}{83\\,333}=120\\ \\text{MPa}<140\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData
