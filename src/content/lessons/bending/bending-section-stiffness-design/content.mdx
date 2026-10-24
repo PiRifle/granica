@@ -7,7 +7,6 @@ shortTitle: Dobór przekroju
 description: >-
   Dobierz przekrój na moment zginający, a następnie sprawdź dopuszczalne ugięcie
   belki.
-duration: 10
 eyebrow: 'Wytrzymała, ale czy dostatecznie sztywna?'
 outcomes:
   - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
@@ -25,72 +24,396 @@ outcomes:
 solutionId: cw9-1
 ---
 
-Belka może mieć małe naprężenia, a mimo to uginać się tak mocno, że konstrukcja przestaje być użyteczna. Projekt wymaga sprawdzenia zarówno wytrzymałości, jak i sztywności.
+Belka może mieć małe naprężenia, a mimo to uginać się tak mocno, że konstrukcja przestaje być
+użyteczna. Drzwi zaczną się zacinać, tynk popęka, a maszyna straci geometrię. Projekt wymaga
+więc dwóch niezależnych sprawdzeń: czy materiał nie ulegnie zniszczeniu oraz czy odkształcenie
+nie przekroczy wartości dopuszczalnej.
+
+Wytrzymałość i sztywność to różne pytania. Wytrzymałość pyta, czy naprężenie jest mniejsze od
+granicy materiału. Sztywność pyta, czy ugięcie jest mniejsze od wartości akceptowalnej dla
+użytkownika. Można spełnić pierwszy warunek i nie spełnić drugiego, bo ugięcie zależy od
+sztywności zginania $EI$, a nie tylko od wskaźnika wytrzymałości $W$.
+
+W tej lekcji przejdziesz pełną ścieżkę projektową: od momentu maksymalnego, przez wymagany
+wskaźnik wytrzymałości, po dobór wymiarów i kontrolę ugięcia. Nauczysz się też, dlaczego
+wysokość przekroju jest tak skutecznym parametrem i kiedy sam wzrost wysokości nie wystarcza.
+
+To najbardziej „inżynierska” lekcja w module. Poprzednie lekcje odpowiadały, jakie naprężenia
+powstają w danym przekroju. Ta odwraca pytanie: jaki przekrój dobrać, żeby naprężenia i ugięcia
+były dopuszczalne. W praktyce tak powstaje wymiar belki, słupa lub dźwigara.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć maksymalny moment $M_{\max}$ z wykresu $M(x)$. Dobór przekroju zaczyna się
+  od wartości ekstremalnej, a nie od średniej.
+- Przypomnij sobie wzory na $W$ i $I$ dla prostokąta: $W = b h^2/6$ oraz $I = b h^3/12$.
+  Zauważ, że $W$ rośnie z kwadratem wysokości, a $I$ z jej sześcianem.
+- Rozróżniaj naprężenie dopuszczalne $\sigma_{dop}$ od granicy plastyczności $R_e$. Pierwsze
+  zawiera współczynnik bezpieczeństwa, drugie jest właściwością materiału.
+- Pamiętaj o jednostkach: $M$ w N·mm, $\sigma$ w MPa, $E$ w MPa, $I$ w mm⁴, ugięcie w mm.
+  Spójny układ jednostek jest warunkiem poprawności rachunku.
+- Umiej posługiwać się typowymi wzorami na ugięcie. W tej lekcji korzystamy z belki swobodnie
+  podpartej z siłą w środku oraz z obciążeniem równomiernym.
+- Przyjmij, że ugięcie dodatnie oznacza przemieszczenie w dół, a naprężenie dodatnie oznacza
+  rozciąganie. Znaki są ważne przy porównywaniu z wartościami dopuszczalnymi.
+
+## Model i intuicja
+
+Model projektowy jest liniowo sprężysty i jednowymiarowy. Belka ma stały przekrój, małe ugięcia
+i jest obciążona w płaszczyźnie głównej. Zakładamy, że naprężenia można obliczyć ze wzoru
+$\sigma = My/I$, a ugięcie z równania $EI w'' = -M$. Warunki projektowe zapisujemy jako dwie
+nierówności: naprężenie nie większe od dopuszczalnego oraz ugięcie nie większe od dopuszczalnego.
+
+Pierwszy warunek prowadzi do wymaganej wartości $W$. Drugi prowadzi do wymaganej wartości $I$.
+To dwa różne wymagania geometryczne. Przekrój, który spełnia warunek wytrzymałości, może nie
+spełniać warunku sztywności, zwłaszcza gdy jest krótki i mocno obciążony albo gdy dopuszczalne
+ugięcie jest bardzo małe.
+
+Model przestaje wystarczać, gdy ugięcia są duże w porównaniu z wymiarami, gdy materiał pracuje
+plastycznie, gdy belka jest krótka i gruba, bo wtedy rośnie udział odkształceń postaciowych,
+oraz gdy przekrój jest cienkościenny i może utracić stateczność miejscową. W takich przypadkach
+potrzebna jest analiza nieliniowa, teoria Timoshenki albo sprawdzenie stateczności.
+
+## Laboratorium: co ustawić
+
+W laboratorium prześledź metodę przekrojów i siłę wewnętrzną w pręcie. Choć przykład dotyczy
+rozciągania, schemat myślenia jest ten sam: najpierw siła wewnętrzna, potem naprężenie, a na
+końcu dobór wymiaru. Przy zginaniu zamiast pola $A$ pojawiają się $W$ i $I$, ale kolejność
+etapów pozostaje identyczna.
 
 <Lab id="sections" />
 
+## Definicje i jednostki
+
+**Warunek wytrzymałości** wymaga, aby największe naprężenie normalne nie przekraczało wartości
+dopuszczalnej: $\sigma_{\max} \le \sigma_{dop}$.
+
+**Warunek sztywności** wymaga, aby największe ugięcie nie przekraczało wartości dopuszczalnej:
+$f_{\max} \le f_{dop}$. Wartość $f_{dop}$ wynika z wymagań użytkowych lub normy, a nie
+z wytrzymałości materiału. Przyjmujemy, że ugięcie dodatnie jest w dół, a naprężenie dodatnie
+oznacza rozciąganie.
+
+**Wskaźnik wytrzymałości** $W_z = I_z/c$ opisuje zdolność przekroju do przenoszenia momentu
+przy danym naprężeniu. Jednostka to mm³.
+
+**Sztywność zginania** $EI$ jest iloczynem modułu Younga i momentu bezwładności. Decyduje
+o krzywiźnie i ugięciu. Jednostka to N·mm².
+
+**Ugięcie dopuszczalne** $f_{dop}$ jest najczęściej podawane jako ułamek rozpiętości, na przykład
+$L/250$ albo $L/300$. To wygodna miara względna, niezależna od skali konstrukcji.
+
+| Symbol         | Wielkość                | Jednostka     | Uwaga                               |
+| -------------- | ----------------------- | ------------- | ----------------------------------- |
+| $M_{\max}$     | maksymalny moment       | kN·m lub N·mm | z wykresu $M(x)$                    |
+| $\sigma_{dop}$ | naprężenie dopuszczalne | MPa           | zawiera współczynnik bezpieczeństwa |
+| $W$            | wskaźnik wytrzymałości  | mm³           | $W = I/c$                           |
+| $I$            | moment bezwładności     | mm⁴           | względem osi obojętnej              |
+| $E$            | moduł Younga            | MPa lub GPa   | stal typowo 200–210 GPa             |
+| $f_{\max}$     | maksymalne ugięcie      | mm            | dodatnie w dół                      |
+| $f_{dop}$      | ugięcie dopuszczalne    | mm            | często $L/250$                      |
+| $L$            | rozpiętość              | mm lub m      | odległość między podporami          |
+| $P$            | siła skupiona           | kN lub N      | w środku rozpiętości                |
+| $q$            | obciążenie ciągłe       | kN/m lub N/mm | równomierne                         |
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-W_z \geq \frac{M_{\max}}{\sigma_{dop}} \qquad f_{\max} = \frac{P L^3}{48EI} \leq f_{dop}
+W \ge \frac{M_{\max}}{\sigma_{dop}}, \qquad
+f_{\max} = \frac{P L^3}{48 E I} \le f_{dop}
 $$
 
-<Caption>Wzór na f dotyczy belki swobodnie podpartej z siłą P w środku. σdop i fdop to wartości dopuszczalne; E i I podstawiaj w spójnych jednostkach.</Caption>
+<Caption>
+Dwa warunki projektowe dla belki swobodnie podpartej z siłą $P$ w środku. Pierwszy wyznacza
+wymagany wskaźnik wytrzymałości, drugi wymaganą sztywność zginania. Oba trzeba spełnić
+jednocześnie.
+</Caption>
 </Formula>
 
+Warunek wytrzymałości wynika wprost z $\sigma_{\max} = M/W$. Warunek sztywności wymaga
+scałkowania równania linii ugięcia. Dla belki swobodnie podpartej z siłą w środku przebiega
+to następująco.
+
+1. Reakcje są równe $P/2$, bo obciążenie jest symetryczne. Moment na lewej połowie wynosi
+   $M(x) = P x/2$ dla $0 \le x \le L/2$.
+2. Równanie linii ugięcia ma postać $EI w'' = -M(x)$, gdzie $w$ jest ugięciem, a znak wynika
+   z przyjętej konwencji. Po podstawieniu $EI w'' = -P x/2$.
+3. Scałkuj raz: $EI w' = -P x^2/4 + C_1$. Stała $C_1$ wynika z warunku symetrii.
+4. W środku belki styczna jest pozioma, więc $w'(L/2) = 0$. Stąd $C_1 = P L^2/16$.
+5. Scałkuj drugi raz: $EI w = -P x^3/12 + P L^2 x/16 + C_2$.
+6. Ugięcie na podporze jest zerowe: $w(0) = 0$, więc $C_2 = 0$.
+7. Podstaw $x = L/2$. Otrzymujesz $EI w(L/2) = -P L^3/96 + P L^3/32 = P L^3/48$.
+8. Po podzieleniu przez $EI$ dostajesz strzałkę ugięcia $f = P L^3/(48EI)$. Wzór jest
+   poprawny dla małych ugięć i stałego przekroju.
+
+Dla obciążenia równomiernego $q$ na całej długości analogiczny wynik to
+$f = 5qL^4/(384EI)$. W obu przypadkach ugięcie jest odwrotnie proporcjonalne do $EI$ i rośnie
+z potęgą rozpiętości: liniowo z $P$ lub $q$, ale z sześcianem $L$ dla siły skupionej i czwartą
+potęgą $L$ dla obciążenia ciągłego. To dlatego rozpiętość jest tak krytycznym parametrem.
+
 <Insight>
-  Warunek wytrzymałości wyznacza wymagane W, a warunek sztywności — wymagane I. Po wyborze przekroju sprawdź oba;
-  zwiększenie wysokości zwykle bardzo skutecznie zwiększa I.
+  Warunek wytrzymałości wyznacza $W$, a warunek sztywności — $I$. Ponieważ $I$ rośnie z sześcianem wysokości,
+  zwiększenie wysokości jest zwykle najskuteczniejszym sposobem zmniejszenia ugięcia. Samo zwiększenie szerokości działa
+  znacznie słabiej.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Belka swobodnie podparta o L = 4 m, P = 10 kN w środku, E = 210 GPa, σdop = 160 MPa, fdop = L/250 = 16 mm. Rozważ
-    przekrój b = 50 mm, h = 100 mm.
+    Belka swobodnie podparta ma $L = 4$ m i siłę $P = 10$ kN w środku. Przyjmij $E = 210$ GPa,
+    $\sigma_{dop} = 160$ MPa oraz $f_{dop} = L/250 = 16$ mm. Rozważ przekrój $b = 50$ mm,
+    $h = 100$ mm.
   </Given>
   <Steps>
-    <Step>Mmax = PL/4 = 10·4/4 = 10 kN·m = 10 000 000 N·mm.</Step>
-    <Step>Wymagane Wmin = Mmax/σdop = 10 000 000/160 = 62 500 mm³ = 62,5 cm³.</Step>
-    <Step>Wymagane Imin = PL³/(48Efdop) = 10 000·4000³/(48·210 000·16) = 3 968 254 mm⁴.</Step>
-    <Step>Dla przekroju W = bh²/6 = 50·100²/6 = 83 333 mm³ &gt; Wmin.</Step>
-    <Step>Dla przekroju I = bh³/12 = 50·100³/12 = 4 166 667 mm⁴ &gt; Imin.</Step>
-    <Step>Kontrola: σmax = 10 000 000/83 333 = 120 MPa &lt; 160 MPa; fmax = PL³/(48EI) = 15,24 mm &lt; 16 mm.</Step>
+    <Step>Maksymalny moment: $M_{\max} = P L/4 = 10 \cdot 4/4 = 10$ kN·m
+      $= 10 \cdot 10^6$ N·mm.</Step>
+    <Step>Wymagany wskaźnik: $W_{\min} = 10 \cdot 10^6/160 = 62{,}500$ mm³.</Step>
+    <Step>Wymagany moment bezwładności:
+      $I_{\min} = 10{,}000 \cdot 4000^3/(48 \cdot 210{,}000 \cdot 16)
+      = 3{,}968 \cdot 10^6$ mm⁴.</Step>
+    <Step>Dla przekroju $50 \times 100$: $W = 50 \cdot 100^2/6 = 83{,}333$ mm³,
+      czyli $W \ge W_{\min}$.</Step>
+    <Step>$I = 50 \cdot 100^3/12 = 4{,}167 \cdot 10^6$ mm⁴, czyli $I \ge I_{\min}$.</Step>
+    <Step>Kontrola naprężenia: $\sigma_{\max} = 10 \cdot 10^6/83{,}333 = 120$ MPa
+      $\le 160$ MPa.</Step>
+    <Step>Kontrola ugięcia: $f = 10{,}000 \cdot 4000^3/(48 \cdot 210{,}000 \cdot
+      4{,}167 \cdot 10^6) = 15{,}24$ mm $\le 16$ mm.</Step>
+    <Step>Siła tnąca $T = P/2 = 5$ kN, więc $\tau_{\max} = 1{,}5 T/A
+      = 1{,}5 \cdot 5000/5000 = 1{,}5$ MPa. Naprężenia styczne są pomijalne.</Step>
   </Steps>
-  <Result>Przekrój 50 × 100 mm spełnia oba warunki: σmax = 120 MPa i fmax ≈ 15,24 mm.</Result>
+  <Result>
+    Przekrój $50 \times 100$ mm spełnia oba warunki: $\sigma_{\max} = 120$ MPa oraz
+    $f_{\max} = 15{,}24$ mm. Zapas sztywności jest niewielki, więc każdy wzrost obciążenia
+    lub rozpiętości wymaga ponownego sprawdzenia ugięcia.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy belkę swobodnie podpartą o $L = 4$ m, obciążoną równomiernie $q = 9$ kN/m. Przyjmij
+$\sigma_{dop} = 160$ MPa, $E = 210$ GPa i $f_{dop} = L/250 = 16$ mm. Najpierw obliczamy moment
+maksymalny:
+
+$$
+M_{\max} = \frac{q L^2}{8} = \frac{9 \cdot 4^2}{8} = 18\ \text{kN·m}.
+$$
+
+Wymagany wskaźnik wynosi $W_{\min} = 18 \cdot 10^6/160 = 112{,}500$ mm³. Przyjmijmy prostokąt
+o $b = h/2$. Wtedy $W = h^3/12$, więc $h \ge \sqrt[3]{12 \cdot 112{,}500} \approx 110{,}5$ mm.
+Wybieramy $b = 60$ mm i $h = 120$ mm. Dla tego przekroju $W = 144{,}000$ mm³, a naprężenie
+wynosi $18 \cdot 10^6/144{,}000 = 125$ MPa, czyli warunek wytrzymałości jest spełniony.
+
+Sprawdźmy ugięcie. Dla obciążenia równomiernego $f = 5qL^4/(384EI)$, a $I = 60 \cdot 120^3/12
+= 8{,}64 \cdot 10^6$ mm⁴. Po podstawieniu $q = 9$ N/mm i $L = 4000$ mm otrzymujemy
+
+$$
+f = \frac{5 \cdot 9 \cdot 4000^4}{384 \cdot 210{,}000 \cdot 8{,}64 \cdot 10^6}
+= 16{,}53\ \text{mm}.
+$$
+
+To więcej niż $f_{dop} = 16$ mm, mimo że naprężenie jest bezpieczne. Warunek sztywności
+decyduje więc o wymiarze. Zwiększamy wysokość do $h = 140$ mm, pozostawiając $b = 60$ mm.
+Wtedy $I = 13{,}72 \cdot 10^6$ mm⁴, $W = 196{,}000$ mm³, naprężenie spada do 91,8 MPa, a ugięcie
+do około 10,4 mm. Dopiero ten przekrój spełnia oba warunki.
+
+Ten przykład pokazuje typową iterację projektową. Nie wystarczy dobrać przekroju „na naprężenie”
+i zakończyć. Po każdej zmianie wymiarów trzeba przeliczyć $I$, $W$ i ugięcie, ponieważ wszystkie
+te wielkości zmieniają się razem.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem to sztywność jest znana, a szukamy wymiaru. Belka swobodnie podparta ma $L = 3{,}5$ m,
+siłę $P = 8$ kN w środku, $E = 200$ GPa i dopuszczalne ugięcie $f_{dop} = 10$ mm. Szerokość
+przekroju jest narzucona: $b = 50$ mm. Jaka wysokość jest potrzebna?
+
+Z warunku $f = P L^3/(48EI) \le f_{dop}$ wynika
+
+$$
+I_{\min} = \frac{P L^3}{48 E f_{dop}}
+= \frac{8000 \cdot 3500^3}{48 \cdot 200{,}000 \cdot 10}
+= 3{,}573 \cdot 10^6\ \text{mm}^4.
+$$
+
+Dla prostokąta $I = b h^3/12$, więc
+
+$$
+h \ge \sqrt[3]{\frac{12 I_{\min}}{b}}
+= \sqrt[3]{\frac{12 \cdot 3{,}573 \cdot 10^6}{50}} \approx 95{,}0\ \text{mm}.
+$$
+
+Przyjmujemy $h = 100$ mm. Wtedy $I = 50 \cdot 100^3/12 = 4{,}167 \cdot 10^6$ mm⁴, a ugięcie
+wynosi
+
+$$
+f = \frac{8000 \cdot 3500^3}{48 \cdot 200{,}000 \cdot 4{,}167 \cdot 10^6}
+= 8{,}57\ \text{mm},
+$$
+
+czyli jest mniejsze od 10 mm. Sprawdźmy jeszcze wytrzymałość: $M_{\max} = P L/4 = 7$ kN·m,
+$W = 83{,}333$ mm³, więc $\sigma_{\max} = 84$ MPa, znacznie poniżej typowego $\sigma_{dop}$.
+W tym zadaniu o wymiarze decyduje sztywność, a nie wytrzymałość.
+
+<Callout kind="warning" title="Typowe błędy">
+
+1. Sprawdzanie tylko naprężenia. Belka może być bezpieczna wytrzymałościowo i jednocześnie
+   nadmiernie się uginać.
+2. Mylenie $W$ z $I$. $W$ służy do sprawdzenia naprężenia, a $I$ do sprawdzenia ugięcia.
+3. Mieszanie jednostek: $E$ w GPa, $I$ w mm⁴, $L$ w m, $M$ w kN·m. Przeliczaj wszystko na N
+   i mm przed podstawieniem.
+4. Używanie wzoru na ugięcie dla niewłaściwego schematu belki. Wzór $PL^3/(48EI)$ dotyczy
+   belki swobodnie podpartej z siłą w środku, a nie wspornika.
+5. Pomijanie ciężaru własnego przy dużych rozpiętościach. Ciężar zwiększa $q$, moment i ugięcie.
+6. Zakładanie, że zwiększenie szerokości jest równie skuteczne jak zwiększenie wysokości.
+   $I$ rośnie liniowo z $b$, ale z sześcianem $h$.
+7. Brak iteracji po zmianie przekroju. Nowy wymiar zmienia $I$, $W$, masę i ugięcie, więc
+   wszystkie kontrole trzeba powtórzyć.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal schemat belki, obciążenie i warunki podparcia. Od tego zależą wzory na $M_{\max}$
+   i ugięcie.
+2. Oblicz reakcje i znajdź $M_{\max}$. Sprawdź, czy maksimum wypada w środku, pod siłą, czy
+   na podporze.
+3. Zapisz warunek wytrzymałości i oblicz $W_{\min} = M_{\max}/\sigma_{dop}$.
+4. Dobierz wstępny przekrój, korzystając z tablic lub wzorów geometrycznych. Sprawdź, czy
+   $W \ge W_{\min}$.
+5. Oblicz $I$ względem osi zginania. Dla przekroju złożonego użyj twierdzenia Steinera.
+6. Sprawdź ugięcie właściwym wzorem dla danego schematu. Porównaj $f_{\max}$ z $f_{dop}$.
+7. Jeśli któryś warunek nie jest spełniony, zmień wymiar, kształt lub materiał i powtórz
+   obliczenia. Na końcu sprawdź jednostki i sens fizyczny wyniku.
+
+## Połącz z resztą kursu
+
+- **Moment zginający M(x).** Dobór przekroju zaczyna się od $M_{\max}$, więc poprawne wykresy
+  momentu są warunkiem koniecznym.
+- **Rozkład σ i oś obojętna.** $W$ i $I$ liczymy względem osi obojętnej; błąd w jej położeniu
+  przenosi się na cały projekt.
+- **Czyste zginanie.** Wzór $\sigma = My/I$ i krzywizna $\kappa = M/(EI)$ wyjaśniają, dlaczego
+  wytrzymałość i sztywność to dwa różne warunki.
+- **Siła tnąca T(x).** W krótkich belkach naprężenia styczne mogą być istotne; wtedy sam warunek
+  zginania nie wystarcza.
+- **Materiały i kryteria zniszczenia.** $\sigma_{dop}$ zależy od granicy plastyczności,
+  wytrzymałości i współczynnika bezpieczeństwa.
+- **Projektowanie elementów.** Ta lekcja jest punktem wyjścia do pełnego projektu, w którym
+  dochodzą połączenia, stateczność, zmęczenie i koszt.
+
+## Sprawdź się
+
+Pytania sprawdzają dobór przekroju, kontrolę ugięcia i rozumienie różnicy między wytrzymałością
+a sztywnością.
 
 <Quiz>
   <Question outcome="U3">
-    <Prompt>Dla Mmax = 16 kN·m i σdop = 160 MPa minimalny wskaźnik wytrzymałości przekroju wynosi:</Prompt>
-    <Answer>10 cm³</Answer>
-    <Answer correct>100 cm³</Answer>
-    <Answer>1000 cm³</Answer>
-    <Hint>Zamień M na 16 000 000 N·mm; wynik w mm³ podziel przez 1000, aby otrzymać cm³.</Hint>
+    <Prompt>Dla $M_{\max} = 16$ kN·m i $\sigma_{dop} = 160$ MPa minimalny wskaźnik $W$ wynosi:</Prompt>
+    <Answer>$10$ cm³</Answer>
+    <Answer correct>$100$ cm³</Answer>
+    <Answer>$1000$ cm³</Answer>
+    <Answer>$10{,}000$ cm³</Answer>
+    <Hint>Zamień moment na $16 \cdot 10^6$ N·mm; wynik w mm³ podziel przez 1000.</Hint>
     <Explanation>
-      Wmin = 16 000 000/160 = 100 000 mm³ = 100 cm³. Przyjęty przekrój musi mieć W co najmniej takiej wartości.
+      $W_{\min} = 16 \cdot 10^6/160 = 100{,}000$ mm³ $= 100$ cm³. Przyjęty przekrój musi mieć
+      $W$ co najmniej takiej wartości.
     </Explanation>
   </Question>
+
   <Question outcome="U3">
-    <Prompt>Przekrój spełnia warunek σmax ≤ σdop, ale ugięcie przekracza fdop. Co to oznacza?</Prompt>
-    <Answer correct>Przekrój nie spełnia warunku; trzeba zwiększyć sztywność EI</Answer>
-    <Answer>Przekrój jest poprawny, bo wytrzymałość zawsze unieważnia sztywność</Answer>
-    <Answer>Należy zmniejszyć I, aby ograniczyć ugięcie</Answer>
+    <Prompt>
+      Przekrój spełnia warunek $\sigma_{\max} \le \sigma_{dop}$, ale ugięcie przekracza
+      $f_{dop}$. Co to oznacza?
+    </Prompt>
+    <Answer correct>Przekrój nie spełnia warunku; trzeba zwiększyć sztywność $EI$</Answer>
+    <Answer>Przekrój jest poprawny, bo wytrzymałość unieważnia sztywność</Answer>
+    <Answer>Należy zmniejszyć $I$, aby ograniczyć ugięcie</Answer>
+    <Answer>Wystarczy zmniejszyć naprężenie dopuszczalne</Answer>
     <Hint>Oba warunki muszą być spełnione jednocześnie.</Hint>
     <Explanation>
-      Warunek wytrzymałości nie zastępuje kontroli odkształcalności. Ugięcie maleje ze wzrostem EI, więc trzeba dobrać
-      większy I, lepszy materiał albo inny schemat belki.
+      Warunek wytrzymałości nie zastępuje kontroli odkształcalności. Ugięcie maleje ze wzrostem
+      $EI$, więc trzeba dobrać większy $I$, lepszy materiał albo inny schemat belki.
     </Explanation>
   </Question>
-  <Question outcome="W3">
+
+<Question outcome="W3">
+  <Prompt>
+    Dla prostokąta o stałej szerokości $b$ wysokość $h$ wzrasta dwukrotnie. Jak zmienią się $I$ i ugięcie przy
+    pozostałych danych bez zmian?
+  </Prompt>
+  <Answer correct>$I$ wzrośnie 8 razy, ugięcie spadnie 8 razy</Answer>
+  <Answer>$I$ wzrośnie 2 razy, ugięcie spadnie 2 razy</Answer>
+  <Answer>$I$ wzrośnie 4 razy, ugięcie spadnie 4 razy</Answer>
+  <Answer>$I$ wzrośnie 8 razy, ugięcie wzrośnie 8 razy</Answer>
+  <Hint>$h$ jest w trzeciej potędze, a ugięcie jest odwrotnie proporcjonalne do $I$.</Hint>
+  <Explanation>
+    $I$ rośnie $2^3 = 8$ razy. Ponieważ $f$ jest odwrotnie proporcjonalne do $I$, ugięcie maleje ośmiokrotnie.
+  </Explanation>
+</Question>
+
+<Question outcome="U3">
+  <Prompt>
+    Przy stałych $P$, $E$ i $I$ rozpiętość belki z siłą w środku wzrasta dwukrotnie. Jak zmieni się ugięcie?
+  </Prompt>
+  <Answer correct>Wzrośnie 8 razy</Answer>
+  <Answer>Wzrośnie 16 razy</Answer>
+  <Answer>Wzrośnie 4 razy</Answer>
+  <Answer>Wzrośnie 2 razy</Answer>
+  <Hint>We wzorze $PL^3/(48EI)$ długość występuje w trzeciej potędze.</Hint>
+  <Explanation>
+    Podwojenie $L$ daje $2^3 = 8$ razy większe ugięcie od samej siły. W praktyce dochodzi jeszcze wzrost ciężaru
+    własnego, który zwiększa obciążenie, dlatego rzeczywisty efekt bywa większy.
+  </Explanation>
+</Question>
+
+  <Question outcome="U1">
     <Prompt>
-      Dla prostokąta o stałej szerokości b wysokość h wzrasta dwukrotnie. Jak zmieni się I = bh³/12 i ugięcie przy
-      pozostałych danych bez zmian?
+      Belka swobodnie podparta o $L = 5$ m jest obciążona siłą $P = 12$ kN w środku. Ile wynosi
+      $M_{\max}$?
     </Prompt>
-    <Answer correct>I wzrośnie 8 razy, ugięcie spadnie 8 razy</Answer>
-    <Answer>I wzrośnie 2 razy, ugięcie spadnie 2 razy</Answer>
-    <Answer>I wzrośnie 4 razy, ugięcie spadnie 4 razy</Answer>
-    <Hint>h jest w trzeciej potędze, a f jest odwrotnie proporcjonalne do I.</Hint>
+    <Answer>$7{,}5$ kN·m</Answer>
+    <Answer correct>$15$ kN·m</Answer>
+    <Answer>$30$ kN·m</Answer>
+    <Answer>$60$ kN·m</Answer>
+    <Hint>Dla siły w środku $M_{\max} = PL/4$.</Hint>
     <Explanation>
-      I rośnie 2³ = 8 razy. Ponieważ f = PL³/(48EI), przy stałych P, L i E ugięcie spada ośmiokrotnie.
+      $M_{\max} = 12 \cdot 5/4 = 15$ kN·m. Maksimum występuje w środku rozpiętości, pod siłą.
+    </Explanation>
+  </Question>
+
+<Question outcome="W3">
+  <Prompt>Dwa przekroje mają takie samo pole. Który jest lepszy na zginanie w płaszczyźnie poziomej?</Prompt>
+  <Answer correct>Ten, który ma więcej materiału daleko od osi obojętnej</Answer>
+  <Answer>Ten, który ma materiał skupiony przy osi obojętnej</Answer>
+  <Answer>Oba są zawsze równoważne, bo pole jest takie samo</Answer>
+  <Answer>Ten, który ma mniejszy moment bezwładności</Answer>
+  <Hint>Moment bezwładności zależy od kwadratu odległości od osi.</Hint>
+  <Explanation>
+    $I = \int y^2\,dA$, więc materiał odsunięty od osi wnosi znacznie większy wkład. Dlatego dwuteowniki i rury są
+    efektywniejsze od pełnego prostokąta o tym samym polu.
+  </Explanation>
+</Question>
+
+  <Question outcome="U3">
+    <Prompt>Dopuszczalne ugięcie wynosi $L/250$. Dla $L = 5$ m wartość $f_{dop}$ to:</Prompt>
+    <Answer>$5$ mm</Answer>
+    <Answer correct>$20$ mm</Answer>
+    <Answer>$25$ mm</Answer>
+    <Answer>$50$ mm</Answer>
+    <Hint>Zamień $L$ na milimetry i podziel przez 250.</Hint>
+    <Explanation>
+      $L = 5000$ mm, więc $f_{dop} = 5000/250 = 20$ mm. Wartość względna jest wygodna, bo
+      automatycznie skaluje się z rozpiętością.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o projektowaniu belek;
+  szukaj warunków wytrzymałości i sztywności oraz tablic przekrojów.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT — zadania
+  z doborem przekroju i kontrolą ugięcia; dobre do ćwiczenia iteracji.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — ugięcia belek i metody
+  całkowania; porównaj wzory dla różnych schematów podparcia.
+- D. Roylance, _Mechanics of Materials_ (MIT OpenCourseWare) — podrozdział o przemieszczeniach
+  belek; wyprowadzenie $PL^3/(48EI)$ i omówienie sztywności zginania.
+- T. Wierzbicki, _Structural Mechanics_ (MIT OpenCourseWare) — rozdziały o równaniu belki
+  i belkach statycznie wyznaczalnych; pokazuje związek $EI w'' = -M$ z ugięciem.

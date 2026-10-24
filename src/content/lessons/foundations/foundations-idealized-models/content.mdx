@@ -7,7 +7,6 @@ shortTitle: Modele
 description: >-
   Przejdź od rzeczywistego pręta do schematu, zachowując cechy istotne dla
   badanego zagadnienia.
-duration: 8
 eyebrow: 'Uprość, ale nie zgub istoty'
 outcomes:
   - W1 — wybiera uproszczenia właściwe dla analizowanego elementu
@@ -18,33 +17,211 @@ outcomes:
   - U3 — przygotowuje poprawny model do doboru nośności i sztywności
 ---
 
-Model jest jak mapa: nie pokazuje każdego detalu, lecz to, co potrzebne do rozwiązania zadania. Smukły pręt zastępujemy osią, ale jego przekrój zachowujemy we wzorach na naprężenie i odkształcenie.
+Rzeczywisty pręt ma zaokrąglone krawędzie, śruby, spawy, nierównomiernie rozłożony materiał i obciążenie przyłożone przez konkretną płytkę. Gdybyśmy próbowali opisać każdy z tych szczegółów, obliczenie stałoby się dłuższe niż samo zjawisko. Inżynieria postępuje inaczej: buduje model, czyli świadomie uproszczony opis rzeczywistości, w którym zostają tylko cechy istotne dla postawionego pytania.
+
+Model jest jak mapa. Mapa drogowa nie pokazuje każdego drzewa, bo nie jest do tego potrzebna. Podobnie pręt w obliczeniach wytrzymałościowych zastępujemy osią, długością i przekrojem. To nie znaczy, że kształt przekroju jest nieistotny — jest bardzo istotny, ale wchodzi do wzorów przez pole, moment bezwładności lub wskaźnik wytrzymałości, a nie przez rysowanie każdego zaokrąglenia.
+
+Najważniejsza umiejętność w tej lekcji to dobór poziomu modelu. Do wyznaczenia reakcji często wystarczy ciało sztywne, które nie odkształca się wcale. Do obliczenia wydłużenia potrzebny jest już model odkształcalny z modułem Younga. Do oceny naprężenia w środku długiego pręta wystarczy średnia wartość $N/A$, ale przy mocowaniu lub ostrym karbie ten sam model może przestać wystarczać.
+
+Na końcu będziesz umiał powiedzieć, jakie założenia przyjąłeś, dlaczego je przyjąłeś i gdzie model przestaje być wiarygodny. To umiejętność równie ważna jak samo podstawienie do wzoru, ponieważ większość błędów inżynierskich nie wynika z arytmetyki, lecz z użycia modelu poza jego zakresem.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie równania równowagi płaskiego ciała: sumę sił w dwóch kierunkach i sumę momentów względem wybranego punktu.
+- Wiedz, czym jest siła wypadkowa i moment siły. Wypadkowa obciążenia rozłożonego musi dawać ten sam skutek siłowy i momentowy co obciążenie pierwotne.
+- Rozróżniaj ciało sztywne od odkształcalnego. Ciało sztywne może się poruszać jako całość, ale nie zmienia wymiarów pod obciążeniem.
+- Przypomnij sobie wzory $\sigma=N/A$ oraz $\Delta L=NL/(EA)$ i ich założenia: stały przekrój, osiowa siła, równomierny rozkład naprężenia z dala od zaburzeń.
+- Ustalaj jednostki konsekwentnie. W modelu pręta najwygodniejszy jest układ N, mm i MPa.
+- Uważaj na dwa różne pytania: „jakie są reakcje?” oraz „jakie jest naprężenie i odkształcenie?”. Odpowiedź na pierwsze nie wymaga podatności materiału, odpowiedź na drugie już tak.
+
+## Model i intuicja
+
+Model obliczeniowy zaczynamy od wyboru tego, co chcemy obliczyć. Jeżeli interesują nas tylko reakcje podpór, możemy potraktować belkę jako ciało sztywne. Jeżeli interesuje nas ugięcie, musimy dopuścić odkształcenie. Jeżeli interesuje nas naprężenie w przekroju, potrzebujemy modelu, który wiąże siłę wewnętrzną z rozkładem naprężenia w obszarze przekroju.
+
+Dla pręta osiowo rozciąganego typowy model ma następujące założenia:
+
+- oś pręta jest prosta, a siła działa wzdłuż tej osi;
+- przekrój jest stały na rozpatrywanym odcinku;
+- materiał jest jednorodny i liniowo sprężysty;
+- odkształcenia są małe, więc długość i pole przekroju można traktować jako niezmienione;
+- rozpatrujemy przekrój wystarczająco odległy od miejsca przyłożenia siły i od nagłych zmian przekroju.
+
+W tych warunkach siła normalna $N$ jest stała na długości, a naprężenie można przyjąć jako równomierne w przekroju. To właśnie pozwala napisać $\sigma=N/A$. Wzór nie jest uniwersalnym prawem natury — jest wnioskiem z modelu. Zmiana założeń wymaga zmiany wzoru albo co najmniej dodatkowej analizy.
+
+Obciążenie rozłożone również wymaga modelu. Zamiast tysięcy drobnych sił przyjmujemy funkcję $q(x)$ opisującą siłę na jednostkę długości. Do równowagi całej belki możemy zastąpić ją jedną wypadkową. Ta wypadkowa jest statycznie równoważna, czyli daje tę samą sumę sił i ten sam moment względem dowolnego punktu. Nie znaczy to jednak, że lokalne naprężenia pod obciążeniem są identyczne.
+
+Model przestaje wystarczać w kilku typowych sytuacjach: przy koncentracji naprężeń wokół otworu lub karbu, przy dużych odkształceniach, przy utracie stateczności smukłego pręta, przy połączeniach przekazujących moment, przy materiale niejednorodnym oraz przy obciążeniach zmęczeniowych. Wtedy potrzebny jest model bardziej szczegółowy: trójwymiarowy, belkowy z uwzględnieniem ścinania, statecznościowy lub kontaktowy.
+
+Warto zapamiętać zasadę: model dobieramy do pytania, a nie do przedmiotu. Ta sama belka może być modelem sztywnym w zadaniu o reakcjach i modelem odkształcalnym w zadaniu o ugięciu. Nie ma jednego „prawdziwego” modelu, jest tylko model wystarczający lub niewystarczający dla danego celu.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniasz długość pręta, położenie przekroju, siłę osiową i pole przekroju. Obserwuj, że siła normalna pozostaje stała, a naprężenie średnie zależy od pola — to bezpośredni test założeń prostego modelu osiowego.
 
 <Lab id="sections" />
 
+## Definicje i jednostki
+
+| Pojęcie                | Znaczenie                                                       | Rola w modelu                         |
+| ---------------------- | --------------------------------------------------------------- | ------------------------------------- |
+| Model fizyczny         | Uproszczony opis obiektu zawierający cechy istotne dla pytania  | Pozwala zastosować znane równania     |
+| Idealizacja            | Zastąpienie rzeczywistego detalu prostym obiektem matematycznym | Np. oś pręta zamiast pełnego kształtu |
+| Ciało sztywne          | Ciało, które nie zmienia odległości między punktami             | Reakcje, równowaga globalna           |
+| Ciało odkształcalne    | Ciało, którego punkty przemieszczają się względem siebie        | Naprężenia, odkształcenia, ugięcia    |
+| Pręt pryzmatyczny      | Pręt o stałym przekroju na rozpatrywanym odcinku                | Stałe $A$, prostsze wzory             |
+| Wypadkowa obciążenia   | Jedna siła dająca ten sam skutek co obciążenie rozłożone        | Równowaga całego elementu             |
+| Równoważność statyczna | Zgodność sumy sił i sumy momentów                               | Zastąpienie obciążenia wypadkową      |
+| Zakres stosowalności   | Warunki, w których model daje wystarczająco dokładny wynik      | Ocena wiarygodności obliczeń          |
+
+Symbole używane w lekcji: $L$ — długość, $A$ — pole przekroju, $E$ — moduł Younga, $N$ — siła normalna, $q$ — obciążenie liniowe, $P$ — wypadkowa siła, $x$ — współrzędna wzdłuż osi, $x_P$ — położenie wypadkowej. Jednostki: długość w mm lub m, pole w mm² lub m², siła w N lub kN, obciążenie liniowe w N/m lub kN/m, moment w N·mm lub kN·m.
+
+Konwencja znaków: siłę normalną rozciągającą przyjmujemy jako dodatnią, a ściskającą jako ujemną. Obciążenie $q(x)$ ma znak zgodny z przyjętym dodatnim kierunkiem osi prostopadłej do pręta. Wypadkowa zachowuje znak obciążenia, a jej położenie liczymy względem początku przyjętego układu.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-P=\int_0^L q(x)\,\mathrm{d}x,\qquad x_P=\frac{\int_0^L xq(x)\,\mathrm{d}x}{P}
+P=\int_0^L q(x)\,\mathrm{d}x,\qquad
+x_P=\frac{\displaystyle\int_0^L x\,q(x)\,\mathrm{d}x}{\displaystyle\int_0^L q(x)\,\mathrm{d}x}
 $$
 
-<Caption>Obciążenie rozłożone q(x) można zastąpić wypadkową P przyłożoną w jego środku ciężkości. Ta równoważność dotyczy reakcji całego ciała, nie zawsze lokalnych naprężeń.</Caption>
+<Caption>Wypadkowa obciążenia rozłożonego ma wartość równą polu pod wykresem $q(x)$, a jej linia działania przechodzi przez środek ciężkości tego pola. Wzór dotyczy obciążenia o stałym kierunku i jest podstawą zastępowania go jedną siłą w analizie równowagi.</Caption>
+</Formula>
+
+Wyprowadzenie opiera się na podzieleniu obciążenia na bardzo krótkie przedziały. Każdy przedział o długości $\mathrm{d}x$ niesie siłę $q(x)\,\mathrm{d}x$. Suma takich sił w granicy daje całkę, a moment względem początku układu daje drugą całkę.
+
+1. Podziel odcinek od $0$ do $L$ na przedziały o długości $\mathrm{d}x$.
+2. Na przedziale wokół punktu $x$ przyjmij obciążenie w przybliżeniu stałe i równe $q(x)$.
+3. Siła działająca na ten przedział wynosi $\mathrm{d}P=q(x)\,\mathrm{d}x$.
+4. Suma wszystkich sił to całka $P=\int_0^L q(x)\,\mathrm{d}x$.
+5. Moment siły $\mathrm{d}P$ względem początku wynosi $x\,\mathrm{d}P=x\,q(x)\,\mathrm{d}x$.
+6. Suma momentów to całka $M_0=\int_0^L x\,q(x)\,\mathrm{d}x$.
+7. Wypadkowa $P$ przyłożona w punkcie $x_P$ musi dawać ten sam moment: $P\,x_P=M_0$.
+8. Dzielimy przez $P$ i otrzymujemy $x_P=M_0/P$, czyli wzór podany wyżej.
+9. Dla obciążenia równomiernego $q=\text{const}$: $P=qL$ oraz $x_P=(qL^2/2)/(qL)=L/2$.
+10. Dla obciążenia trójkątnego rosnącego od zera do $q_0$: $P=q_0L/2$ oraz $x_P=2L/3$ od końca zerowego.
+
+Po zastąpieniu obciążenia wypadkową można użyć zwykłych równań równowagi. Trzeba jednak pamiętać, że równoważność dotyczy całego ciała lub jego części, a nie rozkładu naprężeń w bezpośrednim sąsiedztwie obciążenia. To rozróżnienie jest sednem modelowania: ta sama wypadkowa może być wygodna do reakcji i niewystarczająca do lokalnej wytrzymałości.
+
+<Formula>
+$$
+\sigma=\frac{N}{A}\quad\text{przy założeniach modelu osiowego}
+$$
+
+<Caption>Wzór jest ważny dla przekroju odległego od miejsc przyłożenia obciążenia i nagłych zmian geometrii. W strefie zaburzeń rozkład naprężeń może być nierównomierny, nawet jeśli wypadkowa siła wewnętrzna jest taka sama.</Caption>
 </Formula>
 
 <Insight>
-  Model ciała sztywnego wystarcza do wyznaczenia reakcji statycznie wyznaczalnych, ale do obliczenia odkształceń trzeba
-  uwzględnić podatność materiału.
+  Równoważność statyczna nie oznacza równoważności naprężeń. Wypadkowa obciążenia może poprawnie opisywać reakcje, a
+  jednocześnie nie opisywać lokalnego maksimum naprężenia pod miejscem przyłożenia siły.
 </Insight>
 
 <WorkedExample>
-  <Given>Na odcinku L = 3 m działa równomierne obciążenie q = 4 kN/m. Zastąp je jedną siłą do analizy równowagi.</Given>
+  <Given>
+    Belka swobodnie podparta ma długość 3,6 m. Działa na nią równomierne obciążenie q = 6 kN/m na całej długości. Pomiń
+    ciężar własny. Zastąp obciążenie wypadkową i wyznacz reakcje podpór.
+  </Given>
   <Steps>
-    <Step>Oblicz wypadkową jako pole wykresu obciążenia: P = qL.</Step>
-    <Step>Podstaw dane: P = 4 kN/m · 3 m = 12 kN.</Step>
-    <Step>Dla obciążenia równomiernego środek wykresu leży w połowie długości.</Step>
-    <Step>Przyłóż wypadkową w odległości xP = L/2 = 1,5 m od początku odcinka, w kierunku zgodnym z q.</Step>
+    <Step>Oblicz wypadkową jako pole wykresu: P = qL = 6 kN/m · 3,6 m.</Step>
+    <Step>Otrzymujesz P = 21,6 kN; jednostka kN/m pomnożona przez m daje kN.</Step>
+    <Step>Dla obciążenia równomiernego wypadkowa działa w połowie długości: xP = 1,8 m od lewej podpory.</Step>
+    <Step>Zapisz równowagę momentów względem lewej podpory: RB · 3,6 = 21,6 · 1,8.</Step>
+    <Step>Wyznacz RB = 38,88 / 3,6 = 10,8 kN.</Step>
+    <Step>Z równowagi pionowej: RA + RB = 21,6 kN, więc RA = 10,8 kN.</Step>
+    <Step>Sprawdź symetrię: obciążenie i podpory są symetryczne, więc równe reakcje są oczekiwane.</Step>
   </Steps>
-  <Result>Model równoważny dla reakcji: jedna siła P = 12 kN przyłożona 1,5 m od początku obciążonego odcinka.</Result>
+  <Result>Wypadkowa P = 21,6 kN działa w połowie rozpiętości; reakcje wynoszą RA = RB = 10,8 kN.</Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Belka o długości 6 m jest obciążona trójkątnie: obciążenie rośnie od zera na lewym końcu do 12 kN/m na prawym końcu. Podpory znajdują się na obu końcach. Wyznacz wypadkową i reakcje.
+
+Pole trójkąta pod wykresem obciążenia wynosi:
+
+$$
+P=\frac{1}{2}\cdot 12\ \text{kN/m}\cdot 6\ \text{m}=36\ \text{kN}
+$$
+
+Środek ciężkości trójkąta leży w odległości dwóch trzecich długości od wierzchołka, czyli od końca, gdzie obciążenie jest zerowe:
+
+$$
+x_P=\frac{2}{3}\cdot 6\ \text{m}=4\ \text{m}
+$$
+
+Reakcję na prawym końcu wyznaczamy z momentów względem lewego końca:
+
+$$
+R_B\cdot 6=36\cdot 4
+\quad\Rightarrow\quad
+R_B=24\ \text{kN}
+$$
+
+Z równowagi pionowej:
+
+$$
+R_A=36-24=12\ \text{kN}
+$$
+
+Sprawdzenie: reakcja bliżej większego obciążenia jest większa, co jest zgodne z intuicją. Suma reakcji wynosi 36 kN, a moment wypadkowej względem lewego końca to $36\cdot 4=144\ \text{kN}\cdot\text{m}$. Moment reakcji $R_B$ względem tego samego punktu to $24\cdot 6=144\ \text{kN}\cdot\text{m}$ — bilans się zgadza.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy wypadkową i jej położenie, a szukamy parametrów obciążenia trójkątnego. Belka ma długość 6 m. Wypadkowa obciążenia trójkątnego wynosi 27 kN i działa 4 m od końca, na którym obciążenie jest zerowe. Jaka jest maksymalna intensywność obciążenia?
+
+Dla trójkąta o maksimum $q_0$ na jednym końcu:
+
+$$
+P=\frac{1}{2}q_0L
+\quad\Rightarrow\quad
+q_0=\frac{2P}{L}=\frac{2\cdot 27}{6}=9\ \text{kN/m}
+$$
+
+Sprawdzamy położenie środka ciężkości:
+
+$$
+x_P=\frac{2L}{3}=\frac{2\cdot 6}{3}=4\ \text{m}
+$$
+
+Otrzymana wartość zgadza się z danymi, więc model jest spójny. Gdyby wypadkowa działała w innym miejscu niż $2L/3$, obciążenie nie byłoby prostym trójkątem o maksimum na końcu — trzeba by rozważyć inny rozkład, na przykład trapezowy.
+
+Ten wariant pokazuje, że modelowanie nie polega na dobieraniu wzoru „na wyczucie”. Kształt wykresu obciążenia determinuje zarówno wartość wypadkowej, jak i jej położenie. Znając dwa z tych elementów, można odtworzyć trzeci tylko wtedy, gdy założony kształt rozkładu jest poprawny.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zastąpienie obciążenia rozłożonego siłą równą $qL$ przyłożoną na końcu zamiast w środku ciężkości wykresu.
+- Użycie wypadkowej do obliczenia lokalnego naprężenia bezpośrednio pod obciążeniem, gdzie rozkład jest zaburzony.
+- Pominięcie ciężaru własnego, mimo że dla długiego elementu może on być większy od obciążenia użytkowego.
+- Modelowanie utwierdzenia jako przegubu, co usuwa reakcję momentową i zmienia całą równowagę.
+- Liczenie ugięcia z modelu ciała sztywnego, który z definicji nie ma ugięcia.
+- Przyjęcie równomiernego naprężenia w przekroju z ostrym karbem, otworem lub nagłą zmianą pola.
+- Mieszanie geometrii 2D i 3D bez sprawdzenia, które stopnie swobody i które składowe obciążenia są istotne.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sformułuj pytanie jednym zdaniem: reakcje, siły wewnętrzne, naprężenie, odkształcenie czy stateczność.
+2. Wybierz poziom modelu: ciało sztywne do równowagi globalnej, model odkształcalny do naprężeń i przemieszczeń.
+3. Ustal geometrię modelu: długość, położenie podpór, stały lub zmienny przekrój, położenie miejsca przyłożenia obciążeń.
+4. Ustal materiał: moduł Younga, gęstość, ewentualnie granicę plastyczności. Przyjmij wartości typowe tylko wtedy, gdy zadanie na to pozwala.
+5. Zidentyfikuj obciążenia i zapisz je w jednolitych jednostkach: siły skupione, obciążenia liniowe, momenty, ciężar własny.
+6. Zastąp obciążenia rozłożone wypadkowymi, jeśli pytanie dotyczy równowagi całego elementu.
+7. Sprawdź, czy miejsce obliczeń leży poza strefą zaburzeń. Jeśli nie, model średniego naprężenia może być niewystarczający.
+8. Zapisuj założenia obok obliczeń. Dzięki temu wiesz, które uproszczenie odpowiada za ewentualną różnicę z rzeczywistością.
+
+## Połącz z resztą kursu
+
+- **Jednostki SI: wspólny język obliczeń** — model działa tylko wtedy, gdy wszystkie wielkości są w spójnych jednostkach.
+- **Obciążenia: siła, rozkład i moment** — rozkład obciążenia jest jednym z założeń modelu, a nie tylko daną liczbową.
+- **Podpory i reakcje: jak konstrukcja odpowiada** — schemat podparcia jest częścią modelu i decyduje o liczbie niewiadomych.
+- **Równowaga statyczna: trzy równania** — model ciała sztywnego pozwala wyznaczyć reakcje bez informacji o materiale.
+- **Metoda przekrojów: zajrzyj do środka** — przecięcie pręta ujawnia siły wewnętrzne, które są konsekwencją przyjętego modelu.
+- **Zasada Saint-Venanta: dystans od detalu** — wyjaśnia, jak daleko od mocowania wolno stosować uproszczony rozkład naprężeń.
+
+## Sprawdź się
+
+Pytania sprawdzają, czy potrafisz dobrać model do pytania i rozpoznać granice jego stosowalności.
 
 <Quiz>
   <Question outcome="W2">
@@ -65,7 +242,7 @@ $$
     <Answer correct>Tak, jeśli wypadkową przyłożymy w połowie obciążonego odcinka</Answer>
     <Answer>Tak, ale wypadkową trzeba przyłożyć na końcu obciążonego odcinka</Answer>
     <Answer>Nie, bo obciążenie rozłożone nie ma wypadkowej</Answer>
-    <Hint>Wypadkowa musi dać tę samą sumę sił i momentów.</Hint>
+    <Hint>Wypadkowa musi dać tę samą sumę sił i ten sam moment.</Hint>
     <Explanation>
       Dla równomiernego q wypadkowa wynosi qL i działa w środku obciążonego odcinka. Daje tę samą sumę sił i ten sam
       moment względem dowolnego punktu, więc nadaje się do równowagi całej belki.
@@ -82,4 +259,56 @@ $$
       modelu, o ile nie tworzą istotnego karbu.
     </Explanation>
   </Question>
+  <Question outcome="U1">
+    <Prompt>Obciążenie trójkątne rośnie od zera do 10 kN/m na długości 4 m. Gdzie działa wypadkowa?</Prompt>
+    <Answer>W połowie długości, czyli 2 m od zera</Answer>
+    <Answer correct>W odległości 2,67 m od końca zerowego</Answer>
+    <Answer>Na końcu o maksymalnej intensywności</Answer>
+    <Hint>Środek ciężkości trójkąta leży w dwóch trzecich długości od wierzchołka.</Hint>
+    <Explanation>
+      Dla trójkąta o zerze na jednym końcu środek ciężkości leży w odległości 2L/3 od tego końca. Tutaj 2 · 4 / 3 = 2,67
+      m. Wypadkowa ma wartość 20 kN.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W którym przypadku proste σ = N/A może być niewystarczające mimo poprawnej siły N?</Prompt>
+    <Answer>W środku długiego, prostego pręta o stałym przekroju</Answer>
+    <Answer correct>Bezpośrednio przy małym otworze w rozciąganej taśmie</Answer>
+    <Answer>Przy dowolnym obciążeniu osiowym, zawsze</Answer>
+    <Hint>Otwór zmienia lokalny rozkład naprężeń, nawet jeśli średnia siła się nie zmienia.</Hint>
+    <Explanation>
+      Otwór powoduje koncentrację naprężeń. Średnie N/A nadal opisuje wypadkową, ale nie opisuje lokalnego maksimum,
+      które może decydować o bezpieczeństwie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Do wyznaczenia reakcji statycznie wyznaczalnej belki wystarczy model:</Prompt>
+    <Answer>odkształcalny z modułem Younga</Answer>
+    <Answer correct>sztywny z równaniami równowagi</Answer>
+    <Answer>trójwymiarowy z pełnym stanem naprężenia</Answer>
+    <Hint>Reakcje statycznie wyznaczalne nie zależą od sztywności materiału.</Hint>
+    <Explanation>
+      Równania równowagi ciała sztywnego dają reakcje bez informacji o module Younga. Model odkształcalny jest potrzebny
+      dopiero do przemieszczeń i naprężeń.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Co powinno znaleźć się w opisie modelu przed doborem przekroju?</Prompt>
+    <Answer>Tylko końcowa wartość siły</Answer>
+    <Answer correct>Geometria, materiał, podpory, obciążenia i założenia uproszczające</Answer>
+    <Answer>Wyłącznie rysunek bez wymiarów</Answer>
+    <Hint>Pomyśl, co może zmienić wynik doboru poza samą siłą.</Hint>
+    <Explanation>
+      Dobór zależy od długości, sposobu podparcia, rozkładu obciążenia i własności materiału. Jawne zapisanie założeń
+      pozwala później sprawdzić, czy model nadal odpowiada rzeczywistości.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o modelowaniu elementów prętowych i założeniach teorii wytrzymałościowej.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — omówienie uproszczeń w analizie prętów oraz związku między modelem a stanem naprężenia.
+- J. Misiak, _Mechanika techniczna_, t. 1: _Statyka i wytrzymałość materiałów_, WNT, Warszawa 2003 — podejście do równowagi, modeli podpór i zastępowania obciążeń.
+- D. Roylance, _Mechanics of Materials_ — rozdział o kratownicach; pokazuje, jak idealizacja połączeń przegubowych prowadzi do prostego modelu sił osiowych.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdziały o diagramach ciała swobodnego i równowadze ciała sztywnego; dobre źródło przykładów modelowania podpór i obciążeń.

@@ -12,6 +12,39 @@ export default {
   ],
   result:
     'Swobodne ΔLT = 1,32 mm > a, więc luz zostaje zamknięty. Po kontakcie R = 363,708 kN; σ₁ = −57,17 MPa, σ₂ = −72,36 MPa. Odkształcenia całkowite: +0,00220943 i +0,00215881; ΔL₁ + ΔL₂ = 1,20 mm.',
+  figure: {
+    kind: 'axial',
+    top: 'fixed',
+    bottom: 'gap',
+    units: { N: 'kN', σ: 'MPa', ε: '–', ΔL: 'mm', αΔT: '–', ΔL_T: 'mm', A: 'mm²' },
+    segments: [
+      {
+        id: 'górny',
+        label: 'górny · d₁',
+        length: 250,
+        area: 6361.725,
+        n: -363.708,
+        sigma: -57.17,
+        epsilon: 0.00220943,
+        deltaL: 0.552357,
+        thermalStrain: 0.0024,
+        freeDeltaL: 0.6,
+      },
+      {
+        id: 'dolny',
+        label: 'dolny · d₂',
+        length: 300,
+        area: 5026.548,
+        n: -363.708,
+        sigma: -72.36,
+        epsilon: 0.00215881,
+        deltaL: 0.647643,
+        thermalStrain: 0.0024,
+        freeDeltaL: 0.72,
+      },
+    ],
+    note: 'Luz a = 1,20 mm; swobodne wydłużenie 1,32 mm zamyka luz i uruchamia reakcję 363,708 kN.',
+  },
   scenes: [
     {
       title: 'Model z luzem',

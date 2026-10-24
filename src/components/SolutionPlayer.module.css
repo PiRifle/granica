@@ -80,7 +80,7 @@
 .solution-visual {
   position: relative;
   background: var(--surface-subtle);
-  padding: 20px;
+  padding: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,7 +102,7 @@
   color: #8b96a1;
 }
 .solution-copy {
-  padding: 23px 25px;
+  padding: 17px 19px;
   min-width: 0;
 }
 .solution-scene-title {
@@ -173,41 +173,82 @@
   font-weight: 700;
   box-shadow: 0 1px 4px #17202a14;
 }
-.solution-progress {
-  height: 4px;
-  background: #e5e9ee;
-  border-radius: 10px;
-  margin: 13px 0 11px;
-  overflow: hidden;
-}
-.solution-progress span {
-  display: block;
-  height: 100%;
-  background: var(--accent);
-  border-radius: inherit;
-  transition: width 0.35s;
-}
-.solution-dots {
+.solution-timeline {
   display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin: 13px 0 2px;
 }
-.solution-dot {
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  border-radius: 50%;
-  border: 1px solid #c9d0d9;
-  background: #fff;
+.solution-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #7d8996;
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+  text-align: center;
 }
-.solution-dot.done {
-  background: #aab8f7;
-  border-color: #93a5f3;
+.solution-track {
+  position: relative;
+  flex: 1;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  border-radius: 8px;
 }
-.solution-dot.active {
+.solution-track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 10px;
+  background: #e5e9ee;
+}
+.solution-track-fill {
+  position: absolute;
+  left: 0;
+  height: 4px;
+  border-radius: 10px;
   background: var(--accent);
-  border-color: var(--accent);
-  transform: scale(1.15);
+  transition: width 0.12s linear;
+}
+.solution-track-thumb {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--accent);
+  transform: translateX(-50%);
+  box-shadow: 0 1px 4px #17202a2e;
+  transition:
+    left 0.12s linear,
+    transform 0.15s;
+}
+.solution-track:hover .solution-track-thumb,
+.solution-track.seeking .solution-track-thumb,
+.solution-track:focus-visible .solution-track-thumb {
+  transform: translateX(-50%) scale(1.18);
+}
+.solution-track.seeking .solution-track-fill,
+.solution-track.seeking .solution-track-thumb {
+  transition: none;
+}
+.solution-track:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.solution-track-tick {
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  border-radius: 1px;
+  background: #b9c2cc;
+  transform: translateX(-50%);
+  pointer-events: none;
 }
 .solution-result {
   display: flex;
@@ -255,4 +296,125 @@
     min-height: 210px;
     padding: 10px;
   }
+}
+
+.solution-derivation {
+  margin: 10px 0;
+  border: 1px solid #e4e8ed;
+  border-radius: 10px;
+  background: #fbfcfe;
+  padding: 7px 8px 8px;
+}
+.derivation-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.derivation-kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  color: #8b96a1;
+}
+.derivation-counter {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  color: #8b96a1;
+  font-variant-numeric: tabular-nums;
+}
+.math-stage {
+  padding: 6px 7px;
+  border-radius: 7px;
+  background: #edf1ff;
+  border: 1px solid #d6defb;
+  min-height: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3px;
+}
+.math-context {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  padding: 0 2px;
+  font-size: 0.8em;
+}
+.math-context .math-tokens {
+  width: 100%;
+}
+.math-arrow {
+  align-self: center;
+  color: #aab4bf;
+  font-size: 12px;
+  line-height: 1;
+}
+.math-current {
+  min-height: 2.6em;
+  padding: 6px 7px;
+  border-radius: 7px;
+  background: #fff;
+  border: 1px solid #d6defb;
+}
+.math-current :global(.katex-display) {
+  margin: 0;
+  text-align: center;
+}
+.math-current :global(.katex) {
+  font-size: 1em;
+}
+.math-tokens {
+  display: flex;
+  line-height: 1.5;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.1em;
+  row-gap: 0.05em;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+}
+.math-token {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 1;
+  max-width: 100%;
+  overflow: visible;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+.math-token :global(.katex) {
+  max-width: 100%;
+}
+.math-token :global(.katex) {
+  font-size: 1em;
+}
+.math-steps {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+.math-step {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  border-radius: 3px;
+  background: #e2e7ee;
+  overflow: hidden;
+}
+.math-step.done {
+  background: #aab8f7;
+}
+.math-step-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  transform-origin: left center;
 }

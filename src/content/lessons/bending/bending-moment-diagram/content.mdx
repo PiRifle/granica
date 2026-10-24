@@ -7,7 +7,6 @@ shortTitle: Moment zginający
 description: >-
   Wyznaczaj moment z równowagi odciętej części i znajduj jego ekstrema za pomocą
   T.
-duration: 8
 eyebrow: Pole pod T buduje M
 outcomes:
   - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
@@ -24,62 +23,370 @@ outcomes:
     sztywności
 ---
 
-Moment zginający opisuje tendencję do wyginania belki. Zmiana momentu na odcinku jest równa polu pod wykresem siły tnącej, dlatego oba wykresy analizujemy razem.
+Siła tnąca mówi, jak mocno próbują się przesunąć sąsiednie przekroje. Moment zginający mówi,
+jak mocno próbują się one obrócić względem siebie. To on odpowiada za charakterystyczne
+wygięcie belki: jedne włókna się rozciągają, inne ściskają, a oś belki zmienia krzywiznę.
+W większości belek to moment, a nie siła tnąca, decyduje o doborze przekroju.
+
+Moment jest łatwiejszy do zrozumienia, gdy popatrzysz na belkę jak na dźwignię. Reakcja przy
+podporze działa na ramieniu $x$ i próbuje obrócić odciętą część. Obciążenia przyłożone bliżej
+cięcia działają na mniejszych ramionach i częściowo ten obrót równoważą. Moment zginający jest
+wypadkowym momentem tych wszystkich sił względem przekroju.
+
+W tej lekcji nauczysz się wyznaczać $M(x)$ z równowagi odciętej części oraz odczytywać jego
+wartości z pola pod wykresem siły tnącej. Zobaczysz, dlaczego moment jest ciągły nawet pod siłą
+skupioną, dlaczego znika na podporach przegubowych i dlaczego jego ekstremum wypada tam, gdzie
+$T$ przechodzi przez zero.
+
+Moment zginający jest też pomostem do naprężeń. Gdy już wiesz, gdzie $M$ jest największy,
+w następnych lekcjach zamienisz ten moment na rozkład naprężeń w przekroju. Bez poprawnego
+wykresu $M$ nie da się wskazać niebezpiecznego przekroju ani dobrać wymiaru belki.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje i wykres siły tnącej. Moment jest całką $T$, więc błąd w $T$ przenosi
+  się bezpośrednio na $M$.
+- Rozróżniaj moment zginający wewnętrzny od momentu skupionego przyłożonego z zewnątrz. Pierwszy
+  jest wynikiem równowagi przekroju, drugi jest obciążeniem działającym w punkcie.
+- Przypomnij sobie, że pole pod wykresem to całka. Pole prostokąta o wysokości $T$ i szerokości
+  $\Delta x$ ma jednostkę kN·m, czyli taką jak moment.
+- Przyjmij konwencję: dodatni moment wygina belkę wypukłością w dół, czyli rozciąga dolne włókna.
+  Taki moment nazywamy dodatnim lub „sagging”.
+- Pamiętaj o warunkach brzegowych: na podporze przegubowej i rolce moment wynosi zero, na
+  swobodnym końcu również zero, a w utwierdzeniu na ogół nie.
+- Ustal jednostki: $T$ w kN, $x$ w m, $M$ w kN·m. Jeśli $T$ jest w N, a $x$ w mm, moment wyjdzie
+  w N·mm.
+
+## Model i intuicja
+
+Przecinamy belkę w punkcie $x$ i rozpatrujemy lewą część. Na płaszczyźnie cięcia działają
+siła tnąca $T$ i moment zginający $M$. Moment $M$ jest wypadkowym momentem naprężeń normalnych
+w przekroju. Przyjmujemy, że dodatni $M$ działa tak, że wygina lewą część wypukłością w dół.
+Na prawym końcu belki dodatni moment ma zwrot przeciwny, zgodnie z zasadą akcji i reakcji.
+
+Znak momentu najłatwiej kontrolować obrazkiem. Dodatni moment przypomina uśmiech: belka ugina
+się w dół, górne włókna się skracają, dolne wydłużają. Ujemny moment przypomina smutną minę:
+belka wygina się w górę, górne włókna się rozciągają, dolne ściskają. W belce swobodnie
+podpartej z obciążeniem w dół moment jest dodatni na całej długości.
+
+Moment jest ciągły wzdłuż belki, nawet w miejscu siły skupionej. Siła skupiona powoduje skok
+siły tnącej, ale nie momentu: tuż po lewej i tuż po prawej stronie siły moment ma tę samą
+wartość. Skok momentu pojawia się tylko wtedy, gdy do belki przyłożony jest zewnętrzny moment
+skupiony. To rozróżnienie jest jednym z najczęstszych źródeł błędów.
+
+Model jednowymiarowy zakłada, że moment jest funkcją tylko $x$, a przekrój pozostaje płaski.
+W strefach przyłożenia obciążeń i w pobliżu podpór rozkład naprężeń jest bardziej złożony, ale
+wypadkowy moment nadal opisuje globalne zginanie. Model przestaje wystarczać przy dużych
+odkształceniach, niestateczności i w elementach bardzo krótkich, gdzie udział ścinania jest
+znaczący.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniaj siłę i rozpiętość, a następnie porównuj wykres $T$ z wykresem $M$.
+Zwróć uwagę, że maksimum $M$ pojawia się tam, gdzie $T$ przecina zero. Sprawdź też, że pole pod
+wykresem $T$ po lewej stronie przekroju odpowiada wartości momentu w tym przekroju.
 
 <Lab id="bending" />
 
+## Definicje i jednostki
+
+**Moment zginający** $M(x)$ to wypadkowy moment naprężeń normalnych w przekroju belki w punkcie
+$x$. Działa w płaszczyźnie zginania i jest odpowiedzialny za zmianę krzywizny belki.
+
+**Moment dodatni** wygina belkę wypukłością w dół. Rozciąga dolne włókna i ściska górne.
+**Moment ujemny** wygina belkę wypukłością w górę i działa odwrotnie.
+
+**Ekstremum momentu** to miejsce, w którym $dM/dx = 0$, czyli $T = 0$. Może to być maksimum,
+minimum albo punkt przegięcia, zależnie od zmiany znaku $T$.
+
+| Symbol       | Wielkość              | Jednostka     | Uwaga                         |
+| ------------ | --------------------- | ------------- | ----------------------------- |
+| $M(x)$       | moment zginający      | kN·m lub N·mm | dodatni rozciąga dolne włókna |
+| $T(x)$       | siła tnąca            | kN lub N      | nachylenie wykresu $M$        |
+| $x$          | współrzędna przekroju | m lub mm      | od lewej podpory              |
+| $R_A$, $R_B$ | reakcje               | kN lub N      | dodatnie w górę               |
+| $P$          | siła skupiona         | kN lub N      | dodatnia w dół                |
+| $q$          | obciążenie ciągłe     | kN/m lub N/mm | dodatnie w dół                |
+| $a$          | ramię siły            | m lub mm      | odległość od podpory          |
+| $\Delta M$   | przyrost momentu      | kN·m          | pole pod wykresem $T$         |
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\frac{dM}{dx} = T \qquad M(x_2)-M(x_1) = \int_{x_1}^{x_2}T(x)\,dx
+\frac{dM}{dx} = T, \qquad \Delta M = \int_{x_1}^{x_2} T(x)\,dx
 $$
 
-<Caption>Z zależności dM/dx = T wynika, że maksimum dodatniego M występuje tam, gdzie T przechodzi przez zero ze znaku dodatniego na ujemny.</Caption>
+<Caption>
+Nachylenie wykresu momentu jest równe sile tnącej. Zmiana momentu między dwoma przekrojami
+jest równa polu pod wykresem $T$ między tymi przekrojami.
+</Caption>
 </Formula>
 
+Dla belki swobodnie podpartej z siłą skupioną i obciążeniem ciągłym moment w przekroju $x$
+można zapisać jako
+
+<Formula>
+$$
+M(x) = R_A x - \sum P_i (x - a_i) - \int_0^x q(\xi)(x - \xi)\,d\xi
+$$
+
+<Caption>
+Sumowanie obejmuje siły skupione na lewo od przekroju. Całka uwzględnia obciążenie ciągłe
+aż do przekroju; czynnik $(x - \xi)$ jest ramieniem elementarnej siły $q\,d\xi$.
+</Caption>
+</Formula>
+
+Wyprowadzenie dla lewej części belki przebiega tak.
+
+1. Wyznacz reakcje całej belki. Moment w przekroju zależy od reakcji, więc bez nich nie ma
+   punktu startowego.
+2. Przetnij belkę w punkcie $x$ i rozpatrz lewą część. Na cięciu działają $T$ i $M$ w przyjętych
+   zwrotach dodatnich.
+3. Zapisz sumę momentów względem punktu cięcia. Reakcja $R_A$ daje moment $R_A x$ zgodny
+   z dodatnim $M$.
+4. Każda siła skupiona $P_i$ na lewo od cięcia daje moment $P_i (x - a_i)$ o zwrocie przeciwnym
+   do $R_A x$, więc odejmujemy go.
+5. Obciążenie ciągłe traktujesz jako zbiór elementarnych sił $q(\xi)\,d\xi$. Każda taka siła
+   działa na ramieniu $(x - \xi)$, więc jej moment wynosi $q(\xi)(x - \xi)\,d\xi$. Całkujemy
+   od 0 do $x$ i odejmujemy od momentu reakcji.
+6. Z równowagi momentów względem cięcia otrzymujesz zapis $M(x)$ z wzoru powyżej.
+7. Różniczkujesz $M(x)$ względem $x$. Pochodna $R_A x$ daje $R_A$, pochodna sumy sił daje sumę
+   sił, a pochodna całki z $q$ daje całkę z $q$. W sumie otrzymujesz $T(x)$.
+8. Stąd $dM/dx = T$. Całkując tę zależność między dwoma przekrojami, dostajesz zmianę momentu
+   równą polu pod wykresem $T$.
+
+W praktyce rzadko całkujesz od zera do końca. Dzielisz belkę na odcinki, na których $T$ ma prostą
+postać, i liczysz pole pod $T$ lub podstawiasz wartości na granicach. Oba sposoby dają ten sam
+wynik, jeśli znaki są spójne.
+
 <Insight>
-  Stała dodatnia wartość T daje liniowo rosnący M. Zerowa wartość T oznacza poziome styczne wykresu M, ale moment nie
-  musi być wtedy równy zero.
+  Stała dodatnia wartość $T$ daje liniowo rosnący $M$. Zerowa wartość $T$ oznacza poziome styczne wykresu $M$, ale nie
+  oznacza, że moment jest równy zero. Maksimum momentu występuje tam, gdzie $T$ zmienia znak z dodatniego na ujemny.
 </Insight>
 
 <WorkedExample>
-  <Given>Belka swobodnie podparta o L = 4 m z siłą P = 20 kN na środku; RA = RB = 10 kN.</Given>
+  <Given>
+    Belka swobodnie podparta ma rozpiętość $L = 6$ m. Siła $P = 30$ kN działa w dół
+    w odległości $a = 2$ m od lewej podpory A. Obciążenie ciągłe jest pomijalne.
+  </Given>
   <Steps>
-    <Step>Dla 0 ≤ x ≤ 2 m: M(x) = RA·x = 10x kN·m.</Step>
-    <Step>Pod siłą M(2) = 10·2 = 20 kN·m.</Step>
-    <Step>Na prawym odcinku moment maleje liniowo do M(4) = 0; maksimum PL/4 = 20 kN·m występuje pod siłą.</Step>
+    <Step>Z sumy momentów względem A: $R_B \cdot 6 = 30 \cdot 2$, więc $R_B = 10$ kN.</Step>
+    <Step>Z sumy sił pionowych: $R_A = 30 - 10 = 20$ kN.</Step>
+    <Step>Dla $x$ od 0 do 2 m: $M(x) = R_A x = 20x$ kN·m.</Step>
+    <Step>Pod siłą: $M(2) = 20 \cdot 2 = 40$ kN·m.</Step>
+    <Step>Dla $x$ od 2 do 6 m: $M(x) = 20x - 30(x - 2)$ kN·m.</Step>
+    <Step>Na prawym końcu: $M(6) = 120 - 30 \cdot 4 = 0$, zgodnie z warunkiem podpory.</Step>
+    <Step>Kontrola z prawej strony: $M(2) = R_B \cdot 4 = 10 \cdot 4 = 40$ kN·m.</Step>
   </Steps>
-  <Result>Mmax = 20 kN·m pod siłą; wykres M ma kształt trójkąta.</Result>
+  <Result>
+    Maksymalny moment wynosi $M_{\max} = 40$ kN·m pod siłą. Wykres $M$ rośnie liniowo od zera
+    do 40 kN·m, a następnie maleje liniowo do zera.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Belka swobodnie podparta o rozpiętości $L = 6$ m jest obciążona równomiernie $q = 6$ kN/m
+na całej długości. Reakcje z symetrii wynoszą $R_A = R_B = qL/2 = 18$ kN. Moment w przekroju
+$x$ liczony od lewej podpory ma postać
+
+$$
+M(x) = R_A x - \frac{q x^2}{2} = 18x - 3x^2\ \text{kN·m}.
+$$
+
+Sprawdźmy wartości na granicach. Na lewej podporze $M(0) = 0$. W środku rozpiętości
+$M(3) = 54 - 27 = 27$ kN·m. Na prawej podporze $M(6) = 108 - 108 = 0$. Moment jest dodatni
+na całej długości, a jego maksimum wynosi $27$ kN·m.
+
+Ten wynik zgadza się ze wzorem $qL^2/8 = 6 \cdot 36 / 8 = 27$ kN·m. Warto zapamiętać ten
+przypadek jako punkt odniesienia: dla równomiernego obciążenia na całej rozpiętości maksimum
+momentu występuje w połowie i wynosi $qL^2/8$. Nachylenie wykresu $M$ jest równe $T = 18 - 6x$,
+więc w środku, gdzie $T = 0$, styczna do wykresu jest pozioma.
+
+## Trzeci przykład: wariant odwrotny
+
+Znamy maksymalny moment, a szukamy obciążenia. Belka swobodnie podparta o $L = 6$ m jest
+obciążona siłą $P$ w połowie rozpiętości. Z obliczeń wynika, że $M_{\max} = 45$ kN·m. Jaka jest
+wartość siły $P$?
+
+Dla siły w środku belki obowiązuje $M_{\max} = PL/4$. Przekształcamy:
+
+$$
+P = \frac{4 M_{\max}}{L} = \frac{4 \cdot 45}{6} = 30\ \text{kN}.
+$$
+
+Reakcje wynoszą wtedy $R_A = R_B = 15$ kN. Kontrola: $M_{\max} = R_A \cdot L/2 = 15 \cdot 3 = 45$
+kN·m. Wynik jest spójny. Taki wariant pokazuje, że z wykresu momentu można odtworzyć obciążenie,
+podobnie jak z wykresu siły tnącej można odtworzyć siły skupione. W praktyce projektowej częściej
+idziesz w drugą stronę: od obciążenia do momentu, a potem do wymaganego przekroju.
+
+<Callout kind="warning" title="Typowe błędy">
+
+1. Pomylenie znaku momentu. Dodatni moment rozciąga dolne włókna; jeśli w zadaniu przyjmiesz
+   przeciwną konwencję, cały wykres zmieni znak.
+2. Traktowanie momentu jak siły. Moment ma jednostkę kN·m, a nie kN; nie można go dodawać
+   do siły bez ramienia.
+3. Skok momentu pod siłą skupioną. Siła skupiona zmienia $T$, ale nie zmienia $M$; moment
+   pozostaje ciągły.
+4. Brak zerowego momentu na podporze przegubowej lub rolce. To warunek brzegowy, który szybko
+   wychwytuje błąd.
+5. Złe ramię przy obliczaniu momentu od siły skupionej. Ramieniem jest odległość od siły
+   do przekroju, a nie od podpory.
+6. Pominięcie kwadratowego składnika od obciążenia ciągłego. Moment od $q$ rośnie jak $x^2$,
+   a nie liniowo.
+7. Uznanie, że $T = 0$ oznacza $M = 0$. W miejscu ekstremum moment na ogół nie jest zerowy.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wyznacz reakcje i naszkicuj wykres $T$. Moment liczysz z $T$ albo z równowagi przekroju;
+   oba sposoby wymagają poprawnych reakcji.
+2. Podziel belkę na odcinki tak samo jak przy wykresie $T$: granice w podporach, siłach
+   skupionych, początku i końcu obciążenia ciągłego.
+3. Na każdym odcinku zapisz $M(x)$ z równowagi lewej części albo oblicz moment na granicach
+   i połącz wartości zgodnie z kształtem wynikającym z $T$.
+4. Pamiętaj o warunkach brzegowych: $M = 0$ na podporze przegubowej, rolce i swobodnym końcu.
+   W utwierdzeniu moment na ogół nie jest zerowy.
+5. Znajdź miejsca, w których $T = 0$. To kandydaci na ekstrema momentu. Sprawdź znak $T$ przed
+   i po tym miejscu.
+6. Oblicz moment w tych punktach oraz na granicach odcinków. Porównaj wartości bezwzględne,
+   bo o wytrzymałości decyduje największy co do modułu moment.
+7. Sprawdź, czy wykres $M$ zamyka się w podporach i czy jego nachylenie zgadza się z wykresem
+   $T$. To najszybsza kontrola jakościowa.
+
+## Połącz z resztą kursu
+
+- **Siła tnąca T(x).** Moment jest całką $T$, a $T$ jest nachyleniem $M$. Te dwie lekcje należy
+  czytać razem; wykresy zawsze analizujemy parami.
+- **Zależności q–T–M.** Moment jest drugą całką obciążenia. Stałe $q$ daje paraboliczny $M$,
+  a zerowe $q$ daje liniowy $M$.
+- **Czyste zginanie.** Odcinek, na którym $T = 0$ i $M$ jest stałe, jest odcinkiem czystego
+  zginania. To najprostszy przypadek do wyprowadzenia rozkładu naprężeń.
+- **Rozkład σ i oś obojętna.** Znajomość $M_{\max}$ pozwala obliczyć $\sigma_{\max} = M/W$.
+  Bez wykresu $M$ nie wiadomo, który przekrój sprawdzać.
+- **Dobór przekroju i kontrola sztywności.** Warunek wytrzymałości zaczyna się od $M_{\max}$,
+  a warunek sztywności od całego przebiegu $M(x)$ i całkowania krzywizny.
+- **Projektowanie elementów.** W pełnym zadaniu wykres momentu jest podstawą doboru przekroju
+  i sprawdzenia ugięcia.
+
+## Sprawdź się
+
+Pytania sprawdzają związek między $T$ i $M$ oraz umiejętność odczytania ekstremum z kształtu
+wykresu.
 
 <Quiz>
   <Question outcome="W1">
-    <Prompt>Jeżeli na pewnym odcinku T(x) = +5 kN jest stałe, to M(x):</Prompt>
+    <Prompt>Jeżeli na pewnym odcinku $T(x) = +5$ kN jest stałe, to $M(x)$:</Prompt>
     <Answer correct>Rośnie liniowo z nachyleniem 5 kN</Answer>
     <Answer>Jest stałe i równe 5 kN·m</Answer>
     <Answer>Maleje parabolicznie</Answer>
-    <Hint>Nachylenie wykresu M jest równe T.</Hint>
+    <Answer>Jest stałe i równe zero</Answer>
+    <Hint>Nachylenie wykresu $M$ jest równe $T$.</Hint>
     <Explanation>
-      dM/dx = T = 5 kN, więc wykres M jest prostą rosnącą. Nachylenie ma jednostkę kN, ponieważ moment w kN·m dzielimy
-      przez długość w m.
+      $dM/dx = T = 5$ kN, więc wykres $M$ jest prostą rosnącą. Nachylenie ma jednostkę kN,
+      ponieważ moment w kN·m dzielimy przez długość w m.
     </Explanation>
   </Question>
+
   <Question outcome="U1">
-    <Prompt>Dla siły P na środku belki swobodnie podpartej o rozpiętości L maksymalny moment wynosi:</Prompt>
-    <Answer>PL/2</Answer>
-    <Answer correct>PL/4</Answer>
-    <Answer>PL</Answer>
-    <Hint>Reakcja wynosi P/2, a ramię od podpory do środka L/2.</Hint>
-    <Explanation>Mmax = RA·L/2 = (P/2)(L/2) = PL/4. Moment jest największy pod siłą, gdzie T zmienia znak.</Explanation>
-  </Question>
-  <Question outcome="W1">
-    <Prompt>T(x) przechodzi przez zero i zmienia znak z dodatniego na ujemny. Co dzieje się z M(x)?</Prompt>
-    <Answer correct>Osiąga lokalne maksimum</Answer>
-    <Answer>Osiąga lokalne minimum</Answer>
-    <Answer>Musi wynosić zero</Answer>
-    <Hint>Najpierw moment rośnie, a potem maleje.</Hint>
+    <Prompt>
+      Dla siły $P$ działającej w środku belki swobodnie podpartej o rozpiętości $L$ maksymalny
+      moment wynosi:
+    </Prompt>
+    <Answer>$PL/2$</Answer>
+    <Answer correct>$PL/4$</Answer>
+    <Answer>$PL$</Answer>
+    <Answer>$PL/8$</Answer>
+    <Hint>Reakcja wynosi $P/2$, a ramię od podpory do środka to $L/2$.</Hint>
     <Explanation>
-      Dodatnie T oznacza rosnący M, a ujemne T — malejący M. Zmiana znaku z plusa na minus wyznacza więc lokalne
-      maksimum momentu.
+      $M_{\max} = R_A \cdot L/2 = (P/2)(L/2) = PL/4$. Maksimum występuje pod siłą, gdzie $T$
+      zmienia znak.
+    </Explanation>
+  </Question>
+
+<Question outcome="W1">
+  <Prompt>$T(x)$ przechodzi przez zero i zmienia znak z dodatniego na ujemny. Co dzieje się z $M(x)$?</Prompt>
+  <Answer correct>Osiąga lokalne maksimum</Answer>
+  <Answer>Osiąga lokalne minimum</Answer>
+  <Answer>Musi wynosić zero</Answer>
+  <Answer>Ma punkt przegięcia, ale nie ekstremum</Answer>
+  <Hint>Najpierw moment rośnie, a potem maleje.</Hint>
+  <Explanation>
+    Dodatnie $T$ oznacza rosnący $M$, a ujemne $T$ — malejący $M$. Zmiana znaku z plusa na minus wyznacza więc lokalne
+    maksimum momentu.
+  </Explanation>
+</Question>
+
+  <Question outcome="U1">
+    <Prompt>
+      Belka o $L = 6$ m ma siłę $P = 24$ kN w odległości 2 m od lewej podpory. Ile wynosi
+      maksymalny moment?
+    </Prompt>
+    <Answer>24 kN·m</Answer>
+    <Answer correct>32 kN·m</Answer>
+    <Answer>48 kN·m</Answer>
+    <Answer>144 kN·m</Answer>
+    <Hint>$R_A = P(L - a)/L$, a $M_{\max} = R_A a$.</Hint>
+    <Explanation>
+      $R_A = 24 \cdot 4 / 6 = 16$ kN, więc $M_{\max} = 16 \cdot 2 = 32$ kN·m. Kontrola z prawej
+      strony: $R_B = 8$ kN, $8 \cdot 4 = 32$ kN·m.
+    </Explanation>
+  </Question>
+
+  <Question outcome="W1">
+    <Prompt>Na podporze przegubowej lub rolce moment zginający belki wynosi:</Prompt>
+    <Answer correct>Zero</Answer>
+    <Answer>Zawsze $M_{\max}$</Answer>
+    <Answer>Zawsze równe reakcji</Answer>
+    <Answer>Nie da się określić bez wykresu $T$</Answer>
+    <Hint>Podpora nie przenosi momentu skupionego, więc nie może wymusić niezerowego $M$.</Hint>
+    <Explanation>
+      Przegub i rolka pozwalają na swobodny obrót, więc moment na końcu belki musi się zerować.
+      To warunek brzegowy niezależny od obciążenia.
+    </Explanation>
+  </Question>
+
+  <Question outcome="U1">
+    <Prompt>
+      Belka swobodnie podparta o $L = 5$ m jest obciążona równomiernie $q = 8$ kN/m. Ile wynosi
+      maksymalny moment?
+    </Prompt>
+    <Answer>10 kN·m</Answer>
+    <Answer correct>25 kN·m</Answer>
+    <Answer>40 kN·m</Answer>
+    <Answer>50 kN·m</Answer>
+    <Hint>Dla równomiernego obciążenia $M_{\max} = qL^2/8$.</Hint>
+    <Explanation>
+      $M_{\max} = 8 \cdot 25 / 8 = 25$ kN·m. Maksimum występuje w połowie rozpiętości, gdzie
+      $T = 0$.
+    </Explanation>
+  </Question>
+
+  <Question outcome="W1">
+    <Prompt>Co oznacza pole pod wykresem $T$ między dwoma przekrojami?</Prompt>
+    <Answer correct>Zmianę momentu między tymi przekrojami</Answer>
+    <Answer>Wartość siły tnącej w środku odcinka</Answer>
+    <Answer>Sumę reakcji na tym odcinku</Answer>
+    <Answer>Zawsze zero</Answer>
+    <Hint>Skorzystaj z $\Delta M = \int T\,dx$.</Hint>
+    <Explanation>
+      Całka z $T$ po długości daje przyrost momentu. Dlatego pole pod wykresem $T$ jest
+      geometrycznym sposobem obliczania $M$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o wykresach momentów
+  zginających; szukaj przykładów z siłą skupioną i obciążeniem ciągłym.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — metoda przekrojów i momenty
+  zginające; dobre do prześledzenia znaków.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT — zadania
+  z wykresami $T$ i $M$; zwróć uwagę na warunki brzegowe.
+- D. Roylance, _Mechanics of Materials_ (MIT OpenCourseWare) — rozdział o wykresach sił
+  tnących i momentów; pokazuje całkowanie i funkcje singularne.
+- T. Wierzbicki, _Structural Mechanics_ (MIT OpenCourseWare) — rozdział o równaniach rządzących
+  belką; wyjaśnia związek momentu z krzywizną.

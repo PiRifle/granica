@@ -85,7 +85,7 @@ export function RosetteLab() {
       }
       visual={
         <svg
-          viewBox="0 0 760 350"
+          viewBox="0 0 760 360"
           width="100%"
           role="img"
           aria-label="Trzy czujniki rozety i obrócone kierunki odkształceń głównych"

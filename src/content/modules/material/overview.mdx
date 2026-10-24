@@ -1,1 +1,153 @@
-Od próby rozciągania do doboru materiału: granice wytrzymałości, odkształcenia, ciężar własny, temperatura i bezpieczeństwo.
+## Co to jest ten moduł
+
+Do tej pory traktowaliśmy pręt jako element, który przenosi siłę. Wystarczało znać przekrój i obciążenie, aby obliczyć naprężenie. Teraz pytamy dalej: co robi sam materiał pod tym naprężeniem? Czy wydłuża się sprężyście i wraca do pierwotnego kształtu, czy odkształca się trwale? Przy jakim naprężeniu przestaje być bezpieczny? To jest właśnie materiał pod obciążeniem — odpowiedź substancji, z której wykonano element.
+
+Najprostsze codzienne doświadczenie to rozciąganie gumki i drutu stalowego. Gumka wydłuża się wyraźnie przy małej sile, a po puszczeniu wraca. Drut wydłuża się niewidocznie, ale może pozostać wygięty, jeśli przesadzimy. Ta różnica nie wynika wyłącznie z przekroju. Wynika z tego, jak materiał reaguje na naprężenie: jaki ma moduł sprężystości, gdzie zaczyna płynąć i jaką największą siłę potrafi przenieść.
+
+W module przejdziemy tę samą drogę, którą idzie inżynier w laboratorium i w obliczeniach. Najpierw poznamy próbę rozciągania i ściskania, czyli sposób zamiany siły i wydłużenia na krzywą naprężenie–odkształcenie. Potem odczytamy z tej krzywej granicę plastyczności $R_e$ i wytrzymałość $R_m$. Następnie zbudujemy prawo Hooke’a i policzymy, jak bardzo element się odkształca. Na końcu uwzględnimy ciężar własny, temperaturę oraz zapas bezpieczeństwa.
+
+Po tym module nie będziesz już tylko dzielić siły przez pole. Będziesz umiał powiedzieć, czy wynik ma sens, czy materiał pracuje jeszcze sprężyście, jaki jest zapas do granicy plastyczności i czy o doborze decyduje wytrzymałość, czy sztywność. To umiejętność potrzebna w każdym zadaniu projektowym, niezależnie od tego, czy liczysz pręt, wał, belkę, czy połączenie.
+
+Warto od razu zaznaczyć, czego ten moduł nie robi. Nie zastępuje pełnej teorii sprężystości ani nie opisuje wszystkich możliwych mechanizmów zniszczenia. Nie omawia zmęczenia, pełzania, pękania ani wpływu karbów w sposób ilościowy. Buduje natomiast solidny fundament: jednoosiowy stan naprężenia, liniową sprężystość i podstawowe granice materiału. Bez tego fundamentu trudno zrozumieć bardziej złożone modele.
+
+Dlatego wszystkie wzory w module będą miały jawnie zapisane założenia. Będziesz widział, kiedy wolno stosować prawo Hooke’a, kiedy można pominąć ciężar własny i kiedy temperatura zamienia się w naprężenie. To równie ważne jak same obliczenia, ponieważ większość błędów projektowych zaczyna się od użycia dobrego wzoru w złym zakresie.
+
+## Dlaczego to ważne
+
+Konstrukcja może być „wystarczająco mocna” w sensie statyki, a mimo to niebezpieczna. Jeśli naprężenie przekroczy granicę plastyczności, element zacznie się trwale wydłużać. Jeśli przekroczy wytrzymałość, pęknie. Jeśli będzie zbyt wiotki, ugnie się lub zacznie drgać w sposób, którego użytkownik nie zaakceptuje. Każdy z tych stanów wymaga innej granicy i innego warunku obliczeniowego.
+
+Materiał wybiera się świadomie. Stal ma wysoki moduł Younga i dużą wytrzymałość, ale jest ciężka. Aluminium jest lżejsze i ma mniejszy moduł, więc przy tych samych wymiarach bardziej się odkształca. Drewno ma moduł znacznie mniejszy niż metale, choć w kierunku włókien może być zaskakująco wytrzymałe. Nie istnieje „najlepszy materiał” bez kontekstu: liczy się obciążenie, dopuszczalne przemieszczenie, środowisko i koszt.
+
+Ciężar własny bywa pomijany zbyt szybko. W krótkim pręcie istotnie jest mały, ale w długiej linie, odciągu, kominie albo przewodzie wiertniczym potrafi zjeść znaczną część nośności. Co więcej, w jednorodnym pręcie wiszącym naprężenie od ciężaru własnego nie maleje po pogrubieniu przekroju. Zgrubienie zwiększa zarówno ciężar, jak i pole, więc iloraz pozostaje ten sam. To jeden z tych wyników, które trzeba zrozumieć, a nie tylko zapamiętać.
+
+Temperatura dodaje drugi mechanizm odkształcenia. Swobodny pręt wydłuża się lub skraca bez naprężenia. Ten sam pręt zablokowany między sztywnymi podporami nie może zmienić długości, więc pojawia się naprężenie. W praktyce mosty, szyny i rurociągi projektuje się tak, aby częściowo dopuścić ruch, a częściowo go ograniczyć. Bez zrozumienia różnicy między odkształceniem termicznym a mechanicznym łatwo pomylić przyczynę z skutkiem.
+
+Wreszcie bezpieczeństwo nie jest jednym współczynnikiem wstawianym na końcu. Granicę materiału trzeba dobrać do mechanizmu zniszczenia, a zapas do konsekwencji awarii. W materiale ciągliwym zwykle pilnujemy granicy plastyczności, w kruchym — wytrzymałości. W elementach, których ugięcie jest widoczne lub krytyczne, o wymiarze decyduje sztywność, nie wytrzymałość. Ten moduł uczy rozdzielać te pytania.
+
+W codziennej praktyce te decyzje są podejmowane pod niepewnością. Rzeczywista siła może być większa od obliczeniowej, materiał może mieć wadę, a wykonanie może odbiegać od rysunku. Współczynnik bezpieczeństwa nie usuwa tej niepewności, ale tworzy jawny margines. Jego wartość powinna zależeć od konsekwencji awarii, a nie od przyzwyczajenia.
+
+Z drugiej strony nadmierny zapas też ma koszt. Grubszy pręt jest cięższy, droższy i trudniejszy w montażu. W konstrukcjach latających lub przenośnych nadwaga jest błędem projektowym. Dobry inżynier nie maksymalizuje zapasu, lecz świadomie wybiera margines odpowiedni do sytuacji. Ten moduł daje narzędzia, żeby taki wybór uzasadnić.
+
+## Czego się nauczysz
+
+- **W1 — analiza elementów i przenoszenia obciążeń.** Zobaczysz, jak siła osiowa zamienia się na naprężenie, jak zmienia się ono wzdłuż pręta obciążonego ciężarem własnym i dlaczego miejsce przyłożenia obciążenia zmienia rozkład siły wewnętrznej.
+- **W2 — rozpoznawanie przypadków i granic materiału.** Nauczysz się odróżniać zakres sprężysty od plastycznego, rozciąganie od ściskania oraz granice $R_e$ i $R_m$. Będziesz wiedział, kiedy model liniowy przestaje obowiązywać.
+- **W3 — wpływ geometrii przekroju.** Przekrój wpływa na naprężenie, sztywność i ciężar w różny sposób. Zobaczysz, kiedy pogrubienie pomaga, a kiedy tylko zwiększa masę.
+- **U1 — obliczenia naprężeń, odkształceń i przemieszczeń.** Przećwiczysz przeliczanie jednostek, wyznaczanie wydłużenia z prawa Hooke’a oraz obliczanie naprężeń od ciężaru własnego i temperatury.
+- **U2 — interpretacja stanu naprężenia.** Przygotujesz dane do analizy kołem Mohra: ustalisz znak naprężenia osiowego, wartość ścinania i kierunki. Zobaczysz, dlaczego jednoosiowy stan naprężenia jest punktem wyjścia, a nie końcem analizy.
+- **U3 — dobór ze względu na bezpieczeństwo i sztywność.** Nauczysz się przechodzić od granicy materiału do naprężenia dopuszczalnego, sprawdzać oba warunki i wybierać przekrój, który spełnia wymagania.
+
+Te efekty są ze sobą powiązane. Nie da się dobrze dobrać przekroju, jeśli nie rozumie się krzywej materiału. Nie da się sprawdzić sztywności, jeśli miesza się moduł Younga z granicą plastyczności. Dlatego lekcje są ułożone w kolejności przyczynowej, a nie alfabetycznej.
+
+## Od czego zacząć
+
+Potrzebujesz podstaw z modułu Fundamenty: jednostek SI, modelu ciała, równowagi i metody przekrojów. W szczególności musisz swobodnie posługiwać się jednostkami $1\ \text{MPa}=1\ \text{N/mm}^2$ oraz rozumieć, że siła wewnętrzna w przekroju zależy od wybranej części odciętej.
+
+Z modułu Rozciąganie i ściskanie przydadzą się lekcje o naprężeniu normalnym, wykresach siły osiowej oraz wydłużeniach prętów. Ten moduł nie powtarza tamtych wyprowadzeń, tylko dokłada do nich odpowiedź materiału. Jeśli nie umiesz jeszcze obliczyć $N(x)$ w prostym pręcie, wróć do wykresów siły osiowej przed lekcją o ciężarze własnym.
+
+Kolejność pracy jest celowa. Najpierw próba i krzywa materiału, potem granice $R_e$ i $R_m$, następnie prawo Hooke’a i sztywność, dalej ciężar własny, temperatura i naprężenie dopuszczalne. Na końcu łączysz wszystko w doborze elementu. Nie przeskakuj do wzorów projektowych bez zrozumienia, skąd biorą się granice.
+
+Każdą lekcję możesz czytać niezależnie, ale dopiero po przejściu całego modułu zobaczysz, jak warunki się uzupełniają. W zadaniach egzaminacyjnych często trzeba połączyć dwa wątki, na przykład ciężar własny z warunkiem sztywności albo temperaturę z naprężeniem dopuszczalnym. Właśnie dlatego warto wracać do wcześniejszych lekcji.
+
+Przygotuj kalkulator i kartkę do przeliczania jednostek. W tym module większość błędów nie wynika z trudnej matematyki, lecz z pomieszania $\text{GPa}$ z $\text{MPa}$, milimetrów z metrami oraz gęstości z ciężarem objętościowym. Rób rachunek jednostkowy przy każdym zadaniu.
+
+Nie ma jednego uniwersalnego zestawu danych materiałowych, który zastąpi tablice lub dokumentację. W przykładach będziemy używać typowych wartości, wyraźnie oznaczonych jako orientacyjne. W zadaniu projektowym zawsze sprawdź, jaką wartość masz prawo przyjąć i skąd ona pochodzi.
+
+Jeśli masz dostęp do laboratorium lub symulatora, wykonaj próbę samodzielnie. Zaobserwuj, że po zdjęciu obciążenia próbka nie wraca dokładnie do długości początkowej, jeśli przekroczono granicę plastyczności. Spróbuj też rozciągnąć kawałek tworzywa i porównać jego krzywą z krzywą metalu. Różnice w kształcie krzywej są równie pouczające jak same liczby.
+
+Nie zniechęcaj się, jeśli pierwsze zadania zajmą więcej czasu niż oczekiwałeś. W tym module dużo trzeba policzyć ręcznie, aby wyrobić czucie jednostek i rzędów wielkości. Po kilku przykładach zobaczysz, że większość zadań sprowadza się do tych samych czterech kroków: model, naprężenie, odkształcenie, warunek.
+
+## Mapa lekcji
+
+**Próba rozciągania i ściskania** pokazuje, jak z próbki otrzymać krzywą naprężenie–odkształcenie. Dowiesz się, dlaczego dzielimy siłę przez początkowe pole, a wydłużenie przez długość pomiarową, oraz jak odróżnić wielkość zależną od próbki od własności materiału.
+
+**Re, Rm, sprężystość i plastyczność** uczy czytać charakterystyczne punkty krzywej. Zobaczysz, co oznacza granica plastyczności, co wytrzymałość na rozciąganie, a co zerwanie, i dlaczego po odciążeniu pozostaje odkształcenie trwałe.
+
+**Prawo Hooke’a i sztywność osiowa** łączy naprężenie z odkształceniem w zakresie liniowym. Policzycie wydłużenie pręta oraz odróżnicie moduł Younga $E$, czyli własność materiału, od sztywności $EA/L$, czyli własność całego elementu.
+
+**Ciężar własny elementu** wprowadza obciążenie rozłożone wzdłuż osi. Zobaczysz, że siła rośnie liniowo od swobodnego końca do zawieszenia, a naprężenie w jednorodnym pręcie nie zależy od pola przekroju.
+
+**Temperatura: swoboda i zablokowanie** rozdziela odkształcenie termiczne od naprężenia termicznego. Przećwiczysz przypadek swobodny, całkowicie zablokowany oraz częściowo ograniczony luzem.
+
+**Naprężenie dopuszczalne i współczynnik bezpieczeństwa** pokazuje, jak z granicy materiału zrobić warunek projektowy. Zobaczysz, dlaczego współczynnik bezpieczeństwa nie jest ozdobą wzoru i jak dobrać właściwą granicę.
+
+**Dobór ze względu na wytrzymałość i sztywność** łączy wszystkie wątki w pełne zadanie projektowe. Sprawdzisz, który warunek decyduje o przekroju, i nauczysz się kontrolować wynik po zaokrągleniu wymiaru.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+\sigma=\frac{N}{A}, \qquad \varepsilon=\frac{\Delta L}{L_0}
+$$
+
+<Caption>Naprężenie normalne to siła osiowa podzielona przez pole przekroju, a odkształcenie względne to zmiana długości podzielona przez długość początkową. Oba wzory są definicjami inżynierskimi: używamy pola i długości z chwili przed obciążeniem.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma=E\varepsilon, \qquad \Delta L=\frac{NL}{EA}
+$$
+
+<Caption>Prawo Hooke’a wiąże naprężenie i odkształcenie w zakresie liniowo sprężystym. Drugi wzór dotyczy pręta o stałej sile osiowej, stałym module i stałym przekroju na długości L. Moduł E ma jednostkę naprężenia, więc iloczyn EA jest sztywnością osiową przekroju.</Caption>
+</Formula>
+
+<Formula>
+$$
+R_e=\frac{F_e}{S_0}, \qquad R_m=\frac{F_m}{S_0}, \qquad \sigma_{\mathrm{dop}}=\frac{R_e}{n}
+$$
+
+<Caption>Granice materiału wyznaczamy z początkowego pola przekroju. Naprężenie dopuszczalne powstaje przez podzielenie wybranej granicy przez współczynnik bezpieczeństwa. Dla materiału ciągliwego podstawą jest zwykle granica plastyczności, a nie wytrzymałość na rozciąganie.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma(x)=\gamma x, \qquad \sigma_{\max}=\gamma L
+$$
+
+<Caption>W jednorodnym pionowym pręcie wiszącym x mierzymy od swobodnego dolnego końca. Naprężenie rośnie liniowo do góry, a największa wartość przy zawieszeniu zależy od ciężaru objętościowego i długości, ale nie od pola przekroju.</Caption>
+</Formula>
+
+<Insight>
+  Wytrzymałość i sztywność to dwa różne pytania. Element może nie pęknąć, a mimo to odkształcać się tak bardzo, że
+  przestaje pełnić swoją funkcję. Dobór wymiaru musi sprawdzić oba warunki, a nie tylko ten, który łatwiej policzyć.
+</Insight>
+
+Symbole w module są celowo spójne. Siłę osiową oznaczamy $N$, pole $A$, długość $L$, naprężenie $\sigma$, odkształcenie $\varepsilon$, moduł Younga $E$, granicę plastyczności $R_e$, a wytrzymałość $R_m$. W próbach pojawia się początkowe pole $S_0$, ponieważ odwołujemy się do wymiarów sprzed obciążenia. Tego samego symbolu nie używamy raz na pole aktualne, a raz na początkowe.
+
+## Jak się uczyć
+
+1. **Zaczynaj od jednostek.** Zamień siłę na niutony, pole na milimetry kwadratowe, długość na milimetry, a moduł na $\text{MPa}$. Dzięki temu naprężenie wychodzi wprost w $\text{MPa}$, a wydłużenie w milimetrach.
+2. **Rysuj, zanim policzysz.** Dla pręta narysuj oś, przekrój, siły i położenie $x$. Dla krzywej materiału zaznacz $R_e$, $R_m$ i punkt pracy. Rysunek wychwytuje większość błędów znaku i położenia maksimum.
+3. **Sprawdzaj sens wyniku.** Naprężenie 20 MPa w stali to niewielka część granicy plastyczności. Naprężenie 2000 MPa w zwykłej stali oznacza, że model liniowy już dawno przestał obowiązywać. Wydłużenie kilku metrów w krótkim pręcie powinno wzbudzić podejrzenie.
+4. **Odróżniaj dane od wyniku.** Najpierw zapisz, co jest dane, czego szukasz i jaki warunek łączy te wielkości. Dopiero potem przekształcaj wzór. W zadaniach odwrotnych łatwo podstawić liczbę do niewłaściwego miejsca.
+5. **Licz na dwóch poziomach.** Najpierw oszacuj rząd wielkości, potem wykonaj dokładne obliczenie. Jeśli szacunek i wynik różnią się dziesięciokrotnie, prawdopodobnie zgubiono przecinek lub jednostkę.
+6. **Wracaj do doświadczenia.** Próba rozciągania, wyginanie spinacza i rozciąganie gumki to te same pojęcia w innej skali. Jeśli wzór nie zgadza się z intuicją, najpierw wyjaśnij różnicę, a potem licz dalej.
+
+<Callout kind="warning" title="Najczęstsze pułapki">
+
+- Mylenie siły z naprężeniem: większa siła nie zawsze oznacza większe naprężenie, jeśli równocześnie rośnie przekrój.
+- Podstawianie aktualnego pola w miejscu przewężenia do obliczeń inżynierskich, które z definicji używają pola początkowego.
+- Traktowanie $R_m$ jako naprężenia dopuszczalnego bez sprawdzenia, czy materiał jest ciągliwy i jaki mechanizm zniszczenia jest krytyczny.
+- Stosowanie prawa Hooke’a po przekroczeniu granicy plastyczności tylko dlatego, że wzór nadal „wygląda dobrze”.
+- Mylenie gęstości $\rho$ w $\text{kg/m}^3$ z ciężarem objętościowym $\gamma=\rho g$ w $\text{N/m}^3$.
+- Pomijanie ciężaru własnego w długich elementach albo — odwrotnie — wliczanie go tam, gdzie jest naprawdę znikomy.
+- Dobieranie przekroju tylko na wytrzymałość, choć użytkownik odrzuci element z powodu zbyt dużego ugięcia.
+
+</Callout>
+
+## Po tym module
+
+Następny moduł, Właściwości geometryczne przekroju, odpowie na pytanie, jak rozmieszczenie materiału w przekroju wpływa na zginanie i skręcanie. Zobaczysz tam, że samo pole przekroju nie wystarcza: liczą się momenty bezwładności i wskaźniki wytrzymałości. Ten moduł przygotowuje do tego, bo pokazuje, skąd biorą się dopuszczalne naprężenia i jak kontrolować odkształcenia.
+
+W dalszej części kursu wrócisz do tych samych pojęć w stanach złożonych. Koło Mohra pozwoli przełożyć naprężenie osiowe na kierunki główne. Kryteria wytrzymałościowe połączą $R_e$ ze ścinaniem. Projektowanie elementów zginanych i skręcanych użyje zarówno sztywności materiału, jak i granic bezpieczeństwa.
+
+Najważniejsze, co warto zabrać z tego modułu, to nawyk zadawania trzech pytań: jaki jest stan naprężenia, w jakim zakresie pracuje materiał i który warunek rzeczywiście ogranicza projekt. Odpowiedzi na te pytania są ważniejsze niż pojedynczy wzór.
+
+W kolejnych modułach te pytania wrócą w bogatszej formie. Zginanie doda rozkład naprężeń po wysokości przekroju, skręcanie — ścinanie, a stany złożone — transformację naprężeń. Jednak sposób myślenia pozostanie ten sam: model, założenia, obliczenie, sprawdzenie granicy i decyzja projektowa.
+
+## Źródła
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z prób rozciągania, granic materiału i doboru przekroju.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdziały o rozciąganiu jednoosiowym, prawie Hooke’a i naprężeniach dopuszczalnych.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik; rozdziały o krzywych naprężenie–odkształcenie, rozciąganiu, ciężarze własnym i plastyczności.
+- MIT 3.11 _Mechanics of Materials_, notatki wykładowe — materiały o badaniu rozciągania, jednostkach, metalach konstrukcyjnych i uplastycznieniu.

@@ -7,7 +7,6 @@ shortTitle: Wał rurowy
 description: >-
   Porównaj rurę z wałem pełnym i naucz się poprawnie odejmować wnętrze we
   wzorach geometrycznych.
-duration: 9
 eyebrow: Pusta oś nie jest stratą
 outcomes:
   - >-
@@ -22,65 +21,286 @@ outcomes:
     zachowaniem bezpieczeństwa
 ---
 
-Materiał przy osi przenosi małe naprężenia skręcające, ponieważ działa on na małym ramieniu r. Usunięcie go i utworzenie rury pozwala zachować dużą część nośności przy mniejszej masie.
+Wyobraź sobie wał napędowy samochodu. Silnik kręci jednym końcem, a koła odbierają moment na drugim końcu. Ten sam wał musi przenieść moment przy jak najmniejszej masie, bo każdy kilogram wirujący wokół osi zwiększa bezwładność i obciąża łożyska. Inżynierowie od dawna robią takie wały puste w środku, mimo że wydaje się to osłabieniem konstrukcji.
+
+Powód jest widoczny dopiero po spojrzeniu na rozkład naprężeń. W skręcanym wale naprężenie styczne rośnie proporcjonalnie do odległości od osi. W osi jest równe zeru, a na obwodzie osiąga maksimum. Materiał leżący blisko osi pracuje więc bardzo słabo: przenosi małe naprężenie i działa na krótkim ramieniu. Jego wkład do momentu skręcającego jest proporcjonalny do iloczynu naprężenia i ramienia, czyli do kwadratu promienia.
+
+Usunięcie środka nie jest darmowe. Przy tej samej średnicy zewnętrznej rura ma mniejszy biegunowy moment bezwładności niż wał pełny, więc przy tym samym momencie pojawia się w niej większe naprężenie. Dopiero porównanie przy tej samej masie pokazuje prawdziwą zaletę rury: materiał można przesunąć daleko od osi, gdzie pracuje najefektywniej. Wtedy rura o większej średnicy zewnętrznej przenosi większy moment przy tym samym ciężarze.
+
+W praktyce pusty przekrój spotkasz nie tylko w wałach napędowych. Puste są kolumny kierownicy, wałki maszyn, ramiona rowerów, wały wiertnicze i wiele elementów lotniczych. Wszędzie tam liczy się stosunek nośności do masy. Trzeba jednak pamiętać o ograniczeniach: cienka ścianka może się wyboczyć miejscowo, otwór na wpust wprowadza koncentrację naprężeń, a przy dużym momencie rura może ulec owalizacji.
+
+Po tej lekcji będziesz umiał obliczyć $J_o$ i $W_o$ dla pierścienia, wyznaczyć maksymalne naprężenie styczne, porównać rurę z wałem pełnym przy tej samej średnicy i przy tej samej masie oraz dobrać średnicę wewnętrzną do zadanej nośności. Nauczysz się też rozpoznawać, kiedy model cienkościenny przestaje być wystarczający.
+
+## Zanim zaczniesz
+
+- **Biegunowy moment bezwładności.** Dla pełnego koła $J_o = \pi d^4/32$. Zrozum, że jest to całka $r^2$ po polu przekroju, a nie zwykłe pole powierzchni.
+- **Rozkład naprężeń w wale pełnym.** Wiesz już, że $\tau(r) = Tr/J_o$ i że maksimum występuje na obwodzie. Ta sama zasada obowiązuje w rurze.
+- **Wskaźnik wytrzymałości.** $W_o = J_o/r_{max}$ pozwala zapisać $\tau_{max} = T/W_o$. Dla rury $r_{max} = D/2$, a nie $d/2$.
+- **Jednostki.** Moment podawaj w N·mm, średnice w mm, a $J_o$ otrzymasz w mm⁴. Naprężenie wyjdzie w MPa, czyli w N/mm².
+- **Pole pierścienia.** $A = \pi(D^2-d^2)/4$ opisuje ilość materiału, ale nie sztywność. Nie myl pola z momentem bezwładności.
+- **Typowe pułapki.** Liczenie $J_o$ jako $\pi(D-d)^4/32$, używanie promienia zamiast średnicy oraz porównywanie rury i wału pełnego bez ustalenia, czy porównanie dotyczy tej samej średnicy zewnętrznej, czy tej samej masy.
+
+## Model i intuicja
+
+Rozważamy prosty wał rurowy o przekroju pierścieniowym. Średnica zewnętrzna wynosi $D$, wewnętrzna $d$, a grubość ścianki $t = (D-d)/2$. Zakładamy, że przekroje poprzeczne pozostają płaskie i obracają się względem siebie wokół wspólnej osi. Dla przekroju kołowego lub pierścieniowego to założenie jest dobrze spełnione, ponieważ symetria obrotowa nie pozwala przekrojowi na swobodne wypaczenie.
+
+W każdym punkcie przekroju odkształcenie postaciowe jest proporcjonalne do promienia. Punkt na promieniu $r$ przesuwa się stycznie o $r\,\mathrm{d}\theta$, gdy przekrój obraca się o $\mathrm{d}\theta$. Po podzieleniu przez długość odcinka otrzymujemy $\gamma = r\,\mathrm{d}\theta/\mathrm{d}z$. Z prawa Hooke’a $\tau = G\gamma$, więc naprężenie również rośnie liniowo od zera w osi do maksimum na zewnętrznym obwodzie.
+
+W rurze materiał nie występuje w pobliżu osi, ale kształt rozkładu naprężeń w pozostałej części jest taki sam jak w pełnym wale o tej samej średnicy zewnętrznej. Na promieniu wewnętrznym naprężenie nie jest zerem. Wynosi $\tau(d/2) = (d/D)\tau_{max}$, ponieważ jest proporcjonalne do promienia. To ważne: wydrążenie usuwa materiał, który pracował słabo, ale nie usuwa go całkowicie bez wpływu na nośność.
+
+Decydujące znaczenie ma porównanie, które wykonujemy. Przy tej samej średnicy zewnętrznej rura ma mniejszy $J_o$, więc przy tym samym momencie ma większe naprężenie. Przy tej samej masie rura może mieć większą średnicę zewnętrzną, a wtedy jej $J_o$ może być większy niż w pełnym wale. Ten sam materiał, inaczej rozmieszczony, daje inną sztywność.
+
+Model przestaje dobrze działać, gdy ścianka jest bardzo cienka. Wtedy pojawia się miejscowe wyboczenie ścianki, owalizacja przekroju i wpływ imperfekcji. W pobliżu otworów, wpustów i zmian średnicy występuje koncentracja naprężeń, której wzór na pierścień nie opisuje. Przy dużych momentach materiał może przekroczyć granicę plastyczności, a rozkład naprężeń przestaje być liniowy.
+
+## Laboratorium: co ustawić
+
+W laboratorium ustaw moment $T$ oraz średnice $D$ i $d$. Najpierw porównaj rurę z wałem pełnym przy tej samej średnicy zewnętrznej, a potem obserwuj, jak zmienia się oszczędność pola przy zwiększaniu średnicy wewnętrznej. Zwróć uwagę, że maksymalne naprężenie w rurze jest liczone na promieniu zewnętrznym.
 
 <Lab id="hollowShaft" />
 
+## Definicje i jednostki
+
+| Symbol       | Wielkość                            | Definicja lub wzór              | Jednostka    |
+| ------------ | ----------------------------------- | ------------------------------- | ------------ |
+| $D$          | średnica zewnętrzna                 | największy wymiar przekroju     | mm           |
+| $d$          | średnica wewnętrzna                 | średnica otworu                 | mm           |
+| $t$          | grubość ścianki                     | $(D-d)/2$                       | mm           |
+| $R_o$        | promień zewnętrzny                  | $D/2$                           | mm           |
+| $R_i$        | promień wewnętrzny                  | $d/2$                           | mm           |
+| $A$          | pole przekroju materiału            | $\pi(D^2-d^2)/4$                | mm²          |
+| $J_o$        | biegunowy moment bezwładności       | $\pi(D^4-d^4)/32$               | mm⁴          |
+| $W_o$        | wskaźnik wytrzymałości na skręcanie | $J_o/(D/2)$                     | mm³          |
+| $T$          | moment skręcający                   | moment wokół osi wału           | N·mm lub N·m |
+| $\tau_{max}$ | maksymalne naprężenie styczne       | $T/W_o$ na zewnętrznym obwodzie | MPa          |
+| $G$          | moduł ścinania                      | stała materiałowa               | MPa          |
+| $\varphi$    | kąt skręcenia                       | obrót końca względem początku   | rad          |
+
+W definicji $J_o$ występuje różnica czwartych potęg średnic, a nie czwarta potęga różnicy średnic. Wynika to z addytywności całki po polu: moment bezwładności pierścienia jest różnicą momentów pełnego koła o średnicy $D$ i pełnego koła o średnicy $d$. Każdy z tych momentów zależy od czwartej potęgi własnej średnicy.
+
+Grubość ścianki jest liczona jako połowa różnicy średnic. Czasem w zadaniach podaje się stosunek $d/D$ albo grubość $t$ i średnicę zewnętrzną. Wtedy średnicę wewnętrzną wyznaczasz z $d = D - 2t$. Sprawdź, czy otrzymana wartość jest dodatnia i mniejsza od $D$; ujemna średnica wewnętrzna oznacza błąd w danych.
+
+Wskaźnik $W_o$ dla rury nie upraszcza się do $\pi D^3/16$, ponieważ w mianowniku występuje $D/2$, a w $J_o$ różnica czwartych potęg. Po podstawieniu otrzymujesz $W_o = \pi(D^4-d^4)/(16D)$. Dla $d = 0$ wzór wraca do wskaźnika wału pełnego, co jest dobrym sprawdzeniem poprawności.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-J_o = \frac{\pi(D^4-d^4)}{32} \qquad W_o = \frac{J_o}{D/2} = \frac{\pi(D^4-d^4)}{16D}
+J_o = \frac{\pi(D^4-d^4)}{32} \qquad W_o = \frac{J_o}{D/2} = \frac{\pi(D^4-d^4)}{16D} \qquad \tau_{max} = \frac{T}{W_o}
 $$
 
-<Caption>D to średnica zewnętrzna, d to średnica wewnętrzna. τmax = T/W_o występuje na zewnętrznym promieniu.</Caption>
+<Caption>D to średnica zewnętrzna, d to średnica wewnętrzna. Maksymalne naprężenie występuje na promieniu D/2, czyli na zewnętrznej powierzchni rury. Moment T podstaw w N·mm, średnice w mm, a wynik otrzymasz w MPa.</Caption>
 </Formula>
 
+Wyprowadzenie opiera się na tym samym rozkładzie naprężeń co dla wału pełnego. Zmienia się tylko geometria przekroju.
+
+1. **Zapisz prawo Hooke’a.** W zakresie sprężystym $\tau = G\gamma$. Odkształcenie postaciowe zależy od lokalnego gradientu kąta skręcenia.
+2. **Opisz kinematykę.** Punkt w odległości $r$ od osi przesuwa się o $r\,\mathrm{d}\theta$, więc $\gamma = r\,\mathrm{d}\theta/\mathrm{d}z$.
+3. **Połącz naprężenie z promieniem.** $\tau(r) = G r\,\mathrm{d}\theta/\mathrm{d}z$. Gradient $\mathrm{d}\theta/\mathrm{d}z$ jest wspólny dla całego przekroju.
+4. **Zapisz równowagę momentów.** Moment zewnętrzny równoważy moment naprężeń: $T = \int_A \tau r\,\mathrm{d}A$.
+5. **Podstaw wyrażenie na naprężenie.** $T = G(\mathrm{d}\theta/\mathrm{d}z)\int_A r^2\,\mathrm{d}A$.
+6. **Rozpoznaj całkę.** Całka $\int_A r^2\,\mathrm{d}A$ to $J_o$, więc $T = GJ_o\,\mathrm{d}\theta/\mathrm{d}z$.
+7. **Wyznacz naprężenie.** Po wyeliminowaniu gradientu otrzymujesz $\tau(r) = Tr/J_o$. Moduł $G$ skraca się, tak jak w wale pełnym.
+8. **Oblicz $J_o$ pierścienia.** Całkuj po promieniu od $R_i$ do $R_o$: $J_o = \int_{R_i}^{R_o} r^2 \cdot 2\pi r\,\mathrm{d}r = \pi(R_o^4-R_i^4)/2$.
+9. **Przejdź na średnice.** Podstaw $R_o = D/2$ i $R_i = d/2$. Otrzymujesz $J_o = \pi(D^4-d^4)/32$.
+10. **Wyznacz maksimum.** Największe naprężenie jest na $r = D/2$: $\tau_{max} = T(D/2)/J_o = 16TD/[\pi(D^4-d^4)]$.
+
+Ostatni krok można zapisać krótko jako $\tau_{max} = T/W_o$ z $W_o = \pi(D^4-d^4)/(16D)$. Warto sprawdzić wynik graniczny: dla $d = 0$ otrzymujesz $W_o = \pi D^3/16$, czyli wskaźnik wału pełnego. To potwierdza, że nie zgubiliśmy współczynnika.
+
+Dla bardzo cienkiej rury wygodne jest oszacowanie przez średnią powierzchnię. Niech $D_m = (D+d)/2$ będzie średnią średnicą, a $t$ grubością ścianki. Wtedy $J_o \approx \pi D_m^3 t/4$, a $\tau \approx T/(2A_m t)$, gdzie $A_m = \pi D_m^2/4$ jest polem ograniczonym linią środkową ścianki. To przybliżenie jest przydatne do szybkiej kontroli, ale dokładny wzór z $D^4-d^4$ zawsze pozostaje poprawny dla pierścienia.
+
+Zauważ, że w cienkiej rurze naprężenie na powierzchni wewnętrznej jest tylko nieznacznie mniejsze od naprężenia na zewnątrz. Stosunek tych naprężeń wynosi $d/D$, a dla cienkiej ścianki jest bliski jedności. Dlatego w uproszczonym modelu cienkościennym często mówi się o jednej, uśrednionej wartości naprężenia stycznego w ściance. Taki model dobrze nadaje się do wstępnego szacowania, ale przy dokładnym sprawdzeniu wytrzymałości nadal używamy wzoru z $J_o$ i promieniem zewnętrznym.
+
 <Insight>
-  Nie wolno liczyć J_o jako π(D−d)⁴/32. Odejmuje się czwarte potęgi średnic, ponieważ moment bezwładności zależy od
-  kwadratu odległości elementów pola od osi.
+  Przy tej samej średnicy zewnętrznej rura jest słabsza od wału pełnego, bo ma mniejszy $J_o$. Jej zaleta ujawnia się
+  przy porównaniu tej samej masy: materiał przesunięty daleko od osi daje większy $J_o$ niż materiał skupiony w pełnym
+  przekroju. Zawsze ustal, co jest ustalone w porównaniu.
 </Insight>
 
 <WorkedExample>
-  <Given>Rura o D = 60 mm i d = 40 mm przenosi T = 2 kN·m = 2 000 000 N·mm.</Given>
+  <Given>
+    Rura o średnicy zewnętrznej $D = 80\ \text{mm}$ i wewnętrznej $d = 50\ \text{mm}$ przenosi moment $T = 2{,}5\ \text{kN}\cdot\text{m}$. Oblicz $J_o$, $W_o$, maksymalne naprężenie styczne oraz oszczędność pola względem wału pełnego o tej samej średnicy zewnętrznej.
+  </Given>
   <Steps>
-    <Step>Oblicz J_o = π(60⁴−40⁴)/32 = 1 021 018 mm⁴.</Step>
-    <Step>Ponieważ zewnętrzny promień wynosi 30 mm, W_o = J_o/30 = 34 033,9 mm³.</Step>
-    <Step>Oblicz τmax = T/W_o = 2 000 000/34 033,9 = 58,77 MPa.</Step>
+    <Step>Zamień moment: $T = 2{,}5\ \text{kN}\cdot\text{m} = 2\,500\,000\ \text{N}\cdot\text{mm}$.</Step>
+    <Step>Oblicz różnicę czwartych potęg: $80^4-50^4 = 40\,960\,000-6\,250\,000 = 34\,710\,000\ \text{mm}^4$.</Step>
+    <Step>Biegunowy moment bezwładności: $J_o = \pi \cdot 34\,710\,000/32 = 3\,407\,646\ \text{mm}^4$.</Step>
+    <Step>Wskaźnik wytrzymałości: $W_o = J_o/40 = 85\,191\ \text{mm}^3$.</Step>
+    <Step>Maksymalne naprężenie: $\tau_{max} = 2\,500\,000/85\,191 = 29{,}35\ \text{MPa}$.</Step>
+    <Step>Pole rury: $A = \pi(80^2-50^2)/4 = 3063\ \text{mm}^2$. Pole wału pełnego: $A_0 = \pi \cdot 80^2/4 = 5027\ \text{mm}^2$.</Step>
+    <Step>Oszczędność pola: $(5027-3063)/5027 = 0{,}391$, czyli około $39\%$.</Step>
   </Steps>
-  <Result>τmax ≈ 58,8 MPa na zewnętrznej powierzchni rury.</Result>
+  <Result>
+    $\tau_{max} \approx 29{,}4\ \text{MPa}$ na zewnętrznej powierzchni rury. Przy tej samej średnicy zewnętrznej wał pełny miałby naprężenie około $24{,}9\ \text{MPa}$, więc rura jest w tym porównaniu słabsza, ale zużywa o $39\%$ mniej materiału.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Porównajmy teraz rurę z wału pełnego przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Przyjmijmy, że wał pełny ma średnicę $80\ \text{mm}$, a rura ma średnicę wewnętrzną $50\ \text{mm}$. Chcemy dobrać taką średnicę zewnętrzną rury, aby pole przekroju, a więc i masa na jednostkę długości, były takie same.
+
+Pole wału pełnego wynosi $A_0 = \pi \cdot 80^2/4 = 5027\ \text{mm}^2$. Dla rury $A = \pi(D^2-50^2)/4$. Przyrównanie pól daje $D^2-2500 = 6400$, czyli $D = \sqrt{8900} = 94{,}34\ \text{mm}$. Rura musi mieć więc większą średnicę zewnętrzną, ale jej ścianka ma grubość $(94{,}34-50)/2 = 22{,}17\ \text{mm}$.
+
+Dla takiej rury $J_o = \pi(94{,}34^4-50^4)/32 = 7\,162\,831\ \text{mm}^4$. Przy momencie $2{,}5\ \text{kN}\cdot\text{m}$ maksymalne naprężenie wynosi $\tau_{max} = 2\,500\,000 \cdot 47{,}17/7\,162\,831 = 16{,}46\ \text{MPa}$. Wał pełny o średnicy $80\ \text{mm}$ miał w tym samym zadaniu $24{,}87\ \text{MPa}$.
+
+Przy tej samej masie rura przenosi więc ten sam moment przy naprężeniu mniejszym o około $34\%$. Jej wadą jest większa średnica zewnętrzna, a więc większe gabaryty i większa powierzchnia zewnętrzna. W ciasnej obudowie maszyny ten warunek może przeważyć nad oszczędnością masy.
+
+Ten przykład pokazuje, dlaczego samo stwierdzenie „rura jest lżejsza” nie wystarcza. Trzeba podać, co pozostaje stałe: średnica zewnętrzna, masa, moment, a może gabaryt. Dopiero wtedy porównanie ma sens i można policzyć konkretną różnicę.
+
+## Trzeci przykład: wariant odwrotny
+
+Zaprojektujmy rurę o średnicy zewnętrznej $D = 100\ \text{mm}$, która przy momencie $T = 4\ \text{kN}\cdot\text{m}$ osiągnie naprężenie nie większe niż $\tau_{dop} = 40\ \text{MPa}$. Szukamy średnicy wewnętrznej $d$ i grubości ścianki $t$.
+
+Najpierw wyznaczamy wymagany wskaźnik wytrzymałości: $W_o \ge T/\tau_{dop} = 4\,000\,000/40 = 100\,000\ \text{mm}^3$. Następnie korzystamy ze wzoru $W_o = \pi(D^4-d^4)/(16D)$ i przekształcamy go względem $d$:
+
+$$
+d^4 = D^4 - \frac{16DW_o}{\pi}.
+$$
+
+Podstawiamy $D = 100\ \text{mm}$ i $W_o = 100\,000\ \text{mm}^3$: $d^4 = 100\,000\,000 - 50\,929\,581 = 49\,070\,419\ \text{mm}^4$. Pierwiastek czwartego stopnia daje $d = 83{,}70\ \text{mm}$. Grubość ścianki wynosi $t = (100-83{,}70)/2 = 8{,}15\ \text{mm}$.
+
+Sprawdzenie: $J_o = \pi(100^4-83{,}70^4)/32 = 4\,999\,090\ \text{mm}^4$, a $W_o = J_o/50 = 99\,982\ \text{mm}^3$. Naprężenie wynosi $4\,000\,000/99\,982 = 40{,}01\ \text{MPa}$, czyli praktycznie równa się wartości dopuszczalnej. Pole rury to około $2352\ \text{mm}^2$, a pole pełnego wału o średnicy $100\ \text{mm}$ to $7854\ \text{mm}^2$, więc oszczędność materiału sięga około $70\%$.
+
+Wariant odwrotny pokazuje, że dla zadanej średnicy zewnętrznej nośność rośnie wraz z grubością ścianki, ale nie liniowo. Początkowo wystarczy cienka ścianka, a przy dużych momentach potrzebna grubość rośnie szybko. Jednocześnie bardzo cienka ścianka może utracić stateczność miejscową, mimo że wzór na naprężenie nadal daje poprawny wynik sprężysty.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Czwarta potęga różnicy zamiast różnicy czwartych potęg.** $J_o$ rury to $\pi(D^4-d^4)/32$, a nie $\pi(D-d)^4/32$. Drugi wzór daje zupełnie inną, błędną wartość.
+- **Promień wewnętrzny w mianowniku $W_o$.** Wskaźnik wytrzymałości dzieli się przez promień zewnętrzny $D/2$, bo tam występuje maksimum naprężenia. Użycie $d/2$ zaniża wynik.
+- **Mylenie pola z momentem bezwładności.** Pole mówi o masie, a $J_o$ o rozkładzie materiału względem osi. Rura może mieć mniejsze pole i większy $J_o$ od cieńszego wału pełnego.
+- **Porównywanie przy różnych założeniach.** Rura przy tej samej średnicy zewnętrznej jest słabsza, a przy tej samej masie może być mocniejsza. Zawsze zapisz, co jest ustalone.
+- **Moment w N·m ze średnicą w mm.** Zamień moment na N·mm. Inaczej naprężenie wyjdzie tysiąc razy za małe.
+- **Zakładanie, że naprężenie w rurze jest stałe.** Rośnie ono liniowo od $\tau(d/2)$ na wewnętrznej powierzchni do $\tau_{max}$ na zewnętrznej. To nie jest średnia po ściance.
+- **Pomijanie stateczności cienkiej ścianki.** Sam warunek naprężeniowy nie wystarcza, gdy ścianka jest bardzo cienka. Mogą wystąpić wyboczenie miejscowe i owalizacja.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal geometrię.** Zapisz $D$ i $d$ albo $D$ i $t$. Sprawdź, czy $d$ jest mniejsze od $D$ i czy obie średnice są dodatnie.
+2. **Ustal, co jest porównywane.** Czy chodzi o tę samą średnicę zewnętrzną, tę samą masę, ten sam moment, czy to samo naprężenie? To decyduje o sposobie porównania.
+3. **Ujednolić jednostki.** Moment zamień na N·mm, średnice na mm. Wtedy $J_o$ wyjdzie w mm⁴, a naprężenie w MPa.
+4. **Oblicz $J_o$.** Użyj $\pi(D^4-d^4)/32$. Nie licz osobno pola i nie mieszaj go z momentem bezwładności.
+5. **Oblicz $W_o$.** Podziel $J_o$ przez $D/2$. Dla wału pełnego możesz użyć gotowego $\pi D^3/16$.
+6. **Oblicz naprężenie.** Użyj $\tau_{max} = T/W_o$. Jeżeli pytanie dotyczy punktu na promieniu $r$, użyj $\tau(r) = Tr/J_o$.
+7. **Sprawdź wynik graniczny.** Dla $d = 0$ wzory powinny wrócić do wału pełnego. Dla $d$ bliskiego $D$ naprężenie powinno rosnąć.
+8. **Oceń sens fizyczny.** Porównaj wynik z typową granicą plastyczności stali i sprawdź, czy nie przekraczasz zakresu sprężystego. Przy cienkiej ściance dodaj sprawdzenie stateczności.
+
+## Połącz z resztą kursu
+
+- **Skręcanie wału pełnego.** Wzór $\tau = Tr/J_o$ i prawo Hooke’a $\tau = G\gamma$ są wspólną podstawą obu lekcji. Rura różni się tylko granicami całkowania.
+- **Kąt skręcenia i sztywność.** $J_o$ rury wchodzi do $\varphi = TL/(GJ_o)$. Mniejszy $J_o$ oznacza większy kąt przy tym samym momencie, dlatego sztywność rury trzeba sprawdzać osobno.
+- **Dobór średnicy.** W lekcji o doborze wału pojawi się wybór między średnicą z warunku wytrzymałości i sztywności. Dla rury dochodzi drugi wymiar, czyli średnica wewnętrzna.
+- **Ścinanie techniczne.** W połączeniach liczy się pole płaszczyzny ścinania. W rurze liczy się rozkład naprężeń po przekroju, więc samo pole nie wystarcza.
+- **Stan naprężenia i koło Mohra.** W czystym ścinaniu naprężenia główne są równe $\pm\tau$. Na zewnętrznej powierzchni rury wartość $\tau_{max}$ jest więc bezpośrednio związana z maksymalnym rozciąganiem i ściskaniem.
+- **Hipotezy wytrzymałościowe.** Przy złożonym obciążeniu, na przykład skręcaniu ze zginaniem, samo $\tau_{max}$ nie wystarcza. Trzeba zredukować stan naprężenia według przyjętej hipotezy.
+
+## Sprawdź się
+
+Sprawdź, czy poprawnie odróżniasz pole przekroju od momentu bezwładności i czy umiesz porównać rurę z wałem pełnym w uczciwych warunkach.
 
 <Quiz>
   <Question outcome="W3">
-    <Prompt>Które wyrażenie poprawnie opisuje J_o rury o średnicach D i d?</Prompt>
-    <Answer correct>π(D⁴−d⁴)/32</Answer>
-    <Answer>π(D−d)⁴/32</Answer>
-    <Answer>π(D²−d²)/4</Answer>
+    <Prompt>
+      Które wyrażenie poprawnie opisuje biegunowy moment bezwładności rury o średnicach $D$ i $d$?
+    </Prompt>
+    <Answer correct>$\pi(D^4-d^4)/32$</Answer>
+    <Answer>$\pi(D-d)^4/32$</Answer>
+    <Answer>$\pi(D^2-d^2)/4$</Answer>
     <Hint>Odejmij moment bezwładności pustego wnętrza od momentu pełnego koła.</Hint>
     <Explanation>
-      Dla koła J = πD⁴/32, więc dla rury J_o = πD⁴/32 − πd⁴/32. Ostatnie wyrażenie opisuje pole przekroju, a nie moment
-      bezwładności.
+      Dla pełnego koła $J_o = \pi D^4/32$, a dla wnętrza $\pi d^4/32$. Różnica daje $\pi(D^4-d^4)/32$. Trzecie wyrażenie opisuje pole przekroju, a nie moment bezwładności.
     </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>Przy tym samym momencie T i tej samej średnicy zewnętrznej D rura ma w porównaniu z wałem pełnym:</Prompt>
-    <Answer correct>Mniejsze J_o i większe τmax</Answer>
-    <Answer>Większe J_o i mniejsze τmax</Answer>
-    <Answer>Identyczne J_o i τmax</Answer>
-    <Hint>Usunięcie wnętrza odejmuje dodatni składnik πd⁴/32.</Hint>
+    <Prompt>
+      Przy tym samym momencie $T$ i tej samej średnicy zewnętrznej $D$ rura ma w porównaniu z wałem pełnym:
+    </Prompt>
+    <Answer correct>Mniejsze $J_o$ i większe $\tau_{max}$</Answer>
+    <Answer>Większe $J_o$ i mniejsze $\tau_{max}$</Answer>
+    <Answer>Identyczne $J_o$ i $\tau_{max}$</Answer>
+    <Hint>Usunięcie wnętrza odejmuje dodatni składnik $\pi d^4/32$.</Hint>
     <Explanation>
-      Usunięcie wnętrza zmniejsza J_o, a wraz z nim W_o = J_o/(D/2). Przy tym samym T daje to większe τmax. Zaletą rury
-      jest jednak mniejsza masa i lepsze wykorzystanie materiału.
+      Usunięcie wnętrza zmniejsza $J_o$, a wraz z nim $W_o = J_o/(D/2)$. Przy tym samym $T$ daje to większe $\tau_{max}$. Zaletą rury jest jednak mniejsza masa przy tej samej średnicy zewnętrznej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Rura ma $D = 80\ \text{mm}$ i $d = 60\ \text{mm}$. Ile wynosi w przybliżeniu $J_o$?
+    </Prompt>
+    <Answer>$1\,272\,345\ \text{mm}^4$</Answer>
+    <Answer correct>$2\,748\,894\ \text{mm}^4$</Answer>
+    <Answer>$4\,021\,239\ \text{mm}^4$</Answer>
+    <Hint>Oblicz $80^4-60^4$, a potem pomnóż przez $\pi/32$.</Hint>
+    <Explanation>
+      $80^4 = 40\,960\,000$, a $60^4 = 12\,960\,000$. Różnica wynosi $28\,000\,000\ \text{mm}^4$, więc $J_o = \pi \cdot 28\,000\,000/32 = 2\,748\,894\ \text{mm}^4$. Pierwsza odpowiedź to $J_o$ wału pełnego o średnicy $80\ \text{mm}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Ta sama rura o $D = 80\ \text{mm}$ i $d = 60\ \text{mm}$ przenosi $T = 2\ \text{kN}\cdot\text{m}$. Jakie jest w przybliżeniu $\tau_{max}$?
+    </Prompt>
+    <Answer>15 MPa</Answer>
+    <Answer correct>29 MPa</Answer>
+    <Answer>58 MPa</Answer>
+    <Hint>Najpierw policz $W_o = J_o/40$, potem podziel moment w N·mm przez $W_o$.</Hint>
+    <Explanation>
+      $J_o = 2\,748\,894\ \text{mm}^4$, więc $W_o = 68\,722\ \text{mm}^3$. Po podstawieniu $T = 2\,000\,000\ \text{N}\cdot\text{mm}$ otrzymujemy $\tau_{max} = 29{,}1\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      W którym miejscu przekroju rury występuje maksymalne naprężenie styczne od skręcania?
+    </Prompt>
+    <Answer correct>Na zewnętrznej powierzchni, na promieniu $D/2$</Answer>
+    <Answer>Na wewnętrznej powierzchni, na promieniu $d/2$</Answer>
+    <Answer>W połowie grubości ścianki</Answer>
+    <Hint>W zależności $\tau(r) = Tr/J_o$ naprężenie rośnie z promieniem.</Hint>
+    <Explanation>
+      Naprężenie jest proporcjonalne do odległości od osi, więc maksimum wypada na największym promieniu, czyli $D/2$. Na wewnętrznej powierzchni naprężenie jest mniejsze, ale niezerowe.
     </Explanation>
   </Question>
   <Question outcome="W2">
-    <Prompt>Dla cienkościennej rury największe naprężenie styczne od skręcania występuje:</Prompt>
-    <Answer correct>Na promieniu zewnętrznym</Answer>
-    <Answer>Zawsze na promieniu wewnętrznym</Answer>
-    <Answer>Wszędzie dokładnie jednakowe, niezależnie od modelu</Answer>
-    <Hint>W ogólnym wzorze τ(r) = Tr/J_o największe r jest na zewnątrz.</Hint>
+    <Prompt>
+      Które założenie jest wspólne dla wzoru na skręcanie wału pełnego i rury kołowej?
+    </Prompt>
+    <Answer correct>Przekroje poprzeczne pozostają płaskie i obracają się wokół osi</Answer>
+    <Answer>Naprężenie styczne jest stałe w całym przekroju</Answer>
+    <Answer>Materiał jest idealnie plastyczny</Answer>
+    <Hint>Model opiera się na symetrii obrotowej przekroju i małych odkształceniach sprężystych.</Hint>
     <Explanation>
-      W modelu rury o przekroju kołowym naprężenie rośnie liniowo z r, więc maksimum wypada dla r = D/2. W uproszczeniu
-      cienkościennym rozkład po grubości bywa uśredniany, ale maksimum nadal leży na zewnątrz.
+      Dla przekroju kołowego i pierścieniowego symetria obrotowa uzasadnia brak wypaczenia przekroju. Naprężenie nie jest stałe, a materiał jest liniowo sprężysty. Model przestaje działać przy dużych odkształceniach i przy przekrojach niekołowych.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Rura i wał pełny mają tę samą masę i ten sam moment $T$. Co jest prawdą?
+    </Prompt>
+    <Answer correct>Rura ma większą średnicę zewnętrzną i może mieć mniejsze $\tau_{max}$</Answer>
+    <Answer>Rura ma zawsze mniejsze $J_o$ i większe $\tau_{max}$</Answer>
+    <Answer>Oba przekroje mają identyczne $J_o$, bo masa jest taka sama</Answer>
+    <Hint>Przy tej samej masie materiał rury leży dalej od osi, ale średnica zewnętrzna musi być większa.</Hint>
+    <Explanation>
+      Ta sama masa nie oznacza tego samego $J_o$. Przesunięcie materiału od osi zwiększa $J_o$, więc rura może mieć mniejsze naprężenie, ale kosztem większej średnicy zewnętrznej. Porównanie przy tej samej średnicy zewnętrznej daje odwrotny wynik.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Co się dzieje z nośnością rury o stałej średnicy zewnętrznej, gdy średnica wewnętrzna zbliża się do zewnętrznej?
+    </Prompt>
+    <Answer correct>$J_o$ maleje do zera, a $\tau_{max}$ rośnie nieograniczenie przy stałym $T$</Answer>
+    <Answer>$J_o$ rośnie, a $\tau_{max}$ maleje do zera</Answer>
+    <Answer>Obie wielkości pozostają stałe, bo średnica zewnętrzna się nie zmienia</Answer>
+    <Hint>Popatrz na różnicę $D^4-d^4$ i na grubość ścianki.</Hint>
+    <Explanation>
+      Gdy $d$ zbliża się do $D$, różnica czwartych potęg dąży do zera. $J_o$ i $W_o$ maleją, więc przy stałym momencie naprężenie rośnie. W rzeczywistości wcześniej pojawią się wyboczenie ścianki i inne efekty, których wzór sprężysty nie opisuje.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, rozdział o skręcaniu prętów okrągłych — wyprowadzenie $J_o$ dla pierścienia i wzór na maksymalne naprężenie styczne.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, zadania ze skręcania wałów rurowych — przykłady porównania masy, nośności i średnic.
+- D. Roylance, _Mechanics of Materials_, podrozdział o ścinaniu i skręcaniu (MIT OpenCourseWare) — omówienie, dlaczego wały napędowe są puste w środku, oraz przykład rury o tej samej masie.
+- MIT 3.11 _Mechanics of Materials_, wykład o skręcaniu — wyprowadzenie od geometrii odkształcenia do wzoru $\tau = Tr/J$ i dyskusja założeń.
+- T. Wierzbicki, _Structural Mechanics_, rozdział o prawie sprężystości — konstytutywny kontekst dla zależności $\tau = G\gamma$ użytej w wyprowadzeniu.

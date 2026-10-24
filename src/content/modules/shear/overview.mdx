@@ -1,1 +1,152 @@
-Od ścinanego sworznia do skręcanego wału: naprężenia styczne, odkształcenia oraz dobór przekroju pełnego i rurowego.
+## Co to jest ten moduł
+
+Do tej pory elementy przenosiły głównie siłę wzdłuż własnej osi: rozciągaliśmy pręty, ściskaliśmy słupy i sprawdzaliśmy, czy naprężenie normalne nie przekracza wytrzymałości. W tym module zmieniamy kierunek myślenia. Siła zaczyna działać w poprzek przekroju albo zostaje zamieniona na moment skręcający, a materiał odpowiada przesunięciem warstw względem siebie. To właśnie nazywamy ścinaniem.
+
+Najprostszy obraz to talia kart leżąca na stole. Gdy popchniesz górną kartę, kolejne karty przesuwają się coraz mniej, aż do dolnej, która pozostaje nieruchoma. Każda para sąsiednich kart ślizga się po sobie. Podobnie zachowuje się metalowy sworzeń w połączeniu blach, klej w złączu drewna, wpust w rowku wału czy rdzeń ołówka, gdy naciskasz nim na papier pod kątem. Materiał nie wydłuża się wtedy znacząco, lecz zmienia kształt.
+
+Drugi bohater modułu to skręcanie. Weź długi wkrętak i przekręć nim mocno śrubę. Ręka przykłada moment, a wzdłuż trzonka wkrętaka powstają naprężenia styczne. Punkty przy powierzchni przesuwają się bardziej niż punkty blisko osi, dlatego naprężenie rośnie liniowo od środka do obwodu. Ten sam mechanizm przenosi moc z silnika do kół samochodu, z turbiny do przekładni i z pedałów roweru do łańcucha.
+
+Moduł łączy więc dwa obliczeniowo różne światy. W połączeniach, takich jak nit, sworzeń czy spoina klejowa, przyjmujemy wygodne uproszczenie zwane ścinaniem technicznym: dzielimy siłę przez pole powierzchni ścinanej i traktujemy wynik jako naprężenie średnie. W wałach okrągłych nie możemy już tak postąpić, ponieważ rozkład naprężeń jest nierównomierny i zależy od odległości od osi. Musimy użyć geometrii przekroju, momentu bezwładności biegunowego i warunku równowagi momentów. Po przejściu tego modułu będziesz umiał policzyć, czy sworzeń się nie przetnie, jak dobrać liczbę płaszczyzn ścinania, jakie naprężenia główne powstają przy czystym ścinaniu oraz jak zaprojektować pełny lub rurowy wał, który jest jednocześnie wystarczająco mocny i wystarczająco sztywny. Nauczysz się też odróżniać przypadek, w którym decyduje wytrzymałość, od przypadku, w którym decyduje dopuszczalny kąt skręcenia.
+
+## Dlaczego to ważne
+
+Połączenia śrubowe i sworzniowe spotykasz wszędzie: w ramie roweru, w kratownicy hali, w zawieszeniu samochodu, w mocowaniu silnika. Inżynier, który policzy tylko rozciąganie blachy, a pominie ścinanie sworznia, może zaprojektować połączenie, które rozpadnie się przy przeciążeniu. Historia konstrukcji zna wiele awarii spowodowanych właśnie przecięciem łącznika albo wyrwaniem blachy wokół otworu.
+
+Skręcanie jest równie powszechne, ale często mniej widoczne. Wał napędowy przenosi moment, którego nie widać gołym okiem, dopóki coś się nie urwie. Zbyt cienki wał może przenieść moment bez zniszczenia, a mimo to skręcać się tak bardzo, że zmienia fazę napędu, wzbudza drgania albo powoduje utratę dokładności maszyny. Dlatego w projektowaniu wałów sprawdza się dwa warunki: naprężenie maksymalne oraz kąt skręcenia na jednostkę długości.
+
+Ścinanie tłumaczy też, dlaczego materiały pękają w różny sposób. Metale ciągliwe ulegają poślizgowi i płynięciu, więc ścinanie prowadzi do trwałego odkształcenia. Materiały kruche, jak szkło czy żeliwo, są znacznie słabsze przy rozciąganiu, które pojawia się przy ścinaniu na płaszczyznach nachylonych pod kątem 45 stopni. Ten sam stan naprężenia może więc być bezpieczny dla stali i niebezpieczny dla materiału ceramicznego.
+
+Wreszcie, moduł uczy racjonalnego gospodarowania materiałem. W skręcanym przekroju środek przenosi bardzo mało naprężenia, dlatego wały napędowe często robi się rurowe. Zrozumiesz, dlaczego rura o podobnej masie może być sztywniejsza od pręta pełnego i kiedy takie rozwiązanie przestaje być opłacalne z powodu wyboczenia, montażu lub kosztu wykonania.
+
+Do tego dochodzi kwestia bezpieczeństwa i odpowiedzialności. Połączenie, które w laboratorium wygląda solidnie, może zawieść po latach eksploatacji z powodu zmęczenia, korozji lub poluzowania. Wał, który przenosi moment z zapasem, może jednak rezonować przy określonej prędkości obrotowej. Rozumienie mechanizmów ścinania i skręcania pozwala zadać właściwe pytania, nawet gdy ostateczne obliczenia wykonuje program komputerowy.
+
+| Błąd w modelu                   | Bezpośredni skutek                             | Jak go rozpoznać                   |
+| ------------------------------- | ---------------------------------------------- | ---------------------------------- |
+| Pominięcie płaszczyzny ścinania | naprężenie zaniżone nawet dwukrotnie           | policz przecięcia, nie blachy      |
+| Zła potęga średnicy             | błąd ośmiokrotny przy podwojeniu $d$           | sprawdź, czy użyto $d^3$ czy $d^4$ |
+| Moment w N·m przy średnicy w mm | naprężenie tysiąc razy za małe                 | ujednolić N i mm przed dzieleniem  |
+| Brak kontroli sztywności        | wał przenosi moment, ale skręca się nadmiernie | policz kąt na jednostkę długości   |
+
+Tabela nie zastępuje zrozumienia, ale pokazuje, że większość poważnych błędów wynika z modelu, a nie z arytmetyki. Dlatego w każdej lekcji najpierw ustalamy, co jest siłą, co polem, a co momentem, a dopiero potem sięgamy po kalkulator.
+
+W praktyce inżynier rzadko zaczyna od pustej kartki. Częściej ocenia istniejący wyrób, porównuje warianty albo szuka przyczyny awarii. Wtedy trzeba szybko oszacować, czy ścinanie lub skręcanie jest w ogóle istotne, a jeśli tak, to który przekrój jest krytyczny. Ten moduł daje właśnie takie nawyki: najpierw model, potem liczby.
+
+## Czego się nauczysz
+
+Efekty modułu są zapisane kodami W1–W3 oraz U1–U3. Po ludzku oznaczają one sześć konkretnych umiejętności.
+
+- **W1 — rozpoznasz przekrój, który naprawdę pracuje.** W połączeniu z wieloma blachami i łącznikami wskażesz, gdzie materiał jest przecinany, a gdzie tylko dociskany. To rozróżnienie decyduje o poprawnym polu we wzorze.
+- **W2 — odróżnisz ścinanie techniczne od swobodnego skręcania.** W pierwszym przypadku używasz naprężenia średniego i prostego ilorazu siły przez pole. W drugim musisz opisać liniowy rozkład naprężeń i równowagę momentu.
+- **W3 — wyjaśnisz wpływ geometrii.** Zobaczysz, dlaczego średnica wału występuje w trzeciej potędze we wzorze na naprężenie i w czwartej potędze we wzorze na sztywność. Zrozumiesz też, dlaczego wydrążenie środka prawie nie zmniejsza nośności.
+- **U1 — obliczysz naprężenia, kąt skręcenia i siły w przekrojach.** Będziesz swobodnie przeliczał kN na N, moment z N·m na N·mm i kąt z radianów na stopnie, bez gubienia rzędu wielkości. Sprawdzisz też, czy otrzymany wynik jest fizycznie możliwy, a nie tylko algebraicznie poprawny.
+- **U2 — użyjesz koła Mohra do opisu czystego ścinania.** Zobaczysz, że stan czystego ścinania ma naprężenia główne równe co do wartości i przeciwne co do znaku, a ich kierunki są obrócone o 45 stopni.
+- **U3 — dobierzesz średnicę wału z dwóch warunków.** Najpierw sprawdzisz wytrzymałość, potem sztywność, a do wykonania wybierzesz większą z otrzymanych średnic i zaokrąglisz ją w górę.
+
+## Od czego zacząć
+
+Potrzebujesz pewności w trzech obszarach. Po pierwsze, musisz swobodnie wyznaczać reakcje i siły wewnętrzne oraz rysować przekroje myślowe. Po drugie, powinieneś znać prawo Hooke’a dla rozciągania, moduł Younga i liczbę Poissona. Po trzecie, przyda się podstawowa trygonometria i umiejętność posługiwania się radianami.
+
+Jeżeli masz wątpliwości, wróć do modułu o podstawach, szczególnie do lekcji o równowadze, metodzie przekrojów i jednostkach SI. Następnie przypomnij sobie moduł o rozciąganiu, zwłaszcza zależność naprężenia od siły i pola oraz wydłużenie pręta. Moduł o własnościach materiałów dostarczy ci typowych wartości E, G i granicy plastyczności.
+
+Kolejność pracy w tym module jest celowa. Najpierw uczysz się najprostszego modelu ścinania technicznego i liczenia płaszczyzn. Potem przechodzisz do związku naprężenie–odkształcenie i koła Mohra, żeby zrozumieć, co dzieje się w materiale. Dopiero na tym fundamencie budujesz teorię skręcania wału pełnego, rurowego, kąta skręcenia i doboru średnicy.
+
+Jeżeli musisz szybko przypomnieć sobie materiał, zacznij od lekcji 1 i 3, a potem przejdź od razu do lekcji 4. Lekcje 5–7 są rozwinięciem tej samej logiki, więc możesz je czytać równolegle z prostymi zadaniami rachunkowymi.
+
+Nie potrzebujesz zaawansowanego oprogramowania. Wystarczy kartka, ołówek, kalkulator i konsekwencja w jednostkach. Program komputerowy przydaje się dopiero wtedy, gdy geometria przestaje być kołowa albo gdy trzeba uwzględnić koncentrację naprężeń. W tym module wszystkie przykłady rozwiązujemy ręcznie, żeby zobaczyć, skąd bierze się każda liczba.
+
+Plan minimum jest krótki: przeczytaj lekcję, przepisz jej główny wzór z jednostkami, rozwiąż przykład bez zaglądania do rozwiązania, a potem sprawdź się w quizie. Dopiero po tej pętli przechodź do następnej lekcji. Taka praca zajmuje więcej czasu niż samo czytanie, ale daje trwałą umiejętność.
+
+## Mapa lekcji
+
+**Lekcja 1 — Ścinanie techniczne.** Pokazuje, czym różni się siła w poprzek przekroju od siły wzdłuż osi, definiuje średnie naprężenie styczne i wyjaśnia, dlaczego wzór z polem jest świadomym uproszczeniem. Po tej lekcji policzysz naprężenie w sworzniu, spoinie lub wpuście, a także zauważysz, kiedy potrzebne jest dokładniejsze sprawdzenie docisku.
+
+**Lekcja 2 — Połączenia jedno- i dwucięte.** Uczy liczyć rzeczywiste płaszczyzny ścinania, a nie blachy ani łączniki. Zobaczysz, dlaczego dwucięcie zmniejsza naprężenie o połowę i jak uniknąć najczęstszej pomyłki przy symetrycznym połączeniu trzech blach.
+
+**Lekcja 3 — Naprężenia i odkształcenia styczne.** Wiąże naprężenie styczne z kątem odkształcenia postaciowego przez moduł Kirchhoffa. Pokazuje czyste ścinanie na kole Mohra i wyjaśnia, skąd biorą się naprężenia główne o przeciwnych znakach. Nauczysz się też odczytywać kąt 45 stopni jako kierunek największego rozciągania.
+
+**Lekcja 4 — Skręcanie wału pełnego.** Wyprowadza liniowy rozkład naprężeń od osi do powierzchni, definiuje biegunowy moment bezwładności i wskaźnik wytrzymałości. Uczysz się liczyć maksymalne naprężenie w wale o zadanej średnicy.
+
+**Lekcja 5 — Skręcanie rury.** Przenosi te same zależności na przekrój pierścieniowy. Zobaczysz, jak poprawnie odejmować czwarte potęgi średnic i dlaczego rura lepiej wykorzystuje materiał niż pełny pręt. Zobaczysz również, kiedy cienka ścianka przestaje być rozwiązaniem racjonalnym.
+
+**Lekcja 6 — Kąt skręcenia i sztywność.** Dodaje drugą stronę projektu: nie tylko czy wał się nie zniszczy, ale czy nie skręca się zbyt mocno. Poznasz zależność kąta od momentu, długości, modułu ścinania i momentu bezwładności.
+
+**Lekcja 7 — Dobór średnicy.** Łączy wytrzymałość i sztywność w jedną procedurę projektową. Wybierasz większą średnicę, zaokrąglasz do wymiaru handlowego i sprawdzasz oba warunki ponownie. Na końcu oceniasz, czy o wymiarze zdecydowała wytrzymałość, czy sztywność.
+
+Ta mapa nie jest sztywnym nakazem. Możesz wracać do wcześniejszych lekcji, gdy w zadaniu pojawi się pojęcie, którego nie pamiętasz. Ważne, żeby nie pomijać lekcji 3, bo bez zrozumienia czystego ścinania trudno interpretować wyniki dla wałów.
+
+Oznaczenia w module są celowo powtarzalne: $F$ to siła, $T$ to moment, $A$ to pole, $d$ to średnica, a $n$ to liczba płaszczyzn. Dzięki temu wzory z różnych lekcji można czytać jednym ciągiem. Jeśli w zadaniu pojawi się inne oznaczenie, najpierw przetłumacz je na ten zestaw.
+
+## Kluczowe wzory
+
+Pierwszy wzór dotyczy połączeń. W ścinaniu technicznym dzielimy siłę przez łączne pole wszystkich płaszczyzn ścinania. Liczba płaszczyzn jest częścią modelu, a nie dodatkiem kosmetycznym.
+
+<Formula>
+$$
+\tau_{sr} = \frac{F}{nA}, \qquad A = \frac{\pi d^2}{4}
+$$
+
+<Caption>F to siła przenoszona przez połączenie, n to liczba płaszczyzn ścinania, a A to pole jednego przekroju łącznika. Wynik w N/mm² jest liczbowo równy naprężeniu w MPa.</Caption>
+</Formula>
+
+Drugi wzór opisuje materiał w stanie czystego ścinania. Naprężenie styczne jest proporcjonalne do kąta odkształcenia postaciowego, a na płaszczyznach głównych pojawiają się naprężenia normalne o przeciwnych znakach.
+
+<Formula>
+$$
+\tau = G\gamma, \qquad \sigma_{1,2} = \pm\tau
+$$
+
+<Caption>G to moduł ścinania, a γ to odkształcenie postaciowe w radianach. W czystym ścinaniu naprężenia główne mają wartość bezwzględną równą τ i przeciwne znaki.</Caption>
+</Formula>
+
+Trzeci wzór jest sercem skręcania. Naprężenie rośnie liniowo z promieniem, a maksimum występuje na obwodzie. Kąt skręcenia zależy od sztywności GJ_o, dlatego średnica działa na niego znacznie silniej niż na samo naprężenie.
+
+<Formula>
+$$
+\tau_{max} = \frac{16T}{\pi d^3}, \qquad J_o = \frac{\pi d^4}{32}, \qquad \varphi = \frac{TL}{GJ_o}
+$$
+
+<Caption>T to moment skręcający w N·mm, d to średnica w mm, a L to długość wału. Naprężenie otrzymasz w MPa, a kąt φ w radianach. GJ_o nazywamy sztywnością na skręcanie.</Caption>
+</Formula>
+
+Wzory wyglądają różnie, ale mają wspólny mianownik: wszystkie opisują przenoszenie siły przez materiał za pomocą naprężeń stycznych. W połączeniu uśredniamy rozkład, a w wale opisujemy go liniowo. To zestawienie pomaga zobaczyć, że mechanika materiałów nie jest zbiorem niezwiązanych recept, lecz jednym sposobem myślenia stosowanym do różnych geometrii.
+
+<Insight>
+  W połączeniu wszystko zależy od tego, ile razy materiał zostanie przecięty. W wale wszystko zależy od tego, jak daleko
+  materiał leży od osi. To dwa różne sposoby myślenia o tym samym naprężeniu stycznym.
+</Insight>
+
+## Jak się uczyć
+
+1. **Zaczynaj od rysunku.** Zanim podstawisz liczby, narysuj element, zaznacz siły i wyraźnie zamaluj płaszczyzny ścinania. Większość błędów w tym module powstaje nie z rachunków, lecz z niewłaściwego wyboru pola.
+2. **Ustal jednostki przed dzieleniem.** Zamień kN na N, a moment z N·m na N·mm. Wtedy pole w mm² i naprężenie w MPa wychodzą bez dodatkowych przeliczeń.
+3. **Sprawdzaj rząd wielkości.** Typowe naprężenie dopuszczalne stali to setki MPa, a nie tysiące. Jeśli wynik wychodzi 5 MPa albo 5000 MPa, prawdopodobnie zgubiłeś średnicę, potęgę albo przecinek.
+4. **Rysuj koło Mohra odręcznie.** Dla czystego ścinania wystarczy okrąg o środku w zerze i promieniu τ. To najszybsza kontrola, czy naprężenia główne mają poprawne znaki.
+5. **Porównuj warianty, nie tylko wyniki.** Policz ten sam wał jako pełny i rurowy, a potem porównaj masę, naprężenie i kąt. Zrozumienie różnicy jest cenniejsze niż zapamiętanie wzoru.
+6. **Wracaj do laboratoriów i tłumacz wynik.** Zmieniaj jeden parametr naraz i przewiduj wynik przed przesunięciem suwaka. Potem spróbuj wyjaśnić koledze, dlaczego średnica wału działa silniej na kąt niż na naprężenie. Jeśli nie potrafisz tego powiedzieć bez wzoru, wróć do wyprowadzenia.
+
+Nie ucz się wzorów przez powtarzanie. Zamiast tego zapisuj je razem z rysunkiem i jednostkami. Wzór bez rysunku łatwo pomylić z innym, a rysunek przypomina, gdzie jest pole, gdzie promień, a gdzie moment. Po kilku zadaniach zauważysz, że większość wzorów odtwarzasz z pamięci, bo rozumiesz ich strukturę.
+
+<Callout kind="warning" title="Najczęstsza pułapka modułu">
+  Nie mieszaj średniego naprężenia technicznego z rzeczywistym rozkładem w wale. W sworzniu wzór z polem daje wartość
+  średnią i wystarcza do prostego oszacowania. W wale naprężenie zmienia się od zera w osi do maksimum na obwodzie, więc
+  nie wolno dzielić momentu przez pole przekroju.
+</Callout>
+
+## Po tym module
+
+Następny moduł o zginaniu też korzysta z geometrii przekroju, ale zamiast momentu biegunowego pojawi się moment bezwładności względem osi obojętnej. Zobaczysz tam tę samą logikę: naprężenie jest proporcjonalne do odległości od osi, a sztywność zależy od rozkładu pola. Dobrze zrozumiane skręcanie znacznie ułatwi ten przeskok.
+
+Późniejsze moduły o stanie naprężenia i hipotezach wytrzymałościowych wykorzystają czyste ścinanie jako podstawowy przykład. Koło Mohra dla ścinania stanie się jednym z elementów większego obrazu. Z kolei moduł projektowy połączy wytrzymałość, sztywność i bezpieczeństwo w pełną procedurę doboru elementu.
+
+Warto zauważyć, że skręcanie jest też dobrym przygotowaniem do analizy złożonych stanów naprężenia. W wale występują jednocześnie naprężenia styczne i normalne, a ich wzajemny stosunek zależy od obciążenia. To naturalne wprowadzenie do hipotez wytrzymałościowych, które rozstrzygają, który składnik jest groźniejszy dla danego materiału.
+
+Możesz też potraktować ten moduł jako trening przed projektowaniem. W praktyce rzadko dostajesz zadanie w postaci „oblicz naprężenie”. Częściej masz dobrać element, ocenić istniejący wyrób albo wyjaśnić awarię. Wtedy trzeba samodzielnie ustalić model, dobrać dane i sprawdzić, czy wynik ma sens. To właśnie te umiejętności ćwiczymy w kolejnych lekcjach.
+
+Dobra wiadomość jest taka, że ten moduł nie wymaga pamięciowej znajomości wielu wzorów. Wystarczy zrozumieć trzy idee: średnie ścinanie w połączeniu, liniowy rozkład naprężeń w wale oraz dwa warunki projektowe. Reszta jest konsekwencją geometrii i równowagi.
+
+## Źródła
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, rozdziały o ścinaniu technicznym i skręcaniu prętów okrągłych — klasyczne ujęcie polskiej szkoły wytrzymałościowej.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, zadania z połączeń i wałów — dużo wariantów rachunkowych z odpowiedziami.
+- D. Roylance, _Mechanics of Materials_, rozdział o ścinaniu i skręcaniu (MIT OpenCourseWare) — wyprowadzenie rozkładu naprężeń w wale krok po kroku.
+- MIT 3.11 _Mechanics of Materials_, wykład o skręcaniu — geometryczna interpretacja odkształcenia postaciowego i analiza wałów rurowych.

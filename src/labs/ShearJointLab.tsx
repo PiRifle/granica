@@ -191,7 +191,7 @@ export function ShearJointLab() {
             fill="url(#shear-joint-rivet)"
             stroke="currentColor"
             strokeWidth="1.5"
-            animate={{ width: rivetWidth, x: 360 - rivetWidth / 2 }}
+            animate={{ width: rivetWidth }}
             transition={{ type: 'spring', stiffness: 180, damping: 24 }}
           />
           <line

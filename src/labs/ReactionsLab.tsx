@@ -127,7 +127,7 @@ export function ReactionsLab() {
             strokeWidth={2 + (rightKN / forceKN) * 2}
             markerEnd="url(#fund-reactions-support)"
           />
-          <text x="72" y="218" textAnchor="end" fontSize="14" fill="#27835a">
+          <text x="90" y="218" textAnchor="end" fontSize="14" fill="#27835a">
             RA = {fmt(leftKN, 2)} kN
           </text>
           <text x="628" y="218" fontSize="14" fill="#27835a">

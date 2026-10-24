@@ -7,7 +7,6 @@ shortTitle: Dwa warunki doboru
 description: >-
   Łączenie warunków naprężeniowego i przemieszczeniowego oraz rozpoznawanie,
   który z nich decyduje o wymiarze.
-duration: 10
 eyebrow: 'Nie wystarczy, że nie pęknie'
 outcomes:
   - W1 — analizuje element pod kątem kilku jednoczesnych wymagań
@@ -18,77 +17,304 @@ outcomes:
   - U3 — dobiera element z uwagi na bezpieczeństwo i dopuszczalną podatność
 ---
 
-Lina może utrzymać ciężar, ale nadmiernie się wydłużać. Podobnie pręt konstrukcyjny musi spełniać jednocześnie warunek wytrzymałości i ograniczenie odkształcenia; przyjmujemy większe z wymaganych pól.
+Lina może utrzymać ciężar, a mimo to wydłużyć się tak bardzo, że ładunek opadnie na ziemię. Wspornik może nie pęknąć, ale ugiąć się na tyle, że maszyna straci dokładność. Szyba może wytrzymać ciśnienie, ale odkształcić się nadmiernie i wypaść z ramy. W każdym z tych przypadków samo sprawdzenie naprężenia nie wystarcza. Potrzebny jest drugi warunek, który ogranicza deformację.
+
+Wytrzymałość odpowiada na pytanie, czy materiał nie zostanie przeciążony. Sztywność odpowiada na pytanie, czy element nie odkształci się zbyt mocno. To dwa różne wymagania, opisane różnymi wielkościami. Wytrzymałość zależy od granicy materiału i pola przekroju, a sztywność od modułu Younga, pola i długości. Element może być bezpieczny wytrzymałościowo i jednocześnie zbyt podatny. Może też być wystarczająco sztywny, a mimo to zbyt słaby.
+
+W prostym pręcie osiowym oba warunki można sprowadzić do wymaganego pola przekroju. Warunek wytrzymałości daje jedno minimum, a warunek sztywności drugie. Ponieważ oba muszą być spełnione jednocześnie, przyjmujemy większą z tych wartości. To, który warunek decyduje, zależy od długości, materiału, obciążenia i dopuszczalnego wydłużenia. Właśnie ta rywalizacja dwóch warunków jest tematem lekcji.
+
+Po lekcji będziesz umiał wykonać kompletny dobór pręta o stałym przekroju, a także pręta schodkowego, w którym siła i pole zmieniają się od odcinka do odcinka. Nauczysz się sprawdzać każde ogniwo osobno i sumować wydłużenia. Zobaczysz, jak rozpoznać, czy o wymiarze decyduje naprężenie, czy przemieszczenie, oraz jak zmienia się odpowiedź, gdy zmienisz długość albo materiał.
+
+Ten schemat powtarza się w całym kursie. Przy zginaniu warunek wytrzymałości prowadzi do wskaźnika przekroju $W$, a warunek sztywności do momentu bezwładności $I$. Przy skręcaniu jest podobnie: wytrzymałość wiąże się z $W_o$, a sztywność z momentem bezwładności $J_o$. Tutaj ćwiczymy tę logikę na najprostszym przypadku osiowym, ale sposób myślenia przenosi się na inne przypadki.
+
+## Zanim zaczniesz
+
+- **Naprężenie i odkształcenie.** Potrzebujesz $\sigma=N/A$ oraz $\varepsilon=\Delta L/L$. W zakresie liniowym obowiązuje $\sigma=E\varepsilon$.
+- **Wydłużenie pręta.** Przypomnij sobie $\Delta L=NL/(EA)$ oraz sumę $\sum N_iL_i/(E_iA_i)$ dla prętów schodkowych.
+- **Naprężenie dopuszczalne.** Warunek wytrzymałości ma postać $\sigma\le\sigma_{\mathrm{dop}}$, gdzie $\sigma_{\mathrm{dop}}=R_{\mathrm{gr}}/n$.
+- **Warunek sztywności.** Dopuszczalne wydłużenie $\Delta L_{\mathrm{dop}}$ jest osobnym wymaganiem, niezależnym od granicy materiału.
+- **Jednostki.** Najwygodniej liczyć siłę w $\text{N}$, pole w $\text{mm}^2$, długość w $\text{mm}$, moduł w $\text{MPa}$ i wydłużenie w $\text{mm}$. Wtedy $1\ \text{MPa}=1\ \text{N/mm}^2$.
+- **Typowe pułapki.** Sprawdzanie tylko wytrzymałości, używanie największej siły do wszystkich odcinków, mieszanie długości w metrach z polem w $\text{mm}^2$ oraz zaokrąglanie wymiaru w dół.
+
+## Model i intuicja
+
+Model to pręt osiowy o stałym przekroju, obciążony stałą siłą $N$ i wykonany z materiału liniowo sprężystego. Mamy dwa wymagania: naprężenie nie może przekroczyć $\sigma_{\mathrm{dop}}$, a wydłużenie nie może przekroczyć $\Delta L_{\mathrm{dop}}$. Pierwsze wymaganie jest lokalne, bo dotyczy każdego przekroju. Drugie jest globalne, bo dotyczy całej długości pręta. Oba muszą być spełnione równocześnie.
+
+Warunek wytrzymałości daje $A\ge N/\sigma_{\mathrm{dop}}$. Warunek sztywności daje $A\ge NL/(E\Delta L_{\mathrm{dop}})$. Oba mają postać dolnego ograniczenia na pole, więc rozwiązaniem jest większa z dwóch wartości. Jeżeli większe jest ograniczenie naprężeniowe, mówimy, że o doborze decyduje wytrzymałość. Jeżeli większe jest ograniczenie przemieszczeniowe, decyduje sztywność.
+
+Warto zobaczyć, od czego zależy każde ograniczenie. Wytrzymałościowe rośnie z siłą i maleje z naprężeniem dopuszczalnym, czyli z granicą i współczynnikiem bezpieczeństwa. Sztywnościowe rośnie z siłą i długością, a maleje z modułem i dopuszczalnym wydłużeniem. Długość nie występuje w warunku wytrzymałości, ale występuje w warunku sztywności. To dlatego długie i cienkie elementy często są projektowane ze względu na sztywność, a krótkie i grube — ze względu na wytrzymałość.
+
+Materiał wpływa na oba warunki, ale inaczej. Granica $R_e$ lub $R_m$ decyduje o naprężeniu dopuszczalnym. Moduł $E$ decyduje o wydłużeniu. Stal o większej granicy plastyczności nie musi mieć większego modułu Younga. Dlatego zmiana materiału na „mocniejszy” może zwiększyć nośność, ale nie zmniejszyć ugięcia. I odwrotnie: materiał o większym $E$ może być sztywniejszy, ale nie musi mieć większej granicy.
+
+Dla pręta schodkowego model trzeba rozszerzyć. Dzielimy pręt na odcinki, w których siła, pole i moduł są stałe. W każdym odcinku sprawdzamy $\sigma_i=N_i/A_i\le\sigma_{\mathrm{dop}}$. Wydłużenie całkowite jest sumą wydłużeń odcinków. Odcinek najbardziej wytężony to ten z największym ilorazem $N_i/A_i$, ale odcinek o największym wpływie na wydłużenie to ten z największym $N_iL_i/(E_iA_i)$. To nie muszą być te same odcinki.
+
+Dobór pręta schodkowego nie sprowadza się do jednej liczby. Można najpierw dobrać każde pole z warunku wytrzymałości, a potem sprawdzić wydłużenie globalne. Jeżeli jest zbyt duże, zwiększamy pole w odcinku, który najbardziej przyczynia się do wydłużenia, albo zmieniamy materiał. Czasem wystarczy pogrubić jeden odcinek, a czasem trzeba zmienić całą geometrię. Właśnie dlatego analiza wrażliwości jest ważna: nie każdy milimetr pola daje ten sam efekt.
+
+Model przestaje wystarczać, gdy pojawiają się inne mechanizmy. Smukły pręt ściskany może wyboczyć się przy naprężeniu mniejszym od granicy materiału. Obciążenie zmienne może wywołać zmęczenie. Temperatura dodaje odkształcenie termiczne, które może naruszyć warunek sztywności nawet bez zmiany siły. W połączeniach dochodzą koncentracje naprężeń i poślizg. Dla podstawowego przypadku osiowego zostajemy przy prostym modelu, ale w zadaniu trzeba świadomie sprawdzić, czy te efekty nie dominują.
+
+## Laboratorium: co ustawić
+
+Wybierz dwa lub trzy odcinki pręta i zmieniaj siły $P$ oraz $Q$. Obserwuj wykres siły normalnej i naprężenia: siła $Q$ działa na pierwszym połączeniu, więc pierwszy odcinek przenosi $P+Q$, a pozostałe tylko $P$. Zwróć uwagę, że największe naprężenie występuje tam, gdzie duża siła spotyka się z małym polem, a wydłużenie całkowite jest sumą udziałów wszystkich odcinków.
 
 <Lab id="steppedBar" />
 
+## Definicje i jednostki
+
+| Wielkość                      | Symbol                    | Jednostka                     | Znaczenie                                                  |
+| ----------------------------- | ------------------------- | ----------------------------- | ---------------------------------------------------------- |
+| Siła osiowa                   | $N$                       | $\text{N}$ lub $\text{kN}$    | Siła wewnętrzna w przekroju                                |
+| Pole przekroju                | $A$                       | $\text{mm}^2$                 | Pole prostopadłe do osi pręta                              |
+| Naprężenie normalne           | $\sigma$                  | $\text{MPa}$                  | $N/A$ w przekroju                                          |
+| Naprężenie dopuszczalne       | $\sigma_{\mathrm{dop}}$   | $\text{MPa}$                  | Granica projektowa wybrana z zapasem                       |
+| Moduł Younga                  | $E$                       | $\text{MPa}$ lub $\text{GPa}$ | Sztywność materiału w zakresie liniowym                    |
+| Długość odcinka               | $L$                       | $\text{mm}$                   | Długość, na której $N$, $A$ i $E$ są stałe                 |
+| Wydłużenie                    | $\Delta L$                | $\text{mm}$                   | Zmiana długości; dodatnia przy rozciąganiu                 |
+| Dopuszczalne wydłużenie       | $\Delta L_{\mathrm{dop}}$ | $\text{mm}$                   | Największa dopuszczalna zmiana długości                    |
+| Wymagane pole z wytrzymałości | $A_\sigma$                | $\text{mm}^2$                 | $N/\sigma_{\mathrm{dop}}$                                  |
+| Wymagane pole ze sztywności   | $A_\delta$                | $\text{mm}^2$                 | $NL/(E\Delta L_{\mathrm{dop}})$                            |
+| Sztywność osiowa              | $k$                       | $\text{N/mm}$                 | $EA/L$; siła potrzebna do jednostkowego wydłużenia         |
+| Długość krytyczna             | $L^*$                     | $\text{mm}$                   | Długość, przy której oba warunki wymagają tego samego pola |
+
+Wielkości $A_\sigma$ i $A_\delta$ mają ten sam wymiar, więc można je porównywać. Nie wolno natomiast porównywać bezpośrednio naprężenia dopuszczalnego z dopuszczalnym wydłużeniem, bo to różne jednostki. Warunek decydujący wyznaczamy przez porównanie wymaganych pól, a nie przez „większą” wartość liczbową bez jednostek. To częste źródło pomyłek w zadaniach z wieloma danymi.
+
+Długość krytyczna $L^*$ pojawia się, gdy oba warunki dają to samo pole. Przyrównujemy $N/\sigma_{\mathrm{dop}}$ do $NL/(E\Delta L_{\mathrm{dop}})$ i skracamy $N$. Otrzymujemy $L^*=E\Delta L_{\mathrm{dop}}/\sigma_{\mathrm{dop}}$. Dla $L$ mniejszego od $L^*$ wymagane pole z wytrzymałości jest większe, więc decyduje wytrzymałość. Dla $L$ większego od $L^*$ decyduje sztywność. To bardzo użyteczna reguła, ale dotyczy tylko pręta o stałym przekroju i stałej sile.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-A \ge \frac{N}{\sigma_{dop}} \qquad \text{oraz} \qquad A \ge \frac{NL}{E\,\Delta L_{dop}}
+A\ge\frac{N}{\sigma_{\mathrm{dop}}},
+\qquad
+A\ge\frac{NL}{E\,\Delta L_{\mathrm{dop}}},
+\qquad
+\Delta L=\sum_i\frac{N_iL_i}{E_iA_i}
 $$
 
-<Caption>Pierwszy warunek ogranicza naprężenie, drugi — wydłużenie ΔLdop. Oba dotyczą pręta o stałym przekroju, stałej sile osiowej i materiale sprężystym liniowo; przyjmujemy pole spełniające oba warunki.</Caption>
+<Caption>Dwa pierwsze warunki dotyczą pręta o stałym przekroju i stałej sile osiowej; należy przyjąć większe z wymaganych pól. Trzeci wzór opisuje wydłużenie pręta schodkowego, w którym na każdym odcinku N, L, E i A są stałe. Przy ściskaniu znak wydłużenia jest ujemny, a wartość bezwzględna nie może przekroczyć ΔLdop.</Caption>
 </Formula>
 
+Wyprowadzenie łączy dwa niezależne warunki i pokazuje, dlaczego wybieramy większe pole.
+
+1. Warunek wytrzymałości: naprężenie w przekroju nie może przekroczyć dopuszczalnego, $\sigma=N/A\le\sigma_{\mathrm{dop}}$.
+2. Mnożymy przez $A$ i dzielimy przez $\sigma_{\mathrm{dop}}$: $A\ge N/\sigma_{\mathrm{dop}}$. Oznaczamy to pole jako $A_\sigma$.
+3. Warunek sztywności: wydłużenie nie może przekroczyć dopuszczalnego, $\Delta L=NL/(EA)\le\Delta L_{\mathrm{dop}}$.
+4. Przekształcamy: $A\ge NL/(E\Delta L_{\mathrm{dop}})$. Oznaczamy to pole jako $A_\delta$.
+5. Oba warunki muszą być spełnione, więc $A\ge\max(A_\sigma,A_\delta)$.
+6. Jeżeli $A_\sigma$ jest większe, decyduje wytrzymałość. Jeżeli $A_\delta$ jest większe, decyduje sztywność.
+7. Dla pręta schodkowego dzielimy go na odcinki o stałych $N_i$, $A_i$ i $E_i$. Siły $N_i$ wyznaczamy z równowagi.
+8. Warunek wytrzymałości sprawdzamy osobno w każdym odcinku: $N_i/A_i\le\sigma_{\mathrm{dop}}$.
+9. Wydłużenie całkowite sumujemy: $\Delta L=\sum N_iL_i/(E_iA_i)$. To suma może być dodatnia lub ujemna, zależnie od znaków sił.
+10. Po wyborze wymiarów standardowych przeliczamy rzeczywiste $\sigma_i$ oraz $\Delta L$. Dopiero ten wynik podlega ocenie końcowej.
+
 <Insight>
-  Decyduje warunek wymagający większego pola. Zwiększenie E poprawia sztywność, ale nie podnosi automatycznie granicy
-  plastyczności; stal o większej wytrzymałości nie musi mieć większego modułu Younga.
+  Wytrzymałość i sztywność odpowiadają na różne pytania. Większe pole spełnia oba warunki, ale nie każdy sposób
+  powiększenia pola jest równie skuteczny. Zwiększenie $E$ poprawia sztywność, ale nie podnosi granicy plastyczności;
+  zwiększenie $R_e$ poprawia wytrzymałość, ale nie zmniejsza wydłużenia.
 </Insight>
 
 <WorkedExample>
-  <Given>
-    Pręt o L = 2 m i E = 200 GPa przenosi N = 40 kN. Dopuszczalne naprężenie wynosi 150 MPa, a dopuszczalne wydłużenie 1
-    mm.
-  </Given>
+  <Given>Stalowy pręt o długości $L=2{,}5\ \text{m}$ przenosi siłę $N=60\ \text{kN}$. Przyjmujemy $E=200\ \text{GPa}$, $\sigma_{\mathrm{dop}}=160\ \text{MPa}$ oraz $\Delta L_{\mathrm{dop}}=1{,}2\ \text{mm}$. Przekrój jest okrągły i stały.</Given>
   <Steps>
-    <Step>Warunek wytrzymałości: A ≥ N/σdop = 40 000/150 = 266,7 mm².</Step>
-    <Step>Warunek sztywności: A ≥ NL/(EΔLdop) = 40 000·2000/(200 000·1) = 400 mm².</Step>
-    <Step>Decyduje sztywność, ponieważ 400 mm² &gt; 266,7 mm². Przyjmujemy A = 400 mm².</Step>
-    <Step>Kontrola: σ = 40 000/400 = 100 MPa ≤ 150 MPa oraz ΔL = 40 000·2000/(200 000·400) = 1 mm.</Step>
+    <Step>Warunek wytrzymałości: $A_\sigma=N/\sigma_{\mathrm{dop}}=60\,000/160=375\ \text{mm}^2$.</Step>
+    <Step>Warunek sztywności: $A_\delta=NL/(E\Delta L_{\mathrm{dop}})=60\,000\cdot2500/(200\,000\cdot1{,}2)=625\ \text{mm}^2$.</Step>
+    <Step>Porównanie: $625\ \text{mm}^2$ jest większe od $375\ \text{mm}^2$, więc decyduje sztywność.</Step>
+    <Step>Wymagana średnica: $d_{\min}=\sqrt{4\cdot625/\pi}\approx28{,}2\ \text{mm}$.</Step>
+    <Step>Wybieramy $d=30\ \text{mm}$, czyli $A=\pi\cdot30^2/4\approx706{,}9\ \text{mm}^2$.</Step>
+    <Step>Rzeczywiste naprężenie: $\sigma=60\,000/706{,}9\approx84{,}9\ \text{MPa}\le160\ \text{MPa}$.</Step>
+    <Step>Rzeczywiste wydłużenie: $\Delta L=60\,000\cdot2500/(200\,000\cdot706{,}9)\approx1{,}06\ \text{mm}\le1{,}2\ \text{mm}$.</Step>
+    <Step>Kontrola: przy średnicy $28\ \text{mm}$ pole wynosi około $615{,}8\ \text{mm}^2$, więc wydłużenie przekroczyłoby $1{,}2\ \text{mm}$. Zaokrąglenie w górę było konieczne.</Step>
   </Steps>
   <Result>
-    Minimalne pole wynosi 400 mm² i decyduje o nim dopuszczalne wydłużenie. Przy tym polu naprężenie wynosi 100 MPa, a
-    wydłużenie dokładnie 1 mm.
+    Decyduje warunek sztywności. Minimalne pole wynosi $625\ \text{mm}^2$, a po zaokrągleniu do $30\ \text{mm}$ otrzymujemy naprężenie około $84{,}9\ \text{MPa}$ i wydłużenie około $1{,}06\ \text{mm}$. Oba warunki są spełnione.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Wróćmy do pręta schodkowego z laboratorium: trzy odcinki po $400\ \text{mm}$, pola $A_1=200\ \text{mm}^2$, $A_2=350\ \text{mm}^2$, $A_3=500\ \text{mm}^2$, siły $P=18\ \text{kN}$ na końcu i $Q=10\ \text{kN}$ na pierwszym połączeniu. Reakcja utwierdzenia wynosi $P+Q=28\ \text{kN}$. Siły wewnętrzne są równe $N_1=28\ \text{kN}$ oraz $N_2=N_3=18\ \text{kN}$.
+
+Naprężenia wynoszą
+
+$$
+\sigma_1=\frac{28\,000}{200}=140\ \text{MPa},
+\qquad
+\sigma_2=\frac{18\,000}{350}\approx51{,}4\ \text{MPa},
+\qquad
+\sigma_3=\frac{18\,000}{500}=36\ \text{MPa}.
+$$
+
+Najbardziej wytężony jest pierwszy odcinek, mimo że nie jest najdłuższy. Decyduje jednocześnie duża siła i małe pole. Wydłużenie całkowite obliczamy jako sumę
+
+$$
+\Delta L=\frac{28\,000\cdot400}{200\,000\cdot200}
++\frac{18\,000\cdot400}{200\,000\cdot350}
++\frac{18\,000\cdot400}{200\,000\cdot500}
+\approx0{,}280+0{,}103+0{,}072=0{,}455\ \text{mm}.
+$$
+
+Załóżmy, że dopuszczalne naprężenie wynosi $120\ \text{MPa}$, a dopuszczalne wydłużenie $0{,}40\ \text{mm}$. Warunek wytrzymałości jest naruszony tylko na pierwszym odcinku, bo $140\ \text{MPa}$ przekracza $120\ \text{MPa}$. Wymagane pole pierwszego odcinka to co najmniej $28\,000/120\approx233{,}3\ \text{mm}^2$.
+
+Warunek sztywności jest naruszony globalnie, bo $0{,}455\ \text{mm}$ przekracza $0{,}40\ \text{mm}$. Można zwiększyć wszystkie pola proporcjonalnie albo tylko pierwszy odcinek. Sprawdźmy drugi wariant. Pierwszy składnik wydłużenia musi zmaleć z $0{,}280$ do około $0{,}225\ \text{mm}$, aby suma spadła do $0{,}40\ \text{mm}$. Nowe pole pierwszego odcinka wynosi
+
+$$
+A_1'=\frac{28\,000\cdot400}{200\,000\cdot0{,}225}\approx248{,}9\ \text{mm}^2.
+$$
+
+Po zaokrągleniu do $250\ \text{mm}^2$ otrzymujemy $\sigma_1=112\ \text{MPa}$ oraz wydłużenie około $0{,}400\ \text{mm}$. Jeden odcinek wystarczył, aby naprawić oba warunki, ponieważ był jednocześnie najbardziej wytężony i miał największy udział w wydłużeniu. W innym układzie te dwa kryteria mogą wskazywać różne odcinki.
+
+## Trzeci przykład: wariant odwrotny
+
+Rozważmy pręt o polu $A=500\ \text{mm}^2$, $E=200\ \text{GPa}$, $\sigma_{\mathrm{dop}}=150\ \text{MPa}$ i $\Delta L_{\mathrm{dop}}=2\ \text{mm}$. Tym razem szukamy maksymalnej siły, a długość jest zmienna. Z warunku wytrzymałości
+
+$$
+N_\sigma=\sigma_{\mathrm{dop}}A=150\cdot500=75\,000\ \text{N}=75\ \text{kN}.
+$$
+
+Z warunku sztywności
+
+$$
+N_\delta=\frac{EA\Delta L_{\mathrm{dop}}}{L}
+=\frac{200\,000\cdot500\cdot2}{L}
+=\frac{200\,000\,000}{L}\ \text{N},
+$$
+
+gdzie $L$ podstawiamy w milimetrach. Dla $L=3000\ \text{mm}$ otrzymujemy $N_\delta\approx66{,}7\ \text{kN}$, więc decyduje sztywność i maksymalna siła wynosi około $66{,}7\ \text{kN}$.
+
+Granicę między warunkami wyznacza długość krytyczna
+
+$$
+L^*=\frac{E\Delta L_{\mathrm{dop}}}{\sigma_{\mathrm{dop}}}
+=\frac{200\,000\cdot2}{150}\approx2667\ \text{mm}\approx2{,}67\ \text{m}.
+$$
+
+Dla pręta krótszego niż $2{,}67\ \text{m}$ większe jest $N_\sigma$, więc decyduje wytrzymałość. Dla pręta dłuższego decyduje sztywność. Na przykład przy $L=2\ \text{m}$ mamy $N_\delta=100\ \text{kN}$, więc maksimum wynosi $75\ \text{kN}$ z warunku wytrzymałości. Przy $L=4\ \text{m}$ mamy $N_\delta=50\ \text{kN}$, więc maksimum spada do $50\ \text{kN}$.
+
+Ten wynik wyjaśnia, dlaczego długie elementy często wymagają większego przekroju, niż wynikałoby to z samej wytrzymałości. Wydłużenie rośnie liniowo z długością, a naprężenie nie. Wystarczy wydłużyć pręt, aby warunek sztywności stał się decydujący, nawet przy niezmienionym obciążeniu i materiale.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Sprawdzanie tylko wytrzymałości.** Element może nie pęknąć, ale wydłużyć się ponad dopuszczalną wartość. Zawsze sprawdzaj oba warunki.
+- **Sprawdzanie tylko sztywności.** Wystarczająco sztywny pręt może być zbyt słaby. Pole dobrane z $\Delta L_{\mathrm{dop}}$ nie gwarantuje, że $\sigma\le\sigma_{\mathrm{dop}}$.
+- **Używanie największej siły do wszystkich odcinków.** W pręcie schodkowym każde pole ma własną siłę wewnętrzną. Najpierw narysuj wykres $N$, potem licz $\sigma_i$.
+- **Mylenie udziału w wydłużeniu z naprężeniem.** Najbardziej wytężony odcinek nie zawsze najbardziej przyczynia się do $\Delta L$. Liczy się iloczyn $N_iL_i/(E_iA_i)$.
+- **Mieszanie jednostek.** Długość w metrach i pole w $\text{mm}^2$ dają błąd tysiąca. Najlepiej przeliczyć wszystko na $\text{N}$ i $\text{mm}$.
+- **Zaokrąglanie wymiaru w dół.** Po zmniejszeniu średnicy pole maleje, a naprężenie i wydłużenie rosną. Zaokrąglaj w górę i przelicz ponownie.
+- **Zakładanie, że większe $R_e$ zwiększa sztywność.** Granica plastyczności i moduł Younga to różne własności. Zmiana stali na mocniejszą nie musi zmniejszyć wydłużenia.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal siłę wewnętrzną.** Dla pręta prostego to $N$. Dla schodkowego narysuj wykres $N$ i wyznacz $N_i$ w każdym odcinku.
+2. **Zapisz oba warunki.** Wytrzymałość: $\sigma_i=N_i/A_i\le\sigma_{\mathrm{dop}}$. Sztywność: $\Delta L=\sum N_iL_i/(E_iA_i)\le\Delta L_{\mathrm{dop}}$.
+3. **Oblicz wymagane pola z wytrzymałości.** Dla pręta stałego $A_\sigma=N/\sigma_{\mathrm{dop}}$; dla schodkowego osobno każde $A_i$.
+4. **Oblicz wymagane pole ze sztywności.** Dla pręta stałego $A_\delta=NL/(E\Delta L_{\mathrm{dop}})$; dla schodkowego sprawdź sumę.
+5. **Porównaj wymagane pola.** Większe z nich decyduje o doborze. Nie porównuj samych liczb bez jednostek.
+6. **Wybierz wymiar standardowy.** Zaokrąglaj w górę i sprawdź, czy przekrój jest dostępny.
+7. **Przelicz stan rzeczywisty.** Oblicz $\sigma_i$ i $\Delta L$ dla przyjętych wymiarów. Sprawdź, czy oba warunki nadal zachodzą.
+8. **Sprawdź inne mechanizmy.** Wyboczenie, zmęczenie, temperatura, połączenia i koncentracje naprężeń mogą zmienić wynik.
+9. **Zinterpretuj, co decyduje.** Wskaż, czy o wymiarze zdecydowała wytrzymałość, czy sztywność, i oceń, czy wynik jest sensowny.
+
+## Połącz z resztą kursu
+
+- **Prawo Hooke’a i sztywność osiowa** daje związek $\Delta L=NL/(EA)$, który jest podstawą warunku sztywności.
+- **Naprężenie dopuszczalne i współczynnik bezpieczeństwa** wyznacza $\sigma_{\mathrm{dop}}$ i przypomina, względem jakiej granicy oceniamy wytrzymałość.
+- **Pręty schodkowe: ta sama siła, inne σ** uczy dzielenia pręta na odcinki i obliczania $N_i/A_i$; tutaj dodajemy sumowanie wydłużeń.
+- **Temperatura: swoboda i zablokowanie** dodaje odkształcenie termiczne, które może naruszyć warunek sztywności nawet bez wzrostu siły.
+- **Ciężar własny elementu** przypomina, że siła wewnętrzna może zmieniać się wzdłuż pręta, więc warunek wytrzymałości trzeba sprawdzać w wielu przekrojach.
+- **Dobór przekroju i kontrola sztywności** w module zginania pokazuje ten sam schemat: wytrzymałość prowadzi do $W$, a sztywność do $I$.
+
+## Sprawdź się
+
+Pytania sprawdzają dobór pola, rozpoznanie warunku decydującego oraz obliczenia dla prętów schodkowych. Przy każdym wyniku sprawdź jednostkę i to, czy porównujesz pola, a nie naprężenia z wydłużeniami.
+
 <Quiz>
-  <Question outcome="U3">
-    <Prompt>
-      Warunek wytrzymałości wymaga A ≥ 250 mm², a warunek sztywności A ≥ 400 mm². Które pole należy przyjąć przed
-      uwzględnieniem dostępnych wymiarów katalogowych?
-    </Prompt>
-    <Answer>250 mm²</Answer>
-    <Answer>średnią 325 mm²</Answer>
-    <Answer correct>400 mm²</Answer>
-    <Hint>Sprawdź, przy którym polu oba warunki będą jednocześnie spełnione.</Hint>
+  <Question outcome="U1">
+    <Prompt>Pręt przenosi $N=50\ \text{kN}$, ma długość $L=2\ \text{m}$ i $E=200\ \text{GPa}$. Dopuszczalne naprężenie wynosi $150\ \text{MPa}$, a dopuszczalne wydłużenie $1\ \text{mm}$. Które pole jest wymagane?</Prompt>
+    <Answer>$333\ \text{mm}^2$ z warunku wytrzymałości</Answer>
+    <Answer correct>$500\ \text{mm}^2$ z warunku sztywności</Answer>
+    <Answer>$833\ \text{mm}^2$ z sumy obu warunków</Answer>
+    <Hint>Oblicz oba pola i porównaj je; nie dodawaj ich do siebie.</Hint>
     <Explanation>
-      Element musi spełnić oba warunki, więc wybieramy większe minimum: 400 mm². Pole 325 mm² nie spełniłoby warunku
-      sztywności.
+      $A_\sigma=50\,000/150\approx333\ \text{mm}^2$, a $A_\delta=50\,000\cdot2000/(200\,000\cdot1)=500\ \text{mm}^2$. Większe jest pole ze sztywności, więc ono decyduje. Pól nie sumujemy, bo oba warunki dotyczą tego samego przekroju.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Warunek wytrzymałości wymaga $A\ge300\ \text{mm}^2$, a warunek sztywności $A\ge450\ \text{mm}^2$. Jakie pole należy przyjąć przed wyborem wymiaru standardowego?</Prompt>
+    <Answer>$300\ \text{mm}^2$</Answer>
+    <Answer>średnią $375\ \text{mm}^2$</Answer>
+    <Answer correct>$450\ \text{mm}^2$</Answer>
+    <Hint>Element musi spełniać oba warunki jednocześnie.</Hint>
+    <Explanation>
+      Większe wymaganie obejmuje mniejsze, więc przyjmujemy $450\ \text{mm}^2$. Pole $375\ \text{mm}^2$ nie spełniłoby warunku sztywności, mimo że spełnia warunek wytrzymałości.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Dla N = 40 kN, L = 2 m, E = 200 GPa i ΔLdop = 1 mm wymagane pole ze względu na sztywność wynosi:</Prompt>
-    <Answer>100 mm²</Answer>
-    <Answer>200 mm²</Answer>
-    <Answer correct>400 mm²</Answer>
-    <Hint>Przekształć ΔL = NL/(EA) tak, aby wyznaczyć A.</Hint>
+    <Prompt>W pręcie schodkowym pierwszy odcinek ma $N_1=30\ \text{kN}$ i $A_1=200\ \text{mm}^2$, a drugi $N_2=20\ \text{kN}$ i $A_2=400\ \text{mm}^2$. Który odcinek ma większe naprężenie?</Prompt>
+    <Answer>Drugi, bo ma większe pole</Answer>
+    <Answer correct>Pierwszy, bo $150\ \text{MPa}$ jest większe od $50\ \text{MPa}$</Answer>
+    <Answer>Oba mają takie samo naprężenie, bo siły są podobne</Answer>
+    <Hint>Oblicz $N_i/A_i$ dla obu odcinków.</Hint>
     <Explanation>
-      A ≥ NL/(EΔLdop) = 40 000·2000/(200 000·1) = 400 mm². Wartość 200 mm² powstałaby po podstawieniu L = 1 m zamiast 2
-      m.
+      $\sigma_1=30\,000/200=150\ \text{MPa}$, a $\sigma_2=20\,000/400=50\ \text{MPa}$. Pierwszy odcinek ma większą siłę i mniejsze pole, więc jest bardziej wytężony.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Zastąpiono stal stalą o większym $R_e$, ale o takim samym $E$. Przy niezmienionych $N$, $L$ i $A$:</Prompt>
+    <Answer>wydłużenie zmaleje, bo $R_e$ jest większe</Answer>
+    <Answer correct>wydłużenie nie zmieni się, a nośność wzrośnie</Answer>
+    <Answer>zarówno wydłużenie, jak i nośność wzrosną</Answer>
+    <Hint>Popatrz, które wielkości występują we wzorze na $\Delta L$, a które w warunku wytrzymałości.</Hint>
+    <Explanation>
+      Wydłużenie zależy od $E$, a nie od $R_e$, więc pozostaje takie samo. Większa granica plastyczności zwiększa dopuszczalne naprężenie i nośność, ale nie zmienia sztywności sprężystej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pręt ma $N=20\ \text{kN}$, $L=1\ \text{m}$, $A=100\ \text{mm}^2$ i $E=200\ \text{GPa}$. Ile wynosi wydłużenie?</Prompt>
+    <Answer>$0{,}1\ \text{mm}$</Answer>
+    <Answer correct>$1\ \text{mm}$</Answer>
+    <Answer>$10\ \text{mm}$</Answer>
+    <Hint>Zamień długość na milimetry i podstaw do $NL/(EA)$.</Hint>
+    <Explanation>
+      $\Delta L=20\,000\cdot1000/(200\,000\cdot100)=1\ \text{mm}$. Moduł $200\ \text{GPa}=200\,000\ \text{N/mm}^2$.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>
-      Zastąpiono stal stalą o większej granicy plastyczności, ale o takim samym E. Bez zmiany przekroju i obciążenia:
-    </Prompt>
-    <Answer>wydłużenie sprężyste zmaleje, bo Rₑ jest większe</Answer>
-    <Answer correct>wydłużenie sprężyste nie zmieni się</Answer>
-    <Answer>moduł E automatycznie wzrośnie</Answer>
-    <Hint>Sprawdź, które wielkości występują we wzorze na wydłużenie, a których w nim nie ma.</Hint>
+    <Prompt>O doborze przekroju decyduje warunek sztywności. Co najskuteczniej zmniejszy wydłużenie przy niezmienionym obciążeniu?</Prompt>
+    <Answer>Zwiększenie granicy plastyczności materiału</Answer>
+    <Answer correct>Zwiększenie $E$, zwiększenie pola albo skrócenie elementu</Answer>
+    <Answer>Zmniejszenie pola, aby element był lżejszy</Answer>
+    <Hint>Wzór $\Delta L=NL/(EA)$ wskazuje wielkości, które można zmienić.</Hint>
     <Explanation>
-      Przy stałych N, L, A i E wydłużenie ΔL = NL/(EA) pozostaje takie samo. Większa granica plastyczności zwiększa
-      możliwości wytrzymałościowe, ale nie sztywność sprężystą.
+      Wydłużenie maleje, gdy rośnie $E$ lub $A$, a rośnie wraz z $L$ i $N$. Granica plastyczności nie występuje we wzorze na wydłużenie, więc jej zwiększenie nie pomoże w warunku sztywności.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dwa odcinki mają takie same $N$ i $L$, ale pierwszy ma $A=100\ \text{mm}^2$, a drugi $A=200\ \text{mm}^2$. Który bardziej przyczynia się do wydłużenia całkowitego?</Prompt>
+    <Answer>Drugi, bo ma większe pole</Answer>
+    <Answer correct>Pierwszy, bo przy tym samym $N$ i $L$ ma mniejsze pole</Answer>
+    <Answer>Oba jednakowo, bo $N$ i $L$ są takie same</Answer>
+    <Hint>Porównaj składniki $N_iL_i/(E_iA_i)$.</Hint>
+    <Explanation>
+      Przy takich samych $N$, $L$ i $E$ składnik wydłużenia jest odwrotnie proporcjonalny do pola. Pierwszy odcinek ma dwa razy mniejsze pole, więc wnosi dwa razy większy udział do $\Delta L$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W pręcie rozciąganym naprężenie osiowe wynosi $120\ \text{MPa}$, a pozostałe naprężenia główne są zerowe. Jaka jest maksymalna wartość naprężenia stycznego do analizy kołem Mohra?</Prompt>
+    <Answer>$30\ \text{MPa}$</Answer>
+    <Answer correct>$60\ \text{MPa}$</Answer>
+    <Answer>$120\ \text{MPa}$</Answer>
+    <Hint>W jednoosiowym rozciąganiu $\tau_{\max}=\sigma/2$.</Hint>
+    <Explanation>
+      Stan jednoosiowy ma $\sigma_1=120\ \text{MPa}$ i $\sigma_2=\sigma_3=0$. Promień koła Mohra wynosi $(\sigma_1-\sigma_3)/2=60\ \text{MPa}$, więc $\tau_{\max}=60\ \text{MPa}$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z doborem przekroju ze względu na naprężenie i wydłużenie; szukaj przykładów, w których trzeba porównać oba warunki.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o warunkach wytrzymałości i sztywności oraz o doborze wymiarów prętów.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — omówienie odkształceń osiowych i projektowania przekrojów z ograniczeniem przemieszczenia.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik; przykład doboru pręta pokazuje, że średnica wymagana przez ograniczenie ugięcia może być większa od średnicy wynikającej z wytrzymałości.
+- T. Wierzbicki, _Structural Mechanics_ — otwarty podręcznik; rozdział o koncepcji projektowania płyt porównuje sztywność i wytrzymałość oraz pokazuje, dlaczego stosunek $E/\rho$ bywa podobny dla stali i aluminium.

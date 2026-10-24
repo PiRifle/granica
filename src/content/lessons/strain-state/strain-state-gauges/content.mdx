@@ -7,7 +7,6 @@ shortTitle: Pomiar tensometryczny
 description: >-
   Zrozumij zasadę pomiaru, bazę czujnika, kierunkowość i najważniejsze źródła
   błędów.
-duration: 9
 eyebrow: Zobacz niewidzialne
 outcomes:
   - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
@@ -26,64 +25,277 @@ outcomes:
     oraz sztywność
 ---
 
-Tensometr oporowy to cienka ścieżka oporowa przyklejona do powierzchni. Gdy odkształca się razem z nią, zmienia opór elektryczny. Mierzy odkształcenie uśrednione na swojej bazie i tylko w kierunku swojej osi — sam nie daje pełnego obrazu stanu odkształcenia.
+Wyobraź sobie, że masz ocenić, czy wspornik windy jest przeciążony. Widzisz ugięcie, słyszysz pracę silnika, ale nie widzisz, jak bardzo rozciągane są włókna metalu w najbardziej wytężonym miejscu. Naprężenia nie da się zmierzyć bezpośrednio — można zmierzyć skutek, czyli odkształcenie, a potem przeliczyć je na naprężenie. Tensometr oporowy jest jednym z najczęstszych narzędzi, które wykonują pierwszy krok tego przeliczenia.
+
+Tensometr to cienka ścieżka z folii oporowej, przyklejona do powierzchni badanego elementu. Gdy element się wydłuża, ścieżka wydłuża się razem z nim. Jej długość rośnie, przekrój maleje, a opór elektryczny zmienia się w sposób powtarzalny. Zmiana oporu jest bardzo mała, dlatego mierzy się ją mostkiem pomiarowym, a nie zwykłym omomierzem.
+
+Czujnik nie mierzy naprężenia ani przemieszczenia całego elementu. Mierzy odkształcenie uśrednione na swojej bazie i tylko w kierunku swojej osi. To ograniczenie jest jednocześnie kluczem do poprawnego użycia: pojedynczy tensometr daje jedną liczbę, a nie pełny obraz stanu. Dopiero kilka czujników, odpowiednio rozmieszczonych, pozwala odtworzyć odkształcenia w płaszczyźnie.
+
+W tej lekcji przejdziesz od fizyki oporu do praktycznego odczytu. Zobaczysz, skąd bierze się współczynnik czułości $GF$, dlaczego baza pomiarowa ma znaczenie, jak temperatura potrafi udawać odkształcenie mechaniczne i dlaczego tensometr przyklejony poprzecznie do osi rozciągania także coś pokazuje. Na końcu będziesz umiał zamienić zmianę oporu na mikrostrainy i ocenić, czy wynik jest wiarygodny.
+
+Pomyśl o codziennym doświadczeniu z taśmą mierniczą. Jeśli chcesz zmierzyć wydłużenie odcinka, przyłożysz ją do dwóch punktów i odczytasz różnicę. Tensometr robi coś podobnego, tylko zamiast odczytywać długość, mierzy opór materiału, z którego sam jest zrobiony. Różnica jest taka, że tensometr jest przyklejony, więc odkształca się dokładnie tak jak powierzchnia pod nim — pod warunkiem, że klej i montaż nie zawiodą.
+
+## Zanim zaczniesz
+
+- Rozróżniaj odkształcenie liniowe $\varepsilon$ od odkształcenia postaciowego $\gamma$; tensometr jednokierunkowy mierzy przede wszystkim pierwsze z nich.
+- Przypomnij sobie prawo Ohma i zależność oporu od długości oraz przekroju: $R=\rho L/A$.
+- Pamiętaj, że $1000\,\mu\varepsilon=0{,}001$, a $1\,\%=10\,000\,\mu\varepsilon$; nie wstawiaj do wzoru liczby „1000” bez przeliczenia.
+- Znasz efekt Poissona: wydłużeniu wzdłuż osi czujnika towarzyszy skurcz poprzeczny, który także wpływa na opór.
+- Ustal znaki: dodatnie $\varepsilon$ oznacza wydłużenie, ujemne skrócenie; tensometr podaje wartość ze znakiem.
+- Pamiętaj, że tensometr mierzy wartość średnią na bazie, a nie wartość w jednym punkcie matematycznym.
+
+## Model i intuicja
+
+Model tensometru opiera się na trzech elementach: ścieżce oporowej, kleju i podłożu. Ścieżka jest cienka i wielokrotnie złożona, żeby zmieścić wystarczająco długi przewód na małej powierzchni. Klej przenosi odkształcenie z podłoża do ścieżki. Podłoże, czyli badany element, odkształca się pod obciążeniem. Jeśli klej jest zbyt miękki, zbyt gruby lub źle utwardzony, ścieżka nie odkształci się w pełni razem z podłożem i pomiar będzie zaniżony.
+
+Drugie założenie dotyczy jednorodności pola na bazie. Tensometr o długości czynnej $L_g$ całkuje odkształcenie wzdłuż swojej osi. Jeśli pole jest stałe, wynik jest równy wartości lokalnej. Jeśli pole zmienia się gwałtownie, na przykład przy otworze, karbie lub spoinie, wynik jest średnią, która może znacznie różnić się od wartości maksymalnej. Krótsza baza lepiej śledzi lokalne zmiany, ale jest bardziej podatna na zakłócenia i trudniejsza w montażu.
+
+Trzecie założenie dotyczy kierunku. Tensometr jest czuły głównie na odkształcenie wzdłuż swojej osi, ale nie jest całkowicie obojętny na odkształcenie poprzeczne. Ścieżka ma skończoną szerokość, więc skurcz poprzeczny także zmienia jej opór. Producenci podają tak zwany współczynnik czułości poprzecznej i kalibrują czujnik w znanym stanie naprężenia. W zwykłych obliczeniach zakładamy, że $GF$ odnosi się do odkształcenia wzdłuż osi, ale przy dużym stosunku odkształceń poprzecznych do osiowych trzeba tę poprawkę uwzględnić.
+
+Czwarte założenie dotyczy temperatury. Opór zależy nie tylko od geometrii, ale i od rezystywności, która zmienia się z temperaturą. Jej wpływ jest znacznie większy niż efekty geometryczne. Dlatego tensometr przyklejony do nieobciążonego elementu i tak może pokazywać pozorne odkształcenie, gdy zmieni się temperatura. Kompensacja polega na użyciu czujnika nieaktywnego, umieszczonego blisko czynnego, ale nieprzyklejonego do badanego elementu, albo na odpowiednim układzie mostka.
+
+Piąte założenie dotyczy zakresu sprężystego. Współczynnik $GF$ jest zwykle stały w niewielkim zakresie odkształceń. Po przekroczeniu granicy plastyczności materiał czujnika i kleju może zachowywać się nieliniowo, a duże odkształcenia mogą uszkodzić ścieżkę. Tensometr nadaje się więc przede wszystkim do pomiaru małych odkształceń sprężystych, choć istnieją wykonania specjalne do większych zakresów.
+
+### Kiedy model przestaje działać
+
+- Klej jest źle utwardzony, zbyt gruby lub pracuje lepkosprężnie, więc odkształcenie nie jest w pełni przenoszone.
+- Pole odkształcenia zmienia się gwałtownie na odległości mniejszej niż baza czujnika.
+- Temperatura zmienia się szybciej niż układ kompensacji nadąża za nią.
+- Czujnik jest przyklejony pod kątem innym niż zakładany w obliczeniach.
+- Odkształcenie przekracza zakres liniowy lub niszczy ścieżkę.
+- Wilgoć, starzenie kleju lub uszkodzenie izolacji zmieniają opór i powodują dryft.
+- Element odkształca się poza płaszczyzną, a czujnik jest zginany razem z powierzchnią.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniaj odkształcenie próbki i obserwuj, jak zmienia się naprężenie oraz etap pracy materiału. Zwróć uwagę na zakres sprężysty, w którym wydłużenie jest proporcjonalne do siły, oraz na moment, w którym po odciążeniu pozostaje odkształcenie trwałe.
 
 <Lab id="tensileTest" />
 
+## Definicje i jednostki
+
+| Wielkość              | Symbol           | Znaczenie                                        | Jednostka    | Uwaga                                    |
+| --------------------- | ---------------- | ------------------------------------------------ | ------------ | ---------------------------------------- |
+| Opór początkowy       | $R_0$            | opór czujnika przed obciążeniem                  | $\Omega$     | zwykle $120$ lub $350\,\Omega$           |
+| Zmiana oporu          | $\Delta R$       | różnica oporu po odkształceniu                   | $\Omega$     | bardzo mała, rzędu miliomów              |
+| Współczynnik czułości | $GF$             | względna zmiana oporu na jednostkę odkształcenia | bezwymiarowy | typowo blisko $2$                        |
+| Odkształcenie         | $\varepsilon$    | względna zmiana długości wzdłuż osi czujnika     | bezwymiarowe | dodatnie przy wydłużeniu                 |
+| Mikroodkształcenie    | $\mu\varepsilon$ | $10^{-6}$ odkształcenia                          | bezwymiarowe | $1000\,\mu\varepsilon=0{,}001$           |
+| Baza pomiarowa        | $L_g$            | długość czynna ścieżki czujnika                  | mm           | od ułamka milimetra do kilku centymetrów |
+| Napięcie wzbudzenia   | $V_{in}$         | napięcie zasilające mostek                       | V            | zwykle kilka woltów                      |
+| Napięcie wyjściowe    | $V_{out}$        | sygnał niezrównoważenia mostka                   | mV           | proporcjonalny do zmiany oporu           |
+
+$GF$ jest liczbą bezwymiarową, ponieważ dzieli zmianę oporu przez opór początkowy, a więc iloraz dwóch oporów, przez bezwymiarowe odkształcenie. To wygodne: nie trzeba pamiętać osobnych przeliczników dla różnych jednostek długości, o ile konsekwentnie używamy tego samego układu.
+
+### Opór, rezystywność i geometria
+
+Opór przewodu wyraża się wzorem $R=\rho L/A$, gdzie $\rho$ jest rezystywnością materiału, $L$ długością, a $A$ polem przekroju. Wszystkie trzy wielkości mogą się zmieniać pod obciążeniem. W tensometrze wykorzystuje się przede wszystkim zmianę długości i przekroju, a w mniejszym stopniu zmianę rezystywności. To rozróżnienie jest ważne, bo pozwala zrozumieć, dlaczego $GF$ nie jest równy dokładnie $1+2\nu$.
+
+### Mostek pomiarowy
+
+Zmiana oporu o $0{,}2\,\%$ nie jest widoczna na zwykłym omomierzu o skończonej rozdzielczości. Mostek Wheatstone’a zamienia małą zmianę oporu na napięcie wyjściowe, które można wzmocnić. Przed obciążeniem mostek równoważy się do zera, więc mierzy się odchylenie od zera, a nie małą różnicę dwóch dużych napięć. To znacznie poprawia czułość i stabilność pomiaru.
+
+Dla jednego czynnego czujnika w układzie ćwierćmostka sygnał jest proporcjonalny do $\Delta R/R_0$ z współczynnikiem rzędu $1/4$. Układ z dwoma czynnymi czujnikami, umieszczonymi po przeciwnych stronach próbki i połączonymi w układzie różnicowym, podwaja czułość i jednocześnie znosi wpływ zginania. Nie musisz w tej lekcji wyprowadzać wszystkich wariantów mostka, ale powinieneś wiedzieć, że sam tensometr to dopiero połowa toru pomiarowego.
+
+### Temperatura i kompensacja
+
+Współczynnik temperaturowy oporu jest tak duży, że zwykły tensometr bez kompensacji może pokazywać setki mikrostrainów przy zmianie temperatury o kilkanaście kelwinów. Typowa pozorna wrażliwość bywa rzędu kilku do kilkunastu mikrostrainów na kelwin, zależnie od materiału i konstrukcji czujnika. Dlatego w praktyce stosuje się czujniki samokompensujące, dobrane do materiału podłoża, oraz dodatkowy czujnik odniesienia.
+
+Kompensacja nie polega na „odjęciu temperatury” po fakcie. Chodzi o to, żeby zmiana temperatury działała jednakowo na ramię czynne i odniesienia, a więc znosiła się w różnicy. Jeśli czujnik odniesienia jest daleko od czynnego i ma inną temperaturę, kompensacja przestaje działać.
+
+### Baza pomiarowa i uśrednianie
+
+Baza $L_g$ jest długością odcinka, na którym czujnik uśrednia odkształcenie. Jeśli pole jest liniowe, średnia jest równa wartości w środku bazy. Jeśli pole jest zakrzywione, średnia może różnić się od wartości w punkcie, który nas interesuje. Przy koncentracji naprężeń krótka baza jest zwykle lepsza, ale trudniej ją precyzyjnie przykleić i łatwiej uszkodzić.
+
+W praktyce wybór bazy jest kompromisem. Zbyt długa baza wygładza lokalny pik i może ukryć niebezpieczeństwo. Zbyt krótka baza daje większy wpływ niejednorodności kleju, przypadkowych błędów i efektów brzegowych. Inżynier powinien wiedzieć, jaką rozdzielczość przestrzenną potrzebuje, zanim wybierze czujnik.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-GF=\frac{\Delta R/R_0}{\varepsilon},\qquad \Delta R/R_0=GF\cdot\varepsilon
+GF=\frac{\Delta R/R_0}{\varepsilon},\qquad \frac{\Delta R}{R_0}=GF\cdot\varepsilon,\qquad \Delta R=GF\cdot\varepsilon\cdot R_0
 $$
 
-<Caption>GF oznacza współczynnik czułości tensometru, R0 — opór początkowy, a ε — odkształcenie wzdłuż osi czujnika. Poprawny pomiar wymaga dobrego przyklejenia, właściwie dobranego mostka pomiarowego i kompensacji wpływu temperatury.</Caption>
+<Caption>$GF$ oznacza współczynnik czułości tensometru, $R_0$ opór początkowy, a $\varepsilon$ odkształcenie wzdłuż osi czujnika. Wzór jest liniowy w zakresie, w którym $GF$ można uznać za stałą. Poprawny pomiar wymaga dobrego przyklejenia, właściwie dobranego mostka i kompensacji temperatury.</Caption>
 </Formula>
 
+Wyprowadzenie zaczynamy od oporu przewodu i różniczkujemy go logarytmicznie.
+
+1. Opór przewodu wynosi $R=\rho L/A$, gdzie $\rho$ to rezystywność, $L$ długość, a $A$ pole przekroju.
+2. Logarytmujemy obie strony: $\ln R=\ln\rho+\ln L-\ln A$.
+3. Różniczkujemy: $dR/R=d\rho/\rho+dL/L-dA/A$.
+4. Dla przewodu o przekroju kołowym $A=\pi r^2$, więc $dA/A=2\,dr/r$.
+5. Odkształcenie wzdłużne ścieżki to $\varepsilon=dL/L$. Odkształcenie poprzeczne wynosi $dr/r=-\nu\,dL/L=-\nu\varepsilon$.
+6. Podstawiamy: $dR/R=d\rho/\rho+\varepsilon+2\nu\varepsilon=d\rho/\rho+(1+2\nu)\varepsilon$.
+7. Zmiana rezystywności jest związana ze zmianą objętości. W prostym modelu przyjmujemy $d\rho/\rho=\alpha_R\,dV/V$, gdzie $\alpha_R$ jest stałą materiałową, a $dV/V=(1-2\nu)\varepsilon$.
+8. Po podstawieniu otrzymujemy $dR/R=[(1+2\nu)+\alpha_R(1-2\nu)]\varepsilon$.
+9. Wyrażenie w nawiasie nazywamy współczynnikiem czułości $GF$. Dla stopu constantan, typowego materiału tensometrów, $\alpha_R\approx1{,}13$ i $\nu\approx0{,}30$, więc $GF\approx2{,}0$.
+10. Dla małych zmian opór końcowy wynosi $R\approx R_0(1+GF\,\varepsilon)$, a zmiana oporu $\Delta R\approx R_0\,GF\,\varepsilon$.
+
+Kontrola jednostek jest prosta: $GF$ i $\varepsilon$ są bezwymiarowe, więc $\Delta R$ ma jednostkę oporu, taką samą jak $R_0$. Kontrola rzędu wielkości też jest pouczająca. Dla $GF=2$ i $\varepsilon=1000\,\mu\varepsilon=0{,}001$ względna zmiana oporu wynosi $0{,}002$, czyli $0{,}2\,\%$. To dlatego tensometria jest dziedziną precyzyjnego pomiaru małych różnic.
+
+### Dlaczego $GF$ jest bliski dwa, a nie równy dwa
+
+Gdyby rezystywność nie zmieniała się wcale, $GF$ byłby równy $1+2\nu$, czyli około $1{,}6$ dla $\nu=0{,}30$. Rzeczywisty constantan ma $GF$ blisko $2$, bo zmiana rezystywności pod wpływem odkształcenia dokłada około $0{,}4$. To pokazuje, że model geometryczny wyjaśnia większość efektu, ale nie całość. Producent kalibruje czujnik doświadczalnie i podaje $GF$ dla konkretnej partii.
+
+### Zakres liniowości
+
+Liniowość $GF$ jest dobra tylko w ograniczonym zakresie. Przy bardzo małych odkształceniach szum pomiarowy może dominować nad sygnałem. Przy dużych odkształceniach klej może się odkształcać plastycznie, a ścieżka może pękać. Typowe tensometry foliowe projektuje się do kilku tysięcy mikrostrainów, ale szczegóły zależą od wykonania. Zawsze sprawdź kartę katalogową, zamiast zakładać, że „tensometr wszystko zmierzy”.
+
+### Kontrola wyniku
+
+- Sprawdź, czy $R_0$ i $\Delta R$ są w tych samych jednostkach, najlepiej w omach.
+- Sprawdź, czy $\varepsilon$ zostało zamienione z mikrostrainów na wartość bezwymiarową.
+- Sprawdź, czy $GF$ jest dodatni i zbliżony do wartości z karty katalogowej.
+- Sprawdź, czy znak $\Delta R$ odpowiada znakowi odkształcenia.
+- Sprawdź, czy wynik nie przekracza zakresu liniowego czujnika.
+- Sprawdź, czy temperatura i montaż nie wyjaśniają większej części sygnału niż samo obciążenie.
+
 <Insight>
-  Pomiar 1000 µε oznacza zmianę oporu zaledwie około 0,2% dla GF ≈ 2. Dlatego błędy montażu, wpływ temperatury i
-  kierunek klejenia mają praktyczne znaczenie.
+  Pomiar $1000\,\mu\varepsilon$ oznacza zmianę oporu zaledwie około $0{,}2\,\%$ dla $GF\approx2$. Dlatego błędy montażu, wpływ
+  temperatury i kierunek klejenia mają praktyczne znaczenie: sygnał użyteczny jest mały w porównaniu z zakłóceniami.
 </Insight>
 
 <WorkedExample>
-  <Given>Czujnik: R0 = 350 Ω, GF = 2,10. Mostek wyznaczył ΔR = 0,147 Ω. Oblicz odkształcenie.</Given>
+  <Given>Czujnik ma $R_0=350\,\Omega$ i $GF=2{,}10$. Mostek wyznaczył zmianę oporu $\Delta R=0{,}147\,\Omega$. Oblicz odkształcenie wzdłuż osi czujnika.</Given>
   <Steps>
-    <Step>Względna zmiana oporu: ΔR/R0 = 0,147/350 = 0,00042.</Step>
-    <Step>Odkształcenie: ε = (ΔR/R0)/GF = 0,00042/2,10 = 0,0002.</Step>
-    <Step>Przeliczenie: 0,0002·10⁶ = 200 µε.</Step>
+    <Step>Względna zmiana oporu: $\Delta R/R_0=0{,}147/350=0{,}00042$.</Step>
+    <Step>Odkształcenie: $\varepsilon=(\Delta R/R_0)/GF=0{,}00042/2{,}10=0{,}0002$.</Step>
+    <Step>Przeliczenie na mikrostrainy: $0{,}0002\cdot10^6=200\,\mu\varepsilon$.</Step>
+    <Step>Kontrola: $200\,\mu\varepsilon=0{,}02\,\%$, czyli wynik jest mały i typowy dla zakresu sprężystego metalu.</Step>
+    <Step>Kontrola odwrotna: $GF\,\varepsilon\,R_0=2{,}10\cdot0{,}0002\cdot350=0{,}147\,\Omega$.</Step>
   </Steps>
-  <Result>
-    Czujnik wskazuje ε = 200 µε. Jest to wydłużenie względne 0,02% w kierunku jego osi, uśrednione na bazie.
-  </Result>
+  <Result>Czujnik wskazuje $\varepsilon=200\,\mu\varepsilon$, czyli wydłużenie względne $0{,}02\,\%$ w kierunku swojej osi, uśrednione na bazie. Wynik jest spójny z danymi i nie wymaga poprawki na jednostki.</Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Tensometr jest przyklejony do nieobciążonej stalowej belki, która nagrzała się o $18\,\text{K}$. Karta czujnika podaje pozorną wrażliwość około $11\,\mu\varepsilon/\text{K}$ dla stali. Ile wynosi pozorne odkształcenie i jakie fałszywe naprężenie otrzymalibyśmy, gdybyśmy zignorowali temperaturę?
+
+Pozorne odkształcenie wynosi $11\cdot18=198\,\mu\varepsilon$, czyli około $0{,}000198$. Przy $E=200\,\text{GPa}$ dałoby to fałszywe naprężenie $\sigma=E\varepsilon=200\,000\cdot0{,}000198\approx39{,}6\,\text{MPa}$. To wartość większa od naprężeń roboczych w wielu spokojnie obciążonych elementach. Wniosek jest jednoznaczny: bez kompensacji temperaturowej pomiar tensometryczny może wprowadzać błąd rzędu dziesiątek megapaskali.
+
+W praktyce nie odejmujemy tej liczby „na oko”. Stosujemy czujnik kompensacyjny lub czujnik samokompensujący, dopasowany do współczynnika rozszerzalności podłoża. Ważne jest też, żeby temperatura czujnika czynnego i odniesienia była rzeczywiście podobna. Jeśli belka jest nagrzewana lokalnie, sam czujnik odniesienia umieszczony na końcu może nie wystarczyć.
+
+### Dwa czujniki po przeciwnych stronach
+
+Wyobraź sobie próbkę rozciąganą, w której uchwyt wprowadza dodatkowe zginanie. Czujnik na stronie wypukłej czyta więcej, a na stronie wklęsłej mniej. Jeśli przykleimy dwa czujniki po przeciwnych stronach i połączymy je w układzie różnicowym, udział zginania zniesie się, a udział rozciągania podwoi. To klasyczny przykład wykorzystania symetrii pomiaru zamiast walki z błędem po fakcie.
+
+Taki układ nie naprawia jednak wszystkich błędów. Jeśli zginanie jest skręcaniem, a czujniki nie są rozmieszczone symetrycznie względem osi, różnica nie zniknie. Jeśli temperatura nie jest jednakowa po obu stronach, kompensacja też będzie niepełna. Dlatego projekt pomiaru zaczyna się od analizy stanu, a nie od wyboru czujnika.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że chcemy wykryć zmianę odkształcenia o $1\,\mu\varepsilon$ czujnikiem o $R_0=350\,\Omega$ i $GF=2{,}0$. Jakiej zmiany oporu musimy szukać i dlaczego zwykły omomierz nie wystarczy?
+
+Zmiana oporu wynosi $\Delta R=GF\,\varepsilon\,R_0=2{,}0\cdot1\cdot10^{-6}\cdot350=0{,}0007\,\Omega$, czyli $0{,}7\,\text{m}\Omega$. To mniej niż typowy opór przewodów połączeniowych i mniej niż dryft termiczny zwykłego multimetru. Dlatego potrzebny jest mostek, ekranowane przewody i staranne zerowanie. Sama rozdzielczość omomierza to za mało; liczy się cały tor pomiarowy.
+
+Z tego samego rachunku wynika, dlaczego tensometry mają zwykle opór $120$ lub $350\,\Omega$, a nie bardzo mały. Większy opór początkowy daje większą bezwzględną zmianę $\Delta R$ przy tym samym $GF$ i $\varepsilon$, co ułatwia pomiar. Nie można jednak zwiększać oporu dowolnie, bo rośnie też szum i maleje odporność na zakłócenia.
+
+### Co to znaczy dla doboru czujnika
+
+- Dla małych odkształceń wybierz czujnik o dużym $GF$, jeśli jest dostępny dla danego zakresu.
+- Dla dużych gradientów wybierz krótką bazę, ale zaakceptuj większy wpływ montażu.
+- Dla pomiarów długotrwałych sprawdź stabilność kleju i kompensację temperatury.
+- Dla powierzchni zakrzywionych wybierz czujnik o odpowiednim promieniu gięcia.
+- Dla środowiska wilgotnego zadbaj o uszczelnienie i izolację.
+- Dla obciążeń zmiennych sprawdź zmęczenie ścieżki i połączeń.
+
+<Callout kind="warning" title="Typowe błędy">
+  - Wstawianie odczytu $800\,\mu\varepsilon$ jako liczby $800$ zamiast $0{,}0008$.
+  - Mylenie zmiany oporu $\Delta R$ ze względną zmianą $\Delta R/R_0$.
+  - Używanie $GF=1$ lub $GF=E$ bez sprawdzenia karty czujnika.
+  - Pomijanie kompensacji temperatury i przypisywanie całego sygnału obciążeniu.
+  - Przyklejanie czujnika pod kątem innym niż zakładany w obliczeniach.
+  - Traktowanie odczytu jako wartości punktowej, choć jest to średnia na bazie.
+  - Stosowanie czujnika po przekroczeniu zakresu liniowego lub po uszkodzeniu ścieżki.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, co podano: $R_0$ i $\Delta R$, $R_0$ i $GF$, czy odkształcenie i $GF$. Od tego zależy, którą postać wzoru wybierzesz.
+2. Zamień mikrostrainy na wartość bezwymiarową przed podstawieniem.
+3. Sprawdź, czy $R_0$ i $\Delta R$ są w omach; jeśli nie, przelicz.
+4. Oblicz $\Delta R/R_0$, a dopiero potem dziel przez $GF$.
+5. Sprawdź znak: dodatnie $\Delta R$ przy dodatnim $GF$ oznacza dodatnie $\varepsilon$.
+6. Ocen, czy wynik jest w zakresie sprężystym i czy nie przekracza zakresu czujnika.
+7. Zastanów się, czy w zadaniu ukryto temperaturę, zginanie lub niejednorodne pole; jeśli tak, opisz potrzebną kompensację.
+8. Wróć do definicji bazy i powiedz, czy wynik jest lokalny, czy uśredniony.
+
+## Połącz z resztą kursu
+
+- W lekcji o odkształceniach $\varepsilon$ i $\gamma$ poznałeś definicję, którą tensometr teraz mierzy w praktyce.
+- W lekcji o efekcie Poissona zobaczysz, dlaczego czujnik poprzeczny do osi rozciągania także pokazuje odkształcenie.
+- W lekcji o uogólnionym prawie Hooke’a odkształcenie z tensometru zamienisz na naprężenie.
+- W lekcji o rozecie trzy tensometry złożą się w pełny płaski stan odkształcenia.
+- W module o próbie rozciągania zobaczysz, jak odkształcenie mierzone tensometrem wiąże się z wykresem $\sigma$–$\varepsilon$.
+- W module o hipotezach wytężeniowych wynik tensometrii stanie się wejściem do oceny bezpieczeństwa.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz przeliczać zmianę oporu na odkształcenie, rozpoznawać ograniczenia czujnika i odróżniać sygnał użyteczny od zakłóceń.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Tensometr ma R0 = 120 Ω, GF = 2,0 i mierzy ε = 800 µε. Jaka jest zmiana oporu ΔR?</Prompt>
-    <Answer correct>0,192 Ω</Answer>
-    <Answer>1,92 Ω</Answer>
-    <Answer>19,2 Ω</Answer>
-    <Hint>Najpierw zamień 800 µε na 0,0008.</Hint>
-    <Explanation>ΔR = GF·ε·R0 = 2·0,0008·120 = 0,192 Ω. Względna zmiana oporu wynosi 0,0016, czyli 0,16%.</Explanation>
+    <Prompt>Tensometr ma $R_0=120\,\Omega$, $GF=2{,}0$ i mierzy $\varepsilon=800\,\mu\varepsilon$. Jaka jest zmiana oporu $\Delta R$?</Prompt>
+    <Answer correct>$0{,}192\,\Omega$</Answer>
+    <Answer>$1{,}92\,\Omega$</Answer>
+    <Answer>$19{,}2\,\Omega$</Answer>
+    <Hint>Najpierw zamień $800\,\mu\varepsilon$ na $0{,}0008$, a potem użyj $\Delta R=GF\,\varepsilon\,R_0$.</Hint>
+    <Explanation>$\Delta R=2\cdot0{,}0008\cdot120=0{,}192\,\Omega$. Względna zmiana oporu wynosi $0{,}0016$, czyli $0{,}16\,\%$.</Explanation>
   </Question>
   <Question outcome="W3">
     <Prompt>Dlaczego pojedynczy tensometr nie wystarcza do wyznaczenia pełnego płaskiego stanu odkształcenia?</Prompt>
     <Answer correct>Bo daje jedną liczbę dla jednego kierunku</Answer>
     <Answer>Bo nie mierzy odkształceń dodatnich</Answer>
-    <Answer>Bo zawsze mierzy wyłącznie γxy</Answer>
+    <Answer>Bo zawsze mierzy wyłącznie $\gamma_{xy}$</Answer>
     <Hint>Płaski stan wymaga trzech niezależnych składowych.</Hint>
-    <Explanation>
-      Jeden odczyt daje εθ dla osi czujnika. Do wyznaczenia εx, εy i γxy potrzeba co najmniej trzech niezależnych
-      pomiarów w różnych kierunkach, np. rozety.
-    </Explanation>
+    <Explanation>Jeden odczyt daje $\varepsilon_\theta$ dla osi czujnika. Do wyznaczenia $\varepsilon_x$, $\varepsilon_y$ i $\gamma_{xy}$ potrzeba co najmniej trzech niezależnych pomiarów w różnych kierunkach, na przykład rozety.</Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>Czujnik o bazie 10 mm jest umieszczony w obszarze gwałtownie zmiennego odkształcenia. Co odczyta?</Prompt>
+    <Prompt>Czujnik o bazie $10\,\text{mm}$ jest umieszczony w obszarze gwałtownie zmiennego odkształcenia. Co odczyta?</Prompt>
     <Answer>Dokładnie wartość maksymalną w jednym punkcie</Answer>
     <Answer correct>Średnią na bazie, która może ukryć lokalny pik</Answer>
     <Answer>Zawsze zero</Answer>
     <Hint>Czujnik ma skończoną długość i integruje deformację przyklejonego odcinka.</Hint>
-    <Explanation>
-      Tensometr uśrednia odkształcenie wzdłuż bazy. Przy dużym gradiencie krótsza baza może lepiej uchwycić lokalną
-      zmienność, ale nadal nie daje idealnej wartości punktowej.
-    </Explanation>
+    <Explanation>Tensometr uśrednia odkształcenie wzdłuż bazy. Przy dużym gradiencie krótsza baza może lepiej uchwycić lokalną zmienność, ale nadal nie daje idealnej wartości punktowej.</Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Czujnik ma $R_0=350\,\Omega$, $GF=2{,}10$ i zmierzono $\Delta R=0{,}084\,\Omega$. Ile wynosi odkształcenie?</Prompt>
+    <Answer correct>Około $114\,\mu\varepsilon$</Answer>
+    <Answer>Około $1140\,\mu\varepsilon$</Answer>
+    <Answer>Około $11{,}4\,\mu\varepsilon$</Answer>
+    <Hint>Najpierw podziel $\Delta R$ przez $R_0$, potem przez $GF$.</Hint>
+    <Explanation>$\Delta R/R_0=0{,}084/350=0{,}00024$. $\varepsilon=0{,}00024/2{,}10=0{,}0001143$, czyli około $114\,\mu\varepsilon$.</Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Pręt jest rozciągany tak, że $\varepsilon_x=300\,\mu\varepsilon$, a $\nu=0{,}30$. Czujnik poprzeczny wskaże około:</Prompt>
+    <Answer correct>$-90\,\mu\varepsilon$</Answer>
+    <Answer>$+90\,\mu\varepsilon$</Answer>
+    <Answer>$+300\,\mu\varepsilon$</Answer>
+    <Hint>Odkształcenie poprzeczne wynosi $\varepsilon_y=-\nu\varepsilon_x$.</Hint>
+    <Explanation>$\varepsilon_y=-0{,}30\cdot300=-90\,\mu\varepsilon$. Znak ujemny oznacza skurcz poprzeczny, a nie brak pomiaru.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Względna zmiana oporu wynosi $\Delta R/R_0=0{,}0016$, a $GF=2{,}0$. Ile wynosi $\varepsilon$?</Prompt>
+    <Answer correct>$800\,\mu\varepsilon$</Answer>
+    <Answer>$1600\,\mu\varepsilon$</Answer>
+    <Answer>$80\,\mu\varepsilon$</Answer>
+    <Hint>Podziel względną zmianę oporu przez $GF$ i przelicz na mikrostrainy.</Hint>
+    <Explanation>$\varepsilon=0{,}0016/2=0{,}0008=800\,\mu\varepsilon$. To ten sam wynik, co w pytaniu o $\Delta R$ dla $R_0=120\,\Omega$.</Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Jaki jest główny powód stosowania czujnika kompensacyjnego w mostku?</Prompt>
+    <Answer correct>Zniesienie wpływu temperatury na odczyt</Answer>
+    <Answer>Zwiększenie oporu początkowego czujnika</Answer>
+    <Answer>Pomiar odkształcenia postaciowego bez rozety</Answer>
+    <Hint>Opór zależy od temperatury przez rezystywność, a nie tylko od geometrii.</Hint>
+    <Explanation>Czujnik odniesienia umieszczony blisko czynnego, ale nieprzyklejony do elementu, zmienia opór głównie pod wpływem temperatury. W różnicy sygnałów udział temperatury się znosi, a udział mechaniczny pozostaje.</Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o pomiarach odkształceń i prawie Hooke’a; dobry do powiązania odczytu tensometru z naprężeniem i wykresem $\sigma$–$\varepsilon$.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z rozciągania i odkształceń; warto przećwiczyć przeliczanie mikrostrainów, znaków i jednostek.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o odkształceniach liniowych i pomiarach; klasyczne ujęcie definicji i konwencji znaków.
+- D. Roylance, _Mechanics of Materials_ — rozdział o rozwiązaniach doświadczalnych; wyprowadzenie $GF$, opis mostka Wheatstone’a, kompensacji temperatury i czujników czynnych po obu stronach próbki.
+- MIT 3.11 _Mechanics of Materials_, notatki _Experimental Strain Analysis_ — zwięzły opis tensometrów, rozet i błędów montażu; dobre uzupełnienie praktyczne.

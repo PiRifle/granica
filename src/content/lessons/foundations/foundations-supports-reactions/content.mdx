@@ -7,7 +7,6 @@ shortTitle: Podpory
 description: >-
   Dobierz schemat podparcia i określ, które ruchy lub obroty ogranicza każda
   podpora.
-duration: 9
 eyebrow: 'Najpierw swobody, potem reakcje'
 outcomes:
   - W1 — rozpoznaje ograniczenia ruchu w modelach podpór
@@ -18,38 +17,216 @@ outcomes:
   - U3 — tworzy poprawny model wejściowy do wymiarowania
 ---
 
-Reakcja pojawia się tam, gdzie podpora blokuje ruch. Podpora przesuwna blokuje przesunięcie tylko w kierunku prostopadłym do podłoża, przegub nieprzesuwny — w dwóch kierunkach, a utwierdzenie dodatkowo uniemożliwia obrót.
+Belka nie „wisi w powietrzu”. Jej ciężar i obciążenia muszą być przeniesione na fundament, ścianę lub inną konstrukcję. Miejsce, w którym element styka się z otoczeniem, nazywamy podporą. Podpora nie tylko „trzyma” element — ona ogranicza wybrane ruchy i obroty, a w odpowiedzi wytwarza reakcje.
+
+Wyobraź sobie deskę opartą jednym końcem na parapecie, a drugim na krześle. Koniec na parapecie może się przesuwać i obracać, ale nie może spaść w dół. Koniec na krześle również nie spada, ale krzesło może się przesunąć. Ten prosty obraz pokazuje, że różne podpory blokują różne stopnie swobody. Reakcja pojawia się tylko w tych kierunkach, w których ruch jest ograniczony.
+
+W tej lekcji nauczysz się rozpoznawać trzy podstawowe modele podpór w zadaniu płaskim: podporę przesuwną, przegub nieprzesuwny i utwierdzenie. Dla każdego z nich policzysz, ile reakcji może wystąpić i jak je zapisać na schemacie. Następnie użyjesz równań równowagi, aby wyznaczyć ich wartości w belce swobodnie podpartej.
+
+Oddzielną umiejętnością jest odróżnienie reakcji od sił wewnętrznych. Reakcja działa na element z zewnątrz, w miejscu podpory. Siła wewnętrzna działa w przekroju, wewnątrz elementu. Mylenie tych pojęć prowadzi do błędnego schematu i błędnych równań, nawet jeśli sama arytmetyka jest poprawna.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie trzy równania równowagi płaskiego ciała sztywnego: suma sił w kierunku poziomym, suma sił w kierunku pionowym i suma momentów względem wybranego punktu.
+- Wiedz, że moment siły względem punktu zależy od wartości siły i prostopadłej odległości jej linii działania od tego punktu.
+- Odróżniaj przemieszczenie od obrotu. Podpora może blokować jedno, drugie albo oba.
+- Rozumiej zasadę akcji i reakcji: jeśli podpora działa na element, element działa na podporę z równą co do wartości i przeciwną siłą.
+- Rozpoznawaj układ statycznie wyznaczalny: liczba niewiadomych reakcji jest równa liczbie dostępnych równań równowagi.
+- Uważaj na jednostki momentu. Jeśli siła jest w kN, a ramię w m, moment wychodzi w kN·m; przy ramieniu w mm trzeba zamienić jednostkę.
+
+## Model i intuicja
+
+Podpora jest modelem więzu. W zadaniu płaskim ciało sztywne ma trzy stopnie swobody: przesunięcie w poziomie, przesunięcie w pionie i obrót. Każdy odebrany stopień swobody odpowiada jednej składowej reakcji. To prosta zasada, która pozwala szybko sprawdzić, czy schemat podpory jest poprawny.
+
+Podpora przesuwna, nazywana też rolkową, odbiera tylko przesunięcie prostopadłe do powierzchni, po której może się toczyć. W typowym zadaniu z belką poziomą oznacza to jedną reakcję pionową. Podpora może się przesuwać wzdłuż belki i obracać, więc nie wytwarza reakcji poziomej ani momentu.
+
+Przegub nieprzesuwny odbiera dwa przesunięcia, ale pozwala na obrót. Dlatego ma dwie składowe reakcji: poziomą i pionową. Nie przenosi momentu. W praktyce odpowiada to połączeniu, które może się obracać, ale nie może się przesunąć względem fundamentu.
+
+Utwierdzenie odbiera wszystkie trzy stopnie swobody: dwa przesunięcia i obrót. Dlatego w zadaniu płaskim ma dwie składowe siły oraz reakcję momentową. To najbardziej „sztywna” z trzech podpór i jedyna z tej trójki, która przenosi moment zginający na fundament.
+
+Liczba reakcji nie zawsze musi być równa liczbie równań. Jeśli jest ich więcej, układ jest statycznie niewyznaczalny i same równania równowagi nie wystarczą. Potrzebne są wtedy warunki zgodności odkształceń oraz informacje o sztywnościach. W tym module zajmujemy się głównie układami statycznie wyznaczalnymi, ale już teraz warto rozpoznawać nadmiar więzów.
+
+Model idealnej podpory przestaje wystarczać, gdy podpora ma własną podatność, gdy może się osiadać, gdy traci kontakt lub gdy tarcie staje się istotne. Wtedy reakcja nie jest już prostą konsekwencją geometrii, lecz zależy od odkształceń całego układu. W typowych zadaniach początkowych przyjmujemy jednak podpory idealnie sztywne i bez tarcia.
+
+## Laboratorium: co ustawić
+
+Ustaw długość belki, wartość siły i jej położenie. Obserwuj, jak reakcja prawej podpory rośnie liniowo wraz z odległością siły od lewej podpory, a lewa reakcja maleje tak, aby ich suma pozostała równa sile.
 
 <Lab id="reactions" />
 
+## Definicje i jednostki
+
+| Model podpory        | Ograniczone ruchy                   | Reakcje w płaszczyźnie            | Przykład                    |
+| -------------------- | ----------------------------------- | --------------------------------- | --------------------------- |
+| Podpora przesuwna    | Przesunięcie prostopadłe do podłoża | Jedna siła prostopadła do podłoża | Rolkowa podpora mostu       |
+| Przegub nieprzesuwny | Dwa przesunięcia                    | Dwie składowe siły                | Zawias, sworzeń             |
+| Utwierdzenie         | Dwa przesunięcia i obrót            | Dwie siły i moment                | Wspornik wmurowany w ścianę |
+| Więz liniowy         | Przesunięcie wzdłuż osi więzu       | Jedna siła wzdłuż więzu           | Cięgno, pręt dwuwęzłowy     |
+| Podpora sprężysta    | Przesunięcie zależne od siły        | Siła proporcjonalna do ugięcia    | Gumowa podkładka            |
+
+Symbole: $R_A$, $R_B$ — reakcje w punktach A i B; $A_x$, $A_y$ — składowe reakcji w przegubie; $M_A$ — reakcja momentowa w utwierdzeniu; $P$ — siła skupiona; $q$ — obciążenie liniowe; $L$ — rozpiętość; $a$ — odległość siły od lewej podpory. Jednostki: siła w N lub kN, moment w N·m lub kN·m, długość w m lub mm.
+
+Konwencja znaków: przyjmujemy dodatni kierunek poziomy w prawo, pionowy w górę, a moment dodatni przeciwnie do ruchu wskazówek zegara. Reakcje rysujemy w tych kierunkach, a znak wyniku mówi, czy rzeczywisty zwrot jest zgodny z założonym. Minus nie oznacza błędu — oznacza przeciwny zwrot.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\text{podpora przesuwna: }1R,\qquad \text{przegub nieprzesuwny: }2R,\qquad \text{utwierdzenie: }2R+M
+\sum F_x=0,\qquad
+\sum F_y=0,\qquad
+\sum M_A=0
 $$
 
-<Caption>Zapis dotyczy zadania płaskiego. R oznacza składową reakcji siłowej, a M reakcję momentową. Kierunek reakcji przesuwnej jest prostopadły do powierzchni toczenia.</Caption>
+<Caption>Dla płaskiego, statycznie wyznaczalnego ciała sztywnego te trzy równania pozwalają wyznaczyć trzy niewiadome reakcje. Punkt A można wybrać dowolnie; warto wybrać taki, przez który przechodzi linia działania jednej lub dwóch niewiadomych.</Caption>
+</Formula>
+
+Dla belki swobodnie podpartej w A i B, obciążonej pionową siłą $P$ w odległości $a$ od A, reakcje można wyprowadzić w kilku krokach.
+
+1. Zastąp podpory reakcjami: w A przyjmij $A_x$ i $A_y$, w B przyjmij $R_B$ pionowo w górę.
+2. Zapisz równowagę poziomą: $\sum F_x=A_x=0$, bo nie ma obciążeń poziomych.
+3. Wybierz punkt A do sumy momentów. Siły $A_x$ i $A_y$ mają zerowe ramię, więc znikają z równania.
+4. Moment od $R_B$ wynosi $R_B L$ i działa przeciwnie do ruchu wskazówek zegara, jeśli $R_B$ jest w górę.
+5. Moment od $P$ wynosi $P a$ i działa zgodnie z ruchem wskazówek zegara, jeśli $P$ jest w dół.
+6. Równanie momentów: $R_B L-P a=0$.
+7. Stąd $R_B=Pa/L$.
+8. Z równowagi pionowej: $A_y+R_B-P=0$, więc $A_y=P-R_B=P(1-a/L)$.
+9. Sprawdź przypadki graniczne: dla $a=0$ jest $R_B=0$ i $A_y=P$; dla $a=L$ jest $R_B=P$ i $A_y=0$; dla $a=L/2$ obie reakcje wynoszą $P/2$.
+10. Moment pod siłą wynosi $M=A_y a=P a(L-a)/L$; maksimum przy $a=L/2$ daje $PL/4$.
+
+<Formula>
+$$
+R_B=\frac{Pa}{L},\qquad
+R_A=P-R_B=P\left(1-\frac{a}{L}\right),\qquad
+M_{\text{pod siłą}}=\frac{Pa(L-a)}{L}
+$$
+
+<Caption>Wzory dotyczą belki swobodnie podpartej, obciążonej jedną pionową siłą skupioną, przy pominięciu ciężaru własnego. Odległość $a$ mierzymy od lewej podpory. Dla obciążenia równomiernego $q$ reakcje wynoszą $qL/2$, a maksymalny moment $qL^2/8$.</Caption>
 </Formula>
 
 <Insight>
-  Przegub nie oznacza braku reakcji — pozwala na obrót, ale nadal przenosi siły. Utwierdzenie jako jedyne z tych trzech
-  schematów przenosi moment.
+  Typ podpory wynika z tego, które ruchy są zablokowane, a nie z tego, czy konkretna reakcja okazała się niezerowa.
+  Utwierdzenie nadal może przenosić siłę poziomą i moment, nawet jeśli w danym zadaniu jedna z tych reakcji wychodzi
+  zero.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Płaski element jest utwierdzony w punkcie A. Przez A przechodzą linie działania sił 8 kN w prawo i 5 kN w dół;
-    działa też moment zewnętrzny 12 kN·m przeciwnie do wskazówek zegara.
+    Belka swobodnie podparta ma długość 5 m. W odległości 2 m od lewej podpory A działa siła pionowa 30 kN w dół. Na
+    całej długości działa również równomierne obciążenie 4 kN/m. Pomiń ciężar własny belki. Wyznacz reakcje.
   </Given>
   <Steps>
-    <Step>
-      Przyjmij w A reakcje Ax, Ay i MA oraz dodatnie kierunki: w prawo, w górę i przeciwnie do wskazówek zegara.
-    </Step>
-    <Step>Z równowagi poziomej: Ax + 8 = 0, więc Ax = −8 kN, czyli 8 kN w lewo.</Step>
-    <Step>Z równowagi pionowej: Ay − 5 = 0, więc Ay = 5 kN w górę.</Step>
-    <Step>Z równowagi momentów: MA + 12 = 0, więc MA = −12 kN·m, czyli zgodnie ze wskazówkami zegara.</Step>
+    <Step>Oblicz wypadkową obciążenia równomiernego: Q = qL = 4 kN/m · 5 m = 20 kN.</Step>
+    <Step>Wypadkowa Q działa w środku belki, 2,5 m od A.</Step>
+    <Step>Zapisz sumę momentów względem A: RB · 5 = 30 · 2 + 20 · 2,5.</Step>
+    <Step>Oblicz prawą stronę: 60 + 50 = 110 kN·m.</Step>
+    <Step>Wyznacz RB = 110 / 5 = 22 kN.</Step>
+    <Step>Z równowagi pionowej: RA + RB = 30 + 20 = 50 kN.</Step>
+    <Step>Oblicz RA = 50 − 22 = 28 kN.</Step>
+    <Step>Sprawdź moment względem B: RA · 5 = 28 · 5 = 140 kN·m oraz 30 · 3 + 20 · 2,5 = 90 + 50 = 140 kN·m.</Step>
   </Steps>
-  <Result>W utwierdzeniu występują reakcje 8 kN w lewo, 5 kN w górę i 12 kN·m zgodnie ze wskazówkami zegara.</Result>
+  <Result>
+    Reakcje wynoszą RA = 28 kN i RB = 22 kN, obie skierowane w górę. Suma reakcji 50 kN równoważy sumę obciążeń.
+  </Result>
 </WorkedExample>
+
+Moment pod siłą można policzyć z lewej strony:
+
+$$
+M=RA\cdot 2-q\cdot 2\cdot 1=28\cdot 2-8=48\ \text{kN}\cdot\text{m}
+$$
+
+Z prawej strony:
+
+$$
+M=RB\cdot 3-q\cdot 3\cdot 1{,}5=66-18=48\ \text{kN}\cdot\text{m}
+$$
+
+Oba wyniki są zgodne, co potwierdza poprawność reakcji. Zwróć uwagę, że moment zależy od ramienia i rozkładu obciążenia, a nie tylko od sumy sił.
+
+## Drugi przykład
+
+Wspornik jest utwierdzony w ścianie w punkcie A i ma długość 2,5 m. Na swobodnym końcu działa siła 8 kN w dół, a na całej długości równomierne obciążenie 3 kN/m. Wyznacz reakcje w utwierdzeniu.
+
+Siła zastępcza od obciążenia równomiernego:
+
+$$
+Q=3\cdot 2{,}5=7{,}5\ \text{kN}
+$$
+
+Działa w odległości 1,25 m od A. Z równowagi pionowej:
+
+$$
+R_{Ay}=8+7{,}5=15{,}5\ \text{kN}
+$$
+
+Reakcja momentowa w utwierdzeniu równoważy moment od obu obciążeń względem A:
+
+$$
+M_A=8\cdot 2{,}5+7{,}5\cdot 1{,}25
+=20+9{,}375=29{,}375\ \text{kN}\cdot\text{m}
+$$
+
+Jeśli obciążenia działają zgodnie z ruchem wskazówek zegara, reakcja momentowa działa przeciwnie. Reakcja pozioma $A_x$ wynosi zero, bo nie ma obciążeń poziomych. Utwierdzenie nadal ma jednak zdolność przenoszenia siły poziomej — jej wartość w tym zadaniu jest po prostu zerowa.
+
+## Trzeci przykład: wariant odwrotny
+
+Belka swobodnie podparta ma długość 4 m. Wiadomo, że przy sile $P=20\ \text{kN}$ reakcja prawej podpory wynosi $R_B=15\ \text{kN}$. W jakiej odległości od lewej podpory działa siła?
+
+Korzystamy z $R_B=Pa/L$ i przekształcamy:
+
+$$
+a=\frac{R_B L}{P}=\frac{15\cdot 4}{20}=3\ \text{m}
+$$
+
+Lewa reakcja wynosi:
+
+$$
+R_A=P-R_B=20-15=5\ \text{kN}
+$$
+
+Moment pod siłą:
+
+$$
+M=R_A\cdot 3=5\cdot 3=15\ \text{kN}\cdot\text{m}
+$$
+
+Sprawdzenie z prawej strony: $R_B\cdot 1=15\cdot 1=15\ \text{kN}\cdot\text{m}$. Wynik jest spójny. Gdyby reakcja $R_B$ była większa od $P$, otrzymalibyśmy $a$ większe od $L$, co oznaczałoby, że dane są sprzeczne z modelem belki swobodnie podpartej.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Traktowanie ujemnej reakcji jako błędu rachunkowego. Minus oznacza jedynie przeciwny zwrot do założonego na schemacie.
+- Pomijanie reakcji momentowej w utwierdzeniu. To najczęstszy błąd przy wspornikach.
+- Rysowanie reakcji podpory przesuwnej pod kątem, gdy podłoże jest poziome. Reakcja jest prostopadła do powierzchni toczenia.
+- Mylenie reakcji podpory z siłą wewnętrzną w przekroju. Reakcja działa z zewnątrz, siła wewnętrzna działa w przekroju.
+- Sumowanie momentów względem punktu, przez który przechodzi niewiadoma, a potem dziwienie się, że niewiadoma nie znika. To nie błąd, ale trzeba świadomie wybierać punkt.
+- Mieszanie jednostek: ramię w mm i siła w kN dają moment w kN·mm, a nie w kN·m.
+- Uznanie układu z trzema podporami za statycznie wyznaczalny. W zadaniu płaskim trzy równania nie wystarczą do wyznaczenia czterech reakcji.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj element i odizoluj go od otoczenia. Zaznacz, gdzie element styka się z podłożem lub innymi elementami.
+2. Dla każdej podpory ustal, które ruchy są zablokowane: przesunięcie poziome, pionowe, obrót.
+3. Przyjmij reakcje zgodnie z zablokowanymi stopniami swobody. Nie dodawaj reakcji, której podpora nie może przenieść.
+4. Policz niewiadome i porównaj z liczbą równań. Trzy niewiadome w płaskim zadaniu to granica układu statycznie wyznaczalnego.
+5. Wybierz punkt do sumy momentów tak, aby przechodziły przez niego linie działania możliwie wielu niewiadomych.
+6. Zapisz równania równowagi poziomej, pionowej i momentów. Pamiętaj o znakach wynikających z przyjętego zwrotu.
+7. Rozwiąż układ i sprawdź sumę sił oraz moment względem innego punktu.
+8. Dopiero po wyznaczeniu reakcji przejdź do sił wewnętrznych i naprężeń. Reakcje są danymi wejściowymi do dalszej analizy.
+
+## Połącz z resztą kursu
+
+- **Model obliczeniowy: świadome uproszczenia** — schemat podpór jest jednym z pierwszych wyborów modelowych.
+- **Obciążenia: siła, rozkład i moment** — reakcje zależą od wartości, kierunku i położenia wypadkowej obciążenia.
+- **Równowaga statyczna: trzy równania** — ta lekcja jest bezpośrednim zastosowaniem równań równowagi.
+- **Metoda przekrojów: zajrzyj do środka** — po wyznaczeniu reakcji można obliczyć siły wewnętrzne w dowolnym przekroju.
+- **Zginanie belek** — reakcje są punktem wyjścia do wykresów sił tnących i momentów zginających.
+- **Zasada Saint-Venanta: dystans od detalu** — sposób przyłożenia reakcji w podporze wpływa na lokalny rozkład naprężeń, ale nie na globalną równowagę.
+
+## Sprawdź się
+
+Pytania sprawdzają rozpoznawanie podpór, liczenie reakcji i kontrolę znaków.
 
 <Quiz>
   <Question outcome="W1">
@@ -88,4 +265,55 @@ $$
       siłę poziomą i moment, nawet jeśli dla danego obciążenia któraś reakcja jest zerowa.
     </Explanation>
   </Question>
+  <Question outcome="U1">
+    <Prompt>Belka o długości 4 m jest podparta w A i B. Siła 20 kN działa 1 m od A. Ile wynosi reakcja RB?</Prompt>
+    <Answer>10 kN</Answer>
+    <Answer correct>5 kN</Answer>
+    <Answer>15 kN</Answer>
+    <Hint>Zapisz momenty względem A: RB · 4 = 20 · 1.</Hint>
+    <Explanation>
+      RB = 20 · 1 / 4 = 5 kN. Pozostałą część przenosi A, więc RA = 15 kN. Suma reakcji wynosi 20 kN.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Po obliczeniu reakcji otrzymano RA = −3 kN przy założeniu, że działa w górę. Co to oznacza?</Prompt>
+    <Answer>Obliczenia są niemożliwe, bo reakcja nie może być ujemna</Answer>
+    <Answer correct>Rzeczywista reakcja ma wartość 3 kN i działa w dół</Answer>
+    <Answer>Trzeba zmienić typ podpory na utwierdzenie</Answer>
+    <Hint>Znak odnosi się do przyjętego na schemacie kierunku.</Hint>
+    <Explanation>
+      Minus informuje, że rzeczywisty zwrot jest przeciwny do założonego. Wartość bezwzględna reakcji wynosi 3 kN; nie
+      jest to samo w sobie sygnałem błędu modelu.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Jak zmieni się reakcja RB, gdy przy niezmienionej belce i sile przesuniemy siłę bliżej podpory B?</Prompt>
+    <Answer>Zmniejszy się, bo ramię a maleje</Answer>
+    <Answer correct>Zwiększy się, bo siła jest bliżej B</Answer>
+    <Answer>Nie zmieni się, bo suma sił jest stała</Answer>
+    <Hint>RB = P · a / L; przy przesuwaniu w stronę B odległość a od A rośnie.</Hint>
+    <Explanation>
+      Gdy siła zbliża się do B, rośnie odległość a od lewej podpory, więc RB = Pa/L rośnie. W granicy, gdy siła działa
+      nad B, całą siłę przenosi B, a RA maleje do zera.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Który zestaw informacji jest konieczny, aby użyć belki jako modelu wejściowego do wymiarowania?</Prompt>
+    <Answer>Tylko wartość siły i nazwa materiału</Answer>
+    <Answer correct>Rozpiętość, położenie i typ podpór, obciążenia oraz materiał</Answer>
+    <Answer>Wyłącznie kolor i kształt przekroju</Answer>
+    <Hint>Pomyśl, od czego zależą reakcje, a od czego naprężenia i sztywność.</Hint>
+    <Explanation>
+      Reakcje zależą od geometrii i obciążeń, a naprężenia i ugięcia dodatkowo od przekroju i materiału. Bez pełnego
+      zestawu danych model nie jest gotowy do wymiarowania.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o więzach, podporach i reakcjach w układach prętowych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — omówienie równowagi ciała sztywnego i reakcji podpór w zadaniach płaskich.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z belkami swobodnie podpartymi i wspornikami, dobre do ćwiczenia znaków reakcji.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdziały o reakcjach i podporach oraz o równaniach równowagi ciała sztywnego; zawierają zestawienie podpór i przykłady wyboru punktu sumowania momentów.
+- D. Roylance, _Mechanics of Materials_ — rozdział o kratownicach; pokazuje, jak idealizacja połączeń przegubowych przekłada się na reakcje i siły osiowe w prętach.

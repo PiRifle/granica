@@ -7,7 +7,6 @@ shortTitle: 'Zadanie: wał'
 description: >-
   Dobieraj wał z warunków naprężenia i kąta skręcenia oraz porównuj wpływ
   średnicy zewnętrznej i wewnętrznej.
-duration: 9
 eyebrow: Pełne rozwiązanie 4
 outcomes:
   - >-
@@ -31,63 +30,288 @@ outcomes:
 solutionId: cw7-1
 ---
 
-Materiał blisko osi przenosi przy skręcaniu małe naprężenia, dlatego wał drążony może być oszczędny. Otwór zmniejsza jednak moment biegunowy, więc jego wpływ trzeba obliczyć, a nie pominąć.
+Wał skręcany spotykasz wszędzie tam, gdzie coś się obraca i przenosi moc: w napędzie samochodu, wiertarce, śrubie okrętowej, maszynie rolniczej. Zadaniem wału jest przeniesienie momentu skręcającego bez przekroczenia dopuszczalnego naprężenia stycznego i bez zbyt dużego kąta skręcenia. Te dwa warunki wyglądają podobnie, ale prowadzą do różnych wymagań geometrycznych.
+
+W pełnym zadaniu najpierw ustalamy moment skręcający w poszczególnych odcinkach. Jeśli wał ma kilka kół lub kilka stref obciążenia, moment może zmieniać się skokowo. Dopiero potem obliczamy naprężenia i kąt skręcenia. Nie wolno zaczynać od wzoru na średnicę, jeśli nie wiadomo, jaki moment rzeczywiście przenosi najbardziej wytężony przekrój.
+
+Drugie pytanie dotyczy kształtu przekroju. W wale pełnym materiał przy osi pracuje słabo, ponieważ naprężenia styczne rosną proporcjonalnie do promienia. Usunięcie środka zmniejsza masę, ale jednocześnie zmniejsza moment bezwładności biegunowej. Wał drążony może być lżejszy i sztywniejszy na jednostkę masy, ale nie jest automatycznie lepszy przy tej samej średnicy zewnętrznej.
+
+Ta lekcja pokazuje, jak porównywać wał pełny i drążony uczciwie: przy tym samym momencie, tej samej długości, tym samym materiale i tych samych warunkach dopuszczalnych. Nauczysz się wyznaczać wymaganą średnicę z wytrzymałości i sztywności, a potem sprawdzać, który warunek decyduje. Zobaczysz też, dlaczego otwór o zbyt dużej średnicy może pogorszyć sytuację.
+
+Laboratorium pozwala ustawić moment, średnicę zewnętrzną i wewnętrzną, a następnie porównać naprężenia w wale pełnym i rurze. Po tej lekcji powinieneś umieć samodzielnie dobrać wał, sprawdzić kąt skręcenia i uzasadnić wybór przekroju.
+
+## Zanim zaczniesz
+
+- Znaj wzór na naprężenie styczne w wale kołowym: $\tau=Tr/J_o$, gdzie $r$ jest odległością od osi, a $J_o$ biegunowym momentem bezwładności.
+- Przypomnij sobie, że dla pełnego koła $J_o=\pi d^4/32$, a dla rury $J_o=\pi(D^4-d^4)/32$. Nie wolno odejmować średnic przed podniesieniem do czwartej potęgi.
+- Rozróżniaj wskaźnik wytrzymałości na skręcanie $W_o=J_o/(D/2)$ od momentu bezwładności $J_o$. Pierwszy służy do warunku naprężenia, drugi do kąta skręcenia.
+- Znaj wzór na kąt skręcenia $\varphi=TL/(GJ_o)$ i pamiętaj, że wychodzi w radianach. Zamiana na stopnie to mnożenie przez $180/\pi$.
+- Pamiętaj o jednostkach: moment w $\text{N}\cdot\text{m}$ zamień na $\text{N}\cdot\text{mm}$ przez pomnożenie przez $1000$, a $G$ w GPa na MPa przez pomnożenie przez $1000$.
+- Odróżnij wytrzymałość od sztywności. Spełnienie warunku $\tau_{\max}\le\tau_{\mathrm{dop}}$ nie gwarantuje, że kąt skręcenia będzie dopuszczalny.
+- Pamiętaj, że wzory dotyczą przekroju kołowego i materiału liniowo sprężystego. Dla przekroju niekołowego rozkład naprężeń jest inny i wymaga odrębnej analizy.
+
+## Model i intuicja
+
+Model skręcania wału kołowego zakłada, że przekroje poprzeczne pozostają płaskie i obracają się względem siebie wokół osi. Nie ma wypaczenia przekroju, a odkształcenie styczne rośnie liniowo od zera na osi do maksimum na obwodzie. Materiał jest liniowo sprężysty i izotropowy, a moment skręcający jest stały na długości rozważanego odcinka.
+
+Przyjęcie, że przekroje pozostają płaskie, jest uzasadnione dla przekroju kołowego lub pierścieniowego. Dla przekroju kwadratowego, trójkątnego albo z rowkiem przekrój się wypacza i proste wzory przestają obowiązywać. Wtedy trzeba użyć teorii skręcania prętów niekołowych albo metody elementów skończonych. W typowym zadaniu podstawowym zakładamy wał kołowy, pełny lub drążony.
+
+Model zakłada też, że moment skręcający jest przyłożony w sposób ciągły lub przez koła i sprzęgła, a jego koncentracja przy wpustach i zmianach średnicy nie jest analizowana. W rzeczywistości rowek wpustowy, ostre podcięcie lub nagła zmiana średnicy mogą zwiększyć naprężenie lokalne nawet kilkukrotnie. To zjawisko koncentracji naprężeń jest szczególnie ważne przy zmęczeniu, ale w pierwszym doborze wymiaru zwykle go pomijamy.
+
+W wale pełnym naprężenie rośnie liniowo od zera w osi do $\tau_{\max}$ na powierzchni. Materiał w środku jest więc słabo wykorzystany. W rurze o tej samej średnicy zewnętrznej naprężenie na powierzchni jest większe, ponieważ ubyło materiału, ale cały przekrój pracuje bardziej równomiernie. To dlatego wały napędowe często wykonuje się jako rury, mimo że przy identycznym $D$ przenoszą mniejszy moment niż wał pełny.
+
+Kluczowe jest rozróżnienie dwóch sytuacji porównawczych. Pierwsza to „ta sama średnica zewnętrzna”: rura ma mniejszy $J_o$ i większe $\tau_{\max}$, więc jest słabsza. Druga to „ta sama masa” albo „ten sam moment”: rura może mieć większą średnicę zewnętrzną i wtedy wypada korzystniej. W zadaniu trzeba zawsze ustalić, co jest wspólne, a co się zmienia.
+
+Model przestaje wystarczać przy dużych kątach skręcenia, gdy odkształcenia przestają być małe, oraz przy materiałach nieliniowych, na przykład tworzywach sztucznych powyżej granicy plastyczności. Osobno trzeba sprawdzić stateczność cienkościennej rury, drgania skrętne i zmęczenie. W typowym zadaniu statycznym zakładamy, że te efekty są kontrolowane poza analizą wytrzymałościową.
+
+## Laboratorium: co ustawić
+
+Ustaw moment $T$ oraz średnice $D$ i $d$. Obserwuj naprężenie maksymalne w wale pełnym i w rurze o tej samej średnicy zewnętrznej oraz oszczędność pola przekroju.
 
 <Lab id="hollowShaft" />
 
+W laboratorium oba przekroje mają to samo $D$ i przenoszą ten sam moment $T$. Rura ma mniejsze pole, więc jej naprężenie maksymalne jest większe niż w wale pełnym. Jednocześnie widać oszczędność pola, która rośnie z średnicą wewnętrzną $d$. To nie jest jeszcze optymalizacja masy, bo nie uwzględnia stateczności ani wymagań technologicznych.
+
+Zwróć uwagę, że przy $d$ bliskim $D$ pole staje się bardzo małe, a naprężenie gwałtownie rośnie. Istnieje więc granica, po której odchudzanie przestaje być korzystne. W praktyce cienkościenna rura może też utracić stateczność miejscową pod obciążeniem skupionym lub w połączeniu. Dobór przekroju to nie tylko rachunek $J_o$, ale też pytanie o wykonanie i montaż.
+
+## Definicje i jednostki
+
+| Symbol                   | Znaczenie                                   | Jednostka typowa         |
+| ------------------------ | ------------------------------------------- | ------------------------ |
+| $T$                      | moment skręcający                           | $\text{N}\cdot\text{mm}$ |
+| $L$                      | długość odcinka wału                        | $\text{mm}$              |
+| $D$                      | średnica zewnętrzna                         | $\text{mm}$              |
+| $d$                      | średnica wewnętrzna, $d=0$ dla wału pełnego | $\text{mm}$              |
+| $r$                      | odległość od osi                            | $\text{mm}$              |
+| $J_o$                    | biegunowy moment bezwładności               | $\text{mm}^4$            |
+| $W_o$                    | wskaźnik wytrzymałości na skręcanie         | $\text{mm}^3$            |
+| $\tau$                   | naprężenie styczne                          | $\text{MPa}$             |
+| $\varphi$                | kąt skręcenia                               | $\text{rad}$             |
+| $G$                      | moduł Kirchhoffa                            | $\text{MPa}$             |
+| $\tau_{\mathrm{dop}}$    | dopuszczalne naprężenie styczne             | $\text{MPa}$             |
+| $\varphi_{\mathrm{dop}}$ | dopuszczalny kąt skręcenia                  | $\text{rad}$             |
+
+Biegunowy moment bezwładności opisuje, jak materiał jest rozmieszczony względem osi obrotu. Dla pełnego koła $J_o=\pi d^4/32$, a dla rury $J_o=\pi(D^4-d^4)/32$. Widać, że $J_o$ zależy od czwartej potęgi średnicy, więc niewielka zmiana $D$ daje dużą zmianę sztywności. To dlatego zwiększenie średnicy jest tak skutecznym sposobem ograniczania kąta skręcenia.
+
+Wskaźnik wytrzymałości na skręcanie to $W_o=J_o/r_{\max}$, gdzie $r_{\max}=D/2$. Dla pełnego koła $W_o=\pi d^3/16$, a dla rury $W_o=\pi(D^4-d^4)/(16D)$. Naprężenie maksymalne wynosi $\tau_{\max}=T/W_o$ i występuje na zewnętrznym obwodzie. Wartość $\tau$ na promieniu $r$ obliczamy z $\tau=Tr/J_o$; jest ona liniowa względem $r$.
+
+Kąt skręcenia jest miarą odkształcenia całego odcinka. Dla stałego $T$, $G$ i $J_o$ wynosi $\varphi=TL/(GJ_o)$. Jednostka wynika z $\text{N}\cdot\text{mm}\cdot\text{mm}/(\text{MPa}\cdot\text{mm}^4)$, co daje radiany. Kąt można podać w stopniach, ale do wzorów zawsze wracamy z wartością w radianach.
+
+| Przekrój         | $J_o$             | $W_o$                |
+| ---------------- | ----------------- | -------------------- |
+| wał pełny o $d$  | $\pi d^4/32$      | $\pi d^3/16$         |
+| rura o $D$ i $d$ | $\pi(D^4-d^4)/32$ | $\pi(D^4-d^4)/(16D)$ |
+
+W zadaniach z wałem drążonym wygodnie jest wprowadzić stosunek średnic $\alpha=d/D$. Wtedy $J_o=\pi D^4(1-\alpha^4)/32$ i $W_o=\pi D^3(1-\alpha^4)/16$. Współczynnik $1-\alpha^4$ pokazuje, ile materiału „zostało” względem wału pełnego o tej samej średnicy zewnętrznej. Dla $\alpha=0{,}5$ zostaje $93{,}75$ procent, a dla $\alpha=0{,}8$ już tylko około $59$ procent.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\tau_{max} = \frac{T}{W_o} \qquad J_o = \frac{\pi(D^4-d^4)}{32} \qquad \varphi = \frac{TL}{GJ_o}
+\tau_{\max}=\frac{T}{W_o}\le\tau_{\mathrm{dop}} \qquad W_o=\frac{J_o}{D/2} \qquad \varphi=\frac{TL}{GJ_o}\le\varphi_{\mathrm{dop}}
 $$
 
-<Caption>Wo = Jo/(D/2) dla wału drążonego, a D oznacza średnicę zewnętrzną. Kąt φ otrzymujemy w radianach; 1 rad ≈ 57,2958°.</Caption>
+<Caption>Pierwszy warunek dotyczy naprężenia na zewnętrznym obwodzie, drugi definiuje wskaźnik, trzeci ogranicza kąt skręcenia. Dla rury $J_o=\pi(D^4-d^4)/32$ i $W_o=2J_o/D$. Kąt $\varphi$ otrzymujemy w radianach; $\varphi_{\mathrm{dop}}$ też trzeba podstawić w radianach.</Caption>
 </Formula>
 
+1. Ustalamy schemat: gdzie przyłożono momenty, jakie są długości odcinków i czy wał jest utwierdzony, czy swobodnie podparty w łożyskach. Łożyska nie przenoszą momentu skręcającego, więc nie zmieniają $T$ wzdłuż wału.
+2. Dzielimy wał na odcinki o stałym $T$, $D$, $d$ i materiale. Granice wyznaczają miejsca przyłożenia momentów oraz zmiany średnicy. W każdym odcinku $T$ musi być stałe.
+3. Wyznaczamy moment skręcający w każdym odcinku z równowagi. Jeśli wał przenosi kilka momentów, wykres $T(x)$ jest schodkowy, a skoki odpowiadają przyłożonym momentom.
+4. Zapisujemy związek geometryczny: odkształcenie styczne $\gamma=r\,d\varphi/dz$. Kąt obrotu względnego dwóch przekrojów rośnie liniowo z promieniem.
+5. Korzystamy z prawa Hooke'a dla ścinania: $\tau=G\gamma=Gr\,d\varphi/dz$. Materiał jest liniowo sprężysty, więc naprężenie jest proporcjonalne do odkształcenia.
+6. Z równowagi momentów na przekroju: $T=\int_A\tau r\,dA=G\,d\varphi/dz\int_A r^2\,dA=GJ_o\,d\varphi/dz$. Całka $\int_A r^2\,dA$ to właśnie $J_o$.
+7. Wyznaczamy gradient kąta: $d\varphi/dz=T/(GJ_o)$. Po scałkowaniu na odcinku o stałych parametrach otrzymujemy $\varphi=TL/(GJ_o)$.
+8. Podstawiamy gradient do wzoru na naprężenie: $\tau=GrT/(GJ_o)=Tr/J_o$. Maksimum na zewnętrznym obwodzie $r=D/2$ daje $\tau_{\max}=T(D/2)/J_o=T/W_o$.
+9. Warunek wytrzymałości przekształcamy do $W_o\ge T/\tau_{\mathrm{dop}}$. Dla wybranego kształtu podstawiamy $W_o$ i rozwiązujemy nierówność względem $D$ lub $d$.
+10. Osobno sprawdzamy kąt skręcenia: $J_o\ge TL/(G\varphi_{\mathrm{dop}})$. To wymaganie dotyczy $J_o$, a nie $W_o$, więc może dać inny wymiar niż warunek naprężeniowy.
+11. Przyjmujemy większy z obu wymaganych wymiarów, zaokrąglamy w górę do dostępnego szeregu i wracamy do obu warunków z rzeczywistymi $D$ i $d$.
+12. Zapisujemy, który warunek decyduje, oraz rzeczywiste naprężenie, kąt i zapas. To zamyka pełne zadanie projektowe.
+
+Dla rury wygodnie jest rozwiązać nierówność względem $D$ przy zadanym stosunku $\alpha=d/D$. Z warunku wytrzymałości $D\ge\sqrt[3]{16T/[\pi\tau_{\mathrm{dop}}(1-\alpha^4)]}$. Z warunku sztywności $D\ge\sqrt[4]{32TL/[\pi G\varphi_{\mathrm{dop}}(1-\alpha^4)]}$. Oba wzory mają ten sam czynnik $1-\alpha^4$, który opisuje ubytek materiału.
+
 <Insight>
-  Przy stałym T i L warunek wytrzymałości wyznacza wymagane Wo, a warunek sztywności wymagane Jo. To różne wielkości
-  geometryczne.
+  Warunek wytrzymałości wyznacza $W_o$, a warunek sztywności $J_o$. To różne wielkości geometryczne, powiązane przez
+  $W_o=2J_o/D$. Przy stałym $T$ i $L$ można spełnić jeden warunek, a nie spełnić drugiego. Dlatego nigdy nie wystarcza
+  sprawdzenie samego naprężenia.
 </Insight>
 
 <WorkedExample>
-  <Given>Wał pełny przenosi T = 400 N·m; dopuszczalne naprężenie styczne wynosi τdop = 40 MPa.</Given>
+  <Given>
+    Wał stalowy przenosi moment $T=1200\ \text{N}\cdot\text{m}$ na długości $L=1{,}2\ \text{m}$. Przyjmij $\tau_{\mathrm{dop}}=45\ \text{MPa}$, $\varphi_{\mathrm{dop}}=1{,}5^\circ$, $G=80\ \text{GPa}$. Dobierz wał pełny, a następnie rurę o stosunku średnic $\alpha=d/D=0{,}6$ i porównaj pola.
+  </Given>
   <Steps>
-    <Step>Wymagany wskaźnik: Wo = T/τdop = 400 000/40 = 10 000 mm³.</Step>
-    <Step>Dla pełnego koła Wo = πD³/16.</Step>
-    <Step>Dmin = ∛(16Wo/π) = ∛(160 000/π) = 37,07 mm.</Step>
-    <Step>Przyjmujemy np. D = 38 mm i sprawdzamy kąt skręcenia.</Step>
+    <Step>Moment w jednostkach spójnych: $T=1200\ \text{N}\cdot\text{m}=1\,200\,000\ \text{N}\cdot\text{mm}$.</Step>
+    <Step>Kąt dopuszczalny: $\varphi_{\mathrm{dop}}=1{,}5\cdot\pi/180\approx0{,}02618\ \text{rad}$.</Step>
+    <Step>Wał pełny, wytrzymałość: $W_{o,\min}=T/\tau_{\mathrm{dop}}=1\,200\,000/45=26\,667\ \text{mm}^3$.</Step>
+    <Step>Średnica z wytrzymałości: $d\ge\sqrt[3]{16T/(\pi\tau_{\mathrm{dop}})}=\sqrt[3]{19\,200\,000/(\pi\cdot45)}\approx51{,}4\ \text{mm}$.</Step>
+    <Step>Wał pełny, sztywność: $J_{o,\min}=TL/(G\varphi_{\mathrm{dop}})=1\,200\,000\cdot1200/(80\,000\cdot0{,}02618)\approx687\,500\ \text{mm}^4$.</Step>
+    <Step>Średnica ze sztywności: $d\ge\sqrt[4]{32J_{o,\min}/\pi}=\sqrt[4]{32\cdot687\,500/\pi}\approx51{,}5\ \text{mm}$.</Step>
+    <Step>Przyjmujemy $d=55\ \text{mm}$. Wtedy $W_o=\pi\cdot55^3/16\approx32\,668\ \text{mm}^3$, $\tau_{\max}=1\,200\,000/32\,668\approx36{,}7\ \text{MPa}$, a $J_o\approx898\,360\ \text{mm}^4$.</Step>
+    <Step>Kąt wału pełnego: $\varphi=1\,200\,000\cdot1200/(80\,000\cdot898\,360)\approx0{,}02004\ \text{rad}\approx1{,}15^\circ\le1{,}5^\circ$.</Step>
+    <Step>Rura o $\alpha=0{,}6$: $1-\alpha^4=1-0{,}1296=0{,}8704$. Z wytrzymałości $D\ge\sqrt[3]{16T/[\pi\tau_{\mathrm{dop}}(1-\alpha^4)]}\approx53{,}8\ \text{mm}$.</Step>
+    <Step>Ze sztywności $D\ge\sqrt[4]{32TL/[\pi G\varphi_{\mathrm{dop}}(1-\alpha^4)]}\approx53{,}3\ \text{mm}$, więc decyduje wytrzymałość.</Step>
+    <Step>Przyjmujemy $D=56\ \text{mm}$ i $d=34\ \text{mm}$. Wtedy $J_o\approx834\,300\ \text{mm}^4$, $W_o=2J_o/D\approx29\,797\ \text{mm}^3$, $\tau_{\max}\approx40{,}3\ \text{MPa}$, a $\varphi\approx0{,}02158\ \text{rad}\approx1{,}24^\circ$.</Step>
+    <Step>Pola: wał pełny $A=\pi\cdot55^2/4\approx2376\ \text{mm}^2$, rura $A=\pi(56^2-34^2)/4\approx1555\ \text{mm}^2$, czyli oszczędność około $35$ procent.</Step>
   </Steps>
-  <Result>Z warunku wytrzymałości Dmin ≈ 37,1 mm; po zaokrągleniu do 38 mm pozostaje kontrola sztywności.</Result>
+  <Result>
+    Wał pełny o $d=55\ \text{mm}$ spełnia oba warunki, a rura $D=56\ \text{mm}$, $d=34\ \text{mm}$ jest o około $35$ procent lżejsza przy nieco większym naprężeniu $40{,}3\ \text{MPa}$ i kącie $1{,}24^\circ$.
+  </Result>
 </WorkedExample>
+
+W przykładzie oba warunki dla wału pełnego dały prawie identyczną średnicę. To nie jest przypadkiem: przy typowych wartościach $G$, $\tau_{\mathrm{dop}}$ i $\varphi_{\mathrm{dop}}$ wytrzymałość i sztywność często są blisko siebie. Nie wolno jednak zakładać, że tak będzie zawsze. Przy długim wale i małym dopuszczalnym kącie sztywność może zdecydować znacznie wcześniej, a przy krótkim wale i dużym momencie — wytrzymałość.
+
+## Drugi przykład
+
+Porównajmy teraz wał pełny i rurę przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Wał pełny ma $d=55\ \text{mm}$ i pole około $2376\ \text{mm}^2$, a więc $J_o\approx898\,360\ \text{mm}^4$. Dobierzmy rurę o tej samej długości i masie, ale o większej średnicy zewnętrznej $D=70\ \text{mm}$.
+
+Z równości pól: $\pi(70^2-d^2)/4=2376$, czyli $d^2=70^2-4\cdot2376/\pi\approx1875$. Stąd $d\approx43{,}3\ \text{mm}$. Moment bezwładności rury wynosi $J_o=\pi(70^4-43{,}3^4)/32\approx2{,}01\cdot10^6\ \text{mm}^4$, czyli około $2{,}24$ razy więcej niż wału pełnego.
+
+Przy tym samym momencie $T=1200\ \text{N}\cdot\text{m}$ naprężenie w rurze wynosi około $20{,}9\ \text{MPa}$ zamiast $36{,}7\ \text{MPa}$, a kąt skręcenia około $0{,}512^\circ$ zamiast $1{,}15^\circ$. Rura jest więc jednocześnie lżejsza w przeliczeniu na jednostkę długości, sztywniejsza i mniej wytężona. To wyjaśnia, dlaczego wały napędowe i drążki skrętne często mają przekrój rurowy.
+
+Cena tego rozwiązania to większa średnica zewnętrzna, a więc większe wymagania gabarytowe i większa podatność cienkiej ścianki na uszkodzenia. Rura o małej grubości ścianki może też wymagać żeber, tulei lub ograniczenia obciążenia skupionego. W zadaniu projektowym trzeba więc porównać nie tylko masę i sztywność, ale też przestrzeń, sposób mocowania i koszt wykonania.
+
+Przy tej samej masie rura ma większy $J_o$, a w naszym przykładzie także większy $W_o$ niż wał pełny o średnicy $55\ \text{mm}$, ponieważ jej średnica zewnętrzna jest większa. Wskaźnik rury wynosi około $57\,500\ \text{mm}^3$, a wału pełnego $32\,668\ \text{mm}^3$. To pokazuje, że porównanie „na masę” jest zupełnie inne niż porównanie „na średnicę”.
+
+## Trzeci przykład: wariant odwrotny
+
+Znamy geometrię i pytamy o dopuszczalny moment. Rura ma $D=80\ \text{mm}$, $d=50\ \text{mm}$ i długość $L=1{,}5\ \text{m}$. Przyjmij $\tau_{\mathrm{dop}}=40\ \text{MPa}$, $\varphi_{\mathrm{dop}}=2^\circ$ i $G=80\ \text{GPa}$.
+
+Najpierw geometria: $J_o=\pi(80^4-50^4)/32\approx3\,407\,625\ \text{mm}^4$, a $W_o=2J_o/D\approx85\,191\ \text{mm}^3$. Z wytrzymałości $T\le\tau_{\mathrm{dop}}W_o=40\cdot85\,191\approx3\,407\,640\ \text{N}\cdot\text{mm}\approx3{,}41\ \text{kN}\cdot\text{m}$.
+
+Kąt dopuszczalny w radianach wynosi $2\cdot\pi/180\approx0{,}03491$. Z warunku sztywności $T\le GJ_o\varphi_{\mathrm{dop}}/L=80\,000\cdot3\,407\,625\cdot0{,}03491/1500\approx6{,}34\ \text{kN}\cdot\text{m}$.
+
+Decyduje wytrzymałość, więc $T_{\max}\approx3{,}41\ \text{kN}\cdot\text{m}$. Przy tym momencie kąt wynosi $\varphi=3{,}41\cdot10^6\cdot1500/(80\,000\cdot3\,407\,625)\approx0{,}01875\ \text{rad}\approx1{,}07^\circ$, czyli znacznie mniej niż $2^\circ$. Zapas sztywności jest duży, ale zapas wytrzymałości został wykorzystany.
+
+Ciekawa jest zależność kąta od naprężenia przy $T=\tau W_o$. Dla rury $W_o=2J_o/D$, więc $\varphi=TL/(GJ_o)=\tau(2J_o/D)L/(GJ_o)=2\tau L/(GD)$. Przy stałym $\tau$ kąt zależy od $L/D$, a nie od grubości ścianki wprost. To pokazuje, że wydłużanie wału lub zmniejszanie średnicy zewnętrznej zwiększa kąt nawet wtedy, gdy naprężenie pozostaje takie samo.
+
+Wariant odwrotny jest dobrym testem zrozumienia, ponieważ wymaga przejścia od geometrii do $J_o$, potem do $W_o$, a następnie do $T$ z dwóch różnych warunków. Każdy krok ma inną jednostkę i inne znaczenie fizyczne. Zapisanie, który warunek decyduje, jest równie ważne jak sam wynik liczbowy.
+
+<Callout kind="warning" title="Typowe błędy">
+  1. **Odejmowanie średnic przed potęgowaniem.** $J_o$ rury to $\pi(D^4-d^4)/32$, a nie $\pi(D-d)^4/32$. Błąd jest ogromny i rośnie z różnicą średnic.
+  2. **Użycie $d$ zamiast $D/2$ we wskaźniku.** $W_o=2J_o/D$, ponieważ maksimum naprężenia występuje na zewnętrznym promieniu. Podstawienie promienia wewnętrznego jest błędem.
+  3. **Brak zamiany kąta na radiany.** $\varphi_{\mathrm{dop}}=1{,}5^\circ$ to około $0{,}02618\ \text{rad}$, a nie $1{,}5$. Wstawienie stopni do wzoru daje wynik około $57$ razy za duży.
+  4. **Mylenie $W_o$ z $J_o$.** Warunek naprężeniowy używa $W_o$, a warunek sztywności $J_o$. To różne wielkości i mogą prowadzić do różnych wymiarów.
+  5. **Założenie, że rura jest zawsze lepsza.** Przy tej samej średnicy zewnętrznej rura ma mniejszy $J_o$ i większe naprężenie. Przewaga pojawia się przy porównaniu na masę lub przy większej średnicy zewnętrznej.
+  6. **Pominięcie koncentracji naprężeń.** Rowek wpustowy, otwór poprzeczny lub nagła zmiana średnicy mogą zwiększyć naprężenie lokalne. Warunek $T/W_o$ dotyczy przekroju z dala od takich miejsc.
+  7. **Brak kontroli po doborze.** Po zaokrągleniu średnic trzeba przeliczyć $J_o$, $W_o$, naprężenie i kąt. Decydujący warunek może się zmienić.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Narysuj wał i zaznacz momenty.** Ustal, gdzie moment jest przyłożony, gdzie są łożyska i które odcinki przenoszą jaki $T$. Łożyska nie przenoszą momentu skręcającego.
+2. **Podziel wał na odcinki.** Granice wyznaczają zmiany średnicy, materiału i miejsca przyłożenia momentów. W każdym odcinku $T$, $D$, $d$ i $G$ powinny być stałe.
+3. **Wyznacz $T$ w każdym odcinku.** Użyj równowagi momentów. Sprawdź, czy wykres $T(x)$ zamyka się i czy skoki odpowiadają przyłożonym momentom.
+4. **Oblicz $J_o$ i $W_o$.** Dla pełnego koła użyj $\pi d^4/32$ i $\pi d^3/16$, dla rury $\pi(D^4-d^4)/32$ i $2J_o/D$.
+5. **Sprawdź warunek naprężenia.** $\tau_{\max}=T/W_o\le\tau_{\mathrm{dop}}$. Wskaż przekrój z największym ilorazem $T/W_o$, nie tylko z największym $T$.
+6. **Sprawdź warunek sztywności.** $\varphi=TL/(GJ_o)\le\varphi_{\mathrm{dop}}$. Pamiętaj o sumowaniu kątów, jeśli wał ma kilka odcinków o różnych $J_o$.
+7. **Porównaj wymagane wymiary.** Z warunku naprężenia i sztywności otrzymasz zwykle dwa różne wymagania. Przyjmij większe i zaokrąglij w górę.
+8. **Wróć do obu warunków.** Oblicz rzeczywiste $\tau_{\max}$, $\varphi$ i zapas. Zapisz, który warunek decyduje.
+9. **Sprawdź przypadek graniczny.** Przy bardzo cienkiej ściance naprężenie i kąt mogą rosnąć gwałtownie. Sprawdź, czy rura nie jest zbyt cienka dla przyjętego sposobu wykonania.
+
+Po rozwiązaniu warto sprawdzić, czy jednostki są spójne: $T$ w $\text{N}\cdot\text{mm}$, $J_o$ w $\text{mm}^4$, $G$ w MPa, $L$ w mm. Kąt musi wyjść w radianach. Jeśli wychodzi w stopniach bez zamiany, to znak, że do wzoru podstawiono stopnie zamiast radianów.
+
+## Połącz z resztą kursu
+
+- **Skręcanie wału pełnego** wprowadza wzór $\tau=Tr/J_o$ i rozkład naprężeń liniowy od osi. W tej lekcji stosujemy go do doboru średnicy.
+- **Skręcanie rury** wyjaśnia, dlaczego materiał przy osi jest słabo wykorzystany i jak zmienia się $J_o$ po usunięciu środka.
+- **Kąt skręcenia i sztywność wału** dostarczają warunku $\varphi=TL/(GJ_o)$. Tutaj łączymy go z warunkiem naprężenia.
+- **Dobór średnicy: wytrzymałość i sztywność** pokazuje ten sam schemat dla pojedynczego wału. W pełnym zadaniu dochodzi porównanie wariantów i kontrola decyzji.
+- **Hipotezy wytężeniowe** są potrzebne, gdy do skręcania dochodzi zginanie lub siła osiowa. Wtedy sam $\tau_{\max}$ nie wystarcza.
+- **Strategia kolokwium** przypomina o jednostkach, zamianie stopni na radiany i zapisaniu warunku decydującego. W zadaniach z wałem te kontrole są szczególnie skuteczne.
+
+## Sprawdź się
+
+Pytania sprawdzają związek $T$, $W_o$ i $\tau$, wpływ średnicy na $J_o$, decyzję między warunkami oraz interpretację wału drążonego. Odpowiadaj bez zaglądania do wzorów, ale po każdym pytaniu sprawdź jednostki.
+
+Jeśli pomylisz $W_o$ z $J_o$, wróć do definicji $W_o=J_o/r_{\max}$. Jeśli pomylisz kąt, sprawdź, czy użyłeś radianów i czy $J_o$ dotyczy właściwego przekroju.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Wał ma T = 500 N·m i Wo = 20 000 mm³. Ile wynosi τmax?</Prompt>
-    <Answer>2,5 MPa</Answer>
-    <Answer correct>25 MPa</Answer>
-    <Answer>250 MPa</Answer>
-    <Hint>500 N·m = 500 000 N·mm.</Hint>
-    <Explanation>τmax = T/Wo = 500 000/20 000 = 25 N/mm² = 25 MPa.</Explanation>
+    <Prompt>Wał przenosi $T=800\ \text{N}\cdot\text{m}$, a $W_o=20\,000\ \text{mm}^3$. Ile wynosi $\tau_{\max}$?</Prompt>
+    <Answer>$4\ \text{MPa}$</Answer>
+    <Answer correct>$40\ \text{MPa}$</Answer>
+    <Answer>$400\ \text{MPa}$</Answer>
+    <Hint>$800\ \text{N}\cdot\text{m}=800\,000\ \text{N}\cdot\text{mm}$.</Hint>
+    <Explanation>
+      $\tau_{\max}=T/W_o=800\,000/20\,000=40\ \text{N/mm}^2=40\ \text{MPa}$. Bez zamiany jednostek wynik byłby tysiąc razy za mały.
+    </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>Jak zmieni się kąt skręcenia wału pełnego, jeśli średnica wzrośnie 2 razy?</Prompt>
+    <Prompt>Jak zmieni się kąt skręcenia wału pełnego, jeśli średnica wzrośnie dwa razy przy stałym $T$ i $L$?</Prompt>
     <Answer correct>Zmniejszy się szesnastokrotnie</Answer>
     <Answer>Zmniejszy się czterokrotnie</Answer>
     <Answer>Wzrośnie szesnastokrotnie</Answer>
-    <Hint>Jo pełnego koła jest proporcjonalne do D⁴.</Hint>
+    <Hint>$J_o$ pełnego koła jest proporcjonalne do $d^4$.</Hint>
     <Explanation>
-      φ = TL/(GJo), a Jo pełnego koła jest proporcjonalne do D⁴. Gdy D rośnie dwa razy, Jo rośnie 2⁴ = 16 razy, więc
-      przy pozostałych danych bez zmian kąt maleje szesnastokrotnie.
+      $\varphi=TL/(GJ_o)$, a $J_o$ rośnie $2^4=16$ razy. Przy pozostałych danych bez zmian kąt maleje szesnastokrotnie.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>Z wytrzymałości wychodzi D ≥ 42 mm, a z kąta skręcenia D ≥ 48 mm. Co przyjąć?</Prompt>
-    <Answer>42 mm</Answer>
-    <Answer>45 mm</Answer>
-    <Answer correct>Co najmniej 48 mm</Answer>
+    <Prompt>Z wytrzymałości wychodzi $D\ge42\ \text{mm}$, a z kąta skręcenia $D\ge48\ \text{mm}$. Co przyjąć?</Prompt>
+    <Answer>$42\ \text{mm}$</Answer>
+    <Answer>$45\ \text{mm}$</Answer>
+    <Answer correct>Co najmniej $48\ \text{mm}$</Answer>
     <Hint>Większa średnica jest potrzebna, by spełnić oba warunki.</Hint>
     <Explanation>
-      Należy przyjąć co najmniej 48 mm. Przy 42 mm spełniony byłby warunek naprężeniowy, lecz kąt przekroczyłby wartość
-      dopuszczalną.
+      Należy przyjąć co najmniej $48\ \text{mm}$. Przy $42\ \text{mm}$ spełniony byłby warunek naprężeniowy, lecz kąt przekroczyłby wartość dopuszczalną.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Porównujesz wał pełny i rurę o tej samej średnicy zewnętrznej $D$ przy tym samym $T$. Który przekrój ma większe $\tau_{\max}$?</Prompt>
+    <Answer>Wał pełny</Answer>
+    <Answer correct>Rura</Answer>
+    <Answer>Oba mają takie samo $\tau_{\max}$</Answer>
+    <Hint>Rura ma mniejszy $J_o$ przy tym samym $D$.</Hint>
+    <Explanation>
+      Usunięcie środka zmniejsza $J_o$ i $W_o$, więc przy tym samym $T$ naprężenie na zewnętrznym obwodzie rury jest większe. Rura wygrywa dopiero przy porównaniu na masę lub przy większym $D$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Wał pełny ma $d=60\ \text{mm}$. Ile wynosi $J_o$?</Prompt>
+    <Answer>$0{,}636\cdot10^6\ \text{mm}^4$</Answer>
+    <Answer correct>$1{,}272\cdot10^6\ \text{mm}^4$</Answer>
+    <Answer>$2{,}545\cdot10^6\ \text{mm}^4$</Answer>
+    <Hint>$J_o=\pi d^4/32$.</Hint>
+    <Explanation>
+      $d^4=60^4=12\,960\,000\ \text{mm}^4$, więc $J_o=\pi\cdot12\,960\,000/32\approx1\,272\,345\ \text{mm}^4$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Rura ma $d=D/2$. Jaką część $J_o$ wału pełnego o tej samej średnicy zewnętrznej stanowi $J_o$ rury?</Prompt>
+    <Answer>1/16</Answer>
+    <Answer>1/2</Answer>
+    <Answer correct>15/16</Answer>
+    <Hint>$1-\alpha^4$ dla $\alpha=1/2$.</Hint>
+    <Explanation>
+      $J_o$ rury jest proporcjonalne do $1-\alpha^4=1-1/16=15/16$. Usunięcie połowy średnicy zabiera tylko około $6$ procent momentu bezwładności, ale znacznie więcej pola.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W czystym skręcaniu naprężenie styczne wynosi $50\ \text{MPa}$. Jaka jest największa wartość naprężenia głównego?</Prompt>
+    <Answer>$0\ \text{MPa}$</Answer>
+    <Answer correct>$50\ \text{MPa}$</Answer>
+    <Answer>$100\ \text{MPa}$</Answer>
+    <Hint>W czystym ścinaniu naprężenia główne wynoszą $\pm\tau$.</Hint>
+    <Explanation>
+      Koło Mohra ma środek w zerze i promień $50\ \text{MPa}$, więc naprężenia główne to $50\ \text{MPa}$ i $-50\ \text{MPa}$. Największe naprężenie główne wynosi $50\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Przy tej samej masie rura ma większą średnicę zewnętrzną niż wał pełny. Co dzieje się z kątem skręcenia przy tym samym $T$ i $L$?</Prompt>
+    <Answer correct>Maleje, bo $J_o$ rośnie</Answer>
+    <Answer>Rośnie, bo średnica jest większa</Answer>
+    <Answer>Nie zmienia się, bo masa jest ta sama</Answer>
+    <Hint>$\varphi=TL/(GJ_o)$, a $J_o$ zależy od rozmieszczenia materiału.</Hint>
+    <Explanation>
+      Przy tej samej masie materiał rury leży dalej od osi, więc $J_o$ jest większe niż w wale pełnym. Większe $J_o$ oznacza mniejszy kąt skręcenia.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — rozdział o skręcaniu wałów; szukaj zadań z doborem średnicy pełnej i rurowej oraz kontrolą kąta.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — rozdział o skręcaniu prętów kołowych; wyprowadzenie rozkładu naprężeń i kąta skręcenia.
+- D. Roylance, _Mechanics of Materials_, MIT OpenCourseWare — rozdział „Shear and Torsion”; otwarty podręcznik z przykładem wału drążonego i porównaniem masy.
+- T. Wierzbicki, _Structural Mechanics_, MIT OpenCourseWare — rozdział o prawie Hooke'a w 3-D i module Kirchhoffa; pokazuje związek $G=E/[2(1+\nu)]$.
+- MIT 3.11 _Mechanics of Materials_, notatki wykładowe o skręcaniu — otwarte materiały z rysunkami rozkładu naprężeń i omówieniem koncentracji przy rowkach.

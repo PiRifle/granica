@@ -12,6 +12,36 @@ export default {
   ],
   result:
     'γ_xy = 2,47·10⁻⁴; ε_I = 2,95225·10⁻⁴, ε_II = −2,92225·10⁻⁴; φ_I = 12,432°, φ_II = 102,432°; dla stali σ_I = 45,62 MPa, σ_II = −44,76 MPa.',
+  figure: {
+    kind: 'rosette',
+    gauges: [
+      { angle: 0, label: '0°', value: 0.000268, display: '2,68·10⁻⁴' },
+      { angle: 45, label: '45°', value: 0.000125, display: '1,25·10⁻⁴' },
+      { angle: 90, label: '90°', value: -0.000265, display: '−2,65·10⁻⁴' },
+    ],
+    gamma: { value: 0.000247, display: '2,47·10⁻⁴' },
+    mohr: {
+      center: 0.0000015,
+      radius: 0.0002937252,
+      left: -0.0002922252,
+      right: 0.0002952252,
+      angle: 12.432,
+    },
+    values: [
+      { label: 'ε₀', value: '2,68·10⁻⁴', focus: 'gauges' },
+      { label: 'ε₄₅', value: '1,25·10⁻⁴', focus: 'gauges' },
+      { label: 'ε₉₀', value: '−2,65·10⁻⁴', focus: 'gauges' },
+      { label: 'γ_xy', value: '2,47·10⁻⁴', focus: 'shear' },
+      { label: 'ε_sr', value: '1,50·10⁻⁶', focus: 'mohr' },
+      { label: 'R_ε', value: '2,937252·10⁻⁴', focus: 'mohr' },
+      { label: 'ε_I', value: '2,95225·10⁻⁴', focus: 'principal' },
+      { label: 'ε_II', value: '−2,92225·10⁻⁴', focus: 'principal' },
+      { label: 'φ_I', value: '12,432°', focus: 'angle' },
+      { label: 'σ_I', value: '45,62 MPa', focus: 'stress' },
+      { label: 'σ_II', value: '−44,76 MPa', focus: 'stress' },
+    ],
+    note: 'Kierunki główne obracają się o φ = 12,432° od czujnika 0°; koło Mohra pokazuje stan odkształcenia.',
+  },
   scenes: [
     {
       title: 'Przypisz odczyty do osi',

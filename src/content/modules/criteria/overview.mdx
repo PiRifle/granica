@@ -1,1 +1,151 @@
-Od pojedynczego naprężenia do jednej miary wytężenia: naprężenia główne, HMH, Tresca, obciążenia złożone i współczynnik bezpieczeństwa.
+## Co to jest ten moduł
+
+Wyobraź sobie wał napędowy, który jednocześnie przenosi moment skręcający, zginanie i niewielką siłę osiową. W jednym punkcie jego przekroju działa naprężenie normalne od zginania i siły osiowej oraz naprężenie styczne od skręcania. Żadna z tych liczb osobno nie odpowiada na najważniejsze pytanie: czy materiał jest jeszcze bezpieczny? Moduł ten uczy, jak zamienić cały zestaw składowych naprężenia na jedną miarę wytężenia, którą można porównać z wynikiem zwykłej próby rozciągania.
+
+W module siódmym i ósmym poznałeś stan naprężenia oraz stan odkształcenia. Wiesz już, że naprężenia zależą od orientacji przekroju, a w każdym punkcie można znaleźć trzy prostopadłe kierunki główne, w których nie ma ścinania. Ten moduł bierze te informacje i zadaje pytanie inżynierskie: skoro materiał pęka albo płynie przy pewnym naprężeniu zmierzonym w próbie jednoosiowej, to jak rozpoznać moment zniszczenia, gdy naprężeń jest kilka naraz?
+
+Odpowiedzią jest hipoteza wytężeniowa. Hipoteza to świadomie przyjęty model opisujący, która kombinacja naprężeń najbardziej niszczy materiał. Zamiast zgadywać, tworzymy funkcję naprężeń głównych, kalibrujemy ją tak, aby w próbie rozciągania dawała znaną granicę materiału, a następnie używamy jej w dowolnym stanie naprężenia. Wynik tej funkcji nazywamy naprężeniem zredukowanym, naprężeniem równoważnym albo naprężeniem zastępczym.
+
+Po tym module będziesz umiał wskazać punkt decydujący o bezpieczeństwie, wybrać hipotezę pasującą do materiału, obliczyć naprężenie zredukowane według najczęstszych kryteriów, sprawdzić warunek wytrzymałości i policzyć rzeczywisty współczynnik bezpieczeństwa. Nauczysz się też odróżniać sytuację, w której wystarczy jedna liczba, od takiej, w której trzeba sprawdzić kilka punktów albo kilka warunków. Moduł odpowiada więc na trzy pytania: co to znaczy, że materiał jest blisko granicy przy kilku naprężeniach; który przekrój i punkt naprawdę decyduje o bezpieczeństwie; jak dobrać model do materiału i zapisać wynik, aby można było go obronić przed projektantem lub komisją egzaminacyjną.
+
+Warto od razu rozdzielić trzy często mylone pojęcia. Naprężenie rzeczywiste to składowa stanu naprężenia w konkretnym punkcie i kierunku. Naprężenie zredukowane to liczba obliczona z całego stanu według hipotezy. Naprężenie dopuszczalne to granica materiału podzielona przez wymagany współczynnik bezpieczeństwa. Mieszanie tych trzech poziomów jest najczęstszą przyczyną błędnych wniosków.
+
+| Pojęcie                     | Co opisuje                            | Skąd pochodzi                        |
+| --------------------------- | ------------------------------------- | ------------------------------------ |
+| Naprężenie rzeczywiste      | stan w punkcie i kierunku             | analiza sił wewnętrznych i geometrii |
+| Naprężenie główne           | skrajne naprężenie normalne w punkcie | transformacja stanu naprężenia       |
+| Naprężenie zredukowane      | jedna miara wytężenia                 | wybrana hipoteza wytężeniowa         |
+| Naprężenie dopuszczalne     | granica przyjęta w projekcie          | granica materiału i wymagany zapas   |
+| Współczynnik bezpieczeństwa | ile razy granica przewyższa wytężenie | stosunek granicy do σred             |
+
+## Dlaczego to ważne
+
+Rzeczywiste elementy prawie nigdy nie są obciążone tylko jednosiowo. Śruba jest rozciągana i skręcana, belka zginana i ścinana, a zbiornik ciśnieniowy rozciągany w dwóch kierunkach jednocześnie. Projektant, który sprawdzi tylko największą składową, może przeoczyć stan, w którym pozornie umiarkowane naprężenia normalne i styczne sumują się w niebezpieczny sposób. Właśnie dlatego w typowym zadaniu projektowym nie pyta się „ile wynosi σx”, lecz „ile wynosi wytężenie w najbardziej obciążonym punkcie”.
+
+Hipotezy wytężeniowe są też podstawą komunikacji między analizą a decyzją. Program MES zwraca mapę naprężeń, ale inżynier musi wybrać, czy pokazać naprężenie HMH, Tresca, maksimum normalne, czy jeszcze inną miarę. Każdy z tych obrazów może dać inny wniosek o zapasie. Bez zrozumienia założeń można dobrać hipotezę wygodną, a nie właściwą, i albo przewymiarować konstrukcję, albo ją niedoszacować.
+
+Błąd w tej dziedzinie nie kończy się na punkcie w kolokwium. Zbyt optymistyczna ocena może doprowadzić do pęknięcia zbiornika, skręcenia wału albo zerwania śruby. Zbyt ostrożna ocena oznacza zbędną masę, koszt i zużycie materiału. Dobra inżynieria polega na tym, aby świadomie wybrać model, znać jego granice i umieć uzasadnić, dlaczego wynik jest wiarygodny.
+
+| Skutek błędu      | Typowy przykład                           | Co trzeba było sprawdzić                  |
+| ----------------- | ----------------------------------------- | ----------------------------------------- |
+| Przewymiarowanie  | zbyt gruba ścianka zbiornika              | czy hipoteza nie jest zbyt zachowawcza    |
+| Niedowymiarowanie | zbyt cienki wał przy zginaniu i skręcaniu | czy uwzględniono wszystkie składowe       |
+| Zła lokalizacja   | sprawdzenie tylko maksimum σx             | czy σred nie jest większe w innym punkcie |
+| Zła granica       | porównanie z Re przy materiale kruchym    | czy użyto właściwej wytrzymałości         |
+
+Ten moduł jest także pomostem do projektowania. Wcześniejsze moduły odpowiadają na pytanie „jakie są naprężenia”. Ten odpowiada na pytanie „co z tego wynika dla bezpieczeństwa”. Dopiero moduł dziesiąty łączy oba pytania w pełne zadanie konstrukcyjne: dobór wymiaru, materiału i obciążenia dopuszczalnego.
+
+W praktyce projektowej rzadko sprawdza się jeden warunek. Element musi być bezpieczny ze względu na uplastycznienie, pękanie, zmęczenie, sztywność i stateczność. Ten moduł zajmuje się przede wszystkim pierwszym progiem: jednorazowym przekroczeniem granicy materiału. Już samo to wymaga rozróżnienia materiałów plastycznych i kruchych, ponieważ inny mechanizm decyduje o zniszczeniu stali, a inny o zniszczeniu żeliwa. Drugi powód jest dydaktyczny: wcześniejsze wzory można często stosować mechanicznie, a tutaj trzeba najpierw podjąć decyzję, a dopiero potem liczyć. Wybór hipotezy, uporządkowanie naprężeń i wskazanie punktu krytycznego odróżniają rozumienie od pamięciowego odtwarzania wzorów.
+
+## Czego się nauczysz
+
+- **W1 — wskażesz przekrój i punkt decydujący.** Nauczysz się porównywać punkty przekroju, a nie tylko największe pojedyncze składowe. Zobaczysz, że maksimum naprężenia normalnego i maksimum stycznego mogą występować w różnych miejscach.
+- **W2 — dobierzesz hipotezę do materiału i stanu naprężenia.** Rozróżnisz materiały plastyczne od kruchych, stany jednoosiowe od złożonych oraz przypadki, w których wybór hipotezy zmienia wynik jakościowo, a nie tylko liczbowo.
+- **W3 — wykorzystasz geometrię przekroju.** Przypomnisz sobie, jak pole, wskaźnik wytrzymałości i wskaźnik na skręcanie przenoszą siły i momenty na naprężenia w konkretnym włóknie.
+- **U1 — obliczysz naprężenie zredukowane.** Opanujesz rachunek według hipotezy maksimum normalnego, HMH i Tresca, z kontrolą jednostek oraz kolejności podstawiania.
+- **U2 — użyjesz koła Mohra.** Wyznaczysz naprężenia główne i maksymalne ścinanie, a potem odczytasz z nich wielkości potrzebne do hipotez.
+- **U3 — ocenisz zapas bezpieczeństwa.** Obliczysz współczynnik rzeczywisty, porównasz go z wymaganym i wyznaczysz naprężenie dopuszczalne albo dopuszczalne obciążenie.
+
+## Od czego zacząć
+
+Przed wejściem do tego modułu warto swobodnie posługiwać się stanem naprężenia z modułu siódmego: składowymi σx, σy, τxy, wzorem na naprężenia główne oraz kołem Mohra. Bez tego każda hipoteza będzie tylko przepisem bez zrozumienia, bo wszystkie kryteria odwołują się do naprężeń głównych albo do maksymalnego ścinania.
+
+Przyda się też znajomość rozciągania i ściskania z modułu drugiego oraz właściwości materiałów z modułu trzeciego. Musisz wiedzieć, czym różni się granica plastyczności Re od wytrzymałości na rozciąganie Rm i dlaczego materiały kruche mają inną wytrzymałość przy rozciąganiu niż przy ściskaniu. W zadaniach z geometrią przekroju pomocne będą moduły czwarty i szósty, szczególnie wskaźnik wytrzymałości na zginanie i na skręcanie.
+
+Kolejność pracy jest prosta. Najpierw opanuj ideę naprężenia zredukowanego i warunek wytrzymałości. Potem przejdź przez trzy klasyczne hipotezy: maksimum normalne, HMH i Tresca. Następnie porównaj je na tym samym stanie naprężenia, a na końcu połącz z obciążeniami złożonymi i współczynnikiem bezpieczeństwa. Nie pomijaj laboratoriów: każda zmiana suwaka pokazuje, który punkt albo która składowa rzeczywiście decyduje o wyniku.
+
+Jeśli musisz wybrać jedno miejsce na start, zacznij od lekcji o naprężeniu zredukowanym. Dopiero ona porządkuje język: pokazuje, czym jest funkcja wytężenia, jak kalibruje się ją do próby jednoosiowej i dlaczego warunek projektowy ma postać σred ≤ kr. Bez tego kolejne lekcje będą wyglądać jak trzy konkurencyjne wzory, a nie trzy modele tego samego zjawiska.
+
+Jeśli czujesz, że brakuje Ci swobody w posługiwaniu się kołem Mohra, wróć na chwilę do modułu stanu naprężenia. Ten moduł zakłada, że potrafisz odczytać σ1 i σ2 z koła oraz że rozumiesz, dlaczego naprężenia główne nie zależą od wyboru osi. Bez tej wprawy nawet poprawnie podstawiony wzór trudno zinterpretować.
+
+## Mapa lekcji
+
+**Naprężenie zredukowane: jedna liczba dla złożonego stanu.** Pierwsza lekcja buduje pojęcie miary wytężenia od podstaw. Dowiesz się, po co zastępujemy kilka składowych jedną liczbą, jak kalibruje się hipotezę do próby rozciągania i jak zapisać warunek wytrzymałości oraz współczynnik bezpieczeństwa.
+
+**Hipoteza największego naprężenia normalnego.** Druga lekcja pokazuje kryterium stosowane do materiałów kruchych. Nauczysz się porządkować naprężenia główne, osobno sprawdzać rozciąganie i ściskanie oraz rozpoznawać, kiedy decyduje znak naprężenia, a nie jego wartość bezwzględna.
+
+**Hipoteza HMH: energia zmiany postaci.** Trzecia lekcja wprowadza kryterium Hubera–Misesa–Hencky’ego dla metali plastycznych. Zobaczysz, dlaczego jednakowe ściskanie ze wszystkich stron nie powoduje uplastycznienia w tym modelu i skąd bierze się współczynnik 3 przy naprężeniu stycznym.
+
+**Hipoteza Tresca: największe ścinanie.** Czwarta lekcja tłumaczy kryterium oparte na największym kole Mohra. Nauczysz się brać różnicę skrajnych naprężeń głównych, pamiętać o trzecim kierunku w stanie płaskim i rozumieć, dlaczego Tresca jest zwykle bardziej zachowawcza niż HMH.
+
+**HMH czy Tresca? Porównanie hipotez.** Piąta lekcja zestawia oba kryteria na tym samym stanie naprężenia. Zobaczysz, kiedy dają identyczny wynik, kiedy się różnią i jak nie porównywać wyniku jednej hipotezy z granicą wyprowadzoną z drugiej.
+
+**Zginanie, skręcanie i siła osiowa razem.** Szósta lekcja przenosi teorię na typowy wał lub pręt. Najpierw sumujesz naprężenia normalne w wybranym włóknie, potem dodajesz ścinanie od skręcania i dopiero na końcu redukujesz cały stan do jednej liczby.
+
+**Współczynnik bezpieczeństwa: ile zapasu ma element?** Ostatnia lekcja porządkuje język projektu. Odróżnisz wytrzymałość od sztywności, obliczysz zapas rzeczywisty, wyznaczysz naprężenie dopuszczalne i sprawdzisz, czy element spełnia wymagania.
+
+## Kluczowe wzory
+
+Poniższe cztery wzory warto znać na pamięć, ale jeszcze ważniejsze jest rozumienie, kiedy którego użyć. Pierwszy opisuje ogólny warunek projektowy, a trzy kolejne odpowiadają trzem klasycznym hipotezom omawianym w lekcjach.
+
+<Formula>
+$$
+\sigma_{red} \le k_r = \frac{R_e}{n_{wym}}, \qquad n_{rz} = \frac{R_e}{\sigma_{red}} \ge n_{wym}
+$$
+
+<Caption>Warunek wytrzymałości w najogólniejszej postaci. σred jest naprężeniem zredukowanym według wybranej hipotezy, kr to naprężenie dopuszczalne, Re to granica plastyczności, a n_wym i n_rz to odpowiednio zapas wymagany i rzeczywisty. Wszystkie naprężenia podstawiamy w tych samych jednostkach, najczęściej w MPa.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma_{red} = \max\left(|\sigma_1|, |\sigma_2|, |\sigma_3|\right)
+$$
+
+<Caption>Hipoteza największego naprężenia normalnego w wersji uproszczonej, gdy wytrzymałość na rozciąganie i ściskanie są jednakowe. Przy różnych wytrzymałościach trzeba osobno sprawdzić największe naprężenie dodatnie względem kr oraz największe co do modułu naprężenie ujemne względem kc. W stanie płaskim przyjmuje się σ3 = 0.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma_{HMH} = \sqrt{\sigma_1^2 + \sigma_2^2 + \sigma_3^2 - \sigma_1\sigma_2 - \sigma_2\sigma_3 - \sigma_3\sigma_1}
+$$
+
+<Caption>Hipoteza Hubera–Misesa–Hencky’ego dla materiałów plastycznych. W stanie płaskim σ3 = 0, a dla σx = σ, σy = 0 i τxy = τ wzór upraszcza się do σHMH = √(σ² + 3τ²). Przy czystym ścinaniu daje σHMH = √3·τ.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma_T = \sigma_{max} - \sigma_{min} = 2\tau_{max}
+$$
+
+<Caption>Hipoteza Tresca, czyli największego naprężenia stycznego. W stanie przestrzennym σmax i σmin wybieramy spośród σ1, σ2 i σ3, a nie tylko spośród dwóch naprężeń w płaszczyźnie. Dla σx = σ, σy = 0 i τxy = τ zachodzi σT = √(σ² + 4τ²).</Caption>
+</Formula>
+
+<Insight>
+  Naprężenie zredukowane nie jest nową siłą ani dodatkową składową w przekroju. To liczba obliczeniowa, której wartość
+  zależy od przyjętej hipotezy. Dlatego zawsze podawaj nie tylko wynik, ale też nazwę kryterium i granicę, z którą go
+  porównujesz.
+</Insight>
+
+## Jak się uczyć
+
+1. **Zaczynaj od stanu naprężenia, nie od wzoru.** Dla każdego zadania najpierw wypisz σx, σy i τxy w rozważanym punkcie. Dopiero potem wybieraj hipotezę; inaczej łatwo podstawić dane do niewłaściwego wzoru.
+2. **Rysuj koło Mohra.** Nawet gdy wzór jest znany, koło pokazuje, czy naprężenia główne mają różne znaki, czy jedno z nich jest zerowe i gdzie leży maksymalne ścinanie. To najszybsza kontrola sensowności wyniku.
+3. **Kalibruj hipotezę na próbie jednoosiowej.** Sprawdź, czy przy σ1 = Re i σ2 = σ3 = 0 wybrane kryterium daje dokładnie Re. Ten test wychwytuje większość błędów w stałych współczynnikach.
+4. **Kontroluj jednostki i rząd wielkości.** MPa to N/mm². Jeśli siła jest w kN, a pole w mm², przelicz siłę na niutony. Wynik większy od granicy o rząd wielkości prawie zawsze oznacza błąd jednostek, a nie realne przeciążenie.
+5. **Porównuj hipotezy, nie mieszaj ich.** Policz HMH i Tresca dla tego samego stanu, a potem sprawdź, która daje większe wytężenie. Nie porównuj wyniku HMH z granicą ścinania wyprowadzoną z Tresca.
+6. **Sprawdzaj kilka punktów.** Maksimum naprężenia normalnego, maksimum ścinania i maksimum naprężenia zredukowanego mogą wypadać w różnych miejscach. Punkt decydujący wybieraj po obliczeniu σred, a nie przed.
+
+<Callout kind="info" title="Jak korzystać z laboratoriów">
+  Laboratorium nie służy do szukania jednego „poprawnego” ustawienia suwaków. Ma pokazać, jak wynik zmienia się wraz z
+  danymi. Ustaw skrajne wartości, zapisz wynik, a potem wróć do wartości pośrednich i sprawdź, czy potrafisz przewidzieć
+  zmianę. Dopiero wtedy wzór staje się narzędziem, a nie przepisem.
+</Callout>
+
+## Po tym module
+
+Następny moduł, Projektowanie elementów i pełne zadania, zamienia warunki w decyzje projektowe. Będziesz dobierać średnicę wału, grubość ścianki, materiał albo dopuszczalne obciążenie, a potem sprawdzać, czy rozwiązanie spełnia jednocześnie warunek wytrzymałości i sztywności. Ten moduł dostarcza mu języka: naprężenia zredukowanego, hipotezy, zapasu i punktu krytycznego.
+
+Warto wrócić do tych lekcji także później, przy analizie zmęczenia i stateczności. Zmęczenie wymaga innego modelu niż jednorazowe przeciążenie, a stateczność może decydować o zniszczeniu przy naprężeniach znacznie poniżej granicy materiału. Świadome rozróżnienie tych mechanizmów jest równie ważne jak sam rachunek.
+
+W module dziesiątym zobaczysz też, że dobór wymiaru nie jest jednokierunkowy. Zmiana średnicy zmienia pole, wskaźnik wytrzymałości i masę, a więc może poprawić jeden warunek i pogorszyć inny. Umiejętność czytania wyniku σred w kontekście geometrii i materiału będzie tam równie potrzebna jak umiejętność samego liczenia.
+
+Największą korzyść z tego modułu odniesiesz wtedy, gdy przestaniesz pytać wyłącznie „jaki wzór podstawić”, a zaczniesz pytać „jaki mechanizm rządzi w tym materiale i w tym punkcie”. Wzory są tylko zapisem odpowiedzi na to drugie pytanie.
+
+Nie chodzi przy tym o rezygnację z rachunku. Dobra odpowiedź inżynierska zawsze zawiera liczbę, jednostkę, punkt odniesienia i nazwę kryterium. Ten moduł uczy łączyć te elementy w jeden spójny wniosek, a nie tylko w wynik na marginesie.
+
+## Źródła
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdziały o stanie naprężenia, hipotezach wytężeniowych i naprężeniu dopuszczalnym; klasyczne ujęcie polskiej szkoły wytrzymałości materiałów.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z naprężeń głównych, kół Mohra i obciążeń złożonych, przydatne do samodzielnego treningu.
+- D. Roylance, _Mechanics of Materials_ (podręcznik otwarty) — rozdział 6.1 o uplastycznieniu oraz rozdział 3.3 o transformacji naprężeń; pokazuje sens naprężenia równoważnego i kryteriów plastyczności.
+- T. Wierzbicki, _Structural Mechanics_ (podręcznik otwarty) — rozdział 2.1 o tensorze naprężenia i rozkładzie na część hydrostatyczną oraz dewiatorową.

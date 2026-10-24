@@ -7,7 +7,6 @@ shortTitle: Dobór wymiaru
 description: >-
   Odwracaj warunek naprężeniowy, wyznaczaj wymagany wskaźnik przekroju i
   dobieraj średnicę z poprawną potęgą.
-duration: 7
 eyebrow: Od warunku do wymiaru
 outcomes:
   - >-
@@ -30,65 +29,271 @@ outcomes:
     warunek sztywności.
 ---
 
-Przy sprawdzaniu znamy wymiar i obliczamy naprężenie. Przy projektowaniu postępujemy odwrotnie: z naprężenia dopuszczalnego wyznaczamy minimalną geometrię, a wynik zaokrąglamy w bezpieczną stronę.
+Do tej pory najczęściej znaliśmy wymiar i pytaliśmy, jakie naprężenie w nim powstanie. Projektowanie zaczyna się od odwrotnej strony: wiemy, jakie naprężenie jest dopuszczalne, i pytamy, jaki wymiar zapewni bezpieczeństwo. To pozornie tylko przekształcenie jednego wzoru, ale wymaga innego spojrzenia na całe zadanie.
+
+Wyobraź sobie wspornik, na którym stoi ciężka maszyna. Najpierw trzeba ustalić, jaki moment zginający wywoła jej ciężar w najbardziej obciążonym przekroju. Dopiero potem można powiedzieć, jak gruby musi być wspornik. Jeśli pominie się moment i od razu dobiera się „na oko”, wynik może być zarówno niebezpiecznie mały, jak i absurdalnie duży.
+
+W tej lekcji skupiamy się na jednym, ale bardzo ważnym kroku: doborze wymiaru z warunku naprężeń normalnych przy zginaniu. Nauczysz się wyznaczać wymagany wskaźnik przekroju, przechodzić od niego do średnicy lub wymiarów prostokąta oraz sprawdzać, czy przyjęty wymiar rzeczywiście spełnia warunek. Zobaczysz też, dlaczego średnica zależy od pierwiastka trzeciego stopnia z momentu, a nie liniowo.
+
+Laboratorium pozwala zobaczyć cały łańcuch zależności: zmieniasz siłę, rozpiętość i średnicę, a wykresy pokazują moment, siłę tnącą i naprężenie. Dzięki temu wzór na wskaźnik przekroju przestaje być abstrakcyjnym przekształceniem, a staje się narzędziem do świadomej zmiany geometrii.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje belki swobodnie podpartej i zapisać moment zginający w przekroju. Dla siły $P$ w środku rozpiętości $L$ potrzebny będzie wynik $M_{\max}=PL/4$.
+- Rozróżniaj moment zginający $M$ od siły tnącej $T$ i siły osiowej $N$. W tym zadaniu decyduje moment, ale w innych przypadkach może dojść ścinanie lub rozciąganie.
+- Znaj wzór na wskaźnik wytrzymałości przekroju $W=I/c$, gdzie $c$ jest odległością skrajnego włókna od osi obojętnej. Dla pełnego koła $W=\pi d^3/32$.
+- Pamiętaj o jednostkach: $1\ \text{kN}\cdot\text{m}=10^6\ \text{N}\cdot\text{mm}$, a $1\ \text{MPa}=1\ \text{N/mm}^2$. Najwygodniej liczyć w niutonach i milimetrach.
+- Odróżnij dobór wymiaru od kontroli sztywności. Spełnienie warunku naprężeniowego nie gwarantuje, że ugięcie będzie dopuszczalne.
+- Przygotuj kalkulator i zapisuj wynik pośredni z jednostką. Bez tego łatwo pomylić pierwiastek trzeciego stopnia z drugim albo zgubić czynnik $10^3$.
+
+## Model i intuicja
+
+Model zginania, którego używamy, to belka liniowo sprężysta o małych ugięciach. Zakładamy, że przekroje pozostają płaskie po odkształceniu, a odkształcenia są proporcjonalne do odległości od osi obojętnej. Naprężenie normalne zmienia się liniowo od zera na osi obojętnej do wartości największej na skrajnym włóknie. Dla przekroju symetrycznego względem osi obojętnej wartość bezwzględna naprężenia jest taka sama na górze i na dole, choć znak jest przeciwny.
+
+Wskaźnik wytrzymałości $W$ opisuje, jak skutecznie przekrój wykorzystuje materiał przy zginaniu. Duże $W$ oznacza, że przy danym momencie naprężenie jest małe. To nie jest to samo co pole przekroju: dwa przekroje o tym samym polu mogą mieć bardzo różne $W$, jeśli materiał jest inaczej rozmieszczony względem osi obojętnej. Dlatego rura o większej średnicy zewnętrznej może być lepsza od pełnego pręta o podobnej masie.
+
+W modelu zakładamy, że o wytrzymałości decyduje naprężenie normalne od zginania. W rzeczywistym elemencie mogą dodatkowo wystąpić: siła tnąca i naprężenia styczne, koncentracja naprężeń przy otworach i zmianach przekroju, wyboczenie części ściskanej, odkształcenia plastyczne oraz zmęczenie. Model przestaje być wystarczający, gdy któreś z tych zjawisk staje się dominujące. W typowym zadaniu podstawowym najpierw dobieramy przekrój na zginanie, a potem sprawdzamy pozostałe warunki.
+
+Ważne jest też założenie o symetrii i osi obojętnej. Dla przekroju niesymetrycznego względem osi poziomej naprężenia na górnym i dolnym włóknie mają różne wartości bezwzględne. Wtedy trzeba sprawdzić oba włókna i użyć właściwego $c$ dla każdego z nich. W tej lekcji ograniczamy się do przekrojów symetrycznych: koła pełnego i prostokąta, żeby skupić się na samej procedurze doboru.
+
+Model nie opisuje strefy przyłożenia siły ani okolic otworów i nagłych zmian przekroju. Tam naprężenia mogą być większe niż wartość obliczona z $M/W$. W zadaniach podstawowych przyjmujemy, że działamy z dala od takich stref, zgodnie z zasadą Saint-Venanta. Jeśli element ma karb, otwór albo ostre przejście, trzeba dodatkowo sprawdzić koncentrację naprężeń.
+
+W typowym zadaniu projektowym nie znamy jeszcze dokładnego kształtu przejść i otworów. Dlatego dobór na $M/W$ traktujemy jako pierwsze przybliżenie, a szczegóły sprawdzamy później, gdy geometria jest już znana.
+
+## Laboratorium: co ustawić
+
+Ustaw siłę $P$ i rozpiętość $L$, a następnie zmieniaj średnicę $d$. Obserwuj, jak zmienia się maksymalny moment $M_{\max}=PL/4$ i naprężenie $\sigma_{\max}=M_{\max}/W$. Spróbuj znaleźć średnicę, przy której naprężenie zbliża się do wartości dopuszczalnej, ale jej nie przekracza.
 
 <Lab id="bending" />
 
+W laboratorium belka jest swobodnie podparta, a siła działa w połowie rozpiętości. Zmiana średnicy nie wpływa na moment, ale bardzo mocno wpływa na wskaźnik przekroju, ponieważ $W$ rośnie z trzecią potęgą średnicy. To dlatego niewielkie zwiększenie średnicy potrafi znacznie obniżyć naprężenie.
+
+Obserwuj też, że przy małej średnicy wykres naprężenia rośnie bardzo szybko, a przy dużej — zmiany stają się coraz mniejsze. Ta nieliniowość jest bezpośrednią konsekwencją potęgi trzeciej. W zadaniach projektowych oznacza, że niewielki zapas wymiaru może dać duży zapas naprężenia, ale tylko wtedy, gdy świadomie kontrolujemy jednostki i kształt.
+
+## Definicje i jednostki
+
+| Symbol     | Znaczenie                                   | Jednostka typowa         |
+| ---------- | ------------------------------------------- | ------------------------ |
+| $M$        | moment zginający w przekroju                | $\text{N}\cdot\text{mm}$ |
+| $M_{\max}$ | maksymalny moment w belce                   | $\text{N}\cdot\text{mm}$ |
+| $W$        | wskaźnik wytrzymałości przekroju            | $\text{mm}^3$            |
+| $I$        | moment bezwładności względem osi obojętnej  | $\text{mm}^4$            |
+| $c$        | odległość skrajnego włókna od osi obojętnej | $\text{mm}$              |
+| $d$        | średnica przekroju kołowego                 | $\text{mm}$              |
+| $b,\ h$    | szerokość i wysokość prostokąta             | $\text{mm}$              |
+| $k$        | naprężenie dopuszczalne przy zginaniu       | $\text{MPa}$             |
+| $\sigma$   | naprężenie normalne od zginania             | $\text{MPa}$             |
+
+Dla pełnego przekroju kołowego o średnicy $d$ obowiązują zależności $I=\pi d^4/64$, $c=d/2$ oraz $W=I/c=\pi d^3/32$. Dla prostokąta o szerokości $b$ i wysokości $h$, zginanego względem osi równoległej do $b$, mamy $I=bh^3/12$, $c=h/2$ i $W=bh^2/6$. Dla przekroju rurowego o średnicy zewnętrznej $D$ i wewnętrznej $d$ wskaźnik wynosi $W=\pi(D^4-d^4)/(32D)$.
+
+| Przekrój                    | Moment bezwładności $I$ | Wskaźnik $W$         |
+| --------------------------- | ----------------------- | -------------------- |
+| koło pełne                  | $\pi d^4/64$            | $\pi d^3/32$         |
+| prostokąt                   | $bh^3/12$               | $bh^2/6$             |
+| rura o średnicach $D$ i $d$ | $\pi(D^4-d^4)/64$       | $\pi(D^4-d^4)/(32D)$ |
+
+Tabela pokazuje, że $W$ nie jest prostą funkcją pola. Wzrost wysokości prostokąta zwiększa $W$ z drugą potęgą, a wzrost średnicy koła — z trzecią. Dlatego zmiana kształtu może dać większy efekt niż równomierne powiększanie całego przekroju.
+
+Konwencja znaku naprężenia zależy od przyjętego kierunku momentu i umiejscowienia włókna. W doborze wymiaru interesuje nas przede wszystkim wartość bezwzględna, dlatego piszemy warunek $|\sigma|\le k$. Jeśli zadanie wymaga podania znaku, trzeba osobno ustalić, które włókno jest rozciągane, a które ściskane.
+
+Jednostki są tu najczęstszym źródłem błędów. Moment podany w $\text{kN}\cdot\text{m}$ trzeba zamienić na $\text{N}\cdot\text{mm}$, mnożąc przez $10^6$. Naprężenie dopuszczalne w MPa jest już w $\text{N/mm}^2$, więc nie wymaga zamiany, jeśli długości są w milimetrach. Wskaźnik wytrzymałości wychodzi wtedy w $\text{mm}^3$, a średnica w milimetrach.
+
+Kontrola jednostek jest prosta: $\text{N}\cdot\text{mm}$ podzielone przez $\text{N/mm}^2$ daje $\text{mm}^3$. Jeśli po dzieleniu momentu przez naprężenie otrzymujemy dziwną jednostkę, to znak, że gdzieś użyto kN bez przeliczenia. Warto wpisywać jednostkę także przy wyniku pośrednim, np. $W=64\,286\ \text{mm}^3$, a nie tylko samą liczbę.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-W \geq \frac{M}{k} \qquad W = \frac{\pi d^3}{32} \Rightarrow d \geq \sqrt[3]{\frac{32M}{\pi k}}
+\sigma = \frac{M}{W} \le k \quad\Rightarrow\quad W \ge \frac{M}{k} \qquad W = \frac{\pi d^3}{32} \quad\Rightarrow\quad d \ge \sqrt[3]{\frac{32M}{\pi k}}
 $$
 
-<Caption>Dla pełnego przekroju kołowego zginanego. Jeśli M jest w N·mm, a k w MPa = N/mm², to W wychodzi w mm³, a d w mm.</Caption>
+<Caption>Warunek dotyczy zginania w zakresie liniowo sprężystym i przekroju symetrycznego względem osi obojętnej. $M$ podstawiamy w $\text{N}\cdot\text{mm}$, $k$ w MPa, wtedy $W$ wychodzi w $\text{mm}^3$, a $d$ w mm. Dla belki swobodnie podpartej z siłą w środku $M=M_{\max}=PL/4$.</Caption>
 </Formula>
 
+Wyprowadzenie jest krótkie, ale warto przejść je świadomie, bo pokazuje, gdzie w zadaniu mogą pojawić się błędy.
+
+1. Zaczynamy od definicji naprężenia normalnego przy zginaniu: $\sigma=M/W$. To wzór opisujący maksymalne naprężenie w przekroju, nie wartość średnią.
+2. Wymagamy, aby naprężenie nie przekroczyło naprężenia dopuszczalnego: $M/W\le k$.
+3. Mnożymy obie strony przez $W$ i dzielimy przez $k$, zakładając $k\gt 0$: $W\ge M/k$.
+4. Dla pełnego koła podstawiamy $W=\pi d^3/32$: $\pi d^3/32\ge M/k$.
+5. Mnożymy przez $32$ i dzielimy przez $\pi$: $d^3\ge 32M/(\pi k)$.
+6. Pierwiastkujemy trzeciego stopnia: $d\ge\sqrt[3]{32M/(\pi k)}$. Pierwiastek jest trzeciego stopnia, bo $W$ zależy od $d^3$.
+7. Wybieramy najmniejszy dostępny wymiar nie mniejszy od wyniku. Przy doborze z asortymentu oznacza to zaokrąglenie w górę, nigdy w dół.
+8. Wracamy do warunku z przyjętym wymiarem: $W=\pi d^3/32$ i sprawdzamy $\sigma=M/W\le k$. Dopiero ten krok potwierdza poprawność doboru.
+9. Osobno sprawdzamy sztywność. Nawet jeśli $\sigma\le k$, ugięcie może przekraczać wartość dopuszczalną; wtedy o wymiarze decyduje $I$, a nie $W$.
+
+Dla prostokąta o zadanej proporcji $h=2b$ otrzymujemy $W=bh^2/6=2b^3/3$, więc $b\ge\sqrt[3]{3W/2}$. To pokazuje, że potęga zależy od kształtu przekroju. Nie wolno mechanicznie przenosić wzoru na średnicę koła do prostokąta.
+
+Warto zapamiętać samą logikę przekształcenia, a nie tylko gotowy wzór. Zaczynamy od $W\ge M/k$, a potem podstawiamy $W$ właściwe dla kształtu. Pierwiastek pojawia się dopiero w ostatnim kroku i jego stopień zależy od tego, jak $W$ zależy od wymiaru. Dla koła jest to pierwiastek trzeciego stopnia, dla prostokąta o stałej szerokości — pierwiastek drugiego stopnia względem wysokości.
+
 <Insight>
-  Wymagane W rośnie liniowo z momentem, ale średnica — dopiero z pierwiastkiem trzeciego stopnia z W. Dlatego podwojenie
-  momentu nie wymaga podwojenia średnicy; średnica musi wzrosnąć o około 26%.
+  Wymagany wskaźnik $W$ rośnie liniowo z momentem, ale średnica koła rośnie dopiero z pierwiastkiem trzeciego stopnia z $W$. Podwojenie momentu wymaga więc średnicy większej o czynnik $\sqrt[3]{2}\approx 1{,}26$, czyli o około 26 procent, a nie o 100 procent. To często mylące, ale wynika wprost z $W\propto d^3$.
 </Insight>
 
 <WorkedExample>
-  <Given>Zginany pręt pełny ma M = 1 kN·m i k = 125 MPa.</Given>
+  <Given>
+    Belka swobodnie podparta ma rozpiętość $L=3\ \text{m}$ i jest obciążona siłą $P=12\ \text{kN}$ w środku. Naprężenie dopuszczalne przy zginaniu wynosi $k=140\ \text{MPa}$, a przekrój jest pełnym kołem. Przyjmij $E=200\ \text{GPa}$ i sprawdź ugięcie względem $L/250$.
+  </Given>
   <Steps>
-    <Step>M = 1 000 000 N·mm; wymagane W = 1 000 000/125 = 8000 mm³.</Step>
-    <Step>dmin = ∛(32W/π) = ∛(32·8000/π) = 43,35 mm.</Step>
-    <Step>Przy doborze co 1 mm przyjmujemy d = 44 mm, czyli najmniejszy dostępny wymiar nie mniejszy od dmin.</Step>
+    <Step>Maksymalny moment: $M_{\max}=PL/4=12\,000\cdot 3000/4=9\,000\,000\ \text{N}\cdot\text{mm}$.</Step>
+    <Step>Wymagany wskaźnik: $W_{\min}=M_{\max}/k=9\,000\,000/140=64\,285{,}7\ \text{mm}^3$.</Step>
+    <Step>Średnica minimalna: $d_{\min}=\sqrt[3]{32M_{\max}/(\pi k)}=\sqrt[3]{32\cdot 9\,000\,000/(\pi\cdot 140)}=\sqrt[3]{654\,795}\approx 86{,}8\ \text{mm}$.</Step>
+    <Step>Przyjmujemy $d=90\ \text{mm}$, ponieważ jest to najmniejsza dostępna średnica z krokiem 10 mm większa od wyniku.</Step>
+    <Step>Rzeczywisty wskaźnik: $W=\pi\cdot 90^3/32=71\,569\ \text{mm}^3$, więc $\sigma=9\,000\,000/71\,569\approx 125{,}8\ \text{MPa}$.</Step>
+    <Step>Kontrola wytrzymałości: $125{,}8\ \text{MPa}\le 140\ \text{MPa}$, zapas względem $k$ wynosi około $1{,}11$.</Step>
+    <Step>Moment bezwładności: $I=\pi\cdot 90^4/64\approx 3\,220\,000\ \text{mm}^4$.</Step>
+    <Step>Ugięcie: $f=PL^3/(48EI)=12\,000\cdot 3000^3/(48\cdot 200\,000\cdot 3\,220\,000)\approx 10{,}5\ \text{mm}$.</Step>
+    <Step>Wartość dopuszczalna: $L/250=3000/250=12\ \text{mm}$, więc warunek sztywności również jest spełniony.</Step>
   </Steps>
-  <Result>Wymagane W = 8000 mm³, a przyjmowana średnica to 44 mm.</Result>
+  <Result>
+    Wymagany wskaźnik wynosi około $64\,286\ \text{mm}^3$, a najmniejsza przyjęta średnica to $90\ \text{mm}$. Naprężenie $125{,}8\ \text{MPa}$ jest mniejsze od $140\ \text{MPa}$, a ugięcie $10{,}5\ \text{mm}$ nie przekracza $12\ \text{mm}$.
+  </Result>
 </WorkedExample>
+
+W przykładzie widać typową sytuację: po zaokrągleniu średnicy do $90\ \text{mm}$ naprężenie spada z wartości granicznej do około $126\ \text{MPa}$. Rzeczywisty zapas względem naprężenia dopuszczalnego wynosi $140/125{,}8\approx 1{,}11$. To niewiele, ale wystarcza, ponieważ $140\ \text{MPa}$ jest już wartością dopuszczalną, a nie granicą materiału. Gdyby $140\ \text{MPa}$ było granicą plastyczności, zapas względem niej byłby właśnie taki.
+
+## Drugi przykład
+
+Rozważmy belkę o tym samym schemacie, ale z przekrojem prostokątnym o proporcji $h=2b$. Dane: $L=2\ \text{m}$, $P=12\ \text{kN}$, $k=160\ \text{MPa}$. Moment maksymalny wynosi $M_{\max}=12\cdot 2/4=6\ \text{kN}\cdot\text{m}=6\,000\,000\ \text{N}\cdot\text{mm}$.
+
+Wymagany wskaźnik to $W_{\min}=6\,000\,000/160=37\,500\ \text{mm}^3$. Dla $h=2b$ mamy $W=bh^2/6=b\cdot 4b^2/6=2b^3/3$. Po przekształceniu $b^3\ge 3W_{\min}/2=56\,250$, więc $b\ge 38{,}3\ \text{mm}$.
+
+Przyjmujemy $b=40\ \text{mm}$ i $h=80\ \text{mm}$. Rzeczywisty wskaźnik wynosi $W=40\cdot 80^2/6=42\,667\ \text{mm}^3$, a naprężenie $\sigma=6\,000\,000/42\,667=140{,}6\ \text{MPa}$, czyli mniej niż $160\ \text{MPa}$.
+
+Warto porównać przekrój prostokątny z kołem o tym samym $W$. Dla koła $W=42\,667$ daje $d^3=32W/\pi\approx 434\,500$, czyli $d\approx 75{,}7\ \text{mm}$. Pole koła wynosi około $4500\ \text{mm}^2$, a pole prostokąta $3200\ \text{mm}^2$. Prostokąt jest więc lżejszy przy podobnej nośności, ponieważ materiał jest odsunięty dalej od osi obojętnej. To pierwsza ilustracja tego, że kształt przekroju ma znaczenie.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy wymiar i pytamy o dopuszczalne obciążenie. Belka swobodnie podparta ma $L=2{,}5\ \text{m}$ i przekrój kołowy o $d=60\ \text{mm}$. Naprężenie dopuszczalne wynosi $k=150\ \text{MPa}$. Jaka jest największa siła $P$ w środku rozpiętości?
+
+Najpierw wskaźnik: $W=\pi\cdot 60^3/32=\pi\cdot 216\,000/32\approx 21\,206\ \text{mm}^3$. Dopuszczalny moment wynosi $M_{\max}=kW=150\cdot 21\,206=3\,180\,900\ \text{N}\cdot\text{mm}\approx 3{,}18\ \text{kN}\cdot\text{m}$.
+
+Z zależności $M_{\max}=PL/4$ otrzymujemy $P=4M_{\max}/L=4\cdot 3{,}18/2{,}5\approx 5{,}09\ \text{kN}$. To obciążenie wyczerpuje naprężenie dopuszczalne, więc w projekcie trzeba by je zmniejszyć o przyjęty zapas lub zwiększyć średnicę.
+
+Wariant odwrotny jest dobrym testem zrozumienia, ponieważ wymaga przejścia w obie strony: od geometrii do wskaźnika, od wskaźnika do momentu i od momentu do siły. Każdy z tych kroków ma inną jednostkę, co sprzyja błędom, jeśli nie zapisujemy jednostek na bieżąco.
+
+Warto przy tym zauważyć, że wynik $P\approx 5{,}09\ \text{kN}$ jest obciążeniem granicznym dla przyjętego $k$. W projekcie nie przyjmujemy go bez zapasu; albo zmniejszamy siłę, albo zwiększamy przekrój, albo obniżamy $k$ przez większy współczynnik bezpieczeństwa.
+
+Jeśli zadanie podaje wymagany współczynnik bezpieczeństwa $n$, zamiast $k$ używamy $k=R_e/n$. Wtedy dopuszczalny moment maleje proporcjonalnie do $1/n$, a dopuszczalna siła również. Warto od razu zapisać, czy $k$ jest już naprężeniem dopuszczalnym, czy dopiero granicą materiału. To rozróżnienie jest częstym źródłem nieporozumień.
+
+Większość błędów w tym zadaniu wynika z jednostek, potęgi przy średnicy albo pominięcia kontroli sztywności. Poniższa lista porządkuje najczęstsze pułapki.
+
+<Callout kind="warning" title="Typowe błędy">
+  1. **Brak zamiany $\text{kN}\cdot\text{m}$ na $\text{N}\cdot\text{mm}$.** Moment $9\ \text{kN}\cdot\text{m}$ to $9\,000\,000\ \text{N}\cdot\text{mm}$, a nie $9000$. Błąd daje wskaźnik tysiąc razy za mały.
+  2. **Zaokrąglenie średnicy w dół.** Wynik $86{,}8\ \text{mm}$ nie pozwala przyjąć $86\ \text{mm}$. Trzeba wybrać $87\ \text{mm}$ lub kolejny wymiar katalogowy większy od wyniku.
+  3. **Użycie $r$ zamiast $d$ we wzorze na $W$.** Dla koła $W=\pi d^3/32$, nie $\pi r^3/32$. Pomylenie promienia i średnicy zmienia wynik osiem razy.
+  4. **Sprawdzenie tylko wytrzymałości.** Belka może mieć naprężenie poniżej $k$, a mimo to ugięcie powyżej wartości dopuszczalnej. Warunek sztywności jest osobnym wymaganiem.
+  5. **Przeniesienie wzoru na koło do prostokąta.** Dla prostokąta $W=bh^2/6$; potęga i współczynnik są inne. Zawsze podstawiaj wzór właściwy dla kształtu.
+  6. **Zła wartość $c$ dla przekroju niesymetrycznego.** Dla przekroju niesymetrycznego względem osi obciążenia trzeba sprawdzić oba skrajne włókna, bo $c$ może być różne.
+  7. **Brak kontroli po doborze.** Wymiar przyjęty z katalogu trzeba podstawić z powrotem. Dopiero wtedy wiadomo, jakie jest rzeczywiste naprężenie i zapas.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal schemat i obciążenie.** Czy belka jest swobodnie podparta, utwierdzona, czy jest wspornikiem? Gdzie działa siła i jaki jest jej kierunek? Bez tego nie wiadomo, jaki wzór na moment zastosować.
+2. **Wyznacz moment maksymalny.** Dla najprostszego przypadku siły w środku belki swobodnie podpartej użyj $M_{\max}=PL/4$. W innych schematach narysuj wykres momentu albo skorzystaj z gotowego wzoru.
+3. **Sprawdź, czy nie działa jednocześnie inny przypadek.** Jeśli oprócz zginania występuje rozciąganie, ścinanie lub skręcanie, sam warunek $M/W\le k$ może nie wystarczyć. Wtedy potrzebna jest analiza stanu naprężenia.
+4. **Zamień jednostki.** Moment na $\text{N}\cdot\text{mm}$, naprężenie dopuszczalne na MPa, wymiary na mm. Zapisz wynik pośredni z jednostką, żeby nie zgubić rzędu wielkości.
+5. **Oblicz wymagany wskaźnik.** $W_{\min}=M_{\max}/k$. To jeszcze nie jest wymiar, tylko cecha geometryczna przekroju.
+6. **Przejdź od $W$ do wymiaru.** Użyj wzoru właściwego dla kształtu: koło, prostokąt, rura. Rozwiąż nierówność i zaokrąglij w górę.
+7. **Sprawdź przyjęty wymiar.** Oblicz rzeczywiste $W$, naprężenie i zapas. Jeśli wymiar jest zbyt duży, nie jest to błąd, ale warto to zauważyć i uzasadnić.
+8. **Sprawdź sztywność.** Oblicz $I$ i ugięcie, jeśli zadanie podaje wartość dopuszczalną. Jeśli sztywność decyduje, zwiększ wymiar lub zmień kształt przekroju.
+
+Po rozwiązaniu zadania warto zapisać odpowiedź w jednym zdaniu: „przyjęto średnicę $d=90\ \text{mm}$, ponieważ $W=71\,569\ \text{mm}^3$ jest większe od $W_{\min}=64\,286\ \text{mm}^3$”. Taki zapis zawiera decyzję, uzasadnienie i dowód spełnienia warunku. Na kolokwium jest zwykle bardziej wartościowy niż sam wynik liczbowy.
+
+## Połącz z resztą kursu
+
+- **Geometria przekrojów** daje wzory na $I$, $W$ i położenie osi obojętnej. Bez nich nie da się przejść od momentu do naprężenia ani porównać kształtów.
+- **Zginanie** wyjaśnia, skąd bierze się rozkład naprężeń liniowy i dlaczego $W=I/c$. Ta lekcja jest praktycznym zastosowaniem tamtego modelu.
+- **Materiał i naprężenie dopuszczalne** dostarczają wartości $k$ oraz współczynnika bezpieczeństwa. Dobór wymiaru bez świadomej granicy materiału jest tylko rachunkiem.
+- **Pełne zadanie: dobór belki na zginanie** rozwija ten sam schemat o reakcje, wykres momentu i kontrolę ugięcia. Tutaj ćwiczymy pojedynczy krok, tam cały łańcuch.
+- **Stan naprężenia i hipotezy wytrzymałościowe** są potrzebne, gdy do zginania dochodzi ścinanie lub skręcanie. Wtedy naprężenie normalne nie wystarcza do oceny bezpieczeństwa.
+- **Strategia kolokwium** przypomina o kolejności: schemat, moment, wskaźnik, wymiar, kontrola. Ta lekcja jest pierwszym elementem tej układanki.
+
+## Sprawdź się
+
+Odpowiedz na pytania bez zaglądania do wzorów. Jeśli któreś sprawia trudność, wróć do odpowiedniego kroku wyprowadzenia i przelicz przykład na własnych liczbach.
+
+Pytania są ułożone od prostego podstawienia po decyzję projektową. Nie chodzi o tempo, lecz o to, aby po każdym odpowiedzieć sobie, skąd wynika wzór i jakie jednostki zostały użyte. Błędna odpowiedź jest sygnałem, do którego fragmentu warto wrócić.
+
+Jeśli odpowiedzi są poprawne, ale wolno przychodzą, również warto powtórzyć rachunek na innych liczbach. Projektowanie wymaga płynności w przekształceniach, nie tylko rozpoznania wzoru.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Moment wynosi 2 kN·m, a k = 100 MPa. Ile wynosi wymagane W?</Prompt>
+    <Prompt>Moment wynosi $2\ \text{kN}\cdot\text{m}$, a $k=100\ \text{MPa}$. Ile wynosi wymagany wskaźnik $W$?</Prompt>
     <Answer>20 mm³</Answer>
     <Answer>2000 mm³</Answer>
     <Answer correct>20 000 mm³</Answer>
-    <Hint>2 kN·m = 2 000 000 N·mm, a 100 MPa = 100 N/mm².</Hint>
+    <Hint>$2\ \text{kN}\cdot\text{m}=2\,000\,000\ \text{N}\cdot\text{mm}$, a $100\ \text{MPa}=100\ \text{N/mm}^2$.</Hint>
     <Explanation>
-      W = M/k = 2 000 000/100 = 20 000 mm³. Bez zamiany kN·m na N·mm wynik byłby 1000 razy za mały.
+      $W=M/k=2\,000\,000/100=20\,000\ \text{mm}^3$. Bez zamiany $\text{kN}\cdot\text{m}$ na $\text{N}\cdot\text{mm}$ wynik byłby tysiąc razy za mały.
     </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>Jak zmieni się minimalna średnica, gdy moment wzrośnie 8 razy?</Prompt>
-    <Answer correct>Wzrośnie 2 razy</Answer>
-    <Answer>Wzrośnie 8 razy</Answer>
+    <Prompt>Jak zmieni się minimalna średnica pełnego koła, gdy moment wzrośnie osiem razy?</Prompt>
+    <Answer correct>Wzrośnie dwa razy</Answer>
+    <Answer>Wzrośnie osiem razy</Answer>
     <Answer>Zmniejszy się dwukrotnie</Answer>
-    <Hint>d jest proporcjonalne do pierwiastka trzeciego stopnia z M.</Hint>
+    <Hint>$d$ jest proporcjonalne do pierwiastka trzeciego stopnia z $M$.</Hint>
     <Explanation>
-      d2/d1 = ∛8 = 2. Ośmiokrotny moment wymaga dwukrotnej średnicy, bo W pełnego koła rośnie z d³.
+      $d_2/d_1=\sqrt[3]{8}=2$. Ośmiokrotny moment wymaga dwukrotnej średnicy, ponieważ $W$ pełnego koła rośnie z $d^3$.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>
-      Obliczenia dają dmin = 37,2 mm, a dostępne są średnice co 1 mm. Którą wybrać przy braku innych wymagań?
-    </Prompt>
+    <Prompt>Obliczenia dają $d_{\min}=37{,}2\ \text{mm}$, a dostępne są średnice co 1 mm. Którą wybrać przy braku innych wymagań?</Prompt>
     <Answer>37 mm</Answer>
     <Answer correct>38 mm</Answer>
     <Answer>Dowolną, różnica jest mała</Answer>
     <Hint>Wybierz najbliższy wymiar nie mniejszy od wymaganego.</Hint>
     <Explanation>
-      37 mm dałoby W poniżej wymaganego i nadmierne naprężenie. 38 mm jest najmniejszą dostępną średnicą spełniającą
-      warunek.
+      $37\ \text{mm}$ dałoby $W$ poniżej wymaganego i nadmierne naprężenie. $38\ \text{mm}$ jest najmniejszą dostępną średnicą spełniającą warunek.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Belka swobodnie podparta ma siłę $P$ w połowie rozpiętości $L$. Który wzór na moment maksymalny jest poprawny?</Prompt>
+    <Answer correct>$M_{\max}=PL/4$</Answer>
+    <Answer>$M_{\max}=PL/2$</Answer>
+    <Answer>$M_{\max}=PL/8$</Answer>
+    <Hint>Reakcje wynoszą po $P/2$, a ramię do środka to $L/2$.</Hint>
+    <Explanation>
+      Iloczyn reakcji $P/2$ i ramienia $L/2$ daje $PL/4$. Wzór $PL/8$ dotyczy innego schematu, a $PL/2$ przeszacowuje moment.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Przekrój spełnia warunek naprężeniowy, ale ugięcie belki przekracza wartość dopuszczalną. Co to oznacza dla projektu?</Prompt>
+    <Answer correct>O wymiarze decyduje sztywność, trzeba zwiększyć $I$</Answer>
+    <Answer>Projekt jest poprawny, bo wytrzymałość jest ważniejsza</Answer>
+    <Answer>Należy zmniejszyć $I$, aby ograniczyć ugięcie</Answer>
+    <Hint>Oba warunki muszą być spełnione jednocześnie.</Hint>
+    <Explanation>
+      Warunek wytrzymałości nie zastępuje kontroli odkształcalności. Ugięcie maleje ze wzrostem $EI$, więc trzeba zwiększyć moment bezwładności, zmienić materiał albo schemat.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pełne koło ma $d=50\ \text{mm}$, a $k=160\ \text{MPa}$. Jaki moment maksymalny przeniesie przekrój?</Prompt>
+    <Answer>0,98 kN·m</Answer>
+    <Answer correct>1,96 kN·m</Answer>
+    <Answer>3,93 kN·m</Answer>
+    <Hint>Najpierw $W=\pi d^3/32$, potem $M=kW$.</Hint>
+    <Explanation>
+      $W=\pi\cdot 50^3/32\approx 12\,272\ \text{mm}^3$, więc $M=160\cdot 12\,272\approx 1\,963\,500\ \text{N}\cdot\text{mm}\approx 1{,}96\ \text{kN}\cdot\text{m}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Porównujesz pełne koło i rurę o tej samej średnicy zewnętrznej. Który przekrój ma większy wskaźnik wytrzymałości?</Prompt>
+    <Answer correct>Pełne koło</Answer>
+    <Answer>Rura, bo materiał jest bliżej osi</Answer>
+    <Answer>Oba mają identyczny $W$</Answer>
+    <Hint>Otwór usuwa materiał najbliżej osi obojętnej, ale także zmniejsza moment bezwładności.</Hint>
+    <Explanation>
+      Przy tej samej średnicy zewnętrznej pełne koło ma większy $W$, ponieważ rura ma mniej materiału. Rura może być lżejsza i lepiej wykorzystywać materiał, ale nie ma większego $W$ przy identycznym $D$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — rozdział o zginaniu i doborze przekroju; szukaj zadań, w których trzeba przejść od momentu do wymiaru i sprawdzić wynik.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o zginaniu prętów prostych; klasyczne wyprowadzenie rozkładu naprężeń i wskaźnika wytrzymałości.
+- D. Roylance, _Mechanics of Materials_, MIT OpenCourseWare — rozdział o naprężeniach w belkach; otwarty podręcznik z rysunkami i przykładami rozkładu naprężeń.
+- E. Osgood, C. Cameron, P. Christensen, _Engineering Mechanics: Statics_, Open Textbook — rozdziały o siłach wewnętrznych i wykresach momentu; pomocne w ustaleniu $M_{\max}$ przed doborem przekroju.

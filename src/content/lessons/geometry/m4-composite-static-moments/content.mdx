@@ -7,7 +7,6 @@ shortTitle: Przekroje złożone
 description: >-
   Dzielenie przekroju na proste części, sumowanie momentów statycznych i
   traktowanie otworów jako pól ujemnych.
-duration: 8
 eyebrow: Całość jako suma części
 outcomes:
   - W1 — analizuje udział poszczególnych części w równowadze geometrycznej
@@ -18,50 +17,300 @@ outcomes:
   - U3 — ocenia wpływ zmiany geometrii na położenie osi obciążeń
 ---
 
-Moment statyczny jest sumą iloczynów pól części i ich odległości od osi. Duża część oddalona od osi może przesunąć środek ciężkości mocniej niż mała część położona blisko.
+Moment statyczny pola jest odpowiednikiem momentu siły, tylko zamiast siły występuje pole, a zamiast ramienia —
+odległość od osi. Iloczyn „pole razy odległość” ma jednostkę mm³ i mówi, jak bardzo dana część przekroju „ciągnie”
+środek ciężkości w swoją stronę. To pojęcie pozwala policzyć środek figury złożonej bez całkowania po całym jej
+obrysie.
+
+Wyobraź sobie deskę z przykręconą od spodu listwą. Deska sama ma środek w połowie grubości, ale listwa przesuwa go w
+dół. Gdy listwa jest szeroka i lekka, przesunięcie jest małe; gdy jest wąska, ale daleko odsunięta, może zmienić
+położenie osi obojętnej bardziej niż deska. Właśnie takie „ważenie polami” opisują momenty statyczne.
+
+W przekroju teowym, dwuteowym albo ceowym nie ma jednego prostego wzoru na środek. Dzielimy przekrój na prostokąty,
+dla każdego znamy pole i położenie własnego środka, a potem składamy całość. Otwory i wycięcia traktujemy jako pola
+ujemne, ponieważ usuńmy materiał, a nie dodajemy go. Ta sama księgowość znaków obowiązuje przy każdym przekroju.
+
+Po tej lekcji będziesz umiał zbudować tabelę części, policzyć $S_x$ i $S_y$, wyznaczyć środek ciężkości oraz
+sprawdzić wynik. Nauczysz się też rozpoznawać, kiedy otwór przesuwa środek w stronę przeciwną, niż podpowiada
+intuicja, i dlaczego oś przechodząca przez środek ma zerowy moment statyczny. To bezpośrednie przygotowanie do
+momentów bezwładności i twierdzenia Steinera.
+
+W praktyce metoda figur złożonych jest codziennością projektanta. Kształtowniki walcowane, spawane blachownice,
+odlewy z otworami technologicznymi i przekroje kompozytowe opisuje się właśnie w ten sposób. Zanim policzysz
+naprężenia, musisz wiedzieć, gdzie leży oś obojętna, a to wymaga poprawnego środka ciężkości całego przekroju.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie środki ciężkości figur prostych: prostokąt w połowie boków, trójkąt w $h/3$ od podstawy, koło w
+  środku. Te wartości będą współrzędnymi $\bar{x}_i$ i $\bar{y}_i$ poszczególnych części.
+- Utrwal pola figur: prostokąt $bh$, trójkąt $bh/2$, koło $\pi d^2/4$, pierścień $\pi(D^2-d^2)/4$. Otwór ma takie
+  samo pole jak pełna figura, tylko ze znakiem minus.
+- Pracuj konsekwentnie w milimetrach. Moment statyczny ma wtedy jednostkę mm³. Przy zamianie na cm³ pamiętaj, że
+  $1\ \text{cm}^3=1000\ \text{mm}^3$, a nie 100.
+- Przyjmij jeden początek układu dla wszystkich części. Najczęściej wybiera się lewy dolny róg obrysu, ale dowolny
+  punkt jest poprawny, o ile wszystkie wymiary są do niego odniesione.
+- Ustal, która oś jest która. Moment $S_x$ używa odległości $y$ od osi $x$, a moment $S_y$ używa odległości $x$ od osi
+  $y$. Zamiana osi zamienia momenty miejscami.
+- Typowa pułapka: części nie mogą na siebie nachodzić. Jeżeli prostokąty dzielą wspólny fragment, jego pole zostanie
+  policzone dwukrotnie i wynik będzie zawyżony.
+
+## Model i intuicja
+
+Dzielimy przekrój na skończoną liczbę figur prostych: prostokątów, trójkątów, kół lub ich wycinków. Każdą część
+zastępujemy „punktem polowym” umieszczonym w jej środku ciężkości. Dla celów momentu statycznego liczy się tylko pole
+części i położenie tego punktu; kształt wewnątrz części nie ma już znaczenia.
+
+To uproszczenie jest dokładne, a nie przybliżone, pod warunkiem że części tworzą razem cały przekrój bez nakładania
+się i bez luk. Wynika to z addytywności całki: całka po sumie obszarów równa się sumie całek po każdym obszarze.
+Dlatego metoda działa zarówno dla cienkich blachownic, jak i dla masywnych odlewów.
+
+Otwór traktujemy jako część o polu ujemnym. Nie jest to sztuczka rachunkowa, lecz sposób zapisania, że dany obszar
+nie należy do przekroju. Jeżeli otwór leży daleko od osi, jego ujemny moment statyczny może przesunąć środek znacznie
+bardziej niż dodatni moment małej części materialnej. Właśnie dlatego duży otwór przy krawędzi potrafi „uciec” ze
+środka przekroju.
+
+Model przestaje być prosty, gdy części mają różne materiały. Wtedy pole samo w sobie nie wystarcza, bo stal i beton
+inaczej przenoszą naprężenia. W analizie wytrzymałościowej stosuje się wówczas pola przeliczone, na przykład beton
+zastępuje się równoważnym polem stali. Na poziomie geometrii nadal można mówić o centroidzie, ale nie jest to już
+środek sztywności przekroju.
+
+Kolejne ograniczenie dotyczy otworów przecinających krawędź. Jeżeli otwór wystaje poza obrys, odejmowanie pełnego
+pola koła jest błędne, bo część „ujemnego” obszaru leży poza figurą. W takim przypadku trzeba odejmować tylko
+rzeczywiste przecięcie otworu z przekrojem albo zmienić podział na części.
+
+Środek ciężkości przekroju złożonego może wypaść poza materiał, na przykład w otworze lub w „pustce” między
+ramionami. To nie jest sprzeczność. Moment statyczny jest sumą algebraiczną, a nie średnią ważoną punktów, które
+muszą należeć do figury. Wynik trzeba interpretować geometrycznie, a nie jak punkt materialny.
+
+## Laboratorium: co ustawić
+
+Ustaw obie skale na 1, odstęp bocznych części na 40 mm i wyniesienie na 30 mm. Odczytaj położenie $y_C$ oraz moment
+względem osi poziomej, następnie zwiększ odstęp do 100 mm i sprawdź, jak zmienia się udział części bocznych. Na koniec
+ustaw wyniesienie na 0 i oceń, czy zmiana jest większa, czy mniejsza niż przy zmianie odstępu.
 
 <Lab id="centroid" />
 
+## Definicje i jednostki
+
+Moment statyczny figury względem osi $x$ definiujemy jako $S_x=\int_A y\,dA$, a względem osi $y$ jako
+$S_y=\int_A x\,dA$. Wartość zależy od wyboru osi, więc zawsze trzeba podać, względem czego jest liczona. Dla figury
+złożonej całka zamienia się w sumę po częściach.
+
+| Symbol                  | Znaczenie                                         | Jednostka |
+| ----------------------- | ------------------------------------------------- | --------- |
+| $A$                     | pole całkowite przekroju, z uwzględnieniem znaków | mm²       |
+| $A_i$                   | pole $i$-tej części; ujemne dla otworu            | mm²       |
+| $\bar{x}_i,\ \bar{y}_i$ | środek ciężkości $i$-tej części                   | mm        |
+| $S_x$                   | moment statyczny względem osi $x$                 | mm³       |
+| $S_y$                   | moment statyczny względem osi $y$                 | mm³       |
+| $\bar{x},\ \bar{y}$     | środek ciężkości całego przekroju                 | mm        |
+
+Konwencja znaków jest algebraiczna. Jeżeli przeważająca część pola leży powyżej osi $x$, to $S_x$ jest dodatni; jeżeli
+po lewej stronie osi $y$, to $S_y$ jest ujemny. Nie ma tu „wartości bezwzględnej” — znak jest informacją o położeniu.
+Dopiero przy interpretacji naprężeń będzie potrzebna wartość bezwzględna.
+
+Dla osi przechodzącej przez środek ciężkości moment statyczny wynosi zero. To nie jest dodatkowa definicja, lecz
+bezpośrednia konsekwencja wzoru $\bar{y}=S_x/A$: jeżeli początek układu umieścimy w środku, to $\bar{y}=0$, więc
+$S_x=0$. Ta własność będzie wielokrotnie wykorzystywana w twierdzeniu Steinera i przy wyznaczaniu osi centralnych.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-S_x = \sum A_i \bar{y}_i, \qquad S_y = \sum A_i \bar{x}_i, \qquad \bar{y} = \frac{S_x}{A}, \qquad \bar{x} = \frac{S_y}{A}
+A=\sum_i A_i, \qquad S_x=\sum_i A_i\bar{y}_i, \qquad S_y=\sum_i A_i\bar{x}_i, \qquad
+\bar{x}=\frac{S_y}{A}, \qquad \bar{y}=\frac{S_x}{A}
 $$
 
-<Caption>Aᵢ oraz x̄ᵢ, ȳᵢ to pole i współrzędne środka i-tej części. Do Sₓ używamy odległości y od osi x, a do Sᵧ — odległości x od osi y. Otwór traktujemy jako pole ujemne.</Caption>
+<Caption>Sumowanie obejmuje wszystkie części, przy czym otwory mają $A_i$ ujemne, a ich współrzędne są rzeczywistym
+położeniem środka otworu. Wszystkie $\bar{x}_i$ i $\bar{y}_i$ muszą być mierzone od tego samego początku układu.</Caption>
 </Formula>
 
+Wyprowadzenie jest krótkie, ale warto zobaczyć, skąd bierze się każdy składnik.
+
+1. Podziel figurę na $n$ rozłącznych części o polach $A_i$. Z definicji pola całkowitego
+   $A=\int_A dA=\sum_i\int_{A_i}dA=\sum_i A_i$.
+2. Zapisz moment względem osi $x$ jako całkę po całym obszarze: $S_x=\int_A y\,dA$.
+3. Rozbij całkę na sumę całek po częściach: $S_x=\sum_i\int_{A_i}y\,dA$.
+4. Dla każdej części całka $\int_{A_i}y\,dA$ jest równa iloczynowi jej pola i współrzędnej jej własnego środka:
+   $\int_{A_i}y\,dA=A_i\bar{y}_i$. To jest definicja środka zastosowana do części.
+5. Po podstawieniu otrzymujemy $S_x=\sum_i A_i\bar{y}_i$. Analogicznie $S_y=\sum_i A_i\bar{x}_i$.
+6. Dzielimy moment przez pole całkowite i dostajemy wzory na współrzędne środka. Kolejność działań jest istotna:
+   najpierw suma momentów, potem dzielenie przez sumę pól.
+7. Otwór wprowadzamy jako część o polu ujemnym. Jeżeli obszar $A_h$ został usunięty, to całka po nim wynosi
+   $-A_h\bar{y}_h$ i automatycznie odejmuje się od sumy.
+
+Warto zapisać jeszcze wzór na przesunięcie osi. Jeżeli nowa oś $x'$ jest równoległa do $x$ i leży o $c$ wyżej, to
+$y'=y-c$ i
+
+$$
+S_{x'}=\int_A (y-c)\,dA=S_x-cA.
+$$
+
+Dla $c=\bar{y}=S_x/A$ otrzymujemy $S_{x'}=0$, czyli moment względem osi centralnej znika. Ten sam rachunek dla osi
+przesuniętej w bok daje $S_{y'}=S_y-cA$. To użyteczny sposób sprawdzenia, czy wyznaczony środek jest poprawny.
+
 <Insight>
-  Najczęstszy błąd to uśrednianie samych współrzędnych środków bez uwzględnienia pól. Środek figury złożonej jest
-  średnią ważoną polami, a moment statyczny względem osi przechodzącej przez środek ciężkości wynosi zero.
+  Środek figury złożonej jest średnią ważoną polami, a nie średnią arytmetyczną współrzędnych. Mała część daleko od osi
+  może wnieść tyle samo co duża część blisko osi. Zawsze licz momenty, a dopiero na końcu dziel przez pole; i sprawdź,
+  że moment względem osi przez wyznaczony środek jest zerowy.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Przekrój teowy składa się z pionowego środnika 20 × 100 mm i poziomej półki 120 × 20 mm. Współrzędną y mierzymy od
-    dolnego końca środnika; półka leży na jego górze.
+    Przekrój teowy składa się z pionowego środnika 20 × 100 mm i poziomej półki 120 × 20 mm. Półka leży na górze
+    środnika, a współrzędną $y$ mierzymy od dolnego końca środnika. Początek osi $x$ przyjmujemy na lewej krawędzi
+    półki.
   </Given>
   <Steps>
-    <Step>Środnik: A₁ = 20·100 = 2000 mm², y₁ = 50 mm. Półka: A₂ = 120·20 = 2400 mm², y₂ = 100 + 10 = 110 mm.</Step>
-    <Step>Pole całkowite A = 2000 + 2400 = 4400 mm².</Step>
-    <Step>Moment statyczny względem dolnej osi x: Sₓ = 2000·50 + 2400·110 = 364 000 mm³.</Step>
     <Step>
-      Środek: ȳ = Sₓ/A = 364 000/4400 = 82,73 mm. Wynik leży między 50 a 110 mm i jest przesunięty ku większej półce.
+      Środnik: $A_1=20\cdot 100=2000\ \text{mm}^2$, $\bar{y}_1=50$ mm, $\bar{x}_1=60$ mm, bo jest wyśrodkowany pod
+      półką.
+    </Step>
+    <Step>
+      Półka: $A_2=120\cdot 20=2400\ \text{mm}^2$, $\bar{y}_2=100+10=110$ mm, $\bar{x}_2=60$ mm.
+    </Step>
+    <Step>Pole całkowite: $A=2000+2400=4400\ \text{mm}^2$.</Step>
+    <Step>
+      Moment względem osi $x$: $S_x=2000\cdot 50+2400\cdot 110=100\,000+264\,000=364\,000\ \text{mm}^3$.
+    </Step>
+    <Step>
+      Środek: $\bar{y}=S_x/A=364\,000/4400\approx 82{,}73$ mm. Leży między 50 mm a 110 mm, bliżej półki, bo półka ma
+      większe pole i jest wyżej.
+    </Step>
+    <Step>
+      Moment względem osi $y$: z symetrii $\bar{x}=60$ mm, więc $S_y=4400\cdot 60=264\,000\ \text{mm}^3$. Kontrola:
+      $S_y/A=60$ mm.
     </Step>
   </Steps>
-  <Result>Pole przekroju wynosi 4400 mm², a środek ciężkości leży 82,73 mm nad dolnym końcem środnika.</Result>
+  <Result>
+    Pole przekroju wynosi $4400\ \text{mm}^2$, czyli $44\ \text{cm}^2$. Środek ciężkości leży 82,73 mm nad dolnym końcem
+    środnika, a jego
+    współrzędna pozioma to 60 mm. Momenty statyczne wynoszą $S_x=364\,000\ \text{mm}^3$ i
+    $S_y=264\,000\ \text{mm}^3$.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy kanał (ceownik) otwarty w prawo: środnik 10 × 180 mm oraz dwie półki 80 × 10 mm, górna i dolna. Wysokość
+całkowita wynosi 200 mm, a szerokość 80 mm. Dzielimy przekrój tak, aby części nie nachodziły na siebie: środnik zajmuje
+pas między półkami, a półki są pełnymi prostokątami.
+
+| Część       | $A_i$ [mm²] | $\bar{x}_i$ [mm] | $\bar{y}_i$ [mm] |
+| ----------- | ----------- | ---------------- | ---------------- |
+| środnik     | 1800        | 5                | 100              |
+| półka dolna | 800         | 40               | 5                |
+| półka górna | 800         | 40               | 195              |
+
+Pole całkowite $A=1800+800+800=3400\ \text{mm}^2$. Moment względem osi $x$:
+
+$$
+S_x=1800\cdot 100+800\cdot 5+800\cdot 195=180\,000+4000+156\,000=340\,000\ \text{mm}^3.
+$$
+
+Stąd $\bar{y}=340\,000/3400=100$ mm, co zgadza się z symetrią względem poziomej osi środkowej. Moment względem osi
+$y$:
+
+$$
+S_y=1800\cdot 5+800\cdot 40+800\cdot 40=9000+32\,000+32\,000=73\,000\ \text{mm}^3.
+$$
+
+Zatem $\bar{x}=73\,000/3400\approx 21{,}47$ mm. Wynik leży między 5 mm a 40 mm i jest bliżej środnika, który ma
+największe pole. Gdybyśmy przez pomyłkę policzyli środnik jako pełny prostokąt 10 × 200 mm, a półki jako 80 × 10 mm,
+pole wzrosłoby do 3600 mm² i pojawiłby się podwójnie policzony narożnik 10 × 10 mm.
+
+## Trzeci przykład: wariant odwrotny
+
+Płyta 200 × 120 mm ma kołowy otwór o średnicy 60 mm. Chcemy, aby środek ciężkości wypadł w odległości 95 mm od lewej
+krawędzi. Gdzie należy umieścić środek otworu? Zakładamy, że otwór leży na poziomej osi symetrii płyty, więc jego
+współrzędna $y$ wynosi 60 mm i nie wpływa na $\bar{y}$.
+
+Pole płyty $A_p=24\,000\ \text{mm}^2$, pole otworu $A_h=\pi\cdot 60^2/4=900\pi\approx 2827{,}43\ \text{mm}^2$.
+Pole wypadkowe $A=24\,000-2827{,}43=21\,172{,}57\ \text{mm}^2$. Środek płyty ma $\bar{x}_p=100$ mm, więc jej moment
+wynosi $S_{yp}=24\,000\cdot 100=2\,400\,000\ \text{mm}^3$.
+
+Warunek na wypadkowy środek to
+
+$$
+2\,400\,000-2827{,}43\,x_h=21\,172{,}57\cdot 95.
+$$
+
+Prawa strona wynosi $2\,011\,394\ \text{mm}^3$, zatem
+
+$$
+x_h=\frac{2\,400\,000-2\,011\,394}{2827{,}43}\approx 137{,}4\ \text{mm}.
+$$
+
+Otwór o promieniu 30 mm zajmuje przedział od 107,4 mm do 167,4 mm, więc mieści się w płycie. Gdyby wymagano
+$\bar{x}=90$ mm, otrzymalibyśmy $x_h\approx 174{,}9$ mm, czyli otwór wystawałby poza prawą krawędź. To pokazuje, że
+wariant odwrotny trzeba zawsze sprawdzić geometrycznie, a nie tylko algebraicznie.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Uśrednianie współrzędnych środków bez wag.** Środek to $\sum A_i\bar{y}_i/\sum A_i$, a nie $\sum\bar{y}_i/n$;
+części o większym polu mają większy wpływ.
+
+**Dodawanie otworu zamiast odejmowania.** Otwór to brak materiału, więc jego pole i moment mają znak przeciwny do
+części materialnych.
+
+**Mierzenie różnych części od różnych początków.** Tabela może wyglądać poprawnie, ale suma momentów będzie błędna.
+
+**Zamiana osi: użycie $\bar{x}_i$ do $S_x$ i $\bar{y}_i$ do $S_y$.** Moment względem osi $x$ korzysta z odległości
+pionowej, czyli $y$.
+
+**Podwójne liczenie obszaru wspólnego.** Przy podziale na prostokąty trzeba zadbać, aby części były rozłączne.
+
+**Odejmowanie pełnego otworu, który częściowo leży poza obrysem.** Wtedy trzeba odejmować tylko rzeczywiste
+przecięcie.
+
+**Mieszanie jednostek: pole w cm², a odległość w mm.** Moment wychodzi wtedy w niewłaściwej skali i wynik jest
+przypadkowy.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj przekrój i podziel go na figury, dla których znasz pole i położenie środka. Zaznacz linie podziału tak, aby
+   części nie nachodziły na siebie.
+2. Przyjmij początek układu i osie. Zapisz wymiary każdej części względem tego samego punktu; najlepiej w tabeli z
+   kolumnami $A_i$, $\bar{x}_i$, $\bar{y}_i$.
+3. Otwory i wycięcia wpisz do tabeli z ujemnym polem, ale z rzeczywistym położeniem ich środka.
+4. Policz sumę pól oraz sumy $A_i\bar{x}_i$ i $A_i\bar{y}_i$. Nie dziel jeszcze przez pole.
+5. Sprawdź, czy w sumie nie ma podwójnie policzonych fragmentów i czy wszystkie jednostki są w mm.
+6. Podziel momenty przez pole całkowite. Otrzymasz $\bar{x}$ i $\bar{y}$.
+7. Wykonaj kontrolę: wynik powinien leżeć między skrajnymi środkami części, a moment względem osi przez wyznaczony
+   środek powinien być zerowy.
+
+## Połącz z resztą kursu
+
+- „Środek ciężkości figur prostych” daje wzory i wartości $\bar{x}_i$, $\bar{y}_i$ dla pojedynczych części.
+- „Momenty bezwładności przekroju” wykorzystuje wyznaczony środek jako początek osi centralnych, względem których
+  liczy się $I_x$ i $I_y$.
+- „Twierdzenie Steinera” dodaje do momentu własnego składnik $A_i a_i^2$, gdzie $a_i$ jest odległością środka części
+  od wspólnej osi.
+- „Osie centralne i główne” zaczyna się od sprawdzenia $S_{xc}=S_{yc}=0$ dla osi przechodzących przez środek.
+- W module „Zginanie” położenie osi obojętnej wynika wprost z zerowego momentu statycznego względem niej.
+- W module „Ścinanie i skręcanie” moment statyczny części przekroju pojawia się we wzorze na naprężenia styczne przy
+  zginaniu, dlatego metoda z tej lekcji wraca tam jako element obliczeń.
+
+## Sprawdź się
+
+Rozwiąż pytania, notując najpierw tabelę części, a dopiero potem podstawiając do wzorów. Zwróć uwagę na znaki otworów
+i na to, względem której osi liczysz moment.
 
 <Quiz>
   <Question outcome="U1">
     <Prompt>
-      Dwie części mają A₁ = 1000 mm², y₁ = 20 mm oraz A₂ = 2000 mm², y₂ = 80 mm. Współrzędna ȳ całości wynosi:
+      Dwie części mają $A_1=800\ \text{mm}^2$, $\bar{y}_1=30$ mm oraz $A_2=1200\ \text{mm}^2$, $\bar{y}_2=80$ mm.
+      Współrzędna $\bar{y}$ całego przekroju wynosi:
     </Prompt>
-    <Answer>50 mm</Answer>
+    <Answer>55 mm</Answer>
     <Answer correct>60 mm</Answer>
-    <Answer>66,7 mm</Answer>
-    <Hint>Zważ współrzędne środków polami obu części.</Hint>
+    <Answer>70 mm</Answer>
+    <Hint>Zważ współrzędne polami obu części, a potem podziel przez sumę pól.</Hint>
     <Explanation>
-      ȳ = (1000·20 + 2000·80)/(1000 + 2000) = 180 000/3000 = 60 mm. Nie jest to zwykła średnia 50 mm.
+      Moment $S_x=800\cdot 30+1200\cdot 80=120\,000\ \text{mm}^3$, a pole $A=2000\ \text{mm}^2$. Zatem $\bar{y}=60$ mm,
+      a nie 55 mm.
     </Explanation>
   </Question>
   <Question outcome="W3">
@@ -71,20 +320,84 @@ $$
     <Answer>Otwór nigdy nie wpływa na położenie środka ciężkości</Answer>
     <Hint>Usunięcie pola oznacza znak przeciwny do dodanego materiału.</Hint>
     <Explanation>
-      Otwór usuwa materiał, więc jego pole i moment statyczny odejmujemy. Przyjmujemy Aᵢ &lt; 0 i używamy współrzędnych
+      Otwór usuwa materiał, więc jego pole i moment statyczny odejmujemy. Przyjmujemy $A_i\lt 0$ i używamy współrzędnych
       rzeczywistego środka otworu.
     </Explanation>
   </Question>
   <Question outcome="W3">
     <Prompt>
-      Ile wynosi moment statyczny całego przekroju względem osi x przechodzącej przez jego środek ciężkości?
+      Ile wynosi moment statyczny całego przekroju względem osi $x$ przechodzącej przez jego środek ciężkości?
     </Prompt>
     <Answer correct>Zawsze zero</Answer>
     <Answer>Zawsze pole razy wysokość</Answer>
     <Answer>Tyle co moment bezwładności</Answer>
-    <Hint>Skorzystaj z zależności Sₓ = A·ȳ w układzie osi przechodzącej przez środek.</Hint>
+    <Hint>Skorzystaj z zależności $S_x=A\bar{y}$ w układzie osi przechodzącej przez środek.</Hint>
     <Explanation>
-      Z definicji ȳ = Sₓ/A. Jeżeli oś x przechodzi przez środek ciężkości, w jej układzie ȳ = 0, więc także Sₓ = 0.
+      Z definicji $\bar{y}=S_x/A$. Jeżeli oś $x$ przechodzi przez środek ciężkości, w jej układzie $\bar{y}=0$, więc
+      także $S_x=0$. Analogicznie $S_y=0$ dla osi $y$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Przekrój składa się z części o polach $A_1=600\ \text{mm}^2$ i $A_2=400\ \text{mm}^2$. Współrzędne ich środków
+      wynoszą odpowiednio $\bar{x}_1=20$ mm i $\bar{x}_2=70$ mm. Współrzędna $\bar{x}$ całości to:
+    </Prompt>
+    <Answer>45 mm</Answer>
+    <Answer correct>40 mm</Answer>
+    <Answer>52 mm</Answer>
+    <Hint>
+      Liczy się moment $S_y=A_1\bar{x}_1+A_2\bar{x}_2$, a nie średnia współrzędnych.
+    </Hint>
+    <Explanation>
+      $S_y=600\cdot 20+400\cdot 70=12\,000+28\,000=40\,000\ \text{mm}^3$. Pole $A=1000\ \text{mm}^2$, więc $\bar{x}=40$
+      mm. Wynik jest bliżej środka większej części.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Oddalanie części materiału od osi $x$, przy niezmienionym polu, powoduje że:</Prompt>
+    <Answer>Moment statyczny $S_x$ nie zmienia się, bo pole jest stałe</Answer>
+    <Answer correct>Wartość bezwzględna $S_x$ rośnie proporcjonalnie do odległości</Answer>
+    <Answer>Moment statyczny zawsze maleje</Answer>
+    <Hint>We wzorze $S_x=A\bar{y}$ odległość występuje w pierwszej potędze.</Hint>
+    <Explanation>
+      Przy stałym polu $S_x=A\bar{y}$ rośnie liniowo z odległością. Właśnie dlatego odległa część może przesunąć środek
+      bardziej niż duża część blisko osi.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      W płycie symetrycznej wykonano otwór przesunięty w prawo od osi pionowej. W którą stronę przesunie się środek
+      ciężkości?
+    </Prompt>
+    <Answer correct>W lewo, czyli przeciwnie do otworu</Answer>
+    <Answer>W prawo, czyli w stronę otworu</Answer>
+    <Answer>Nie przesunie się, bo otwór jest pusty</Answer>
+    <Hint>Otwór ma pole ujemne, więc jego moment działa przeciwnie do momentu materiału.</Hint>
+    <Explanation>
+      Usunięcie materiału po prawej stronie zmniejsza dodatni moment po prawej, więc wypadkowy środek przesuwa się w
+      lewo. Otwór „odpycha” centroid od siebie.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dla danego przekroju zmieniono położenie początku układu, nie zmieniając figury. Co się zmieni?</Prompt>
+    <Answer>Pole przekroju i położenie środka względem figury</Answer>
+    <Answer correct>Wartości $S_x$, $S_y$ oraz współrzędne środka w nowym układzie</Answer>
+    <Answer>Nic, bo moment statyczny nie zależy od osi</Answer>
+    <Hint>Moment statyczny jest liczony względem konkretnej osi.</Hint>
+    <Explanation>
+      Przesunięcie osi zmienia ramiona $x$ i $y$, więc zmienia momenty statyczne i współrzędne liczbowe środka.
+      Położenie środka względem samej figury oraz pole pozostają takie same.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o momentach statycznych i środkach ciężkości figur
+  złożonych; szukaj metody tabelarycznej i przykładów z otworami.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — charakterystyki geometryczne przekrojów; dobrze
+  wyjaśnia znaki momentów i przejście do osi centralnych.
+- E. Osgood, L. Cameron, P. Christensen, _Engineering Mechanics: Statics_ (otwarty podręcznik) — rozdział o środku
+  masy figur złożonych; metoda części dodatnich i ujemnych oraz tabele centroidów.
+- D. Roylance, _Mechanics of Materials_ (otwarty podręcznik) — rozdział o naprężeniach w belkach; twierdzenie o polu
+  złożonym i wyznaczanie osi obojętnej przekroju teowego.

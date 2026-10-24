@@ -83,5 +83,5 @@ export function lessonIndex(id: string): number {
 }
 
 export const lessonIds = lessons.map((lesson) => lesson.id)
-export const totalDuration = lessons.reduce((sum, lesson) => sum + lesson.duration, 0)
+export const totalDuration = lessons.reduce((sum, lesson) => sum + lesson.totalMinutes, 0)
 export const modulesById = new Map(modules.map((module) => [module.id, module]))

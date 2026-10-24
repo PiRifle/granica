@@ -144,7 +144,7 @@ export function StressTransformLab() {
           <text x="280" y="185" fontSize="13" fill="currentColor" opacity="0.65">
             x
           </text>
-          <text x="176" y="72" fontSize="13" fill="currentColor" opacity="0.65">
+          <text x="184" y="96" fontSize="13" fill="currentColor" opacity="0.65">
             y
           </text>
           <motion.g
@@ -249,10 +249,10 @@ export function StressTransformLab() {
               strokeWidth="1.5"
               markerEnd="url(#transform-axis-arrow)"
             />
-            <text x="310" y="185" fontSize="15" fill="currentColor">
+            <text x="225" y="185" fontSize="13" fill="currentColor">
               n
             </text>
-            <text x="176" y="43" fontSize="15" fill="currentColor">
+            <text x="182" y="130" fontSize="13" fill="currentColor">
               t
             </text>
           </motion.g>
@@ -326,8 +326,8 @@ export function StressTransformLab() {
           <text x={centerX} y={originY + 18} textAnchor="middle" fontSize="12" fill="currentColor">
             C = {fmt(circle.centerMPa)}
           </text>
-          <text x={pointNX} y={pointNY - 12} textAnchor="middle" fontSize="13" fill="#ff6b45">
-            N(σn, τnt)
+          <text x={pointNX} y={pointNY - 14} textAnchor="middle" fontSize="13" fill="#ff6b45">
+            N
           </text>
           <text x="555" y="347" textAnchor="middle" fontSize="13" fill="currentColor">
             R = τmax = {fmt(circle.radiusMPa)} MPa

@@ -631,7 +631,7 @@
   max-width: 1056px;
   margin: 40px auto 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
   gap: 13px;
 }
 .tool-grid button {
@@ -714,6 +714,16 @@
   font-family: 'IBM Plex Mono', monospace;
   font-size: 9px;
   color: #7f8994;
+}
+.debug-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #9aa5b1;
+  text-decoration: none;
+}
+.debug-link:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
 }
 
 @media (max-width: 1100px) {

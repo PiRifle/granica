@@ -7,7 +7,6 @@ shortTitle: 'Zadanie: pręt'
 description: >-
   Przejdź od schematu i sił wewnętrznych przez naprężenia do doboru przekroju i
   kontroli wydłużenia.
-duration: 8
 eyebrow: Pełne rozwiązanie 1
 outcomes:
   - >-
@@ -31,67 +30,275 @@ outcomes:
 solutionId: cw1-1
 ---
 
-W pręcie o stałym przekroju o naprężeniu decyduje największa siła osiowa. Przy zmiennych przekrojach największa siła nie zawsze daje największe naprężenie — trzeba porównać ilorazy N/A.
+Pełne zadanie z prętem osiowym zaczyna się od schematu, a nie od wzoru na naprężenie. Trzeba ustalić, gdzie są podpory, gdzie działają siły i jak zmienia się siła normalna wzdłuż pręta. Dopiero potem można policzyć naprężenia w kolejnych odcinkach i sprawdzić, który z nich jest najbardziej wytężony.
+
+W pręcie o stałym przekroju o naprężeniu decyduje największa siła osiowa. Gdy przekrój się zmienia, ta prosta zależność przestaje wystarczać. Odcinek z mniejszą siłą, ale znacznie mniejszym polem, może mieć większe naprężenie niż odcinek z większą siłą i dużym polem. Dlatego w prętach schodkowych trzeba porównać ilorazy $|N|/A$, a nie same siły.
+
+Drugim pytaniem jest odkształcenie. Nawet jeśli wszystkie naprężenia są dopuszczalne, pręt może wydłużyć się zbyt mocno. Wydłużenie sumuje się odcinkami, a każdy odcinek wnosi udział zależny od $N$, $L$, $E$ i $A$. Odcinek o dużej długości i małym polu może dominować w sumie, mimo że jego naprężenie nie jest największe.
+
+W tej lekcji przejdziesz całą ścieżkę: od reakcji, przez wykres siły normalnej i tabelę odcinków, do naprężeń, doboru przekroju i kontroli wydłużenia. Laboratorium pokazuje, jak zmiana sił i liczby odcinków wpływa na wykresy. Po lekcji powinieneś umieć rozwiązać podobne zadanie bez podpowiedzi i uzasadnić, który warunek decyduje.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcję utwierdzenia z równowagi pręta obciążonego siłami osiowymi. Dla sił działających wzdłuż osi suma algebraiczna sił musi się zerować.
+- Rozróżniaj siłę normalną $N$ od naprężenia $\sigma=N/A$. Siła jest wspólna dla całego przekroju, a naprężenie zależy od pola.
+- Znaj wzór na wydłużenie $\Delta L=NL/(EA)$ i umiej sumować udziały odcinków. Pamiętaj, że $N$, $E$ i $A$ muszą być stałe na długości każdego składnika sumy.
+- Ustal konwencję znaku: rozciąganie dodatnie, ściskanie ujemne. Znak wpływa na sumę wydłużeń, nawet jeśli do warunku wytrzymałości używamy wartości bezwzględnej.
+- Pamiętaj o jednostkach: siła w N, pole w $\text{mm}^2$, długość w mm, moduł w MPa. Wtedy naprężenie wychodzi w MPa, a wydłużenie w mm.
+- Wiedz, że ściskany, smukły pręt może wyboczyć się przed przekroczeniem granicy materiału. Warunek $|N|/A\le k$ tego nie obejmuje.
+
+## Model i intuicja
+
+Model pręta osiowego zakłada, że siła działa wzdłuż osi, a naprężenie normalne jest równomiernie rozłożone w przekroju. Zakładamy liniową sprężystość, małe odkształcenia i brak wyboczenia. W pręcie schodkowym każde połączenie odcinków traktujemy jako miejsce, w którym może zmienić się pole, a więc i naprężenie, ale siła normalna zmienia się tylko tam, gdzie przyłożono obciążenie skupione.
+
+W pręcie statycznie wyznaczalnym reakcję można obliczyć z samej równowagi. Dla pręta utwierdzonego na jednym końcu i obciążonego siłami wzdłuż osi reakcja jest sumą algebraiczną tych sił. Potem metoda przekrojów pozwala wyznaczyć $N$ w każdym przedziale. Wykres $N(x)$ jest schodkowy: na odcinku bez obciążenia skupionego siła jest stała, a na końcu lub w miejscu przyłożenia siły następuje skok.
+
+Naprężenie w odcinku obliczamy jako $N/A$. Jeśli odcinek jest rozciągany, naprężenie jest dodatnie; jeśli ściskany, ujemne. Do warunku wytrzymałości bierzemy wartość bezwzględną, ale do sumy wydłużeń znak jest ważny. Odcinek ściskany skraca się, a rozciągany wydłuża; wypadkowa zmiana długości może być dodatnia, ujemna lub zerowa.
+
+To, że wypadkowa zmiana długości jest mała, nie oznacza, że naprężenia są małe. Dwa odcinki mogą mieć duże naprężenia przeciwnych znaków i prawie znoszące się wydłużenia. Dlatego warunki wytrzymałości i sztywności są niezależne.
+
+Model przestaje wystarczać przy dużych odkształceniach, gdy pole przekroju zmienia się w trakcie odkształcenia, oraz przy koncentracji naprężeń w miejscach przyłożenia siły. W prętach ściskanych dochodzi wyboczenie, a w prętach rozciąganych — możliwość zniszczenia w strefie mocowania. W typowym zadaniu podstawowym zakładamy, że te efekty są kontrolowane osobno albo że element jest wystarczająco krępy.
+
+Ważnym uproszczeniem jest pominięcie ciężaru własnego. W prętach poziomych i krótkich jest to zwykle uzasadnione. W wysokich, pionowych konstrukcjach ciężar własny może jednak dominować, a naprężenie od ciężaru własnego zależy od długości, a nie od pola. Ten przypadek był omawiany w module o materiale i tutaj go nie powtarzamy.
+
+Pręt może być też statycznie niewyznaczalny, na przykład utwierdzony na obu końcach. Wtedy sama równowaga nie wystarcza do znalezienia reakcji i potrzebny jest warunek zgodności odkształceń. W tej lekcji ograniczamy się do pręta wyznaczalnego, ale ten sam podział na odcinki i suma wydłużeń będzie potrzebny w pełnym zadaniu z temperaturą.
+
+## Laboratorium: co ustawić
+
+Wybierz dwa lub trzy odcinki i zmień siły $P$ oraz $Q$. Siła $Q$ działa na pierwszym połączeniu, a $P$ na swobodnym końcu. Obserwuj wykres $N$ i wykres $\sigma$: skok siły występuje tam, gdzie przyłożono $Q$, a naprężenie zależy dodatkowo od pola przekroju.
 
 <Lab id="steppedBar" />
 
+W laboratorium odcinki mają długość $400\ \text{mm}$, a pola wynoszą $A_1=200$, $A_2=350$ i $A_3=500\ \text{mm}^2$. Siła $Q$ działa na pierwszym połączeniu, dlatego pierwszy odcinek przenosi $P+Q$, a pozostałe tylko $P$. To dobry przykład tego, że największa siła nie musi być jedynym kryterium — trzeba jeszcze porównać pola.
+
+## Definicje i jednostki
+
+| Symbol     | Znaczenie                         | Jednostka typowa |
+| ---------- | --------------------------------- | ---------------- |
+| $N_i$      | siła normalna w odcinku $i$       | $\text{N}$       |
+| $A_i$      | pole przekroju odcinka $i$        | $\text{mm}^2$    |
+| $L_i$      | długość odcinka $i$               | $\text{mm}$      |
+| $E_i$      | moduł Younga odcinka $i$          | $\text{MPa}$     |
+| $\sigma_i$ | naprężenie normalne w odcinku $i$ | $\text{MPa}$     |
+| $R$        | reakcja utwierdzenia              | $\text{N}$       |
+| $k$        | naprężenie dopuszczalne           | $\text{MPa}$     |
+| $\Delta L$ | całkowite wydłużenie              | $\text{mm}$      |
+
+Indeks $i$ oznacza kolejny odcinek o stałych parametrach. Granice odcinków wyznaczamy tam, gdzie zmienia się pole, materiał lub przyłożona siła. W jednym odcinku $N$, $A$, $E$ i $L$ muszą być stałe, inaczej trzeba go podzielić na mniejsze części.
+
+Konwencja znaku jest następująca: $N\gt 0$ oznacza rozciąganie, $N\lt 0$ ściskanie. Naprężenie ma ten sam znak co siła normalna. Wydłużenie dodatnie oznacza wydłużenie całkowite, a ujemne skrócenie. Przy sumowaniu nie wolno zgubić znaku, bo udział ściskanego odcinka może częściowo skompensować wydłużenie odcinka rozciąganego.
+
+Siła normalna jest siłą wewnętrzną. Na wykresie $N(x)$ skok występuje w miejscu przyłożenia siły zewnętrznej, a wartość na odcinku zależy od tego, którą część pręta wybierzemy do równowagi. Poprawny wynik nie zależy od wyboru strony cięcia, jeśli konsekwentnie stosujemy tę samą konwencję.
+
+Warto zapisać granice odcinków na rysunku. Najczęstszy błąd w tabeli polega na przypisaniu długości sąsiedniego odcinka albo na pominięciu fragmentu między dwiema siłami. Rysunek z zaznaczonymi punktami $A$, $B$, $C$ i długościami eliminuje większość takich pomyłek.
+
+W tabeli warto trzymać kolejność od utwierdzenia do swobodnego końca. Taki zapis odpowiada naturalnemu czytaniu wykresu $N(x)$ i ułatwia sprawdzenie, czy siła w pierwszym odcinku jest równa reakcji.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-|\sigma_i| = \frac{|N_i|}{A_i} \leq k \qquad \Delta L = \sum_i \frac{N_iL_i}{E A_i}
+|\sigma_i| = \frac{|N_i|}{A_i} \le k \qquad \Delta L = \sum_i \frac{N_iL_i}{E_iA_i} \le \Delta L_{\mathrm{dop}}
 $$
 
-<Caption>Suma obejmuje przedziały o stałych N, E i A. Wartość bezwzględna jest potrzebna, gdy pręt jest ściskany. Przy ściskaniu smukłego pręta konieczna może być dodatkowo kontrola wyboczenia, której nie zastępuje warunek |N|/A ≤ k.</Caption>
+<Caption>Pierwszy warunek dotyczy każdego odcinka osobno. Drugi sumuje wydłużenia odcinków o stałych $N_i$, $L_i$, $E_i$ i $A_i$. Wartość bezwzględna w warunku wytrzymałości jest potrzebna, gdy pręt jest ściskany; w sumie wydłużeń znak pozostaje. Warunek nie obejmuje wyboczenia.</Caption>
 </Formula>
 
+1. Ustalamy schemat: położenie utwierdzenia, kierunek osi $x$, miejsca i zwroty sił. Rysunek jest częścią rozwiązania, nie ozdobą.
+2. Z równowagi całego pręta wyznaczamy reakcję. Dla sił $P$ i $Q$ działających zgodnie z osią reakcja jest ich sumą algebraiczną.
+3. Dzielimy pręt na odcinki. Granice wyznaczają zmiany pola, materiału i miejsca przyłożenia sił.
+4. Dla każdego odcinka wyznaczamy $N_i$ metodą przekrojów. Siła normalna jest stała na odcinku, jeśli nie ma na nim obciążenia rozłożonego.
+5. Obliczamy naprężenie $\sigma_i=N_i/A_i$ i porównujemy $|\sigma_i|$ z $k$. Sprawdzamy wszystkie odcinki, nie tylko ten z największą siłą.
+6. Obliczamy udział każdego odcinka w wydłużeniu: $\Delta L_i=N_iL_i/(E_iA_i)$. Znak $N_i$ przenosimy do wyniku.
+7. Sumujemy udziały: $\Delta L=\sum_i\Delta L_i$. Sprawdzamy, czy wynik jest w dopuszczalnym zakresie.
+8. Jeśli warunek wytrzymałości lub sztywności nie jest spełniony, zmieniamy pole, materiał albo obciążenie. Po zmianie wracamy do początku, ponieważ nowe pole może zmienić decydujący odcinek.
+
+W zadaniu odwrotnym, gdy szukamy dopuszczalnego obciążenia, wyznaczamy je z każdego odcinka osobno i przyjmujemy najmniejszą wartość. Dla odcinka $i$ warunek $|N_i|/A_i\le k$ daje ograniczenie na $P$. To ograniczenie zależy od tego, jak $N_i$ zależy od $P$ — w pręcie schodkowym różne odcinki mogą mieć różne współczynniki przy $P$.
+
 <Insight>
-  Najpierw wykres N, potem tabela przedziałów. Taki porządek ogranicza pomylenie długości, pola lub znaku siły.
+  Największa siła normalna nie zawsze oznacza największe naprężenie. Decyduje iloraz $|N_i|/A_i$. W pręcie schodkowym
+  trzeba zrobić tabelę odcinków i porównać wszystkie naprężenia. Tabela jest też najlepszym sposobem na uniknięcie
+  pomylenia długości i pola przy sumowaniu wydłużeń.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Pręt jest rozciągany siłą N = 24 kN; ma L = 1,2 m, A = 300 mm², E = 200 GPa, k = 120 MPa i Re = 240 MPa.
+    Pręt schodkowy jest utwierdzony na lewym końcu. Ma trzy odcinki o długości $L=400\ \text{mm}$ każdy i polach $A_1=200$, $A_2=350$, $A_3=500\ \text{mm}^2$. Na pierwszym połączeniu działa siła $Q=10\ \text{kN}$, a na swobodnym końcu $P=18\ \text{kN}$, obie w kierunku osi. Przyjmij $E=200\ \text{GPa}$, $k=160\ \text{MPa}$ i $\Delta L_{\mathrm{dop}}=0{,}6\ \text{mm}$.
   </Given>
   <Steps>
-    <Step>σ = N/A = 24 000/300 = 80 MPa ≤ k = 120 MPa.</Step>
-    <Step>Rzeczywisty zapas względem Re = 240 MPa wynosi n = Re/σ = 240/80 = 3.</Step>
-    <Step>ΔL = NL/(EA) = 24 000·1200/(200 000·300) = 0,48 mm.</Step>
+    <Step>Reakcja utwierdzenia: $R=P+Q=18+10=28\ \text{kN}$.</Step>
+    <Step>Siły normalne: $N_1=28\ \text{kN}$, $N_2=18\ \text{kN}$, $N_3=18\ \text{kN}$. Siła $Q$ działa tylko na pierwszy odcinek.</Step>
+    <Step>Naprężenia: $\sigma_1=28\,000/200=140\ \text{MPa}$, $\sigma_2=18\,000/350\approx51{,}4\ \text{MPa}$, $\sigma_3=18\,000/500=36\ \text{MPa}$.</Step>
+    <Step>Największe naprężenie występuje w odcinku 1 i wynosi $140\ \text{MPa}\le160\ \text{MPa}$.</Step>
+    <Step>Zapas względem granicy plastyczności $R_e=235\ \text{MPa}$: $n=235/140\approx1{,}68$.</Step>
+    <Step>Wydłużenie odcinka 1: $\Delta L_1=28\,000\cdot400/(200\,000\cdot200)=0{,}280\ \text{mm}$.</Step>
+    <Step>Wydłużenie odcinka 2: $\Delta L_2=18\,000\cdot400/(200\,000\cdot350)\approx0{,}1029\ \text{mm}$.</Step>
+    <Step>Wydłużenie odcinka 3: $\Delta L_3=18\,000\cdot400/(200\,000\cdot500)=0{,}072\ \text{mm}$.</Step>
+    <Step>Suma: $\Delta L\approx0{,}280+0{,}1029+0{,}072=0{,}4549\ \text{mm}\le0{,}6\ \text{mm}$.</Step>
   </Steps>
   <Result>
-    Pręt spełnia warunek wytrzymałości; wydłużenie wynosi 0,48 mm, a zapas względem granicy plastyczności jest równy 3.
+    Wszystkie naprężenia są dopuszczalne, decyduje odcinek 1 z $\sigma_1=140\ \text{MPa}$. Całkowite wydłużenie wynosi około $0{,}455\ \text{mm}$ i nie przekracza $0{,}6\ \text{mm}$.
   </Result>
 </WorkedExample>
 
+Zwróć uwagę, że odcinek 1 ma nie tylko największą siłę, ale też najmniejsze pole, więc decyduje podwójnie. Gdyby jego pole było większe, mogłoby się okazać, że o naprężeniu decyduje odcinek 2 lub 3. Dlatego po każdej zmianie geometrii trzeba powtórzyć porównanie, a nie zakładać, że poprzedni wniosek pozostaje aktualny.
+
+## Drugi przykład
+
+Rozważmy pręt dwuodcinkowy utwierdzony na lewym końcu. Odcinek 1 ma $L_1=300\ \text{mm}$ i $A_1=400\ \text{mm}^2$, a odcinek 2 $L_2=500\ \text{mm}$ i $A_2=200\ \text{mm}^2$. Na swobodnym końcu działa siła $P=20\ \text{kN}$ w prawo, a na połączeniu siła $Q=25\ \text{kN}$ w lewo. Przyjmij $E=200\ \text{GPa}$.
+
+Reakcja z równowagi: $R-25+20=0$, więc $R=5\ \text{kN}$ w prawo. Siła normalna w odcinku 2, liczona od swobodnego końca, wynosi $N_2=20\ \text{kN}$ (rozciąganie). W odcinku 1 suma sił po lewej stronie cięcia daje $N_1=-5\ \text{kN}$ (ściskanie).
+
+Naprężenia: $\sigma_1=-5000/400=-12{,}5\ \text{MPa}$, $\sigma_2=20\,000/200=100\ \text{MPa}$. Odcinek 2 jest bardziej wytężony, mimo że ma mniejszą siłę bezwzględną, ponieważ jego pole jest dwa razy mniejsze.
+
+| Odcinek | $L$    | $A$     | $N$   | $\sigma$  |
+| ------- | ------ | ------- | ----- | --------- |
+| 1       | 300 mm | 400 mm² | −5 kN | −12,5 MPa |
+| 2       | 500 mm | 200 mm² | 20 kN | 100 MPa   |
+
+Wydłużenia: $\Delta L_1=-5000\cdot300/(200\,000\cdot400)=-0{,}01875\ \text{mm}$, $\Delta L_2=20\,000\cdot500/(200\,000\cdot200)=0{,}25\ \text{mm}$. Suma wynosi około $0{,}231\ \text{mm}$.
+
+Przykład pokazuje, że znak ma znaczenie. Odcinek 1 skraca się, ale odcinek 2 wydłuża się znacznie bardziej, więc cały pręt wydłuża się netto. Gdyby pominąć znak, suma byłaby zawyżona. Gdyby pominąć pole, można by błędnie uznać, że decyduje odcinek 1, bo ma większą siłę bezwzględną.
+
+Taki przypadek zdarza się w elementach, w których część przekroju jest wymieniona na cieńszą lub w których siła jest przyłożona w połowie długości. Nie wystarczy wtedy „największa siła” ani „najmniejszy przekrój” osobno; trzeba porównać iloczyn tych informacji w postaci naprężenia.
+
+## Trzeci przykład: wariant odwrotny
+
+Wróćmy do geometrii z laboratorium: $L=400\ \text{mm}$, $A_1=200$, $A_2=350$, $A_3=500\ \text{mm}^2$, $Q=10\ \text{kN}$. Tym razem pytamy, jakie największe $P$ można przyłożyć, jeśli $k=150\ \text{MPa}$ i $\Delta L_{\mathrm{dop}}=0{,}5\ \text{mm}$.
+
+Siły normalne wynoszą $N_1=P+10$, $N_2=P$, $N_3=P$ (w kN). Z odcinka 1: $(P+10)\cdot1000/200\le150$, czyli $P+10\le30$, więc $P\le20\ \text{kN}$. Z odcinka 2: $P\cdot1000/350\le150$, więc $P\le52{,}5\ \text{kN}$. Z odcinka 3: $P\le75\ \text{kN}$.
+
+Decyduje odcinek 1, więc $P_{\max}=20\ \text{kN}$ z warunku wytrzymałości. Sprawdźmy sztywność przy tej sile: $N_1=30\ \text{kN}$, $N_2=N_3=20\ \text{kN}$. Wydłużenie wynosi $30\,000\cdot400/(200\,000\cdot200)+20\,000\cdot400/(200\,000\cdot350)+20\,000\cdot400/(200\,000\cdot500)=0{,}3+0{,}1143+0{,}08=0{,}4943\ \text{mm}$, czyli nieco mniej niż $0{,}5\ \text{mm}$.
+
+W tym przypadku oba warunki dają wynik blisko siebie. Gdyby dopuszczalne wydłużenie było mniejsze, o $P$ decydowałaby sztywność, a nie wytrzymałość. Wariant odwrotny uczy, że trzeba sprawdzić oba ograniczenia i wskazać to, które jest rzeczywiście aktywne.
+
+Warto też zauważyć, że ograniczenie z odcinka 1 ma postać $P\le20\ \text{kN}$, a nie $P\le30\ \text{kN}$. Siła $Q$ dodaje się do $P$ w pierwszym odcinku, więc zmniejsza dopuszczalne $P$ o $10\ \text{kN}$. To bezpośredni skutek tego, gdzie przyłożono obciążenie.
+
+Gdyby $Q$ działało w przeciwną stronę, mogłoby zmniejszać siłę w pierwszym odcinku, a nie zwiększać. Dlatego kierunek siły jest równie ważny jak jej wartość. W zadaniach z prętami warto zawsze zaznaczyć zwroty na rysunku, zanim zacznie się liczyć.
+
+W prętach schodkowych najwięcej błędów powstaje przy przypisaniu sił do odcinków oraz przy sumowaniu wydłużeń ze znakami. Poniższa lista zbiera najważniejsze kontrole.
+
+<Callout kind="warning" title="Typowe błędy">
+  1. **Porównywanie tylko sił normalnych.** W pręcie schodkowym decyduje $|N_i|/A_i$, a nie samo $|N_i|$. Odcinek z
+  mniejszą siłą i małym polem może być bardziej wytężony. 2. **Błędne przypisanie $Q$ do odcinków.** Siła przyłożona na
+  połączeniu działa tylko po jednej stronie przekroju. W laboratorium $Q$ zwiększa $N$ tylko w pierwszym odcinku. 3.
+  **Pominięcie znaku przy sumowaniu wydłużeń.** Odcinek ściskany wnosi ujemny udział. Sumowanie wartości bezwzględnych
+  daje błędne wydłużenie całkowite. 4. **Dzielenie przez złe pole.** Każdy odcinek ma własne $A_i$. Podstawienie pola
+  sąsiedniego odcinka jest częstym błędem przy przepisywaniu tabeli. 5. **Brak zamiany kN na N i GPa na MPa.** $28\
+  \text{kN}=28\,000\ \text{N}$, a $200\ \text{GPa}=200\,000\ \text{MPa}$. Bez tego wynik wychodzi o rzędy wielkości
+  błędny. 6. **Zapomnienie o wyboczeniu.** Warunek $|N|/A\le k$ nie gwarantuje stateczności smukłego pręta ściskanego.
+  Przy ściskaniu trzeba sprawdzić smukłość i warunki podparcia. 7. **Brak kontroli po doborze.** Po zmianie pola lub
+  siły trzeba przeliczyć wszystkie odcinki, ponieważ decydujący odcinek może się zmienić.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Narysuj pręt i zaznacz oś.** Ustal, gdzie jest utwierdzenie, gdzie swobodny koniec i w którą stronę działają siły. Przyjmij jedną konwencję znaku i trzymaj się jej do końca.
+2. **Oblicz reakcję.** W pręcie statycznie wyznaczalnym wystarczy równowaga sił wzdłuż osi. Sprawdź, czy znak reakcji jest zgodny z przyjętym kierunkiem.
+3. **Podziel pręt na odcinki.** Granice wyznaczają zmiany $A$, $E$ oraz miejsca przyłożenia sił skupionych. Odcinek musi mieć stałe parametry.
+4. **Zrób tabelę odcinków.** Kolumny: $i$, $L_i$, $A_i$, $N_i$, $\sigma_i$, $\Delta L_i$. Tabela porządkuje rachunek i ułatwia kontrolę.
+5. **Wyznacz $N_i$ metodą przekrojów.** Dla każdego odcinka wybierz wygodną stronę cięcia. Sprawdź, czy skoki $N$ odpowiadają przyłożonym siłom.
+6. **Sprawdź warunek wytrzymałości dla wszystkich odcinków.** Znajdź maksimum $|N_i|/A_i$ i porównaj z $k$. Wskaż odcinek decydujący.
+7. **Oblicz wydłużenie z zachowaniem znaków.** Zsumuj $N_iL_i/(E_iA_i)$ i porównaj z $\Delta L_{\mathrm{dop}}$.
+8. **Jeśli szukasz obciążenia, odwróć warunki.** Z każdego odcinka wyznacz ograniczenie na $P$ i przyjmij najmniejsze. Potem sprawdź, czy drugi warunek nie jest bardziej restrykcyjny.
+
+Po rozwiązaniu sprawdź, czy suma sił w węzłach się zeruje, a wykres $N$ ma skoki dokładnie tam, gdzie przyłożono siły. Te dwie kontrole wychwytują większość błędów w znakach i przypisaniu obciążeń do odcinków.
+
+## Połącz z resztą kursu
+
+- **Wykresy siły normalnej** opisują, jak $N$ zmienia się wzdłuż pręta. W tej lekcji są pierwszym krokiem do naprężeń i wydłużeń.
+- **Pręty schodkowe** wprowadzają ideę odcinków o różnych polach. Tutaj łączymy ją z warunkami projektowymi i kontrolą sztywności.
+- **Prawo Hooke'a i wydłużenie** dostarczają wzoru na $\Delta L$. Bez niego nie da się sprawdzić, czy pręt jest wystarczająco sztywny.
+- **Dobór materiału i obciążenia dopuszczalnego** wyjaśnia, skąd bierze się $k$ i jak porównywać materiały. Tutaj stosujemy te zasady do całego pręta.
+- **Pełne zadanie z temperaturą** dodaje odkształcenie termiczne i warunek zgodności. Ten sam schemat odcinków będzie tam nadal używany.
+- **Strategia kolokwium** przypomina o tabeli, jednostkach i zapisaniu warunku decydującego. W zadaniach z prętem tabela jest szczególnie skuteczna.
+
+Tabela odcinków jest też dobrym sposobem na częściowe punkty. Nawet jeśli końcowy wynik jest błędny, czytelny zapis $N_i$, $A_i$ i $\sigma_i$ pokazuje, że rozumiesz metodę i potrafisz zlokalizować błąd.
+
+## Sprawdź się
+
+Pytania sprawdzają kolejno: wybór decydującego odcinka, sumowanie wydłużeń, reakcję, znaki i interpretację warunków. Staraj się odpowiadać bez liczenia na kartce, ale po każdym pytaniu sprawdź rachunek.
+
+Jeśli pomylisz odcinek decydujący, wróć do tabeli i porównaj ilorazy $|N_i|/A_i$. Jeśli pomylisz wydłużenie, sprawdź, czy zachowałeś znak i czy użyłeś właściwego pola.
+
 <Quiz>
   <Question outcome="W1">
-    <Prompt>
-      Odcinek 1 ma N = 40 kN i A = 500 mm², a odcinek 2 N = 30 kN i A = 200 mm². Który decyduje o wytrzymałości?
-    </Prompt>
-    <Answer>Odcinek 1, bo ma większe N</Answer>
-    <Answer correct>Odcinek 2, bo ma większe N/A</Answer>
+    <Prompt>Odcinek 1 ma $N=40\ \text{kN}$ i $A=500\ \text{mm}^2$, a odcinek 2 ma $N=30\ \text{kN}$ i $A=200\ \text{mm}^2$. Który decyduje o wytrzymałości?</Prompt>
+    <Answer>Odcinek 1, bo ma większe $N$</Answer>
+    <Answer correct>Odcinek 2, bo ma większe $N/A$</Answer>
     <Answer>Oba mają takie samo naprężenie</Answer>
     <Hint>Oblicz osobno naprężenia w MPa.</Hint>
     <Explanation>
-      σ1 = 40 000/500 = 80 MPa, a σ2 = 30 000/200 = 150 MPa. O decydującym odcinku nie rozstrzyga sama siła, lecz iloraz
-      N/A.
+      $\sigma_1=40\,000/500=80\ \text{MPa}$, a $\sigma_2=30\,000/200=150\ \text{MPa}$. O decydującym odcinku nie rozstrzyga sama siła, lecz iloraz $N/A$.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Dwa odcinki mają N = 20 kN, L = 0,5 m, E = 200 GPa i A = 400 mm². Jakie jest ich łączne wydłużenie?</Prompt>
+    <Prompt>Dwa odcinki mają $N=20\ \text{kN}$, $L=0{,}5\ \text{m}$, $E=200\ \text{GPa}$ i $A=400\ \text{mm}^2$. Jakie jest ich łączne wydłużenie?</Prompt>
     <Answer>0,125 mm</Answer>
     <Answer correct>0,25 mm</Answer>
     <Answer>0,5 mm</Answer>
-    <Hint>Każdy odcinek daje NL/(EA) = 0,125 mm.</Hint>
-    <Explanation>Pojedyncze wydłużenie: 20 000·500/(200 000·400) = 0,125 mm. Dwa odcinki dają 0,25 mm.</Explanation>
+    <Hint>Każdy odcinek daje $NL/(EA)=0{,}125\ \text{mm}$.</Hint>
+    <Explanation>
+      Pojedyncze wydłużenie: $20\,000\cdot500/(200\,000\cdot400)=0{,}125\ \text{mm}$. Dwa odcinki dają $0{,}25\ \text{mm}$.
+    </Explanation>
   </Question>
   <Question outcome="W2">
-    <Prompt>Dlaczego wynik |N|/A ≤ k nie wystarcza dla bardzo smukłego ściskanego pręta?</Prompt>
+    <Prompt>Dlaczego wynik $|N|/A\le k$ nie wystarcza dla bardzo smukłego ściskanego pręta?</Prompt>
     <Answer>Bo ściskanie nie wywołuje naprężeń</Answer>
     <Answer correct>Bo może nastąpić wyboczenie przed osiągnięciem granicy materiału</Answer>
-    <Answer>Bo E nie dotyczy ściskania</Answer>
+    <Answer>Bo $E$ nie dotyczy ściskania</Answer>
     <Hint>Pomyśl o utracie prostoliniowej postaci równowagi.</Hint>
     <Explanation>
-      Wyboczenie jest zagadnieniem stateczności i może wystąpić przy naprężeniu poniżej k. Wymaga osobnej kontroli
-      zależnej m.in. od smukłości i podparcia.
+      Wyboczenie jest zagadnieniem stateczności i może wystąpić przy naprężeniu poniżej $k$. Wymaga osobnej kontroli zależnej między innymi od smukłości i podparcia.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W pręcie z laboratorium $P=18\ \text{kN}$ i $Q=10\ \text{kN}$. Ile wynosi reakcja utwierdzenia?</Prompt>
+    <Answer>8 kN</Answer>
+    <Answer correct>28 kN</Answer>
+    <Answer>10 kN</Answer>
+    <Hint>Obie siły działają w tę samą stronę, więc reakcja jest ich sumą.</Hint>
+    <Explanation>
+      $R=P+Q=18+10=28\ \text{kN}$. Siła $Q$ nie znika, bo jest przyłożona do pręta i musi być zrównoważona przez utwierdzenie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>W tym samym pręcie z $P=18\ \text{kN}$ i $Q=10\ \text{kN}$ jaka siła normalna działa w drugim odcinku?</Prompt>
+    <Answer>28 kN</Answer>
+    <Answer correct>18 kN</Answer>
+    <Answer>10 kN</Answer>
+    <Hint>Siła $Q$ jest przyłożona na pierwszym połączeniu, więc nie działa na odcinki za nim.</Hint>
+    <Explanation>
+      Drugi i trzeci odcinek przenoszą tylko siłę $P=18\ \text{kN}$. Siła $Q$ zwiększa siłę normalną wyłącznie w pierwszym odcinku, między utwierdzeniem a połączeniem.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Odcinek 1 skraca się, a odcinek 2 wydłuża. Jak obliczyć całkowite wydłużenie pręta?</Prompt>
+    <Answer correct>Zsumować udziały z ich znakami</Answer>
+    <Answer>Zsumować wartości bezwzględne udziałów</Answer>
+    <Answer>Odrzucić udział odcinka ściskanego</Answer>
+    <Hint>Wydłużenie jest wielkością algebraiczną.</Hint>
+    <Explanation>
+      Udział odcinka ściskanego jest ujemny i częściowo kompensuje wydłużenie odcinka rozciąganego. Sumowanie wartości bezwzględnych zawyża wynik, a odrzucenie odcinka ściskanego jest błędem modelu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W pierwszym odcinku $N=28\ \text{kN}$, a $A=200\ \text{mm}^2$. Ile wynosi naprężenie?</Prompt>
+    <Answer>14 MPa</Answer>
+    <Answer correct>140 MPa</Answer>
+    <Answer>1400 MPa</Answer>
+    <Hint>$1\ \text{MPa}=1\ \text{N/mm}^2$.</Hint>
+    <Explanation>
+      $\sigma=28\,000/200=140\ \text{N/mm}^2=140\ \text{MPa}$. Przesunięcie przecinka o jedno miejsce daje wynik dziesięciokrotnie błędny.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+Przy prętach schodkowych warto czytać zarówno rozdziały teoretyczne, jak i zbiory zadań. Teoria wyjaśnia, dlaczego suma wydłużeń ma postać sumy, a zadania pokazują, jak różnorodne są schematy obciążenia.
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — rozdział o rozciąganiu i prętach schodkowych; szukaj zadań z wykresami $N$ i sumowaniem wydłużeń.
+- R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_, PWN, Warszawa 1966 — zadania z prętów osiowo obciążonych i układów prętowych; dobry trening w ustalaniu sił wewnętrznych.
+- D. Roylance, _Mechanics of Materials_, MIT OpenCourseWare — rozdział o kratownicach i elementach rozciąganych; otwarty podręcznik z przykładami wyznaczania sił osiowych.
+- E. Osgood, C. Cameron, P. Christensen, _Engineering Mechanics: Statics_, Open Textbook — rozdział o siłach wewnętrznych; pomocny w zrozumieniu metody przekrojów i znaków sił normalnych.

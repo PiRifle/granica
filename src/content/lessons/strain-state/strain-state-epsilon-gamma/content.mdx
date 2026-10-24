@@ -7,7 +7,6 @@ shortTitle: ε i γ
 description: >-
   Rozróżnij względną zmianę długości od zniekształcenia postaciowego i poprawnie
   używaj bezwymiarowych wielkości.
-duration: 7
 eyebrow: Jak zmienia się kształt
 outcomes:
   - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
@@ -26,67 +25,282 @@ outcomes:
     oraz sztywność
 ---
 
-Rozciągany pręt wydłuża się, a ścinana kostka zmienia kąty, choć jej objętość może pozostawać stała. Odkształcenie ε opisuje względną zmianę długości, a inżynierskie γ — zmianę początkowo prostego kąta.
+Weź do ręki gumkę i rozciągnij ją. Wydłuża się wzdłuż osi, ale jednocześnie staje się cieńsza, a jej boki mogą się lekko skręcić. Inżynier nie opisuje tego słowami „bardziej” i „mniej”. Potrzebuje liczb, które można zmierzyć, porównać między materiałami i wstawić do obliczeń. Pierwszą z tych liczb jest odkształcenie liniowe, czyli względna zmiana długości.
+
+Wyobraź sobie odcinek o długości początkowej $L_0$, który po obciążeniu ma długość $L$. Samo wydłużenie $\Delta L = L - L_0$ zależy od tego, jak długi był odcinek: ten sam przyrost 0,1 mm na próbce 10 mm jest ogromny, a na moście o długości 100 m praktycznie niewidoczny. Dlatego dzielimy przyrost przez długość początkową. Powstaje wielkość bezwymiarowa, która nie zależy od skali obiektu.
+
+Drugi rodzaj deformacji to zmiana kątów. Wyobraź sobie kwadratową kostkę, której górna krawędź przesuwa się względem dolnej. Boki nadal mają podobną długość, ale kąt między nimi przestaje być prosty. Taki stan nazywamy odkształceniem postaciowym albo ścinaniem. W konstrukcjach spotykasz go w połączeniach śrubowych, skręcanych wałach, klejach i rdzeniach paneli warstwowych.
+
+W tej lekcji zbudujesz podstawę języka odkształceń. Nauczysz się odróżniać $\varepsilon$ od $\gamma$, przeliczać mikrostrainy na wartości bezwymiarowe, odczytywać lokalne odkształcenie z pola przemieszczeń i rozpoznawać, kiedy małe odkształcenie można opisać pochodną przemieszczenia. To fundament pod efekt Poissona, uogólnione prawo Hooke’a, pomiar tensometryczny i cały stan odkształcenia.
+
+Zanim przejdziemy do wzorów, warto zauważyć, że odkształcenie nie jest tym samym co przemieszczenie. Koniec wspornika może przemieścić się o kilka milimetrów, a mimo to materiał w środku może być odkształcony bardzo słabo. Odwrotnie: mały element może prawie nie zmienić położenia, ale silnie się odkształcić. Właśnie dlatego opisujemy deformację polem lokalnym, a nie tylko przesunięciem całego obiektu.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie, że naprężenie to siła przypadająca na pole przekroju, a odkształcenie to odpowiedź geometryczna materiału, nie to samo co naprężenie.
+- Potrzebujesz umiejętności dzielenia liczb bliskich zeru i pracy z zapisem wykładniczym, na przykład $1{,}5\cdot10^{-3}$.
+- Przypomnij sobie pojęcie pochodnej cząstkowej: $\partial u/\partial x$ oznacza, jak szybko przemieszczenie $u$ zmienia się wraz ze współrzędną $x$.
+- Pamiętaj, że kąt w radianach jest bezwymiarowy: $\gamma$ podajemy w radianach, a nie w stopniach, choć w opisie słownym stopnie bywają wygodniejsze.
+- Ustal jedną konwencję znaków: dodatnie $\varepsilon$ oznacza wydłużenie, ujemne skrócenie. Dla $\gamma$ dodatnia wartość oznacza zmniejszenie początkowo prostego kąta.
+- Nie mieszaj odkształcenia inżynierskiego z tensorowym: dla ścinania różnią się one czynnikiem dwa.
+
+## Model i intuicja
+
+Model małego odkształcenia traktuje materiał jako continuum. W każdym punkcie definiujemy przemieszczenie $\mathbf{u}=(u,v,w)$, a odkształcenie jako pochodne tego pola. Nie interesuje nas, jak poruszają się pojedyncze atomy. Interesuje nas, jak zmieniają się odległości między punktami materialnymi i kąty między początkowo prostymi odcinkami.
+
+Najprostszy przypadek to pręt rozciągany równomiernie. Jeśli każde włókno wydłuża się tak samo, odkształcenie jest jednorodne i wystarczy zmierzyć całą długość. W rzeczywistej konstrukcji pole może być niejednorodne: przy otworze, wrębie, spoinie lub miejscu przyłożenia siły odkształcenie zmienia się z punktu na punkt. Wtedy mówimy o odkształceniu lokalnym i opisujemy je pochodną przemieszczenia.
+
+Kluczowe założenie brzmi: przemieszczenia i ich gradienty są małe. Dopiero wtedy można pominąć iloczyny pochodnych i używać liniowych związków kinematycznych. Dla stali w zakresie sprężystym typowe odkształcenia są rzędu $10^{-3}$ lub mniejsze, więc model jest bardzo dobry. Dla gumy, pianki, tkanin lub procesów tłoczenia blachy odkształcenia mogą sięgać kilkudziesięciu procent i potrzebne są miary skończone, na przykład odkształcenie logarytmiczne.
+
+Drugie uproszczenie dotyczy ruchu sztywnego. Jeśli cały element przesuwa się bez zmiany kształtu, przemieszczenia są duże, ale odkształcenia wynoszą zero. Podobnie czysty obrót nie może być mylony z odkształceniem postaciowym. Dlatego tensor odkształcenia definiujemy jako symetryczną część gradientu przemieszczenia, a część antysymetryczną odkładamy do obrotu.
+
+Model przestaje działać, gdy materiał płynie plastycznie, gdy odkształcenia są duże, gdy występują duże obroty lub gdy mierzymy bardzo krótkie bazy w silnie niejednorodnym polu. W takich przypadkach sam wzór $\varepsilon=\Delta L/L_0$ nadal bywa użyteczny jako miara inżynierska, ale nie opisuje już dokładnie lokalnej kinematyki.
+
+### Kiedy model przestaje działać
+
+- Odkształcenie przekracza kilka procent, na przykład w gumie, piance lub podczas tłoczenia blachy.
+- Występują duże obroty, tak że część antysymetryczna gradientu przemieszczenia nie jest już mała.
+- Materiał płynie plastycznie lub pełza, więc odkształcenie nie jest jednoznacznie związane z chwilowym naprężeniem.
+- Pole przemieszczeń zmienia się gwałtownie na odległości mniejszej niż baza pomiarowa.
+- Występuje lokalizacja odkształcenia, na przykład szyjka w próbce rozciąganej lub pasmo ścinania.
+- Element jest bardzo cienki i ulega dużym ugięciom, tak że zmienia się geometria obciążenia.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmienisz odkształcenie próbki i zobaczysz, jak zmienia się naprężenie oraz etap pracy materiału. Obserwuj szczególnie zakres sprężysty, w którym wydłużenie jest proporcjonalne do siły, oraz moment, w którym po odciążeniu pozostaje odkształcenie trwałe.
 
 <Lab id="tensileTest" />
 
+## Definicje i jednostki
+
+| Wielkość                              | Symbol             | Definicja słowna                                    | Jednostka    | Uwaga                            |
+| ------------------------------------- | ------------------ | --------------------------------------------------- | ------------ | -------------------------------- |
+| Odkształcenie liniowe                 | $\varepsilon_x$    | zmiana długości podzielona przez długość początkową | bezwymiarowe | dodatnie przy wydłużeniu         |
+| Odkształcenie postaciowe inżynierskie | $\gamma_{xy}$      | zmiana kąta prostego w płaszczyźnie $xy$            | radian       | pełny kąt, nie połowa            |
+| Składowa tensorowa                    | $\varepsilon_{xy}$ | symetryczna część gradientu przemieszczenia         | bezwymiarowe | $\varepsilon_{xy}=\gamma_{xy}/2$ |
+| Mikroodkształcenie                    | µε                 | $10^{-6}$ odkształcenia                             | bezwymiarowe | $1000\,\mu\varepsilon=0{,}001$   |
+| Przemieszczenie                       | $u,v,w$            | przesunięcie punktu materialnego                    | mm lub m     | zależy od układu                 |
+| Baza pomiarowa                        | $L_0$              | długość odcinka przed deformacją                    | mm lub m     | musi być znana                   |
+
+Odkształcenie liniowe jest dodatnie, gdy odcinek się wydłuża, i ujemne, gdy się skraca. W zadaniach konstrukcyjnych często podajemy je w procentach lub w mikrostrainach. Zapamiętaj przelicznik: $1\,\%=10\,000\,\mu\varepsilon$, a $0{,}1\,\%=1000\,\mu\varepsilon$.
+
+Odkształcenie postaciowe $\gamma_{xy}$ opisuje zmianę kąta między dwoma odcinkami, które początkowo były równoległe do osi $x$ i $y$. Jeśli kąt prosty zmniejsza się o $0{,}002$ rad, to $\gamma_{xy}=0{,}002$ rad. Tensor odkształcenia wpisuje w to miejsce połowę tej wartości, czyli $0{,}001$. Ta połowa nie jest kaprysem: wynika z symetrycznego uśrednienia dwóch jednakowych udziałów — obrotu jednego boku i obrotu drugiego boku.
+
+### Jak czytać zapis tensora
+
+- Indeks dolny mówi, w jakiej płaszczyźnie lub w jakim kierunku opisujemy wielkość.
+- Dwa takie same indeksy, na przykład $xx$, oznaczają kierunek normalny do ściany.
+- Dwa różne indeksy, na przykład $xy$, oznaczają płaszczyznę i kierunek ścinania.
+- Tensor jest symetryczny, więc $\varepsilon_{xy}=\varepsilon_{yx}$; nie ma dziewięciu niezależnych składowych, tylko sześć.
+- Składowe pozadiagonalne tensora są połową odkształceń inżynierskich, dlatego trzeba uważać przy przechodzeniu między zapisami.
+- Ślad tensora, czyli suma $\varepsilon_x+\varepsilon_y+\varepsilon_z$, opisuje zmianę objętości, a nie zmianę kształtu.
+
+### Jednostki w praktyce
+
+| Zapis      | Wartość bezwymiarowa | Procent      | Mikrostrainy              |
+| ---------- | -------------------- | ------------ | ------------------------- |
+| $0{,}001$  | $10^{-3}$            | $0{,}1\,\%$  | $1000\,\mu\varepsilon$    |
+| $0{,}0005$ | $5\cdot10^{-4}$      | $0{,}05\,\%$ | $500\,\mu\varepsilon$     |
+| $0{,}0001$ | $10^{-4}$            | $0{,}01\,\%$ | $100\,\mu\varepsilon$     |
+| $0{,}01$   | $10^{-2}$            | $1\,\%$      | $10\,000\,\mu\varepsilon$ |
+
+Tabela jest wygodna, ale nie zastępuje rachunku. Zawsze zapisuj, którą jednostkę masz w danych, i przelicz ją przed podstawieniem. W jednym zadaniu mogą pojawić się jednocześnie procenty, mikrostrainy i ułamek bezwymiarowy.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\varepsilon_x=\frac{\Delta L_x}{L_{0x}},\qquad \gamma_{xy}=\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x},\qquad \varepsilon_{xy}=\frac{\gamma_{xy}}{2}
+\varepsilon_x=\frac{\Delta L_x}{L_{0x}},\qquad \varepsilon_x=\frac{\partial u}{\partial x},\qquad \gamma_{xy}=\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x},\qquad \varepsilon_{xy}=\frac{1}{2}\left(\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x}\right)=\frac{\gamma_{xy}}{2}
 $$
 
-<Caption>Dodatnia wartość ε oznacza wydłużenie. γ jest odkształceniem inżynierskim wyrażonym w radianach; składowa tensorowa εxy jest połową γxy. Przy małych odkształceniach u i v oznaczają przemieszczenia odpowiednio w kierunkach x i y.</Caption>
+<Caption>Pierwsza postać opisuje próbkę lub bazę pomiarową o skończonej długości. Druga obowiązuje lokalnie, gdy pole przemieszczeń jest różniczkowalne. $\gamma_{xy}$ jest odkształceniem inżynierskim w radianach, a $\varepsilon_{xy}$ składową tensora. Wszystkie odkształcenia są bezwymiarowe.</Caption>
 </Formula>
 
+Wyprowadzenie zaczynamy od dwóch punktów materialnych $A$ i $B$, oddalonych początkowo o $dx$ w kierunku osi $x$.
+
+1. Punkt $A$ ma przemieszczenie $u_A$, a punkt $B$ przemieszczenie $u_B$. Zakładamy, że pole $u(x)$ jest gładkie.
+2. Rozwijamy $u_B$ w szereg Taylora wokół $A$ i pomijamy wyrazy drugiego rzędu: $u_B\approx u_A+\frac{\partial u}{\partial x}dx$.
+3. Względne przemieszczenie końców odcinka wynosi więc $du=u_B-u_A=\frac{\partial u}{\partial x}dx$.
+4. Nowa długość odcinka to $dx+du$. Odkształcenie definiujemy jako przyrost długości podzielony przez długość początkową: $\varepsilon_x=\frac{(dx+du)-dx}{dx}=\frac{\partial u}{\partial x}$.
+5. Analogicznie w kierunkach $y$ i $z$ otrzymujemy $\varepsilon_y=\frac{\partial v}{\partial y}$ oraz $\varepsilon_z=\frac{\partial w}{\partial z}$.
+6. Teraz odcinek początkowo pionowy, równoległy do osi $y$. Jego górny koniec przesuwa się poziomo o $\frac{\partial u}{\partial y}dy$, więc bok obraca się o kąt w przybliżeniu $\frac{\partial u}{\partial y}$.
+7. Odcinek początkowo poziomy obraca się o kąt w przybliżeniu $\frac{\partial v}{\partial x}$. Całkowita zmiana kąta prostego jest sumą obu obrotów: $\gamma_{xy}=\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x}$.
+8. Tensor odkształcenia jest symetryczny, więc składową pozadiagonalną definiujemy jako połowę tej sumy. Stąd $\varepsilon_{xy}=\gamma_{xy}/2$.
+9. Dla dużych odkształceń trzeba dodać wyrazy kwadratowe pochodnych. W modelu małych odkształceń są one pomijane, ponieważ ich kwadrat jest znacznie mniejszy od samej pochodnej.
+
+Kontrola jednostek jest natychmiastowa: pochodna przemieszczenia po współrzędnej ma jednostkę długość podzieloną przez długość, czyli jest bezwymiarowa. Kąt w radianach również jest bezwymiarowy, dlatego $\varepsilon$ i $\gamma$ można dodawać w tych samych wzorach tensorowych, choć opisują różne efekty geometryczne.
+
+### Szczególny przypadek: jednoosiowe rozciąganie
+
+<Formula>
+$$
+\varepsilon_x=\frac{\Delta L}{L_0},\qquad \varepsilon_y=\varepsilon_z\approx0\quad\text{(tylko geometrycznie, bez efektu Poissona)},\qquad \gamma_{xy}=0
+$$
+
+<Caption>Jeśli próbka wydłuża się tylko w jednym kierunku, a kąty pozostają proste, stan odkształcenia jest jednoosiowy. W rzeczywistym materiale pojawi się jeszcze skurcz poprzeczny opisany w następnej lekcji, dlatego ten wariant jest uproszczeniem geometrycznym, a nie pełnym opisem materiału.</Caption>
+</Formula>
+
+Ten szczególny przypadek jest dobrym punktem kontrolnym. Gdy $\varepsilon_y$ i $\varepsilon_z$ są równe zeru, a $\gamma_{xy}=0$, tensor odkształcenia ma tylko jedną niezerową składową na przekątnej. Taki stan jest rzadkością w rzeczywistym materiale, ale bywa użytecznym założeniem w prostych zadaniach z prętami, zanim wprowadzimy efekt Poissona.
+
+### Kontrola wyniku
+
+- Sprawdź, czy odkształcenie jest bezwymiarowe, a nie podane w milimetrach.
+- Sprawdź, czy znak odpowiada wydłużeniu lub skróceniu opisanemu w treści.
+- Sprawdź, czy $\gamma$ jest w radianach, a nie w stopniach.
+- Sprawdź, czy składowa tensorowa jest połową $\gamma$, a nie jej kopią.
+- Sprawdź rząd wielkości: dla metali w zakresie sprężystym oczekuj wartości od $10^{-5}$ do $10^{-3}$.
+- Sprawdź, czy nie pomyliłeś długości początkowej z końcową.
+
 <Insight>
-  Zapis 500 µε oznacza 500·10⁻⁶ = 0,0005, czyli 0,05%. Nie należy wstawiać do wzorów liczby 500 bez przeliczenia ani
-  utożsamiać γxy z εxy.
+  Najczęstszy błąd to wstawienie do wzoru odczytu „500 µε” jako liczby 500. Poprawna wartość to $500\cdot10^{-6}=0{,}0005$. Drugi błąd to utożsamienie $\gamma_{xy}$ z $\varepsilon_{xy}$; w tensorze występuje połowa odkształcenia inżynierskiego.
 </Insight>
 
 <WorkedExample>
-  <Given>Baza pomiarowa L0 = 50 mm wydłużyła się o 0,075 mm, a prosty kąt zmienił się tak, że γxy = 0,0012 rad.</Given>
+  <Given>Pręt pomiarowy o długości początkowej $L_0=250\,\text{mm}$ wydłużył się pod obciążeniem o $\Delta L=0{,}18\,\text{mm}$. W tym samym miejscu początkowo prosty kąt zmniejszył się o $0{,}0009$ rad.</Given>
   <Steps>
-    <Step>Odkształcenie liniowe: εx = 0,075/50 = 0,0015.</Step>
-    <Step>Zapis w mikroodkształceniach: 0,0015·10⁶ = 1500 µε.</Step>
-    <Step>Odkształcenie postaciowe inżynierskie pozostaje γxy = 0,0012 = 1200 µrad.</Step>
-    <Step>Składowa tensorowa: εxy = 0,0012/2 = 0,0006.</Step>
+    <Step>Odkształcenie liniowe: $\varepsilon_x=0{,}18/250=0{,}00072$.</Step>
+    <Step>Zapis w mikrostrainach: $0{,}00072\cdot10^6=720\,\mu\varepsilon$.</Step>
+    <Step>Odkształcenie inżynierskie ścinania: $\gamma_{xy}=0{,}0009\,\text{rad}=900\,\mu\text{rad}$.</Step>
+    <Step>Składowa tensorowa: $\varepsilon_{xy}=0{,}0009/2=0{,}00045$.</Step>
+    <Step>Kontrola: $720\,\mu\varepsilon$ to $0{,}072\,\%$, czyli mniej niż typowa granica sprężystości stali.</Step>
   </Steps>
-  <Result>
-    εx = 1500 µε (wydłużenie 0,15%), γxy = 0,0012 rad, a εxy = 0,0006. Są to różne miary deformacji i nie wolno ich
-    mieszać.
-  </Result>
+  <Result>$\varepsilon_x=720\,\mu\varepsilon$, $\gamma_{xy}=0{,}0009\,\text{rad}$, a $\varepsilon_{xy}=0{,}00045$. Wydłużenie i ścinanie są osobnymi miarami i mają różne wartości liczbowe.</Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Dane jest pole przemieszczeń w płaskiej tarczy:
+
+$$
+u=0{,}0004x+0{,}0002y,\qquad v=0{,}0003x-0{,}0001y
+$$
+
+gdzie $u$ i $v$ podano w milimetrach, a $x$ i $y$ również w milimetrach. Obliczamy pochodne cząstkowe: $\frac{\partial u}{\partial x}=0{,}0004$, $\frac{\partial u}{\partial y}=0{,}0002$, $\frac{\partial v}{\partial x}=0{,}0003$ oraz $\frac{\partial v}{\partial y}=-0{,}0001$. Stąd $\varepsilon_x=400\,\mu\varepsilon$, $\varepsilon_y=-100\,\mu\varepsilon$ i $\gamma_{xy}=0{,}0002+0{,}0003=0{,}0005$ rad. Tensorowa składowa ścinania wynosi $0{,}00025$.
+
+Zwróć uwagę, że pole jest liniowe, więc odkształcenia są stałe w całej tarczy. To wygodne ćwiczenie rachunkowe, ale w rzeczywistej konstrukcji pochodne zmieniają się z położeniem. Gdyby pole zawierało składnik $x^2$, pochodna $\partial u/\partial x$ zależałaby od $x$ i odkształcenie nie byłoby jednorodne.
+
+## Trzeci przykład: wariant odwrotny
+
+Przyjmijmy, że dopuszczalne odkształcenie liniowe wynosi $1200\,\mu\varepsilon$, a baza pomiarowa ma $80\,\text{mm}$. Jakie jest największe dopuszczalne wydłużenie i jakiemu kątowi odpowiada wtedy $\gamma_{xy}=0{,}0015$ rad?
+
+Najpierw zamieniamy $1200\,\mu\varepsilon$ na $0{,}0012$. Maksymalne wydłużenie to $\Delta L=\varepsilon L_0=0{,}0012\cdot80=0{,}096\,\text{mm}$. Kąt ścinania w stopniach wynosi $0{,}0015\cdot180^\circ/\pi\approx0{,}0859^\circ$. Otrzymujemy bardzo mały kąt — około pięciu minut kątowych. To pokazuje, dlaczego tensometry i czujniki kątowe muszą być czułe, a zwykłe linijki nie wystarczają.
+
+Gdyby wynik wyszedł rzędu kilku stopni, należałoby sprawdzić jednostki. Odkształcenie sprężyste stali rzadko przekracza kilka tysięcznych, więc kąt rzędu $0{,}1^\circ$ jest już duży jak na ten zakres.
+
+### Co zmienia niejednorodność pola
+
+W jednorodnym polu odkształcenie jest takie samo w każdym punkcie i wystarczy jedna baza pomiarowa. W niejednorodnym polu tensometr mierzy wartość uśrednioną po swojej bazie, a nie wartość w dokładnie jednym punkcie. Im krótsza baza, tym bliżej lokalnej wartości, ale tym większy wpływ zakłóceń i przypadkowych błędów. To kompromis, który wraca w lekcji o tensometrach.
+
+- Przy otworze odkształcenie zmienia się szybko, więc krótka baza jest korzystna.
+- Na jednorodnym odcinku pręta dłuższa baza daje stabilniejszy pomiar.
+- Przy spoinie lub wrębie wartość uśredniona może znacznie zaniżyć lokalną koncentrację.
+- W polu liniowym wynik nie zależy od położenia środka bazy, ale w polu nieliniowym już tak.
+- Zawsze trzeba wiedzieć, co dokładnie mierzy czujnik: wartość średnią, czy lokalną.
+
+<Callout kind="warning" title="Typowe błędy">
+  - Wstawianie mikrostrainów do wzoru bez przeliczenia: $500\,\mu\varepsilon$ to $0{,}0005$, a nie $500$.
+  - Dzielenie przyrostu długości przez długość końcową zamiast początkowej; przy małych odkształceniach różnica jest niewielka, ale konwencja musi być stała.
+  - Mieszanie stopni z radianami w $\gamma$; do wzorów tensorowych wchodzi radian.
+  - Używanie $\gamma_{xy}$ jako składowej tensora bez dzielenia przez dwa.
+  - Traktowanie obrotu całego elementu jako odkształcenia; czysty obrót nie zmienia długości ani kątów wewnętrznych.
+  - Pomijanie znaku: skrócenie ma $\varepsilon$ ujemne, a nie „dodatnie, tylko mniejsze”.
+  - Stosowanie wzoru liniowego do gumy rozciągniętej o kilkadziesiąt procent.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy dane są skończonymi długościami, czy polem przemieszczeń. W pierwszym przypadku użyj $\varepsilon=\Delta L/L_0$. W drugim różniczkuj pole.
+2. Ustal, czy pytanie dotyczy wydłużenia, skrócenia, zmiany kąta, czy pełnego tensora. To decyduje, czy kończysz na $\gamma$, czy dzielisz przez dwa.
+3. Zapisz wszystkie długości w tych samych jednostkach przed dzieleniem. Najbezpieczniej przelicz milimetry na milimetry, a metry na metry.
+4. Dla pola przemieszczeń wypisz pochodne $\partial u/\partial x$, $\partial u/\partial y$, $\partial v/\partial x$, $\partial v/\partial y$ i dopiero potem składaj $\varepsilon$ oraz $\gamma$.
+5. Sprawdź rząd wielkości: dla metali w zakresie sprężystym spodziewaj się od kilkudziesięciu do kilku tysięcy mikrostrainów.
+6. Jeśli wynik wychodzi większy niż kilka procent, zastanów się, czy materiał naprawdę jest nadal sprężysty i czy model małych odkształceń jest właściwy.
+7. Wróć do definicji znaku i opisz słownie, czy element się wydłuża, czy skraca.
+
+## Połącz z resztą kursu
+
+- W module o rozciąganiu i ściskaniu odkształcenie łączy siłę osiową z wydłużeniem pręta i pozwala sprawdzać sztywność konstrukcji.
+- W module o ścinaniu i skręcaniu $\gamma$ opisuje zniekształcenie materiału między sąsiednimi przekrojami, a nie tylko sam kąt skręcenia wału.
+- W lekcji o efekcie Poissona zobaczysz, że jedno odkształcenie osiowe pociąga za sobą dwa odkształcenia poprzeczne.
+- W lekcji o uogólnionym prawie Hooke’a $\varepsilon$ i $\gamma$ staną się niewiadomymi w układzie równań materiałowych.
+- W lekcjach o tensometrach i rozecie ten sam język pozwoli odczytać pomiar z czujnika i złożyć z trzech kierunków pełny obraz stanu.
+- W module o hipotezach wytężeniowych odkształcenia główne pomogą zrozumieć, które kierunki naprawdę decydują o bezpieczeństwie.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz swobodnie przechodzić między długością, odkształceniem, zapisem w mikrostrainach i składową tensorową.
 
 <Quiz>
   <Question outcome="W1">
-    <Prompt>Odcinek o długości 200 mm wydłużył się o 0,30 mm. Ile wynosi odkształcenie?</Prompt>
-    <Answer correct>0,0015</Answer>
-    <Answer>0,015</Answer>
-    <Answer>1,5</Answer>
-    <Hint>Podziel zmianę długości przez długość początkową, używając tych samych jednostek.</Hint>
-    <Explanation>ε = 0,30/200 = 0,0015 = 1500·10⁻⁶ = 1500 µε. Odpowiada to wydłużeniu względnemu 0,15%.</Explanation>
+    <Prompt>Odcinek o długości początkowej $250\,\text{mm}$ wydłużył się o $0{,}5\,\text{mm}$. Ile wynosi $\varepsilon$?</Prompt>
+    <Answer correct>$0{,}002$</Answer>
+    <Answer>$0{,}02$</Answer>
+    <Answer>$2$</Answer>
+    <Hint>Podziel przyrost przez długość początkową i sprawdź, czy wynik jest bezwymiarowy.</Hint>
+    <Explanation>$\varepsilon=0{,}5/250=0{,}002=2000\,\mu\varepsilon$. To wydłużenie względne $0{,}2\,\%$.</Explanation>
   </Question>
   <Question outcome="W1">
-    <Prompt>
-      Początkowo prosty kąt zmniejszył się o 0,002 rad. Przy konwencji, w której dodatnie γ oznacza zmniejszenie tego
-      kąta, ile wynoszą γxy i tensorowe εxy?
-    </Prompt>
-    <Answer correct>γxy = 0,002, εxy = 0,001</Answer>
-    <Answer>γxy = 0,001, εxy = 0,002</Answer>
-    <Answer>Obie wielkości wynoszą 0,002</Answer>
+    <Prompt>Początkowo prosty kąt zmniejszył się o $0{,}0024$ rad. Ile wynosi tensorowa składowa $\varepsilon_{xy}$?</Prompt>
+    <Answer correct>$0{,}0012$</Answer>
+    <Answer>$0{,}0024$</Answer>
+    <Answer>$0{,}0048$</Answer>
     <Hint>Składowa tensorowa jest połową odkształcenia inżynierskiego.</Hint>
-    <Explanation>
-      Inżynierskie γxy opisuje pełną zmianę kąta i wynosi 0,002 rad. Do tensora wpisujemy εxy = γxy/2 = 0,001.
-    </Explanation>
+    <Explanation>$\gamma_{xy}=0{,}0024$ rad, więc $\varepsilon_{xy}=\gamma_{xy}/2=0{,}0012$.</Explanation>
   </Question>
   <Question outcome="W1">
-    <Prompt>Tensometr wskazuje −800 µε. Co oznacza znak i wartość?</Prompt>
-    <Answer correct>Skrócenie względne 0,0008</Answer>
-    <Answer>Wydłużenie względne 0,08</Answer>
-    <Answer>Zmianę kąta o 800 rad</Answer>
-    <Hint>Przedrostek µ oznacza milionową część, a minus skrócenie.</Hint>
-    <Explanation>
-      −800 µε = −800·10⁻⁶ = −0,0008, czyli skrócenie o 0,08% długości pomiarowej. Nie jest to miara kątowa.
-    </Explanation>
+    <Prompt>Tensometr wskazuje $-900\,\mu\varepsilon$. Co to oznacza?</Prompt>
+    <Answer correct>Skrócenie względne $0{,}0009$</Answer>
+    <Answer>Wydłużenie względne $0{,}09$</Answer>
+    <Answer>Zmianę kąta o $900$ rad</Answer>
+    <Hint>Minus oznacza skrócenie, a mikro to $10^{-6}$.</Hint>
+    <Explanation>$-900\,\mu\varepsilon=-900\cdot10^{-6}=-0{,}0009$, czyli skrócenie o $0{,}09\,\%$ długości bazy.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla pola $u=0{,}001x+0{,}0005y$ oraz $v=0{,}0004x-0{,}0002y$ ile wynosi $\gamma_{xy}$?</Prompt>
+    <Answer correct>$0{,}0009$</Answer>
+    <Answer>$0{,}0005$</Answer>
+    <Answer>$0{,}0001$</Answer>
+    <Hint>Dodaj $\partial u/\partial y$ i $\partial v/\partial x$.</Hint>
+    <Explanation>$\partial u/\partial y=0{,}0005$, $\partial v/\partial x=0{,}0004$, więc $\gamma_{xy}=0{,}0009$ rad.</Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Odkształcenie $0{,}15\,\%$ zapisane w mikrostrainach to:</Prompt>
+    <Answer correct>$1500\,\mu\varepsilon$</Answer>
+    <Answer>$150\,\mu\varepsilon$</Answer>
+    <Answer>$15\,\mu\varepsilon$</Answer>
+    <Hint>Jeden procent to dziesięć tysięcy mikrostrainów.</Hint>
+    <Explanation>$0{,}15\cdot10\,000=1500\,\mu\varepsilon$. Inaczej: $0{,}15/100=0{,}0015=1500\cdot10^{-6}$.</Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Element obraca się sztywno o $0{,}01$ rad bez zmiany kształtu. Jakie są odkształcenia liniowe i postaciowe?</Prompt>
+    <Answer correct>Wszystkie są równe zero</Answer>
+    <Answer>$\varepsilon=0{,}01$, a $\gamma=0$</Answer>
+    <Answer>$\gamma=0{,}01$, a $\varepsilon=0$</Answer>
+    <Hint>Obrót sztywny zmienia przemieszczenia, ale nie zmienia odległości ani kątów wewnętrznych.</Hint>
+    <Explanation>Tensor odkształcenia jest symetryczną częścią gradientu przemieszczenia. Czysty obrót trafia do części antysymetrycznej, więc $\varepsilon$ i $\gamma$ znikają.</Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Która para wielkości jest bezwymiarowa?</Prompt>
+    <Answer correct>$\varepsilon_x$ i $\gamma_{xy}$</Answer>
+    <Answer>$\varepsilon_x$ i $\Delta L$</Answer>
+    <Answer>$\gamma_{xy}$ i $L_0$</Answer>
+    <Hint>Zastanów się, co pozostaje po podzieleniu długości przez długość oraz kąta przez kąt.</Hint>
+    <Explanation>Zarówno odkształcenie liniowe, jak i kąt w radianach są bezwymiarowe. $\Delta L$ i $L_0$ mają jednostkę długości.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pręt o długości $2\,\text{m}$ skrócił się o $1{,}2\,\text{mm}$. Ile wynosi $\varepsilon$?</Prompt>
+    <Answer correct>$-600\,\mu\varepsilon$</Answer>
+    <Answer>$-60\,\mu\varepsilon$</Answer>
+    <Answer>$+600\,\mu\varepsilon$</Answer>
+    <Hint>Zamień długość na milimetry i pamiętaj o znaku skrócenia.</Hint>
+    <Explanation>$\Delta L=-1{,}2\,\text{mm}$, $L_0=2000\,\text{mm}$, więc $\varepsilon=-1{,}2/2000=-0{,}0006=-600\,\mu\varepsilon$.</Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o odkształceniach i prawie Hooke’a; dobry do powiązania $\varepsilon$ z próbą rozciągania i wykresem $\sigma$–$\varepsilon$.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z rozciągania i odkształceń; warto przećwiczyć przeliczanie jednostek i znaków.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o odkształceniach liniowych i postaciowych; klasyczne ujęcie definicji i konwencji znaków.
+- D. Roylance, _Mechanics of Materials_ — rozdział o kinematyce odkształceń; pokazuje wyprowadzenie zależności odkształcenie–przemieszczenie i przypadek dużych odkształceń.
+- T. Wierzbicki, _Structural Mechanics_ — rozdział o odkształceniu jednowymiarowym i jego rozszerzeniu do trzech wymiarów; dobrze wyjaśnia rolę części symetrycznej i obrotu.

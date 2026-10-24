@@ -5,9 +5,9 @@ import { BlockMath } from 'react-katex'
 import { RotateCcw } from 'lucide-react'
 import ui from './UI.module.css'
 
-export function Formula({ children, note }: { children: string; note?: string }) {
+export function Formula({ children, note, compact = false }: { children: string; note?: string; compact?: boolean }) {
   return (
-    <div className="formula-card">
+    <div className={compact ? 'formula-card formula-card-compact' : 'formula-card'}>
       <BlockMath math={children} />
       {note && <p>{note}</p>}
     </div>

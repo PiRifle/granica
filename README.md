@@ -1,6 +1,6 @@
 # Granica — wytrzymałość materiałów
 
-Interaktywny kurs wytrzymałości materiałów: 10 modułów, 70 lekcji, animowane laboratoria, trening liczbowy, ściąga i kolokwium próbne. Aplikacja działa w przeglądarce, zapisuje postęp lokalnie i może być zainstalowana jako PWA.
+Interaktywny kurs wytrzymałości materiałów: 10 modułów, 70 lekcji, rozbudowane wprowadzenia modułów, animowane laboratoria, trening liczbowy, ściąga, biblioteka źródeł i kolokwium próbne. Aplikacja działa w przeglądarce, zapisuje postęp lokalnie i może być zainstalowana jako PWA.
 
 [![Deploy to GitHub Pages](https://github.com/PiRifle/granica/actions/workflows/deploy.yml/badge.svg)](https://github.com/PiRifle/granica/actions/workflows/deploy.yml)
 
@@ -9,9 +9,15 @@ Interaktywny kurs wytrzymałości materiałów: 10 modułów, 70 lekcji, animowa
 
 ## Co jest w środku
 
-- **10 modułów × 7 lekcji** — łącznie 70 lekcji i 600 minut materiału.
+- **10 modułów × 7 lekcji** — łącznie 70 lekcji z czasem wyliczanym z treści.
+- **Wprowadzenie do każdego modułu** — co to jest, po co się uczyć, mapa lekcji i kluczowe wzory.
+- **Rozbudowana teoria** — definicje, założenia, wyprowadzenia, po trzy przykłady i typowe błędy w każdej lekcji.
+- **Biblioteka kursu** — pełna literatura z sylabusa i otwarte podręczniki, z których powstała treść.
 - **23 interaktywne laboratoria** — suwaki, wykresy i natychmiastowa aktualizacja wyników.
 - **12 animowanych rozwiązań zadań**, podzielonych na sceny z narracją.
+- **Mapa źródeł** — każda lekcja wskazuje, gdzie pogłębić temat w literaturze.
+- **Czas czytania z treści** — liczony z prozy, wzorów i laboratoriów, a nie z rozmiaru pliku.
+- **Debug laboratoriów** — strona `/debug/labs` renderująca wszystkie eksperymenty naraz.
 - **Trening liczbowy** z losowanymi zadaniami i podpowiedziami.
 - **Kolokwium próbne** — bank 210 pytań z wyjaśnieniami.
 - **Mapa sylabusa i ściąga** z najważniejszymi wzorami.
@@ -70,12 +76,13 @@ Aplikacja będzie dostępna pod `http://localhost:5173/`.
 │   └── content-meta-plugin.ts     # wirtualny moduł z metadanymi lekcji
 ├── src/
 │   ├── App.tsx                    # routing SPA
-│   ├── components/                # widoki, nawigacja, rejestr laboratoriów
+│   ├── components/                # widoki (lekcja, moduł, biblioteka), nawigacja, laboratoria
 │   ├── content/
 │   │   ├── lessons/               # lekcje: <moduł>/<lekcja>/content.mdx
 │   │   ├── modules/               # dane i omówienie modułów
 │   │   ├── solutions/             # animowane rozwiązania zadań
 │   │   ├── exam/exam-bank.ts      # bank pytań egzaminacyjnych
+│   │   ├── literature.ts          # bibliografia i otwarte źródła
 │   │   ├── registry.ts            # składanie kursu z plików
 │   │   └── course.test.ts         # testy integralności treści
 │   ├── labs/                      # interaktywne laboratoria
@@ -91,14 +98,16 @@ Aplikacja będzie dostępna pod `http://localhost:5173/`.
 
 ## Routing
 
-| Ścieżka             | Widok                                          |
-| ------------------- | ---------------------------------------------- |
-| `/`                 | Strona główna i plan kursu                     |
-| `/lesson/:lessonId` | Lekcja MDX z laboratorium, przykładem i quizem |
-| `/training`         | Trening liczbowy                               |
-| `/exam`             | Kolokwium próbne                               |
-| `/cheatsheet`       | Ściąga                                         |
-| `/syllabus`         | Mapa sylabusa                                  |
+| Ścieżka             | Widok                                                |
+| ------------------- | ---------------------------------------------------- |
+| `/`                 | Strona główna i plan kursu                           |
+| `/lesson/:lessonId` | Lekcja MDX z laboratorium, przykładami i quizem      |
+| `/module/:moduleId` | Wprowadzenie do modułu, efekty, mapa lekcji i postęp |
+| `/training`         | Trening liczbowy                                     |
+| `/exam`             | Kolokwium próbne                                     |
+| `/cheatsheet`       | Ściąga                                               |
+| `/syllabus`         | Mapa sylabusa                                        |
+| `/biblioteka`       | Literatura z sylabusa i otwarte podręczniki          |
 
 Router korzysta z `BrowserRouter`, a `basename` jest wyliczany z `import.meta.env.BASE_URL`. Dzięki temu te same pliki działają pod domeną główną i pod podścieżką GitHub Pages.
 
@@ -124,7 +133,6 @@ number: 5
 title: Wydłużenia i skrócenia prętów
 shortTitle: Wydłużenia
 description: Krótki opis lekcji.
-duration: 9
 eyebrow: Sztywność całego pręta
 outcomes:
   - W1 — pierwszy efekt kształcenia
@@ -136,10 +144,10 @@ solutionId: cw2-1 # opcjonalnie
 Zasady egzekwowane przez walidację:
 
 - `id` musi być zgodne z nazwą katalogu, a `moduleId` z nazwą modułu.
-- `number` i `duration` są dodatnimi liczbami, a `outcomes` nie może być puste.
+- `number` jest dodatnią liczbą całkowitą, a `outcomes` nie może być puste.
 - Identyfikatory lekcji są unikalne.
-- Każdy moduł ma dokładnie 7 lekcji i 60 minut.
-- Pola `lab`, `formula`, `formulaNote`, `insight`, `questions`, `workedExample` nie mogą występować we frontmatterze — odpowiadające im elementy umieszcza się w treści MDX.
+- Każdy moduł ma dokładnie 7 lekcji.
+- Pola `duration`, `lab`, `formula`, `formulaNote`, `insight`, `questions`, `workedExample` nie mogą występować we frontmatterze. Czas jest wyliczany z treści, a pozostałe elementy umieszcza się w treści MDX.
 - Każda lekcja zawiera `<Lab id="…" />`, `<Formula>`, `<WorkedExample>` i `<Quiz>` z co najmniej jednym `<Question>`.
 - `lab` musi istnieć w `src/components/LabRegistry.tsx`.
 
@@ -169,6 +177,34 @@ Przykład quizu:
 </Quiz>
 ```
 
+### Wprowadzenie modułu
+
+Każdy moduł ma `src/content/modules/<id>/overview.mdx`. To osobny dokument MDX renderowany na stronie `/module/<id>`: wyjaśnia, o czym jest moduł, po co go przechodzić, jak czytać mapę lekcji i jakie wzory są centralne. Wprowadzenie może używać `Formula`, `Caption`, `Insight`, `Callout`, `WorkedExample` i zwykłego markdownu, ale nie `Quiz` (brak kontekstu lekcji).
+
+### Czas czytania
+
+Czas w nagłówku lekcji jest liczony z **wyrenderowanej treści**, nie z rozmiaru pliku MDX:
+
+```text
+T = W / 180 + (5 · M_inline + 15 · M_display) / 60 + T_laboratoriów
+```
+
+- `W` — liczba słów prozy (`Intl.Segmenter`, bez znaczników i etykiet UI),
+- `M_inline`, `M_display` — liczba wzorów KaTeX w linii i blokowych,
+- `T_laboratoriów` — suma szacunków z `src/labs/labMeta.ts`.
+
+Statystyki są liczone **podczas builda** w `scripts/content-meta-plugin.ts`. Plugin parsuje MDX (remark + remark-math), zlicza słowa z węzłów tekstowych, osobno wzory w linii i blokowe, a laboratoria wycenia przez `src/labs/labMeta.ts`. Pola `words`, `inlineMath`, `displayMath`, `experiments`, `experimentMinutes`, `readingMinutes`, `totalMinutes` trafiają do `virtual:lesson-meta`; `totalMinutes` jest wyliczanym czasem całkowitym. We frontmatterze **nie ma pola długości** — `duration` jest zabronione, żeby czas nie był definiowany ręcznie.
+
+### Debug laboratoriów
+
+Strona `/debug/labs` renderuje wszystkie laboratoria jednocześnie. **Nie trafia do builda produkcyjnego** — route, komponent i link w stopce są ogrodzone `import.meta.env.DEV`, a `LabDebug` jest ładowany dynamicznie tylko w trybie deweloperskim. Każde jest w osobnym error boundary, więc awaria jednego nie zatrzymuje pozostałych. Przycisk **Remount** resetuje pojedyncze laboratorium bez przeładowania strony. Metadane (nazwa, temat, szacowany czas) są w `src/labs/labMeta.ts`; test integralności pilnuje, żeby każdy wpis w `LabRegistry` miał metadane.
+
+### Biblioteka i źródła
+
+`src/content/literature.ts` zawiera osiem pozycji z karty przedmiotu (sześć podstawowych i dwie uzupełniające) oraz cztery otwarte podręczniki wykorzystane merytorycznie. Strona `/biblioteka` pokazuje dane bibliograficzne, zgodny z modułami zakres tematyczny, sposób korzystania i legalne linki do otwartych tekstów. Każda lekcja kończy się sekcją `## Źródła i dalsze czytanie`.
+
+Podręczniki z sylabusa są objęte prawem autorskim, więc repozytorium nie zawiera ich plików. Otwarte źródła (Roylance, Wierzbicki, Osgood i notatki MIT 3.11) są dostępne na licencjach CC BY-NC-SA.
+
 ### Dodawanie laboratorium
 
 1. Utwórz komponent w `src/labs/`, np. `MyLab.tsx`.
@@ -178,7 +214,7 @@ Przykład quizu:
 
 ### Dodawanie lekcji, modułu lub rozwiązania
 
-- **Lekcja:** dodaj katalog w `src/content/lessons/<moduleId>/` z `content.mdx` i poprawnym frontmatterem. Pamiętaj o limicie 7 lekcji i 60 minut w module.
+- **Lekcja:** dodaj katalog w `src/content/lessons/<moduleId>/` z `content.mdx` i poprawnym frontmatterem. Limit modułu to 7 lekcji; czas wyliczy plugin.
 - **Moduł:** dodaj `src/content/modules/<id>/module.data.ts` oraz `overview.mdx`, a następnie uzupełnij numerację i mapę sylabusa.
 - **Rozwiązanie:** dodaj `src/content/solutions/<id>/solution.data.ts` i `content.mdx`. Rozwiązanie podłącz do lekcji przez `solutionId`.
 - **Pytania egzaminacyjne:** dopisuj wpisy w `src/content/exam/exam-bank.ts`; każde pytanie musi mieć co najmniej 3 odpowiedzi, poprawny indeks, wyjaśnienie i podpowiedź.
@@ -242,7 +278,11 @@ npm run build
 
 Testy sprawdzają między innymi:
 
-- 10 modułów, 70 lekcji i 600 minut,
+- 10 modułów i 70 lekcji,
+- kompilację wprowadzeń modułów,
+- metadane wszystkich laboratoriów,
+- build-time’owe liczenie słów, wzorów i czasu eksperymentów,
+- kompletność bibliografii i mapowanie książek na moduły,
 - unikalność identyfikatorów,
 - poprawność frontmattera i kompilację każdego pliku MDX,
 - istnienie laboratoriów użytych w lekcjach,

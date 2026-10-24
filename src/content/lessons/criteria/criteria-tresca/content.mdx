@@ -7,7 +7,6 @@ shortTitle: Tresca
 description: >-
   Wyznaczaj wytężenie z różnicy skrajnych naprężeń głównych i unikaj pomijania
   trzeciego kierunku.
-duration: 9
 eyebrow: Różnica skrajnych naprężeń
 outcomes:
   - >-
@@ -30,36 +29,179 @@ outcomes:
     przyjęty warunek.
 ---
 
-Hipoteza Tresca wiąże początek uplastycznienia z maksymalnym naprężeniem stycznym. Na kole Mohra decyduje średnica największego koła, czyli różnica między największym i najmniejszym naprężeniem głównym. To dlatego nie można rozpatrywać tylko dwóch wybranych kierunków.
+Metalowy pręt zginany wielokrotnie w jednym miejscu w końcu pęka. To zmęczenie, ale już pojedyncze przeciążenie może wywołać trwałe odkształcenie przez poślizg warstw kryształu względem siebie. Poślizg napędza ścinanie, a nie naprężenie normalne. Hipoteza Tresca wychodzi właśnie od tego mechanizmu: materiał zaczyna płynąć, gdy największe naprężenie styczne w punkcie osiągnie wartość graniczną.
+
+Największe ścinanie w punkcie można odczytać z koła Mohra. W stanie trójwymiarowym istnieją trzy koła odpowiadające trzem parom naprężeń głównych. Największe z nich ma średnicę równą różnicy największego i najmniejszego naprężenia głównego. Dlatego naprężenie zredukowane według Tresca jest połową tej średnicy pomnożoną przez dwa, czyli po prostu różnicą skrajnych naprężeń głównych.
+
+To kryterium jest bardzo intuicyjne, ale ma jedną poważną pułapkę. W stanie płaskim jedno z naprężeń głównych jest równe zeru. Jeśli pozostałe dwa mają ten sam znak, zero staje się skrajną wartością i to ono decyduje o różnicy. Pominięcie trzeciego kierunku daje wtedy zaniżony wynik. Właśnie dlatego Tresca wymaga większej dyscypliny niż HMH, gdzie wzór jest bardziej „samoczynny”.
+
+W tej lekcji nauczysz się porządkować naprężenia główne, rysować trzy koła Mohra i wybierać największe z nich. Zobaczysz, skąd bierze się granica plastyczności przy ścinaniu równa Re/2 i dlaczego Tresca jest zwykle bardziej zachowawcza od HMH. Przećwiczysz też przypadek, w którym dwa naprężenia mają ten sam znak, oraz wariant odwrotny: od dopuszczalnego naprężenia zredukowanego do maksymalnego ścinania.
+
+## Zanim zaczniesz
+
+- **Naprężenia główne.** Musisz umieć wyznaczyć σ1, σ2 i σ3 oraz uporządkować je od największego do najmniejszego. W stanie płaskim σ3 = 0.
+- **Koło Mohra.** Przypomnij sobie, że promień koła to maksymalne ścinanie w danej płaszczyźnie, a przecięcia z osią σ to naprężenia główne.
+- **Trzy koła w stanie przestrzennym.** W 3D nie ma jednego koła; są trzy, odpowiadające parom (1,2), (2,3) i (3,1). Największe z nich decyduje o Tresca.
+- **Granica przy ścinaniu.** W próbie jednoosiowej maksymalne ścinanie wynosi Re/2, bo działa pod kątem 45° do osi rozciągania. To kalibruje kryterium.
+- **Jednostki.** σT ma jednostkę naprężenia. Różnica naprężeń w MPa daje MPa, a współczynnik 2 jest bezwymiarowy.
+- **Typowa pułapka.** Nie licz różnicy tylko dwóch naprężeń z płaszczyzny, jeśli w stanie płaskim zero może być skrajne.
+
+## Model i intuicja
+
+Model Tresca zakłada, że uplastycznienie następuje przez poślizg po płaszczyznach, na których naprężenie styczne jest największe. Zakładamy materiał izotropowy, plastyczny i niewrażliwy na ciśnienie hydrostatyczne. Podobnie jak w HMH, jednakowe ściskanie ze wszystkich stron nie powinno powodować płynięcia, bo nie zmienia różnic między naprężeniami głównymi.
+
+W przeciwieństwie do HMH, Tresca nie sumuje energii wszystkich kierunków. Patrzy tylko na najbardziej obciążoną płaszczyznę. To czyni go bardziej lokalnym i często bardziej zachowawczym. Jeśli w materiale istnieje jedna płaszczyzna, na której ścinanie jest szczególnie duże, Tresca wychwyci ją bezpośrednio. HMH rozprasza informację na wszystkie kierunki, więc może dać nieco mniejszą wartość.
+
+Model dobrze opisuje metale o wyraźnym płynięciu, zwłaszcza gdy zależy nam na ostrożnej ocenie. Jest też wygodny w zadaniach z kołem Mohra, bo nie wymaga pierwiastka z kombinacji trzech kwadratów. Jego wadą jest wrażliwość na kolejność i znaki naprężeń głównych: trzeba naprawdę ustalić, które naprężenie jest największe, a które najmniejsze.
+
+Model przestaje być właściwy dla materiałów wrażliwych na ciśnienie, kruchych oraz anizotropowych. W polimerach, gruntach i piankach granica płynięcia zależy od ciśnienia hydrostatycznego, więc samo maksymalne ścinanie nie wystarcza. W materiałach kruchych pękanie może nastąpić przy naprężeniu normalnym znacznie niższym niż wynikające z kryterium ścinania.
+
+| Cecha modelu Tresca                      | Znaczenie praktyczne                             |
+| ---------------------------------------- | ------------------------------------------------ |
+| Oparty na maksymalnym ścinaniu           | Dobry dla metali plastycznych                    |
+| Patrzy na największe koło Mohra          | Wymaga wszystkich trzech naprężeń głównych       |
+| Niezależny od ciśnienia hydrostatycznego | Jednakowe ściskanie nie daje wytężenia           |
+| Zwykle bardziej zachowawczy niż HMH      | Bezpieczniejszy, ale może przewymiarować element |
+| Wrażliwy na zero w stanie płaskim        | Trzeba jawnie rozważyć σ3 = 0                    |
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniaj σx, σy i τxy, a następnie obserwuj σ1, σ2 oraz τmax. Spróbuj ustawić oba naprężenia normalne dodatnie i zwiększaj ścinanie: zobaczysz, że σ1 rośnie, ale różnica σ1 − σ2 nie opisuje już pełnego wytężenia, bo zero staje się najmniejszym naprężeniem głównym. Porównaj też stan czystego ścinania ze stanem jednoosiowym.
 
 <Lab id="mohr" />
 
+## Definicje i jednostki
+
+Hipoteza Tresca porównuje maksymalne naprężenie styczne z granicą plastyczności przy ścinaniu. Równoważnie można porównać różnicę skrajnych naprężeń głównych z granicą plastyczności przy rozciąganiu. Ta druga postać jest wygodniejsza, bo Re jest zwykle znane z próby rozciągania.
+
+| Symbol     | Znaczenie                              | Jednostka    |
+| ---------- | -------------------------------------- | ------------ |
+| σT         | naprężenie zredukowane według Tresca   | MPa          |
+| σ1, σ2, σ3 | naprężenia główne                      | MPa          |
+| σmax       | największe z naprężeń głównych         | MPa          |
+| σmin       | najmniejsze z naprężeń głównych        | MPa          |
+| τmax       | maksymalne naprężenie styczne          | MPa          |
+| k          | granica plastyczności przy ścinaniu    | MPa          |
+| Re         | granica plastyczności przy rozciąganiu | MPa          |
+| n          | współczynnik bezpieczeństwa            | bezwymiarowy |
+
+Zachodzi związek σT = 2τmax oraz k = Re/2. W stanie jednoosiowym σT = Re, więc kryterium jest poprawnie skalibrowane. W stanie czystego ścinania σ1 = τ, σ2 = −τ, σ3 = 0, więc σT = 2τ. To wyjaśnia, dlaczego granica przy ścinaniu według Tresca jest równa połowie granicy przy rozciąganiu, a nie jej pełnej wartości.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma_T = \sigma_{max} - \sigma_{min} = 2\tau_{max}
+\sigma_T = \max\left(|\sigma_1 - \sigma_2|, |\sigma_2 - \sigma_3|, |\sigma_3 - \sigma_1|\right) = \sigma_{max} - \sigma_{min}
 $$
 
-<Caption>W stanie przestrzennym σmax i σmin wybieramy spośród σ1, σ2 i σ3. Gdy w płaskim stanie σx = σ, σy = 0 i τxy = τ, zachodzi σT = √(σ² + 4τ²).</Caption>
+<Caption>Hipoteza Tresca w naprężeniach głównych. σmax i σmin wybieramy spośród σ1, σ2 i σ3. W stanie płaskim σ3 = 0, więc σT = max(|σ1 − σ2|, |σ1|, |σ2|). Dla σx = σ, σy = 0 i τxy = τ zachodzi σT = √(σ² + 4τ²), a warunek ma postać σT ≤ kr = Re/n.</Caption>
 </Formula>
+
+Wyprowadzenie opiera się na geometrii kół Mohra i kalibracji do próby jednoosiowej.
+
+1. **Trzy naprężenia główne.** W dowolnym punkcie istnieją trzy prostopadłe kierunki główne. Ustawiamy je w kolejności σ1 ≥ σ2 ≥ σ3.
+2. **Trzy koła Mohra.** Każda para naprężeń głównych tworzy koło. Koło dla pary (1,3) jest największe, bo ma największą różnicę naprężeń.
+3. **Maksymalne ścinanie.** Promień największego koła wynosi τmax = (σ1 − σ3)/2 = (σmax − σmin)/2. To jest największe ścinanie w całym punkcie.
+4. **Warunek Tresca.** Przyjmujemy, że uplastycznienie następuje, gdy τmax osiągnie granicę ścinania k. Zapisujemy τmax ≤ k.
+5. **Kalibracja.** W próbie jednoosiowej σ1 = Re, σ2 = σ3 = 0. Wtedy τmax = Re/2, więc k = Re/2. To wiąże granicę ścinania z granicą rozciągania.
+6. **Naprężenie równoważne.** Mnożymy warunek przez 2: 2τmax ≤ 2k = Re. Definiujemy σT = 2τmax = σmax − σmin. W próbie jednoosiowej σT = Re, zgodnie z kalibracją.
+7. **Stan płaski.** Dla σ3 = 0 różnice przyjmują postać |σ1 − σ2|, |σ1| i |σ2|. Trzeba wybrać największą z tych trzech wartości, a nie automatycznie |σ1 − σ2|.
+8. **Przypadek σx, σy, τxy.** Dla σy = 0 mamy σ1,2 = σ/2 ± √(σ²/4 + τ²). Różnica σ1 − σ2 wynosi √(σ² + 4τ²). Ta wartość jest nie mniejsza od |σ1| i |σ2|, więc σT = √(σ² + 4τ²).
+9. **Warunek projektowy.** Wymagamy σT ≤ kr = Re/n_wym. Współczynnik bezpieczeństwa wynosi n_rz = Re/σT. Wszystkie naprężenia podstawiamy w tych samych jednostkach.
 
 <Insight>
   W stanie płaskim naprężenie główne prostopadłe do płaszczyzny jest równe zeru. Jeśli σ1 i σ2 mają ten sam znak, zero
-  staje się skrajną wartością i pominięcie go zaniża σT.
+  staje się skrajną wartością i pominięcie go zaniża σT. Na przykład dla σ1 = 100 MPa i σ2 = 40 MPa poprawna różnica to
+  100 − 0 = 100 MPa, a nie 100 − 40 = 60 MPa.
 </Insight>
 
 <WorkedExample>
-  <Given>Naprężenia główne wynoszą σ1 = 120 MPa, σ2 = 20 MPa, σ3 = −40 MPa.</Given>
+  <Given>
+    W ścianie cienkościennego zbiornika ciśnieniowego panują naprężenia główne: σθ = 120 MPa (obwodowe), σz = 60 MPa
+    (wzdłużne) i σr ≈ 0 (promieniowe). Materiał ma Re = 355 MPa. Oblicz σT, τmax i współczynnik bezpieczeństwa.
+  </Given>
   <Steps>
-    <Step>Największą wartością jest σmax = σ1 = 120 MPa.</Step>
-    <Step>Najmniejszą wartością jest σmin = σ3 = −40 MPa.</Step>
-    <Step>σT = 120 − (−40) = 160 MPa, a τmax = σT/2 = 80 MPa.</Step>
+    <Step>Porządkujemy naprężenia: σ1 = 120 MPa, σ2 = 60 MPa, σ3 = 0.</Step>
+    <Step>Największe naprężenie główne: σmax = 120 MPa. Najmniejsze: σmin = 0.</Step>
+    <Step>Naprężenie zredukowane: σT = 120 − 0 = 120 MPa.</Step>
+    <Step>Maksymalne ścinanie: τmax = σT/2 = 60 MPa.</Step>
+    <Step>Współczynnik bezpieczeństwa: n = Re/σT = 355/120 = 2,96.</Step>
+    <Step>
+      Kontrola przez trzy różnice: |120 − 60| = 60, |60 − 0| = 60, |0 − 120| = 120. Największa wynosi 120 MPa, zgodnie z
+      wynikiem.
+    </Step>
   </Steps>
-  <Result>Naprężenie zredukowane Tresca wynosi 160 MPa; największe ścinanie wynosi 80 MPa.</Result>
+  <Result>
+    σT = 120 MPa, τmax = 60 MPa, a zapas wynosi około 2,96. HMH dałaby w tym punkcie 103,9 MPa i zapas 3,42, więc Tresca
+    jest tu bardziej zachowawcza.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy płaski stan naprężenia w blasze: σx = 90 MPa, σy = 30 MPa, τxy = 20 MPa. Oba naprężenia normalne są dodatnie, więc zero będzie najmniejszym naprężeniem głównym. Sprawdźmy, jak wpływa to na wynik.
+
+Środek koła wynosi C = (90 + 30)/2 = 60 MPa, a promień R = √[((90 − 30)/2)² + 20²] = √(30² + 20²) = √1300 = 36,06 MPa. Naprężenia główne to σ1 = 96,06 MPa i σ2 = 23,94 MPa, a σ3 = 0. Porządek: 96,06 ≥ 23,94 ≥ 0.
+
+Trzy różnice wynoszą: |96,06 − 23,94| = 72,12 MPa, |23,94 − 0| = 23,94 MPa oraz |0 − 96,06| = 96,06 MPa. Największa to 96,06 MPa, więc σT = 96,06 MPa. Gdyby ktoś błędnie wziął tylko różnicę σ1 − σ2, otrzymałby 72,12 MPa i zaniżył wytężenie o około 25%.
+
+Dla porównania, gdyby τxy = 0, to σ1 = 90 MPa, σ2 = 30 MPa i σ3 = 0, więc σT = 90 MPa. Różnica σ1 − σ2 = 60 MPa byłaby jeszcze bardziej myląca. Widać, że w stanie płaskim z naprężeniami tego samego znaku zero jest pełnoprawnym naprężeniem skrajnym i nie wolno go pomijać.
+
+## Trzeci przykład: wariant odwrotny
+
+Punkt elementu jest rozciągany naprężeniem σ = 50 MPa i ścinany naprężeniem τ. Dopuszczalne naprężenie zredukowane według Tresca wynosi 140 MPa. Pytamy, jakie maksymalne τ można przyłożyć.
+
+Warunek ma postać σT = √(50² + 4τ²) ≤ 140. Po podniesieniu do kwadratu: 2500 + 4τ² ≤ 19 600. Zatem 4τ² ≤ 17 100, czyli τ² ≤ 4275 i τ ≤ 65,4 MPa.
+
+Sprawdzenie: przy τ = 65,4 MPa otrzymujemy σT = √(2500 + 4·4275) = √19 600 = 140 MPa, czyli dokładnie dopuszczalną wartość. Dla porównania HMH dopuściłaby większe ścinanie: z warunku √(50² + 3τ²) ≤ 140 otrzymujemy 3τ² ≤ 17 100, czyli τ ≤ 75,5 MPa. Tresca jest więc w tym przypadku około 1,15 razy bardziej restrykcyjna.
+
+Odpowiedź: według Tresca dopuszczalne naprężenie styczne wynosi około 65,4 MPa. To pokazuje, że wariant odwrotny trzeba rozwiązywać z tą samą hipotezą, którą przyjęto do oceny. Nie można policzyć granicy z HMH, a potem porównać jej z wynikiem Tresca.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Różnica tylko dwóch naprężeń.** W stanie płaskim trzeba rozważyć także zero. Para σ1 − σ2 nie zawsze jest największą różnicą.
+
+**Brak porządkowania.** Jeśli σ1, σ2 i σ3 nie są ustawione malejąco, łatwo wybrać złą parę do różnicy.
+
+**Mylenie τmax z σT.** σT = 2τmax. Podanie τmax jako naprężenia zredukowanego zaniża wynik dwukrotnie.
+
+**Zła granica.** Tresca kalibruje się do Re, a nie do granicy ścinania k = Re/2, jeśli używamy postaci σT = σmax − σmin.
+
+**Mylenie z HMH.** Przy czystym ścinaniu Tresca daje 2τ, a HMH √3·τ. Wzory nie są zamienne.
+
+**Pomijanie znaków przy materiale o różnych granicach.** Tresca jest kryterium plastycznym i zwykle zakłada symetrię rozciągania i ściskania. Dla materiałów o różnych granicach potrzebne jest inne podejście.
+
+**Stosowanie do materiałów wrażliwych na ciśnienie.** Polimery, gleby i pianki wymagają kryteriów zależnych od ciśnienia hydrostatycznego.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Sprawdź, czy materiał jest plastyczny.** Tresca jest typowa dla metali o wyraźnym płynięciu, podobnie jak HMH.
+2. **Wyznacz wszystkie naprężenia główne.** W stanie płaskim pamiętaj o σ3 = 0. W stanie przestrzennym musisz mieć trzy wartości, nie dwie.
+3. **Uporządkuj naprężenia.** Ustaw σ1 ≥ σ2 ≥ σ3. Dopiero potem wybieraj σmax i σmin.
+4. **Policz trzy różnice.** Sprawdź |σ1 − σ2|, |σ2 − σ3| i |σ3 − σ1|. Wybierz największą.
+5. **Sprawdź przypadek uproszczony.** Jeśli σy = 0 i znasz σ oraz τ, możesz użyć σT = √(σ² + 4τ²). Upewnij się, że to rzeczywiście ten przypadek.
+6. **Porównaj z kr.** kr = Re/n_wym. Warunek ma postać σT ≤ kr. Jednostki muszą być spójne.
+7. **Policz zapas.** n_rz = Re/σT. Wskaż, czy jest większy od wymaganego.
+8. **Zinterpretuj różnicę względem HMH.** Jeśli Tresca daje większe σT, jest bardziej zachowawcza. Nie traktuj tego jako błędu, lecz jako różnicę modeli.
+
+## Połącz z resztą kursu
+
+- **Stan naprężenia i koło Mohra** — Tresca jest bezpośrednio oparta na największym kole Mohra.
+- **Hipoteza HMH** — alternatywne kryterium plastyczne; porównanie pokazuje, kiedy różnica jest duża.
+- **Hipoteza maksimum normalnego** — kontrast dla materiałów kruchych, gdzie decyduje naprężenie normalne, a nie ścinanie.
+- **Skręcanie wałów** — czyste ścinanie jest najlepszym testem różnicy między Tresca, HMH i maksimum normalnym.
+- **Obciążenia złożone** — łączą σ i τ, prowadząc do wzoru √(σ² + 4τ²) dla Tresca.
+- **Projektowanie elementów** — wymaga świadomego wyboru między bardziej zachowawczą Tresca a zwykle mniej restrykcyjną HMH.
+
+## Sprawdź się
+
+Pytania sprawdzają wybór skrajnych naprężeń, przypadek płaski oraz różnicę między Tresca i HMH.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Dla σ1 = 100 MPa, σ2 = 40 MPa, σ3 = 0 ile wynosi σT?</Prompt>
+    <Prompt>Dla σ1 = 100 MPa, σ2 = 40 MPa i σ3 = 0 ile wynosi σT?</Prompt>
     <Answer>60 MPa</Answer>
     <Answer correct>100 MPa</Answer>
     <Answer>140 MPa</Answer>
@@ -90,4 +232,70 @@ $$
       Koło ma środek w zerze i promień τ, więc σ1 = τ, a σ2 = −τ. Średnica koła wynosi 2τ i to jest σT.
     </Explanation>
   </Question>
+  <Question outcome="U2">
+    <Prompt>Dlaczego w stanie płaskim z σ1 = 100 MPa i σ2 = 40 MPa nie można użyć różnicy 100 − 40 jako σT?</Prompt>
+    <Answer>Bo 100 − 40 jest ujemne</Answer>
+    <Answer correct>Bo σ3 = 0 jest mniejsze od 40 MPa i staje się skrajną wartością</Answer>
+    <Answer>Bo Tresca nie działa dla naprężeń dodatnich</Answer>
+    <Hint>Uporządkuj trzy naprężenia główne, w tym zero.</Hint>
+    <Explanation>
+      Porządek to 100 ≥ 40 ≥ 0, więc σmin = 0, a nie 40 MPa. Poprawna różnica wynosi 100 − 0 = 100 MPa. Zero jest
+      pełnoprawnym naprężeniem głównym w stanie płaskim.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Materiał ma Re = 300 MPa, a σT = 150 MPa. Ile wynosi współczynnik bezpieczeństwa?</Prompt>
+    <Answer>0,5</Answer>
+    <Answer correct>2</Answer>
+    <Answer>150</Answer>
+    <Hint>Podziel granicę plastyczności przez naprężenie zredukowane.</Hint>
+    <Explanation>
+      n = Re/σT = 300/150 = 2. Oznacza to, że według Tresca obciążenie mogłoby wzrosnąć dwukrotnie, zanim materiał
+      osiągnąłby granicę plastyczności, o ile model pozostaje ważny.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Która hipoteza jest zwykle bardziej zachowawcza dla materiału plastycznego: Tresca czy HMH?</Prompt>
+    <Answer correct>Tresca, bo daje σred nie mniejsze niż HMH</Answer>
+    <Answer>HMH, bo zawsze daje większe σred</Answer>
+    <Answer>Obie dają identyczny wynik w każdym stanie</Answer>
+    <Hint>Porównaj współczynniki przy τ² w obu wzorach.</Hint>
+    <Explanation>
+      Dla tego samego stanu Tresca daje σT co najmniej równe σHMH. Przy czystym ścinaniu różnica jest największa: 2τ
+      wobec √3·τ. Większe σred oznacza mniejszy zapas, więc Tresca jest bardziej zachowawcza.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      W zamkniętym zbiorniku ciśnieniowym naprężenia główne wynoszą 120, 60 i 0 MPa. Która para daje największe ścinanie
+      według Tresca?
+    </Prompt>
+    <Answer>60 i 0 MPa</Answer>
+    <Answer>120 i 60 MPa</Answer>
+    <Answer correct>120 i 0 MPa</Answer>
+    <Hint>Największe koło Mohra odpowiada największej różnicy naprężeń głównych.</Hint>
+    <Explanation>
+      Różnice wynoszą 60, 60 i 120 MPa. Największa jest między 120 i 0 MPa, więc τmax = 60 MPa, a σT = 120 MPa. Para 120
+      i 60 MPa daje tylko 60 MPa i nie decyduje.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla σ1 = 90 MPa, σ2 = 30 MPa i σ3 = −60 MPa ile wynosi σT?</Prompt>
+    <Answer correct>150 MPa</Answer>
+    <Answer>60 MPa</Answer>
+    <Answer>120 MPa</Answer>
+    <Hint>Wybierz największe i najmniejsze z trzech naprężeń.</Hint>
+    <Explanation>
+      σmax = 90 MPa, σmin = −60 MPa, więc σT = 90 − (−60) = 150 MPa. Różnica 90 − 30 = 60 MPa pomija najbardziej ujemne
+      naprężenie i jest błędna.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o hipotezach wytężeniowych; szukaj hipotezy największego naprężenia stycznego i jej związku z kołem Mohra.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z naprężeniami głównymi i różnicą skrajnych naprężeń; dobre do ćwiczenia przypadku płaskiego.
+- R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_ — zadania z kołem Mohra i stanem przestrzennym; pomocne w ustalaniu kolejności naprężeń głównych.
+- D. Roylance, _Mechanics of Materials_ (podręcznik otwarty) — rozdział 6.1 o uplastycznieniu; podaje kryterium Tresca, przykład zbiornika ciśnieniowego i przestrogę przed pomijaniem trzeciego kierunku.
+- MIT 3.11, _Mechanics of Materials_ (notatki otwarte) — wykład o uplastycznieniu; pokazuje kalibrację granicy ścinania do próby rozciągania i różnicę względem von Misesa.

@@ -7,7 +7,6 @@ shortTitle: Metoda przekrojów
 description: >-
   Przetnij myślowo element, zachowaj równowagę jednej części i wyznacz siły
   wewnętrzne.
-duration: 9
 eyebrow: Równowaga każdej części
 outcomes:
   - W1 — analizuje przekrój jako granicę oddziaływań między częściami
@@ -18,73 +17,323 @@ outcomes:
   - U3 — wskazuje przekroje potrzebne do sprawdzenia nośności
 ---
 
-Zewnętrznie nieruchomy pręt nie jest „pusty” w środku. Jego części działają na siebie siłami i momentami. Myślowe przecięcie ujawnia te oddziaływania jako N, V i M.
+Zewnętrznie nieruchomy pręt nie jest „pusty” w środku. Jego części działają na siebie siłami i momentami, nawet jeśli z zewnątrz widzimy tylko podpory i przyłożone obciążenia. Te wewnętrzne oddziaływania decydują o tym, czy materiał w danym przekroju wytrzyma obciążenie. Metoda przekrojów jest sposobem, aby je zobaczyć i obliczyć.
+
+Wyobraź sobie, że chcesz sprawdzić, w którym miejscu pęknie długi kij, gdy naciskasz go z dwóch stron. Z zewnątrz widzisz tylko dwie siły i być może podparcie. Dopiero myślowe przecięcie kija ujawnia, że w każdym przekroju materiał musi przenieść pewną siłę osiową, poprzeczną lub moment. Bez tego przecięcia nie masz pojęcia, które przekroje są najbardziej wytężone.
+
+W tej lekcji nauczysz się definiować siłę normalną $N$, siłę poprzeczną $V$ i moment zginający $M$. Zobaczysz, że można je wyznaczyć z równowagi dowolnie wybranej części elementu, po zastąpieniu odrzuconej części siłami wewnętrznymi. Nauczysz się też, jak zmieniają się one wzdłuż belki i dlaczego jeden przekrój nie opisuje całego elementu.
+
+Metoda przekrojów jest pomostem między statyką a wytrzymałością materiałów. Reakcje mówią, jak element jest obciążony z zewnątrz. Siły przekrojowe mówią, co dzieje się w materiale. Dopiero z nich obliczamy naprężenia: $N$ prowadzi do naprężenia normalnego, $V$ do stycznego, a $M$ do zginającego. Bez poprawnego $N$, $V$ i $M$ dalsze wzory są tylko podstawieniem liczb.
+
+Ta sama metoda działa w kratownicach. Przecinasz kilka prętów, zostawiasz jedną część i z jej równowagi wyznaczasz siły w przeciętych prętach. Zamiast rozwiązywać całą kratownicę węzeł po węźle, możesz skupić się na kilku prętach. To pokazuje, że metoda przekrojów nie jest „trikiem do belek”, lecz ogólnym sposobem analizy równowagi części konstrukcji.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje belki z równań równowagi. Siły przekrojowe zależą od reakcji, więc błąd w reakcji przenosi się na cały wykres.
+- Przypomnij sobie, że moment siły względem punktu zależy od prostopadłego ramienia. W przekroju wygodnie sumować momenty względem środka ciężkości przekroju, bo wtedy $N$ i $V$ nie wnoszą momentu.
+- Rozróżniaj wielkości zewnętrzne od wewnętrznych. Reakcja działa na element z zewnątrz, a $N$, $V$ i $M$ są wypadkowymi naprężeń w przeciętym przekroju.
+- Ustal konwencję znaków: dodatnia siła normalna rozciąga przekrój, dodatnia siła poprzeczna na lewej części działa w dół na płaszczyźnie cięcia, a dodatni moment zginający wygina belkę wypukłością w dół.
+- Pamiętaj o jednostkach: siły w N lub kN, momenty w N·m lub kN·m. Jeśli długość jest w mm, moment wyjdzie w N·mm, a nie w N·m.
+- Uważaj na obciążenie rozłożone. Po przecięciu na odciętej części zostaje tylko jego część, a nie cała wypadkowa $qL$.
+
+## Model i intuicja
+
+Metoda przekrojów zaczyna się od myślowej operacji: przecinamy element na dwie części i odrzucamy jedną z nich. Miejsce cięcia nie staje się nową podporą. Jest oknem, przez które widzimy oddziaływanie odrzuconej części. To oddziaływanie zastępujemy trzema wielkościami: siłą normalną $N$, siłą poprzeczną $V$ i momentem zginającym $M$. Dzięki temu pozostawiona część jest samodzielnym ciałem, do którego można zastosować równania równowagi.
+
+Siła normalna $N$ działa wzdłuż osi elementu i odpowiada za rozciąganie lub ściskanie. Siła poprzeczna $V$ działa prostopadle do osi i odpowiada za ścinanie przekroju. Moment zginający $M$ opisuje parę sił rozciągających i ściskających różne włókna przekroju. W zadaniu płaskim te trzy wielkości wyczerpują opis sił wewnętrznych. W zadaniu przestrzennym dochodzą jeszcze dwa momenty zginające w innych płaszczyznach oraz moment skręcający.
+
+Model ma założenia. Przyjmujemy, że element jest prętem lub belką, czyli jednym wymiarem znacznie przewyższa pozostałe. Rozpatrujemy małe odkształcenia, więc położenie sił i ramion nie zmienia się istotnie po obciążeniu. Materiał może być dowolny, bo do samego wyznaczenia $N$, $V$ i $M$ nie potrzeba prawa konstytutywnego. Siły przekrojowe wynikają wyłącznie z równowagi, podobnie jak reakcje w poprzedniej lekcji.
+
+Konwencja znaków jest umowna, ale musi być stała. Przyjmujemy, że dodatnia siła normalna rozciąga przekrój, czyli na lewej części jest skierowana w lewo, a na prawej w prawo. Dodatnia siła poprzeczna na lewej części działa w dół na płaszczyźnie cięcia, a na prawej części w górę. Dodatni moment zginający na lewej części działa przeciwnie do ruchu wskazówek zegara i wygina belkę wypukłością w dół. Taka konwencja jest spójna z zależnością $dM/dx=V$, którą wykorzystasz w module o zginaniu.
+
+Wybór strony cięcia jest dowolny. Jeśli zostawisz lewą część, rysujesz na jej prawym końcu dodatnie $N$ w lewo, $V$ w dół i $M$ przeciwnie do ruchu wskazówek zegara. Jeśli zostawisz prawą część, na jej lewym końcu dodatnie $N$ jest w prawo, $V$ w górę, a $M$ zgodnie z ruchem wskazówek zegara. Wartości liczbowe powinny wyjść takie same, bo obie części opisują to samo oddziaływanie. Różnią się tylko strzałki wynikające z zasady akcji i reakcji.
+
+Siły przekrojowe nie muszą być stałe wzdłuż elementu. Każda siła skupiona, moment skupiony, początek lub koniec obciążenia rozłożonego oraz zmiana geometrii może zmienić funkcję $N(x)$, $V(x)$ lub $M(x)$. Dlatego analizę dzielimy na przedziały między takimi punktami. W każdym przedziale funkcje mają zwykle prostą postać: stałą, liniową lub kwadratową.
+
+Podział na przedziały nie jest formalnością. Jeśli połączysz dwa przedziały w jeden wzór, możesz otrzymać funkcję, która zgadza się tylko na końcach, a w środku opisuje fikcyjny element. Na przykład w belce z siłą skupioną w środku siła poprzeczna ma różne znaki po obu stronach siły, a moment jest ciągły w miejscu przyłożenia siły, choć jego nachylenie zmienia znak. Zawsze sprawdź ciągłość momentu i skok siły poprzecznej w miejscu obciążenia skupionego.
+
+Model przestaje wystarczać, gdy odkształcenia są duże, element jest bardzo krępy, a ścinanie dominuje nad zginaniem, albo gdy interesuje nas rozkład naprężeń w bezpośrednim sąsiedztwie siły skupionej lub karbu. Same wypadkowe $N$, $V$ i $M$ nadal są poprawne, ale proste wzory na naprężenia mogą wymagać uzupełnienia. Tę granicę dokładniej omówimy w lekcji o zasadzie Saint-Venanta.
+
+W kratownicy metoda przekrojów wygląda podobnie, ale zamiast belki przecinasz pręty. Zostawiasz jedną część kratownicy i zastępujesz przecięte pręty siłami osiowymi. Zakładasz, że wszystkie są rozciągane; wynik ujemny oznacza ściskanie. Dobierasz cięcie tak, aby przechodziło przez interesujący pręt i przecinało możliwie mało innych prętów. Równowaga części daje wtedy kilka równań, z których wyznaczasz szukane siły.
+
+## Laboratorium: co ustawić
+
+Przesuń myślowy przekrój w rozciąganym pręcie i zmień siłę oraz pole przekroju. Obserwuj, że siła normalna pozostaje równa sile zewnętrznej, a naprężenie średnie zależy od pola. Zwróć uwagę, że położenie przekroju nie zmienia $N$, dopóki nie mijasz nowego obciążenia.
 
 <Lab id="sections" />
 
+## Definicje i jednostki
+
+| Pojęcie           | Znaczenie                                                              | Symbol i jednostka |
+| ----------------- | ---------------------------------------------------------------------- | ------------------ |
+| Przekrój          | Myślowa lub rzeczywista płaszczyzna dzieląca element na części         | bez jednostki      |
+| Oś elementu       | Linia łącząca środki ciężkości kolejnych przekrojów                    | bez jednostki      |
+| Siła normalna     | Wypadkowa naprężeń normalnych, działająca wzdłuż osi                   | $N$, N lub kN      |
+| Siła poprzeczna   | Wypadkowa naprężeń stycznych, działająca prostopadle do osi            | $V$, N lub kN      |
+| Moment zginający  | Wypadkowy moment naprężeń normalnych w przekroju                       | $M$, N·m lub kN·m  |
+| Moment skręcający | Moment wokół osi elementu; w zadaniu płaskim zwykle pomijany           | $T$, N·m lub kN·m  |
+| Część odcięta     | Fragment elementu pozostawiony po jednej stronie cięcia                | bez jednostki      |
+| Siła wewnętrzna   | Wypadkowa oddziaływania odrzuconej części na pozostawioną              | $N$, $V$, $M$      |
+| Metoda przekrojów | Wyznaczanie sił wewnętrznych z równowagi części po myślowym przecięciu | bez jednostki      |
+
+Symbole w zadaniach: $x$ — współrzędna wzdłuż osi, $a$ — położenie siły skupionej, $L$ — długość, $A$ — pole przekroju, $q$ — obciążenie liniowe. Jednostki muszą być spójne: jeśli $x$ i $L$ są w metrach, a siły w kN, to $M$ wychodzi w kN·m, a $V$ w kN. Przy obliczaniu naprężeń wygodniej przejść na N i mm, bo wtedy $\sigma=N/A$ wychodzi wprost w MPa.
+
+Konwencja znaków jest częścią modelu, nie ozdobą. Dodatnie $N$ oznacza rozciąganie, ujemne ściskanie. Dodatnie $V$ na lewej części działa w dół, a dodatnie $M$ wygina belkę wypukłością w dół. Zmiana strony cięcia odwraca strzałki, ale nie zmienia znaku fizycznej wielkości, jeśli konsekwentnie stosujesz tę samą definicję.
+
+Nie utożsamiaj siły przekrojowej z naprężeniem. $N$ jest wypadkową sił normalnych w całym przekroju i ma jednostkę niutona. Naprężenie normalne $\sigma$ jest intensywnością tych sił na jednostkę powierzchni i ma jednostkę N/mm², czyli MPa. Ten sam $N$ w większym przekroju daje mniejsze naprężenie; dlatego do oceny wytrzymałości potrzebne są obie wielkości.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-N:\ \text{działa wzdłuż osi},\qquad V:\ \text{prostopadle do osi},\qquad M:\ \text{obrót przekroju}
+\sum F_x=0,\qquad \sum F_y=0,\qquad \sum M_C=0
 $$
 
-<Caption>W zadaniu płaskim N to siła osiowa, V siła poprzeczna (tnąca), a M moment zginający. Ich wartości w przekroju wyznacza się z równowagi jednej z odciętych części.</Caption>
+<Caption>Równania dotyczą wybranej części elementu po myślowym przecięciu. Punkt C wybieramy najczęściej w środku ciężkości przekroju; wtedy siły N i V mają względem niego zerowy moment, a równanie momentów wyznacza bezpośrednio moment zginający M.</Caption>
 </Formula>
 
+Wyprowadzimy funkcje $V(x)$ i $M(x)$ dla belki swobodnie podpartej o długości $L=6$ m, obciążonej siłą $P=24$ kN w odległości $a=2$ m od lewej podpory A. Ciężar własny pomijamy. Najpierw wyznaczamy reakcje, a potem przecinamy belkę w dwóch przedziałach.
+
+1. Z równowagi całej belki obliczamy $R_B=Pa/L=24\cdot 2/6=8$ kN oraz $R_A=P-R_B=16$ kN.
+2. Wykonujemy cięcie w odległości $x$ od A, przyjmując $0\le x\le 2$ m. Zostawiamy lewą część belki.
+3. Na prawym końcu lewej części rysujemy dodatnie $N$ w lewo, $V$ w dół i $M$ przeciwnie do ruchu wskazówek zegara.
+4. Równowaga pozioma daje $N=0$, bo na lewą część nie działa żadna siła pozioma.
+5. Równowaga pionowa daje $R_A-V=0$, czyli $V=16$ kN w pierwszym przedziale.
+6. Równowaga momentów względem środka cięcia daje $M-R_A x=0$, czyli $M=16x$ kN·m.
+7. Wykonujemy drugie cięcie w przedziale $2\le x\le 6$ m. Lewa część zawiera teraz również siłę $P$.
+8. Równowaga pionowa daje $R_A-P-V=0$, czyli $V=16-24=-8$ kN. Znak minus oznacza, że rzeczywisty zwrot jest przeciwny do założonego.
+9. Równowaga momentów daje $M-R_A x+P(x-2)=0$, czyli $M=16x-24(x-2)=48-8x$ kN·m.
+10. Sprawdzamy: dla $x=2$ m oba wzory dają $M=32$ kN·m, dla $x=6$ m moment wynosi zero, a siła poprzeczna zmienia znak pod siłą. To jest maksimum momentu w tym zadaniu.
+
+<Formula>
+$$
+V(x)=R_A-\sum P_i,\qquad
+M(x)=R_A x-\sum P_i(x-a_i)
+$$
+
+<Caption>Zapis dotyczy lewej części belki obciążonej siłami skupionymi w dół i reakcją $R_A$ w górę. Sumy obejmują tylko siły na lewo od cięcia; siłę skierowaną w górę trzeba wprowadzić ze znakiem ujemnym, a obciążenie rozłożone wymaga osobnego członu z całką.</Caption>
+</Formula>
+
+Powyższy wzór jest skrótem myślowym, a nie uniwersalnym przepisem na każdy przedział. W każdym przedziale trzeba ustalić, które siły leżą na lewo od cięcia, i dopiero wtedy zapisać sumę. Dla obciążenia rozłożonego $q$ na odcinku od $x_0$ do $x$ wypadkowa wynosi $q(x-x_0)$ i działa w połowie tego odcinka. Dlatego moment od obciążenia rozłożonego ma człon kwadratowy, a siła poprzeczna zmienia się liniowo.
+
 <Insight>
-  Możesz wybrać lewą albo prawą część — poprawny wynik będzie ten sam. Na dwóch stronach cięcia siły wewnętrzne mają
-  przeciwne zwroty zgodnie z zasadą akcji i reakcji.
+  Cięcie nie jest podporą i nie „tworzy” nowej siły zewnętrznej. Wprowadzasz na nim $N$, $V$ i $M$ tylko po to, aby
+  zastąpić działanie odrzuconej części. Jeśli zapomnisz jednej z tych wielkości albo potraktujesz ją jako reakcję
+  podpory, równanie przestanie opisywać rzeczywisty element.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Poziomy pręt jest utwierdzony lewym końcem, a na prawym końcu działa osiowa siła rozciągająca P = 30 kN. Wyznacz N w
-    dowolnym przekroju między końcami.
+    Belka swobodnie podparta ma długość L = 6 m. Siła P = 24 kN działa w dół w odległości 2 m od lewej podpory A.
+    Wyznacz N, V i M w przekrojach x = 1 m oraz x = 4 m. Pomiń ciężar własny.
   </Given>
   <Steps>
-    <Step>Przetnij pręt w wybranym miejscu i zachowaj prawą część wraz z przyłożoną siłą P.</Step>
+    <Step>Oblicz reakcje: RB = P · a / L = 24 · 2 / 6 = 8 kN, RA = 24 − 8 = 16 kN.</Step>
     <Step>
-      Na lewej ścianie odciętej części przyjmij dodatnią siłę N skierowaną w lewo, czyli rozciągającą przekrój.
+      Dla x = 1 m wybierz lewą część. Na cięciu działają dodatnie N w lewo, V w dół i M przeciwnie do ruchu wskazówek
+      zegara.
     </Step>
-    <Step>Zapisz równowagę sił poziomych: ΣFx = P − N = 0.</Step>
-    <Step>Wyznacz N = P = 30 kN. Brak sił poprzecznych i momentów zewnętrznych daje V = 0 i M = 0.</Step>
+    <Step>Równowaga pozioma: N = 0. Równowaga pionowa: 16 − V = 0, więc V = +16 kN.</Step>
+    <Step>Momenty względem cięcia: M − 16 · 1 = 0, więc M = +16 kN·m.</Step>
+    <Step>Dla x = 4 m lewa część zawiera siłę 24 kN. Równowaga pionowa: 16 − 24 − V = 0, więc V = −8 kN.</Step>
+    <Step>Momenty względem cięcia: M − 16 · 4 + 24 · (4 − 2) = 0, więc M = 64 − 48 = +16 kN·m.</Step>
+    <Step>
+      Sprawdź prawą stroną dla x = 4 m: RB = 8 kN działa w odległości 2 m, więc M = 8 · 2 = 16 kN·m. Zgodność potwierdza
+      wynik.
+    </Step>
   </Steps>
-  <Result>W całym rozpatrywanym odcinku N = +30 kN (rozciąganie), V = 0 i M = 0.</Result>
+  <Result>
+    W x = 1 m: N = 0, V = +16 kN, M = +16 kN·m. W x = 4 m: N = 0, V = −8 kN, M = +16 kN·m. Znak minus przy V oznacza
+    zwrot przeciwny do założonego; moment dodatni wygina belkę wypukłością w dół.
+  </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Pionowy pręt jest utwierdzony górnym końcem A i składa się z dwóch odcinków. Odcinek AB ma długość 1,2 m i pole przekroju 300 mm². Odcinek BC ma długość 0,8 m i pole 200 mm². W punkcie B działa siła 15 kN w dół, a w swobodnym końcu C siła 10 kN w dół. Wyznacz siły normalne w obu odcinkach oraz naprężenia nominalne.
+
+Najpierw rozpatrujemy cały pręt. Reakcja w utwierdzeniu wynosi $R_A=15+10=25$ kN w górę. Teraz przecinamy odcinek BC i zostawiamy dolną część z siłą 10 kN.
+
+Na górnej ścianie dolnej części dodatnie $N$ jest skierowane w górę, bo rozciąga przekrój. Równowaga pionowa:
+
+$$
+N_{BC}-10=0 \quad\Rightarrow\quad N_{BC}=10\ \text{kN}
+$$
+
+Wartość dodatnia oznacza rozciąganie. Teraz przecinamy odcinek AB i zostawiamy dolną część, która zawiera obie siły: 15 kN w B i 10 kN w C.
+
+$$
+N_{AB}-15-10=0 \quad\Rightarrow\quad N_{AB}=25\ \text{kN}
+$$
+
+Reakcja w A jest równa sile normalnej w AB, co jest kontrolą globalnej równowagi. Naprężenia nominalne wynoszą:
+
+$$
+\sigma_{AB}=\frac{25\,000\ \text{N}}{300\ \text{mm}^2}=83{,}3\ \text{MPa},\qquad
+\sigma_{BC}=\frac{10\,000\ \text{N}}{200\ \text{mm}^2}=50\ \text{MPa}
+$$
+
+Największa siła i największe naprężenie występują w odcinku AB, ale to nie jest regułą. Gdyby odcinek BC miał znacznie mniejsze pole, mógłby mieć większe naprężenie mimo mniejszej siły. Dlatego po wyznaczeniu $N$ w każdym przedziale trzeba sprawdzić iloraz $|N|/A$, a nie tylko największe $|N|$.
+
+## Trzeci przykład: wariant odwrotny
+
+Belka swobodnie podparta ma długość 5 m. Siła skupiona $P$ działa w odległości 2 m od lewej podpory. W przekroju $x=1$ m zmierzono moment zginający $M=12$ kN·m. Wyznacz $P$, reakcje oraz maksymalny moment.
+
+Dla $x$ przed siłą lewa część belki zawiera tylko reakcję $R_A$. Reakcja ta wynosi:
+
+$$
+R_A=P\left(1-\frac{a}{L}\right)=P\left(1-\frac{2}{5}\right)=0{,}6P
+$$
+
+Moment w przekroju $x=1$ m wynosi:
+
+$$
+M=R_A\cdot 1=0{,}6P
+$$
+
+Stąd:
+
+$$
+0{,}6P=12 \quad\Rightarrow\quad P=20\ \text{kN}
+$$
+
+Reakcja prawej podpory wynosi $R_B=Pa/L=20\cdot 2/5=8$ kN, a lewej $R_A=12$ kN. Maksymalny moment pojawia się pod siłą:
+
+$$
+M_{\max}=R_A\cdot 2=12\cdot 2=24\ \text{kN·m}
+$$
+
+Kontrola z prawej strony: $R_B\cdot 3=8\cdot 3=24$ kN·m. Wynik jest spójny. Zauważ, że jeden zmierzony moment nie wystarczyłby do wyznaczenia zarówno $P$, jak i $a$. W tym zadaniu położenie siły było znane, więc niewiadoma była tylko jedna. Gdyby brakowało i $P$, i $a$, potrzebny byłby dodatkowy pomiar albo dodatkowe równanie.
+
+Wariant odwrotny uczy ostrożności z danymi. Moment w jednym przekroju zależy od reakcji, a reakcja od położenia i wartości siły. Ten sam moment można uzyskać przy mniejszej sile bliżej podpory albo większej sile dalej od niej. Dopiero dodatkowa informacja o geometrii albo drugi pomiar pozwala jednoznacznie odtworzyć obciążenie.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Traktowanie miejsca cięcia jako nowej podpory. Cięcie nie daje reakcji; wprowadzasz na nim siły wewnętrzne, które zastępują odrzuconą część.
+- Pomijanie jednej z wielkości $N$, $V$, $M$. Nawet jeśli w danym zadaniu jedna z nich wynosi zero, trzeba to uzasadnić równaniem, a nie przemilczeć.
+- Mieszanie stron cięcia w jednym równaniu. Jeśli zacząłeś od lewej części, wszystkie siły i ramiona odnoszą się do lewej części.
+- Wstawianie reakcji podpory jako siły wewnętrznej albo siły wewnętrznej jako obciążenia zewnętrznego. To dwa różne etapy analizy.
+- Pomijanie części obciążenia rozłożonego, która pozostała na odciętej części. Wypadkowa zależy od długości odcinka od początku obciążenia do cięcia.
+- Zakładanie, że $V$ i $M$ są stałe w całej belce. Każda siła skupiona zmienia $V$, a każdy moment skupiony lub koniec obciążenia może zmienić przebieg $M$.
+- Stosowanie $N/A$ lub prostego wzoru na zginanie tuż przy miejscu przyłożenia siły skupionej bez sprawdzenia lokalnego rozkładu naprężeń. Wypadkowe są poprawne, ale maksimum lokalne może być większe.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, czego szukasz: reakcji, siły normalnej, siły poprzecznej, momentu czy pełnych funkcji wzdłuż elementu.
+2. Wyznacz reakcje z równowagi całego elementu, jeśli są potrzebne. W niektórych zadaniach z kratownic można je pominąć, jeśli cięcie obejmuje właściwą część.
+3. Wybierz miejsce cięcia. Dla funkcji $N(x)$, $V(x)$, $M(x)$ tnij w dowolnym $x$ i rozpatrz przedział między kolejnymi obciążeniami.
+4. Zdecyduj, którą część zostawiasz. Łatwiejsza jest część z mniejszą liczbą sił, ale obie dają ten sam wynik.
+5. Narysuj na ścianie cięcia dodatnie $N$, $V$ i $M$ zgodnie z konwencją. Nie mieszaj strzałek z przeciwną stroną cięcia.
+6. Zapisz trzy równania równowagi. Moment sumuj względem środka cięcia, aby $N$ i $V$ zniknęły z równania momentów.
+7. Rozwiąż równania i zinterpretuj znaki. Ujemna wartość $V$ lub $M$ oznacza przeciwny zwrot lub przeciwne zginanie, a nie błąd.
+8. Sprawdź wynik na granicy przedziału, w miejscu siły skupionej oraz z drugiej strony cięcia. Sprawdź też jednostki i sens fizyczny.
+
+## Połącz z resztą kursu
+
+- **Równowaga statyczna** — reakcje są pierwszym krokiem; metoda przekrojów używa tych samych równań do części elementu.
+- **Podpory i reakcje** — model podpory decyduje o reakcjach, które wchodzą do równań przekroju.
+- **Rozciąganie i ściskanie** — siła normalna $N$ jest podstawą wzoru $\sigma=N/A$ i obliczeń wydłużenia.
+- **Ścinanie** — siła poprzeczna $V$ prowadzi do naprężeń stycznych w przekroju belki i w połączeniach.
+- **Moment zginający M(x)** — metoda przekrojów daje funkcję momentu, z której oblicza się naprężenia zginające i ugięcia.
+- **Zasada Saint-Venanta** — mówi, jak daleko od cięcia i obciążenia prosty rozkład naprężeń przestaje być wiarygodny.
+
+## Sprawdź się
+
+Rozwiąż pytania, nie podstawiając liczb bez zastanowienia. W każdym pytaniu najpierw ustal, która część elementu jest rozpatrywana i jakie wielkości są na niej przyłożone.
+
 <Quiz>
-  <Question outcome="U1">
-    <Prompt>Co należy zrobić po myślowym przecięciu pręta i odrzuceniu jednej części?</Prompt>
-    <Answer>Pominąć wszystkie oddziaływania odrzuconej części</Answer>
-    <Answer correct>Zastąpić oddziaływanie odrzuconej części siłami i momentem w przekroju</Answer>
-    <Answer>Dodać nową podporę w miejscu cięcia</Answer>
-    <Hint>Pozostawiona część nadal musi być w równowadze.</Hint>
+  <Question outcome="W1">
+    <Prompt>Co fizycznie reprezentują siły $N$, $V$ i $M$ wprowadzone w miejscu myślowego cięcia?</Prompt>
+    <Answer>Nowe podpory, które zastępują usuniętą część</Answer>
+    <Answer correct>Wypadkowe oddziaływania odrzuconej części na pozostawioną</Answer>
+    <Answer>Zawsze siły zewnętrzne przyłożone do całego elementu</Answer>
+    <Hint>Pomyśl o zasadzie akcji i reakcji oraz o tym, co czuje pozostawiona część.</Hint>
     <Explanation>
-      W przekroju wprowadzamy N, V i M odpowiadające oddziaływaniu usuniętej części. Dzięki temu można zastosować
-      równania równowagi do pozostawionej części i wyznaczyć siły wewnętrzne.
+      Po odrzuceniu jednej części trzeba zastąpić jej działanie siłami i momentem w przekroju. Te wielkości są
+      wypadkowymi naprężeń i pozwalają zapisać równowagę pozostawionej części.
     </Explanation>
   </Question>
   <Question outcome="W2">
-    <Prompt>W pręcie osiowo rozciąganym siła wewnętrzna N jest dodatnia. Co fizycznie oznacza ten przypadek?</Prompt>
-    <Answer correct>Odcięte części są od siebie oddalane, czyli przekrój jest rozciągany</Answer>
-    <Answer>Przekrój jest wyłącznie skręcany</Answer>
-    <Answer>Siła osiowa musi być równa ciężarowi pręta</Answer>
-    <Hint>Dodatnie N odpowiada konwencji rozciągania.</Hint>
+    <Prompt>Która wielkość nie jest siłą wewnętrzną w płaskim zadaniu belkowym?</Prompt>
+    <Answer>Siła normalna N</Answer>
+    <Answer>Siła poprzeczna V</Answer>
+    <Answer correct>Reakcja podpory R</Answer>
+    <Answer>Moment zginający M</Answer>
+    <Hint>Reakcja działa na element z zewnątrz, w miejscu podparcia.</Hint>
     <Explanation>
-      Dodatnia siła osiowa rozciąga przekrój: części pręta „ciągną” siebie w przeciwnych kierunkach. Ściskaniu odpowiada
-      N ujemne.
+      N, V i M są wypadkowymi naprężeń w przekroju. Reakcja podpory jest siłą zewnętrzną, działającą na element w
+      miejscu więzu, i należy do innego etapu analizy.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Siła poprzeczna V w przekroju belki działa:</Prompt>
+    <Answer>wzdłuż osi belki</Answer>
+    <Answer correct>prostopadle do osi belki</Answer>
+    <Answer>zawsze pionowo, niezależnie od ustawienia belki</Answer>
+    <Hint>Nazwa „poprzeczna” odnosi się do kierunku względem osi elementu.</Hint>
+    <Explanation>
+      Siła normalna działa wzdłuż osi, a poprzeczna prostopadle do niej. Dla belki poziomej V jest pionowa, ale dla
+      belki ukośnej jej kierunek obraca się razem z osią.
     </Explanation>
   </Question>
   <Question outcome="U1">
     <Prompt>
-      Ten sam przekrój analizowano raz z lewej, a raz z prawej strony. Co powinno być wspólne w obu obliczeniach?
+      Pręt jest utwierdzony lewym końcem, a na prawym końcu działa osiowa siła rozciągająca 30 kN. Jaka jest siła
+      normalna w środku pręta?
     </Prompt>
-    <Answer correct>Ta sama wartość i ten sam fizyczny charakter siły wewnętrznej</Answer>
-    <Answer>Identyczny zwrot wektora narysowany względem całego pręta</Answer>
-    <Answer>Brak konieczności uwzględniania obciążeń zewnętrznych</Answer>
-    <Hint>Porównaj zasadę akcji i reakcji z fizyczną wielkością w przekroju.</Hint>
+    <Answer>−30 kN, czyli ściskanie</Answer>
+    <Answer correct>+30 kN, czyli rozciąganie</Answer>
+    <Answer>15 kN, bo siła rozkłada się na połowę</Answer>
+    <Hint>Przetnij pręt i rozpatrz prawą część z przyłożoną siłą 30 kN.</Hint>
     <Explanation>
-      Obie strony dają tę samą wartość N, V lub M, choć wektory na przeciwnych ścianach przekroju mają przeciwne zwroty.
-      Każda analiza musi zawierać wszystkie obciążenia wybranej części.
+      Na prawą część działa tylko siła 30 kN rozciągająca, więc siła normalna w przekroju wynosi +30 kN. W całym pręcie
+      bez dodatkowych obciążeń N jest stałe.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Belka o długości 6 m ma siłę 24 kN w odległości 2 m od lewej podpory. Reakcja lewa wynosi 16 kN. Jaka jest siła
+      poprzeczna tuż na prawo od siły, przy konwencji dodatniej V w dół na lewej części?
+    </Prompt>
+    <Answer>+16 kN</Answer>
+    <Answer correct>−8 kN</Answer>
+    <Answer>+8 kN</Answer>
+    <Hint>Na lewą część działają teraz reakcja 16 kN w górę i siła 24 kN w dół.</Hint>
+    <Explanation>
+      Równanie pionowe: 16 − 24 − V = 0, więc V = −8 kN. Minus oznacza, że rzeczywista siła poprzeczna na lewej części
+      działa w górę, przeciwnie do założonej strzałki.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dlaczego siły przekrojowe trzeba wyznaczyć przed obliczeniem naprężeń?</Prompt>
+    <Answer>Bo naprężenia są równe siłom przekrojowym</Answer>
+    <Answer correct>Bo N, V i M są wypadkowymi, które wraz z geometrią przekroju dają naprężenia</Answer>
+    <Answer>Bo naprężenia nie zależą od przekroju</Answer>
+    <Hint>Przypomnij sobie wzory σ = N/A oraz związek momentu z rozkładem naprężeń.</Hint>
+    <Explanation>
+      Naprężenia opisują intensywność sił wewnętrznych na jednostkę powierzchni. Siła normalna, poprzeczna i moment są
+      potrzebne jako dane wejściowe do wzorów, w których występuje również pole lub wskaźnik przekroju.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Które przekroje trzeba sprawdzić przy ocenie nośności belki?</Prompt>
+    <Answer>Tylko przekrój w środku rozpiętości</Answer>
+    <Answer correct>Przekroje z maksymalnym momentem, maksymalną siłą poprzeczną oraz miejsca zmian przekroju</Answer>
+    <Answer>Wyłącznie przekroje przy podporach</Answer>
+    <Hint>Nośność zależy od kombinacji sił przekrojowych i geometrii, a nie tylko od jednego punktu.</Hint>
+    <Explanation>
+      Maksimum momentu i maksimum siły poprzecznej mogą występować w różnych miejscach. Dodatkowo zmiana przekroju lub
+      karb może zwiększyć naprężenie mimo mniejszych sił, więc trzeba sprawdzić wszystkie krytyczne przekroje.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o siłach wewnętrznych i metodzie przekrojów; definicje $N$, $V$, $M$ oraz przykłady belek.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — równowaga części elementu i wykresy sił przekrojowych w prętach.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z siłami wewnętrznymi w belkach i kratownicach, dobre do ćwiczenia znaków.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdział o metodzie przekrojów w kratownicach oraz o typach sił wewnętrznych; definicje i konwencja znaków.
+- D. Roylance, _Mechanics of Materials_ — rozdział o kratownicach i statyce belek; pokazuje metodę przekrojów oraz przejście od równowagi części do wykresów sił i momentów.

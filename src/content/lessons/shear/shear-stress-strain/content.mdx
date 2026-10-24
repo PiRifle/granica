@@ -7,7 +7,6 @@ shortTitle: Naprężenia styczne
 description: >-
   Połącz τ z kątem odkształcenia postaciowego i poznaj czyste ścinanie na kole
   Mohra.
-duration: 8
 eyebrow: Prostokąt zmienia kąty
 outcomes:
   - >-
@@ -22,67 +21,280 @@ outcomes:
     zachowaniem bezpieczeństwa
 ---
 
-Ścinanie nie zmienia długości boków elementu, lecz zmienia kąt między nimi. Prostokąt przekształca się w równoległobok, a miarą tego efektu jest odkształcenie postaciowe γ, wyrażane w radianach.
+Narysuj na kartce mały kwadrat i wyobraź sobie, że ścinasz go tak, jakbyś przesuwał górną krawędź względem dolnej. Boki kwadratu nie zmieniają długości, ale kąty przestają być proste. Figura zamienia się w równoległobok. To jest odkształcenie postaciowe: nie wydłużenie, lecz zmiana kształtu.
+
+W rozciąganiu mierzyliśmy wydłużenie względne, czyli zmianę długości podzieloną przez długość początkową. W ścinaniu mierzymy kąt, o który obraca się bok elementu względem pierwotnego kierunku. Kąt ten oznaczamy grecką literą gamma i wyrażamy w radianach. Przy małych odkształceniach tangens kąta jest w przybliżeniu równy samemu kątowi, dlatego możemy pisać $\gamma \approx \tan\gamma$.
+
+Naprężenie styczne i odkształcenie styczne są ze sobą związane liniowo w zakresie sprężystym. Zależność $\tau = G\gamma$ jest odpowiednikiem prawa Hooke’a dla rozciągania. Współczynnik $G$ nazywamy modułem ścinania albo modułem Kirchhoffa. Dla stali wynosi on około 80 GPa, czyli jest około 2,5 razy mniejszy od modułu Younga.
+
+Czyste ścinanie to szczególny stan, w którym na element działają tylko naprężenia styczne, a naprężenia normalne są równe zero. Na pierwszy rzut oka wydaje się, że materiał nie jest ani rozciągany, ani ściskany. Tymczasem na płaszczyznach obróconych o 45 stopni pojawiają się naprężenia normalne: jedno rozciągające, drugie ściskające, o wartościach równych co do modułu naprężeniu stycznemu. To wyjaśnia, dlaczego materiały kruche pękają przy ścinaniu pod kątem, a nie wzdłuż płaszczyzny ścinania.
+
+Po tej lekcji będziesz umiał powiązać naprężenie styczne z kątem odkształcenia, obliczyć moduł ścinania z modułu Younga i liczby Poissona, narysować koło Mohra dla czystego ścinania oraz odczytać z niego naprężenia główne. Zrozumiesz też, dlaczego ścinanie prawie nie zmienia objętości materiału.
+
+## Zanim zaczniesz
+
+- **Prawo Hooke’a dla rozciągania.** Wiesz, że $\sigma = E\varepsilon$ w zakresie liniowo sprężystym. Wzór $\tau = G\gamma$ jest jego odpowiednikiem dla ścinania.
+- **Moduł Younga i liczba Poissona.** Przypomnij sobie, że $E$ opisuje sztywność przy rozciąganiu, a $\nu$ stosunek odkształcenia poprzecznego do podłużnego. Dla stali typowo $E \approx 200\ \text{GPa}$ i $\nu \approx 0{,}3$.
+- **Radiany.** Kąt w radianach to stosunek długości łuku do promienia. Pełny obrót to $2\pi$ rad, czyli 360 stopni. Jeden radian to około 57,3 stopnia.
+- **Koło Mohra.** Wiesz, jak narysować okrąg w układzie naprężenie normalne–naprężenie styczne i jak odczytać z niego naprężenia główne.
+- **Trygonometria.** Przyda się $\sin 45^\circ = \cos 45^\circ = \sqrt{2}/2$ oraz wzory na obrót osi. Nie musisz ich wyprowadzać, ale powinieneś rozumieć, skąd bierze się kąt 45 stopni.
+- **Typowe pułapki.** Mylenie odkształcenia postaciowego z kątem skręcenia wału, stopni z radianami, modułu ścinania z modułem Younga oraz zapominanie, że w czystym ścinaniu naprężenia główne są różne od zera.
+
+## Model i intuicja
+
+Rozważmy mały element materiału w kształcie prostopadłościanu. Na jego ścianki działają naprężenia styczne, tak jak wówczas, gdy skręcamy wał albo ścinamy sworzeń. Dla uproszczenia zajmijmy się stanem płaskim: naprężenia działają w płaszczyźnie rysunku, a trzecia składowa jest równa zero.
+
+W czystym ścinaniu na ściankach poziomych i pionowych działają tylko naprężenia styczne o jednakowej wartości. Element odkształca się w równoległobok, ale jego objętość praktycznie się nie zmienia. Wydłużenie jednej przekątnej jest równoważone skróceniem drugiej. To ważna obserwacja: ścinanie jest przede wszystkim zmianą kształtu, a nie zmianą objętości.
+
+Model zakłada materiał izotropowy, liniowo sprężysty i jednorodny. Zakłada też małe odkształcenia, dzięki czemu możemy utożsamić kąt z jego tangensem i zaniedbać zmianę geometrii. W zakresie plastycznym zależność $\tau = G\gamma$ przestaje obowiązywać, a materiał może płynąć przy prawie stałym naprężeniu. Przy dużych odkształceniach trzeba używać innych miar odkształcenia.
+
+W materiale izotropowym istnieją tylko dwie niezależne stałe sprężystości. Najczęściej podaje się $E$ i $\nu$, a $G$ oblicza się z zależności $G = E/[2(1+\nu)]$. Oznacza to, że nie można dowolnie wybrać wszystkich trzech parametrów. Jeśli znasz dwa, trzeci jest wyznaczony. Dla stali o $E = 200\ \text{GPa}$ i $\nu = 0{,}3$ otrzymujemy $G \approx 76{,}9\ \text{GPa}$.
+
+Kiedy model przestaje działać? Przy odkształceniach plastycznych, przy materiałach anizotropowych, takich jak drewno lub kompozyty, oraz przy dużych gradientach naprężeń, gdzie lokalne odkształcenia znacznie różnią się od średnich. W takich przypadkach potrzebny jest pełny tensor naprężenia i odkształcenia, a nie tylko jedna para $\tau$ i $\gamma$.
+
+Warto rozróżnić dwa pojęcia, które brzmią podobnie. Odkształcenie postaciowe $\gamma$ opisuje lokalną zmianę kąta w materiale. Kąt skręcenia $\varphi$ opisuje obrót całego przekroju wału. W wale $\gamma$ rośnie z promieniem, a $\varphi$ jest wspólny dla całego przekroju. Mylenie tych wielkości prowadzi do błędnych jednostek i błędnej interpretacji wyniku.
+
+## Laboratorium: co ustawić
+
+W laboratorium ustaw naprężenia normalne na zero, a naprężenie styczne na 80 MPa. To odpowiada czystemu ścinaniu. Następnie zmieniaj $\tau_{xy}$ i obserwuj, jak przesuwa się koło Mohra oraz jak zmieniają się naprężenia główne. Spróbuj przewidzieć wynik dla $\tau_{xy} = 50\ \text{MPa}$, zanim zmienisz suwak.
 
 <Lab id="mohr" />
 
+## Definicje i jednostki
+
+| Symbol               | Wielkość                 | Definicja                                         | Jednostka          |
+| -------------------- | ------------------------ | ------------------------------------------------- | ------------------ |
+| $\tau$               | naprężenie styczne       | siła styczna do przekroju podzielona przez pole   | MPa = N/mm²        |
+| $\gamma$             | odkształcenie postaciowe | kąt zmiany kąta prostego w radianach              | rad (bezwymiarowe) |
+| $G$                  | moduł ścinania           | stosunek $\tau/\gamma$ w zakresie sprężystym      | MPa lub GPa        |
+| $E$                  | moduł Younga             | sztywność przy rozciąganiu                        | MPa lub GPa        |
+| $\nu$                | liczba Poissona          | stosunek odkształcenia poprzecznego do podłużnego | bezwymiarowa       |
+| $\sigma_1, \sigma_2$ | naprężenia główne        | ekstremalne naprężenia normalne w stanie płaskim  | MPa                |
+| $\theta$             | kąt obrotu przekroju     | kąt między osią pierwotną a nową                  | rad lub stopnie    |
+
+Odkształcenie postaciowe jest bezwymiarowe, ponieważ jest stosunkiem przemieszczenia do długości. Jednostka „rad” jest wygodnym przypomnieniem, że mamy do czynienia z kątem, ale w obliczeniach traktujemy ją jak liczbę niemianowaną. Nie wolno podstawiać stopni do wzoru $\tau = G\gamma$ bez zamiany na radiany.
+
+Znak naprężenia stycznego zależy od konwencji. W tym kursie przyjmujemy, że naprężenie jest dodatnie, gdy na dodatniej ściance działa w dodatnim kierunku osi stycznej. W czystym ścinaniu znak $\tau$ wpływa na znak naprężeń głównych, ale nie na ich wartości bezwzględne. Przy ocenie wytrzymałości zwykle interesuje nas wartość maksymalna.
+
+Moduł Kirchhoffa jest stałą materiałową, ale nie jest stałą uniwersalną. Dla stali wynosi około 80 GPa, dla aluminium około 27 GPa, a dla gumy może być rzędu kilku megapaskali. Dlatego ten sam kąt odkształcenia w gumie wymaga znacznie mniejszego naprężenia niż w stali. Porównując materiały, zawsze sprawdzaj, czy porównujesz naprężenia, czy odkształcenia.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\tau = G\gamma \qquad \sigma_1 = +\tau, \quad \sigma_2 = -\tau
+\tau = G\gamma, \qquad G = \frac{E}{2(1+\nu)}, \qquad \sigma_{1,2} = \pm\tau
 $$
 
-<Caption>G to moduł ścinania (moduł Kirchhoffa) w MPa, a γ to odkształcenie postaciowe w radianach. W czystym ścinaniu naprężenia główne mają równe wartości bezwzględne i przeciwne znaki.</Caption>
+<Caption>G to moduł ścinania w MPa, γ to odkształcenie postaciowe w radianach, a E i ν to moduł Younga i liczba Poissona. W czystym ścinaniu naprężenia główne mają wartość bezwzględną równą τ i przeciwne znaki.</Caption>
 </Formula>
 
+Wyprowadzenie łączy geometrię odkształcenia, prawo Hooke’a i analizę stanu naprężenia.
+
+1. **Zdefiniuj odkształcenie geometrycznie.** Weź element o wysokości $h$. Górna ścianka przesuwa się względem dolnej o $\delta$. Kąt odkształcenia wynosi $\gamma \approx \tan\gamma = \delta/h$.
+2. **Zauważ, że kąt jest miarą ścinania.** Przy małych odkształceniach $\gamma$ jest małe, więc $\tan\gamma \approx \gamma$. Dzięki temu możemy używać kąta w radianach bez funkcji trygonometrycznych.
+3. **Zastosuj prawo Hooke’a.** Doświadczenie pokazuje, że w zakresie sprężystym naprężenie styczne jest proporcjonalne do kąta: $\tau = G\gamma$. Stała $G$ jest właściwością materiału.
+4. **Wyraź G przez stałe inżynierskie.** Dla materiału izotropowego analiza energii odkształcenia daje $G = E/[2(1+\nu)]$. Dla typowych materiałów, w których $\nu$ jest większe od zera, $G$ jest mniejsze od $E$, bo mianownik jest większy od 2.
+5. **Zbuduj koło Mohra.** Dla czystego ścinania punkt odpowiadający ściance poziomej ma współrzędne $(0, \tau)$, a punkt dla ścianki pionowej $(0, -\tau)$.
+6. **Znajdź środek i promień.** Środek leży w $(0,0)$, a promień wynosi $R = \tau$. Koło przechodzi przez początek układu i jest symetryczne względem obu osi.
+7. **Odczytaj naprężenia główne.** Przecięcia koła z osią naprężeń normalnych to $\sigma_1 = R = \tau$ oraz $\sigma_2 = -R = -\tau$.
+8. **Ustal kierunki główne.** Na kole punkty główne leżą o 90 stopni od punktów ścinania, co w rzeczywistym elemencie odpowiada obrotowi o 45 stopni. Na tych płaszczyznach nie ma naprężeń stycznych.
+9. **Sprawdź objętość.** Suma naprężeń głównych wynosi $\tau + (-\tau) = 0$, więc pierwszy niezmiennik jest równy zero. Oznacza to brak pierwszej zmiany objętości przy czystym ścinaniu.
+
+Punkt 8 zasługuje na komentarz. Kąt na kole Mohra jest podwojonym kątem w rzeczywistej przestrzeni. Skoro punkty główne są oddalone o 90 stopni na kole, to w materiale płaszczyzny główne są obrócone o 45 stopni względem płaszczyzn ścinania. To dlatego próbka materiału kruchego pęka po przekątnej, a nie poziomo.
+
 <Insight>
-  W stanie czystego ścinania koło Mohra ma środek w początku układu i promień R = τ. Na płaszczyznach głównych,
-  obróconych o 45° względem płaszczyzn ścinania, nie ma naprężeń stycznych, a naprężenia normalne wynoszą +τ i −τ.
+  W stanie czystego ścinania koło Mohra ma środek w początku układu i promień $R = \tau$. Na płaszczyznach głównych,
+  obróconych o 45 stopni względem płaszczyzn ścinania, nie ma naprężeń stycznych, a naprężenia normalne wynoszą $+\tau$
+  i $-\tau$. Ścinanie nie jest więc stanem bez naprężeń normalnych, tylko stanem, w którym są one ukryte na innych
+  płaszczyznach.
 </Insight>
 
 <WorkedExample>
-  <Given>Element jest w stanie czystego ścinania τ = 80 MPa. Moduł ścinania G = 80 GPa.</Given>
+  <Given>
+    Element jest w stanie czystego ścinania $\tau = 60\ \text{MPa}$. Materiał ma $E = 200\ \text{GPa}$ i $\nu = 0{,}3$. Oblicz moduł ścinania, odkształcenie postaciowe i naprężenia główne.
+  </Given>
   <Steps>
-    <Step>Ujednolić jednostki: G = 80 GPa = 80 000 MPa.</Step>
-    <Step>Oblicz odkształcenie: γ = τ/G = 80/80 000 = 0,001 rad, czyli około 0,0573°.</Step>
-    <Step>Koło Mohra ma C = 0 i R = 80 MPa, więc σ1 = +80 MPa, a σ2 = −80 MPa.</Step>
+    <Step>Oblicz moduł ścinania: $G = 200/[2(1+0{,}3)] = 200/2{,}6 = 76{,}92\ \text{GPa}$.</Step>
+    <Step>Zamień $G$ na MPa: $76{,}92\ \text{GPa} = 76\,920\ \text{MPa}$.</Step>
+    <Step>Oblicz odkształcenie: $\gamma = \tau/G = 60/76\,920 = 0{,}00078\ \text{rad}$.</Step>
+    <Step>Zamień na stopnie: $0{,}00078 \cdot 180/\pi = 0{,}0447^\circ$.</Step>
+    <Step>Odczytaj naprężenia główne: $\sigma_1 = +60\ \text{MPa}$, $\sigma_2 = -60\ \text{MPa}$.</Step>
+    <Step>Sprawdź: $\sigma_1 + \sigma_2 = 0$, co potwierdza brak pierwszej zmiany objętości.</Step>
   </Steps>
-  <Result>γ = 0,001 rad, czyli około 0,057°; naprężenia główne wynoszą +80 MPa i −80 MPa.</Result>
+  <Result>
+    $G \approx 76{,}9\ \text{GPa}$, $\gamma \approx 7{,}8 \cdot 10^{-4}\ \text{rad}$, czyli około $0{,}045^\circ$. Naprężenia główne wynoszą $+60\ \text{MPa}$ i $-60\ \text{MPa}$.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy element z aluminium, dla którego moduł ścinania wynosi $G = 27\ \text{GPa}$, a liczba Poissona $\nu = 0{,}33$. Zmierzone odkształcenie postaciowe wynosi $\gamma = 0{,}0012\ \text{rad}$. Chcemy obliczyć naprężenie styczne, moduł Younga i naprężenia główne.
+
+Naprężenie styczne obliczamy wprost z prawa Hooke’a: $\tau = G\gamma = 27\,000 \cdot 0{,}0012 = 32{,}4\ \text{MPa}$. Zwróć uwagę, że $G$ zamieniliśmy na MPa, ponieważ odkształcenie jest bezwymiarowe, a wynik ma być w MPa.
+
+Moduł Younga wyznaczamy z przekształcenia zależności między stałymi: $E = 2G(1+\nu) = 2 \cdot 27 \cdot 1{,}33 = 71{,}82\ \text{GPa}$. Ten wynik jest typowy dla stopów aluminium, dla których $E$ mieści się w przedziale około 69–72 GPa.
+
+Naprężenia główne w czystym ścinaniu wynoszą $\sigma_1 = +32{,}4\ \text{MPa}$ i $\sigma_2 = -32{,}4\ \text{MPa}$. Oznacza to, że mimo braku zewnętrznego rozciągania w materiale pojawia się lokalne rozciąganie o wartości 32,4 MPa, skierowane pod kątem 45 stopni do płaszczyzny ścinania.
+
+Gdyby materiał był kruchy i miał wytrzymałość na rozciąganie mniejszą niż 32,4 MPa, mógłby pęknąć mimo tego, że naprężenie styczne wydaje się niewielkie. To pokazuje, dlaczego przy ścinaniu materiałów kruchych trzeba sprawdzać naprężenia główne, a nie tylko samo $\tau$.
+
+W metalu ciągliwym to samo rozciągnięcie może wywołać płynięcie, a nie pęknięcie. Granica między jednym a drugim zależy od temperatury i prędkości obciążenia, więc nie jest uniwersalna. Materiał zaczyna się odkształcać plastycznie, gdy naprężenie zredukowane przekroczy granicę plastyczności. Wtedy wzór $\tau = G\gamma$ przestaje obowiązywać, a odkształcenie rośnie szybciej niż naprężenie. Dlatego przy projektowaniu na ścinanie trzeba znać nie tylko moduł $G$, ale też granicę plastyczności.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że z pomiaru znamy naprężenie styczne $\tau = 72\ \text{MPa}$ i odkształcenie $\gamma = 0{,}0009\ \text{rad}$. Chcemy wyznaczyć moduł ścinania, a następnie moduł Younga dla $\nu = 0{,}3$.
+
+Moduł ścinania to iloraz naprężenia i odkształcenia: $G = \tau/\gamma = 72/0{,}0009 = 80\,000\ \text{MPa} = 80\ \text{GPa}$. Taka wartość jest typowa dla stali.
+
+Moduł Younga obliczamy z zależności $E = 2G(1+\nu) = 2 \cdot 80 \cdot 1{,}3 = 208\ \text{GPa}$. To nieco więcej niż typowe 200 GPa, ale mieści się w zakresie spotykanym dla stali stopowych. Gdyby wynik wyszedł 20 GPa albo 2000 GPa, oznaczałby błąd jednostek lub pomiaru.
+
+Sprawdźmy jeszcze przypadek graniczny $\nu \to 0{,}5$. Wtedy $G = E/[2(1+0{,}5)] = E/3$. Materiał prawie nie zmienia objętości, więc cała energia odkształcenia idzie w zmianę kształtu. Dla gumy, której $\nu$ jest bliskie 0,5, moduł ścinania jest więc znacznie mniejszy od modułu Younga. To dlatego guma łatwo się ścina i skręca, choć przy rozciąganiu może być dość sztywna.
+
+W drugą stronę, dla $\nu = 0$ mielibyśmy $G = E/2$. Taki materiał zmienia objętość bez efektu Poissona. Rzeczywiste metale mają $\nu$ około 0,25–0,35, więc $G$ jest zwykle około 2,5–2,7 razy mniejsze od $E$.
+
+Pomiar $G$ wykonuje się na przykład w próbie skręcania cienkościennej rurki albo w teście ścinania. Zamiast mierzyć $G$ bezpośrednio, często wystarczy znać $E$ i $\nu$, a potem zastosować wzór. To wygodne, ponieważ $E$ i $\nu$ są standardowo wyznaczane w próbie rozciągania. Wartość $G$ jest więc wielkością pochodną, a nie niezależnym parametrem.
+
+Uwaga na jednostki: $E$ i $G$ podaje się zwykle w GPa, a naprężenia w zadaniach często w MPa. Przy podstawianiu zamień $1\ \text{GPa} = 1000\ \text{MPa}$. Jeśli tego nie zrobisz, odkształcenie wyjdzie tysiąc razy za małe, a wynik będzie wyglądał pozornie poprawnie.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Stopnie zamiast radianów.** Wzór $\tau = G\gamma$ wymaga kąta w radianach. Podstawienie $0{,}05^\circ$ zamiast $0{,}00087\ \text{rad}$ daje wynik około 57 razy za duży.
+- **Mylenie $G$ z $E$.** Moduł ścinania jest mniejszy od modułu Younga. Dla stali $G \approx 80\ \text{GPa}$, a $E \approx 200\ \text{GPa}$. Podstawienie $E$ w miejsce $G$ zaniża odkształcenie.
+- **Zapominanie o zależności $G = E/[2(1+\nu)]$.** Nie można traktować $E$, $G$ i $\nu$ jako trzech niezależnych liczb. Dwie z nich wyznaczają trzecią.
+- **Brak naprężeń głównych w czystym ścinaniu.** Ktoś może pomyśleć, że skoro nie ma naprężeń normalnych na ściankach, to $\sigma_1 = \sigma_2 = 0$. W rzeczywistości na płaszczyznach obróconych o 45 stopni występują naprężenia $+\tau$ i $-\tau$.
+- **Zły kąt na kole Mohra.** Kąt na kole jest podwojony względem kąta w materiale. Punkty główne są oddalone o 90 stopni na wykresie, ale płaszczyzny główne są obrócone o 45 stopni.
+- **Stosowanie wzoru poza zakresem sprężystym.** Przy dużych odkształceniach $\tau = G\gamma$ przestaje obowiązywać. Nie można go używać do opisu płynięcia plastycznego.
+- **Mylenie $\gamma$ z kątem skręcenia $\varphi$.** $\gamma$ opisuje odkształcenie materiału, a $\varphi$ obrót całego przekroju wału. To różne wielkości, choć obie wyrażane w radianach.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal, czy masz naprężenie, czy odkształcenie.** Przeczytaj jednostki: MPa wskazuje naprężenie, rad lub stopnie wskazują odkształcenie albo kąt.
+2. **Sprawdź, czy stan jest czysty.** Jeżeli na ściankach nie ma naprężeń normalnych, a tylko styczne, to czyste ścinanie. Jeżeli są oba rodzaje, potrzebne jest pełne koło Mohra, a nie tylko wzór $\sigma_{1,2} = \pm\tau$.
+3. **Wybierz właściwą stałą materiałową.** Do ścinania użyj $G$, do rozciągania $E$. Jeżeli w zadaniu jest $E$ i $\nu$, najpierw oblicz $G$.
+4. **Zamień kąty na radiany.** Stopnie przelicz przez $\pi/180$. Wynik odkształcenia jest bezwymiarowy, ale zapisujemy go w radianach.
+5. **Oblicz brakującą wielkość.** Z $\tau = G\gamma$ możesz wyznaczyć każdą z trzech wielkości, jeśli znasz dwie pozostałe.
+6. **Narysuj koło Mohra.** Dla czystego ścinania zaznacz punkty $(0, \tau)$ i $(0, -\tau)$, środek w zerze i promień $\tau$.
+7. **Odczytaj naprężenia główne i kierunki.** $\sigma_1 = \tau$, $\sigma_2 = -\tau$, a płaszczyzny główne są obrócone o 45 stopni.
+8. **Sprawdź sens fizyczny.** Odkształcenie powinno być małe w zakresie sprężystym, a $G$ powinien być mniejszy od $E$. Duże odchylenia sygnalizują błąd jednostek.
+
+## Połącz z resztą kursu
+
+- **Ścinanie techniczne.** Poprzednia lekcja dawała średnie naprężenie w połączeniu. Tutaj dowiadujesz się, jak materiał reaguje na to naprężenie odkształceniem.
+- **Połączenia jedno- i dwucięte.** Liczba płaszczyzn zmienia naprężenie, a więc i odkształcenie. W połączeniu dwuciętym mniejsze naprężenie oznacza mniejsze odkształcenie przy tym samym materiale.
+- **Skręcanie wału pełnego.** W wale odkształcenie postaciowe rośnie liniowo z promieniem, a naprężenie jest proporcjonalne do odkształcenia. To połączenie geometrii i prawa Hooke’a prowadzi do wzoru $\tau = Tr/J_o$.
+- **Stan naprężenia.** Czyste ścinanie jest najprostszym przykładem transformacji naprężeń. Koło Mohra dla tego stanu będzie punktem wyjścia do analizy stanów złożonych.
+- **Stan odkształcenia.** Odkształcenie postaciowe $\gamma$ jest składową tensora odkształcenia. W pełnym opisie trzeba uwzględnić również odkształcenia normalne i kąt obrotu.
+- **Hipotezy wytrzymałościowe.** Dla czystego ścinania hipoteza Hubera–von Misesa daje naprężenie zredukowane $\sqrt{3}\tau$, a hipoteza Treski $2\tau$. To bezpośrednie zastosowanie naprężeń głównych wyznaczonych tutaj.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz swobodnie przechodzić między naprężeniem, odkształceniem i naprężeniami głównymi.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Przy τ = 80 MPa i G = 80 GPa odkształcenie postaciowe γ wynosi:</Prompt>
-    <Answer>0,0001</Answer>
-    <Answer correct>0,001</Answer>
-    <Answer>0,01</Answer>
-    <Hint>Zamień 80 GPa na 80 000 MPa i skorzystaj z γ = τ/G.</Hint>
+    <Prompt>
+      Przy $\tau = 45\ \text{MPa}$ i $G = 75\ \text{GPa}$ odkształcenie postaciowe $\gamma$ wynosi:
+    </Prompt>
+    <Answer>0,00006</Answer>
+    <Answer correct>0,0006</Answer>
+    <Answer>0,006</Answer>
+    <Hint>Zamień 75 GPa na 75 000 MPa i skorzystaj z $\gamma = \tau/G$.</Hint>
     <Explanation>
-      γ = 80 MPa / 80 000 MPa = 0,001 rad, czyli około 0,057°. Odkształcenie postaciowe jest kątem w radianach; nie
-      należy go mylić z kątem wyrażonym w stopniach.
+      $\gamma = 45/75\,000 = 0{,}0006\ \text{rad}$. Odkształcenie jest bezwymiarowe, a zapis w radianach przypomina, że chodzi o kąt.
     </Explanation>
   </Question>
   <Question outcome="U2">
-    <Prompt>Jakie naprężenia główne odpowiadają czystemu ścinaniu τ = 50 MPa?</Prompt>
-    <Answer correct>σ1 = 50 MPa, σ2 = −50 MPa</Answer>
-    <Answer>σ1 = σ2 = 50 MPa</Answer>
-    <Answer>σ1 = 100 MPa, σ2 = 0</Answer>
-    <Hint>Koło Mohra ma środek C = 0 i promień R = τ.</Hint>
+    <Prompt>
+      Jakie naprężenia główne odpowiadają czystemu ścinaniu $\tau = 35\ \text{MPa}$?
+    </Prompt>
+    <Answer correct>σ₁ = 35 MPa, σ₂ = −35 MPa</Answer>
+    <Answer>σ₁ = σ₂ = 35 MPa</Answer>
+    <Answer>σ₁ = 70 MPa, σ₂ = 0</Answer>
+    <Hint>Koło Mohra ma środek $C = 0$ i promień $R = \tau$.</Hint>
     <Explanation>
-      W czystym ścinaniu σ1 = C + R = τ, a σ2 = C − R = −τ. Przy τ = 50 MPa otrzymujemy więc +50 MPa i −50 MPa.
+      W czystym ścinaniu $\sigma_1 = C + R = \tau$, a $\sigma_2 = C - R = -\tau$. Przy $\tau = 35\ \text{MPa}$ otrzymujemy $+35\ \text{MPa}$ i $-35\ \text{MPa}$.
     </Explanation>
   </Question>
   <Question outcome="U1">
     <Prompt>
-      W zakresie liniowo sprężystym naprężenie styczne τ wzrasta dwukrotnie, a moduł G się nie zmienia. Jak zmieni się
-      odkształcenie γ?
+      Dla $E = 210\ \text{GPa}$ i $\nu = 0{,}3$ moduł ścinania wynosi około:
+    </Prompt>
+    <Answer>105 GPa</Answer>
+    <Answer correct>80,8 GPa</Answer>
+    <Answer>63 GPa</Answer>
+    <Hint>Użyj $G = E/[2(1+\nu)]$.</Hint>
+    <Explanation>
+      $G = 210/[2 \cdot 1{,}3] = 210/2{,}6 = 80{,}77\ \text{GPa}$. Moduł ścinania jest więc około 2,6 razy mniejszy od modułu Younga.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      W zakresie liniowo sprężystym naprężenie styczne $\tau$ wzrasta dwukrotnie, a moduł $G$ się nie zmienia. Jak zmieni się odkształcenie $\gamma$?
     </Prompt>
     <Answer correct>Wzrośnie dwukrotnie</Answer>
     <Answer>Spadnie dwukrotnie</Answer>
     <Answer>Nie zmieni się</Answer>
-    <Hint>Prawo Hooke’a dla ścinania ma postać τ = Gγ, więc γ jest wprost proporcjonalne do τ.</Hint>
+    <Hint>Prawo Hooke’a dla ścinania ma postać $\tau = G\gamma$, więc $\gamma$ jest wprost proporcjonalne do $\tau$.</Hint>
     <Explanation>
-      Przy stałym G zachodzi γ = τ/G. Podwojenie τ podwaja więc γ. Zależność obowiązuje tylko w liniowym zakresie
-      sprężystym.
+      Przy stałym $G$ zachodzi $\gamma = \tau/G$. Podwojenie $\tau$ podwaja więc $\gamma$. Zależność obowiązuje tylko w liniowym zakresie sprężystym.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Gdzie leży środek koła Mohra dla czystego ścinania?
+    </Prompt>
+    <Answer>W punkcie $(\tau, 0)$</Answer>
+    <Answer>W punkcie $(0, \tau)$</Answer>
+    <Answer correct>W początku układu $(0,0)$</Answer>
+    <Hint>W czystym ścinaniu średnie naprężenie normalne wynosi zero.</Hint>
+    <Explanation>
+      Środek koła ma współrzędną $\sigma_{sr} = (\sigma_x + \sigma_y)/2 = 0$. Promień jest równy $\tau$, więc koło przechodzi przez $+\tau$ i $-\tau$ na osi naprężeń normalnych.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      O ile stopni są obrócone płaszczyzny główne względem płaszczyzn czystego ścinania?
+    </Prompt>
+    <Answer>O 30 stopni</Answer>
+    <Answer correct>O 45 stopni</Answer>
+    <Answer>O 90 stopni</Answer>
+    <Hint>Na kole Mohra punkty główne są oddalone o 90 stopni, a kąt na kole jest podwojony.</Hint>
+    <Explanation>
+      Na wykresie Mohra obrót o 90 stopni odpowiada obrotowi płaszczyzny o 45 stopni. Na tych płaszczyznach naprężenie styczne znika, a pojawiają się naprężenia normalne $+\tau$ i $-\tau$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Co dzieje się z objętością elementu w stanie czystego ścinania w zakresie małych odkształceń?
+    </Prompt>
+    <Answer correct>Praktycznie się nie zmienia, bo suma naprężeń głównych wynosi zero</Answer>
+    <Answer>Rośnie proporcjonalnie do $\tau$</Answer>
+    <Answer>Maleje o połowę</Answer>
+    <Hint>Zwróć uwagę na znaki naprężeń głównych i ich sumę.</Hint>
+    <Explanation>
+      Naprężenia główne wynoszą $+\tau$ i $-\tau$, więc ich suma jest równa zero. W zakresie liniowo sprężystym oznacza to brak pierwszej zmiany objętości. Ścinanie zmienia kształt, a nie objętość.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla $E = 70\ \text{GPa}$ i $\nu = 0{,}35$ moduł ścinania wynosi około:
+    </Prompt>
+    <Answer>35 GPa</Answer>
+    <Answer correct>26 GPa</Answer>
+    <Answer>20 GPa</Answer>
+    <Hint>Użyj $G = E/[2(1+\nu)]$.</Hint>
+    <Explanation>
+      $G = 70/[2 \cdot 1{,}35] = 70/2{,}7 = 25{,}93\ \text{GPa}$. Wynik jest typowy dla stopów aluminium, dla których $G$ mieści się w przedziale około 26–27 GPa.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, rozdział o stanie naprężenia i odkształcenia — definicja odkształcenia postaciowego i związek z kołem Mohra.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, część I, rozdział o ścinaniu i stanie naprężenia — polskie wyprowadzenie zależności między $E$, $G$ i $\nu$.
+- D. Roylance, _Mechanics of Materials_, rozdział o ścinaniu i skręcaniu oraz rozdział o relacjach konstytutywnych (MIT OpenCourseWare) — związek $\tau = G\gamma$ i relacja $G = E/[2(1+\nu)]$.
+- T. Wierzbicki, _Structural Mechanics_, rozdział o prawie sprężystości w ośrodku trójwymiarowym — rozkład naprężeń na część objętościową i postaciową.
+- MIT 3.11 _Mechanics of Materials_, wykład o skręcaniu — geometryczna interpretacja odkształcenia postaciowego i czystego ścinania.

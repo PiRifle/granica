@@ -7,7 +7,6 @@ shortTitle: Kąt skręcenia
 description: >-
   Sprawdź, kiedy wał jest wystarczająco wytrzymały, ale nadal zbyt podatny na
   skręcanie.
-duration: 9
 eyebrow: Nie tylko naprężenie
 outcomes:
   - >-
@@ -22,64 +21,282 @@ outcomes:
     zachowaniem bezpieczeństwa
 ---
 
-Wał może przenieść obciążenie bez zniszczenia, a mimo to skręcać się zbyt mocno, powodując błędy przekładni lub drgania. Warunek sztywności ogranicza kąt skręcenia, a nie naprężenie.
+Wyobraź sobie długą kolumnę kierownicy w samochodzie ciężarowym. Kierowca obraca koło, a przednie koła powinny reagować natychmiast. Gdyby kolumna skręcała się o kilka stopni pod wpływem momentu, prowadzenie byłoby nieprzewidywalne. Wał może być wystarczająco mocny, aby się nie złamać, a mimo to zbyt podatny, aby spełnić swoje zadanie.
+
+To jest różnica między wytrzymałością a sztywnością. Wytrzymałość pyta, czy naprężenie nie przekracza wartości dopuszczalnej. Sztywność pyta, jak duże jest odkształcenie przy zadanym obciążeniu. W skręcaniu odkształceniem, które najbardziej przeszkadza w pracy maszyny, jest kąt skręcenia, czyli obrót jednego końca wału względem drugiego.
+
+Kąt skręcenia narasta wzdłuż wału. Każdy cienki odcinek obraca się nieco względem sąsiedniego, a kąty tych obrotów się sumują. Dlatego dwukrotnie dłuższy wał skręca się dwukrotnie bardziej przy tym samym momencie i tej samej średnicy. To zupełnie inna zależność niż w przypadku naprężenia, które w jednorodnym wale nie zależy od długości.
+
+W praktyce kąt skręcenia ogranicza się w wałach napędowych, wrzecionach obrabiarek, kolumnach kierowniczych i wałkach precyzyjnych mechanizmów. Zbyt duży kąt powoduje błędy fazowania kół zębatych, drgania skrętne, zużycie łożysk i utratę dokładności. W niektórych zastosowaniach, na przykład w zawieszeniach skrętnych, pewna podatność jest celowa, ale i tam musi być przewidywalna.
+
+Po tej lekcji będziesz umiał obliczyć kąt skręcenia wału jednorodnego i stopniowanego, przeliczać radiany na stopnie, wyznaczyć sztywność skrętną $GJ_o$ oraz dobrać średnicę z warunku dopuszczalnego kąta. Zrozumiesz też, dlaczego kąt zależy od średnicy w czwartej potędze i kiedy wzór przestaje być ważny.
+
+## Zanim zaczniesz
+
+- **Biegunowy moment bezwładności.** Dla wału pełnego $J_o = \pi d^4/32$, a dla rury $J_o = \pi(D^4-d^4)/32$. Kąt skręcenia zależy od $J_o$, a nie od wskaźnika $W_o$.
+- **Prawo Hooke’a dla ścinania.** $\tau = G\gamma$. Moduł ścinania $G$ jest stałą materiałową; dla stali typowo przyjmuje się około $80\ \text{GPa}$.
+- **Związek naprężenia z momentem.** $\tau(r) = Tr/J_o$. Wyprowadzenie kąta korzysta z tego samego rozkładu naprężeń.
+- **Radiany i stopnie.** Wzór $TL/(GJ_o)$ daje wynik w radianach. Przelicznik to $180/\pi \approx 57{,}3$ stopnia na radian.
+- **Jednostki.** Moment w N·mm, długość i średnica w mm, $G$ w MPa. Wtedy $GJ_o$ ma jednostkę N·mm², a kąt wychodzi w radianach.
+- **Typowe pułapki.** Mieszanie stopni z radianami, używanie $W_o$ zamiast $J_o$, dodawanie kątów z różnych odcinków bez sprawdzenia znaków oraz zapominanie, że sztywność zależy od $G$, a naprężenie w zakresie sprężystym nie.
+
+## Model i intuicja
+
+Model skręcania swobodnego zakłada, że przekroje poprzeczne pozostają płaskie i obracają się wokół osi wału. Dla przekroju kołowego i pierścieniowego to założenie jest dobrze uzasadnione symetrią. Zakładamy materiał liniowo sprężysty, izotropowy, małe odkształcenia i stały moment na rozważanym odcinku.
+
+Wyobraź sobie stos cienkich, sztywnych krążków nanizanych na wspólną oś. Każdy krążek obraca się względem sąsiada o mały kąt. Całkowity obrót ostatniego krążka względem pierwszego jest sumą obrotów między kolejnymi krążkami. Gdy moment, materiał i przekrój są stałe, każdy odcinek tej samej długości obraca się o ten sam kąt, więc całkowity kąt jest proporcjonalny do długości.
+
+Kąt na jednostkę długości $\theta = \varphi/L$ opisuje lokalną intensywność skręcenia. Jest to wielkość niezależna od tego, jak długi odcinek wybierzemy, dopóki rozkład jest jednorodny. Właśnie $\theta$ wchodzi do odkształcenia postaciowego: $\gamma = r\theta$. Kąt całkowity $\varphi$ jest całką $\theta$ po długości.
+
+W praktyce wygodnie jest myśleć o wale jak o sprężynie skrętnej. Jej podatność jest tym większa, im dłuższy jest wał i im mniejsza jest sztywność $GJ_o$. Sztywność materiału i geometrii można rozdzielić: $G$ zależy od metalu, a $J_o$ od przekroju. Projektant najczęściej zmienia przekrój, bo właśnie on daje największy efekt przy najmniejszej zmianie masy.
+
+Dla wału stopniowanego lub z różnymi momentami na odcinkach nie można użyć jednego wzoru na całość. Dzielimy wał na odcinki, w których $T$, $G$ i $J_o$ są stałe, obliczamy kąt każdego odcinka i dodajemy je z odpowiednimi znakami. To ta sama zasada, co suma wydłużeń w pręcie stopniowanym.
+
+Model przestaje być dokładny przy dużych kątach skręcenia, gdy odkształcenia przekraczają zakres sprężystyczny, a także przy przekrojach niekołowych, które się wypaczają. W pobliżu wpustów, otworów i zmian średnicy pojawia się koncentracja naprężeń i lokalne zaburzenie rozkładu. Przy bardzo długich, cienkich wałach mogą dodatkowo wystąpić drgania skrętne i utrata stateczności, których statyczny wzór nie opisuje.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniaj kolejno moment $T$, średnicę $d$ i długość $L$. Obserwuj jednocześnie maksymalne naprężenie na obwodzie i kąt skręcenia. Zwróć uwagę, że przy stałym $G = 80\ \text{GPa}$ kąt jest podawany zarówno w stopniach, jak i w radianach.
 
 <Lab id="torsion" />
 
+## Definicje i jednostki
+
+| Symbol          | Wielkość                      | Definicja lub wzór            | Jednostka    |
+| --------------- | ----------------------------- | ----------------------------- | ------------ |
+| $T$             | moment skręcający             | moment wokół osi wału         | N·mm lub N·m |
+| $L$             | długość odcinka               | odległość między przekrojami  | mm           |
+| $d$             | średnica wału pełnego         | wymiar przekroju              | mm           |
+| $J_o$           | biegunowy moment bezwładności | $\pi d^4/32$ dla koła         | mm⁴          |
+| $G$             | moduł ścinania                | stała materiałowa             | MPa          |
+| $GJ_o$          | sztywność skrętna             | iloczyn $G$ i $J_o$           | N·mm²        |
+| $\varphi$       | kąt skręcenia                 | obrót końca względem początku | rad          |
+| $\theta$        | kąt na jednostkę długości     | $\varphi/L = T/(GJ_o)$        | rad/mm       |
+| $\gamma$        | odkształcenie postaciowe      | $r\theta$                     | rad          |
+| $\varphi^\circ$ | kąt w stopniach               | $\varphi \cdot 180/\pi$       | °            |
+
+Kąt skręcenia jest wielkością całkową, opisującą obrót całego przekroju na długości $L$. Odkształcenie postaciowe $\gamma$ jest wielkością lokalną, zależną od promienia. W osi wału $\gamma = 0$, a na powierzchni osiąga maksimum. Nie wolno podstawiać kąta całkowitego w miejsce odkształcenia ani odwrotnie.
+
+Sztywność skrętna $GJ_o$ jest odpowiednikiem iloczynu $EA$ przy rozciąganiu. Duże $GJ_o$ oznacza, że do uzyskania danego kąta potrzeba dużego momentu. Ponieważ $J_o$ rośnie z czwartą potęgą średnicy, sztywność jest bardzo wrażliwa na wymiar przekroju.
+
+Kąt można podawać w radianach lub stopniach. W obliczeniach używaj radianów, bo wzory wynikają z geometrii łuku. Stopnie są wygodne w komunikacji i w warunkach projektowych, ale przed podstawieniem do wzoru trzeba je przeliczyć. $1^\circ = \pi/180 \approx 0{,}017453\ \text{rad}$.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\varphi = \frac{T L}{G J_o} \qquad \varphi^{\circ} = \varphi \frac{180}{\pi}
+\varphi = \frac{TL}{GJ_o} \qquad \theta = \frac{\varphi}{L} = \frac{T}{GJ_o} \qquad \gamma_{max} = \frac{d}{2}\theta
 $$
 
-<Caption>φ w pierwszym wzorze jest w radianach. L to długość wału, G to moduł ścinania, a J_o to biegunowy moment bezwładności. Iloczyn GJ_o nazywamy sztywnością na skręcanie.</Caption>
+<Caption>φ to całkowity kąt skręcenia w radianach, θ to kąt na jednostkę długości, a γmax to maksymalne odkształcenie postaciowe na powierzchni wału. Iloczyn GJ_o nazywamy sztywnością skrętną.</Caption>
 </Formula>
 
+Wyprowadzenie prowadzi od geometrii odkształcenia przez prawo materiałowe do równowagi momentów. To ten sam schemat, którego używaliśmy dla naprężeń, ale tym razem interesuje nas kąt.
+
+1. **Opisz przemieszczenie.** Odcinek o długości $\mathrm{d}z$ obraca górny przekrój względem dolnego o $\mathrm{d}\theta$. Punkt w odległości $r$ od osi przesuwa się stycznie o $\delta = r\,\mathrm{d}\theta$.
+2. **Oblicz odkształcenie.** Odkształcenie postaciowe to przemieszczenie na jednostkę długości: $\gamma = \delta/\mathrm{d}z = r\,\mathrm{d}\theta/\mathrm{d}z$.
+3. **Zastosuj prawo Hooke’a.** $\tau = G\gamma = Gr\,\mathrm{d}\theta/\mathrm{d}z$. Naprężenie rośnie liniowo z promieniem.
+4. **Zapisz równowagę.** Moment zewnętrzny równoważy moment naprężeń: $T = \int_A \tau r\,\mathrm{d}A$.
+5. **Podstaw naprężenie.** $T = G(\mathrm{d}\theta/\mathrm{d}z)\int_A r^2\,\mathrm{d}A = GJ_o\,\mathrm{d}\theta/\mathrm{d}z$.
+6. **Wyznacz gradient kąta.** Dzieląc przez $GJ_o$, otrzymujesz $\mathrm{d}\theta/\mathrm{d}z = T/(GJ_o)$.
+7. **Scałkuj po długości.** $\varphi = \int_0^L \frac{T}{GJ_o}\,\mathrm{d}z$.
+8. **Uprość dla stałych parametrów.** Gdy $T$, $G$ i $J_o$ nie zależą od $z$, całka daje $\varphi = TL/(GJ_o)$.
+9. **Dodaj odcinki.** Dla wału stopniowanego $\varphi = \sum_i T_iL_i/(G_iJ_{oi})$, przy czym znaki momentów muszą być zgodne.
+10. **Wróć do odkształcenia.** Na powierzchni $r = d/2$, więc $\gamma_{max} = (d/2)\varphi/L$. To pozwala sprawdzić, czy materiał nie przekroczył zakresu sprężystego.
+
+Wzór $\varphi = TL/(GJ_o)$ jest analogiczny do $\delta = PL/(EA)$ dla rozciągania. Moment zastępuje siłę, $GJ_o$ zastępuje $EA$, a kąt zastępuje wydłużenie. Ta analogia jest wygodna, ale nie należy jej przenosić bezkrytycznie: w skręcaniu odkształcenie nie jest równomierne w przekroju, a w rozciąganiu jednorodnym jest.
+
+Dla wału stopniowanego lub obciążonego momentami w kilku przekrojach sporządzamy wykres momentu skręcającego. Każdy przedział o stałym $T$ obliczamy osobno. Kąty dodajemy, jeśli obroty mają ten sam kierunek, a odejmujemy, gdy kierunki są przeciwne. Znak momentu przyjmujemy zgodnie z konwencją: dodatni moment wektorowo skierowany wzdłuż osi $z$ daje dodatni kąt.
+
 <Insight>
-  Kąt rośnie liniowo z T i L, a maleje z G i J_o. Ponieważ J_o zależy od d⁴, nawet niewielkie zwiększenie średnicy
-  wyraźnie ogranicza skręcenie.
+  Kąt skręcenia zależy od $GJ_o$, a nie tylko od $G$. Dwa wały z tego samego materiału mogą mieć bardzo różne kąty,
+  jeśli różnią się średnicą. Podwojenie średnicy zmniejsza kąt szesnastokrotnie, bo $J_o$ rośnie z czwartą potęgą.
 </Insight>
 
 <WorkedExample>
-  <Given>Wał pełny o d = 40 mm i L = 1 m, wykonany z materiału o G = 80 GPa, przenosi T = 1 kN·m.</Given>
+  <Given>
+    Wał stopniowany przenosi moment $T = 1{,}2\ \text{kN}\cdot\text{m}$. Pierwszy odcinek ma $d_1 = 50\ \text{mm}$ i $L_1 = 600\ \text{mm}$, drugi $d_2 = 40\ \text{mm}$ i $L_2 = 400\ \text{mm}$. Moduł ścinania wynosi $G = 80\ \text{GPa}$. Oblicz całkowity kąt skręcenia i wskaż miejsce największego naprężenia.
+  </Given>
   <Steps>
-    <Step>Zapisz dane w N i mm: T = 1 000 000 N·mm, L = 1000 mm, G = 80 000 MPa.</Step>
-    <Step>Policz J_o = π·40⁴/32 = 251 327 mm⁴.</Step>
-    <Step>φ = TL/(GJ_o) = 1 000 000·1000/(80 000·251 327) = 0,04974 rad.</Step>
-    <Step>Przelicz kąt: 0,04974·180/π = 2,85°.</Step>
+    <Step>Zamień moment: $T = 1{,}2\ \text{kN}\cdot\text{m} = 1\,200\,000\ \text{N}\cdot\text{mm}$.</Step>
+    <Step>Oblicz $J_{o1} = \pi \cdot 50^4/32 = 613\,592\ \text{mm}^4$.</Step>
+    <Step>Oblicz $J_{o2} = \pi \cdot 40^4/32 = 251\,327\ \text{mm}^4$.</Step>
+    <Step>Kąt pierwszego odcinka: $\varphi_1 = 1\,200\,000 \cdot 600/(80\,000 \cdot 613\,592) = 0{,}01467\ \text{rad}$.</Step>
+    <Step>Kąt drugiego odcinka: $\varphi_2 = 1\,200\,000 \cdot 400/(80\,000 \cdot 251\,327) = 0{,}02387\ \text{rad}$.</Step>
+    <Step>Kąt całkowity: $\varphi = 0{,}01467+0{,}02387 = 0{,}03854\ \text{rad}$.</Step>
+    <Step>Zamień na stopnie: $0{,}03854 \cdot 180/\pi = 2{,}21^\circ$.</Step>
+    <Step>Sprawdź naprężenia: $\tau_1 = 1\,200\,000 \cdot 25/613\,592 = 48{,}9\ \text{MPa}$, a $\tau_2 = 1\,200\,000 \cdot 20/251\,327 = 95{,}5\ \text{MPa}$.</Step>
   </Steps>
-  <Result>Całkowity kąt skręcenia wynosi około 0,0497 rad, czyli 2,85°.</Result>
+  <Result>
+    Całkowity kąt skręcenia wynosi około $0{,}0385\ \text{rad}$, czyli $2{,}21^\circ$. Największe naprężenie styczne, około $95{,}5\ \text{MPa}$, występuje w cieńszym odcinku. Krótszy odcinek daje większy przyrost kąta, ponieważ ma znacznie mniejszy $J_o$.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy wał napędowy przenoszący moc $P = 30\ \text{kW}$ przy prędkości obrotowej $n = 1470\ \text{obr/min}$. Średnica wału wynosi $d = 35\ \text{mm}$, długość $L = 1\ \text{m}$, a moduł ścinania $G = 80\ \text{GPa}$.
+
+Najpierw zamieniamy prędkość obrotową na prędkość kątową: $\omega = 2\pi n/60 = 2\pi \cdot 1470/60 = 153{,}94\ \text{rad/s}$. Moment wynosi $T = P/\omega = 30\,000/153{,}94 = 194{,}9\ \text{N}\cdot\text{m}$, czyli $194\,900\ \text{N}\cdot\text{mm}$.
+
+Biegunowy moment bezwładności to $J_o = \pi \cdot 35^4/32 = 147\,324\ \text{mm}^4$. Kąt skręcenia wynosi $\varphi = 194\,900 \cdot 1000/(80\,000 \cdot 147\,324) = 0{,}01654\ \text{rad}$, czyli około $0{,}947^\circ$. Maksymalne naprężenie to $\tau_{max} = 194\,900/8418 = 23{,}1\ \text{MPa}$.
+
+Naprężenie jest niewielkie, ale kąt bliski jednemu stopniowi na metr może już być zauważalny w precyzyjnym napędzie. Gdyby średnicę zwiększyć do $40\ \text{mm}$, $J_o$ wzrosłoby do $251\,327\ \text{mm}^4$, a kąt spadłby do około $0{,}555^\circ$. Naprężenie spadłoby do około $15{,}5\ \text{MPa}$.
+
+Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy moment, a więc większe naprężenie i większy kąt. Dlatego wały wolnoobrotowe muszą być grubsze od szybkoobrotowych przenoszących tę samą moc.
+
+W obliczeniach napędu trzeba też pamiętać o sprawności przekładni i o tym, że moment na wale nie jest stały w czasie rozruchu. Chwilowy moment rozruchowy może być kilkakrotnie większy od znamionowego, co zwiększa zarówno naprężenie, jak i kąt. Model statyczny opisuje pracę ustaloną, a nie udar ani gwałtowne przyspieszanie.
+
+## Trzeci przykład: wariant odwrotny
+
+Dobierzmy średnicę wału pełnego, jeśli moment wynosi $T = 800\ \text{N}\cdot\text{m}$, długość $L = 1{,}5\ \text{m}$, moduł $G = 80\ \text{GPa}$, a dopuszczalny kąt skręcenia $\varphi_{dop} = 1{,}5^\circ$. Najpierw przeliczamy kąt na radiany: $\varphi_{dop} = 1{,}5 \cdot \pi/180 = 0{,}02618\ \text{rad}$.
+
+Z warunku $\varphi = TL/(GJ_o) \le \varphi_{dop}$ otrzymujemy $J_o \ge TL/(G\varphi_{dop})$. Podstawiamy $T = 800\,000\ \text{N}\cdot\text{mm}$ i $L = 1500\ \text{mm}$: $J_o \ge 800\,000 \cdot 1500/(80\,000 \cdot 0{,}02618) = 572\,941\ \text{mm}^4$.
+
+Dla wału pełnego $J_o = \pi d^4/32$, więc $d \ge \sqrt[4]{32J_o/\pi} = \sqrt[4]{5\,836\,100} = 49{,}15\ \text{mm}$. Najbliższa większa średnica handlowa to $50\ \text{mm}$.
+
+Sprawdzamy: $J_o = \pi \cdot 50^4/32 = 613\,592\ \text{mm}^4$, więc $\varphi = 800\,000 \cdot 1500/(80\,000 \cdot 613\,592) = 0{,}02445\ \text{rad} = 1{,}40^\circ$. Warunek jest spełniony. Naprężenie wynosi $800\,000/24\,544 = 32{,}6\ \text{MPa}$ i również pozostaje w zakresie sprężystym.
+
+Wariant odwrotny pokazuje, że warunek sztywności można przekształcić w wymaganie na średnicę. W praktyce oblicza się średnicę z obu warunków, wytrzymałości i sztywności, a następnie przyjmuje większą wartość. W tej lekcji sprawdzamy tylko kąt; pełną procedurę doboru rozwinie kolejna lekcja.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Stopnie podstawione zamiast radianów.** Wzór $TL/(GJ_o)$ daje radiany. Podstawienie $1$ zamiast $0{,}01745$ daje kąt prawie 57 razy za duży.
+- **Użycie $W_o$ zamiast $J_o$.** $W_o$ służy do naprężenia, a do kąta potrzebny jest biegunowy moment bezwładności. Dla koła $J_o$ jest równe $W_o$ pomnożonemu przez promień, więc pomylenie tych wielkości daje błąd.
+- **Zapominanie o długości.** Kąt rośnie liniowo z $L$. Ten sam moment i przekrój na dłuższym wale dają proporcjonalnie większy obrót.
+- **Dodawanie kątów bez znaków.** Odcinki mogą przenosić momenty o przeciwnych kierunkach. Wtedy kąty częściowo się znoszą, a nie dodają.
+- **Mylenie kąta z odkształceniem.** $\varphi$ opisuje obrót całego przekroju, a $\gamma$ lokalne ścinanie materiału. Mają różne jednostki i różne wzory.
+- **Zakładanie, że $G$ wpływa na naprężenie.** W zakresie sprężystym $\tau_{max}$ nie zależy od $G$, ale kąt zależy. Dwa materiały o różnych $G$ dadzą różne kąty przy tym samym momencie.
+- **Stosowanie wzoru do przekroju niekołowego.** Prostokąt i kwadrat wypaczają się przy skręcaniu. Wzór $TL/(GJ_o)$ dotyczy przekroju kołowego lub pierścieniowego.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal dane.** Zapisz $T$, $L$, $d$, $G$ oraz dopuszczalny kąt, jeśli występuje. Sprawdź, czy kąt podano w stopniach, czy w radianach.
+2. **Ujednolić jednostki.** Moment na N·mm, długość na mm, $G$ na MPa. Wtedy kąt wyjdzie w radianach.
+3. **Sprawdź, czy wał jest jednorodny.** Jeśli $T$, $G$ i $J_o$ są stałe na całej długości, użyj jednego wzoru.
+4. **Podziel wał na odcinki.** Przy zmianie średnicy lub momentu oblicz $J_o$ i kąt dla każdego odcinka osobno.
+5. **Ustal znaki momentów.** Narysuj wykres momentu skręcającego. Odcinki o przeciwnych momentach dają kąty o przeciwnych znakach.
+6. **Zsumuj kąty.** Dodaj przyrosty z zachowaniem znaków. Wynik podaj w radianach, a jeśli treść tego wymaga, przelicz na stopnie.
+7. **Sprawdź naprężenie.** Kąt może być mały, a naprężenie duże, albo odwrotnie. Oba warunki sprawdzaj niezależnie.
+8. **Sprawdź sens wyniku.** Dla typowego wału stalowego kąt rzędu dziesiątych części stopnia na metr jest zwykle akceptowalny, a kilka stopni na metr wymaga uzasadnienia.
+
+## Połącz z resztą kursu
+
+- **Skręcanie wału pełnego.** Wzór na $\tau(r)$ i rozkład naprężeń są podstawą wyprowadzenia kąta. Tam poznajesz $J_o$ i $W_o$, tutaj używasz $J_o$ do sztywności.
+- **Wał rurowy.** $J_o$ rury jest mniejsze niż wału pełnego o tej samej średnicy zewnętrznej, więc rura skręca się bardziej. Przy tej samej masie sytuacja może się odwrócić.
+- **Dobór średnicy.** Warunek sztywności daje dolną granicę średnicy, którą trzeba porównać z warunkiem wytrzymałości. Kolejna lekcja łączy oba warunki w jedną procedurę.
+- **Rozciąganie pręta.** Wzór $\varphi = TL/(GJ_o)$ jest analogiczny do $\delta = PL/(EA)$. Ta analogia pomaga zapamiętać, gdzie w liczniku stoi obciążenie, a gdzie długość.
+- **Stan naprężenia.** Przy skręcaniu występuje czyste ścinanie. Na powierzchni wału naprężenia główne mają wartości $\pm\tau_{max}$, co ma znaczenie przy ocenie zniszczenia.
+- **Drgania i zmęczenie.** Zmienny moment skręcający może wzbudzać drgania skrętne. Sztywność $GJ_o$ wpływa na częstość drgań, a nie tylko na statyczny kąt.
+
+## Sprawdź się
+
+Sprawdź, czy umiesz obliczyć kąt skręcenia, poprawnie przeliczyć jednostki i odróżnić sztywność od wytrzymałości.
 
 <Quiz>
   <Question outcome="W3">
-    <Prompt>Długość wału rośnie trzykrotnie, a T, G i J_o pozostają bez zmian. Jak zmieni się kąt skręcenia?</Prompt>
+    <Prompt>
+      Długość wału rośnie trzykrotnie, a $T$, $G$ i $J_o$ pozostają bez zmian. Jak zmieni się kąt skręcenia?
+    </Prompt>
     <Answer correct>Wzrośnie trzykrotnie</Answer>
     <Answer>Spadnie trzykrotnie</Answer>
     <Answer>Wzrośnie dziewięciokrotnie</Answer>
-    <Hint>L występuje w liczniku φ = TL/(GJ_o).</Hint>
+    <Hint>$L$ występuje w liczniku wzoru $\varphi = TL/(GJ_o)$.</Hint>
     <Explanation>
-      Każdy odcinek wału dokłada swój względny obrót, więc trzykrotnie dłuższy wał ma trzykrotnie większy całkowity kąt
-      skręcenia.
+      Każdy odcinek wału dokłada swój względny obrót, więc trzykrotnie dłuższy wał ma trzykrotnie większy całkowity kąt skręcenia. Kąt na jednostkę długości pozostaje taki sam.
     </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>Średnicę pełnego wału zwiększono dwukrotnie. Jak zmieni się φ przy pozostałych danych bez zmian?</Prompt>
+    <Prompt>
+      Średnicę pełnego wału zwiększono dwukrotnie. Jak zmieni się $\varphi$ przy pozostałych danych bez zmian?
+    </Prompt>
     <Answer correct>Spadnie 16 razy</Answer>
     <Answer>Spadnie 8 razy</Answer>
     <Answer>Spadnie 2 razy</Answer>
-    <Hint>Dla wału pełnego J_o jest proporcjonalne do d⁴.</Hint>
+    <Hint>Dla wału pełnego $J_o$ jest proporcjonalne do $d^4$.</Hint>
     <Explanation>
-      J_o wzrasta 2⁴ = 16 razy. Ponieważ φ jest odwrotnie proporcjonalne do J_o, kąt skręcenia spada 16 razy.
+      $J_o$ wzrasta $2^4 = 16$ razy. Ponieważ $\varphi$ jest odwrotnie proporcjonalne do $J_o$, kąt skręcenia spada 16 razy. Naprężenie spadłoby tylko 8 razy, bo zależy od $d^3$.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Obliczony kąt φ = 0,02 rad. Ile to stopni?</Prompt>
-    <Answer>Około 0,02°</Answer>
-    <Answer correct>Około 1,15°</Answer>
-    <Answer>Około 11,46°</Answer>
-    <Hint>Pomnóż radiany przez 180/π ≈ 57,3.</Hint>
+    <Prompt>
+      Obliczony kąt wynosi $\varphi = 0{,}02\ \text{rad}$. Ile to stopni?
+    </Prompt>
+    <Answer>Około $0{,}02^\circ$</Answer>
+    <Answer correct>Około $1{,}15^\circ$</Answer>
+    <Answer>Około $11{,}46^\circ$</Answer>
+    <Hint>Pomnóż radiany przez $180/\pi \approx 57{,}3$.</Hint>
     <Explanation>
-      φ = 0,02·180/π ≈ 1,146°, czyli około 1,15°. Radianów i stopni nie można mieszać bez przeliczenia.
+      $\varphi = 0{,}02 \cdot 180/\pi \approx 1{,}146^\circ$, czyli około $1{,}15^\circ$. Radianów i stopni nie można mieszać bez przeliczenia.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Wał pełny o $d = 50\ \text{mm}$, $L = 1\ \text{m}$ i $G = 80\ \text{GPa}$ przenosi $T = 1\ \text{kN}\cdot\text{m}$. Ile wynosi kąt skręcenia?
+    </Prompt>
+    <Answer>Około $0{,}01\ \text{rad}$</Answer>
+    <Answer correct>Około $0{,}0204\ \text{rad}$</Answer>
+    <Answer>Około $0{,}0408\ \text{rad}$</Answer>
+    <Hint>Oblicz $J_o = \pi \cdot 50^4/32$, a potem użyj $\varphi = TL/(GJ_o)$.</Hint>
+    <Explanation>
+      $J_o = 613\,592\ \text{mm}^4$, więc $\varphi = 1\,000\,000 \cdot 1000/(80\,000 \cdot 613\,592) = 0{,}02037\ \text{rad}$, czyli około $1{,}17^\circ$.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Co oznacza duża wartość iloczynu $GJ_o$?
+    </Prompt>
+    <Answer correct>Wał jest sztywny na skręcanie i przy danym momencie skręca się mało</Answer>
+    <Answer>Wał ma dużą wytrzymałość na rozciąganie</Answer>
+    <Answer>Naprężenie styczne w wale jest zawsze równe zeru</Answer>
+    <Hint>Popatrz na miejsce $GJ_o$ we wzorze $\varphi = TL/(GJ_o)$.</Hint>
+    <Explanation>
+      $GJ_o$ stoi w mianowniku, więc większa wartość oznacza mniejszy kąt przy tym samym momencie i długości. Nie mówi natomiast bezpośrednio o naprężeniu, które zależy od $W_o$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Wał stopniowany składa się z dwóch odcinków o tej samej długości, ale różnej średnicy. Który odcinek wnosi większy przyrost kąta przy tym samym momencie?
+    </Prompt>
+    <Answer correct>Odcinek o mniejszej średnicy</Answer>
+    <Answer>Odcinek o większej średnicy</Answer>
+    <Answer>Oba wnoszą dokładnie tyle samo, bo długości są równe</Answer>
+    <Hint>Przyrost kąta jest odwrotnie proporcjonalny do $J_o$, a $J_o$ rośnie z $d^4$.</Hint>
+    <Explanation>
+      Mniejsza średnica oznacza znacznie mniejszy $J_o$, więc ten sam moment powoduje większy gradient kąta. Przy tej samej długości cieńszy odcinek daje większy przyrost kąta, mimo że oba mają taką samą długość.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Dopuszczalny kąt wynosi $0{,}5^\circ$ na metr. Który zapis jest poprawny przed podstawieniem do wzoru?
+    </Prompt>
+    <Answer correct>$\varphi_{dop} = 0{,}00873\ \text{rad}$ na metr</Answer>
+    <Answer>$\varphi_{dop} = 0{,}5\ \text{rad}$ na metr</Answer>
+    <Answer>$\varphi_{dop} = 28{,}65\ \text{rad}$ na metr</Answer>
+    <Hint>Pomnóż stopnie przez $\pi/180$, a nie przez $180/\pi$.</Hint>
+    <Explanation>
+      $0{,}5^\circ = 0{,}5 \cdot \pi/180 = 0{,}00873\ \text{rad}$. Pomnożenie przez $180/\pi$ zamiast $\pi/180$ daje wartość w stopniach, a nie w radianach, i prowadzi do błędu jednostek.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      W którym przypadku wzór $\varphi = TL/(GJ_o)$ przestaje być poprawny?
+    </Prompt>
+    <Answer correct>Przy dużym skręceniu poza zakresem sprężystym</Answer>
+    <Answer>Przy stałym momencie i stałej średnicy</Answer>
+    <Answer>Przy wale wykonanym ze stali o $G = 80\ \text{GPa}$</Answer>
+    <Hint>Wzór wynika z liniowej sprężystości i małych odkształceń.</Hint>
+    <Explanation>
+      Wyprowadzenie wykorzystuje $\tau = G\gamma$ w zakresie liniowym oraz małe kąty. Po przekroczeniu granicy plastyczności rozkład naprężeń i związek momentu z kątem się zmieniają. Stały moment i stalowy materiał mieszczą się w założeniach modelu.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, rozdział o skręcaniu prętów — wyprowadzenie kąta skręcenia i omówienie sztywności $GJ_o$.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, część I, rozdział o skręcaniu — związek odkształcenia postaciowego z kątem skręcenia i przykłady wałów stopniowanych.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, zadania ze skręcania — obliczenia kąta dla wałów z różnymi średnicami i momentami.
+- D. Roylance, _Mechanics of Materials_, podrozdział o ścinaniu i skręcaniu (MIT OpenCourseWare) — wyprowadzenie $\theta = TL/(GJ)$ i przykład wału z przekładnią.
+- MIT 3.11 _Mechanics of Materials_, wykład o skręcaniu — analiza kąta skręcenia, sztywności i założeń modelu.

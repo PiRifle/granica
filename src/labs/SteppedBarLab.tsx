@@ -111,7 +111,7 @@ export function SteppedBarLab() {
                     rx="3"
                     fill={segment.color}
                     opacity="0.8"
-                    animate={{ height, y: 110 - height / 2 }}
+                    animate={{ height }}
                     transition={spring}
                   />
                   <text
@@ -187,7 +187,7 @@ export function SteppedBarLab() {
               </g>
             ))}
             <line x1={endX} y1="217" x2={endX} y2="231" stroke="currentColor" />
-            <text x="360" y="272" textAnchor="middle" fontSize="13" fill="currentColor">
+            <text x="360" y="268" textAnchor="middle" fontSize="13" fill="currentColor">
               W każdym odcinku: σᵢ = Nᵢ/Aᵢ · skok N występuje tam, gdzie przyłożono siłę Q.
             </text>
           </svg>

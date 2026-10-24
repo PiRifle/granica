@@ -1,3 +1,3 @@
-export const chartMargin = { top: 12, right: 18, left: 4, bottom: 24 }
+export const chartMargin = { top: 20, right: 18, left: 14, bottom: 26 }
 
 export type ShearMode = 'single' | 'double'

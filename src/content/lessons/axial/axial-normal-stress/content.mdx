@@ -7,7 +7,6 @@ shortTitle: Naprężenie σ
 description: >-
   Oblicz średnie naprężenie osiowe i rozróżnij rozciąganie od ściskania za
   pomocą znaku.
-duration: 7
 eyebrow: Od siły do intensywności
 outcomes:
   - W1 — rozpoznaje osiowy sposób obciążenia pręta
@@ -18,33 +17,191 @@ outcomes:
   - U3 — porównuje naprężenie z wartością dopuszczalną
 ---
 
-Naprężenie mówi, jak mocno obciążony jest materiał, a nie tylko jak duża jest całkowita siła. Dwa pręty mogą przenosić identyczne N, ale cieńszy będzie miał większe naprężenie.
+Wyobraź sobie, że podnosisz ciężką torbę za uchwyt. Uchwyt może być wykonany z cienkiej linki albo z szerokiego pasa. W obu przypadkach działa ta sama siła, równa ciężarowi torby, ale odczucie „przeciążenia” materiału jest zupełnie inne. Właśnie dlatego w wytrzymałości materiałów nie wystarcza mówić o sile. Trzeba powiedzieć, jak ta siła rozkłada się na przekroju.
+
+Naprężenie normalne jest miarą intensywności obciążenia materiału. Powstaje przez podzielenie siły osiowej przez pole przekroju. Dwa pręty przenoszące identyczną siłę mogą mieć naprężenia różniące się wielokrotnie, jeśli ich przekroje mają różne pola. To naprężenie, a nie sama siła, porównujemy później z granicą plastyczności, wytrzymałością na rozciąganie albo naprężeniem dopuszczalnym.
+
+Ta lekcja jest pierwszym krokiem modułu, ale od razu wprowadza pojęcia, które będą wracać przy każdym kolejnym zadaniu: przekrój, siła wewnętrzna, znak, jednostka i założenie równomiernego rozkładu. Nauczysz się wyznaczać naprężenie w pręcie rozciąganym i ściskanym, rozpoznawać kierunek siły wewnętrznej oraz oceniać, kiedy prosty wzór przestaje być wystarczający.
+
+W codziennej praktyce naprężenie jest też sposobem komunikacji między projektantem a wykonawcą. Zamiast mówić „ta śruba ma przenieść 20 kN”, podaje się klasę materiału i wymagany przekrój, czyli pośrednio poziom naprężenia. Dzięki temu można porównać ze sobą elementy o różnych wymiarach i różnych materiałach, a także sprawdzić, czy obliczenia są spójne z przyjętymi normami.
+
+Po lekcji będziesz umiał policzyć naprężenie z danych siły i pola, dobrać pole do zadanej wartości dopuszczalnej oraz wyjaśnić, dlaczego cienki pręt ściskany wymaga dodatkowego sprawdzenia na wyboczenie. Zobaczysz też, że przypadek jednoosiowy jest szczególnym stanem naprężenia, który później opiszesz kołem Mohra.
+
+## Zanim zaczniesz
+
+- **Siła i jej jednostki.** Pamiętaj, że $1\ \text{kN}=1000\ \text{N}$. W obliczeniach naprężenia najwygodniej podstawiać siłę w niutonach, bo pole przekroju wyrażamy w milimetrach kwadratowych.
+- **Pole przekroju.** Dla prostokąta $A=bh$, dla koła $A=\pi d^2/4$. Średnica to nie to samo co promień; ten błąd najczęściej zmienia wynik czterokrotnie.
+- **Jednostka naprężenia.** $1\ \text{MPa}=1\ \text{N/mm}^2=10^6\ \text{Pa}$. Jeśli podzielisz niutony przez milimetry kwadratowe, wynik od razu otrzymasz w megapaskalach.
+- **Metoda przekrojów.** Umiesz już przeciąć element, narysować siły działające na odciętą część i zapisać równanie równowagi. Tutaj wykorzystasz to do wyznaczenia siły wewnętrznej $N$.
+- **Znak siły osiowej.** Przyjmujemy, że dodatnie $N$ oznacza rozciąganie, a ujemne ściskanie. Znak naprężenia dziedziczy znak siły osiowej.
+- **Typowa pułapka.** Samo stwierdzenie „siła jest mała” nic nie mówi o bezpieczeństwie. Mała siła na bardzo małym polu może dać duże naprężenie.
+
+## Model i intuicja
+
+Model pręta rozciąganego zakłada, że element jest prosty, a obciążenie działa wzdłuż jego osi przechodzącej przez środek ciężkości przekroju. Zakładamy, że materiał jest jednorodny, odkształcenia są małe, a przekroje pozostają płaskie i prostopadłe do osi po odkształceniu. W takich warunkach naprężenie normalne można traktować jako jednakowe w każdym punkcie danego przekroju.
+
+Równomierność nie jest faktem oczywistym, lecz konsekwencją sposobu obciążenia i geometrii. W pobliżu miejsca przyłożenia siły skupionej rozkład naprężeń jest zaburzony. Dopiero po pewnej odległości od tego miejsca, rzędu wymiaru poprzecznego przekroju, rozkład się wyrównuje. To właśnie zasada Saint-Venanta: lokalny szczegół przyłożenia obciążenia przestaje mieć znaczenie dostatecznie daleko od niego.
+
+Dlatego wzór $\sigma=N/A$ opisuje naprężenie nominalne, czyli uśrednione po przekroju. Jest ono dobrym narzędziem do wymiarowania, ale nie opisuje dokładnie strefy pod siłą, ostrego zwężenia, otworu ani karbu. W takich miejscach rzeczywiste naprężenie może być większe od nominalnego i trzeba użyć współczynnika koncentracji naprężeń albo dokładniejszej analizy.
+
+Drugie uproszczenie dotyczy kierunku obciążenia. Jeżeli siła nie przechodzi przez środek ciężkości przekroju, pojawia się moment zginający lub skręcający. Wtedy sam wzór na naprężenie osiowe nie wystarcza, bo naprężenie zmienia się na wysokości przekroju. W tym module zakładamy, że siła działa osiowo, a więc taki dodatkowy moment nie powstaje.
+
+Model przestaje też działać przy dużych odkształceniach, przy ściskaniu smukłego pręta oraz przy materiałach, które nie są liniowo sprężyste. Ściskanie jest szczególnie zdradliwe: pręt może ulec wyboczeniu przy naprężeniu znacznie mniejszym od wytrzymałości materiału. Wtedy o nośności decyduje stateczność, a nie samo $\sigma=N/A$.
+
+Warto rozróżnić naprężenie nominalne od rzeczywistego. Naprężenie nominalne obliczamy z początkowego pola przekroju i traktujemy jako wartość uśrednioną. Naprężenie rzeczywiste w danym punkcie może być większe, na przykład przy karbie albo w strefie plastycznej, gdzie pole przekroju zmienia się wraz z odkształceniem. W zakresie sprężystym i z dala od zaburzeń obie wartości są praktycznie takie same, dlatego prosty wzór jest tak użyteczny.
+
+W bardziej ogólnym opisie naprężenie jest tensorem, a nie pojedynczą liczbą. W pręcie rozciąganym dominuje jedna składowa normalna, ale w materiale mogą pojawić się także odkształcenia poprzeczne. Tym zajmiemy się w module stanu naprężenia i odkształcenia. Na razie wystarczy świadomość, że model jednoosiowy jest uproszczeniem, które sprawdza się w określonych warunkach.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmień siłę osiową $F$ oraz pole przekroju $A$. Obserwuj, jak zmienia się naprężenie $\sigma$, gdy jedna z tych wielkości rośnie, a druga pozostaje stała. Zwróć uwagę, że kolor pręta opisuje intensywność naprężenia, a nie nośność materiału.
 
 <Lab id="stress" />
+
+## Definicje i jednostki
+
+**Siła osiowa** $N$ to wypadkowa sił wewnętrznych działających na dany przekrój, skierowana wzdłuż osi pręta. Wartość $N$ wyznaczamy z równowagi odciętej części pręta. **Naprężenie normalne** $\sigma$ to intensywność tej siły na jednostkę pola przekroju, działająca prostopadle do przekroju.
+
+**Naprężenie rozciągające** ma znak dodatni i dąży do wydłużenia włókien materiału. **Naprężenie ściskające** ma znak ujemny i dąży do skrócenia włókien. W przypadku pręta prostego znak naprężenia jest taki sam jak znak siły osiowej.
+
+| Wielkość                 | Symbol                  | Jednostka    | Znaczenie                                          |
+| ------------------------ | ----------------------- | ------------ | -------------------------------------------------- |
+| Siła osiowa              | $N$                     | N            | wypadkowa sił wewnętrznych w przekroju             |
+| Pole przekroju           | $A$                     | mm²          | powierzchnia materiału przenosząca siłę            |
+| Naprężenie normalne      | $\sigma$                | MPa          | siła na jednostkę pola, prostopadła do przekroju   |
+| Naprężenie dopuszczalne  | $\sigma_{\mathrm{dop}}$ | MPa          | wartość graniczna przyjęta w projekcie             |
+| Siła skupiona zewnętrzna | $P$                     | N            | obciążenie przyłożone w punkcie                    |
+| Odkształcenie względne   | $\varepsilon$           | bezwymiarowe | zmiana długości odniesiona do długości początkowej |
+
+W obliczeniach prętowych najczęściej używamy zestawu N, mm i MPa. Jeśli dane są w kiloniutonach, zamieniamy je na niutony przed dzieleniem przez pole w milimetrach kwadratowych. Jeśli pole jest podane w centymetrach kwadratowych, zamieniamy je na milimetry kwadratowe, pamiętając, że $1\ \text{cm}^2=100\ \text{mm}^2$.
+
+Naprężenie dopuszczalne nie jest właściwością materiału w tym samym sensie co granica plastyczności. Jest wartością przyjętą w projekcie, zwykle mniejszą od granicy plastyczności lub wytrzymałości przez współczynnik bezpieczeństwa. Sposób jego wyznaczenia zależy od rodzaju obciążenia, konsekwencji zniszczenia i przyjętej normy. W tym module traktujemy $\sigma_{\mathrm{dop}}$ jako dane zadania, a dobór współczynnika bezpieczeństwa omawiamy w module materiałowym i projektowym.
+
+W zadaniach szkolnych często podaje się naprężenie dopuszczalne wprost. W praktyce trzeba je jeszcze uzasadnić, bo zbyt duża wartość prowadzi do awarii, a zbyt mała do przewymiarowania i zbędnej masy. To napięcie między bezpieczeństwem a kosztem jest stałym elementem projektowania i wróci przy każdym warunku wytrzymałości.
+
+## Wzór i wyprowadzenie
 
 <Formula>
 $$
 \sigma=\frac{N}{A},\qquad N>0:\ \text{rozciąganie},\qquad N<0:\ \text{ściskanie}
 $$
 
-<Caption>Wzór opisuje średnie naprężenie przy osiowym obciążeniu i równomiernym rozkładzie, z dala od stref zaburzeń. Przy N w N i A w mm² wynik otrzymujemy w MPa.</Caption>
+<Caption>Wzór opisuje średnie naprężenie przy osiowym obciążeniu i równomiernym rozkładzie, z dala od stref zaburzeń. Przy N w niutonach i A w milimetrach kwadratowych wynik otrzymujemy w MPa.</Caption>
 </Formula>
 
+1. Przetnij pręt płaszczyzną prostopadłą do osi w miejscu, w którym chcesz wyznaczyć naprężenie. Wybierz jedną z odciętych części, na przykład prawą.
+2. Zastąp działanie odrzuconej części siłą wewnętrzną $N$. Przyjmij, że dodatnia $N$ rozciąga odciętą część, czyli działa na jej przekrój zgodnie z kierunkiem rozciągania.
+3. Zapisz równowagę sił wzdłuż osi pręta. Otrzymasz związek między $N$ a siłami zewnętrznymi działającymi na wybraną część. Ten związek wyznacza wartość i znak siły osiowej.
+4. Rozłóż siłę wewnętrzną na elementy pola przekroju. Na każdy element $\Delta A$ przypada elementarna siła $\Delta N$. Naprężenie w punkcie definiujemy jako granicę ilorazu $\Delta N/\Delta A$ przy polu dążącym do zera.
+5. Przyjmij założenie równomiernego rozkładu, wynikające z osiowego obciążenia i zasady Saint-Venanta. Wtedy naprężenie w każdym punkcie przekroju jest takie samo.
+6. Zsumuj elementarne siły po całym przekroju. Suma $\Delta N$ musi dać wypadkową $N$, a suma pól daje $A$. Dla stałego naprężenia otrzymujemy $N=\sigma A$.
+7. Podziel obie strony przez pole przekroju. Otrzymujesz wzór $\sigma=N/A$, w którym znak $N$ przenosi się na znak $\sigma$.
+8. Sprawdź jednostki: niuton podzielony przez milimetr kwadratowy daje N/mm², czyli megapaskal. Sprawdź także sens: przy stałej sile zwiększenie pola musi zmniejszyć naprężenie.
+9. Zapisz założenia, które umożliwiły wyprowadzenie: prostoliniowa oś, obciążenie osiowe, jednorodny materiał, małe odkształcenia i przekrój z dala od zaburzeń. Bez tych założeń wzór nie musi być poprawny.
+10. Porównaj wynik z wartością dopuszczalną. Naprężenie samo w sobie nie mówi, czy element jest bezpieczny; dopiero odniesienie do granicy materiału lub wymagań projektu daje odpowiedź.
+
 <Insight>
-  Znak naprężenia ma znaczenie fizyczne: dodatnie σ wydłuża włókna, ujemne je skraca. Duże ściskanie smukłego pręta może
-  dodatkowo wymagać sprawdzenia wyboczenia.
+  Znak naprężenia ma znaczenie fizyczne: dodatnie $\sigma$ wydłuża włókna, ujemne je skraca. Duże ściskanie smukłego
+  pręta może dodatkowo wymagać sprawdzenia wyboczenia, nawet jeśli wartość $\sigma=N/A$ jest mniejsza od wytrzymałości
+  materiału.
 </Insight>
 
 <WorkedExample>
-  <Given>Pręt o A = 250 mm² przenosi osiową siłę rozciągającą 50 kN. Oblicz naprężenie normalne.</Given>
+  <Given>Pręt o polu przekroju A = 250 mm² przenosi osiową siłę rozciągającą 50 kN. Oblicz naprężenie normalne.</Given>
   <Steps>
     <Step>Przyjmij N = +50 kN, ponieważ pręt jest rozciągany.</Step>
-    <Step>Przelicz N = 50 000 N i zachowaj A = 250 mm².</Step>
-    <Step>Podstaw: σ = N/A = 50 000/250 = 200 N/mm².</Step>
-    <Step>Zapisz N/mm² jako MPa i pozostaw znak dodatni, odpowiadający rozciąganiu.</Step>
+    <Step>Przelicz siłę na niutony: N = 50 000 N.</Step>
+    <Step>Zachowaj pole w milimetrach kwadratowych: A = 250 mm².</Step>
+    <Step>Podstaw do wzoru: σ = 50 000/250 = 200 N/mm².</Step>
+    <Step>Zapisz N/mm² jako MPa i pozostaw znak dodatni.</Step>
+    <Step>
+      Sprawdź rząd wielkości: 200 MPa to typowe naprężenie robocze stali konstrukcyjnej, poniżej granicy plastyczności
+      około 235 MPa.
+    </Step>
+    <Step>
+      Gdyby ta sama siła działała w drugą stronę, N byłoby ujemne, a naprężenie wyniosłoby −200 MPa. Wartość bezwzględna
+      byłaby ta sama, ale interpretacja zmieniłaby się na ściskanie.
+    </Step>
   </Steps>
-  <Result>σ = +200 MPa, czyli naprężenie rozciągające.</Result>
+  <Result>
+    σ = +200 MPa, czyli naprężenie rozciągające. Pręt jest blisko granicy plastyczności typowej stali, więc zapas byłby
+    niewielki.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy dwa niezależne pręty, z których każdy przenosi tę samą siłę rozciągającą $N=30\ \text{kN}$. Pierwszy ma pole $A_1=300\ \text{mm}^2$, drugi $A_2=150\ \text{mm}^2$. Chcemy sprawdzić, który z nich jest bardziej wytężony.
+
+Dla pierwszego pręta naprężenie wynosi $\sigma_1=30\,000/300=100\ \text{MPa}$. Dla drugiego $\sigma_2=30\,000/150=200\ \text{MPa}$. Oba pręty są rozciągane, więc oba naprężenia są dodatnie, ale drugi pręt jest obciążony dwa razy mocniej.
+
+Ten przykład pokazuje, że „równolegle” nie oznacza „po równo”. Jeśli pręty mają różne sztywności, to przy wspólnym przemieszczeniu podział sił może być inny, ale przy niezależnym obciążeniu każdym z nich tą samą siłą decyduje wyłącznie pole. W zadaniach z prętami połączonymi równolegle trzeba dodatkowo sprawdzić warunek zgodności przemieszczeń, którym zajmiemy się w późniejszych modułach.
+
+Warto zauważyć różnicę między połączeniem szeregowym a równoległym. W szeregowym pręcie schodkowym wszystkie odcinki przenoszą tę samą siłę, a różnią się naprężeniem. W równoległym układzie prętów końce mają wspólne przemieszczenie, więc siły rozkładają się zgodnie ze sztywnościami. Ten sam wzór $\sigma=N/A$ obowiązuje w obu przypadkach, ale sposób wyznaczenia $N$ jest inny.
+
+Gdyby dopuszczalne naprężenie wynosiło $160\ \text{MPa}$, pierwszy pręt spełniałby warunek, a drugi nie. Aby go spełnić, drugi pręt musiałby mieć pole co najmniej $A_{2,\min}=30\,000/160=187{,}5\ \text{mm}^2$. To pokazuje, że dobór przekroju nie polega na skopiowaniu sąsiedniego elementu, lecz na sprawdzeniu każdego elementu osobno.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy naprężenie dopuszczalne i siłę, a szukamy geometrii. Pręt rozciągany przenosi $N=72\ \text{kN}$, a materiał ma naprężenie dopuszczalne $\sigma_{\mathrm{dop}}=120\ \text{MPa}$. Przekrój ma być kołowy. Jaka średnica jest potrzebna?
+
+<Formula>
+$$
+A_{\min}=\frac{|N|}{\sigma_{\mathrm{dop}}},\qquad d=\sqrt{\frac{4A}{\pi}}
+$$
+
+<Caption>Przy doborze przekroju najpierw wyznaczamy minimalne pole z warunku wytrzymałości, a następnie wymiar geometryczny. Dla koła średnica wynika z pola, a nie odwrotnie.</Caption>
+</Formula>
+
+Najpierw wyznaczamy minimalne pole: $A_{\min}=N/\sigma_{\mathrm{dop}}=72\,000/120=600\ \text{mm}^2$. Następnie korzystamy z pola koła: $A=\pi d^2/4$, więc $d=\sqrt{4A/\pi}$. Po podstawieniu $d=\sqrt{4\cdot 600/\pi}\approx 27{,}6\ \text{mm}$.
+
+W praktyce nie kupuje się pręta o dowolnej średnicy, więc przyjmujemy średnicę normalizowaną, na przykład $d=28\ \text{mm}$. Pole wynosi wtedy $A=\pi\cdot 28^2/4\approx 615{,}8\ \text{mm}^2$. Rzeczywiste naprężenie jest równe $72\,000/615{,}8\approx 116{,}9\ \text{MPa}$, czyli poniżej wartości dopuszczalnej.
+
+Kontrola wyniku jest tu szczególnie ważna. Zaokrąglenie średnicy w dół do $27\ \text{mm}$ dałoby pole około $572{,}6\ \text{mm}^2$ i naprężenie około $125{,}7\ \text{MPa}$, a więc przekroczenie warunku. Przy doborze wymiarów zawsze sprawdzaj przyjęty przekrój, a nie tylko wartość minimalną.
+
+Gdyby ten sam pręt miał przenosić siłę ściskającą, dobór średnicy z warunku naprężenia byłby tylko pierwszym krokiem. Trzeba by jeszcze sprawdzić smukłość i wyboczenie. Krótki i gruby pręt może być bezpieczny, ale długi i cienki może utracić stateczność przy znacznie mniejszym obciążeniu. W zadaniach projektowych oba warunki sprawdza się niezależnie.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Pozostawienie siły w kiloniutonach.** Dzielenie 50 kN przez 250 mm² daje 0,2, a nie 200 MPa. Przeliczaj siłę na niutony albo świadomie używaj kN i cm².
+
+**Mylenie średnicy z promieniem.** Pole koła zależy od kwadratu średnicy. Podstawienie promienia w miejsce średnicy zmienia wynik czterokrotnie.
+
+**Używanie wzoru w strefie karbu.** Przy otworze, rowku lub nagłym zwężeniu naprężenie lokalne jest większe od nominalnego. Wzór $\sigma=N/A$ nie opisuje tego maksimum.
+
+**Zgubienie znaku.** Naprężenie ściskające jest ujemne. Samo „200 MPa” bez znaku nie mówi, czy materiał jest rozciągany, czy ściskany.
+
+**Porównywanie siły z wytrzymałością.** Warunek dotyczy naprężenia, nie siły. Ta sama siła może być bezpieczna lub niebezpieczna w zależności od pola.
+
+**Pominięcie wyboczenia.** Smukły pręt ściskany może utracić stateczność przed przekroczeniem wytrzymałości materiału.
+
+**Brak sprawdzenia przyjętego przekroju.** Po zaokrągleniu wymiaru trzeba ponownie obliczyć naprężenie. Zaokrąglenie w dół może znieść zapas.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Sprawdź, czy obciążenie jest osiowe.** Siła musi działać wzdłuż osi pręta i przechodzić przez środek ciężkości przekroju. Jeśli wywołuje moment, potrzebny będzie inny model.
+2. **Wypisz dane w spójnych jednostkach.** Siłę podaj w niutonach, pole w milimetrach kwadratowych, długość w milimetrach. Naprężenie otrzymasz w MPa.
+3. **Wyznacz siłę osiową metodą przekrojów.** Przetnij pręt, wybierz jedną część i zapisz równowagę. Ustal znak: dodatni oznacza rozciąganie.
+4. **Sprawdź, czy pole jest stałe na rozważanym odcinku.** Jeśli przekrój się zmienia, podziel pręt na odcinki i licz naprężenie osobno dla każdego.
+5. **Oblicz $\sigma=N/A$.** Zapisz wynik z jednostką i znakiem. Nie zaokrąglaj zbyt wcześnie, bo błąd przeniesie się do dalszych kroków.
+6. **Porównaj z wartością dopuszczalną.** Warunek ma postać $|\sigma|\le\sigma_{\mathrm{dop}}$. Dla ściskania sprawdź dodatkowo, czy pręt nie jest smukły.
+7. **Jeśli szukasz pola, przekształć wzór.** $A_{\min}=|N|/\sigma_{\mathrm{dop}}$. Przy przekroju kołowym wyznacz średnicę i przyjmij wymiar normalizowany.
+8. **Wykonaj kontrolę końcową.** Oblicz naprężenie dla przyjętego przekroju, sprawdź znak, jednostkę i rząd wielkości.
+
+## Połącz z resztą kursu
+
+- **Jednostki, model i równowaga.** Naprężenie jest pierwszym zastosowaniem zasady, że wynik bez jednostki nic nie znaczy; siłę $N$ wyznaczasz metodą przekrojów, tak jak w belkach i kratownicach.
+- **Wykres siły osiowej N.** W pręcie z wieloma obciążeniami naprężenie zmienia się wraz z $N$, więc wykres jest niezbędny.
+- **Pręty schodkowe.** Zmienne pole przekroju powoduje, że o maksymalnym naprężeniu decyduje iloraz $N/A$, a nie sama siła.
+- **Prawo Hooke’a i wydłużenia.** Naprężenie jest ogniwem między siłą a odkształceniem: $\varepsilon=\sigma/E$.
+- **Stan naprężenia i koło Mohra.** Przypadek jednoosiowy odpowiada kołu o środku w $\sigma/2$ i promieniu $|\sigma|/2$.
+- **Warunek wytrzymałości i sztywności.** Naprężenie dopuszczalne jest podstawą doboru pola, a wydłużenie dopuszczalne może wymagać większego przekroju.
+
+## Sprawdź się
+
+Odpowiedz na pytania, zwracając uwagę na znak, jednostki i rolę pola przekroju. Każde pytanie odnosi się do sytuacji, którą spotkasz w typowym zadaniu obliczeniowym.
 
 <Quiz>
   <Question outcome="W3">
@@ -55,7 +212,7 @@ $$
     <Answer correct>Pierwszy ma naprężenie dwa razy większe</Answer>
     <Answer>Oba mają jednakowe naprężenie</Answer>
     <Answer>Pierwszy ma naprężenie dwa razy mniejsze</Answer>
-    <Hint>Przy stałym N naprężenie jest odwrotnie proporcjonalne do A.</Hint>
+    <Hint>Przy stałym N naprężenie jest odwrotnie proporcjonalne do pola przekroju.</Hint>
     <Explanation>
       σ = N/A, więc zmniejszenie pola o połowę przy niezmienionym N podwaja naprężenie. To pokazuje, dlaczego sama siła
       nie wystarcza do oceny bezpieczeństwa.
@@ -71,15 +228,86 @@ $$
       σ = −40 000 N / 200 mm² = −200 MPa. Minus oznacza ściskanie; pominięcie przeliczenia kN dałoby błędne −0,2 MPa.
     </Explanation>
   </Question>
-  <Question outcome="W2">
-    <Prompt>Kiedy prosty wzór σ = N/A nie wystarcza do oceny smukłego ściskanego pręta?</Prompt>
-    <Answer correct>Gdy istnieje ryzyko wyboczenia mimo naprężenia poniżej granicy materiału</Answer>
-    <Answer>Wyłącznie gdy pręt jest rozciągany</Answer>
-    <Answer>Gdy pole przekroju jest stałe</Answer>
-    <Hint>Utrata stateczności może nastąpić przed zniszczeniem materiału.</Hint>
+  <Question outcome="U1">
+    <Prompt>Pręt o polu 150 mm² jest rozciągany siłą 30 kN. Jakie jest naprężenie nominalne?</Prompt>
+    <Answer>20 MPa</Answer>
+    <Answer correct>200 MPa</Answer>
+    <Answer>450 MPa</Answer>
+    <Hint>Zamień 30 kN na 30 000 N i podziel przez 150 mm².</Hint>
     <Explanation>
-      Ściskany smukły pręt może się wyboczyć przy naprężeniu mniejszym niż wytrzymałość materiału. Wtedy oprócz σ = N/A
-      potrzebna jest analiza stateczności.
+      30 000 N / 150 mm² = 200 N/mm² = 200 MPa. Wynik 20 MPa powstałby przy pozostawieniu siły w kiloniutonach, a 450
+      MPa przy odwróceniu ilorazu.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Co oznacza ujemny znak naprężenia normalnego w pręcie?</Prompt>
+    <Answer correct>Materiał jest ściskany, a włókna dążą do skrócenia</Answer>
+    <Answer>Materiał jest rozciągany, ale siła jest mała</Answer>
+    <Answer>Naprężenie jest zawsze błędne, bo nie może być ujemne</Answer>
+    <Hint>Znak naprężenia dziedziczy znak siły osiowej.</Hint>
+    <Explanation>
+      Dodatnie N oznacza rozciąganie, ujemne N oznacza ściskanie. Znak minus jest informacją fizyczną, a nie błędem
+      rachunkowym.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Który warunek jest potrzebny, aby prosty wzór σ = N/A dawał dobre oszacowanie naprężenia?</Prompt>
+    <Answer correct>Obciążenie osiowe, jednorodny materiał i przekrój z dala od zaburzeń</Answer>
+    <Answer>Dowolne obciążenie, byle pręt był metalowy</Answer>
+    <Answer>Wyłącznie ściskanie i bardzo duże odkształcenia</Answer>
+    <Hint>Pomyśl o założeniach modelu pręta rozciąganego.</Hint>
+    <Explanation>
+      Wzór zakłada osiowe obciążenie, równomierny rozkład naprężenia i materiał liniowo sprężysty. W strefie karbu lub
+      przy obciążeniu mimośrodowym potrzebny jest bogatszy model.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Pręt ma przenieść N = 72 kN przy naprężeniu dopuszczalnym 120 MPa. Jakie minimalne pole przekroju jest wymagane?
+    </Prompt>
+    <Answer>60 mm²</Answer>
+    <Answer correct>600 mm²</Answer>
+    <Answer>8640 mm²</Answer>
+    <Hint>Przekształć σ = N/A do A = N/σdop i zamień kN na N.</Hint>
+    <Explanation>
+      A = 72 000 N / 120 MPa = 600 mm². Wartość 60 mm² powstałaby przez pozostawienie siły w kiloniutonach, a 8640 mm²
+      przez pomnożenie zamiast dzielenia.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Jak wygląda stan naprężenia w prostym pręcie rozciąganym, jeśli patrzymy na niego jako na szczególny przypadek
+      koła Mohra?
+    </Prompt>
+    <Answer correct>Jedno naprężenie główne jest równe σ, a drugie wynosi zero</Answer>
+    <Answer>Oba naprężenia główne są równe σ i mają ten sam znak</Answer>
+    <Answer>Koło Mohra redukuje się do punktu w początku układu</Answer>
+    <Hint>W przekroju poprzecznym pręta nie ma naprężeń normalnych w kierunkach poprzecznych.</Hint>
+    <Explanation>
+      W jednoosiowym rozciąganiu naprężenie główne w kierunku osi wynosi σ, a w kierunkach prostopadłych zero. Koło
+      Mohra ma środek w σ/2 i promień |σ|/2, więc przechodzi przez początek układu.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Pręt o polu 400 mm² przenosi rozciągającą siłę 40 kN. Jakie jest naprężenie i czy spełnia ono warunek przy σdop =
+      120 MPa?
+    </Prompt>
+    <Answer correct>100 MPa, warunek spełniony</Answer>
+    <Answer>160 MPa, warunek spełniony</Answer>
+    <Answer>10 MPa, warunek spełniony</Answer>
+    <Hint>Podziel 40 000 N przez 400 mm², a następnie porównaj wynik ze 120 MPa.</Hint>
+    <Explanation>
+      40 000/400 = 100 MPa, czyli mniej niż 120 MPa. Zapas jest niewielki, ale warunek wytrzymałości jest spełniony.
+      Wynik 10 MPa powstałby przez pominięcie przeliczenia kiloniutonów na niutony.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- **A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ (WNT).** Rozdział o rozciąganiu i ściskaniu prętów prostych: definicja naprężenia normalnego, znak i założenia modelu.
+- **M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ (WNT).** Zadania z obliczania naprężeń w prętach, w tym przykłady z przekrojami kołowymi i prostokątnymi.
+- **R. C. Hibbeler, _Mechanics of Materials_ (wyd. 10).** Rozdział o naprężeniu normalnym i odkształceniu: definicje, konwencja znaku i przykłady prętów z różnymi przekrojami.
+- **D. Roylance, _Mechanics of Materials_ (otwarty podręcznik MIT).** Rozdział o elastic response: związek siły, pola i naprężenia oraz omówienie wytrzymałości i sztywności jako dwóch różnych pojęć.
+- **T. Wierzbicki, _Structural Mechanics_ (otwarty podręcznik MIT).** Rozdziały o odkształceniu jednoosiowym: precyzyjne definicje, konwencja znaku i granice stosowalności modelu continuum.

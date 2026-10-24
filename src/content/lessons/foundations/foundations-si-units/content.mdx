@@ -7,7 +7,6 @@ shortTitle: Jednostki SI
 description: >-
   Łącz niutony, milimetry i megapaskale bez zgadywania oraz kontroluj wynik
   przez analizę jednostek.
-duration: 7
 eyebrow: Najpierw uporządkuj dane
 outcomes:
   - W1 — rozróżnia wielkości fizyczne opisujące element i jego obciążenie
@@ -18,33 +17,209 @@ outcomes:
   - U3 — unika błędów jednostkowych przy doborze nośności i sztywności
 ---
 
-Jednostka mówi, co fizycznie oznacza liczba. Samo „40” nie opisuje naprężenia — dopiero 40 MPa informuje, że na każdy milimetr kwadratowy przekroju przypada 40 N siły.
+Wyobraź sobie dwie kartki z zapisem „40”. Na pierwszej widnieje siła 40 N, na drugiej naprężenie 40 MPa. Liczba jest ta sama, ale sens fizyczny zupełnie inny. Jednostka nie jest ozdobą liczby — jest częścią informacji o tym, co właściwie zmierzyliśmy. W wytrzymałości materiałów bez tej informacji nie da się poprawnie porównać dwóch wyników ani ocenić, czy element jest bezpieczny.
+
+W tym kursie będziesz łączyć siły, długości, pola, momenty i naprężenia. Każda z tych wielkości ma własny wymiar. Jeśli pomnożysz lub podzielisz je bez kontroli jednostek, możesz otrzymać liczbę, która wygląda wiarygodnie, a opisuje coś zupełnie innego. Dlatego pierwsza lekcja nie dotyczy jeszcze samego naprężenia — dotyczy języka, w którym cała dalsza analiza będzie zapisana.
+
+Celem lekcji jest praktyczna umiejętność: zamienić dane zadania na jeden spójny układ jednostek, wykonać obliczenie i sprawdzić wymiar wyniku. Najwygodniejszym układem w obliczeniach prętów jest niuton, milimetr i megapaskal. Wtedy siła dzielona przez pole od razu daje naprężenie w MPa, a moment w N·mm nie wymaga dodatkowych przeliczeń.
+
+Zobaczysz też, dlaczego pozornie niewinne pomieszanie kiloniutonów z niutonami daje wynik tysiąc razy większy lub mniejszy. Na końcu będziesz umiał samodzielnie przejść od danych w kN, cm i GPa do wyniku w MPa oraz wrócić do jednostek wygodnych w praktyce inżynierskiej.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie, że siła w układzie SI ma jednostkę niuton, a niuton wynika z kilograma, metra i sekundy: $1\ \text{N}=1\ \text{kg}\cdot\text{m}/\text{s}^2$.
+- Odróżniaj masę od ciężaru. Masa jest w kilogramach, a ciężar jest siłą i ma jednostkę niuton. Ciężar obliczasz jako $G=mg$, przyjmując zwykle $g\approx 9{,}81\ \text{m/s}^2$.
+- Pamiętaj, że pole jest iloczynem dwóch długości. Dlatego $1\ \text{m}^2=10^6\ \text{mm}^2$, a $1\ \text{cm}^2=100\ \text{mm}^2$. To najczęstsze źródło błędów przy zamianie jednostek.
+- Wiedz, że naprężenie to siła na jednostkę pola. Jednostka podstawowa to paskal, czyli niuton na metr kwadratowy, a w obliczeniach prętów wygodniejszy jest megapaskal.
+- Rozróżniaj przedrostki: kilo oznacza tysiąc, mega milion, giga miliard, a mili jedną tysięczną. Zapis $10^3$ i $10^{-3}$ jest tu równie ważny jak nazwy.
+- Uważaj na zapis dziesiętny. W polskim tekście używamy przecinka, ale w obliczeniach nie mieszaj przecinka z kropką w tym samym pliku ani nie traktuj spacji jako separatora tysięcy bez świadomej decyzji.
+
+## Model i intuicja
+
+Wielkość fizyczna to para: liczba i jednostka. Zmiana jednostki nie zmienia zjawiska, tylko sposób jego opisania. Ten sam pręt ma tę samą długość, niezależnie od tego, czy podasz $2\ \text{m}$, czy $2000\ \text{mm}$. Podobnie ta sama siła to $12\ \text{kN}$ albo $12\,000\ \text{N}$. Dopiero brak jednostki sprawia, że zapis staje się niejednoznaczny.
+
+W obliczeniach konstrukcyjnych wygodnie jest wybrać jeden zestaw jednostek i konsekwentnie go używać. Zestaw $(\text{N},\text{mm})$ jest szczególnie praktyczny, ponieważ:
+
+- długości typowych elementów są rzędu setek lub tysięcy milimetrów, więc nie mnożymy przez małe ułamki metra;
+- pola przekrojów podajemy w mm², co daje liczby o rozsądnej wielkości;
+- naprężenie w N/mm² jest liczbowo równe naprężeniu w MPa;
+- moment w N·mm można później łatwo zamienić na kN·m, dzieląc przez $10^6$.
+
+Można też pracować w $(\text{kN},\text{m})$. Wtedy siła jest w kN, długość w m, moment w kN·m, a naprężenie wychodzi w kPa, czyli w tysiącach paskali. Nie jest to błędne, ale wymaga dodatkowego przeliczenia, jeśli wynik ma być w MPa. W tym kursie będziemy mieszać jednostki tylko po to, by pokazać jawne przeliczenie — nigdy po cichu w środku wzoru.
+
+Analiza jednostek jest narzędziem kontroli, a nie gwarancją poprawności. Jeśli z równania wychodzi N/mm zamiast N/mm², na pewno nie jest to naprężenie. Ale poprawny wymiar nie dowodzi, że wzór jest właściwy: zły model może mieć poprawne jednostki. Dlatego jednostki sprawdzamy zawsze razem z sensem fizycznym i warunkami stosowalności modelu.
+
+## Laboratorium: co ustawić
+
+Ustaw siłę w kN i naprężenie w MPa, a następnie odczytaj ich odpowiedniki w niutonach, N/mm² oraz kN/cm². Poruszaj suwakami i sprawdź, że zmiana jednostki nie zmienia fizycznej wielkości — zmienia tylko liczbę na podziałce.
 
 <Lab id="units" />
 
+## Definicje i jednostki
+
+Podstawowe wielkości w tej lekcji zestawiono poniżej. W kolumnie „typowe w kursie” podano jednostki, które najczęściej pojawią się w zadaniach i laboratoriach.
+
+| Wielkość            | Symbol                  | Jednostka SI | Typowa w kursie | Uwaga przeliczeniowa                                     |
+| ------------------- | ----------------------- | ------------ | --------------- | -------------------------------------------------------- |
+| Siła                | $F$, $N$, $P$, $R$      | N            | kN              | $1\ \text{kN}=1000\ \text{N}$                            |
+| Długość             | $L$, $x$, $a$           | m            | mm              | $1\ \text{m}=1000\ \text{mm}$                            |
+| Pole przekroju      | $A$                     | m²           | mm²             | $1\ \text{m}^2=10^6\ \text{mm}^2$                        |
+| Naprężenie normalne | $\sigma$                | Pa           | MPa             | $1\ \text{MPa}=1\ \text{N/mm}^2$                         |
+| Naprężenie styczne  | $\tau$                  | Pa           | MPa             | $1\ \text{MPa}=10^6\ \text{Pa}$                          |
+| Moduł Younga        | $E$                     | Pa           | GPa lub MPa     | stal: typowo $E\approx 200\ \text{GPa}$                  |
+| Moduł Kirchhoffa    | $G$                     | Pa           | GPa lub MPa     | $G=\dfrac{E}{2(1+\nu)}$                                  |
+| Odkształcenie       | $\varepsilon$, $\gamma$ | bezwymiarowe | — lub procent   | $0{,}001=0{,}1\%$                                        |
+| Moment              | $M$, $T$                | N·m          | kN·m lub N·mm   | $1\ \text{kN}\cdot\text{m}=10^6\ \text{N}\cdot\text{mm}$ |
+| Obciążenie liniowe  | $q$                     | N/m          | kN/m            | $1\ \text{kN/m}=1\ \text{N/mm}$                          |
+| Ciężar objętościowy | $\gamma$                | N/m³         | kN/m³           | $\gamma=\rho g$                                          |
+| Gęstość             | $\rho$                  | kg/m³        | kg/m³           | stal: typowo $7850\ \text{kg/m}^3$                       |
+
+Konwencja znaków w dalszej części kursu jest stała: rozciąganie przyjmujemy jako dodatnie, ściskanie jako ujemne. Dla sił i momentów znak zależy od przyjętego układu współrzędnych oraz zwrotu dodatniego. Jednostka nie rozstrzyga znaku — trzeba go zdefiniować w schemacie zadania.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-1\,\mathrm{kN}=10^3\,\mathrm{N},\qquad 1\,\mathrm{MPa}=1\,\mathrm{N/mm^2}=10^6\,\mathrm{Pa}
+1\ \text{kN}=10^3\ \text{N},\qquad
+1\ \text{MPa}=1\ \frac{\text{N}}{\text{mm}^2}=10^6\ \text{Pa},\qquad
+1\ \text{GPa}=10^3\ \text{MPa}
 $$
 
-<Caption>W obliczeniach prętów wygodnie jest używać N i mm: naprężenie wychodzi wtedy wprost w MPa. Nie wolno mieszać kN i N bez przeliczenia.</Caption>
+<Caption>Te trzy równości wystarczą do większości przeliczeń w kursie. Pierwsza dotyczy siły, druga naprężenia, trzecia modułów materiałowych. Warto zapamiętać szczególnie drugą, ponieważ w obliczeniach prętów pozwala utożsamić N/mm² z MPa.</Caption>
+</Formula>
+
+Skąd bierze się równość $1\ \text{MPa}=1\ \text{N/mm}^2$? Wyprowadzenie jest krótkie, ale warto je przejść krok po kroku, ponieważ ten sam mechanizm przeliczeń wraca przy każdym innym układzie jednostek.
+
+1. Z definicji paskal to niuton na metr kwadratowy: $1\ \text{Pa}=1\ \text{N}/\text{m}^2$.
+2. Jeden metr to tysiąc milimetrów: $1\ \text{m}=10^3\ \text{mm}$.
+3. Po podniesieniu do kwadratu: $1\ \text{m}^2=(10^3\ \text{mm})^2=10^6\ \text{mm}^2$.
+4. Podstawiamy pole do definicji paskala: $1\ \text{Pa}=1\ \text{N}/(10^6\ \text{mm}^2)=10^{-6}\ \text{N/mm}^2$.
+5. Megapaskal to milion paskali: $1\ \text{MPa}=10^6\ \text{Pa}$.
+6. Mnożymy obie strony przez $10^6$: $10^6\ \text{Pa}=10^6\cdot 10^{-6}\ \text{N/mm}^2=1\ \text{N/mm}^2$.
+7. Zatem $1\ \text{MPa}=1\ \text{N/mm}^2$ dokładnie, bez zaokrąglania.
+8. Analogicznie $1\ \text{kPa}=10^3\ \text{Pa}=10^{-3}\ \text{N/mm}^2=0{,}001\ \text{MPa}$.
+9. Dla momentu: $1\ \text{kN}\cdot\text{m}=10^3\ \text{N}\cdot 10^3\ \text{mm}=10^6\ \text{N}\cdot\text{mm}$.
+10. Dla obciążenia liniowego: $1\ \text{kN/m}=10^3\ \text{N}/10^3\ \text{mm}=1\ \text{N/mm}$.
+
+Ostatnia równość jest szczególnie pożyteczna: w układzie N i mm obciążenie liniowe w kN/m ma tę samą wartość liczbową co w N/mm. Jeśli więc belka ma obciążenie $4\ \text{kN/m}$ i liczysz w niutonach oraz milimetrach, możesz zapisać $4\ \text{N/mm}$ — ale tylko po świadomym przeliczeniu, nie przez pominięcie jednostki.
+
+Dla naprężenia normalnego wzór $\sigma=N/A$ zapisujemy z jednostkami jawnie:
+
+<Formula>
+$$
+\sigma=\frac{N\ [\text{N}]}{A\ [\text{mm}^2]}
+=\frac{\text{N}}{\text{mm}^2}=\text{MPa}
+$$
+
+<Caption>Jeśli N podstawisz w niutonach, a A w milimetrach kwadratowych, wynik otrzymasz wprost w MPa. Podstawienie kN i mm dałoby wynik tysiąc razy mniejszy od poprawnego.</Caption>
 </Formula>
 
 <Insight>
-  Analiza jednostek wychwytuje wiele błędów: jeśli z obliczeń wychodzi N/mm zamiast N/mm², otrzymana wielkość nie jest
-  naprężeniem, nawet gdy liczba wygląda sensownie.
+  Jednostka wyniku jest częścią wyniku. Zanim uznasz obliczenie za gotowe, zapisz jednostkę obok liczby i sprawdź, czy
+  zgadza się z wielkością, którą miałeś otrzymać. Liczba 40 bez jednostki nie mówi nic o naprężeniu.
 </Insight>
 
 <WorkedExample>
-  <Given>Pręt o polu przekroju A = 300 mm² przenosi siłę N = 12 kN. Oblicz naprężenie w MPa.</Given>
+  <Given>
+    Pręt o polu przekroju 480 mm² jest rozciągany siłą 96 kN. Oblicz naprężenie normalne i podaj je w MPa oraz w kN/cm².
+  </Given>
   <Steps>
-    <Step>Przelicz siłę: N = 12 kN = 12 000 N.</Step>
-    <Step>Podstaw spójne jednostki: σ = N/A = 12 000 N / 300 mm².</Step>
-    <Step>Wykonaj dzielenie i zidentyfikuj jednostkę: σ = 40 N/mm².</Step>
-    <Step>Zapisz wynik w MPa, korzystając z równoważności 1 N/mm² = 1 MPa.</Step>
+    <Step>Przelicz siłę na niutony: 96 kN = 96 000 N.</Step>
+    <Step>Pole zostaw w mm², bo razem z niutonami daje naprężenie w MPa.</Step>
+    <Step>Podstaw do wzoru: σ = 96 000 N / 480 mm².</Step>
+    <Step>Wykonaj dzielenie: 96 000 / 480 = 200, więc σ = 200 N/mm².</Step>
+    <Step>Zamień N/mm² na MPa: σ = 200 MPa.</Step>
+    <Step>Zamień na kN/cm²: 1 MPa = 0,1 kN/cm², więc 200 MPa = 20 kN/cm².</Step>
   </Steps>
-  <Result>Naprężenie wynosi σ = 40 MPa; dodatnia wartość oznacza rozciąganie.</Result>
+  <Result>Naprężenie wynosi 200 MPa, czyli 20 kN/cm². Dodatnia wartość odpowiada rozciąganiu.</Result>
 </WorkedExample>
+
+Kontrola rzędu wielkości: dla stali o module Younga około 200 GPa naprężenie 200 MPa daje odkształcenie $\varepsilon=\sigma/E=200/200\,000=0{,}001$, czyli 0,1 procenta. To jeszcze zakres sprężysty, więc wynik jest fizycznie wiarygodny. Gdyby z obliczeń wyszło 200 GPa, odkształcenie byłoby rzędu jedności, co dla stali oznaczałoby stan daleki od liniowej sprężystości.
+
+## Drugi przykład
+
+Taśma stalowa ma szerokość 250 mm i grubość 12 mm. Działa na nią siła rozciągająca 150 kN. Oblicz naprężenie oraz wydłużenie odcinka o długości 2,5 m, przyjmując typowy moduł Younga stali $E=200\ \text{GPa}$.
+
+Najpierw pole przekroju:
+
+$$
+A=250\ \text{mm}\cdot 12\ \text{mm}=3000\ \text{mm}^2
+$$
+
+Siła w niutonach wynosi $150\,000\ \text{N}$, więc:
+
+$$
+\sigma=\frac{150\,000}{3000}=50\ \text{N/mm}^2=50\ \text{MPa}
+$$
+
+Do wydłużenia używamy $\Delta L=NL/(EA)$. Długość trzeba podać w milimetrach, bo pole jest w mm², a moduł w MPa:
+
+$$
+\Delta L=\frac{150\,000\ \text{N}\cdot 2500\ \text{mm}}{200\,000\ \text{MPa}\cdot 3000\ \text{mm}^2}
+=\frac{375\,000\,000}{600\,000\,000}\ \text{mm}=0{,}625\ \text{mm}
+$$
+
+Sprawdzenie: $200\,000\ \text{MPa}$ to $200\,000\ \text{N/mm}^2$. Iloczyn $EA$ ma więc jednostkę N, a $NL$ jednostkę N·mm. Iloraz daje mm, zgodnie z oczekiwaniem. Wydłużenie 0,625 mm na długości 2500 mm to około 0,025 procenta, co jest typowe dla stali w zakresie sprężystym.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy dopuszczalne naprężenie i szukamy minimalnego pola przekroju. Pręt ma przenieść siłę rozciągającą 120 kN, a naprężenie nie może przekroczyć 160 MPa. Jaki powinien być przekrój, jeśli zdecydujemy się na pręt okrągły?
+
+Zaczynamy od warunku $\sigma\le 160\ \text{MPa}$. Przy granicy wykorzystania:
+
+$$
+A_{\min}=\frac{N}{\sigma_{\text{dop}}}=\frac{120\,000\ \text{N}}{160\ \text{N/mm}^2}=750\ \text{mm}^2
+$$
+
+Dla pręta okrągłego $A=\pi d^2/4$, więc:
+
+$$
+d=\sqrt{\frac{4A}{\pi}}=\sqrt{\frac{4\cdot 750}{\pi}}\approx\sqrt{954{,}9}\approx 30{,}9\ \text{mm}
+$$
+
+Nie zamawiamy pręta o średnicy 30,9 mm, tylko wybieramy dostępny wymiar większy, na przykład 32 mm. Sprawdzamy go ponownie:
+
+$$
+A=\frac{\pi\cdot 32^2}{4}\approx 804\ \text{mm}^2,\qquad
+\sigma=\frac{120\,000}{804}\approx 149\ \text{MPa}
+$$
+
+Wynik jest poniżej 160 MPa, więc dobór jest poprawny. Ten przykład pokazuje typową kolejność pracy: od jednostek przez wzór do decyzji inżynierskiej. Zaokrąglenie średnicy w dół dałoby przekrój mniejszy od minimalnego i naprężenie większe od dopuszczalnego.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mieszanie kN i N w jednym wzorze bez przeliczenia. Przed podstawieniem do $\sigma=N/A$ zapisz siłę w niutonach, jeśli pole jest w mm².
+- Traktowanie MPa jako N/mm. Megapaskal to N/mm², czyli siła na pole, a nie siła na długość.
+- Przeliczanie $1\ \text{cm}^2$ jako $10\ \text{mm}^2$ zamiast $100\ \text{mm}^2$. Pole zmienia się z kwadratem długości.
+- Podstawianie modułu Younga w GPa do wzoru, w którym naprężenie jest w MPa, bez zamiany $200\ \text{GPa}$ na $200\,000\ \text{MPa}$.
+- Używanie średnicy zamiast promienia w wzorach, w których występuje $r$, oraz odwrotnie.
+- Dodawanie siły w kN do siły w N lub momentu w kN·m do momentu w N·mm bez wspólnej jednostki.
+- Pomijanie jednostki w wyniku końcowym, co uniemożliwia sprawdzenie, czy otrzymana wielkość jest naprężeniem, siłą czy momentem.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wypisz wszystkie dane z jednostkami. Nie przepisuj samej liczby, bo za chwilę nie będziesz wiedział, czy 12 to kN, czy N.
+2. Ustal, czego szukasz: siły, naprężenia, odkształcenia, wydłużenia czy momentu. To określa jednostkę oczekiwanego wyniku.
+3. Wybierz jeden układ obliczeniowy. Dla prętów najczęściej N, mm i MPa; dla belek z momentami wygodnie jest N·mm albo kN·m.
+4. Przelicz dane do wybranego układu przed podstawieniem. Siłę z kN na N, długość z m na mm, pole z cm² na mm², moduł z GPa na MPa.
+5. Wstaw jednostki do wzoru razem z liczbami i skróć je tak, jak skracałbyś symbole algebraiczne.
+6. Porównaj jednostkę wyniku z oczekiwaną. Jeśli się nie zgadza, nie poprawiaj liczby „na oko” — znajdź brakujące przeliczenie.
+7. Na końcu zapisz wynik w jednostce wygodnej w odpowiedzi, np. w MPa lub kN·m, i podaj ją jawnie.
+
+## Połącz z resztą kursu
+
+- **Naprężenie normalne: siła na przekroju** — jednostki decydują, czy wzór $\sigma=N/A$ daje MPa, czy przypadkową liczbę.
+- **Prawo Hooke’a i odkształcenia** — moduł Younga musi być w tych samych jednostkach co naprężenie, inaczej wydłużenie wyjdzie bez sensu.
+- **Warunki wytrzymałości i sztywności** — dopuszczalne naprężenie i wymagane pole przekroju porównujesz tylko w spójnych jednostkach.
+- **Momenty bezwładności i zginanie** — moment bezwładności w mm⁴, moment w N·mm i wskaźnik w mm³ tworzą jedną spójną rodzinę.
+- **Koło Mohra** — składowe naprężenia w MPa można odkładać na osi bez dodatkowych przeliczeń, ale tylko wtedy, gdy wszystkie dane są w MPa.
+- **Laboratorium jednostek** — suwaki pokazują, że ta sama wartość fizyczna ma różne liczby w różnych jednostkach.
+
+## Sprawdź się
+
+Poniższe pytania sprawdzają przeliczenia i kontrolę wymiaru. Odpowiadaj bez kalkulatora, jeśli potrafisz oszacować rząd wielkości.
 
 <Quiz>
   <Question outcome="U1">
@@ -52,10 +227,10 @@ $$
     <Answer>σ = 10/250 = 0,04 MPa</Answer>
     <Answer correct>σ = 10 000/250 = 40 MPa</Answer>
     <Answer>σ = 10 000/250 = 40 Pa</Answer>
-    <Hint>Najpierw zamień kiloniutony na niutony, a następnie zwróć uwagę na N/mm².</Hint>
+    <Hint>Najpierw zamień kiloniutony na niutony, a potem sprawdź jednostkę ilorazu.</Hint>
     <Explanation>
-      10 kN = 10 000 N, więc σ = 10 000 N / 250 mm² = 40 N/mm² = 40 MPa. Wynik 0,04 MPa powstaje przez błędne
-      pozostawienie siły w kN, a 40 Pa to niepoprawna jednostka dla ilorazu N/mm².
+      10 kN to 10 000 N, więc 10 000 N / 250 mm² = 40 N/mm² = 40 MPa. Wynik 0,04 MPa powstaje przez pozostawienie siły w
+      kN, a 40 Pa to błędna jednostka dla ilorazu N/mm².
     </Explanation>
   </Question>
   <Question outcome="W2">
@@ -65,19 +240,73 @@ $$
     <Answer>Jest wyrażone w mm</Answer>
     <Hint>Podziel jednostkę wydłużenia przez jednostkę długości początkowej.</Hint>
     <Explanation>
-      ΔL i L mają tę samą jednostkę, która się skraca. Dlatego ε jest bezwymiarowe, choć często zapisujemy je także w
-      promilach lub procentach.
+      ΔL i L mają tę samą jednostkę, która się skraca. Dlatego ε jest bezwymiarowe, choć często podajemy je także w
+      procentach lub promilach.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Wzór na wielkość X daje po skróceniu jednostkę N/mm. Dlaczego X nie może być naprężeniem?</Prompt>
+    <Prompt>Wzór daje po skróceniu jednostkę N/mm. Dlaczego otrzymana wielkość nie może być naprężeniem?</Prompt>
     <Answer>Naprężenie zawsze jest bezwymiarowe</Answer>
     <Answer correct>Naprężenie wymaga N/mm², a N/mm opisuje siłę na długość</Answer>
     <Answer>Naprężenie musi mieć jednostkę N·m</Answer>
     <Hint>Porównaj wymiar wyniku ze wzorem σ = N/A.</Hint>
     <Explanation>
-      Pole ma jednostkę mm², dlatego naprężenie ma wymiar N/mm². Jednostka N/mm odpowiada natomiast np. intensywności
+      Pole ma jednostkę mm², więc naprężenie ma wymiar N/mm². Jednostka N/mm odpowiada na przykład intensywności
       obciążenia liniowego lub sztywności sprężyny, a N·m jest jednostką momentu.
     </Explanation>
   </Question>
+  <Question outcome="W1">
+    <Prompt>Która para poprawnie opisuje wielkość i jej jednostkę?</Prompt>
+    <Answer>Moment zginający w N/m</Answer>
+    <Answer correct>Naprężenie normalne w N/mm²</Answer>
+    <Answer>Obciążenie liniowe w N·m</Answer>
+    <Hint>Moment to siła razy ramię, a obciążenie liniowe to siła na długość.</Hint>
+    <Explanation>
+      Naprężenie normalne ma jednostkę siły na pole, czyli N/mm². Moment ma N·m lub N·mm, a obciążenie liniowe ma N/m
+      lub kN/m.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Naprężenie 80 MPa zapisane w kN/cm² wynosi:</Prompt>
+    <Answer>0,8 kN/cm²</Answer>
+    <Answer correct>8 kN/cm²</Answer>
+    <Answer>80 kN/cm²</Answer>
+    <Hint>Skorzystaj z tego, że 1 MPa = 0,1 kN/cm².</Hint>
+    <Explanation>
+      80 MPa = 80 · 0,1 kN/cm² = 8 kN/cm². Wartość liczbowa maleje, bo kN/cm² jest większą jednostką naprężenia niż MPa.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Do wzoru ΔL = NL/(EA) podstawiasz N w N, L w mm i A w mm². W jakiej jednostce musisz podać E, aby wynik wyszedł w
+      mm?
+    </Prompt>
+    <Answer>W GPa, bez przeliczania</Answer>
+    <Answer correct>W MPa, czyli N/mm²</Answer>
+    <Answer>W kN/m²</Answer>
+    <Hint>Sprawdź, jaka jednostka E sprawia, że mianownik EA ma jednostkę siły.</Hint>
+    <Explanation>
+      A jest w mm², więc E musi być w N/mm², czyli w MPa, aby iloczyn EA był w niutonach. E podane w GPa trzeba pomnożyć
+      przez 1000.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Pole przekroju prostokątnego wynosi 12 cm². Ile to mm²?</Prompt>
+    <Answer correct>1200 mm²</Answer>
+    <Answer>120 mm²</Answer>
+    <Answer>12 000 mm²</Answer>
+    <Hint>Jeden centymetr to 10 mm, ale pole zmienia się z kwadratem przelicznika.</Hint>
+    <Explanation>
+      1 cm² = 100 mm², więc 12 cm² = 12 · 100 = 1200 mm². Błąd polegający na pomnożeniu przez 10 daje 120 mm², czyli
+      wartość dziesięciokrotnie za małą.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział wprowadzający o podstawowych pojęciach, układach jednostek i wielkościach opisujących pręt.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — część o naprężeniu, odkształceniu i jednostkach stosowanych w obliczeniach wytrzymałościowych.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z rozciągania, w których trzeba konsekwentnie przeliczać kN, mm i MPa.
+- D. Roylance, _Mechanics of Materials_ — rozdział o rozciąganiu jednoosiowym; pokazuje definicję naprężenia i znaczenie jednostek w obliczeniach wydłużenia.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdział „Preparatory Concepts”; przegląd jednostek SI, wielkości skalarnych i wektorowych oraz sensu fizycznego jednostek.

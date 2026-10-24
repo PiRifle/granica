@@ -7,7 +7,6 @@ shortTitle: Współczynnik Poissona
 description: >-
   Powiąż odkształcenie osiowe z poprzecznym i odróżnij zmianę przekroju od
   utraty objętości.
-duration: 8
 eyebrow: 'Jedno rozciąganie, trzy reakcje'
 outcomes:
   - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
@@ -26,65 +25,277 @@ outcomes:
     oraz sztywność
 ---
 
-Gdy rozciągasz gumkę, staje się ona cieńsza. Współczynnik Poissona ν określa, jak silne jest poprzeczne skracanie w stosunku do wydłużenia osiowego. W materiale izotropowym efekt jest taki sam w obu kierunkach poprzecznych.
+Rozciągany pręt staje się dłuższy, ale jednocześnie cieńszy. Ten drugi efekt nie jest wadą wykonania ani skutkiem zniszczenia materiału. To naturalna, sprężysta odpowiedź ciała na wydłużenie w jednym kierunku. Gdybyśmy go ignorowali, nie potrafilibyśmy poprawnie przewidzieć zmiany średnicy śruby, pasowania wału w tulei ani wskazań tensometru przyklejonego poprzecznie do osi obciążenia.
+
+Zjawisko opisuje współczynnik Poissona, oznaczany grecką literą $\nu$. Mówi on, ile razy mniejsze jest odkształcenie poprzeczne od odkształcenia osiowego. Dla typowej stali $\nu$ wynosi około $0{,}30$, dla aluminium około $0{,}33$, a dla gumy zbliża się do $0{,}5$. To jedna z dwóch podstawowych stałych sprężystości materiału izotropowego, obok modułu Younga $E$.
+
+Warto od razu rozdzielić dwie rzeczy: zmiana średnicy i zmiana objętości to nie to samo. Pręt może wyraźnie zwęzić się poprzecznie, a mimo to jego objętość zmniejszy się tylko nieznacznie albo wręcz wzrośnie. Decyduje o tym suma trzech odkształceń liniowych, którą zajmiemy się dokładniej w lekcji o dylatacji.
+
+Po tej lekcji będziesz umiał obliczyć skurcz poprzeczny z danego wydłużenia, wyznaczyć $\nu$ z pomiarów, sprawdzić, czy materiał jest bliski nieściśliwości, i rozpoznać, kiedy efekt Poissona trzeba uwzględnić w zadaniu projektowym.
+
+Warto od razu zapamiętać, że $\nu$ jest wielkością materiałową, a nie geometryczną. Nie zależy od średnicy pręta ani od długości bazy pomiarowej. Zależy od składu, struktury i temperatury materiału. Dlatego dwa pręty o różnych wymiarach, wykonane z tej samej stali, mają taki sam współczynnik Poissona, choć ich zmiany średnicy mogą się różnić.
+
+## Zanim zaczniesz
+
+- Rozróżniaj odkształcenie liniowe $\varepsilon$ od odkształcenia postaciowego $\gamma$; współczynnik Poissona dotyczy odkształceń liniowych.
+- Przypomnij sobie prawo Hooke’a w postaci $\sigma=E\varepsilon$ dla jednoosiowego rozciągania lub ściskania.
+- Pamiętaj, że moduł Younga $E$ ma jednostkę naprężenia, najczęściej GPa lub MPa, a odkształcenie jest bezwymiarowe.
+- Ustal znaki: dodatnie $\sigma_x$ i $\varepsilon_x$ oznaczają rozciąganie i wydłużenie, ujemne — ściskanie i skrócenie.
+- Nie zakładaj, że $\nu$ jest zawsze dodatnie; większość metali i polimerów ma $\nu$ dodatnie, ale istnieją materiały auksetyczne o $\nu$ ujemnym.
+- Pamiętaj, że wzór z $\nu$ jest liniowy i dotyczy zakresu sprężystego, a nie dużych odkształceń plastycznych.
+
+## Model i intuicja
+
+Model efektu Poissona opiera się na trzech założeniach: materiał jest izotropowy, liniowo-sprężysty i podlega małym odkształceniom. Izotropowość oznacza, że jego właściwości nie zależą od kierunku. Liniowość pozwala dodawać skutki poszczególnych naprężeń. Małe odkształcenia pozwalają zaniedbać zmiany wymiarów w mianownikach i używać stałej początkowej długości oraz średnicy.
+
+Gdy rozciągasz próbkę w kierunku $x$, wiązania między atomami rozciągają się wzdłuż osi, a w kierunkach poprzecznych materiał reaguje skurczem. W skali makroskopowej nie ma znaczenia, czy mówimy o odkształceniu $y$, czy $z$: w materiale izotropowym oba kierunki poprzeczne zachowują się identycznie. Dlatego dla jednoosiowego stanu naprężenia zachodzi $\varepsilon_y=\varepsilon_z$.
+
+Wyobraź sobie cienką blaszkę rozciąganą w płaszczyźnie. Jej grubość maleje, choć nikt nie przyłożył siły w kierunku grubości. To właśnie efekt Poissona: naprężenie w jednym kierunku wywołuje odkształcenie w kierunkach prostopadłych. Mechanizm jest czysto sprężysty, dopóki materiał nie zacznie płynąć.
+
+Model przestaje być wystarczający, gdy materiał jest anizotropowy, na przykład drewno lub kompozyt włóknisty. Wtedy trzeba podać kilka różnych współczynników Poissona, a nie jeden. Efekt komplikuje się też przy dużych odkształceniach, w piankach o ujemnym $\nu$ oraz w materiałach lepkosprężystych, w których odpowiedź zależy od czasu.
+
+### Izotropia a anizotropia
+
+- W materiale izotropowym jedna wartość $\nu$ opisuje oba kierunki poprzeczne.
+- W drewnie $\nu$ zależy od kierunku względem włókien, więc potrzebne są co najmniej dwie lub trzy wartości.
+- W kompozycie włóknistym współczynnik $\nu_{12}$ i $\nu_{21}$ mogą się różnić, choć iloczyny z modułami są powiązane symetrią.
+- W blasze walcowanej anizotropia może być niewielka, ale w niektórych stopach aluminium jest mierzalna.
+- W materiałach porowatych i piankach efektywny $\nu$ zależy od kierunku i od poziomu odkształcenia.
+
+## Laboratorium: co ustawić
+
+W laboratorium wybierz materiał i zmieniaj obciążenie pręta. Zwróć uwagę, że nachylenie wykresu $\sigma$–$\varepsilon$ zależy od modułu Younga, a nie od współczynnika Poissona. Sam $\nu$ odpowiada za to, co dzieje się w kierunkach poprzecznych, choć to laboratorium nie pokazuje tej osi bezpośrednio.
 
 <Lab id="hooke" />
 
+## Definicje i jednostki
+
+| Wielkość                 | Symbol                | Znaczenie                                       | Jednostka    | Typowa wartość               |
+| ------------------------ | --------------------- | ----------------------------------------------- | ------------ | ---------------------------- |
+| Odkształcenie osiowe     | $\varepsilon_{osi}$   | wydłużenie w kierunku obciążenia                | bezwymiarowe | $10^{-4}$–$10^{-3}$          |
+| Odkształcenie poprzeczne | $\varepsilon_{poprz}$ | skurcz lub rozszerzenie w kierunku prostopadłym | bezwymiarowe | przeciwnego znaku            |
+| Współczynnik Poissona    | $\nu$                 | ujemny stosunek odkształceń                     | bezwymiarowy | $0{,}25$–$0{,}35$ dla metali |
+| Moduł Younga             | $E$                   | sztywność przy rozciąganiu                      | GPa lub MPa  | stal około $200\,\text{GPa}$ |
+| Moduł ścinania           | $G$                   | sztywność przy ścinaniu                         | GPa lub MPa  | $G=E/[2(1+\nu)]$             |
+| Średnica początkowa      | $d_0$                 | wymiar poprzeczny przed obciążeniem             | mm           | zależny od elementu          |
+| Zmiana średnicy          | $\Delta d$            | różnica średnic                                 | mm           | zwykle bardzo mała           |
+
+Współczynnik Poissona jest dodatni dla większości materiałów konstrukcyjnych. Oznacza to, że dodatniemu wydłużeniu osiowemu towarzyszy ujemne odkształcenie poprzeczne. Wartość $\nu$ nie może być dowolnie duża w materiale izotropowym: dla $\nu$ bliskiego $0{,}5$ materiał staje się prawie nieściśliwy, a dla $\nu=0{,}5$ model przewiduje zerową zmianę objętości.
+
+W zadaniach często podaje się zmianę średnicy, a nie odkształcenie. Wtedy korzystamy z definicji $\varepsilon_{poprz}=\Delta d/d_0$. Ta sama zasada dotyczy zmiany grubości blachy, szerokości pasa lub wymiaru próbki prostopadłego do kierunku rozciągania.
+
+### Znak i konwencja
+
+- Dodatnie $\varepsilon_{osi}$ oznacza wydłużenie, a ujemne skrócenie.
+- Dla dodatniego $\nu$ odkształcenie poprzeczne ma znak przeciwny do osiowego.
+- Minus w definicji $\nu$ jest po to, aby zwykłe materiały miały dodatni współczynnik.
+- Zmiana średnicy $\Delta d$ ma znak odkształcenia poprzecznego, a nie naprężenia.
+- W ściskaniu osiowym znaki się odwracają: próbka skraca się wzdłuż osi i rozszerza poprzecznie.
+- Nie należy automatycznie przenosić znaku z $\sigma_x$ na $\Delta d$ bez sprawdzenia, czy mowa o rozciąganiu, czy ściskaniu.
+
+### Typowe wartości orientacyjne
+
+| Materiał                | $\nu$ w przybliżeniu  | Uwaga                             |
+| ----------------------- | --------------------- | --------------------------------- |
+| Stal                    | $0{,}28$–$0{,}30$     | wartość zależna od gatunku        |
+| Aluminium               | $0{,}33$              | często podawane $0{,}33$–$0{,}34$ |
+| Miedź                   | $0{,}33$–$0{,}35$     | zależnie od stanu                 |
+| Tytan                   | $0{,}30$–$0{,}34$     | zależnie od stopu                 |
+| Guma                    | blisko $0{,}5$        | prawie nieściśliwa                |
+| Korki i niektóre pianki | blisko $0$ lub ujemne | możliwe rozszerzanie poprzeczne   |
+
+Wartości w tabeli są orientacyjne. W obliczeniach projektowych należy używać danych od dostawcy materiału lub z normy, a nie „typowej” liczby z podręcznika, jeśli wynik ma znaczenie dla bezpieczeństwa.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\nu=-\frac{\varepsilon_{poprz}}{\varepsilon_{osi}},\qquad \varepsilon_y=\varepsilon_z=-\nu\frac{\sigma_x}{E}\quad\text{dla jednoosiowego }\sigma_x
+\nu=-\frac{\varepsilon_{poprz}}{\varepsilon_{osi}},\qquad \varepsilon_y=\varepsilon_z=-\nu\frac{\sigma_x}{E}\quad\text{dla jednoosiowego }\sigma_x,\qquad G=\frac{E}{2(1+\nu)}
 $$
 
-<Caption>Dla typowego ν &gt; 0 dodatnie rozciąganie osiowe daje ujemne odkształcenia poprzeczne. Dla izotropowych materiałów liniowo-sprężystych zwykle 0 ≤ ν &lt; 0,5; istnieją też materiały auksetyczne o ν &lt; 0.</Caption>
+<Caption>Pierwszy wzór jest definicją współczynnika Poissona. Drugi wynika z połączenia tej definicji z prawem Hooke’a dla jednoosiowego rozciągania. Trzeci wiąże moduł ścinania z modułem Younga i współczynnikiem Poissona dla materiału izotropowego. Dla typowego $\nu \gt 0$ odkształcenie poprzeczne ma znak przeciwny do osiowego.</Caption>
 </Formula>
 
+Wyprowadzenie prowadzimy na prostym doświadczeniu myślowym.
+
+1. Rozciągamy próbkę siłą osiową $F$ w kierunku $x$. Pole przekroju wynosi $A_0$, więc naprężenie osiowe to $\sigma_x=F/A_0$.
+2. W zakresie sprężystym prawo Hooke’a daje $\varepsilon_x=\sigma_x/E$.
+3. Doświadczenie pokazuje, że próbka kurczy się w kierunkach $y$ i $z$. Mierzymy zmianę średnicy $\Delta d$ i obliczamy $\varepsilon_y=\Delta d/d_0$.
+4. Definiujemy współczynnik Poissona jako $\nu=-\varepsilon_y/\varepsilon_x$. Minus sprawia, że dla zwykłego materiału $\nu$ jest dodatnie, mimo że $\varepsilon_y$ jest ujemne przy dodatnim $\varepsilon_x$.
+5. W materiale izotropowym nie ma wyróżnionego kierunku poprzecznego, więc $\varepsilon_z=\varepsilon_y$.
+6. Podstawiamy $\varepsilon_x=\sigma_x/E$ do definicji: $\varepsilon_y=-\nu\sigma_x/E$.
+7. Dla ścinania obowiązuje osobne prawo $\gamma_{xy}=\tau_{xy}/G$. Izotropowość wiąże $G$ z $E$ i $\nu$ zależnością $G=E/[2(1+\nu)]$.
+8. Sprawdzamy granice: dla $\nu=0$ nie ma skurczu poprzecznego, a dla $\nu\to0{,}5$ materiał staje się nieściśliwy. Dla $\nu<0$ próbka rozszerza się poprzecznie.
+
+Wzór jest liniowy, więc podwojenie naprężenia podwaja zarówno wydłużenie osiowe, jak i skurcz poprzeczny. Nie oznacza to jednak, że można go stosować dowolnie daleko: po przekroczeniu granicy plastyczności odkształcenia poprzeczne przestają być proporcjonalne do osiowych, a w procesie przewężenia średnica zmniejsza się gwałtownie z powodu lokalizacji odkształcenia, nie z powodu samego $\nu$.
+
+### Skąd bierze się moduł ścinania
+
+<Formula>
+$$
+G=\frac{E}{2(1+\nu)},\qquad \gamma_{xy}=\frac{\tau_{xy}}{G}
+$$
+
+<Caption>W materiale izotropowym sprężystość przy ścinaniu nie jest niezależna od sprężystości przy rozciąganiu. Znajomość $E$ i $\nu$ wyznacza $G$. Dla $\nu=0{,}30$ moduł ścinania jest około $2{,}6$ razy mniejszy od modułu Younga.</Caption>
+</Formula>
+
+Ta zależność jest wygodna, ale też zdradza coś ważnego o modelu: materiał izotropowy ma tylko dwie niezależne stałe sprężystości. Jeśli znasz $E$ i $\nu$, nie możesz dowolnie wybrać $G$. W materiałach anizotropowych ta zależność nie obowiązuje i $G$ trzeba wyznaczyć osobno.
+
+### Kontrola wyniku
+
+- Sprawdź, czy $\nu$ jest bezwymiarowe i mieści się w rozsądnym zakresie.
+- Sprawdź, czy znak odkształcenia poprzecznego jest przeciwny do znaku osiowego przy dodatnim $\nu$.
+- Sprawdź, czy zmiana średnicy jest znacznie mniejsza od średnicy początkowej.
+- Sprawdź, czy nie użyłeś procentów zamiast ułamka bezwymiarowego.
+- Sprawdź, czy $G$ jest mniejsze od $E$ przy dodatnim $\nu$.
+- Sprawdź, czy założenie o izotropii jest uzasadnione dla danego materiału.
+
 <Insight>
-  Przy ν bliskim 0,5 materiał jest prawie nieściśliwy w zakresie małych odkształceń. Poprzeczne skurcze nie oznaczają
-  same w sobie zniszczenia — są częścią sprężystej odpowiedzi materiału.
+  Współczynnik Poissona opisuje stosunek odkształceń, a nie stosunek naprężeń. Nie wolno liczyć $\sigma_y=-\nu\sigma_x$
+  dla swobodnie rozciąganego pręta: naprężenie poprzeczne jest tam równe zero, a mimo to odkształcenie poprzeczne jest
+  niezerowe.
 </Insight>
 
 <WorkedExample>
-  <Given>Stalowy pręt o ν = 0,29 i średnicy 20 mm rozciągano tak, że εx = 1000 µε.</Given>
+  <Given>Stalowy pręt ma $E=200\,\text{GPa}$, $\nu=0{,}30$ i średnicę początkową $d_0=16\,\text{mm}$. Pod obciążeniem odkształcenie osiowe wynosi $\varepsilon_x=900\,\mu\varepsilon$.</Given>
   <Steps>
-    <Step>Odkształcenie osiowe w zapisie bezwymiarowym: εx = 0,001.</Step>
-    <Step>Odkształcenie średnicy: εd = −ν εx = −0,29·0,001 = −0,00029.</Step>
-    <Step>Zmiana średnicy: Δd = εd·d0 = −0,00029·20 = −0,0058 mm.</Step>
+    <Step>Zamieniamy odkształcenie na wartość bezwymiarową: $\varepsilon_x=900\cdot10^{-6}=0{,}0009$.</Step>
+    <Step>Odkształcenie poprzeczne: $\varepsilon_y=-\nu\varepsilon_x=-0{,}30\cdot0{,}0009=-0{,}00027$.</Step>
+    <Step>Zmiana średnicy: $\Delta d=\varepsilon_y d_0=-0{,}00027\cdot16=-0{,}00432\,\text{mm}$.</Step>
+    <Step>Nowa średnica: $d=16-0{,}00432=15{,}99568\,\text{mm}$.</Step>
+    <Step>Kontrola naprężenia: $\sigma_x=E\varepsilon_x=200\,000\cdot0{,}0009=180\,\text{MPa}$, czyli poniżej typowej granicy plastyczności stali.</Step>
   </Steps>
-  <Result>
-    Średnica zmniejsza się o 0,0058 mm, czyli 5,8 µm, do około 19,9942 mm. Jest to skutek sprężystego efektu Poissona.
-  </Result>
+  <Result>Średnica zmniejsza się o około $0{,}0043\,\text{mm}$, czyli $4{,}3\,\mu\text{m}$. Odkształcenie poprzeczne wynosi $-270\,\mu\varepsilon$, a naprężenie osiowe około $180\,\text{MPa}$.</Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy płaski stan naprężenia w stalowej blasze, gdzie $\sigma_z=0$, a zmierzone odkształcenia w płaszczyźnie wynoszą $\varepsilon_x=800\,\mu\varepsilon$ i $\varepsilon_y=400\,\mu\varepsilon$. Przy $\nu=0{,}30$ oblicz odkształcenie grubości $\varepsilon_z$.
+
+Nie możemy po prostu napisać $\varepsilon_z=-\nu\varepsilon_x$, bo w płaskim stanie naprężenia $\varepsilon_z$ zależy od sumy odkształceń w płaszczyźnie. Z prawa Hooke’a dla $\sigma_z=0$ mamy $\varepsilon_z=-\nu(\sigma_x+\sigma_y)/E$. Dodając odkształcenia w płaszczyźnie, otrzymujemy $\varepsilon_x+\varepsilon_y=(1-\nu)(\sigma_x+\sigma_y)/E$. Po przekształceniu:
+
+$$
+\varepsilon_z=-\frac{\nu}{1-\nu}(\varepsilon_x+\varepsilon_y)
+$$
+
+Podstawiamy $\varepsilon_x+\varepsilon_y=1200\,\mu\varepsilon$ i $\nu/(1-\nu)=0{,}3/0{,}7\approx0{,}4286$. Stąd $\varepsilon_z\approx-514\,\mu\varepsilon$. Grubość blachy maleje, mimo że naprężenie normalne w kierunku grubości jest zerowe. To ten sam mechanizm, który widzieliśmy w pręcie, tylko opisany w płaskim stanie naprężenia.
+
+## Trzeci przykład: wariant odwrotny
+
+Projektant chce, aby średnica wałka o $d_0=10\,\text{mm}$ zmieniała się pod obciążeniem nie bardziej niż o $2\,\mu\text{m}$. Materiał ma $\nu=0{,}30$. Jakie jest maksymalne dopuszczalne odkształcenie osiowe?
+
+Najpierw zamieniamy limit średnicy na odkształcenie: $\varepsilon_{poprz}=\Delta d/d_0=0{,}002\,\text{mm}/10\,\text{mm}=0{,}0002$. Znak jest ujemny przy rozciąganiu, ale do limitu bierzemy wartość bezwzględną. Z definicji $\nu$ mamy $\varepsilon_{osi}=|\varepsilon_{poprz}|/\nu=0{,}0002/0{,}30=0{,}000667$, czyli około $667\,\mu\varepsilon$.
+
+Przy $E=200\,\text{GPa}$ odpowiada to naprężeniu $\sigma=E\varepsilon\approx133\,\text{MPa}$. To sensowny zakres dla stali konstrukcyjnej. Gdyby dopuszczalna zmiana średnicy była dziesięć razy mniejsza, limit naprężenia spadłby do około $13\,\text{MPa}$ — pokazuje to, jak rygorystyczne mogą być wymagania wymiarowe w precyzyjnych pasowaniach.
+
+### Wnioski projektowe
+
+W pasowaniach ciasnych zmiana średnicy pod obciążeniem może zmniejszyć wcisk i spowodować poślizg. W połączeniach wciskowych trzeba więc sprawdzić nie tylko naprężenie, ale i zmianę wymiaru. W konstrukcjach precyzyjnych efekt Poissona bywa równie ważny jak sama wytrzymałość, ponieważ decyduje o luzie, tarciu i drganiach.
+
+<Callout kind="warning" title="Typowe błędy">
+  - Zapominanie minusa w definicji $\nu$ i otrzymywanie ujemnego współczynnika dla zwykłej stali.
+  - Mylenie odkształcenia poprzecznego z naprężeniem poprzecznym; w swobodnym pręcie $\sigma_y=0$, choć $\varepsilon_y\neq0$.
+  - Używanie $\varepsilon_y=-\nu\varepsilon_x$ w płaskim stanie naprężenia bez sprawdzenia, czy $\sigma_y$ rzeczywiście jest zerowe.
+  - Podawanie $\nu$ w procentach lub mikrostrainach; to wielkość bezwymiarowa rzędu $0{,}3$, a nie $300\,\mu\varepsilon$.
+  - Zakładanie, że $\nu=0{,}5$ oznacza zerowy moduł Younga; to oznacza nieściśliwość, a nie brak sztywności.
+  - Stosowanie jednego $\nu$ do drewna lub kompozytu o wyraźnej anizotropii.
+  - Liczenie zmiany średnicy z $\Delta d=\nu\Delta L$ bez podzielenia przez odpowiednie wymiary.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy stan naprężenia jest jednoosiowy, czy wieloosiowy. Wzór $\varepsilon_y=-\nu\sigma_x/E$ stosuj tylko wtedy, gdy $\sigma_y=\sigma_z=0$.
+2. Ustal, czy masz odkształcenia, czy zmiany wymiarów. Zmianę średnicy zamień na odkształcenie, dzieląc przez $d_0$.
+3. Zwróć uwagę na znaki: rozciąganie daje dodatnie $\varepsilon_x$ i ujemne $\varepsilon_y$ przy $\nu\gt0$.
+4. Jeśli znasz $\varepsilon_x$ i $\varepsilon_y$, wyznacz $\nu$ z definicji, a nie z ilorazu naprężeń.
+5. W płaskim stanie naprężenia używaj zależności $\varepsilon_z=-\nu(\varepsilon_x+\varepsilon_y)/(1-\nu)$, jeśli $\sigma_z=0$.
+6. Sprawdź, czy wynik jest fizycznie możliwy: $\nu$ zwykle mieści się między $0$ a $0{,}5$, a odkształcenia sprężyste metali są rzędu $10^{-4}$–$10^{-3}$.
+7. Jeśli zadanie dotyczy objętości, przejdź do sumy $\varepsilon_x+\varepsilon_y+\varepsilon_z$; sam skurcz poprzeczny nie rozstrzyga o znaku zmiany objętości.
+
+## Połącz z resztą kursu
+
+- W lekcji o odkształceniach $\varepsilon$ i $\gamma$ poznałeś definicję odkształcenia liniowego, która jest punktem wyjścia dla $\nu$.
+- W uogólnionym prawie Hooke’a efekt Poissona stanie się składnikiem trzech sprzężonych równań dla $\varepsilon_x$, $\varepsilon_y$ i $\varepsilon_z$.
+- W lekcji o zmianie objętości zobaczysz, że współczynnik $\nu$ decyduje o tym, jak bardzo materiał jest ściśliwy.
+- W module o zginaniu efekt Poissona wyjaśnia antyklastyczne wygięcie poprzeczne belki i zmianę grubości włókien.
+- W lekcjach o tensometrach poprzeczny czujnik pozwala skompensować wpływ temperatury i rozdzielić odkształcenie osiowe od poprzecznego.
+- W projektowaniu pasowań i połączeń zaciskowych zmiana średnicy pod obciążeniem może zmienić luz lub wcisk, dlatego $\nu$ bywa równie ważny jak wytrzymałość.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz obliczyć skurcz poprzeczny, wyznaczyć $\nu$ z pomiaru i odróżnić efekt Poissona od zmiany objętości.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Pręt ma εx = 0,002, a ν = 0,30. Ile wynoszą εy i εz przy jednoosiowym rozciąganiu?</Prompt>
-    <Answer correct>−0,0006</Answer>
-    <Answer>+0,0006</Answer>
-    <Answer>−0,006</Answer>
-    <Hint>Odkształcenie poprzeczne to −ν razy odkształcenie osiowe.</Hint>
-    <Explanation>
-      εy = εz = −0,30·0,002 = −0,0006, czyli −600 µε. Oba kierunki poprzeczne ulegają skróceniu.
-    </Explanation>
+    <Prompt>Dla $\nu=0{,}30$ i $\varepsilon_x=0{,}0015$ ile wynosi $\varepsilon_y$ przy jednoosiowym rozciąganiu?</Prompt>
+    <Answer correct>$-0{,}00045$</Answer>
+    <Answer>$+0{,}00045$</Answer>
+    <Answer>$-0{,}0045$</Answer>
+    <Hint>Pomnóż $\nu$ przez $\varepsilon_x$ i dodaj minus.</Hint>
+    <Explanation>$\varepsilon_y=-\nu\varepsilon_x=-0{,}30\cdot0{,}0015=-0{,}00045=-450\,\mu\varepsilon$.</Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Mierzono εosi = 1200 µε i εpoprz = −360 µε. Jaki jest współczynnik Poissona?</Prompt>
-    <Answer correct>0,30</Answer>
-    <Answer>3,33</Answer>
-    <Answer>−0,30</Answer>
-    <Hint>Weź minus iloraz odkształcenia poprzecznego i osiowego.</Hint>
-    <Explanation>
-      ν = −(−360)/1200 = 0,30. Znak minus we wzorze powoduje, że dla zwykłego materiału ν jest dodatnie.
-    </Explanation>
+    <Prompt>Mierzono $\varepsilon_{osi}=800\,\mu\varepsilon$ i $\varepsilon_{poprz}=-240\,\mu\varepsilon$. Ile wynosi $\nu$?</Prompt>
+    <Answer correct>$0{,}30$</Answer>
+    <Answer>$3{,}33$</Answer>
+    <Answer>$-0{,}30$</Answer>
+    <Hint>Podziel wartość bezwzględną odkształcenia poprzecznego przez osiowe.</Hint>
+    <Explanation>$\nu=-(-240)/800=0{,}30$. Minus w definicji zapewnia dodatnią wartość dla zwykłego materiału.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pręt o średnicy $20\,\text{mm}$ ma odkształcenie poprzeczne $-0{,}0004$. Ile wynosi zmiana średnicy?</Prompt>
+    <Answer correct>$-0{,}008\,\text{mm}$</Answer>
+    <Answer>$-0{,}08\,\text{mm}$</Answer>
+    <Answer>$-0{,}0008\,\text{mm}$</Answer>
+    <Hint>Pomnóż odkształcenie przez średnicę początkową.</Hint>
+    <Explanation>$\Delta d=\varepsilon_{poprz}d_0=-0{,}0004\cdot20=-0{,}008\,\text{mm}$, czyli $8\,\mu\text{m}$.</Explanation>
   </Question>
   <Question outcome="W2">
-    <Prompt>Co oznacza ν bliskie 0,5 dla izotropowego materiału sprężystego?</Prompt>
-    <Answer correct>Bardzo małą zmianę objętości przy odkształceniu</Answer>
-    <Answer>Brak odkształceń poprzecznych</Answer>
-    <Answer>Zerowy moduł Younga</Answer>
-    <Hint>Dla małych odkształceń zmiana objętości zależy od sumy trzech ε.</Hint>
-    <Explanation>
-      Przy jednoosiowym obciążeniu suma wynosi εx(1 − 2ν). Dla ν → 0,5 dąży ona do zera, czyli materiał staje się prawie
-      nieściśliwy; odkształcenia poprzeczne nadal występują.
-    </Explanation>
+    <Prompt>Co oznacza $\nu$ bliskie $0{,}5$ dla materiału izotropowego?</Prompt>
+    <Answer correct>Materiał jest prawie nieściśliwy w zakresie sprężystym</Answer>
+    <Answer>Materiał ma zerowy moduł Younga</Answer>
+    <Answer>Materiał nie odkształca się poprzecznie</Answer>
+    <Hint>Zwróć uwagę na sumę odkształceń i zależność modułu ściśliwości od $1-2\nu$.</Hint>
+    <Explanation>Przy $\nu\to0{,}5$ moduł ściśliwości $K=E/[3(1-2\nu)]$ rośnie do nieskończoności, więc objętość prawie się nie zmienia, choć odkształcenia poprzeczne nadal występują.</Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Jak zachowuje się materiał auksetyczny o $\nu\lt0$ przy rozciąganiu?</Prompt>
+    <Answer correct>Rozszerza się w kierunkach poprzecznych</Answer>
+    <Answer>Kurczy się szybciej niż zwykły materiał</Answer>
+    <Answer>Nie zmienia wymiarów poprzecznych</Answer>
+    <Hint>Podstaw ujemne $\nu$ do $\varepsilon_y=-\nu\varepsilon_x$.</Hint>
+    <Explanation>Dla $\nu\lt0$ i dodatniego $\varepsilon_x$ otrzymujemy dodatnie $\varepsilon_y$, czyli poprzeczne rozszerzanie. Tak zachowują się niektóre pianki i struktury metamateriałowe.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W płaskim stanie naprężenia $\varepsilon_x=600\,\mu\varepsilon$, $\varepsilon_y=300\,\mu\varepsilon$ i $\nu=0{,}25$. Ile wynosi $\varepsilon_z$?</Prompt>
+    <Answer correct>$-300\,\mu\varepsilon$</Answer>
+    <Answer>$-150\,\mu\varepsilon$</Answer>
+    <Answer>$+300\,\mu\varepsilon$</Answer>
+    <Hint>Użyj $\varepsilon_z=-\nu(\varepsilon_x+\varepsilon_y)/(1-\nu)$.</Hint>
+    <Explanation>$\varepsilon_z=-0{,}25\cdot900/0{,}75=-300\,\mu\varepsilon$. Grubość maleje mimo zerowego naprężenia normalnego w kierunku $z$.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Stal ma $E=200\,\text{GPa}$, $\nu=0{,}30$ i $\sigma_x=100\,\text{MPa}$. Ile wynosi $\varepsilon_y$?</Prompt>
+    <Answer correct>$-150\,\mu\varepsilon$</Answer>
+    <Answer>$-500\,\mu\varepsilon$</Answer>
+    <Answer>$-300\,\mu\varepsilon$</Answer>
+    <Hint>Najpierw oblicz $\varepsilon_x=\sigma_x/E$, potem pomnóż przez $-\nu$.</Hint>
+    <Explanation>$\varepsilon_x=100/200\,000=0{,}0005$. Stąd $\varepsilon_y=-0{,}30\cdot0{,}0005=-0{,}00015=-150\,\mu\varepsilon$.</Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dla $E=200\,\text{GPa}$ i $\nu=0{,}25$ ile wynosi moduł ścinania $G$?</Prompt>
+    <Answer correct>$80\,\text{GPa}$</Answer>
+    <Answer>$100\,\text{GPa}$</Answer>
+    <Answer>$160\,\text{GPa}$</Answer>
+    <Hint>Użyj $G=E/[2(1+\nu)]$.</Hint>
+    <Explanation>$G=200/[2\cdot1{,}25]=200/2{,}5=80\,\text{GPa}$. Wartość $G$ jest zawsze mniejsza od $E$ dla dodatniego $\nu$.</Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o rozciąganiu jednoosiowym i stałych sprężystości; klasyczne omówienie współczynnika Poissona i związku z modułem ścinania.
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o odkształceniach i prawie Hooke’a; dobre przykłady obliczania zmiany wymiarów poprzecznych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I — rozdział o stanie naprężenia i odkształcenia; warto porównać konwencję znaków i zakres stosowalności.
+- D. Roylance, _Mechanics of Materials_ — rozdział o sprężystości i związkach konstytutywnych; pokazuje, skąd bierze się $\nu$ w tensorze podatności.
+- T. Wierzbicki, _Structural Mechanics_ — rozdział o prawie sprężystości w trzech wymiarach; wyprowadzenie zależności między $E$, $\nu$ i $G$.

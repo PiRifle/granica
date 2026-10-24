@@ -1,1 +1,154 @@
-Od jednostek i modelu rzeczywistego elementu do reakcji, równowagi oraz sił wewnętrznych wyznaczanych metodą przekrojów.
+## Co to jest ten moduł
+
+Ten moduł jest fundamentem całego kursu wytrzymałości materiałów. Zanim policzysz naprężenie w zginanej belce albo kąt skręcenia wału, musisz umieć odpowiedzieć na prostsze pytania: co właściwie działa na element, jak go podparto, jakie siły powstają w podporach i jak opisać je liczbami w spójnych jednostkach. Bez tych odpowiedzi każdy dalszy wzór jest tylko podstawieniem liczb bez zrozumienia.
+
+Wyobraź sobie półkę przymocowaną do ściany. Na półce stoi ciężki komputer. Półka nie porusza się, choć działa na nią ciężar. Dzieje się tak, ponieważ ściana i mocowania dostarczają reakcji, które równoważą obciążenie. Jednocześnie materiał półki jest rozciągany, ściskany i zginany. Ten jeden obraz zawiera prawie wszystkie tematy modułu: obciążenie, model, podparcie, równowagę i siły wewnętrzne.
+
+W module uczymy się przechodzić od rzeczywistego elementu do schematu obliczeniowego. Rzeczywista półka ma śruby, zaokrąglenia i niejednorodny materiał. Model będzie miał oś, długość, przekrój i kilka symboli sił. To uproszczenie nie jest stratą — jest warunkiem wykonania obliczeń. Trzeba tylko wiedzieć, które szczegóły pomijamy świadomie, a które mogą zmienić wynik.
+
+Drugim filarem jest równowaga. Jeśli element nie przyspiesza i się nie obraca, suma sił oraz suma momentów muszą się zerować. To pozornie proste stwierdzenie pozwala wyznaczyć reakcje podpór, a następnie siły wewnętrzne w dowolnym przekroju. W module nauczysz się zapisywać te warunki tak, aby nie pogubić się w znakach i ramionach sił.
+
+Trzecim filarem jest metoda przekrojów. Polega ona na myślowym przecięciu elementu i rozpatrzeniu równowagi jednej z odciętych części. W miejscu cięcia pojawiają się siła normalna, siła tnąca i moment zginający. To one są później podstawą wzorów na naprężenia. Moduł kończy się zasadą Saint-Venanta, która mówi, jak daleko od miejsca przyłożenia obciążenia wolno stosować uproszczony, równomierny opis naprężeń.
+
+<Callout kind="info" title="Jak czytać ten moduł">
+  Czytaj lekcje po kolei. Każda następna korzysta z pojęć wprowadzonych w poprzedniej: jednostki są potrzebne w modelu,
+  model w obciążeniach, obciążenia w podporach, a podpory w równowadze i metodzie przekrojów. Pominięcie jednego ogniwa
+  zwykle kończy się mechanicznym podstawianiem wzorów bez rozumienia wyniku.
+</Callout>
+
+## Dlaczego to ważne
+
+Wytrzymałość materiałów jest przedmiotem inżynierskim, a nie tylko zbiorem wzorów. W praktyce każda decyzja projektowa zaczyna się od pytania, jakie obciążenia naprawdę działają i jak element jest podparty. Źle rozpoznane obciążenie albo pominięta podpora może zmienić reakcje, a wraz z nimi moment zginający i naprężenie. Wtedy nawet poprawnie wykonane dzielenie daje wynik dla niewłaściwego modelu.
+
+Błędy jednostkowe są równie groźne, bo trudno je zauważyć. Wynik 40 zamiast 40 000 może wyglądać wiarygodnie, jeśli nie sprawdzisz jednostki. Właśnie dlatego pierwsza lekcja modułu nie dotyczy naprężeń, lecz jednostek. Inżynier musi umieć przeliczać kN na N, mm² na m² i GPa na MPa bez zgadywania. To umiejętność, która oszczędza czas i chroni przed kosztownymi pomyłkami.
+
+Znajomość podpór i reakcji pozwala też odróżnić układ statycznie wyznaczalny od niewyznaczalnego. W pierwszym wystarczą równania równowagi. W drugim potrzebne są dodatkowe warunki zgodności odkształceń. Rozpoznanie tej różnicy na początku zadania oszczędza prób rozwiązywania układu, który nie ma jednoznacznego rozwiązania na gruncie samej statyki.
+
+Metoda przekrojów jest natomiast pomostem między statyką a wytrzymałością materiałów. W statyce interesuje cię, czy cała konstrukcja stoi. W wytrzymałości interesuje cię, co dzieje się w materiale. Przekrój pokazuje, że część elementu działa na drugą część siłami wewnętrznymi. Bez tego kroku nie da się przejść od reakcji do naprężeń i odkształceń.
+
+Wreszcie zasada Saint-Venanta uczy pokory wobec modeli. Dwa różne sposoby przyłożenia siły mogą dawać te same reakcje, ale różne naprężenia tuż przy mocowaniu. Daleko od mocowania różnice zanikają. Świadomość, gdzie model jest wystarczający, a gdzie nie, jest cechą dobrego inżyniera i tematem, który będzie wracał przez cały kurs.
+
+## Czego się nauczysz
+
+Po ukończeniu modułu będziesz umiał:
+
+- **W1 — analizuje elementy konstrukcji i wybiera uproszczony model obliczeniowy.** Nauczysz się odróżniać model ciała sztywnego od modelu odkształcalnego i dobierać go do pytania: reakcje, naprężenia, ugięcia czy stateczność.
+- **W2 — rozpoznaje podstawowe przypadki wytrzymałościowe i źródła obciążeń.** Zobaczysz, jak siła osiowa, ścinanie, skręcanie i zginanie wynikają z różnych sposobów działania obciążenia, a nie z nazwy elementu.
+- **W3 — opisuje wpływ geometrii przekroju i miejsca przyłożenia obciążenia.** Zrozumiesz, dlaczego pole przekroju, długość i położenie siły zmieniają reakcje oraz naprężenia.
+- **U1 — oblicza wielkości w spójnych jednostkach, reakcje i siły wewnętrzne.** Będziesz samodzielnie przeliczać jednostki, wyznaczać reakcje z równań równowagi i obliczać N, V oraz M metodą przekrojów.
+- **U2 — interpretuje stan naprężenia jako podstawę późniejszej analizy kołem Mohra.** Nauczysz się czytać znak i kierunek naprężenia oraz rozumieć, że stan naprężenia jest czymś więcej niż jedną liczbą.
+- **U3 — przygotowuje model do doboru elementu z uwzględnieniem bezpieczeństwa i sztywności.** Będziesz zbierać dane wejściowe, zapisywać założenia i sprawdzać, czy model nadaje się do wymiarowania.
+
+Te efekty są ze sobą powiązane. Nie da się dobrze wyznaczyć reakcji bez poprawnego modelu podpór, a sił wewnętrznych bez reakcji. Nie da się dobrać przekroju bez jednostek i bez świadomości, jakie obciążenie jest dominujące. Moduł układa je w jedną, logiczną kolejność.
+
+## Od czego zacząć
+
+Moduł zakłada podstawową wiedzę z fizyki i matematyki oraz elementy statyki. Przydadzą się:
+
+- dodawanie i rozkładanie wektorów na składowe;
+- pojęcie momentu siły i umiejętność wyznaczenia ramienia;
+- równania równowagi płaskiego układu sił;
+- podstawowe jednostki SI i zamiana przedrostków;
+- obliczanie pól, objętości i środków ciężkości prostych figur;
+- rozumienie funkcji liniowej i podstaw całkowania w prostych przypadkach.
+
+Jeśli któryś z tych tematów jest słabszy, nie odkładaj go na później. W module 1 każdy z nich pojawi się w praktyce. Brak wprawy w momentach sił ujawni się przy podporach, a brak wprawy w jednostkach przy każdym obliczeniu naprężenia. Lepiej poświęcić kilka minut na przypomnienie niż zgubić się w połowie zadania.
+
+Dobrym testem gotowości jest zadanie: „belka leży na dwóch podporach, a na jej środku stoi ciężar”. Jeśli potrafisz narysować schemat, zaznaczyć reakcje i zapisać sumę momentów bez zaglądania do notatek, możesz zaczynać. Jeśli nie, wróć do podstaw statyki — ten moduł nie zastąpi kursu mechaniki ogólnej, ale pokaże, jak te same narzędzia stosuje się w wytrzymałości materiałów.
+
+Kolejność pracy jest taka sama jak kolejność lekcji. Zacznij od jednostek, potem przejdź do modelu, obciążeń, podpór, równowagi, metody przekrojów i zasady Saint-Venanta. Nie przeskakuj do metody przekrojów bez zrozumienia reakcji, bo w większości zadań najpierw trzeba wyznaczyć reakcje, a dopiero potem przeciąć element.
+
+Po każdej lekcji wykonaj laboratorium i quiz. Laboratorium pokazuje zależność jakościową, a quiz sprawdza, czy potrafisz jej użyć w prostym rachunku. Dopiero potem przejdź do zadań z podręcznika. Jeśli wynik się nie zgadza, wróć do schematu i jednostek, zamiast poprawiać liczby „na wyczucie”.
+
+## Mapa lekcji
+
+Siedem lekcji tworzy jedną ścieżkę: od języka obliczeń, przez model i obciążenia, do równowagi i sił wewnętrznych. Każda lekcja zawiera laboratorium i krótki quiz, więc możesz sprawdzić zrozumienie przed przejściem dalej.
+
+**1. Jednostki SI: wspólny język obliczeń.** Lekcja porządkuje jednostki siły, długości, pola, naprężenia i momentu. Dzięki niej dowiesz się, dlaczego w obliczeniach prętów wygodnie jest używać N, mm i MPa oraz jak sprawdzić wymiar wyniku. To lekcja narzędziowa, ale bez niej pozostałe tracą sens.
+
+**2. Model obliczeniowy: świadome uproszczenia.** Tutaj uczysz się zastępować rzeczywisty element schematem: osią, długością, przekrojem i obciążeniem. Poznasz różnicę między modelem sztywnym a odkształcalnym oraz warunki, w których można stosować średnie naprężenie. To lekcja o tym, co wolno pominąć, a czego nie.
+
+**3. Obciążenia: siła, rozkład i moment.** Lekcja pokazuje, jak rozpoznać siłę skupioną, obciążenie liniowe, powierzchniowe i objętościowe oraz moment. Nauczysz się obliczać wypadkową i ciężar własny. Zobaczysz też, że jednostka N/m, N/m² i N·m od razu zdradza charakter obciążenia.
+
+**4. Podpory i reakcje: jak konstrukcja odpowiada.** Poznasz podporę przesuwną, przegub nieprzesuwny i utwierdzenie. Nauczysz się liczyć reakcje z równań równowagi i odróżniać reakcję zewnętrzną od siły wewnętrznej. To lekcja o tym, jak model podparcia zmienia całą dalszą analizę.
+
+**5. Równowaga statyczna: trzy równania.** Tutaj utrwalasz zapis sumy sił i momentów oraz wybór punktu sumowania. Zobaczysz, dlaczego warto sumować momenty względem punktu, przez który przechodzi niewiadoma. Równowaga jest wspólnym językiem statyki i wytrzymałości.
+
+**6. Metoda przekrojów: zajrzyj do środka.** Lekcja wprowadza myślowe cięcie elementu i siły wewnętrzne N, V, M. Nauczysz się wybierać lewą lub prawą część i sprawdzać znaki. To bezpośrednie przygotowanie do wzorów na naprężenia w kolejnych modułach.
+
+**7. Zasada Saint-Venanta: dystans od detalu.** Ostatnia lekcja wyjaśnia, dlaczego lokalny sposób przyłożenia siły ma znaczenie tylko w pobliżu miejsca działania. Nauczysz się oceniać, gdzie średnie naprężenie jest dobrym przybliżeniem, a gdzie potrzebna jest analiza koncentracji.
+
+Po przejściu wszystkich siedmiu lekcji powinieneś umieć spojrzeć na prosty rysunek konstrukcji i powiedzieć, jakie obciążenia działają, jakie reakcje mogą wystąpić oraz gdzie szukać największych sił wewnętrznych. To jeszcze nie jest pełne projektowanie, ale jest to etapa, bez której projektowanie byłoby zgadywaniem.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0,\qquad \sum M_A=0
+$$
+
+<Caption>Trzy równania równowagi płaskiego ciała sztywnego. Pozwalają wyznaczyć trzy niewiadome reakcje w układzie statycznie wyznaczalnym. Punkt A wybieramy tak, aby uprościć równanie momentów.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma=\frac{N}{A},\qquad N>0\ \text{oznacza rozciąganie},\qquad N<0\ \text{oznacza ściskanie}
+$$
+
+<Caption>Średnie naprężenie normalne przy osiowym obciążeniu pręta. Wzór obowiązuje z dala od miejsc przyłożenia obciążenia i przy równomiernym rozkładzie naprężeń w przekroju. Przy N w niutonach i A w mm² wynik jest w MPa.</Caption>
+</Formula>
+
+<Formula>
+$$
+q_g=\gamma A=\rho g A,\qquad G=q_gL,\qquad \sigma_{\max}=\gamma L
+$$
+
+<Caption>Ciężar własny pręta pryzmatycznego i maksymalne naprężenie przy utwierdzeniu. Wzór na naprężenie dotyczy pręta wiszącego, obciążonego wyłącznie ciężarem własnym; pole przekroju skraca się, więc naprężenie nie zależy od A.</Caption>
+</Formula>
+
+Te trzy wzory nie wyczerpują modułu, ale pokazują jego szkielet: równowaga prowadzi do reakcji, reakcje i obciążenia prowadzą do sił wewnętrznych, a siły wewnętrzne do naprężeń. W kolejnych lekcjach dochodzą do tego definicje N, V i M oraz warunki stosowalności modelu.
+
+<Callout kind="warning" title="Czego nie robić na starcie">
+
+- Nie podstawiaj siły w kN do wzoru, w którym pole jest w mm², bez przeliczenia na niutony.
+- Nie używaj $\sigma=N/A$ do zginania. Ten wzór dotyczy siły osiowej i równomiernego rozkładu naprężeń.
+- Nie traktuj reakcji podpory jako siły wewnętrznej w przekroju. To różne pojęcia i różne miejsca działania.
+- Nie pomijaj ciężaru własnego długiego elementu tylko dlatego, że nie został podany jako osobna siła.
+- Nie licz ugięcia z modelu ciała sztywnego. Model sztywny nie ma odkształceń, więc nie może dać ugięcia.
+
+</Callout>
+
+<Insight>
+  Najpierw model i jednostki, potem liczby. Jeśli pomylisz schemat podparcia albo jednostkę, nawet bezbłędna arytmetyka
+  da wynik dla innego zadania. Dobry nawyk to zapisanie założeń obok obliczeń.
+</Insight>
+
+## Jak się uczyć
+
+1. Przeczytaj wstęp i sekcję „Model i intuicja” bez robienia notatek. Upewnij się, że rozumiesz, jakie pytanie zadaje lekcja.
+2. Przepisz do zeszytu definicje i jednostki z tabeli. Przy każdym symbolu zapisz, co oznacza i w jakiej jednostce go używasz.
+3. Wykonaj laboratorium przed przykładem prowadzonym. Zmień kilka parametrów i sprawdź, jak zmienia się wynik. To buduje intuicję przed rachunkiem.
+4. Przejdź przykład prowadzony krok po kroku, zasłaniając kolejne linijki. Spróbuj przewidzieć następny krok, zanim go przeczytasz.
+5. Rozwiąż samodzielnie drugi i trzeci przykład, a dopiero potem porównaj z tekstem. Trzeci przykład jest zwykle odwróceniem pytania i najlepiej sprawdza zrozumienie.
+6. Zrób quiz bez zaglądania do podpowiedzi, a potem wróć do laboratorium i sprawdź, czy potrafisz przewidzieć wynik jakościowo: co rośnie, co maleje, co pozostaje stałe.
+
+## Po tym module
+
+Po module 1 przejdziesz do modułu 2, poświęconego rozciąganiu i ściskaniu. Tam pojawi się naprężenie normalne, prawo Hooke’a, wydłużenie pręta, warunki wytrzymałości i sztywności oraz dobór przekroju. Wszystkie te tematy korzystają z fundamentów: jednostek, modelu pręta, reakcji i metody przekrojów.
+
+W dalszej części kursu zobaczysz ścinanie, skręcanie, zginanie, stan naprężenia i kryteria wytrzymałościowe. Każdy z tych działów zaczyna się od podobnego rytuału: zidentyfikuj obciążenie, zbuduj model, wyznacz siły wewnętrzne, oblicz naprężenia, sprawdź warunek. Moduł 1 jest więc inwestycją, która procentuje przez cały semestr.
+
+Nie traktuj go jako zbędnego wstępu. To tutaj ustalasz konwencje znaków, uczysz się czytać schematy i nabierasz nawyku kontroli jednostek. Te nawyki będą ważniejsze niż pamiętanie pojedynczych wzorów, ponieważ wzory można odszukać, a błędnego schematu często nie widać do końca obliczeń.
+
+Jeśli po module 1 potrafisz samodzielnie narysować schemat prostej belki, zapisać równania równowagi i wyjaśnić, gdzie szukać sił wewnętrznych, jesteś gotowy na moduł rozciągania. Jeśli nie, wróć do lekcji o podporach i metodzie przekrojów — to one najczęściej sprawiają trudność na początku.
+
+## Źródła
+
+Pozycje poniżej uzupełniają lekcje i pozwalają spojrzeć na te same pojęcia z innej perspektywy. Warto sięgać do nich po każdym module, a nie dopiero przed egzaminem.
+
+Nie musisz czytać całych podręczników od początku do końca. Wybierz rozdział odpowiadający aktualnej lekcji, przeczytaj definicje i przykłady, a potem wróć do laboratorium i quizu. Taki tryb pracy utrwala wiedzę szybciej niż bierne czytanie.
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — klasyczne wprowadzenie do podstawowych pojęć, modeli prętowych i analizy naprężeń.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — omówienie stanu naprężenia, odkształcenia i podstawowych przypadków wytrzymałościowych.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — otwarty podręcznik statyki; rozdziały o siłach, momentach, podporach, równowadze i siłach wewnętrznych.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik wytrzymałości; rozdziały o rozciąganiu, kratownicach i podstawach analizy naprężeń.

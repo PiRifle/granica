@@ -7,7 +7,6 @@ shortTitle: Bezwładność
 description: >-
   Geometryczna miara rozmieszczenia pola względem osi oraz momenty bezwładności
   prostokąta, koła i przekroju pierścieniowego.
-duration: 8
 eyebrow: Dalej od osi znaczy sztywniej
 outcomes:
   - W1 — analizuje rozkład materiału względem osi zginania
@@ -19,72 +18,389 @@ outcomes:
 solutionId: cw5-1
 ---
 
-Moment bezwładności rośnie z kwadratem odległości od osi. Dlatego materiał umieszczony daleko od osi zginania jest znacznie skuteczniejszy niż ten zgromadzony blisko niej.
+Weź do ręki linijkę i spróbuj ją zgiąć w płaszczyźnie szerokiej, a potem w płaszczyźnie cienkiej. Ten sam materiał,
+to samo pole przekroju, a sztywność różni się wielokrotnie. Odpowiada za to rozmieszczenie materiału względem osi
+zginania, a nie jego ilość. Moment bezwładności przekroju jest liczbową miarą tej rozmieszczeniowej przewagi.
+
+W belce zginanej naprężenie normalne w punkcie odległym o $y$ od osi obojętnej wynosi $\sigma=-My/I$. Moment
+bezwładności $I$ stoi w mianowniku, więc większe $I$ oznacza mniejsze naprężenie przy tym samym momencie zginającym.
+Jednocześnie iloczyn $EI$ decyduje o sztywności na zginanie, czyli o ugięciu belki. Geometria przekroju działa więc
+podwójnie: chroni materiał przed przeciążeniem i konstrukcję przed nadmiernym ugięciem.
+
+Moment bezwładności przekroju nie jest tym samym co moment bezwładności masy. Tutaj całkujemy pole, a nie masę, i
+otrzymujemy wielkość o jednostce mm⁴. Nie zależy ona od gęstości ani od modułu Younga. To czysta charakterystyka
+geometryczna, którą można policzyć raz i wykorzystać w obliczeniach dla stali, aluminium czy tworzywa, o ile
+zachowujemy liniowo-sprężysty model materiału.
+
+W tej lekcji zdefiniujemy $I_x$ i $I_y$, wyprowadzimy wzór dla prostokąta przez całkowanie, pokażemy skąd bierze się
+$\pi d^4/64$ dla koła i jak odejmować otwór. Nauczysz się też rozróżniać moment względem osi poziomej, pionowej i
+biegunowej oraz sprawdzać, czy jednostki i rząd wielkości mają sens.
+
+Dlaczego to takie ważne w praktyce? Rama rowerowa, dźwigar suwnicy i półka na książki pracują głównie na zginanie.
+Projektant dobiera przekrój tak, aby materiał znalazł się daleko od osi obojętnej, bo właśnie tam jego wkład do $I$
+jest największy. To dlatego rury i dwuteowniki wygrywają z pełnymi prętami przy tej samej masie.
+
+## Zanim zaczniesz
+
+- Potrzebujesz umiejętności całkowania wielomianów, w szczególności $\int y^2\,dy=y^3/3$. Wyprowadzenia w tej
+  lekcji nie wyjdą poza ten poziom.
+- Przypomnij sobie, że oś obojętna przechodzi przez środek ciężkości. Wzory $bh^3/12$ i $\pi d^4/64$ dotyczą właśnie
+  osi centralnych, a nie dowolnych osi równoległych.
+- Opanuj przeliczanie jednostek czwartego stopnia: $1\ \text{cm}=10\ \text{mm}$, więc
+  $1\ \text{cm}^4=10^4\ \text{mm}^4$, a $1\ \text{m}^4=10^{12}\ \text{mm}^4$. Błąd w tym miejscu jest bardzo częsty.
+- Rozróżniaj promień i średnicę. We wzorze na koło wygodniej używać $d$, ale wtedy czwarta potęga dotyczy średnicy,
+  nie promienia.
+- Pamiętaj, że $I$ zależy od osi. Ten sam przekrój ma inne $I_x$, inne $I_y$ i inne $I$ względem osi ukośnej.
+  Liczba bez informacji o osi nic nie znaczy.
+- Typowa pułapka: dla prostokąta stojącego na podstawie $I$ względem podstawy wynosi $bh^3/3$, a nie $bh^3/12$.
+  Wzór z dwunastką dotyczy osi przez środek ciężkości.
+
+## Model i intuicja
+
+Moment bezwładności przekroju definiujemy jako sumę iloczynów „element pola razy kwadrat jego odległości od osi”. W
+granicy otrzymujemy całkę $I_x=\int_A y^2\,dA$. Kwadrat odległości jest kluczowy: element pola dwa razy dalej od osi
+wnosi cztery razy większy wkład. To dlatego materiał umieszczony na obrzeżach przekroju pracuje znacznie efektywniej
+niż ten sam materiał skupiony przy osi.
+
+Model wytrzymałościowy, w którym $I$ pojawia się w mianowniku wzoru na naprężenie, opiera się na kilku założeniach:
+przekroje płaskie pozostają płaskie, odkształcenia są małe, materiał jest liniowo-sprężysty, a zginanie odbywa się
+wokół osi głównej przekroju. Wtedy odkształcenie normalne rośnie liniowo z odległością od osi obojętnej, a naprężenie
+jest do niego proporcjonalne przez moduł Younga.
+
+Dla przekrojów symetrycznych względem płaszczyzny zginania oś obojętna jest osią symetrii, więc nie trzeba jej szukać.
+Dla przekrojów niesymetrycznych nadal przechodzi przez środek ciężkości, ale jej położenie trzeba wyznaczyć metodą z
+poprzedniej lekcji. W obu przypadkach $I$ liczymy względem tej właśnie osi, a nie względem przypadkowej krawędzi.
+
+Model przestaje wystarczać, gdy belka jest bardzo krótka i dominują odkształcenia postaciowe. Wtedy potrzebna jest
+teoria Timoshenki, w której dodatkowo występuje sztywność na ścinanie. Traci też dokładność przy dużych ugięciach,
+gdy geometria odkształconej belki różni się istotnie od pierwotnej, oraz przy odkształceniach plastycznych, gdy
+rozkład naprężeń przestaje być liniowy.
+
+W przekroju kompozytowym sam moment bezwładności geometrii nie wystarcza, bo poszczególne części mają różne moduły
+sprężystości. Stosuje się wtedy przekrój zastępczy, w którym pola są przeliczane przez stosunek modułów. Geometryczne
+$I$ pozostaje punktem wyjścia, ale nie jest już jedyną charakterystyką sztywności.
+
+Moment bezwładności można porównywać tylko przy tej samej osi i tej samej orientacji przekroju. Prostokąt 100 × 200
+ma zupełnie inne $I$ względem osi poziomej niż ten sam prostokąt obrócony o 90°. To nie jest paradoks, lecz sedno
+projektowania: ustawienie przekroju względem płaszczyzny zginania ma większe znaczenie niż samo pole.
+
+## Laboratorium: co ustawić
+
+Ustaw $b=100$ mm i $h=200$ mm, zanotuj $I_x$ prostokąta, a następnie zmień wysokość na 400 mm i sprawdź, czy $I$
+wzrosło około ośmiokrotnie. Wróć do $h=200$ mm, zmień szerokość na 200 mm i porównaj wzrost. Na koniec porównaj
+prostokąt z dwuteownikiem o tych samych wymiarach zewnętrznych i zastanów się, gdzie „uciekł” materiał.
 
 <Lab id="section" />
 
+## Definicje i jednostki
+
+Moment bezwładności przekroju względem osi $x$ to $I_x=\int_A y^2\,dA$, a względem osi $y$ to
+$I_y=\int_A x^2\,dA$. Moment biegunowy względem punktu (zwykle środka ciężkości) definiujemy jako
+$I_o=\int_A r^2\,dA$, gdzie $r$ jest odległością od tego punktu. Zachodzi $r^2=x^2+y^2$, więc $I_o=I_x+I_y$.
+
+| Symbol   | Znaczenie                                | Jednostka |
+| -------- | ---------------------------------------- | --------- |
+| $I_x$    | moment bezwładności względem osi $x$     | mm⁴       |
+| $I_y$    | moment bezwładności względem osi $y$     | mm⁴       |
+| $I_o$    | moment biegunowy względem punktu         | mm⁴       |
+| $I_{xy}$ | moment dewiacyjny, $\int_A xy\,dA$       | mm⁴       |
+| $i_x$    | promień bezwładności, $i_x=\sqrt{I_x/A}$ | mm        |
+| $A$      | pole przekroju                           | mm²       |
+| $y$      | odległość elementu pola od osi $x$       | mm        |
+
+Promień bezwładności $i_x$ ma interpretację „zastępczego ramienia”: gdyby całe pole $A$ skupić w odległości $i_x$ od
+osi, moment byłby taki sam jak rzeczywisty. Dla prostokąta $i_x=h/\sqrt{12}\approx 0{,}289h$, a dla koła pełnego
+$i=d/4$. To wygodna miara do porównywania smukłości przekrojów.
+
+Momenty $I_x$, $I_y$ i $I_o$ są zawsze nieujemne, natomiast moment dewiacyjny $I_{xy}$ może mieć znak dodatni lub
+ujemny. Moment dewiacyjny pojawi się dopiero przy osiach głównych. Dla przekroju symetrycznego względem jednej z osi
+jest równy zeru, więc w tej lekcji nie będzie sprawiał kłopotu. Warto jednak pamiętać, że $I_x$ i $I_y$ nie opisują
+wszystkiego, gdy przekrój jest niesymetryczny i zginany ukośnie.
+
+Jednostka mm⁴ bywa myląca, bo nie ma bezpośredniego odpowiednika w codziennym doświadczeniu. Kontrolę ułatwia
+przeliczenie na cm⁴: dzielimy przez $10^4$. Prostokąt 100 × 200 mm ma $I_x=66{,}67\cdot 10^6\ \text{mm}^4$, czyli
+$6667\ \text{cm}^4$. Taki rząd wielkości jest typowy dla przekrojów budowlanych.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-I_x = \int_A y^2\,dA; \qquad \text{prostokąt: } I_x = \frac{bh^3}{12}; \qquad \text{koło: } I = \frac{\pi d^4}{64}
+I_x=\int_A y^2\,dA, \qquad \text{prostokąt: } I_x=\frac{bh^3}{12}, \qquad \text{koło: } I=\frac{\pi d^4}{64}
 $$
 
-<Caption>Dla prostokąta b jest szerokością równoległą do osi x, a h — wysokością prostopadłą do niej; wzór dotyczy osi środkowej. Jednostką I jest mm⁴ lub m⁴. Dla pierścienia odejmujemy moment otworu.</Caption>
+<Caption>Dla prostokąta $b$ jest szerokością równoległą do osi $x$, a $h$ wysokością prostopadłą do niej; wzór dotyczy
+osi środkowej. Dla koła $d$ jest średnicą, a wzór dotyczy osi przechodzącej przez środek. Jednostką $I$ jest mm⁴ lub
+m⁴.</Caption>
 </Formula>
 
+Wyprowadzenie dla prostokąta pokazuje, skąd bierze się trzecia potęga wysokości i dlaczego szerokość wchodzi tylko w
+pierwszej potędze.
+
+1. Umieść środek prostokąta w początku układu, tak aby oś $x$ była równoległa do podstawy $b$.
+2. Podziel przekrój na poziome paski o wysokości $dy$. Pole paska wynosi $dA=b\,dy$, a jego odległość od osi to $y$.
+3. Z definicji $I_x=\int_A y^2\,dA=\int_{-h/2}^{h/2} y^2\,b\,dy$.
+4. Wyciągnij stałą $b$ przed całkę i scałkuj: $\int y^2\,dy=y^3/3$.
+5. Oblicz różnicę granic: $(h/2)^3-(-h/2)^3=2h^3/8$.
+6. Po podstawieniu i uproszczeniu otrzymujesz $I_x=\frac{bh^3}{12}$. Analogicznie, zamieniając role boków,
+   $I_y=\frac{hb^3}{12}$.
+7. Dla koła wygodniej zacząć od momentu biegunowego. We współrzędnych biegunowych $dA=2\pi r\,dr$, więc
+   $I_o=\int_0^{d/2}r^2\cdot 2\pi r\,dr=\frac{\pi d^4}{32}$.
+8. Z symetrii koła $I_x=I_y$ oraz $I_o=I_x+I_y$, więc każdy z momentów osiowych wynosi $\frac{\pi d^4}{64}$.
+9. Dla pierścienia o średnicach $D$ i $d$ odejmujemy moment otworu: $I=\frac{\pi(D^4-d^4)}{64}$. Nie odejmujemy
+   średnic przed podniesieniem do potęgi.
+
+Dla trójkąta o podstawie $b$ i wysokości $h$ moment względem podstawy można policzyć tak samo jak dla prostokąta, ale
+szerokość paska zmienia się liniowo: $b(y)=b(1-y/h)$. Wtedy
+
+$$
+I_{\text{podstawa}}=\int_0^h y^2\,b\left(1-\frac{y}{h}\right)dy=b\left(\frac{h^3}{3}-\frac{h^3}{4}\right)=\frac{bh^3}{12}.
+$$
+
+Moment względem osi przechodzącej przez środek ciężkości jest mniejszy i wynosi $bh^3/36$. Różnicę wyjaśni
+twierdzenie Steinera w następnej lekcji: oś podstawy jest oddalona od środka o $h/3$, a składnik $A(h/3)^2$ dokładnie
+uzupełnia $bh^3/36$ do $bh^3/12$.
+
 <Insight>
-  Nie wolno zastępować I iloczynem pola i zwykłej odległości: w definicji występuje kwadrat odległości. Zamiana b z h w
-  prostokącie zmienia sztywność zginania, choć pole pozostaje takie samo.
+  W momencie bezwładności liczy się kwadrat odległości, a nie sama odległość. Dlatego podwojenie wysokości prostokąta
+  ośmiokrotnie zwiększa $I_x$, a podwojenie szerokości tylko dwukrotnie. Obrót przekroju o 90° zmienia $I_x$ w stosunku
+  $(h/b)^2$ i może zmienić sztywność belki czterokrotnie przy niezmienionym polu.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Porównujemy prostokąt 100 × 200 mm względem poziomej osi środkowej x oraz względem jego dolnej podstawy.
+    Rura o średnicy zewnętrznej $D=120$ mm i wewnętrznej $d=100$ mm jest zginana względem osi przechodzącej przez
+    środek. Porównujemy ją z pełnym prętem o tej samej średnicy zewnętrznej.
   </Given>
   <Steps>
-    <Step>Względem osi środkowej Ixc = bh³/12 = 100·200³/12 = 66,67·10⁶ mm⁴.</Step>
-    <Step>Względem podstawy szerokość przekroju jest stała, więc Ixb = ∫₀ʰ b·y² dy = bh³/3.</Step>
-    <Step>Ixb = bh³/3 = 100·200³/3 = 200·10⁶ mm⁴.</Step>
     <Step>
-      Moment względem podstawy jest większy, bo oś jest odsunięta od środka ciężkości; zależność między nimi wyjaśnia
-      twierdzenie Steinera.
+      Pole rury: $A=\frac{\pi(120^2-100^2)}{4}=\frac{\pi\cdot 4400}{4}\approx 3455{,}75\ \text{mm}^2$. Pole pręta
+      pełnego wynosi $11\,309{,}73\ \text{mm}^2$, czyli rura ma około 30,6% pola.
+    </Step>
+    <Step>
+      Moment rury: $I=\frac{\pi(120^4-100^4)}{64}\approx 5{,}27\cdot 10^6\ \text{mm}^4$. Różnica czwartych potęg
+      $120^4-100^4=107\,360\,000\ \text{mm}^4$.
+    </Step>
+    <Step>
+      Moment pręta pełnego: $I_s=\frac{\pi\cdot 120^4}{64}\approx 10{,}179\cdot 10^6\ \text{mm}^4$. Rura zachowuje
+      około 51,8% momentu pełnego pręta.
+    </Step>
+    <Step>
+      Promień bezwładności rury: $i=\sqrt{I/A}=\sqrt{5{,}270\cdot 10^6/3455{,}75}\approx 39{,}05$ mm.
+    </Step>
+    <Step>
+      Dla pręta pełnego $i_s=d/4=30$ mm. Większy promień bezwładności rury potwierdza, że jej materiał jest
+      przeciętnie dalej od osi.
+    </Step>
+    <Step>
+      Kontrola jednostek: $\text{mm}^4/\text{mm}^2=\text{mm}^2$, a po pierwiastku otrzymujemy mm — zgodnie z
+      definicją promienia bezwładności.
     </Step>
   </Steps>
-  <Result>Ixc = 66,67·10⁶ mm⁴, natomiast względem dolnej podstawy Ixb = 200·10⁶ mm⁴.</Result>
+  <Result>
+    Rura ma $I\approx 5{,}27\cdot 10^6\ \text{mm}^4\approx 527\ \text{cm}^4$ i $i\approx 39{,}05$ mm, podczas gdy pełny pręt ma
+    $I_s\approx 10{,}18\cdot 10^6\ \text{mm}^4$ i $i_s=30$ mm. Rura zużywa około 31% materiału i zachowuje około 52%
+    sztywności zginania.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Trójkąt o podstawie $b=120$ mm i wysokości $h=90$ mm jest zginany względem osi równoległej do podstawy. Jeżeli oś
+przechodzi przez podstawę, to
+
+$$
+I_{\text{podstawa}}=\frac{bh^3}{12}=\frac{120\cdot 90^3}{12}=7\,290\,000\ \text{mm}^4.
+$$
+
+Jeżeli oś przechodzi przez środek ciężkości, to $I_c=bh^3/36$:
+
+$$
+I_c=\frac{120\cdot 90^3}{36}=2\,430\,000\ \text{mm}^4.
+$$
+
+Sprawdźmy zgodność z twierdzeniem Steinera. Pole wynosi $A=\frac{1}{2}\cdot 120\cdot 90=5400\ \text{mm}^2$, a
+odległość środka od podstawy to $h/3=30$ mm. Składnik przesunięcia wynosi
+
+$$
+A\left(\frac{h}{3}\right)^2=5400\cdot 900=4\,860\,000\ \text{mm}^4.
+$$
+
+Rzeczywiście $2\,430\,000+4\,860\,000=7\,290\,000\ \text{mm}^4$. To pokazuje, że oba wzory są spójne, a różnica
+między nimi nie jest przypadkowa. W obliczeniach zginania używamy $I_c$, bo oś obojętna przechodzi przez środek
+ciężkości.
+
+Zwróć uwagę na kierunek. Jeżeli trójkąt zostanie obrócony tak, że podstawa będzie pionowa, to moment względem
+poziomej osi zmieni się na $hb^3/36$, czyli w tym przypadku $90\cdot 120^3/36=4\,320\,000\ \text{mm}^4$. Ten sam
+kształt, inne ustawienie, inna sztywność.
+
+## Trzeci przykład: wariant odwrotny
+
+Projektant potrzebuje prostokątnego przekroju o $I_x=40\cdot 10^6\ \text{mm}^4$ względem osi poziomej przez środek.
+Szerokość jest ograniczona do $b=80$ mm. Jaka musi być wysokość? Z wzoru $I=bh^3/12$ wyznaczamy
+
+$$
+h^3=\frac{12I}{b}=\frac{12\cdot 40\cdot 10^6}{80}=6\cdot 10^6\ \text{mm}^3,
+$$
+
+czyli $h\approx 181{,}7$ mm. Pole wynosi wtedy około $14\,536\ \text{mm}^2$.
+
+Gdyby szerokość zwiększyć do 160 mm, wymagana wysokość spadłaby do
+
+$$
+h=\left(\frac{12\cdot 40\cdot 10^6}{160}\right)^{1/3}=(3\cdot 10^6)^{1/3}\approx 144{,}2\ \text{mm}.
+$$
+
+Pole wzrosłoby jednak do około $23\,075\ \text{mm}^2$, czyli przekrój zużyłby znacznie więcej materiału przy tym
+samym $I$. Wniosek jest ogólny: przy zginaniu w jednej płaszczyźnie opłaca się zwiększać wymiar prostopadły do osi
+obojętnej, a nie równoległy do niej. Oczywiście tylko do granicy wynikającej z miejsca, stateczności ścianek i
+technologii.
+
+Wariant odwrotny można też sformułować przez promień bezwładności. Jeżeli wymagane jest $i_x=60$ mm przy polu
+$A=5000\ \text{mm}^2$, to $I_x=i_x^2A=3600\cdot 5000=18\cdot 10^6\ \text{mm}^4$. Taki zapis bywa wygodniejszy w
+normach i katalogach kształtowników, gdzie podaje się promienie bezwładności zamiast momentów.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Użycie $h^2$ zamiast $h^3$.** Jednostka natychmiast zdradza błąd: moment bezwładności musi mieć mm⁴, a nie mm³.
+
+**Stosowanie $bh^3/12$ względem podstawy.** Wzór z dwunastką dotyczy osi centralnej; względem podstawy jest $bh^3/3$.
+
+**Odejmowanie średnic przed potęgowaniem.** $\pi(D-d)^4/64$ jest błędem. Najpierw czwarte potęgi, potem różnica.
+
+**Mylenie $1\ \text{cm}^4$ z $100\ \text{mm}^4$.** Poprawnie $1\ \text{cm}^4=10\,000\ \text{mm}^4$.
+
+**Zakładanie $I_x=I_y$ dla prostokąta.** Równość zachodzi tylko dla kwadratu i koła; dla prostokąta stosunek wynosi
+$(h/b)^2$.
+
+**Liczenie $I$ względem przypadkowej osi.** Do wzoru na naprężenie przy zginaniu potrzebny jest moment względem osi
+obojętnej, a nie względem dowolnej krawędzi.
+
+**Zapominanie o odjęciu momentu otworu przy rurze.** Sam moment zewnętrznego koła zawyża sztywność.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, względem której osi ma być liczony moment. Przy zginaniu jest to oś obojętna, czyli centralna i prostopadła
+   do płaszczyzny zginania.
+2. Wyznacz położenie środka ciężkości, jeżeli przekrój nie jest symetryczny. Bez tego nie wiadomo, gdzie jest oś
+   centralna.
+3. Rozpoznaj kształt i wybierz wzór: $bh^3/12$ dla prostokąta, $\pi d^4/64$ dla koła, $bh^3/36$ dla trójkąta
+   względem środka, różnica dla pierścienia.
+4. Sprawdź orientację: który wymiar jest równoległy do osi, a który prostopadły. Zamiana $b$ z $h$ zmienia wynik.
+5. Policz $I$ i zapisz jednostkę. Przy potrzebie porównania przelicz na cm⁴, dzieląc przez $10^4$.
+6. Jeżeli potrzebna jest sztywność, użyj $EI$; jeżeli naprężenie, użyj $I$ w mianowniku wzoru $\sigma=My/I$.
+7. Wykonaj kontrolę rzędu wielkości: podwojenie wysokości powinno dać około ośmiokrotny wzrost $I_x$, a podwojenie
+   szerokości około dwukrotny.
+
+## Połącz z resztą kursu
+
+- „Środek ciężkości figur prostych” i „Momenty statyczne i figury złożone” dają położenie osi, względem której liczy
+  się moment bezwładności.
+- „Twierdzenie Steinera” pozwala przenieść $I$ z osi własnej części na wspólną oś centralną przekroju złożonego.
+- „Osie centralne i główne” pokazuje, że $I_x$ i $I_y$ zmieniają się przy obrocie osi, a w osiach głównych osiągają
+  wartości ekstremalne.
+- „Wskaźnik wytrzymałości przekroju W” i „Racjonalne kształty przekrojów” zamieniają $I$ na miarę nośności i pozwalają
+  porównać efektywność $I/A$ oraz $W/A$.
+- W module „Zginanie” $I$ wchodzi do wzoru na naprężenie i do równania ugięcia; bez niego nie da się ocenić belki.
+- W module „Ścinanie i skręcanie” moment biegunowy $I_o$ jest geometrycznym odpowiednikiem $J$ dla wału okrągłego.
+
+## Sprawdź się
+
+Rozwiąż pytania, zapisując najpierw wzór, potem podstawienie, a na końcu jednostkę. Zwróć uwagę na potęgi i na to,
+względem której osi liczysz moment.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Prostokąt ma b = 100 mm i h = 200 mm. Moment bezwładności względem poziomej osi środkowej x wynosi:</Prompt>
-    <Answer>6,667·10⁶ mm⁴</Answer>
-    <Answer correct>66,67·10⁶ mm⁴</Answer>
-    <Answer>200·10⁶ mm⁴</Answer>
-    <Hint>Do osi poziomej x odległość mierzymy pionowo, więc h wchodzi w trzeciej potędze.</Hint>
+    <Prompt>Prostokąt ma $b=100$ mm i $h=200$ mm. Moment bezwładności względem poziomej osi środkowej $x$ wynosi:</Prompt>
+    <Answer>$6{,}667\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer correct>$66{,}67\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer>$200\cdot 10^6\ \text{mm}^4$</Answer>
+    <Hint>Do osi poziomej $x$ odległość mierzymy pionowo, więc $h$ wchodzi w trzeciej potędze.</Hint>
     <Explanation>
-      Iₓ = bh³/12 = 100·200³/12 = 66,67·10⁶ mm⁴. Wartość 200·10⁶ mm⁴ dotyczy osi na dolnej podstawie.
+      $I_x=bh^3/12=100\cdot 200^3/12=66{,}67\cdot 10^6\ \text{mm}^4$. Wartość $200\cdot 10^6\ \text{mm}^4$ dotyczy
+      osi na dolnej podstawie.
     </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>
-      Ten sam prostokąt obrócono o 90° w płaszczyźnie przekroju, zachowując nazwę osi zginania. Jak zmieni się I
-      względem osi poziomej?
-    </Prompt>
+    <Prompt>Ten sam prostokąt obrócono o 90° w płaszczyźnie przekroju. Jak zmieni się $I$ względem poziomej osi?</Prompt>
     <Answer>Nie zmieni się, bo pole jest stałe</Answer>
-    <Answer correct>Zmaleje cztery razy</Answer>
-    <Answer>Wzrośnie cztery razy</Answer>
+    <Answer correct>Zmaleje czterokrotnie</Answer>
+    <Answer>Wzrośnie czterokrotnie</Answer>
     <Hint>Po obrocie szerokość i wysokość zamieniają się miejscami.</Hint>
-    <Explanation>Początkowo I₁ = 100·200³/12. Po obrocie I₂ = 200·100³/12, więc I₂/I₁ = 100²/200² = 1/4.</Explanation>
+    <Explanation>
+      Początkowo $I_1=100\cdot 200^3/12$. Po obrocie $I_2=200\cdot 100^3/12$, więc $I_2/I_1=100^2/200^2=1/4$.
+    </Explanation>
   </Question>
   <Question outcome="U1">
     <Prompt>
-      Dla rury o średnicy zewnętrznej D i wewnętrznej d prawidłowy moment bezwładności względem osi środkowej to:
+      Dla rury o średnicy zewnętrznej $D$ i wewnętrznej $d$ prawidłowy moment bezwładności względem osi środkowej to:
     </Prompt>
-    <Answer>π(D − d)⁴/64</Answer>
-    <Answer correct>π(D⁴ − d⁴)/64</Answer>
-    <Answer>πD⁴/64 zawsze, bez korekty</Answer>
-    <Hint>Odejmuj momenty bezwładności dwóch współśrodkowych kół.</Hint>
+    <Answer>$\pi(D-d)^4/64$</Answer>
+    <Answer correct>$\pi(D^4-d^4)/64$</Answer>
+    <Answer>$\pi D^4/64$ zawsze, bez korekty</Answer>
+    <Hint>Odejmij momenty bezwładności dwóch współśrodkowych kół.</Hint>
     <Explanation>
-      Od momentu pełnego koła odejmujemy moment otworu: I = πD⁴/64 − πd⁴/64. Nie wolno najpierw odejmować średnic i
-      podnosić różnicy do czwartej potęgi.
+      Od momentu pełnego koła odejmujemy moment otworu: $I=\pi D^4/64-\pi d^4/64$. Nie wolno najpierw odejmować
+      średnic i podnosić różnicy do czwartej potęgi.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Belka ma ten sam moment zginający, ale zwiększono jej $I$ czterokrotnie. Co stanie się z maksymalnym naprężeniem normalnym?</Prompt>
+    <Answer>Wzrośnie czterokrotnie</Answer>
+    <Answer correct>Zmniejszy się czterokrotnie</Answer>
+    <Answer>Nie zmieni się, bo $I$ nie wpływa na naprężenie</Answer>
+    <Hint>Wzór $\sigma=My/I$ ma $I$ w mianowniku.</Hint>
+    <Explanation>
+      Przy stałych $M$ i $y$ naprężenie jest odwrotnie proporcjonalne do $I$. Czterokrotny wzrost $I$ daje czterokrotny
+      spadek $|\sigma|$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pole przekroju wynosi $A=2000\ \text{mm}^2$, a $I_x=8\cdot 10^6\ \text{mm}^4$. Promień bezwładności $i_x$ jest równy:</Prompt>
+    <Answer>40 mm</Answer>
+    <Answer>80 mm</Answer>
+    <Answer correct>63,2 mm</Answer>
+    <Hint>$i_x=\sqrt{I_x/A}$, a pierwiastek z ilorazu mm⁴/mm² daje mm.</Hint>
+    <Explanation>
+      $i_x=\sqrt{8\cdot 10^6/2000}=\sqrt{4000}\approx 63{,}25$ mm. Wartość 80 mm powstałaby z pominięcia
+      pierwiastka lub błędnego ilorazu.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Dwa przekroje mają takie samo pole, ale jeden ma materiał skupiony blisko osi, a drugi daleko. Który ma większy
+      moment bezwładności?
+    </Prompt>
+    <Answer>Ten z materiałem blisko osi</Answer>
+    <Answer correct>Ten z materiałem daleko od osi</Answer>
+    <Answer>Oba mają identyczny moment, bo pole jest równe</Answer>
+    <Hint>W definicji występuje $y^2$, więc odległość liczy się kwadratowo.</Hint>
+    <Explanation>
+      Wkład elementu pola wynosi $y^2\,dA$. Przy tym samym polu większa średnia wartość $y^2$ daje większy $I$, nawet
+      jeśli pole całkowite się nie zmienia.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Która zależność wiąże moment osiowe i biegunowy dla przekroju płaskiego?</Prompt>
+    <Answer>$I_o=I_x-I_y$</Answer>
+    <Answer correct>$I_o=I_x+I_y$</Answer>
+    <Answer>$I_o=I_x\cdot I_y$</Answer>
+    <Hint>Skorzystaj z $r^2=x^2+y^2$ i addytywności całki.</Hint>
+    <Explanation>
+      $I_o=\int r^2\,dA=\int(x^2+y^2)\,dA=\int x^2\,dA+\int y^2\,dA=I_y+I_x$. Dla koła oba momenty osiowe są równe,
+      więc każdy wynosi $I_o/2$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o momentach bezwładności figur płaskich;
+  wyprowadzenia dla prostokąta, koła i trójkąta oraz tabela wzorów.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT — zadania z momentami bezwładności
+  przekrojów złożonych; dobre do ćwiczenia jednostek i orientacji osi.
+- E. Osgood, L. Cameron, P. Christensen, _Engineering Mechanics: Statics_ (otwarty podręcznik) — rozdział o rodzajach
+  bezwładności; rozróżnienie momentu pola, momentu masowego i momentu biegunowego.
+- D. Roylance, _Mechanics of Materials_ (otwarty podręcznik) — rozdział o naprężeniach w belkach; wyprowadzenie
+  $\sigma=My/I$ i rola momentu bezwładności względem osi obojętnej.

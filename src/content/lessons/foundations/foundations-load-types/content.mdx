@@ -7,7 +7,6 @@ shortTitle: Obciążenia
 description: >-
   Rozpoznaj sposób działania obciążenia i zapisz jego wartość, kierunek oraz
   miejsce przyłożenia.
-duration: 8
 eyebrow: Co działa na element?
 outcomes:
   - W1 — identyfikuje zewnętrzne oddziaływania na element konstrukcji
@@ -18,33 +17,213 @@ outcomes:
   - U3 — zestawia obciążenia potrzebne do bezpiecznego i sztywnego doboru
 ---
 
-Siła skupiona jest wygodnym modelem oddziaływania na małym obszarze, a obciążenie rozłożone opisuje np. ciężar własny. Moment zewnętrzny opisuje działanie obrotowe: może wywoływać zginanie lub skręcanie, więc nie można go traktować jak zwykłej siły.
+Plecak na jednym ramieniu uciska wąski pas, a ten sam plecak postawiony na dwóch szerokich podporach działa zupełnie inaczej. Kluczowa nie jest tylko masa, lecz sposób jej rozłożenia na elemencie. W wytrzymałości materiałów obciążenie opisujemy więc nie tylko liczbą, ale także kierunkiem, miejscem i rozkładem.
+
+Najprostszym modelem jest siła skupiona. Zastępujemy nią oddziaływanie, które w rzeczywistości działa na niewielkim obszarze: nóżkę krzesła, hak, śrubę, koniec tłoczyska. Taki model jest wygodny, dopóki interesuje nas zachowanie elementu z dala od miejsca kontaktu. Bezpośrednio pod nóżką naprężenia mogą być zupełnie inne niż średnia wartość wynikająca z podzielenia siły przez pole.
+
+Bardziej szczegółowym modelem jest obciążenie rozłożone. Ciężar własny belki, śnieg na dachu, parcie wiatru na ścianę czy nacisk podłogi na stopę to oddziaływania rozłożone odpowiednio wzdłuż linii, na powierzchni lub w objętości. Ich jednostka od razu zdradza charakter: N/m, N/m² albo N/m³. Z kolei moment skupiony opisuje działanie obrotowe, na przykład dokręcanie śruby kluczem.
+
+W tej lekcji nauczysz się rozpoznawać te rodzaje obciążeń, przeliczać je na wypadkowe i odróżniać wielkości, które mają te same liczby, ale różne jednostki. Szczególną uwagę poświęcimy ciężarowi własnemu, ponieważ zależy on od gęstości, pola przekroju i długości, a w długich elementach potrafi zdominować obliczenia.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie, że siła jest wektorem: ma wartość, kierunek i zwrot. Moment też jest wielkością wektorową, ale w zadaniu płaskim opisujemy go jednym znakiem.
+- Odróżniaj gęstość od ciężaru objętościowego. Gęstość $\rho$ jest w kg/m³, a ciężar objętościowy $\gamma=\rho g$ jest w N/m³.
+- Wiedz, że $g\approx 9{,}81\ \text{m/s}^2$ i że ciężar $G=mg$ jest siłą, a nie masą.
+- Przypomnij sobie, jak oblicza się pole i objętość prostych brył oraz jak zamieniać mm² na m² i mm³ na m³.
+- Rozróżniaj jednostki: N dla siły, N/m dla obciążenia liniowego, N/m² dla nacisku i N·m dla momentu.
+- Uważaj na kierunek obciążenia. Wartość dodatnia lub ujemna zależy od przyjętego układu współrzędnych, a nie od tego, czy obciążenie jest „duże” czy „małe”.
+
+## Model i intuicja
+
+Obciążenia dzielimy przede wszystkim według sposobu rozłożenia. Siła skupiona działa w jednym punkcie modelu, choć w rzeczywistości zawsze na pewnym obszarze. Obciążenie liniowe $q(x)$ opisuje siłę przypadającą na jednostkę długości i jest typowe dla belek, kratownic i przewodów. Obciążenie powierzchniowe $p(x,y)$ opisuje nacisk na jednostkę pola, np. śnieg na dachu. Obciążenie objętościowe działa na każdy fragment materiału, np. ciężar własny albo siła bezwładności.
+
+Dla elementu prętowego ciężar własny jest obciążeniem objętościowym, ale po pomnożeniu przez pole przekroju staje się obciążeniem liniowym:
+
+$$
+q_g=\gamma A=\rho g A
+$$
+
+To przejście jest jednym z najważniejszych w kursie. Gęstość i przyspieszenie ziemskie opisują materiał, pole przekroju opisuje geometrię, a iloczyn daje siłę na jednostkę długości. Dla pręta o stałym przekroju $q_g$ jest stałe. Dla pręta schodkowego lub stożkowego zmienia się wraz z $x$, więc trzeba całkować albo dzielić element na odcinki.
+
+Moment skupiony różni się od siły nie tylko jednostką. Siła przesuwa lub ściska element, a moment działa obrotowo. Przyłożony do końca belki może wywołać zginanie; przyłożony do wału może wywołać skręcanie. Ten sam moment może być przenoszony przez podporę, dlatego nie można go pominąć tylko dlatego, że „nie ma żadnej siły”.
+
+Model siły skupionej przestaje być wystarczający, gdy pytamy o naprężenia kontaktowe, lokalne wgniecenia, zmęczenie przy krawędzi docisku lub rozkład nacisku w połączeniu. Wtedy potrzebny jest model obciążenia powierzchniowego lub kontaktowego. Podobnie model równomiernego obciążenia liniowego może być zbyt gruby dla dachu, na którym śnieg tworzy zaspy.
+
+W rzeczywistej konstrukcji obciążenia zwykle występują jednocześnie: ciężar własny, obciążenie użytkowe, śnieg, wiatr i temperatura. Inżynier zestawia je w kombinacje, dobiera współczynniki i sprawdza kilka scenariuszy. W tym module ograniczamy się do prostego sumowania obciążeń, ale już teraz warto zauważyć, że każde z nich ma inny charakter i inną jednostkę.
+
+## Laboratorium: co ustawić
+
+Ustaw ciężar objętościowy, długość i pole przekroju pręta wiszącego. Odczytaj, jak naprężenie od ciężaru własnego rośnie liniowo od zera na swobodnym końcu do wartości $\gamma L$ przy utwierdzeniu, i sprawdź, że nie zależy ono od pola przy stałej długości.
 
 <Lab id="selfWeight" />
 
+## Definicje i jednostki
+
+| Rodzaj obciążenia         | Zapis    | Jednostka    | Typowy przykład              |
+| ------------------------- | -------- | ------------ | ---------------------------- |
+| Siła skupiona             | $P$, $F$ | N lub kN     | Nacisk nóżki, hak, śruba     |
+| Obciążenie liniowe        | $q(x)$   | N/m lub kN/m | Ciężar belki, śnieg na linii |
+| Obciążenie powierzchniowe | $p(x,y)$ | N/m² = Pa    | Śnieg, wiatr, nacisk płyty   |
+| Obciążenie objętościowe   | $\gamma$ | N/m³         | Ciężar własny materiału      |
+| Moment skupiony           | $M$, $T$ | N·m lub kN·m | Dokręcanie, para sił         |
+| Ciężar własny             | $G$      | N lub kN     | Ciężar całego elementu       |
+| Gęstość                   | $\rho$   | kg/m³        | Własność materiału           |
+| Przyspieszenie ziemskie   | $g$      | m/s²         | Wartość typowa 9,81          |
+
+W zadaniach płaskich moment skupiony ma znak dodatni, jeśli działa przeciwnie do ruchu wskazówek zegara, albo zgodnie z przyjętą konwencją. Siły pionowe skierowane w dół przyjmujemy zwykle jako ujemne w równaniu $\sum F_y=0$, ale sam znak nie jest uniwersalny — zależy od osi. Zawsze zapisuj przyjęty układ na rysunku.
+
+Dla ciężaru własnego wygodnie jest używać dwóch zestawów jednostek:
+
+- $\gamma$ w kN/m³, $A$ w m², $L$ w m — wtedy $q_g$ wychodzi w kN/m, a $G$ w kN;
+- $\gamma$ w N/mm³, $A$ w mm², $L$ w mm — wtedy $q_g$ wychodzi w N/mm, a $G$ w N.
+
+Nie mieszaj tych zestawów. Wartość $\gamma=77\ \text{kN/m}^3$ to $7{,}7\cdot 10^{-5}\ \text{N/mm}^3$, a nie 77 N/mm³. Przeliczenie gęstości jest tu równie ważne jak przeliczenie siły.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-q_g=\rho g A,\qquad G=q_g L=\rho g A L
+q_g=\gamma A=\rho g A,\qquad
+G=q_gL=\gamma AL,\qquad
+\sigma(x)=\gamma x,\qquad
+\sigma_{\max}=\gamma L
 $$
 
-<Caption>ρ to gęstość materiału, g ≈ 9,81 m/s², A to pole przekroju, a qg oznacza ciężar przypadający na jednostkę długości (N/m).</Caption>
+<Caption>Wzory dotyczą pryzmatycznego pręta wiszącego, obciążonego wyłącznie ciężarem własnym. Współrzędna $x$ jest mierzona od swobodnego końca, a maksimum naprężenia występuje przy utwierdzeniu. Pole przekroju skraca się w wyrażeniu na naprężenie.</Caption>
 </Formula>
 
+Wyprowadzenie pokazuje, dlaczego pole przekroju znika z końcowego wyniku. To jeden z tych wyników, które warto rozumieć, bo przeczy prostej intuicji „grubszy pręt jest zawsze bezpieczniejszy”.
+
+1. Rozważmy cienki fragment pręta o długości $\mathrm{d}x$ i polu przekroju $A$.
+2. Objętość fragmentu wynosi $\mathrm{d}V=A\,\mathrm{d}x$.
+3. Masa fragmentu to $\mathrm{d}m=\rho A\,\mathrm{d}x$.
+4. Ciężar fragmentu to $\mathrm{d}G=\mathrm{d}m\,g=\rho g A\,\mathrm{d}x$.
+5. Ciężar na jednostkę długości wynosi $q_g=\mathrm{d}G/\mathrm{d}x=\rho g A=\gamma A$.
+6. Ciężar całego pręta to całka po długości: $G=\int_0^L q_g\,\mathrm{d}x=\gamma AL$.
+7. W przekroju odległym o $x$ od swobodnego końca siła normalna równoważy ciężar części poniżej: $N(x)=\gamma Ax$.
+8. Naprężenie normalne wynosi $\sigma(x)=N(x)/A=\gamma x$.
+9. Pole $A$ skraca się, więc naprężenie zależy tylko od ciężaru objętościowego i odległości od swobodnego końca.
+10. Największe naprężenie występuje przy utwierdzeniu: $\sigma_{\max}=\gamma L$.
+
+Wynik jest zaskakujący: pogrubienie pręta zwiększa zarówno nośność, jak i ciężar, więc naprężenie od ciężaru własnego pozostaje takie samo. Grubszy pręt przeniesie większą siłę, ale ta siła pochodzi właśnie z jego większego ciężaru. Dla bardzo długiego pręta naprężenie może osiągnąć granicę materiału niezależnie od tego, jak duży przekrój zastosujemy.
+
 <Insight>
-  Ta sama wartość liczbowa może oznaczać co innego: 10 kN to siła, 10 kN/m to obciążenie liniowe, a 10 kN·m to moment.
-  Jednostka ujawnia charakter obciążenia.
+  W pionowym pręcie wiszącym naprężenie od ciężaru własnego nie zależy od pola przekroju. Zwiększanie przekroju zwiększa
+  nośność, ale równocześnie zwiększa ciężar, więc stosunek siły do pola pozostaje bez zmian.
 </Insight>
 
 <WorkedExample>
-  <Given>Stalowy pręt ma A = 0,002 m², L = 4 m i gęstość ρ = 7850 kg/m³. Przyjmij g = 9,81 m/s².</Given>
+  <Given>
+    Stalowy pręt ma pole przekroju 500 mm² i długość 2,5 m. Gęstość stali wynosi 7850 kg/m³, a przyspieszenie ziemskie
+    9,81 m/s². Oblicz ciężar własny, obciążenie liniowe i maksymalne naprężenie przy utwierdzeniu.
+  </Given>
   <Steps>
-    <Step>Oblicz objętość: V = AL = 0,002 m² · 4 m = 0,008 m³.</Step>
-    <Step>Oblicz ciężar na jednostkę długości: qg = ρgA = 7850 · 9,81 · 0,002 ≈ 154,0 N/m.</Step>
-    <Step>Oblicz ciężar całego pręta: G = qgL = 154,0 N/m · 4 m ≈ 616 N.</Step>
-    <Step>Dla pręta poziomego zastąp ciężar G równomiernym obciążeniem qg skierowanym pionowo w dół.</Step>
+    <Step>Oblicz ciężar objętościowy: γ = ρg = 7850 · 9,81 ≈ 77 009 N/m³.</Step>
+    <Step>Zamień pole na m²: A = 500 mm² = 500 · 10⁻⁶ m² = 0,0005 m².</Step>
+    <Step>Oblicz obciążenie liniowe: qg = γA = 77 009 · 0,0005 ≈ 38,5 N/m.</Step>
+    <Step>Oblicz ciężar całego pręta: G = qgL = 38,5 · 2,5 ≈ 96,3 N.</Step>
+    <Step>
+      Sprawdź przez objętość i masę: V = 0,0005 · 2,5 = 0,00125 m³, m = 7850 · 0,00125 ≈ 9,81 kg, G = mg ≈ 96,3 N.
+    </Step>
+    <Step>Oblicz maksymalne naprężenie: σmax = G/A = 96,3 / 0,0005 ≈ 192 600 Pa.</Step>
+    <Step>Zamień na MPa: 192 600 Pa ≈ 0,193 MPa. Ten sam wynik daje σmax = γL = 77 009 · 2,5.</Step>
   </Steps>
-  <Result>Ciężar własny wynosi około 616 N, co odpowiada obciążeniu qg ≈ 154 N/m.</Result>
+  <Result>
+    Ciężar pręta wynosi około 96,3 N, obciążenie liniowe około 38,5 N/m, a maksymalne naprężenie od ciężaru własnego
+    około 0,193 MPa.
+  </Result>
 </WorkedExample>
+
+Wynik rzędu 0,2 MPa jest mały w porównaniu z typową granicą plastyczności stali, ale to nie znaczy, że ciężar własny można zawsze pominąć. Dla pręta o długości 1 km naprężenie wzrośnie do około 77 MPa, a dla 3 km przekroczy 230 MPa. Wtedy staje się porównywalne z granicą materiału. Rząd wielkości zależy od długości, a nie od pola.
+
+Kontrola wyniku polega tu na dwóch krokach: sprawdzeniu jednostki oraz sprawdzeniu, czy liczba jest realistyczna. Masa 9,81 kg dla pręta o polu 500 mm² i długości 2,5 m jest sensowna, a naprężenie 0,193 MPa nie przekracza typowych wartości dla stali. Gdyby siła wyszła w meganiutonach, oznaczałoby to błąd przeliczenia pola lub gęstości.
+
+## Drugi przykład
+
+Belka swobodnie podparta ma długość 6 m. Jej ciężar własny odpowiada równomiernemu obciążeniu $q=2{,}4\ \text{kN/m}$. Dodatkowo w środku rozpiętości działa siła skupiona $P=18\ \text{kN}$. Oblicz reakcje i maksymalny moment zginający.
+
+Wypadkowa ciężaru własnego:
+
+$$
+Q_q=qL=2{,}4\cdot 6=14{,}4\ \text{kN}
+$$
+
+Działa w środku belki, podobnie jak siła $18\ \text{kN}$. Całkowite obciążenie wynosi $32{,}4\ \text{kN}$, a z symetrii:
+
+$$
+R_A=R_B=\frac{32{,}4}{2}=16{,}2\ \text{kN}
+$$
+
+Moment w środku rozpiętości obliczamy z lewej części. Reakcja $R_A$ działa w odległości 3 m od środka, a obciążenie równomierne na lewej połowie ma wypadkową $q\cdot 3=7{,}2\ \text{kN}$ w odległości 1,5 m od środka:
+
+$$
+M_{\max}=R_A\cdot 3-(q\cdot 3)\cdot 1{,}5
+=16{,}2\cdot 3-7{,}2\cdot 1{,}5
+=48{,}6-10{,}8=37{,}8\ \text{kN}\cdot\text{m}
+$$
+
+Sprawdzenie drugim wzorem:
+
+$$
+M_{\max}=\frac{PL}{4}+\frac{qL^2}{8}
+=\frac{18\cdot 6}{4}+\frac{2{,}4\cdot 36}{8}
+=27+10{,}8=37{,}8\ \text{kN}\cdot\text{m}
+$$
+
+Oba sposoby dają ten sam wynik. Taka kontrola jest obowiązkowa: jeśli dwa poprawne rachunki dają różne liczby, trzeba znaleźć błąd, a nie wybrać wygodniejszy wynik.
+
+## Trzeci przykład: wariant odwrotny
+
+Linka stalowa ma przenosić wyłącznie ciężar własny. Przyjmij ciężar objętościowy stali $\gamma=77\ \text{kN/m}^3$ i dopuszczalne naprężenie $120\ \text{MPa}$. Jaka jest największa długość linki, przy której naprężenie nie przekroczy tej wartości?
+
+Korzystamy z $\sigma_{\max}=\gamma L$, więc:
+
+$$
+L_{\max}=\frac{\sigma_{\text{dop}}}{\gamma}
+=\frac{120\,000\ \text{kN/m}^2}{77\ \text{kN/m}^3}
+\approx 1558\ \text{m}
+$$
+
+Zamiana jednostek jest tu kluczowa: $120\ \text{MPa}=120\,000\ \text{kPa}=120\,000\ \text{kN/m}^2$. Dzielenie przez $\text{kN/m}^3$ daje metry. Wynik około 1,56 km dotyczy sytuacji granicznej, bez dodatkowego obciążenia i bez współczynnika bezpieczeństwa. Przy współczynniku bezpieczeństwa 2 dopuszczalne naprężenie spada do 60 MPa, a długość do około 779 m.
+
+Ten przykład pokazuje, że ciężar własny może stać się głównym ograniczeniem, gdy element jest bardzo długi. W typowych konstrukcjach budowlanych zwykle nie decyduje o nośności, ale w kablach, linach i wysmukłych masztach trzeba go liczyć osobno.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie masy z ciężarem. Masa 10 kg to ciężar około 98,1 N, a nie 10 N.
+- Podstawianie gęstości w kg/m³ bezpośrednio do wzoru, w którym oczekujesz kN. Najpierw oblicz ciężar objętościowy $\gamma=\rho g$.
+- Mieszanie $\gamma$ w kN/m³ z polem w mm² bez przeliczenia. Albo zamień pole na m², albo ciężar objętościowy na N/mm³.
+- Traktowanie ciężaru własnego jako siły skupionej w środku pręta przy obliczaniu rozkładu siły normalnej. Siła normalna rośnie liniowo od swobodnego końca.
+- Zapominanie o ciężarze własnym długiej belki, mimo że zwiększa on zarówno reakcje, jak i moment zginający.
+- Mylenie kN/m z kN·m. Pierwsza jednostka opisuje obciążenie liniowe, druga moment.
+- Zakładanie stałego $q_g$ dla pręta o zmiennym przekroju. Wtedy $q_g$ zmienia się wraz z $x$ i trzeba całkować.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Przeczytaj jednostkę obciążenia. N oznacza siłę skupioną, N/m obciążenie liniowe, N/m² nacisk powierzchniowy, a N·m moment.
+2. Ustal, czy obciążenie jest stałe, czy zmienne. Dla zmiennego zapisz funkcję $q(x)$ albo podziel element na odcinki o stałym obciążeniu.
+3. Ustal kierunek i zwrot. Narysuj strzałki i przyjmij układ współrzędnych, zanim napiszesz równania.
+4. Oblicz wypadkową jako pole pod wykresem obciążenia. Dla prostokąta to $qL$, dla trójkąta $q_0L/2$.
+5. Znajdź linię działania wypadkowej: przez środek ciężkości wykresu. Dla prostokąta w połowie, dla trójkąta w dwóch trzecich od zera.
+6. Dla ciężaru własnego oblicz $\gamma=\rho g$, następnie $q_g=\gamma A$ i $G=q_gL$. Sprawdź jednostki na każdym etapie.
+7. Przy obliczaniu naprężeń od ciężaru własnego pamiętaj, że $\sigma(x)=\gamma x$ tylko dla pręta pryzmatycznego i tylko przy obciążeniu czysto osiowym.
+8. Na końcu sprawdź, czy suma obciążeń i reakcji się bilansuje oraz czy rząd wielkości wyniku jest sensowny.
+
+## Połącz z resztą kursu
+
+- **Jednostki SI: wspólny język obliczeń** — jednostka N/m, N/m² i N·m od razu mówi, z jakim rodzajem obciążenia masz do czynienia.
+- **Model obliczeniowy: świadome uproszczenia** — zastąpienie obciążenia rozłożonego wypadkową jest częścią modelu, nie uniwersalną własnością obciążenia.
+- **Podpory i reakcje: jak konstrukcja odpowiada** — reakcje zależą od wartości i położenia wypadkowej obciążenia.
+- **Równowaga statyczna: trzy równania** — po zastąpieniu obciążeń wypadkowymi można użyć równań równowagi.
+- **Naprężenie normalne: siła na przekroju** — ciężar własny daje zmienną siłę normalną, a więc i zmienne naprężenie na długości.
+- **Zginanie belek** — obciążenie liniowe jest podstawą wykresów sił tnących i momentów zginających.
+
+## Sprawdź się
+
+Pytania sprawdzają rozpoznawanie rodzaju obciążenia, przeliczanie jednostek i rozumienie ciężaru własnego.
 
 <Quiz>
   <Question outcome="W3">
@@ -82,4 +261,60 @@ $$
       Podpory mogą reagować zarówno siłami, jak i momentem.
     </Explanation>
   </Question>
+  <Question outcome="U1">
+    <Prompt>Równomierne obciążenie 4 kN/m działa na odcinku 3 m. Jaka jest wypadkowa i gdzie działa?</Prompt>
+    <Answer>4 kN w odległości 3 m od początku</Answer>
+    <Answer correct>12 kN w połowie odcinka, czyli 1,5 m od początku</Answer>
+    <Answer>12 kN na końcu odcinka</Answer>
+    <Hint>Pole prostokąta pod wykresem to qL, a środek ciężkości leży w połowie.</Hint>
+    <Explanation>
+      Wypadkowa wynosi 4 kN/m · 3 m = 12 kN. Dla obciążenia równomiernego działa w środku odcinka, 1,5 m od początku.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Dwa pionowe pręty z tego samego materiału mają tę samą długość, ale różne pola przekroju. Jak porównają się
+      naprężenia od ciężaru własnego przy utwierdzeniu?
+    </Prompt>
+    <Answer correct>Będą takie same</Answer>
+    <Answer>Większe w pręcie o większym polu</Answer>
+    <Answer>Większe w pręcie o mniejszym polu, bo jest cieńszy</Answer>
+    <Hint>Naprężenie od ciężaru własnego wynosi σ = γL; sprawdź, czy występuje w nim pole.</Hint>
+    <Explanation>
+      Siła rośnie proporcjonalnie do pola, ale naprężenie jest siłą podzieloną przez pole. Dlatego σ = γL i nie zależy
+      od A. Większy przekrój oznacza większą nośność i większy ciężar jednocześnie.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Które dane są potrzebne do obliczenia naprężenia od ciężaru własnego pryzmatycznego pręta wiszącego?
+    </Prompt>
+    <Answer>Tylko długość i siła zewnętrzna</Answer>
+    <Answer correct>Ciężar objętościowy i długość</Answer>
+    <Answer>Pole przekroju i moduł Younga</Answer>
+    <Hint>Wzór σ = γx nie zawiera pola ani modułu Younga.</Hint>
+    <Explanation>
+      Dla pręta pryzmatycznego naprężenie od ciężaru własnego zależy od ciężaru objętościowego i odległości od
+      swobodnego końca. Pole przekroju skraca się, a moduł Younga wpływa na wydłużenie, nie na naprężenie.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Dlaczego przy doborze długiej belki nie wystarczy znać tylko siły użytkowej?</Prompt>
+    <Answer>Bo siła użytkowa zawsze jest zerowa</Answer>
+    <Answer correct>Bo ciężar własny zwiększa obciążenie, reakcje i moment zginający</Answer>
+    <Answer>Bo długość nie wpływa na moment zginający</Answer>
+    <Hint>Pomyśl, jak ciężar własny zależy od długości i jak przekłada się na moment.</Hint>
+    <Explanation>
+      Ciężar własny rośnie z długością i polem przekroju. Zwiększa reakcje oraz moment zginający, więc może zdominować
+      obciążenie użytkowe i zmienić wymagany przekrój.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o obciążeniach zewnętrznych, ciężarze własnym i zastępowaniu obciążeń rozłożonych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — omówienie rodzajów obciążeń i ich wpływu na siły wewnętrzne w prętach.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z ciężarem własnym prętów i belek, dobre do ćwiczenia przeliczeń jednostek.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdział o obciążeniach rozłożonych; wyjaśnia pojęcie intensywności, wypadkowej i środka ciężkości wykresu obciążenia.
+- D. Roylance, _Mechanics of Materials_ — rozdział o rozciąganiu jednoosiowym; zawiera wyprowadzenie naprężenia od ciężaru własnego i przykład bardzo długiego pręta.

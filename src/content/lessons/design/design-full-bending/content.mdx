@@ -7,7 +7,6 @@ shortTitle: 'Zadanie: belka'
 description: >-
   Wyznacz reakcje i moment maksymalny, dobierz przekrój, a potem wykonaj
   kontrolę ugięcia.
-duration: 9
 eyebrow: Pełne rozwiązanie 3
 outcomes:
   - >-
@@ -31,67 +30,288 @@ outcomes:
 solutionId: cw5-1
 ---
 
-Najpierw cała belka musi być w równowadze, potem odczytujemy największy moment zginający. Dopiero geometria przekroju pozwala przejść od momentu do naprężenia.
+Belka to najczęstszy element konstrukcyjny, jaki spotykasz w codziennym życiu: półka, strop, rama roweru, wspornik maszyny. Wszystkie one przenoszą obciążenie poprzeczne i muszą być zaprojektowane tak, aby nie pękły oraz nie ugięły się nadmiernie. Dobór belki nie zaczyna się jednak od wzoru na naprężenie, lecz od schematu: trzeba wiedzieć, gdzie są podpory, gdzie działa siła i jaki moment powstanie w najbardziej wytężonym przekroju.
+
+Wyobraź sobie deskę położoną na dwóch podporach i obciążoną ciężarem w dowolnym miejscu. Reakcje nie są równe, a największy moment nie musi wypadać w środku rozpiętości. To właśnie odróżnia pełne zadanie od prostego przypadku z siłą w połowie belki. Najpierw trzeba policzyć reakcje z równowagi, potem znaleźć maksimum momentu, a dopiero na końcu przejść do geometrii przekroju.
+
+Moment zginający opisuje, jak mocno przekrój jest „wyginany”. Naprężenie zależy jednak nie tylko od momentu, ale też od tego, jak materiał jest rozmieszczony względem osi obojętnej. Dlatego dwa przekroje o tym samym polu mogą mieć zupełnie różną nośność. Wskaźnik wytrzymałości $W$ zbiera te informacje w jednej liczbie i pozwala przejść od momentu do wymiaru.
+
+Osobno trzeba sprawdzić sztywność. Belka może być wystarczająco wytrzymała, a mimo to ugiąć się tak mocno, że popsuje sufit, szybę albo precyzyjne urządzenie. Warunek ugięcia zależy od $E$ i $I$, a nie od $W$. To dlatego pełne zadanie ma zawsze co najmniej dwa warunki i trzeba wskazać ten, który rzeczywiście decyduje o wymiarze.
+
+Laboratorium pozwala przesuwać siłę wzdłuż belki o stałej rozpiętości. Zobaczysz, jak zmieniają się reakcje, siła tnąca i moment, a także dlaczego maksimum momentu pojawia się pod siłą. Po tej lekcji powinieneś umieć samodzielnie przejść od schematu do wymiaru, sprawdzić go i uzasadnić, który warunek jest aktywny.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje belki swobodnie podpartej z równowagi sił i momentów. Dla siły $P$ w odległości $a$ od lewej podpory reakcje wynoszą $R_A=Pb/L$ i $R_B=Pa/L$, gdzie $b=L-a$.
+- Znaj wzór na moment zginający w przekroju i umiej narysować wykres $M(x)$. Wartość maksymalna dla siły skupionej występuje pod siłą i wynosi $M_{\max}=Pab/L$.
+- Rozróżniaj moment zginający $M$ od siły tnącej $V$. W typowej belce o dużej smukłości naprężenia normalne od $M$ dominują, ale przy krótkich i grubych belkach ścinanie może być istotne.
+- Przypomnij sobie geometrię przekroju: $I=\pi d^4/64$ i $W=\pi d^3/32$ dla pełnego koła, $I=bh^3/12$ i $W=bh^2/6$ dla prostokąta.
+- Pamiętaj o jednostkach: moment w $\text{kN}\cdot\text{m}$ zamień na $\text{N}\cdot\text{mm}$ przez pomnożenie przez $10^6$, a naprężenie w MPa to $\text{N/mm}^2$.
+- Odróżnij naprężenie dopuszczalne $k$ od granicy plastyczności $R_e$. W zadaniu z współczynnikiem bezpieczeństwa $n$ zwykle $k=R_e/n$.
+- Pamiętaj, że ugięcie zależy od $E$ i $I$, a nie od $W$. Spełnienie warunku naprężeniowego nie gwarantuje spełnienia warunku sztywności.
+
+## Model i intuicja
+
+Model belki, którego używamy, to teoria Eulera–Bernoulliego. Zakładamy, że przekroje poprzeczne pozostają płaskie i prostopadłe do osi odkształconej, a odkształcenia są małe. Dzięki temu odkształcenie normalne zmienia się liniowo z odległością od osi obojętnej, a naprężenie również jest liniowe. Oś obojętna przechodzi przez środek ciężkości przekroju, jeśli materiał jest jednorodny i nie działa siła osiowa.
+
+W modelu przyjmujemy, że belka jest liniowo sprężysta, a materiał izotropowy. Moduł Younga $E$ jest stały, podobnie jak geometria przekroju. Pomijamy ciężar własny, chyba że zadanie go podaje, oraz koncentrację naprężeń przy podporach i w miejscach przyłożenia siły. Zakładamy, że analizujemy przekrój z dala od tych stref, zgodnie z zasadą Saint-Venanta.
+
+Moment zginający wyznaczamy z równowagi odciętej części belki. Dla siły skupionej w odległości $a$ od lewej podpory moment pod siłą wynosi $M=R_Aa=Pab/L$. Poza tym punktem moment maleje liniowo do zera na podporach. To dlatego maksimum zawsze wypada pod siłą, a nie w środku, jeśli siła nie jest w środku. Wykres momentu jest trójkątem, a jego wierzchołek przesuwa się razem z siłą.
+
+Naprężenie normalne w przekroju obliczamy jako $\sigma=My/I$. Największa wartość bezwzględna występuje na skrajnym włóknie, gdzie $y=c$. Dlatego wygodnie jest zapisać $\sigma_{\max}=M/W$, gdzie $W=I/c$. Dla przekroju symetrycznego względem osi obojętnej wystarczy jedna wartość $W$. Dla przekroju niesymetrycznego trzeba sprawdzić oba skrajne włókna, bo $c$ może być różne.
+
+Model przestaje wystarczać, gdy belka jest bardzo krótka i gruba, bo wtedy naprężenia styczne od ścinania są porównywalne z normalnymi. Przestaje też działać przy dużych ugięciach, gdy zmienia się geometria, oraz przy niestateczności części ściskanej, na przykład zwichrzeniu belki o wąskim przekroju. Osobno trzeba sprawdzić zmęczenie, pełzanie i koncentrację naprężeń przy otworach lub karbach.
+
+Ważnym uproszczeniem jest pominięcie ciężaru własnego. Dla krótkiej belki stalowej jest to zwykle uzasadnione, ale dla długiego stropu ciężar własny może stanowić znaczną część obciążenia. Wtedy do momentu od siły skupionej trzeba dodać moment od obciążenia rozłożonego. W tej lekcji skupiamy się na sile skupionej, bo pozwala ona prześledzić całą procedurę bez dodatkowej złożoności.
+
+Model nie mówi też, jak dobrać kształt przekroju. Dwa przekroje o tym samym $W$ mogą mieć różne pole, a więc różną masę. Belka dwuteowa wykorzystuje materiał daleko od osi obojętnej i dlatego przy zginaniu jest znacznie efektywniejsza niż pełny prostokąt o podobnej nośności. W zadaniu projektowym trzeba więc połączyć warunek wytrzymałości z ekonomią materiału i technologią wykonania.
+
+Warto rozróżnić dwa pytania projektowe. Pierwsze brzmi: czy przekrój przeniesie dany moment bez przekroczenia naprężenia dopuszczalnego? Odpowiada na nie $W$. Drugie brzmi: czy belka nie ugnie się zbyt mocno? Odpowiada na nie $I$ i $E$. Te pytania są powiązane, ale nie równoważne, ponieważ $W=I/c$ zależy dodatkowo od położenia skrajnego włókna. Ten sam $I$ może więc dawać różne $W$ w zależności od wysokości przekroju.
+
+W typowej belce o przekroju symetrycznym $W=I/c$, więc zwiększenie $I$ zwykle zwiększa też $W$. Nie oznacza to jednak, że warunki są równoważne. Stosunek $W$ do $I$ zależy od $c$, a więc od wysokości przekroju. Dwie belki o tym samym $I$ mogą mieć różne $W$, jeśli różnią się położeniem skrajnego włókna. Dlatego po zmianie kształtu trzeba przeliczyć oba warunki, a nie zakładać, że jeden pociąga za sobą drugi.
+
+## Laboratorium: co ustawić
+
+Ustaw siłę $P$ i jej odległość $a$ od lewej podpory. Rozpiętość jest stała i wynosi $L=4\ \text{m}$. Obserwuj reakcje $R_A$ i $R_B$ oraz to, jak wierzchołek wykresu momentu przesuwa się razem z siłą.
 
 <Lab id="beamGeneral" />
 
+W laboratorium $R_A=P(L-a)/L$, $R_B=Pa/L$, a $M_{\max}=R_Aa$. Przy $a=L/2$ obie reakcje są równe i odzyskujesz znany przypadek $M_{\max}=PL/4$. Przy $a$ bliskim podpory moment maleje, ale reakcja na bliższej podporze rośnie. To pokazuje, że „największa reakcja” i „największy moment” to nie to samo.
+
+Zwróć uwagę na wykres siły tnącej: jest on schodkowy, a skok występuje pod siłą. Między podporą a siłą $V$ jest stała, a po drugiej stronie zmienia znak. Moment jest całką siły tnącej, dlatego jego wykres jest liniowy i osiąga ekstremum tam, gdzie $V$ przecina zero, czyli pod siłą. Ta zależność pozwala szybko sprawdzić poprawność wykresu.
+
+## Definicje i jednostki
+
+| Symbol     | Znaczenie                                   | Jednostka typowa         |
+| ---------- | ------------------------------------------- | ------------------------ |
+| $P$        | siła skupiona                               | $\text{N}$               |
+| $L$        | rozpiętość belki                            | $\text{mm}$              |
+| $a,\ b$    | odległości siły od podpór, $b=L-a$          | $\text{mm}$              |
+| $R_A, R_B$ | reakcje podpór                              | $\text{N}$               |
+| $M$        | moment zginający                            | $\text{N}\cdot\text{mm}$ |
+| $M_{\max}$ | maksymalny moment w belce                   | $\text{N}\cdot\text{mm}$ |
+| $V$        | siła tnąca                                  | $\text{N}$               |
+| $W$        | wskaźnik wytrzymałości przekroju            | $\text{mm}^3$            |
+| $I$        | moment bezwładności względem osi obojętnej  | $\text{mm}^4$            |
+| $c$        | odległość skrajnego włókna od osi obojętnej | $\text{mm}$              |
+| $E$        | moduł Younga                                | $\text{MPa}$             |
+| $f$        | ugięcie belki                               | $\text{mm}$              |
+| $k$        | naprężenie dopuszczalne przy zginaniu       | $\text{MPa}$             |
+
+Konwencja znaku momentu zależy od przyjętego kierunku dodatniego. W typowym zapisie moment dodatni wygina belkę wypukłością do dołu, czyli powoduje rozciąganie dolnych włókien. Do warunku wytrzymałości używamy wartości bezwzględnej, więc znak nie zmienia doboru, ale jest ważny przy rysowaniu wykresu i przy belkach ciągłych.
+
+Wskaźnik wytrzymałości jest cechą geometryczną, a nie materiałową. Ma jednostkę długości do trzeciej, co wynika z podzielenia $\text{mm}^4$ przez $\text{mm}$. Dla pełnego koła $W$ rośnie z trzecią potęgą średnicy, a dla prostokąta o stałej szerokości z drugą potęgą wysokości. Ta różnica jest kluczowa przy doborze kształtu.
+
+| Przekrój                    | $I$               | $W$                  |
+| --------------------------- | ----------------- | -------------------- |
+| koło pełne                  | $\pi d^4/64$      | $\pi d^3/32$         |
+| prostokąt                   | $bh^3/12$         | $bh^2/6$             |
+| rura o średnicach $D$ i $d$ | $\pi(D^4-d^4)/64$ | $\pi(D^4-d^4)/(32D)$ |
+
+W zadaniu z siłą w dowolnym miejscu wygodnie jest zapisać $b=L-a$. Wtedy $M_{\max}=Pab/L$. Ten wzór jest symetryczny względem $a$ i $b$, co oznacza, że moment nie zależy od tego, od której podpory mierzymy odległość. Warto go sprawdzić dla $a=b=L/2$: otrzymujemy $PL/4$, czyli znany wynik.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-M_{max} = \frac{PL}{4} \qquad W_{wym} = \frac{M_{max}}{k} \qquad f = \frac{PL^3}{48EI}
+M_{\max}=\frac{Pab}{L} \qquad W\ge\frac{M_{\max}}{k} \qquad f=\frac{Pa^2b^2}{3EIL}\le f_{\mathrm{dop}}
 $$
 
-<Caption>Wzory dotyczą belki swobodnie podpartej o rozpiętości L z siłą P na środku. W = I/c, gdzie c to odległość skrajnego włókna od osi obojętnej.</Caption>
+<Caption>Pierwszy wzór dotyczy belki swobodnie podpartej z siłą $P$ w odległości $a$ od lewej podpory, gdzie $b=L-a$. Drugi to warunek wytrzymałości, a trzeci ugięcie pod siłą. Dla siły w środku $a=b=L/2$ ugięcie redukuje się do $PL^3/(48EI)$. $M$ podstawiamy w $\text{N}\cdot\text{mm}$, $k$ w MPa, a wymiary w mm.</Caption>
 </Formula>
 
+1. Zaczynamy od równowagi całej belki. Suma momentów względem lewej podpory daje $R_BL=Pa$, więc $R_B=Pa/L$. Suma sił pionowych daje $R_A=P-R_B=Pb/L$.
+2. Sprawdzamy równowagę momentów względem prawej podpory: $R_AL=Pb$, czyli $R_A=Pb/L$. Oba warunki są zgodne, co potwierdza poprawność reakcji.
+3. Wybieramy przekrój między lewą podporą a siłą, w odległości $x$ od lewej podpory. Moment zginający wynosi $M(x)=R_Ax=Pabx/L$. Rośnie liniowo od zera do wartości pod siłą.
+4. Pod siłą $x=a$ otrzymujemy $M_{\max}=R_Aa=Pab/L$. Po prawej stronie siły moment maleje liniowo do zera, więc ten wierzchołek jest maksimum globalnym.
+5. W przekroju o największym momencie naprężenie normalne wynosi $\sigma=My/I$, a największa wartość bezwzględna jest na skrajnym włóknie: $\sigma_{\max}=Mc/I=M/W$.
+6. Warunek wytrzymałości $\sigma_{\max}\le k$ przekształcamy do $W\ge M_{\max}/k$. To jest wymagany wskaźnik, jeszcze nie wymiar.
+7. Dla wybranego kształtu podstawiamy wzór na $W$ i rozwiązujemy nierówność. Dla koła $d\ge\sqrt[3]{32M_{\max}/(\pi k)}$, dla prostokąta o znanej proporcji $h/b$ odpowiedni pierwiastek może być innego stopnia.
+8. Przyjmujemy najmniejszy dostępny wymiar nie mniejszy od wyniku i wracamy do warunku: obliczamy rzeczywiste $W$, naprężenie i zapas.
+9. Osobno obliczamy ugięcie. Dla siły w dowolnym miejscu ugięcie pod siłą wynosi $f=Pa^2b^2/(3EIL)$. Dla siły w środku wzór upraszcza się do $PL^3/(48EI)$.
+10. Porównujemy ugięcie z wartością dopuszczalną. Jeśli warunek sztywności jest ostrzejszy, zwiększamy $I$, a nie tylko $W$. Dopiero po spełnieniu obu warunków zadanie jest rozwiązane.
+
+Warto zrozumieć, skąd bierze się wzór na ugięcie. Moment $M(x)$ jest funkcją kawałkami liniową, a krzywizna belki wynosi $M/(EI)$. Całkując krzywiznę dwukrotnie i nakładając warunki brzegowe $f(0)=f(L)=0$, otrzymujemy linię ugięcia. Wartość pod siłą jest największa, bo tam nachylenie zmienia znak. Dla $a=b=L/2$ otrzymujemy klasyczne $PL^3/(48EI)$.
+
+W zadaniu projektowym często wygodniej jest najpierw dobrać przekrój na wytrzymałość, a potem sprawdzić sztywność. Nie jest to jednak regułą: przy długich belkach i małych dopuszczalnych ugięciach to sztywność decyduje od początku. Dlatego po obliczeniu $W$ warto od razu oszacować $I$ i ugięcie, zamiast czekać do końca.
+
 <Insight>
-  Ten sam moment zginający może dać różne naprężenia w przekrojach o tym samym polu. Decyduje rozmieszczenie materiału,
-  opisane przez I i W.
+  Moment zginający zależy tylko od obciążenia i schematu, a nie od przekroju. Przekrój decyduje o naprężeniu przez $W$ i
+  o ugięciu przez $I$. Dlatego zmiana kształtu może obniżyć naprężenie bez zmiany momentu, ale może też pogorszyć
+  sztywność, jeśli materiał zostanie źle rozmieszczony.
 </Insight>
 
 <WorkedExample>
-  <Given>Belka swobodnie podparta ma L = 3 m, P = 12 kN na środku i k = 150 MPa.</Given>
+  <Given>
+    Belka swobodnie podparta ma rozpiętość $L=4\ \text{m}$ i jest obciążona siłą $P=20\ \text{kN}$ w odległości $a=1{,}4\ \text{m}$ od lewej podpory. Przyjmij $k=160\ \text{MPa}$, $E=200\ \text{GPa}$, przekrój pełnego koła i ugięcie dopuszczalne $f_{\mathrm{dop}}=L/250$.
+  </Given>
   <Steps>
-    <Step>Reakcje z symetrii: RA = RB = 6 kN.</Step>
-    <Step>Mmax = PL/4 = 12·3/4 = 9 kN·m = 9·10⁶ N·mm.</Step>
-    <Step>Wwym = 9·10⁶/150 = 60 000 mm³.</Step>
-    <Step>Po doborze przekroju trzeba jeszcze sprawdzić ugięcie f = PL³/(48EI) względem wartości dopuszczalnej.</Step>
+    <Step>Odległość od prawej podpory: $b=L-a=4-1{,}4=2{,}6\ \text{m}$.</Step>
+    <Step>Reakcje: $R_A=Pb/L=20\cdot2{,}6/4=13\ \text{kN}$, $R_B=Pa/L=20\cdot1{,}4/4=7\ \text{kN}$.</Step>
+    <Step>Moment maksymalny pod siłą: $M_{\max}=R_Aa=13\cdot1{,}4=18{,}2\ \text{kN}\cdot\text{m}=18\,200\,000\ \text{N}\cdot\text{mm}$.</Step>
+    <Step>Wymagany wskaźnik: $W_{\min}=18\,200\,000/160=113\,750\ \text{mm}^3$.</Step>
+    <Step>Średnica z warunku wytrzymałości: $d_{\min}=\sqrt[3]{32\cdot113\,750/\pi}=\sqrt[3]{1\,158\,650}\approx105{,}0\ \text{mm}$.</Step>
+    <Step>Przyjmujemy $d=110\ \text{mm}$ z szeregu wymiarów co $5\ \text{mm}$, ponieważ $105\ \text{mm}$ jest zbyt małe.</Step>
+    <Step>Rzeczywisty wskaźnik: $W=\pi\cdot110^3/32\approx130\,669\ \text{mm}^3$, więc $\sigma=18\,200\,000/130\,669\approx139{,}3\ \text{MPa}\le160\ \text{MPa}$.</Step>
+    <Step>Moment bezwładności: $I=\pi\cdot110^4/64\approx7\,186\,875\ \text{mm}^4$.</Step>
+    <Step>Ugięcie pod siłą: $f=Pa^2b^2/(3EIL)=20\,000\cdot1400^2\cdot2600^2/(3\cdot200\,000\cdot7\,186\,875\cdot4000)\approx15{,}4\ \text{mm}$.</Step>
+    <Step>Wartość dopuszczalna: $L/250=4000/250=16\ \text{mm}$, więc $15{,}4\ \text{mm}\le16\ \text{mm}$.</Step>
   </Steps>
-  <Result>Wymagany wskaźnik wytrzymałości przekroju wynosi 60 000 mm³; dobór wymaga też kontroli ugięcia.</Result>
+  <Result>
+    Decyduje wytrzymałość: wymagana średnica wynosi około $105\ \text{mm}$, a przyjęto $110\ \text{mm}$. Naprężenie $139{,}3\ \text{MPa}$ jest mniejsze od $160\ \text{MPa}$, a ugięcie $15{,}4\ \text{mm}$ nie przekracza $16\ \text{mm}$.
+  </Result>
 </WorkedExample>
 
+Wynik jest blisko granicy ugięcia, więc belka nie ma dużego zapasu sztywności. Gdyby dopuszczalne ugięcie wynosiło $L/300\approx13{,}3\ \text{mm}$, ten sam przekrój nie spełniłby warunku. Wtedy trzeba by zwiększyć średnicę do około $115\ \text{mm}$ albo zmienić kształt przekroju na bardziej efektywny. To pokazuje, że „dobra” belka zależy od przyjętego kryterium, a nie tylko od naprężenia.
+
+## Drugi przykład
+
+Rozważmy ten sam schemat i moment $M_{\max}=18{,}2\ \text{kN}\cdot\text{m}$, ale przekrój prostokątny o proporcji $h=2b$. Wymagany wskaźnik nadal wynosi $W_{\min}=113\,750\ \text{mm}^3$. Dla prostokąta $W=bh^2/6=b(2b)^2/6=2b^3/3$, więc $b^3\ge3W_{\min}/2=170\,625$ i $b\ge55{,}5\ \text{mm}$.
+
+Przyjmujemy $b=60\ \text{mm}$ i $h=120\ \text{mm}$. Rzeczywisty wskaźnik wynosi $W=60\cdot120^2/6=144\,000\ \text{mm}^3$, a naprężenie $\sigma=18\,200\,000/144\,000\approx126{,}4\ \text{MPa}$, czyli mniej niż $160\ \text{MPa}$. Moment bezwładności $I=60\cdot120^3/12=8\,640\,000\ \text{mm}^4$, a ugięcie $f\approx12{,}8\ \text{mm}$, więc warunek $16\ \text{mm}$ jest spełniony z większym zapasem niż dla koła.
+
+Porównanie jest pouczające. Pole prostokąta wynosi $7200\ \text{mm}^2$, a koła o $d=110\ \text{mm}$ około $9503\ \text{mm}^2$. Prostokąt jest więc lżejszy, mimo że ma większą wysokość. Wskaźnik na jednostkę pola wynosi $20{,}0\ \text{mm}$ dla prostokąta i około $13{,}8\ \text{mm}$ dla koła. To dlatego belki o przekroju dwuteowym lub skrzynkowym są znacznie bardziej efektywne: materiał jest odsunięty od osi obojętnej, gdzie pracuje najskuteczniej.
+
+Nie oznacza to, że prostokąt jest zawsze lepszy. Wysoka i wąska belka jest podatna na zwichrzenie boczne, a jej wykonanie i połączenia mogą być trudniejsze. Koło jest symetryczne i wygodne w montażu. Wybór kształtu to kompromis między nośnością, sztywnością, masą, statecznością i technologią.
+
+Kierunek zginania ma tu ogromne znaczenie. Prostokąt $60\times120\ \text{mm}$ jest efektywny, gdy jest zginany względem osi równoległej do krótszego boku, czyli gdy obciążenie działa w płaszczyźnie wysokości $120\ \text{mm}$. Po obróceniu o $90^\circ$ ten sam przekrój ma znacznie mniejszy $W$, ponieważ wysokość wynosi wtedy $60\ \text{mm}$. W zadaniu trzeba więc zawsze sprawdzić, względem której osi liczony jest moment bezwładności.
+
+W praktyce projektant często zaczyna od kształtu znanego z katalogu, a potem sprawdza, czy spełnia oba warunki. Katalog podaje $I$ i $W$ dla konkretnej osi, więc nie trzeba ich wyprowadzać od zera. Ważne jest natomiast, aby nie mieszać osi i nie podstawiać $W$ dla jednego kierunku do momentu działającego w innym. To częsty błąd przy belkach zginanych ukośnie.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy przekrój i pytamy o dopuszczalne obciążenie. Belka swobodnie podparta ma $L=4\ \text{m}$, przekrój kołowy o $d=100\ \text{mm}$ i jest obciążona siłą w środku. Przyjmij $k=150\ \text{MPa}$, $E=200\ \text{GPa}$ i $f_{\mathrm{dop}}=L/300=13{,}33\ \text{mm}$.
+
+Najpierw wskaźnik i moment bezwładności: $W=\pi\cdot100^3/32\approx98\,175\ \text{mm}^3$, $I=\pi\cdot100^4/64\approx4\,908\,738\ \text{mm}^4$. Dopuszczalny moment z wytrzymałości wynosi $M_{\mathrm{dop}}=kW=150\cdot98\,175\approx14{,}73\ \text{kN}\cdot\text{m}$.
+
+Dla siły w środku $M_{\max}=PL/4$, więc z wytrzymałości $P\le4M_{\mathrm{dop}}/L=4\cdot14{,}73/4=14{,}73\ \text{kN}$. Z warunku sztywności $f=PL^3/(48EI)\le f_{\mathrm{dop}}$, czyli $P\le48EIf_{\mathrm{dop}}/L^3$. Po podstawieniu $P\le48\cdot200\,000\cdot4\,908\,738\cdot13{,}33/4000^3\approx9{,}82\ \text{kN}$.
+
+Decyduje sztywność, więc $P_{\max}\approx9{,}82\ \text{kN}$. Przy tej sile naprężenie wynosi około $100\ \text{MPa}$, czyli znacznie mniej niż $150\ \text{MPa}$. Widać, że zapas wytrzymałości nie jest w pełni wykorzystany, ponieważ belka jest zbyt podatna. Gdyby zadanie wymagało wykorzystania pełnej nośności, trzeba by zmienić materiał na sztywniejszy, zwiększyć średnicę albo skrócić rozpiętość.
+
+Wariant odwrotny uczy, że nie wolno zatrzymać się na pierwszym warunku. Często to nie wytrzymałość, lecz sztywność albo stateczność wyznacza rzeczywiste ograniczenie. Po obliczeniu $P_{\max}$ z obu warunków trzeba przyjąć mniejszą wartość i wyraźnie zapisać, który warunek jest decydujący.
+
+W zadaniach egzaminacyjnych warto po każdym kroku zapisać jednostkę i sprawdzić rząd wielkości. Moment $18{,}2\ \text{kN}\cdot\text{m}$ to $18{,}2$ miliona $\text{N}\cdot\text{mm}$, a nie $18\,200$. Średnica $105\ \text{mm}$ jest sensowna dla belki o rozpiętości $4\ \text{m}$ i sile $20\ \text{kN}$; średnica $1\ \text{mm}$ lub $1000\ \text{mm}$ sygnalizowałaby błąd jednostek.
+
+Kontrola rzędu wielkości jest szczególnie ważna przy doborze z katalogu. Jeśli dla małej belki wychodzi dwuteownik o wysokości $500\ \text{mm}$, prawdopodobnie w mianowniku użyto złej jednostki. Jeśli dla dużego stropu wychodzi pręt o średnicy $10\ \text{mm}$, prawdopodobnie pominięto czynnik $10^3$ lub $10^6$. Zanim zaakceptujesz wynik, porównaj go z typowymi wymiarami podobnych konstrukcji.
+
+Warto też pamiętać, że belka swobodnie podparta nie jest jedynym schematem. Wspornik ma maksimum momentu w utwierdzeniu i zupełnie inny wzór na ugięcie. Belka utwierdzona na obu końcach jest statycznie niewyznaczalna i wymaga warunków zgodności. W tej lekcji ograniczamy się do schematu swobodnie podpartego, ale procedura projektowa pozostaje podobna: schemat, siły wewnętrzne, naprężenia, warunki, decyzja.
+
+<Callout kind="warning" title="Typowe błędy">
+  1. **Brak zamiany $\text{kN}\cdot\text{m}$ na $\text{N}\cdot\text{mm}$.** Moment $18{,}2\ \text{kN}\cdot\text{m}$ to $18\,200\,000\ \text{N}\cdot\text{mm}$. Podstawienie $18{,}2$ daje wskaźnik milion razy za mały.
+  2. **Założenie, że maksimum jest zawsze w środku.** Przy sile poza środkiem $M_{\max}=Pab/L$, a nie $PL/4$. Wierzchołek momentu jest pod siłą.
+  3. **Zamiana $a$ i $b$ przy liczeniu reakcji.** $R_A=Pb/L$ i $R_B=Pa/L$. Pomylenie odległości daje błędne reakcje, choć moment maksymalny może wyjść przypadkowo poprawny.
+  4. **Zaokrąglenie średnicy w dół.** Wynik $105{,}0\ \text{mm}$ nie pozwala przyjąć $105\ \text{mm}$ bez sprawdzenia. Trzeba wybrać wymiar nie mniejszy od wyniku.
+  5. **Sprawdzenie tylko wytrzymałości.** Belka może mieć $\sigma\le k$, a ugięcie powyżej wartości dopuszczalnej. Warunek sztywności jest osobnym wymaganiem.
+  6. **Użycie $W$ zamiast $I$ do ugięcia.** Ugięcie zależy od $I$, a nie od $W$. Dla koła $I$ rośnie z $d^4$, więc mała zmiana średnicy daje dużą zmianę sztywności.
+  7. **Pominięcie ścinania przy krótkiej belce.** Dla belki o małym stosunku $L/h$ naprężenia styczne mogą być istotne. Wtedy sam warunek $M/W\le k$ nie wystarcza.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Narysuj schemat.** Zaznacz podpory, siłę, długości $a$ i $b$ oraz kierunek dodatni momentu. Bez rysunku łatwo pomylić odległości i znaki.
+2. **Wyznacz reakcje.** Dla belki swobodnie podpartej użyj $R_A=Pb/L$ i $R_B=Pa/L$. Sprawdź, czy suma reakcji równa się sile.
+3. **Znajdź maksimum momentu.** Dla siły skupionej to $M_{\max}=Pab/L$ pod siłą. Dla innych obciążeń narysuj wykres $M(x)$ albo użyj gotowych wzorów.
+4. **Sprawdź, czy nie ma dodatkowych obciążeń.** Ciężar własny, obciążenie rozłożone lub moment skupiony zmieniają wykres. Wtedy nie wolno używać prostego wzoru na $Pab/L$.
+5. **Oblicz wymagany wskaźnik.** $W_{\min}=M_{\max}/k$. Zapisz jednostkę $\text{mm}^3$ i sprawdź rząd wielkości.
+6. **Dobierz wymiar.** Podstaw wzór na $W$ właściwy dla kształtu, rozwiąż nierówność i zaokrąglij w górę do dostępnego wymiaru.
+7. **Sprawdź wytrzymałość przyjętego przekroju.** Oblicz rzeczywiste $W$, $\sigma$ i zapas względem $k$. Nie poprzestawaj na stwierdzeniu, że wymiar jest większy od minimalnego.
+8. **Sprawdź sztywność.** Oblicz $I$ i ugięcie, a następnie porównaj z $f_{\mathrm{dop}}$. Jeśli sztywność decyduje, zwiększ $I$ lub zmień kształt.
+9. **Zapisz decyzję.** Podaj przyjęty wymiar, decydujący warunek i krótkie uzasadnienie. To jest końcowa odpowiedź zadania projektowego.
+
+Po rozwiązaniu warto wykonać dwie kontrole: suma reakcji musi równać się sile, a moment na podporach musi być zerowy. Jeśli wykres momentu nie wraca do zera, gdzieś zgubiono siłę lub moment. Te kontrole są szybkie i wychwytują większość błędów w schemacie.
+
+## Połącz z resztą kursu
+
+- **Belki i reakcje podporowe** dostarczają schematu i równań równowagi. W tej lekcji stanowią pierwszy krok pełnego zadania.
+- **Moment zginający M(x)** wyjaśnia, dlaczego maksimum wypada pod siłą i jak czytać wykres momentu.
+- **Rozkład σ i oś obojętna** uzasadniają wzór $\sigma=My/I$ oraz położenie osi obojętnej w środku ciężkości.
+- **Dobór przekroju i kontrola sztywności** rozwijają związek między $W$, $I$ i ugięciem. Tutaj łączymy je w jedno zadanie.
+- **Geometria przekrojów** daje wzory na $I$ i $W$ dla koła, prostokąta i rury. Bez nich nie da się przejść od momentu do wymiaru.
+- **Strategia kolokwium** przypomina o kolejności: schemat, reakcje, moment, wskaźnik, wymiar, kontrola. Ta lekcja jest pełnym przykładem tej procedury.
+
+## Sprawdź się
+
+Pytania sprawdzają reakcje, moment maksymalny, dobór wskaźnika, decyzję o wymiarze i kontrolę sztywności. Odpowiadaj bez zaglądania do wzorów, ale po każdym pytaniu sprawdź rachunek i jednostki.
+
+Jeśli pomylisz moment, wróć do równowagi i sprawdź, czy użyłeś właściwego ramienia. Jeśli pomylisz wymiar, sprawdź, czy zaokrągliłeś w górę i czy pierwiastek jest właściwego stopnia.
+
 <Quiz>
-  <Question outcome="U1">
-    <Prompt>Belka o L = 4 m ma siłę P = 20 kN na środku. Ile wynosi Mmax?</Prompt>
-    <Answer correct>20 kN·m</Answer>
-    <Answer>40 kN·m</Answer>
-    <Answer>80 kN·m</Answer>
-    <Hint>Dla tego schematu Mmax = PL/4.</Hint>
+  <Question outcome="W1">
+    <Prompt>Belka ma $L=4\ \text{m}$ i siłę $P=20\ \text{kN}$ w odległości $a=1{,}4\ \text{m}$ od lewej podpory. Ile wynosi $M_{\max}$?</Prompt>
+    <Answer correct>$18{,}2\ \text{kN}\cdot\text{m}$</Answer>
+    <Answer>$20\ \text{kN}\cdot\text{m}$</Answer>
+    <Answer>$28\ \text{kN}\cdot\text{m}$</Answer>
+    <Hint>$M_{\max}=Pab/L$, gdzie $b=L-a$.</Hint>
     <Explanation>
-      Mmax = 20·4/4 = 20 kN·m. Reakcje wynoszą po 10 kN, a moment na środku to 10 kN·2 m = 20 kN·m.
+      $b=2{,}6\ \text{m}$, więc $M_{\max}=20\cdot1{,}4\cdot2{,}6/4=18{,}2\ \text{kN}\cdot\text{m}$. Reakcja $R_A=13\ \text{kN}$, a ramię do siły wynosi $1{,}4\ \text{m}$.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Przy Mmax = 20 kN·m i k = 160 MPa ile wynosi Wwym?</Prompt>
-    <Answer>125 mm³</Answer>
-    <Answer>12 500 mm³</Answer>
-    <Answer correct>125 000 mm³</Answer>
-    <Hint>20 kN·m = 20 000 000 N·mm.</Hint>
+    <Prompt>Moment maksymalny wynosi $18{,}2\ \text{kN}\cdot\text{m}$, a $k=160\ \text{MPa}$. Ile wynosi wymagany wskaźnik $W$?</Prompt>
+    <Answer>$113{,}75\ \text{mm}^3$</Answer>
+    <Answer>$1\,137{,}5\ \text{mm}^3$</Answer>
+    <Answer correct>$113\,750\ \text{mm}^3$</Answer>
+    <Hint>$18{,}2\ \text{kN}\cdot\text{m}=18\,200\,000\ \text{N}\cdot\text{mm}$.</Hint>
     <Explanation>
-      Wwym = 20 000 000/160 = 125 000 mm³. Poprawna zamiana jednostek zapobiega błędowi tysiąckrotnemu.
+      $W=M/k=18\,200\,000/160=113\,750\ \text{mm}^3$. Bez zamiany jednostek wynik byłby tysiąc razy za mały.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Z warunku wytrzymałości wyszło $d_{\min}=105{,}0\ \text{mm}$, a dostępne średnice są co $5\ \text{mm}$. Którą przyjąć?</Prompt>
+    <Answer>$105\ \text{mm}$</Answer>
+    <Answer correct>$110\ \text{mm}$</Answer>
+    <Answer>$115\ \text{mm}$</Answer>
+    <Hint>Wybierz najmniejszy dostępny wymiar nie mniejszy od wyniku.</Hint>
+    <Explanation>
+      $105\ \text{mm}$ jest mniejsze od wymaganego $105{,}0\ \text{mm}$ po zaokrągleniu i nie daje pewności spełnienia warunku. Najmniejsza dostępna średnica to $110\ \text{mm}$.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>
-      Dla rozważanego kształtu przekroju warunek wytrzymałości wymaga I ≥ 8·10⁶ mm⁴, a warunek ugięcia I ≥ 11·10⁶ mm⁴.
-      Które I przyjąć?
-    </Prompt>
-    <Answer>8·10⁶ mm⁴</Answer>
-    <Answer>9,5·10⁶ mm⁴</Answer>
-    <Answer correct>Co najmniej 11·10⁶ mm⁴</Answer>
-    <Hint>Jedno I musi spełnić obie nierówności.</Hint>
+    <Prompt>Warunek wytrzymałości wymaga $I\ge6{,}5\cdot10^6\ \text{mm}^4$, a warunek ugięcia $I\ge7{,}8\cdot10^6\ \text{mm}^4$. Które $I$ przyjąć?</Prompt>
+    <Answer>$6{,}5\cdot10^6\ \text{mm}^4$</Answer>
+    <Answer>$7{,}0\cdot10^6\ \text{mm}^4$</Answer>
+    <Answer correct>Co najmniej $7{,}8\cdot10^6\ \text{mm}^4$</Answer>
+    <Hint>Przekrój musi spełnić oba warunki jednocześnie.</Hint>
     <Explanation>
-      Przyjmujemy większą wymaganą wartość. Przy 8·10⁶ mm⁴ belka byłaby wystarczająco wytrzymała, ale zbyt podatna, więc
-      ugięcie przekroczyłoby wartość dopuszczalną.
+      Decyduje większa wymagana wartość. Przy $6{,}5\cdot10^6\ \text{mm}^4$ belka byłaby wystarczająco wytrzymała, ale zbyt podatna.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W skrajnym włóknie belki naprężenie normalne wynosi $140\ \text{MPa}$, a naprężenie styczne od ścinania można pominąć. Jaka jest maksymalna wartość naprężenia stycznego w tym punkcie według koła Mohra?</Prompt>
+    <Answer>$0\ \text{MPa}$</Answer>
+    <Answer correct>$70\ \text{MPa}$</Answer>
+    <Answer>$140\ \text{MPa}$</Answer>
+    <Hint>W jednoosiowym stanie naprężenia koło Mohra ma środek w $\sigma/2$.</Hint>
+    <Explanation>
+      Stan jest jednoosiowy, więc naprężenia główne wynoszą $140\ \text{MPa}$ i $0$. Maksymalne ścinanie to połowa różnicy, czyli $70\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Belka spełnia warunek naprężeniowy, ale jej ugięcie przekracza wartość dopuszczalną. Co to oznacza dla projektu?</Prompt>
+    <Answer correct>O wymiarze decyduje sztywność, trzeba zwiększyć $I$</Answer>
+    <Answer>Projekt jest poprawny, bo wytrzymałość jest ważniejsza</Answer>
+    <Answer>Należy zmniejszyć $I$, aby ograniczyć ugięcie</Answer>
+    <Hint>Ugięcie maleje ze wzrostem $EI$.</Hint>
+    <Explanation>
+      Warunek wytrzymałości nie zastępuje kontroli ugięcia. Trzeba zwiększyć moment bezwładności, zmienić materiał na sztywniejszy albo skrócić rozpiętość.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Belka o $L=4\ \text{m}$ jest obciążona siłą w środku. Dopuszczalny moment wynosi $15\ \text{kN}\cdot\text{m}$. Jaka jest największa siła $P$?</Prompt>
+    <Answer correct>$15\ \text{kN}$</Answer>
+    <Answer>$30\ \text{kN}$</Answer>
+    <Answer>$60\ \text{kN}$</Answer>
+    <Hint>Dla siły w środku $M_{\max}=PL/4$.</Hint>
+    <Explanation>
+      $P=4M_{\max}/L=4\cdot15/4=15\ \text{kN}$. Czynnik $4$ znika, ponieważ rozpiętość również wynosi $4\ \text{m}$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — rozdział o zginaniu belek; szukaj zadań z siłą poza środkiem rozpiętości i kontrolą ugięcia.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o zginaniu prętów prostych; klasyczne wyprowadzenie rozkładu naprężeń i wskaźnika wytrzymałości.
+- D. Roylance, _Mechanics of Materials_, MIT OpenCourseWare — rozdziały o wykresach siły tnącej i momentu, naprężeniach w belkach oraz ugięciach; otwarty podręcznik z pełnymi przykładami.
+- E. Osgood, C. Cameron, P. Christensen, _Engineering Mechanics: Statics_, Open Textbook — rozdział o siłach wewnętrznych i wykresach momentu; pomocny w ustaleniu reakcji przed doborem przekroju.
+- T. Wierzbicki, _Structural Mechanics_, MIT OpenCourseWare — rozdział o kinematyce belek i uogólnionym prawie Hooke'a; pokazuje, skąd bierze się związek $M=EI\kappa$.

@@ -12,6 +12,22 @@ export default {
   ],
   result:
     'Nα = 30 kN, Nβ = Nγ = 70 kN. Naprężenia rozciągające wynoszą σα = 150 MPa oraz σβ = σγ = 140 MPa; reakcja górna wynosi 70 kN.',
+  figure: {
+    kind: 'axial',
+    top: 'fixed',
+    bottom: 'free',
+    units: { N: 'kN', σ: 'MPa', A: 'mm²' },
+    segments: [
+      { id: 'γ', label: 'γ', length: 1000, area: 500, n: 70, sigma: 140 },
+      { id: 'β', label: 'β', length: 1000, area: 500, n: 70, sigma: 140 },
+      { id: 'α', label: 'α', length: 1500, area: 200, n: 30, sigma: 150 },
+    ],
+    loads: [
+      { node: 2, value: 40, label: 'P₂ = 40 kN' },
+      { node: 3, value: 30, label: 'P₁ = 30 kN' },
+    ],
+    note: 'Zmiana siły N następuje przy P₂, a zmiana pola przekroju na granicy α/β.',
+  },
   scenes: [
     {
       title: 'Dane i podział na odcinki',

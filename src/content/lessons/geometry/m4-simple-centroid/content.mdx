@@ -7,7 +7,6 @@ shortTitle: Środek ciężkości
 description: >-
   Geometryczny środek figury, osie symetrii i położenie środka ciężkości
   prostokąta, trójkąta oraz koła.
-duration: 7
 eyebrow: Gdzie skupiony jest przekrój?
 outcomes:
   - W1 — analizuje rozmieszczenie pola względem przyjętych osi
@@ -20,69 +19,393 @@ outcomes:
     przekroju
 ---
 
-Środek ciężkości jednorodnej, płaskiej figury to jej „punkt równowagi”. Przy symetrii nie trzeba całkować: środek leży na każdej osi symetrii figury.
+Wyobraź sobie, że wycinasz z tektury dowolny kształt i próbujesz położyć go poziomo na czubku ołówka. Jeden kształt
+utrzyma równowagę od razu, inny trzeba przesuwać, aż w końcu znajdzie swoje miejsce. Ten punkt, w którym figura
+balansuje, to środek ciężkości. Dla jednorodnej płytki o stałej grubości zależy wyłącznie od kształtu, dlatego
+nazywamy go także środkiem geometrycznym albo centroidą.
+
+W wytrzymałości materiałów ten punkt ma bezpośredni sens fizyczny. Gdy belka jest zginana, naprężenia normalne rosną
+proporcjonalnie do odległości od osi obojętnej, a suma sił na całym przekroju musi się równoważyć. Równowaga sił
+wymaga, aby oś obojętna przechodziła przez środek ciężkości przekroju. Bez poprawnego centroidu nie ma poprawnego
+rozkładu naprężeń, nieważne jak dokładnie policzymy resztę.
+
+Środek ciężkości bywa mylony ze środkiem obrysu albo z punktem przecięcia przekątnych. To nie to samo. Dla trójkąta
+leży on w przecięciu środkowych, w jednej trzeciej wysokości od podstawy, a nie w połowie. Dla półkola leży bliżej
+średnicy niż wierzchołka łuku. Te różnice nie są umowne — wynikają wprost z definicji, którą za chwilę zapiszemy
+całką.
+
+W tej lekcji przejdziemy od intuicji do definicji, a potem do wzorów dla figur, które pojawiają się w zadaniach
+najczęściej: prostokąta, trójkąta, koła, półkola i wycinka. Nauczysz się wykorzystywać symetrię, wyznaczać
+współrzędne środka z definicji oraz sprawdzać, czy wynik jest sensowny. To fundament pod wszystkie dalsze
+charakterystyki przekroju.
+
+Umiejętność ta przydaje się nie tylko w zadaniach. Projektując półkę, wspornik lub ramę rowerową, instynktownie
+szukasz punktu, w którym masa jest skupiona. Inżynier robi to samo, tylko precyzyjnie: najpierw ustala położenie
+środka, potem liczy momenty bezwładności, a na końcu naprężenia i ugięcia. Każdy z tych kroków opiera się na
+poprawnym pierwszym kroku.
+
+## Zanim zaczniesz
+
+- Potrzebujesz swobody w posługiwaniu się całką oznaczoną. Wystarczy rozumieć ją jako granicę sumy iloczynów
+  „wartość funkcji razy szerokość przedziału”; nie będzie tu całek wymagających zaawansowanych technik.
+- Przypomnij sobie pola figur: prostokąt $A=bh$, trójkąt $A=\frac{1}{2}bh$, koło $A=\frac{\pi d^2}{4}$,
+  półkole $A=\frac{\pi r^2}{2}$, wycinek kołowy $A=\frac{\alpha r^2}{2}$ dla kąta w radianach.
+- Ustal jeden układ jednostek. Najwygodniejsze są milimetry: pole wychodzi w mm², a moment statyczny w mm³.
+  Przy zamianie centymetrów na milimetry długość mnożymy przez 10, pole przez 100, a moment statyczny przez 1000.
+- Pamiętaj, że każda oś symetrii zawiera środek ciężkości. Dwie przecinające się osie symetrii wyznaczają go
+  jednoznacznie, jedna oś daje tylko jedną współrzędną.
+- Współrzędne wszystkich punktów figury muszą być mierzone od tego samego początku układu. Zmiana początku zmienia
+  wartości $x$ i $y$, ale nie zmienia położenia środka względem figury.
+- Typowa pułapka: wzór $h/3$ dla trójkąta odnosi się do odległości od podstawy. Od wierzchołka jest to $2h/3$.
+  Pomylenie tych dwóch wartości daje błąd większy niż jakiekolwiek zaokrąglenie.
+
+## Model i intuicja
+
+Przyjmujemy, że figura jest cienką, płaską płytką o stałej grubości i jednorodnym materiale. Masa każdego fragmentu
+jest wtedy proporcjonalna do jego pola, a gęstość i grubość skracają się w liczniku i mianowniku. Dzięki temu
+problem mechaniczny zamienia się w problem czysto geometryczny: szukamy punktu, w którym „skupione” jest pole, a nie
+masa.
+
+Wyobraź sobie, że dzielisz figurę na bardzo wiele małych prostokątów. Każdy z nich ma pole $\Delta A_i$ i można go
+potraktować jak punkt materialny w jego własnym środku. Moment całej figury względem osi to suma iloczynów „pole razy
+odległość”. Szukany środek to taki punkt, w którym całe pole umieszczone w jednym miejscu dawałoby ten sam moment.
+To dokładnie ta sama logika, co przy wyznaczaniu wypadkowej sił rozłożonych.
+
+Model jest addytywny i to jest jego największa zaleta. Figurę można rozbić na części, policzyć każdą osobno, a potem
+zsumować momenty. Nie ma znaczenia, czy części są styczne, czy oddalone — ważne, żeby ich suma odtwarzała całą figurę
+bez nakładania się i bez luk. Tę własność wykorzystamy w następnej lekcji przy przekrojach złożonych.
+
+Model przestaje być wystarczający, gdy materiał nie jest jednorodny. W belce żelbetowej stal i beton mają różne
+gęstości i różne moduły sprężystości, więc geometryczny centroid nie jest już środkiem ciężkości. Podobnie jest w
+przekroju kompozytowym. Wtedy trzeba pracować na polach przeliczonych, uwzględniających stosunek modułów, albo
+wyznaczać rzeczywisty środek masy z gęstości.
+
+Symetria pozwala skrócić obliczenia, ale trzeba ją stosować uczciwie. Jedna pionowa oś symetrii mówi, że pierwsza
+współrzędna środka leży na tej osi. Nie mówi nic o drugiej współrzędnej. Dopiero druga, przecinająca ją oś symetrii
+albo dodatkowe całkowanie dają pełną odpowiedź. Częstym błędem jest „domyślanie się” drugiej współrzędnej z symetrii,
+której figura nie ma.
+
+Warto zapamiętać, że środek ciężkości nie musi leżeć w materiale. Dla cienkiego pierścienia leży w pustym otworze, a
+dla litery C może wypaść poza obrys. To nie jest błąd, lecz konsekwencja definicji: liczy się rozkład pola, a nie to,
+czy w danym punkcie jest materiał.
+
+## Laboratorium: co ustawić
+
+Ustaw na początek skalę szerokości i wysokości równą 1, odstęp bocznych części 40 mm i wyniesienie 30 mm. Zanotuj
+położenie $y_C$ oraz moment względem osi poziomej, a następnie zwiększ odstęp do 100 mm i obserwuj, jak zmienia się
+wynik. Na koniec ustaw wyniesienie na 0 i sprawdź, czy potrafisz przewidzieć kierunek zmiany, zanim odczytasz liczbę.
 
 <Lab id="centroid" />
 
+## Definicje i jednostki
+
+Środek ciężkości figury płaskiej to punkt $C$ o współrzędnych $(\bar{x},\bar{y})$, w którym można by skupić całe pole,
+nie zmieniając momentów statycznych względem dowolnej osi. Dla figury jednorodnej jest to jednocześnie środek
+geometryczny. Współrzędne mają znak wynikający z położenia względem przyjętego początku.
+
+| Symbol              | Znaczenie                         | Jednostka |
+| ------------------- | --------------------------------- | --------- |
+| $A$                 | pole całej figury                 | mm²       |
+| $dA$                | elementarne pole                  | mm²       |
+| $x,\ y$             | współrzędne elementu pola         | mm        |
+| $\bar{x},\ \bar{y}$ | współrzędne środka ciężkości      | mm        |
+| $S_x=\int_A y\,dA$  | moment statyczny względem osi $x$ | mm³       |
+| $S_y=\int_A x\,dA$  | moment statyczny względem osi $y$ | mm³       |
+| $r,\ d$             | promień i średnica koła           | mm        |
+
+Przyjmujemy typową konwencję: oś $x$ jest pozioma i skierowana w prawo, oś $y$ pionowa i skierowana w górę. Współrzędne
+mogą być ujemne, podobnie jak momenty statyczne. Znak momentu mówi, po której stronie osi przeważa pole, a nie czy
+wynik jest „dobry” czy „zły”.
+
+Dla figury jednorodnej środek masy i centroid pokrywają się. W dalszej części kursu będziemy mówić krótko „środek
+ciężkości”, mając na myśli charakterystykę geometryczną przekroju. Gdy pojawi się materiał niejednorodny, różnicę
+zaznaczymy wyraźnie.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\bar{x} = \frac{1}{A}\int_A x\,dA, \qquad \bar{y} = \frac{1}{A}\int_A y\,dA
+\bar{x} = \frac{1}{A}\int_A x\,dA, \qquad \bar{y} = \frac{1}{A}\int_A y\,dA, \qquad A=\int_A dA
 $$
 
-<Caption>A to pole całej figury, a x i y — współrzędne elementu pola dA. Dla jednorodnej figury płaskiej położenie zależy od geometrii, a nie od gęstości materiału.</Caption>
+<Caption>Całkowanie odbywa się po całym polu figury. $A$ jest polem całkowitym, a $x$ i $y$ współrzędnymi elementu
+pola $dA$. Dla figury jednorodnej gęstość nie występuje we wzorze, ponieważ skraca się w liczniku i mianowniku.</Caption>
 </Formula>
 
+Wyprowadzenie opiera się na pojęciu momentu statycznego, czyli pierwszego momentu pola. Przejdźmy przez nie krok po
+kroku.
+
+1. Podziel figurę na $n$ małych części o polach $\Delta A_i$ i środkach w punktach $(x_i,y_i)$.
+2. Moment statyczny części względem osi $y$ wynosi $\Delta S_y=x_i\,\Delta A_i$, ponieważ ramieniem jest odległość
+   pozioma od tej osi.
+3. Moment statyczny części względem osi $x$ wynosi $\Delta S_x=y_i\,\Delta A_i$, ponieważ ramieniem jest odległość
+   pionowa.
+4. Sumując po wszystkich częściach, otrzymujemy $S_y\approx\sum_i x_i\Delta A_i$ oraz
+   $S_x\approx\sum_i y_i\Delta A_i$.
+5. Żądamy, aby pole $A$ skupione w szukanym punkcie dawało ten sam moment: $A\bar{x}=S_y$ oraz $A\bar{y}=S_x$.
+6. Stąd $\bar{x}=S_y/A$ i $\bar{y}=S_x/A$. To jest cała idea środka ciężkości: moment dzielony przez pole.
+7. Przechodzimy granicznie z wielkością oczek $\Delta A_i\to 0$. Sumy zamieniają się w całki, a wzory przyjmują
+   postać podaną w ramce.
+8. Dla figury jednorodnej masa jest proporcjonalna do pola, więc ten sam rachunek daje środek masy. Gęstość wypada.
+
+Dla prostokąta o podstawie $b$ i wysokości $h$, którego dolna krawędź leży na osi $x$, można to policzyć jawnie.
+Szerokość pasa na wysokości $y$ jest stała i równa $b$, zatem
+
+$$
+\bar{y}=\frac{1}{bh}\int_0^h y\,b\,dy=\frac{1}{bh}\cdot\frac{bh^2}{2}=\frac{h}{2}.
+$$
+
+Analogicznie $\bar{x}=b/2$. Wynik zgadza się z symetrią: prostokąt ma dwie osie symetrii, a ich przecięcie leży w
+połowie każdego wymiaru.
+
+Dla trójkąta o podstawie $b$ i wysokości $h$ szerokość pasa maleje liniowo. Jeżeli podstawa leży na osi $x$, a
+wierzchołek jest na wysokości $h$, to $b(y)=b\left(1-\frac{y}{h}\right)$. Pole wynosi $A=\frac{1}{2}bh$, a moment
+
+$$
+S_x=\int_0^h y\,b\left(1-\frac{y}{h}\right)dy=b\left(\frac{h^2}{2}-\frac{h^2}{3}\right)=\frac{bh^2}{6}.
+$$
+
+Dzieląc przez pole, dostajemy $\bar{y}=\frac{bh^2/6}{bh/2}=\frac{h}{3}$. Środek leży więc w jednej trzeciej
+wysokości od podstawy, czyli w dwóch trzecich od wierzchołka. Dla trójkąta prostokątnego o przyprostokątnych na osiach
+oba warunki dają ten sam wynik: $\bar{x}=b/3$ i $\bar{y}=h/3$.
+
+Dla koła o środku w początku układu każdy element pola po jednej stronie osi ma odpowiednik po stronie przeciwnej.
+Momenty się znoszą, więc $S_x=S_y=0$, a środek leży w środku koła. Dla półkola i wycinka symetria nie wystarcza, bo
+figura nie jest symetryczna względem obu osi; tam potrzebne jest całkowanie, które daje $\bar{y}=4r/(3\pi)$ dla
+półkola i $\bar{x}=\bar{y}=4r/(3\pi)$ dla ćwiartki koła.
+
 <Insight>
-  Symetria ułatwia zadanie, ale figura bez dwóch osi symetrii nadal ma środek ciężkości. Trójkąt ma środek w przecięciu
-  środkowych, w odległości h/3 od podstawy.
+  Symetria daje tylko tyle, ile naprawdę daje. Jedna oś symetrii wyznacza jedną współrzędną, a nie obie. Dla trójkąta
+  zapamiętaj $h/3$ od podstawy i $2h/3$ od wierzchołka; dla półkola $4r/(3\pi)$ od średnicy. Środek ciężkości może leżeć
+  poza materiałem i nie jest to błąd.
 </Insight>
 
 <WorkedExample>
-  <Given>Prostokąt o b = 80 mm i h = 160 mm ustawiono tak, że dolny lewy róg ma współrzędne (20; 30) mm.</Given>
+  <Given>
+    Trójkątna blacha węzłowa ma kształt trójkąta prostokątnego o przyprostokątnej poziomej 240 mm i pionowej 180 mm. Kąt
+    prosty leży w początku układu, a przyprostokątne pokrywają się z dodatnimi półosiami $x$ i $y$.
+  </Given>
   <Steps>
-    <Step>Względem własnego dolnego lewego rogu środek ma współrzędne b/2 = 40 mm i h/2 = 80 mm.</Step>
-    <Step>Dodajemy przesunięcie początku figury: x̄ = 20 + 40 = 60 mm.</Step>
-    <Step>Analogicznie ȳ = 30 + 80 = 110 mm.</Step>
+    <Step>Pole figury: $A=240\cdot 180/2=21\,600\ \text{mm}^2$.</Step>
+    <Step>Dla trójkąta prostokątnego o przyprostokątnych na osiach środek leży w $(b/3,\,h/3)$.</Step>
     <Step>
-      Wynik leży wewnątrz prostokąta, co jest kontrolą poprawności; przesunięcie całej figury przesuwa także jej środek.
+      Zatem $\bar{x}=240/3=80\ \text{mm}$ oraz $\bar{y}=180/3=60\ \text{mm}$.
+    </Step>
+    <Step>
+      Sprawdzenie całką: szerokość pasa na wysokości $y$ wynosi $b(y)=240\left(1-y/180\right)$. Moment względem osi $x$
+      to $S_x=\int_0^{180}y\,b(y)\,dy=240\cdot 5400=1\,296\,000\ \text{mm}^3$.
+    </Step>
+    <Step>
+      Dzielenie przez pole daje $\bar{y}=1\,296\,000/21\,600=60\ \text{mm}$, co potwierdza wynik z symetrii i
+      podobieństwa.
+    </Step>
+    <Step>
+      Kontrola sensowności: środek leży wewnątrz trójkąta, bliżej kąta prostego niż przeciwprostokątnej. Odległości 80
+      mm i 60 mm są mniejsze od odpowiednich przyprostokątnych.
     </Step>
   </Steps>
-  <Result>Środek ciężkości prostokąta ma współrzędne (60; 110) mm.</Result>
+  <Result>
+    Środek ciężkości blachy ma współrzędne $(80;\,60)$ mm, a jej pole wynosi $21\,600\ \text{mm}^2$, czyli 216 cm².
+    Wynik jest zgodny z regułą jednej trzeciej wysokości od podstawy.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy półkole o promieniu $r=60\ \text{mm}$, którego średnica leży na osi $x$, a łuk jest skierowany w górę.
+Pole wynosi $A=\frac{\pi r^2}{2}=\frac{\pi\cdot 60^2}{2}\approx 5655\ \text{mm}^2$. Współrzędna pozioma jest zerowa
+z symetrii. Moment statyczny względem osi $x$ obliczamy, dzieląc figurę na pionowe paski: dla wysokości $y$ szerokość
+paska to $2\sqrt{r^2-y^2}$, więc
+
+$$
+S_x=\int_0^r y\cdot 2\sqrt{r^2-y^2}\,dy=\frac{2}{3}r^3.
+$$
+
+Po podzieleniu przez pole otrzymujemy
+
+$$
+\bar{y}=\frac{\frac{2}{3}r^3}{\frac{\pi r^2}{2}}=\frac{4r}{3\pi}\approx\frac{4\cdot 60}{3\pi}\approx 25{,}46\ \text{mm}.
+$$
+
+Wynik jest mniejszy od $r/2=30$ mm, ponieważ szerokie partie półkola leżą blisko średnicy. To dobra kontrola
+jakościowa: środek powinien być przesunięty w stronę „cięższej” podstawy, a nie w stronę wierzchołka łuku.
+
+Dla ćwiartki koła o promieniu $r=80\ \text{mm}$ położonej w pierwszej ćwiartce układu współrzędnych sytuacja jest
+symetryczna względem zamiany osi. Pole wynosi $A=\frac{\pi r^2}{4}\approx 5027\ \text{mm}^2$, a obie współrzędne są
+równe
+
+$$
+\bar{x}=\bar{y}=\frac{4r}{3\pi}=\frac{4\cdot 80}{3\pi}\approx 33{,}95\ \text{mm}.
+$$
+
+Warto zauważyć, że nie jest to $r/2=40$ mm ani $r/3\approx 26{,}7$ mm. Wzór $4r/(3\pi)$ jest charakterystyczny dla
+figur ograniczonych łukiem okręgu i łatwo go pomylić z innymi „środkami” ćwiartki.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że projektant chce, aby trójkątna blacha wspornikowa miała środek ciężkości dokładnie 40 mm od podstawy.
+Jaka musi być wysokość trójkąta? Korzystamy z zależności $\bar{y}=h/3$ i rozwiązujemy ją względem $h$:
+
+$$
+h=3\bar{y}=3\cdot 40=120\ \text{mm}.
+$$
+
+Jeżeli dodatkowo podstawa trójkąta jest osadzona na wysokości 200 mm w układzie konstrukcji, to współrzędna środka
+w tym układzie wynosi $200+40=240$ mm. Przesunięcie całej figury o wektor $(0;200)$ przesuwa bowiem jej środek o ten
+sam wektor; kształt i pole się nie zmieniają.
+
+Warto zbadać granice tego warunku. Dla trójkąta o wysokości $h$ i podstawie na osi $x$ współrzędna $\bar{y}$ wynosi
+dokładnie $h/3$, niezależnie od przesunięcia wierzchołka wzdłuż podstawy. Nie da się więc uzyskać środka w połowie
+wysokości, choć intuicja podpowiada, że „środek” powinien być pośrodku. Gdyby zadanie wymagało $\bar{y}=h/2$, trzeba by zmienić kształt figury, a nie tylko jej
+wysokość. To typowy przykład zadania, w którym poprawna odpowiedź brzmi „taki trójkąt nie istnieje”.
+
+Podobny wariant odwrotny pojawia się przy półkolu. Znając wymaganą odległość środka od średnicy, można wyznaczyć
+promień z równania $\bar{y}=4r/(3\pi)$, czyli $r=3\pi\bar{y}/4$. Dla $\bar{y}=20$ mm dostajemy
+$r=3\pi\cdot 20/4\approx 47{,}1$ mm. Taki rachunek jest przydatny, gdy z rysunku konstrukcyjnego wynika położenie
+środka, a brakuje wymiaru samej figury.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Stosowanie $h/2$ zamiast $h/3$ dla trójkąta.** Środek trójkąta nie leży w połowie wysokości; od podstawy jest to
+jedna trzecia, a od wierzchołka dwie trzecie.
+
+**Uśrednianie współrzędnych wierzchołków dla dowolnego wielokąta.** Dla trójkąta średnia arytmetyczna wierzchołków
+istotnie daje centroid, ale dla czworokąta lub figury złożonej ta reguła zawodzi.
+
+**Mieszanie początków układu.** Jeden element mierzony od dolnej krawędzi, a drugi od górnej, daje pozornie sensowny,
+ale błędny wynik. Zawsze rysuj jeden układ osi i wszystkie wymiary odnieś do niego.
+
+**Wnioskowanie obu współrzędnych z jednej osi symetrii.** Pionowa oś symetrii ustala tylko $\bar{x}$, nie $\bar{y}$.
+
+**Używanie średnicy zamiast promienia we wzorze $4r/(3\pi)$ dla półkola.** Podstawienie $d$ w miejsce $r$ zawyża wynik
+dwukrotnie.
+
+**Przekonanie, że środek ciężkości musi leżeć w materiale.** Dla pierścienia lub litery C może wypaść w pustce i jest
+to poprawne.
+
+**Traktowanie środka ciężkości jako punktu największego naprężenia.** Przy zginaniu największe naprężenia są na
+krawędziach, a w środku ciężkości naprężenie normalne jest zerowe.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj figurę w skali, zaznacz wymiary i przyjmij początek układu. Najlepiej wybierz taki punkt, w którym wiele
+   krawędzi leży na osiach — upraszcza to rachunki.
+2. Sprawdź symetrię. Każda oś symetrii zawiera środek. Jeżeli są dwie prostopadłe osie symetrii, środek jest w ich
+   przecięciu i nie trzeba całkować.
+3. Rozpoznaj figurę: prostokąt, trójkąt, koło, półkole, ćwiartka. Dla każdej z nich przypomnij sobie gotowy wzór i
+   ustal, od czego mierzona jest podana odległość.
+4. Jeżeli figura jest złożona, podziel ją na części i przejdź do metody momentów statycznych z następnej lekcji.
+5. Wyznacz pole $A$ oraz momenty $S_x$ i $S_y$ względem przyjętych osi. Pamiętaj o wspólnym początku.
+6. Oblicz $\bar{x}=S_y/A$ i $\bar{y}=S_x/A$. Zapisz jednostki przy wyniku, nie tylko liczby.
+7. Wykonaj kontrolę: wynik powinien leżeć między skrajnymi współrzędnymi figury (choć nie zawsze w materiale), a dla
+   symetrycznych kształtów zgadzać się z osią symetrii.
+
+## Połącz z resztą kursu
+
+- „Momenty statyczne i figury złożone” rozwija ten sam pomysł na przekroje składane z wielu prostokątów i otworów.
+- „Momenty bezwładności przekroju” wykorzystuje położenie środka jako punkt odniesienia dla osi centralnych.
+- „Twierdzenie Steinera” przenosi moment bezwładności z osi własnej figury na oś równoległą i wymaga poprawnego
+  centroidu każdej części.
+- „Osie centralne i główne” zaczyna się od warunku $S_{xc}=S_{yc}=0$, który jest bezpośrednią konsekwencją definicji
+  z tej lekcji.
+- W module „Zginanie” oś obojętna przechodzi przez środek ciężkości, dlatego błąd w centroidzie przenosi się wprost na
+  rozkład naprężeń normalnych.
+- W module „Stan naprężenia” właściwy układ osi przekroju ułatwia późniejszą analizę kołem Mohra i interpretację
+  kierunków głównych.
+
+## Sprawdź się
+
+Odpowiedz na pytania bez zaglądania do wzorów. Jeżeli któreś sprawia trudność, wróć do odpowiedniego fragmentu i
+przelicz przykład na kartce.
 
 <Quiz>
   <Question outcome="U1">
     <Prompt>
-      Prostokąt ma szerokość b = 100 mm i wysokość h = 200 mm, a jego dolny lewy róg jest początkiem układu. Współrzędne
-      środka ciężkości to:
+      Prostokąt ma szerokość $b=120$ mm i wysokość $h=80$ mm. Jego dolny lewy róg leży w początku układu, a boki są
+      równoległe do osi. Współrzędne środka ciężkości wynoszą:
     </Prompt>
-    <Answer>(100; 200) mm</Answer>
-    <Answer>(25; 50) mm</Answer>
-    <Answer correct>(50; 100) mm</Answer>
-    <Hint>Środek prostokąta dzieli każdy wymiar na połowy.</Hint>
-    <Explanation>Środek prostokąta leży w przecięciu osi symetrii: x̄ = b/2 = 50 mm, ȳ = h/2 = 100 mm.</Explanation>
+    <Answer>$(120;\,80)$ mm</Answer>
+    <Answer>$(30;\,20)$ mm</Answer>
+    <Answer correct>$(60;\,40)$ mm</Answer>
+    <Hint>Prostokąt ma dwie osie symetrii, a ich przecięcie leży w połowie każdego wymiaru.</Hint>
+    <Explanation>$\bar{x}=b/2=60$ mm oraz $\bar{y}=h/2=40$ mm. Środek leży w połowie szerokości i wysokości.</Explanation>
   </Question>
   <Question outcome="W3">
+    <Prompt>Trójkąt ma podstawę na osi $x$ i wysokość $h=150$ mm. Jak daleko od podstawy leży jego środek ciężkości?</Prompt>
+    <Answer>75 mm</Answer>
+    <Answer correct>50 mm</Answer>
+    <Answer>100 mm</Answer>
+    <Hint>Środek trójkąta dzieli wysokość w stosunku 1:2, licząc od podstawy.</Hint>
+    <Explanation>$\bar{y}=h/3=150/3=50$ mm. Od wierzchołka odległość wynosi $2h/3=100$ mm.</Explanation>
+  </Question>
+  <Question outcome="U1">
     <Prompt>
-      Trójkąt ma podstawę na osi x i wysokość h = 120 mm. Jak daleko od podstawy leży jego środek ciężkości?
+      Trójkąt prostokątny ma przyprostokątną poziomą 90 mm i pionową 120 mm. Kąt prosty leży w początku układu, a
+      przyprostokątne pokrywają się z osiami. Współrzędne środka ciężkości to:
     </Prompt>
-    <Answer>30 mm</Answer>
-    <Answer correct>40 mm</Answer>
-    <Answer>60 mm</Answer>
-    <Hint>Środek ciężkości trójkąta nie leży w połowie wysokości.</Hint>
+    <Answer>$(45;\,60)$ mm</Answer>
+    <Answer correct>$(30;\,40)$ mm</Answer>
+    <Answer>$(60;\,80)$ mm</Answer>
+    <Hint>Dla trójkąta prostokątnego o przyprostokątnych na osiach obowiązuje $\bar{x}=b/3$ i $\bar{y}=h/3$.</Hint>
+    <Explanation>$\bar{x}=90/3=30$ mm oraz $\bar{y}=120/3=40$ mm. Środek jest bliżej kąta prostego niż środka boków.</Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Figura ma dokładnie jedną pionową oś symetrii i żadnej poziomej. Co można stwierdzić bez całkowania?</Prompt>
+    <Answer>Obie współrzędne środka leżą na przecięciu osi symetrii</Answer>
+    <Answer>Środek leży w połowie wysokości figury</Answer>
+    <Answer correct>Współrzędna pozioma środka jest równa zeru w układzie tej osi</Answer>
+    <Hint>Jedna oś symetrii wyznacza tylko jedną współrzędną.</Hint>
     <Explanation>
-      Dla trójkąta ȳ = h/3 od podstawy, zatem 120/3 = 40 mm. Od wierzchołka odległość wynosi 2h/3.
+      Pionowa oś symetrii zawiera środek, więc $\bar{x}=0$ w układzie z tą osią. Współrzędna $\bar{y}$ wymaga
+      dodatkowego obliczenia, bo figura nie ma poziomej osi symetrii.
     </Explanation>
   </Question>
-  <Question outcome="W3">
-    <Prompt>Figura ma dokładnie jedną pionową oś symetrii. Co można wywnioskować bez dalszych obliczeń?</Prompt>
-    <Answer correct>Środek ciężkości leży na tej osi</Answer>
-    <Answer>Środek ciężkości leży dokładnie w połowie wysokości</Answer>
-    <Answer>Oba momenty bezwładności są równe</Answer>
-    <Hint>Symetria pionowa informuje o współrzędnej poziomej, a nie o pionowej.</Hint>
+  <Question outcome="U1">
+    <Prompt>Półkole ma promień $r=50$ mm, a jego średnica leży na osi $x$. Odległość środka ciężkości od średnicy wynosi około:</Prompt>
+    <Answer>25,0 mm</Answer>
+    <Answer correct>21,2 mm</Answer>
+    <Answer>31,8 mm</Answer>
+    <Hint>Dla półkola $\bar{y}=4r/(3\pi)$, a nie $r/2$.</Hint>
     <Explanation>
-      Jedna oś symetrii wyznacza tylko położenie środka na tej osi. Nie daje automatycznie wysokości środka ani równości
-      momentów bezwładności.
+      $\bar{y}=4\cdot 50/(3\pi)=200/(3\pi)\approx 21{,}22$ mm. Wartość $r/2=25$ mm byłaby błędem, bo szerokie partie
+      półkola leżą blisko średnicy.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Środek ciężkości figury ma w układzie lokalnym współrzędne $(30;\,40)$ mm. Początek układu lokalnego znajduje się
+      w punkcie $(100;\,50)$ mm układu globalnego. Współrzędne środka w układzie globalnym wynoszą:
+    </Prompt>
+    <Answer>$(30;\,40)$ mm</Answer>
+    <Answer correct>$(130;\,90)$ mm</Answer>
+    <Answer>$(70;\,10)$ mm</Answer>
+    <Hint>Przesunięcie początku układu przesuwa wszystkie współrzędne o ten sam wektor.</Hint>
+    <Explanation>
+      Dodajemy wektor przesunięcia: $100+30=130$ mm oraz $50+40=90$ mm. Kształt figury i jej pole nie zmieniają się.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>W którym przypadku środek ciężkości może leżeć poza materiałem figury?</Prompt>
+    <Answer>Zawsze, bo definicja tego nie zabrania</Answer>
+    <Answer correct>Dla cienkiego pierścienia lub figury w kształcie litery C</Answer>
+    <Answer>Nigdy, bo środek musi należeć do figury</Answer>
+    <Hint>Pomyśl o rozkładzie pola, a nie o tym, czy dany punkt jest wypełniony materiałem.</Hint>
+    <Explanation>
+      Dla pierścienia całe pole leży na obwodzie, więc jego środek wypada w pustym otworze. Podobnie dla litery C.
+      Definicja centroidu nie wymaga, aby punkt należał do figury.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o geometrycznych charakterystykach figur płaskich;
+  szukaj definicji środka ciężkości i momentów statycznych oraz przykładów figur prostych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — wstęp do charakterystyk geometrycznych przekrojów;
+  dobrze pokazuje związek położenia środka z osią obojętną przy zginaniu.
+- D. Roylance, _Mechanics of Materials_ (otwarty podręcznik) — rozdział o naprężeniach w belkach; wyprowadzenie
+  warunku, że oś obojętna przechodzi przez środek ciężkości przekroju.
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o zginaniu i własnościach przekrojów; przydatne tabele środków
+  ciężkości figur typowych.

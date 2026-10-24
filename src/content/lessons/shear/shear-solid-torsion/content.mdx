@@ -7,7 +7,6 @@ shortTitle: Wał pełny
 description: >-
   Prześledź liniowy rozkład naprężeń od osi do powierzchni i oblicz τmax dla
   okrągłego wału.
-duration: 9
 eyebrow: 'Najdalej od osi, największe τ'
 outcomes:
   - >-
@@ -22,61 +21,281 @@ outcomes:
     zachowaniem bezpieczeństwa
 ---
 
-Podczas skręcania przekroje wału obracają się względem siebie. Punkty blisko osi przesuwają się nieznacznie, a przy powierzchni najbardziej — dlatego naprężenie styczne rośnie liniowo od zera w osi do maksimum na obwodzie.
+Weź długi wkrętak i przekręć nim oporny wkręt. Twoja ręka przykłada moment do rączki, a końcówka przenosi go na wkręt. Wzdłuż trzonka wkrętaka pojawia się skręcenie: każdy przekrój obraca się nieco względem sąsiedniego. Materiał nie jest rozciągany wzdłuż osi, lecz ścinany w kierunku obwodowym. To jest skręcanie.
+
+W wale okrągłym odkształcenie jest największe przy powierzchni, a najmniejsze w osi. Wyobraź sobie cienką rurkę wyciętą z wału wokół osi. Podczas skręcania rurka obraca się jako całość, ale jej punkty zakreślają tym większy łuk, im większy jest promień. Ponieważ kąt obrotu na jednostkę długości jest wspólny dla całego przekroju, przemieszczenie styczne rośnie proporcjonalnie do promienia. Razem z nim rośnie odkształcenie postaciowe i naprężenie styczne.
+
+To prowadzi do wniosku, który odróżnia skręcanie od ścinania technicznego: naprężenie nie jest równomierne. W osi wynosi zero, a na obwodzie osiąga maksimum. Nie wolno więc dzielić momentu przez pole przekroju. Trzeba uwzględnić rozkład pola względem osi, czyli biegunowy moment bezwładności.
+
+W typowym wale napędowym o średnicy 50 mm i momencie 1 kN·m maksymalne naprężenie wynosi około 40 MPa. To niewiele w porównaniu z granicą plastyczności stali, ale wał może nadal skręcać się o zauważalny kąt. Dlatego projektowanie wałów ma dwa oblicza: wytrzymałość, która chroni przed zniszczeniem, oraz sztywność, która chroni przed nadmierną deformacją. W tej lekcji skupiamy się na rozkładzie naprężeń i wytrzymałości; kąt skręcenia rozwiniemy w jednej z kolejnych lekcji.
+
+Po tej lekcji będziesz umiał wyprowadzić wzór $\tau = Tr/J_o$, obliczyć biegunowy moment bezwładności dla przekroju pełnego, wyznaczyć wskaźnik wytrzymałości na skręcanie i policzyć maksymalne naprężenie w wale. Zrozumiesz też, dlaczego naprężenie zależy od średnicy w trzeciej potędze, a sztywność od czwartej.
+
+## Zanim zaczniesz
+
+- **Moment siły i moment skręcający.** Wiesz, że moment to siła razy ramię, a moment skręcający działa wokół osi wału. Jednostką jest N·m lub N·mm.
+- **Biegunowy moment bezwładności.** Przypomnij sobie, że $J_o = \int r^2\,\mathrm{d}A$ opisuje rozkład pola względem osi. Dla koła pełnego wynosi $\pi d^4/32$.
+- **Prawo Hooke’a dla ścinania.** Znasz związek $\tau = G\gamma$ i wiesz, że $G$ jest modułem ścinania materiału.
+- **Radiany i stopnie.** Kąt skręcenia wygodnie liczyć w radianach, a prezentować w stopniach. Przelicznik to $180/\pi$.
+- **Jednostki momentu.** $1\ \text{kN}\cdot\text{m} = 10^6\ \text{N}\cdot\text{mm}$. Wzory na naprężenie wymagają momentu w N·mm, jeśli średnica jest w mm.
+- **Typowe pułapki.** Podstawianie promienia w miejsce średnicy, używanie $d^3$ zamiast $d^4$ w momencie bezwładności, mieszanie N·m z N·mm oraz zakładanie, że naprężenie jest stałe w przekroju.
+
+## Model i intuicja
+
+Model skręcania wału okrągłego opiera się na założeniu, że przekroje poprzeczne pozostają płaskie i obracają się względem siebie wokół osi. Dla przekroju kołowego to założenie jest dobrze spełnione, ponieważ symetria koła nie pozwala na swobodne wypaczenie przekroju. W przekrojach niekołowych, na przykład kwadratowych, przekroje się wypaczają i prosty wzór przestaje obowiązywać.
+
+Zakładamy również, że kąt skręcenia jest mały, materiał jest liniowo sprężysty i izotropowy, a moment jest stały na rozważanym odcinku. Pomijamy koncentracje naprężeń przy rowkach, wpustach i zmianach średnicy. W pobliżu miejsca przyłożenia momentu rozkład naprężeń jest bardziej złożony, ale zgodnie z zasadą Saint-Venanta zaburzenie wygasa w odległości kilku średnic.
+
+Geometria odkształcenia jest prosta. Odcinek wału o długości $\mathrm{d}z$ obraca górny przekrój względem dolnego o kąt $\mathrm{d}\theta$. Punkt leżący w odległości $r$ od osi przemieszcza się stycznie o $\delta = r\,\mathrm{d}\theta$. Odkształcenie postaciowe to przemieszczenie podzielone przez długość odcinka: $\gamma = \delta/\mathrm{d}z = r\,\mathrm{d}\theta/\mathrm{d}z$.
+
+Z prawa Hooke’a otrzymujemy $\tau = G\gamma = G r\,\mathrm{d}\theta/\mathrm{d}z$. Naprężenie rośnie więc liniowo z promieniem. Kąt $\mathrm{d}\theta/\mathrm{d}z$ jest wspólny dla całego przekroju i na razie nie znamy jego wartości. Wyznaczymy go z równowagi momentów.
+
+Kiedy model przestaje działać? Przy dużych kątach skręcenia, gdy odkształcenia przekraczają zakres sprężystyczny. Przy przekrojach niekołowych, gdzie konieczna jest teoria skręcania swobodnego lub skrępowanego. Przy wałach z ostrymi rowkami, gdzie koncentracja naprężeń może być kilkukrotna. Przy cienkościennych rurach o nieregularnym kształcie, gdzie potrzebne są inne wzory.
+
+W przekroju kwadratowym naprężenia są największe w środkach boków, a w narożach maleją do zera. W przekroju z wpustem pojawia się dodatkowa koncentracja przy rowku. Dlatego wał z rowkiem trzeba sprawdzić nie tylko wzorem na skręcanie, ale też współczynnikiem koncentracji. Nasz wzór jest narzędziem dla koła i pierścienia, nie dla dowolnego kształtu.
+
+## Laboratorium: co ustawić
+
+W laboratorium ustaw moment $T$, średnicę $d$ i długość $L$. Obserwuj maksymalne naprężenie na obwodzie oraz kąt skręcenia. Zmieniaj najpierw tylko średnicę, a potem tylko moment, i porównaj, jak szybko zmienia się każda z wielkości. Zwróć uwagę, że moduł ścinania jest w laboratorium ustalony na 80 GPa.
 
 <Lab id="torsion" />
 
+## Definicje i jednostki
+
+| Symbol       | Wielkość                            | Definicja                             | Jednostka    |
+| ------------ | ----------------------------------- | ------------------------------------- | ------------ |
+| $T$          | moment skręcający                   | moment działający wokół osi wału      | N·mm lub N·m |
+| $d$          | średnica wału                       | średnica przekroju pełnego            | mm           |
+| $r$          | promień                             | odległość punktu od osi               | mm           |
+| $J_o$        | biegunowy moment bezwładności       | $\int r^2\,\mathrm{d}A$ dla przekroju | mm⁴          |
+| $W_o$        | wskaźnik wytrzymałości na skręcanie | $J_o/(d/2)$                           | mm³          |
+| $\tau(r)$    | naprężenie styczne                  | naprężenie w odległości $r$ od osi    | MPa          |
+| $\tau_{max}$ | maksymalne naprężenie styczne       | naprężenie na obwodzie                | MPa          |
+| $\varphi$    | kąt skręcenia                       | obrót jednego końca względem drugiego | rad          |
+| $G$          | moduł ścinania                      | stała materiałowa                     | MPa          |
+
+Biegunowy moment bezwładności jest miarą tego, jak daleko od osi leży materiał. Dla tego samego pola materiał umieszczony dalej od osi daje większy $J_o$, a więc większą sztywność i mniejsze naprężenie. To dlatego rura o odpowiednio dobranej grubości ścianki może być sztywniejsza od pełnego pręta o tej samej masie.
+
+Wskaźnik wytrzymałości na skręcanie $W_o$ jest odpowiednikiem wskaźnika wytrzymałości przekroju przy zginaniu, ale dla skręcania. Łączy moment bezwładności z odległością skrajnego włókna: $W_o = J_o/(d/2)$. Dla przekroju pełnego upraszcza się do $\pi d^3/16$. Dzięki temu maksymalne naprężenie można zapisać krótko jako $\tau_{max} = T/W_o$.
+
+Kąt skręcenia $\varphi$ jest kątem obrotu całego przekroju na długości $L$. Nie należy go mylić z odkształceniem postaciowym $\gamma$, które opisuje lokalne ścinanie materiału. $\varphi$ zależy od długości wału, a $\gamma$ od promienia i lokalnego gradientu kąta. Oba wyrażamy w radianach, ale oznaczają inne wielkości.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\tau(r) = \frac{T r}{J_o} \qquad J_o = \frac{\pi d^4}{32} \qquad \tau_{\max} = \frac{16T}{\pi d^3}
+\tau(r) = \frac{T r}{J_o}, \qquad J_o = \frac{\pi d^4}{32}, \qquad W_o = \frac{\pi d^3}{16}, \qquad \tau_{max} = \frac{T}{W_o}, \qquad \varphi = \frac{TL}{GJ_o}
 $$
 
-<Caption>T to moment skręcający w N·mm, r i d podajemy w mm, a J_o w mm⁴. Naprężenie otrzymasz w MPa. Wskaźnik wytrzymałości na skręcanie wynosi W_o = J_o/(d/2) = πd³/16.</Caption>
+<Caption>T to moment skręcający w N·mm, r i d podajemy w mm, a J_o w mm⁴. Naprężenie otrzymasz w MPa, a kąt φ w radianach. Wskaźnik W_o wynika z J_o podzielonego przez promień zewnętrzny d/2.</Caption>
 </Formula>
 
+Wyprowadzenie prowadzi od geometrii odkształcenia przez prawo materiałowe do równowagi momentów.
+
+1. **Opisz geometrię.** Odcinek wału o długości $\mathrm{d}z$ obraca się o kąt $\mathrm{d}\theta$. Punkt w odległości $r$ od osi przesuwa się stycznie o $\delta = r\,\mathrm{d}\theta$.
+2. **Oblicz odkształcenie.** Odkształcenie postaciowe to przemieszczenie na jednostkę długości: $\gamma = \delta/\mathrm{d}z = r\,\mathrm{d}\theta/\mathrm{d}z$.
+3. **Zastosuj prawo Hooke’a.** W zakresie sprężystym $\tau = G\gamma = G r\,\mathrm{d}\theta/\mathrm{d}z$. Widzimy, że naprężenie jest liniową funkcją promienia.
+4. **Zapisz równowagę momentów.** Moment zewnętrzny $T$ musi być równoważony przez moment naprężeń stycznych na całym przekroju: $T = \int_A \tau r\,\mathrm{d}A$.
+5. **Podstaw wyrażenie na naprężenie.** Otrzymujemy $T = \int_A G r^2 (\mathrm{d}\theta/\mathrm{d}z)\,\mathrm{d}A$.
+6. **Wyłącz stałe przed całkę.** $G$ i $\mathrm{d}\theta/\mathrm{d}z$ nie zależą od położenia punktu w przekroju, więc $T = G(\mathrm{d}\theta/\mathrm{d}z)\int_A r^2\,\mathrm{d}A$.
+7. **Rozpoznaj moment bezwładności.** Całka $\int_A r^2\,\mathrm{d}A$ to biegunowy moment bezwładności $J_o$. Zatem $T = G J_o\,\mathrm{d}\theta/\mathrm{d}z$.
+8. **Wyznacz gradient kąta.** Dzieląc przez $GJ_o$, otrzymujemy $\mathrm{d}\theta/\mathrm{d}z = T/(GJ_o)$.
+9. **Wróć do naprężenia.** Podstaw gradient do $\tau = G r\,\mathrm{d}\theta/\mathrm{d}z$: $\tau = G r \cdot T/(GJ_o) = Tr/J_o$. Moduł $G$ się skraca.
+10. **Oblicz $J_o$ dla koła.** Dla przekroju pełnego $J_o = \int_0^{d/2} r^2 \cdot 2\pi r\,\mathrm{d}r = \pi d^4/32$.
+11. **Wyznacz maksimum.** Największe naprężenie występuje dla $r = d/2$: $\tau_{max} = T(d/2)/J_o = 16T/(\pi d^3)$.
+12. **Całkuj kąt.** Przy stałych $T$, $G$ i $J_o$ gradient jest stały, więc $\varphi = (T/(GJ_o))L = TL/(GJ_o)$.
+
+Warto zauważyć, że $G$ zniknęło ze wzoru na naprężenie. W zakresie sprężystym rozkład naprężeń nie zależy od materiału, tylko od geometrii i momentu. To nie znaczy, że materiał jest nieistotny: $G$ wraca w kącie skręcenia i decyduje o sztywności. Dwa wały o tej samej geometrii, ale z różnych materiałów, będą miały takie samo $\tau_{max}$ przy tym samym $T$, ale różne $\varphi$.
+
 <Insight>
-  Maksymalne naprężenie jest odwrotnie proporcjonalne do d³, a sztywność na skręcanie GJ_o rośnie z d⁴. Dlatego średnica
-  znacznie silniej wpływa na kąt skręcenia niż na samo naprężenie.
+  Maksymalne naprężenie jest odwrotnie proporcjonalne do $d^3$, a sztywność $GJ_o$ rośnie z $d^4$. Dlatego średnica
+  znacznie silniej wpływa na kąt skręcenia niż na samo naprężenie. Podwojenie średnicy obniża naprężenie ośmiokrotnie, a
+  kąt skręcenia szesnastokrotnie.
 </Insight>
 
 <WorkedExample>
-  <Given>Pełny wał o średnicy d = 50 mm przenosi moment T = 2 kN·m.</Given>
+  <Given>
+    Pełny wał o średnicy $d = 60\ \text{mm}$ i długości $L = 1{,}2\ \text{m}$ przenosi moment $T = 1{,}5\ \text{kN}\cdot\text{m}$. Moduł ścinania wynosi $G = 80\ \text{GPa}$. Oblicz maksymalne naprężenie i kąt skręcenia.
+  </Given>
   <Steps>
-    <Step>Zamień moment: T = 2 kN·m = 2 000 000 N·mm.</Step>
-    <Step>Wskaźnik wytrzymałości na skręcanie: W_o = πd³/16 = π·50³/16 = 24 543,7 mm³.</Step>
-    <Step>Oblicz τmax = T/W_o = 2 000 000/24 543,7 = 81,49 MPa.</Step>
+    <Step>Zamień moment: $T = 1{,}5\ \text{kN}\cdot\text{m} = 1\,500\,000\ \text{N}\cdot\text{mm}$.</Step>
+    <Step>Oblicz wskaźnik wytrzymałości: $W_o = \pi \cdot 60^3/16 = 42\,411{,}5\ \text{mm}^3$.</Step>
+    <Step>Maksymalne naprężenie: $\tau_{max} = 1\,500\,000/42\,411{,}5 = 35{,}37\ \text{MPa}$.</Step>
+    <Step>Oblicz biegunowy moment bezwładności: $J_o = \pi \cdot 60^4/32 = 1\,272\,345\ \text{mm}^4$.</Step>
+    <Step>Zamień długość na mm: $L = 1{,}2\ \text{m} = 1200\ \text{mm}$.</Step>
+    <Step>Kąt skręcenia: $\varphi = 1\,500\,000 \cdot 1200/(80\,000 \cdot 1\,272\,345) = 0{,}01768\ \text{rad}$.</Step>
+    <Step>Zamień na stopnie: $0{,}01768 \cdot 180/\pi = 1{,}013^\circ$.</Step>
   </Steps>
-  <Result>τmax ≈ 81,5 MPa na powierzchni wału; w osi naprężenie styczne wynosi zero.</Result>
+  <Result>
+    $\tau_{max} \approx 35{,}4\ \text{MPa}$ na powierzchni wału, a kąt skręcenia wynosi około $0{,}0177\ \text{rad}$, czyli $1{,}01^\circ$. W osi naprężenie styczne jest równe zero.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy wał napędowy przenoszący moc $P = 15\ \text{kW}$ przy prędkości obrotowej $n = 1450\ \text{obr/min}$. Średnica wału wynosi $d = 25\ \text{mm}$, a materiał ma $G = 80\ \text{GPa}$. Chcemy obliczyć moment i maksymalne naprężenie.
+
+Najpierw zamieniamy prędkość obrotową na prędkość kątową: $\omega = 2\pi n/60 = 2\pi \cdot 1450/60 = 151{,}84\ \text{rad/s}$. Moc w watach to $15\,000\ \text{W}$, więc moment wynosi $T = P/\omega = 15\,000/151{,}84 = 98{,}79\ \text{N}\cdot\text{m}$.
+
+Moment w N·mm to $98\,790\ \text{N}\cdot\text{mm}$. Wskaźnik wytrzymałości dla $d = 25\ \text{mm}$ wynosi $W_o = \pi \cdot 25^3/16 = 3067{,}96\ \text{mm}^3$. Maksymalne naprężenie to $\tau_{max} = 98\,790/3067{,}96 = 32{,}2\ \text{MPa}$.
+
+Naprężenie 32,2 MPa jest znacznie poniżej typowej granicy plastyczności stali, ale nadal trzeba sprawdzić, czy wał nie skręca się zbyt mocno. Dla długości 1 m i modułu $G = 80\ \text{GPa}$ kąt wynosi $\varphi = 98\,790 \cdot 1000/(80\,000 \cdot 38\,349{,}5) = 0{,}0322\ \text{rad}$, czyli około $1{,}84^\circ$. To już zauważalne skręcenie, które może być nieakceptowalne w precyzyjnym napędzie.
+
+Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy moment i większe naprężenie. Dlatego wały wolnoobrotowe muszą być grubsze od szybkoobrotowych przenoszących tę samą moc.
+
+## Trzeci przykład: wariant odwrotny
+
+Dobierzmy średnicę wału pełnego dla momentu $T = 800\ \text{N}\cdot\text{m}$ i naprężenia dopuszczalnego $\tau_{dop} = 40\ \text{MPa}$. Najpierw korzystamy z warunku wytrzymałości.
+
+Ze wzoru $\tau_{max} = 16T/(\pi d^3)$ otrzymujemy $d \ge \sqrt[3]{16T/(\pi\tau_{dop})}$. Podstawiamy $T = 800\,000\ \text{N}\cdot\text{mm}$: $d \ge \sqrt[3]{12\,800\,000/(\pi \cdot 40)} = \sqrt[3]{101\,859} = 46{,}7\ \text{mm}$.
+
+Najbliższa większa średnica handlowa to 48 mm. Sprawdzamy: $W_o = \pi \cdot 48^3/16 = 21\,714{,}4\ \text{mm}^3$, a $\tau_{max} = 800\,000/21\,714{,}4 = 36{,}85\ \text{MPa}$, czyli poniżej 40 MPa. Warunek wytrzymałości jest spełniony.
+
+Załóżmy teraz, że dopuszczalny kąt skręcenia wynosi $1^\circ$ na metr długości, czyli $\varphi_{dop} = 0{,}01745\ \text{rad/m}$. Z warunku $\varphi = TL/(GJ_o) \le \varphi_{dop}$ otrzymujemy $d \ge \sqrt[4]{32TL/(\pi G\varphi_{dop})}$. Dla $L = 1000\ \text{mm}$ i $G = 80\,000\ \text{MPa}$ mamy $d \ge \sqrt[4]{5\,836\,000} = 49{,}15\ \text{mm}$.
+
+Ostatecznie wybieramy 50 mm, bo to większa z dwóch średnic. Sprawdzamy naprężenie: $W_o = 24\,543{,}7\ \text{mm}^3$, więc $\tau_{max} = 32{,}6\ \text{MPa}$. Kąt wynosi $0{,}0163\ \text{rad/m}$, czyli $0{,}93^\circ$ na metr. Oba warunki są spełnione, a o wyborze zadecydowała sztywność, nie wytrzymałość.
+
+To bardzo typowa sytuacja w projektowaniu wałów. Warunek wytrzymałości daje średnicę minimalną, ale dopiero warunek sztywności często wymusza wymiar większy. W lekcji o kącie skręcenia zobaczysz tę procedurę dokładniej, a w lekcji o doborze średnicy połączysz oba warunki w pełny algorytm.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Promień zamiast średnicy w $J_o$.** Wzór $\pi d^4/32$ zawiera średnicę. Jeżeli użyjesz promienia, otrzymasz $J_o$ szesnaście razy za mały.
+- **Potęga $d^3$ w momencie bezwładności.** $J_o$ zależy od $d^4$, a wskaźnik $W_o$ od $d^3$. Pomylenie potęg prowadzi do dużego błędu przy zmianie średnicy.
+- **Moment w N·m razem ze średnicą w mm.** Zamień moment na N·mm. Inaczej naprężenie wyjdzie tysiąc razy za małe.
+- **Traktowanie naprężenia jako stałego.** W wale naprężenie rośnie liniowo od zera w osi do maksimum na obwodzie. Dzielenie $T$ przez pole przekroju jest błędem.
+- **Mylenie kąta $\varphi$ z odkształceniem $\gamma$.** $\varphi$ opisuje obrót całego przekroju, a $\gamma$ lokalne ścinanie materiału. Mają różne jednostki i różne wzory.
+- **Zakładanie, że $G$ wpływa na naprężenie.** W zakresie sprężystym $\tau_{max}$ nie zależy od $G$. Moduł ścinania wpływa natomiast na kąt skręcenia.
+- **Stosowanie wzoru do przekroju niekołowego.** Dla kwadratu, prostokąta lub przekroju z wpustem rozkład naprężeń jest inny. Wzór $\tau = Tr/J_o$ dotyczy przekroju kołowego lub pierścieniowego.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal, co jest dane.** Zapisz moment $T$, średnicę $d$ lub promień, długość $L$ i moduł $G$. Sprawdź, czy moment jest w N·m, czy w N·mm.
+2. **Ujednolić jednostki.** Najwygodniej pracować w N i mm. Wtedy naprężenie wychodzi w MPa, a kąt w radianach.
+3. **Sprawdź, czy przekrój jest pełny.** Dla pełnego koła użyj $J_o = \pi d^4/32$ i $W_o = \pi d^3/16$. Dla rury wzory są inne.
+4. **Oblicz $W_o$ lub $J_o$.** Do naprężenia wystarczy $W_o$. Do kąta potrzebne jest $J_o$.
+5. **Oblicz naprężenie.** Użyj $\tau_{max} = T/W_o$ lub $\tau(r) = Tr/J_o$, jeśli pytanie dotyczy punktu wewnątrz przekroju.
+6. **Oblicz kąt, jeśli pytanie tego wymaga.** Użyj $\varphi = TL/(GJ_o)$ i pamiętaj o zamianie na stopnie, jeśli treść podaje kąt w stopniach.
+7. **Sprawdź, czego szukano.** Jeżeli pytanie dotyczy średnicy, przekształć wzór na $d$ i zaokrąglij w górę.
+8. **Sprawdź oba warunki.** Wytrzymałość i sztywność to osobne wymagania. Mniejsza średnica z jednego warunku może nie spełniać drugiego.
+
+## Połącz z resztą kursu
+
+- **Naprężenia i odkształcenia styczne.** Wzór $\tau = G\gamma$ jest podstawą wyprowadzenia. W wale $\gamma$ rośnie liniowo z promieniem, a nie jest stałe.
+- **Ścinanie techniczne.** W połączeniu używamy naprężenia średniego. W wale musimy opisać rozkład, bo geometria kołowa wymusza liniową zmianę odkształcenia.
+- **Wał rurowy.** Kolejna lekcja pokaże, jak zmienia się $J_o$ i $W_o$, gdy w środku przekroju nie ma materiału. Zobaczysz, dlaczego rura jest efektywna.
+- **Kąt skręcenia i sztywność.** Wzór $\varphi = TL/(GJ_o)$ zostanie rozwinięty jako samodzielny warunek projektowy. Tutaj pojawia się tylko jako uzupełnienie.
+- **Dobór średnicy.** Trzeci przykład jest zapowiedzią pełnej procedury doboru, w której wybieramy większą średnicę z warunku wytrzymałości i sztywności.
+- **Hipotezy wytrzymałościowe.** W wale z jednoczesnym zginaniem i skręcaniem naprężenia normalne i styczne trzeba zredukować według hipotezy. Samo $\tau_{max}$ nie wystarcza.
+
+## Sprawdź się
+
+Sprawdź, czy rozumiesz rozkład naprężeń i potrafisz poprawnie przeliczyć jednostki.
 
 <Quiz>
   <Question outcome="W2">
-    <Prompt>Jak zmienia się naprężenie styczne wzdłuż promienia pełnego, sprężyście skręcanego wału?</Prompt>
+    <Prompt>
+      Jak zmienia się naprężenie styczne wzdłuż promienia pełnego, sprężyście skręcanego wału?
+    </Prompt>
     <Answer correct>Rośnie liniowo od zera w osi do maksimum na powierzchni</Answer>
     <Answer>Jest stałe w całym przekroju</Answer>
     <Answer>Jest największe w osi i maleje ku powierzchni</Answer>
-    <Hint>We wzorze τ(r) = Tr/J_o promień r jest w liczniku.</Hint>
+    <Hint>We wzorze $\tau(r) = Tr/J_o$ promień $r$ jest w liczniku.</Hint>
     <Explanation>
-      Przy stałych T i J_o naprężenie jest wprost proporcjonalne do r. Dlatego τ(0) = 0, a maksimum występuje dla r =
-      d/2.
+      Przy stałych $T$ i $J_o$ naprężenie jest wprost proporcjonalne do $r$. Dlatego $\tau(0) = 0$, a maksimum występuje dla $r = d/2$.
     </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>Średnica wału pełnego wzrasta dwukrotnie przy niezmienionym momencie T. Jak zmieni się τmax?</Prompt>
+    <Prompt>
+      Średnica wału pełnego wzrasta dwukrotnie przy niezmienionym momencie $T$. Jak zmieni się $\tau_{max}$?
+    </Prompt>
     <Answer>Spadnie 2 razy</Answer>
     <Answer correct>Spadnie 8 razy</Answer>
     <Answer>Spadnie 16 razy</Answer>
-    <Hint>W τmax = 16T/(πd³) średnica jest w trzeciej potędze.</Hint>
+    <Hint>W $\tau_{max} = 16T/(\pi d^3)$ średnica jest w trzeciej potędze.</Hint>
     <Explanation>
-      Po podstawieniu 2d mianownik rośnie (2d)³/d³ = 8 razy. Maksymalne naprężenie spada więc ośmiokrotnie.
+      Po podstawieniu $2d$ mianownik rośnie $(2d)^3/d^3 = 8$ razy. Maksymalne naprężenie spada więc ośmiokrotnie.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Wał o średnicy d = 40 mm przenosi T = 0,628 kN·m. Jakie jest w przybliżeniu τmax?</Prompt>
-    <Answer>25 MPa</Answer>
-    <Answer correct>50 MPa</Answer>
-    <Answer>100 MPa</Answer>
-    <Hint>Użyj T = 628 000 N·mm i τmax = 16T/(πd³).</Hint>
-    <Explanation>τmax = 16·628 000/(π·40³) ≈ 50 MPa. Moment w kN·m trzeba najpierw zamienić na N·mm.</Explanation>
+    <Prompt>
+      Wał o średnicy $d = 50\ \text{mm}$ przenosi $T = 1\ \text{kN}\cdot\text{m}$. Jakie jest w przybliżeniu $\tau_{max}$?
+    </Prompt>
+    <Answer>20 MPa</Answer>
+    <Answer correct>41 MPa</Answer>
+    <Answer>80 MPa</Answer>
+    <Hint>Użyj $T = 1\,000\,000\ \text{N}\cdot\text{mm}$ i $\tau_{max} = 16T/(\pi d^3)$.</Hint>
+    <Explanation>
+      $W_o = \pi \cdot 50^3/16 = 24\,543{,}7\ \text{mm}^3$, więc $\tau_{max} = 1\,000\,000/24\,543{,}7 \approx 40{,}7\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Dwa wały mają identyczną geometrię i moment, ale różne moduły ścinania. Co jest prawdą?
+    </Prompt>
+    <Answer correct>Maksymalne naprężenie jest takie samo, ale kąt skręcenia jest różny</Answer>
+    <Answer>Oba naprężenie i kąt są takie same</Answer>
+    <Answer>Naprężenie jest różne, a kąt taki sam</Answer>
+    <Hint>Sprawdź, czy $G$ występuje we wzorze na $\tau_{max}$, a czy występuje we wzorze na $\varphi$.</Hint>
+    <Explanation>
+      We wzorze $\tau = Tr/J_o$ moduł $G$ się skraca, więc naprężenie nie zależy od materiału. Kąt $\varphi = TL/(GJ_o)$ zależy od $G$, więc wał z materiału o mniejszym $G$ skręci się bardziej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Ile wynosi w przybliżeniu biegunowy moment bezwładności wału pełnego o średnicy $d = 40\ \text{mm}$?
+    </Prompt>
+    <Answer>12 566 mm⁴</Answer>
+    <Answer correct>251 327 mm⁴</Answer>
+    <Answer>2 010 619 mm⁴</Answer>
+    <Hint>Użyj $J_o = \pi d^4/32$.</Hint>
+    <Explanation>
+      $40^4 = 2\,560\,000$, więc $J_o = \pi \cdot 2\,560\,000/32 = 251\,327\ \text{mm}^4$. Wskaźnik $W_o$ byłby równy $J_o/20 = 12\,566\ \text{mm}^3$.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      W którym miejscu przekroju wału występuje maksymalne naprężenie styczne?
+    </Prompt>
+    <Answer>W osi wału</Answer>
+    <Answer correct>Na powierzchni zewnętrznej, w największej odległości od osi</Answer>
+    <Answer>W połowie promienia</Answer>
+    <Hint>Naprężenie jest proporcjonalne do odległości od osi.</Hint>
+    <Explanation>
+      $\tau(r) = Tr/J_o$ osiąga maksimum dla największego $r$, czyli na obwodzie. W osi $r = 0$, więc naprężenie wynosi zero.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Moment i średnica rosną jednocześnie dwukrotnie. Jak zmieni się maksymalne naprężenie styczne?
+    </Prompt>
+    <Answer>Wzrośnie dwukrotnie</Answer>
+    <Answer>Nie zmieni się</Answer>
+    <Answer correct>Spadnie czterokrotnie</Answer>
+    <Hint>Zapisz stosunek: $(2T)/(\pi(2d)^3/16)$ względem $T/(\pi d^3/16)$.</Hint>
+    <Explanation>
+      Licznik rośnie 2 razy, a mianownik 8 razy, więc naprężenie zmienia się o czynnik $2/8 = 1/4$. Spada czterokrotnie.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Wał o średnicy $d = 30\ \text{mm}$ przenosi moment $T = 500\ \text{N}\cdot\text{m}$. Jakie jest w przybliżeniu $\tau_{max}$?
+    </Prompt>
+    <Answer>47 MPa</Answer>
+    <Answer correct>94 MPa</Answer>
+    <Answer>188 MPa</Answer>
+    <Hint>Zamień moment na $500\,000\ \text{N}\cdot\text{mm}$ i użyj $W_o = \pi d^3/16$.</Hint>
+    <Explanation>
+      $W_o = \pi \cdot 30^3/16 = 5301{,}4\ \text{mm}^3$, więc $\tau_{max} = 500\,000/5301{,}4 = 94{,}3\ \text{MPa}$.
+    </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, rozdział o skręcaniu prętów okrągłych — wyprowadzenie rozkładu naprężeń i wzory na $J_o$ oraz $W_o$.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, zadania ze skręcania wałów — przykłady z mocą, prędkością obrotową i doborem średnicy.
+- D. Roylance, _Mechanics of Materials_, rozdział o ścinaniu i skręcaniu (MIT OpenCourseWare) — pełne wyprowadzenie od geometrii odkształcenia do wzoru $\tau = Tr/J$.
+- MIT 3.11 _Mechanics of Materials_, wykład o skręcaniu — analiza wału pełnego, porównanie z wałem rurowym i omówienie założeń.
+- T. Wierzbicki, _Structural Mechanics_, rozdział o prawie sprężystości — kontekst konstytutywny dla zależności $\tau = G\gamma$ użytej w wyprowadzeniu.

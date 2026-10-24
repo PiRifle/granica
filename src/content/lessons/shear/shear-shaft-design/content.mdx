@@ -5,7 +5,6 @@ number: 7
 title: 'Dobór średnicy: wytrzymałość i sztywność'
 shortTitle: Dobór wału
 description: Wyznacz średnicę z dwóch niezależnych warunków i wybierz większą wartość.
-duration: 10
 eyebrow: 'Dwa warunki, jedna decyzja'
 outcomes:
   - >-
@@ -20,70 +19,286 @@ outcomes:
     zachowaniem bezpieczeństwa
 ---
 
-Warunek wytrzymałości pilnuje, aby naprężenie nie przekroczyło wartości dopuszczalnej. Warunek sztywności ogranicza kąt skręcenia. Spełnienie jednego warunku nie gwarantuje spełnienia drugiego.
+Projektowanie wału zaczyna się od pytania, jaki moment musi on przenieść, a kończy na konkretnym wymiarze, który można wykonać i zamontować. Między tymi punktami są co najmniej dwa warunki: naprężenie nie może przekroczyć wartości dopuszczalnej, a kąt skręcenia nie może być zbyt duży. Każdy z tych warunków daje inną minimalną średnicę.
+
+Nie wystarczy policzyć jednego z nich. Krótki, mocno obciążony wał może być ograniczony wytrzymałością, a długi, cienki wał często ogranicza sztywność. Zdarza się, że średnica z warunku naprężenia wynosi 40 mm, a z warunku kąta 55 mm. Wtedy właściwym wymiarem jest 55 mm, bo mniejszy wał spełniłby tylko jedno z wymagań.
+
+W obliczeniach projektowych nie używamy granicy plastyczności bezpośrednio. Wprowadzamy naprężenie dopuszczalne $\tau_{dop}$, które zawiera zapas bezpieczeństwa. Dla materiałów ciągliwych można je oszacować z granicy plastyczności według przyjętej hipotezy wytrzymałościowej. Dla stali o $R_e \approx 235\ \text{MPa}$ i współczynniku bezpieczeństwa $n = 2$ hipoteza HMH daje $\tau_{dop} \approx R_e/(\sqrt{3}n) \approx 68\ \text{MPa}$. W konkretnym projekcie wartość może być inna, bo zależą od normy, rodzaju obciążenia i konsekwencji zniszczenia.
+
+Dobór średnicy to nie tylko matematyka. Trzeba uwzględnić dostępne wymiary handlowe, sposób mocowania łożysk, wpusty, rowki i zmianę średnicy. Zaokrąglenie w dół może przekroczyć warunek, więc zaokrąglamy w górę i sprawdzamy ponownie. Dla wału rurowego dochodzi drugi wymiar: średnica wewnętrzna albo stosunek $d/D$.
+
+Po tej lekcji będziesz umiał policzyć średnicę z warunku wytrzymałości i sztywności, wybrać większą wartość, sprawdzić przyjęty wymiar oraz przeprowadzić podobne obliczenie dla wału rurowego. Nauczysz się też oceniać, który warunek decyduje w typowych sytuacjach.
+
+## Zanim zaczniesz
+
+- **Warunek wytrzymałości.** $\tau_{max} \le \tau_{dop}$. Dla wału pełnego $\tau_{max} = 16T/(\pi d^3)$.
+- **Warunek sztywności.** $\varphi \le \varphi_{dop}$. Dla wału pełnego $\varphi = 32TL/(\pi Gd^4)$.
+- **Naprężenie dopuszczalne.** To nie to samo co granica plastyczności. Zawiera współczynnik bezpieczeństwa i zależy od przyjętej hipotezy.
+- **Przeliczanie kątów.** $\varphi_{dop}$ podstawiaj w radianach. $1^\circ = 0{,}017453\ \text{rad}$. Jeśli kąt podano na metr, długość też musi być wyrażona spójnie.
+- **Pierwiastki.** Trzeci pierwiastek pojawia się przy wytrzymałości, czwarty przy sztywności. Oba można policzyć jako potęgi $1/3$ i $1/4$.
+- **Typowe pułapki.** Uśrednianie dwóch średnic, zaokrąglanie w dół, mieszanie N·m z N·mm oraz pomijanie sprawdzenia po wyborze wymiaru handlowego.
+
+## Model i intuicja
+
+Przyjmujemy model wału sprężystego, obciążonego stałym momentem skręcającym na rozważanym odcinku. Zakładamy przekrój kołowy lub pierścieniowy, materiał liniowo sprężysty i małe odkształcenia. Pomijamy koncentrację naprężeń, ciężar własny, drgania i zmęczenie. To model doboru wstępnego, który potem trzeba uzupełnić o szczegóły konstrukcyjne.
+
+Warunek wytrzymałości ogranicza naprężenie. Dla wału pełnego naprężenie jest odwrotnie proporcjonalne do $d^3$, więc średnica rośnie dość szybko wraz z momentem. Warunek sztywności ogranicza kąt, który jest odwrotnie proporcjonalny do $d^4$. Wzrost średnicy działa więc na sztywność silniej niż na wytrzymałość.
+
+Dwa warunki są niezależne, ponieważ dotyczą różnych wielkości. Można mieć wał, który nie pęknie, ale skręca się zbyt mocno, oraz wał sztywny, ale o zbyt dużym naprężeniu w stosunku do założonego zapasu. Projekt musi spełniać oba warunki jednocześnie, więc wymagana średnica jest większą z dwóch obliczonych wartości.
+
+W praktyce wybieramy średnicę znormalizowaną, większą od wartości obliczonej. Dopiero po wyborze sprawdzamy rzeczywiste naprężenie i kąt. To sprawdzenie jest ważne, bo obliczenia pośrednie mogły zawierać błąd jednostek albo znaku, a przyjęty wymiar może istotnie różnić się od minimalnego.
+
+Dla wału rurowego mamy dwa wymiary. Najwygodniej przyjąć stosunek $k = d/D$ i dobrać średnicę zewnętrzną. Współczynnik $1-k^4$ opisuje, jaka część biegunowego momentu bezwładności pełnego przekroju pozostała. Przy tej samej średnicy zewnętrznej cieńsza ścianka oznacza większy $k$ i mniejszą masę, ale także mniejszą nośność. Przy zadanym momencie większy $k$ wymaga większej średnicy zewnętrznej. Zbyt cienka ścianka może jednak stracić stateczność lub ulec uszkodzeniu przy montażu.
+
+Model przestaje wystarczać, gdy wał pracuje przy zmiennym obciążeniu i liczy się zmęczenie, gdy występują duże koncentracje naprężeń przy wpustach, gdy prędkość obrotowa zbliża się do krytycznej albo gdy odkształcenia przekraczają zakres sprężystyczny. W takich przypadkach potrzebne są dodatkowe sprawdzenia, ale dobór wstępny nadal zaczyna się od dwóch warunków omówionych w tej lekcji.
+
+## Laboratorium: co ustawić
+
+W laboratorium ustaw moment $T$, średnicę zewnętrzną $D$ i wewnętrzną $d$. Obserwuj jednocześnie naprężenie i oszczędność pola. Zmieniaj średnicę wewnętrzną przy stałym $D$, a potem zwiększ $D$ tak, aby zachować podobną nośność. Porównaj, kiedy rura staje się korzystna, a kiedy staje się zbyt cienka.
 
 <Lab id="hollowShaft" />
 
+## Definicje i jednostki
+
+| Symbol          | Wielkość                            | Definicja lub wzór                | Jednostka    |
+| --------------- | ----------------------------------- | --------------------------------- | ------------ |
+| $T$             | moment skręcający                   | moment wokół osi wału             | N·mm lub N·m |
+| $L$             | długość wału                        | długość odcinka o stałym momencie | mm           |
+| $d$             | średnica wału pełnego               | wymiar przekroju                  | mm           |
+| $D$             | średnica zewnętrzna rury            | największy wymiar przekroju       | mm           |
+| $k$             | stosunek średnic rury               | $d/D$                             | bezwymiarowy |
+| $J_o$           | biegunowy moment bezwładności       | $\pi(D^4-d^4)/32$                 | mm⁴          |
+| $W_o$           | wskaźnik wytrzymałości na skręcanie | $J_o/(D/2)$                       | mm³          |
+| $\tau_{dop}$    | dopuszczalne naprężenie styczne     | wartość projektowa                | MPa          |
+| $\varphi_{dop}$ | dopuszczalny kąt skręcenia          | wartość projektowa w radianach    | rad          |
+| $G$             | moduł ścinania                      | stała materiałowa                 | MPa          |
+| $n$             | współczynnik bezpieczeństwa         | liczba większa od jedności        | bezwymiarowy |
+| $R_e$           | granica plastyczności               | właściwość materiału              | MPa          |
+
+Naprężenie dopuszczalne jest wartością umowną. W zadaniach zwykle podaje się je wprost, na przykład $40\ \text{MPa}$ albo $60\ \text{MPa}$. Jeżeli trzeba je wyznaczyć z granicy plastyczności, musimy wiedzieć, jaka hipoteza wytrzymałościowa obowiązuje. Dla materiałów ciągliwych nie stosuje się bezpośrednio $\tau_{dop} = R_e$, bo stan czystego ścinania jest stanem złożonym.
+
+Kąt dopuszczalny bywa podawany na całą długość albo na jednostkę długości. To nie to samo. Jeśli w zadaniu jest $0{,}5^\circ$ na metr, a wał ma $2\ \text{m}$, to dopuszczalny kąt całkowity wynosi $1^\circ$, czyli $0{,}017453\ \text{rad}$. Przed podstawieniem do wzoru zawsze sprawdź, do jakiej długości odnosi się podany kąt.
+
+Stosunek $k = d/D$ dla rury pełni rolę parametru geometrycznego. Dla $k = 0$ wzory wracają do wału pełnego. Dla $k$ bliskiego jedności ścianka staje się bardzo cienka, a wymagana średnica zewnętrzna rośnie. Typowe wartości konstrukcyjne mieszczą się w przedziale od około $0{,}5$ do $0{,}85$, ale nie jest to sztywna reguła.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-d \geq \sqrt[3]{\frac{16T}{\pi\tau_{dop}}} \qquad d \geq \sqrt[4]{\frac{32TL}{\pi G\varphi_{dop}}}
+d \ge \sqrt[3]{\frac{16T}{\pi\tau_{dop}}} \qquad d \ge \sqrt[4]{\frac{32TL}{\pi G\varphi_{dop}}}
 $$
 
-<Caption>Wzory dotyczą wału pełnego. τdop powinno uwzględniać wymagane bezpieczeństwo, a φdop trzeba podstawić w radianach.</Caption>
+<Caption>Pierwszy warunek dotyczy wytrzymałości, drugi sztywności. Oba dotyczą wału pełnego. τdop podaj w MPa, T w N·mm, L w mm, a φdop w radianach. Przyjmujemy większą z dwóch średnic.</Caption>
 </Formula>
 
+Wyprowadzenie każdego warunku jest przekształceniem wzoru, który znamy z poprzednich lekcji.
+
+1. **Zapisz naprężenie.** Dla wału pełnego $\tau_{max} = 16T/(\pi d^3)$.
+2. **Nałóż warunek wytrzymałości.** Wymagamy $16T/(\pi d^3) \le \tau_{dop}$.
+3. **Przekształć nierówność.** Mnożymy przez $d^3$ i dzielimy przez $\tau_{dop}$: $d^3 \ge 16T/(\pi\tau_{dop})$.
+4. **Wyznacz średnicę.** Pierwiastek trzeciego stopnia daje $d \ge \sqrt[3]{16T/(\pi\tau_{dop})}$.
+5. **Zapisz kąt.** Dla wału pełnego $\varphi = 32TL/(\pi Gd^4)$.
+6. **Nałóż warunek sztywności.** Wymagamy $32TL/(\pi Gd^4) \le \varphi_{dop}$.
+7. **Przekształć nierówność.** $d^4 \ge 32TL/(\pi G\varphi_{dop})$.
+8. **Wyznacz średnicę.** Pierwiastek czwartego stopnia daje $d \ge \sqrt[4]{32TL/(\pi G\varphi_{dop})}$.
+9. **Porównaj warunki.** Obie nierówności muszą być spełnione, więc $d$ jest większą z dwóch wartości.
+10. **Sprawdź wynik.** Po zaokrągleniu do wymiaru handlowego oblicz ponownie $\tau_{max}$ i $\varphi$.
+
+Dla rury postępujemy podobnie, ale z innymi wzorami na $J_o$ i $W_o$. Po podstawieniu $J_o = \pi D^4(1-k^4)/32$ oraz $W_o = J_o/(D/2)$ otrzymujemy:
+
+$$
+D \ge \sqrt[3]{\frac{16T}{\pi\tau_{dop}(1-k^4)}} \qquad D \ge \sqrt[4]{\frac{32TL}{\pi G\varphi_{dop}(1-k^4)}}.
+$$
+
+Czynnik $1-k^4$ jest mniejszy od jedności, więc przy tym samym momencie rura wymaga większej średnicy zewnętrznej niż wał pełny. W zamian ma mniejszą masę. Dobór polega na wyborze $k$, obliczeniu $D$ z obu warunków, przyjęciu większej wartości i sprawdzeniu, czy ścianka nie jest zbyt cienka.
+
 <Insight>
-  Oblicz d osobno z obu warunków, przyjmij większą średnicę, zaokrąglij ją w górę do dostępnego wymiaru i sprawdź
-  ponownie naprężenie oraz kąt.
+  Nigdy nie uśredniaj średnic z dwóch warunków. Warunki są nierównościami, a nie składnikami sumy. Średnica musi być
+  większa lub równa obu wartościom, więc wybieramy maksimum, a potem zaokrąglamy w górę.
 </Insight>
 
 <WorkedExample>
-  <Given>Wał pełny: T = 1,5 kN·m, L = 2 m, G = 80 GPa, τdop = 60 MPa, φdop = 1° = 0,017453 rad.</Given>
+  <Given>
+    Wał pełny przenosi $T = 2{,}2\ \text{kN}\cdot\text{m}$. Długość wynosi $L = 1{,}8\ \text{m}$, moduł ścinania $G = 80\ \text{GPa}$, naprężenie dopuszczalne $\tau_{dop} = 45\ \text{MPa}$, a dopuszczalny kąt $\varphi_{dop} = 1{,}2^\circ$. Dobierz średnicę i sprawdź wynik.
+  </Given>
   <Steps>
-    <Step>Przyjmij T = 1 500 000 N·mm, L = 2000 mm i G = 80 000 MPa.</Step>
-    <Step>Z wytrzymałości: d ≥ [16·1 500 000/(π·60)]^(1/3) = 50,3 mm.</Step>
-    <Step>Ze sztywności: d ≥ [32·1 500 000·2000/(π·80 000·0,017453)]^(1/4) = 68,4 mm.</Step>
-    <Step>Warunek sztywności jest decydujący. Przyjmij przykładowo d = 70 mm.</Step>
-    <Step>Kontrola: τmax = 16T/(π·70³) = 22,3 MPa &lt; 60 MPa; φ = TL/(GJ_o) ≈ 0,0159 rad = 0,91° &lt; 1°.</Step>
+    <Step>Zamień dane: $T = 2\,200\,000\ \text{N}\cdot\text{mm}$, $L = 1800\ \text{mm}$, $\varphi_{dop} = 1{,}2 \cdot \pi/180 = 0{,}020944\ \text{rad}$.</Step>
+    <Step>Warunek wytrzymałości: $d \ge \sqrt[3]{16 \cdot 2\,200\,000/(\pi \cdot 45)} = \sqrt[3]{248\,989} = 62{,}91\ \text{mm}$.</Step>
+    <Step>Warunek sztywności: $d \ge \sqrt[4]{32 \cdot 2\,200\,000 \cdot 1800/(\pi \cdot 80\,000 \cdot 0{,}020944)} = \sqrt[4]{24\,080\,000} = 70{,}05\ \text{mm}$.</Step>
+    <Step>Decyduje sztywność. Najbliższa większa średnica handlowa to $75\ \text{mm}$; średnica $70\ \text{mm}$ jest zbyt blisko granicy i daje kąt nieco większy od dopuszczalnego.</Step>
+    <Step>Sprawdź naprężenie: $W_o = \pi \cdot 75^3/16 = 82\,808\ \text{mm}^3$, więc $\tau_{max} = 2\,200\,000/82\,808 = 26{,}6\ \text{MPa}$.</Step>
+    <Step>Sprawdź kąt: $J_o = \pi \cdot 75^4/32 = 3\,106\,336\ \text{mm}^4$, więc $\varphi = 2\,200\,000 \cdot 1800/(80\,000 \cdot 3\,106\,336) = 0{,}01594\ \text{rad}$.</Step>
+    <Step>Zamień kąt na stopnie: $0{,}01594 \cdot 180/\pi = 0{,}913^\circ$, czyli mniej niż $1{,}2^\circ$.</Step>
   </Steps>
-  <Result>Przyjęto d = 70 mm; oba warunki są spełnione, a decyduje sztywność.</Result>
+  <Result>
+    Przyjęto $d = 75\ \text{mm}$. Oba warunki są spełnione: $\tau_{max} \approx 26{,}6\ \text{MPa}$ jest znacznie poniżej $45\ \text{MPa}$, a kąt $0{,}913^\circ$ jest mniejszy od $1{,}2^\circ$. O doborze zadecydowała sztywność, nie wytrzymałość.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy teraz wał rurowy o stosunku średnic $k = d/D = 0{,}8$, przenoszący ten sam moment $T = 2{,}2\ \text{kN}\cdot\text{m}$ przy $L = 1{,}8\ \text{m}$. Parametry materiałowe i dopuszczalne pozostają bez zmian: $G = 80\ \text{GPa}$, $\tau_{dop} = 45\ \text{MPa}$, $\varphi_{dop} = 1{,}2^\circ$.
+
+Dla $k = 0{,}8$ mamy $1-k^4 = 1-0{,}4096 = 0{,}5904$. Warunek wytrzymałości daje $D \ge \sqrt[3]{16 \cdot 2\,200\,000/(\pi \cdot 45 \cdot 0{,}5904)} = \sqrt[3]{421\,700} = 75{,}0\ \text{mm}$. Warunek sztywności daje $D \ge \sqrt[4]{24\,080\,000/0{,}5904} = 79{,}9\ \text{mm}$.
+
+Przyjmujemy $D = 80\ \text{mm}$ i $d = 0{,}8 \cdot 80 = 64\ \text{mm}$. Grubość ścianki wynosi $8\ \text{mm}$. Sprawdzamy: $80^4-64^4 = 40\,960\,000-16\,777\,216 = 24\,182\,784$, więc $J_o = \pi \cdot 24\,182\,784/32 = 2\,374\,140\ \text{mm}^4$.
+
+Wtedy $\varphi = 3\,960\,000\,000/(80\,000 \cdot 2\,374\,140) = 0{,}02085\ \text{rad} = 1{,}195^\circ$, czyli tuż poniżej granicy. Naprężenie wynosi $\tau_{max} = 2\,200\,000 \cdot 40/2\,374\,140 = 37{,}1\ \text{MPa}$, poniżej $45\ \text{MPa}$.
+
+Pole rury to $\pi(80^2-64^2)/4 = 1810\ \text{mm}^2$, a pole wału pełnego o średnicy $75\ \text{mm}$ to $4418\ \text{mm}^2$. Rura zużywa więc około $59\%$ mniej materiału, ale ma większą średnicę zewnętrzną i cieńszą ściankę. W ciasnej obudowie lub przy dużym momencie skręcającym z udarami trzeba dodatkowo sprawdzić stateczność i naprężenia lokalne.
+
+## Trzeci przykład: wariant odwrotny
+
+Mamy istniejący wał rurowy o $D = 90\ \text{mm}$ i $d = 70\ \text{mm}$, wykonany ze stali o $G = 80\ \text{GPa}$. Dopuszczalne naprężenie wynosi $\tau_{dop} = 40\ \text{MPa}$, a dopuszczalny kąt to $1^\circ$ na długości $L = 2{,}5\ \text{m}$. Szukamy maksymalnego momentu, jaki można bezpiecznie przenieść.
+
+Najpierw obliczamy geometrię: $90^4-70^4 = 65\,610\,000-24\,010\,000 = 41\,600\,000\ \text{mm}^4$, więc $J_o = \pi \cdot 41\,600\,000/32 = 4\,084\,070\ \text{mm}^4$. Wskaźnik wynosi $W_o = J_o/45 = 90\,757\ \text{mm}^3$.
+
+Z warunku wytrzymałości $T \le \tau_{dop}W_o = 40 \cdot 90\,757 = 3\,630\,280\ \text{N}\cdot\text{mm}$, czyli około $3{,}63\ \text{kN}\cdot\text{m}$. Z warunku sztywności, po zamianie $1^\circ = 0{,}017453\ \text{rad}$, otrzymujemy $T \le G J_o \varphi_{dop}/L = 80\,000 \cdot 4\,084\,070 \cdot 0{,}017453/2500 = 2\,281\,000\ \text{N}\cdot\text{mm}$, czyli około $2{,}28\ \text{kN}\cdot\text{m}$.
+
+Decyduje sztywność. Bezpieczny moment wynosi około $2{,}28\ \text{kN}\cdot\text{m}$. Przy tej wartości naprężenie wynosi $2\,281\,000 \cdot 45/4\,084\,070 = 25{,}1\ \text{MPa}$, więc zapas wytrzymałości jest duży. Gdyby dopuszczalny kąt zwiększyć do $2^\circ$, warunek sztywności pozwoliłby na około $4{,}56\ \text{kN}\cdot\text{m}$, ale wtedy decydowałby już warunek wytrzymałości z granicą $3{,}63\ \text{kN}\cdot\text{m}$.
+
+Wariant odwrotny pokazuje, że ten sam przekrój może mieć różne ograniczenia w zależności od długości i wymaganego kąta. Dla krótkiego wału częściej decyduje wytrzymałość, a dla długiego sztywność. Projektant powinien sprawdzić oba warunki i wiedzieć, który z nich jest aktywny.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Uśrednianie dwóch średnic.** Jeśli z wytrzymałości wychodzi $42\ \text{mm}$, a ze sztywności $48\ \text{mm}$, nie przyjmuje się $45\ \text{mm}$. Trzeba wybrać co najmniej $48\ \text{mm}$.
+- **Zaokrąglanie w dół.** Średnica $47\ \text{mm}$ nie spełnia warunku, który wymagał $48\ \text{mm}$. Zaokrąglaj w górę do dostępnego wymiaru.
+- **Stopnie zamiast radianów.** $\varphi_{dop} = 1^\circ$ to $0{,}01745\ \text{rad}$, a nie $1$. Podstawienie liczby $1$ daje średnicę wielokrotnie za małą.
+- **Mieszanie jednostek.** Moment w N·m, długość w mm i $G$ w MPa dają niespójne jednostki. Najbezpieczniej pracować w N i mm.
+- **Brak sprawdzenia po doborze.** Po przyjęciu wymiaru handlowego trzeba ponownie obliczyć $\tau_{max}$ i $\varphi$. Dopiero to potwierdza poprawność projektu.
+- **Pomijanie masy i gabarytu.** Rura może być lżejsza, ale większa. W ciasnej konstrukcji większa średnica zewnętrzna może być problemem.
+- **Traktowanie $\tau_{dop}$ jak granicy plastyczności.** Naprężenie dopuszczalne zawiera zapas i zależy od hipotezy. Nie podstawiaj $R_e$ bezpośrednio bez uzasadnienia.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Wypisz dane.** Zapisz $T$, $L$, $G$, $\tau_{dop}$ i $\varphi_{dop}$. Ustal, czy średnica ma być pełna, czy rurowa.
+2. **Ujednolić jednostki.** Moment na N·mm, długość na mm, $G$ i $\tau_{dop}$ na MPa, kąt na radiany.
+3. **Sprawdź, czy kąt jest na całą długość.** Jeśli podano kąt na metr, pomnóż go przez długość w metrach albo użyj kąta na jednostkę długości spójnie z $L$.
+4. **Oblicz średnicę z wytrzymałości.** Użyj pierwiastka trzeciego stopnia. Dla rury wstaw $1-k^4$ do mianownika.
+5. **Oblicz średnicę ze sztywności.** Użyj pierwiastka czwartego stopnia. Dla rury również wstaw $1-k^4$.
+6. **Wybierz większą wartość.** To jest minimalna średnica spełniająca oba warunki.
+7. **Zaokrąglij do wymiaru handlowego w górę.** Sprawdź, czy producent lub norma dopuszcza wybrany wymiar.
+8. **Sprawdź oba warunki dla przyjętego wymiaru.** Oblicz rzeczywiste $\tau_{max}$ i $\varphi$ i porównaj z wartościami dopuszczalnymi.
+9. **Oceń inne ograniczenia.** Sprawdź wpusty, rowki, łożyska, prędkość krytyczną i możliwość zmęczenia. Dobór średnicy to dopiero początek projektu.
+
+## Połącz z resztą kursu
+
+- **Skręcanie wału pełnego.** Wzory na $\tau_{max}$ i $W_o$ są podstawą warunku wytrzymałości. Bez poprawnego $J_o$ i $W_o$ dobór średnicy nie ma sensu.
+- **Wał rurowy.** Warunek dla rury zawiera czynnik $1-k^4$. To bezpośrednie zastosowanie geometrii pierścienia do projektowania.
+- **Kąt skręcenia.** Warunek sztywności korzysta z $\varphi = TL/(GJ_o)$. To ten sam wzór, tylko przekształcony względem średnicy.
+- **Hipotezy wytrzymałościowe.** Naprężenie dopuszczalne przy skręcaniu zależy od hipotezy i współczynnika bezpieczeństwa. W module o kryteriach zobaczysz, skąd biorą się współczynniki przy $\tau$.
+- **Zginanie wałów.** Rzeczywisty wał często przenosi jednocześnie zginanie i skręcanie. Wtedy trzeba zredukować naprężenia normalne i styczne, a nie tylko sprawdzić samo skręcanie.
+- **Zmęczenie i drgania.** Przy zmiennym obciążeniu sam statyczny warunek wytrzymałości nie wystarcza. Ważne stają się koncentracje naprężeń, chropowatość i prędkość krytyczna.
+
+## Sprawdź się
+
+Sprawdź, czy umiesz wybrać właściwy warunek, poprawnie przekształcić wzór i zweryfikować przyjętą średnicę.
 
 <Quiz>
   <Question outcome="U3">
     <Prompt>
-      Z warunku wytrzymałości wyszło d ≥ 42 mm, a ze sztywności d ≥ 48 mm. Jaką minimalną średnicę należy przyjąć przed
-      zaokrągleniem do wymiaru katalogowego?
+      Z warunku wytrzymałości wyszło $d \ge 42\ \text{mm}$, a ze sztywności $d \ge 48\ \text{mm}$. Jaką minimalną średnicę należy przyjąć przed zaokrągleniem do wymiaru katalogowego?
     </Prompt>
-    <Answer>42 mm</Answer>
-    <Answer>45 mm jako średnią</Answer>
-    <Answer correct>48 mm</Answer>
+    <Answer>$42\ \text{mm}$</Answer>
+    <Answer>$45\ \text{mm}$ jako średnią</Answer>
+    <Answer correct>$48\ \text{mm}$</Answer>
     <Hint>Przyjęta średnica musi spełniać jednocześnie obie nierówności.</Hint>
     <Explanation>
-      Średnica 48 mm spełnia oba warunki, natomiast 42 mm nie spełnia warunku sztywności. Nie uśredniamy wymaganych
-      minimów — wybieramy większą wartość.
+      Średnica $48\ \text{mm}$ spełnia oba warunki, natomiast $42\ \text{mm}$ nie spełnia warunku sztywności. Nie uśredniamy wymaganych minimów — wybieramy większą wartość.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>Po doborze średnicy katalogowej większej od obliczonej wartości minimalnej należy:</Prompt>
-    <Answer correct>Sprawdzić ponownie τmax i φ dla przyjętego wymiaru</Answer>
+    <Prompt>
+      Po doborze średnicy katalogowej większej od obliczonej wartości minimalnej należy:
+    </Prompt>
+    <Answer correct>Sprawdzić ponownie $\tau_{max}$ i $\varphi$ dla przyjętego wymiaru</Answer>
     <Answer>Pominąć obliczenia, bo większy wał zawsze działa tak samo</Answer>
     <Answer>Sprawdzić wyłącznie masę wału</Answer>
     <Hint>Projekt kończy się weryfikacją rzeczywiście przyjętego przekroju.</Hint>
     <Explanation>
-      Dla przyjętego d oblicza się rzeczywiste τmax i φ oraz porównuje je z granicami. Większa średnica zmniejsza obie
-      wielkości, ale sprawdzenie potwierdza poprawność jednostek i obliczeń.
+      Dla przyjętego $d$ oblicza się rzeczywiste $\tau_{max}$ i $\varphi$ oraz porównuje je z granicami. Większa średnica zmniejsza obie wielkości, ale sprawdzenie potwierdza poprawność jednostek i obliczeń.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>Do warunku sztywności podstawiono φdop = 1°, bez zamiany na radiany. Jaki to błąd?</Prompt>
+    <Prompt>
+      Do warunku sztywności podstawiono $\varphi_{dop} = 1^\circ$, bez zamiany na radiany. Jaki to błąd?
+    </Prompt>
     <Answer>Brak błędu, bo wzór zawsze wymaga stopni</Answer>
-    <Answer correct>Błąd jednostek; należy użyć 0,01745 rad</Answer>
+    <Answer correct>Błąd jednostek; należy użyć $0{,}01745\ \text{rad}$</Answer>
     <Answer>Błąd znaku; kąt musi być ujemny</Answer>
-    <Hint>Wzór φ = TL/(GJ_o) daje wynik w radianach.</Hint>
+    <Hint>Wzór $\varphi = TL/(GJ_o)$ daje wynik w radianach.</Hint>
     <Explanation>
-      Dopuszczalny kąt musi być wyrażony w tej samej miarze co obliczany. 1° = π/180 = 0,01745 rad; podstawienie liczby
-      1 zamiast 0,01745 da błędną średnicę.
+      Dopuszczalny kąt musi być wyrażony w tej samej mierze co obliczany. $1^\circ = \pi/180 = 0{,}01745\ \text{rad}$; podstawienie liczby $1$ zamiast $0{,}01745$ daje błędną, zbyt małą średnicę.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Wał pełny przenosi $T = 1{,}5\ \text{kN}\cdot\text{m}$, a $\tau_{dop} = 50\ \text{MPa}$. Ile wynosi minimalna średnica z warunku wytrzymałości?
+    </Prompt>
+    <Answer>Około $42\ \text{mm}$</Answer>
+    <Answer correct>Około $53{,}5\ \text{mm}$</Answer>
+    <Answer>Około $67\ \text{mm}$</Answer>
+    <Hint>Użyj $d \ge \sqrt[3]{16T/(\pi\tau_{dop})}$ z momentem w N·mm.</Hint>
+    <Explanation>
+      $16 \cdot 1\,500\,000 = 24\,000\,000$. Dzielenie przez $\pi \cdot 50 = 157{,}08$ daje $152\,789$, a pierwiastek trzeciego stopnia to $53{,}45\ \text{mm}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Wał pełny o $T = 1\ \text{kN}\cdot\text{m}$ i $L = 2\ \text{m}$ ma $G = 80\ \text{GPa}$. Dopuszczalny kąt wynosi $1^\circ$. Ile wynosi minimalna średnica z warunku sztywności?
+    </Prompt>
+    <Answer>Około $44\ \text{mm}$</Answer>
+    <Answer correct>Około $62\ \text{mm}$</Answer>
+    <Answer>Około $78\ \text{mm}$</Answer>
+    <Hint>Zamień kąt na radiany i użyj pierwiastka czwartego stopnia.</Hint>
+    <Explanation>
+      $1^\circ = 0{,}017453\ \text{rad}$. Wyrażenie $32 \cdot 1\,000\,000 \cdot 2000/(\pi \cdot 80\,000 \cdot 0{,}017453)$ wynosi około $14\,590\,000$, a pierwiastek czwartego stopnia to około $61{,}8\ \text{mm}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Dlaczego w długim, cienkim wale często decyduje warunek sztywności, a nie wytrzymałości?
+    </Prompt>
+    <Answer correct>Kąt rośnie liniowo z długością, a naprężenie nie zależy od długości</Answer>
+    <Answer>Naprężenie rośnie liniowo z długością, a kąt nie zależy od długości</Answer>
+    <Answer>Oba warunki dają zawsze identyczną średnicę</Answer>
+    <Hint>Popatrz, gdzie w każdym wzorze występuje $L$.</Hint>
+    <Explanation>
+      Naprężenie $\tau_{max} = 16T/(\pi d^3)$ nie zawiera długości, więc przy stałym $T$ i $d$ nie zmienia się z długością. Kąt $\varphi = 32TL/(\pi Gd^4)$ rośnie proporcjonalnie do $L$, więc długi wał może przekroczyć dopuszczalny kąt mimo bezpiecznego naprężenia.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Dla rury o stosunku $k = d/D$ we wzorze na wymaganą średnicę zewnętrzną występuje czynnik:
+    </Prompt>
+    <Answer correct>$1-k^4$ w mianowniku</Answer>
+    <Answer>$1-k^2$ w liczniku</Answer>
+    <Answer>$k^4$ w mianowniku bez odejmowania</Answer>
+    <Hint>Wynika to z $J_o = \pi D^4(1-k^4)/32$.</Hint>
+    <Explanation>
+      Po wyłączeniu $D^4$ z $J_o$ pozostaje $1-k^4$. Czynnik ten jest mniejszy od jedności, więc wymagana średnica zewnętrzna rury jest większa niż wału pełnego o tej samej nośności.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Kiedy sam warunek $\tau_{max} \le \tau_{dop}$ oraz $\varphi \le \varphi_{dop}$ może nie wystarczyć do bezpiecznego zaprojektowania wału?
+    </Prompt>
+    <Answer correct>Gdy występuje zmęczenie, koncentracja naprężeń lub drgania krytyczne</Answer>
+    <Answer>Gdy wał jest wykonany ze stali o $G = 80\ \text{GPa}$</Answer>
+    <Answer>Gdy moment jest stały, a średnica dobrana z zapasem</Answer>
+    <Hint>Model statyczny pomija wiele zjawisk, które pojawiają się w rzeczywistej maszynie.</Hint>
+    <Explanation>
+      Warunki statyczne nie opisują zmęczenia przy zmiennym obciążeniu, koncentracji przy wpustach i rowkach ani drgań skrętnych. W takich przypadkach potrzebne są dodatkowe sprawdzenia, choć dobór wstępny nadal opiera się na dwóch omówionych warunkach.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, rozdział o skręcaniu i projektowaniu wałów — zależność między naprężeniem, kątem skręcenia i średnicą.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, zadania z doboru wałów — przykłady łączenia warunku wytrzymałości i sztywności.
+- R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_, zadania ze skręcania — ćwiczenia z doborem średnicy i przeliczaniem jednostek.
+- D. Roylance, _Mechanics of Materials_, podrozdział o ścinaniu i skręcaniu (MIT OpenCourseWare) — przykład doboru średnicy wału napędowego przy ograniczeniu naprężenia.
+- MIT 3.11 _Mechanics of Materials_, wykład o skręcaniu i wykład o projektowaniu — zależność między wytrzymałością, sztywnością i masą przekroju.

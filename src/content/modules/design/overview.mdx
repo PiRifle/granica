@@ -1,1 +1,154 @@
-Przekładaj warunki wytrzymałości i sztywności na wymiar, materiał lub obciążenie dopuszczalne; ćwicz pełne rozwiązania i strategię kolokwium.
+Ten moduł jest miejscem, w którym cała dotychczasowa wiedza z wytrzymałości materiałów zamienia się w decyzję projektową. Do tej pory najczęściej sprawdzaliśmy gotowy element: mieliśmy wymiar, obciążenie i materiał, a pytanie brzmiało „czy naprężenie nie przekracza wartości dopuszczalnej?”. Teraz pytanie się odwraca: „jaki wymiar, jaki materiał albo jakie obciążenie będzie bezpieczne?”. To niewielka zmiana treści, ale duża zmiana sposobu myślenia.
+
+## Co to jest ten moduł
+
+Projektowanie elementu to świadomy wybór spośród wielu możliwych rozwiązań. Ten sam pręt można wykonać grubszy i lżejszy, ze stali i aluminium, pełny i rurowy, sztywny i podatny. Każdy wariant ma inną nośność, inną masę, inny koszt i inne odkształcenie. Moduł uczy, jak z warunków fizycznych zrobić prosty zestaw nierówności, a potem wybrać rozwiązanie, które spełnia wszystkie wymagania jednocześnie.
+
+Wyobraź sobie półkę przykręconą do ściany. Projektant nie zaczyna od pytania „jaki profil jest ładny?”, lecz od pytania „jaki moment zginający wywoła książka stojąca na końcu półki?”. Dopiero potem wybiera długość wspornika, przekrój i materiał. Jeśli pominie któryś warunek, półka może się ugiąć tak mocno, że książki się zsuną, nawet jeśli materiał nie zostanie przeciążony do zniszczenia.
+
+W praktyce projektowanie jest iteracją. Najpierw przyjmujemy schemat i wstępny wymiar, potem liczymy siły wewnętrzne, naprężenia i odkształcenia, a na końcu korygujemy wymiar. Wynik rzadko jest „idealny” w sensie matematycznym: dobieramy wymiar z katalogu, średnicę z dostępnego asortymentu albo grubość blachy z normy. Dlatego tak ważne jest zaokrąglanie w bezpieczną stronę i ponowna kontrola przyjętego rozwiązania.
+
+Ten moduł porządkuje również język decyzji. Zamiast jednej liczby „wynik” pojawiają się: warunek wytrzymałości, warunek sztywności, zapas bezpieczeństwa, obciążenie dopuszczalne i wymiar minimalny. Trzeba umieć powiedzieć, który z tych warunków decyduje o projekcie i dlaczego. To właśnie odróżnia bezmyślne podstawienie do wzoru od świadomego projektu.
+
+Można wyróżnić trzy podstawowe pytania projektowe. Pierwsze brzmi „jaki wymiar?”, drugie „jaki materiał?”, a trzecie „jakie obciążenie można bezpiecznie przyłożyć?”. Wszystkie trzy wynikają z tej samej nierówności naprężeniowej, ale prowadzą do różnych jednostek i różnych kontroli. Moduł układa je w spójną procedurę, żeby nie mylić ich w trakcie rozwiązywania zadania.
+
+## Dlaczego to ważne
+
+Błędy projektowe nie są abstrakcyjne. Zbyt cienka belka ugina się i pęka, zbyt słaby wał skręca się nadmiernie, a źle dobrany materiał pęka krucho tam, gdzie spodziewano się odkształcenia plastycznego. W konstrukcjach maszynowych dochodzi zmęczenie, koncentracja naprężeń i temperatura. Moduł nie zastępuje specjalistycznych norm, ale uczy podstawowej kontroli, bez której nie da się ich świadomie stosować.
+
+Drugą stroną problemu jest nadmiar. Element można zaprojektować tak masywnie, że nigdy nie zawiedzie, ale będzie drogi, ciężki i niepotrzebnie zużyje materiał. W pojazdach, dźwigach i konstrukcjach lotniczych masa ma bezpośredni wpływ na zużycie energii i nośność. Dobry projekt nie jest więc ani zbyt ryzykowny, ani zbyt zachowawczy: leży w obszarze, w którym wszystkie warunki są spełnione, a materiał nie jest marnowany.
+
+Trzecia przyczyna jest dydaktyczna. Kolokwium i egzamin sprawdzają nie tylko znajomość wzorów, lecz umiejętność prowadzenia kompletnego rozumowania. Zadanie „dobierz średnicę” wymaga wcześniejszego wyznaczenia momentu, a potem sprawdzenia ugięcia. Zadanie „dobierz materiał” wymaga odróżnienia wytrzymałości od sztywności. Moduł ćwiczy właśnie tę kolejność: schemat, siły, naprężenia, warunki, decyzja, kontrola.
+
+Wreszcie projektowanie uczy odpowiedzialności. Współczynnik bezpieczeństwa nie jest ozdobą wzoru, lecz jawnym zapisem niepewności: co do obciążenia, własności materiału, wykonania i konsekwencji zniszczenia. Im większa niepewność i im poważniejsze skutki awarii, tym większy zapas. Świadome przyjęcie tej liczby jest częścią projektu, a nie dodatkiem na końcu.
+
+Projektowanie ma też wymiar ekonomiczny. Grubszy przekrój oznacza więcej materiału, większą masę i często wyższy koszt, ale nie zawsze większe bezpieczeństwo w sensie użytkowym. Czasem lepiej zmienić schemat podparcia, skrócić wspornik albo zastosować przekrój rurowy, niż zwiększać wymiar w nieskończoność. Moduł uczy więc nie tylko liczenia, lecz także porównywania wariantów.
+
+## Czego się nauczysz
+
+- **W1 — analiza schematu przed obliczeniami.** Nauczysz się najpierw rozpoznać rodzaj podparcia, kierunek obciążeń i możliwe przypadki wytrzymałościowe. Zamiast od razu podstawiać do wzoru, najpierw ustalisz, co jest swobodne, co zablokowane i gdzie może powstać największa siła wewnętrzna.
+- **W2 — rozpoznawanie przypadków równoczesnych.** Zobaczysz, że w jednym elemencie mogą działać jednocześnie rozciąganie, zginanie, skręcanie i temperatura. Nauczysz się wskazywać warunek, który rzeczywiście decyduje o wymiarze, zamiast sprawdzać tylko pierwszy z brzegu.
+- **W3 — dobór wymiaru i kształtu przekroju.** Zrozumiesz, dlaczego ten sam moment daje różne naprężenia w przekroju pełnym, rurowym i dwuteowym. Nauczysz się dobierać wskaźnik przekroju, a następnie sprawdzać sztywność, bo wytrzymałość i sztywność to dwa różne wymagania.
+- **U1 — pełne obliczenia wymiaru, obciążenia i zapasu.** Wykonasz kompletny ciąg obliczeń: od reakcji i sił wewnętrznych, przez naprężenia, do wymiaru minimalnego, wymiaru przyjętego i rzeczywistego zapasu bezpieczeństwa.
+- **U2 — kontrola stanu naprężenia kołem Mohra.** W obciążeniach złożonych użyjesz koła Mohra do sprawdzenia naprężeń głównych i maksymalnego ścinania. To pozwoli ocenić, czy nie pominięto kierunku, w którym stan naprężenia jest najgroźniejszy.
+- **U3 — dobór materiału i przekroju z kontrolą sztywności.** Nauczysz się porównywać materiały nie tylko po granicy plastyczności, lecz także po module Younga, gęstości i koszcie. Sprawdzisz, czy o doborze nie decyduje przypadkiem dopuszczalne wydłużenie albo ugięcie.
+
+| Warunek                                | Pytanie projektowe                   | Typowa niewiadoma                     |
+| -------------------------------------- | ------------------------------------ | ------------------------------------- |
+| $\sigma \le k$                         | Czy materiał nie jest przeciążony?   | wymiar, materiał lub obciążenie       |
+| $\Delta L \le \Delta L_{\mathrm{dop}}$ | Czy odkształcenie jest dopuszczalne? | pole przekroju, moduł $E$ lub długość |
+| $f \le f_{\mathrm{dop}}$               | Czy ugięcie belki jest dopuszczalne? | moment bezwładności $I$ lub materiał  |
+| $n = R_e/\sigma \ge n_{\mathrm{wym}}$  | Jaki jest rzeczywisty zapas?         | materiał, wymiar lub obciążenie       |
+
+Tabela nie zastępuje wzorów, ale porządkuje decyzję. W jednym zadaniu mogą wystąpić równocześnie trzy lub cztery wiersze, a ostateczny wymiar wynika z najbardziej wymagającego z nich.
+
+## Od czego zacząć
+
+Ten moduł zakłada, że znasz już podstawowe przypadki wytrzymałościowe. Przed nim warto umieć swobodnie wyznaczać reakcje podpór i siły wewnętrzne metodą przekrojów. Bez tego projektowanie zamienia się w zgadywanie, bo nie wiadomo, jaką siłę lub moment podstawić do warunku.
+
+Kolejnym niezbędnym elementem jest rozciąganie i ściskanie: naprężenie $N/A$, prawo Hooke'a, wydłużenie $NL/(EA)$ oraz warunki wytrzymałości i sztywności. Z modułu o materiale potrzebne są pojęcia granicy plastyczności $R_e$, wytrzymałości $R_m$, naprężenia dopuszczalnego i współczynnika bezpieczeństwa. Z geometrii przekrojów musisz znać środek ciężkości, moment bezwładności i wskaźnik wytrzymałości.
+
+Do zginania i skręcania przydadzą się wzory na rozkład naprężeń oraz umiejętność czytania wykresów $T(x)$ i $M(x)$. Na końcu, przy obciążeniach złożonych, potrzebne będzie koło Mohra i hipotezy wytrzymałościowe. Jeśli któryś z tych działów jest niepewny, warto wrócić do niego przed rozwiązywaniem pełnych zadań, ponieważ moduł łączy je wszystkie.
+
+Pracuj w kolejności lekcji. Pierwsze dwie uczą pojedynczych decyzji: wymiaru i materiału. Kolejne cztery pokazują pełne zadania dla pręta, temperatury, belki i wału. Ostatnia lekcja jest powtórką i strategią kolokwium, więc ma sens dopiero po przejściu wcześniejszych.
+
+Czas modułu jest wyliczany z treści, ale samo przeczytanie lekcji nie wystarczy. Przy każdym przykładzie zatrzymaj się i spróbuj najpierw rozwiązać go samodzielnie, a dopiero potem porównaj kroki. Krótka próba przed przeczytaniem rozwiązania uczy znacznie więcej niż bierne śledzenie rachunku.
+
+| Wcześniejszy dział         | Co trzeba umieć                            | Po co w projektowaniu                     |
+| -------------------------- | ------------------------------------------ | ----------------------------------------- |
+| Fundamenty                 | reakcje, równowaga, metoda przekrojów      | ustalenie sił wewnętrznych                |
+| Rozciąganie i ściskanie    | $N/A$, $NL/(EA)$, warunki $k$ i $\Delta L$ | dobór pręta i kontrola wydłużenia         |
+| Materiał                   | $R_e$, $R_m$, $E$, współczynnik $n$        | wybór granicy i naprężenia dopuszczalnego |
+| Geometria przekrojów       | $I$, $W$, środek ciężkości                 | dobór kształtu przekroju                  |
+| Zginanie i skręcanie       | rozkład naprężeń, $W$, $W_o$               | dobór belki i wału                        |
+| Stan naprężenia i hipotezy | koło Mohra, naprężenie zredukowane         | kontrola obciążeń złożonych               |
+
+## Mapa lekcji
+
+Siedem lekcji tworzy jedną ścieżkę: od pojedynczego warunku, przez pełne zadania, do powtórki. Każda następna lekcja korzysta z poprzednich, ale można do niej wrócić osobno, gdy potrzebna jest konkretna umiejętność.
+
+**1. Dobór wymiaru z warunku wytrzymałości.** Lekcja odwraca znany warunek naprężeniowy: z momentu i naprężenia dopuszczalnego wyznacza wymagany wskaźnik przekroju, a potem średnicę lub wymiary prostokąta. Uczy, dlaczego przy zginaniu średnica zależy od pierwiastka trzeciego stopnia z momentu i dlaczego zaokrąglanie w dół jest błędem.
+
+**2. Dobór materiału i obciążenia dopuszczalnego.** Tutaj decydujesz, czy materiał przeniesie siłę i czy element nie odkształci się za mocno. Lekcja rozdziela wytrzymałość od sztywności i pokazuje, że mocniejsza stal nie musi być sztywniejsza od aluminium, jeśli mają różne moduły Younga.
+
+**3. Pełne zadanie: pręt osiowo obciążony.** Przechodzisz od schematu przez wykres siły normalnej do naprężeń w kolejnych odcinkach pręta schodkowego. Uczysz się, że o wytrzymałości decyduje największy iloraz $|N|/A$, a nie sama największa siła, oraz że wydłużenie sumuje się odcinkami.
+
+**4. Pełne zadanie: obciążenie mechaniczne i temperatura.** Łączysz prawo Hooke'a z odkształceniem termicznym i warunkiem zgodności. Zobaczysz, kiedy temperatura sama nie wywołuje naprężenia, a kiedy zablokowanie lub luz prowadzi do ściskania albo rozciągania.
+
+**5. Pełne zadanie: dobór belki na zginanie.** Wyznaczasz reakcje i moment maksymalny, dobierasz przekrój, a następnie sprawdzasz ugięcie. To lekcja o tym, że belka wystarczająco wytrzymała może być nadal zbyt podatna w użytkowaniu.
+
+**6. Pełne zadanie: wał pełny i drążony.** Porównujesz wał pełny z rurowym przy skręcaniu. Liczysz naprężenia styczne i kąt skręcenia, a potem oceniasz, kiedy otwór zmniejsza masę bez przekroczenia warunków.
+
+**7. Powtórka mieszana i strategia kolokwium.** Porządkujesz całą procedurę: jednostki, rozpoznanie schematu, wybór warunku, obliczenia i kontrola wyniku. To lekcja o typowych błędach i o tym, jak nie tracić punktów na zadaniach, które potrafisz rozwiązać.
+
+## Kluczowe wzory
+
+Wzory w tym module są krótkie, ale mają wiele zastosowań. Dlatego przy każdym z nich warto zapisać, co jest dane, czego szukamy i w jakich jednostkach pracujemy. Sama znajomość postaci wzoru nie wystarcza, jeśli nie wiadomo, którą wielkość można w nim potraktować jako niewiadomą.
+
+<Formula>
+$$
+\sigma = \frac{N}{A} \le k, \qquad \tau = \frac{T}{W_o} \le k_s, \qquad \sigma = \frac{M}{W} \le k
+$$
+
+<Caption>Trzy podstawowe warunki wytrzymałości dla rozciągania, skręcania i zginania. Wielkość $k$ oznacza naprężenie dopuszczalne przy rozciąganiu lub zginaniu, a $k_s$ — dopuszczalne naprężenie styczne. Jednostki muszą być spójne: najwygodniej w N i mm, wtedy naprężenie wychodzi w MPa.</Caption>
+</Formula>
+
+W każdym z tych warunków można szukać innej niewiadomej. Przy sprawdzaniu szukamy naprężenia, przy doborze wymiaru — pola lub wskaźnika przekroju, a przy doborze materiału — dopuszczalnej granicy. Ten sam wzór obsługuje więc trzy różne pytania projektowe.
+
+<Formula>
+$$
+W \ge \frac{M}{k}, \qquad A \ge \frac{|N|}{k}, \qquad W_o \ge \frac{T}{k_s}
+$$
+
+<Caption>Postać „od wyniku do wymiaru”. Po lewej stronie stoi wymagana cecha geometryczna, po prawej obciążenie podzielone przez naprężenie dopuszczalne. Dopiero po dobraniu rzeczywistego przekroju wracamy do pierwszej postaci i sprawdzamy naprężenie.</Caption>
+</Formula>
+
+<Formula>
+$$
+\Delta L = \sum_i \frac{N_i L_i}{E_i A_i} + \sum_i \alpha_i \Delta T_i L_i \le \Delta L_{\mathrm{dop}}
+$$
+
+<Caption>Warunek sztywności dla pręta złożonego z odcinków i poddanego zmianie temperatury. Sumy obejmują odcinki o stałych $N$, $E$, $A$, $\alpha$ i $\Delta T$. Przy zablokowaniu całkowita zmiana długości jest znana i równanie zamienia się w warunek zgodności.</Caption>
+</Formula>
+
+<Insight>
+  W projektowaniu najpierw ustal, **która wielkość jest niewiadomą**, a dopiero potem przekształcaj wzór. Ten sam
+  warunek może służyć do sprawdzenia, do doboru wymiaru albo do wyznaczenia obciążenia dopuszczalnego. Bez tej decyzji
+  łatwo policzyć coś poprawnego rachunkowo, ale nieodpowiadającego na pytanie.
+</Insight>
+
+<Callout kind="warning" title="Najczęstsza pułapka modułu">
+  Nie mieszaj wytrzymałości z sztywnością. Warunek $\sigma \le k$ mówi, że materiał nie zostanie przeciążony, ale nie mówi, że element nie ugnie się zbyt mocno. Warunek $\Delta L \le \Delta L_{\mathrm{dop}}$ lub $f \le f_{\mathrm{dop}}$ trzeba sprawdzić osobno, nawet jeśli naprężenia są znacznie poniżej dopuszczalnych.
+</Callout>
+
+## Jak się uczyć
+
+1. **Zawsze rysuj schemat.** Zaznacz podpory, kierunki sił, długości i miejsce przyłożenia obciążenia. Dopiero na rysunku widać, które równania równowagi są potrzebne i gdzie może wystąpić największy moment lub siła osiowa.
+2. **Pracuj w ustalonej kolejności.** Schemat, reakcje, siły wewnętrzne, naprężenia, warunki, dobór, kontrola. Ta kolejność jest ważniejsza niż szybkość, ponieważ każdy kolejny krok korzysta z poprzedniego.
+3. **Zapisuj jednostki przy każdej liczbie.** Zamieniaj kN·m na N·mm, GPa na MPa i mm² na m² tylko wtedy, gdy wiesz, po co. Najczęstsze błędy to czynnik 1000 i czynnik 10⁶, a nie trudna matematyka.
+4. **Sprawdzaj oba warunki.** Po doborze wymiaru wróć do naprężeń i odkształceń. Sprawdź też, czy przyjęty wymiar jest rzeczywiście nie mniejszy od wymaganego.
+5. **Interpretuj wynik.** Średnica 4 mm dla belki o rozpiętości 3 m powinna wzbudzić podejrzenie. Rząd wielkości, sens fizyczny i jednostka końcowa są częścią rozwiązania, nie dodatkiem.
+6. **Ucz się na wariantach odwrotnych.** Po rozwiązaniu zadania zmień pytanie: zamiast szukać wymiaru, policz obciążenie dopuszczalne albo wymagany zapas. To najlepszy test zrozumienia, bo zmusza do świadomego przekształcenia warunku.
+
+Nie ucz się wzorów w izolacji. Każdy z nich powinien być powiązany z konkretnym rysunkiem, jednostką i decyzją, którą podejmujesz. Wtedy nawet po zapomnieniu szczegółu potrafisz odtworzyć sens warunku i sprawdzić wynik.
+
+## Po tym module
+
+Po module projektowania powinieneś umieć spojrzeć na zadanie wytrzymałościowe jak na mały projekt: ustalić model, policzyć skutki obciążenia, wybrać wymiar lub materiał i uzasadnić decyzję. To przygotowuje do zadań egzaminacyjnych, w których nie ma jednej podpowiedzianej ścieżki, a trzeba samodzielnie rozpoznać przypadek.
+
+To ostatni moduł kursu. Kolejnym krokiem jest samodzielne rozwiązywanie pełnych zadań i powtarzanie tych działów, które nadal sprawiają trudność. Warto wracać do wcześniejszych lekcji nie po to, by czytać je od nowa, lecz by sprawdzić konkretny wzór lub procedurę w miejscu, w którym pojawia się wątpliwość.
+
+Moduł łączy się bezpośrednio z wcześniejszymi działami: rozciąganiem, materiałem, geometrią przekrojów, skręcaniem, zginaniem, stanem naprężenia i hipotezami wytrzymałościowymi. W dalszej nauce mechaniki konstrukcji te same warunki pojawią się w bardziej złożonych układach, z belkami ciągłymi, ramami i obciążeniami zmiennymi w czasie. Dobrze opanowana procedura projektowa będzie tam nadal aktualna.
+
+Warto wrócić do tego modułu przed każdym większym zadaniem obliczeniowym. Krótka kontrola schematu, jednostek i warunków decydujących często oszczędza więcej czasu niż ponowne wyprowadzanie wzorów. Projektowanie jest umiejętnością, którą ćwiczy się przez powtarzanie pełnych, krótkich rozwiązań.
+
+Dobrym nawykiem jest prowadzenie własnego notesu z gotowymi szablonami rozwiązań. Jeden szablon dla pręta, jeden dla belki i jeden dla wału wystarczą, aby w nowym zadaniu szybko odnaleźć właściwą kolejność kroków.
+
+## Źródła
+
+Poniższe pozycje łączą klasyczne ujęcie polskie z otwartymi podręcznikami, w których można znaleźć więcej przykładów i rysunków. Przy każdym zadaniu warto zajrzeć do rozdziału o danym przypadku wytrzymałościowym, a nie tylko do gotowego wzoru.
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdziały o rozciąganiu, zginaniu i projektowaniu przekrojów; klasyczne ujęcie warunków wytrzymałości i sztywności.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z doboru wymiarów, materiału i obciążenia dopuszczalnego; dobry trening przed kolokwium.
+- D. Roylance, _Mechanics of Materials_, MIT OpenCourseWare — otwarty podręcznik o naprężeniach, zginaniu, skręcaniu i plastyczności; pomocny w zrozumieniu, skąd biorą się warunki projektowe.
+- T. Wierzbicki, _Structural Mechanics_, MIT OpenCourseWare — wykłady o stanie naprężenia, prawie konstytutywnym i projektowaniu płyt; rozszerzenie dla osób, które chcą zobaczyć szerszy kontekst.

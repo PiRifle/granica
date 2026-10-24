@@ -7,7 +7,6 @@ shortTitle: Sprężystość
 description: >-
   Liniowa zależność w zakresie sprężystym oraz wpływ materiału, pola i długości
   na wydłużenie pręta.
-duration: 8
 eyebrow: Ile przesunie się element?
 outcomes:
   - W1 — analizuje sprężystą odpowiedź pręta na siłę osiową
@@ -18,66 +17,291 @@ outcomes:
   - 'U3 — kontroluje element zarówno ze względu na wytrzymałość, jak i sztywność'
 ---
 
-Moduł Younga opisuje sztywność samego materiału, ale wydłużenie zależy także od geometrii elementu. Krótki i gruby pręt jest osiowo sztywniejszy niż długi i cienki pręt z tego samego materiału.
+Rozciągana gumka wydłuża się wyraźnie pod działaniem małej siły. Stalowy drut o podobnym przekroju prawie nie zmienia długości, choć działa na niego ta sama siła. Różnica wynika z modułu Younga: gumka ma go bardzo mało, stal bardzo dużo. Moduł Younga opisuje jednak materiał, a nie konkretny element.
+
+To rozróżnienie jest kluczowe. Dwa pręty z tej samej stali mogą mieć zupełnie różne wydłużenia, jeśli mają inne pole przekroju lub inną długość. Krótki i gruby pręt jest sztywny, długi i cienki — podatny. Mówimy wtedy o sztywności osiowej elementu, którą opisuje iloczyn $EA$ podzielony przez długość. Moduł $E$ jest własnością materiału, a $EA/L$ — własnością całego pręta.
+
+Prawo Hooke’a łączy te dwa poziomy. W zakresie liniowo sprężystym naprężenie jest proporcjonalne do odkształcenia, a siła do wydłużenia. Współczynnikiem proporcjonalności na poziomie materiału jest $E$, a na poziomie elementu — sztywność $k$. Dzięki temu możemy obliczyć, o ile przesunie się końcówka pręta pod znanym obciążeniem.
+
+Po lekcji będziesz umiał policzyć naprężenie, odkształcenie i wydłużenie pręta, a także ocenić, czy o doborze decyduje wytrzymałość, czy sztywność. Nauczysz się rozpoznawać, kiedy prawo Hooke’a przestaje obowiązywać. Zobaczysz też, dlaczego „mocny” materiał nie zawsze jest „sztywny” i odwrotnie.
+
+W praktyce inżynierskiej pytanie o sztywność pojawia się wszędzie tam, gdzie liczy się geometria. Wspornik maszyny nie może się zbyt mocno ugiąć, bo straci dokładność. Śruba w połączeniu nie może się nadmiernie wydłużyć, bo połączenie się rozszczelni. Kabel dźwigu nie może wydłużyć się tak, aby ładunek opadł zbyt nisko. W każdym z tych przypadków sama informacja „materiał się nie zerwie” nie wystarcza.
+
+## Zanim zaczniesz
+
+- **Definicje naprężenia i odkształcenia.** Potrzebujesz $\sigma=N/A$ oraz $\varepsilon=\Delta L/L_0$. W tej lekcji dodajemy związek między nimi, ale same definicje pozostają takie same.
+- **Jednostki modułu Younga.** $E$ ma jednostkę naprężenia: $\text{MPa}$ lub $\text{GPa}$. Typowa stal ma $E\approx 200\ \text{GPa}=200\,000\ \text{MPa}$, aluminium około $70\ \text{GPa}$, a drewno w kierunku włókien rzędu $10$–$15\ \text{GPa}$.
+- **Pręt osiowy.** Zakładamy, że siła działa wzdłuż osi, przekrój jest stały, a materiał jednorodny. Oś pręta i linia działania siły pokrywają się, więc nie ma zginania.
+- **Zakres liniowy.** Prawo Hooke’a stosujemy tylko do momentu, w którym wykres $\sigma$–$\varepsilon$ jest w przybliżeniu prosty. Po uplastycznieniu zależność się zmienia, a odkształcenie częściowo pozostaje.
+- **Typowe pułapki.** Mieszanie $\text{GPa}$ z $\text{MPa}$, podstawianie długości w metrach do wzoru z polem w $\text{mm}^2$, mylenie sztywności z wytrzymałością oraz używanie wzoru na wydłużenie po przekroczeniu granicy plastyczności.
+
+## Model i intuicja
+
+Model liniowej sprężystości zakłada, że odkształcenie jest proporcjonalne do naprężenia, a po usunięciu obciążenia całkowicie znika. Materiał jest izotropowy, czyli ma takie same właściwości w każdym kierunku. Odkształcenia są małe, więc możemy odnosić je do wymiarów początkowych. Przekrój i siła osiowa są stałe na rozważanym odcinku.
+
+W rzeczywistym pręcie przy uchwytach mogą wystąpić zaburzenia rozkładu naprężeń. Z dala od nich, zgodnie z zasadą Saint-Venanta, rozkład się wyrównuje i wzór $\sigma=N/A$ jest dobrym przybliżeniem. Dlatego obliczając wydłużenie całego pręta, dzielimy go myślowo na odcinki, na których siła, pole i moduł są stałe, a wynik sumujemy.
+
+Prawo Hooke’a można zapisać na dwa sposoby. Pierwszy dotyczy materiału: $\sigma=E\varepsilon$. Drugi dotyczy elementu: $N=k\Delta L$, gdzie $k=EA/L$. Oba są równoważne, ale pierwszy nie zależy od geometrii, a drugi tak. Ten sam materiał może dać bardzo sztywny element albo bardzo podatny, zależnie od proporcji $A$ i $L$.
+
+Model przestaje działać w kilku typowych sytuacjach. Po przekroczeniu granicy plastyczności zależność staje się nieliniowa i pojawia się odkształcenie trwałe. Guma i elastomery są sprężyste, ale nieliniowe, więc nie opisuje ich stały moduł Younga w całym zakresie. Smukły pręt ściskany może wyboczyć się, zanim naprężenie osiągnie granicę materiału. Kompozyty i drewno są anizotropowe, więc jeden moduł nie wystarcza. W podwyższonej temperaturze dochodzi pełzanie, a przy bardzo dużych odkształceniach trzeba używać miar rzeczywistych.
+
+Mimo tych ograniczeń model liniowy jest podstawą projektowania. Większość konstrukcji pracuje przy naprężeniach znacznie mniejszych od granicy plastyczności, a odkształcenia są niewielkie. Właśnie dlatego możemy projektować według sztywności, nie martwiąc się o nieliniowość. Trzeba tylko każdorazowo sprawdzić, czy założenia są spełnione.
+
+W zakresie sprężystym obowiązuje zasada superpozycji. Jeśli na pręt działa kilka sił osiowych przyłożonych w różnych przekrojach, wydłużenie całkowite jest sumą wydłużeń od poszczególnych odcinków. Podobnie można dodać wydłużenie od ciężaru własnego i od siły zewnętrznej. Warunkiem jest liniowość i niezależność przyczynków, czyli brak uplastycznienia i brak dużych zmian geometrii.
+
+## Laboratorium: co ustawić
+
+Wybierz materiał i zmieniaj siłę oraz pole przekroju. Obserwuj nachylenie wykresu $\sigma$–$\varepsilon$: dla danego materiału powinno być stałe, a dla większego $E$ — większe. Porównaj wydłużenie pręta stalowego, aluminiowego i drewnianego przy tym samym obciążeniu.
 
 <Lab id="hooke" />
 
+## Definicje i jednostki
+
+| Wielkość                                 | Symbol        | Jednostka                       | Znaczenie                                                                       |
+| ---------------------------------------- | ------------- | ------------------------------- | ------------------------------------------------------------------------------- |
+| Moduł Younga                             | $E$           | $\text{MPa}$ lub $\text{GPa}$   | Nachylenie liniowej części wykresu $\sigma$–$\varepsilon$                       |
+| Naprężenie normalne                      | $\sigma$      | $\text{MPa}$                    | Siła osiowa na jednostkę pola przekroju                                         |
+| Odkształcenie względne                   | $\varepsilon$ | bezwymiarowe                    | Zmiana długości względem długości początkowej                                   |
+| Sztywność osiowa pręta                   | $k$           | $\text{N/mm}$ lub $\text{MN/m}$ | Stosunek siły do wydłużenia w zakresie liniowym                                 |
+| Sztywność przekroju                      | $EA$          | $\text{N}$                      | Iloczyn modułu i pola, opisujący opór materiału i przekroju                     |
+| Podatność osiowa                         | $1/k$         | $\text{mm/N}$                   | Wydłużenie przypadające na jednostkę siły                                       |
+| Długość                                  | $L$           | $\text{mm}$                     | Długość odcinka, na którym $N$, $E$ i $A$ są stałe                              |
+| Wydłużenie                               | $\Delta L$    | $\text{mm}$                     | Zmiana długości; dodatnia przy rozciąganiu, ujemna przy ściskaniu               |
+| Odkształcenie w kierunku osi             | $\varepsilon$ | bezwymiarowe                    | $\Delta L/L$ dla odcinka o stałej sile i przekroju                              |
+| Energia sprężysta na jednostkę objętości | $u$           | $\text{J/m}^3$                  | Pole pod wykresem $\sigma$–$\varepsilon$; w zakresie liniowym $u=\sigma^2/(2E)$ |
+
+Moduł Younga jest własnością materiału, ale nie jest uniwersalną stałą dla dowolnych warunków. Zależy od temperatury, a w materiałach anizotropowych od kierunku. W typowych obliczeniach konstrukcyjnych dla metali przyjmujemy jednak wartość stałą w zakresie temperatur zbliżonych do pokojowej. Wartość $E$ nie mówi nic o wytrzymałości: dwa materiały mogą mieć podobny moduł, a bardzo różne granice plastyczności.
+
+Sztywność $k$ zależy od geometrii. Pręt o dwa razy większym polu jest dwa razy sztywniejszy. Pręt o dwa razy większej długości jest dwa razy bardziej podatny. Zmiana materiału na taki o dwa razy większym $E$ również podwaja sztywność. Te trzy efekty można odczytać wprost ze wzoru $k=EA/L$.
+
+Energia sprężysta zgromadzona w pręcie jest równa pracy siły zewnętrznej w zakresie liniowym. Dla pręta o stałej sile i przekroju wynosi $U=\frac{1}{2}N\Delta L=N^2L/(2EA)$. Gęstość energii $u=\sigma^2/(2E)$ zależy tylko od naprężenia i materiału. Ten sam materiał przy większym naprężeniu magazynuje więcej energii na jednostkę objętości, ale po przekroczeniu granicy sprężystości część energii rozprasza się w procesie plastycznym.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma = E\varepsilon, \qquad \Delta L = \frac{NL}{EA}
+\sigma=E\varepsilon, \qquad \Delta L=\frac{NL}{EA}, \qquad k=\frac{EA}{L}
 $$
 
 <Caption>E to moduł Younga, N — siła osiowa, L — długość, A — pole przekroju. Wzór na ΔL stosujemy przy stałych N, E i A na długości L oraz w zakresie sprężystości liniowej. Dodatnie N oznacza rozciąganie, a ujemne — ściskanie.</Caption>
 </Formula>
 
+Wyprowadzenie łączy definicje naprężenia i odkształcenia z liniową odpowiedzią materiału. Każdy krok można wykonać na poziomie pręta, bez odwoływania się do zaawansowanej teorii.
+
+1. W przekroju pręta działa siła osiowa $N$. Przy równomiernym rozkładzie naprężenie wynosi $\sigma=N/A$.
+2. Odkształcenie względne definiujemy jako $\varepsilon=\Delta L/L$.
+3. W zakresie liniowym eksperyment pokazuje proporcję $\sigma=E\varepsilon$. Współczynnik $E$ jest nachyleniem prostej i nie zależy od długości ani pola.
+4. Podstawiamy definicje do prawa Hooke’a: $N/A=E\Delta L/L$.
+5. Mnożymy obie strony przez $L$ i dzielimy przez $E$: $\Delta L=NL/(EA)$.
+6. Definiujemy sztywność jako $k=N/\Delta L$. Po podstawieniu otrzymujemy $k=EA/L$.
+7. Dla pręta o zmiennym przekroju lub zmiennej sile dzielimy go na odcinki. Na nieskończenie krótkim odcinku $dx$ wydłużenie wynosi $d\delta=N(x)\,dx/[E A(x)]$.
+8. Całkowite wydłużenie jest sumą lub całką takich przyczynków: $\Delta L=\int_0^L N(x)/[E A(x)]\,dx$.
+9. Znak wyniku wynika ze znaku $N$. Dodatnia siła daje dodatnie $\Delta L$, ujemna — skrócenie.
+10. Na końcu sprawdzamy, czy naprężenie nie przekracza granicy plastyczności. Jeśli przekracza, wzór liniowy przestaje być poprawny.
+
 <Insight>
   Wytrzymałość odpowiada na pytanie „czy materiał wytrzyma?”, a sztywność — „czy odkształcenie nie będzie zbyt duże?”.
-  Element może być bezpieczny ze względu na zerwanie, a mimo to zbyt podatny w codziennym użytkowaniu.
+  Element może być bezpieczny ze względu na zerwanie, a mimo to zbyt podatny w codziennym użytkowaniu. Moduł Younga $E$
+  opisuje materiał, natomiast $EA/L$ opisuje konkretny pręt.
 </Insight>
 
 <WorkedExample>
-  <Given>Stalowy pręt o długości L = 2 m i polu A = 250 mm² rozciąga siła N = 50 kN. Moduł E = 200 GPa.</Given>
+  <Given>Stalowy pręt o długości $L=2\ \text{m}$ i polu $A=250\ \text{mm}^2$ rozciąga siła $N=50\ \text{kN}$. Moduł $E=200\ \text{GPa}$.</Given>
   <Steps>
-    <Step>Naprężenie: σ = N/A = 50 000/250 = 200 MPa.</Step>
-    <Step>Odkształcenie z prawa Hooke’a: ε = σ/E = 200/200 000 = 0,001.</Step>
-    <Step>Wydłużenie: ΔL = εL = 0,001·2000 mm = 2 mm.</Step>
-    <Step>Ten sam wynik daje ΔL = NL/(EA) = 50 000·2000/(200 000·250) = 2 mm.</Step>
+    <Step>Naprężenie: $\sigma=N/A=50\,000/250=200\ \text{MPa}$.</Step>
+    <Step>Odkształcenie z prawa Hooke’a: $\varepsilon=\sigma/E=200/200\,000=0{,}001$.</Step>
+    <Step>Wydłużenie: $\Delta L=\varepsilon L=0{,}001\cdot 2000\ \text{mm}=2\ \text{mm}$.</Step>
+    <Step>Ten sam wynik daje $\Delta L=NL/(EA)=50\,000\cdot 2000/(200\,000\cdot 250)=2\ \text{mm}$.</Step>
+    <Step>Sztywność: $k=EA/L=200\,000\cdot 250/2000=25\,000\ \text{N/mm}$, czyli $25\ \text{MN/m}$.</Step>
+    <Step>Kontrola: $k\Delta L=25\,000\cdot 2=50\,000\ \text{N}$, zgodnie z zadaną siłą.</Step>
+    <Step>Sprawdzenie zakresu: $200\ \text{MPa}$ jest mniejsze od typowej granicy plastyczności stali $235\ \text{MPa}$, więc wynik jest wiarygodny.</Step>
   </Steps>
   <Result>
-    Pręt ma naprężenie 200 MPa, odkształcenie 0,001 i wydłuża się o 2 mm, o ile pozostaje w zakresie sprężystym.
+    Pręt ma naprężenie $200\ \text{MPa}$, odkształcenie $0{,}001$ i wydłuża się o $2\ \text{mm}$, o ile pozostaje w zakresie sprężystym. Jego sztywność osiowa wynosi około $25\ \text{MN/m}$.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Rozważmy aluminiowy pręt o długości $L=1{,}5\ \text{m}$ i średnicy $d=16\ \text{mm}$, rozciągany siłą $N=12\ \text{kN}$. Moduł aluminium przyjmujemy $E=70\ \text{GPa}$. Pole przekroju wynosi
+
+$$
+A=\frac{\pi d^2}{4}=\frac{\pi\cdot 16^2}{4}\approx 201{,}06\ \text{mm}^2.
+$$
+
+Naprężenie jest równe
+
+$$
+\sigma=\frac{12\,000}{201{,}06}\approx 59{,}68\ \text{MPa}.
+$$
+
+Odkształcenie wynosi $\varepsilon=59{,}68/70\,000\approx 0{,}000853$, a wydłużenie
+
+$$
+\Delta L=\varepsilon L=0{,}000853\cdot 1500\approx 1{,}28\ \text{mm}.
+$$
+
+Sztywność pręta to
+
+$$
+k=\frac{EA}{L}=\frac{70\,000\cdot 201{,}06}{1500}\approx 9383\ \text{N/mm}\approx 9{,}38\ \text{MN/m}.
+$$
+
+Porównanie ze stalą jest pouczające. Aluminium ma około trzy razy mniejszy moduł, więc przy podobnym naprężeniu odkształca się około trzy razy bardziej. Nie znaczy to, że jest „gorsze”: jest lżejsze, a w wielu zastosowaniach mniejsza masa jest ważniejsza niż mniejsza sztywność. Wybór materiału zależy od tego, który warunek jest krytyczny.
+
+Gdyby średnicę aluminiowego pręta zwiększyć dwukrotnie, pole wzrosłoby czterokrotnie, a sztywność również czterokrotnie. Wydłużenie spadłoby do jednej czwartej poprzedniej wartości, ale masa pręta wzrosłaby czterokrotnie. To pokazuje typowy kompromis: sztywność można kupić materiałem albo geometrią, a każdy z tych sposobów ma swoją cenę.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że dla stalowego pręta o długości $L=3\ \text{m}$, obciążonego siłą $N=40\ \text{kN}$, wymagamy wydłużenia nie większego niż $\Delta L_{\mathrm{dop}}=1{,}5\ \text{mm}$. Moduł wynosi $E=200\ \text{GPa}$. Szukamy minimalnego pola przekroju.
+
+Z warunku sztywności
+
+$$
+\Delta L=\frac{NL}{EA}\le \Delta L_{\mathrm{dop}}
+$$
+
+po przekształceniu otrzymujemy
+
+$$
+A_{\min}=\frac{NL}{E\Delta L_{\mathrm{dop}}}
+=\frac{40\,000\cdot 3000}{200\,000\cdot 1{,}5}=400\ \text{mm}^2.
+$$
+
+Dla przekroju kołowego odpowiednia średnica wynosi
+
+$$
+d=\sqrt{\frac{4A_{\min}}{\pi}}=\sqrt{\frac{4\cdot 400}{\pi}}\approx 22{,}6\ \text{mm}.
+$$
+
+Sprawdzenie naprężenia: $\sigma=40\,000/400=100\ \text{MPa}$, czyli znacznie mniej niż typowa granica plastyczności stali. W tym zadaniu o wymiarze decyduje więc sztywność, a nie wytrzymałość. Gdybyśmy dobrali przekrój tylko z warunku naprężeniowego, mógłby być mniejszy, ale pręt wydłużałby się bardziej niż dopuszczono.
+
+Zwróć uwagę na wrażliwość wyniku. Gdyby dopuszczalne wydłużenie zmniejszyć do $1\ \text{mm}$, wymagane pole wzrosłoby do $600\ \text{mm}^2$. Wydłużenie jest liniową funkcją długości i siły, a odwrotnie proporcjonalne do pola. Dlatego w zadaniach projektowych małe zmiany wymagania sztywności mogą istotnie zmienić wymiar.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie modułu Younga $E$ z sztywnością pręta $EA/L$. Pierwszy jest własnością materiału, druga zależy od wymiarów.
+- Podstawianie $E$ w $\text{GPa}$ bez zamiany na $\text{MPa}$, gdy siła jest w niutonach, a pole w milimetrach kwadratowych. Wynik wychodzi tysiąc razy za mały.
+- Używanie długości w metrach razem z polem w $\text{mm}^2$. Najlepiej przeliczyć wszystko na $\text{N}$ i $\text{mm}$.
+- Stosowanie wzoru na wydłużenie po przekroczeniu granicy plastyczności. Po uplastycznieniu zależność nie jest już liniowa.
+- Pomijanie znaku siły. Ściskanie daje skrócenie, więc $\Delta L$ jest ujemne, jeśli przyjmujemy rozciąganie za dodatnie.
+- Zakładanie, że większy moduł $E$ automatycznie oznacza większą wytrzymałość. To dwie różne własności.
+- Sprawdzanie tylko wytrzymałości, bez warunku sztywności. Element może nie pęknąć, ale odkształcać się nadmiernie.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal, czy szukasz naprężenia, odkształcenia, wydłużenia, czy sztywności.** Każda z tych wielkości ma inną jednostkę i inny wzór.
+2. **Zapisz dane w spójnych jednostkach.** Najwygodniej: siła w $\text{N}$, pole w $\text{mm}^2$, długość w $\text{mm}$, moduł w $\text{MPa}$.
+3. **Oblicz pole przekroju.** Dla okrągłego użyj $\pi d^2/4$, dla prostokątnego $b\cdot h$. Sprawdź, czy podano średnicę, czy promień.
+4. **Oblicz naprężenie.** Podziel siłę przez pole. Porównaj wynik z granicą materiału, aby sprawdzić, czy wolno stosować prawo Hooke’a.
+5. **Wybierz wzór.** Jeśli znasz naprężenie, użyj $\varepsilon=\sigma/E$. Jeśli znasz siłę i geometrię, użyj $\Delta L=NL/(EA)$.
+6. **Oblicz sztywność, jeśli jest potrzebna.** $k=EA/L$ mówi, ile niutonów potrzeba na milimetr wydłużenia. Odwrotność $1/k$ mówi, ile milimetrów daje niuton.
+7. **Sprawdź oba warunki.** Wytrzymałość: naprężenie nie przekracza dopuszczalnego. Sztywność: wydłużenie nie przekracza dopuszczalnego. Dopiero większe z wymaganych pól jest rozwiązaniem.
+8. **Zinterpretuj wynik.** Napisz, czy element jest sprężysty, czy tylko geometrycznie się zmieścił. Sprawdź rząd wielkości: wydłużenie milimetrów w pręcie metrowym jest typowe, a wydłużenie metra w pręcie metrowym oznacza błąd.
+9. **Sprawdź, czy nie trzeba dzielić pręta na odcinki.** Jeśli siła, pole lub materiał zmieniają się na długości, użyj sumy $\sum N_iL_i/(E_iA_i)$ zamiast jednego wzoru.
+
+## Połącz z resztą kursu
+
+- **Próba rozciągania i ściskania** daje moduł Younga jako nachylenie początkowej części krzywej. Tutaj używamy go do obliczeń elementu.
+- **Re, Rm, sprężystość i plastyczność** wyznacza koniec zakresu, w którym prawo Hooke’a jest ważne. Bez tej granicy nie wiadomo, kiedy wzór przestaje obowiązywać.
+- **Wydłużenia i skrócenia prętów** rozwija ten sam wzór dla prętów schodkowych i zmiennej siły osiowej.
+- **Warunek sztywności: bezpiecznie i bez nadmiernych ruchów** pokazuje, jak przekształcić $\Delta L\le\Delta L_{\mathrm{dop}}$ w wymagane pole przekroju.
+- **Koło Mohra: narysuj je krok po kroku** wykorzystuje odkształcenie osiowe jako jeden z elementów opisu stanu odkształcenia. W zakresie liniowym kierunki główne naprężeń i odkształceń pokrywają się.
+- **Temperatura: swoboda i zablokowanie** dodaje odkształcenie termiczne do mechanicznego. Wtedy całkowite odkształcenie jest sumą obu przyczynków, a nie tylko wynikiem $\sigma/E$.
+
+## Sprawdź się
+
+Pytania łączą obliczenia z interpretacją. Przy każdym wyniku sprawdź jednostkę i zastanów się, czy opisuje materiał, przekrój, czy cały pręt.
+
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Pręt ma N = 20 kN, L = 1 m, A = 100 mm² i E = 200 GPa. Ile wynosi jego wydłużenie?</Prompt>
-    <Answer>0,1 mm</Answer>
-    <Answer correct>1 mm</Answer>
-    <Answer>10 mm</Answer>
-    <Hint>Zamień długość na mm, E na N/mm² i podstaw do NL/(EA).</Hint>
-    <Explanation>ΔL = NL/(EA) = 20 000·1000/(200 000·100) = 1 mm. Moduł E = 200 GPa = 200 000 N/mm².</Explanation>
+    <Prompt>Pręt ma $N=20\ \text{kN}$, $L=1\ \text{m}$, $A=100\ \text{mm}^2$ i $E=200\ \text{GPa}$. Ile wynosi jego wydłużenie?</Prompt>
+    <Answer>$0{,}1\ \text{mm}$</Answer>
+    <Answer correct>$1\ \text{mm}$</Answer>
+    <Answer>$10\ \text{mm}$</Answer>
+    <Hint>Zamień długość na milimetry, $E$ na $\text{N/mm}^2$ i podstaw do $NL/(EA)$.</Hint>
+    <Explanation>
+      $\Delta L=NL/(EA)=20\,000\cdot 1000/(200\,000\cdot 100)=1\ \text{mm}$. Moduł $E=200\ \text{GPa}=200\,000\ \text{N/mm}^2$.
+    </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>
-      Jak zmieni się wydłużenie pręta, jeżeli przy tej samej sile i materiale podwoimy jego długość oraz pole przekroju?
-    </Prompt>
+    <Prompt>Jak zmieni się wydłużenie pręta, jeżeli przy tej samej sile i materiale podwoimy jego długość oraz pole przekroju?</Prompt>
     <Answer correct>Nie zmieni się</Answer>
     <Answer>Wzrośnie dwa razy</Answer>
     <Answer>Zmaleje dwa razy</Answer>
-    <Hint>Podstaw 2L i 2A, a następnie skróć wspólne czynniki.</Hint>
+    <Hint>Podstaw $2L$ i $2A$, a następnie skróć wspólne czynniki.</Hint>
     <Explanation>
-      W ΔL = NL/(EA) długość rośnie dwa razy, a iloczyn EA również rośnie dwa razy. Te zmiany się znoszą.
+      W $\Delta L=NL/(EA)$ długość rośnie dwa razy, a iloczyn $EA$ również rośnie dwa razy. Te zmiany się znoszą, więc wydłużenie pozostaje takie samo.
     </Explanation>
   </Question>
   <Question outcome="W2">
-    <Prompt>Dlaczego nie wolno stosować σ = Eε do dowolnie dużych odkształceń stali?</Prompt>
+    <Prompt>Dlaczego nie wolno stosować $\sigma=E\varepsilon$ do dowolnie dużych odkształceń stali?</Prompt>
     <Answer correct>Bo prawo Hooke’a opisuje tylko zakres liniowej sprężystości</Answer>
     <Answer>Bo naprężenie nie zależy od materiału</Answer>
     <Answer>Bo po uplastycznieniu nie istnieją odkształcenia</Answer>
     <Hint>Nazwa „prawo” nie znosi zakresu jego stosowalności.</Hint>
     <Explanation>
-      Liniowa proporcjonalność σ = Eε obowiązuje tylko w zakresie sprężystości liniowej. Po uplastycznieniu zależność
-      staje się nieliniowa i pojawia się odkształcenie trwałe.
+      Liniowa proporcjonalność obowiązuje tylko w zakresie sprężystości liniowej. Po uplastycznieniu zależność staje się nieliniowa i pojawia się odkształcenie trwałe, więc stały moduł $E$ przestaje opisywać materiał.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Dwa pręty mają takie samo pole i długość, ale jeden jest ze stali ($E=200\ \text{GPa}$), a drugi z aluminium ($E=70\ \text{GPa}$). Przy tym samym naprężeniu w zakresie sprężystym:</Prompt>
+    <Answer>oba wydłużą się tak samo, bo naprężenie jest takie samo</Answer>
+    <Answer correct>aluminiowy wydłuży się około trzy razy bardziej</Answer>
+    <Answer>stalowy wydłuży się około trzy razy bardziej</Answer>
+    <Hint>Odkształcenie to $\varepsilon=\sigma/E$; porównaj mianowniki.</Hint>
+    <Explanation>
+      Przy tym samym naprężeniu odkształcenie jest odwrotnie proporcjonalne do $E$. Stosunek $200/70\approx 2{,}86$, więc pręt aluminiowy odkształca się około trzy razy bardziej.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Która wielkość jest własnością materiału, a nie konkretnego pręta?</Prompt>
+    <Answer>Sztywność $k=EA/L$</Answer>
+    <Answer correct>Moduł Younga $E$</Answer>
+    <Answer>Wydłużenie $\Delta L$</Answer>
+    <Hint>Zastanów się, które wielkości zmieniają się po zmianie długości lub przekroju.</Hint>
+    <Explanation>
+      Moduł Younga zależy od materiału, a nie od wymiarów próbki. Sztywność $k$ i wydłużenie $\Delta L$ zmieniają się wraz z długością i polem przekroju.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Element jest bezpieczny ze względu na naprężenie, ale jego ugięcie przekracza dopuszczalne. Co należy zrobić w pierwszej kolejności?</Prompt>
+    <Answer>Zwiększyć granicę plastyczności materiału bez zmiany geometrii</Answer>
+    <Answer correct>Sprawdzić warunek sztywności i zwiększyć pole lub skrócić element</Answer>
+    <Answer>Zmniejszyć pole, aby element był lżejszy</Answer>
+    <Hint>Ugięcie zależy od $NL/(EA)$, a nie tylko od naprężenia.</Hint>
+    <Explanation>
+      Przekroczenie dopuszczalnego ugięcia to problem sztywności. Można zwiększyć $EA$ przez większe pole lub lepszy materiał, albo zmniejszyć długość. Sama zmiana granicy materiału nie zwiększa sztywności.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla pręta o $L=2\ \text{m}$, $N=30\ \text{kN}$ i $E=200\ \text{GPa}$ dopuszczalne wydłużenie wynosi $1\ \text{mm}$. Jakie minimalne pole przekroju jest potrzebne?</Prompt>
+    <Answer>$30\ \text{mm}^2$</Answer>
+    <Answer correct>$300\ \text{mm}^2$</Answer>
+    <Answer>$3000\ \text{mm}^2$</Answer>
+    <Hint>Przekształć $\Delta L=NL/(EA)$ do postaci $A=NL/(E\Delta L)$.</Hint>
+    <Explanation>
+      $A_{\min}=30\,000\cdot 2000/(200\,000\cdot 1)=300\ \text{mm}^2$. Dla mniejszego pola wydłużenie przekroczyłoby $1\ \text{mm}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W zakresie liniowo sprężystym kierunki główne odkształceń w izotropowym materiale:</Prompt>
+    <Answer>są zawsze obrócone o $45^\circ$ względem kierunków naprężeń</Answer>
+    <Answer correct>pokrywają się z kierunkami głównymi naprężeń</Answer>
+    <Answer>nie mają związku z naprężeniami</Answer>
+    <Hint>W izotropii każdy kierunek materiału jest równouprawniony, więc oś rozciągania pozostaje osią główną.</Hint>
+    <Explanation>
+      Dla materiału izotropowego liniowo sprężystego tensory naprężenia i odkształcenia mają te same kierunki główne. To dlatego oś pręta rozciąganego jest jednocześnie kierunkiem głównym naprężenia i odkształcenia.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z prawa Hooke’a i wydłużeń prętów; szukaj przykładów z różnymi materiałami i przekrojami.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — rozdział o związkach naprężenie–odkształcenie i sztywności prętów; zwróć uwagę na rozróżnienie własności materiału i elementu.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik; rozdział o sprężystej odpowiedzi wyprowadza prawo Hooke’a, sztywność $EA/L$ i wydłużenie pręta.
+- T. Wierzbicki, _Structural Mechanics_ — otwarty podręcznik; rozdział o prawie sprężystości w ośrodku ciągłym pokazuje, jak $E$ i $\nu$ opisują materiał w szerszym kontekście.
+- R. C. Hibbeler, _Mechanics of Materials_, rozdział o odkształceniach osiowych — dodatkowe przykłady prętów o zmiennym przekroju i kontroli warunku sztywności.

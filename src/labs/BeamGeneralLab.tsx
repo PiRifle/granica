@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { Control, Lab, Metric, fmt } from '../components/UI'
+import { Control, Formula, Lab, Metric, fmt } from '../components/UI'
 import { chartMargin } from './ShearBeamLabsShared'
 
 export function BeamGeneralLab() {
@@ -25,6 +25,7 @@ export function BeamGeneralLab() {
   const loadX = 100 + (distanceAMM / lengthMM) * 520
   const loadStroke = 3 + forceKN / 12
   const reactionStroke = 2 + Math.max(reactionAKN, reactionBKN) / 12
+  const labelSide = distanceAMM < lengthMM / 2 ? 'right' : 'left'
   const diagramData = [
     { xM: 0, shearKN: reactionAKN, momentKNM: 0 },
     { xM: distanceAMM / 1000, shearKN: reactionAKN, momentKNM: maxMomentKNM },
@@ -35,7 +36,7 @@ export function BeamGeneralLab() {
   return (
     <Lab
       title="Belka swobodnie podparta: siła w dowolnym miejscu"
-      instruction="Przesuwaj siłę P względem podpór. Dla stałej rozpiętości L = 4 m reakcje wynikają z równowagi, a największy moment występuje pod siłą: Mmax = RA·a."
+      instruction="Przesuwaj siłę P względem podpór i obserwuj, jak udział a/L zmienia reakcje RA i RB oraz kształt wykresów T(x) i M(x). Niezależnie od położenia siły największy moment występuje zawsze pod siłą: Mmax = P·a·(L−a)/L."
       onReset={() => {
         setForceKN(20)
         setDistanceAMM(1400)
@@ -58,7 +59,8 @@ export function BeamGeneralLab() {
         <>
           <Metric label="Reakcja RA = P(L−a)/L" value={fmt(reactionAKN, 2)} unit="kN" />
           <Metric label="Reakcja RB = Pa/L" value={fmt(reactionBKN, 2)} unit="kN" />
-          <Metric label="Mmax = RA·a" value={fmt(maxMomentKNM, 2)} unit="kN·m" tone="accent" />
+          <Metric label="Udział a/L" value={fmt(distanceAMM / lengthMM, 2)} unit="—" />
+          <Metric label="Mmax = RA·a = RB·b" value={fmt(maxMomentKNM, 2)} unit="kN·m" tone="accent" />
         </>
       }
       visual={
@@ -149,7 +151,7 @@ export function BeamGeneralLab() {
             <text x={(100 + loadX) / 2} y="173" textAnchor="middle" fontSize="13" fill="currentColor">
               a = {distanceAMM} mm
             </text>
-            <text x="360" y="249" textAnchor="middle" fontSize="13" fill="currentColor">
+            <text x="360" y="244" textAnchor="middle" fontSize="13" fill="currentColor">
               L = {lengthMM} mm · b = L−a = {distanceBMM} mm
             </text>
           </svg>
@@ -172,7 +174,41 @@ export function BeamGeneralLab() {
                 />
                 <Tooltip />
                 <ReferenceLine y={0} stroke="currentColor" opacity={0.45} />
-                <ReferenceLine x={distanceAMM / 1000} stroke="currentColor" strokeDasharray="4 4" opacity={0.35} />
+                <ReferenceLine
+                  x={distanceAMM / 1000}
+                  stroke="currentColor"
+                  strokeDasharray="4 4"
+                  opacity={0.35}
+                  label={{ value: 'x = a', position: 'insideBottom', fontSize: 11, fill: 'currentColor' }}
+                />
+                <ReferenceDot
+                  x={distanceAMM / 1000}
+                  y={reactionAKN}
+                  r={5}
+                  fill="#e0a14b"
+                  stroke="white"
+                  strokeWidth={2}
+                  label={{
+                    value: `RA = ${fmt(reactionAKN, 2)}`,
+                    position: labelSide,
+                    fontSize: 12,
+                    fill: '#e0a14b',
+                  }}
+                />
+                <ReferenceDot
+                  x={distanceAMM / 1000}
+                  y={-reactionBKN}
+                  r={5}
+                  fill="#e0a14b"
+                  stroke="white"
+                  strokeWidth={2}
+                  label={{
+                    value: `−RB = ${fmt(-reactionBKN, 2)}`,
+                    position: labelSide,
+                    fontSize: 12,
+                    fill: '#e0a14b',
+                  }}
+                />
                 <Line
                   type="linear"
                   dataKey="shearKN"
@@ -204,6 +240,13 @@ export function BeamGeneralLab() {
                 />
                 <Tooltip />
                 <ReferenceLine y={0} stroke="currentColor" opacity={0.45} />
+                <ReferenceLine
+                  x={distanceAMM / 1000}
+                  stroke="currentColor"
+                  strokeDasharray="4 4"
+                  opacity={0.35}
+                  label={{ value: 'x = a', position: 'insideBottom', fontSize: 11, fill: 'currentColor' }}
+                />
                 <ReferenceDot
                   x={distanceAMM / 1000}
                   y={maxMomentKNM}
@@ -211,6 +254,12 @@ export function BeamGeneralLab() {
                   fill="#ff6b45"
                   stroke="white"
                   strokeWidth={2}
+                  label={{
+                    value: `Mmax = ${fmt(maxMomentKNM, 2)}`,
+                    position: labelSide,
+                    fontSize: 12,
+                    fill: '#ff6b45',
+                  }}
                 />
                 <Line
                   type="linear"
@@ -224,6 +273,9 @@ export function BeamGeneralLab() {
               </LineChart>
             </ResponsiveContainer>
           </div>
+          <Formula note="W odróżnieniu od laboratorium zginania, gdzie siła działa zawsze w połowie rozpiętości, tutaj P może stać w dowolnym punkcie a. Reakcje dzielą siłę proporcjonalnie do ramion: bliższa podpora przejmuje więcej. Skok T(x) o wartość P pod siłą oraz załamanie M(x) przesuwają się razem z a, a Mmax osiąga największą możliwą wartość P·L/4 dla a = L/2.">
+            {'M_{max} = R_A\\cdot a = \\frac{P\\,a\\,(L-a)}{L}'}
+          </Formula>
         </>
       }
     />

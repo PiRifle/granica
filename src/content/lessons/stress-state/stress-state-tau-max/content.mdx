@@ -7,7 +7,6 @@ shortTitle: τ maksymalne
 description: >-
   Rozróżnij promień płaskiego koła od maksymalnego ścinania w pełnym stanie
   przestrzennym.
-duration: 9
 eyebrow: Nie pomiń trzeciej osi
 outcomes:
   - >-
@@ -24,74 +23,285 @@ outcomes:
   - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
 ---
 
-O zniszczeniu może decydować ścinanie, nawet gdy analiza skupia się na największym rozciąganiu. W stanie płaskim trzecie naprężenie główne wynosi zero i może zmienić wartość maksymalnego τ.
+Maksymalne naprężenie styczne jest często tą wielkością, która decyduje o uplastycznieniu materiału ciągliwego. W pręcie skręcanym, w środniku belki i w połączeniu śrubowym właśnie ścinanie prowadzi do trwałej deformacji, zanim naprężenia normalne osiągną granicę plastyczności. Dlatego pytanie „jak duże jest największe τ” pojawia się niemal w każdym zadaniu projektowym.
+
+W płaskim stanie naprężenia student widzi jedno koło Mohra i ma skłonność do utożsamiania jego promienia z maksymalnym ścinaniem. To prawda tylko wtedy, gdy trzecie naprężenie główne leży pomiędzy dwoma pozostałymi. Gdy oba naprężenia płaskie mają ten sam znak, zero w kierunku prostopadłym staje się wartością skrajną i rzeczywiste maksimum ścinania jest większe od promienia koła.
+
+Różnica nie jest drobiazgiem rachunkowym. W elemencie rozciąganym w dwóch kierunkach naprężenia główne mogą wynosić na przykład 110 i 10 MPa, a naprężenie w kierunku grubości jest zerowe. Płaski promień wynosi wtedy 50 MPa, ale absolutne maksimum ścinania to 55 MPa. Projekt oparty na zaniżonej wartości może dopuścić naprężenie większe od założonego.
+
+W tej lekcji rozdzielisz dwa pojęcia: płaskie maksimum ścinania, związane z wybraną płaszczyzną, oraz absolutne maksimum, związane z pełnym stanem trójwymiarowym. Nauczysz się porządkować trzy naprężenia główne, wyznaczać płaszczyzny maksymalnego ścinania i sprawdzać, czy zero jest wartością skrajną, czy środkową. Zobaczysz też, jak interpretować wynik w kontekście materiałów ciągliwych i kruchych.
+
+Kluczowe pytanie brzmi więc nie „ile wynosi R”, lecz „które z trzech naprężeń głównych są skrajne”. Dopiero odpowiedź na to pytanie pozwala poprawnie wybrać różnicę, przez którą dzielimy przez dwa. Laboratorium pokaże koło płaskie, a rachunek uzupełni je o brakującą oś.
+
+## Zanim zaczniesz
+
+- **Wzory transformacyjne.** Potrzebujesz wzorów na $\sigma_n$ i $\tau_{nt}$ po obrocie oraz umiejętności zapisania ich przez $\sigma_{avg}$ i $a$.
+- **Naprężenia główne w płaszczyźnie.** Wartości $\sigma_1=\sigma_{avg}+R$ i $\sigma_2=\sigma_{avg}-R$ oraz promień $R=\sqrt{a^2+\tau_{xy}^2}$ muszą być dla Ciebie oczywiste.
+- **Trzecie naprężenie główne.** W płaskim stanie naprężenia $\sigma_z=0$ jest pełnoprawnym naprężeniem głównym, a nie „brakiem naprężenia”.
+- **Porządkowanie wartości.** Oznaczenia $\sigma_I$, $\sigma_{II}$, $\sigma_{III}$ oznaczają wartości od największej do najmniejszej. Nie mieszaj ich z $\sigma_1$ i $\sigma_2$ w płaszczyźnie.
+- **Jednostki.** Naprężenia podawaj w MPa, a różnice i promienie także w MPa. Nie dodawaj naprężeń do sił ani momentów.
+- **Typowa pułapka.** Przyjęcie, że $\tau_{\max}^{abs}=R$ zawsze. To założenie zawodzi, gdy zero jest naprężeniem skrajnym.
+
+## Model i intuicja
+
+W punkcie materiału stan naprężenia opisuje symetryczny tensor o trzech wartościach własnych. W układzie osi głównych tensor jest diagonalny, a na płaszczyznach prostopadłych do tych osi nie ma ścinania. Każda inna płaszczyzna jest nachylona względem osi głównych i może przenosić zarówno naprężenie normalne, jak i styczne.
+
+Dla trzech wartości głównych można narysować trzy koła Mohra. Każde z nich odpowiada parze wartości: $\sigma_I$ i $\sigma_{II}$, $\sigma_{II}$ i $\sigma_{III}$ oraz $\sigma_I$ i $\sigma_{III}$. Największe z tych kół ma średnicę równą $\sigma_I-\sigma_{III}$ i to ono wyznacza absolutne maksimum ścinania. Dwa pozostałe koła opisują stany na płaszczyznach, których normalne leżą w pozostałych płaszczyznach głównych.
+
+W płaskim stanie naprężenia jedno z trzech naprężeń głównych jest równe zero. To zero może być najmniejsze, największe albo środkowe. Gdy naprężenia płaskie mają przeciwne znaki, zero leży pomiędzy nimi i największa różnica to różnica dwóch naprężeń płaskich. Gdy oba są dodatnie, zero jest mniejsze od obu; gdy oba są ujemne, zero jest większe od obu. W obu tych przypadkach największa różnica obejmuje zero, a nie drugie naprężenie płaskie.
+
+Model zakłada materiał ciągły, jednorodny i izotropowy oraz małe odkształcenia. Naprężenia traktujemy jako stan w punkcie, a nie jako średnią po całym przekroju. W strefie koncentracji naprężeń, na przykład przy otworze, wartości mogą być znacznie większe niż wynika to z prostego podziału siły przez pole. Model przestaje też wystarczać przy dużych odkształceniach plastycznych, gdy rozkład naprężeń zmienia się wraz z deformacją.
+
+Warto rozróżnić „płaszczyznę maksymalnego ścinania” od „kierunku maksymalnego ścinania”. Płaszczyzna jest opisana normalną, a kierunek ścinania leży w tej płaszczyźnie. Na płaszczyźnie maksymalnego ścinania naprężenie normalne nie musi być zerowe; jest równe średniej odpowiedniej pary naprężeń głównych. To częsty powód błędnej interpretacji: duże τ nie oznacza braku σ.
+
+## Laboratorium: co ustawić
+
+Ustaw $\sigma_x=80$, $\sigma_y=20$ i $\tau_{xy}=40\ \mathrm{MPa}$. Odczytaj promień $R=50\ \mathrm{MPa}$ oraz naprężenia główne 100 i 0 MPa. Następnie zmień dane na $\sigma_x=90$, $\sigma_y=30$ i $\tau_{xy}=40\ \mathrm{MPa}$; promień pozostanie równy 50 MPa, ale naprężenia główne wyniosą 110 i 10 MPa, a zero stanie się wartością skrajną.
 
 <Lab id="mohr" />
 
+Porównaj oba przypadki. W pierwszym zero jest jednym z naprężeń płaskich, więc płaskie i absolutne maksimum ścinania pokrywają się. W drugim zero jest trzecim naprężeniem głównym i zwiększa różnicę skrajnych wartości. To właśnie ten drugi przypadek jest najczęstszym źródłem błędów w zadaniach.
+
+## Definicje i jednostki
+
+| Symbol                              | Znaczenie                               | Jednostka           | Uwaga                                    |
+| ----------------------------------- | --------------------------------------- | ------------------- | ---------------------------------------- |
+| $\tau_{\max}^{(xy)}$                | maksymalne ścinanie w płaszczyźnie $xy$ | MPa                 | równe promieniowi $R$                    |
+| $\tau_{\max}^{abs}$                 | absolutne maksymalne ścinanie           | MPa                 | połowa różnicy $\sigma_I-\sigma_{III}$   |
+| $R$                                 | promień koła Mohra w płaszczyźnie       | MPa                 | $R=\sqrt{a^2+\tau_{xy}^2}$               |
+| $\sigma_1,\sigma_2$                 | naprężenia główne w płaszczyźnie        | MPa                 | $\sigma_1\ge\sigma_2$ w tej płaszczyźnie |
+| $\sigma_I,\sigma_{II},\sigma_{III}$ | trzy naprężenia główne                  | MPa                 | uporządkowane malejąco                   |
+| $\sigma_{avg}$                      | średnia naprężeń normalnych             | MPa                 | $(\sigma_x+\sigma_y)/2$                  |
+| $a$                                 | połowa różnicy naprężeń normalnych      | MPa                 | $(\sigma_x-\sigma_y)/2$                  |
+| $\theta_p$                          | kąt kierunku głównego                   | stopnie lub radiany | normalna do płaszczyzny głównej          |
+| $\theta_s$                          | kąt płaszczyzny maksymalnego ścinania   | stopnie lub radiany | $\theta_p\pm45^\circ$                    |
+
+Naprężenie styczne ma znak zależny od przyjętego zwrotu osi, ale maksimum ścinania jest wartością nieujemną. W zadaniach podajemy zwykle wartość bezwzględną oraz informację, na której płaszczyźnie występuje. Płaszczyzny maksymalnego ścinania są nachylone pod kątem $45^\circ$ do odpowiednich kierunków głównych, a naprężenie normalne na nich jest równe średniej odpowiedniej pary naprężeń głównych.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\tau_{max}^{(xy)}=R=\frac{\sigma_1-\sigma_2}{2},\qquad \tau_{max}^{abs}=\frac{\sigma_{I}-\sigma_{III}}{2}
+\tau_{\max}^{(xy)}=R=\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2},\qquad \tau_{\max}^{abs}=\frac{\sigma_I-\sigma_{III}}{2}
 $$
 
-<Caption>σI i σIII to odpowiednio największe i najmniejsze z trzech naprężeń głównych. Płaszczyzny maksymalnego ścinania są nachylone o 45° do odpowiednich kierunków głównych, a występuje na nich średnie naprężenie normalne.</Caption>
+<Caption>Pierwszy wzór dotyczy płaszczyzny $xy$ i jest promieniem koła Mohra. Drugi dotyczy pełnego stanu trójwymiarowego i wymaga uporządkowania trzech naprężeń głównych. W płaskim stanie naprężenia trzecim naprężeniem głównym jest zero, więc $\sigma_I$ i $\sigma_{III}$ trzeba wybrać spośród trzech liczb, a nie tylko dwóch.</Caption>
 </Formula>
 
+<Formula>
+$$
+R_{I,II}=\frac{\sigma_I-\sigma_{II}}{2},\qquad R_{II,III}=\frac{\sigma_{II}-\sigma_{III}}{2},\qquad R_{I,III}=\frac{\sigma_I-\sigma_{III}}{2}
+$$
+
+<Caption>Trzy promienie kół Mohra w pełnym stanie przestrzennym. Największy promień to $R_{I,III}$; on wyznacza absolutne maksimum ścinania. Pozostałe dwa promienie opisują ścinanie na płaszczyznach związanych z pozostałymi parami kierunków głównych.</Caption>
+</Formula>
+
+Wyprowadzenie zaczynamy od wzoru transformacyjnego na naprężenie styczne w płaszczyźnie $xy$.
+
+1. **Zapisz funkcję kąta.** $\tau_{nt}=-a\sin2\theta+\tau_{xy}\cos2\theta$, gdzie $a=(\sigma_x-\sigma_y)/2$.
+2. **Wprowadź promień.** Niech $R=\sqrt{a^2+\tau_{xy}^2}$. Wtedy $a/R$ i $\tau_{xy}/R$ leżą na okręgu jednostkowym.
+3. **Zapisz przez kosinus.** $\tau_{nt}=R\cos(2\theta+\varphi)$ dla pewnego kąta $\varphi$ spełniającego $\cos\varphi=\tau_{xy}/R$ i $\sin\varphi=a/R$.
+4. **Ogranicz wartość.** Cosinus przyjmuje wartości od $-1$ do $1$, więc $|\tau_{nt}|\le R$. Równość zachodzi, gdy $2\theta+\varphi$ jest wielokrotnością $\pi$.
+5. **Wyznacz kąt.** Z warunku na ekstremum wynika $\tan2\theta_s=-a/\tau_{xy}=-(\sigma_x-\sigma_y)/(2\tau_{xy})$.
+6. **Porównaj z kierunkiem głównym.** Dla kierunku głównego $\tan2\theta_p=\tau_{xy}/a$. Iloczyn tangensów jest równy $-1$, więc $2\theta_s$ różni się od $2\theta_p$ o $90^\circ$.
+7. **Przejdź do kąta fizycznego.** Po podzieleniu przez dwa otrzymujemy $\theta_s=\theta_p\pm45^\circ$. Płaszczyzny maksymalnego ścinania leżą pod kątem $45^\circ$ do kierunków głównych.
+8. **Oblicz naprężenie normalne.** Po podstawieniu $\theta_s$ do wzoru na $\sigma_n$ wyrazy z $a$ i $\tau_{xy}$ redukują się, a pozostaje $\sigma_n=\sigma_{avg}$.
+9. **Uporządkuj trzy wartości.** W przestrzeni $\sigma_I\ge\sigma_{II}\ge\sigma_{III}$. Największa różnica to $\sigma_I-\sigma_{III}$, więc absolutne maksimum ścinania wynosi połowę tej różnicy.
+10. **Sprawdź przypadek płaski.** Dla $\sigma_z=0$ porównaj zero z $\sigma_1$ i $\sigma_2$. Jeśli zero jest środkowe, $\tau_{\max}^{abs}=R$; jeśli jest skrajne, $\tau_{\max}^{abs}$ jest większe od $R$.
+
 <Insight>
-  Jeżeli σ1 i σ2 mają ten sam znak, zero w kierunku z staje się jedną ze skrajnych wartości i τmax(abs) może być większe
-  niż promień koła w płaszczyźnie xy.
+  Zero w stanie płaskim nie oznacza „braku naprężenia”, lecz trzecie naprężenie główne. Gdy oba naprężenia płaskie mają
+  ten sam znak, zero staje się wartością skrajną i wyznacza większe ścinanie niż promień koła. Zawsze porządkuj trzy
+  liczby, zanim wybierzesz różnicę do wzoru.
 </Insight>
 
 <WorkedExample>
-  <Given>Stan płaski: σx = 80 MPa, σy = 20 MPa, τxy = 40 MPa, σz = 0.</Given>
+  <Given>
+    W punkcie panuje płaski stan naprężenia: $\sigma_x=90\ \mathrm{MPa}$, $\sigma_y=30\ \mathrm{MPa}$,
+    $\tau_{xy}=40\ \mathrm{MPa}$ i $\sigma_z=0$. Wyznacz płaskie oraz absolutne maksimum ścinania.
+  </Given>
   <Steps>
-    <Step>σavg = 50 MPa, a = 30 MPa, R = √(30² + 40²) = 50 MPa.</Step>
-    <Step>Płaskie naprężenia główne: 100 MPa i 0 MPa; trzecie σz = 0.</Step>
-    <Step>Płaskie maksimum ścinania wynosi R = 50 MPa.</Step>
-    <Step>Pełny zbiór główny to &#123;100, 0, 0&#125; MPa, więc τmax(abs) = (100 − 0)/2 = 50 MPa.</Step>
+    <Step>Średnia: $\sigma_{avg}=(90+30)/2=60\ \mathrm{MPa}$.</Step>
+    <Step>Połowa różnicy: $a=(90-30)/2=30\ \mathrm{MPa}$.</Step>
+    <Step>Promień: $R=\sqrt{30^2+40^2}=50\ \mathrm{MPa}$.</Step>
+    <Step>Naprężenia główne w płaszczyźnie: $60+50=110\ \mathrm{MPa}$ oraz $60-50=10\ \mathrm{MPa}$.</Step>
+    <Step>Dodaj zero i uporządkuj: $\sigma_I=110$, $\sigma_{II}=10$, $\sigma_{III}=0\ \mathrm{MPa}$.</Step>
+    <Step>Płaskie maksimum: $\tau_{\max}^{(xy)}=R=50\ \mathrm{MPa}$.</Step>
+    <Step>Absolutne maksimum: $\tau_{\max}^{abs}=(110-0)/2=55\ \mathrm{MPa}$.</Step>
+    <Step>
+      Sprawdź średnią na płaszczyźnie absolutnego maksimum: $(110+0)/2=55\ \mathrm{MPa}$. Jest to zarazem wartość
+      naprężenia normalnego na tej płaszczyźnie.
+    </Step>
   </Steps>
   <Result>
-    Oba maksima wynoszą tu 50 MPa, ale jest to zbieg okoliczności wynikający z σ2 = σz = 0. Zawsze należy sprawdzić
-    pełny zestaw trzech wartości.
+    Płaskie maksimum wynosi $50\ \mathrm{MPa}$, a absolutne $55\ \mathrm{MPa}$. Różnica $5\ \mathrm{MPa}$ jest
+    wynikiem tego, że zero jest mniejsze od obu naprężeń płaskich. Pominięcie trzeciej osi zaniżyłoby wynik o około
+    $9\%$, co w projekcie może być istotne.
   </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy stan, w którym oba naprężenia normalne są ujemne: $\sigma_x=-40\ \mathrm{MPa}$, $\sigma_y=-100\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$. Średnia wynosi $(-40-100)/2=-70\ \mathrm{MPa}$, a połowa różnicy $a=(-40+100)/2=30\ \mathrm{MPa}$. Promień jest równy $R=\sqrt{30^2+30^2}=42{,}43\ \mathrm{MPa}$.
+
+Naprężenia główne w płaszczyźnie to $-70+42{,}43=-27{,}57\ \mathrm{MPa}$ oraz $-70-42{,}43=-112{,}43\ \mathrm{MPa}$. Po dodaniu zera i uporządkowaniu otrzymujemy $\sigma_I=0$, $\sigma_{II}=-27{,}57$ i $\sigma_{III}=-112{,}43\ \mathrm{MPa}$. Tym razem zero jest największym naprężeniem głównym, bo oba naprężenia płaskie są ściskające.
+
+Płaskie maksimum ścinania wynosi $R=42{,}43\ \mathrm{MPa}$, natomiast absolutne $(0-(-112{,}43))/2=56{,}21\ \mathrm{MPa}$. Na płaszczyźnie absolutnego maksimum naprężenie normalne jest równe $(0-112{,}43)/2=-56{,}21\ \mathrm{MPa}$, czyli jest ściskające. To pokazuje, że duże ścinanie może współistnieć z dużym ściskaniem.
+
+Warto zauważyć, że znak naprężeń normalnych nie przesądza o tym, które koło jest największe. Liczy się różnica wartości, a nie ich znak. Stan z dwoma ujemnymi naprężeniami płaskimi jest geometrycznie podobny do stanu z dwoma dodatnimi: zero leży na zewnątrz przedziału wyznaczonego przez naprężenia płaskie, więc powiększa maksymalną różnicę.
+
+Taki przypadek występuje na przykład w ściśniętym elemencie z dodatkowym ścinaniem, w strefie docisku lub w materiale pod wysokim ciśnieniem hydrostatycznym z odchyleniem. Samo ściskanie hydrostatyczne nie daje ścinania, ale różnica między naprężeniami już tak. Dlatego inżynier musi patrzeć na różnice, a nie tylko na wartości bezwzględne.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że z analizy koła wiadomo, iż płaski promień wynosi $R=40\ \mathrm{MPa}$, a absolutne maksimum ścinania $60\ \mathrm{MPa}$. Dodatkowo zmierzono $\sigma_x=104\ \mathrm{MPa}$. Chcemy odtworzyć $\sigma_y$ i $|\tau_{xy}|$. To zadanie „od wyniku do danych”.
+
+Ponieważ $\tau_{\max}^{abs}$ jest większe od $R$, zero musi być naprężeniem skrajnym. Przy dodatnim $\sigma_x$ i dodatniej średniej oznacza to, że oba naprężenia płaskie są dodatnie. Z wzoru na absolutne maksimum mamy $\sigma_I/2=60$, więc $\sigma_I=120\ \mathrm{MPa}$. Promień w płaszczyźnie jest połową różnicy naprężeń płaskich, więc $\sigma_I-\sigma_{II}=80\ \mathrm{MPa}$ i $\sigma_{II}=40\ \mathrm{MPa}$.
+
+Średnia wynosi $(120+40)/2=80\ \mathrm{MPa}$. Z definicji średniej $(\sigma_x+\sigma_y)/2=80$, więc $\sigma_y=160-104=56\ \mathrm{MPa}$. Połowa różnicy to $a=(104-56)/2=24\ \mathrm{MPa}$. Z wzoru na promień $40^2=24^2+\tau_{xy}^2$, skąd $|\tau_{xy}|=\sqrt{1600-576}=32\ \mathrm{MPa}$.
+
+Sprawdzenie: średnia $80\ \mathrm{MPa}$, promień $\sqrt{24^2+32^2}=40\ \mathrm{MPa}$, więc naprężenia główne to $120$ i $40\ \mathrm{MPa}$, a zero jest najmniejsze. Absolutne maksimum wynosi $(120-0)/2=60\ \mathrm{MPa}$. Wszystko się zgadza.
+
+Wariant ściskający dałby $\sigma_I=0$, $\sigma_{II}=-40$ i $\sigma_{III}=-120\ \mathrm{MPa}$ przy tej samej wartości $R=40$ i tym samym absolutnym maksimum $60\ \mathrm{MPa}$. Wtedy jednak średnia byłaby ujemna, a $\sigma_x=104\ \mathrm{MPa}$ leży poza przedziałem od $-120$ do $-40\ \mathrm{MPa}$, więc taki stan nie jest zgodny z pomiarem. To pokazuje, że znak jednej składowej może rozstrzygnąć, który z dwóch matematycznie możliwych stanów jest rzeczywisty.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Utożsamianie $R$ z $\tau_{\max}^{abs}$.** Promień koła jest maksimum tylko w wybranej płaszczyźnie. W przestrzeni trzeba porównać trzy naprężenia główne.
+- **Pomijanie zera.** W płaskim stanie naprężenia $\sigma_z=0$ jest trzecim naprężeniem głównym. Bez niego nie da się ustalić, która różnica jest największa.
+- **Porządkowanie tylko dwóch wartości.** Zapis $\sigma_1\ge\sigma_2$ dotyczy płaszczyzny. Oznaczenia $\sigma_I$, $\sigma_{II}$, $\sigma_{III}$ wymagają trzech liczb.
+- **Mylenie płaszczyzny z kierunkiem.** Płaszczyzna maksymalnego ścinania jest nachylona pod $45^\circ$ do kierunków głównych, a kierunek ścinania leży w tej płaszczyźnie.
+- **Przekonanie, że na maksymalnym ścinaniu $\sigma=0$.** Naprężenie normalne jest równe średniej odpowiedniej pary naprężeń głównych i zwykle nie znika.
+- **Zły znak różnicy.** Maksimum ścinania jest nieujemne. Po odjęciu mniejszej wartości od większej nie zmieniaj kolejności bez potrzeby.
+- **Zastosowanie wzoru płaskiego do stanu przestrzennego.** Gdy $\tau_{xz}$ lub $\tau_{yz}$ są niezerowe, samo koło w płaszczyźnie $xy$ nie opisuje całego stanu.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Zapisz wszystkie składowe.** Wypisz $\sigma_x$, $\sigma_y$, $\sigma_z$, $\tau_{xy}$, $\tau_{xz}$ i $\tau_{yz}$. W płaskim stanie część jest zerowa, ale zapisz to świadomie.
+2. **Oblicz $\sigma_{avg}$ i $a$.** Te dwie liczby potrzebne są w każdym wariancie i ułatwiają kontrolę.
+3. **Oblicz $R$.** Pierwiastek z sumy kwadratów jest nieujemny. Sprawdź, czy nie pominąłeś kwadratu przy $a$.
+4. **Wyznacz $\sigma_1$ i $\sigma_2$.** Dodaj i odejmij $R$ od średniej. Zapisz obie wartości, nawet jeśli jedna jest ujemna.
+5. **Dodaj trzecie naprężenie.** W płaskim stanie to zero. W przestrzeni oblicz je z równania charakterystycznego lub z danych.
+6. **Uporządkuj trzy wartości.** Oznacz największą jako $\sigma_I$, środkową jako $\sigma_{II}$, najmniejszą jako $\sigma_{III}$.
+7. **Wybierz właściwą różnicę.** Do płaskiego maksimum użyj $\sigma_1-\sigma_2$. Do absolutnego użyj $\sigma_I-\sigma_{III}$.
+8. **Podziel przez dwa.** Otrzymujesz odpowiednio $R$ i $\tau_{\max}^{abs}$. Sprawdź, czy wynik jest nieujemny.
+9. **Wskaż płaszczyznę.** Dla płaskiego maksimum podaj $\theta_s=\theta_p\pm45^\circ$; dla absolutnego wskaż parę kierunków głównych, których różnica jest największa.
+10. **Sprawdź sens fizyczny.** Porównaj wynik z naprężeniami głównymi i upewnij się, że nie przekracza połowy największej różnicy.
+
+## Połącz z resztą kursu
+
+- **Naprężenia główne.** Bez uporządkowania trzech wartości nie da się wybrać właściwej różnicy do wzoru na absolutne maksimum.
+- **Kierunki główne.** Płaszczyzny maksymalnego ścinania leżą pod $45^\circ$ do kierunków głównych; kąt $\theta_s$ wynika wprost z $\theta_p$.
+- **Koło Mohra.** Trzy koła w przestrzeni pokazują trzy rodziny płaszczyzn. Największe koło wyznacza absolutne maksimum.
+- **Kryteria wytężenia.** Hipoteza Treski porównuje podwojone maksymalne ścinanie z granicą plastyczności, więc ten temat jest jej bezpośrednim przygotowaniem.
+- **Skręcanie i ścinanie.** W wale skręcanym naprężenia styczne są widoczne wprost, a naprężenia główne pojawiają się pod $45^\circ$ do osi.
+- **Projektowanie połączeń.** W spoinach i połączeniach śrubowych kierunek i wartość ścinania decydują o mechanizmie zniszczenia.
+
+## Sprawdź się
+
+Pytania łączą rachunek z rozpoznawaniem, czy zero jest wartością skrajną. Przy każdym zadaniu najpierw uporządkuj trzy naprężenia główne.
 
 <Quiz>
   <Question outcome="U1">
     <Prompt>
-      Dla płaskich naprężeń głównych σ1 = 120 MPa, σ2 = 40 MPa i σz = 0 ile wynosi absolutne maksymalne naprężenie
-      styczne?
+      Dla płaskich naprężeń głównych $\sigma_1=120\ \mathrm{MPa}$, $\sigma_2=40\ \mathrm{MPa}$ i $\sigma_z=0$ ile
+      wynosi absolutne maksymalne naprężenie styczne?
     </Prompt>
     <Answer>40 MPa</Answer>
     <Answer correct>60 MPa</Answer>
     <Answer>80 MPa</Answer>
     <Hint>Największa różnica jest między 120 MPa a zerem, nie między 120 a 40 MPa.</Hint>
     <Explanation>
-      Po uporządkowaniu σI = 120, σII = 40, σIII = 0 MPa. Dlatego τmax(abs) = (120 − 0)/2 = 60 MPa; płaskie R wynosiłoby
-      tylko 40 MPa.
+      Po uporządkowaniu $\sigma_I=120$, $\sigma_{II}=40$, $\sigma_{III}=0\ \mathrm{MPa}$. Dlatego
+      $\tau_{\max}^{abs}=(120-0)/2=60\ \mathrm{MPa}$; płaskie $R$ wynosiłoby tylko 40 MPa.
     </Explanation>
   </Question>
   <Question outcome="U2">
     <Prompt>
-      Jakie naprężenie normalne panuje na płaszczyźnie maksymalnego ścinania wyznaczonej przez kierunki główne σ1 i σ2?
+      Jakie naprężenie normalne panuje na płaszczyźnie maksymalnego ścinania wyznaczonej przez kierunki główne
+      $\sigma_1$ i $\sigma_2$?
     </Prompt>
     <Answer>Zawsze zero</Answer>
-    <Answer correct>(σ1 + σ2)/2</Answer>
-    <Answer>(σ1 − σ2)/2</Answer>
-    <Hint>Jest to położenie środka odpowiedniego koła na osi σ.</Hint>
+    <Answer correct>$(\sigma_1+\sigma_2)/2$</Answer>
+    <Answer>$(\sigma_1-\sigma_2)/2$</Answer>
+    <Hint>Jest to położenie środka odpowiedniego koła na osi naprężeń normalnych.</Hint>
     <Explanation>
-      Na tej płaszczyźnie naprężenie normalne odpowiada środkowi odpowiedniego koła: (σ1 + σ2)/2. Maksymalne ścinanie
+      Na tej płaszczyźnie naprężenie normalne odpowiada środkowi koła: $(\sigma_1+\sigma_2)/2$. Maksymalne ścinanie
       nie oznacza zniknięcia naprężenia normalnego.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Dla czystego ścinania τxy = 70 MPa, przy σx = σy = σz = 0, ile wynosi τmax(abs)?</Prompt>
+    <Prompt>Dla czystego ścinania $\tau_{xy}=70\ \mathrm{MPa}$, przy $\sigma_x=\sigma_y=\sigma_z=0$, ile wynosi $\tau_{\max}^{abs}$?</Prompt>
     <Answer>35 MPa</Answer>
     <Answer correct>70 MPa</Answer>
     <Answer>140 MPa</Answer>
-    <Hint>Naprężeniami głównymi w płaszczyźnie są +70 i −70 MPa.</Hint>
+    <Hint>Naprężeniami głównymi w płaszczyźnie są $+70$ i $-70\ \mathrm{MPa}$.</Hint>
     <Explanation>
-      Naprężenia główne wynoszą 70, 0 i −70 MPa. Największa różnica to 140 MPa, więc τmax(abs) = 70 MPa, zgodnie z
-      wyjściowym ścinaniem.
+      Naprężenia główne wynoszą 70, 0 i $-70\ \mathrm{MPa}$. Największa różnica to 140 MPa, więc
+      $\tau_{\max}^{abs}=70\ \mathrm{MPa}$, zgodnie z wyjściowym ścinaniem.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla $\sigma_1=90\ \mathrm{MPa}$, $\sigma_2=60\ \mathrm{MPa}$ i $\sigma_z=0$ oblicz absolutne maksymalne
+      naprężenie styczne.
+    </Prompt>
+    <Answer>15 MPa</Answer>
+    <Answer correct>45 MPa</Answer>
+    <Answer>75 MPa</Answer>
+    <Hint>Uporządkuj trzy wartości: 90, 60 i 0 MPa.</Hint>
+    <Explanation>
+      Największa różnica to $90-0=90\ \mathrm{MPa}$, więc $\tau_{\max}^{abs}=45\ \mathrm{MPa}$. Płaskie $R$ wynosi
+      $(90-60)/2=15\ \mathrm{MPa}$, czyli jest trzykrotnie mniejsze.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Co można powiedzieć o zerze jako trzecim naprężeniu głównym, gdy oba naprężenia płaskie są dodatnie?
+    </Prompt>
+    <Answer correct>Zero jest najmniejszym naprężeniem głównym i zwiększa maksymalne ścinanie</Answer>
+    <Answer>Zero jest wartością środkową i nie wpływa na maksimum</Answer>
+    <Answer>Zero jest największym naprężeniem głównym i zmniejsza maksymalne ścinanie</Answer>
+    <Hint>Porównaj na przykład 110, 10 i 0 MPa.</Hint>
+    <Explanation>
+      Gdy oba naprężenia płaskie są dodatnie, zero jest mniejsze od obu. Największa różnica obejmuje więc zero, a nie
+      mniejsze naprężenie płaskie. To zwiększa absolutne maksimum ścinania w porównaniu z promieniem koła.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Jak położona jest płaszczyzna absolutnego maksymalnego ścinania względem kierunków głównych?</Prompt>
+    <Answer correct>Jest nachylona pod $45^\circ$ do kierunków $\sigma_I$ i $\sigma_{III}$</Answer>
+    <Answer>Jest równoległa do kierunku $\sigma_{II}$ i prostopadła do $\sigma_I$</Answer>
+    <Answer>Pokrywa się zawsze z płaszczyzną $\sigma_I$ i $\sigma_{II}$</Answer>
+    <Hint>Płaszczyzna maksymalnego ścinania dzieli na pół kąt między skrajnymi kierunkami głównymi.</Hint>
+    <Explanation>
+      Absolutne maksimum powstaje na płaszczyźnie związanej z parą $\sigma_I$ i $\sigma_{III}$. Leży ona pod kątem
+      $45^\circ$ do obu tych kierunków, a jej normalna jest prostopadła do kierunku $\sigma_{II}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      W pewnym stanie płaskim $R=30\ \mathrm{MPa}$, a $\tau_{\max}^{abs}=45\ \mathrm{MPa}$. Co wynika z porównania
+      tych wartości?
+    </Prompt>
+    <Answer correct>Zero jest naprężeniem skrajnym, więc naprężenia płaskie mają ten sam znak</Answer>
+    <Answer>Zero jest naprężeniem środkowym, więc naprężenia płaskie mają przeciwne znaki</Answer>
+    <Answer>Stan jest czystym ścinaniem, bo $R$ jest mniejsze od $45\ \mathrm{MPa}$</Answer>
+    <Hint>Gdy zero jest środkowe, absolutne maksimum jest równe promieniowi.</Hint>
+    <Explanation>
+      Skoro $\tau_{\max}^{abs}$ jest większe od $R$, największa różnica nie może być różnicą dwóch naprężeń płaskich.
+      Musi obejmować zero, a to oznacza, że zero jest skrajne, czyli oba naprężenia płaskie mają ten sam znak.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o naprężeniach głównych i stanie przestrzennym; klasyczne omówienie trzech kół Mohra i maksymalnego ścinania.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — rozdział o płaskim stanie naprężenia; dobrze pokazuje, kiedy zero staje się naprężeniem skrajnym.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania na wyznaczanie naprężeń głównych i maksymalnego ścinania w stanach płaskich i przestrzennych.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik, rozdział o transformacjach tensora i kole Mohra; zawiera wzór na promień oraz dyskusję płaszczyzn maksymalnego ścinania.
+- T. Wierzbicki, _Structural Mechanics_ — otwarte notatki, rozdział o tensorze naprężenia; pokazuje związek Cauchy’ego między trakcją, normalną i tensorem, przydatny przy uzasadnieniu wzoru na $\tau_{\max}$.
+
+Przy czytaniu zwróć uwagę, że niektóre podręczniki podają najpierw wzór dwuwymiarowy i nazywają go „maksymalnym ścinaniem”. W zadaniach przestrzennych trzeba jednak wrócić do trzech naprężeń głównych. Najbezpieczniejsza procedura to zawsze uporządkowanie trzech wartości, a dopiero potem wybór różnicy.

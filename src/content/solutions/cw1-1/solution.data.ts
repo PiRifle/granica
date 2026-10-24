@@ -12,6 +12,23 @@ export default {
   ],
   result:
     'Od góry: N = 80, 40, 20 kN oraz σ = 80, 40, 20 MPa. Cały pręt jest rozciągany, a reakcja utwierdzenia wynosi 80 kN w górę.',
+  figure: {
+    kind: 'axial',
+    top: 'fixed',
+    bottom: 'free',
+    units: { N: 'kN', σ: 'MPa', A: 'mm²' },
+    segments: [
+      { id: 'g', label: 'górny', length: 100, area: 1000, n: 80, sigma: 80 },
+      { id: 's', label: 'środkowy', length: 100, area: 1000, n: 40, sigma: 40 },
+      { id: 'd', label: 'dolny', length: 200, area: 1000, n: 20, sigma: 20 },
+    ],
+    loads: [
+      { node: 1, value: 40, label: '2P = 40 kN' },
+      { node: 2, value: 20, label: 'P = 20 kN' },
+      { node: 3, value: 20, label: 'P = 20 kN' },
+    ],
+    note: 'Pole 1000 mm² jest stałe, dlatego wykres σ ma te same poziomy co wykres N.',
+  },
   scenes: [
     {
       title: 'Model, dane i oznaczenia',

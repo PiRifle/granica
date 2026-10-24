@@ -7,7 +7,6 @@ shortTitle: Naprężenie zredukowane
 description: >-
   Zrozum, po co zastępować kilka składowych naprężenia jedną wartością
   porównywaną z wytrzymałością materiału.
-duration: 7
 eyebrow: Wspólna miara wytężenia
 outcomes:
   - >-
@@ -30,34 +29,185 @@ outcomes:
     przyjęty warunek.
 ---
 
-W próbce rozciąganej mamy jedno naprężenie, ale w rzeczywistym elemencie mogą jednocześnie działać naprężenia normalne i styczne. Hipoteza wytężeniowa sprowadza ten złożony stan do jednej wartości σred, którą porównujemy z wytrzymałością materiału — tak, jakby element był rozciągany jednoosiowo.
+Wyobraź sobie wał przekładni, który przenosi moment obrotowy, a jednocześnie jest zginany przez siły od kół zębatych. W tym samym punkcie powierzchni wału działa naprężenie normalne od zginania i naprężenie styczne od skręcania. Każde z nich osobno może wyglądać nieszkodliwie, ale razem mogą doprowadzić do uplastycznienia materiału. Jak porównać taki stan z prostą próbą rozciągania, w której znamy tylko jedną granicę materiału?
+
+W próbie rozciągania wszystko jest proste: próbka jest obciążona w jednym kierunku, a naprężenie obliczamy jako siłę podzieloną przez pole przekroju. Przy pewnej wartości naprężenia materiał zaczyna płynąć albo pęka. Tę wartość nazywamy granicą plastyczności, wytrzymałością na rozciąganie lub wytrzymałością doraźną, zależnie od materiału i przyjętego kryterium. Dla stali konstrukcyjnej typowa granica plastyczności wynosi około 235 MPa, ale konkretna wartość zależy od gatunku i obróbki.
+
+W rzeczywistym elemencie naprężeń jest więcej. W jednym punkcie możemy mieć trzy naprężenia normalne w prostopadłych kierunkach oraz trzy naprężenia styczne. Nawet w stanie płaskim zostają trzy liczby: σx, σy i τxy. Nie można ich po prostu dodać, bo naprężenie normalne i styczne działają inaczej: pierwsze próbuje rozerwać materiał, drugie przesunąć jego warstwy względem siebie. Dodawanie 90 MPa i 40 MPa jako liczb nie ma sensu fizycznego, choć jednostki są te same.
+
+Hipoteza wytężeniowa rozwiązuje ten problem przez wprowadzenie jednej miary. Wybieramy funkcję, która z całego stanu naprężenia tworzy liczbę o jednostce naprężenia. Funkcję kalibrujemy tak, aby w próbie jednoosiowej dawała dokładnie granicę materiału. Potem stosujemy ją do dowolnego stanu i porównujemy wynik z tą samą granicą. Tak powstaje naprężenie zredukowane, zwane też naprężeniem równoważnym lub zastępczym.
+
+Po tej lekcji będziesz umiał wyjaśnić, czym różni się naprężenie rzeczywiste od zredukowanego, zapisać ogólny warunek wytrzymałości, obliczyć zapas bezpieczeństwa i rozpoznać, w którym punkcie elementu trzeba wykonać sprawdzenie. Zrozumiesz też, dlaczego ten sam stan naprężenia może dać różne wartości zredukowane przy różnych hipotezach i dlaczego nie jest to błąd rachunkowy.
+
+## Zanim zaczniesz
+
+- **Stan naprężenia w punkcie.** Przypomnij sobie znaczenie σx, σy i τxy oraz to, że naprężenia zależą od orientacji przekroju. Warto umieć zapisać macierz naprężenia dla stanu płaskiego.
+- **Naprężenia główne.** Powinieneś znać wzór na naprężenia główne w stanie płaskim oraz umieć odczytać je z koła Mohra. To one najczęściej wchodzą do hipotez.
+- **Granice materiałowe.** Odróżnij granicę plastyczności Re od wytrzymałości na rozciąganie Rm. Przy materiałach kruchych istotna jest też wytrzymałość na ściskanie, która bywa wielokrotnie większa od wytrzymałości na rozciąganie.
+- **Jednostki.** 1 MPa to 1 N/mm². Jeśli siła jest w kN, a pole w mm², przed dzieleniem zamień siłę na niutony. Moment w kN·m zamieniaj na N·mm, mnożąc przez 10⁶.
+- **Konwencja znaków.** Naprężenie normalne rozciągające przyjmujemy jako dodatnie, ściskające jako ujemne. Znak τxy zależy od przyjętego układu osi; w tym kursie dodatnie τxy działa na dodatniej ścianie x w stronę dodatniej osi y.
+- **Typowa pułapka.** Nie dodawaj naprężeń normalnych i stycznych jak liczb. Nie zakładaj też, że punkt z największym σx jest automatycznie punktem decydującym.
+
+## Model i intuicja
+
+Model wytężenia opiera się na porównaniu z próbą jednoosiową. W próbie rozciągania mamy σ1 = σ, σ2 = σ3 = 0. Materiał osiąga stan graniczny, gdy σ = Re dla materiału plastycznego albo σ = Rm dla materiału kruchego. W dowolnym stanie wieloosiowym szukamy takiej liczby σred, która po podstawieniu do warunku σred = granica daje tę samą decyzję o bezpieczeństwie.
+
+Hipoteza jest więc rodzajem funkcji oceniającej. Przyjmujemy, że istnieje pewna funkcja F naprężeń głównych, która rośnie wraz z wytężeniem materiału. W stanie granicznym F = granica. Różne hipotezy różnią się właśnie postacią tej funkcji: jedna patrzy na największe naprężenie normalne, inna na energię zmiany kształtu, jeszcze inna na największe ścinanie. Każda z nich jest modelem, a nie uniwersalnym prawem przyrody.
+
+Najważniejsze założenie dotyczy materiału. Zakładamy, że materiał jest izotropowy, a stan graniczny można opisać przez naprężenia w punkcie, bez historii obciążenia. Zakładamy też proporcjonalne obciążenie: gdy zwiększamy siły, wszystkie składowe naprężenia rosną w tej samej proporcji. Dzięki temu możemy mówić o jednym współczynniku bezpieczeństwa odniesionym do całego stanu.
+
+Model przestaje być wystarczający w kilku sytuacjach. Przy zmęczeniu liczba cykli ma większe znaczenie niż chwilowa wartość naprężenia. Przy koncentracji naprężeń decyduje lokalny stan w pobliżu karbu, a nie średnia w przekroju. Przy dużych odkształceniach i niestabilności geometrycznej sama analiza naprężeń nie wystarcza. Materiały anizotropowe, takie jak kompozyty, wymagają kryteriów zależnych od kierunku włókien. Wreszcie materiały kruche często trzeba sprawdzać inną hipotezą niż metale plastyczne.
+
+| Co model robi                               | Czego model nie robi                                     |
+| ------------------------------------------- | -------------------------------------------------------- |
+| Zamienia stan wieloosiowy na jedną liczbę   | Nie przewiduje kierunku pęknięcia bez dodatkowej analizy |
+| Pozwala porównać wynik z granicą z próby    | Nie zastępuje badań zmęczeniowych ani pękania            |
+| Uwzględnia proporcjonalny wzrost obciążenia | Nie opisuje odciążenia i historii plastycznej            |
+| Wskazuje punkt decydujący w przekroju       | Nie uwzględnia sam z siebie koncentracji naprężeń        |
+
+## Laboratorium: co ustawić
+
+W laboratorium badamy włókno A na obwodzie pełnego pręta o średnicy 60 mm. Ustaw siłę osiową N, moment gnący M i moment skręcający T, a następnie zmień granicę plastyczności Re. Obserwuj, jak zmieniają się σx = N/A + M/W, τ = T/Wo oraz naprężenia zredukowane HMH i Tresca; zwróć uwagę, że znak N zmienia sens naprężenia normalnego, a moment skręcający wpływa tylko na ścinanie.
 
 <Lab id="combined" />
 
+## Definicje i jednostki
+
+Naprężenie zredukowane to wartość obliczeniowa o jednostce naprężenia, przypisana do konkretnego punktu i konkretnej hipotezy. Nie jest to naprężenie, które można zmierzyć tensometrem w jednym kierunku. Jest to liczba, która zastępuje cały stan naprężenia w warunku wytrzymałości.
+
+| Symbol     | Znaczenie                                       | Jednostka    |
+| ---------- | ----------------------------------------------- | ------------ |
+| σred       | naprężenie zredukowane według wybranej hipotezy | MPa          |
+| σ1, σ2, σ3 | naprężenia główne, uporządkowane umownie        | MPa          |
+| Re         | granica plastyczności materiału                 | MPa          |
+| Rm         | wytrzymałość na rozciąganie                     | MPa          |
+| kr         | naprężenie dopuszczalne przy rozciąganiu        | MPa          |
+| kc         | naprężenie dopuszczalne przy ściskaniu          | MPa          |
+| n_wym      | wymagany współczynnik bezpieczeństwa            | bezwymiarowy |
+| n_rz       | rzeczywisty współczynnik bezpieczeństwa         | bezwymiarowy |
+| τmax       | maksymalne naprężenie styczne w punkcie         | MPa          |
+
+Konwencja znaków jest taka sama jak w module stanu naprężenia: rozciąganie dodatnie, ściskanie ujemne. Przy zapisie naprężeń głównych często porządkuje się je malejąco, σ1 ≥ σ2 ≥ σ3. To uporządkowanie jest wygodne w hipotezie Tresca, ale w hipotezie maksimum normalnego trzeba pilnować, które naprężenie jest dodatnie, a które ujemne. W stanie płaskim jedno z naprężeń głównych jest równe zeru; nie wolno go automatycznie odrzucać, bo może okazać się skrajną wartością.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma_{red} \leq k_r = \frac{R_e}{n_{wym}} \qquad n_{rz} = \frac{R_e}{\sigma_{red}}
+\sigma_{red} \le k_r = \frac{R_e}{n_{wym}}, \qquad n_{rz} = \frac{R_e}{\sigma_{red}} \ge n_{wym}
 $$
 
-<Caption>kr oznacza dopuszczalne naprężenie przy rozciąganiu, Re — granicę plastyczności, n_wym — wymagany współczynnik bezpieczeństwa, a n_rz — zapas rzeczywisty. Naprężenia podstawiamy w MPa, więc Re również wyrażamy w MPa.</Caption>
+<Caption>Ogólny warunek wytrzymałości. σred obliczamy według wybranej hipotezy, kr jest naprężeniem dopuszczalnym, a n_wym i n_rz to zapas wymagany i rzeczywisty. Warunek zapisany przez naprężenie dopuszczalne i przez współczynnik bezpieczeństwa jest równoważny, o ile używamy tej samej granicy materiału.</Caption>
 </Formula>
+
+Wyprowadzenie zaczynamy od próby jednoosiowej, bo to jedyny stan, w którym granica materiału jest bezpośrednio znana.
+
+1. **Stan odniesienia.** W próbie rozciągania przyjmujemy σ1 = σ, σ2 = σ3 = 0. Stan graniczny występuje, gdy σ = Re dla materiału plastycznego albo σ = Rm dla materiału kruchego.
+2. **Funkcja wytężenia.** Zakładamy, że istnieje funkcja F(σ1, σ2, σ3) o jednostce naprężenia, która opisuje, jak blisko granicy znajduje się materiał. Funkcja powinna rosnąć, gdy dowolne naprężenie zwiększa wytężenie.
+3. **Kalibracja.** W próbie jednoosiowej musi zachodzić F(Re, 0, 0) = Re. Ten warunek ustala skalę funkcji i odróżnia naprężenie zredukowane od dowolnej innej kombinacji naprężeń.
+4. **Wybór hipotezy.** Różne hipotezy to różne funkcje F. Maksimum normalne bierze największy moduł naprężenia głównego, HMH bierze kombinację kwadratów, a Tresca różnicę skrajnych naprężeń. Żadna z nich nie wynika z samej definicji naprężenia.
+5. **Stan graniczny.** Dla danej hipotezy zniszczenie lub uplastycznienie następuje, gdy F = Re. W praktyce projektowej nie dopuszczamy do tej wartości, lecz zostawiamy zapas.
+6. **Współczynnik bezpieczeństwa.** Definiujemy n_rz = Re / σred. Przy proporcjonalnym wzroście obciążenia naprężenia rosną liniowo, więc n_rz mówi, ile razy trzeba zwiększyć obciążenie, aby osiągnąć granicę według przyjętego modelu.
+7. **Naprężenie dopuszczalne.** Wymagamy n_rz ≥ n_wym, czyli Re / σred ≥ n_wym. Po przekształceniu σred ≤ Re / n_wym = kr. To jest warunek, który sprawdzamy w zadaniach.
+8. **Punkt krytyczny.** Warunek trzeba sprawdzić w punkcie o największym σred, a nie w punkcie o największym σx ani największym τ. Dopiero po obliczeniu σred w kilku kandydatach wiadomo, który punkt decyduje.
+
+Kluczowe jest zrozumienie, że σred zależy od hipotezy. Dla stanu σ = 90 MPa i τ = 40 MPa hipoteza HMH da inną liczbę niż Tresca, mimo że stan naprężenia jest identyczny. Obie liczby są poprawne w ramach swojego modelu. Porównanie z granicą ma sens tylko wtedy, gdy granica i hipoteza pasują do siebie oraz do rodzaju materiału.
 
 <Insight>
   Naprężenie zredukowane nie jest nową siłą ani dodatkową składową w przekroju. To wielkość obliczeniowa: jej wartość
-  zależy od przyjętej hipotezy, dlatego zawsze trzeba podać, którą hipotezę zastosowano.
+  zależy od przyjętej hipotezy, dlatego zawsze trzeba podać, którą hipotezę zastosowano i z jaką granicą porównano
+  wynik.
 </Insight>
 
 <WorkedExample>
-  <Given>Element ze stali o Re = 250 MPa ma σred = 125 MPa, a projekt wymaga n_wym ≥ 1,5.</Given>
+  <Given>
+    Pełny pręt stalowy o średnicy d = 60 mm jest rozciągany siłą N = 30 kN, zginany momentem M = 1,2 kN·m i skręcany
+    momentem T = 800 N·m. Granica plastyczności wynosi Re = 235 MPa, a wymagany zapas n_wym = 2,0. Sprawdź włókno A, w
+    którym naprężenia od zginania i siły osiowej mają ten sam znak.
+  </Given>
   <Steps>
-    <Step>Oblicz rzeczywisty zapas: n_rz = Re/σred = 250/125 = 2.</Step>
-    <Step>Porównaj go z wymaganiem: 2 ≥ 1,5, więc zapas jest wystarczający.</Step>
-    <Step>Alternatywnie oblicz kr = Re/n_wym = 250/1,5 = 166,7 MPa i sprawdź: 125 ≤ 166,7 MPa.</Step>
+    <Step>Pole przekroju: A = πd²/4 = π·60²/4 = 2827,4 mm².</Step>
+    <Step>Siła osiowa: N = 30 kN = 30 000 N, więc σN = 30 000/2827,4 = 10,61 MPa.</Step>
+    <Step>
+      Wskaźnik na zginanie: W = πd³/32 = π·60³/32 = 21 205,8 mm³. Naprężenie od zginania: σM = 1,2·10⁶/21 205,8 = 56,59
+      MPa.
+    </Step>
+    <Step>Suma naprężeń normalnych w badanym włóknie: σx = 10,61 + 56,59 = 67,20 MPa.</Step>
+    <Step>Wskaźnik na skręcanie: Wo = 2W = 42 411,5 mm³. Naprężenie styczne: τ = 800·10³/42 411,5 = 18,86 MPa.</Step>
+    <Step>HMH: σred = √(67,20² + 3·18,86²) = √(4515,8 + 1067,1) = 74,72 MPa.</Step>
+    <Step>Tresca: σred = √(67,20² + 4·18,86²) = √(4515,8 + 1422,8) = 77,06 MPa.</Step>
+    <Step>
+      Zapasy: n_HMH = 235/74,72 = 3,14; n_T = 235/77,06 = 3,05. Wymagane naprężenie dopuszczalne wynosi kr = 235/2 =
+      117,5 MPa.
+    </Step>
   </Steps>
   <Result>
-    Warunek jest spełniony; rzeczywisty współczynnik bezpieczeństwa wynosi 2, czyli jest większy od wymaganego 1,5.
+    Obie hipotezy dają wynik poniżej kr = 117,5 MPa, więc warunek jest spełniony. Większe wytężenie daje Tresca: 77,1
+    MPa i zapas około 3,05. HMH daje 74,7 MPa i zapas około 3,14. Do oceny konstrukcji trzeba konsekwentnie używać
+    jednej hipotezy.
   </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy wał rozciągany naprężeniem σ = 90 MPa i skręcany naprężeniem τ = 40 MPa. Materiał ma Re = 280 MPa, a wymagany zapas wynosi 1,5. Sprawdzimy obie hipotezy plastyczne i porównamy je z hipotezą maksimum normalnego.
+
+Naprężenie dopuszczalne wynosi kr = 280/1,5 = 186,7 MPa. Dla HMH otrzymujemy σHMH = √(90² + 3·40²) = √(8100 + 4800) = 113,6 MPa. Dla Tresca σT = √(90² + 4·40²) = √(8100 + 6400) = 120,4 MPa. Oba wyniki są mniejsze od 186,7 MPa, więc element przechodzi warunek.
+
+Sprawdźmy jeszcze naprężenia główne. Środek koła Mohra wynosi C = 90/2 = 45 MPa, a promień R = √(45² + 40²) = 60,2 MPa. Zatem σ1 = 105,2 MPa, σ2 = −15,2 MPa, a σ3 = 0. Największy moduł naprężenia głównego to 105,2 MPa, więc hipoteza maksimum normalnego dałaby σred = 105,2 MPa. To mniej niż HMH i Tresca, co pokazuje, że różne hipotezy mogą różnie porządkować ten sam stan.
+
+Wniosek praktyczny jest taki: dla materiału plastycznego nie wystarczy powiedzieć „naprężenie wynosi 105 MPa”. Trzeba dodać, według jakiego kryterium. W tym przypadku Tresca jest najbardziej zachowawcza, a maksimum normalne najmniej. Kolejność może się zmienić przy innym stosunku σ do τ, dlatego nie można zapamiętać jednej stałej hierarchii dla wszystkich stanów.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy wymagany zapas i szukamy dopuszczalnego momentu skręcającego. Pręt o średnicy d = 50 mm jest zginany momentem M = 0,8 kN·m. Materiał ma Re = 355 MPa, a wymagany zapas wynosi n_wym = 2,0. Przyjmujemy hipotezę HMH i pytamy, jaki maksymalny moment T można przyłożyć.
+
+Najpierw obliczamy geometrię i naprężenie od zginania. W = π·50³/32 = 12 271,8 mm³, więc σ = 0,8·10⁶/12 271,8 = 65,19 MPa. Naprężenie dopuszczalne wynosi kr = 355/2 = 177,5 MPa. Warunek HMH ma postać √(σ² + 3τ²) ≤ kr, czyli 3τ² ≤ kr² − σ².
+
+Podstawiamy liczby: kr² = 31 506,3, σ² = 4249,7, więc 3τ² ≤ 27 256,6. Stąd τ² ≤ 9085,5 i τ ≤ 95,3 MPa. Wskaźnik na skręcanie wynosi Wo = 2W = 24 543,7 mm³, więc T = τ·Wo = 95,3·24 543,7 = 2,34·10⁶ N·mm = 2,34 kN·m.
+
+Sprawdzenie: dla T = 2,34 kN·m otrzymujemy τ = 95,3 MPa i σHMH = √(65,19² + 3·95,3²) = 177,5 MPa, czyli dokładnie kr. Gdyby zastosować Tresca, dopuszczalny moment byłby mniejszy, bo przy tym samym τ daje większe wytężenie. To dobry przykład na to, że wybór hipotezy wpływa nie tylko na ocenę, ale też na dopuszczalne obciążenie.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Dodawanie σ i τ jak liczb.** Naprężenia normalne i styczne mają różny mechanizm niszczenia, więc 90 + 40 nie jest miarą wytężenia. Trzeba użyć hipotezy.
+
+**Porównywanie σred z niewłaściwą granicą.** Wynik HMH trzeba odnieść do granicy plastyczności lub do naprężenia dopuszczalnego według tej samej hipotezy, a nie do granicy ścinania policzonej z Tresca.
+
+**Pomijanie znaku naprężenia normalnego.** Przy materiale o różnych wytrzymałościach na rozciąganie i ściskanie znak decyduje o tym, którą granicę zastosować.
+
+**Brak przeliczenia jednostek.** Moment w kN·m trzeba zamienić na N·mm, a siłę w kN na N. Najczęstszy czynnik błędu to 10³ albo 10⁶.
+
+**Sprawdzanie tylko jednego punktu.** Maksimum σx, maksimum τ i maksimum σred mogą wypadać w różnych miejscach przekroju.
+
+**Mylenie zapasu z odkształceniem.** Duży zapas wytrzymałości nie oznacza małego ugięcia; warunki wytrzymałości i sztywności są niezależne.
+
+**Traktowanie hipotezy jak faktu.** Hipoteza jest modelem. Wynik trzeba interpretować razem z założeniami i rodzajem materiału.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal materiał i granicę.** Sprawdź, czy dane dotyczą Re, Rm, kr, kc, czy wytrzymałości zmęczeniowej. To decyduje o tym, którą hipotezę w ogóle wolno zastosować.
+2. **Wskaż punkt i przekrój.** Znajdź przekrój, w którym siły wewnętrzne są największe, a w nim punkty, w których mogą wystąpić duże naprężenia normalne lub styczne.
+3. **Oblicz składowe w tym samym punkcie.** Dla każdego kandydata policz σx, σy i τxy z tych samych sił wewnętrznych. Nie mieszaj naprężeń z różnych punktów.
+4. **Wyznacz naprężenia główne albo od razu zastosuj wzór płaski.** Jeśli znasz σx, σy i τxy, możesz użyć gotowego wzoru dla danej hipotezy. Koło Mohra pomaga sprawdzić sens wyniku.
+5. **Wybierz hipotezę.** Dla metali plastycznych typowo HMH lub Tresca. Dla materiałów kruchych maksimum normalne, z osobnymi granicami na rozciąganie i ściskanie.
+6. **Oblicz σred i porównaj z kr.** Pamiętaj o jednostkach. Sprawdź, czy wynik ma sens: nie może być ujemny, a przy przeważającym jednoosiowym rozciąganiu powinien być bliski największemu naprężeniu głównemu.
+7. **Policz zapas i zapisz wniosek.** Podaj n_rz = Re/σred, porównaj z n_wym i sformułuj odpowiedź: warunek spełniony albo przekroczony.
+8. **Wykonaj kontrolę odwrotną.** Podstaw wynik do warunku i sprawdź, czy otrzymujesz granicę. Odrzuć rozwiązanie, które po podstawieniu daje sprzeczność.
+
+## Połącz z resztą kursu
+
+- **Stan naprężenia: od składowych do koła Mohra** — naprężenia główne i koło Mohra są danymi wejściowymi do każdej hipotezy.
+- **Odkształcenia i prawo Hooke'a** — pokazują, że stan naprężenia przekłada się na odkształcenia, ale wytężenie nie jest tym samym co odkształcenie.
+- **Rozciąganie i ściskanie prętów** — dostarczają granic Re i Rm oraz wzorów na N/A.
+- **Zginanie prętów prostych** — dają rozkład naprężeń normalnych i wskaźnik W.
+- **Skręcanie wałów okrągłych** — dają ścinanie τ = T/Wo i wskaźnik na skręcanie.
+- **Projektowanie elementów i pełne zadania** — wykorzystują warunek σred ≤ kr do doboru wymiaru, materiału lub obciążenia.
+
+## Sprawdź się
+
+Poniższe pytania sprawdzają rozumienie pojęcia, dobór hipotezy i rachunek. Odpowiadaj najpierw bez podstawiania do wzoru, a potem sprawdź obliczenie.
 
 <Quiz>
   <Question outcome="W2">
@@ -70,8 +220,8 @@ $$
     <Answer>Bo τ zawsze należy pominąć</Answer>
     <Hint>Obie wartości mają te same jednostki, ale różne skutki fizyczne.</Hint>
     <Explanation>
-      Jednostki są te same (MPa), więc dodawanie jest formalnie wykonalne, ale fizycznie błędne: σ i τ działają inaczej
-      i nie sumują się liniowo. Dopiero hipoteza, np. HMH lub Tresca, określa, jak wspólnie wytężają materiał.
+      Jednostki są te same, więc dodawanie jest formalnie wykonalne, ale fizycznie błędne: σ i τ działają inaczej i nie
+      sumują się liniowo. Dopiero hipoteza, np. HMH lub Tresca, określa, jak wspólnie wytężają materiał.
     </Explanation>
   </Question>
   <Question outcome="W2">
@@ -96,4 +246,59 @@ $$
       i liniowy — naprężenie osiągnie granicę plastyczności.
     </Explanation>
   </Question>
+  <Question outcome="U1">
+    <Prompt>Dla σ = 80 MPa i τ = 50 MPa ile wynosi σred według hipotezy HMH?</Prompt>
+    <Answer>130 MPa</Answer>
+    <Answer correct>117,9 MPa</Answer>
+    <Answer>80 MPa</Answer>
+    <Hint>Użyj wzoru √(σ² + 3τ²), nie sumy σ + τ.</Hint>
+    <Explanation>
+      σHMH = √(80² + 3·50²) = √(6400 + 7500) = √13 900 = 117,9 MPa. Suma 130 MPa powstałaby z błędnego dodania
+      składowych.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla σ = 60 MPa i τ = 80 MPa ile wynosi σred według hipotezy Tresca?</Prompt>
+    <Answer correct>170,9 MPa</Answer>
+    <Answer>140 MPa</Answer>
+    <Answer>200 MPa</Answer>
+    <Hint>Zastosuj σT = √(σ² + 4τ²).</Hint>
+    <Explanation>
+      σT = √(60² + 4·80²) = √(3600 + 25 600) = √29 200 = 170,9 MPa. Współczynnik 4 przy τ² odróżnia ten wynik od HMH,
+      gdzie występuje współczynnik 3.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      W przekroju wału maksimum σx występuje na powierzchni, a maksimum τ w innym punkcie. Gdzie sprawdzić warunek
+      wytężeniowy?
+    </Prompt>
+    <Answer>Tylko tam, gdzie σx jest największe</Answer>
+    <Answer>Tylko tam, gdzie τ jest największe</Answer>
+    <Answer correct>W punktach, w których σred jest największe, po obliczeniu go dla kandydatów</Answer>
+    <Hint>σred zależy od kombinacji σ i τ, a nie od jednej składowej.</Hint>
+    <Explanation>
+      Maksimum pojedynczej składowej nie musi odpowiadać maksimum ich kombinacji. Trzeba obliczyć σred w kilku
+      charakterystycznych punktach i wybrać największą wartość.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W czystym ścinaniu τ = 100 MPa. Która hipoteza daje σred = 200 MPa?</Prompt>
+    <Answer>Maksimum normalne</Answer>
+    <Answer correct>Tresca</Answer>
+    <Answer>HMH</Answer>
+    <Hint>W czystym ścinaniu σ1 = τ, σ2 = −τ, σ3 = 0.</Hint>
+    <Explanation>
+      Dla czystego ścinania maksimum normalne daje 100 MPa, HMH daje √3·100 = 173,2 MPa, a Tresca różnicę 100 − (−100) =
+      200 MPa. To pokazuje, jak mocno wybór hipotezy zmienia wynik przy dominującym ścinaniu.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o hipotezach wytężeniowych i naprężeniu dopuszczalnym; szukaj sposobu przejścia od stanu wieloosiowego do warunku projektowego.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z obciążeniami złożonymi i współczynnikiem bezpieczeństwa; dobre do ćwiczenia przeliczania jednostek.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I — naprężenia główne, koło Mohra i przykłady redukcji stanu naprężenia.
+- D. Roylance, _Mechanics of Materials_ (podręcznik otwarty) — rozdział 6.1 o uplastycznieniu; wyjaśnia sens naprężenia równoważnego i kryteriów plastyczności.
+- T. Wierzbicki, _Structural Mechanics_ (podręcznik otwarty) — rozdział 2.1 o tensorze naprężenia; pokazuje, dlaczego stan naprężenia opisuje się niezmiennikami, a nie pojedynczą składową.

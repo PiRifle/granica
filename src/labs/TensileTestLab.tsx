@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion } from 'motion/react'
 import {
   CartesianGrid,
   Line,
@@ -16,6 +15,28 @@ import { Control, Lab, Metric, fmt } from '../components/UI'
 import { axialStrain, stressMPa } from '../lib/engineering'
 import { chartMargin, youngGPa, TensilePoint, tensileStressMPa } from './MaterialGeometryLabsShared'
 
+const failureStrain = 0.2
+const ultimateStrain = 0.12
+const specimenCenterX = 380
+const specimenCenterY = 82
+const gripWidth = 150
+const taperWidth = 42
+const gripHalfHeight = 27
+const gaugeHalfHeight = 10
+const gaugeLengthBase = 200
+const maxElongation = 50
+const maxArrowLength = 36
+
+const leftGripPath = [
+  `M0 ${-gripHalfHeight}`,
+  `H${gripWidth}`,
+  `L${gripWidth + taperWidth} ${-gaugeHalfHeight}`,
+  `V${gaugeHalfHeight}`,
+  `L${gripWidth} ${gripHalfHeight}`,
+  `H0`,
+  'Z',
+].join(' ')
+
 export function TensileTestLab() {
   const [Re, setRe] = useState(250)
   const [Rm, setRm] = useState(400)
@@ -27,6 +48,7 @@ export function TensileTestLab() {
   const maximumCurveStress = tensileStressMPa(maximumStrain, Re, Rm)
   const permanentStrain = Math.max(0, maximumStrain - maximumCurveStress / (youngGPa * 1000))
   const unloading = currentStrain < maximumStrain
+  const fullyUnloaded = unloading && currentStrain <= permanentStrain + 1e-9
   const curveStress = unloading
     ? Math.max(0, maximumCurveStress - youngGPa * 1000 * (maximumStrain - currentStrain))
     : maximumCurveStress
@@ -41,21 +63,42 @@ export function TensileTestLab() {
     const unloadingStress = maximumCurveStress - youngGPa * 1000 * (maximumStrain - strain)
     return {
       ...point,
-      unloadingStress: unloading && strain >= permanentStrain && strain <= maximumStrain ? unloadingStress : null,
+      unloadingStress:
+        unloading && !fullyUnloaded && strain >= permanentStrain && strain <= maximumStrain ? unloadingStress : null,
     }
   })
-  const forceArrowLength = 25 + Math.min(60, forceKN)
-  const phase = unloading
-    ? 'odciążanie sprężyste'
-    : maximumStrain <= yieldStrain
-      ? 'zakres sprężysty'
-      : maximumStrain <= 0.12
-        ? 'płynięcie i umocnienie'
-        : 'przewężenie'
+  const forceArrowLength = 16 + Math.min(maxArrowLength - 16, forceKN * 0.7)
+  const phase = fullyUnloaded
+    ? 'po odciążeniu — εp trwałe'
+    : unloading
+      ? 'odciążanie sprężyste'
+      : maximumStrain <= yieldStrain
+        ? 'zakres sprężysty'
+        : maximumStrain <= ultimateStrain
+          ? 'płynięcie i umocnienie'
+          : 'przewężenie'
+  const visibleStrain = Math.max(currentStrain, permanentStrain)
+  const strainRatio = Math.min(1, Math.max(0, visibleStrain / failureStrain))
+  const elongation = gaugeLengthBase + maxElongation * strainRatio
+  const neckProgress = Math.min(1, Math.max(0, (maximumStrain - ultimateStrain) / (failureStrain - ultimateStrain)))
+  const neckHalfHeight = gaugeHalfHeight - 5 * neckProgress
+  const gaugeStart = specimenCenterX - elongation / 2
+  const gaugeEnd = specimenCenterX + elongation / 2
+  const leftGripX = gaugeStart - taperWidth - gripWidth
+  const rightGripX = gaugeEnd + taperWidth + gripWidth
+  const gaugePath = [
+    `M${gaugeStart} ${specimenCenterY - gaugeHalfHeight}`,
+    `Q${specimenCenterX} ${specimenCenterY - neckHalfHeight} ${gaugeEnd} ${specimenCenterY - gaugeHalfHeight}`,
+    `L${gaugeEnd} ${specimenCenterY + gaugeHalfHeight}`,
+    `Q${specimenCenterX} ${specimenCenterY + neckHalfHeight} ${gaugeStart} ${specimenCenterY + gaugeHalfHeight}`,
+    'Z',
+  ].join(' ')
 
   const changeStrain = (next: number) => {
-    setStrainPerMille(next)
-    if (next > maximumPerMille) setMaximumPerMille(next)
+    const residualPerMille = Math.max(0, Math.floor(permanentStrain * 1000))
+    const clamped = next < maximumPerMille ? Math.max(next, residualPerMille) : next
+    setStrainPerMille(clamped)
+    if (clamped > maximumPerMille) setMaximumPerMille(clamped)
   }
   const changeRe = (next: number) => {
     setRe(next)
@@ -69,7 +112,7 @@ export function TensileTestLab() {
   return (
     <Lab
       title="Próba rozciągania i odciążenie próbki"
-      instruction="Zwiększaj odkształcenie, aby przejść przez Re i Rm, a potem cofnij suwak. Model: E = 200 GPa, A = 100 mm², Rm przy ε = 120‰, zerwanie przy 200‰."
+      instruction="Zwiększaj odkształcenie, aby przejść przez Re i Rm, a potem cofnij suwak. Model: E = 200 GPa, A = 100 mm², Rm przy ε = 120‰, maksymalne przewężenie przy ε = 200‰. Po odciążeniu pozostaje odkształcenie trwałe εp; sprężysty powrót jest na wykresie bardzo krótki. Uchwyty zachowują wymiary, wydłuża się tylko odcinek pomiarowy."
       onReset={() => {
         setRe(250)
         setRm(400)
@@ -102,17 +145,23 @@ export function TensileTestLab() {
       metrics={
         <>
           <Metric label="Naprężenie σ = F/A" value={fmt(sigma)} unit="MPa" tone="accent" />
+          <Metric label="Siła F" value={fmt(forceKN)} unit="kN" />
           <Metric label="Odkształcenie trwałe εp" value={fmt(permanentStrain * 1000, 2)} unit="‰" />
           <Metric label="Aktualny etap" value={phase} />
         </>
       }
       visual={
         <>
-          <svg viewBox="0 0 720 135" width="100%" role="img" aria-label="Próbka rozciągana z zaznaczonym wydłużeniem">
+          <svg
+            viewBox="0 0 760 170"
+            width="100%"
+            role="img"
+            aria-label="Próbka rozciągana: stałe uchwyty, wydłużany odcinek pomiarowy i przewężenie"
+          >
             <title>Próbka do rozciągania</title>
             <desc>
-              Siła wynika z naprężenia i pola 100 milimetrów kwadratowych. Pomarańczowa część wskazuje odkształcenie
-              próbki.
+              Uchwyty zachowują stałą długość i wysokość, a wydłuża się tylko cienki odcinek pomiarowy. Po przekroczeniu
+              Rm pojawia się przewężenie. Siła F wynika z naprężenia i pola przekroju 100 mm².
             </desc>
             <defs>
               <marker
@@ -127,53 +176,121 @@ export function TensileTestLab() {
                 <path d="M0 0L10 5L0 10Z" fill="#ff6b45" />
               </marker>
             </defs>
-            <line
-              x1="95"
-              y1="67"
-              x2={95 - forceArrowLength}
-              y2="67"
-              stroke="#ff6b45"
-              strokeWidth="3"
-              markerEnd="url(#tensile-arrow)"
+            <rect
+              x={specimenCenterX - gaugeLengthBase / 2}
+              y={specimenCenterY - gaugeHalfHeight}
+              width={gaugeLengthBase}
+              height={gaugeHalfHeight * 2}
+              fill="none"
+              stroke="#9aa7b4"
+              strokeDasharray="4 4"
+              opacity="0.7"
             />
-            <line
-              x1="625"
-              y1="67"
-              x2={625 + forceArrowLength}
-              y2="67"
-              stroke="#ff6b45"
-              strokeWidth="3"
-              markerEnd="url(#tensile-arrow)"
-            />
-            <text x={95 - forceArrowLength / 2} y="46" textAnchor="middle" fontSize="13" fill="#ff6b45">
-              F = {fmt(forceKN)} kN
+            <g transform={`translate(${leftGripX} ${specimenCenterY})`}>
+              <path d={leftGripPath} fill="#c9d6e1" stroke="#708495" strokeWidth="2" />
+            </g>
+            <g transform={`translate(${rightGripX} ${specimenCenterY}) scale(-1 1)`}>
+              <path d={leftGripPath} fill="#c9d6e1" stroke="#708495" strokeWidth="2" />
+            </g>
+            <path d={gaugePath} fill="#dce5ec" stroke="#708495" strokeWidth="2" />
+            <text
+              x={leftGripX + gripWidth / 2}
+              y={specimenCenterY - gripHalfHeight - 9}
+              textAnchor="middle"
+              fontSize="11"
+              fill="currentColor"
+              opacity="0.75"
+            >
+              uchwyt — stałe wymiary
             </text>
-            <text x={625 + forceArrowLength / 2} y="46" textAnchor="middle" fontSize="13" fill="#ff6b45">
-              F
+            <text
+              x={specimenCenterX}
+              y={specimenCenterY - gaugeHalfHeight - 9}
+              textAnchor="middle"
+              fontSize="11"
+              fill="currentColor"
+              opacity="0.75"
+            >
+              odcinek pomiarowy
             </text>
-            <path
-              d="M95 47H220L265 57H455L500 47H625V87H500L455 77H265L220 87H95Z"
-              fill="#dce5ec"
-              stroke="#708495"
-              strokeWidth="2"
+            {neckProgress > 0.08 && (
+              <text
+                x={specimenCenterX}
+                y={specimenCenterY + gaugeHalfHeight + 17}
+                textAnchor="middle"
+                fontSize="11"
+                fill="#c65c43"
+                opacity={0.55 + 0.45 * neckProgress}
+              >
+                przewężenie
+              </text>
+            )}
+            {forceKN > 0.05 && (
+              <>
+                <line
+                  x1={leftGripX - 8}
+                  y1={specimenCenterY}
+                  x2={leftGripX - 8 - forceArrowLength}
+                  y2={specimenCenterY}
+                  stroke="#ff6b45"
+                  strokeWidth="3"
+                  markerEnd="url(#tensile-arrow)"
+                />
+                <line
+                  x1={rightGripX + 8}
+                  y1={specimenCenterY}
+                  x2={rightGripX + 8 + forceArrowLength}
+                  y2={specimenCenterY}
+                  stroke="#ff6b45"
+                  strokeWidth="3"
+                  markerEnd="url(#tensile-arrow)"
+                />
+                <text
+                  x={leftGripX - 8 - forceArrowLength}
+                  y={specimenCenterY - 13}
+                  textAnchor="start"
+                  fontSize="12"
+                  fill="#ff6b45"
+                >
+                  F = {fmt(forceKN)} kN
+                </text>
+                <text
+                  x={rightGripX + 8 + forceArrowLength}
+                  y={specimenCenterY - 13}
+                  textAnchor="end"
+                  fontSize="12"
+                  fill="#ff6b45"
+                >
+                  F = {fmt(forceKN)} kN
+                </text>
+              </>
+            )}
+            <line x1={gaugeStart} y1={144} x2={gaugeEnd} y2={144} stroke="#3155d9" strokeWidth="2" />
+            <line x1={gaugeStart} y1={138} x2={gaugeStart} y2={150} stroke="#3155d9" strokeWidth="2" />
+            <line x1={gaugeEnd} y1={138} x2={gaugeEnd} y2={150} stroke="#3155d9" strokeWidth="2" />
+            <line
+              x1={specimenCenterX - gaugeLengthBase / 2}
+              y1={144}
+              x2={gaugeStart}
+              y2={144}
+              stroke="#27835a"
+              strokeWidth="3"
             />
-            <motion.rect
-              x="265"
-              y="57"
-              height="20"
-              rx="4"
-              fill="#ffb39f"
-              animate={{ width: 190 + currentStrain * 300 }}
-              transition={{ type: 'spring', stiffness: 180, damping: 24 }}
+            <line
+              x1={gaugeEnd}
+              y1={144}
+              x2={specimenCenterX + gaugeLengthBase / 2}
+              y2={144}
+              stroke="#27835a"
+              strokeWidth="3"
             />
-            <line x1="360" y1="99" x2="360" y2="118" stroke="#3155d9" strokeWidth="2" />
-            <text x="360" y="130" textAnchor="middle" fontSize="12" fill="currentColor">
-              ε = {fmt(currentStrain * 1000)}‰ · εmax = {fmt(maximumPerMille)}‰
+            <text x={specimenCenterX} y={160} textAnchor="middle" fontSize="12" fill="currentColor">
+              ε = {fmt(currentStrain * 1000)}‰ · εmax = {fmt(maximumPerMille)}‰ · wydłużenie odcinka pomiarowego
             </text>
           </svg>
           <div className="lab-chart" style={{ width: '100%' }} aria-label="Inżynierska krzywa naprężenie-odkształcenie">
             <ResponsiveContainer width="100%" height={245}>
-              <LineChart data={unloadingData} margin={chartMargin}>
+              <LineChart data={unloadingData} margin={{ ...chartMargin, left: 14, top: 20, right: 24 }}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.25} />
                 <XAxis
                   dataKey="strainPerMille"
@@ -223,9 +340,10 @@ export function TensileTestLab() {
                 <Line
                   type="linear"
                   dataKey="unloadingStress"
-                  name="odciążanie"
+                  name="odciążanie sprężyste"
                   stroke="#3155d9"
                   strokeWidth={3}
+                  strokeDasharray="5 4"
                   dot={false}
                   connectNulls={false}
                   isAnimationActive={false}

@@ -7,7 +7,6 @@ shortTitle: Siła tnąca
 description: >-
   Czytaj skoki i odcinki wykresu siły tnącej jako zapis równowagi odciętej
   części belki.
-duration: 8
 eyebrow: Przetnij i zrównoważ
 outcomes:
   - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
@@ -24,68 +23,356 @@ outcomes:
     sztywności
 ---
 
-Po myślowym przecięciu belki odrzucona część oddziałuje na pozostałą. Siła tnąca T jest pionową siłą wewnętrzną, która zapewnia równowagę odciętej części.
+Po wyznaczeniu reakcji belka nadal jest dla nas całością. Dopiero myślowe przecięcie odsłania
+to, co dzieje się w środku: dwie części belki oddziałują na siebie siłami wewnętrznymi.
+Jedna z nich działa prostopadle do osi belki i nazywa się siłą tnącą. To ona odpowiada za
+„przesuwanie” sąsiednich przekrojów względem siebie.
+
+Siła tnąca jest łatwa do poczucia. Weź długą linijkę, oprzyj ją na dwóch palcach i dociśnij
+środkiem. Zanim linijka się ugnie, jej przekroje próbują się nawzajem przesunąć. W belce
+o dużej rozpiętości ten efekt jest zwykle mniejszy od zginania, ale w krótkich, grubych
+elementach potrafi decydować o zniszczeniu. Dlatego T(x) liczymy zawsze, nawet gdy w pierwszej
+chwili wydaje się mniej ważna od momentu.
+
+W tej lekcji nauczysz się wyznaczać siłę tnącą metodą przekrojów. Zobaczysz, dlaczego siła
+skupiona tworzy na wykresie skok, dlaczego obciążenie ciągłe daje odcinek liniowy i dlaczego
+wykres powinien zamknąć się w podporach. Nauczysz się też czytać wykres T jako zapis równowagi
+odciętej części, a nie jako osobny rysunek do zapamiętania.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje belki z równań równowagi. Siła tnąca startuje od reakcji przy lewym
+  końcu, więc błąd w reakcji natychmiast psuje cały wykres.
+- Rozróżniaj siłę skupioną $P$ od obciążenia ciągłego $q$. Pierwsza ma jednostkę kN, drugie
+  kN/m; ich wpływ na wykres T jest jakościowo różny.
+- Przypomnij sobie, że całka z obciążenia ciągłego po długości daje siłę. Pole pod wykresem $q$
+  ma jednostkę kN, jeśli $q$ jest w kN/m, a długość w m.
+- Przyjmij konwencję znaków: $q$ dodatnie działa w dół, a dodatnia siła tnąca na odciętej
+  lewej części działa w dół na płaszczyźnie cięcia.
+- Pamiętaj, że metoda przekrojów wymaga równowagi tylko jednej wybranej części belki. Możesz
+  wybrać lewą albo prawą stronę, ale nie mieszaj ich w jednym równaniu.
+- Sprawdzaj jednostki i kierunki. Wykres T rysujemy w kN, a oś pozioma jest w metrach; nachylenie
+  wykresu ma wtedy jednostkę kN/m, czyli taką jak $q$.
+
+## Model i intuicja
+
+Przecinamy belkę w punkcie $x$ i rozpatrujemy lewą część od podpory A do cięcia. Na tę część
+działają reakcja $R_A$, obciążenia przyłożone do lewej części oraz siła wewnętrzna $T$ i moment
+$M$ na płaszczyźnie cięcia. Siła $T$ jest wypadkową naprężeń stycznych w przekroju, a moment $M$
+wypadkową naprężeń normalnych. W tej lekcji interesuje nas tylko $T$.
+
+Przyjmujemy, że dodatnia siła tnąca na lewej części działa w dół na płaszczyźnie cięcia.
+Równoważnie, na prawej części działa w górę. Taka konwencja jest spójna z dodatnim momentem,
+który wygina belkę wypukłością w dół, oraz z zależnością $dM/dx = T$, którą wykorzystamy
+w następnej lekcji. Najważniejsze to nie zapamiętać strzałkę, lecz konsekwentnie jej używać.
+
+Gdy na lewej części nie ma obciążenia ciągłego, suma sił pionowych nie zmienia się wraz
+z przesuwaniem cięcia. Dlatego $T$ jest wtedy stałe. Siła skupiona działająca w dół natychmiast
+zmniejsza $T$ o swoją wartość, co na wykresie wygląda jak skok w dół. Reakcja podporowa działa
+w górę i zwiększa $T$, dlatego przy lewej podporze wykres zaczyna się od dodatniej wartości
+$R_A$, a przy prawej kończy się zerem po dodaniu $R_B$.
+
+Model jest jednowymiarowy: traktujemy belkę jako linię, a przekrój jako miejsce, w którym
+panuje jedna wypadkowa siła tnąca. W rzeczywistości naprężenia styczne rozkładają się
+nierównomiernie w przekroju, ale ich wypadkowa jest właśnie $T$. Model przestaje wystarczać
+przy bardzo krótkich belkach, w strefach przyłożenia obciążeń i w miejscach koncentracji
+naprężeń. Tam potrzebna jest lokalna analiza naprężeń, a nie tylko wykres wypadkowy.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniaj położenie siły $P$ i obserwuj oba wykresy. Na wykresie $T$ zwróć uwagę
+na wartość przed siłą i po niej oraz na to, że skok ma zawsze wartość $P$. Następnie przesuń
+siłę bardzo blisko podpory i sprawdź, jak zmieniają się długości obu odcinków wykresu.
 
 <Lab id="beamGeneral" />
 
+## Definicje i jednostki
+
+**Siła tnąca** $T(x)$ to wypadkowa naprężeń stycznych w przekroju belki w punkcie $x$, działająca
+prostopadle do osi belki. W tym kursie oznaczamy ją literą $T$, a nie $V$, żeby nie mylić jej
+z objętością ani z siłą pionową w innych działach.
+
+**Metoda przekrojów** polega na myślowym przecięciu belki, odrzuceniu jednej części i zastąpieniu
+jej siłami wewnętrznymi. Dla lewej części dodatnia $T$ działa w dół na cięciu.
+
+**Skok wykresu** to nagła zmiana wartości $T$ w miejscu przyłożenia siły skupionej. W idealnym
+modelu skok jest pionowy, a jego wartość równa się sile skupionej.
+
+**Nachylenie wykresu** $dT/dx$ jest równe $-q$. Przy $q$ dodatnim, czyli działającym w dół,
+wykres $T$ opada ze wzrostem $x$.
+
+| Symbol       | Wielkość                 | Jednostka     | Znaczenie                             |
+| ------------ | ------------------------ | ------------- | ------------------------------------- |
+| $x$          | współrzędna wzdłuż belki | m lub mm      | liczona od lewej podpory              |
+| $T(x)$       | siła tnąca               | kN lub N      | dodatnia w dół na lewej części cięcia |
+| $R_A$, $R_B$ | reakcje pionowe          | kN lub N      | dodatnie w górę                       |
+| $P$          | siła skupiona            | kN lub N      | dodatnia w dół                        |
+| $q$          | obciążenie ciągłe        | kN/m lub N/mm | dodatnie w dół                        |
+| $L$          | rozpiętość               | m lub mm      | odległość między podporami            |
+| $a$          | położenie siły           | m lub mm      | odległość od lewej podpory            |
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-T(x) = R_A - \sum P_i - \int_0^x q(\xi)\,d\xi
+T(x) = R_A - \sum P_i - \int_0^x q(\xi)\,d\xi, \qquad \frac{dT}{dx} = -q(x)
 $$
 
-<Caption>Zapis dotyczy przyjętej konwencji dodatniego T i obciążeń pionowych działających w dół. Siły skupione i obciążenie ciągłe uwzględniamy tylko po lewej stronie przekroju.</Caption>
+<Caption>
+Sumowanie obejmuje siły skupione leżące na lewo od przekroju. Całka liczy obciążenie ciągłe
+od lewego końca do przekroju. Wzór obowiązuje przy dodatniej sile w dół na lewej części cięcia.
+</Caption>
 </Formula>
 
+Wyprowadzenie dla belki swobodnie podpartej z siłą skupioną i obciążeniem ciągłym przebiega
+następująco.
+
+1. Wyznacz reakcje $R_A$ i $R_B$ z równowagi całej belki. To dane wejściowe, bez których nie
+   można zacząć wykresu.
+2. Przetnij belkę w odległości $x$ od lewej podpory i odrzuć prawą część. Na lewą część działają
+   teraz tylko siły przyłożone na lewo od cięcia oraz siła wewnętrzna $T(x)$.
+3. Zapisz sumę sił pionowych dla lewej części, przyjmując dodatnią $T$ w dół na cięciu:
+   $R_A - \sum P_i - \int_0^x q\,d\xi - T(x) = 0$.
+4. Przenieś $T(x)$ na drugą stronę. Otrzymujesz $T(x) = R_A - \sum P_i - \int_0^x q\,d\xi$.
+5. Zróżniczkuj obie strony względem $x$. Pochodna stałej reakcji i sumy sił skupionych znika,
+   a pochodna całki z $q$ daje $q(x)$. Stąd $dT/dx = -q(x)$.
+6. Odczytał kształt wykresu. Jeśli $q = 0$, to $T$ jest stałe. Jeśli $q$ jest stałe i dodatnie,
+   to $T$ maleje liniowo. Jeśli $q$ jest liniowe, to $T$ jest kwadratowe.
+7. W miejscu siły skupionej $P$ całka z $q$ jest ciągła, ale suma $\sum P_i$ zmienia się skokowo.
+   Dlatego $T$ ma skok o wartości $P$ w dół, gdy siła działa w dół.
+8. Na końcu belki wykres powinien wrócić do zera po uwzględnieniu reakcji $R_B$. To jest
+   najprostsza kontrola poprawności: suma wszystkich zmian $T$ od lewej do prawej wynosi zero.
+
+Znak minus w $dT/dx = -q$ jest bezpośrednią konsekwencją przyjętej konwencji. Gdybyś przyjął
+$q$ dodatnie w górę, znak by się zmienił. Nie ma w tym fizyki — jest tylko umowa, której trzeba
+się trzymać.
+
 <Insight>
-  Siła skupiona powoduje skok T o wartość tej siły. Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres T
-  jest poziomy.
+  Siła skupiona powoduje skok $T$ o wartość tej siły, a obciążenie ciągłe zmienia $T$ w sposób ciągły. Na odcinku bez
+  $q$ i bez sił skupionych wykres $T$ jest poziomy. To trzy reguły, które pozwalają naszkicować wykres bez liczenia
+  każdego punktu.
 </Insight>
 
 <WorkedExample>
-  <Given>Belka swobodnie podparta o L = 4 m, siła P = 20 kN w x = 2 m; obciążenie ciągłe q = 0.</Given>
+  <Given>
+    Belka swobodnie podparta ma rozpiętość $L = 6$ m. Siła $P = 18$ kN działa w dół w odległości $a = 2$ m od lewej
+    podpory A. Obciążenie ciągłe jest pomijalne.
+  </Given>
   <Steps>
-    <Step>Z symetrii reakcje wynoszą RA = RB = 10 kN.</Step>
-    <Step>Dla 0 &lt; x &lt; 2 m: T(x) = RA = +10 kN.</Step>
-    <Step>W x = 2 m występuje skok o P = 20 kN w dół.</Step>
-    <Step>Dla 2 &lt; x &lt; 4 m: T(x) = 10 − 20 = −10 kN; reakcja RB wraca wykres do zera.</Step>
+    <Step>Z sumy momentów względem A: $R_B \cdot 6 = 18 \cdot 2$, więc $R_B = 6$ kN.</Step>
+    <Step>Z sumy sił pionowych: $R_A = 18 - 6 = 12$ kN.</Step>
+    <Step>Na odcinku od $x = 0$ do $x = 2$ m nie ma obciążenia ciągłego, więc $T = +12$ kN.</Step>
+    <Step>Pod siłą wykres skacze w dół o 18 kN: $12 - 18 = -6$ kN.</Step>
+    <Step>Na odcinku od $x = 2$ m do $x = 6$ m siła tnąca pozostaje równa $-6$ kN.</Step>
+    <Step>Przy prawej podporze reakcja $R_B = 6$ kN w górę domyka wykres do zera.</Step>
+    <Step>Kontrola: całkowita zmiana $T$ wynosi $+12 - 18 + 6 = 0$.</Step>
   </Steps>
-  <Result>T = +10 kN na lewym odcinku i −10 kN na prawym, ze skokiem 20 kN pod siłą.</Result>
+  <Result>
+    $T = +12$ kN na lewym odcinku i $T = -6$ kN na prawym. Pod siłą występuje skok 18 kN, a wykres zamyka się w podporze
+    B.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy belkę swobodnie podpartą o rozpiętości $L = 5$ m, obciążoną równomiernie na całej
+długości $q = 4$ kN/m. Z symetrii reakcje wynoszą $R_A = R_B = qL/2 = 10$ kN. Tym razem wykres
+siły tnącej nie składa się z poziomych odcinków, lecz z jednej linii prostej.
+
+Dla $x$ od 0 do 5 m mamy
+
+$$
+T(x) = R_A - qx = 10 - 4x\ \text{kN}.
+$$
+
+Na lewym końcu $T(0) = +10$ kN. W połowie rozpiętości $T(2{,}5) = 0$. Na prawym końcu, tuż przed
+podporą, $T(5) = -10$ kN. Reakcja $R_B = 10$ kN w górę domyka wykres do zera. Nachylenie wynosi
+$-4$ kN/m, czyli dokładnie $-q$, zgodnie z zależnością $dT/dx = -q$.
+
+Miejsce, w którym $T = 0$, jest ważne. Oznacza ono, że na lewo od tego punktu wypadkowa sił
+pionowych równoważy się z reakcją, a na prawo przeważa obciążenie. W następnej lekcji zobaczysz,
+że właśnie tam moment zginający osiąga ekstremum.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem z wykresu $T$ odtwarzamy obciążenie. Belka swobodnie podparta ma $L = 5$ m. Wykres
+siły tnącej jest stały i równy $+12$ kN od lewej podpory do $x = 2$ m, a następnie skacze do
+$-8$ kN i pozostaje taki do prawej podpory. Jaka siła skupiona działa na belkę i gdzie?
+
+Skok wykresu ma wartość $12 - (-8) = 20$ kN, więc siła skupiona wynosi $P = 20$ kN i działa
+w miejscu skoku, czyli w $x = 2$ m. Reakcje odczytujemy z poziomych odcinków: $R_A = 12$ kN
+oraz $R_B = 8$ kN. Kontrola momentów względem A:
+
+$$
+R_B L = 8 \cdot 5 = 40\ \text{kN·m}, \qquad P a = 20 \cdot 2 = 40\ \text{kN·m}.
+$$
+
+Obie strony są równe, więc odtworzone obciążenie jest poprawne. Ten wariant pokazuje, że wykres
+$T$ niesie pełną informację o siłach skupionych: wartość skoku to siła, a jego położenie to
+miejsce przyłożenia.
+
+<Callout kind="warning" title="Typowe błędy">
+
+1. Zła konwencja znaków. Jeśli przyjmiesz dodatnią $T$ w górę na lewej części, wzór i wykres
+   zmienią znaki. Nie jest to błąd fizyczny, ale musi być spójne z dalszymi lekcjami.
+2. Pominięcie reakcji przy rysowaniu wykresu od lewej strony. Wykres musi zaczynać się od $R_A$,
+   a nie od zera, chyba że lewa podpora nie przenosi siły pionowej.
+3. Rysowanie skoku w niewłaściwą stronę. Siła w dół zmniejsza $T$, więc skok jest w dół.
+4. Użycie wartości $q$ zamiast wypadkowej $qL$ przy obliczaniu reakcji. $q$ to siła na metr,
+   a nie całkowita siła.
+5. Traktowanie $T = 0$ jako braku obciążenia. $T$ może przechodzić przez zero, gdy obciążenie
+   ciągłe nadal działa; zero oznacza tylko chwilową równowagę sił po jednej stronie.
+6. Mieszanie lewej i prawej części belki w jednym równaniu. Wybierz jedną stronę cięcia i nie
+   zmieniaj jej w trakcie obliczeń.
+7. Brak kontroli zamknięcia wykresu. Suma skoków i zmian od lewej do prawej musi dać zero.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wyznacz reakcje i zapisz je na schemacie. Bez tego nie wiesz, od jakiej wartości zacząć
+   wykres $T$.
+2. Podziel belkę na odcinki granicami w miejscach podpór, sił skupionych, początku i końca
+   obciążenia ciągłego oraz przyłożonych momentów.
+3. Dla każdego odcinka ustal, jakie obciążenie na nim działa. Jeśli $q = 0$, $T$ jest stałe.
+   Jeśli $q$ jest stałe, $T$ jest liniowe.
+4. Zapisz $T(x)$ z równowagi lewej części albo oblicz wartości na granicach odcinków i połącz
+   je zgodnie z kształtem.
+5. W miejscu siły skupionej zaznacz skok o wartości siły, w kierunku zgodnym z jej działaniem
+   przy przyjętej konwencji.
+6. Sprawdź, czy wykres wraca do zera przy prawej podporze. Jeśli nie, szukaj błędu w reakcji
+   albo w pominiętym obciążeniu.
+7. Zapisz wynik w kN i podaj, na którym odcinku $T$ jest dodatnie, a na którym ujemne. To
+   informacja potrzebna do wykresu momentu.
+
+## Połącz z resztą kursu
+
+- **Belki i reakcje podporowe.** Reakcje są pierwszymi wartościami na wykresie $T$. Metoda
+  przekrojów jest przedłużeniem równowagi całej belki na jej wnętrze.
+- **Moment zginający M(x).** Nachylenie wykresu momentu jest równe $T$. Dlatego każdy błąd
+  w wykresie $T$ zmienia kształt wykresu $M$.
+- **Zależności q–T–M.** Wzór $dT/dx = -q$ jest jednym z trzech filarów tej lekcji. Razem
+  z $dM/dx = T$ tworzy łańcuch, który pozwala szkicować wykresy bez liczenia punktów.
+- **Czyste zginanie.** Odcinek, na którym $T = 0$, jest kandydatem do czystego zginania, jeśli
+  dodatkowo moment jest stały i niezerowy.
+- **Rozkład σ i oś obojętna.** Siła tnąca odpowiada za naprężenia styczne, a moment za normalne.
+  W typowej belce oba pola naprężeń mają maksima w różnych miejscach przekroju.
+- **Dobór przekroju.** W krótkich belkach siła tnąca może decydować o doborze przekroju, nawet
+  jeśli moment nie jest duży.
+
+## Sprawdź się
+
+Pytania łączą rachunek z interpretacją wykresu. Zwracaj uwagę na znak i na to, po której stronie
+siły czytasz wartość $T$.
 
 <Quiz>
   <Question outcome="U1">
     <Prompt>
-      Na belce swobodnie podpartej o L = 4 m działa P = 20 kN na środku. Jakie wartości ma T po lewej i prawej stronie
-      siły?
+      Belka swobodnie podparta o $L = 4$ m jest obciążona siłą $P = 20$ kN w połowie rozpiętości.
+      Jakie wartości ma $T$ bezpośrednio po lewej i po prawej stronie siły?
     </Prompt>
-    <Answer correct>+10 kN i −10 kN</Answer>
-    <Answer>+20 kN i −20 kN</Answer>
-    <Answer>0 kN i +20 kN</Answer>
-    <Hint>Reakcje wynoszą po 10 kN, a pod siłą wykres skacze o 20 kN.</Hint>
+    <Answer correct>$+10$ kN i $-10$ kN</Answer>
+    <Answer>$+20$ kN i $-20$ kN</Answer>
+    <Answer>$0$ kN i $+20$ kN</Answer>
+    <Answer>$-10$ kN i $+10$ kN</Answer>
+    <Hint>Reakcje wynoszą po 10 kN, a pod siłą wykres skacze o 20 kN w dół.</Hint>
     <Explanation>
-      Przed siłą T = RA = +10 kN. Pod P następuje spadek o 20 kN, więc za siłą T = 10 − 20 = −10 kN.
+      Przed siłą $T = R_A = +10$ kN. Pod siłą następuje skok w dół o 20 kN, więc za siłą
+      $T = 10 - 20 = -10$ kN.
     </Explanation>
   </Question>
+
+<Question outcome="W1">
+  <Prompt>Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres $T(x)$ jest:</Prompt>
+  <Answer correct>Stały</Answer>
+  <Answer>Zawsze paraboliczny</Answer>
+  <Answer>Zawsze równy zero</Answer>
+  <Answer>Liniowo rosnący</Answer>
+  <Hint>Skorzystaj z $dT/dx = -q$ i podstaw $q = 0$.</Hint>
+  <Explanation>
+    Przy $q = 0$ pochodna $dT/dx$ jest równa zero, więc $T$ jest stałe. Stała wartość może być dodatnia, ujemna albo
+    równa zero.
+  </Explanation>
+</Question>
+
+<Question outcome="W1">
+  <Prompt>W punkcie przyłożenia siły skupionej 30 kN działającej w dół wykres $T$, czytany od lewej do prawej:</Prompt>
+  <Answer correct>Wykonuje skok w dół o 30 kN</Answer>
+  <Answer>Wykonuje skok w górę o 30 kN</Answer>
+  <Answer>Pozostaje ciągły</Answer>
+  <Answer>Zmienia nachylenie, ale nie wartość</Answer>
+  <Hint>Przyjrzyj się znakowi siły w równaniu równowagi lewej części.</Hint>
+  <Explanation>
+    Siła w dół zmniejsza $T$ o swoją wartość. W idealnym modelu wykres jest nieciągły, a skok ma wartość 30 kN.
+  </Explanation>
+</Question>
+
+<Question outcome="U1">
+  <Prompt>
+    Belka o $L = 6$ m ma siłę $P = 24$ kN w odległości 2 m od lewej podpory. Jakie są reakcje i wartości $T$ po obu
+    stronach siły?
+  </Prompt>
+  <Answer>$R_A = 8$ kN, $R_B = 16$ kN; $T = +8$ i $-16$ kN</Answer>
+  <Answer correct>$R_A = 16$ kN, $R_B = 8$ kN; $T = +16$ i $-8$ kN</Answer>
+  <Answer>$R_A = 12$ kN, $R_B = 12$ kN; $T = +12$ i $-12$ kN</Answer>
+  <Answer>$R_A = 16$ kN, $R_B = 8$ kN; $T = -16$ i $+8$ kN</Answer>
+  <Hint>Najpierw policz $R_B = P a / L$, potem $T$ przed siłą równa się $R_A$.</Hint>
+  <Explanation>
+    $R_B = 24 \cdot 2 / 6 = 8$ kN, $R_A = 16$ kN. Przed siłą $T = +16$ kN, a po skoku w dół o 24 kN mamy $T = -8$ kN.
+  </Explanation>
+</Question>
+
+<Question outcome="W1">
+  <Prompt>Na pewnym odcinku działa stałe obciążenie $q$ dodatnie, czyli w dół. Co dzieje się z wykresem $T$?</Prompt>
+  <Answer correct>Opada liniowo ze wzrostem $x$</Answer>
+  <Answer>Rośnie liniowo ze wzrostem $x$</Answer>
+  <Answer>Jest stały</Answer>
+  <Answer>Jest parabolą</Answer>
+  <Hint>Pochodna $dT/dx$ jest równa $-q$.</Hint>
+  <Explanation>Stała ujemna pochodna oznacza liniowy spadek. Nachylenie wykresu wynosi dokładnie $-q$.</Explanation>
+</Question>
+
+<Question outcome="U1">
+  <Prompt>
+    Belka swobodnie podparta o $L = 4$ m jest obciążona równomiernie $q = 5$ kN/m. Ile wynosi $T$ w przekroju $x = 1$ m
+    od lewej podpory?
+  </Prompt>
+  <Answer>$+10$ kN</Answer>
+  <Answer correct>$+5$ kN</Answer>
+  <Answer>$0$ kN</Answer>
+  <Answer>$-5$ kN</Answer>
+  <Hint>Reakcja wynosi $qL/2 = 10$ kN, a ubytek to $q x$.</Hint>
+  <Explanation>
+    $T(1) = 10 - 5 \cdot 1 = +5$ kN. W połowie rozpiętości, przy $x = 2$ m, $T$ spadłoby do zera.
+  </Explanation>
+</Question>
+
   <Question outcome="W1">
-    <Prompt>Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres T(x) jest:</Prompt>
-    <Answer correct>Stały</Answer>
-    <Answer>Zawsze paraboliczny</Answer>
-    <Answer>Zawsze równy zero</Answer>
-    <Hint>Skoro q = 0, to dT/dx = −q = 0.</Hint>
+    <Prompt>
+      Wykres $T$ zaczyna się od $+14$ kN, pod pewną siłą skacze do $-6$ kN, a przy prawej
+      podporze wraca do zera. Ile wynosi siła skupiona i reakcja prawej podpory?
+    </Prompt>
+    <Answer>$P = 14$ kN, $R_B = 6$ kN</Answer>
+    <Answer correct>$P = 20$ kN, $R_B = 6$ kN</Answer>
+    <Answer>$P = 20$ kN, $R_B = 14$ kN</Answer>
+    <Answer>$P = 8$ kN, $R_B = 6$ kN</Answer>
+    <Hint>Skok to różnica wartości przed siłą i po niej, a reakcja domyka wykres do zera.</Hint>
     <Explanation>
-      Z zależności dT/dx = −q przy q = 0 wynika, że T jest stałe. Stała wartość może być dodatnia, ujemna lub równa
-      zero.
-    </Explanation>
-  </Question>
-  <Question outcome="W1">
-    <Prompt>W punkcie przyłożenia pionowej siły skupionej 30 kN w dół wykres T, czytany od lewej do prawej:</Prompt>
-    <Answer correct>Wykonuje skok w dół o 30 kN</Answer>
-    <Answer>Wykonuje skok w górę o 30 kN</Answer>
-    <Answer>Pozostaje zawsze ciągły</Answer>
-    <Hint>Odjęta część belki musi zrównoważyć nową siłę w dół.</Hint>
-    <Explanation>
-      Przy przyjętej konwencji siła działająca w dół zmniejsza T o 30 kN. W idealnym punkcie przyłożenia wykres jest
-      nieciągły, a skok ma wartość siły.
+      Skok wynosi $14 - (-6) = 20$ kN, więc $P = 20$ kN. Wartość $-6$ kN jest równoważona przez
+      reakcję $R_B = 6$ kN w górę.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o siłach wewnętrznych
+  w belkach; szukaj przykładów wykresów siły tnącej.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — metoda przekrojów i znaki
+  sił wewnętrznych; dobre do utrwalenia konwencji.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT — zadania
+  z belkami i obciążeniem ciągłym; zwróć uwagę na skoki wykresu.
+- D. Roylance, _Mechanics of Materials_ (MIT OpenCourseWare) — rozdział o wykresach sił
+  tnących i momentów; pokazuje kolejne całkowanie obciążenia.
+- J. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_ (Open Textbook) —
+  rozdział o siłach wewnętrznych; dobrze wyjaśnia znaki i metodę cięcia.

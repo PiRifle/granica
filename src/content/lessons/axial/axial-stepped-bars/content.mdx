@@ -7,7 +7,6 @@ shortTitle: Pręty schodkowe
 description: >-
   Analizuj odcinki o różnych przekrojach i wskaż miejsce największego
   naprężenia.
-duration: 8
 eyebrow: Geometria zmienia obciążenie materiału
 outcomes:
   - W1 — dzieli pręt schodkowy na jednorodne odcinki obliczeniowe
@@ -19,50 +18,194 @@ outcomes:
 solutionId: cw1-2
 ---
 
-W pręcie złożonym z odcinków połączonych szeregowo i obciążonym tylko na końcach każdy odcinek przenosi tę samą N, ale nie to samo naprężenie. Największe nominalne σ pojawia się w odcinku o najmniejszym polu, jeśli pominiemy lokalne karby przy zmianie przekroju.
+Wiele elementów konstrukcyjnych nie ma stałego przekroju. Wał maszyny jest grubszy przy łożysku, śruba ma rdzeń i gwint, a odciąg masztu bywa złożony z linek o różnych średnicach. Taki element nazywamy prętem schodkowym, ponieważ jego pole przekroju zmienia się skokowo na długości. Zmiana geometrii nie zmienia faktu, że element przenosi siłę osiową, ale zmienia rozkład naprężeń.
+
+W najprostszym przypadku pręt schodkowy jest połączeniem szeregowym kilku odcinków o stałym przekroju. Jeśli obciążenia działają tylko na końcach, każdy odcinek przenosi tę samą siłę osiową. Mimo to naprężenia są różne, bo różne są pola. Największe naprężenie pojawia się tam, gdzie iloraz siły do pola jest największy, a nie tam, gdzie siła jest największa.
+
+Ta lekcja uczy dzielenia złożonego pręta na prostsze części i konsekwentnego liczenia każdej z nich. Zobaczysz, jak połączyć wykres siły osiowej z geometrią, jak wskazać przekrój krytyczny i jak dobrać pole przekroju, gdy wymagane jest zachowanie naprężenia dopuszczalnego. Nauczysz się też odróżniać naprężenie nominalne od rzeczywistego naprężenia lokalnego przy karbie.
+
+Po lekcji będziesz umiał rozwiązać zadanie, w którym pręt ma kilka odcinków, różne pola, a czasem także różne materiały. Będziesz wiedział, dlaczego nie wolno uśredniać naprężeń ani porównywać samych sił, i dlaczego najsłabszy odcinek wymaga sprawdzenia nawet wtedy, gdy pozostałe mają duży zapas.
+
+## Zanim zaczniesz
+
+- **Wykres siły osiowej.** Potrafisz wyznaczyć $N$ na każdym odcinku pręta z siłami skupionymi i rozłożonymi. Jeśli nie, wróć do lekcji o wykresie $N$.
+- **Pole przekroju.** Dla koła $A=\pi d^2/4$, dla prostokąta $A=bh$, dla pierścienia $A=\pi(D^2-d^2)/4$. Uważaj na średnicę i promień.
+- **Jednostki.** Utrzymuj siłę w niutonach, pole w milimetrach kwadratowych, naprężenie w MPa. Zamiana $1\ \text{cm}^2=100\ \text{mm}^2$ jest częstym źródłem błędu.
+- **Konwencja znaku.** Dodatnie $N$ oznacza rozciąganie, ujemne ściskanie. Znak naprężenia na odcinku jest taki sam jak znak $N$.
+- **Warunek wytrzymałości.** Znasz postać $|\sigma|\le\sigma_{\mathrm{dop}}$ i umiesz przekształcić ją do $A\ge|N|/\sigma_{\mathrm{dop}}$.
+- **Typowa pułapka.** Największa siła i największe naprężenie nie muszą występować na tym samym odcinku. Zawsze licz iloraz $|N_i|/A_i$.
+
+## Model i intuicja
+
+Model pręta schodkowego dzieli element na skończoną liczbę odcinków, na których pole przekroju jest stałe. W każdym odcinku stosujemy ten sam model pręta osiowego: materiał jednorodny, małe odkształcenia, naprężenie równomierne z dala od końców. Przejścia między odcinkami traktujemy jako miejsca zmiany geometrii, a nie jako dodatkowe źródła sił, chyba że w tym miejscu przyłożono obciążenie.
+
+Taki podział jest uzasadniony, dopóki strefy zaburzeń przy zmianach przekroju nie nachodzą na siebie. Przy nagłym zwężeniu rozkład naprężeń jest zaburzony na odcinku rzędu wymiaru poprzecznego. Jeśli odcinki są znacznie dłuższe od swoich wymiarów poprzecznych, możemy w środku każdego z nich używać wzoru nominalnego. Przy krótkich odcinkach i dużych zmianach geometrii model nominalny może być zbyt gruby.
+
+W pręcie połączonym szeregowo i obciążonym tylko na końcach siła osiowa jest taka sama we wszystkich odcinkach. To konsekwencja równowagi: między końcami nie ma dodatkowych sił, więc suma sił po jednej stronie przekroju nie zmienia się. Dopiero obciążenie przyłożone na połączeniu odcinków powoduje skok $N$ i różne wartości w sąsiednich odcinkach.
+
+Zmiana pola działa jak zmiana „gęstości” obciążenia materiału. Ta sama siła rozłożona na mniejszym polu daje większe naprężenie. Dlatego pręt schodkowy zachowuje się jak łańcuch: o jego nośności decyduje najsłabsze ogniwo, czyli odcinek o największym naprężeniu. Wzmacnianie pozostałych odcinków ponad potrzebę nie zwiększa nośności całego układu.
+
+Jeśli odcinki wykonano z różnych materiałów, samo $N/A$ nadal opisuje naprężenie, ale o nośności decyduje dodatkowo wytrzymałość każdego materiału. Odcinek o niższym naprężeniu, lecz z materiału o znacznie mniejszej granicy plastyczności, może okazać się słabszy. Dlatego warunek wytrzymałości trzeba sprawdzać indywidualnie, a nie tylko porównywać naprężenia między odcinkami.
+
+Model przestaje wystarczać, gdy zmiana przekroju jest bardzo ostra, gdy materiał jest kruchy i wrażliwy na koncentrację naprężeń albo gdy odcinek ściskany jest smukły. W takich przypadkach potrzebna jest analiza karbu, mechanika pękania lub analiza stateczności. Mimo to obliczenie nominalne pozostaje pierwszym i obowiązkowym krokiem każdego zadania.
+
+## Laboratorium: co ustawić
+
+W laboratorium wybierz dwa lub trzy odcinki, a następnie zmień siłę $P$ na końcu i siłę $Q$ na pierwszym połączeniu. Obserwuj, jak $N$ zmienia się przy połączeniu i który odcinek ma największe naprężenie. Zestaw największe $|N|$ z największym $|\sigma|$ i wyjaśnij, dlaczego nie zawsze są to te same odcinki.
 
 <Lab id="steppedBar" />
 
+## Definicje i jednostki
+
+**Pręt schodkowy** to pręt, którego pole przekroju zmienia się skokowo na długości. **Odcinek obliczeniowy** to część pręta o stałym polu, stałym materiale i stałej sile osiowej. **Przekrój krytyczny** to przekrój, w którym naprężenie osiąga największą wartość bezwzględną. **Naprężenie nominalne** to wartość $N/A$ obliczona dla pola przekroju, bez uwzględnienia lokalnej koncentracji naprężeń.
+
+| Wielkość                  | Symbol                  | Jednostka    | Znaczenie                                    |
+| ------------------------- | ----------------------- | ------------ | -------------------------------------------- |
+| Siła osiowa w odcinku i   | $N_i$                   | N lub kN     | siła wewnętrzna w danym odcinku              |
+| Pole odcinka i            | $A_i$                   | mm²          | pole przekroju poprzecznego                  |
+| Długość odcinka i         | $L_i$                   | mm lub m     | długość części o stałym polu                 |
+| Naprężenie nominalne      | $\sigma_i$              | MPa          | iloraz $N_i/A_i$                             |
+| Naprężenie dopuszczalne   | $\sigma_{\mathrm{dop}}$ | MPa          | wartość graniczna w projekcie                |
+| Współczynnik koncentracji | $K_t$                   | bezwymiarowy | stosunek naprężenia lokalnego do nominalnego |
+
+Indeks $i$ numeruje odcinki. Wartości $N_i$ wyznaczamy z wykresu siły osiowej, a $A_i$ z geometrii. Naprężenie $\sigma_i$ ma znak zgodny z $N_i$: dodatnie oznacza rozciąganie, ujemne ściskanie. Dla porównania wytężenia używamy wartości bezwzględnej, ale znak nadal jest ważny dla interpretacji i dla sprawdzenia wyboczenia.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma_i=\frac{N_i}{A_i},\qquad |\sigma|_{\max}=\max_i\left|\frac{N_i}{A_i}\right|
+\sigma_i=\frac{N_i}{A_i},\qquad |\sigma|_{\max}=\max_i\left|\frac{N_i}{A_i}\right|,\qquad A_{i,\min}=\frac{|N_i|}{\sigma_{\mathrm{dop}}}
 $$
 
-<Caption>Każdy odcinek ma własne Ni i Ai. Przy nagłej zmianie średnicy rzeczywiste maksimum lokalne zależy także od karbu; N/A daje wartość nominalną.</Caption>
+<Caption>Każdy odcinek ma własne N_i i A_i. Przy nagłej zmianie średnicy rzeczywiste maksimum lokalne zależy także od karbu; N/A daje wartość nominalną.</Caption>
 </Formula>
 
+1. Podziel pręt na odcinki w miejscach zmiany pola przekroju, zmiany materiału i przyłożenia obciążenia skupionego. Wewnątrz odcinka $N$, $A$ i $E$ powinny być stałe.
+2. Numeruj odcinki od jednego końca do drugiego. Zapisz dla każdego długość $L_i$, pole $A_i$ i materiał, jeśli się różni.
+3. Wyznacz siłę osiową $N_i$ w każdym odcinku. Wykorzystaj wykres $N$ albo metodę przekrojów. Pamiętaj, że obciążenie przyłożone na połączeniu zmienia $N$ w sąsiednich odcinkach.
+4. Dla każdego odcinka oblicz naprężenie nominalne $\sigma_i=N_i/A_i$. Zachowaj znak i jednostkę. Sprawdź, czy siła jest w niutonach, a pole w milimetrach kwadratowych.
+5. Porównaj wartości bezwzględne $|\sigma_i|$. Odcinek o największym $|\sigma_i|$ jest przekrojem krytycznym. Nie wystarczy porównać samych $|N_i|$, bo pola mogą się różnić.
+6. Sformułuj warunek wytrzymałości dla każdego odcinka: $|\sigma_i|\le\sigma_{\mathrm{dop}}$. Po przekształceniu otrzymujesz $A_i\ge|N_i|/\sigma_{\mathrm{dop}}$.
+7. Jeśli dobierasz pole, wyznacz minimum dla każdego odcinka osobno. Przyjęte pole każdego odcinka musi być nie mniejsze od jego własnego minimum.
+8. Sprawdź przyjęte przekroje, obliczając rzeczywiste naprężenia. Dla odcinków ściskanych sprawdź dodatkowo smukłość i ryzyko wyboczenia.
+9. Przy ostrych zmianach przekroju rozważ współczynnik koncentracji $K_t$. Naprężenie lokalne jest wtedy większe od nominalnego, choć $K_t$ zależy od geometrii i sposobu obciążenia.
+10. Zapisz wniosek: który odcinek decyduje o nośności, jakie jest maksymalne naprężenie i jaki jest zapas względem wartości dopuszczalnej.
+
 <Insight>
-  Nie wystarczy znaleźć maksymalnej |N| dla całego pręta. Decyduje największa wartość ilorazu |Ni|/Ai, dlatego trzeba
-  sprawdzić wszystkie odcinki.
+  Nie wystarczy znaleźć maksymalnej $|N|$ dla całego pręta. Decyduje największa wartość ilorazu $|N_i|/A_i$, dlatego
+  trzeba sprawdzić wszystkie odcinki. Odcinek z mniejszą siłą, ale znacznie mniejszym polem, może być bardziej wytężony.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Dwa szeregowo połączone odcinki przenoszą rozciągającą N = 60 kN. Ich pola wynoszą A₁ = 300 mm² i A₂ = 150 mm².
-    Oblicz naprężenia nominalne.
+    Trzy szeregowo połączone odcinki przenoszą rozciągającą N = 60 kN. Ich pola wynoszą A₁ = 300 mm², A₂ = 150 mm² i A₃
+    = 250 mm². Naprężenie dopuszczalne materiału wynosi 160 MPa.
   </Given>
   <Steps>
-    <Step>Ponieważ nie ma obciążeń pośrednich, N₁ = N₂ = +60 000 N.</Step>
+    <Step>Ponieważ nie ma obciążeń pośrednich, N₁ = N₂ = N₃ = +60 000 N.</Step>
     <Step>Dla pierwszego odcinka: σ₁ = 60 000/300 = 200 MPa.</Step>
     <Step>Dla drugiego odcinka: σ₂ = 60 000/150 = 400 MPa.</Step>
-    <Step>Porównaj wartości bezwzględne: 400 MPa &gt; 200 MPa, więc decyduje węższy odcinek.</Step>
+    <Step>Dla trzeciego odcinka: σ₃ = 60 000/250 = 240 MPa.</Step>
+    <Step>Porównaj wartości bezwzględne: 400 MPa jest największe, więc decyduje odcinek drugi.</Step>
+    <Step>
+      Sprawdź warunek wytrzymałości: wszystkie naprężenia przekraczają 160 MPa, więc żaden odcinek nie spełnia
+      wymagania.
+    </Step>
+    <Step>
+      Wyznacz minimalne pola: 375, 375 i 375 mm². Dla stałej N i wspólnego σdop każde pole musi wynosić co najmniej 375
+      mm².
+    </Step>
   </Steps>
-  <Result>σ₁ = +200 MPa, σ₂ = +400 MPa; maksymalne nominalne naprężenie rozciągające wynosi 400 MPa.</Result>
+  <Result>
+    σ₁ = 200 MPa, σ₂ = 400 MPa, σ₃ = 240 MPa. Przekrój krytyczny to odcinek drugi, a przy σdop = 160 MPa każde pole musi
+    wynosić co najmniej 375 mm².
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Tym razem siła osiowa zmienia się na długości. Pręt jest utwierdzony lewym końcem. Odcinek pierwszy, przy utwierdzeniu, ma pole $A_1=500\ \text{mm}^2$, a odcinek drugi, przy swobodnym końcu, ma pole $A_2=150\ \text{mm}^2$. Na prawym końcu działa siła $P=30\ \text{kN}$ w prawo, a na połączeniu odcinków siła $Q=20\ \text{kN}$ w prawo.
+
+Zaczynamy od prawego końca. W drugim odcinku działa tylko siła $P$, więc $N_2=+30\ \text{kN}$. W pierwszym odcinku dochodzi siła $Q$, więc $N_1=30+20=+50\ \text{kN}$. Reakcja utwierdzenia wynosi $50\ \text{kN}$ w lewo i potwierdza wynik.
+
+Naprężenia wynoszą $\sigma_1=50\,000/500=100\ \text{MPa}$ oraz $\sigma_2=30\,000/150=200\ \text{MPa}$. Mimo że pierwszy odcinek przenosi większą siłę, to drugi jest bardziej wytężony, ponieważ ma ponad trzy razy mniejsze pole. Przekrojem krytycznym jest więc odcinek drugi.
+
+Przy $\sigma_{\mathrm{dop}}=160\ \text{MPa}$ pierwszy odcinek spełnia warunek, a drugi nie. Minimalne pole drugiego odcinka wynosi $30\,000/160=187{,}5\ \text{mm}^2$. Zwiększanie pola pierwszego odcinka nie pomoże, dopóki drugi pozostaje zbyt cienki. To praktyczna ilustracja zasady najsłabszego ogniwa.
+
+## Trzeci przykład: wariant odwrotny
+
+Znamy siły osiowe i naprężenie dopuszczalne, a szukamy średnic odcinków. Pręt ma trzy odcinki o siłach $N_1=+45\ \text{kN}$, $N_2=+30\ \text{kN}$ i $N_3=-20\ \text{kN}$. Naprężenie dopuszczalne wynosi $\sigma_{\mathrm{dop}}=150\ \text{MPa}$, a przekroje mają być kołowe.
+
+Minimalne pola wyznaczamy z warunku wytrzymałości: $A_1\ge45\,000/150=300\ \text{mm}^2$, $A_2\ge30\,000/150=200\ \text{mm}^2$ oraz $A_3\ge20\,000/150=133{,}3\ \text{mm}^2$. Dla przekroju kołowego średnica wynosi $d=\sqrt{4A/\pi}$.
+
+<Formula>
+$$
+A_{i,\min}=\frac{|N_i|}{\sigma_{\mathrm{dop}}},\qquad d_i=\sqrt{\frac{4A_{i,\min}}{\pi}}
+$$
+
+<Caption>Dla każdego odcinka osobno wyznaczamy minimalne pole, a następnie średnicę. Przyjęta średnica musi być nie mniejsza od obliczonej i powinna odpowiadać wymiarowi normalizowanemu.</Caption>
+</Formula>
+
+Otrzymujemy kolejno około $19{,}5$, $16{,}0$ i $13{,}0\ \text{mm}$. Przyjmujemy wymiary normalizowane: $20$, $16$ i $14\ \text{mm}$. Pola wynoszą wtedy około $314{,}2$, $201{,}1$ i $153{,}9\ \text{mm}^2$, a naprężenia około $143{,}3$, $149{,}2$ i $129{,}9\ \text{MPa}$. Wszystkie mieszczą się poniżej $150\ \text{MPa}$.
+
+Odcinek trzeci jest ściskany. Sam warunek naprężenia nie wystarcza, jeśli odcinek jest długi i smukły. Trzeba sprawdzić, czy siła $20\ \text{kN}$ nie spowoduje wyboczenia przy założonej długości i sposobie zamocowania. Dopiero po tej kontroli dobór średnic można uznać za kompletny.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Porównywanie tylko sił.** Większa siła na grubym odcinku może dać mniejsze naprężenie niż mniejsza siła na cienkim odcinku.
+
+**Uśrednianie naprężeń.** Naprężenia nie sumują się i nie uśredniają wzdłuż pręta. Każdy odcinek ma własną wartość.
+
+**Mylenie średnicy z polem.** Średnica jest liniowym wymiarem, a pole rośnie z jej kwadratem. Podwojenie średnicy daje około czterokrotnie większe pole.
+
+**Pomijanie siły na połączeniu.** Obciążenie przyłożone na granicy odcinków zmienia $N$ i musi być uwzględnione w wykresie.
+
+**Stosowanie jednego pola do całego pręta.** Przy zmiennej geometrii każde pole trzeba sprawdzić osobno.
+
+**Ignorowanie karbu.** Nominalne $N/A$ nie opisuje lokalnego maksimum przy ostrym zwężeniu. W materiałach kruchych może to być decydujące.
+
+**Brak kontroli ściskania.** Odcinek ściskany może ulec wyboczeniu, nawet jeśli naprężenie jest poniżej wartości dopuszczalnej.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Narysuj pręt z podziałem na odcinki.** Zaznacz miejsca zmiany pola, zmiany materiału i przyłożenia sił. Ponumeruj odcinki.
+2. **Wypisz geometrię każdego odcinka.** Zapisz $L_i$ i $A_i$ w spójnych jednostkach. Przy przekroju kołowym od razu sprawdź, czy dana jest średnica, czy promień.
+3. **Wyznacz $N_i$ dla każdego odcinka.** Skorzystaj z wykresu $N$ lub metody przekrojów. Uwzględnij siły działające na połączeniach.
+4. **Oblicz naprężenia nominalne.** Dla każdego odcinka policz $N_i/A_i$ i zapisz znak. Nie przenoś wyniku z jednego odcinka na drugi.
+5. **Wskaż maksimum.** Porównaj wartości bezwzględne. To jest przekrój krytyczny, który decyduje o nośności.
+6. **Sprawdź warunek wytrzymałości.** Porównaj maksymalne naprężenie z $\sigma_{\mathrm{dop}}$. Jeśli szukasz pól, licz minimum dla każdego odcinka osobno.
+7. **Sprawdź ściskanie.** Dla odcinków z ujemnym $N$ oceń smukłość i potrzebę analizy wyboczenia.
+8. **Sprawdź miejsca zmiany przekroju.** Przy ostrych przejściach rozważ koncentrację naprężeń. W zadaniach szkolnych często się ją pomija, ale trzeba to świadomie zaznaczyć.
+9. **Wykonaj kontrolę całości.** Sprawdź równowagę, jednostki i to, czy przyjęte wymiary nie zmniejszyły zapasu poniżej wymaganego.
+
+## Połącz z resztą kursu
+
+- **Wykres siły osiowej N.** Dostarcza wartości $N_i$ dla każdego odcinka; bez niego nie da się poprawnie przypisać sił do pól.
+- **Naprężenie normalne.** Wzór $\sigma=N/A$ stosujesz osobno w każdym odcinku, nie do całego pręta.
+- **Prawo Hooke’a i wydłużenia.** W pręcie schodkowym całkowite wydłużenie jest sumą udziałów odcinków, a każdy udział zależy od $N_i$, $L_i$, $E_i$ i $A_i$.
+- **Warunek wytrzymałości.** Prowadzi do minimalnego pola każdego odcinka i wskazuje najsłabsze ogniwo.
+- **Warunek sztywności.** Odcinek decydujący o wydłużeniu może być inny niż odcinek decydujący o naprężeniu.
+- **Zginanie, skręcanie i projektowanie.** Tam również dzielimy element na odcinki i sprawdzamy przekrój krytyczny; zasada najsłabszego ogniwa jest podstawą doboru wymiarów w całych układach.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz wskazać odcinek krytyczny i dobrać pole przekroju. Pamiętaj, że decyduje iloraz siły do pola, a nie sama siła.
 
 <Quiz>
   <Question outcome="W3">
     <Prompt>
       Pręt schodkowy bez obciążeń pośrednich ma dwa odcinki o polach 300 i 150 mm². Gdzie występuje większe nominalne
-      |σ|?
+      naprężenie?
     </Prompt>
     <Answer correct>Na odcinku 150 mm²</Answer>
     <Answer>Na odcinku 300 mm²</Answer>
     <Answer>Naprężenia są zawsze jednakowe</Answer>
-    <Hint>Oba odcinki przenoszą tę samą N.</Hint>
+    <Hint>Oba odcinki przenoszą tę samą N, więc decyduje mniejsze pole.</Hint>
     <Explanation>
-      Przy tej samej N mniejsze pole daje większą wartość |N/A|. Dla 150 mm² naprężenie jest dwa razy większe niż dla
-      300 mm².
+      Przy tej samej N mniejsze pole daje większą wartość bezwzględną N/A. Dla 150 mm² naprężenie jest dwa razy większe
+      niż dla 300 mm².
     </Explanation>
   </Question>
   <Question outcome="U1">
@@ -78,6 +221,42 @@ $$
       pierwszy.
     </Explanation>
   </Question>
+  <Question outcome="W1">
+    <Prompt>Jak należy podzielić pręt schodkowy na odcinki obliczeniowe?</Prompt>
+    <Answer correct>W miejscach zmiany pola, materiału i przyłożenia siły skupionej</Answer>
+    <Answer>Zawsze na trzy równe części, niezależnie od geometrii</Answer>
+    <Answer>Tylko w miejscu utwierdzenia</Answer>
+    <Hint>Wewnątrz odcinka N, A i E powinny być stałe.</Hint>
+    <Explanation>
+      Granice odcinków wyznaczają miejsca, w których zmienia się geometria, materiał albo siła wewnętrzna. Tylko wtedy
+      można w każdym odcinku stosować jeden prosty wzór.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Na drugim odcinku pręta siła osiowa wynosi −15 kN. Co to oznacza?</Prompt>
+    <Answer correct>Odcinek jest ściskany i może wymagać sprawdzenia wyboczenia</Answer>
+    <Answer>Odcinek jest rozciągany, bo wartość bezwzględna jest dodatnia</Answer>
+    <Answer>Na odcinku nie ma naprężenia, bo siła jest ujemna</Answer>
+    <Hint>Znak siły osiowej opisuje charakter obciążenia, a wartość bezwzględna tylko jego wielkość.</Hint>
+    <Explanation>
+      Ujemne N oznacza ściskanie. Naprężenie też będzie ujemne, a jego wartość bezwzględna może być duża. Dla smukłego
+      odcinka trzeba dodatkowo sprawdzić stateczność.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Odcinek przenosi N = 90 kN, a naprężenie dopuszczalne wynosi 150 MPa. Jakie minimalne pole przekroju jest
+      wymagane?
+    </Prompt>
+    <Answer>60 mm²</Answer>
+    <Answer correct>600 mm²</Answer>
+    <Answer>13 500 mm²</Answer>
+    <Hint>Użyj A = |N|/σdop i zamień 90 kN na 90 000 N.</Hint>
+    <Explanation>
+      A = 90 000/150 = 600 mm². Wartość 60 mm² powstałaby przez pozostawienie siły w kiloniutonach, a 13 500 mm² przez
+      pomnożenie zamiast dzielenia.
+    </Explanation>
+  </Question>
   <Question outcome="W3">
     <Prompt>Dlaczego naprężenie N/A przy nagłym zwężeniu nazywamy nominalnym?</Prompt>
     <Answer correct>Bo nie opisuje lokalnej koncentracji przy przejściu geometrycznym</Answer>
@@ -85,8 +264,41 @@ $$
     <Answer>Bo jest zawsze równe zero w mniejszym przekroju</Answer>
     <Hint>Prosty wzór zakłada równomierny rozkład z dala od zakłóceń.</Hint>
     <Explanation>
-      Nagła zmian geometrii zaburza równomierny rozkład i może powodować karb. N/A opisuje naprężenie nominalne, a
+      Nagła zmiana geometrii zaburza równomierny rozkład i może powodować karb. N/A opisuje naprężenie nominalne, a
       lokalne maksimum wymaga dodatkowego współczynnika lub dokładniejszej analizy.
     </Explanation>
   </Question>
+  <Question outcome="U1">
+    <Prompt>Odcinek o polu 150 mm² przenosi rozciągającą siłę 60 kN. Jakie jest naprężenie nominalne?</Prompt>
+    <Answer>40 MPa</Answer>
+    <Answer correct>400 MPa</Answer>
+    <Answer>900 MPa</Answer>
+    <Hint>Zamień 60 kN na 60 000 N i podziel przez 150 mm².</Hint>
+    <Explanation>
+      60 000/150 = 400 N/mm² = 400 MPa. Wynik 40 MPa powstałby przy pozostawieniu siły w kiloniutonach. Naprężenie 400
+      MPa jest bardzo wysokie dla typowej stali konstrukcyjnej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Trzy odcinki przenoszą siły 40, 30 i 20 kN, a ich pola wynoszą 200, 100 i 250 mm². Który odcinek ma największe
+      naprężenie?
+    </Prompt>
+    <Answer correct>Drugi: 300 MPa</Answer>
+    <Answer>Pierwszy: 200 MPa</Answer>
+    <Answer>Trzeci: 80 MPa</Answer>
+    <Hint>Oblicz iloraz N/A dla każdego odcinka osobno.</Hint>
+    <Explanation>
+      Naprężenia wynoszą 200, 300 i 80 MPa. Największe jest na drugim odcinku, mimo że nie działa na nim największa
+      siła. Decyduje małe pole 100 mm².
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- **M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ (WNT).** Zadania z prętami o zmiennym przekroju, wskazywaniem przekroju krytycznego i doborem wymiarów.
+- **R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_ (PWN).** Przykłady prętów schodkowych i układów szeregowych z różnymi polami oraz materiałami.
+- **R. C. Hibbeler, _Mechanics of Materials_ (wyd. 10).** Rozdział o naprężeniu normalnym: przykłady elementów o zmiennym przekroju i zasada sprawdzania przekroju krytycznego.
+- **D. Roylance, _Mechanics of Materials_ (otwarty podręcznik MIT).** Rozdziały o elastic response i trusses: zależność naprężenia od pola przekroju oraz analiza elementów o różnej geometrii.
+- **T. Wierzbicki, _Structural Mechanics_ (otwarty podręcznik MIT).** Rozdział o odkształceniu jednoosiowym: definicja odkształcenia i warunki stosowalności modelu pręta.

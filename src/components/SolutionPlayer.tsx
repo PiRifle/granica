@@ -1,13 +1,17 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { InlineMath } from 'react-katex'
 import { AnimatePresence, motion } from 'motion/react'
-import { ChevronLeft, ChevronRight, Gauge, Pause, Play, RotateCcw } from 'lucide-react'
+import { ChevronLeft, ChevronRight, FastForward, Gauge, Pause, Play, Rewind, RotateCcw } from 'lucide-react'
 import type { CourseSolution, SolutionScene } from '../types'
-import { Formula } from './UI'
+import { splitFormula, tokenizeFormula, type MathToken } from '../lib/mathAnimation'
+import { inferFocus, resolveFocus, SolutionFigureView } from './SolutionFigure'
 import styles from './SolutionPlayer.module.css'
 
 const cx = (...values: Array<string | false | null | undefined>) => values.filter(Boolean).join(' ')
-const local = (names: string) =>
-  names
+const local = (...values: Array<string | false | null | undefined>) =>
+  values
+    .filter(Boolean)
+    .join(' ')
     .split(/\s+/)
     .filter(Boolean)
     .map((name) => styles[name] ?? name)
@@ -15,6 +19,15 @@ const local = (names: string) =>
 
 const SPEEDS = [1, 1.5, 2] as const
 const SCENE_MS = 7000
+const STEP_MS = 2600
+const SKIP_MS = 5000
+
+function formatTime(value: number) {
+  const totalSeconds = Math.max(0, Math.round(value / 1000))
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  return `${minutes}:${String(seconds).padStart(2, '0')}`
+}
 
 function AxialVisual({ phase }: { phase: number }) {
   const stretch = 22 + (phase % 3) * 8
@@ -294,54 +307,227 @@ function SceneVisual({ scene, index }: { scene: SolutionScene; index: number }) 
   }
 }
 
+function changedTokenRatio(previous: MathToken[], current: MathToken[]) {
+  if (previous.length === 0) return 0
+  const counts = new Map<string, number>()
+  for (const token of previous) counts.set(token.math, (counts.get(token.math) ?? 0) + 1)
+  let unchanged = 0
+  for (const token of current) {
+    const count = counts.get(token.math) ?? 0
+    if (count > 0) {
+      unchanged += 1
+      counts.set(token.math, count - 1)
+    }
+  }
+  return 1 - unchanged / Math.max(previous.length, current.length)
+}
+
+function MathTransform({ formula, progress }: { formula: string; progress: number }) {
+  const steps = useMemo(() => splitFormula(formula), [formula])
+  const active = Math.min(steps.length - 1, Math.max(0, Math.floor(progress * steps.length)))
+  const stepProgress = Math.max(0, Math.min(1, progress * steps.length - active))
+  const currentFormula = steps[active] ?? formula
+  const tokens = useMemo(() => tokenizeFormula(currentFormula), [currentFormula])
+  const contextFormula = useMemo(() => {
+    for (let stepIndex = active; stepIndex >= 1; stepIndex -= 1) {
+      const from = steps[stepIndex - 1]
+      const to = steps[stepIndex]
+      if (changedTokenRatio(tokenizeFormula(from), tokenizeFormula(to)) > 0.7) return from
+    }
+    return undefined
+  }, [steps, active])
+  const contextTokens = useMemo(() => (contextFormula ? tokenizeFormula(contextFormula) : []), [contextFormula])
+  const totalTokenLength = tokens.reduce((sum, token) => sum + token.math.length, 0)
+  const longestToken = tokens.reduce((longest, token) => Math.max(longest, token.math.length), 0)
+  const density = Math.min(
+    totalTokenLength >= 520
+      ? 0.64
+      : totalTokenLength >= 380
+        ? 0.72
+        : totalTokenLength >= 260
+          ? 0.8
+          : totalTokenLength >= 160
+            ? 0.88
+            : totalTokenLength >= 100
+              ? 0.94
+              : 1,
+    longestToken >= 90 ? 0.8 : 1,
+  )
+
+  return (
+    <div className={local('solution-derivation', 'math-transform')}>
+      <div className={local('derivation-head')}>
+        <span className={local('derivation-kicker')}>PRZEKSZTAŁCENIE</span>
+        <span className={local('derivation-counter')}>
+          {active + 1} / {steps.length}
+        </span>
+      </div>
+      <div className={local('math-stage')}>
+        <AnimatePresence initial={false} mode="popLayout">
+          {contextFormula && (
+            <motion.div
+              key={`context-${contextFormula}`}
+              className={local('math-context')}
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 0.45, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className={local('math-tokens')}>
+                {contextTokens.map((token) => (
+                  <span key={token.id} className={local('math-token')}>
+                    <InlineMath math={`\\displaystyle ${token.math}`} />
+                  </span>
+                ))}
+              </div>
+              <span className={local('math-arrow')} aria-hidden="true">
+                ↓
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <motion.div
+          layout
+          className={local('math-current')}
+          style={{ fontSize: `${density}em` }}
+          transition={{ layout: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+        >
+          <div className={local('math-tokens')}>
+            <AnimatePresence initial={false} mode="popLayout">
+              {tokens.map((token) => (
+                <motion.span
+                  key={token.id}
+                  layout
+                  className={local('math-token')}
+                  initial={{ opacity: 0, y: 18, scale: 0.65 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -16, scale: 0.65 }}
+                  transition={{
+                    layout: { type: 'spring', stiffness: 340, damping: 34, mass: 0.8 },
+                    default: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                  }}
+                >
+                  <InlineMath math={`\\displaystyle ${token.math}`} />
+                </motion.span>
+              ))}
+            </AnimatePresence>
+          </div>
+        </motion.div>
+      </div>
+      <div className={local('math-steps')} aria-hidden="true">
+        {steps.map((_, stepIndex) => (
+          <span
+            key={stepIndex}
+            className={local('math-step', stepIndex < active && 'done', stepIndex === active && 'active')}
+          >
+            {stepIndex === active && (
+              <motion.span
+                className={local('math-step-fill')}
+                initial={false}
+                animate={{ scaleX: stepProgress }}
+                transition={{ duration: 0.12, ease: 'linear' }}
+              />
+            )}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export function SolutionPlayer({ solution }: { solution: CourseSolution }) {
-  const [index, setIndex] = useState(0)
+  const [position, setPosition] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [speed, setSpeed] = useState<number>(1)
+  const [seeking, setSeeking] = useState(false)
+  const trackRef = useRef<HTMLDivElement>(null)
   const Body = useMemo(() => lazy(solution.loadBody), [solution.id, solution.loadBody])
-  const scene = solution.scenes[index]
   const lastIndex = solution.scenes.length - 1
-  const progress = ((index + 1) / solution.scenes.length) * 100
+  const sceneSteps = useMemo(
+    () => solution.scenes.map((item) => (item.formula ? splitFormula(item.formula) : [])),
+    [solution.scenes],
+  )
+  const timing = useMemo(() => {
+    let start = 0
+    return solution.scenes.map((_, sceneIndex) => {
+      const steps = sceneSteps[sceneIndex]
+      const duration = Math.max(SCENE_MS, Math.max(1, steps.length) * STEP_MS)
+      const entry = { start, duration, steps }
+      start += duration
+      return entry
+    })
+  }, [sceneSteps, solution.scenes])
+  const totalMs = timing.length > 0 ? timing[timing.length - 1].start + timing[timing.length - 1].duration : 0
+  let index = 0
+  for (let sceneIndex = 0; sceneIndex < timing.length; sceneIndex += 1) {
+    if (position >= timing[sceneIndex].start) index = sceneIndex
+    else break
+  }
+  const activeTiming = timing[index]
+  const localMs = Math.min(activeTiming.duration, Math.max(0, position - activeTiming.start))
+  const sceneProgress = activeTiming.duration > 0 ? localMs / activeTiming.duration : 0
+  const steps = activeTiming.steps
+  const stepIndex = steps.length > 0 ? Math.min(steps.length - 1, Math.floor(sceneProgress * steps.length)) : 0
+  const stepProgress = steps.length > 0 ? sceneProgress * steps.length - stepIndex : sceneProgress
+  const stepFormula = steps[stepIndex]
+  const scene = solution.scenes[index]
+  const baseFocus = solution.figure ? resolveFocus(scene, solution.figure) : undefined
+  const stepFocus =
+    solution.figure && stepFormula
+      ? inferFocus({ ...scene, title: '', narration: '', formula: stepFormula }, solution.figure)
+      : undefined
+  const figureFocus =
+    baseFocus || stepFocus
+      ? { metric: stepFocus?.metric ?? baseFocus?.metric, segment: stepFocus?.segment ?? baseFocus?.segment }
+      : undefined
+  const progress = totalMs > 0 ? (position / totalMs) * 100 : 0
+  const atEnd = position >= totalMs
 
   useEffect(() => {
-    if (!playing) return
-    if (index >= lastIndex) {
-      setPlaying(false)
-      return
-    }
-    const timer = window.setTimeout(() => setIndex((current) => Math.min(current + 1, lastIndex)), SCENE_MS / speed)
-    return () => window.clearTimeout(timer)
-  }, [playing, index, lastIndex, speed])
+    if (!playing || atEnd) return
+    let last = performance.now()
+    const timer = window.setInterval(() => {
+      const now = performance.now()
+      const delta = (now - last) * speed
+      last = now
+      setPosition((current) => Math.min(totalMs, current + delta))
+    }, 100)
+    return () => window.clearInterval(timer)
+  }, [atEnd, playing, speed, totalMs])
+
+  useEffect(() => {
+    if (playing && atEnd) setPlaying(false)
+  }, [atEnd, playing])
+
+  const seekTo = (value: number) => setPosition(Math.max(0, Math.min(totalMs, value)))
+
+  const seekFromClientX = (clientX: number) => {
+    const track = trackRef.current
+    if (!track) return
+    const rect = track.getBoundingClientRect()
+    if (rect.width === 0) return
+    seekTo(((clientX - rect.left) / rect.width) * totalMs)
+  }
 
   const reset = () => {
     setPlaying(false)
-    setIndex(0)
+    setPosition(0)
   }
 
   const toggle = () => {
-    if (index >= lastIndex) setIndex(0)
+    if (atEnd) {
+      setPosition(0)
+      setPlaying(true)
+      return
+    }
     setPlaying((value) => !value)
   }
 
-  const dots = useMemo(
-    () =>
-      solution.scenes.map((item, dotIndex) => (
-        <button
-          key={`${item.title}-${dotIndex}`}
-          type="button"
-          className={local(
-            dotIndex === index ? 'solution-dot active' : dotIndex < index ? 'solution-dot done' : 'solution-dot',
-          )}
-          aria-label={`Scena ${dotIndex + 1}: ${item.title}`}
-          aria-current={dotIndex === index}
-          onClick={() => {
-            setIndex(dotIndex)
-            setPlaying(false)
-          }}
-        />
-      )),
-    [solution.scenes, index],
-  )
+  const goToScene = (target: number) => {
+    const sceneIndex = Math.max(0, Math.min(lastIndex, target))
+    setPlaying(false)
+    seekTo(timing[sceneIndex]?.start ?? 0)
+  }
 
   return (
     <section className={local('solution-player')} aria-label={`Animowane rozwiązanie: ${solution.title}`}>
@@ -374,7 +560,17 @@ export function SolutionPlayer({ solution }: { solution: CourseSolution }) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35 }}
             >
-              <SceneVisual scene={scene} index={index} />
+              {solution.figure ? (
+                <SolutionFigureView
+                  figure={solution.figure}
+                  scene={scene}
+                  focus={figureFocus}
+                  animationKey={`${index}-${stepIndex}`}
+                  progress={playing ? stepProgress : 1}
+                />
+              ) : (
+                <SceneVisual scene={scene} index={index} />
+              )}
             </motion.div>
           </AnimatePresence>
           <span className={local('solution-scene-count')}>
@@ -392,7 +588,7 @@ export function SolutionPlayer({ solution }: { solution: CourseSolution }) {
             >
               <span className={local('solution-scene-title')}>{scene.title}</span>
               <p>{scene.narration}</p>
-              {scene.formula && <Formula>{scene.formula}</Formula>}
+              {scene.formula && <MathTransform formula={scene.formula} progress={sceneProgress} />}
               <p className={local('solution-caption')}>{scene.caption}</p>
               {scene.emphasis && <p className={local('solution-emphasis')}>{scene.emphasis}</p>}
             </motion.div>
@@ -407,14 +603,20 @@ export function SolutionPlayer({ solution }: { solution: CourseSolution }) {
           <button
             className={local('icon-button')}
             type="button"
-            onClick={() => {
-              setPlaying(false)
-              setIndex((current) => Math.max(0, current - 1))
-            }}
+            onClick={() => goToScene(index - 1)}
             aria-label="Poprzednia scena"
             disabled={index === 0}
           >
             <ChevronLeft size={18} />
+          </button>
+          <button
+            className={local('icon-button')}
+            type="button"
+            onClick={() => seekTo(position - SKIP_MS)}
+            aria-label="Cofnij 5 sekund"
+            disabled={position <= 0}
+          >
+            <Rewind size={16} />
           </button>
           <button className={local('button button-dark button-small')} type="button" onClick={toggle}>
             {playing ? <Pause size={15} /> : <Play size={15} />}
@@ -423,10 +625,16 @@ export function SolutionPlayer({ solution }: { solution: CourseSolution }) {
           <button
             className={local('icon-button')}
             type="button"
-            onClick={() => {
-              setPlaying(false)
-              setIndex((current) => Math.min(lastIndex, current + 1))
-            }}
+            onClick={() => seekTo(position + SKIP_MS)}
+            aria-label="Przewiń 5 sekund"
+            disabled={position >= totalMs}
+          >
+            <FastForward size={16} />
+          </button>
+          <button
+            className={local('icon-button')}
+            type="button"
+            onClick={() => goToScene(index + 1)}
             aria-label="Następna scena"
             disabled={index === lastIndex}
           >
@@ -446,10 +654,67 @@ export function SolutionPlayer({ solution }: { solution: CourseSolution }) {
             ))}
           </div>
         </div>
-        <div className={local('solution-progress')} aria-hidden="true">
-          <span style={{ width: `${progress}%` }} />
+        <div className={local('solution-timeline')}>
+          <span className={local('solution-time')}>{formatTime(position)}</span>
+          <div
+            ref={trackRef}
+            className={local('solution-track', seeking && 'seeking')}
+            role="slider"
+            tabIndex={0}
+            aria-label="Postęp odtwarzania"
+            aria-valuemin={0}
+            aria-valuemax={Math.round(totalMs / 1000)}
+            aria-valuenow={Math.round(position / 1000)}
+            aria-valuetext={`${formatTime(position)} z ${formatTime(totalMs)}`}
+            onPointerDown={(event) => {
+              event.preventDefault()
+              event.currentTarget.focus()
+              event.currentTarget.setPointerCapture(event.pointerId)
+              setSeeking(true)
+              seekFromClientX(event.clientX)
+            }}
+            onPointerMove={(event) => {
+              if (seeking) seekFromClientX(event.clientX)
+            }}
+            onPointerUp={(event) => {
+              if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+                event.currentTarget.releasePointerCapture(event.pointerId)
+              }
+              setSeeking(false)
+            }}
+            onPointerCancel={() => setSeeking(false)}
+            onKeyDown={(event) => {
+              const step = event.shiftKey ? SCENE_MS : SKIP_MS
+              if (event.key === 'ArrowLeft') {
+                event.preventDefault()
+                seekTo(position - step)
+              } else if (event.key === 'ArrowRight') {
+                event.preventDefault()
+                seekTo(position + step)
+              } else if (event.key === 'Home') {
+                event.preventDefault()
+                seekTo(0)
+              } else if (event.key === 'End') {
+                event.preventDefault()
+                seekTo(totalMs)
+              }
+            }}
+          >
+            <span className={local('solution-track-fill')} style={{ width: `${progress}%` }} />
+            {solution.scenes.map((item, sceneIndex) =>
+              sceneIndex === 0 ? null : (
+                <span
+                  key={`tick-${item.title}-${sceneIndex}`}
+                  className={local('solution-track-tick')}
+                  style={{ left: `${(timing[sceneIndex].start / totalMs) * 100}%` }}
+                  title={`Scena ${sceneIndex + 1}: ${item.title}`}
+                />
+              ),
+            )}
+            <span className={local('solution-track-thumb')} style={{ left: `${progress}%` }} />
+          </div>
+          <span className={local('solution-time')}>{formatTime(totalMs)}</span>
         </div>
-        <div className={local('solution-dots')}>{dots}</div>
       </div>
       <div className={local('solution-result')}>
         <strong>Wynik:</strong>

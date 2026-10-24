@@ -7,7 +7,6 @@ shortTitle: Próby materiałowe
 description: >-
   Jak z próbki uzyskać krzywą naprężenie–odkształcenie i dlaczego wynik jest
   niezależny od wielkości próbki w zakresie porównywalnych pomiarów.
-duration: 7
 eyebrow: Poznajemy odpowiedź materiału
 outcomes:
   - W1 — analizuje przebieg siły i naprężeń w próbce osiowo obciążonej
@@ -20,67 +19,291 @@ outcomes:
   - 'U3 — ocenia, czy wynik próby może być podstawą bezpiecznego doboru'
 ---
 
-Siła zależy od wielkości próbki, natomiast naprężenie opisuje obciążenie przypadające na jednostkę pola. Dzięki temu można porównać cienki drut i grubą próbkę wykonane z tego samego materiału.
+Wyobraź sobie, że musisz porównać dwa materiały: cienki drut stalowy i pasek tworzywa. Łatwo zmierzyć, jak bardzo się wydłużają pod działaniem siły, ale sama siła niewiele mówi. Grubszy drut przy tej samej sile wydłuży się mniej, a cieńszy więcej. Aby porównać materiały, a nie dwa konkretne kawałki, trzeba oddzielić własność substancji od wymiarów próbki.
+
+Próba rozciągania robi dokładnie to. Bierze próbkę o znanej długości i przekroju, przykłada osiową siłę i mierzy wydłużenie. Następnie przelicza surowe dane na naprężenie i odkształcenie. Naprężenie mówi, jak mocno obciążony jest materiał na jednostkę pola. Odkształcenie mówi, jak bardzo zmieniła się długość względem długości początkowej. Dopiero te dwie wielkości można nanieść na wspólny wykres dla różnych próbek.
+
+Ten wykres nazywamy krzywą naprężenie–odkształcenie. W początkowej części wielu materiałów jest ona w przybliżeniu prostą. Później pojawia się zakręt, spadek lub gwałtowne pęknięcie, zależnie od materiału. Z kształtu krzywej odczytujemy granicę sprężystości, granicę plastyczności, wytrzymałość i sposób zniszczenia. W tej lekcji skupiamy się na samym sposobie otrzymania krzywej i na tym, co znaczą jej osie.
+
+Po lekcji będziesz umiał policzyć naprężenie i odkształcenie z danych próby, ocenić, czy wynik jest wiarygodny, i wyjaśnić, dlaczego siła nie jest dobrą miarą wytężenia materiału. Zobaczysz też, czym różni się rozciąganie od ściskania i dlaczego ściskanie jest trudniejsze do wykonania w laboratorium.
+
+Próba jest również pierwszym miejscem, w którym spotykasz różnicę między pomiarem a modelem. Maszyna rejestruje siłę i przemieszczenie, ale przemieszczenie uchwytu nie zawsze jest równym wydłużeniem próbki. Uchwyty, maszyna i czujniki też się odkształcają. Do obliczeń potrzebujemy wydłużenia odcinka pomiarowego, dlatego mierzy się je tensometrem, ekstensometrem albo bezpośrednio na próbce. Świadomość tego detalu odróżnia poprawne opracowanie wyniku od naiwnego przepisania wskazania maszyny.
+
+## Zanim zaczniesz
+
+- **Naprężenie i jednostki.** Przypomnij sobie, że naprężenie to siła na jednostkę pola. W układzie SI jednostką jest paskal, a w obliczeniach prętów wygodnie używać $1\ \text{MPa}=1\ \text{N/mm}^2$. Siłę podawaj w niutonach, pole w milimetrach kwadratowych, a wynik od razu otrzymasz w megapaskalach.
+- **Odkształcenie względne.** Odkształcenie to zmiana długości podzielona przez długość początkową. Jest bezwymiarowe, więc nie ma jednostki. Często podaje się je w procentach lub w promilach. $0{,}001$ to $0{,}1\%$, czyli 1‰. Nie myl tej wartości z naprężeniem.
+- **Pole przekroju.** Dla próbki okrągłej o średnicy $d$ pole wynosi $\pi d^2/4$, a dla prostokątnej $b\cdot h$. Używaj wymiarów początkowych, zmierzonych przed obciążeniem. W trakcie próby przekrój może się zmieniać, zwłaszcza po przewężeniu.
+- **Konwencja znaków.** Rozciąganie przyjmujemy jako dodatnie, ściskanie jako ujemne. Dodatnia siła osiowa wydłuża próbkę, ujemna ją skraca. Znak jest umową opisującą kierunek, a nie oceną „dobra” lub „zła”.
+- **Typowe pułapki.** Mieszanie średnicy z promieniem, zapominanie o zamianie kiloniutonów na niutony, dzielenie przez pole aktualne zamiast początkowego oraz porównywanie siły z naprężeniem. Każda z tych pomyłek potrafi zmienić wynik o rząd wielkości.
+- **Pomiar a model.** Wskazanie maszyny obejmuje odkształcenie całego układu, a nie tylko próbki. Do naprężenia i odkształcenia materiału potrzebne są wymiary odcinka pomiarowego oraz siła rzeczywiście przenoszona przez próbkę.
+
+## Model i intuicja
+
+Model próby jest celowo prosty. Próbka ma prostą oś, stały przekrój na długości pomiarowej i jest obciążona siłą działającą wzdłuż tej osi. Mierzymy wydłużenie odcinka pomiarowego, a nie całej maszyny. Zakładamy, że w środkowej części próbki naprężenie jest równomierne. To założenie jest uzasadnione z dala od uchwytów dzięki zasadzie Saint-Venanta.
+
+W rzeczywistości uchwyty zaburzają rozkład naprężeń. Przy szczękach mogą pojawić się naciski, zginanie i koncentracja naprężeń. Dlatego długość pomiarową wyznacza się w środkowej części, a nie przy samych uchwytach. Jeśli próbka jest źle zamocowana, oś siły nie pokrywa się z osią próbki i pojawia się dodatkowe zginanie. Wynik może wtedy wyglądać na bardziej „miękki” lub „słaby” niż materiał w rzeczywistości.
+
+Drugie założenie dotyczy równomierności odkształcenia. Przed przewężeniem wydłużenie jest w przybliżeniu jednakowe na całej długości pomiarowej. Po utworzeniu szyjki odkształcenie koncentruje się w wąskim obszarze. Od tego momentu średnie odkształcenie z całej długości przestaje dobrze opisywać lokalny stan materiału. Inżynierska krzywa nadal jest użyteczna, ale trzeba wiedzieć, że jej końcowa część zależy od geometrii próbki.
+
+W ściskaniu model napotyka dodatkowe trudności. Krótka próbka może się wybrzuszać, a smukła może wyboczyć się na boki, zanim materiał osiągnie granicę plastyczności. Powierzchnie dociskowe wprowadzają tarcie, które ogranicza boczne rozszerzanie i powoduje baryłkowanie. Dlatego ściskanie wymaga prowadnic, starannego centrowania i odpowiedniego stosunku długości do średnicy. Wynik może zależeć od sposobu badania bardziej niż w rozciąganiu.
+
+Model przestaje działać, gdy dominują efekty, których nie uwzględnia: zginanie próbki, wyboczenie, koncentracja naprężeń, duże odkształcenia plastyczne, pełzanie w podwyższonej temperaturze albo anizotropia materiału. W takich przypadkach trzeba użyć bardziej złożonego opisu. Na poziomie podstawowym uczymy się jednak właśnie tego modelu, ponieważ pozwala zrozumieć większość typowych konstrukcji.
+
+Warto rozróżnić sterowanie siłą od sterowania przemieszczeniem. W pierwszym przypadku zadajemy rosnącą siłę i mierzymy odpowiedź próbki. W drugim zadajemy wydłużenie i mierzymy siłę potrzebną do jego uzyskania. Oba podejścia opisują tę samą zależność, ale inaczej zachowują się po osiągnięciu maksimum. Przy sterowaniu siłą próbka po utworzeniu szyjki może gwałtownie się zerwać, ponieważ siła potrzebna do dalszego odkształcenia maleje. Przy sterowaniu przemieszczeniem proces jest zwykle bardziej kontrolowany.
+
+Nie istnieje jedna uniwersalna próba dla wszystkich materiałów. Inaczej przygotowuje się metal, inaczej tworzywo, a inaczej kompozyt. Różne mogą być kształt próbki, prędkość obciążania i sposób pomiaru wydłużenia. Porównywać można tylko wyniki otrzymane w porównywalnych warunkach. Nawet ten sam materiał może dać nieco inną krzywą przy innej prędkości odkształcenia lub temperaturze.
+
+## Laboratorium: co ustawić
+
+W symulacji zmieniaj granicę plastyczności, wytrzymałość i odkształcenie próbki. Obserwuj, kiedy krzywa przechodzi przez $R_e$, kiedy osiąga $R_m$, a następnie co dzieje się po odciążeniu. Zwróć uwagę na różnicę między chwilowym odkształceniem a odkształceniem trwałym, które pozostaje po powrocie siły do zera.
 
 <Lab id="tensileTest" />
 
+## Definicje i jednostki
+
+| Wielkość                      | Symbol          | Jednostka                     | Znaczenie                                                |
+| ----------------------------- | --------------- | ----------------------------- | -------------------------------------------------------- |
+| Siła osiowa                   | $N$             | $\text{N}$ lub $\text{kN}$    | Wypadkowa sił działających wzdłuż osi próbki             |
+| Początkowe pole przekroju     | $A_0$ lub $S_0$ | $\text{mm}^2$                 | Pole zmierzone przed obciążeniem                         |
+| Długość pomiarowa             | $L_0$           | $\text{mm}$                   | Odcinek, na którym mierzymy wydłużenie                   |
+| Zmiana długości               | $\Delta L$      | $\text{mm}$                   | Wydłużenie dodatnie, skrócenie ujemne                    |
+| Naprężenie normalne           | $\sigma$        | $\text{MPa}$                  | Siła osiowa na jednostkę pola początkowego               |
+| Odkształcenie względne        | $\varepsilon$   | bezwymiarowe                  | $\Delta L$ podzielone przez $L_0$                        |
+| Moduł Younga                  | $E$             | $\text{MPa}$ lub $\text{GPa}$ | Nachylenie początkowej części krzywej                    |
+| Granica plastyczności         | $R_e$           | $\text{MPa}$                  | Naprężenie, przy którym pojawia się trwałe odkształcenie |
+| Wytrzymałość na rozciąganie   | $R_m$           | $\text{MPa}$                  | Największe naprężenie inżynierskie w próbie              |
+| Siła na granicy plastyczności | $F_e$           | $\text{N}$                    | Siła odpowiadająca początkowi wyraźnego płynięcia        |
+| Maksymalna siła w próbie      | $F_m$           | $\text{N}$                    | Największa zarejestrowana siła przed zniszczeniem        |
+| Sztywność osiowa próbki       | $k$             | $\text{N/mm}$                 | Stosunek siły do wydłużenia w zakresie liniowym          |
+
+W próbie rozciągania siłę i naprężenie traktujemy jako dodatnie, a skrócenie i ściskanie jako ujemne. Dla próbki ściskanej wygodnie jest czasem podawać wartości bezwzględne i osobno zaznaczyć „ściskanie”. W obliczeniach konstrukcyjnych lepiej zachować spójny znak, ponieważ później ułatwia on sumowanie sił i interpretację wykresów.
+
+Naprężenie inżynierskie obliczamy zawsze względem pola początkowego. Gdy próbka się przewęża, rzeczywiste pole maleje, więc rzeczywiste naprężenie jest większe od inżynierskiego. To rozróżnienie wyjaśnia, dlaczego krzywa inżynierska ma maksimum, choć materiał może nadal się umacniać. W podstawowych obliczeniach konstrukcyjnych zwykle pozostajemy przy naprężeniu inżynierskim, ponieważ odnosimy się do wymiarów elementu przed obciążeniem.
+
+W tabeli pojawiają się dwa oznaczenia pola: $A_0$ i $S_0$. Oba oznaczają pole początkowe. Pierwsze jest wygodne w mechanice ogólnej, drugie często stosuje się w badaniach materiałów i w literaturze dotyczącej prób. W tym kursie nie przypisujemy im różnych znaczeń; wybór zależy od kontekstu i od oznaczeń w danym zadaniu.
+
+Podobnie odkształcenie inżynierskie odnosi zmianę długości do długości początkowej. Przy dużych odkształceniach wygodniejsze bywa odkształcenie rzeczywiste, obliczane jako logarytm stosunku długości aktualnej do początkowej. W tym kursie, dopóki nie powiemy inaczej, używamy odkształcenia inżynierskiego. Dzięki temu wzory są liniowe i łatwe do zastosowania w konstrukcjach pracujących w zakresie sprężystym.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma = \frac{N}{A}, \qquad \varepsilon = \frac{\Delta L}{L_0}
+\sigma=\frac{N}{A_0}, \qquad \varepsilon=\frac{\Delta L}{L_0}, \qquad E=\frac{\sigma}{\varepsilon}
 $$
 
-<Caption>σ to naprężenie normalne, N — siła osiowa, A — pole przekroju, ε — odkształcenie względne, a L₀ — początkowa długość pomiarowa. Przy ściskaniu przyjmujemy zwykle ujemne N i ΔL.</Caption>
+<Caption>Pierwsze dwa wzory są definicjami inżynierskimi i nie wymagają liniowej sprężystości. Trzeci wzór jest prawem Hooke’a i obowiązuje tylko w zakresie, w którym zależność naprężenia od odkształcenia jest liniowa. A0 i L0 oznaczają wymiary początkowe.</Caption>
 </Formula>
 
+Wyprowadzenie zaczynamy od równowagi próbki. W przekroju poprzecznym siła zewnętrzna jest przenoszona przez materiał. Zakładamy, że naprężenie normalne jest równomierne na całym przekroju. Wtedy wypadkowa naprężeń musi zrównoważyć siłę zewnętrzną.
+
+1. Oznaczmy siłę osiową przez $N$, a początkowe pole przekroju przez $A_0$. Jednostki zamieniamy tak, aby siła była w niutonach, a pole w milimetrach kwadratowych.
+2. Z równowagi odciętej części próbki otrzymujemy, że siła wewnętrzna w przekroju ma wartość $N$. Jej zwrot zależy od tego, którą część próbki rozważamy, ale wartość bezwzględna jest taka sama.
+3. Przy równomiernym rozkładzie naprężenia suma naprężeń po przekroju daje iloczyn $\sigma A_0$. Porównanie z siłą wewnętrzną daje $\sigma A_0=N$.
+4. Dzielimy obie strony przez $A_0$ i otrzymujemy definicję naprężenia inżynierskiego: $\sigma=N/A_0$.
+5. Mierzymy zmianę długości odcinka pomiarowego $\Delta L$. Dzieląc ją przez długość początkową, otrzymujemy odkształcenie względne $\varepsilon=\Delta L/L_0$.
+6. W zakresie liniowo sprężystym wykres $\sigma$ od $\varepsilon$ jest prostą przechodzącą przez początek układu. Jej nachylenie nazywamy modułem Younga: $E=\sigma/\varepsilon$.
+7. Łącząc definicje z prawem Hooke’a, dostajemy $\Delta L=\varepsilon L_0=\sigma L_0/E=N L_0/(E A_0)$.
+8. Stąd sztywność próbki w kierunku osiowym wynosi $k=N/\Delta L=E A_0/L_0$. Zależy ona nie tylko od materiału, ale także od długości i przekroju.
+9. Ostatni krok to kontrola zakresu. Jeżeli naprężenie przekracza granicę proporcjonalności, $E$ przestaje być stałe, a wzór na $\Delta L$ przestaje obowiązywać w prostej postaci.
+
 <Insight>
-  Naprężenie mówi, jak mocno obciążony jest materiał, a odkształcenie — jak bardzo próbka wydłużyła się w stosunku do
-  długości początkowej. To dwa różne opisy i nie wolno ich ze sobą mieszać.
+  Naprężenie opisuje intensywność obciążenia materiału, a odkształcenie — jego odpowiedź. Sama siła nie wystarcza, bo ta
+  sama siła w cieńszym przekroju daje większe naprężenie. Z kolei to samo naprężenie w różnych materiałach daje różne
+  odkształcenie, zależnie od modułu Younga.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Okrągłą próbkę o średnicy d = 10 mm rozciągano siłą N = 15,7 kN. Długość pomiarowa L₀ = 100 mm wzrosła o 0,1 mm.
+    Okrągłą próbkę o średnicy $d=10\ \text{mm}$ rozciągano siłą $N=15{,}7\ \text{kN}$. Długość pomiarowa $L_0=100\ \text{mm}$ wzrosła o $\Delta L=0{,}1\ \text{mm}$.
   </Given>
   <Steps>
-    <Step>Pole przekroju: A = πd²/4 = π·10²/4 = 78,54 mm².</Step>
-    <Step>Siła N = 15,7 kN = 15 700 N, więc σ = 15 700/78,54 ≈ 200 N/mm² = 200 MPa.</Step>
-    <Step>Odkształcenie: ε = ΔL/L₀ = 0,1/100 = 0,001.</Step>
-    <Step>Wynik procentowy to 0,001·100% = 0,1%; jest to wydłużenie względne, a nie naprężenie.</Step>
+    <Step>Pole przekroju: $A_0=\pi d^2/4=\pi\cdot 10^2/4=78{,}54\ \text{mm}^2$.</Step>
+    <Step>Siła w niutonach: $N=15{,}7\ \text{kN}=15\,700\ \text{N}$.</Step>
+    <Step>Naprężenie: $\sigma=15\,700/78{,}54\approx 199{,}9\ \text{MPa}$, czyli około $200\ \text{MPa}$.</Step>
+    <Step>Odkształcenie: $\varepsilon=0{,}1/100=0{,}001$, czyli $0{,}1\%$.</Step>
+    <Step>Moduł: $E=\sigma/\varepsilon=200/0{,}001=200\,000\ \text{MPa}=200\ \text{GPa}$, co jest typowe dla stali.</Step>
+    <Step>Sztywność próbki: $k=EA_0/L_0=200\,000\cdot 78{,}54/100\approx 157\,080\ \text{N/mm}$, czyli około $157\ \text{MN/m}$.</Step>
+    <Step>Kontrola: $k\Delta L=157\,080\cdot 0{,}1=15\,708\ \text{N}$, zgodnie z przyjętą siłą w granicach zaokrągleń.</Step>
   </Steps>
-  <Result>W próbce działa naprężenie około 200 MPa, a jej odkształcenie względne wynosi 0,001, czyli 0,1%.</Result>
+  <Result>
+    W próbce działa naprężenie około $200\ \text{MPa}$, odkształcenie względne wynosi $0{,}001$, a moduł Younga około $200\ \text{GPa}$. Wynik jest spójny z typową stalą i pozostaje w zakresie sprężystym, jeśli granica plastyczności jest wyższa od $200\ \text{MPa}$.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy płaską próbkę stalową o szerokości $b=12{,}5\ \text{mm}$ i grubości $t=4\ \text{mm}$. Pole przekroju wynosi $A_0=50\ \text{mm}^2$, długość pomiarowa $L_0=50\ \text{mm}$, a siła rozciągająca $N=10\ \text{kN}$. Naprężenie obliczamy jako
+
+$$
+\sigma=\frac{10\,000}{50}=200\ \text{MPa}.
+$$
+
+Przy module $E=200\ \text{GPa}$ odkształcenie wynosi $\varepsilon=200/200\,000=0{,}001$, a wydłużenie
+
+$$
+\Delta L=\varepsilon L_0=0{,}001\cdot 50=0{,}05\ \text{mm}.
+$$
+
+Gdyby ta sama siła działała na próbkę o polu $25\ \text{mm}^2$, naprężenie wzrosłoby do $400\ \text{MPa}$. To już przekracza typową granicę plastyczności stali konstrukcyjnej, więc nie wolno by było twierdzić, że odkształcenie nadal wynosi $400/200\,000=0{,}002$. Prawo Hooke’a przestałoby obowiązywać, a rzeczywiste wydłużenie byłoby większe i częściowo trwałe.
+
+Ten przykład pokazuje, dlaczego w zadaniach trzeba sprawdzać nie tylko wynik arytmetyczny, ale także zakres modelu. Liczba $400\ \text{MPa}$ jest poprawnym naprężeniem nominalnym, ale błędem byłoby użycie jej do liniowego wzoru na wydłużenie bez sprawdzenia granicy materiału.
+
+Zauważ, że druga próbka ma identyczną długość pomiarową, więc różnica wydłużenia wynika wyłącznie z różnicy naprężenia. Gdyby dodatkowo zmienić długość, do porównania trzeba by użyć odkształcenia względnego, a nie samego wydłużenia. To właśnie dlatego krzywa materiału jest rysowana w układzie $\sigma$–$\varepsilon$, a nie siła–wydłużenie.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że tensometr na stalowym pręcie o polu $A=40\ \text{mm}^2$ wskazał odkształcenie $\varepsilon=800\cdot 10^{-6}$. Moduł Younga stali przyjmujemy $E=200\ \text{GPa}$. Szukamy siły osiowej i wydłużenia na bazie pomiarowej $L_0=80\ \text{mm}$.
+
+Najpierw wyznaczamy naprężenie z prawa Hooke’a:
+
+$$
+\sigma=E\varepsilon=200\,000\cdot 800\cdot 10^{-6}=160\ \text{MPa}.
+$$
+
+Następnie przekształcamy definicję naprężenia:
+
+$$
+N=\sigma A=160\cdot 40=6400\ \text{N}=6{,}4\ \text{kN}.
+$$
+
+Wydłużenie wynosi
+
+$$
+\Delta L=\varepsilon L_0=800\cdot 10^{-6}\cdot 80=0{,}064\ \text{mm}.
+$$
+
+Sprawdzenie: $N L_0/(E A)=6400\cdot 80/(200\,000\cdot 40)=0{,}064\ \text{mm}$. Wynik jest spójny. Naprężenie $160\ \text{MPa}$ jest mniejsze od typowej granicy plastyczności stali $235\ \text{MPa}$, więc zastosowanie liniowego prawa Hooke’a jest uzasadnione. Gdyby tensometr wskazał $2000\cdot 10^{-6}$, otrzymalibyśmy $400\ \text{MPa}$ i musielibyśmy sprawdzić, czy materiał nie wszedł w zakres plastyczny.
+
+W praktyce tensometry mają niepewność pomiaru i mogą być przyklejone pod niewielkim kątem. Dlatego wynik zaokrągla się do liczby cyfr uzasadnionych dokładnością aparatury. W zadaniach szkolnych zwykle wystarczą trzy cyfry znaczące, ale w obliczeniach pośrednich warto zachować więcej, aby błąd zaokrąglenia nie urósł na końcu.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dzielenie siły przez pole aktualne, zmierzone po odkształceniu, i nazywanie wyniku naprężeniem inżynierskim. Definicja używa pola początkowego.
+- Mylenie średnicy z promieniem przy obliczaniu pola próbki okrągłej. Średnica $10\ \text{mm}$ daje pole około $78{,}5\ \text{mm}^2$, a nie $314\ \text{mm}^2$.
+- Podstawianie siły w kiloniutonach bez przeliczenia na niutony, gdy pole jest w milimetrach kwadratowych. Wynik wychodzi wtedy tysiąc razy za mały.
+- Mieszanie odkształcenia względnego z wydłużeniem. $0{,}001$ to nie $0{,}001\ \text{mm}$, lecz $0{,}1\%$ długości początkowej.
+- Używanie modułu Younga po przekroczeniu granicy plastyczności. Nachylenie krzywej zmienia się, a odkształcenie pozostaje po odciążeniu.
+- Pomijanie zginania próbki wskutek złego zamocowania. Pozorne wydłużenie może wtedy zawierać ruch związany z obrotem uchwytów.
+- Porównywanie wyników próbek o różnych długościach pomiarowych bez sprawdzenia, czy przewężenie nie zdominowało końcowego odkształcenia.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal, co jest dane.** Zapisz siłę, wymiary próbki, długość pomiarową i zmianę długości. Sprawdź, czy podano średnicę, czy promień, oraz czy długość jest w milimetrach, czy w metrach.
+2. **Oblicz pole początkowe.** Dla przekroju kołowego użyj $\pi d^2/4$, dla prostokątnego $b\cdot h$, a dla innych kształtów danych w zadaniu — gotowej wartości. Nie zaokrąglaj zbyt wcześnie.
+3. **Zamień jednostki.** Najwygodniej pracować w niutonach i milimetrach. Wtedy naprężenie wychodzi w $\text{MPa}$, a wydłużenie w milimetrach.
+4. **Oblicz naprężenie.** Podziel siłę przez pole początkowe. Ustal znak: rozciąganie dodatnie, ściskanie ujemne.
+5. **Oblicz odkształcenie.** Podziel zmianę długości przez długość początkową. Jeśli znasz naprężenie i moduł, użyj $\varepsilon=\sigma/E$ tylko po sprawdzeniu zakresu sprężystego.
+6. **Sprawdź sens i zakres.** Porównaj naprężenie z typową granicą materiału. Sprawdź, czy wydłużenie jest małe względem długości. Jeśli nie, model liniowy może nie wystarczać.
+7. **Zapisz wynik z jednostką i komentarzem.** Samo „200” nic nie znaczy. Podaj $\text{MPa}$, $\text{mm}$ lub wartość bezwymiarową i powiedz, czy to naprężenie, odkształcenie, czy wydłużenie.
+8. **Sprawdź, czy nie policzyłeś czegoś innego.** Naprężenie, odkształcenie, wydłużenie i sztywność mają różne jednostki. Jeśli jednostka nie pasuje do pytania, wróć do definicji.
+
+## Połącz z resztą kursu
+
+- **Naprężenie normalne: siła na przekroju** pokazuje to samo $\sigma=N/A$, ale bez kontekstu próby. Tutaj dowiadujesz się, skąd bierze się założenie równomiernego rozkładu i kiedy ono zawodzi.
+- **Prawo Hooke’a: proporcjonalne odkształcenie** rozwija zależność $\sigma=E\varepsilon$ jako model materiału, a nie tylko wynik jednego pomiaru.
+- **Wydłużenia i skrócenia prętów** wykorzystują wyprowadzoną tutaj sztywność $EA/L$ do obliczania przemieszczeń całych elementów.
+- **Re, Rm, sprężystość i plastyczność** pokazuje, jak z krzywej próby odczytać granice i odróżnić odkształcenie trwałe od znikającego.
+- **Koło Mohra: narysuj je krok po kroku** potrzebuje poprawnego znaku naprężenia osiowego i wiedzy, że w próbie rozciągania mamy stan jednoosiowy, a nie dowolny stan płaski.
+- **Temperatura: swoboda i zablokowanie** pokazuje, że odkształcenie może mieć także pochodzenie termiczne. W próbie rozciągania zakładamy, że temperatura jest stała; w rzeczywistym elemencie może być inaczej.
+
+## Sprawdź się
+
+Odpowiedz bez zaglądania do wzorów, a potem sprawdź rachunki. Pytania mieszają definicje, interpretację i proste przeliczenia.
 
 <Quiz>
   <Question outcome="U1">
     <Prompt>
-      Dwie próbki z tej samej stali mają długość L₀, ale druga ma czterokrotnie większe pole przekroju. Przy tej samej
-      sile rozciągającej naprężenie w drugiej próbce wynosi:
+      Dwie próbki z tego samego materiału mają taką samą długość pomiarową, ale druga ma czterokrotnie większe pole przekroju. Przy tej samej sile rozciągającej naprężenie w drugiej próbce jest:
     </Prompt>
-    <Answer>cztery razy więcej</Answer>
-    <Answer>tyle samo</Answer>
-    <Answer correct>jedną czwartą</Answer>
-    <Hint>Porównaj iloraz siły i pola, a nie same siły.</Hint>
+    <Answer>cztery razy większe</Answer>
+    <Answer>takie samo</Answer>
+    <Answer correct>cztery razy mniejsze</Answer>
+    <Hint>Naprężenie to iloraz siły i pola. Porównaj mianowniki przy niezmienionym liczniku.</Hint>
     <Explanation>
-      Naprężenie σ = N/A. Czterokrotny wzrost A przy niezmienionym N zmniejsza naprężenie do N/(4A) = σ/4.
+      $\sigma=N/A$. Czterokrotny wzrost pola przy tej samej sile daje $N/(4A)=\sigma/4$. Siła jest taka sama, ale rozkłada się na większej powierzchni.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Próbka długości 200 mm wydłużyła się o 0,4 mm. Jej odkształcenie względne jest równe:</Prompt>
-    <Answer correct>0,002</Answer>
-    <Answer>0,005</Answer>
-    <Answer>0,02</Answer>
-    <Hint>Podziel przyrost długości przez długość początkową, używając tych samych jednostek.</Hint>
-    <Explanation>ε = ΔL/L₀ = 0,4/200 = 0,002, czyli 0,2%. Odkształcenie jest wielkością bezwymiarową.</Explanation>
+    <Prompt>Próbka o długości początkowej $200\ \text{mm}$ wydłużyła się o $0{,}4\ \text{mm}$. Jej odkształcenie względne wynosi:</Prompt>
+    <Answer correct>$0{,}002$</Answer>
+    <Answer>$0{,}005$</Answer>
+    <Answer>$0{,}02$</Answer>
+    <Hint>Podziel zmianę długości przez długość początkową, używając tych samych jednostek.</Hint>
+    <Explanation>
+      $\varepsilon=\Delta L/L_0=0{,}4/200=0{,}002$, czyli $0{,}2\%$. Odkształcenie jest bezwymiarowe; nie dopisujemy do niego milimetrów.
+    </Explanation>
   </Question>
   <Question outcome="W2">
-    <Prompt>Dlaczego przy osiowym ściskaniu krótkiej próbki siłę i skrócenie zwykle opisujemy znakami ujemnymi?</Prompt>
-    <Answer correct>Bo znak wskazuje zwrot działania względem przyjętego rozciągania</Answer>
+    <Prompt>Dlaczego przy osiowym ściskaniu krótkiej próbki siłę i skrócenie opisujemy zwykle znakami ujemnymi?</Prompt>
+    <Answer correct>Bo znak wskazuje zwrot przeciwny do przyjętego rozciągania</Answer>
     <Answer>Bo pole przekroju staje się ujemne</Answer>
-    <Answer>Bo naprężenie zawsze musi być dodatnie</Answer>
-    <Hint>Znak opisuje kierunek, a nie „ujemną jakość” materiału.</Hint>
+    <Answer>Bo naprężenie w ściskaniu zawsze musi być dodatnie</Answer>
+    <Hint>Znak opisuje kierunek działania i zmianę długości, a nie „ujemną jakość” materiału.</Hint>
     <Explanation>
-      Znak jest umową opisującą kierunek: ściskanie działa przeciwnie do rozciągania i zmniejsza długość. Moduł
-      sprężystości oraz pole przekroju pozostają dodatnie.
+      Przyjmujemy rozciąganie za dodatnie. Ściskanie działa przeciwnie i skraca próbkę, więc siła osiowa oraz zmiana długości są ujemne. Moduł Younga i pole pozostają dodatnie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Do obliczenia naprężenia inżynierskiego z siły zmierzonej w próbie potrzebne jest przede wszystkim:</Prompt>
+    <Answer>aktualne pole w miejscu przewężenia</Answer>
+    <Answer correct>początkowe pole przekroju pomiarowego</Answer>
+    <Answer>długość całej maszyny wytrzymałościowej</Answer>
+    <Hint>Definicja naprężenia inżynierskiego odwołuje się do wymiarów sprzed obciążenia.</Hint>
+    <Explanation>
+      Naprężenie inżynierskie to $N/A_0$. Aktualne pole zmienia się w trakcie próby, szczególnie po przewężeniu, i służy do obliczania naprężenia rzeczywistego, a nie inżynierskiego.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dwie próbki z tej samej stali mają różne długości pomiarowe i różne pola, ale są obciążone tym samym naprężeniem w zakresie sprężystym. Co można powiedzieć o ich odkształceniach?</Prompt>
+    <Answer>Odkształcenia są różne, bo różne są wymiary próbek</Answer>
+    <Answer correct>Odkształcenia są takie same, bo zależą od naprężenia i materiału</Answer>
+    <Answer>Odkształcenia są zawsze równe zeru</Answer>
+    <Hint>W zakresie liniowym $\varepsilon=\sigma/E$; sprawdź, czy wymiary próbki występują w tym wzorze.</Hint>
+    <Explanation>
+      Przy tym samym naprężeniu i tym samym module Younga odkształcenie względne jest takie samo. Różne będą natomiast wydłużenia bezwzględne, bo zależą od długości początkowej.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Pojedynczy pomiar siły i wydłużenia w zakresie sprężystym pozwala wyznaczyć moduł Younga. Czego jeszcze potrzebujesz, aby ocenić bezpieczeństwo elementu przy większym obciążeniu?</Prompt>
+    <Answer>Wystarczy sam moduł Younga, bo on określa wytrzymałość</Answer>
+    <Answer correct>Granicy materiału, na przykład granicy plastyczności, oraz współczynnika bezpieczeństwa</Answer>
+    <Answer>Tylko długości początkowej próbki</Answer>
+    <Hint>Moduł mówi o sztywności, a nie o tym, przy jakim naprężeniu materiał się odkształca trwale.</Hint>
+    <Explanation>
+      Moduł Younga opisuje nachylenie krzywej w zakresie sprężystym, ale nie mówi, gdzie kończy się ten zakres. Do oceny bezpieczeństwa potrzebna jest granica materiału i przyjęty zapas.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Próbka o średnicy $20\ \text{mm}$ jest rozciągana siłą $31{,}4\ \text{kN}$. Jakie jest w przybliżeniu naprężenie?</Prompt>
+    <Answer>$10\ \text{MPa}$</Answer>
+    <Answer correct>$100\ \text{MPa}$</Answer>
+    <Answer>$1000\ \text{MPa}$</Answer>
+    <Hint>Pole wynosi około $314\ \text{mm}^2$. Podziel $31\,400\ \text{N}$ przez to pole.</Hint>
+    <Explanation>
+      $A_0=\pi\cdot 20^2/4\approx 314{,}16\ \text{mm}^2$, a $N=31\,400\ \text{N}$. Stąd $\sigma=31\,400/314{,}16\approx 100\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      W próbie rozciągania naprężenie osiowe wynosi $200\ \text{MPa}$, a pozostałe naprężenia normalne są zerowe. Jakie jest maksymalne naprężenie styczne w tym stanie, potrzebne do narysowania koła Mohra?
+    </Prompt>
+    <Answer>$200\ \text{MPa}$</Answer>
+    <Answer correct>$100\ \text{MPa}$</Answer>
+    <Answer>$50\ \text{MPa}$</Answer>
+    <Hint>W jednoosiowym rozciąganiu promień koła Mohra jest połową naprężenia normalnego.</Hint>
+    <Explanation>
+      Dla stanu jednoosiowego $\sigma_1=200\ \text{MPa}$, $\sigma_2=0$, więc promień i maksymalne ścinanie wynoszą $(\sigma_1-\sigma_2)/2=100\ \text{MPa}$. Ścinanie działa na płaszczyźnie odchylonej o $45^\circ$ od osi rozciągania.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z rozciągania i ściskania oraz przeliczania wyników prób; szukaj przykładów z próbką okrągłą i płaską.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o rozciąganiu jednoosiowym i interpretacji próby; zwróć uwagę na definicje naprężenia i odkształcenia inżynierskiego.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik; rozdział o krzywych naprężenie–odkształcenie wyjaśnia różnicę między naprężeniem inżynierskim i rzeczywistym oraz rolę przewężenia.
+- MIT 3.11 _Mechanics of Materials_, notatki o metodach doświadczalnych i uplastycznieniu — pokazują, jak mierzy się odkształcenia tensometrami i dlaczego stan jednoosiowy jest punktem wyjścia do analizy bardziej złożonych przypadków.
+- R. C. Hibbeler, _Mechanics of Materials_, rozdział o rozciąganiu i ściskaniu — dodatkowe przykłady interpretacji krzywej oraz wpływu sposobu zamocowania próbki na wynik.

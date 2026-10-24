@@ -17,11 +17,13 @@ export function LessonView({
   lesson,
   onHome,
   onLesson,
+  onModule,
   onTool,
 }: {
   lesson: CourseLesson
   onHome: () => void
   onLesson: (id: LessonId) => void
+  onModule: (id: string) => void
   onTool: (view: View) => void
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -68,9 +70,9 @@ export function LessonView({
           <nav className={l('sidebar-nav')} aria-label="Lekcje kursu">
             {modules.map((moduleEntry) => (
               <div key={moduleEntry.id} className={l('sidebar-module')}>
-                <span className={l('sidebar-module-title')}>
+                <button className={l('sidebar-module-title')} onClick={() => onModule(moduleEntry.id)}>
                   {String(moduleEntry.number).padStart(2, '0')} · {moduleEntry.shortTitle}
-                </span>
+                </button>
                 {moduleEntry.lessons.map((item) => (
                   <button
                     key={item.id}
@@ -85,7 +87,7 @@ export function LessonView({
                     </span>
                     <span>
                       {item.shortTitle}
-                      <small>{item.duration} min</small>
+                      <small>{item.totalMinutes} min</small>
                     </span>
                   </button>
                 ))}
@@ -102,9 +104,9 @@ export function LessonView({
           <div className={l('lesson-breadcrumb')}>
             <button onClick={onHome}>Kurs</button>
             <ChevronRight size={14} />
-            <span>
+            <button onClick={() => onModule(module.id)}>
               Moduł {module.number}: {module.shortTitle}
-            </span>
+            </button>
             <ChevronRight size={14} />
             <span>Lekcja {lesson.number}</span>
           </div>
@@ -112,9 +114,17 @@ export function LessonView({
             <span className={l('section-kicker')}>{lesson.eyebrow.toUpperCase()}</span>
             <h1>{lesson.title}</h1>
             <p>{lesson.description}</p>
-            <span className={l('lesson-time')}>
-              <BookOpen size={15} /> około {lesson.duration} min · eksperyment + quiz
-              {solution ? ' + animowane rozwiązanie' : ''}
+            <span
+              className={l('lesson-time')}
+              title={`Wzory w linii: ${lesson.inlineMath} · blokowe: ${lesson.displayMath} · ${lesson.totalMinutes} min razem`}
+            >
+              <BookOpen size={15} />
+              {lesson.readingMinutes} min czytania
+              {lesson.experiments > 0
+                ? ` · ${lesson.experiments} ${experimentsLabel(lesson.experiments)} (~${lesson.experimentMinutes} min)`
+                : ''}
+              {` · ${lesson.words.toLocaleString('pl-PL')} słów`}
+              {solution ? ' · animowane rozwiązanie' : ''}
             </span>
           </div>
           <LessonBody lesson={lesson} />
@@ -144,4 +154,12 @@ export function LessonView({
       </div>
     </div>
   )
+}
+
+function experimentsLabel(count: number): string {
+  if (count === 1) return 'eksperyment'
+  const last = count % 10
+  const lastTwo = count % 100
+  if (last >= 2 && last <= 4 && (lastTwo < 12 || lastTwo > 14)) return 'eksperymenty'
+  return 'eksperymentów'
 }

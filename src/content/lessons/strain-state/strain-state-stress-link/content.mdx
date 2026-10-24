@@ -7,7 +7,6 @@ shortTitle: Powiązanie stanów
 description: >-
   Przelicz odkształcenia główne na naprężenia, połącz oba koła Mohra i
   uwzględnij wytrzymałość oraz sztywność.
-duration: 10
 eyebrow: Pełna droga projektowa
 outcomes:
   - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
@@ -26,84 +25,296 @@ outcomes:
     oraz sztywność
 ---
 
-Tensometr nie mierzy bezpośrednio naprężenia. Najpierw daje odkształcenia, potem prawo materiału pozwala wyznaczyć naprężenia. Dopiero te wyniki porównujemy z wytrzymałością, a same odkształcenia i przemieszczenia — z wymaganiami sztywności.
+Tensometr nie mierzy naprężenia. Mierzy odkształcenie, czyli geometryczną odpowiedź materiału. To rozróżnienie jest fundamentalne: dwa elementy o tym samym odkształceniu mogą mieć zupełnie różne naprężenia, jeśli wykonano je z różnych materiałów. Dopiero prawo materiału — uogólnione prawo Hooke’a — pozwala przejść od zmierzonego odkształcenia do naprężenia.
+
+W poprzednich lekcjach nauczyłeś się mierzyć odkształcenie jednym czujnikiem i składać trzy odczyty w pełny płaski stan. Teraz robisz krok, który zamyka pętlę projektową: z odkształceń głównych obliczasz naprężenia główne, porównujesz je z wytrzymałością materiału i sprawdzasz, czy element ma wymagany zapas. Na końcu nie wystarczy powiedzieć „nie przekroczyło granicy plastyczności” — trzeba jeszcze sprawdzić sztywność i warunki użytkowania.
+
+Ten tok rozumowania jest codziennością w przemyśle lotniczym, energetyce i motoryzacji. W trakcie prób zmęczeniowych samolotu setki tensometrów mierzą odkształcenia, a zespół analityków przelicza je na naprężenia i porównuje z dopuszczalnymi. W energetyce podobnie bada się rurociągi i zbiorniki. Bez poprawnego przejścia od pomiaru do naprężenia cała aparatura byłaby tylko zbiorem liczb.
+
+Po tej lekcji będziesz umiał odwrócić płaskie prawo Hooke’a, obliczyć naprężenia główne i równoważne, zastosować hipotezę HMH lub Tresca, wyznaczyć współczynnik bezpieczeństwa oraz odróżnić warunek wytrzymałości od warunku sztywności. Zobaczysz też, dlaczego założenie płaskiego stanu naprężenia jest wygodne, ale nie zawsze prawdziwe.
+
+Wyobraź sobie, że projektujesz wspornik rowerowy. Wystarczy, że wytrzyma siłę — czy też musi się nie uginać zbyt mocno? To dwa różne pytania. Naprężenie odpowiada na pierwsze, odkształcenie i przemieszczenie na drugie. W tej lekcji uczysz się łączyć oba, zamiast zadowalać się jednym z nich.
+
+## Zanim zaczniesz
+
+- Znasz uogólnione prawo Hooke’a dla materiału izotropowego i potrafisz zapisać $\varepsilon_x$, $\varepsilon_y$ oraz $\gamma_{xy}$ przez naprężenia.
+- Umiesz obliczać naprężenia główne z $\sigma_x$, $\sigma_y$ i $\tau_{xy}$ oraz wyznaczać kierunek główny.
+- Pamiętasz, że w płaskim stanie naprężenia $\sigma_z=0$, a odkształcenie $\varepsilon_z$ nie musi być zerowe.
+- Rozróżniasz granicę plastyczności $R_e$ od wytrzymałości na rozciąganie $R_m$; w projektowaniu sprężystym zwykle porównujesz naprężenie z $R_e$.
+- Znasz pojęcie współczynnika bezpieczeństwa $n$ i wiesz, że wymagana wartość zależy od normy, konsekwencji awarii i niepewności danych.
+- Pamiętasz, że $1\,\text{GPa}=1000\,\text{MPa}$ i że odkształcenia są bezwymiarowe.
+
+## Model i intuicja
+
+Model zaczyna się od założenia o stanie naprężenia na powierzchni. Na swobodnej powierzchni nie działa siła normalna do niej, więc naprężenie normalne w kierunku grubości jest zerowe. To daje płaski stan naprężenia: $\sigma_z=0$, $\tau_{xz}=0$ i $\tau_{yz}=0$. W płaszczyźnie powierzchni mogą jednak działać $\sigma_x$, $\sigma_y$ i $\tau_{xy}$. Rozeta mierzy odkształcenia w tej płaszczyźnie, a prawo Hooke’a wiąże je z naprężeniami w tej samej płaszczyźnie.
+
+Drugie założenie dotyczy materiału: jest izotropowy, liniowo-sprężysty i podlega małym odkształceniom. Izotropowość oznacza, że kierunki główne naprężeń i odkształceń pokrywają się. To bardzo wygodne, bo nie trzeba osobno szukać kierunku naprężeń, jeśli znamy kierunki odkształceń. Liniowość pozwala odwrócić prawo Hooke’a, a małe odkształcenia pozwalają zaniedbać wyrazy wyższego rzędu.
+
+Trzecie założenie dotyczy kierunku: rozeta daje odkształcenia w układzie osi czujników. Jeśli osie te nie pokrywają się z kierunkami głównymi, trzeba najpierw wykonać transformację. W praktyce najprościej jest obliczyć odkształcenia główne i ich kąt, a potem potraktować te kierunki jako lokalny układ główny. W tym układzie nie ma ścinania, więc prawo Hooke’a upraszcza się do dwóch równań.
+
+Czwarte założenie dotyczy wytrzymałości. Dla materiałów ciągliwych nie porównuje się pojedynczej składowej naprężenia z granicą plastyczności, bo stan wieloosiowy może być bardziej wytężony niż wynika to z największej składowej. Potrzebna jest miara równoważna: naprężenie HMH albo Tresca. Wybór hipotezy zależy od materiału i wymagań, a nie od wygody rachunku.
+
+Piąte założenie dotyczy odróżnienia wytrzymałości od sztywności. Element może mieć duży zapas względem $R_e$, a mimo to uginać się zbyt mocno lub odkształcać w sposób niedopuszczalny dla łożysk, uszczelnień i przekładni. Warunek wytrzymałości i warunek sztywności sprawdza się osobno. To właśnie dlatego w projektowaniu nie wystarczy jedno „sigma”.
+
+### Kiedy model przestaje działać
+
+- Element jest gruby i wnętrze jest bliższe płaskiemu stanowi odkształcenia niż naprężenia.
+- Występują naprężenia własne po obróbce, spawaniu lub montażu, których nie zna pomiar zewnętrzny.
+- Materiał jest anizotropowy, na przykład kompozyt lub drewno.
+- Odkształcenia przekraczają zakres liniowy i materiał płynie plastycznie.
+- Występuje pełzanie, relaksacja lub zmęczenie, więc odpowiedź zależy od czasu i historii.
+- Temperatura zmienia moduły sprężystości i wprowadza odkształcenia termiczne.
+- Koncentracja naprężeń działa na bardzo małej powierzchni, mniejszej niż baza czujnika.
+
+## Laboratorium: co ustawić
+
+W laboratorium badamy włókno $A$ na obwodzie pełnego pręta obciążonego jednocześnie siłą osiową, momentem gnącym i momentem skręcającym. Zmieniaj $N$, $M$, $T$ i $R_e$, a następnie porównaj naprężenia HMH oraz Tresca z granicą plastyczności i ich współczynniki bezpieczeństwa.
 
 <Lab id="combined" />
 
+## Definicje i jednostki
+
+| Wielkość                      | Symbol                        | Znaczenie                                          | Jednostka    | Uwaga                                         |
+| ----------------------------- | ----------------------------- | -------------------------------------------------- | ------------ | --------------------------------------------- |
+| Naprężenie normalne           | $\sigma_x,\sigma_y$           | siła normalna do przekroju na jednostkę pola       | MPa          | dodatnie przy rozciąganiu                     |
+| Naprężenie styczne            | $\tau_{xy}$                   | siła styczna do przekroju na jednostkę pola        | MPa          | wywołuje ścinanie                             |
+| Naprężenia główne             | $\sigma_1,\sigma_2$           | ekstremalne naprężenia normalne w płaszczyźnie     | MPa          | $\sigma_1\ge\sigma_2$                         |
+| Trzecie naprężenie główne     | $\sigma_3$                    | naprężenie normalne do powierzchni                 | MPa          | w płaskim stanie naprężenia równe zero        |
+| Maksymalne naprężenie styczne | $\tau_{max}$                  | połowa różnicy skrajnych naprężeń głównych         | MPa          | zależy od znaków $\sigma_1,\sigma_2,\sigma_3$ |
+| Naprężenie równoważne         | $\sigma_{red}$                | miara wytężenia dla stanu wieloosiowego            | MPa          | HMH lub Tresca                                |
+| Granica plastyczności         | $R_e$                         | naprężenie, przy którym zaczyna się płynięcie      | MPa          | wartość materiałowa                           |
+| Wytrzymałość na rozciąganie   | $R_m$                         | największe naprężenie inżynierskie przed zerwaniem | MPa          | nie jest granicą projektową sprężystą         |
+| Współczynnik bezpieczeństwa   | $n$                           | stosunek wytrzymałości do naprężenia równoważnego  | bezwymiarowy | $n=R_e/\sigma_{red}$                          |
+| Odkształcenie główne          | $\varepsilon_1,\varepsilon_2$ | ekstremalne odkształcenia liniowe                  | bezwymiarowe | z rozety                                      |
+| Moduł Younga                  | $E$                           | sztywność przy rozciąganiu                         | GPa lub MPa  | stała materiałowa                             |
+| Współczynnik Poissona         | $\nu$                         | stosunek skurczu poprzecznego do wydłużenia        | bezwymiarowy | zwykle $0{,}2$–$0{,}35$                       |
+
+Naprężenia podajemy w megapaskalach, a moduły w gigapaskalach. Przed podstawieniem do jednego wzoru trzeba je ujednolicić. Najbezpieczniej zamienić $E$ na MPa, bo wtedy wynik wychodzi bezpośrednio w MPa. Odkształcenia pozostają bezwymiarowe, więc nie wymagają przelicznika, ale trzeba je podać jako ułamek, a nie w procentach.
+
+### Naprężenie a odkształcenie
+
+Naprężenie opisuje intensywność obciążenia materiału, a odkształcenie — jego geometryczną odpowiedź. W zakresie liniowym są one powiązane przez moduł sprężystości, ale nie są tym samym. Dwa pręty z różnych materiałów mogą mieć takie samo naprężenie i różne odkształcenia albo takie samo odkształcenie i różne naprężenia. Dlatego tensometr sam nie wystarcza do oceny wytrzymałości: potrzebna jest znajomość materiału.
+
+### Stan naprężenia a stan odkształcenia
+
+W płaskim stanie naprężenia $\sigma_z=0$, ale $\varepsilon_z$ jest na ogół różne od zera. W płaskim stanie odkształcenia $\varepsilon_z=0$, ale $\sigma_z$ jest na ogół różne od zera. Te dwa stany dają różne wzory odwrotne. Na swobodnej powierzchni częściej uzasadniony jest płaski stan naprężenia; we wnętrzu grubego elementu częściej płaski stan odkształcenia. Wybór modelu trzeba zapisać i uzasadnić.
+
+### Hipotezy wytężeniowe
+
+Dla materiałów ciągliwych przyjmuje się, że o początku płynięcia decyduje przede wszystkim ścinanie, a nie samo naprężenie normalne. Hipoteza Tresca porównuje maksymalne naprężenie styczne z wartością krytyczną. Hipoteza HMH, zwana też von Mises, porównuje energię odkształcenia postaciowego. Obie dają ten sam wynik w jednoosiowym rozciąganiu, ale różnią się w stanach złożonych. HMH jest zwykle lepiej zgodna z danymi dla metali ciągliwych, a Tresca bywa bardziej konserwatywna.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma_1=\frac{E}{1-\nu^2}(\varepsilon_1+\nu\varepsilon_2),\quad \sigma_2=\frac{E}{1-\nu^2}(\varepsilon_2+\nu\varepsilon_1),\quad G=\frac{E}{2(1+\nu)}
+\sigma_x=\frac{E}{1-\nu^2}\left(\varepsilon_x+\nu\varepsilon_y\right),\qquad \sigma_y=\frac{E}{1-\nu^2}\left(\varepsilon_y+\nu\varepsilon_x\right),\qquad \tau_{xy}=G\gamma_{xy}
 $$
 
-<Caption>Podane wzory na σ1 i σ2 dotyczą płaskiego stanu naprężenia (σz = 0) i izotropowego materiału liniowo-sprężystego. Dla płaskiego stanu odkształcenia relacje są inne. W stanie izotropowym kierunki główne naprężeń i odkształceń pokrywają się.</Caption>
+<Caption>Odwrócone prawo Hooke’a dla płaskiego stanu naprężenia, gdy $\sigma_z=0$. Mianownik $1-\nu^2$ wynika z rozwiązania dwóch sprzężonych równań dla $\varepsilon_x$ i $\varepsilon_y$. Moduł ścinania $G=E/[2(1+\nu)]$ wiąże $\tau_{xy}$ z $\gamma_{xy}$ niezależnie od odkształceń liniowych.</Caption>
 </Formula>
 
+<Formula>
+$$
+\sigma_{1,2}=\frac{\sigma_x+\sigma_y}{2}\pm\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2},\qquad \tan2\theta_p=\frac{2\tau_{xy}}{\sigma_x-\sigma_y}
+$$
+
+<Caption>Naprężenia główne i kierunek główny w płaskim stanie naprężenia. Kąt $\theta_p$ mierzymy od osi $x$ do kierunku $\sigma_1$. W materiale izotropowym jest to ten sam kierunek, w którym występuje $\varepsilon_1$.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma_{red}^{HMH}=\sqrt{\sigma_x^2-\sigma_x\sigma_y+\sigma_y^2+3\tau_{xy}^2},\qquad \sigma_{red}^{Tresca}=\max\left(|\sigma_1-\sigma_2|,\ |\sigma_2-\sigma_3|,\ |\sigma_3-\sigma_1|\right)
+$$
+
+<Caption>Naprężenie równoważne dla płaskiego stanu naprężenia. W HMH można też użyć postaci $\sqrt{\sigma_1^2-\sigma_1\sigma_2+\sigma_2^2}$, gdy $\sigma_3=0$. W Tresca trzeba znać wszystkie trzy naprężenia główne, bo maksimum może wystąpić w płaszczyźnie prostopadłej do powierzchni.</Caption>
+</Formula>
+
+Wyprowadzenie odwrotnego prawa Hooke’a zaczynamy od trzech równań materiałowych.
+
+1. Dla materiału izotropowego $\varepsilon_x=[\sigma_x-\nu(\sigma_y+\sigma_z)]/E$.
+2. W płaskim stanie naprężenia $\sigma_z=0$, więc $\varepsilon_x=(\sigma_x-\nu\sigma_y)/E$.
+3. Analogicznie $\varepsilon_y=(\sigma_y-\nu\sigma_x)/E$.
+4. Mamy układ dwóch równań na $\sigma_x$ i $\sigma_y$. Mnożymy drugie przez $\nu$ i dodajemy stronami.
+5. Otrzymujemy $\varepsilon_x+\nu\varepsilon_y=\sigma_x(1-\nu^2)/E$, więc $\sigma_x=E(\varepsilon_x+\nu\varepsilon_y)/(1-\nu^2)$.
+6. Zamieniając role kierunków, dostajemy $\sigma_y=E(\varepsilon_y+\nu\varepsilon_x)/(1-\nu^2)$.
+7. Odkształcenie grubości wynika z $\varepsilon_z=-\nu(\sigma_x+\sigma_y)/E$; po podstawieniu naprężeń otrzymujemy $\varepsilon_z=-\nu(\varepsilon_x+\varepsilon_y)/(1-\nu)$.
+8. Ścinanie jest niezależne: $\gamma_{xy}=\tau_{xy}/G$, więc $\tau_{xy}=G\gamma_{xy}$.
+9. Naprężenia główne znajdujemy jako wartości własne tensora naprężenia; w materiale izotropowym tensory naprężenia i odkształcenia mają wspólne kierunki główne, więc kąt $\theta_p$ z odkształceń jest także kierunkiem naprężeń.
+10. Dla HMH podstawiamy $\sigma_z=0$ do ogólnego wzoru, a dla Tresca porównujemy różnice trzech naprężeń głównych; na końcu definiujemy $n=R_e/\sigma_{red}$ i sprawdzamy $n\ge n_{wym}$.
+
+Warto zauważyć, że wzór na $\sigma_x$ nie jest po prostu $E\varepsilon_x$. Gdybyśmy zaniedbali $\nu\varepsilon_y$, otrzymalibyśmy zaniżone lub zawyżone naprężenie zależnie od znaku $\varepsilon_y$. Przy $\varepsilon_x=600\,\mu\varepsilon$ i $\varepsilon_y=200\,\mu\varepsilon$ różnica jest zauważalna, a przy dużym ścinaniu błąd może zmienić wniosek o bezpieczeństwie.
+
+### Tresca w płaskim stanie naprężenia
+
+W płaskim stanie naprężenia $\sigma_3=0$. Jeśli $\sigma_1$ i $\sigma_2$ mają ten sam znak, to różnica $|\sigma_1-\sigma_2|$ nie przekracza większej z liczb $|\sigma_1|$ i $|\sigma_2|$, więc $\sigma_{red}^{Tresca}=\max(|\sigma_1|,|\sigma_2|)$. Jeśli mają przeciwne znaki, największa różnica wynosi $|\sigma_1-\sigma_2|$. To dlatego Tresca bywa bardziej konserwatywna niż HMH w stanach z dominującym ścinaniem.
+
+### Sztywność
+
+Warunek wytrzymałości nie zastępuje warunku sztywności. Nawet gdy $\sigma_{red}$ jest znacznie mniejsze od $R_e$, element może ugiąć się nadmiernie albo odkształcić w sposób zakłócający współpracę z innymi częściami. Sztywność sprawdza się przez obliczenie przemieszczenia, kąta obrotu lub odkształcenia i porównanie z limitem. W tensometrii oznacza to, że mierzone $\varepsilon$ trzeba porównać nie tylko z odkształceniem granicznym materiału, ale także z wymaganiami konstrukcyjnymi.
+
+### Kontrola wyniku
+
+- Sprawdź, czy $E$ i naprężenia są w tych samych jednostkach.
+- Sprawdź, czy użyłeś wzoru dla płaskiego stanu naprężenia, a nie dla stanu trójosiowego.
+- Sprawdź, czy $\varepsilon_1$ i $\varepsilon_2$ są uporządkowane i czy $\sigma_1\ge\sigma_2$.
+- Sprawdź, czy $\sigma_3=0$ zostało uwzględnione w Tresca.
+- Sprawdź, czy współczynnik $n$ jest większy od wymaganego, a nie tylko większy od jedności.
+- Sprawdź, czy odkształcenia i przemieszczenia mieszczą się w limitach sztywności.
+
 <Insight>
-  Nie wolno używać σ = Eε osobno dla każdej osi przy ogólnym stanie wieloosiowym: pomija to efekt Poissona. Bezpieczny
-  dobór wymaga właściwego modelu stanu, współczynnika bezpieczeństwa i kontroli deformacji.
+  Nie wolno używać $\sigma=E\varepsilon$ osobno dla każdej osi przy ogólnym stanie wieloosiowym: pomija to efekt
+  Poissona. Bezpieczny dobór wymaga właściwego modelu stanu, współczynnika bezpieczeństwa i kontroli deformacji. Sam
+  brak plastyczności nie dowodzi, że element jest poprawnie zaprojektowany.
 </Insight>
 
 <WorkedExample>
-  <Given>
-    Pomiar główny: ε1 = 600 µε, ε2 = 100 µε. Materiał w płaskim stanie naprężenia: E = 70 GPa, ν = 0,33, Re = 180 MPa.
-  </Given>
+  <Given>Pomiar rozety dał odkształcenia główne $\varepsilon_1=600\,\mu\varepsilon$ i $\varepsilon_2=100\,\mu\varepsilon$. Materiał jest w płaskim stanie naprężenia, $E=70\,\text{GPa}$, $\nu=0{,}33$, a granica plastyczności wynosi $R_e=180\,\text{MPa}$.</Given>
   <Steps>
-    <Step>Wspólny czynnik E/(1−ν²) = 70 000/(1−0,1089) = 78 554,6 MPa.</Step>
-    <Step>σ1 = 78 554,6·(0,0006 + 0,33·0,0001) = 49,73 MPa.</Step>
-    <Step>σ2 = 78 554,6·(0,0001 + 0,33·0,0006) = 23,41 MPa.</Step>
-    <Step>
-      Dla wstępnego porównania największego rozciągania n = 180/49,73 = 3,62; pełna ocena wymaga jednak kryterium
-      właściwego dla materiału.
-    </Step>
+    <Step>Wspólny czynnik: $E/(1-\nu^2)=70\,000/(1-0{,}1089)=78\,554{,}6\,\text{MPa}$.</Step>
+    <Step>$\sigma_1=78\,554{,}6\cdot(0{,}0006+0{,}33\cdot0{,}0001)=78\,554{,}6\cdot0{,}000633\approx49{,}73\,\text{MPa}$.</Step>
+    <Step>$\sigma_2=78\,554{,}6\cdot(0{,}0001+0{,}33\cdot0{,}0006)=78\,554{,}6\cdot0{,}000298\approx23{,}41\,\text{MPa}$.</Step>
+    <Step>HMH: $\sigma_{red}=\sqrt{49{,}73^2-49{,}73\cdot23{,}41+23{,}41^2}\approx43{,}09\,\text{MPa}$.</Step>
+    <Step>Tresca: oba naprężenia są dodatnie, więc $\sigma_{red}=49{,}73\,\text{MPa}$.</Step>
+    <Step>Współczynniki: $n_{HMH}=180/43{,}09\approx4{,}18$ oraz $n_{Tresca}=180/49{,}73\approx3{,}62$.</Step>
+    <Step>Odkształcenie grubości: $\varepsilon_z=-[0{,}33/(1-0{,}33)]\cdot700\,\mu\varepsilon\approx-345\,\mu\varepsilon$.</Step>
   </Steps>
-  <Result>
-    σ1 ≈ 49,7 MPa i σ2 ≈ 23,4 MPa. Zapas względem Re dla σ1 wynosi około 3,62, ale decyzja projektowa wymaga jeszcze
-    właściwej hipotezy, wymaganego n i kontroli sztywności.
-  </Result>
+  <Result>$\sigma_1\approx49{,}7\,\text{MPa}$ i $\sigma_2\approx23{,}4\,\text{MPa}$. Zapas względem $R_e$ wynosi około $4{,}18$ według HMH i $3{,}62$ według Tresca. Oba są większe od jedności, ale ostateczna decyzja wymaga porównania z wymaganym $n$ oraz sprawdzenia sztywności.</Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy pręt kołowy o średnicy $d=60\,\text{mm}$, obciążony siłą osiową $N=30\,\text{kN}$, momentem gnącym $M=1{,}2\,\text{kN}\cdot\text{m}$ i momentem skręcającym $T=800\,\text{N}\cdot\text{m}$. Granica plastyczności wynosi $R_e=235\,\text{MPa}$. Badamy włókno na obwodzie, po stronie rozciąganej przez zginanie.
+
+Pole przekroju wynosi $A=\pi d^2/4=\pi\cdot3600/4\approx2827{,}4\,\text{mm}^2$. Wskaźnik wytrzymałości przy zginaniu to $W=\pi d^3/32\approx21\,205{,}8\,\text{mm}^3$, a wskaźnik biegunowy $W_p=2W\approx42\,411{,}5\,\text{mm}^3$. Naprężenie od siły osiowej: $\sigma_N=N/A=30\,000/2827{,}4\approx10{,}61\,\text{MPa}$. Naprężenie od zginania: $\sigma_M=M/W=1{,}2\cdot10^6/21\,205{,}8\approx56{,}59\,\text{MPa}$.
+
+Suma naprężeń normalnych w badanym włóknie wynosi $\sigma_x\approx67{,}20\,\text{MPa}$, a naprężenie styczne od skręcania $\tau=T/W_p=800\,000/42\,411{,}5\approx18{,}86\,\text{MPa}$. Dla HMH: $\sigma_{red}=\sqrt{67{,}20^2+3\cdot18{,}86^2}\approx74{,}72\,\text{MPa}$, więc $n=235/74{,}72\approx3{,}15$. Dla Tresca naprężenia główne wynoszą około $72{,}13\,\text{MPa}$ i $-4{,}93\,\text{MPa}$, a $\sigma_3=0$. Ponieważ znaki są przeciwne, $\sigma_{red}=|\sigma_1-\sigma_2|\approx77{,}06\,\text{MPa}$ i $n\approx3{,}05$.
+
+Wniosek: dla tego stanu Tresca jest bardziej konserwatywna niż HMH, bo różnica $\sigma_1-\sigma_2$ okazuje się większa od naprężenia równoważnego HMH. Gdyby moment gnący działał w przeciwną stronę lub siła osiowa była ściskająca, znak $\sigma_x$ mógłby się zmienić i trzeba by ponownie sprawdzić, które naprężenie główne jest największe. Nie wystarczy raz policzyć „sigmy” i uznać zadania za rozwiązane.
+
+### Co zmienia znak siły osiowej
+
+Przy ściskaniu naprężenie od siły osiowej staje się ujemne i może częściowo odejmować się od naprężenia zginającego po stronie rozciąganej. Po przeciwnej stronie przekroju znaki się odwracają. W pręcie zginanym i skręcanym największe wytężenie może wystąpić w innym włóknie niż to, które początkowo wydawało się oczywiste. Dlatego analizę prowadzi się dla kilku punktów przekroju albo przynajmniej dla obu skrajnych włókien.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że z pomiaru otrzymano $\varepsilon_1=500\,\mu\varepsilon$ i $\varepsilon_2=-200\,\mu\varepsilon$ dla stali o $E=200\,\text{GPa}$ i $\nu=0{,}30$. Granica plastyczności wynosi $R_e=235\,\text{MPa}$, a wymagany współczynnik bezpieczeństwa to $n_{wym}=2{,}0$. Sprawdźmy, czy element spełnia warunek wytrzymałości.
+
+Czynnik $E/(1-\nu^2)$ wynosi $200\,000/0{,}91\approx219\,780\,\text{MPa}$. Stąd $\sigma_1\approx219\,780\cdot(0{,}0005-0{,}30\cdot0{,}0002)\approx96{,}70\,\text{MPa}$ oraz $\sigma_2\approx219\,780\cdot(-0{,}0002+0{,}30\cdot0{,}0005)\approx-10{,}99\,\text{MPa}$. HMH daje $\sigma_{red}\approx\sqrt{96{,}70^2-96{,}70\cdot(-10{,}99)+(-10{,}99)^2}\approx102{,}64\,\text{MPa}$, a Tresca $\sigma_{red}\approx96{,}70-(-10{,}99)=107{,}69\,\text{MPa}$.
+
+Współczynniki wynoszą $n_{HMH}\approx235/102{,}64\approx2{,}29$ oraz $n_{Tresca}\approx235/107{,}69\approx2{,}18$. Oba są większe od $2{,}0$, więc warunek wytrzymałości jest spełniony z niewielkim zapasem. Gdyby wymagane $n$ wynosiło $2{,}5$, element trzeba by przeprojektować albo wybrać materiał o wyższej $R_e$. Minimalna granica plastyczności dla $n=2{,}5$ wynosiłaby około $2{,}5\cdot107{,}69\approx269\,\text{MPa}$ według Tresca.
+
+### Co z płaskim stanem odkształcenia
+
+Gdyby element był gruby i panował w nim płaski stan odkształcenia, samo $\varepsilon_1$ i $\varepsilon_2$ nie wystarczyłoby do zastosowania powyższych wzorów. Trzeba by znać $\varepsilon_z$ i użyć pełnego prawa Hooke’a albo odpowiednich relacji dla $\varepsilon_z=0$. Naprężenie $\sigma_z$ byłoby wtedy różne od zera, a hipoteza Tresca musiałaby uwzględnić trzy naprężenia główne. To pokazuje, że wybór modelu stanu nie jest formalnością: zmienia liczby i wniosek projektowy.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Stosowanie $\sigma=E\varepsilon$ zamiast odwróconego prawa Hooke’a dla płaskiego stanu naprężenia.
+- Mylenie płaskiego stanu naprężenia z płaskim stanem odkształcenia i używanie niewłaściwych wzorów.
+- Porównywanie tylko $\sigma_x$ z $R_e$, bez obliczenia naprężenia równoważnego.
+- Używanie Tresca bez sprawdzenia znaków $\sigma_1$ i $\sigma_2$ oraz wartości $\sigma_3=0$.
+- Mylenie $R_e$ z $R_m$; $R_m$ nie jest granicą projektową dla zakresu sprężystego.
+- Podstawianie $E$ w GPa i naprężeń w MPa bez przeliczenia jednostek.
+- Uznanie, że duży zapas wytrzymałościowy gwarantuje poprawną sztywność.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, czy dane są odkształceniami, czy naprężeniami. Jeśli odkształceniami, potrzebujesz $E$ i $\nu$ do przejścia na naprężenia.
+2. Sprawdź, czy uzasadniony jest płaski stan naprężenia. Na swobodnej powierzchni zwykle tak, we wnętrzu grubego elementu nie.
+3. Uporządkuj odkształcenia główne i sprawdź, czy $\varepsilon_1\ge\varepsilon_2$.
+4. Oblicz $\sigma_1$ i $\sigma_2$ z odwróconego prawa Hooke’a; nie używaj $E\varepsilon$ osobno.
+5. Sprawdź, czy potrzebne jest $\tau_{xy}$; jeśli dane są tylko wartości główne, w układzie głównym $\tau=0$.
+6. Oblicz $\sigma_{red}$ według HMH i, jeśli wymaga tego zadanie, według Tresca.
+7. Porównaj wynik z $R_e$ i oblicz $n$; sprawdź, czy $n$ jest większe od wymaganego.
+8. Osobno sprawdź sztywność: odkształcenia, ugięcia lub obroty względem limitów.
+9. Zinterpretuj wynik słownie: czy element jest bezpieczny, czy trzeba zmienić materiał albo geometrię.
+
+## Połącz z resztą kursu
+
+- W lekcji o odkształceniach $\varepsilon$ i $\gamma$ poznałeś język opisu deformacji, który tutaj prowadzi do naprężeń.
+- W lekcji o efekcie Poissona zobaczyłeś, dlaczego nie można rozpatrywać każdej osi niezależnie.
+- W lekcji o uogólnionym prawie Hooke’a wyprowadzono związki, które tutaj odwracasz dla płaskiego stanu naprężenia.
+- W lekcji o tensometrach i rozecie zdobyłeś dane wejściowe: odkształcenia i ich kierunki główne.
+- W module o hipotezach wytężeniowych rozwiniesz HMH i Tresca oraz porównasz je z innymi kryteriami.
+- W module o projektowaniu połączysz warunek wytrzymałości z sztywnością, zmęczeniem i współczynnikiem bezpieczeństwa.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz przejść od odkształceń do naprężeń, wybrać właściwą hipotezę i odróżnić bezpieczeństwo materiału od sztywności konstrukcji.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>
-      W płaskim stanie naprężenia zmierzono ε1 = 1000 µε, ε2 = −200 µε. Dla E = 200 GPa i ν = 0,30 ile wynosi σ1?
-    </Prompt>
-    <Answer correct>Około 206,6 MPa</Answer>
-    <Answer>200 MPa</Answer>
-    <Answer>Około 193,4 MPa</Answer>
-    <Hint>Zastosuj E/(1−ν²) do sumy ε1 + νε2.</Hint>
-    <Explanation>
-      σ1 = 200 000/(1−0,09)·[0,001 + 0,30·(−0,0002)] = 219 780,22·0,00094 ≈ 206,59 MPa. Proste Eε1 dałoby błędne 200
-      MPa.
-    </Explanation>
+    <Prompt>W płaskim stanie naprężenia zmierzono $\varepsilon_1=1000\,\mu\varepsilon$ i $\varepsilon_2=-200\,\mu\varepsilon$. Dla $E=200\,\text{GPa}$ i $\nu=0{,}30$ ile wynosi $\sigma_1$?</Prompt>
+    <Answer correct>Około $206{,}6\,\text{MPa}$</Answer>
+    <Answer>$200\,\text{MPa}$</Answer>
+    <Answer>Około $193{,}4\,\text{MPa}$</Answer>
+    <Hint>Zastosuj $E/(1-\nu^2)$ do sumy $\varepsilon_1+\nu\varepsilon_2$.</Hint>
+    <Explanation>$\sigma_1=200\,000/(1-0{,}09)\cdot[0{,}001+0{,}30\cdot(-0{,}0002)]=219\,780{,}22\cdot0{,}00094\approx206{,}59\,\text{MPa}$. Proste $E\varepsilon_1$ dałoby błędne $200\,\text{MPa}$.</Explanation>
   </Question>
   <Question outcome="W1">
-    <Prompt>
-      Dlaczego kierunki główne naprężeń i odkształceń pokrywają się dla izotropowego materiału liniowo-sprężystego?
-    </Prompt>
-    <Answer correct>
-      Bo izotropowy materiał nie wyróżnia żadnego kierunku, więc tensory naprężenia i odkształcenia mają wspólne
-      kierunki główne
-    </Answer>
+    <Prompt>Dlaczego kierunki główne naprężeń i odkształceń pokrywają się dla izotropowego materiału liniowo-sprężystego?</Prompt>
+    <Answer correct>Bo izotropowy materiał nie wyróżnia żadnego kierunku, więc tensory naprężenia i odkształcenia mają wspólne kierunki główne</Answer>
     <Answer>Bo wszystkie odkształcenia styczne są zawsze zerowe</Answer>
-    <Answer>Bo ν zawsze wynosi zero</Answer>
+    <Answer>Bo $\nu$ zawsze wynosi zero</Answer>
     <Hint>Izotropia oznacza brak wyróżnionych kierunków materiałowych.</Hint>
-    <Explanation>
-      W izotropowym prawie Hooke’a nie ma osobnych osi materiałowych obracających odpowiedź. Tensory naprężenia i
-      odkształcenia mają wspólne kierunki własne, choć ich wartości główne są powiązane przez E i ν.
-    </Explanation>
+    <Explanation>W izotropowym prawie Hooke’a nie ma osobnych osi materiałowych obracających odpowiedź. Tensory naprężenia i odkształcenia mają wspólne kierunki własne, choć ich wartości główne są powiązane przez $E$ i $\nu$.</Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>
-      Pomiar wykazał małe odkształcenia i naprężenia poniżej granicy plastyczności. Czy element na pewno spełnia
-      wymagania projektowe?
-    </Prompt>
+    <Prompt>Pomiar wykazał małe odkształcenia i naprężenia poniżej granicy plastyczności. Czy element na pewno spełnia wymagania projektowe?</Prompt>
     <Answer>Tak, zawsze</Answer>
-    <Answer correct>Nie, trzeba jeszcze sprawdzić wymagane n, przemieszczenia i warunki użytkowania</Answer>
-    <Answer>Tylko jeśli γxy = 0</Answer>
+    <Answer correct>Nie, trzeba jeszcze sprawdzić wymagane $n$, przemieszczenia i warunki użytkowania</Answer>
+    <Answer>Tylko jeśli $\gamma_{xy}=0$</Answer>
     <Hint>Brak uplastycznienia nie wyklucza nadmiernego ugięcia ani zbyt małego zapasu.</Hint>
-    <Explanation>
-      Trzeba porównać naprężenie równoważne z dopuszczalnym, sprawdzić wymagany współczynnik bezpieczeństwa oraz
-      ograniczenia odkształceń i przemieszczeń. Sam fakt pozostania w zakresie sprężystym nie wystarcza.
-    </Explanation>
+    <Explanation>Trzeba porównać naprężenie równoważne z dopuszczalnym, sprawdzić wymagany współczynnik bezpieczeństwa oraz ograniczenia odkształceń i przemieszczeń. Sam fakt pozostania w zakresie sprężystym nie wystarcza.</Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>W płaskim stanie odkształcenia $\varepsilon_z=0$, $\sigma_x=80\,\text{MPa}$, $\sigma_y=40\,\text{MPa}$ i $\nu=0{,}30$. Ile wynosi $\sigma_z$?</Prompt>
+    <Answer correct>$36\,\text{MPa}$</Answer>
+    <Answer>$0\,\text{MPa}$</Answer>
+    <Answer>$120\,\text{MPa}$</Answer>
+    <Hint>Z warunku $\varepsilon_z=0$ wynika $\sigma_z=\nu(\sigma_x+\sigma_y)$.</Hint>
+    <Explanation>$\sigma_z=0{,}30\cdot(80+40)=36\,\text{MPa}$. To nie jest płaski stan naprężenia; naprężenie normalne do płaszczyzny jest różne od zera, choć odkształcenie w tym kierunku znika.</Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Dla $\sigma_x=100\,\text{MPa}$, $\sigma_y=0$ i $\tau_{xy}=50\,\text{MPa}$ ile wynosi naprężenie HMH?</Prompt>
+    <Answer correct>Około $132{,}3\,\text{MPa}$</Answer>
+    <Answer>Około $100\,\text{MPa}$</Answer>
+    <Answer>Około $150\,\text{MPa}$</Answer>
+    <Hint>Użyj $\sqrt{\sigma_x^2+3\tau_{xy}^2}$ dla $\sigma_y=0$.</Hint>
+    <Explanation>$\sigma_{red}=\sqrt{100^2+3\cdot50^2}=\sqrt{10000+7500}=\sqrt{17500}\approx132{,}29\,\text{MPa}$. Samo $\sigma_x$ zaniżyłoby wytężenie.</Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Dla $R_e=235\,\text{MPa}$ i $\sigma_{red}=132{,}3\,\text{MPa}$ ile wynosi współczynnik bezpieczeństwa według HMH?</Prompt>
+    <Answer correct>Około $1{,}78$</Answer>
+    <Answer>Około $0{,}56$</Answer>
+    <Answer>Około $3{,}56$</Answer>
+    <Hint>Podziel $R_e$ przez $\sigma_{red}$, a nie odwrotnie.</Hint>
+    <Explanation>$n=235/132{,}3\approx1{,}78$. Wartość większa od jedności oznacza brak plastyczności, ale może być zbyt mała względem wymaganego zapasu.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla $\varepsilon_1=600\,\mu\varepsilon$, $\varepsilon_2=100\,\mu\varepsilon$, $E=70\,\text{GPa}$ i $\nu=0{,}33$ ile wynosi $\sigma_2$?</Prompt>
+    <Answer correct>Około $23{,}4\,\text{MPa}$</Answer>
+    <Answer>Około $49{,}7\,\text{MPa}$</Answer>
+    <Answer>Około $7\,\text{MPa}$</Answer>
+    <Hint>W liczniku jest $\varepsilon_2+\nu\varepsilon_1$, a czynnik wynosi $E/(1-\nu^2)$.</Hint>
+    <Explanation>$\sigma_2=70\,000/(1-0{,}33^2)\cdot(0{,}0001+0{,}33\cdot0{,}0006)\approx78\,554{,}6\cdot0{,}000298\approx23{,}4\,\text{MPa}$.</Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dlaczego na swobodnej powierzchni elementu często przyjmuje się $\sigma_z=0$?</Prompt>
+    <Answer correct>Bo nie działa siła normalna do swobodnej powierzchni</Answer>
+    <Answer>Bo odkształcenie $\varepsilon_z$ jest zawsze zerowe</Answer>
+    <Answer>Bo naprężenia styczne są zawsze zerowe w całym elemencie</Answer>
+    <Hint>Warunek brzegowy dotyczy naprężenia normalnego do powierzchni, a nie odkształcenia.</Hint>
+    <Explanation>Na swobodnej powierzchni nie ma obciążenia normalnego, więc $\sigma_z=0$. Odkształcenie $\varepsilon_z$ może być różne od zera przez efekt Poissona. Naprężenia styczne w płaszczyźnie powierzchni mogą być niezerowe.</Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o naprężeniach głównych, prawie Hooke’a i kryteriach uplastycznienia; dobre połączenie teorii z przykładami.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z naprężeń głównych i hipotez wytężeniowych; warto przećwiczyć znaki i dobór hipotezy.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o stanie naprężenia i hipotezach wytrzymałościowych; klasyczne ujęcie HMH i Tresca.
+- D. Roylance, _Mechanics of Materials_ — rozdział o związkach konstytutywnych oraz rozdział o plastyczności i uplastycznieniu; macierz podatności, płaski stan naprężenia i kryteria płynięcia.
+- T. Wierzbicki, _Structural Mechanics_ — rozdział o prawie sprężystości w trójwymiarowym ośrodku; wyprowadzenie stałych Lamégo i relacji między $E$, $\nu$ oraz $G$.

@@ -1,4 +1,4 @@
-import type { LessonMeta, SolutionScene } from '../types'
+import type { LessonMeta, SolutionFigure, SolutionScene } from '../types'
 
 export type { LessonMeta }
 
@@ -18,4 +18,5 @@ export interface SolutionData {
   given: string[]
   result: string
   scenes: SolutionScene[]
+  figure?: SolutionFigure
 }

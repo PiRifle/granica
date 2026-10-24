@@ -1,1 +1,151 @@
-Zrozum, jak opisać obciążenie w punkcie, co zmienia obrót układu i jak znaleźć kierunki najważniejsze dla bezpieczeństwa konstrukcji.
+## Co to jest ten moduł
+
+Ten moduł odpowiada na pytanie, które wcześniejsze lekcje tylko sygnalizowały: co dokładnie dzieje się z materiałem w jednym, wybranym punkcie, gdy element jest rozciągany, ściskany, zginany i skręcany jednocześnie. Do tej pory wygodnie było mówić o jednym naprężeniu $\sigma$ albo o jednym $\tau$. W rzeczywistym elemencie w tym samym punkcie mogą działać naprężenia normalne na trzech różnych ścianach oraz naprężenia styczne w trzech płaszczyznach. Opis, który to porządkuje, nazywamy stanem naprężenia. Zginana plastikowa linijka to codzienny przykład: po jednej stronie materiał się rozciąga, po drugiej ściska, a w środku naprężenie normalne jest bliskie zeru.
+
+Najprostsza intuicja pochodzi z kostki wyciętej myślowo z materiału. Na każdej ze ścianek działa pewna siła rozłożona na powierzchni. Składowa prostopadła do ścianki to naprężenie normalne, a składowa leżąca w ściance to naprężenie styczne. Gdy zbierzemy te składowe dla trzech wzajemnie prostopadłych ścianek, otrzymujemy macierz $3 \times 3$. Ta macierz nie jest zwykłą tabelką liczb: mówi, jak materiał jest obciążony w otoczeniu punktu i jak będzie odpowiadał na dowolnie poprowadzone cięcie.
+
+Kluczowa trudność polega na tym, że naprężenie zależy od płaszczyzny przekroju. Ten sam punkt można przeciąć poziomo, pionowo albo pod kątem. Na jednym przekroju zobaczymy głównie rozciąganie, na innym ścinanie, a na jeszcze innym kombinację obu. Nie oznacza to, że materiał jest za każdym razem inaczej obciążony. Zmienia się tylko sposób patrzenia, czyli układ odniesienia. Stan naprężenia jest czymś, co istnieje niezależnie od tego, jak go zapiszemy. Tensor nie jest więc „dodatkową siłą” ani innym rodzajem obciążenia. To matematyczny opis, który pozwala obliczyć siłę na jednostkę powierzchni dla dowolnie zorientowanego przekroju. Macierz jest tylko zapisem tego opisu w wybranych osiach. Gdy zmieniamy osie, zmieniają się liczby w macierzy, ale nie zmienia się fizyczny stan materiału.
+
+Drugi ważny krok to obrót układu współrzędnych. Wzory transformacyjne pozwalają przeliczyć sześć składowych z jednych osi na inne. Na ich podstawie można znaleźć kierunki, w których naprężenie styczne znika, a naprężenie normalne osiąga wartość największą lub najmniejszą. Te wartości nazywamy naprężeniami głównymi, a same kierunki — kierunkami głównymi. To właśnie one są najczęściej potrzebne do oceny ryzyka pęknięcia, uplastycznienia lub zmęczenia.
+
+Trzecim narzędziem jest koło Mohra. Zamienia ono wzory transformacyjne na obraz geometryczny: każdemu przekrojowi odpowiada punkt na okręgu, a skrajne wartości odczytujemy jako przecięcia z osią naprężenia normalnego. Koło nie zastępuje rachunku, ale pozwala szybko sprawdzić sens wyniku i zobaczyć, jak blisko siebie leżą różne stany. W module przechodzimy od zapisu tensorowego, przez obrót i wartości główne, do kierunków, maksymalnego ścinania oraz interpretacji koła w decyzji projektowej. Warto też od razu rozdzielić dwa pojęcia, które często się mylą. Stan naprężenia opisuje siły wewnętrzne przypadające na jednostkę powierzchni. Stan odkształcenia opisuje zmianę długości i kątów. Są ze sobą powiązane przez właściwości materiału, ale nie są tym samym. Element może być silnie odkształcony przy małym naprężeniu, jeśli jest wykonany z miękkiego polimeru, albo prawie sztywny przy dużym naprężeniu, jeśli jest ze stali. Ten moduł zajmuje się pierwszą stroną tego związku; druga pojawi się później.
+
+## Dlaczego to ważne
+
+W projektowaniu nie wystarcza sprawdzenie jednej liczby. Element może mieć małe naprężenie wzdłuż osi, a jednocześnie duże naprężenie styczne lub duże rozciąganie w kierunku obróconym o kilkadziesiąt stopni. Jeżeli analiza ograniczy się do $\sigma_x$, część obciążenia pozostanie niewidoczna. To klasyczna droga do niedoszacowania wytężenia, szczególnie przy złożonym stanie naprężenia: zginaniu ze skręcaniem, rozciąganiu z ciśnieniem wewnętrznym albo obciążeniu połączenia pod kątem do spoiny.
+
+Rodzaj zniszczenia zależy od kierunku. Materiał kruchy, taki jak szkło, kreda czy niektóre tworzywa, pęka zwykle prostopadle do największego rozciągania. Materiał ciągliwy, na przykład stal, może najpierw płynąć przy ścinaniu, bo to ścinanie przemieszcza warstwy materiału. Ten sam stan naprężenia może więc być groźny z różnych powodów. Naprężenia główne i maksymalne ścinanie pozwalają wskazać właściwy mechanizm, zamiast zgadywać na podstawie jednej składowej.
+
+Analiza stanu naprężenia jest też językiem, w którym mówią programy MES i wyniki pomiarów tensometrycznych. Rozwiązanie numeryczne zwraca zwykle pełny tensor w każdym punkcie, a nie pojedyncze $\sigma$. Inżynier musi umieć odczytać z niego sens: gdzie występuje największe rozciąganie, gdzie ścinanie, w jakim kierunku należy ustawić włókna kompozytu lub zbrojenie, gdzie spodziewać się pęknięcia zmęczeniowego. Bez tej umiejętności duża liczba kolorowych konturów nie przekłada się na decyzję.
+
+Błędy w tej części bywają kosztowne, bo dotyczą właśnie miejsc najbardziej wytężonych. Do typowych należą: pominięcie trzeciego naprężenia głównego w stanie płaskim, zły znak naprężenia stycznego, użycie kąta $\theta$ zamiast $2\theta$ oraz bezkrytyczne zawierzenie jednej składowej z wykresu. Każdy z tych błędów może zmienić wniosek o bezpieczeństwie. Dlatego w module kładziemy nacisk nie tylko na wzory, ale też na konwencję znaków, kontrolę niezmienników i sprawdzanie wyniku na prostych przypadkach granicznych.
+
+W dalszej części kursu ten moduł jest pomostem do kryteriów wytężenia i doboru przekroju. Hipoteza Hubera–von Misesa i hipoteza Treski potrzebują naprężeń głównych, a nie dowolnych składowych. Warunek sztywności nadal wymaga odkształceń, ale o tym, czy materiał jest blisko granicy, decyduje właśnie stan naprężenia. Dobrze opanowany tensor, obrót i koło Mohra sprawiają, że późniejsze zadania projektowe przestają być zbiorem wzorów do zapamiętania, a stają się konsekwentną analizą. Ponadto w konstrukcjach warstwowych i kompozytowych kierunek ma znaczenie podwójne. Włókna są mocne wzdłuż siebie, a słabe w kierunku poprzecznym, więc analiza musi porównać kierunek naprężenia głównego z kierunkiem włókien. Ten sam tensor może być bezpieczny dla jednej orientacji warstw i niebezpieczny dla innej. Bez pojęcia kierunku głównego nie da się tego poprawnie ocenić.
+
+## Czego się nauczysz
+
+- **W1 — analiza stanu w punkcie.** Nauczysz się czytać macierz naprężenia, rozpoznawać, które składowe są normalne, a które styczne, i dobierać je do konkretnej ścianki lub przekroju. Przestaniesz traktować pojedyncze $\sigma$ jako pełny opis obciążenia.
+- **W2 — rozpoznawanie przypadków wytrzymałościowych.** Odróżnisz rozciąganie, ściskanie, czyste ścinanie i stany mieszane. Zobaczysz, że czyste ścinanie można opisać jako rozciąganie i ściskanie w kierunkach obróconych o $45^\circ$.
+- **W3 — rola geometrii i kierunku przekroju.** Zrozumiesz, że samo położenie punktu nie wystarcza: liczy się także orientacja przekroju. Ten sam tensor daje różne trakcje na różnych płaszczyznach, a geometria przekroju wpływa na rozkład naprężeń w elemencie.
+- **U1 — obliczenia transformacyjne i główne.** Będziesz obliczać składowe po obrocie, naprężenia główne oraz maksymalne naprężenie styczne. Nauczysz się porządkować trzy wartości główne również wtedy, gdy jedno z nich jest zerem.
+- **U2 — koło Mohra i kierunki.** Zbudujesz koło z trzech danych, odczytasz z niego naprężenia główne i wyznaczysz kąt kierunku głównego. Zrozumiesz, dlaczego na kole kąt jest podwojony i skąd bierze się niejednoznaczność funkcji arcus tangens.
+- **U3 — wykorzystanie wyników w doborze.** Połączysz naprężenia główne z warunkiem wytrzymałości i oceną marginesu bezpieczeństwa. Zobaczysz, że dobór elementu wymaga zarówno analizy naprężeń, jak i kontroli sztywności oraz stateczności.
+
+Kody przy efektach nie są ozdobą. W pytaniach sprawdzających każdy quiz jest przypisany do jednego z nich, dzięki czemu można oddzielić znajomość pojęć (W) od umiejętności rachunkowych (U). Jeśli częściej mylisz się w pytaniach U, wróć do rachunków i laboratorium. Jeśli zawodzą pytania W, przeczytaj ponownie model i definicje, zanim zaczniesz podstawiać liczby.
+
+| Kod | Co powinieneś umieć                                      | Gdzie to przećwiczysz               |
+| --- | -------------------------------------------------------- | ----------------------------------- |
+| W1  | odczytać tensor i dobrać składowe do ścianki             | lekcje o tensorze i obrocie         |
+| W2  | rozpoznać rozciąganie, ściskanie i ścinanie              | tensor, kierunki główne, koło Mohra |
+| W3  | oddzielić wpływ kierunku przekroju od geometrii elementu | obrót i przykłady odwrotne          |
+| U1  | policzyć składowe po obrocie i wartości główne           | wszystkie lekcje rachunkowe         |
+| U2  | zbudować koło i wyznaczyć kierunki główne                | lekcje o kierunkach i kole          |
+| U3  | użyć wyniku do oceny bezpieczeństwa                      | lekcja o interpretacji koła         |
+
+Tabela służy do szybkiej orientacji, a nie do wystawiania sobie oceny. Jeśli któryś wiersz budzi wątpliwość, wróć do odpowiedniej lekcji i sprawdź, czy potrafisz wykonać przykładowy rachunek bez podpowiedzi.
+
+## Od czego zacząć
+
+Przed tym modułem potrzebujesz podstaw z modułu pierwszego: jednostek naprężenia, równowagi sił i momentów oraz pojęcia sił wewnętrznych. Warto swobodnie przeliczać $1\ \mathrm{MPa}=1\ \mathrm{N/mm^2}$ i rozumieć, dlaczego $1\ \mathrm{GPa}=1000\ \mathrm{MPa}$. Bez tego łatwo o błąd rzędu tysiąca, który w naprężeniach ma natychmiastowe konsekwencje.
+
+Z modułu o rozciąganiu przypomnij sobie $\sigma=N/A$ oraz znak naprężenia: dodatni oznacza rozciąganie, ujemny ściskanie. Z modułu o ścinaniu i skręcaniu potrzebne jest pojęcie naprężenia stycznego $\tau$ oraz czystego ścinania. Z modułu o zginaniu warto pamiętać, że naprężenie normalne zmienia się po wysokości przekroju i że towarzyszą mu naprężenia styczne od siły tnącej. Z geometrii przekrojów przydadzą się moment bezwładności i wskaźnik wytrzymałości, choć w samym tensorze nie są one bezpośrednio potrzebne.
+
+Najlepsza kolejność pracy jest taka: najpierw tensor i konwencja znaków, potem obrót układu, następnie naprężenia główne, kierunki główne, maksymalne ścinanie, a na końcu rysowanie i interpretacja koła Mohra. Nie zaczynaj od koła, jeśli nie umiesz jeszcze zapisać tensora i policzyć $\sigma_n$ z wzoru transformacyjnego. Koło jest skrótem graficznym, nie osobną teorią.
+
+W każdej lekcji zacznij od laboratorium i zmieniaj tylko jeden parametr naraz. Zapisz wynik ręcznie, a potem sprawdź, czy zgadza się z suwakiem. Taka kontrola jest szybsza niż wielokrotne przeliczanie tego samego wzoru i od razu ujawnia błędy znaku lub jednostek.
+
+Prowadź krótki notatnik wzorów i oznaczeń. Zapisuj, który symbol oznacza normalną, który naprężenie styczne, a który kąt. W module pojawia się kilka konwencji, a większość pomyłek bierze się z pomieszania oznaczeń, nie z trudnej matematyki.
+
+Czas modułu jest wyliczany z treści lekcji. To orientacyjny czas samego przejścia, bez rozwiązywania zadań i powtórek. Traktuj go orientacyjnie: pierwsze przejście może zająć więcej, a powtórka zaledwie kilka minut. Ważniejsze od tempa jest to, żeby po każdym rozdziale umieć wykonać prosty rachunek bez zaglądania do rozwiązania.
+
+## Mapa lekcji
+
+Siedem lekcji tworzy jedną linię: od opisu stanu w punkcie, przez zmianę perspektywy, do decyzji projektowej. Nie przeskakuj między nimi, bo każda korzysta z poprzedniej. Poniżej znajdziesz w skrócie, co wnosi każdy krok.
+
+**Tensor naprężenia: mapa sił w punkcie.** Pierwsza lekcja wprowadza macierz naprężenia, wzór Cauchy'ego i symetrię tensora. Dowiesz się, jak z trakcji na trzech ściankach zbudować sześć niezależnych składowych i dlaczego ten sam punkt może mieć różne naprężenia na różnych przekrojach.
+
+**Obrót przekroju: ten sam stan, inne liczby.** Druga lekcja wyprowadza wzory transformacyjne dla płaskiego stanu naprężenia. Zobaczysz, że suma naprężeń normalnych na dwóch prostopadłych przekrojach jest stała, a kąt $\theta$ pojawia się we wzorach jako $2\theta$.
+
+**Naprężenia główne: skrajne wartości bez ścinania.** Trzecia lekcja szuka ekstremów naprężenia normalnego. Otrzymasz $\sigma_1$ i $\sigma_2$ ze średniej i promienia $R$, nauczysz się porządkować trzy naprężenia główne i odróżniać promień koła od absolutnego maksimum ścinania.
+
+**Kierunki główne: gdzie znika ścinanie.** Czwarta lekcja odpowiada na pytanie, pod jakim kątem leży płaszczyzna bez ścinania. Opanujesz wzór na $\tan 2\theta_p$, rozstrzygniesz niejednoznaczność kąta i zrozumiesz przypadki szczególne: stan hydrostatyczny oraz $\sigma_x=\sigma_y$ przy niezerowym $\tau_{xy}$.
+
+**Maksymalne ścinanie: płaskie i absolutne.** Piąta lekcja porównuje promień koła w płaszczyźnie $xy$ z maksymalnym ścinaniem w pełnym stanie przestrzennym. To miejsce, w którym zero w kierunku $z$ przestaje być niewinnym pominięciem i może zmienić wynik.
+
+**Koło Mohra: narysuj je krok po kroku.** Szósta lekcja zamienia wzory na konstrukcję graficzną. Nauczysz się zaznaczać punkty $X$ i $Y$, znajdować środek i promień oraz odczytywać naprężenia główne i maksymalne ścinanie bez liczenia każdego kąta osobno.
+
+**Od koła do decyzji inżynierskiej.** Siódma lekcja łączy geometrię koła z warunkiem wytrzymałości, kierunkiem pękania i doborem marginesu bezpieczeństwa. Zobaczysz, że wykres jest tylko narzędziem, a decyzja wymaga porównania właściwej miary wytężenia z właściwościami materiału.
+
+Po przejściu tej mapy powinieneś umieć powiedzieć, na którym etapie popełniłeś błąd, jeśli wynik końcowy nie ma sensu. Zły tensor, zły kąt i zła interpretacja to trzy różne problemy, które wymagają trzech różnych poprawek.
+
+## Kluczowe wzory
+
+Poniższe cztery wzory są szkieletem całego modułu. Nie ucz się ich jako niepowiązanych formuł: pierwszy definiuje stan, drugi zmienia perspektywę, trzeci wyznacza wartości skrajne, a czwarty wskazuje ich położenie. Każdy kolejny wynika z poprzedniego albo go uzupełnia.
+
+<Formula>
+$$
+\boldsymbol{\sigma}=\begin{bmatrix}\sigma_x&\tau_{xy}&\tau_{xz}\\\tau_{xy}&\sigma_y&\tau_{yz}\\\tau_{xz}&\tau_{yz}&\sigma_z\end{bmatrix},\qquad \mathbf{T}=\boldsymbol{\sigma}\mathbf{n}
+$$
+
+<Caption>Tensor naprężenia jest symetryczny, więc ma sześć niezależnych składowych. Wzór Cauchy'ego mówi, że trakcja $\mathbf{T}$ na płaszczyźnie o normalnej $\mathbf{n}$ powstaje przez pomnożenie tensora przez tę normalną. Dodatnie naprężenie normalne oznacza rozciąganie.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma_n=\sigma_{avg}+a\cos 2\theta+\tau_{xy}\sin 2\theta,\qquad \tau_{nt}=-a\sin 2\theta+\tau_{xy}\cos 2\theta
+$$
+
+<Caption>To wzory transformacji dla płaskiego stanu naprężenia. $\sigma_{avg}=(\sigma_x+\sigma_y)/2$, a $a=(\sigma_x-\sigma_y)/2$. Kąt $\theta$ mierzymy od osi $x$ do normalnej $n$, a we wzorach występuje $2\theta$, dlatego obrót przekroju o $90^\circ$ odpowiada połowie okresu na kole Mohra.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma_{1,2}=\sigma_{avg}\pm R,\qquad R=\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2}
+$$
+
+<Caption>Naprężenia główne to skrajne naprężenia normalne w płaszczyźnie. Środek przedziału wyznacza $\sigma_{avg}$, a promień $R$ mówi, jak daleko od niego sięgają wartości główne. W płaszczyźnie przyjmujemy $\sigma_1\ge\sigma_2$.</Caption>
+</Formula>
+
+<Formula>
+$$
+\tan 2\theta_p=\frac{2\tau_{xy}}{\sigma_x-\sigma_y},\qquad \theta_{p2}=\theta_{p1}+90^\circ
+$$
+
+<Caption>Kąt $\theta_p$ wskazuje normalną do płaszczyzny, na której naprężenie styczne znika. Równanie ma dwa rozwiązania różniące się o $180^\circ$ dla $2\theta$, czyli o $90^\circ$ dla samego kąta. Właściwą gałąź wybieramy przez podstawienie do wzoru na $\sigma_n$ albo przez analizę znaków.</Caption>
+</Formula>
+
+Wzory transformacyjne i wzór na wartości główne można wyprowadzić z tego samego warunku równowagi. Dlatego nie trzeba traktować ich jako niezależnych faktów do zapamiętania. Wystarczy zrozumieć, skąd bierze się rzut trakcji na normalną i styczną, a pozostałe zależności wynikają z trygonometrii.
+
+## Jak się uczyć
+
+Nie czytaj lekcji jak powieści. Zatrzymuj się po każdym wzorze i wykonaj mały rachunek na własnych liczbach. Dopiero wtedy sprawdź rozwiązanie. Poniższa metoda porządkuje pracę i pozwala szybko wykryć, czy problem leży w pojęciu, czy w rachunku.
+
+1. **Zacznij od jednego punktu i jednej kostki.** Narysuj trzy osie i zaznacz, która ścianka jest dodatnia. Dopiero potem wpisuj liczby do macierzy. Większość błędów znaku bierze się z pominięcia tego kroku.
+2. **Zapisuj jednostki przy każdej liczbie.** Naprężenia w MPa, siły w N, pola w mm². Przeliczaj kN na N przed podstawieniem, a nie po otrzymaniu wyniku. Kontroluj rząd wielkości: typowa stal ma granicę plastyczności rzędu 235 MPa, więc wynik 235 000 MPa powinien wzbudzić czujność.
+3. **Licz ręcznie małe przypadki.** Dla $\tau_{xy}=0$ naprężenia główne powinny być równe $\sigma_x$ i $\sigma_y$. Dla czystego ścinania powinny mieć przeciwne znaki. Jeśli wzór nie odtwarza tych granic, gdzieś jest błąd.
+4. **Sprawdzaj niezmienniki.** Suma $\sigma_x+\sigma_y$ nie zmienia się przy obrocie w płaszczyźnie. W stanie przestrzennym nie zmienia się ślad tensora. Iloczyn naprężeń głównych w płaszczyźnie jest równy $\sigma_x\sigma_y-\tau_{xy}^2$. Te kontrole są szybkie i wychwytują wiele pomyłek.
+5. **Rysuj koło równolegle z rachunkiem.** Punkt $X$ ma współrzędne $(\sigma_x,\tau_{xy})$, a $Y$ — $(\sigma_y,-\tau_{xy})$. Środek leży na osi $\sigma$. Jeśli odczyt z rysunku nie zgadza się z $R$, nie poprawiaj rysunku „na siłę” — najpierw znajdź błąd w danych.
+6. **Wracaj do decyzji projektowej.** Po każdym obliczeniu zadaj pytanie: która składowa jest niebezpieczna i dla jakiego mechanizmu zniszczenia. Sama wartość liczbowa bez interpretacji nie wystarcza.
+
+Jeśli po pierwszym przejściu umiesz tylko odtworzyć wzór, wróć do laboratorium i sprawdź, co się dzieje przy skrajnych suwakach. Dopiero zestawienie wyniku z intuicją daje trwałą umiejętność.
+
+## Po tym module
+
+Następny moduł zajmuje się stanem odkształcenia. Zobaczysz, że tensor odkształcenia ma podobną strukturę, ale inne znaczenie fizyczne: opisuje zmianę długości i kątów, a nie rozkład sił. Uogólnione prawo Hooke'a połączy oba tensory i pokaże, dlaczego zerowe naprężenie w jednym kierunku nie oznacza zerowego odkształcenia. Rozety tensometryczne wykorzystają te same wzory transformacyjne, tylko zamiast naprężeń podstawimy odkształcenia.
+
+W module o kryteriach wytężenia naprężenia główne staną się danymi wejściowymi do hipotez Hubera–von Misesa i Treski. Zobaczysz, że różne materiały wymagają różnych miar wytężenia i że maksymalne ścinanie albo różnica skrajnych naprężeń głównych może decydować o granicy plastyczności. Koło Mohra będzie tam pomocne w interpretacji, ale nie zastąpi warunku materiałowego.
+
+W module projektowym wrócą pełne zadania: od obciążenia, przez siły wewnętrzne i stan naprężenia, do wymiaru, materiału i współczynnika bezpieczeństwa. Ten moduł dostarcza brakującego ogniwa między prostymi wzorami wytrzymałościowymi a rzeczywistym, złożonym stanem naprężenia. Jeśli opanujesz tensor, obrót i naprężenia główne, dalsze lekcje będą tylko konsekwentnym zastosowaniem tych samych pojęć.
+
+Dobrym testem gotowości jest umiejętność opowiedzenia całej drogi bez wzorów: mamy punkt, wybieramy przekrój, opisujemy trakcję, obracamy układ, szukamy kierunków bez ścinania, porównujemy skrajne wartości z materiałem. Jeśli potrafisz wskazać, gdzie w tej opowieści pojawia się każdy wzór, jesteś gotowy na kolejny moduł.
+
+Nie musisz pamiętać wszystkich wzorów na pamięć. Ważniejsze, żebyś umiał odtworzyć je z równowagi i sprawdzić na przypadku granicznym. Wtedy nawet po przerwie wrócisz do nich szybciej niż do listy formuł bez kontekstu.
+
+## Źródła
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o stanie naprężenia, transformacji układu współrzędnych i naprężeniach głównych; klasyczne ujęcie konwencji znaków.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania rachunkowe na tensor naprężenia, obrót przekroju i koło Mohra; dobre do samodzielnego treningu.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik z rozdziałami o transformacjach tensora, kole Mohra i naprężeniach głównych w trzech wymiarach; dostępny w lokalnej bibliotece źródeł.
+- T. Wierzbicki, _Structural Mechanics_ — otwarte notatki z wyprowadzeniem wzoru Cauchy'ego, symetrii tensora i równań równowagi; pomocne, gdy chcesz zobaczyć pełne uzasadnienie, a nie tylko gotowy wzór.
+
+Pozycje z syllabusu różnią się od siebie poziomem i stylem. Wybierz jedną książkę do systematycznej nauki, a zadania traktuj jako uzupełnienie rachunkowe. Otwarte podręczniki są przydatne, gdy potrzebujesz szybkiego wyprowadzenia albo innego spojrzenia na ten sam temat.

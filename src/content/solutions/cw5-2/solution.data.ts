@@ -11,6 +11,28 @@ export default {
     'Przyjęto osie jak na rysunku: x pozioma, y pionowa w osi symetrii; początek pomocniczego układu na dolnym końcu środnika teownika',
   ],
   result: 'y_C = 8,2539 cm od dolnego końca środnika, x_C = 0; I_x = 273,53 cm⁴, I_y = 132,43 cm⁴.',
+  figure: {
+    kind: 'section',
+    width: 10,
+    height: 15,
+    parts: [
+      { x: 0, y: 9, width: 10, height: 1, label: 'półka T', tone: 'light' },
+      { x: 4.6, y: 0, width: 0.8, height: 9, label: 'środnik', tone: 'accent' },
+      { x: 4.1, y: 10, width: 0.4, height: 4.5, tone: 'solid' },
+      { x: 0.9, y: 10, width: 3.6, height: 0.4, tone: 'solid' },
+      { x: 5.5, y: 10, width: 0.4, height: 4.5, tone: 'solid' },
+      { x: 5.5, y: 10, width: 3.6, height: 0.4, tone: 'solid' },
+    ],
+    centroid: { x: 5, y: 8.2539 },
+    values: [
+      { label: 'A', value: '27,88 cm²', focus: 'section' },
+      { label: 'x_C', value: '0 cm (symetria)', focus: 'centroid' },
+      { label: 'y_C', value: '8,2539 cm', focus: 'centroid' },
+      { label: 'I_x', value: '273,53 cm⁴', focus: 'Ix' },
+      { label: 'I_y', value: '132,43 cm⁴', focus: 'Iy' },
+    ],
+    note: 'Teownik T100 i dwa kątowniki L45; oś y pokrywa się z osią symetrii.',
+  },
   scenes: [
     {
       title: 'Ustal osie i geometrię połączenia',

@@ -67,7 +67,7 @@ export function HookeLab() {
       }
       visual={
         <>
-          <svg viewBox="0 0 720 190" width="100%" role="img" aria-label="Wydłużenie pręta zgodnie z prawem Hooke’a">
+          <svg viewBox="0 24 720 152" width="100%" role="img" aria-label="Wydłużenie pręta zgodnie z prawem Hooke’a">
             <title>Wydłużenie pręta</title>
             <defs>
               <marker
@@ -137,7 +137,7 @@ export function HookeLab() {
             </text>
           </svg>
           <div className="lab-chart" aria-label="Wykres zależności naprężenia od odkształcenia">
-            <ResponsiveContainer width="100%" height={230}>
+            <ResponsiveContainer width="100%" height={185}>
               <LineChart data={chartData} margin={chartMargin}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.25} />
                 <XAxis
@@ -169,7 +169,7 @@ export function HookeLab() {
                   fill="#ff6b45"
                   stroke="white"
                   strokeWidth={2}
-                  label={{ value: 'stan bieżący', position: 'top', fontSize: 12 }}
+                  label={{ value: 'stan bieżący', position: strain > maxStrain * 0.5 ? 'left' : 'right', fontSize: 12 }}
                 />
               </LineChart>
             </ResponsiveContainer>

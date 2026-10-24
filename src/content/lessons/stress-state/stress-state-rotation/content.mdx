@@ -7,7 +7,6 @@ shortTitle: Transformacja obrotu
 description: >-
   Oblicz naprężenia na ścianach obróconego elementu i sprawdź, które wielkości
   nie zależą od wyboru osi.
-duration: 8
 eyebrow: Zmień perspektywę
 outcomes:
   - >-
@@ -24,69 +23,329 @@ outcomes:
   - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
 ---
 
-Ten sam fragment materiału można przeciąć pod różnymi kątami. Na jednym przekroju zobaczymy głównie rozciąganie, na innym — więcej ścinania. Nie pojawia się nowe obciążenie; zmienia się jedynie kierunek, względem którego rozkładamy ten sam stan naprężenia.
+Ten sam fragment materiału można przeciąć pod różnymi kątami. Na jednym przekroju zobaczymy głównie rozciąganie, na innym — więcej ścinania. Nie pojawia się nowe obciążenie; zmienia się jedynie kierunek, względem którego rozkładamy ten sam stan naprężenia. To tak, jakby patrzeć na ten sam przedmiot z boku i z góry: kształt jest ten sam, ale współrzędne jego krawędzi są inne.
+
+Dobrym przykładem jest połączenie drewna na zakładkę albo spoina ustawiona pod kątem do siły. Jeżeli znamy naprężenia w układzie osi elementu, chcemy wiedzieć, jakie naprężenia działają na płaszczyźnie spoiny. Od tego zależy, czy połączenie wytrzyma rozciąganie, czy raczej zacznie się rozwarstwiać przy ścinaniu. Podobnie kreda skręcana w palcach pęka po powierzchni ustawionej ukośnie, mimo że zewnętrznie widzimy przede wszystkim skręcanie.
+
+Transformacja naprężeń odpowiada na pytanie: jak zmieniają się składowe, gdy obrócimy układ współrzędnych wokół osi prostopadłej do płaszczyzny. Nie zmieniamy materiału ani obciążenia. Zmieniamy tylko sposób opisu. To ważne, bo pozwala wybrać układ wygodny do obliczeń, a potem przeliczyć wynik na kierunek, który interesuje konstruktora.
+
+W tej lekcji wyprowadzisz wzory na $\sigma_n$, $\sigma_t$ i $\tau_{nt}$ dla płaskiego stanu naprężenia. Nauczysz się rozróżniać kąt $\theta$ od podwojonego kąta $2\theta$ i sprawdzać wynik przez niezmiennik sumy naprężeń normalnych. Zobaczysz też, że czyste ścinanie można opisać jako rozciąganie i ściskanie w układzie obróconym o $45^\circ$. Laboratorium pozwoli zmieniać kąt i obserwować, jak punkt na kole Mohra przesuwa się po obwodzie.
+
+Transformacja jest też pierwszym krokiem do zrozumienia, dlaczego pewne wielkości nazywamy niezmiennikami. Skoro stan fizyczny nie może zależeć od wyboru osi, to niektóre kombinacje składowych muszą pozostać takie same. Znalezienie tych kombinacji pozwala kontrolować rachunek i upraszcza wiele zadań. W płaskim stanie najprostszą taką kombinacją jest suma naprężeń normalnych.
+
+## Zanim zaczniesz
+
+- **Tensor i konwencja znaków.** Potrzebujesz swobody w zapisie $\sigma_x$, $\sigma_y$ i $\tau_{xy}$ oraz zrozumienia, że dodatnie $\sigma$ oznacza rozciąganie. Znak $\tau_{xy}$ zależy od przyjętych dodatnich zwrotów osi; nie zmieniaj ich w połowie zadania.
+- **Podstawowa trygonometria.** Przydadzą się tożsamości $\cos^2\theta=(1+\cos2\theta)/2$, $\sin^2\theta=(1-\cos2\theta)/2$ oraz $2\sin\theta\cos\theta=\sin2\theta$. Bez nich wzór transformacyjny wygląda jak zbiór przypadkowych wyrazów.
+- **Rzut wektora na kierunek.** Naprężenie normalne to rzut trakcji na normalną, a styczne to rzut na kierunek styczny. Warto umieć policzyć iloczyn skalarny dwóch wektorów jednostkowych.
+- **Kąt i jego jednostka.** Funkcje trygonometryczne są naturalne dla kąta w radianach, ale w zadaniach często podajemy stopnie. Przed użyciem funkcji trygonometrycznej upewnij się, że kalkulator jest w trybie stopni, jeśli liczysz w stopniach.
+- **Typowa pułapka.** Kąt $\theta$ opisuje obrót normalnej, a nie płaszczyzny. Płaszczyzna jest prostopadła do normalnej, więc jej położenie różni się o $90^\circ$. Do tego we wzorach pojawia się $2\theta$, co dodatkowo podwaja wrażenie przesunięcia.
+
+## Model i intuicja
+
+Rozważamy płaski stan naprężenia w płaszczyźnie $xy$. Oś $z$ jest osią obrotu, a naprężenia z indeksem $z$ są zerowe. Wycinamy trójkątny element, którego jedna ściana jest prostopadła do $x$, druga do $y$, a trzecia jest nachylona. Normalna nachylonej ściany tworzy z osią $x$ kąt $\theta$. Na tej ścianie chcemy znaleźć naprężenie normalne $\sigma_n$ i styczne $\tau_{nt}$.
+
+Pole nachylonej ściany oznaczymy przez $A$. Pola ścian prostopadłych do osi wynoszą $A\cos\theta$ i $A\sin\theta$, bo są to rzuty nachylonej ściany na odpowiednie płaszczyzny. Na każdej ścianie działa trakcja. Suma sił w kierunku $x$ i $y$ musi być zerowa, bo element jest w równowadze. Dzieląc przez $A$, otrzymujemy zależność między trakcją na nachylonej ścianie a składowymi w układzie $xy$.
+
+Następnie rozkładamy trakcję na kierunek normalnej $n$ i kierunek styczny $t$. Kierunek $t$ jest obrócony o $90^\circ$ względem $n$. Naprężenie normalne to rzut trakcji na $n$, a styczne to rzut na $t$. Po uporządkowaniu wyrazów i użyciu tożsamości trygonometrycznych otrzymujemy wzory, w których występuje $2\theta$. To podwojenie nie jest przypadkiem: obrót płaszczyzny o $180^\circ$ daje tę samą płaszczyznę, więc funkcje opisujące stan muszą mieć okres $180^\circ$ względem $\theta$, czyli $360^\circ$ względem $2\theta$.
+
+Model zakłada, że naprężenia są jednorodne na bokach trójkąta. To jest uzasadnione dla bardzo małego elementu, podobnie jak w poprzedniej lekcji. Obrót układu jest tylko zmianą sposobu opisu, a nie deformacją elementu, więc wzory obowiązują dla dowolnego kąta w płaszczyźnie. Zakładamy natomiast, że stan naprężenia jest opisany w konfiguracji odniesienia i że odkształcenia są małe. Przy dużych odkształceniach trzeba odróżnić konfigurację początkową i aktualną, ale to wykracza poza podstawowy kurs.
+
+Wzory transformacyjne obowiązują także wtedy, gdy materiał jest anizotropowy. Sam obrót układu nie zależy od tego, z czego element jest wykonany. Materiał wchodzi dopiero w związki konstytutywne, czyli w relację między naprężeniem a odkształceniem. Dlatego transformację można opanować niezależnie od tego, czy liczymy stal, drewno czy kompozyt.
+
+Ograniczeniem jest brak pełnej trójwymiarowości. Jeżeli naprężenia z indeksem $z$ nie są zerowe, samo obrócenie w płaszczyźnie $xy$ nie opisze wszystkich możliwych przekrojów. Można wtedy obracać układ w przestrzeni, ale wymaga to trzech kątów i pełnej macierzy transformacji. W tym module skupiamy się na płaskim stanie, bo on wystarcza do większości zadań i do zrozumienia koła Mohra.
+
+Warto jeszcze raz podkreślić, że kąt $\theta$ jest miarą obrotu układu, a nie odkształceniem materiału. Element nie „skręca się” o $\theta$ w sensie fizycznym; to my obracamy nasz układ obserwacji. Ta różnica jest ważna, gdy później pojawią się odkształcenia i kąty postaciowe. Tam kąt będzie już wynikiem deformacji, a nie wyborem osi.
+
+## Laboratorium: co ustawić
+
+W laboratorium ustawiasz $\sigma_x$, $\sigma_y$, $\tau_{xy}$ oraz kąt $\theta$. Obserwuj trzy wyniki: $\sigma_n$, $\sigma_t$ i $\tau_{nt}$. Sprawdź, że suma $\sigma_n+\sigma_t$ nie zmienia się przy obrocie, nawet gdy każda ze składowych osobno się zmienia.
 
 <Lab id="stressTransform" />
 
+Zacznij od $\sigma_x=80$, $\sigma_y=20$ i $\tau_{xy}=40\ \mathrm{MPa}$. Przy $\theta=0$ powinieneś odtworzyć dane wejściowe. Zwiększaj kąt powoli i zapisuj, kiedy $\tau_{nt}$ zmienia znak. Następnie ustaw $\theta=45^\circ$ i porównaj wynik z ręcznym rachunkiem. Na koniec sprawdź przypadek $\tau_{xy}=0$: wzory powinny redukować się do prostych zależności z cosinusem i sinusem podwojonego kąta.
+
+## Definicje i jednostki
+
+| Symbol         | Znaczenie                                     | Jednostka           | Uwaga                              |
+| -------------- | --------------------------------------------- | ------------------- | ---------------------------------- |
+| $\theta$       | kąt od osi $x$ do normalnej $n$               | stopnie lub radiany | dodatni według przyjętej konwencji |
+| $n$            | kierunek normalny do przekroju                | bezwymiarowy        | wektor jednostkowy                 |
+| $t$            | kierunek styczny do przekroju                 | bezwymiarowy        | obrócony o $90^\circ$ od $n$       |
+| $\sigma_n$     | naprężenie normalne na przekroju $n$          | MPa                 | dodatnie przy rozciąganiu          |
+| $\sigma_t$     | naprężenie normalne na przekroju prostopadłym | MPa                 | suma z $\sigma_n$ jest stała       |
+| $\tau_{nt}$    | naprężenie styczne na przekroju $n$           | MPa                 | znak zależy od zwrotu $t$          |
+| $\sigma_{avg}$ | średnia naprężeń normalnych                   | MPa                 | $(\sigma_x+\sigma_y)/2$            |
+| $a$            | połowa różnicy naprężeń normalnych            | MPa                 | $(\sigma_x-\sigma_y)/2$            |
+
+Znak $\tau_{nt}$ jest ustalony przez kierunek $t$. Na ścianie o dodatniej normalnej $n$ dodatnie $\tau_{nt}$ działa w kierunku dodatniego $t$. Przy $\theta=0$ mamy $n=x$ i $t=y$, więc $\tau_{nt}=\tau_{xy}$. Przy $\theta=90^\circ$ mamy $n=y$ i $t=-x$, więc $\tau_{nt}=-\tau_{xy}$. To wyjaśnia, dlaczego ten sam fizyczny stan może mieć różne znaki w zależności od zapisu.
+
+Suma $\sigma_n+\sigma_t$ jest równa $\sigma_x+\sigma_y$ i nie zależy od $\theta$. To pierwszy niezmiennik płaskiego stanu naprężenia. Warto go traktować jak kontrolę rachunku, a nie jako dodatkowy wzór do zapamiętania. Jeśli suma się nie zgadza, błąd jest w arytmetyce albo w znaku którejś składowej.
+
+Drugi niezmiennik płaskiego stanu to wyznacznik macierzy $\sigma_x\sigma_y-\tau_{xy}^2$. On również nie zmienia się przy obrocie, choć nie pojawia się bezpośrednio we wzorach transformacyjnych. Później okaże się, że jest równy iloczynowi naprężeń głównych. Razem z sumą daje dwa niezależne warunki, które pozwalają sprawdzić poprawność całego zestawu wyników.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma_n=\sigma_{avg}+a\cos2\theta+\tau_{xy}\sin2\theta,\quad \tau_{nt}=-a\sin2\theta+\tau_{xy}\cos2\theta,\quad \sigma_{avg}=\frac{\sigma_x+\sigma_y}{2},\quad a=\frac{\sigma_x-\sigma_y}{2}
+\sigma_n=\sigma_{avg}+a\cos 2\theta+\tau_{xy}\sin 2\theta,\qquad \tau_{nt}=-a\sin 2\theta+\tau_{xy}\cos 2\theta
 $$
 
-<Caption>Kąt θ jest kątem obrotu osi n względem osi x. Przyjmujemy dodatni τxy na dodatniej ścianie x, skierowany w stronę dodatniej osi y. Kąt występuje jako 2θ, dlatego obrót przekroju o 90° odpowiada pełnemu cyklowi na kole Mohra.</Caption>
+<Caption>Wzory transformacji dla płaskiego stanu naprężenia. $\sigma_{avg}=(\sigma_x+\sigma_y)/2$, a $a=(\sigma_x-\sigma_y)/2$. Kąt $\theta$ mierzymy od osi $x$ do normalnej $n$. Naprężenie $\sigma_t$ otrzymujemy z tego samego wzoru po zastąpieniu $\theta$ przez $\theta+90^\circ$.</Caption>
 </Formula>
 
+<Formula>
+$$
+\sigma_n+\sigma_t=\sigma_x+\sigma_y,\qquad \sigma_t=\sigma_{avg}-a\cos 2\theta-\tau_{xy}\sin 2\theta
+$$
+
+<Caption>Suma naprężeń normalnych na dwóch prostopadłych przekrojach jest niezmiennikiem. To najszybsza kontrola poprawności transformacji. Niezależnie od kąta średnia $\sigma_{avg}$ pozostaje taka sama, a różnica między $\sigma_n$ i $\sigma_t$ zmienia się wraz z $2\theta$.</Caption>
+</Formula>
+
+Wyprowadzenie zaczynamy od równowagi trójkątnego elementu. Oznaczamy pole nachylonej ściany przez $A$, a normalną przez $n=(\cos\theta,\sin\theta)$. Kierunek styczny to $t=(-\sin\theta,\cos\theta)$. Trakcja na nachylonej ścianie ma składowe $T_x$ i $T_y$.
+
+1. **Pola ścian.** Ściana prostopadła do $x$ ma pole $A\cos\theta$, a ściana prostopadła do $y$ ma pole $A\sin\theta$. To rzuty nachylonej ściany na osie.
+2. **Siły na ścianach.** Na ścianie $x$ działa trakcja $(\sigma_x,\tau_{xy})$, a na ścianie $y$ — $(\tau_{xy},\sigma_y)$. Na nachylonej ścianie działa trakcja $(T_x,T_y)$.
+3. **Równowaga w kierunku $x$.** Po zsumowaniu sił i skróceniu $A$ otrzymujemy $T_x=\sigma_x\cos\theta+\tau_{xy}\sin\theta$.
+4. **Równowaga w kierunku $y$.** Analogicznie $T_y=\tau_{xy}\cos\theta+\sigma_y\sin\theta$.
+5. **Rzut na normalną.** $\sigma_n=T_x\cos\theta+T_y\sin\theta$. Po podstawieniu $T_x$ i $T_y$ dostajemy $\sigma_n=\sigma_x\cos^2\theta+\sigma_y\sin^2\theta+2\tau_{xy}\sin\theta\cos\theta$.
+6. **Rzut na styczną.** $\tau_{nt}=-T_x\sin\theta+T_y\cos\theta$. Po podstawieniu otrzymujemy $\tau_{nt}=(\sigma_y-\sigma_x)\sin\theta\cos\theta+\tau_{xy}(\cos^2\theta-\sin^2\theta)$.
+7. **Tożsamości podwójnego kąta.** Podstawiamy $\cos^2\theta=(1+\cos2\theta)/2$, $\sin^2\theta=(1-\cos2\theta)/2$, $2\sin\theta\cos\theta=\sin2\theta$ oraz $\cos^2\theta-\sin^2\theta=\cos2\theta$.
+8. **Postać końcowa.** Po uporządkowaniu dostajemy wzory z ramki, w których występują $\sigma_{avg}$ i $a$.
+9. **Kontrola przypadków granicznych.** Dla $\theta=0$ mamy $\sigma_n=\sigma_x$ i $\tau_{nt}=\tau_{xy}$. Dla $\theta=90^\circ$ mamy $\sigma_n=\sigma_y$ i $\tau_{nt}=-\tau_{xy}$.
+10. **Kontrola sumy.** Dodając $\sigma_n$ i $\sigma_t$, wyrazy z cosinusem i sinusem się redukują, a pozostaje $\sigma_x+\sigma_y$.
+11. **Kontrola wyznacznika.** Iloczyn $\sigma_n\sigma_t-\tau_{nt}^2$ powinien być równy $\sigma_x\sigma_y-\tau_{xy}^2$. To mniej oczywista, ale bardzo czuła kontrola, szczególnie przy dużych kątach.
+
 <Insight>
-  Suma naprężeń normalnych na dwóch prostopadłych ścianach, σn + σt, jest równa σx + σy i nie zmienia się przy obrocie.
-  Zmieniają się poszczególne składowe, ale średnia i naprężenia główne pozostają niezmienne.
+  Obrót nie tworzy nowego obciążenia. Zmienia tylko rozkład tego samego stanu na składowe. Suma naprężeń normalnych na
+  dwóch prostopadłych przekrojach jest stała, więc jeśli jedna rośnie, druga musi maleć. To najprostsza kontrola, która
+  wychwytuje większość błędów znaku.
 </Insight>
 
 <WorkedExample>
-  <Given>σx = 120 MPa, σy = 40 MPa, τxy = 30 MPa. Wyznacz składowe dla θ = 30°.</Given>
+  <Given>
+    Dane są $\sigma_x=120\ \mathrm{MPa}$, $\sigma_y=40\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$. Wyznacz $\sigma_n$, $\sigma_t$ i $\tau_{nt}$ dla $\theta=30^\circ$.
+  </Given>
   <Steps>
-    <Step>Obliczamy σavg = (120 + 40)/2 = 80 MPa oraz a = (120 − 40)/2 = 40 MPa.</Step>
-    <Step>Dla 2θ = 60°: cos60° = 0,5 i sin60° ≈ 0,8660.</Step>
-    <Step>σn = 80 + 40·0,5 + 30·0,8660 = 125,98 MPa.</Step>
-    <Step>τnt = −40·0,8660 + 30·0,5 = −19,64 MPa.</Step>
+    <Step>Oblicz średnią: $\sigma_{avg}=(120+40)/2=80\ \mathrm{MPa}$.</Step>
+    <Step>Oblicz połowę różnicy: $a=(120-40)/2=40\ \mathrm{MPa}$.</Step>
+    <Step>Dla $\theta=30^\circ$ mamy $2\theta=60^\circ$, więc $\cos60^\circ=0{,}5$ i $\sin60^\circ\approx0{,}8660$.</Step>
+    <Step>Naprężenie normalne: $\sigma_n=80+40\cdot0{,}5+30\cdot0{,}8660=80+20+25{,}98=125{,}98\ \mathrm{MPa}$.</Step>
+    <Step>Naprężenie styczne: $\tau_{nt}=-40\cdot0{,}8660+30\cdot0{,}5=-34{,}64+15=-19{,}64\ \mathrm{MPa}$.</Step>
+    <Step>Naprężenie na przekroju prostopadłym: $\sigma_t=160-125{,}98=34{,}02\ \mathrm{MPa}$.</Step>
+    <Step>Sprawdź sumę: $125{,}98+34{,}02=160\ \mathrm{MPa}$, co zgadza się z $120+40$.</Step>
   </Steps>
   <Result>
-    Na obróconym przekroju σn ≈ 126,0 MPa i τnt ≈ −19,6 MPa. Na przekroju prostopadłym σt = 160 − 125,98 = 34,02 MPa, co
-    potwierdza stałość sumy.
+    Na obróconym przekroju $\sigma_n\approx126{,}0\ \mathrm{MPa}$ i $\tau_{nt}\approx-19{,}6\ \mathrm{MPa}$. Na przekroju prostopadłym $\sigma_t\approx34{,}0\ \mathrm{MPa}$. Znak minus oznacza kierunek działania stycznej w przyjętym układzie, a nie „ujemne ścinanie” w sensie fizycznym. Suma naprężeń normalnych pozostaje równa $160\ \mathrm{MPa}$.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Rozważmy czyste ścinanie: $\sigma_x=\sigma_y=0$ i $\tau_{xy}=50\ \mathrm{MPa}$. Dla $\theta=45^\circ$ mamy $2\theta=90^\circ$, więc $\cos90^\circ=0$ i $\sin90^\circ=1$. Wzór daje $\sigma_n=0+0+50\cdot1=50\ \mathrm{MPa}$ oraz $\sigma_t=0-0-50\cdot1=-50\ \mathrm{MPa}$. Naprężenie styczne wynosi $\tau_{nt}=-0+50\cdot0=0$.
+
+Warto sprawdzić ten wynik na kole Mohra. Dla czystego ścinania środek koła leży w początku układu, a promień wynosi $50\ \mathrm{MPa}$. Punkty odpowiadające przekrojom o $\theta=0$ i $\theta=45^\circ$ leżą na przeciwległych końcach średnicy. Na jednym końcu widzimy czyste ścinanie, a na drugim czyste rozciąganie lub ściskanie. To ten sam okrąg, tylko inny punkt na obwodzie.
+
+Oznacza to, że na płaszczyznach nachylonych o $45^\circ$ do osi $x$ nie ma ścinania, a występuje czyste rozciąganie i ściskanie o wartości $50\ \mathrm{MPa}$. To ten sam stan, tylko opisany w innych osiach. Dlatego materiały kruche skręcane lub ścinane mogą pękać pod kątem $45^\circ$: pęknięcie otwiera się pod wpływem rozciągania, które w układzie pierwotnym było „ukryte” w ścinaniu.
+
+Na płaszczyźnie $\theta=0$ mamy z kolei $\sigma_n=0$ i $\tau_{nt}=50\ \mathrm{MPa}$. Ten sam punkt materiału ma więc na jednym przekroju tylko ścinanie, a na innym tylko rozciąganie i ściskanie. To najlepsza ilustracja tego, że stan naprężenia nie jest tym samym co jego zapis w jednym układzie.
+
+Zwróć uwagę na kolejność kątów. Maksymalne ścinanie w tym stanie występuje przy $\theta=0$, a maksymalne rozciąganie przy $\theta=45^\circ$. Gdyby ktoś zapytał „jaki jest kierunek niebezpieczny”, odpowiedź zależałaby od materiału: kruchy boi się rozciągania pod $45^\circ$, a ciągliwy może płynąć przy ścinaniu wzdłuż osi. Ten sam stan ma więc dwa różne „najgorsze” kierunki, zależnie od mechanizmu zniszczenia.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że z pomiarów wiadomo, iż przy $\theta=0$ naprężenie normalne wynosi $80\ \mathrm{MPa}$, a styczne $30\ \mathrm{MPa}$. Przy $\theta=45^\circ$ naprężenie normalne wynosi $70\ \mathrm{MPa}$. Mamy odtworzyć brakujące składowe stanu.
+
+Z pierwszego pomiaru od razu wynika $\sigma_x=80\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$. Dla $\theta=45^\circ$ wzór upraszcza się, bo $\cos90^\circ=0$ i $\sin90^\circ=1$: $\sigma_n=\sigma_{avg}+\tau_{xy}$. Podstawiamy $70=(80+\sigma_y)/2+30$, więc $(80+\sigma_y)/2=40$, czyli $\sigma_y=0$.
+
+Ten krok pokazuje, dlaczego pomiar pod kątem $45^\circ$ jest tak użyteczny. W tym kierunku naprężenie normalne zawiera bezpośrednio sumę średniej i stycznej, więc pozwala szybko rozdzielić wpływy. Gdybyśmy mieli tylko pomiar przy $\theta=0$, nie odróżnilibyśmy stanu z $\sigma_y=0$ od stanu z inną kombinacją $\sigma_y$ i $\tau_{xy}$, która daje tę samą wartość na ścianie $x$.
+
+Sprawdźmy pozostałe wartości. Dla $\theta=45^\circ$ mamy $\sigma_t=80+0-70=10\ \mathrm{MPa}$ oraz $\tau_{nt}=-(80-0)/2+0=-40\ \mathrm{MPa}$. Suma $70+10=80$ zgadza się z $\sigma_x+\sigma_y=80$, a znak stycznej wynika z przyjętego kierunku $t$. Odtworzony stan to $\sigma_x=80$, $\sigma_y=0$ i $\tau_{xy}=30\ \mathrm{MPa}$.
+
+Taki wariant zadania jest typowy w praktyce: mamy pomiary na dwóch kierunkach i chcemy poznać pełny stan. Wniosek nie może opierać się tylko na jednym odczycie, bo wiele różnych stanów może dawać tę samą wartość na jednej płaszczyźnie. Dopiero druga, niezależna informacja pozwala rozdzielić wkłady $\sigma_y$ i $\tau_{xy}$.
+
+Warto zauważyć, że z dwóch pomiarów odtworzyliśmy trzy niewiadome, bo jedna z nich, $\sigma_x$, była znana bezpośrednio z kąta $0$. W ogólnym przypadku potrzeba trzech niezależnych pomiarów, na przykład w rozecie tensometrycznej. To pokazuje, że transformacja działa w obie strony: z pełnego stanu daje składowe na dowolnym kierunku, a z odpowiednio dobranych kierunków pozwala odtworzyć stan.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Mylenie $\theta$ z $2\theta$.** Wzory zawierają $2\theta$, a kąt w zadaniu jest zwykle kątem $\theta$. Podstawienie $\theta$ tam, gdzie potrzebne jest $2\theta$, zmienia wynik.
+- **Kalkulator w złym trybie.** Dla kąta w stopniach tryb musi być stopniowy. Wynik dla $60$ zamiast $60^\circ$ będzie zupełnie inny.
+- **Zły znak $\tau_{xy}$.** Zmiana znaku stycznej zmienia znak wyrazu z sinusem i może odwrócić wniosek o kierunku maksimum.
+- **Zapominanie o przekroju prostopadłym.** $\sigma_t$ nie jest niezależną daną; wynika z sumy niezmienniczej. Jeśli liczysz je osobno, łatwo o sprzeczność.
+- **Traktowanie $\tau_{nt}=0$ jako braku ścinania w materiale.** To znaczy tylko, że wybrana płaszczyzna jest główna. Na innej płaszczyźnie ścinanie może być duże.
+- **Brak kontroli sumy.** Po każdym obrocie sprawdź $\sigma_n+\sigma_t=\sigma_x+\sigma_y$. To najszybszy test.
+- **Używanie wzorów płaskich w stanie przestrzennym.** Jeśli $\sigma_z$ lub $\tau_{xz}$, $\tau_{yz}$ są niezerowe, potrzebna jest pełna transformacja trójwymiarowa.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+Poniższa procedura porządkuje pracę od danych do interpretacji. W większości zadań wystarczy pierwsze pięć kroków; pozostałe służą do kontroli i do odpowiedzi na pytanie inżynierskie.
+
+1. **Ustal, czy stan jest płaski.** Sprawdź, czy wszystkie składowe z indeksem $z$ są zerowe. Jeśli nie, zatrzymaj się i wybierz metodę trójwymiarową.
+2. **Zapisz dane ze znakami.** Wypisz $\sigma_x$, $\sigma_y$ i $\tau_{xy}$ z jednoznacznymi znakami. Narysuj element i zaznacz dodatnie zwroty.
+3. **Określ kąt.** Ustal, czy $\theta$ jest kątem od osi $x$ do normalnej $n$, czy do płaszczyzny. Jeśli do płaszczyzny, dodaj lub odejmij $90^\circ$, żeby przejść do normalnej.
+4. **Oblicz $\sigma_{avg}$ i $a$.** Te dwie liczby upraszczają rachunek i pozwalają szybko sprawdzić wynik.
+5. **Oblicz $2\theta$.** Dopiero teraz użyj funkcji trygonometrycznych. Zapisz $\cos2\theta$ i $\sin2\theta$ z odpowiednim znakiem.
+6. **Policz $\sigma_n$ i $\tau_{nt}$.** Podstaw do wzorów i nie zaokrąglaj zbyt wcześnie. Zachowaj co najmniej trzy cyfry znaczące.
+7. **Policz $\sigma_t$ z sumy.** Nie licz go niezależnie, chyba że chcesz sprawdzić wynik. Suma musi się zgadzać.
+8. **Zinterpretuj znak i kierunek.** Powiedz, na której ścianie i w którą stronę działa styczne. Znak bez kierunku jest niepełną informacją.
+9. **Sprawdź przypadek graniczny.** Dla $\theta=0$ lub $\theta=90^\circ$ wynik powinien odtwarzać dane wejściowe. To szybki test poprawności.
+10. **Zapisz odpowiedź w układzie, o który pytano.** Jeśli zadanie prosi o naprężenia na spoinie, podaj je w układzie spoiny, a nie w układzie osi pręta. Wynik w niewłaściwym układzie może być formalnie poprawny, ale nie odpowiada na pytanie.
+
+## Połącz z resztą kursu
+
+- **Tensor naprężenia.** Transformacja obraca ten sam tensor. Jeśli tensor jest źle zapisany, żaden obrót tego nie naprawi.
+- **Naprężenia główne.** Kąt, przy którym $\tau_{nt}=0$, wyznacza kierunek główny. Wzory z tej lekcji są punktem wyjścia do różniczkowania i szukania ekstremów.
+- **Koło Mohra.** Kąt $2\theta$ jest kątem na kole. Obrót przekroju o $\theta$ odpowiada obrotowi promienia o $2\theta$, co wyjaśnia konstrukcję graficzną.
+- **Maksymalne ścinanie.** Maksimum $\tau_{nt}$ występuje w połowie drogi między kierunkami głównymi, czyli pod kątem $45^\circ$ od nich.
+- **Stan odkształcenia.** Odkształcenia transformują się według bardzo podobnych wzorów, z tym że przy składowej postaciowej pojawia się współczynnik $1/2$.
+- **Zginanie i ścinanie.** W belce naprężenia normalne i styczne zmieniają się wraz z położeniem punktu; transformacja pozwala ocenić stan na pochyłej płaszczyźnie w danym punkcie.
+- **Połączenia i spoiny.** Kąt spoiny względem siły decyduje o tym, czy dominuje rozciąganie, czy ścinanie. Transformacja pozwala porównać oba przypadki w tym samym języku.
+
+## Sprawdź się
+
+Rozwiąż pytania bez patrzenia na podpowiedzi. Jeśli wynik nie zgadza się z sumą niezmienniczą, wróć do rachunku, zanim uznasz odpowiedź.
+
+Pytania mieszają rachunek z interpretacją. Nie wystarczy podstawić do wzoru: trzeba jeszcze powiedzieć, co wynik oznacza dla materiału i dla wybranej płaszczyzny.
+
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Dla σx = 100 MPa, σy = 20 MPa i τxy = 0 ile wynoszą σn i τnt po obrocie osi o 45°?</Prompt>
-    <Answer correct>σn = 60 MPa, τnt = −40 MPa</Answer>
-    <Answer>σn = 120 MPa, τnt = 0</Answer>
-    <Answer>σn = 40 MPa, τnt = 60 MPa</Answer>
-    <Hint>Dla 2θ = 90° cosinus jest zerowy, a sinus równy 1.</Hint>
+    <Prompt>
+      Dla $\sigma_x=100\ \mathrm{MPa}$, $\sigma_y=20\ \mathrm{MPa}$ i $\tau_{xy}=0$ ile wynoszą $\sigma_n$ i $\tau_{nt}$
+      po obrocie osi o $45^\circ$?
+    </Prompt>
+    <Answer correct>
+      $\sigma_n=60\ \mathrm{MPa}$, $\tau_{nt}=-40\ \mathrm{MPa}$
+    </Answer>
+    <Answer>
+      $\sigma_n=120\ \mathrm{MPa}$, $\tau_{nt}=0$
+    </Answer>
+    <Answer>
+      $\sigma_n=40\ \mathrm{MPa}$, $\tau_{nt}=60\ \mathrm{MPa}$
+    </Answer>
+    <Hint>Dla $2\theta=90^\circ$ cosinus jest zerowy, a sinus równy 1.</Hint>
     <Explanation>
-      σavg = 60 MPa i a = 40 MPa. Zatem σn = 60 + 40·0 + 0 = 60 MPa, a τnt = −40·1 + 0 = −40 MPa. Znak τ opisuje stronę
-      działania w przyjętym układzie.
+      $\sigma_{avg}=60\ \mathrm{MPa}$ i $a=40\ \mathrm{MPa}$. Zatem $\sigma_n=60+40\cdot0+0=60\ \mathrm{MPa}$, a $\tau_
+      {nt}=-40\cdot1+0=-40\ \mathrm{MPa}$. Znak $\tau$ opisuje stronę działania w przyjętym układzie.
     </Explanation>
   </Question>
   <Question outcome="W1">
-    <Prompt>Która wielkość nie zmienia się przy obrocie osi w płaszczyźnie xy?</Prompt>
-    <Answer>σx − σy</Answer>
-    <Answer correct>σx + σy</Answer>
-    <Answer>τxy</Answer>
+    <Prompt>Która wielkość nie zmienia się przy obrocie osi w płaszczyźnie $xy$?</Prompt>
+    <Answer>$\sigma_x-\sigma_y$</Answer>
+    <Answer correct>$\sigma_x+\sigma_y$</Answer>
+    <Answer>$\tau_{xy}$</Answer>
     <Hint>Dodaj do siebie naprężenia normalne na dwóch prostopadłych ścianach.</Hint>
     <Explanation>
-      Pierwszy niezmiennik płaskiego stanu wynosi σx + σy. Pojedyncze składowe i różnica ulegają transformacji, ale ich
-      suma pozostaje stała.
+      Pierwszy niezmiennik płaskiego stanu wynosi $\sigma_x+\sigma_y$. Pojedyncze składowe i różnica ulegają
+      transformacji, ale ich suma pozostaje stała.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>W czystym ścinaniu σx = σy = 0 i τxy = 50 MPa. Jakie naprężenie normalne występuje dla θ = 45°?</Prompt>
+    <Prompt>
+      W czystym ścinaniu $\sigma_x=\sigma_y=0$ i $\tau_{xy}=50\ \mathrm{MPa}$. Jakie naprężenie normalne występuje dla
+      $\theta=45^\circ$?
+    </Prompt>
     <Answer>0 MPa</Answer>
     <Answer correct>50 MPa</Answer>
     <Answer>100 MPa</Answer>
-    <Hint>Pozostaje wyraz τxy sin2θ.</Hint>
+    <Hint>Pozostaje wyraz $\tau_{xy}\sin2\theta$.</Hint>
     <Explanation>
-      Dla θ = 45° mamy sin90° = 1, więc σn = 50 MPa. Czyste ścinanie jest więc równoważne rozciąganiu i ściskaniu o
-      wartości 50 MPa w kierunkach głównych.
+      Dla $\theta=45^\circ$ mamy $\sin90^\circ=1$, więc $\sigma_n=50\ \mathrm{MPa}$. Czyste ścinanie jest więc
+      równoważne rozciąganiu i ściskaniu o wartości $50\ \mathrm{MPa}$ w kierunkach głównych.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla $\sigma_x=100$, $\sigma_y=20$ i $\tau_{xy}=30\ \mathrm{MPa}$ oblicz $\sigma_n$ i $\tau_{nt}$ dla
+      $\theta=90^\circ$.
+    </Prompt>
+    <Answer correct>
+      $\sigma_n=20\ \mathrm{MPa}$, $\tau_{nt}=-30\ \mathrm{MPa}$
+    </Answer>
+    <Answer>
+      $\sigma_n=100\ \mathrm{MPa}$, $\tau_{nt}=30\ \mathrm{MPa}$
+    </Answer>
+    <Answer>
+      $\sigma_n=20\ \mathrm{MPa}$, $\tau_{nt}=30\ \mathrm{MPa}$
+    </Answer>
+    <Hint>Dla $2\theta=180^\circ$ mamy $\cos=-1$ i $\sin=0$.</Hint>
+    <Explanation>
+      $\sigma_n=\sigma_{avg}-a=60-40=20\ \mathrm{MPa}$. Styczne wynosi $\tau_{nt}=-a\cdot0+\tau_{xy}\cdot(-1)=-30\
+      \mathrm{MPa}$. To odpowiada ścianie $y$ z kierunkiem $t=-x$.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Dlaczego obrót przekroju o $90^\circ$ odpowiada na kole Mohra obrotowi o $180^\circ$?</Prompt>
+    <Answer correct>Bo we wzorach występuje $2\theta$</Answer>
+    <Answer>Bo naprężenia normalne są zawsze dodatnie</Answer>
+    <Answer>Bo koło Mohra ma promień równy zeru</Answer>
+    <Hint>Popatrz na argument funkcji sinus i cosinus we wzorach transformacyjnych.</Hint>
+    <Explanation>
+      Wzory zawierają $\cos2\theta$ i $\sin2\theta$. Gdy $\theta$ rośnie o $90^\circ$, argument $2\theta$ rośnie o
+      $180^\circ$, czyli funkcje wracają do tych samych wartości z odpowiednim znakiem. Dlatego na kole jeden pełny
+      obrót odpowiada połowie obrotu fizycznego.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Ten sam stan naprężenia opisano w dwóch układach osi obróconych względem siebie. Co się zmieni w ocenie
+      wytrzymałości elementu?
+    </Prompt>
+    <Answer correct>Nic, bo stan fizyczny i naprężenia główne pozostają te same</Answer>
+    <Answer>Wszystko, bo zmieniają się składowe</Answer>
+    <Answer>Zmieni się tylko znak naprężenia normalnego</Answer>
+    <Hint>Odróżnij zapis od fizycznego stanu.</Hint>
+    <Explanation>
+      Składowe w macierzy zmieniają się przy obrocie, ale naprężenia główne, niezmienniki i rzeczywiste skutki pozostają
+      takie same. Ocena wytrzymałości nie może zależeć od wyboru osi, jeśli analiza jest poprawna.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla $\sigma_x=80$, $\sigma_y=20$ i $\tau_{xy}=40\ \mathrm{MPa}$ oblicz $\sigma_n$ i $\tau_{nt}$ dla
+      $\theta=45^\circ$.
+    </Prompt>
+    <Answer correct>
+      $\sigma_n=90\ \mathrm{MPa}$, $\tau_{nt}=-30\ \mathrm{MPa}$
+    </Answer>
+    <Answer>
+      $\sigma_n=50\ \mathrm{MPa}$, $\tau_{nt}=40\ \mathrm{MPa}$
+    </Answer>
+    <Answer>
+      $\sigma_n=90\ \mathrm{MPa}$, $\tau_{nt}=30\ \mathrm{MPa}$
+    </Answer>
+    <Hint>$\sigma_{avg}=50$, $a=30$, a dla $90^\circ$ sinus wynosi 1.</Hint>
+    <Explanation>
+      $\sigma_n=50+30\cdot0+40\cdot1=90\ \mathrm{MPa}$. Styczne $\tau_{nt}=-30\cdot1+40\cdot0=-30\ \mathrm{MPa}$. Suma z
+      $\sigma_t=10\ \mathrm{MPa}$ daje $100\ \mathrm{MPa}$, czyli $\sigma_x+\sigma_y$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      W czystym ścinaniu $\tau_{xy}=50\ \mathrm{MPa}$ i $\sigma_x=\sigma_y=0$. Co można powiedzieć o stanie na
+      płaszczyźnie obróconej o $45^\circ$?
+    </Prompt>
+    <Answer correct>Występuje tam czyste rozciąganie lub ściskanie o wartości $50\ \mathrm{MPa}$, bez ścinania</Answer>
+    <Answer>Naprężenia są wszędzie zerowe</Answer>
+    <Answer>Występuje tylko ścinanie o wartości $100\ \mathrm{MPa}$</Answer>
+    <Hint>Dla $\theta=45^\circ$ mamy $2\theta=90^\circ$, więc $\tau_{nt}$ znika.</Hint>
+    <Explanation>
+      $\sigma_n=50\ \mathrm{MPa}$, $\sigma_t=-50\ \mathrm{MPa}$ i $\tau_{nt}=0$. To znaczy, że czyste ścinanie jest
+      równoważne rozciąganiu i ściskaniu w kierunkach głównych. Mechanizm zniszczenia zależy od tego, czy materiał jest
+      wrażliwy na rozciąganie, czy na ścinanie.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — rozdział o transformacji stanu naprężenia i płaskim stanie naprężenia; dobry do uporządkowania konwencji kątów.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania na obrót przekroju i wyznaczanie składowych na pochyłych płaszczyznach.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik, rozdział o transformacjach tensora; zawiera wyprowadzenie metodą bezpośrednią i macierzową oraz dyskusję kąta $2\theta$.
+- T. Wierzbicki, _Structural Mechanics_ — otwarte notatki, rozdział o tensorze naprężenia; pokazuje wyprowadzenie transformacji z równowagi i związek z zapisem wskaźnikowym.
+- MIT 3.11 _Mechanics of Materials_ — otwarte notatki MIT, wykład o naprężeniach w belkach i transformacji osi; przykłady pokazują, jak te same wzory stosuje się do rzeczywistych przekrojów.
+
+Warto porównać wyprowadzenie siłowe z wyprowadzeniem macierzowym. Pierwsze jest bardziej intuicyjne i pokazuje, skąd bierze się równowaga, drugie łatwiej uogólnia się na trzy wymiary. Oba prowadzą do tych samych wzorów, więc różnica jest dydaktyczna, a nie fizyczna.
+
+Czytając rozdziały o transformacji, zwróć uwagę na definicję kąta. Niektóre książki mierzą kąt od osi $x$ do nowej osi $x'$, inne od płaszczyzny, a jeszcze inne przyjmują przeciwny zwrot dodatni. Wzory mogą wtedy wyglądać inaczej, choć opisują ten sam stan. Zawsze sprawdź, czy dla $\theta=0$ otrzymujesz dane wejściowe, i dopiero wtedy ufaj reszcie wzoru.

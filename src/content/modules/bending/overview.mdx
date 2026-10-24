@@ -1,1 +1,206 @@
-Od reakcji podporowych przez wykresy T i M do naprężeń, osi obojętnej oraz doboru przekroju i kontroli ugięcia.
+## Co to jest ten moduł
+
+Belka to element konstrukcyjny, którego długość jest znacznie większa od wymiarów przekroju,
+a obciążenie działa głównie prostopadle do jej osi. Tak pracuje deska półki, strop, most,
+rama roweru i gałąź drzewa. Zginanie opisuje, jak taki element przenosi obciążenie poprzeczne:
+jedne włókna się wydłużają, inne skracają, a cała belka zmienia krzywiznę.
+
+W tym module przechodzimy tę samą drogę, którą idzie projektant. Najpierw zastanawiamy się,
+jak belka jest podparta i jakie reakcje powstają w podporach. Potem myślowo przecinamy belkę
+i wyznaczamy siłę tnącą oraz moment zginający w każdym przekroju. Rysujemy wykresy T i M,
+uczymy się przewidywać ich kształt z obciążenia q, a na końcu przechodzimy od momentu
+do naprężeń i doboru przekroju.
+
+Nie zaczynamy od gotowych wzorów. Każdy z nich wyprowadzamy z równowagi małego fragmentu belki,
+bo właśnie ta równowaga wyjaśnia, dlaczego wykresy mają takie, a nie inne kształty. Dzięki temu
+zamiast pamiętać kilkanaście przypadków, wystarczy zrozumieć kilka zależności i konsekwentnie
+je stosować.
+
+Po module będziesz umiał przygotować schemat statyczny belki, obliczyć reakcje, zapisać funkcje
+T(x) i M(x), narysować oba wykresy oraz wskazać przekrój, w którym naprężenie jest największe.
+Na końcu sprawdzisz, czy dobrany przekrój jest nie tylko wystarczająco mocny, ale także
+dostatecznie sztywny.
+
+## Dlaczego to ważne
+
+Zginanie jest jednym z najczęstszych sposobów pracy elementów konstrukcyjnych. Większość belek,
+stropów, podciągów, osi i ram przenosi obciążenia właśnie przez zginanie. Błąd w wyznaczeniu
+momentu zginającego potrafi więc doprowadzić do przewymiarowania całej konstrukcji albo,
+co gorsza, do niedoszacowania najniebezpieczniejszego przekroju.
+
+Najczęstsze problemy nie wynikają ze skomplikowanej matematyki, lecz z niewłaściwego modelu.
+Podpora przesuwna potraktowana jak utwierdzenie, pominięty ciężar własny, źle przyjęty zwrot
+reakcji albo moment policzony względem niewygodnego punktu — każde z tych uproszczeń zmienia
+wynik. W module ćwiczymy konsekwentną konwencję znaków i kontrolę wyników, żeby takie błędy
+wychwycić zawczasu.
+
+Wykresy T i M są językiem, którym konstruktor porozumiewa się z technologiem i wykonawcą.
+Maksimum momentu wskazuje miejsce najbardziej wytężone, a kształt wykresu podpowiada, gdzie
+można zmniejszyć przekrój. Dobrze narysowany wykres pozwala też szybko ocenić, czy wynik jest
+w ogóle sensowny: czy znaki się zgadzają, czy wykres zamyka się w podporach i czy ekstremum
+wypada tam, gdzie podpowiada intuicja.
+
+Zginanie łączy statykę z wytrzymałością materiałów. Reakcje i siły wewnętrzne pochodzą
+z równowagi, ale naprężenia i ugięcia wymagają już prawa Hooke’a oraz geometrii przekroju.
+Ten moduł jest więc pomostem między mechaniką ogólną a projektowaniem elementów, w którym
+decyzja o wymiarze wynika jednocześnie z bezpieczeństwa i ze sztywności.
+
+## Czego się nauczysz
+
+- **W1 — analiza schematów belek.** Nauczysz się rozpoznawać podpory, zastępować obciążenie
+  rozłożone wypadkową i budować poprawny schemat statyczny. Zobaczysz, które schematy są
+  statycznie wyznaczalne, a kiedy potrzebne są dodatkowe warunki odkształcenia.
+- **W2 — przypadki obciążenia i czyste zginanie.** Odróżnisz zginanie z udziałem siły tnącej
+  od czystego zginania, w którym moment jest stały, a T znika. Zrozumiesz, że brak siły tnącej
+  nie oznacza braku naprężeń normalnych.
+- **W3 — geometria przekroju.** Wyjaśnisz, dlaczego moment bezwładności i położenie osi
+  obojętnej decydują o rozkładzie naprężeń oraz o ugięciu. Zobaczysz, dlaczego wysokość
+  przekroju działa znacznie silniej niż jego szerokość.
+- **U1 — reakcje, T(x), M(x) i naprężenia.** Obliczysz reakcje z równań równowagi, zapiszesz
+  funkcje siły tnącej i momentu na kolejnych odcinkach oraz wyznaczysz naprężenia skrajne.
+- **U2 — koło Mohra w zginanym elemencie.** Połączysz naprężenie normalne od momentu
+  z naprężeniem stycznym od siły tnącej i ocenisz stan naprężenia w wybranym punkcie przekroju.
+- **U3 — dobór przekroju.** Sprawdzisz warunek wytrzymałości i warunek sztywności, a następnie
+  wybierzesz przekrój spełniający oba. Nauczysz się odróżniać wymagany wskaźnik wytrzymałości
+  od wymaganego momentu bezwładności.
+
+## Od czego zacząć
+
+Potrzebujesz swobodnego posługiwania się równaniami równowagi płaskiego ciała sztywnego: sumą
+sił w dwóch kierunkach i sumą momentów względem wybranego punktu. Warto wcześniej powtórzyć
+rodzaje podpór oraz sposób zastępowania obciążenia rozłożonego wypadkową. Te treści są w module
+Fundamenty, zwłaszcza w lekcjach o podporach, równowadze i metodzie przekrojów.
+
+Przyda się także umiejętność całkowania prostych funkcji i różniczkowania wielomianów.
+Zależności q–T–M są zapisane pochodnymi, ale w praktyce sprowadzają się do liczenia pól
+pod wykresem i odczytywania nachyleń. Jeśli potrafisz policzyć pole trójkąta i prostokąta
+oraz nachylenie prostej, poradzisz sobie z większością zadań.
+
+Z modułu Geometria przekrojów przypomnij sobie środek ciężkości, moment bezwładności prostokąta
+i twierdzenie Steinera. Z modułu Materiał pod obciążeniem potrzebne będzie prawo Hooke’a oraz
+typowe wartości modułu Younga dla stali i innych materiałów. W module Ścinanie i skręcanie
+warto zobaczyć, czym różni się naprężenie styczne od normalnego.
+
+Kolejność pracy jest ważna. Najpierw opanuj reakcje, potem siłę tnącą, następnie moment,
+a dopiero na końcu zależności q–T–M. Dopiero po tych czterech lekcjach przejdź do czystego
+zginania, rozkładu naprężeń i doboru przekroju. Próba przeskoczenia do wzoru σ = My/I bez
+zrozumienia wykresów M zwykle kończy się mechanicznym podstawianiem liczb.
+
+## Mapa lekcji
+
+**Belki i reakcje podporowe** to punkt wyjścia. Uczysz się opisywać podpory, zastępować
+obciążenie rozłożone wypadkową i wyznaczać reakcje z trzech równań równowagi. Bez poprawnych
+reakcji dalsze wykresy są tylko konsekwencją błędu.
+
+**Siła tnąca T(x)** wprowadza metodę przekrojów. Po myślowym cięciu belki równowaga odciętej
+części daje siłę wewnętrzną. Uczysz się, jak siły skupione tworzą skoki, a obciążenie ciągłe —
+liniowe odcinki wykresu.
+
+**Moment zginający M(x)** pokazuje, jak moment narasta i maleje wzdłuż belki. Związek dM/dx = T
+pozwala znaleźć ekstrema bez liczenia wielu punktów. To lekcja, w której wykres momentu przestaje
+być zbiorem przypadków, a staje się konsekwencją wykresu siły tnącej.
+
+**Zależności q–T–M** porządkują całość w jeden łańcuch: obciążenie steruje nachyleniem siły
+tnącej, a siła tnąca — nachyleniem momentu. Uczysz się przewidywać stopień funkcji i kształt
+wykresu jeszcze przed obliczeniami.
+
+**Czyste zginanie** wydziela przypadek, w którym moment jest stały, a siła tnąca równa zeru.
+To najprostszy stan do wyprowadzenia rozkładu naprężeń i punkt wyjścia do zrozumienia osi
+obojętnej.
+
+**Rozkład σ i oś obojętna** łączy moment z naprężeniami normalnymi. Zobaczysz, dlaczego
+naprężenie rośnie liniowo z odległością od osi obojętnej i dlaczego najdalej położone włókna
+decydują o wytrzymałości przekroju.
+
+**Dobór przekroju i kontrola sztywności** zamyka moduł praktyką projektową. Warunek
+wytrzymałości wyznacza wymagany wskaźnik W, a warunek sztywności — wymagany moment bezwładności
+I. Dopiero sprawdzenie obu daje poprawny projekt.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+\sum F_x = 0, \qquad \sum F_y = 0, \qquad \sum M_A = 0
+$$
+
+<Caption>
+Trzy równania równowagi płaskiej belki statycznie wyznaczalnej. Punkt A wybieramy tak, aby jak
+najwięcej niewiadomych miało zerowy moment.
+</Caption>
+</Formula>
+
+<Formula>
+$$
+\frac{dT}{dx} = -q, \qquad \frac{dM}{dx} = T
+$$
+
+<Caption>
+Przyjmujemy q dodatnie dla obciążenia w dół oraz dodatni moment wyginający belkę wypukłością
+w dół. Znak minus przy q zależy od tej konwencji i trzeba go stosować konsekwentnie.
+</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma_x(y) = \frac{M y}{I_z}, \qquad \sigma_{\max} = \frac{M}{W_z}, \qquad W_z = \frac{I_z}{c}
+$$
+
+<Caption>
+y mierzymy od osi obojętnej w stronę rozciąganych włókien, c jest największą odległością
+do skraju przekroju, a I_z momentem bezwładności względem osi zginania.
+</Caption>
+</Formula>
+
+<Insight>
+  Najpierw reakcje, potem siła tnąca, na końcu moment. Każdy wykres jest całką poprzedniego, więc błąd na początku
+  propaguje się do końca. Dlatego tak ważna jest kontrola: suma reakcji musi równoważyć obciążenie, a wykresy powinny
+  zamknąć się w podporach.
+</Insight>
+
+<Callout kind="warning" title="Najczęstsza pułapka">
+
+Nie mieszaj konwencji. W tym kursie q dodatnie działa w dół, dodatnia siła tnąca daje dodatnie
+nachylenie momentu, a dodatni moment rozciąga dolne włókna. Jeśli w zadaniu przyjmiesz inny
+zwrot, możesz go użyć, ale musisz przeliczyć znaki wszystkich równań i konsekwentnie trzymać się
+jednego wyboru do końca.
+
+</Callout>
+
+## Jak się uczyć
+
+1. Zawsze zaczynaj od rysunku. Zaznacz podpory, wymiary, zwroty sił i reakcji. Bez rysunku
+   równania równowagi łatwo zapisać z niewłaściwym ramieniem.
+2. Reakcje policz dwoma sposobami: z sumy momentów względem jednej podpory i kontrolnie
+   względem drugiej. Jeśli wyniki się nie zgadzają, nie idź dalej.
+3. Wykresy buduj od lewej do prawej. Zapisuj wartości na początku i końcu każdego odcinka
+   oraz wielkość skoku w miejscu siły skupionej.
+4. Korzystaj z zależności q–T–M do kontroli kształtu. Stałe q daje liniowe T i kwadratowe M;
+   zerowe q daje stałe T i liniowe M.
+5. Sprawdzaj jednostki na każdym etapie. Reakcja w kN, obciążenie w kN/m, moment w kN·m,
+   naprężenie w MPa. Mieszanie metrów i milimetrów to najczęstsze źródło czynnika tysiąc.
+6. Na końcu oceń sens wyniku. Czy maksimum momentu jest tam, gdzie spodziewasz się największego
+   zginania? Czy ugięcie i naprężenie mają rząd wielkości typowy dla danego materiału i przekroju?
+
+## Po tym module
+
+Następny moduł zajmuje się stanem naprężenia i kołem Mohra. Zginanie dostarcza tam gotowego
+przykładu stanu, w którym naprężenie normalne zmienia się liniowo w przekroju, a naprężenie
+styczne od siły tnącej osiąga maksimum w osi obojętnej. Dzięki temu zobaczysz, że koło Mohra
+nie jest osobnym narzędziem, lecz sposobem odczytania tego, co dzieje się w konkretnym punkcie
+belki.
+
+Później wrócisz do zginania w module Hipotezy wytężeniowe i w module Projektowanie elementów.
+Tam dojdzie dobór materiału, współczynnik bezpieczeństwa i pełne zadania projektowe. Warto już
+teraz zapamiętać, że warunek wytrzymałości i warunek sztywności są niezależne: przekrój może być
+bezpieczny i jednocześnie zbyt wiotki.
+
+## Źródła
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o zginaniu prętów prostych,
+  reakcjach i wykresach sił wewnętrznych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — podstawy analizy belek
+  i metody przekrojów.
+- D. Roylance, _Mechanics of Materials_ (MIT OpenCourseWare) — rozdziały o wykresach sił tnących
+  i momentów oraz o naprężeniach w belkach.
+- T. Wierzbicki, _Structural Mechanics_ (MIT OpenCourseWare) — kinematyka belek, hipoteza
+  Eulera–Bernoulliego i równania równowagi.

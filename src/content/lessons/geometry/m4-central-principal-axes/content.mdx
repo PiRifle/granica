@@ -7,7 +7,6 @@ shortTitle: Osie przekroju
 description: >-
   Osie przechodzące przez środek ciężkości, moment dewiacyjny oraz warunki, w
   których osie stają się główne.
-duration: 9
 eyebrow: Wybieramy właściwy układ osi
 outcomes:
   - W1 — analizuje związek układu osi z kierunkami zginania
@@ -18,81 +17,292 @@ outcomes:
   - U3 — wybiera osie umożliwiające poprawny i bezpieczny dobór przekroju
 ---
 
-Samo przesunięcie osi do środka ciężkości nie zawsze wystarcza. W osiach głównych zginanie rozdziela się na dwa niezależne kierunki, a moment dewiacyjny Ixy znika.
+Wyobraź sobie, że skręcasz długą listwę o przekroju kątownika. Jeżeli będziesz ją zginać wzdłuż jednej półki, listwa ugnie się nie tylko w tę stronę, ale także lekko w bok. To nie jest wada materiału ani niedokładność pomiaru. Przyczyna leży w geometrii przekroju: osie równoległe do półek nie są kierunkami, w których zginanie jest niezależne.
+
+W poprzednich lekcjach wyznaczaliśmy środek ciężkości, momenty bezwładności i przenosiliśmy je twierdzeniem Steinera na wspólną oś. Te osie były jednak wybrane „wygodnie”, najczęściej równolegle do krawędzi rysunku. Dla przekroju symetrycznego taki wybór zwykle wystarcza. Dla przekroju niesymetrycznego trzeba znaleźć układ osi, w którym moment dewiacyjny znika. Dopiero wtedy wzory na zginanie rozdzielają się na dwa niezależne kierunki.
+
+Moment dewiacyjny $I_{xy}$ jest miarą tego, jak bardzo pole przekroju jest „przekręcone” względem wybranych osi. Gdy jest różny od zera, moment zginający działający w jednej płaszczyźnie wywołuje ugięcie także w płaszczyźnie prostopadłej. Osie główne są takim układem, w którym to sprzężenie znika. Osie centralne i główne są więc nie dodatkiem do teorii, lecz warunkiem poprawnego stosowania prostych wzorów zginania.
+
+Po tej lekcji będziesz umiał odróżnić osie centralne od głównych, policzyć moment dewiacyjny, wyznaczyć kąt osi głównych oraz sprawdzić wynik przez niezmienniki. Zobaczysz też, dlaczego oś symetrii jest zawsze osią główną i kiedy dowolny obrót osi nie zmienia momentów. Nauczysz się rozpoznawać sytuacje, w których trzeba szukać kierunków głównych, a kiedy wystarczy zauważyć symetrię.
+
+W praktyce te pojęcia wracają przy każdym niesymetrycznym kształtowniku, przy profilach giętych, odlewach i przekrojach kompozytowych. Inżynier, który przyjmie przypadkowe osie, może otrzymać naprężenia pozornie bezpieczne, a mimo to pominąć składową zginania w drugiej płaszczyźnie. Dlatego wybór osi jest decyzją projektową, a nie tylko porządkującą rysunek.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie definicje momentów bezwładności $I_x=\int_A y^2\,dA$ oraz $I_y=\int_A x^2\,dA$ i ich jednostkę mm⁴. Moment dewiacyjny ma ten sam wymiar, choć może być ujemny.
+- Umiej wyznaczyć środek ciężkości przekroju złożonego. Osie centralne muszą przechodzić przez ten punkt, więc błąd w $\bar{x}$ lub $\bar{y}$ przenosi się na cały dalszy rachunek.
+- Przypomnij wzory na momenty własne prostokąta i koła oraz twierdzenie Steinera. Będą potrzebne do policzenia $I_x$, $I_y$ i $I_{xy}$ względem wspólnego środka.
+- Opanuj podstawy trygonometrii: $\sin^2\theta$, $\cos^2\theta$, $\sin 2\theta$ i $\cos 2\theta$. Wzór transformacyjny jest kombinacją właśnie tych funkcji.
+- Ustal konwencję kąta. W tej lekcji $\theta$ mierzymy od osi $x$ do osi $x'$ w kierunku przeciwnym do ruchu wskazówek zegara, patrząc na przekrój.
+- Typowa pułapka: moment dewiacyjny zależy od położenia początku układu. Wartość podana bez informacji, względem jakich osi została policzona, nie ma sensu.
+
+## Model i intuicja
+
+Przekrój traktujemy jako figurę płaską o polu $A$ i środku ciężkości $C$. Przez $C$ prowadzimy układ osi $x,y$. Moment bezwładności względem dowolnej osi $x'$ obróconej o kąt $\theta$ można policzyć, całkując kwadrat odległości punktów od tej osi. Ponieważ odległość jest rzutem wektora wodzącego na kierunek prostopadły do osi, wzór zawiera kwadraty i iloczyny funkcji trygonometrycznych.
+
+W tym modelu materiał jest liniowo-sprężysty, przekrój pozostaje płaski, a odkształcenia są małe. Moment bezwładności jest czysto geometryczny: nie zależy od modułu Younga ani od gęstości. To pozwala raz policzyć charakterystyki przekroju i używać ich dla stali, aluminium czy tworzywa, o ile materiał jest izotropowy i pracuje w zakresie sprężystym.
+
+Osie centralne to każda para osi przechodzących przez środek ciężkości. Spełniają one $S_{xc}=S_{yc}=0$, ale nie muszą mieć zerowego momentu dewiacyjnego. Osie główne to taka para osi, dla której $I_{xy}=0$; dodatkowo, jeśli przechodzą przez środek ciężkości, nazywamy je centralnymi osiami głównymi. W osiach głównych momenty $I_x$ i $I_y$ osiągają wartości ekstremalne spośród wszystkich obrotów wokół tego samego punktu.
+
+Najważniejsza intuicja jest następująca: moment dewiacyjny mówi, czy pole jest rozmieszczone symetrycznie względem obu osi łącznie. Jeżeli w pierwszej i trzeciej ćwiartce jest więcej materiału niż w drugiej i czwartej, $I_{xy}$ jest dodatni. Jeżeli przeważa materiał w ćwiartkach drugiej i czwartej, $I_{xy}$ jest ujemny. Gdy rozkład jest zrównoważony, $I_{xy}$ znika i osie są główne.
+
+Oś symetrii jest zawsze osią główną. Wynika to z doboru par punktów: każdemu elementowi pola po jednej stronie osi odpowiada element po drugiej stronie, a iloczyn $xy$ ma przeciwne znaki. Po zsumowaniu zostaje zero. Druga oś główna jest prostopadła do osi symetrii i przechodzi przez środek ciężkości. To dlatego przekroje teowe, dwuteowe i prostokątne nie wymagają zwykle obracania układu.
+
+Model przestaje być wystarczający w kilku sytuacjach. Przy dużych odkształceniach plastycznych rozkład naprężeń nie jest liniowy, a osie główne geometrii nie opisują już kierunków największego wytężenia w prosty sposób. W przekroju kompozytowym trzeba przeliczyć pola przez stosunek modułów, bo sama geometria nie wystarcza. Przy zginaniu ukośnym i skręcaniu istotne staje się także położenie środka ścinania, który nie musi pokrywać się ze środkiem ciężkości.
+
+## Laboratorium: co ustawić
+
+W laboratorium metody przekrojów ustaw długość pręta i położenie przekroju, a następnie zmień pole $A$ przy stałej sile $P$. Zobaczysz, że naprężenie osiowe zależy tylko od pola, natomiast przy zginaniu ta sama wartość $A$ nie wystarcza: potrzebna jest informacja o rozmieszczeniu materiału względem osi. To właśnie dlatego geometrię przekroju opisujemy momentami, a nie samym polem.
 
 <Lab id="sections" />
 
+## Definicje i jednostki
+
+Moment dewiacyjny przekroju względem prostokątnego układu osi definiujemy jako $I_{xy}=\int_A xy\,dA$. Wartość zależy od położenia początku układu. Dla osi przechodzących przez środek ciężkości mówimy o centralnym momencie dewiacyjnym. Przy przesunięciu początku układu obowiązuje związek $I_{xy}=I_{xy,c}+A\bar{x}\bar{y}$, gdzie $\bar{x}$ i $\bar{y}$ są współrzędnymi środka ciężkości względem pierwotnych osi.
+
+| Symbol              | Znaczenie                                   | Jednostka |
+| ------------------- | ------------------------------------------- | --------- |
+| $I_x,\ I_y$         | momenty bezwładności względem osi $x$ i $y$ | mm⁴       |
+| $I_{xy}$            | moment dewiacyjny, $\int_A xy\,dA$          | mm⁴       |
+| $I_1,\ I_2$         | główne momenty bezwładności, $I_1\ge I_2$   | mm⁴       |
+| $\theta$            | kąt obrotu osi, liczony od $x$ do $x'$      | rad lub ° |
+| $S_{xc},\ S_{yc}$   | momenty statyczne względem osi centralnych  | mm³       |
+| $A$                 | pole przekroju                              | mm²       |
+| $\bar{x},\ \bar{y}$ | współrzędne środka ciężkości                | mm        |
+
+Konwencja znaku $I_{xy}$ wynika wprost z definicji. Jeżeli przeważa materiał w ćwiartkach, gdzie $x$ i $y$ mają jednakowe znaki, całka jest dodatnia. Jeżeli przeważa materiał w ćwiartkach o przeciwnych znakach, całka jest ujemna. Dla figury symetrycznej względem osi $x$ lub $y$ moment dewiacyjny wynosi zero, niezależnie od tego, czy symetria jest zupełna, czy tylko jednostronna.
+
+Kąt $\theta$ ma sens modulo $90^\circ$, ponieważ obrót osi o $90^\circ$ zamienia osie miejscami, a obrót o $180^\circ$ wraca do tego samego układu z przeciwnymi zwrotami. W praktyce podajemy kąt ostrzały do jednej z osi i drugi kierunek prostopadły. Nie ma jednego „właściwego” kąta: $\theta$ i $\theta+90^\circ$ opisują ten sam układ osi głównych.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-S_{xc} = S_{yc} = 0; \qquad \text{w osiach głównych: } I_{xy} = 0
+I_{x'}=I_x\cos^2\theta+I_y\sin^2\theta-2I_{xy}\sin\theta\cos\theta
 $$
 
-<Caption>Osie centralne przechodzą przez środek ciężkości. Osie główne przekroju są osiami centralnymi o Ixy = 0; oś symetrii przekroju wraz z osią prostopadłą przechodzącą przez środek ciężkości tworzą układ główny.</Caption>
+$$
+\tan 2\theta=-\frac{2I_{xy}}{I_x-I_y}, \qquad I_{1,2}=\frac{I_x+I_y}{2}\pm\sqrt{\left(\frac{I_x-I_y}{2}\right)^2+I_{xy}^2}
+$$
+
+<Caption>Wzory dotyczą osi przechodzących przez ten sam punkt, najczęściej przez środek ciężkości. $I_{xy}=\int_A xy\,dA$, a $\theta$ jest kątem od osi $x$ do osi $x'$. $I_1$ odpowiada znak plus, a $I_2$ znak minus; oba są nieujemne.</Caption>
 </Formula>
 
+Wyprowadzenie pokazuje, skąd bierze się kąt $2\theta$ i dlaczego moment dewiacyjny jest jedynym sprzężeniem między osiami.
+
+1. Obróć układ osi o kąt $\theta$. Współrzędne punktu w nowym układzie wynoszą $x'=x\cos\theta+y\sin\theta$ oraz $y'=-x\sin\theta+y\cos\theta$.
+2. Moment względem nowej osi $x'$ to $I_{x'}=\int_A (y')^2\,dA$. Podstaw wyrażenie na $y'$ i rozwiń kwadrat.
+3. Otrzymujesz sumę trzech całek: $\int x^2\,dA$, $\int y^2\,dA$ oraz $\int xy\,dA$, z współczynnikami zależnymi od $\theta$.
+4. Korzystasz z definicji: $\int x^2\,dA=I_y$, $\int y^2\,dA=I_x$ oraz $\int xy\,dA=I_{xy}$. Znak przy $I_{xy}$ wynika z podwójnego iloczynu w rozwinięciu kwadratu.
+5. Porządkujesz wyrazy i otrzymujesz $I_{x'}=I_x\cos^2\theta+I_y\sin^2\theta-2I_{xy}\sin\theta\cos\theta$.
+6. Aby znaleźć ekstremum, różniczkujesz względem $\theta$ i przyrównujesz pochodną do zera. Po użyciu tożsamości na $\sin 2\theta$ i $\cos 2\theta$ dostajesz $\tan 2\theta=-2I_{xy}/(I_x-I_y)$.
+7. Równanie ma dwa rozwiązania różniące się o $90^\circ$. Jedno daje maksimum $I_1$, drugie minimum $I_2$; sprawdzenie znaku drugiej pochodnej albo porównanie wartości rozstrzyga, które jest które.
+8. Podstawiasz $\theta$ z równania do wzoru transformacyjnego. Po uproszczeniu otrzymujesz $I_{1,2}$ w postaci średniej plus minus pierwiastek z kwadratu połowy różnicy i kwadratu $I_{xy}$.
+9. Sprawdzasz niezmienniki: $I_1+I_2=I_x+I_y$ oraz $I_1I_2=I_xI_y-I_{xy}^2$. Są one niezależne od kąta i służą do kontroli rachunku.
+
+W osiach głównych $I_{xy}=0$, więc wzór transformacyjny upraszcza się do kombinacji $I_1\cos^2\theta+I_2\sin^2\theta$. To wyjaśnia, dlaczego w układzie głównym zginanie wokół jednej osi nie wywołuje momentu względem drugiej. Osie główne są więc naturalnym układem współrzędnych dla belki o niesymetrycznym przekroju.
+
 <Insight>
-  W analizie przekroju osie główne przyjmujemy jako centralne, więc każda z nich przechodzi przez środek ciężkości. Nie
-  każda para osi centralnych jest jednak główna: dla przekroju niesymetrycznego kierunki główne mogą być obrócone
-  względem krawędzi.
+  Moment dewiacyjny nie jest „dodatkowym” momentem bezwładności, lecz miarą sprzężenia osi. Jeżeli $I_{xy}\ne 0$, to
+  osie są centralne, ale nie główne. Samo przejście do środka ciężkości nie usuwa sprzężenia; trzeba jeszcze obrócić
+  układ o kąt główny.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Prostokąt b × h ma centralne osie x i y równoległe do boków. Sprawdzamy warunki Sxc = Syc = 0 oraz Ixy = 0 dla tych
-    osi.
+    Trójkąt prostokątny ma przyprostokątną $a=120$ mm wzdłuż osi $x$ i przyprostokątną $b=80$ mm wzdłuż osi $y$. Rozpatrujemy osie centralne równoległe do przyprostokątnych. Pole wynosi $A=4800\ \text{mm}^2$, a środek ciężkości leży w odległości $a/3=40$ mm od osi $y$ i $b/3=26{,}67$ mm od osi $x$.
   </Given>
   <Steps>
-    <Step>Osie przechodzą przez środek ciężkości, więc odległość środka od każdej z nich wynosi zero.</Step>
-    <Step>Z Sxc = A·ȳ i Syc = A·x̄ otrzymujemy Sxc = Syc = 0.</Step>
     <Step>
-      Obie osie są osiami symetrii prostokąta; każda para symetrycznych elementów pola daje przeciwne składniki xy dA.
+      Momenty względem osi centralnych równoległych do przyprostokątnych: $I_x=ab^3/36=120\cdot 80^3/36\approx 1{,}707\cdot 10^6\ \text{mm}^4$ oraz $I_y=ba^3/36=80\cdot 120^3/36=3{,}840\cdot 10^6\ \text{mm}^4$.
     </Step>
-    <Step>Po zsumowaniu Ixy = ∫A xy dA = 0, więc centralne osie x i y są również główne, choć na ogół Ix ≠ Iy.</Step>
+    <Step>
+      Moment dewiacyjny względem osi przyprostokątnych wynosi $I_{xy}=a^2b^2/24$. Po przejściu do środka ciężkości odejmujemy $A\bar{x}\bar{y}$ i otrzymujemy $I_{xy,c}=-a^2b^2/72=-1{,}280\cdot 10^6\ \text{mm}^4$. Znak jest ujemny, co odzwierciedla rozmieszczenie pola względem środka ciężkości; wartość bezwzględna jest mniejsza niż moment względem przyprostokątnych, bo odejmujemy składnik $A\bar{x}\bar{y}$.
+    </Step>
+    <Step>
+      Średnia momentów: $(I_x+I_y)/2=(1{,}707+3{,}840)\cdot 10^6/2=2{,}773\cdot 10^6\ \text{mm}^4$. Promień $R$ we wzorze na momenty główne: $R=\sqrt{((I_x-I_y)/2)^2+I_{xy}^2}\approx 1{,}666\cdot 10^6\ \text{mm}^4$.
+    </Step>
+    <Step>
+      Główne momenty: $I_1=2{,}773\cdot 10^6+1{,}666\cdot 10^6\approx 4{,}44\cdot 10^6\ \text{mm}^4$ oraz $I_2=2{,}773\cdot 10^6-1{,}666\cdot 10^6\approx 1{,}11\cdot 10^6\ \text{mm}^4$.
+    </Step>
+    <Step>
+      Kąt główny: $\tan 2\theta=-2I_{xy}/(I_x-I_y)=-2\cdot(-1{,}280)/(1{,}707-3{,}840)\approx -1{,}20$. Stąd $2\theta\approx 129{,}8^\circ$ lub $-50{,}2^\circ$, czyli $\theta_1\approx 64{,}9^\circ$ dla $I_1$ i $\theta_2\approx -25{,}1^\circ$ dla $I_2$.
+    </Step>
+    <Step>
+      Kontrola: $I_1+I_2=5{,}55\cdot 10^6\ \text{mm}^4$ oraz $I_x+I_y=5{,}55\cdot 10^6\ \text{mm}^4$. Iloczyn $I_1I_2\approx 4{,}92\cdot 10^{12}\ \text{mm}^8$ zgadza się z $I_xI_y-I_{xy}^2$.
+    </Step>
   </Steps>
   <Result>
-    Dla prostokąta osie środkowe równoległe do boków są osiami głównymi: momenty statyczne i moment dewiacyjny wynoszą
-    zero.
+    Dla trójkąta $120\times 80$ mm główne momenty wynoszą około $I_1=4{,}44\cdot 10^6\ \text{mm}^4$ i $I_2=1{,}11\cdot 10^6\ \text{mm}^4$. Oś największego momentu jest obrócona o około $64{,}9^\circ$ od osi równoległej do przyprostokątnej $a$, a oś najmniejszego momentu jest do niej prostopadła.
   </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Weźmy przekrój teowy z lekcji o twierdzeniu Steinera: środnik $20\times 100$ mm i półka $120\times 20$ mm, całkowita wysokość 120 mm. Przekrój ma pionową oś symetrii, więc moment dewiacyjny względem osi centralnych jest zerowy. Nie trzeba szukać kąta głównego: osie równoległe do półki i do środnika są już główne.
+
+Pole wynosi $A=4400\ \text{mm}^2$, a środek ciężkości leży $82{,}73$ mm od dolnej krawędzi. Moment względem poziomej osi centralnej obliczyliśmy wcześniej: $I_x\approx 5{,}674\cdot 10^6\ \text{mm}^4$. Moment względem pionowej osi symetrii policzymy z twierdzenia Steinera, ale ponieważ oba środki części leżą na tej osi, składniki przesunięcia znikają:
+
+$$
+I_y=\frac{100\cdot 20^3}{12}+\frac{20\cdot 120^3}{12}
+=66\,667+2\,880\,000=2\,946\,667\ \text{mm}^4.
+$$
+
+Zatem $I_x\approx 5{,}674\cdot 10^6\ \text{mm}^4$ i $I_y\approx 2{,}947\cdot 10^6\ \text{mm}^4$, a $I_{xy}=0$. Głównymi momentami są po prostu te dwie wartości, przy czym $I_1=I_x$ odpowiada osi poziomej, a $I_2=I_y$ osi pionowej. Kąt główny wynosi $0^\circ$ lub $90^\circ$ w zależności od tego, którą oś przyjmiemy za wyjściową.
+
+Ten przykład pokazuje ważną rzecz: dla przekroju z osią symetrii nie trzeba liczyć kąta z arctangensa. Wystarczy rozpoznać symetrię i sprawdzić, że $I_{xy}=0$. Dopiero gdy symetrii brak, pełny rachunek staje się konieczny. Warto jednak sprawdzić, czy oś symetrii rzeczywiście przechodzi przez środek ciężkości; dla figury złożonej z części o różnych polach trzeba to potwierdzić rachunkiem, a nie tylko „na oko”.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że znamy główne momenty $I_1=50\cdot 10^6\ \text{mm}^4$ i $I_2=10\cdot 10^6\ \text{mm}^4$ oraz moment względem osi $x$ równy $I_x=35\cdot 10^6\ \text{mm}^4$. Chcemy odtworzyć $I_y$, $I_{xy}$ i kąt osi głównych. To zadanie „od wyniku do danych”, typowe przy interpretacji wyników pomiarów lub katalogów kształtowników.
+
+Z niezmiennika sumy mamy $I_y=I_1+I_2-I_x=60\cdot 10^6-35\cdot 10^6=25\cdot 10^6\ \text{mm}^4$. Z niezmiennika iloczynu:
+
+$$
+I_{xy}^2=I_xI_y-I_1I_2=(35\cdot 25-50\cdot 10)\cdot 10^{12}=375\cdot 10^{12}\ \text{mm}^8,
+$$
+
+czyli $|I_{xy}|\approx 19{,}36\cdot 10^6\ \text{mm}^4$. Znak zależy od tego, w którą stronę obrócono układ; przyjmijmy $I_{xy}=-19{,}36\cdot 10^6\ \text{mm}^4$. Wtedy
+
+$$
+\tan 2\theta=-\frac{2I_{xy}}{I_x-I_y}=-\frac{2\cdot(-19{,}36)}{35-25}\approx 3{,}873,
+$$
+
+skąd $2\theta\approx 75{,}5^\circ$ i $\theta\approx 37{,}8^\circ$. Sprawdzenie: podstawienie tego kąta do wzoru transformacyjnego daje $I_{x'}\approx 50\cdot 10^6\ \text{mm}^4$, czyli $I_1$. Drugi kierunek, prostopadły, daje $I_2$. Widzimy, że same wartości główne nie wystarczają do jednoznacznego odtworzenia orientacji; potrzebna jest jeszcze informacja o znaku momentu dewiacyjnego lub o kącie.
+
+## Typowe błędy
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Mylenie osi centralnych z głównymi.** Osie centralne przechodzą przez środek ciężkości, ale mogą mieć $I_{xy}\ne 0$. Osie główne wymagają dodatkowo zniknięcia momentu dewiacyjnego.
+
+**Zła konwencja znaku $I_{xy}$.** Zmiana znaku momentu dewiacyjnego zmienia kąt główny na przeciwny. Zawsze zapisuj definicję $I_{xy}=\int xy\,dA$ i kierunek obrotu osi.
+
+**Zapominanie, że kąt jest podwojony.** Równanie dotyczy $2\theta$, nie $\theta$. Po rozwiązaniu trzeba podzielić wynik przez dwa i pamiętać o drugim kierunku różniącym się o $90^\circ$.
+
+**Przyjmowanie $I_x=I_y$ dla przekroju symetrycznego.** Symetria daje $I_{xy}=0$, ale nie równość momentów. Prostokąt ma różne $I_x$ i $I_y$, choć oba są główne.
+
+**Liczenie $I_{xy}$ względem złego punktu.** Moment dewiacyjny zależy od początku układu. Do osi głównych potrzebny jest moment centralny, a nie względem dowolnego narożnika.
+
+**Używanie kąta głównego geometrii jako kąta głównych naprężeń.** Kierunki główne przekroju i kierunki główne stanu naprężenia to różne pojęcia. Pokrywają się tylko w szczególnych, prostych przypadkach.
+
+**Pomijanie kontroli niezmienników.** Suma i iloczyn momentów głównych muszą zgadzać się z wartościami wyjściowymi. Brak kontroli pozwala przeoczyć błąd w znaku lub w jednostkach.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, czy pytanie dotyczy osi centralnych, czy głównych. Jeżeli w treści jest mowa o środku ciężkości i zerowych momentach statycznych, zaczynasz od osi centralnych.
+2. Wyznacz środek ciężkości i przyjmij przez niego układ osi. Bez tego każdy dalszy moment będzie liczony względem niewłaściwego punktu.
+3. Policz $I_x$, $I_y$ i $I_{xy}$ względem tego układu. Dla figur złożonych użyj twierdzenia Steinera, a dla otworów pamiętaj o znaku ujemnym.
+4. Sprawdź, czy istnieje oś symetrii. Jeżeli tak, jest ona osią główną, a $I_{xy}=0$; drugą oś główną prowadzisz prostopadle przez środek ciężkości.
+5. Jeżeli symetrii nie ma, oblicz kąt z $\tan 2\theta=-2I_{xy}/(I_x-I_y)$ i wybierz rozwiązanie odpowiadające większemu momentowi.
+6. Oblicz $I_1$ i $I_2$ ze wzoru ze średnią i pierwiastkiem. Uporządkuj je tak, aby $I_1\ge I_2$.
+7. Wykonaj kontrolę niezmienników oraz sprawdź, czy $I_1$ i $I_2$ leżą poza przedziałem wyznaczonym przez $I_x$ i $I_y$ (albo na jego końcach, gdy $I_{xy}=0$).
+
+## Połącz z resztą kursu
+
+- „Środek ciężkości figur prostych” daje punkt, przez który muszą przechodzić osie centralne.
+- „Momenty statyczne i figury złożone” pozwalają wyznaczyć środek ciężkości przekroju niesymetrycznego, zanim policzysz momenty względem osi centralnych.
+- „Momenty bezwładności przekroju” dostarczają $I_x$ i $I_y$ dla figur prostych oraz interpretację geometryczną.
+- „Twierdzenie Steinera” przenosi momenty na wspólną oś; w tej lekcji pojawia się także jego odpowiednik dla momentu dewiacyjnego.
+- „Wskaźnik wytrzymałości przekroju W” korzysta z osi obojętnej, która w zginaniu ukośnym musi być jedną z osi głównych.
+- W module „Stan naprężenia” koło Mohra dla naprężeń ma analogiczną strukturę matematyczną, ale inne znaczenie fizyczne; nie należy mylić kątów geometrii przekroju z kątami naprężeń.
+
+## Sprawdź się
+
+Rozwiąż pytania, zapisując najpierw układ osi i wartość $I_{xy}$, a dopiero potem kąt. Pamiętaj o podwojonym kącie i o kontroli niezmienników.
 
 <Quiz>
   <Question outcome="W3">
     <Prompt>Które zdanie poprawnie opisuje relację między osiami centralnymi i głównymi?</Prompt>
     <Answer>Każda oś centralna jest automatycznie główna</Answer>
-    <Answer correct>Osie główne są centralne i spełniają Ixy = 0</Answer>
+    <Answer correct>Osie główne są centralne i spełniają $I_{xy}=0$</Answer>
     <Answer>Żadna oś główna nie musi przechodzić przez środek ciężkości</Answer>
-    <Hint>Warunek główności zawiera zarówno położenie osi, jak i wartość Ixy.</Hint>
+    <Hint>Warunek główności zawiera zarówno położenie osi, jak i wartość momentu dewiacyjnego.</Hint>
     <Explanation>
-      Główne osie bezwładności przekroju przechodzą przez środek ciężkości i mają zerowy moment dewiacyjny. Zwykłe osie
-      centralne mogą mieć Ixy różne od zera.
+      Główne osie bezwładności przekroju przechodzą przez środek ciężkości i mają zerowy moment dewiacyjny. Zwykłe osie centralne mogą mieć $I_{xy}$ różne od zera.
     </Explanation>
   </Question>
-  <Question outcome="W3">
-    <Prompt>
-      Przekrój ma poziomą oś symetrii. Co można powiedzieć o tej osi i osi pionowej przechodzącej przez środek
-      ciężkości?
-    </Prompt>
+  <Question outcome="U2">
+    <Prompt>Przekrój ma poziomą oś symetrii. Co można powiedzieć o tej osi i osi pionowej przechodzącej przez środek ciężkości?</Prompt>
     <Answer correct>Tworzą układ osi głównych</Answer>
     <Answer>Na pewno mają równe momenty bezwładności</Answer>
     <Answer>Moment dewiacyjny musi być dodatni</Answer>
     <Hint>Symetria upraszcza moment dewiacyjny, ale nie wymusza równych bezwładności.</Hint>
     <Explanation>
-      Oś symetrii przechodzi przez środek ciężkości i daje Ixy = 0 względem osi prostopadłej przez ten środek. Nie
-      oznacza to równości Ix i Iy.
+      Oś symetrii przechodzi przez środek ciężkości i daje $I_{xy}=0$ względem osi prostopadłej przez ten środek. Nie oznacza to równości $I_x$ i $I_y$.
     </Explanation>
   </Question>
-  <Question outcome="W3">
-    <Prompt>
-      Niesymetryczny kątownik ma osie x i y równoległe do półek i przechodzące przez środek ciężkości, ale Ixy ≠ 0. Co
-      to oznacza?
-    </Prompt>
-    <Answer>Środek ciężkości został źle wyznaczony, bo Ixy musi być zerowe</Answer>
+  <Question outcome="W1">
+    <Prompt>Niesymetryczny kątownik ma osie $x$ i $y$ równoległe do półek i przechodzące przez środek ciężkości, ale $I_{xy}\ne 0$. Co to oznacza?</Prompt>
+    <Answer>Środek ciężkości został źle wyznaczony, bo $I_{xy}$ musi być zerowe</Answer>
     <Answer correct>Osie są centralne, lecz nie są główne</Answer>
     <Answer>Momenty statyczne na pewno są niezerowe</Answer>
     <Hint>Rozdziel warunek centralności od warunku główności.</Hint>
     <Explanation>
-      Osie przechodzą przez środek ciężkości, więc są centralne i dają zerowe momenty statyczne. Niezerowe Ixy oznacza
-      jedynie, że kierunki główne są obrócone względem tych osi.
+      Osie przechodzą przez środek ciężkości, więc są centralne i dają zerowe momenty statyczne. Niezerowe $I_{xy}$ oznacza jedynie, że kierunki główne są obrócone względem tych osi.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Przekrój ma $I_x=8\cdot 10^6\ \text{mm}^4$, $I_y=2\cdot 10^6\ \text{mm}^4$ i $I_{xy}=0$. Główne momenty bezwładności wynoszą:
+    </Prompt>
+    <Answer>$5\cdot 10^6$ i $5\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer correct>$8\cdot 10^6$ i $2\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer>$10\cdot 10^6$ i $0\ \text{mm}^4$</Answer>
+    <Hint>Gdy $I_{xy}=0$, osie wyjściowe są już główne.</Hint>
+    <Explanation>
+      Przy $I_{xy}=0$ pierwiastek w formule głównej redukuje się do $|I_x-I_y|/2$, więc $I_1=I_x$ i $I_2=I_y$. Kolejność wynika z $I_1\ge I_2$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Belka o przekroju niesymetrycznym jest zginana momentem działającym w płaszczyźnie osi $x$, która nie jest główna. Czego należy oczekiwać?</Prompt>
+    <Answer>Ugięcie tylko w płaszczyźnie działania momentu</Answer>
+    <Answer correct>Ugięcia także w kierunku prostopadłym, bo osie nie są główne</Answer>
+    <Answer>Brak naprężeń normalnych, bo przekrój jest niesymetryczny</Answer>
+    <Hint>Niezerowy $I_{xy}$ sprzęga oba kierunki zginania.</Hint>
+    <Explanation>
+      W osiach niegłównych zginanie względem jednej osi wywołuje także moment względem drugiej osi. W praktyce oznacza to ugięcie w dwóch kierunkach i potrzebę analizy ukośnej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Moment dewiacyjny względem pewnych osi wynosi $I_{xy}=3\cdot 10^6\ \text{mm}^4$, pole $A=2000\ \text{mm}^2$, a środek ciężkości ma współrzędne $\bar{x}=30$ mm i $\bar{y}=20$ mm. Centralny moment dewiacyjny jest równy:
+    </Prompt>
+    <Answer>$4{,}2\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer correct>$1{,}8\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer>$0{,}6\cdot 10^6\ \text{mm}^4$</Answer>
+    <Hint>Skorzystaj z $I_{xy}=I_{xy,c}+A\bar{x}\bar{y}$.</Hint>
+    <Explanation>
+      $A\bar{x}\bar{y}=2000\cdot 30\cdot 20=1{,}2\cdot 10^6\ \text{mm}^4$. Zatem $I_{xy,c}=3\cdot 10^6-1{,}2\cdot 10^6=1{,}8\cdot 10^6\ \text{mm}^4$.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Przekrój ma $I_x=I_y$ oraz $I_{xy}=0$. Co można powiedzieć o kierunkach głównych?</Prompt>
+    <Answer correct>Każdy kierunek w płaszczyźnie przekroju jest główny</Answer>
+    <Answer>Tylko osie pozioma i pionowa są główne</Answer>
+    <Answer>Nie istnieją osie główne, bo momenty są równe</Answer>
+    <Hint>Gdy oba momenty są równe, koło bezwładności redukuje się do punktu.</Hint>
+    <Explanation>
+      Dla $I_x=I_y$ i $I_{xy}=0$ promień $R$ jest zerowy, więc każdy obrót daje ten sam moment. Kierunki główne są nieoznaczone; tak jest dla koła i kwadratu względem osi centralnych.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Do poprawnego obliczenia naprężeń przy zginaniu ukośnym przekroju niesymetrycznego potrzebny jest układ osi:</Prompt>
+    <Answer>Dowolny, byle przechodził przez lewy dolny róg rysunku</Answer>
+    <Answer correct>Centralny i główny, w którym $I_{xy}=0$</Answer>
+    <Answer>Tylko poziomy, bo pionowy nie przenosi momentu</Answer>
+    <Hint>Wzory na dwa niezależne kierunki zginania wymagają zniknięcia sprzężenia.</Hint>
+    <Explanation>
+      Osie centralne zapewniają zerowe momenty statyczne, a główne zerowy moment dewiacyjny. Dopiero w tym układzie można rozdzielić zginanie na dwa niezależne przypadki i poprawnie złożyć naprężenia.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o momentach bezwładności figur płaskich; osie główne, moment dewiacyjny i przykłady przekrojów niesymetrycznych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — charakterystyki geometryczne przekrojów; obrót osi i wyznaczanie kierunków głównych.
+- E. Osgood, L. Cameron, P. Christensen, _Engineering Mechanics: Statics_ (otwarty podręcznik) — rozdział o środku ciężkości, rodzajach bezwładności i twierdzeniu o osiach równoległych; podstawa pojęciowa dla osi centralnych.
+- D. Roylance, _Mechanics of Materials_ (otwarty podręcznik) — rozdział o naprężeniach w belkach; wyjaśnienie, dlaczego oś obojętna przechodzi przez środek ciężkości i jak geometria przekroju wchodzi do wzoru na naprężenie.

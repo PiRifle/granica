@@ -11,6 +11,22 @@ export default {
     'ε_x = ε_y = 0; σ_z = −P/a²; brak tarcia oznacza zerowe naprężenia styczne na ściankach',
   ],
   result: 'σ_x = σ_y = −26,923 MPa; ε_x = ε_y = 0, ε_z = −4,45055·10⁻⁴; ΔV = −0,445055 mm³ (zmniejszenie o 0,04451%).',
+  figure: {
+    kind: 'cube',
+    stresses: { x: -26.923, y: -26.923, z: -50 },
+    strains: { x: 0, y: 0, z: -0.000445055 },
+    volumeChange: '-0,445055 mm³',
+    values: [
+      { label: 'więzy', value: 'ε_x = ε_y = 0', focus: 'constraints' },
+      { label: 'σ_z', value: '−50,000 MPa', focus: 'stress' },
+      { label: 'σ_x = σ_y', value: '−26,923 MPa', focus: 'stress' },
+      { label: 'ε_x = ε_y', value: '0', focus: 'strain' },
+      { label: 'ε_z', value: '−4,45055·10⁻⁴', focus: 'strain' },
+      { label: 'θ = ΔV/V₀', value: '−4,45055·10⁻⁴', focus: 'volume' },
+      { label: 'ΔV', value: '−0,445055 mm³', focus: 'volume' },
+    ],
+    note: 'Sztywne ścianki blokują ε_x i ε_y, więc naprężenia poziome nie są zerowe.',
+  },
   scenes: [
     {
       title: 'Rozpoznaj warunki brzegowe',

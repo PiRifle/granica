@@ -7,7 +7,6 @@ shortTitle: Maksimum normalne
 description: >-
   Sprawdź, kiedy o zniszczeniu decyduje skrajne naprężenie główne i dlaczego
   trzeba zachować jego znak.
-duration: 8
 eyebrow: Najpierw kierunki główne
 outcomes:
   - >-
@@ -30,46 +29,197 @@ outcomes:
     przyjęty warunek.
 ---
 
-Hipoteza największego naprężenia normalnego zakłada, że kruchy materiał pęka, gdy naprężenie główne osiągnie wytrzymałość — inną przy rozciąganiu, a inną przy ściskaniu. Nie wystarczy więc największa składowa σx, σy czy τxy: najpierw trzeba wyznaczyć naprężenia główne, ponieważ to one opisują skrajne rozciąganie i ściskanie w danym punkcie.
+Kreda do tablicy pęka przy skręcaniu spiralnie, a nie prostopadle do osi. Żeliwny wspornik potrafi pęknąć nagle, bez widocznego odkształcenia, gdy tylko lokalne naprężenie rozciągające przekroczy wytrzymałość materiału. Szkło i ceramika zachowują się podobnie: rozdzielenie atomów następuje wtedy, gdy naprężenie normalne przekroczy wartość graniczną. W takich materiałach ścinanie nie jest głównym mechanizmem zniszczenia, dlatego potrzebujemy kryterium opartego na naprężeniu normalnym.
+
+Najprostsza wersja tego kryterium mówi: materiał pęka, gdy największe naprężenie główne osiągnie wytrzymałość na rozciąganie. Brzmi to banalnie, dopóki nie uświadomimy sobie, że w stanie wieloosiowym „największe” nie oznacza „największe σx”. Naprężenia główne mogą leżeć w płaszczyznach nachylonych względem osi elementu, a ich wartości mogą być zupełnie inne niż składowe zapisane w układzie x-y. Dlatego pierwszym krokiem jest zawsze wyznaczenie kierunków i naprężeń głównych.
+
+Drugi problem to znak. Materiały kruche mają zwykle inną wytrzymałość przy rozciąganiu niż przy ściskaniu. Beton, żeliwo i ceramika są znacznie mocniejsze przy ściskaniu, ponieważ zamyka ono istniejące mikropęknięcia, a rozciąganie je otwiera. Kryterium maksimum normalnego musi więc sprawdzać osobno największe naprężenie dodatnie i największe co do modułu naprężenie ujemne. Nie wystarczy wziąć maksimum z wartości bezwzględnych i porównać z jedną granicą.
+
+W tej lekcji zobaczysz, skąd bierze się taki warunek, jak go wyprowadzić z próby jednoosiowej i kiedy prowadzi do błędnych wniosków. Nauczysz się porządkować naprężenia główne, rozpoznawać przypadek, w którym zero staje się istotną wartością, oraz odróżniać materiał kruchy od plastycznego. Przećwiczysz też wariant odwrotny: od wymaganego zapasu do dopuszczalnego ścinania.
+
+## Zanim zaczniesz
+
+- **Naprężenia główne w stanie płaskim.** Przypomnij sobie wzory σ1,2 = (σx + σy)/2 ± √[((σx − σy)/2)² + τxy²] oraz to, że σ3 = 0 dla płaskiego stanu naprężenia.
+- **Koło Mohra.** Umiej punkt A(σx, τxy) i B(σy, −τxy) oraz przecięcia koła z osią σ. To najszybszy sposób sprawdzenia, czy naprężenia główne mają różne znaki.
+- **Materiały kruche.** Odróżnij je od plastycznych. Kruche mają małe odkształcenie przy zerwaniu i często różne granice na rozciąganie i ściskanie.
+- **Jednostki.** Naprężenia w MPa, siły w N, pola w mm². Przy momentach pamiętaj o zamianie kN·m na N·mm.
+- **Konwencja znaków.** Rozciąganie dodatnie, ściskanie ujemne. Przy porządkowaniu σ1 ≥ σ2 ≥ σ3 wartości mogą być ujemne; to nie jest błąd.
+- **Typowa pułapka.** W stanie płaskim zero jest trzecim naprężeniem głównym. W hipotezie maksimum normalnego nie tworzy ono dodatkowego naprężenia rozciągającego, ale trzeba je uwzględnić przy porządkowaniu. W hipotezie Tresca zero często decyduje o różnicy skrajnych naprężeń.
+
+## Model i intuicja
+
+Model maksimum normalnego traktuje materiał jak zbiór płaszczyzn, które mogą się rozdzielić pod wpływem naprężenia normalnego. Ścinanie może wpływać na kierunek pęknięcia, ale w tym modelu nie jest bezpośrednią przyczyną zniszczenia. Zakładamy, że decyduje największe naprężenie rozciągające, a przy ściskaniu — największe naprężenie ściskające co do modułu, porównane z odpowiednią wytrzymałością.
+
+Taki model dobrze opisuje materiały, w których pęknięcie inicjuje się na defektach i rozprzestrzenia prostopadle do naprężenia rozciągającego. Żeliwo, ceramika, szkło, niektóre tworzywa termoutwardzalne i kompozyty o kruchym spoiwie zachowują się w ten sposób. W takich materiałach nie tworzą się wyraźne pasma plastyczne, więc kryterium oparte na ścinaniu może dawać zbyt optymistyczne wnioski.
+
+Model ma jednak granice. W metalu plastycznym o dużym odkształceniu przed zerwaniem decyduje zwykle ścinanie i energia odkształcenia, a nie maksimum normalne. W materiałach o wyraźnej anizotropii kierunek włókien zmienia wytrzymałość, więc jedna granica nie wystarcza. Przy ściskaniu kruchego materiału może dojść do rozerwania przez rozciąganie poprzeczne, mimo że globalne naprężenie jest ściskające. Model należy więc stosować do materiału i mechanizmu zniszczenia, a nie tylko do znaku naprężenia.
+
+Osobny problem stanowią naprężenia kontaktowe. Pod stemplem, w miejscu docisku śruby albo w strefie przyłożenia siły skupionej powstają bardzo duże naprężenia lokalne, których nie opisuje proste σ = N/A. Hipoteza maksimum normalnego nadal może być użyta, ale do naprężeń wyznaczonych z dokładniejszej analizy lokalnej, a nie do wartości średniej w przekroju. W typowym zadaniu z wytrzymałości materiałów zakłada się, że poza strefą kontaktu rozkład naprężeń jest wystarczająco równomierny.
+
+| Założenie modelu                                | Konsekwencja praktyczna                         |
+| ----------------------------------------------- | ----------------------------------------------- |
+| Zniszczenie inicjuje naprężenie normalne        | Sprawdzamy naprężenia główne, a nie tylko σx    |
+| Rozciąganie i ściskanie mogą mieć różne granice | Potrzebne są dwie nierówności, nie jedna        |
+| Ścinanie nie jest głównym mechanizmem           | Nie stosujemy tego kryterium do ciągliwej stali |
+| Materiał jest izotropowy                        | Nie stosujemy bez modyfikacji do kompozytów     |
+| Stan naprężenia opisuje punkt                   | Koncentracja naprężeń wymaga osobnej analizy    |
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniasz σx, σy, τxy i kąt obrotu elementu θ. Celem jest zobaczenie, że naprężenia normalne na obróconych płaszczyznach zmieniają się, a w pewnym położeniu osiągają wartości skrajne. Ustaw kilka stanów z różnymi znakami σx i σy, a następnie odczytaj σ1 i σ2 oraz sprawdź, czy największy moduł należy do naprężenia dodatniego czy ujemnego.
 
 <Lab id="stressTransform" />
 
+## Definicje i jednostki
+
+Hipoteza największego naprężenia normalnego porównuje skrajne naprężenia główne z wytrzymałością materiału. W wersji ogólnej nie redukuje wszystkiego do jednej liczby, lecz sprawdza dwa warunki: na rozciąganie i na ściskanie. Dopiero gdy granice są jednakowe, można zapisać jedną wartość σred jako maksimum modułów.
+
+| Symbol     | Znaczenie                                           | Jednostka    |
+| ---------- | --------------------------------------------------- | ------------ |
+| σ1, σ2, σ3 | naprężenia główne w punkcie                         | MPa          |
+| σmax       | największe naprężenie główne (najbardziej dodatnie) | MPa          |
+| σmin       | najmniejsze naprężenie główne (najbardziej ujemne)  | MPa          |
+| kr         | dopuszczalna wytrzymałość przy rozciąganiu          | MPa          |
+| kc         | dopuszczalna wytrzymałość przy ściskaniu            | MPa          |
+| Rm,r       | wytrzymałość na rozciąganie materiału kruchego      | MPa          |
+| Rm,c       | wytrzymałość na ściskanie materiału kruchego        | MPa          |
+| n          | współczynnik bezpieczeństwa                         | bezwymiarowy |
+
+Przyjmujemy porządek σ1 ≥ σ2 ≥ σ3. W stanie płaskim jedno z tych naprężeń jest równe zero, ale które — zależy od znaków pozostałych. Jeśli σx i σy są dodatnie, to σ3 = 0 jest najmniejszym naprężeniem. Jeśli oba są ujemne, zero jest największym naprężeniem. W hipotezie maksimum normalnego nie zmienia to samej wartości skrajnej co do modułu, ale ma znaczenie przy interpretacji i przy porównywaniu z hipotezą Tresca.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma_{red} = \max(|\sigma_1|, |\sigma_2|, |\sigma_3|)
+\sigma_{max} \le k_r, \qquad |\sigma_{min}| \le k_c
 $$
 
-<Caption>Wzór dotyczy przypadku, gdy dopuszczalna wytrzymałość jest jednakowa dla rozciągania i ściskania. Gdy kr ≠ kc, sprawdzamy osobno największe naprężenie dodatnie względem kr oraz największe co do modułu naprężenie ujemne względem kc. W stanie płaskim przyjmujemy σ3 = 0.</Caption>
+<Caption>Ogólny warunek hipotezy największego naprężenia normalnego. σmax jest największym naprężeniem głównym, a σmin najmniejszym. Przy jednakowych granicach na rozciąganie i ściskanie oba warunki można zastąpić jednym: σred = max(|σ1|, |σ2|, |σ3|) ≤ k. W stanie płaskim przyjmuje się σ3 = 0.</Caption>
 </Formula>
 
+Wyprowadzenie opiera się na kalibracji do dwóch prób: rozciągania i ściskania.
+
+1. **Próba rozciągania.** W stanie jednoosiowym σ1 = σ, σ2 = σ3 = 0. Materiał kruchy pęka, gdy σ = Rm,r. To ustala granicę dla naprężeń dodatnich.
+2. **Próba ściskania.** W stanie jednoosiowym σ3 = −σ, σ1 = σ2 = 0. Materiał pęka, gdy |σ| = Rm,c. To ustala granicę dla naprężeń ujemnych.
+3. **Założenie o mechanizmie.** Przyjmujemy, że w stanie wieloosiowym o zniszczeniu decyduje największe naprężenie normalne, a nie kombinacja naprężeń. Ścinanie nie jest w tym modelu bezpośrednią przyczyną.
+4. **Porządkowanie.** Ustawiamy naprężenia główne malejąco: σ1 ≥ σ2 ≥ σ3. Wtedy σmax = σ1, a σmin = σ3. Wartości pośrednie nie decydują, bo leżą między skrajnymi.
+5. **Warunek rozciągania.** Największe naprężenie dodatnie nie może przekroczyć kr. Zapisujemy σ1 ≤ kr. Jeśli wszystkie naprężenia są ujemne, ten warunek jest spełniony automatycznie, bo σ1 jest wtedy niedodatnie.
+6. **Warunek ściskania.** Największe naprężenie ujemne co do modułu nie może przekroczyć kc. Zapisujemy |σ3| ≤ kc, czyli σ3 ≥ −kc.
+7. **Przypadek jednakowych granic.** Gdy kr = kc = k, oba warunki łączą się w max(|σ1|, |σ3|) ≤ k. Ponieważ σ2 leży między nimi, można zapisać σred = max(|σ1|, |σ2|, |σ3|).
+8. **Punkt krytyczny.** Warunek sprawdzamy w punkcie o największym σmax lub największym |σmin|, zależnie od tego, która granica jest bardziej wymagająca. Nie zakładamy z góry, że decyduje rozciąganie.
+
+Warto zauważyć, że w tym modelu nie ma pierwiastka ani kwadratów naprężeń stycznych. Ścinanie wchodzi tylko pośrednio, przez zmianę naprężeń głównych. To odróżnia hipotezę maksimum normalnego od HMH i Tresca, w których ścinanie pojawia się jawnie we wzorze.
+
 <Insight>
-  Przy czystym ścinaniu σ1 = τ, σ2 = −τ i σ3 = 0. Hipoteza przewiduje więc zniszczenie przy |τ| = k, czyli przy ścinaniu
-  równym wytrzymałości na rozciąganie. Tresca dałaby wtedy τ = k/2, a HMH τ = k/√3 — to pokazuje, jak ważny jest dobór
-  hipotezy do rodzaju materiału.
+  Przy czystym ścinaniu σ1 = τ, σ2 = −τ i σ3 = 0. Hipoteza maksimum normalnego przewiduje więc zniszczenie przy |τ| = k,
+  czyli przy ścinaniu równym wytrzymałości na rozciąganie. Tresca dałaby wtedy τ = k/2, a HMH τ = k/√3. To pokazuje, jak
+  ważny jest dobór hipotezy do rodzaju materiału.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Stan płaski: σx = 60 MPa, σy = 0, τxy = 80 MPa. Dopuszczalna wytrzymałość jest jednakowa przy rozciąganiu i
-    ściskaniu.
+    W punkcie żeliwnej płyty panuje stan płaski: σx = 50 MPa, σy = −20 MPa, τxy = 40 MPa. Dopuszczalna wytrzymałość na
+    rozciąganie wynosi kr = 80 MPa, a na ściskanie kc = 200 MPa. Sprawdź oba warunki.
   </Given>
   <Steps>
-    <Step>Środek koła Mohra: C = (σx + σy)/2 = (60 + 0)/2 = 30 MPa.</Step>
-    <Step>Promień: R = √[(σx − σy)²/4 + τxy²] = √(30² + 80²) = 85,44 MPa.</Step>
-    <Step>Naprężenia główne: σ1 = C + R = 115,44 MPa, σ2 = C − R = −55,44 MPa, σ3 = 0.</Step>
-    <Step>Największa wartość bezwzględna to |σ1| = 115,44 MPa, więc σred = 115,44 MPa.</Step>
+    <Step>Środek koła Mohra: C = (σx + σy)/2 = (50 − 20)/2 = 15 MPa.</Step>
+    <Step>Promień: R = √[((σx − σy)/2)² + τxy²] = √(35² + 40²) = √2825 = 53,15 MPa.</Step>
+    <Step>
+      Naprężenia główne przed uporządkowaniem: 15 + 53,15 = 68,15 MPa oraz 15 − 53,15 = −38,15 MPa; trzecia wartość
+      główna wynosi 0.
+    </Step>
+    <Step>
+      Po uporządkowaniu: σ1 = 68,15 MPa, σ2 = 0, σ3 = −38,15 MPa. Największe dodatnie to 68,15 MPa, a największe co do
+      modułu ujemne to 38,15 MPa.
+    </Step>
+    <Step>Warunek rozciągania: 68,15 ≤ 80 MPa, więc jest spełniony. Zapas na rozciąganie: n_t = 80/68,15 = 1,17.</Step>
+    <Step>Warunek ściskania: 38,15 ≤ 200 MPa, więc jest spełniony. Zapas na ściskanie: n_c = 200/38,15 = 5,24.</Step>
   </Steps>
   <Result>
-    Według hipotezy największego naprężenia normalnego σred ≈ 115,4 MPa. Naprężenie ściskające −55,4 MPa ma mniejszy
-    moduł, więc nie decyduje o wyniku.
+    Oba warunki są spełnione, ale o bezpieczeństwie decyduje rozciąganie: zapas 1,17 jest znacznie mniejszy od zapasu
+    5,24 na ściskanie. Nawet niewielki wzrost naprężenia rozciągającego może przekroczyć kr.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Rozważmy żeliwny element poddany działaniu naprężeń głównych σ1 = 25 MPa, σ2 = −10 MPa i σ3 = −160 MPa. Materiał ma kr = 150 MPa i kc = 600 MPa. Taki stan może wystąpić w strefie ściskanej, gdzie poprzeczne rozciąganie jest skutkiem efektu Poissona albo sposobu podparcia.
+
+Sprawdzamy rozciąganie: największe naprężenie dodatnie wynosi 25 MPa, więc 25 ≤ 150 MPa. Zapas n_t = 150/25 = 6,0. Sprawdzamy ściskanie: największe naprężenie ujemne co do modułu wynosi 160 MPa, więc 160 ≤ 600 MPa. Zapas n_c = 600/160 = 3,75. Oba warunki są spełnione, a o wyniku decyduje ściskanie, mimo że wytrzymałość na ściskanie jest czterokrotnie większa od wytrzymałości na rozciąganie. Dzieje się tak, bo naprężenie ściskające jest znacznie większe od rozciągającego.
+
+Gdyby zwiększać tylko naprężenie rozciągające σ1, przy pewnej wartości to ono przejęłoby decydującą rolę. Próg wypada, gdy 150/σ1 = 600/160, czyli σ1 = 150·160/600 = 40 MPa. Dla σ1 powyżej 40 MPa zapas na rozciąganie staje się mniejszy niż 3,75. To pokazuje, że w materiałach o różnych granicach nie można oceniać bezpieczeństwa po jednej liczbie „największego naprężenia” bez porównania z właściwą granicą.
+
+Warto też zauważyć, że zero nie jest tutaj skrajną wartością co do modułu, bo 160 MPa jest większe od zera. Gdyby jednak σ1 i σ2 były ujemne, zero byłoby największym naprężeniem i warunek rozciągania byłby spełniony automatycznie. Właśnie dlatego porządek i znaki trzeba ustalać świadomie, a nie mechanicznie sortować wartości bezwzględne.
+
+Dla porównania HMH dałaby w tym stanie σHMH = √(25² + 10² + 160² − 25·(−10) − (−10)·(−160) − (−160)·25). Po obliczeniu otrzymujemy √(625 + 100 + 25 600 + 250 − 1600 + 4000) = √28 975 = 170,2 MPa. Przy Re = 600 MPa zapas wynosiłby 3,53, czyli byłby nieco mniejszy od zapasu na ściskanie według maksimum normalnego. Oba modele prowadzą więc do podobnego rzędu wielkości, ale nie do identycznej liczby.
+
+## Trzeci przykład: wariant odwrotny
+
+Płyta z materiału kruchego jest ściskana w jednym kierunku: σy = −40 MPa, σx = 0. Dopuszczalna wytrzymałość na rozciąganie wynosi kr = 150 MPa, a wymagany zapas n = 2,0. Pytamy, jakie maksymalne τxy można przyłożyć, aby nie przekroczyć wytrzymałości na rozciąganie.
+
+Naprężenie dopuszczalne na rozciąganie wynosi kr/n = 75 MPa. Przy σx = 0 i σy = −40 MPa środek koła to C = −20 MPa, a promień R = √(20² + τ²). Naprężenia główne wynoszą σ1 = −20 + R i σ2 = −20 − R. Największe naprężenie rozciągające to σ1, więc wymagamy σ1 ≤ 75 MPa.
+
+Stąd −20 + √(400 + τ²) ≤ 75, czyli √(400 + τ²) ≤ 95. Po podniesieniu do kwadratu: 400 + τ² ≤ 9025, więc τ² ≤ 8625 i τ ≤ 92,9 MPa. Przy τ = 92,9 MPa otrzymujemy σ1 = 75 MPa i σ2 = −115 MPa. Warunek ściskania ma postać 115 ≤ kc/n. Jeśli kc = 600 MPa, to kc/n = 300 MPa, więc ściskanie jest daleko od granicy.
+
+Odpowiedź: dopuszczalne τxy wynosi około 92,9 MPa. Gdyby materiał miał jednakowe granice na rozciąganie i ściskanie, trzeba by jeszcze sprawdzić, czy któreś z naprężeń nie przekracza wspólnej granicy. W tym przypadku decyduje rozciąganie, bo kruchy materiał jest na nie znacznie wrażliwszy.
+
+Warto zauważyć, że w tym zadaniu zwiększanie ścinania zwiększa jednocześnie naprężenie rozciągające i ściskające. Nie można więc powiedzieć, że „ścinanie jest bezpieczne, dopóki nie przekracza granicy ścinania”. W hipotezie maksimum normalnego ścinanie jest tylko pośrednim sposobem wytworzenia naprężeń głównych. To kolejny powód, dla którego trzeba najpierw policzyć σ1 i σ2, a dopiero potem porównywać je z granicami.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Branie σx za największe naprężenie.** Naprężenia główne mogą być większe od σx i działać w innym kierunku. Zawsze licz σ1 i σ2.
+
+**Jedna granica dla wszystkiego.** Przy różnych kr i kc trzeba sprawdzić dwa warunki. Porównywanie modułu naprężenia ściskającego z kr daje błędny wynik.
+
+**Mylenie modułu z wartością dodatnią.** σred z maksimum modułów to skrót tylko dla jednakowych granic. Przy różnych granicach znak jest istotny.
+
+**Pomijanie σ3 = 0 w stanie płaskim.** Zero może być naprężeniem skrajnym i wpływać na interpretację, choć w tym kryterium nie zawsze zmienia wynik liczbowy.
+
+**Stosowanie hipotezy do stali ciągliwej.** Dla metali plastycznych lepsze są HMH lub Tresca; maksimum normalne może dać zbyt optymistyczną ocenę.
+
+**Zapominanie o koncentracji naprężeń.** Kryterium działa na naprężenie w punkcie. Karb może zwiększyć naprężenie lokalne znacznie powyżej wartości średniej.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Sprawdź materiał.** Jeśli w zadaniu jest żeliwo, beton, szkło, ceramika albo tworzywo kruche, rozważ hipotezę maksimum normalnego. Jeśli to stal lub aluminium o dużej ciągliwości, raczej HMH albo Tresca.
+2. **Ustal granice.** Znajdź kr i kc. Jeśli podano tylko jedną wytrzymałość, sprawdź, czy zadanie dopuszcza założenie kr = kc.
+3. **Oblicz naprężenia główne.** Dla stanu płaskiego użyj wzoru z środkiem i promieniem koła Mohra. Dla stanu przestrzennego uporządkuj trzy naprężenia główne.
+4. **Uporządkuj σ1, σ2, σ3.** Ustal, które jest największe dodatnie, a które najbardziej ujemne. W stanie płaskim wstaw zero jako trzecie naprężenie.
+5. **Sprawdź rozciąganie.** Porównaj największe naprężenie dodatnie z kr. Jeśli wszystkie są niedodatnie, warunek jest spełniony.
+6. **Sprawdź ściskanie.** Porównaj moduł najbardziej ujemnego naprężenia z kc. Nie używaj do tego kr.
+7. **Oblicz oba zapasy.** n_t = kr/σmax oraz n_c = kc/|σmin|. Wskaż mniejszy zapas jako decydujący.
+8. **Zinterpretuj wynik.** Podaj, który mechanizm jest bliżej granicy i jakie obciążenie można jeszcze zwiększyć. Nie wystarczy napisać „spełnione”.
+
+## Połącz z resztą kursu
+
+- **Stan naprężenia: od składowych do koła Mohra** — daje wzory na naprężenia główne i interpretację geometryczną.
+- **Hipoteza HMH: energia zmiany postaci** — pokazuje alternatywę dla materiałów plastycznych i wyjaśnia, dlaczego maksimum normalne nie jest uniwersalne.
+- **Hipoteza Tresca: największe ścinanie** — pokazuje, jak zmiana sposobu opisu wytężenia wpływa na wynik przy czystym ścinaniu.
+- **Właściwości materiałów** — wyjaśniają, dlaczego żeliwo ma różne granice na rozciąganie i ściskanie, a stal zwykle podobne.
+- **Zginanie i skręcanie** — pokazują, gdzie w przekroju pojawiają się skrajne naprężenia normalne i styczne.
+- **Projektowanie elementów** — wymaga porównania obu warunków i wyboru najbardziej wymagającego zapasu.
+
+## Sprawdź się
+
+Pytania sprawdzają kolejność obliczeń, znaczenie znaku i umiejętność odróżnienia hipotezy maksimum normalnego od kryteriów plastycznych.
+
 <Quiz>
+  <Question outcome="U2">
+    <Prompt>Element ma σx = 60 MPa, σy = 0 i τxy = 80 MPa. Ile wynoszą naprężenia główne?</Prompt>
+    <Answer>σ1 = 60 MPa, σ2 = 0 MPa</Answer>
+    <Answer correct>σ1 ≈ 115,4 MPa, σ2 ≈ −55,4 MPa</Answer>
+    <Answer>σ1 = 140 MPa, σ2 = −20 MPa</Answer>
+    <Hint>Użyj środka C = (σx + σy)/2 i promienia R = √[((σx − σy)/2)² + τxy²].</Hint>
+    <Explanation>
+      C = 30 MPa, R = √(30² + 80²) = 85,44 MPa. Zatem σ1 = 30 + 85,44 = 115,44 MPa, a σ2 = 30 − 85,44 = −55,44 MPa.
+      Ścinanie znacznie zwiększa rozpiętość naprężeń głównych.
+    </Explanation>
+  </Question>
   <Question outcome="U1">
     <Prompt>
-      Dla σ1 = 80 MPa, σ2 = −140 MPa i σ3 = 0 ile wynosi σred według hipotezy największego naprężenia normalnego, gdy kr
-      = kc?
+      Dla σ1 = 80 MPa, σ2 = −140 MPa i σ3 = 0 ile wynosi σred według hipotezy maksimum normalnego, gdy kr = kc?
     </Prompt>
     <Answer>60 MPa</Answer>
     <Answer>80 MPa</Answer>
@@ -78,17 +228,6 @@ $$
     <Explanation>
       |σ1| = 80 MPa, |σ2| = 140 MPa, |σ3| = 0, więc decyduje σ2 i σred = 140 MPa. Znak jest istotny przy osobnej
       kontroli rozciągania i ściskania, natomiast do samej wartości σred wchodzi moduł naprężenia.
-    </Explanation>
-  </Question>
-  <Question outcome="U2">
-    <Prompt>Element ma σx = 70 MPa, σy = 0 i τxy = 30 MPa. Czy można przyjąć σred = 70 MPa w tej hipotezie?</Prompt>
-    <Answer>Tak, σx jest zawsze decydujące</Answer>
-    <Answer correct>Nie, trzeba najpierw wyznaczyć naprężenia główne</Answer>
-    <Answer>Tak, jeśli σy = 0</Answer>
-    <Hint>Ścinanie zmienia promień koła Mohra, a więc także naprężenia główne.</Hint>
-    <Explanation>
-      Dla σy = 0: σ1,2 = σx/2 ± √[(σx/2)² + τxy²] = 35 ± 46,1 MPa, czyli 81,1 i −11,1 MPa. Największy moduł wynosi 81,1
-      MPa, więc σred = 81,1 MPa, a nie 70 MPa.
     </Explanation>
   </Question>
   <Question outcome="W2">
@@ -104,4 +243,61 @@ $$
       granice dla rozciągania i ściskania.
     </Explanation>
   </Question>
+  <Question outcome="W1">
+    <Prompt>
+      W kruchym elemencie naprężenie styczne jest największe w innym punkcie niż naprężenie rozciągające. Który punkt
+      sprawdzić jako pierwszy?
+    </Prompt>
+    <Answer>Ten z największym τ, bo kruche materiały zawsze pękają od ścinania</Answer>
+    <Answer correct>Ten z największym naprężeniem głównym rozciągającym, bo taki jest mechanizm tego kryterium</Answer>
+    <Answer>Dowolny, bo w kruchym materiale rozkład naprężeń jest stały</Answer>
+    <Hint>Hipoteza maksimum normalnego wiąże zniszczenie z naprężeniem normalnym.</Hint>
+    <Explanation>
+      W tym modelu decyduje największe naprężenie normalne, a nie maksimum ścinania. Punkt z największym σ1 jest
+      pierwszym kandydatem, choć nadal trzeba sprawdzić warunek ściskania, jeśli występują duże naprężenia ujemne.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Materiał ma kr = 150 MPa, a największe naprężenie rozciągające wynosi 100 MPa. Ile wynosi zapas na rozciąganie?
+    </Prompt>
+    <Answer>0,67</Answer>
+    <Answer correct>1,5</Answer>
+    <Answer>100</Answer>
+    <Hint>Podziel granicę przez naprężenie rzeczywiste.</Hint>
+    <Explanation>
+      n = kr/σmax = 150/100 = 1,5. Zapas większy od jedności oznacza, że według tej granicy element ma jeszcze rezerwę,
+      ale nie mówi nic o sztywności ani o innych mechanizmach zniszczenia.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego hipotezy maksimum normalnego nie stosuje się zwykle do ciągliwej stali?</Prompt>
+    <Answer>Bo stal ma zbyt dużą gęstość</Answer>
+    <Answer correct>Bo w stali decyduje uplastycznienie przy ścinaniu, a nie kruche rozdzielenie</Answer>
+    <Answer>Bo stal nie ma granicy plastyczności</Answer>
+    <Hint>Porównaj mechanizm zniszczenia materiału kruchego i plastycznego.</Hint>
+    <Explanation>
+      Stal przed zerwaniem znacznie się odkształca plastycznie, a uplastycznienie jest napędzane ścinaniem. Kryteria HMH
+      i Tresca lepiej opisują ten mechanizm. Hipoteza maksimum normalnego może dać zbyt optymistyczny wynik.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W czystym ścinaniu τ = 100 MPa. Ile wynosi σred według hipotezy maksimum normalnego przy kr = kc?</Prompt>
+    <Answer correct>100 MPa</Answer>
+    <Answer>200 MPa</Answer>
+    <Answer>173,2 MPa</Answer>
+    <Hint>W czystym ścinaniu naprężenia główne to τ, −τ i 0.</Hint>
+    <Explanation>
+      σ1 = 100 MPa, σ2 = −100 MPa, σ3 = 0. Maksimum modułu wynosi 100 MPa, więc σred = 100 MPa. Wartość 200 MPa
+      odpowiada hipotezie Tresca, a 173,2 MPa — hipotezie HMH.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o hipotezach wytężeniowych; szukaj omówienia hipotezy największego naprężenia normalnego i materiałów kruchych.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z rozciąganiem i ściskaniem o różnych znakach oraz z naprężeniami głównymi.
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o transformacji naprężeń i naprężeniach głównych; dobre wprowadzenie do geometrii koła Mohra.
+- D. Roylance, _Mechanics of Materials_ (podręcznik otwarty) — rozdział 3.3 o transformacji tensorów; wyjaśnia, dlaczego kruche pękanie inicjuje się na płaszczyznach głównych.
+- MIT 3.11, _Mechanics of Materials_ (notatki otwarte) — wykład o krzywych naprężenie–odkształcenie i kruchym zniszczeniu; pomaga odróżnić materiał kruchy od plastycznego.

@@ -104,13 +104,13 @@ export function SectionLab() {
             y2={rectangleY + drawnHeight}
             stroke="currentColor"
           />
-          <text x={rectangleX - 26} y="145" textAnchor="end" fontSize="14" fill="currentColor">
+          <text x={Math.max(90, rectangleX - 26)} y="145" textAnchor="end" fontSize="14" fill="currentColor">
             h = {heightMM} mm
           </text>
           <text x="520" y="282" textAnchor="middle" fontSize="13" fill="currentColor">
             półki {fmt(flangeMM)} mm · środnik {fmt(webMM)} mm
           </text>
-          <text x="350" y="323" textAnchor="middle" fontSize="15" fill="currentColor">
+          <text x="350" y="315" textAnchor="middle" fontSize="15" fill="currentColor">
             Ix = b·h³/12 · przy b = const: Ix ∝ h³
           </text>
         </svg>

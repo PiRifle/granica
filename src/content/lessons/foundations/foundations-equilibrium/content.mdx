@@ -5,7 +5,6 @@ number: 5
 title: 'Równowaga statyczna: trzy równania'
 shortTitle: Równowaga
 description: Wyznacz reakcje płaskiego układu za pomocą równowagi sił i momentów.
-duration: 9
 eyebrow: Spoczynek ma swoją matematykę
 outcomes:
   - W1 — analizuje równowagę odizolowanego elementu
@@ -16,76 +15,339 @@ outcomes:
   - U3 — ustala obciążenia obliczeniowe przed doborem przekroju
 ---
 
-Jeśli element nie przyspiesza ani się nie obraca, wszystkie działające na niego siły i momenty muszą się równoważyć. Równania są konsekwencją fizyki, a nie trzema niezależnymi sztuczkami rachunkowymi.
+Belka, wspornik albo rama stoją nieruchomo nie dlatego, że „tak im wypada”, lecz dlatego, że suma wszystkich sił i momentów działających na element jest równa zeru. To jest cała treść równowagi statycznej. Trzy równania, które za chwilę zapiszesz, nie są trzema niezależnymi przepisami wymyślonymi dla wygody. Są zapisem drugiej zasady Newtona w przypadku, gdy przyspieszenie jest zerowe.
+
+Wyobraź sobie półkę przykręconą do ściany. Książki naciskają na półkę w dół, a ściana reaguje siłami w miejscu mocowania. Jeśli policzysz tylko siły pionowe, dowiesz się, ile wynosi suma reakcji, ale nie dowiesz się, czy półka chce się obrócić i wyrwać mocowanie. Dopiero moment sił pokazuje, że ten sam ciężar przyłożony bliżej ściany obciąża śruby inaczej niż ciężar na wolnym końcu. Równowaga sił i równowaga momentów odpowiadają na dwa różne pytania.
+
+W tej lekcji nauczysz się izolować element z otoczenia, rysować poprawny diagram ciała swobodnego, zastępować obciążenie rozłożone wypadkową i wyznaczać reakcje z trzech równań. Nauczysz się też wybierać punkt, względem którego sumujesz momenty, oraz sprawdzać wynik drugim równaniem. To umiejętność wejściowa do metody przekrojów i do całej późniejszej analizy naprężeń.
+
+Pamiętaj o ważnym rozróżnieniu: reakcje są siłami zewnętrznymi, działającymi na element w miejscu podparcia. Siły wewnętrzne działają w przekroju i pojawią się dopiero w następnej lekcji. Mylenie tych pojęć prowadzi do równań, które wyglądają poprawnie, ale opisują niewłaściwy układ. Równowaga całego elementu daje reakcje; równowaga jego części daje siły wewnętrzne.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie rozkład siły na składowe prostokątne. Siłę nachyloną zastępujesz składową poziomą i pionową, a obie mają ten sam punkt przyłożenia co siła wypadkowa.
+- Wiedz, że moment siły względem punktu wynosi $M=F d$, gdzie $d$ jest prostopadłą odległością linii działania siły od tego punktu. Siła przechodząca przez punkt ma moment równy zeru.
+- Odróżniaj siłę skupioną w niutonach od obciążenia liniowego w niutonach na metr. Obciążenie rozłożone zastępujesz wypadkową o wartości równej polu pod wykresem obciążenia.
+- Ustal jednostki przed podstawieniem: siły w kN, długości w m, momenty w kN·m. Jeśli długość podajesz w mm, zamień ją na metry albo konsekwentnie licz momenty w kN·mm.
+- Rozpoznaj układ statycznie wyznaczalny: liczba niewiadomych reakcji jest równa liczbie niezależnych równań równowagi. W zadaniu płaskim są to najczęściej trzy niewiadome.
+- Uważaj na znaki. Minus przy reakcji nie oznacza błędu, tylko przeciwny zwrot do założonego na rysunku.
+
+## Model i intuicja
+
+Model równowagi zaczynamy od ciała sztywnego. Przyjmujemy, że element nie odkształca się na tyle, by zmienić położenie sił i ramion. To założenie jest wystarczające do wyznaczenia reakcji, ponieważ reakcje zależą od geometrii i obciążeń, a nie od podatności materiału. Osgood i współautorzy podkreślają, że najpierw trzeba narysować diagram ciała swobodnego, a dopiero potem pisać równania. Kolejność ma znaczenie: równanie bez rysunku łatwo pominie reakcję albo doda siłę wewnętrzną.
+
+Element izolujemy, przecinając wszystkie więzy łączące go z otoczeniem. Miejsce podparcia zastępujemy reakcjami, a każde przyłożone obciążenie przenosimy na diagram z zachowaniem punktu przyłożenia. Na diagramie nie umieszczamy sił, których element nie czuje, ani sił wewnętrznych, bo te są skutkiem, a nie przyczyną. Dobry diagram jest zamkniętą granicą: wszystko, co działa z zewnątrz, jest na nim widoczne.
+
+Granica diagramu jest umowna, ale musi być konsekwentna. Jeśli analizujesz całą belkę wraz z podporami, reakcje są siłami zewnętrznymi. Jeśli odcinasz tylko belkę, podpory znikają, a ich działanie zastępujesz reakcjami. Nie można jednocześnie zostawić podpory na rysunku i dodać jej reakcji, bo policzysz to samo dwa razy. Ta sama zasada wróci w metodzie przekrojów, gdzie odcięta część zastępuje drugą część siłami wewnętrznymi.
+
+W zadaniu płaskim ciało sztywne ma trzy stopnie swobody: przesunięcie w poziomie, przesunięcie w pionie i obrót. Równowaga odbiera wszystkie trzy możliwości ruchu, więc potrzebne są trzy niezależne równania. Dwa równania sił mówią, że element nie przesuwa się w płaszczyźnie. Równanie momentów mówi, że nie obraca się wokół wybranego punktu. To nie są trzy dowolne równania: muszą być niezależne, a punkt momentów musi być wybrany świadomie.
+
+Obciążenie rozłożone $q(x)$ opisuje siłę na jednostkę długości. Do równowagi całego elementu zastępujemy je wypadkową $Q$ przyłożoną w środku ciężkości wykresu obciążenia. Dla stałego $q$ na odcinku $L$ otrzymujemy $Q=qL$ w odległości $L/2$ od początku. Ta zamiana jest statycznie równoważna: daje tę samą sumę sił i ten sam moment. Nie znaczy jednak, że lokalny rozkład naprężeń pod obciążeniem jest identyczny. Równoważność dotyczy całego elementu, a nie każdego punktu materiału.
+
+Trzy równania są kompletne tylko wtedy, gdy są niezależne. Nie wystarczy napisać trzech sum momentów względem trzech dowolnych punktów: jeśli punkty leżą na jednej prostej, trzecie równanie jest kombinacją dwóch poprzednich i nie wnosi nowej informacji. Bezpieczny zestaw to dwa równania sił i jedno równanie momentów. Alternatywnie można użyć jednego równania sił i dwóch równań momentów względem punktów, których linia łącząca nie jest prostopadła do kierunku pozostałej sumy sił. W praktyce pierwszy zestaw jest najprostszy i najmniej podatny na pomyłkę.
+
+Model przestaje wystarczać, gdy przemieszczenia są duże, podpory osiadają, tarcie staje się istotne albo układ jest statycznie niewyznaczalny. Wtedy samych równań równowagi nie wystarczy: potrzebne są warunki zgodności odkształceń i informacje o sztywnościach. W tym module zajmujemy się układami wyznaczalnymi, ale już teraz warto zauważyć, kiedy liczba niewiadomych przewyższa liczbę równań.
+
+Przykład niewyznaczalności jest prosty: belka utwierdzona na obu końcach ma dwie reakcje pionowe, dwie poziome i dwa momenty, czyli sześć niewiadomych przy trzech równaniach. Sam bilans sił nie powie, jak obciążenie rozłoży się między końce, bo zależy to od sztywności belki i osiadania podpór. Rozpoznanie takiego układu jest ważniejsze niż próba rozwiązania go „na siłę” trzema równaniami. W dalszej części kursu wrócą do tego warunki zgodności odkształceń.
+
+Roylance zwraca uwagę, że równania równowagi nie zawierają modułu Younga ani żadnej innej cechy materiału. Reakcje statycznie wyznaczalne są więc niezależne od materiału. To dlatego można je obliczyć, zanim jeszcze wiemy, z czego element zostanie wykonany. Materiał wróci do rachunku dopiero przy naprężeniach, odkształceniach i doborze przekroju.
+
+## Laboratorium: co ustawić
+
+Ustaw rozpiętość belki, wartość siły i jej położenie. Obserwuj, że reakcja prawej podpory rośnie liniowo z odległością siły od lewej podpory, a lewa reakcja maleje tak, aby ich suma pozostała równa sile. Zwróć uwagę na moment pod siłą: jego maksimum pojawia się w środku rozpiętości.
 
 <Lab id="reactions" />
+
+## Definicje i jednostki
+
+| Pojęcie                  | Znaczenie                                                           | Symbol i jednostka     |
+| ------------------------ | ------------------------------------------------------------------- | ---------------------- |
+| Siła skupiona            | Działanie mechaniczne przyłożone w jednym punkcie                   | $P$, N lub kN          |
+| Obciążenie liniowe       | Siła przypadająca na jednostkę długości elementu                    | $q$, N/m lub kN/m      |
+| Moment skupiony          | Działanie obrotowe przyłożone do elementu                           | $M$, N·m lub kN·m      |
+| Reakcja podpory          | Siła lub moment, którym podpora działa na element                   | $R$, $M_A$, N lub kN·m |
+| Wypadkowa obciążenia     | Jedna siła dająca ten sam skutek siłowy i momentowy co obciążenie   | $Q$, N lub kN          |
+| Diagram ciała swobodnego | Rysunek izolowanego elementu z wszystkimi siłami zewnętrznymi       | FBD, bez jednostki     |
+| Układ wyznaczalny        | Układ, w którym liczba niewiadomych nie przewyższa liczby równań    | bez jednostki          |
+| Układ niewyznaczalny     | Układ z nadmiarem więzów, wymagający warunków zgodności odkształceń | bez jednostki          |
+
+Symbole w zadaniach: $L$ — rozpiętość, $a$ — odległość siły od lewej podpory, $R_A$ i $R_B$ — reakcje pionowe, $A_x$ — reakcja pozioma w przegubie, $M_A$ — reakcja momentowa w utwierdzeniu. Jednostki momentu wynikają z iloczynu siły i długości: kN·m albo N·mm. Nie mieszaj tych jednostek w jednym równaniu.
+
+Konwencja znaków: oś pozioma jest dodatnia w prawo, oś pionowa dodatnia w górę, a moment dodatni działa przeciwnie do ruchu wskazówek zegara. Reakcje rysujemy w założonych kierunkach, a znak wyniku mówi, czy rzeczywisty zwrot jest zgodny z założeniem. Dla sił pionowych skierowanych w dół moment względem punktu po ich lewej stronie jest ujemny, bo działa zgodnie z ruchem wskazówek zegara.
+
+## Wzór i wyprowadzenie
 
 <Formula>
 $$
 \sum F_x=0,\qquad \sum F_y=0,\qquad \sum M_A=0
 $$
 
-<Caption>Dla płaskiego, statycznie wyznaczalnego ciała trzy niezależne równania pozwalają wyznaczyć trzy niewiadome reakcje. Punkt, względem którego sumujemy momenty, można wybrać dowolnie.</Caption>
+<Caption>Dla płaskiego, statycznie wyznaczalnego ciała sztywnego trzy niezależne równania pozwalają wyznaczyć trzy niewiadome reakcje. Punkt A można wybrać dowolnie; najwygodniej wybrać punkt, przez który przechodzą linie działania możliwie wielu niewiadomych.</Caption>
 </Formula>
 
+Wyprowadzenie wykonamy dla belki swobodnie podpartej w A i B, obciążonej pionową siłą $P$ w odległości $a$ od A oraz równomiernym obciążeniem $q$ na całej długości $L$. Ciężar własny jest już wliczony w $q$. Reakcje w A oznaczamy $A_x$ i $A_y$, a w B — $R_B$.
+
+1. Izolujemy belkę i zastępujemy podpory reakcjami. W A przyjmujemy $A_x$ w prawo i $A_y$ w górę, w B przyjmujemy $R_B$ w górę.
+2. Zastępujemy obciążenie równomierne wypadkową $Q=qL$. Działa ona w połowie rozpiętości, czyli w odległości $L/2$ od A.
+3. Zapisujemy równowagę poziomą. Jeśli nie ma innych obciążeń poziomych, otrzymujemy $A_x=0$.
+4. Wybieramy punkt A do sumy momentów. Siły $A_x$ i $A_y$ przechodzą przez A, więc ich momenty są zerowe. Zostają momenty od $R_B$, $P$ i $Q$.
+5. Moment od $R_B$ wynosi $R_B L$ i jest dodatni, bo działa przeciwnie do ruchu wskazówek zegara. Moment od $P$ wynosi $-P a$, a moment od $Q$ wynosi $-Q L/2$.
+6. Równanie momentów ma postać $R_B L-P a-Q L/2=0$. Stąd $R_B=(P a+Q L/2)/L$.
+7. Z równowagi pionowej $A_y+R_B-P-Q=0$ otrzymujemy $A_y=P+Q-R_B$.
+8. Sprawdzamy wynik, sumując momenty względem B. Moment od $A_y$ wynosi $-A_y L$, moment od $P$ wynosi $P(L-a)$, a moment od $Q$ wynosi $Q L/2$. Po podstawieniu $A_y$ i $R_B$ suma powinna być równa zeru.
+9. Sprawdzamy przypadki graniczne. Dla $a=0$ i $q=0$ całą siłę przenosi A, więc $R_B=0$. Dla $a=L$ całą siłę przenosi B. Dla samego obciążenia równomiernego obie reakcje wynoszą $qL/2$.
+10. Kontrolujemy jednostki: $P a$ ma jednostkę kN·m, $Q L/2$ również, a po podzieleniu przez $L$ otrzymujemy kN. Wynik jest reakcją, nie momentem.
+
+<Formula>
+$$
+R_B=\frac{P a+\frac{1}{2}qL^2}{L},\qquad
+R_A=P+qL-R_B
+$$
+
+<Caption>Wzory dotyczą belki swobodnie podpartej, obciążonej pionową siłą skupioną i równomiernym obciążeniem na całej rozpiętości. Przy $q=0$ wracają do znanego wyniku $R_B=Pa/L$. Punkt A jest lewą podporą.</Caption>
+</Formula>
+
+Wzór na $R_B$ można czytać jak bilans momentów względem A: prawa podpora musi przejąć cały moment od obu obciążeń, podzielony przez swoje ramię $L$. Człon $Pa$ pochodzi od siły skupionej, a człon $qL^2/2$ od obciążenia równomiernego. Wzór na $R_A$ nie jest osobnym prawem fizycznym — to po prostu dopełnienie sumy sił pionowych do zera. Dzięki temu nie trzeba rozwiązywać układu równań od nowa dla każdej reakcji.
+
+Warto zauważyć, że wzory są liniowe względem obciążeń. Jeśli na belkę działa kilka sił skupionych i kilka odcinków obciążenia równomiernego, można policzyć udział każdego obciążenia osobno, a potem dodać reakcje. To zasada superpozycji, ważna dla układów liniowych. Nie wolno jej jednak stosować bez zastanowienia do naprężeń po przekroczeniu granicy sprężystości ani do dużych przemieszczeń, bo wtedy zależność przestaje być liniowa.
+
 <Insight>
-  Sumę momentów warto pisać względem punktu, przez który przechodzi linia działania niewiadomej siły — jej moment wtedy
-  znika, a równanie staje się prostsze.
+  Wybór punktu momentów jest narzędziem rachunkowym, a nie dodatkowym założeniem fizycznym. Zmiana punktu nie zmienia
+  reakcji, ale może sprawić, że równanie będzie prostsze albo całkiem nieczytelne. Zawsze sprawdź wynik momentem
+  względem innego punktu.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Belka AB o długości L = 4 m jest podparta przegubowo nieprzesuwnie w A i przesuwnie w B. Siła P = 20 kN działa
-    pionowo w dół w odległości a = 1 m od A. Pomiń ciężar własny.
+    Belka swobodnie podparta ma rozpiętość L = 5,0 m. W odległości a = 3,0 m od lewej podpory A działa pionowa siła P =
+    12 kN w dół. Na całej długości działa równomierne obciążenie q = 6,0 kN/m. W punkcie B działa dodatkowo pozioma siła
+    H = 5,0 kN w lewo, wzdłuż osi belki. Pomiń ciężar własny.
   </Given>
   <Steps>
-    <Step>Przyjmij reakcje RA i RB skierowane w górę oraz poziomą Ax w A. Brak obciążeń poziomych daje Ax = 0.</Step>
-    <Step>Zapisz równowagę momentów względem A: ΣMA = RB·4 − 20·1 = 0.</Step>
-    <Step>Wyznacz RB = 20·1/4 = 5 kN.</Step>
-    <Step>Z równowagi pionowej RA + RB − 20 = 0 otrzymaj RA = 20 − 5 = 15 kN.</Step>
-    <Step>Sprawdź momenty względem A: RB·4 m = 5 kN·4 m = 20 kN·m oraz P·1 m = 20 kN·1 m = 20 kN·m.</Step>
+    <Step>
+      Narysuj diagram: w A przyjmij Ax w prawo i Ay w górę, w B przyjmij RB w górę. Oś x jest w prawo, oś y w górę,
+      moment dodatni przeciwnie do ruchu wskazówek zegara.
+    </Step>
+    <Step>Z równowagi poziomej: Ax − H = 0, więc Ax = 5,0 kN w prawo.</Step>
+    <Step>
+      Zastąp obciążenie równomierne wypadkową Q = qL = 6,0 kN/m · 5,0 m = 30 kN. Działa w odległości 2,5 m od A.
+    </Step>
+    <Step>Zapisz momenty względem A: RB · 5,0 − 12 · 3,0 − 30 · 2,5 = 0.</Step>
+    <Step>Oblicz: RB · 5,0 = 36 + 75 = 111 kN·m, więc RB = 22,2 kN.</Step>
+    <Step>Z równowagi pionowej: Ay + RB = 12 + 30 = 42 kN, więc Ay = 42 − 22,2 = 19,8 kN.</Step>
+    <Step>
+      Sprawdź momentem względem B: 19,8 · 5,0 = 99 kN·m oraz 12 · 2,0 + 30 · 2,5 = 24 + 75 = 99 kN·m. Zgodność
+      potwierdza wynik.
+    </Step>
+    <Step>
+      Sprawdź sens: suma reakcji pionowych 19,8 + 22,2 = 42 kN równoważy sumę obciążeń pionowych 12 + 30 = 42 kN. Siła
+      pozioma H nie wnosi momentu, bo jej linia działania przechodzi przez oś belki i przez punkt B.
+    </Step>
   </Steps>
-  <Result>RA = 15 kN w górę, RB = 5 kN w górę oraz Ax = 0.</Result>
+  <Result>
+    RA = 19,8 kN w górę, RB = 22,2 kN w górę oraz Ax = 5,0 kN w prawo. Suma reakcji pionowych równa się sumie obciążeń
+    pionowych, a kontrola momentów względem B daje zero.
+  </Result>
 </WorkedExample>
+
+Kontrola wyniku nie kończy się na zgodności arytmetycznej. Sprawdź, czy reakcja jest dodatnia, czy nie przewyższa sumy obciążeń i czy przypadkiem nie pominąłeś momentu skupionego. W tym zadaniu siła pozioma nie wpływa na momenty, ale w zadaniu z ramieniem poziomym już by wpłynęła. Zawsze pytaj, przez jaki punkt przechodzi linia działania każdej siły.
+
+## Drugi przykład
+
+Wspornik jest utwierdzony w ścianie w punkcie A i ma długość 2,4 m. Na swobodnym końcu B działa siła $F=10$ kN, której składowa pozioma wynosi 6 kN w prawo, a pionowa 8 kN w dół. Siła pozioma działa w osi belki. Wyznacz reakcje w utwierdzeniu.
+
+W utwierdzeniu mogą wystąpić dwie składowe siły i moment: $A_x$, $A_y$ oraz $M_A$. Przyjmujemy $A_x$ w prawo, $A_y$ w górę i $M_A$ przeciwnie do ruchu wskazówek zegara.
+
+Równowaga pozioma:
+
+$$
+A_x+6=0 \quad\Rightarrow\quad A_x=-6\ \text{kN}
+$$
+
+Minus oznacza, że rzeczywista reakcja pozioma działa w lewo. Równowaga pionowa:
+
+$$
+A_y-8=0 \quad\Rightarrow\quad A_y=8\ \text{kN}
+$$
+
+Reakcja momentowa równoważy moment od siły pionowej. Siła 8 kN działa w odległości 2,4 m od A i obraca belkę zgodnie z ruchem wskazówek zegara, więc jej moment wynosi $-8\cdot 2{,}4=-19{,}2$ kN·m. Stąd:
+
+$$
+M_A-19{,}2=0 \quad\Rightarrow\quad M_A=19{,}2\ \text{kN·m}
+$$
+
+Kontrola momentów względem B daje $-M_A+A_y\cdot 2{,}4=-19{,}2+19{,}2=0$. Siła pozioma nie wnosi momentu względem B, bo działa wzdłuż osi belki. Wniosek: utwierdzenie przenosi zarówno siłę osiową, jak i moment, nawet jeśli w tym zadaniu siła osiowa nie wpływa na zginanie. Gdyby belka była wykonana z materiału o małej wytrzymałości na rozciąganie, sama siła osiowa mogłaby zdecydować o doborze przekroju. Reakcje trzeba więc raportować wszystkie, a nie tylko te, które są wygodne w równaniu momentów.
+
+## Trzeci przykład: wariant odwrotny
+
+Belka swobodnie podparta ma długość 4,0 m. W odległości 1,5 m od lewej podpory działa siła skupiona $P=8$ kN w dół. Wiadomo, że reakcja prawej podpory wynosi $R_B=14$ kN, a na całej belce działa nieznane równomierne obciążenie $q$. Wyznacz $q$ oraz reakcję $R_A$.
+
+Korzystamy z równania momentów względem A:
+
+$$
+R_B L=P a+\frac{qL^2}{2}
+$$
+
+Podstawiamy dane:
+
+$$
+14\cdot 4=8\cdot 1{,}5+\frac{q\cdot 4^2}{2}
+$$
+
+Stąd:
+
+$$
+56=12+8q \quad\Rightarrow\quad q=5{,}5\ \text{kN/m}
+$$
+
+Gdyby w treści nie było wartości $P$, samo $R_B$ nie wystarczyłoby do wyznaczenia $q$. Równanie momentów zawierałoby dwie niewiadome, więc potrzebne byłoby dodatkowe dane albo drugi pomiar. To ważna lekcja: wynikowa reakcja nie zawsze jednoznacznie odtwarza obciążenie, które ją wywołało.
+
+Wtedy reakcja lewa wynosi:
+
+$$
+R_A=P+qL-R_B=8+5{,}5\cdot 4-14=16\ \text{kN}
+$$
+
+Sprawdzenie momentem względem B: $R_A\cdot 4=64$ kN·m oraz $P\cdot 2{,}5+q\cdot 4\cdot 2=20+44=64$ kN·m. Wynik jest spójny. Gdyby $R_B$ było mniejsze niż $Pa/L=3$ kN, otrzymalibyśmy ujemne $q$, czyli obciążenie skierowane do góry. To sygnał, że dane nie odpowiadają założonemu modelowi belki z obciążeniem w dół.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Pomijanie reakcji momentowej w utwierdzeniu. Wspornik przenosi moment, więc bez $M_A$ równanie momentów nigdy się nie zamknie.
+- Dodawanie siły wewnętrznej do diagramu całej belki. Na tym etapie siły wewnętrzne nie są jeszcze znane i nie należą do równowagi zewnętrznej.
+- Traktowanie obciążenia równomiernego jako siły skupionej na końcu odcinka. Wypadkowa działa w środku ciężkości wykresu, a nie na jego końcu.
+- Mieszanie metrów i milimetrów w ramionach sił. Moment w kN·mm jest tysiąc razy większy od momentu w kN·m.
+- Niezgodne znaki: raz przyjmujesz moment zgodny z ruchem wskazówek zegara jako dodatni, a raz przeciwnie. Zapisz konwencję na początku i nie zmieniaj jej w trakcie.
+- Uznanie ujemnej reakcji za błąd i „poprawianie” jej przez zmianę znaku bez zmiany strzałki. Minus jest informacją o zwrocie, nie błędem rachunku.
+- Trzy równania momentów względem punktów leżących na jednej prostej. Takie równania nie są niezależne i nie zastąpią równowagi sił.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Przeczytaj pytanie: szukasz reakcji, momentu w przekroju czy obciążenia obliczeniowego? Od tego zależy, czy wystarczy równowaga całego elementu.
+2. Narysuj element, zaznacz punkty podparcia i wszystkie obciążenia. Ustal osie oraz dodatni zwrot momentu.
+3. Zastąp podpory reakcjami zgodnie z ich modelem. Policz niewiadome i porównaj z liczbą równań; rozpoznaj układ wyznaczalny lub niewyznaczalny.
+4. Zastąp obciążenia rozłożone wypadkowymi. Zapisz dla każdej wypadkowej wartość, kierunek i położenie środka ciężkości.
+5. Wybierz punkt do sumy momentów. Najlepiej taki, przez który przechodzi najwięcej niewiadomych, ale każdy poprawny punkt daje ten sam wynik.
+6. Zapisz $\sum F_x=0$, $\sum F_y=0$ i $\sum M_A=0$. Rozwiązuj kolejno, podstawiając znane wartości i zachowując znaki.
+7. Sprawdź wynik momentem względem innego punktu, sumą sił oraz sensem granicznym. Sprawdź też jednostki i rząd wielkości.
+
+## Połącz z resztą kursu
+
+- **Podpory i reakcje** — tam poznajesz modele podpór i liczbę reakcji; tutaj używasz ich w równaniach równowagi.
+- **Metoda przekrojów** — po wyznaczeniu reakcji przecinasz element i z równowagi części wyznaczasz $N$, $V$ i $M$.
+- **Rodzaje obciążeń** — obciążenie rozłożone zastępujesz wypadkową; ten sam mechanizm wraca przy ciężarze własnym.
+- **Rozciąganie i ściskanie** — siła normalna $N$ pochodzi z równowagi, a naprężenie $\sigma=N/A$ jest już konsekwencją modelu materiału.
+- **Moment zginający M(x)** — reakcje są warunkami początkowymi dla wykresu momentu; błąd w reakcji przesuwa cały wykres.
+- **Dobór przekroju** — obciążenia obliczeniowe ustalasz przed doborem, a reakcje są częścią tego bilansu.
+
+## Sprawdź się
+
+Odpowiedz bez zaglądania do wzorów. Jeśli któreś pytanie sprawia trudność, wróć do odpowiedniego fragmentu wyprowadzenia.
 
 <Quiz>
   <Question outcome="U1">
     <Prompt>
-      Na belkę długości 4 m działa pionowa siła 20 kN w odległości 1 m od lewej podpory A. Ile wynosi reakcja pionowa na
-      prawej podporze B?
+      Belka swobodnie podparta ma długość 6 m. Siła 24 kN działa w dół w odległości 2 m od lewej podpory. Ile wynosi
+      reakcja prawej podpory?
     </Prompt>
-    <Answer correct>5 kN</Answer>
-    <Answer>10 kN</Answer>
-    <Answer>15 kN</Answer>
-    <Hint>Napisz sumę momentów względem A: RB·4 − 20·1 = 0.</Hint>
+    <Answer correct>8 kN</Answer>
+    <Answer>12 kN</Answer>
+    <Answer>16 kN</Answer>
+    <Hint>Napisz momenty względem lewej podpory: RB · 6 − 24 · 2 = 0.</Hint>
     <Explanation>
-      RB = 20 kN · 1 m / 4 m = 5 kN. Pozostałą część przenosi A, więc RA = 15 kN; suma reakcji wynosi 20 kN.
+      RB = 24 kN · 2 m / 6 m = 8 kN. Lewa podpora przenosi pozostałe 16 kN, a suma reakcji 24 kN równoważy siłę.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Który zestaw równań jest wystarczający do wyznaczenia trzech reakcji płaskiej belki statycznie wyznaczalnej?
+    </Prompt>
+    <Answer>Trzy równania momentów względem trzech punktów na jednej prostej</Answer>
+    <Answer correct>Suma sił w dwóch kierunkach i suma momentów względem jednego punktu</Answer>
+    <Answer>Tylko suma sił pionowych i suma momentów względem środka belki</Answer>
+    <Hint>Potrzebne są trzy niezależne równania, obejmujące oba kierunki przesunięcia i obrót.</Hint>
+    <Explanation>
+      Dwa równania sił odbierają przesunięcia w płaszczyźnie, a równanie momentów odbiera obrót. Trzy momenty względem
+      punktów współliniowych nie są niezależne.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Która wielkość jest siłą zewnętrzną, którą umieszczasz na diagramie ciała swobodnego belki?</Prompt>
+    <Answer>Siła normalna w przekroju środkowym</Answer>
+    <Answer correct>Reakcja podpory w miejscu przegubu</Answer>
+    <Answer>Naprężenie normalne w dolnych włóknach</Answer>
+    <Hint>Zewnętrzna wielkość działa na element z otoczenia, a nie wewnątrz materiału.</Hint>
+    <Explanation>
+      Reakcja podpory działa na belkę z zewnątrz i należy do diagramu. Siła normalna w przekroju jest wielkością
+      wewnętrzną, a naprężenie opisuje stan materiału, nie obciążenie zewnętrzne.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Siła pionowa działa w odległości 1,5 m od punktu A. Jakie jest jej ramię względem punktu B, jeśli AB = 4 m?
+    </Prompt>
+    <Answer>1,5 m</Answer>
+    <Answer correct>2,5 m</Answer>
+    <Answer>4,0 m</Answer>
+    <Hint>Ramie to odległość wzdłuż belki od punktu B do linii działania siły.</Hint>
+    <Explanation>
+      Siła leży 1,5 m od A, więc od B dzieli ją 4 − 1,5 = 2,5 m. Ramie względem B wynosi 2,5 m, a moment ma przeciwny
+      znak niż względem A.
     </Explanation>
   </Question>
   <Question outcome="U1">
     <Prompt>
-      Dlaczego przy wyznaczaniu reakcji wygodnie sumować momenty względem punktu przyłożenia jednej z niewiadomych sił?
+      Belka o długości 4 m jest obciążona równomiernie q = 5 kN/m na całej długości. Jakie są reakcje podpór?
     </Prompt>
-    <Answer correct>Bo jej ramię i moment względem tego punktu są zerowe</Answer>
-    <Answer>Bo pozostałe reakcje zawsze znikają</Answer>
-    <Answer>Bo suma sił przestaje być potrzebna</Answer>
-    <Hint>Moment siły to siła razy prostopadłe ramię.</Hint>
+    <Answer>5 kN i 15 kN</Answer>
+    <Answer correct>10 kN i 10 kN</Answer>
+    <Answer>20 kN i 20 kN</Answer>
+    <Hint>Wypadkowa wynosi qL i działa w środku rozpiętości.</Hint>
     <Explanation>
-      Siła przechodząca przez wybrany punkt ma zerowe ramię, więc nie pojawia się w równaniu momentów. Upraszcza to
-      obliczenie pozostałych niewiadomych, ale równania sił nadal obowiązują.
+      Wypadkowa Q = 5 kN/m · 4 m = 20 kN działa w połowie belki, więc obie symetryczne podpory przenoszą po 10 kN. Suma
+      reakcji równa się 20 kN.
     </Explanation>
   </Question>
-  <Question outcome="U1">
-    <Prompt>
-      Po obliczeniu reakcji otrzymano RA = −3 kN przy założeniu, że RA skierowana jest w górę. Co oznacza wynik?
-    </Prompt>
-    <Answer>Obliczenia są niemożliwe, bo reakcja nie może być ujemna</Answer>
-    <Answer correct>Rzeczywista reakcja ma wartość 3 kN i jest skierowana w dół</Answer>
-    <Answer>Trzeba zmienić typ podpory na utwierdzenie</Answer>
-    <Hint>Znak odnosi się do przyjętego na schemacie kierunku.</Hint>
+  <Question outcome="U2">
+    <Prompt>W wyniku obliczeń reakcja pionowa wyszła −12 kN przy założeniu zwrotu w górę. Co to oznacza?</Prompt>
+    <Answer>Reakcja nie istnieje, bo podpora nie może ciągnąć</Answer>
+    <Answer correct>Rzeczywista reakcja ma wartość 12 kN i działa w dół</Answer>
+    <Answer>Należy zmienić równanie momentów, aż wynik będzie dodatni</Answer>
+    <Hint>Znak odnosi się do strzałki przyjętej na diagramie.</Hint>
     <Explanation>
-      Minus informuje, że rzeczywisty zwrot jest przeciwny do założonego. Wartość bezwzględna reakcji wynosi 3 kN; nie
-      jest to samo w sobie sygnałem błędu modelu.
+      Minus informuje o przeciwnym zwrocie do założonego. Wartość bezwzględna wynosi 12 kN, a rzeczywisty kierunek jest
+      w dół. Nie zmieniamy równania tylko dlatego, że wynik jest ujemny.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Co powinno być ustalone przed doborem przekroju belki na podstawie reakcji i momentów?</Prompt>
+    <Answer>Tylko kolor powłoki ochronnej</Answer>
+    <Answer correct>Geometria, podpory, wszystkie obciążenia i ich kombinacje</Answer>
+    <Answer>Wyłącznie moduł Younga materiału</Answer>
+    <Hint>Dobór przekroju wymaga pełnego modelu obciążeń, a nie tylko jednej siły.</Hint>
+    <Explanation>
+      Reakcje i momenty zależą od geometrii, podparcia i obciążeń. Przed doborem trzeba zebrać ich kombinacje, w tym
+      ciężar własny i obciążenia użytkowe, a materiał wybrać później.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dlaczego pozioma siła przyłożona w osi belki nie wnosi momentu względem podpory leżącej na tej osi?</Prompt>
+    <Answer>Bo siły poziome nigdy nie dają momentu</Answer>
+    <Answer correct>Bo jej linia działania przechodzi przez punkt, względem którego liczymy moment</Answer>
+    <Answer>Bo moment zależy tylko od sił pionowych</Answer>
+    <Hint>Moment to siła razy prostopadłe ramię. Sprawdź, jakie jest ramię dla siły w osi belki.</Hint>
+    <Explanation>
+      Siła pozioma w osi belki przechodzi przez podporę, więc jej ramię względem tej podpory jest zerowe. Siła pozioma
+      przyłożona powyżej osi miałaby niezerowe ramię i dawałaby moment.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o równowadze ciała sztywnego i reakcjach podpór; układ równań i przykłady belek.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — równowaga płaskich układów prętowych, obciążenia ciągłe i momenty skupione.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z reakcjami belek, wsporników i obciążeń ciągłych, dobre do ćwiczenia znaków.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdziały o diagramach ciała swobodnego i równowadze ciała sztywnego; wybór punktu momentów i przykłady belek.
+- D. Roylance, _Mechanics of Materials_ — rozdział o kratownicach i statyce; pokazuje, że równania równowagi nie zależą od materiału i prowadzą do reakcji oraz sił osiowych.

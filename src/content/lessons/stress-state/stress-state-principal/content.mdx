@@ -7,7 +7,6 @@ shortTitle: Naprężenia główne
 description: >-
   Znajdź największe i najmniejsze naprężenie normalne oraz zrozumij znaczenie
   trzeciego kierunku w stanie przestrzennym.
-duration: 8
 eyebrow: Niezmienniki stanu
 outcomes:
   - >-
@@ -24,74 +23,324 @@ outcomes:
   - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
 ---
 
-Istnieją specjalne kierunki, w których ściany elementu są tylko rozciągane lub ściskane, bez ścinania. Naprężenia normalne na tych ścianach nazywamy naprężeniami głównymi. Są one własnością stanu, więc nie zależą od początkowego wyboru osi.
+Istnieją specjalne kierunki, w których ściany elementu są tylko rozciągane lub ściskane, bez ścinania. Naprężenia normalne na tych ścianach nazywamy naprężeniami głównymi. Są one własnością stanu, więc nie zależą od początkowego wyboru osi. Można je znaleźć, obracając układ współrzędnych tak długo, aż naprężenie styczne zniknie.
+
+Ta idea jest znana z codziennego doświadczenia. Kreda skręcana w palcach pęka po spirali, a nie po okręgu prostopadłym do osi. Szkło poddane złożonemu obciążeniu pęka w płaszczyźnie, w której rozciąganie jest największe. W obu przypadkach materiał „wybiera” kierunek, a nie tylko wartość jednej składowej zapisanej w wygodnym układzie. Naprężenia główne pozwalają ten kierunek wskazać liczbowo.
+
+W poprzedniej lekcji nauczyliśmy się obracać przekrój. Teraz pytamy, czy wśród wszystkich możliwych obrotów istnieje taki, w którym ścinanie znika. Dla symetrycznego tensora naprężenia odpowiedź brzmi: tak, zawsze istnieją co najmniej trzy wzajemnie prostopadłe kierunki. W płaskim stanie wystarczą dwa kierunki w płaszczyźnie, a trzecim jest oś $z$ z naprężeniem $\sigma_z$.
+
+Naprężenia główne są skrajnymi wartościami naprężenia normalnego. Największe z nich decyduje o ryzyku pęknięcia kruchego, a najmniejsze o ryzyku zmiażdżenia lub zamknięcia pęknięcia. Różnica między nimi decyduje o maksymalnym ścinaniu, które jest ważne dla materiałów ciągliwych. Dlatego właśnie te trzy liczby, a nie dowolna składowa macierzy, są podstawą kryteriów wytężenia.
+
+W tej lekcji wyprowadzisz wzór na $\sigma_1$ i $\sigma_2$ ze średniej i promienia, nauczysz się porządkować trzy naprężenia główne oraz zobaczysz, dlaczego zero w kierunku $z$ nie zawsze jest wartością środkową. Laboratorium pozwoli obracać element i obserwować, kiedy naprężenie styczne znika, a naprężenie normalne osiąga ekstremum.
+
+Warto od razu rozdzielić dwie interpretacje. Interpretacja algebraiczna mówi, że naprężenia główne to wartości własne macierzy. Interpretacja geometryczna mówi, że to przecięcia koła Mohra z osią naprężeń normalnych. Obie prowadzą do tych samych liczb i wzajemnie się uzupełniają. W zadaniach rachunkowych wygodniejsza jest pierwsza, a w interpretacji wyników druga.
+
+## Zanim zaczniesz
+
+- **Wzory transformacyjne.** Potrzebujesz wzorów na $\sigma_n$ i $\tau_{nt}$ z poprzedniej lekcji. Bez nich nie da się uzasadnić, skąd bierze się warunek na ekstremum.
+- **Pochodna funkcji trygonometrycznej.** Wystarczy wiedzieć, że pochodna $\sin2\theta$ to $2\cos2\theta$, a pochodna $\cos2\theta$ to $-2\sin2\theta$. To pozwala znaleźć kąt, przy którym $\sigma_n$ osiąga ekstremum.
+- **Równanie kwadratowe i pierwiastek.** Promień $R$ jest pierwiastkiem sumy kwadratów. Warto pamiętać, że $R$ jest nieujemne, a znak połowy różnicy nie wpływa na jego wartość.
+- **Porządkowanie liczb.** W płaszczyźnie umownie przyjmujemy $\sigma_1\ge\sigma_2$. W przestrzeni porządkujemy trzy wartości od największej do najmniejszej. To porządkowanie jest umową, ale konsekwentnie stosowaną.
+- **Trzeci wymiar.** W płaskim stanie naprężenia $\sigma_z=0$ jest trzecim naprężeniem głównym. Nie wolno go pominąć, bo zero może być największą albo najmniejszą z trzech wartości.
+- **Typowa pułapka.** Mylenie promienia $R$ z maksymalnym ścinaniem absolutnym. W płaszczyźnie są sobie równe, ale w przestrzeni nie zawsze.
+- **Oznaczenia indeksów.** $\sigma_1$ i $\sigma_2$ to wartości w płaszczyźnie, a $\sigma_I$, $\sigma_{II}$ i $\sigma_{III}$ to pełny porządek trójwymiarowy. Mieszanie tych oznaczeń prowadzi do błędnych wniosków o tym, które naprężenie jest skrajne.
+
+## Model i intuicja
+
+Rozważamy najpierw płaski stan naprężenia w płaszczyźnie $xy$. Mamy trzy dane: $\sigma_x$, $\sigma_y$ i $\tau_{xy}$. Szukamy takiego kąta $\theta$, przy którym $\tau_{nt}=0$. Na takiej płaszczyźnie działa tylko naprężenie normalne, więc jest to płaszczyzna główna. Kierunek normalnej do niej nazywamy kierunkiem głównym.
+
+Można na to patrzeć jak na szukanie osi, w których macierz tensora staje się diagonalna. W tych osiach poza przekątną są zera, a na przekątnej stoją naprężenia główne. To nie jest przypadkowa własność konkretnej macierzy: każda rzeczywista macierz symetryczna daje się zdiagonalizować w ortogonalnym układzie osi. Dla tensora naprężenia oznacza to, że istnieją trzy wzajemnie prostopadłe kierunki główne.
+
+W płaszczyźnie mamy dwa kierunki główne. Trzeci to oś $z$, bo obrót w płaszczyźnie $xy$ nie zmienia składowych z indeksem $z$. Jeżeli $\sigma_z=0$, to trzecie naprężenie główne wynosi zero. To zero jest prawdziwym naprężeniem głównym, a nie „brakiem naprężenia”. Wystarczy, że porównamy je z pozostałymi dwiema wartościami, żeby ustalić, czy jest największe, najmniejsze, czy pośrednie.
+
+Naprężenia główne można też traktować jako wartości własne tensora. Równanie wartości własnych ma postać $\boldsymbol{\sigma}\mathbf{n}=\sigma\mathbf{n}$, gdzie $\mathbf{n}$ jest kierunkiem głównym, a $\sigma$ wartością główną. Po przeniesieniu na jedną stronę otrzymujemy układ równań, który ma niezerowe rozwiązanie tylko wtedy, gdy wyznacznik macierzy $\boldsymbol{\sigma}-\sigma\mathbf{I}$ jest zerowy. W trzech wymiarach prowadzi to do równania charakterystycznego trzeciego stopnia.
+
+Założenia są takie same jak wcześniej: materiał jest ciągły, tensor jest symetryczny, a stan opisujemy w małych odkształceniach. Same naprężenia główne nie zależą od rodzaju materiału; to geometria tensora decyduje o ich wartościach. Dopiero interpretacja, czy dana wartość jest bezpieczna, wymaga danych materiałowych. To ważne, bo początkujący często szukają modułu Younga tam, gdzie potrzebna jest tylko algebra tensora.
+
+Model przestaje wystarczać, gdy tensor nie jest symetryczny, na przykład w teoriach z naprężeniami momentowymi. W klasycznej wytrzymałości materiałów symetria jest jednak bardzo dobrze uzasadniona. Inne ograniczenie dotyczy dużych odkształceń i obrotów: wtedy trzeba uważać, czy naprężenia odnosimy do konfiguracji początkowej, czy aktualnej. W podstawowym kursie pracujemy w małych odkształceniach, więc ten problem nie występuje.
+
+Warto podkreślić, że naprężenia główne nie są „nowym obciążeniem”, które trzeba dodać do pozostałych. To ten sam stan, tylko opisany w osiach, w których macierz jest diagonalna. Jeśli suma naprężeń normalnych w tych osiach różni się od sumy w osiach pierwotnych, to znak, że popełniono błąd. Ślad tensora jest niezmiennikiem i musi się zgadzać niezależnie od układu.
+
+## Laboratorium: co ustawić
+
+W laboratorium obracaj element i obserwuj, kiedy $\tau_{nt}$ zbliża się do zera. W tych położeniach $\sigma_n$ osiąga wartość największą lub najmniejszą. Ustaw $\sigma_x=80$, $\sigma_y=20$ i $\tau_{xy}=40\ \mathrm{MPa}$, a następnie znajdź kąt, przy którym ścinanie znika z dokładnością do kroku suwaka.
 
 <Lab id="stressTransform" />
+
+Zwróć uwagę, że ekstrema $\sigma_n$ występują dokładnie wtedy, gdy $\tau_{nt}=0$. To nie jest zbieg okoliczności: pochodna $\sigma_n$ względem kąta jest związana z $\tau_{nt}$. Gdy $\sigma_n$ przestaje rosnąć i zaczyna maleć, jego pochodna wynosi zero, a wraz z nią znika naprężenie styczne. Ta obserwacja prowadzi bezpośrednio do wzoru na naprężenia główne.
+
+## Definicje i jednostki
+
+| Symbol         | Znaczenie                                 | Jednostka | Uwaga                         |
+| -------------- | ----------------------------------------- | --------- | ----------------------------- |
+| $\sigma_1$     | większe naprężenie główne w płaszczyźnie  | MPa       | umownie $\sigma_1\ge\sigma_2$ |
+| $\sigma_2$     | mniejsze naprężenie główne w płaszczyźnie | MPa       | może być ujemne               |
+| $\sigma_I$     | największe z trzech naprężeń głównych     | MPa       | porządek przestrzenny         |
+| $\sigma_{II}$  | środkowe z trzech naprężeń głównych       | MPa       | może być zerem                |
+| $\sigma_{III}$ | najmniejsze z trzech naprężeń głównych    | MPa       | może być zerem                |
+| $\sigma_{avg}$ | średnia naprężeń normalnych               | MPa       | $(\sigma_x+\sigma_y)/2$       |
+| $R$            | promień stanu w płaszczyźnie              | MPa       | $R=\sqrt{a^2+\tau_{xy}^2}$    |
+| $a$            | połowa różnicy naprężeń normalnych        | MPa       | $(\sigma_x-\sigma_y)/2$       |
+
+Naprężenie główne to wartość naprężenia normalnego na płaszczyźnie, na której nie ma ścinania. Płaszczyzna główna jest prostopadła do kierunku głównego. W płaskim stanie mamy dwa kierunki główne w płaszczyźnie $xy$. Trzeci kierunek to oś $z$. Płaszczyzny główne są prostopadłe do tych kierunków: dwie zawierają oś $z$, a trzecia jest płaszczyzną $xy$. W przestrzeni sytuacja jest analogiczna, tylko z trzema osiami.
+
+Wartości główne są niezmiennikami w tym sensie, że nie zależą od obrotu układu. Nie zmieniają się też przy zamianie osi $x$ i $y$, choć zmienia się wtedy znak $\tau_{xy}$ i przypisanie wartości do kierunków. Właśnie dlatego warto zawsze porządkować wartości na końcu, a nie w trakcie rachunku. Kolejność jest umową, a nie dodatkową informacją fizyczną.
+
+Trzy naprężenia główne tworzą pełny zestaw. W płaskim stanie jednym z nich jest zero, ale nie zawsze jest to wartość środkowa. Jeśli oba naprężenia w płaszczyźnie są dodatnie, zero jest najmniejsze. Jeśli oba są ujemne, zero jest największe. Jeśli mają przeciwne znaki, zero leży między nimi. Ta prosta obserwacja ma duże znaczenie dla maksymalnego ścinania i dla kryteriów wytężenia.
+
+Warto zapamiętać trzy przypadki jako obrazki, a nie listę reguł. Dwa dodatnie naprężenia i zero dają „trójkąt” po prawej stronie osi. Dwa ujemne i zero dają trójkąt po lewej. Jedno dodatnie i jedno ujemne dają przedział obejmujący zero. Te obrazki pomagają szybko ocenić, które naprężenie jest skrajne, jeszcze przed podstawieniem liczb do wzoru.
+
+## Wzór i wyprowadzenie
 
 <Formula>
 $$
 \sigma_{1,2}=\sigma_{avg}\pm R,\qquad \sigma_{avg}=\frac{\sigma_x+\sigma_y}{2},\qquad R=\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2}
 $$
 
-<Caption>W płaszczyźnie umownie przyjmuje się σ1 ≥ σ2. W stanie płaskim σz = 0 jest trzecim naprężeniem głównym; aby uporządkować wartości przestrzennie, trzeba porównać wszystkie trzy liczby, również zero.</Caption>
+<Caption>Naprężenia główne w płaszczyźnie. $\sigma_1$ odpowiada znakowi plus, a $\sigma_2$ znakowi minus. W płaszczyźnie umownie przyjmujemy $\sigma_1\ge\sigma_2$. W stanie płaskim $\sigma_z=0$ jest trzecim naprężeniem głównym; do uporządkowania przestrzennego trzeba porównać wszystkie trzy liczby, również zero.</Caption>
 </Formula>
 
+<Formula>
+$$
+\sigma_p^3-I_1\sigma_p^2+I_2\sigma_p-I_3=0,\qquad I_1=\sigma_x+\sigma_y+\sigma_z
+$$
+
+<Caption>Równanie charakterystyczne dla pełnego stanu trójwymiarowego. Pierwiastkami są trzy naprężenia główne. $I_1$ jest śladem tensora, a pozostałe niezmienniki $I_2$ i $I_3$ można obliczyć z wyznacznika macierzy $\boldsymbol{\sigma}-\sigma_p\mathbf{I}$. Wszystkie trzy pierwiastki są rzeczywiste dla symetrycznego tensora naprężenia.</Caption>
+</Formula>
+
+W rozwiniętej postaci niezmienniki wynoszą $I_2=\sigma_x\sigma_y+\sigma_y\sigma_z+\sigma_z\sigma_x-\tau_{xy}^2-\tau_{yz}^2-\tau_{xz}^2$ oraz $I_3=\det\boldsymbol{\sigma}$. Nie trzeba ich pamiętać na pamięć, ale warto wiedzieć, że są to te same kombinacje, które pojawiają się we wzorze dwuwymiarowym po dodaniu kierunku $z$. W płaskim stanie $I_1=\sigma_x+\sigma_y$ i $I_3=0$, bo jeden wiersz macierzy jest zerowy.
+
+Wyprowadzenie w płaszczyźnie zaczynamy od wzoru na naprężenie normalne po obrocie. Traktujemy $\sigma_n$ jako funkcję kąta $\theta$ i szukamy jej ekstremum. Warunkiem koniecznym jest zniknięcie pochodnej względem $\theta$.
+
+1. **Zapisz funkcję.** $\sigma_n(\theta)=\sigma_{avg}+a\cos2\theta+\tau_{xy}\sin2\theta$, gdzie $a=(\sigma_x-\sigma_y)/2$.
+2. **Oblicz pochodną.** $\frac{d\sigma_n}{d\theta}=-2a\sin2\theta+2\tau_{xy}\cos2\theta$.
+3. **Przyrównaj do zera.** Dzielimy przez 2 i otrzymujemy $-a\sin2\theta+\tau_{xy}\cos2\theta=0$.
+4. **Zauważ związek ze ścinaniem.** Lewa strona jest dokładnie wzorem na $\tau_{nt}$. Ekstremum $\sigma_n$ występuje więc tam, gdzie $\tau_{nt}=0$.
+5. **Wyznacz kąt.** Z równania wynika $\tan2\theta_p=\tau_{xy}/a=2\tau_{xy}/(\sigma_x-\sigma_y)$. To ten sam kąt, który później nazwiemy kierunkiem głównym.
+6. **Zbuduj trójkąt.** Przyjmij przyprostokątną poziomą $a$ i pionową $\tau_{xy}$. Przeciwprostokątna ma długość $R=\sqrt{a^2+\tau_{xy}^2}$.
+7. **Odczytaj funkcje.** W punkcie ekstremum $\cos2\theta_p=a/R$ oraz $\sin2\theta_p=\tau_{xy}/R$, z dokładnością do znaku zależnego od gałęzi.
+8. **Podstaw do $\sigma_n$.** Otrzymujemy $\sigma_n=\sigma_{avg}+a(a/R)+\tau_{xy}(\tau_{xy}/R)=\sigma_{avg}+(a^2+\tau_{xy}^2)/R=\sigma_{avg}+R$.
+9. **Drugie ekstremum.** Kąt różniący się o $180^\circ$ w $2\theta$ daje znak minus i wartość $\sigma_{avg}-R$. To $\sigma_1$ i $\sigma_2$.
+10. **Przejdź do trzech wymiarów.** Dla pełnego tensora szukamy wartości własnych z równania $\det(\boldsymbol{\sigma}-\sigma_p\mathbf{I})=0$. Po rozwinięciu dostajemy równanie charakterystyczne z trzema rzeczywistymi pierwiastkami, które są naprężeniami głównymi.
+11. **Sprawdź niezmienniki.** Suma pierwiastków musi być równa $I_1$, a ich iloczyn równy $I_3$. W płaszczyźnie iloczyn $\sigma_1\sigma_2$ jest równy $\sigma_x\sigma_y-\tau_{xy}^2$. Te kontrole działają również wtedy, gdy jedna z wartości jest zerem.
+
 <Insight>
-  Średnia wyznacza środek przedziału możliwych naprężeń normalnych, a promień R — odległość od tego środka do wartości
-  głównych. Wzrost ścinania zwiększa R, nawet gdy naprężenia normalne się nie zmieniają.
+  Naprężenia główne to wartości własne tensora, a nie „dodatkowe naprężenia” doklejone do danych. Promień $R$ jest
+  połową różnicy między nimi w płaszczyźnie. Wzrost ścinania zwiększa $R$, nawet gdy naprężenia normalne się nie
+  zmieniają. Zero w kierunku $z$ jest pełnoprawnym naprężeniem głównym i może być wartością skrajną.
 </Insight>
 
 <WorkedExample>
-  <Given>Element ma σx = −20 MPa, σy = 60 MPa, τxy = 30 MPa i σz = 0.</Given>
+  <Given>
+    Element ma $\sigma_x=-20\ \mathrm{MPa}$, $\sigma_y=60\ \mathrm{MPa}$, $\tau_{xy}=30\ \mathrm{MPa}$ i $\sigma_z=0$.
+  </Given>
   <Steps>
-    <Step>Średnia płaska: σavg = (−20 + 60)/2 = 20 MPa.</Step>
     <Step>
-      Połowa różnicy: a = (−20 − 60)/2 = −40 MPa; w promieniu występuje jej kwadrat, więc znak a nie wpływa na R.
+      Średnia płaska: $\sigma_{avg}=(-20+60)/2=20\ \mathrm{MPa}$.
     </Step>
-    <Step>R = √[(−40)² + 30²] = 50 MPa.</Step>
-    <Step>Płaskie wartości to 20 + 50 = 70 MPa oraz 20 − 50 = −30 MPa.</Step>
+    <Step>
+      Połowa różnicy: $a=(-20-60)/2=-40\ \mathrm{MPa}$. W promieniu występuje jej kwadrat, więc znak $a$ nie wpływa na
+      $R$.
+    </Step>
+    <Step>
+      Promień: $R=\sqrt{(-40)^{2}+30^{2}}=\sqrt{1600+900}=50\ \mathrm{MPa}$.
+    </Step>
+    <Step>
+      Płaskie wartości: $20+50=70\ \mathrm{MPa}$ oraz $20-50=-30\ \mathrm{MPa}$.
+    </Step>
+    <Step>Dodaj trzecie naprężenie główne $\sigma_z=0$ i uporządkuj: $70$, $0$, $-30\ \mathrm{MPa}$.</Step>
+    <Step>Sprawdź ślad: $70+0-30=40\ \mathrm{MPa}$, co zgadza się z $-20+60+0$.</Step>
+    <Step>
+      Sprawdź iloczyn płaski: $70\cdot(-30)=-2100$, a $\sigma_x\sigma_y-\tau_{xy}^2=(-20)\cdot60-30^2=-1200-900=-2100$.
+    </Step>
   </Steps>
   <Result>
-    Po dodaniu σz = 0 i uporządkowaniu: σI = 70 MPa, σII = 0, σIII = −30 MPa. Występuje zarówno rozciąganie, jak i
-    ściskanie.
+    Po uporządkowaniu $\sigma_I=70\ \mathrm{MPa}$, $\sigma_{II}=0$, $\sigma_{III}=-30\ \mathrm{MPa}$. Występuje zarówno
+    rozciąganie, jak i ściskanie. Największe rozciąganie wynosi $70\ \mathrm{MPa}$, a największe ściskanie $-30\ \mathrm
+    {MPa}$. Maksymalne ścinanie absolutne w tym przypadku wynosi $(70-(-30))/2=50\ \mathrm{MPa}$.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Rozważmy stan, w którym oba naprężenia w płaszczyźnie są dodatnie: $\sigma_x=90\ \mathrm{MPa}$, $\sigma_y=30\ \mathrm{MPa}$, $\tau_{xy}=40\ \mathrm{MPa}$ i $\sigma_z=0$. Średnia wynosi $60\ \mathrm{MPa}$, połowa różnicy $30\ \mathrm{MPa}$, a promień $R=\sqrt{30^2+40^2}=50\ \mathrm{MPa}$. Płaskie naprężenia główne to $110\ \mathrm{MPa}$ i $10\ \mathrm{MPa}$.
+
+Po dodaniu zera i uporządkowaniu otrzymujemy $\sigma_I=110$, $\sigma_{II}=10$ i $\sigma_{III}=0\ \mathrm{MPa}$. Zero jest tutaj najmniejszym naprężeniem głównym, a nie wartością środkową. Maksymalne ścinanie absolutne wynosi $(110-0)/2=55\ \mathrm{MPa}$, czyli więcej niż promień koła w płaszczyźnie $R=50\ \mathrm{MPa}$.
+
+To bardzo ważny przykład. Gdybyśmy poprzestali na kole w płaszczyźnie $xy$, powiedzielibyśmy, że maksymalne ścinanie wynosi $50\ \mathrm{MPa}$. W rzeczywistości płaszczyzna maksymalnego ścinania jest nachylona do osi $z$, bo skrajne naprężenia główne to $110$ i $0$, a nie $110$ i $10$. Pominięcie trzeciego wymiaru zaniża wynik o $5\ \mathrm{MPa}$, co przy projektowaniu może mieć znaczenie.
+
+Warto też zauważyć, że znak naprężeń normalnych nie jest tym samym co znak naprężeń głównych. Oba płaskie naprężenia główne są dodatnie, ale zero w kierunku $z$ jest mniejsze od obu. Kolejność przestrzenna zależy więc nie tylko od znaków, ale od pełnego zestawu trzech liczb.
+
+Ten przykład pokazuje, dlaczego w kryteriach wytężenia nie wystarcza różnica $\sigma_1-\sigma_2$. Dla materiału ciągliwego miarą może być różnica $\sigma_I-\sigma_{III}$, a ta zależy od tego, czy zero jest skrajne. Wystarczy zmienić znak jednego naprężenia płaskiego, żeby maksymalne ścinanie przeskoczyło na inną płaszczyznę. To nie jest subtelność matematyczna, lecz realna zmiana mechanizmu zniszczenia.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że znamy naprężenia główne $\sigma_1=80\ \mathrm{MPa}$ i $\sigma_2=-20\ \mathrm{MPa}$ oraz składową $\sigma_x=20\ \mathrm{MPa}$. Chcemy odtworzyć $\sigma_y$ i $|\tau_{xy}|$. To zadanie „od wyniku do danych”, typowe przy interpretacji pomiarów.
+
+Średnia z naprężeń głównych wynosi $(80-20)/2=30\ \mathrm{MPa}$. Musi być równa $(\sigma_x+\sigma_y)/2$, więc $(20+\sigma_y)/2=30$, czyli $\sigma_y=40\ \mathrm{MPa}$. Promień wynosi $(80-(-20))/2=50\ \mathrm{MPa}$. Połowa różnicy naprężeń normalnych to $a=(20-40)/2=-10\ \mathrm{MPa}$.
+
+Korzystamy z $R^2=a^2+\tau_{xy}^2$: $2500=100+\tau_{xy}^2$, więc $|\tau_{xy}|=\sqrt{2400}\approx48{,}99\ \mathrm{MPa}$. Znak $\tau_{xy}$ zależy od orientacji kierunku głównego względem osi $x$; same wartości główne go nie rozstrzygają. Oba znaki dają ten sam zestaw naprężeń głównych, ale odpowiadają lustrzanym kierunkom.
+
+Sprawdźmy: $\sigma_{avg}=30$, $R=50$, więc wartości to $80$ i $-20\ \mathrm{MPa}$. Po podstawieniu $\sigma_x=20$, $\sigma_y=40$ i $\tau_{xy}=48{,}99$ otrzymujemy ten sam promień. To potwierdza, że dane są spójne. Wniosek: wartości główne nie określają jednoznacznie całego tensora, dopóki nie znamy orientacji osi głównych.
+
+Znak $\tau_{xy}$ można ustalić dopiero z dodatkowej informacji, na przykład z kąta kierunku głównego albo z pomiaru na pochyłej płaszczyźnie. To dobra ilustracja tego, że wartości własne opisują stan „co do wielkości”, ale nie „co do orientacji”. W praktyce oba elementy są potrzebne: wartości do oceny wytężenia, a kierunki do przewidywania kierunku pęknięcia i doboru zbrojenia.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Mylenie $\sigma_1$ z $\sigma_I$.** $\sigma_1$ i $\sigma_2$ to wartości w płaszczyźnie, a $\sigma_I$, $\sigma_{II}$, $\sigma_{III}$ to pełny porządek trójwymiarowy. To nie są te same oznaczenia.
+- **Pomijanie zera w stanie płaskim.** $\sigma_z=0$ jest trzecim naprężeniem głównym. Zero może być największe albo najmniejsze, więc nie wolno go ignorować.
+- **Przekonanie, że $\sigma_1$ zawsze oznacza rozciąganie.** Naprężenie główne może być ujemne. „Główne” znaczy „bez ścinania”, a nie „dodatnie”.
+- **Mylenie $R$ z maksymalnym ścinaniem absolutnym.** W płaszczyźnie $R$ jest maksymalnym ścinaniem, ale w przestrzeni trzeba użyć różnicy $\sigma_I-\sigma_{III}$.
+- **Zły znak $\tau_{xy}$.** Znak zmienia kąt kierunku głównego, choć nie zmienia wartości głównych. Wartości są odporne na znak, ale kierunki nie.
+- **Zaokrąglanie przed porządkowaniem.** Dwie bliskie wartości mogą zamienić się miejscami po zaokrągleniu. Porządkuj na pełnej precyzji, a zaokrąglaj dopiero w odpowiedzi.
+- **Szukanie modułu Younga przy liczeniu naprężeń głównych.** Do samych wartości głównych wystarczy tensor naprężenia. Właściwości materiału wchodzą dopiero w ocenę wytężenia.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Zapisz pełny tensor.** Nawet w stanie płaskim zapisz $\sigma_z=0$ świadomie, a nie przez przemilczenie. To ułatwia późniejsze porządkowanie.
+2. **Oblicz $\sigma_{avg}$ i $a$.** Te dwie liczby są potrzebne w każdym wariancie zadania. Zapisz je z jednostkami.
+3. **Oblicz $R$.** Pierwiastek z sumy kwadratów jest nieujemny. Sprawdź, czy nie pominąłeś kwadratu przy $a$.
+4. **Wyznacz $\sigma_1$ i $\sigma_2$.** Dodaj i odejmij $R$ od średniej. Zapisz obie wartości, nawet jeśli jedna jest ujemna.
+5. **Dodaj trzecie naprężenie.** W płaskim stanie jest to zero. W przestrzeni oblicz je z równania charakterystycznego albo z danych.
+6. **Uporządkuj trzy wartości.** Oznacz największą jako $\sigma_I$, środkową jako $\sigma_{II}$, najmniejszą jako $\sigma_{III}$.
+7. **Sprawdź ślad.** Suma trzech wartości musi być równa $\sigma_x+\sigma_y+\sigma_z$. To najszybsza kontrola.
+8. **Sprawdź iloczyn w płaszczyźnie.** $\sigma_1\sigma_2=\sigma_x\sigma_y-\tau_{xy}^2$. Jeśli się nie zgadza, błąd jest w rachunku.
+9. **Zinterpretuj wynik.** Wskaż, które naprężenie jest rozciągające, a które ściskające, i czy zero jest skrajne. To przygotowuje grunt pod maksymalne ścinanie i kryteria wytężenia.
+10. **Zapisz odpowiedź w konwencji zadania.** Jeśli zadanie używa oznaczeń $\sigma_1$, $\sigma_2$, $\sigma_3$, nie mieszaj ich z $\sigma_I$, $\sigma_{II}$, $\sigma_{III}$. Podaj, która konwencja obowiązuje w odpowiedzi.
+
+## Połącz z resztą kursu
+
+- **Tensor naprężenia.** Naprężenia główne to wartości własne tensora. Bez poprawnego zapisu macierzy nie da się ich sensownie policzyć.
+- **Obrót przekroju.** Wzory transformacyjne prowadzą do warunku $\tau_{nt}=0$, a z niego do wartości głównych. To ten sam rachunek, tylko doprowadzony do końca.
+- **Kierunki główne.** Wartości główne i kierunki główne to dwie strony tego samego zagadnienia. Wartości mówią „ile”, a kierunki „gdzie”.
+- **Maksymalne ścinanie.** Różnica $\sigma_I-\sigma_{III}$ wyznacza absolutne maksimum ścinania. To kluczowe dla materiałów ciągliwych.
+- **Kryteria wytężenia.** Hipotezy Hubera–von Misesa i Treski korzystają z naprężeń głównych. Bez uporządkowania trzech wartości nie da się ich poprawnie zastosować.
+- **Stan odkształcenia.** W materiale izotropowym kierunki główne naprężeń i odkształceń pokrywają się, ale wartości są powiązane przez moduł Younga i liczbę Poissona.
+- **Projektowanie połączeń.** W spoinach i połączeniach klejowych kierunek głównego rozciągania decyduje o tym, czy pęknięcie pójdzie wzdłuż spoiny, czy przez materiał.
+
+## Sprawdź się
+
+Pytania łączą rachunek z porządkowaniem i interpretacją. Pamiętaj, że wynik liczbowy bez informacji, które naprężenie jest skrajne, jest niepełny.
+
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Dla σx = 90 MPa, σy = 30 MPa i τxy = 40 MPa ile wynoszą płaskie naprężenia główne?</Prompt>
+    <Prompt>
+      Dla $\sigma_x=90\ \mathrm{MPa}$, $\sigma_y=30\ \mathrm{MPa}$ i $\tau_{xy}=40\ \mathrm{MPa}$ ile wynoszą płaskie
+      naprężenia główne?
+    </Prompt>
     <Answer>60 MPa i 40 MPa</Answer>
     <Answer correct>110 MPa i 10 MPa</Answer>
     <Answer>130 MPa i −10 MPa</Answer>
-    <Hint>Średnia wynosi 60 MPa, a promień oblicz z połowy różnicy i τxy.</Hint>
+    <Hint>Średnia wynosi 60 MPa, a promień oblicz z połowy różnicy i $\tau_{xy}$.</Hint>
     <Explanation>
-      σavg = 60 MPa, połowa różnicy to 30 MPa, więc R = √(30² + 40²) = 50 MPa. Stąd σ1 = 60 + 50 = 110 MPa i σ2 = 60 −
-      50 = 10 MPa.
+      $\sigma_{avg}=60\ \mathrm{MPa}$, połowa różnicy to $30\ \mathrm{MPa}$, więc $R=\sqrt{30^{2}+40^{2}}=50\
+      \mathrm{MPa}$. Stąd $\sigma_1=60+50=110\ \mathrm{MPa}$ i $\sigma_2=60-50=10\ \mathrm{MPa}$.
     </Explanation>
   </Question>
   <Question outcome="W1">
     <Prompt>
-      W stanie płaskim obliczono σ1 = 20 MPa i σ2 = −70 MPa, a σz = 0. Jakie jest najmniejsze naprężenie główne w opisie
-      przestrzennym?
+      W stanie płaskim obliczono $\sigma_1=20\ \mathrm{MPa}$ i $\sigma_2=-70\ \mathrm{MPa}$, a $\sigma_z=0$. Jakie jest
+      najmniejsze naprężenie główne w opisie przestrzennym?
     </Prompt>
     <Answer>0 MPa</Answer>
     <Answer correct>−70 MPa</Answer>
     <Answer>20 MPa</Answer>
-    <Hint>Uwzględnij także kierunek z i uporządkuj trzy liczby.</Hint>
+    <Hint>Uwzględnij także kierunek $z$ i uporządkuj trzy liczby.</Hint>
     <Explanation>
-      Zbiór naprężeń głównych to &#123;20, 0, −70&#125; MPa. Najmniejsze wynosi −70 MPa. Zerowe σz nie zawsze jest
-      skrajną wartością i nie wolno go pominąć.
+      Zbiór naprężeń głównych to $-70$, $0$ i $20\ \mathrm{MPa}$. Najmniejsze wynosi $-70\ \mathrm{MPa}$. Zerowe
+      $\sigma_z$ nie jest tu skrajne, ale w innym zadaniu może być największe; zawsze trzeba porównać wszystkie trzy
+      wartości.
     </Explanation>
   </Question>
   <Question outcome="W1">
-    <Prompt>Co jest wspólne dla wszystkich kierunków głównych?</Prompt>
+    <Prompt>Co jest wspólne dla wszystkich płaszczyzn głównych?</Prompt>
     <Answer>Naprężenie normalne zawsze jest dodatnie</Answer>
-    <Answer correct>Naprężenie styczne na odpowiadających im płaszczyznach wynosi zero</Answer>
+    <Answer correct>Naprężenie styczne na tych płaszczyznach wynosi zero</Answer>
     <Answer>Naprężenia główne zawsze są równe co do wartości</Answer>
     <Hint>To właśnie brak jednej składowej wyróżnia te płaszczyzny.</Hint>
     <Explanation>
-      Na płaszczyznach głównych τ = 0. Naprężenie normalne może być dodatnie, ujemne lub zerowe, a wartości główne mogą
-      się różnić.
+      Na płaszczyznach głównych $\tau=0$. Naprężenie normalne może być dodatnie, ujemne lub zerowe, a wartości główne
+      mogą się różnić. „Główne” odnosi się do braku ścinania, nie do znaku.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla $\sigma_x=-20\ \mathrm{MPa}$, $\sigma_y=60\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$ oblicz promień $R$.
+    </Prompt>
+    <Answer>30 MPa</Answer>
+    <Answer correct>50 MPa</Answer>
+    <Answer>80 MPa</Answer>
+    <Hint>Połowa różnicy wynosi $-40\ \mathrm{MPa}$, ale w promieniu liczy się kwadrat.</Hint>
+    <Explanation>
+      $a=(-20-60)/2=-40\ \mathrm{MPa}$, więc $R=\sqrt{(-40)^{2}+30^{2}}=\sqrt{1600+900}=50\ \mathrm{MPa}$. Znak $a$
+      nie wpływa na $R$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla $\sigma_x=90$, $\sigma_y=30$, $\tau_{xy}=40$ i $\sigma_z=0\ \mathrm{MPa}$ wyznacz $\sigma_{III}$ w
+      uporządkowaniu przestrzennym.
+    </Prompt>
+    <Answer>110 MPa</Answer>
+    <Answer>10 MPa</Answer>
+    <Answer correct>0 MPa</Answer>
+    <Hint>Płaskie wartości to 110 i 10 MPa. Dodaj zero i uporządkuj.</Hint>
+    <Explanation>
+      Trzy wartości to $110$, $10$ i $0\ \mathrm{MPa}$. Najmniejsza jest zero, więc $\sigma_{III}=0\ \mathrm{MPa}$.
+      Kolejność: $\sigma_I=110$, $\sigma_{II}=10$, $\sigma_{III}=0$.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Która wielkość nie zmienia się przy obrocie układu współrzędnych?</Prompt>
+    <Answer>$\sigma_x$</Answer>
+    <Answer>$\tau_{xy}$</Answer>
+    <Answer correct>$\sigma_x+\sigma_y+\sigma_z$</Answer>
+    <Hint>To ślad tensora, czyli suma wyrazów na przekątnej.</Hint>
+    <Explanation>
+      Ślad tensora jest równy sumie naprężeń głównych i nie zależy od obrotu. Pojedyncze składowe zmieniają się, ale ich
+      suma pozostaje stała. To pierwszy niezmiennik stanu naprężenia.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Dlaczego przy ocenie elementu z dwóch naprężeń głównych o tym samym znaku nie można pominąć zera w kierunku $z$?
+    </Prompt>
+    <Answer correct>Bo zero staje się skrajnym naprężeniem głównym i zwiększa maksymalne ścinanie</Answer>
+    <Answer>Bo zero zawsze jest wartością środkową</Answer>
+    <Answer>Bo $\sigma_z$ ma wpływ tylko na odkształcenia, nie na naprężenia</Answer>
+    <Hint>Porównaj $110$, $10$ i $0\ \mathrm{MPa}$.</Hint>
+    <Explanation>
+      Gdy oba naprężenia płaskie są dodatnie, zero jest najmniejsze. Wtedy $\tau_{max}=(\sigma_I-0)/2$, a nie
+      $(\sigma_1-\sigma_2)/2$. Pominięcie zera zaniża maksymalne ścinanie i może prowadzić do niebezpiecznego
+      niedoszacowania.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Stan płaski ma $\sigma_1=\sigma_2=-60\ \mathrm{MPa}$ i $\sigma_z=0$. Jak opisać ten stan w trzech wymiarach?
+    </Prompt>
+    <Answer correct>
+      To nie jest ściskanie hydrostatyczne: skrajne wartości to $0$ i $-60\ \mathrm{MPa}$, a maksymalne ścinanie wynosi
+      $30\ \mathrm{MPa}$
+    </Answer>
+    <Answer>To hydrostatyczne ściskanie, bo oba naprężenia płaskie są ujemne</Answer>
+    <Answer>To czyste ścinanie, bo naprężenia normalne w płaszczyźnie są równe</Answer>
+    <Hint>Uporządkuj trzy wartości: $-60$, $-60$ i $0\ \mathrm{MPa}$.</Hint>
+    <Explanation>
+      Wartości główne to $-60$, $-60$ i $0\ \mathrm{MPa}$. Największa jest zero, a najmniejsza $-60\ \mathrm{MPa}$. Stan
+      nie jest hydrostatyczny, bo zero różni się od $-60$. Maksymalne ścinanie wynosi $(0-(-60))/2=30\ \mathrm{MPa}$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o naprężeniach głównych i niezmiennikach stanu naprężenia; klasyczne wyprowadzenie dla płaskiego i przestrzennego przypadku.
+- R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_, PWN, Warszawa 1966 — zadania na wyznaczanie naprężeń głównych i porządkowanie wartości w stanie przestrzennym.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik, rozdział o transformacjach tensora i naprężeniach głównych; zawiera również równanie charakterystyczne i niezmienniki w trzech wymiarach.
+- T. Wierzbicki, _Structural Mechanics_ — otwarte notatki, rozdział o tensorze naprężenia; pokazuje związek wartości własnych z kierunkami głównymi i zapis wskaźnikowy.
+- MIT 3.11 _Mechanics of Materials_ — otwarte notatki MIT, wykład o naprężeniach w belkach i stanie naprężenia; pomocne przy sprawdzaniu wartości głównych na konkretnych rozkładach naprężeń.
+
+Przy czytaniu zwróć uwagę na różnicę między płaskim stanem naprężenia a pełnym stanem trójwymiarowym. Wiele książek podaje najpierw wzór dwuwymiarowy, a dopiero później uogólnia go do trzech wymiarów. W zadaniach warto zawsze zapytać, czy trzecie naprężenie jest rzeczywiście zerowe, czy tylko zostało pominięte.

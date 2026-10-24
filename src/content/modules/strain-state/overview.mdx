@@ -1,1 +1,157 @@
-Połącz zmiany długości i kątów z prawami materiału, odczytaj tensometry oraz przejdź od pomiaru rozety do naprężeń i decyzji projektowej.
+## Co to jest ten moduł
+
+Ten moduł opowiada o tym, jak materiał zmienia kształt pod obciążeniem i jak tę zmianę zmierzyć. Do tej pory patrzyliśmy głównie na siły i naprężenia: czy przekrój przeniesie obciążenie, gdzie powstanie największy moment, ile wynosi naprężenie w najbardziej wytężonym punkcie. Teraz odwracamy pytanie. Zamiast pytać „jaka siła działa na materiał”, pytamy „jak bardzo materiał się odkształcił i co z tego wynika dla konstrukcji”.
+
+Najprostszym przykładem jest rozciągany pręt. Wydłuża się, a jego wydłużenie możemy zmierzyć linijką. Ale samo wydłużenie w milimetrach niewiele mówi, dopóki nie odniesiemy go do długości początkowej. Pręt o długości 1 m, który wydłużył się o 1 mm, odkształcił się inaczej niż próbka o długości 50 mm, która wydłużyła się o ten sam 1 mm. Dlatego wprowadzamy odkształcenie względne, czyli iloraz zmiany długości i długości początkowej.
+
+Drugi obraz to zmiana kątów. Wyobraź sobie prostokątną kostkę, której górna ściana przesuwa się względem dolnej. Boki mogą zachować podobną długość, ale kąty przestają być proste. Taki stan nazywamy ścinaniem. Widać go w skręcanym wale, w połączeniu klejonym, w śrubie pracującej na ścinanie i w rdzeniu lekkiego panelu warstwowego.
+
+Trzecim elementem jest zmiana objętości. Kostka może wydłużyć się w jednym kierunku i skrócić w dwóch pozostałych. Jej objętość zależy od sumy trzech odkształceń liniowych, a nie od pojedynczej wartości. To rozróżnienie jest kluczowe dla materiałów prawie nieściśliwych, takich jak guma, oraz dla zrozumienia, dlaczego metale płyną plastycznie przy prawie stałej objętości.
+
+Moduł prowadzi od geometrii do materiału i od materiału do pomiaru. Najpierw nauczysz się opisywać odkształcenia, potem połączysz je z naprężeniami przez prawo Hooke’a, a na końcu zobaczysz, jak odkształcenia mierzy się tensometrami i jak z trzech pomiarów odtworzyć pełny stan w punkcie. To spójna historia: kształt, materiał, pomiar, decyzja projektowa.
+
+Warto podkreślić, że odkształcenie jest wielkością lokalną. Nawet w prostym pręcie różne punkty mogą odkształcać się inaczej, jeśli zmienia się przekrój lub temperatura. Dlatego nie wystarczy znać jednej liczby dla całego elementu. Trzeba wiedzieć, gdzie i w jakim kierunku została zmierzona lub obliczona.
+
+## Dlaczego to ważne
+
+Konstrukcja może być bezpieczna pod względem naprężeń, a mimo to źle pracować, bo za bardzo się odkształca. Drzwi, które się zamykają, wał, który traci pasowanie, szyba, która pęka od zbyt dużego ugięcia ramy — to wszystko problemy sztywności, a nie tylko wytrzymałości. Odkształcenia są językiem, w którym mówimy o sztywności.
+
+W projektowaniu precyzyjnym zmiana wymiaru o kilka mikrometrów może zdecydować o działaniu mechanizmu. Łożysko osadzone z wciskiem zmienia średnicę pod obciążeniem. Śruba rozciągana staje się cieńsza przez efekt Poissona. Zbiornik pod ciśnieniem zwiększa pojemność. Jeśli nie potrafisz tego policzyć, projektujesz „na oko” i liczysz na zapas materiału, który nie zawsze jest dostępny.
+
+Odkształcenia są też jedyną wielkością, którą naprawdę łatwo zmierzyć na działającej konstrukcji. Tensometr przyklejony do powierzchni mierzy odkształcenie, nie naprężenie. Dopiero prawo materiału pozwala przeliczyć pomiar na naprężenie. Bez tego kroku nie można ocenić, czy most, samolot albo rurociąg pracuje bezpiecznie.
+
+W materiałach o dużym $\nu$ lub w gumie zmiana objętości i sztywność objętościowa decydują o uszczelnieniu, amortyzacji i odbiorze drgań. W metalach rozdzielenie części objętościowej i postaciowej wyjaśnia, dlaczego plastyczność zależy głównie od ścinania. Ten moduł daje narzędzia do świadomej rozmowy o takich zjawiskach.
+
+Wreszcie, błędy w interpretacji odkształceń bywają kosztowne. Pomylenie mikrostrainów z wartością bezwymiarową, użycie $\sigma=E\varepsilon$ w stanie wieloosiowym albo potraktowanie $\gamma$ jako połowy samej siebie prowadzi do wyników błędnych nawet o rząd wielkości. Dlatego tak dużo miejsca poświęcamy definicjom, znakom i kontroli jednostek.
+
+Dobrym nawykiem jest porównywanie wyniku z prostym przypadkiem granicznym. Jeśli złożony wzór nie redukuje się do $\sigma=E\varepsilon$ przy jednym niezerowym naprężeniu, prawdopodobnie zawiera błąd. Jeśli zmiana objętości nie znika przy czystym ścinaniu, coś jest nie tak ze znakami lub definicją. Takie kontrole są szybkie i wyłapują większość pomyłek.
+
+## Czego się nauczysz
+
+- **W1 — analiza odkształceń liniowych i postaciowych.** Będziesz opisywać deformację elementu za pomocą $\varepsilon$ i $\gamma$, odróżniać odkształcenie inżynierskie od tensorowego oraz obliczać odkształcenia z pola przemieszczeń.
+- **W2 — rozpoznawanie sprężystych przypadków z efektem Poissona.** Zobaczysz, kiedy jedno naprężenie wywołuje odkształcenia w trzech kierunkach i jak $\nu$ wiąże wydłużenie ze skurczem poprzecznym.
+- **W3 — geometria, objętość i czujniki.** Połączysz wymiary elementu, zmianę objętości i położenie tensometrów z wielkościami, które rzeczywiście można zmierzyć.
+- **U1 — obliczenia z uogólnionego prawa Hooke’a.** Będziesz obliczać odkształcenia z naprężeń i odwrotnie, z kontrolą jednostek i znaków.
+- **U2 — od rozety do koła Mohra odkształceń.** Przekształcisz trzy odczyty tensometrów w odkształcenia główne i maksymalne ścinanie.
+- **U3 — dobór parametrów z uwagi na bezpieczeństwo i sztywność.** Nauczysz się łączyć wytrzymałość z wymaganiami deformacyjnymi i świadomie dobierać materiał oraz wymiary.
+
+## Od czego zacząć
+
+Przed tym modułem warto rozumieć podstawy statyki i mechaniki materiałów: siły, momenty, reakcje, przekroje, naprężenia normalne i styczne oraz prawo Hooke’a dla prostego rozciągania. Jeśli te tematy są dla Ciebie nowe, wróć do modułów o fundamentach, rozciąganiu i ścinaniu. Bez pojęcia naprężenia trudno zrozumieć, dlaczego odkształcenie jest odpowiedzią materiału, a nie tylko zmianą wymiaru.
+
+Przydatna będzie też umiejętność pracy z pochodnymi cząstkowymi na poziomie podstawowym. Nie potrzebujesz zaawansowanego rachunku tensorowego. Wystarczy rozumieć, że $\partial u/\partial x$ opisuje, jak przemieszczenie zmienia się wzdłuż osi $x$, oraz że małe odkształcenia pozwalają pomijać iloczyny pochodnych.
+
+Kolejność pracy jest naturalna: najpierw lekcja o $\varepsilon$ i $\gamma$, potem efekt Poissona, następnie uogólnione prawo Hooke’a i zmiana objętości. Dopiero po tych czterech lekcjach przejdź do tensometrów, rozety i powiązania stanów. Próba rozpoczęcia od rozety bez zrozumienia $\gamma$ zwykle kończy się mechanicznym podstawianiem wzorów.
+
+Warto mieć pod ręką kalkulator i kartkę do kontroli rzędu wielkości. Typowe odkształcenia sprężyste metali to $10^{-4}$–$10^{-3}$, a nie $0{,}1$ czy $10$. Jeśli wynik wychodzi poza ten zakres, prawie zawsze oznacza to błąd jednostek albo założenie poza zakresem stosowalności modelu.
+
+Nie zaczynaj od rozwiązywania zadań z rozetą „na skróty”. Najpierw upewnij się, że rozumiesz, dlaczego koło odkształceń rysuje się w osiach $\varepsilon$ i $\gamma/2$, a nie w osiach $\varepsilon$ i $\gamma$. To pozornie drobna różnica, ale decyduje o poprawności całego rozwiązania.
+
+## Mapa lekcji
+
+**Lekcja 1 — Odkształcenia: długości i kąty.** Definiuje $\varepsilon$ i $\gamma$, pokazuje różnicę między miarą inżynierską a tensorową i uczy obliczać odkształcenia z pola przemieszczeń. To słownik całego modułu.
+
+**Lekcja 2 — Efekt Poissona: dlaczego pręt robi się cieńszy.** Wyjaśnia, skąd bierze się skurcz poprzeczny, jak wyznaczyć $\nu$ z pomiaru i dlaczego $\nu$ bliskie $0{,}5$ oznacza prawie nieściśliwość.
+
+**Lekcja 3 — Uogólnione prawo Hooke’a: wszystkie osie naraz.** Składa trzy jednoosiowe odpowiedzi w jeden układ równań. Uczy obliczać $\varepsilon_x$, $\varepsilon_y$, $\varepsilon_z$ oraz $\gamma$ i odwracać wzór w płaskim stanie naprężenia.
+
+**Lekcja 4 — Zmiana objętości: ślad odkształcenia.** Wyprowadza $\Delta V/V_0\approx\varepsilon_x+\varepsilon_y+\varepsilon_z$, wprowadza ciśnienie hydrostatyczne i moduł ściśliwości $K$.
+
+**Lekcja 5 — Tensometry: od oporu do odkształcenia.** Pokazuje, jak cienka ścieżka oporowa zmienia opór pod wpływem odkształcenia, jakie znaczenie ma baza czujnika i skąd biorą się błędy pomiaru.
+
+**Lekcja 6 — Rozeta 0°/45°/90°: trzy odczyty, pełny obraz.** Uczy składać trzy kierunki pomiarowe w $\varepsilon_x$, $\varepsilon_y$ i $\gamma_{xy}$, a następnie wyznaczać odkształcenia główne i maksymalne ścinanie.
+
+**Lekcja 7 — Od pomiaru do naprężeń i bezpiecznego doboru.** Zamyka pętlę: od odkształceń głównych do naprężeń, od naprężeń do wytężenia i od wytężenia do decyzji projektowej z kontrolą sztywności.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+\varepsilon_x=\frac{\Delta L_x}{L_{0x}},\qquad \gamma_{xy}=\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x},\qquad \varepsilon_{xy}=\frac{\gamma_{xy}}{2}
+$$
+
+<Caption>Podstawa opisu deformacji. $\varepsilon$ jest względną zmianą długości, $\gamma$ pełną zmianą kąta prostego, a $\varepsilon_{xy}$ składową tensora równą połowie $\gamma_{xy}$. Wszystkie wielkości są bezwymiarowe, a $\gamma$ podajemy w radianach.</Caption>
+</Formula>
+
+<Formula>
+$$
+\varepsilon_x=\frac{\sigma_x-\nu(\sigma_y+\sigma_z)}{E},\qquad \varepsilon_y=\frac{\sigma_y-\nu(\sigma_z+\sigma_x)}{E},\qquad \varepsilon_z=\frac{\sigma_z-\nu(\sigma_x+\sigma_y)}{E}
+$$
+
+<Caption>Uogólnione prawo Hooke’a dla materiału izotropowego. W każdym kierunku odkształcenie zależy od naprężenia własnego i od dwóch naprężeń poprzecznych zmniejszonych przez $\nu$. Wzór obowiązuje w zakresie liniowo-sprężystym i przy małych odkształceniach.</Caption>
+</Formula>
+
+<Formula>
+$$
+\frac{\Delta V}{V_0}\approx\varepsilon_x+\varepsilon_y+\varepsilon_z=\frac{1-2\nu}{E}(\sigma_x+\sigma_y+\sigma_z),\qquad K=\frac{E}{3(1-2\nu)}
+$$
+
+<Caption>Dylatacja objętości to ślad tensora odkształcenia. Moduł ściśliwości $K$ opisuje opór wobec zmiany objętości. Dla $\nu\to0{,}5$ mianownik dąży do zera, więc materiał staje się nieściśliwy.</Caption>
+</Formula>
+
+<Formula>
+$$
+G=\frac{E}{2(1+\nu)},\qquad K=\frac{E}{3(1-2\nu)},\qquad \nu=\frac{3K-2G}{2(3K+G)}
+$$
+
+<Caption>Stałe sprężystości materiału izotropowego nie są niezależne. Znajomość $E$ i $\nu$ wyznacza moduł ścinania $G$ i moduł ściśliwości $K$. Przy $\nu\to0{,}5$ moduł $K$ rośnie nieograniczenie, co odpowiada nieściśliwości.</Caption>
+</Formula>
+
+<Insight>
+  Trzy wielkości trzeba rozróżniać przez cały moduł: odkształcenie liniowe $\varepsilon$, odkształcenie postaciowe
+  $\gamma$ i odkształcenie objętościowe $\varepsilon_v$. Mają ten sam wymiar bezwymiarowy, ale opisują różne efekty
+  geometryczne i wchodzą do różnych wzorów.
+</Insight>
+
+## Jak się uczyć
+
+1. Zacznij od jednego konkretnego pręta i policz na nim wszystkie wielkości: wydłużenie, $\varepsilon$, skurcz poprzeczny, zmianę objętości. Dopiero potem przejdź do wzorów ogólnych.
+2. Po każdej lekcji sprawdź, czy umiesz odtworzyć wyprowadzenie bez zaglądania do tekstu. Jeśli nie, wróć do kroku, który sprawia trudność.
+3. Zawsze zapisuj jednostki i znaki. W tym module większość błędów nie wynika z trudnej matematyki, ale z pominiętego minusa, mikrostrainów albo GPa pomieszanego z MPa.
+4. Rozwiązuj zadania w obie strony: od naprężeń do odkształceń i od odkształceń do naprężeń. To najlepszy test zrozumienia prawa Hooke’a.
+5. Po lekcjach o tensometrach i rozecie wróć do lekcji o $\gamma$ i upewnij się, że wiesz, dlaczego koło odkształceń rysuje się w osiach $\varepsilon$ i $\gamma/2$.
+6. Kontroluj rząd wielkości. Wynik rzędu $0{,}1$ odkształcenia dla stali w zakresie sprężystym powinien wzbudzić czujność, a nie zachwyt.
+
+### Prosty plan pracy
+
+| Krok | Co zrobić                                               | Efekt                     |
+| ---- | ------------------------------------------------------- | ------------------------- |
+| 1    | Przeczytaj lekcję i przepisz własnymi słowami definicje | rozpoznajesz symbole      |
+| 2    | Rozwiąż przykład z lekcji bez zaglądania do wyniku      | sprawdzasz rachunek       |
+| 3    | Policz jeden przykład odwrotny                          | rozumiesz przekształcenia |
+| 4    | Zrób quiz i zapisz błędne odpowiedzi                    | widzisz luki              |
+| 5    | Wróć do źródła i uzupełnij brakujący fragment           | domykasz temat            |
+
+Plan jest krótki, ale skuteczny. Najważniejsze, aby po każdym kroku sprawdzić jednostki i znaki, a nie tylko zgodność liczby z odpowiedzią.
+
+<Callout kind="warning" title="Najczęstsze pułapki modułu">
+  - Mieszanie odkształcenia inżynierskiego $\gamma$ z tensorowym $\varepsilon_{xy}$ bez czynnika dwa.
+  - Stosowanie $\sigma=E\varepsilon$ osobno w każdym kierunku przy stanie wieloosiowym.
+  - Zapominanie, że zerowe naprężenie nie oznacza zerowego odkształcenia.
+  - Traktowanie zmiany średnicy jako miary zmiany objętości.
+  - Podawanie $\nu$ w procentach i wstawianie do wzoru liczby $30$ zamiast $0{,}30$.
+  - Stosowanie modelu liniowego do gumy, pianki lub odkształceń plastycznych.
+</Callout>
+
+## Po tym module
+
+Po tym module będziesz gotowy do modułu o hipotezach wytężeniowych i projektowaniu. Tam odkształcenia i naprężenia główne staną się danymi wejściowymi do oceny, czy element jest bezpieczny. Zobaczysz też, jak łączyć warunek wytrzymałości z warunkiem sztywności i jak dobierać materiał nie tylko po granicy plastyczności, ale także po module Younga i współczynniku Poissona.
+
+W dalszej części kursu ten moduł wróci przy zginaniu, skręcaniu i zbiornikach ciśnieniowych. W belce odkształcenia poprzeczne wyjaśnią antyklastyczne wygięcie przekroju. W wale skręcanym $\gamma$ połączy kąt skręcenia z naprężeniami stycznymi. W zbiorniku zmiana objętości połączy ciśnienie z pojemnością i odkształceniem ścianek.
+
+Najważniejsze, żeby nie traktować tych wzorów jako zestawu do zapamiętania. Każdy z nich odpowiada na proste pytanie: jak zmienia się odległość, kąt albo objętość, gdy materiał jest sprężysty. Jeśli potrafisz to pytanie zadać, wzór można odtworzyć, a wynik skontrolować.
+
+W dalszej nauce warto wracać do tego modułu przy każdym zadaniu, w którym pojawia się nie tylko naprężenie, ale też wymaganie dotyczące deformacji. To właśnie takie zadania uczą, że wytrzymałość i sztywność to dwie różne, choć powiązane odpowiedzi na to samo obciążenie.
+
+- Przy zginaniu wróć do $\varepsilon_z$ i zastanów się, dlaczego przekrój belki nie pozostaje płaski w kierunku poprzecznym.
+- Przy skręcaniu połącz $\gamma$ z kątem skręcenia i sprawdź, czy rozumiesz różnicę między kątem a odkształceniem.
+- Przy zbiornikach ciśnieniowych użyj dylatacji do oszacowania zmiany pojemności.
+- Przy połączeniach wciskowych sprawdź, jak efekt Poissona zmienia średnicę pod obciążeniem.
+- Przy pomiarach tensometrycznych pamiętaj, że czujnik mierzy odkształcenie, a nie naprężenie.
+
+## Źródła
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — klasyczne ujęcie stanu odkształcenia, efektu Poissona i związków sprężystości.
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdziały o odkształceniach, prawie Hooke’a i własnościach materiałów; dobre przykłady obliczeniowe.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik; kinematyka odkształceń, związki konstytutywne i dylatacja objętości.
+- T. Wierzbicki, _Structural Mechanics_ — otwarte notatki; wyprowadzenie trójwymiarowego prawa sprężystości i relacji między $E$, $\nu$, $G$ oraz $K$.

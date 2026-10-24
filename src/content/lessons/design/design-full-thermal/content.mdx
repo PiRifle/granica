@@ -7,7 +7,6 @@ shortTitle: 'Zadanie: temperatura'
 description: >-
   Łącz równowagę, zgodność odkształceń i prawo Hooke’a w pręcie zablokowanym
   oraz sprawdzaj zapas.
-duration: 9
 eyebrow: Pełne rozwiązanie 2
 outcomes:
   - >-
@@ -31,67 +30,276 @@ outcomes:
 solutionId: cw2-1
 ---
 
-Temperatura sama w sobie nie jest siłą. Reakcje pojawiają się wtedy, gdy podpory ograniczają swobodną zmianę długości. Warunek zgodności mówi, jaka jest całkowita zmiana długości pręta.
+Temperatura sama w sobie nie jest siłą. Pręt swobodny, który się ogrzewa, wydłuża się bez oporu i nie powstaje w nim naprężenie termiczne. Naprężenie pojawia się dopiero wtedy, gdy podpory, sąsiednie elementy lub luz ograniczają swobodną zmianę długości. Wtedy mówimy o pręcie zablokowanym albo o układzie statycznie niewyznaczalnym.
+
+W pełnym zadaniu mogą działać jednocześnie dwa czynniki: obciążenie mechaniczne i zmiana temperatury. Każdy z nich próbuje zmienić długość pręta, a podpory wymuszają określoną geometrię. Rozwiązanie polega na zapisaniu warunku zgodności: suma odkształcenia termicznego i sprężystego musi dać rzeczywistą zmianę długości. Dopiero z tego warunku wyznaczamy siłę normalną i naprężenie.
+
+To zadanie jest ważne, bo uczy myślenia w kategoriach odkształceń, a nie tylko sił. W pręcie zablokowanym nie można „zobaczyć” siły termicznej na schemacie obciążeń zewnętrznych; trzeba ją wywnioskować z braku możliwości wydłużenia. Ten sam sposób rozumowania pojawia się w belkach ciągłych, rurach i układach złożonych z różnych materiałów.
+
+Laboratorium pozwala porównać dwa skrajne przypadki: pręt swobodny i pręt idealnie zablokowany. Zobaczysz, że w pierwszym przypadku zmienia się długość, ale naprężenie pozostaje zerowe, a w drugim długość się nie zmienia, ale powstaje naprężenie. W rzeczywistych konstrukcjach rozwiązanie leży często pomiędzy tymi przypadkami, na przykład gdy istnieje luz.
+
+## Zanim zaczniesz
+
+- Znaj wzór na odkształcenie termiczne $\varepsilon_T=\alpha\Delta T$ i wydłużenie $\Delta L_T=\alpha\Delta T L$. Współczynnik $\alpha$ ma jednostkę $1/\text{K}$.
+- Rozumiej prawo Hooke'a $\sigma=E\varepsilon$ i wzór $\Delta L=NL/(EA)$. W zadaniach termicznych oba odkształcenia — termiczne i mechaniczne — trzeba rozpatrywać razem.
+- Umiej zapisać warunek zgodności odkształceń. Dla pręta utwierdzonego na obu końcach suma zmian długości musi być równa zeru.
+- Odróżniaj odkształcenie całkowite od odkształcenia sprężystego. W pręcie zablokowanym całkowite $\Delta L$ jest zerowe, ale odkształcenie termiczne i mechaniczne nie znikają.
+- Pamiętaj o znakach: ogrzewanie daje dodatnie $\Delta T$ i dodatnie odkształcenie termiczne; ściskanie daje ujemne $N$ i ujemne naprężenie.
+- Pamiętaj, że przy ściskaniu smukłego pręta może wystąpić wyboczenie, którego warunek naprężeniowy nie obejmuje.
+
+## Model i intuicja
+
+Model zakłada jednowymiarowy pręt, liniową sprężystość, małe odkształcenia i równomierną temperaturę na długości. Współczynnik rozszerzalności $\alpha$ i moduł $E$ przyjmujemy jako stałe w rozważanym zakresie temperatur. Pomijamy pełzanie, relaksację i zmiany własności materiału z temperaturą, chyba że zadanie wyraźnie je podaje.
+
+W pręcie swobodnym zmiana długości jest sumą odkształcenia termicznego i mechanicznego. Jeśli nie ma żadnego ograniczenia, siła normalna jest zerowa, więc odkształcenie mechaniczne znika i zostaje samo $\alpha\Delta T L$. W pręcie zablokowanym geometria narzuca całkowitą zmianę długości, na przykład zero. Wtedy odkształcenie mechaniczne musi skompensować termiczne.
+
+W układzie z luzem pojawia się nieliniowość geometryczna. Dopóki swobodne wydłużenie jest mniejsze od luzu, pręt porusza się bez oporu i naprężenie jest zerowe. Po zamknięciu luzu dalszy wzrost temperatury wywołuje ściskanie. Warunek zgodności zmienia się więc w zależności od tego, czy kontakt już nastąpił.
+
+Model przestaje wystarczać, gdy temperatura nie jest równomierna, gdy materiał pełza lub gdy element traci stateczność. Wtedy potrzebna jest analiza termosprężysta albo sprawdzenie wyboczenia. W typowym zadaniu podstawowym zakładamy równomierne ogrzewanie i element wystarczająco krępy, żeby wyboczenie nie było krytyczne.
+
+Warto też pamiętać, że naprężenie termiczne w pręcie idealnie zablokowanym nie zależy od pola przekroju. Siła reakcji rośnie z polem, ale naprężenie $\sigma=N/A$ pozostaje takie samo. To częsty punkt zaskoczenia: grubszy pręt nie zmniejsza naprężenia termicznego, jeśli jest całkowicie zablokowany, choć zwiększa siłę w podporach.
+
+Naprężenie termiczne nie zależy też od długości pręta, jeśli pręt jest jednorodny i idealnie zablokowany. Długość wpływa na swobodne wydłużenie i na przemieszczenie punktów, ale nie na $\sigma=-E\alpha\Delta T$. To kolejny powód, dla którego nie można oceniać naprężenia termicznego tylko po tym, jak bardzo pręt „chce” się wydłużyć.
+
+## Laboratorium: co ustawić
+
+Wybierz tryb swobodny i zablokowany, a następnie zmieniaj przyrost temperatury $\Delta T$ i długość pręta. W trybie swobodnym obserwuj wydłużenie $\Delta L=\alpha\Delta T L$ i zerowe naprężenie. W trybie zablokowanym obserwuj zerową zmianę długości geometrycznej i naprężenie $\sigma=-E\alpha\Delta T$.
 
 <Lab id="thermal" />
 
+W laboratorium przyjęto $\alpha=12\cdot10^{-6}\ \text{1/K}$ i $E=200\ \text{GPa}$, czyli typowe wartości dla stali. Zwróć uwagę, że przy ogrzewaniu naprężenie w trybie zablokowanym jest ujemne, czyli ściskające. Przy chłodzeniu znak się odwraca: pręt chce się skrócić, a podpory mu tego zabraniają, więc powstaje rozciąganie.
+
+## Definicje i jednostki
+
+| Symbol          | Znaczenie                              | Jednostka typowa                |
+| --------------- | -------------------------------------- | ------------------------------- |
+| $\Delta T$      | zmiana temperatury                     | $\text{K}$ lub $^\circ\text{C}$ |
+| $\alpha$        | współczynnik liniowej rozszerzalności  | $1/\text{K}$                    |
+| $\varepsilon_T$ | odkształcenie termiczne                | bezwymiarowe                    |
+| $N$             | siła normalna                          | $\text{N}$                      |
+| $\sigma$        | naprężenie normalne                    | $\text{MPa}$                    |
+| $E$             | moduł Younga                           | $\text{MPa}$                    |
+| $A$             | pole przekroju                         | $\text{mm}^2$                   |
+| $L$             | długość                                | $\text{mm}$                     |
+| $g$             | luz początkowy                         | $\text{mm}$                     |
+| $k_c$           | dopuszczalne naprężenie przy ściskaniu | $\text{MPa}$                    |
+
+Przyrost temperatury $\Delta T$ może być dodatni lub ujemny. Dla ogrzewania $\varepsilon_T=\alpha\Delta T\gt 0$, dla chłodzenia $\varepsilon_T\lt 0$. Współczynnik $\alpha$ jest dodatni dla większości materiałów w typowym zakresie temperatur. Woda w pobliżu $0^\circ\text{C}$ jest znanym wyjątkiem, ale w zadaniach konstrukcyjnych zwykle nie występuje.
+
+Odkształcenie całkowite w pręcie jest sumą odkształcenia termicznego i mechanicznego: $\varepsilon=\alpha\Delta T+\sigma/E$. To zapis prawa Hooke'a rozszerzony o temperaturę. W pręcie swobodnym $\sigma=0$, więc $\varepsilon=\alpha\Delta T$. W pręcie zablokowanym $\varepsilon=0$, więc $\sigma=-E\alpha\Delta T$.
+
+Warunek zgodności to geometryczny związek między przemieszczeniami końców. Dla pręta utwierdzonego na obu końcach całkowita zmiana długości wynosi zero. Dla pręta z luzem $g$ całkowita zmiana długości może wynosić $g$, ale tylko po zamknięciu luzu. Przed kontaktem obowiązuje inny warunek: brak ograniczenia i zerowa siła.
+
+Temperaturę można podawać w kelwinach lub stopniach Celsjusza, ponieważ liczy się różnica. Współczynnik $\alpha$ jest w $1/\text{K}$, a różnica temperatur w K ma tę samą wartość liczbową co w $^\circ\text{C}$. Nie wolno natomiast podstawiać temperatury bezwzględnej zamiast różnicy.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\Delta L = \frac{NL}{EA} + \alpha\Delta T L = 0 \qquad N = -EA\alpha\Delta T
+\Delta L = \alpha\Delta T L + \frac{NL}{EA} \qquad \text{przy zablokowaniu: } \Delta L=0 \ \Rightarrow\ N=-EA\alpha\Delta T
 $$
 
-<Caption>Wzór dotyczy jednorodnego pręta idealnie zablokowanego i bez innych obciążeń. Dla ΔT &gt; 0 siła N jest ujemna, czyli ściskająca.</Caption>
+<Caption>Pierwszy wzór opisuje pręt jednorodny, swobodny lub częściowo ograniczony. Drugi dotyczy idealnego zablokowania bez luzu i bez innych obciążeń. Znak minus oznacza, że przy ogrzewaniu powstaje ściskanie. Naprężenie wynosi $\sigma=N/A=-E\alpha\Delta T$.</Caption>
 </Formula>
 
+1. Ustalamy schemat: długość, pole, materiał, temperaturę, luz oraz ewentualne siły mechaniczne. Zapisujemy, które przemieszczenia są dozwolone, a które zablokowane.
+2. Zapisujemy odkształcenie termiczne: $\varepsilon_T=\alpha\Delta T$. Jest to odkształcenie, które powstałoby bez oporu podpór.
+3. Zapisujemy odkształcenie mechaniczne od siły normalnej: $\varepsilon_M=N/(EA)$. Znak wynika z konwencji: rozciąganie dodatnie.
+4. Sumujemy odkształcenia: $\varepsilon=\varepsilon_T+\varepsilon_M$. Całkowita zmiana długości to $\Delta L=\varepsilon L$.
+5. Formułujemy warunek zgodności. Dla pręta zablokowanego $\Delta L=0$. Dla pręta z luzem $\Delta L=g$ po kontakcie, a przed kontaktem $\Delta L=\alpha\Delta T L$ i $N=0$.
+6. Rozwiązujemy równanie dla $N$. W przypadku zablokowania otrzymujemy $N=-EA\alpha\Delta T$.
+7. Dzielimy przez $A$, aby otrzymać naprężenie: $\sigma=-E\alpha\Delta T$. Widać, że nie zależy ono od pola przekroju.
+8. Sprawdzamy warunek wytrzymałości: $|\sigma|\le k_c$ przy ściskaniu lub $|\sigma|\le k$ przy rozciąganiu. Osobno sprawdzamy wyboczenie, jeśli pręt jest smukły.
+9. Jeśli w zadaniu działa też siła mechaniczna, dodajemy jej udział do $N$ i rozwiązujemy pełny układ równowagi i zgodności. Nie wystarcza wtedy proste dodanie naprężeń, jeśli siła zmienia rozkład między odcinkami.
+
+Dla pręta z luzem $g$ po kontakcie warunek ma postać $g=\alpha\Delta T L+NL/(EA)$, więc $N=EA(g/L-\alpha\Delta T)$. Jeśli prawa strona jest dodatnia, pręt jest rozciągany; jeśli ujemna — ściskany. Temperatura kontaktu wynika z $\alpha\Delta T_c L=g$, czyli $\Delta T_c=g/(\alpha L)$.
+
 <Insight>
-  W idealnie zablokowanym pręcie całkowita długość się nie zmienia, ale odkształcenie termiczne i mechaniczne nie
-  znikają — wzajemnie się równoważą.
+  W pręcie idealnie zablokowanym całkowita długość się nie zmienia, ale odkształcenie termiczne i mechaniczne nie
+  znikają. Wzajemnie się równoważą: $\alpha\Delta T+N/(EA)=0$. To dlatego naprężenie termiczne może być duże nawet przy
+  zerowym przemieszczeniu końców. Brak ruchu nie oznacza braku odkształcenia.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Pręt ma A = 400 mm², E = 200 GPa, α = 12·10⁻⁶/K i ogrzewa się o 40 K przy pełnym zablokowaniu. Dopuszczalne
-    naprężenie przy ściskaniu wynosi kc = 160 MPa.
+    Pręt $A$–$C$–$B$ jest utwierdzony na obu końcach. Odcinki mają długości $L_1=L_2=1000\ \text{mm}$ i pola $A_1=A_2=300\ \text{mm}^2$. Materiał ma $E=200\ \text{GPa}$ i $\alpha=12\cdot10^{-6}\ \text{1/K}$. Temperatura wzrasta o $\Delta T=50\ \text{K}$, a w punkcie $C$ działa siła $P=20\ \text{kN}$ w prawo. Przyjmij $k_c=160\ \text{MPa}$.
   </Given>
   <Steps>
-    <Step>Naprężenie termiczne: σ = −EαΔT = −200 000·12·10⁻⁶·40 = −96 MPa.</Step>
-    <Step>N = σA = −96·400 = −38 400 N = −38,4 kN.</Step>
-    <Step>Przy kc = 160 MPa: |σ| = 96 MPa ≤ 160 MPa.</Step>
+    <Step>Oznaczamy przemieszczenie punktu $C$ jako $u$ w prawo. Wydłużenie odcinka $AC$ wynosi $u$, a odcinka $CB$ wynosi $-u$.</Step>
+    <Step>Dla obu odcinków zapisujemy sumę odkształceń: $u=\alpha\Delta T L_1+N_1L_1/(EA)$ oraz $-u=\alpha\Delta T L_2+N_2L_2/(EA)$.</Step>
+    <Step>Odejmujemy równania, aby wyeliminować człon termiczny: $2u=(N_1-N_2)L/(EA)$, gdzie $L=1000\ \text{mm}$.</Step>
+    <Step>Z równowagi punktu $C$: $N_1-N_2=P=20\,000\ \text{N}$. Stąd $u=PL/(2EA)=20\,000\cdot1000/(2\cdot200\,000\cdot300)=0{,}1667\ \text{mm}$.</Step>
+    <Step>Wracamy do pierwszego równania: $N_1=EA(u/L-\alpha\Delta T)$.</Step>
+    <Step>Obliczamy $EA=200\,000\cdot300=60\,000\,000\ \text{N}$ oraz $\alpha\Delta T=12\cdot10^{-6}\cdot50=0{,}0006$.</Step>
+    <Step>$N_1=60\,000\,000\cdot(0{,}0001667-0{,}0006)=-26\,000\ \text{N}$.</Step>
+    <Step>$N_2=N_1-P=-26\,000-20\,000=-46\,000\ \text{N}$. Oba odcinki są ściskane.</Step>
+    <Step>Naprężenia: $\sigma_1=-26\,000/300\approx-86{,}7\ \text{MPa}$, $\sigma_2=-46\,000/300\approx-153{,}3\ \text{MPa}$.</Step>
+    <Step>Warunek wytrzymałości: $|\sigma_2|=153{,}3\ \text{MPa}\le160\ \text{MPa}$, więc pręt jest bezpieczny, ale zapas jest niewielki.</Step>
   </Steps>
-  <Result>W pręcie powstaje ściskanie 96 MPa i siła ściskająca 38,4 kN; warunek jest spełniony.</Result>
+  <Result>
+    W obu odcinkach powstaje ściskanie. Siły normalne wynoszą $N_1=-26\ \text{kN}$ i $N_2=-46\ \text{kN}$, a naprężenia $-86{,}7\ \text{MPa}$ i $-153{,}3\ \text{MPa}$. Punkt $C$ przesuwa się w prawo o około $0{,}167\ \text{mm}$, choć końce pręta pozostają nieruchome.
+  </Result>
 </WorkedExample>
+
+Warto zauważyć, że siła mechaniczna nie zwiększa naprężenia w obu odcinkach jednakowo. W odcinku $AC$ działa ona przeciwnie do ściskania termicznego i zmniejsza jego wartość bezwzględną, a w odcinku $CB$ działa w tę samą stronę i zwiększa ściskanie. To dlatego decyduje odcinek $CB$. Taki rozkład jest typowy dla obciążenia przyłożonego w punkcie wewnętrznym pręta zablokowanego.
+
+## Drugi przykład
+
+Rozważmy pojedynczy pręt o długości $L=1500\ \text{mm}$ i polu $A=400\ \text{mm}^2$, utwierdzony na lewym końcu, z luzem $g=0{,}5\ \text{mm}$ do sztywnej ściany po prawej. Materiał: $E=200\ \text{GPa}$, $\alpha=12\cdot10^{-6}\ \text{1/K}$. Temperatura wzrasta o $\Delta T=60\ \text{K}$. Jaki jest naprężenie po zamknięciu luzu?
+
+Najpierw sprawdzamy, czy kontakt w ogóle nastąpi. Swobodne wydłużenie termiczne wynosi $\alpha\Delta T L=12\cdot10^{-6}\cdot60\cdot1500=1{,}08\ \text{mm}$, czyli więcej niż $g=0{,}5\ \text{mm}$. Kontakt nastąpi.
+
+Temperatura kontaktu: $\Delta T_c=g/(\alpha L)=0{,}5/(12\cdot10^{-6}\cdot1500)\approx27{,}8\ \text{K}$.
+
+| Wielkość                                | Wartość                     |
+| --------------------------------------- | --------------------------- | ----------------------------------------------------------------------------- |
+| swobodne wydłużenie przy $60\ \text{K}$ | $1{,}08\ \text{mm}$         |
+| temperatura kontaktu                    | około $27{,}8\ \text{K}$    |
+| siła po kontakcie                       | około $-30{,}9\ \text{kN}$  |
+| naprężenie                              | około $-77{,}3\ \text{MPa}$ | Po przekroczeniu tej temperatury dalszy wzrost jest ograniczany przez ścianę. |
+
+Po kontakcie obowiązuje $g=\alpha\Delta T L+NL/(EA)$, więc $N=EA(g/L-\alpha\Delta T)$. Podstawiamy $EA=200\,000\cdot400=80\,000\,000\ \text{N}$, $g/L=0{,}5/1500=0{,}0003333$ i $\alpha\Delta T=0{,}00072$. Różnica wynosi $-0{,}00038667$, więc $N\approx-30\,933\ \text{N}$.
+
+Naprężenie: $\sigma=-30\,933/400\approx-77{,}3\ \text{MPa}$. Pręt jest ściskany, ale naprężenie jest znacznie mniejsze niż w przypadku idealnego zablokowania przy tej samej temperaturze, gdzie wyniosłoby $-E\alpha\Delta T=-144\ \text{MPa}$. Luz częściowo kompensuje rozszerzalność.
+
+Ten przykład pokazuje, że luz jest świadomym elementem projektu. Zbyt mały luz nie chroni przed naprężeniem, a zbyt duży może powodować uderzenia i drgania. W kolejnictwie i konstrukcjach mostowych dylatacje pełnią właśnie taką funkcję.
+
+Luz nie działa jednak jak „bezpiecznik” przy dowolnie dużej temperaturze. Po jego zamknięciu naprężenie rośnie już liniowo z dalszym przyrostem temperatury. Projektant musi więc znać zarówno maksymalną temperaturę pracy, jak i początkowy luz, a nie tylko jedną z tych wartości.
+
+## Trzeci przykład: wariant odwrotny
+
+Dla pręta idealnie zablokowanego pytamy, jaka maksymalna zmiana temperatury jest dopuszczalna, jeśli naprężenie ściskające nie może przekroczyć $k_c=160\ \text{MPa}$. Dla stali $E=200\ \text{GPa}$ i $\alpha=12\cdot10^{-6}\ \text{1/K}$ mamy $|\sigma|=E\alpha\Delta T$, więc $\Delta T_{\max}=k_c/(E\alpha)=160/(200\,000\cdot12\cdot10^{-6})\approx66{,}7\ \text{K}$.
+
+Dla aluminium o $E=70\ \text{GPa}$ i $\alpha=23\cdot10^{-6}\ \text{1/K}$ iloczyn $E\alpha$ wynosi około $1{,}61\ \text{MPa/K}$, więc $\Delta T_{\max}\approx160/1{,}61\approx99{,}4\ \text{K}$. Aluminium znosi większą zmianę temperatury przy tym samym naprężeniu dopuszczalnym, ponieważ iloczyn $E\alpha$ jest mniejszy, mimo większego współczynnika rozszerzalności.
+
+Wariant odwrotny można też odwrócić inaczej: mając dopuszczalne naprężenie i znaną temperaturę, obliczyć wymagany luz. Dla $\Delta T=80\ \text{K}$ i $L=1500\ \text{mm}$ luz całkowicie usuwający naprężenie wynosi $g=\alpha\Delta T L=12\cdot10^{-6}\cdot80\cdot1500=1{,}44\ \text{mm}$. Taki luz jest rozwiązaniem alternatywnym do zwiększania przekroju, które w przypadku idealnego zablokowania i tak nie zmniejsza naprężenia.
+
+Porównanie stali i aluminium nie jest jednoznaczne. Aluminium ma większe $\alpha$, ale mniejsze $E$, więc iloczyn $E\alpha$ może być mniejszy. Trzeba jednak pamiętać, że aluminium ma również mniejszą granicę plastyczności, więc $k_c$ nie musi być takie samo. Porównanie naprężenia termicznego przy tej samej $\Delta T$ to dopiero jeden z elementów decyzji.
+
+Zadania termiczne najłatwiej pomylić przez pominięcie warunku zgodności lub przez złe ustalenie znaku. Poniższa lista porządkuje typowe pułapki.
+
+<Callout kind="warning" title="Typowe błędy">
+  1. **Twierdzenie, że temperatura zawsze wywołuje naprężenie.** Swobodny pręt wydłuża się bez naprężenia. Naprężenie
+  powstaje dopiero z ograniczenia odkształcenia. 2. **Brak warunku zgodności.** W pręcie zablokowanym nie wystarcza sama
+  równowaga; trzeba zapisać, że całkowita zmiana długości jest równa zero albo luzowi. 3. **Mylenie odkształcenia
+  całkowitego z termicznym.** W pręcie zablokowanym $\Delta L=0$, ale $\varepsilon_T$ jest niezerowe. To nie znaczy, że
+  odkształcenie termiczne zniknęło. 4. **Użycie $\sigma=E\alpha\Delta T$ bez znaku.** Wzór daje wartość bezwzględną;
+  trzeba ustalić, czy przy ogrzewaniu powstaje ściskanie, czy rozciąganie. 5. **Pominięcie luzu.** Przed kontaktem
+  naprężenie jest zerowe. Obliczanie naprężenia od razu, bez sprawdzenia $\alpha\Delta T L$ względem $g$, daje błędny
+  wynik. 6. **Mylenie jednostek $\alpha$.** $\alpha$ jest w $1/\text{K}$, a nie w mm. Długość trzeba podstawić w mm, a
+  temperaturę w K lub $^\circ\text{C}$ — przy różnicy temperatur skala jest ta sama. 7. **Zapomnienie o wyboczeniu.**
+  Ściskany pręt termiczny może wyboczyć się przed przekroczeniem $k_c$. Warunek naprężeniowy nie wystarcza dla smukłych
+  elementów.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal, czy pręt jest swobodny, zablokowany, czy ma luz.** Od tego zależy warunek zgodności. Narysuj końce i zaznacz, które przemieszczenia są możliwe.
+2. **Oblicz swobodne wydłużenie termiczne.** $\Delta L_T=\alpha\Delta T L$. Porównaj je z luzem, jeśli luz występuje.
+3. **Sprawdź, czy kontakt nastąpił.** Jeśli $\Delta L_T\le g$, naprężenie od temperatury jest zerowe. Jeśli $\Delta L_T\gt g$, po kontakcie trzeba rozwiązać warunek zgodności.
+4. **Zapisz odkształcenia ze znakami.** Ogrzewanie daje dodatnie $\varepsilon_T$; ściskanie daje ujemne $\varepsilon_M$. Nie mieszaj znaków w sumie.
+5. **Uwzględnij siły mechaniczne.** Jeśli działa siła $P$, dodaj jej wpływ do równowagi i do odkształcenia mechanicznego. W układzie wieloodcinkowym siła może zmieniać rozkład $N$ między odcinkami.
+6. **Rozwiąż układ równań.** W pręcie jednorodnym wystarczy jedno równanie. W pręcie wieloodcinkowym potrzebne są równania równowagi i zgodności.
+7. **Oblicz naprężenia i porównaj z granicami.** Przy ściskaniu użyj $k_c$, przy rozciąganiu $k$. Sprawdź, który odcinek decyduje.
+8. **Sprawdź wyboczenie i inne warunki.** Dla smukłego pręta ściskanego sama kontrola naprężenia nie wystarcza. Podobnie przy dużych temperaturach trzeba sprawdzić, czy własności materiału są aktualne.
+
+Po rozwiązaniu zapisz, czy luz został zamknięty i w którym momencie. Ten jeden fakt zmienia cały wynik i powinien być widoczny w odpowiedzi, nie ukryty w rachunkach.
+
+## Połącz z resztą kursu
+
+- **Efekt temperatury w module materiału** wprowadza odkształcenie termiczne i przypadek pręta zablokowanego. Tutaj rozwijamy go o obciążenie mechaniczne i układy wieloodcinkowe.
+- **Prawo Hooke'a i wydłużenie** dostarczają drugiego składnika sumy odkształceń. Bez niego nie da się zapisać warunku zgodności.
+- **Pręty schodkowe** uczą dzielenia na odcinki i sumowania wydłużeń. Ten sam podział jest potrzebny, gdy temperatura działa na pręt o zmiennym przekroju.
+- **Układy statycznie niewyznaczalne** pokazują, dlaczego sama równowaga nie wystarcza. Temperatura jest typowym źródłem takiego stanu.
+- **Pełne zadanie: pręt osiowo obciążony** daje wzory na $N$ i $\sigma$ bez temperatury. Tutaj dodajemy do nich człon termiczny i warunek zgodności.
+- **Strategia kolokwium** przypomina, żeby zawsze zapisać, czy luz został zamknięty, i sprawdzić znak naprężenia.
+
+Zadania termiczne są dobrym testem umiejętności czytania schematu, ponieważ siła nie zawsze jest widoczna. Trzeba ją wywnioskować z geometrii i warunku zgodności, a nie odczytać z rysunku obciążeń.
+
+## Sprawdź się
+
+Pytania sprawdzają warunek zgodności, znaki, wpływ luzu i zależność naprężenia termicznego od materiału. Przy każdym pytaniu najpierw ustal, czy pręt jest swobodny, zablokowany, czy częściowo ograniczony.
+
+Jeśli pomylisz znak, wróć do równania $\alpha\Delta T+N/(EA)=0$ i sprawdź, czy ogrzewanie rzeczywiście powoduje ściskanie. Jeśli pomylisz luz, przypomnij sobie, że przed kontaktem naprężenie jest zerowe.
 
 <Quiz>
   <Question outcome="W1">
     <Prompt>Co jest warunkiem zgodności dla jednorodnego pręta utwierdzonego na obu końcach, bez luzu?</Prompt>
-    <Answer>N = 0</Answer>
-    <Answer correct>Całkowita zmiana długości ΔL = 0</Answer>
-    <Answer>Odkształcenie termiczne εT = 0</Answer>
+    <Answer>$N=0$</Answer>
+    <Answer correct>Całkowita zmiana długości $\Delta L=0$</Answer>
+    <Answer>Odkształcenie termiczne $\varepsilon_T=0$</Answer>
     <Hint>Podpory nie zmieniają wzajemnej odległości.</Hint>
     <Explanation>
-      Całkowite ΔL musi być zerowe. Odkształcenie termiczne jest niezerowe po zmianie temperatury, ale kompensuje je
-      odkształcenie mechaniczne o przeciwnym znaku.
+      Całkowite $\Delta L$ musi być zerowe. Odkształcenie termiczne jest niezerowe po zmianie temperatury, ale kompensuje je odkształcenie mechaniczne o przeciwnym znaku.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>
-      Stalowy pręt ma E = 200 GPa, α = 12·10⁻⁶/K i jest w pełni zablokowany. Jakie naprężenie wywoła ΔT = 50 K?
-    </Prompt>
+    <Prompt>Stalowy pręt ma $E=200\ \text{GPa}$, $\alpha=12\cdot10^{-6}\ \text{1/K}$ i jest w pełni zablokowany. Jakie naprężenie wywoła $\Delta T=50\ \text{K}$?</Prompt>
     <Answer correct>Ściskanie 120 MPa</Answer>
     <Answer>Rozciąganie 120 MPa</Answer>
     <Answer>Ściskanie 12 MPa</Answer>
-    <Hint>|σ| = EαΔT; przy ogrzewaniu podpory ściskają pręt.</Hint>
-    <Explanation>|σ| = 200 000·12·10⁻⁶·50 = 120 MPa. Znak jest ujemny: σ = −120 MPa, czyli ściskanie.</Explanation>
+    <Hint>$|\sigma|=E\alpha\Delta T$; przy ogrzewaniu podpory ściskają pręt.</Hint>
+    <Explanation>
+      $|\sigma|=200\,000\cdot12\cdot10^{-6}\cdot50=120\ \text{MPa}$. Znak jest ujemny: $\sigma=-120\ \text{MPa}$, czyli ściskanie.
+    </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>Jak wpłynie na naprężenie termiczne idealnie zablokowanego pręta dwukrotne zwiększenie A?</Prompt>
+    <Prompt>Jak wpłynie na naprężenie termiczne idealnie zablokowanego pręta dwukrotne zwiększenie $A$?</Prompt>
     <Answer>Zmniejszy się dwukrotnie</Answer>
     <Answer correct>Nie zmieni się</Answer>
     <Answer>Wzrośnie dwukrotnie</Answer>
-    <Hint>N rośnie z A, ale naprężenie to N/A.</Hint>
+    <Hint>$N$ rośnie z $A$, ale naprężenie to $N/A$.</Hint>
     <Explanation>
-      N = −EAαΔT rośnie proporcjonalnie do A, więc σ = N/A = −EαΔT nie zależy od pola. Zmienia się siła reakcji, nie
-      naprężenie.
+      $N=-EA\alpha\Delta T$ rośnie proporcjonalnie do $A$, więc $\sigma=N/A=-E\alpha\Delta T$ nie zależy od pola. Zmienia się siła reakcji, nie naprężenie.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Swobodny stalowy pręt jest ogrzewany. Jakie naprężenie termiczne w nim powstaje?</Prompt>
+    <Answer>Ściskające, proporcjonalne do $\Delta T$</Answer>
+    <Answer>Rozciągające, proporcjonalne do $\Delta T$</Answer>
+    <Answer correct>Zerowe</Answer>
+    <Hint>Brak oporu podpór oznacza brak siły normalnej.</Hint>
+    <Explanation>
+      Swobodny pręt wydłuża się bez ograniczeń, więc $N=0$ i $\sigma=0$. Odkształcenie termiczne jest niezerowe, ale nie wywołuje naprężenia, bo nie ma ograniczenia.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Pręt ma luz $g=0{,}5\ \text{mm}$, a swobodne wydłużenie termiczne wynosi $0{,}8\ \text{mm}$. Co dzieje się po osiągnięciu tej temperatury?</Prompt>
+    <Answer correct>Luz zostaje zamknięty i powstaje ściskanie</Answer>
+    <Answer>Naprężenie pozostaje zerowe, bo luz nigdy się nie zamyka</Answer>
+    <Answer>Powstaje rozciąganie, bo pręt chce się wydłużyć</Answer>
+    <Hint>Porównaj swobodne wydłużenie z luzem.</Hint>
+    <Explanation>
+      $0{,}8\ \text{mm}\gt 0{,}5\ \text{mm}$, więc pręt najpierw wydłuża się swobodnie o $0{,}5\ \text{mm}$, a potem opiera się o przeszkodę. Dalsze ogrzewanie wywołuje ściskanie.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>W zablokowanym pręcie ogrzewanym odkształcenie termiczne jest dodatnie. Które odkształcenie je równoważy?</Prompt>
+    <Answer correct>Mechaniczne, ujemne, od ściskania</Answer>
+    <Answer>Mechaniczne, dodatnie, od rozciągania</Answer>
+    <Answer>Drugie odkształcenie termiczne, także dodatnie</Answer>
+    <Hint>Suma odkształceń musi dać zero.</Hint>
+    <Explanation>
+      $\alpha\Delta T+N/(EA)=0$, więc $N/(EA)=-\alpha\Delta T$. Ujemne odkształcenie mechaniczne odpowiada ściskaniu, które kompensuje dodatnie odkształcenie termiczne.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Dla stali $E=200\ \text{GPa}$, $\alpha=12\cdot10^{-6}\ \text{1/K}$ i $k_c=160\ \text{MPa}$ jaka jest maksymalna dopuszczalna $\Delta T$ dla pręta idealnie zablokowanego?</Prompt>
+    <Answer>33,3 K</Answer>
+    <Answer correct>66,7 K</Answer>
+    <Answer>133,3 K</Answer>
+    <Hint>$\Delta T_{\max}=k_c/(E\alpha)$.</Hint>
+    <Explanation>
+      $\Delta T_{\max}=160/(200\,000\cdot12\cdot10^{-6})=160/2{,}4\approx66{,}7\ \text{K}$. Powyżej tej temperatury naprężenie ściskające przekroczyłoby $160\ \text{MPa}$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+Temperatura jest jednym z tych działów, w których warto czytać kilka ujęć. Klasyczne podręczniki kładą nacisk na warunek zgodności, a nowsze — na interpretację odkształceń i przykłady konstrukcyjne.
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o odkształceniach termicznych i układach statycznie niewyznaczalnych; klasyczne ujęcie warunku zgodności.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — rozdział o wpływie temperatury na pręty; pomocny w zrozumieniu różnicy między swobodnym wydłużeniem a naprężeniem termicznym.
+- E. Osgood, C. Cameron, P. Christensen, _Engineering Mechanics: Statics_, Open Textbook — rozdział o układach statycznie niewyznaczalnych; pokazuje, dlaczego sama równowaga nie wystarcza, gdy podpór jest za dużo.
+- D. Roylance, _Mechanics of Materials_, MIT OpenCourseWare — rozdział o prawie konstytutywnym i odkształceniach; otwarty podręcznik z omówieniem zależności naprężenie–odkształcenie w zakresie sprężystym.

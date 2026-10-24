@@ -7,7 +7,6 @@ shortTitle: Porównanie hipotez
 description: >-
   Porównuj wyniki dla tego samego stanu naprężenia i świadomie oceniaj zapas,
   zamiast wybierać hipotezę przypadkowo.
-duration: 9
 eyebrow: 'Ten sam stan, różne modele'
 outcomes:
   - >-
@@ -30,63 +29,281 @@ outcomes:
     przyjęty warunek.
 ---
 
-HMH i Tresca stosujemy najczęściej do materiałów plastycznych. Przy tym samym stanie naprężenia Tresca zwykle daje wartość zredukowaną nie mniejszą niż HMH, więc przy tej samej granicy prowadzi do ostrożniejszej oceny.
+Ten sam wał, ten sam moment i ta sama granica plastyczności, a dwóch projektantów otrzymuje różne decyzje. Jeden liczy wytężenie według hipotezy Hubera–Misesa–Hencky’ego, drugi według hipotezy Tresca. Obie liczby mają jednostkę naprężenia i obie są porównywane z tą samą granicą, więc skąd bierze się różnica? Odpowiedź nie leży w rachunkach, lecz w modelu: każda hipoteza inaczej odpowiada na pytanie, która część stanu naprężenia prowadzi do uplastycznienia.
+
+HMH patrzy na energię odkształcenia postaciowego i rozkłada ją na wszystkie trzy kierunki. Tresca patrzy tylko na największą różnicę naprężeń głównych, czyli na największe ścinanie w punkcie. Dla materiału idealnie plastycznego oba kryteria są kalibrowane do tej samej próby rozciągania, więc w stanie jednoosiowym dają identyczny wynik. Różnica pojawia się dopiero wtedy, gdy stan naprężenia przestaje być jednoosiowy: przy ścinaniu, przy złożonym zginaniu ze skręcaniem albo przy ciśnieniu w zbiorniku.
+
+Porównanie hipotez nie polega więc na szukaniu jednej „prawdziwej” liczby. Chodzi o zrozumienie, jak duża jest różnica, w którą stronę ona idzie i kiedy zmienia decyzję projektową. W typowym zakresie różnica sięga kilkunastu procent, ale przy zapasie bliskim wymaganego właśnie te kilkanaście procent decyduje o tym, czy element przechodzi, czy nie. Dlatego inżynier powinien umieć policzyć oba warianty i świadomie wybrać ten, który pasuje do materiału, normy i konsekwencji zniszczenia.
+
+Po tej lekcji będziesz umiał zapisać obie hipotezy w naprężeniach głównych, wyprowadzić ich postać dla płaskiego stanu naprężenia i pokazać, że Tresca nigdy nie daje mniejszego wytężenia niż HMH. Nauczysz się też rozpoznawać stany, w których różnica znika, oraz takie, w których osiąga maksimum. Przećwiczysz porównanie zapasów bezpieczeństwa i podejmiesz decyzję, która hipoteza jest właściwsza dla metalu plastycznego, a kiedy trzeba sięgnąć po kryterium kruche.
+
+Najważniejsza intuicja jest geometryczna. Na płaszczyźnie naprężeń głównych granica Tresca tworzy sześciokąt, a granica HMH elipsę. Oba obszary stykają się w punktach odpowiadających rozciąganiu i ściskaniu jednoosiowemu. Między tymi punktami elipsa leży na zewnątrz sześciokąta, co oznacza, że HMH dopuszcza nieco większe naprężenia przed uplastycznieniem. To nie znaczy, że HMH jest „mniej bezpieczna” w sensie błędu — to znaczy, że jest mniej konserwatywna jako model.
+
+## Zanim zaczniesz
+
+- **Naprężenia główne.** Musisz umieć wyznaczyć σ1, σ2 i σ3 oraz ustawić je w kolejności σ1 ≥ σ2 ≥ σ3. W stanie płaskim jedno z nich jest równe zeru, ale nie zawsze jest to σ3.
+- **Koło Mohra.** Przypomnij sobie, że średnica największego koła to różnica skrajnych naprężeń głównych, a promień to maksymalne ścinanie. To wystarcza, aby zrozumieć Tresca.
+- **Wzory HMH i Tresca.** Warto mieć pod ręką postać HMH w naprężeniach głównych oraz wzór Tresca jako różnicę σmax − σmin. W tej lekcji wyprowadzimy oba od wspólnego punktu wyjścia.
+- **Jednostki.** Wszystkie naprężenia w jednym wzorze muszą być w tej samej jednostce. Współczynniki 3 i 4 są bezwymiarowe, więc pierwiastek nie zmienia jednostki.
+- **Konwencja znaków.** Rozciąganie dodatnie, ściskanie ujemne. Przy porównywaniu hipotez ważne jest nie tylko to, czy naprężenia mają różne znaki, ale także to, które z nich jest skrajne.
+- **Typowa pułapka.** Nie porównuj wyniku HMH z granicą ścinania $R_e/2$ ani wyniku Tresca z granicą $R_e/\sqrt{3}$. Każda hipoteza ma własną granicę przy ścinaniu.
+
+## Model i intuicja
+
+Model porównawczy zakłada, że mamy ten sam materiał, ten sam punkt konstrukcji i ten sam stan naprężenia. Zmieniamy tylko funkcję, która zamienia sześć składowych naprężenia na jedną liczbę. Materiał jest izotropowy i plastyczny, obciążenie proporcjonalne, a granica plastyczności wyznaczona w próbie rozciągania. W takich warunkach obie hipotezy są poprawnie skalibrowane, bo w próbie jednoosiowej dają dokładnie $R_e$.
+
+Różnica między nimi wynika z tego, jak traktują kierunki pośrednie. Tresca pyta: „na której płaszczyźnie ścinanie jest największe?”. HMH pyta: „jaka jest całkowita energia zmiany kształtu, zsumowana po wszystkich płaszczyznach?”. W stanie jednoosiowym odpowiedzi są takie same, bo cała energia zmiany kształtu pochodzi z jednej różnicy naprężeń. W stanie złożonym HMH „widzi” więcej niż jedną różnicę, więc jej wynik jest zwykle łagodniejszy.
+
+Wyobraź sobie dwa naprężenia główne dodatnie, na przykład 100 MPa i 40 MPa, a trzecie równe zero. Tresca bierze różnicę 100 − 0 = 100 MPa, bo zero jest najmniejszym naprężeniem. HMH bierze kombinację wszystkich trzech różnic i daje około 87,2 MPa. To nie jest sprzeczność: to dwa różne modele tej samej sytuacji. Sześciokąt Tresca jest w tym miejscu bliżej osi naprężeń, a elipsa HMH dalej.
+
+Na wykresie naprężeń głównych obie granice przechodzą przez punkty odpowiadające czystemu rozciąganiu i ściskaniu. Sześciokąt Tresca ma boki równoległe do osi i do przekątnej, natomiast elipsa HMH jest gładka. Gładkość elipsy oznacza, że niewielka zmiana stosunku naprężeń nie powoduje skoku przewidywanej granicy. Sześciokąt ma wierzchołki, w których kierunek najbardziej niebezpiecznej płaszczyzny zmienia się skokowo, co jest konsekwencją modelu, a nie rzeczywistą własnością materiału.
+
+Model przestaje być wystarczający, gdy materiał jest wrażliwy na ciśnienie hydrostatyczne, gdy występuje anizotropia albo gdy zniszczenie jest kruche. W polimerach, gruntach i piankach granica zależy od ciśnienia, więc obie hipotezy trzeba zmodyfikować. W kompozytach kierunek włókien łamie założenie izotropii. W materiałach kruchych pękanie może nastąpić przy naprężeniu normalnym niższym niż przewiduje kryterium plastyczne, więc porównywanie HMH i Tresca nie rozstrzyga o bezpieczeństwie.
+
+| Aspekt porównania              | HMH                                    | Tresca                            |
+| ------------------------------ | -------------------------------------- | --------------------------------- |
+| Wielkość decydująca            | energia zmiany postaci                 | maksymalne ścinanie               |
+| Postać w naprężeniach głównych | pierwiastek z sumy różnic kwadratowych | różnica skrajnych naprężeń        |
+| Granica przy czystym ścinaniu  | $R_e/\sqrt{3}$                         | $R_e/2$                           |
+| Konserwatyzm                   | mniejszy                               | większy                           |
+| Wrażliwość na trzeci kierunek  | rozłożona na wszystkie różnice         | bezpośrednia, przez zero          |
+| Zastosowanie                   | metale plastyczne, MES                 | metale plastyczne, ocena ostrożna |
+
+Obszar między sześciokątem a elipsą jest szczególnie pouczający. Jeżeli punkt naprężeń leży w tym obszarze, HMH przewiduje jeszcze pracę sprężystą, a Tresca już uplastycznienie. W praktyce oznacza to, że wybór hipotezy może zmienić decyzję tylko w wąskim pasie stanów, ale właśnie ten pas jest często rozstrzygający przy projektowaniu z minimalnym zapasem. Zamiast pytać, która hipoteza jest „prawdziwa”, trzeba więc zapytać, jakie konsekwencje ma przyjęcie każdej z nich.
+
+## Laboratorium: co ustawić
+
+W laboratorium badamy to samo włókno pręta, na które działają siła osiowa, zginanie i skręcanie. Ustaw kilka stanów, w których σx i τ zmieniają się niezależnie, a następnie porównaj słupki HMH i Tresca oraz odpowiadające im zapasy. Szczególnie obejrzyj stan czystego skręcania, w którym σx = 0, oraz stan, w którym τ = 0.
 
 <Lab id="combined" />
 
+## Definicje i jednostki
+
+Naprężenie zredukowane to liczba przypisana do punktu i hipotezy, porównywana z granicą materiału. Dla HMH oznaczamy je $\sigma_{HMH}$, dla Tresca $\sigma_T$. Obie wielkości mają jednostkę naprężenia i obie są dodatnie, bo są pierwiastkami albo różnicami uporządkowanych naprężeń. Współczynnik bezpieczeństwa liczymy osobno dla każdej hipotezy, używając tej samej granicy $R_e$.
+
+| Symbol                         | Znaczenie                                        | Jednostka    |
+| ------------------------------ | ------------------------------------------------ | ------------ |
+| $\sigma_{HMH}$                 | naprężenie zredukowane według HMH                | MPa          |
+| $\sigma_T$                     | naprężenie zredukowane według Tresca             | MPa          |
+| $\sigma_1, \sigma_2, \sigma_3$ | naprężenia główne uporządkowane malejąco         | MPa          |
+| $\tau_{max}$                   | maksymalne naprężenie styczne w punkcie          | MPa          |
+| $R_e$                          | granica plastyczności przy rozciąganiu           | MPa          |
+| $k_{HMH}$                      | granica przy ścinaniu według HMH, $R_e/\sqrt{3}$ | MPa          |
+| $k_T$                          | granica przy ścinaniu według Tresca, $R_e/2$     | MPa          |
+| $n_{HMH}$                      | zapas liczony według HMH                         | bezwymiarowy |
+| $n_T$                          | zapas liczony według Tresca                      | bezwymiarowy |
+| $\Delta$                       | względna różnica między hipotezami               | bezwymiarowy |
+
+Przyjmujemy, że $\sigma_T$ jest różnicą naprężeń głównych, a nie samym maksymalnym ścinaniem. To rozróżnienie jest ważne, bo $\sigma_T = 2\tau_{max}$, natomiast $\sigma_{HMH}$ nie jest prostą wielokrotnością $\tau_{max}$. Dzięki zapisowi przez różnice obie hipotezy można porównywać z tą samą granicą $R_e$, bez zamiany granicy na wartość przy ścinaniu.
+
+| Stan naprężenia                              | $\sigma_T/\sigma_{HMH}$ | Uwaga                                 |
+| -------------------------------------------- | ----------------------- | ------------------------------------- |
+| jednoosiowe rozciąganie                      | 1,000                   | hipotezy nierozróżnialne              |
+| równe dwuosiowe rozciąganie                  | 1,000                   | brak różnicy przy $\sigma_1=\sigma_2$ |
+| $\sigma_1=100$, $\sigma_2=40$, $\sigma_3=0$  | 1,147                   | zero jest naprężeniem najmniejszym    |
+| $\sigma_1=100$, $\sigma_2=0$, $\sigma_3=-50$ | 1,134                   | naprężenia mają różne znaki           |
+| czyste ścinanie                              | 1,155                   | maksymalna różnica w stanie płaskim   |
+
+Tabela pokazuje, że różnica nie rośnie monotonicznie wraz z „złożonością” stanu. Największa jest przy czystym ścinaniu, a przy równym dwuosiowym rozciąganiu znika, mimo że stan jest dwuosiowy. Decyduje stosunek różnic naprężeń, a nie liczba niezerowych składowych. To kolejny argument, żeby zawsze porządkować naprężenia główne i sprawdzać skrajne wartości, zamiast kierować się nazwą przypadku.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sqrt{\sigma^2 + 3\tau^2} \leq \sqrt{\sigma^2 + 4\tau^2}
+\sigma_{HMH} = \sqrt{\tfrac{1}{2}\left[(\sigma_1-\sigma_2)^2+(\sigma_2-\sigma_3)^2+(\sigma_3-\sigma_1)^2\right]},
+\qquad
+\sigma_T = \max\left(|\sigma_1-\sigma_2|,\,|\sigma_2-\sigma_3|,\,|\sigma_3-\sigma_1|\right)
 $$
 
-<Caption>Nierówność dotyczy płaskiego stanu, w którym σ jest naprężeniem normalnym, a τ stycznym w tej samej płaszczyźnie. Przy τ = 0, czyli w jednoosiowym rozciąganiu lub ściskaniu, obie hipotezy dają ten sam wynik.</Caption>
+<Caption>Obie hipotezy zapisane w tych samych naprężeniach głównych i porównywane z tą samą granicą $R_e$. Dla płaskiego stanu naprężenia przyjmujemy $\sigma_3=0$. W przypadku $\sigma_x=\sigma$, $\sigma_y=0$ i $\tau_{xy}=\tau$ otrzymujemy $\sigma_{HMH}=\sqrt{\sigma^2+3\tau^2}$ oraz $\sigma_T=\sqrt{\sigma^2+4\tau^2}$.</Caption>
 </Formula>
 
+Oba wzory mają tę samą strukturę: najpierw opisują stan trzema naprężeniami głównymi, a potem zamieniają je na jedną liczbę. Różnica jest w funkcji. HMH uśrednia trzy różnice, natomiast Tresca wybiera jedną, największą. To dlatego Tresca jest wrażliwa na to, które naprężenie jest skrajne, a HMH jest bardziej odporna na kolejność naprężeń. Właściwe uporządkowanie $\sigma_1\ge\sigma_2\ge\sigma_3$ jest jednak potrzebne w obu przypadkach, bo ułatwia kontrolę wyniku i interpretację.
+
+Porównanie wyprowadzimy krok po kroku, zaczynając od wspólnej definicji naprężeń głównych.
+
+1. **Porządek naprężeń.** Ustawiamy $\sigma_1 \ge \sigma_2 \ge \sigma_3$. Ten porządek jest umowny, ale pozwala jednoznacznie wskazać naprężenie największe i najmniejsze, a więc także skrajną różnicę.
+2. **Tresca.** Największe ścinanie w punkcie odpowiada największej różnicy naprężeń głównych, więc $\tau_{max}=(\sigma_1-\sigma_3)/2$. Mnożymy przez 2 i otrzymujemy $\sigma_T=\sigma_1-\sigma_3$, czyli długość boku sześciokąta na płaszczyźnie naprężeń głównych.
+3. **HMH.** Wzór z energii zmiany postaci można zapisać przez trzy różnice: $\sigma_{HMH}^2=\tfrac{1}{2}[(\sigma_1-\sigma_2)^2+(\sigma_2-\sigma_3)^2+(\sigma_3-\sigma_1)^2]$. Każda różnica odpowiada ścinaniu na jednej rodzinie płaszczyzn, a współczynnik $1/2$ wynika z kalibracji do próby jednoosiowej.
+4. **Stan jednoosiowy.** Dla $\sigma_1=\sigma$, $\sigma_2=\sigma_3=0$ Tresca daje $\sigma$, a HMH daje $\sqrt{\tfrac{1}{2}(\sigma^2+\sigma^2)}=\sigma$. W tym stanie obie hipotezy są nierozróżnialne, bo różnica jest tylko jedna.
+5. **Czyste ścinanie.** Dla $\sigma_1=\tau$, $\sigma_2=0$, $\sigma_3=-\tau$ Tresca daje $2\tau$. HMH daje $\sqrt{\tfrac{1}{2}[(\tau-0)^2+(0+\tau)^2+(-\tau-\tau)^2]}=\sqrt{3}\tau$. Stosunek wynosi $2/\sqrt{3}\approx 1{,}155$.
+6. **Przypadek płaski.** Dla $\sigma_3=0$ i obu naprężeń dodatnich Tresca redukuje się do $\sigma_1$, a HMH do $\sqrt{\sigma_1^2+\sigma_2^2-\sigma_1\sigma_2}$. Podnosząc oba wyrażenia do kwadratu, otrzymujemy $\sigma_T^2-\sigma_{HMH}^2=\sigma_2(\sigma_1-\sigma_2)\ge 0$, więc Tresca jest nie mniejsza.
+7. **Postać σx, τxy.** Dla $\sigma_y=0$ naprężenia główne wynoszą $\sigma_{1,2}=\sigma/2\pm\sqrt{\sigma^2/4+\tau^2}$. Po podstawieniu do HMH dostajemy $\sigma_{HMH}^2=\sigma^2+3\tau^2$, a do Tresca $\sigma_T^2=\sigma^2+4\tau^2$. Różnica kwadratów wynosi $\tau^2$, więc przy dowolnym $\tau$ hipoteza Tresca daje większe wytężenie.
+8. **Granica stosunku.** W ogólnym stanie trójwymiarowym stosunek $\sigma_T/\sigma_{HMH}$ leży między 1 a $2/\sqrt{3}$. Dolna granica odpowiada stanowi jednoosiowemu lub hydrostatycznemu, górna czystemu ścinaniu. To ogranicza różnicę do około 15,5 procent.
+9. **Obszary bezpieczeństwa.** Warunek $\sigma_{HMH}\le R_e$ opisuje elipsę, a $\sigma_T\le R_e$ sześciokąt. Sześciokąt jest wpisany w elipsę i styka się z nią w punktach jednoosiowych. Stan leżący między obiema krzywymi jest bezpieczny według HMH, ale nie według Tresca.
+10. **Zapasy.** Dla tej samej granicy $n_{HMH}=R_e/\sigma_{HMH}$ oraz $n_T=R_e/\sigma_T$. Ponieważ $\sigma_T\ge\sigma_{HMH}$, zawsze $n_T\le n_{HMH}$. Różnica zapasów jest największa przy czystym ścinaniu, a najmniejsza przy stanie jednoosiowym.
+
+Warto zapamiętać graniczną wartość stosunku $2/\sqrt{3}$. To około 1,155, czyli 15,5 procent. Żadna poprawnie policzona para HMH i Tresca dla metalu plastycznego nie powinna dać różnicy większej niż ta wartość. Jeżeli w zadaniu wychodzi 30 albo 50 procent, to znak, że pomylono wzór, jednostki albo trzeci kierunek. Ta kontrola jest szybka i nie wymaga ponownego wyprowadzania wzorów.
+
 <Insight>
-  Większe σred oznacza mniejszy zapas n = Re/σred. Nie wolno porównywać wyniku HMH z granicą ścinania wyprowadzoną z
-  Tresca ani odwrotnie — hipoteza i granica muszą do siebie pasować.
+  Tresca nigdy nie daje mniejszego naprężenia zredukowanego niż HMH, więc przy tej samej granicy nigdy nie daje
+  większego zapasu. To nie czyni jej automatycznie „lepszą”: jest modelem bardziej konserwatywnym, a nie uniwersalnie
+  dokładniejszym. Wybór między hipotezami to wybór założenia o mechanizmie zniszczenia, nie korekta rachunku.
 </Insight>
 
 <WorkedExample>
-  <Given>Dla σ = 120 MPa, τ = 40 MPa i Re = 300 MPa porównaj HMH i Tresca.</Given>
+  <Given>
+    W punkcie wału działają naprężenie normalne $\sigma=120\ \text{MPa}$ i styczne $\tau=40\ \text{MPa}$ w tej samej płaszczyźnie. Granica plastyczności wynosi $R_e=300\ \text{MPa}$. Porównaj obie hipotezy i zapasy.
+  </Given>
   <Steps>
-    <Step>HMH: √(120² + 3·40²) = √19 200 = 138,56 MPa.</Step>
-    <Step>Tresca: √(120² + 4·40²) = √20 800 = 144,22 MPa.</Step>
-    <Step>Zapasy: nHMH = 300/138,56 = 2,17; nT = 300/144,22 = 2,08.</Step>
+    <Step>HMH: $\sigma_{HMH}=\sqrt{120^2+3\cdot40^2}=\sqrt{14\,400+4\,800}=\sqrt{19\,200}=138{,}56\ \text{MPa}$.</Step>
+    <Step>Tresca: $\sigma_T=\sqrt{120^2+4\cdot40^2}=\sqrt{14\,400+6\,400}=\sqrt{20\,800}=144{,}22\ \text{MPa}$.</Step>
+    <Step>Zapas HMH: $n_{HMH}=300/138{,}56=2{,}165$. Zapas Tresca: $n_T=300/144{,}22=2{,}080$.</Step>
+    <Step>Kontrola: $\sigma_T^2-\sigma_{HMH}^2=20\,800-19\,200=1\,600=\tau^2$, zgodnie z wyprowadzeniem.</Step>
   </Steps>
-  <Result>Tresca daje ostrzejszą ocenę: σT = 144,2 MPa i n = 2,08, podczas gdy HMH daje 138,6 MPa i n = 2,17.</Result>
+  <Result>
+    Tresca daje ostrzejszą ocenę: $\sigma_T=144{,}2\ \text{MPa}$ i $n_T=2{,}08$, podczas gdy HMH daje $138{,}6\ \text{MPa}$ i $n_{HMH}=2{,}17$. Obie hipotezy przewidują bezpieczeństwo, ale zapas różni się o około 4 procent.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy cienkościenny zbiornik cylindryczny z zamkniętymi dnami, promień $r=300\ \text{mm}$, grubość ścianki $t=6\ \text{mm}$, ciśnienie $p=5\ \text{MPa}$. Naprężenie obwodowe wynosi $\sigma_\theta=pr/t=5\cdot300/6=250\ \text{MPa}$, a naprężenie wzdłużne $\sigma_z=pr/(2t)=125\ \text{MPa}$. Naprężenie promieniowe na zewnętrznej powierzchni jest w przybliżeniu zerowe, więc mamy płaski stan naprężenia z $\sigma_1=250\ \text{MPa}$, $\sigma_2=125\ \text{MPa}$ i $\sigma_3=0$.
+
+HMH daje $\sigma_{HMH}=\sqrt{250^2+125^2-250\cdot125}=\sqrt{62\,500+15\,625-31\,250}=\sqrt{46\,875}=216{,}5\ \text{MPa}$. Tresca bierze różnicę największego i najmniejszego naprężenia, czyli $250-0=250\ \text{MPa}$. Dla $R_e=355\ \text{MPa}$ otrzymujemy $n_{HMH}=355/216{,}5=1{,}64$ oraz $n_T=355/250=1{,}42$.
+
+To klasyczny przykład, w którym pominięcie trzeciego kierunku zaniża wytężenie. Gdyby ktoś porównał tylko $\sigma_\theta$ i $\sigma_z$, mógłby uznać, że różnica wynosi 125 MPa i że materiał jest daleko od granicy. Tymczasem zero jest najmniejszym naprężeniem głównym, a różnica $250-0$ jest większa niż różnica między dwoma dodatnimi naprężeniami. Wniosek: w stanie płaskim z jednakowymi znakami naprężeń normalnych trzeba zawsze sprawdzić, czy zero nie jest skrajną wartością.
+
+Ten przykład pokazuje też, dlaczego porównanie hipotez ma sens tylko przy pełnym stanie naprężenia. HMH „widzi” trzy różnice i rozkłada wytężenie, natomiast Tresca koncentruje się na największej z nich. W zbiorniku ta największa różnica obejmuje zero, więc Tresca jest wyraźnie bardziej wymagająca. Różnica między hipotezami wynosi tutaj około 15 procent, czyli zbliża się do górnej granicy.
+
+Dla porównania, w zbiorniku otwartym naprężenie wzdłużne byłoby bliskie zeru, a stan naprężenia zbliżyłby się do jednoosiowego rozciągania obwodowego. Wtedy obie hipotezy dałyby prawie ten sam wynik. To pokazuje, że o różnicy między hipotezami decyduje nie sama geometria, lecz stosunek naprężeń głównych. Im bardziej stan odbiega od jednoosiowego, tym większa szansa na rozbieżność.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że dla stali o $R_e=235\ \text{MPa}$ wymagamy zapasu $n_{wym}=2$ i pytamy, jakie maksymalne naprężenie styczne przy czystym ścinaniu dopuszcza każda hipoteza. To zadanie odwrotne: od wymaganego zapasu do dopuszczalnego obciążenia, a nie od obciążenia do zapasu.
+
+Dla HMH warunek ma postać $\sqrt{3}\tau\le R_e/n_{wym}$, więc $\tau_{dop,HMH}=R_e/(n_{wym}\sqrt{3})=235/(2\cdot1{,}732)=67{,}8\ \text{MPa}$. Dla Tresca warunek to $2\tau\le R_e/n_{wym}$, więc $\tau_{dop,T}=R_e/(2n_{wym})=235/4=58{,}75\ \text{MPa}$.
+
+Jeżeli w elemencie działa $\tau=60\ \text{MPa}$, to HMH uznaje element za bezpieczny, bo $60<67{,}8\ \text{MPa}$, a Tresca uznaje go za niezapewniający wymaganego zapasu, bo $60>58{,}75\ \text{MPa}$. Decyzja zmienia się więc nie dlatego, że zmienił się stan naprężenia, lecz dlatego, że zmienił się model i związana z nim granica przy ścinaniu. W praktyce trzeba wtedy albo zwiększyć przekrój, albo świadomie uzasadnić wybór hipotezy, albo podnieść wymagany zapas.
+
+Zauważ, że obie dopuszczalne wartości są znacznie mniejsze od $R_e$. To nie jest błąd: przy czystym ścinaniu naprężenie styczne musi być mniejsze od granicy rozciągania, bo materiał uplastycznia się przy ścinaniu znacznie wcześniej. Wartość $58{,}75\ \text{MPa}$ jest równa $R_e/4$, bo dodatkowo dzielimy przez wymagany zapas 2. To pokazuje, jak łatwo pomylić granicę materiału z naprężeniem dopuszczalnym.
+
+Warto sprawdzić wynik w drugą stronę. Dla $\tau=60\ \text{MPa}$ i $n_{wym}=2$ HMH wymaga granicy $R_{e,req}=\sqrt{3}\cdot60\cdot2=207{,}8\ \text{MPa}$. Tresca wymaga $R_{e,req}=2\cdot60\cdot2=240\ \text{MPa}$. Dla stali o granicy 235 MPa HMH ma więc zapas $235/(\sqrt{3}\cdot60)=2{,}26$, a Tresca $235/120=1{,}96$, czyli minimalnie mniej niż wymagane 2. To ten sam wniosek co poprzednio, ale otrzymany przez porównanie wymaganej granicy, a nie dopuszczalnego naprężenia.
+
+Taki sposób kontroli jest przydatny w projektowaniu, gdy granica materiału jest narzucona przez dostępny gatunek stali. Wtedy nie pytamy, jakie naprężenie jest dopuszczalne, lecz czy dany materiał w ogóle może spełnić wymaganie. Odpowiedź może brzmieć „tak według HMH, nie według Tresca”, i właśnie dlatego wybór hipotezy musi być świadomą decyzją, a nie przypadkiem.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Porównywanie $\sigma_{HMH}$ z granicą $R_e/2$ albo $\sigma_T$ z granicą $R_e/\sqrt{3}$. Każda hipoteza ma własną granicę przy ścinaniu, a obie podane wartości odnoszą się do $R_e$ przy rozciąganiu.
+- Pomijanie trzeciego naprężenia głównego w stanie płaskim. Zero może być najmniejszym naprężeniem i wtedy decyduje o różnicy w hipotezie Tresca.
+- Stosowanie wzoru $\sqrt{\sigma^2+\tau^2}$ albo $\sqrt{\sigma^2+2\tau^2}$ zamiast poprawnych współczynników 3 i 4 przy $\tau^2$.
+- Zakładanie, że HMH zawsze daje większe wytężenie niż Tresca. Jest odwrotnie: to Tresca jest nie mniejsza.
+- Liczenie zapasu HMH z granicą przy ścinaniu, a zapasu Tresca z granicą przy rozciąganiu, a potem porównywanie takich liczb.
+- Uznawanie, że różnica 10–15 procent jest nieistotna, gdy zapas jest blisko wymaganego. Wtedy właśnie różnica decyduje o wyniku.
+- Stosowanie obu hipotez do materiału kruchego bez sprawdzenia, czy zniszczenie nie następuje wcześniej przy naprężeniu normalnym.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal stan naprężenia.** Zapisz $\sigma_x$, $\sigma_y$ i $\tau_{xy}$ w rozważanym punkcie albo od razu naprężenia główne, jeśli są dane. Sprawdź, czy stan jest płaski, czy przestrzenny.
+2. **Uporządkuj naprężenia główne.** Ustaw $\sigma_1\ge\sigma_2\ge\sigma_3$, pamiętając o zerze w stanie płaskim. Bez tego kroku Tresca będzie liczona z niewłaściwej różnicy.
+3. **Policz obie hipotezy.** Dla HMH użyj $\sigma^2+3\tau^2$ w przypadku $\sigma_y=0$ albo pełnego wzoru w naprężeniach głównych. Dla Tresca użyj $\sqrt{\sigma^2+4\tau^2}$ albo różnicy skrajnych naprężeń.
+4. **Sprawdź, czy różnica ma sens.** Tresca powinna wyjść nie mniejsza niż HMH. Jeżeli jest odwrotnie, najprawdopodobniej pominięto trzeci kierunek albo pomylono wzór.
+5. **Oblicz zapasy osobno.** Podziel tę samą granicę $R_e$ przez każdą z otrzymanych wartości. Nie mieszaj granic ani nie porównuj zapasu HMH z zapasem Tresca przy różnych założeniach.
+6. **Porównaj z wymaganiem.** Sprawdź, czy oba zapasy spełniają $n_{wym}$, czy tylko jeden, i oceń, jak duży jest margines. Przy wyniku blisko granicy wróć do założeń modelu.
+7. **Uzasadnij wybór.** Dla metalu plastycznego podaj, która hipoteza jest podstawą projektu i dlaczego. Jeżeli materiał jest kruchy, wrażliwy na ciśnienie lub anizotropowy, sprawdź, czy potrzebne jest inne kryterium.
+
+## Połącz z resztą kursu
+
+- **Naprężenie zredukowane: jedna liczba dla złożonego stanu** wprowadza pojęcie $\sigma_{red}$ i pokazuje, po co w ogóle redukujemy stan naprężenia do jednej wartości.
+- **Hipoteza HMH: energia zmiany postaci** wyprowadza wzór $\sqrt{\sigma^2+3\tau^2}$ z energii dewiatorowej i wyjaśnia sens współczynnika 3.
+- **Hipoteza Tresca: największe ścinanie** pokazuje, skąd bierze się różnica skrajnych naprężeń i dlaczego zero w stanie płaskim bywa zdradliwe.
+- **Hipoteza największego naprężenia normalnego** przypomina, że dla materiałów kruchych porównanie HMH i Tresca nie wystarcza, bo decyduje naprężenie rozciągające.
+- **Zginanie, skręcanie i siła osiowa razem** dostarcza praktycznego przykładu, w którym obie hipotezy trzeba policzyć w tym samym punkcie przekroju.
+- **Współczynnik bezpieczeństwa: ile zapasu ma element?** pokazuje, jak z porównania hipotez przejść do decyzji projektowej i doboru przekroju.
+
+## Sprawdź się
+
+Poniższe pytania sprawdzają, czy umiesz nie tylko podstawić do wzoru, ale też ocenić, kiedy różnica między hipotezami zmienia decyzję.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Dla σ = 0 i τ = 100 MPa jakie wartości dadzą HMH i Tresca?</Prompt>
+    <Prompt>Dla $\sigma=0$ i $\tau=100\ \text{MPa}$ jakie wartości dadzą HMH i Tresca?</Prompt>
     <Answer>HMH 100 MPa, Tresca 100 MPa</Answer>
     <Answer correct>HMH 173,2 MPa, Tresca 200 MPa</Answer>
     <Answer>HMH 200 MPa, Tresca 173,2 MPa</Answer>
-    <Hint>Podstaw odpowiednio współczynniki 3 i 4 przy τ².</Hint>
+    <Hint>Podstaw odpowiednio współczynniki 3 i 4 przy $\tau^2$.</Hint>
     <Explanation>
-      HMH: √3·100 = 173,2 MPa. Tresca: 2·100 = 200 MPa. Przy czystym ścinaniu Tresca daje większe wytężenie.
+      HMH: $\sqrt{3}\cdot100=173{,}2\ \text{MPa}$. Tresca: $2\cdot100=200\ \text{MPa}$. Przy czystym ścinaniu różnica między hipotezami jest największa.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>Przy Re = 250 MPa HMH daje 125 MPa, a Tresca 140 MPa. Jakie są odpowiednie zapasy?</Prompt>
+    <Prompt>Przy $R_e=250\ \text{MPa}$ HMH daje 125 MPa, a Tresca 140 MPa. Jakie są odpowiednie zapasy?</Prompt>
     <Answer correct>2,00 i 1,79</Answer>
     <Answer>1,79 i 2,00</Answer>
     <Answer>Oba 2,00</Answer>
-    <Hint>Dla każdej hipotezy osobno oblicz n = Re/σred.</Hint>
+    <Hint>Dla każdej hipotezy osobno oblicz $n=R_e/\sigma_{red}$.</Hint>
     <Explanation>
-      nHMH = 250/125 = 2,00, a nT = 250/140 = 1,79. Większe naprężenie zredukowane daje mniejszy zapas.
+      $n_{HMH}=250/125=2{,}00$, a $n_T=250/140=1{,}79$. Większe naprężenie zredukowane daje mniejszy zapas.
     </Explanation>
   </Question>
   <Question outcome="W2">
-    <Prompt>Kiedy HMH i Tresca dają ten sam wynik dla σx = σ, σy = 0?</Prompt>
-    <Answer>Przy każdym τ</Answer>
-    <Answer correct>Przy τ = 0</Answer>
-    <Answer>Tylko przy σ = 0</Answer>
-    <Hint>Porównaj wyrażenia pod pierwiastkami.</Hint>
+    <Prompt>Kiedy HMH i Tresca dają ten sam wynik dla $\sigma_x=\sigma$, $\sigma_y=0$?</Prompt>
+    <Answer>Przy każdym $\tau$</Answer>
+    <Answer correct>Przy $\tau=0$</Answer>
+    <Answer>Tylko przy $\sigma=0$</Answer>
+    <Hint>Porównaj wyrażenia $\sigma^2+3\tau^2$ oraz $\sigma^2+4\tau^2$.</Hint>
     <Explanation>
-      Przy τ = 0 oba wzory redukują się do |σ|. Przy czystym ścinaniu (σ = 0) wyniki są różne: √3·|τ| dla HMH oraz 2|τ|
-      dla Tresca.
+      Przy $\tau=0$ oba wzory redukują się do $|\sigma|$. Przy czystym ścinaniu, czyli $\sigma=0$, wyniki są różne: $\sqrt{3}|\tau|$ dla HMH oraz $2|\tau|$ dla Tresca.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla $\sigma=80\ \text{MPa}$ i $\tau=60\ \text{MPa}$ ile wynoszą $\sigma_{HMH}$ i $\sigma_T$?</Prompt>
+    <Answer>120,0 MPa i 120,0 MPa</Answer>
+    <Answer correct>131,1 MPa i 144,2 MPa</Answer>
+    <Answer>144,2 MPa i 131,1 MPa</Answer>
+    <Hint>Policz $\sqrt{80^2+3\cdot60^2}$ oraz $\sqrt{80^2+4\cdot60^2}$.</Hint>
+    <Explanation>
+      HMH: $\sqrt{6\,400+10\,800}=\sqrt{17\,200}=131{,}1\ \text{MPa}$. Tresca: $\sqrt{6\,400+14\,400}=\sqrt{20\,800}=144{,}2\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>W zbiorniku ciśnieniowym $\sigma_1=250\ \text{MPa}$, $\sigma_2=125\ \text{MPa}$ i $\sigma_3=0$. Które naprężenie decyduje o różnicy w hipotezie Tresca?</Prompt>
+    <Answer>Różnica $\sigma_1-\sigma_2=125\ \text{MPa}$</Answer>
+    <Answer correct>Różnica $\sigma_1-0=250\ \text{MPa}$</Answer>
+    <Answer>Różnica $\sigma_2-0=125\ \text{MPa}$</Answer>
+    <Hint>Uporządkuj trzy naprężenia główne i weź skrajne.</Hint>
+    <Explanation>
+      Najmniejszym naprężeniem głównym jest zero, więc $\sigma_T=\sigma_1-\sigma_3=250\ \text{MPa}$. Pominięcie trzeciego kierunku dałoby błędnie 125 MPa.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dla $\sigma_1=120\ \text{MPa}$, $\sigma_2=40\ \text{MPa}$ i $\sigma_3=0$ ile wynoszą HMH i Tresca?</Prompt>
+    <Answer correct>105,8 MPa i 120,0 MPa</Answer>
+    <Answer>120,0 MPa i 105,8 MPa</Answer>
+    <Answer>80,0 MPa i 120,0 MPa</Answer>
+    <Hint>W HMH użyj trzech różnic, a w Tresca różnicy skrajnych naprężeń.</Hint>
+    <Explanation>
+      $\sigma_{HMH}=\sqrt{120^2+40^2-120\cdot40}=\sqrt{11\,200}=105{,}8\ \text{MPa}$. Tresca: $120-0=120\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Dla $R_e=320\ \text{MPa}$ i $\sigma_T=160\ \text{MPa}$ jaki jest zapas według Tresca?</Prompt>
+    <Answer correct>2,0</Answer>
+    <Answer>0,5</Answer>
+    <Answer>1,6</Answer>
+    <Hint>Zapas to granica podzielona przez naprężenie zredukowane.</Hint>
+    <Explanation>
+      $n_T=320/160=2{,}0$. Gdyby ktoś podzielił naprężenie przez granicę, otrzymałby 0,5, czyli odwrotność zapasu, a nie zapas.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Dlaczego w stanie płaskim przy obu naprężeniach głównych dodatnich hipoteza Tresca może być znacznie ostrzejsza od HMH?</Prompt>
+    <Answer>Bo HMH ignoruje naprężenie styczne</Answer>
+    <Answer correct>Bo zero staje się najmniejszym naprężeniem głównym i wchodzi do różnicy decydującej o wytężeniu</Answer>
+    <Answer>Bo Tresca zawsze zakłada, że materiał jest kruchy</Answer>
+    <Hint>Przypomnij sobie, które naprężenie jest najmniejsze, gdy $\sigma_1$ i $\sigma_2$ są dodatnie.</Hint>
+    <Explanation>
+      W stanie płaskim $\sigma_3=0$. Gdy $\sigma_1$ i $\sigma_2$ są dodatnie, zero jest najmniejszym naprężeniem, więc Tresca bierze różnicę $\sigma_1-0$, a nie $\sigma_1-\sigma_2$. HMH rozkłada wytężenie na wszystkie różnice, dlatego wypada łagodniej. Nie ma to nic wspólnego z kruchością materiału.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o hipotezach wytężeniowych; szukaj zestawienia hipotez energii i maksymalnego ścinania oraz ich obszarów bezpieczeństwa.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z wałami zginanymi i skręcanymi; pozwalają przećwiczyć liczenie obu hipotez dla tego samego punktu.
+- T. Wierzbicki, _Structural Mechanics_ (podręcznik otwarty) — rozdział 3.2 o prawie sprężystości w ośrodku trójwymiarowym; wyjaśnia rozkład naprężenia na część hydrostatyczną i dewiatorową, który stoi za hipotezą HMH.
+- D. Roylance, _Mechanics of Materials_ (podręcznik otwarty) — rozdział 6.1 o uplastycznieniu; podaje obie hipotezy, granice przy ścinaniu i przykład zbiornika ciśnieniowego.
+- MIT 3.11, _Mechanics of Materials_ (notatki otwarte) — wykład o uplastycznieniu; pokazuje wyprowadzenie granicy $R_e/\sqrt{3}$ i $R_e/2$ oraz różnicę między hipotezami.

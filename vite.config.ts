@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 import mdx from '@mdx-js/rollup'
 import remarkMath from 'remark-math'
 import remarkFrontmatter from 'remark-frontmatter'
+import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
 import { VitePWA } from 'vite-plugin-pwa'
 import { contentMetaPlugin } from './scripts/content-meta-plugin.ts'
@@ -29,7 +30,7 @@ export default defineConfig({
     {
       enforce: 'pre',
       ...mdx({
-        remarkPlugins: [remarkFrontmatter, remarkMath],
+        remarkPlugins: [remarkFrontmatter, remarkGfm, remarkMath],
         rehypePlugins: [[rehypeKatex, { throwOnError: true, strict: 'error' }]],
       }),
     },

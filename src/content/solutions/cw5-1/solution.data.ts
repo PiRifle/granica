@@ -13,6 +13,31 @@ export default {
   ],
   result:
     'y_C = 215,386 mm od dolnej krawędzi, x_C = 0; I_x = 1,35776 · 10⁹ mm⁴ = 135 776 cm⁴, I_y = 7,73396 · 10⁸ mm⁴ = 77 339,6 cm⁴.',
+  figure: {
+    kind: 'section',
+    width: 300,
+    height: 400,
+    parts: [
+      { x: 0, y: 100, width: 300, height: 300, label: 'pas górny', tone: 'light' },
+      { x: 135, y: 50, width: 30, height: 50, label: 'środnik', tone: 'accent' },
+      { x: 0, y: 0, width: 300, height: 50, label: 'pas dolny', tone: 'light' },
+    ],
+    holes: [
+      { cx: 50, cy: 250, r: 15, label: '∅30' },
+      { cx: 250, cy: 250, r: 15, label: '∅30' },
+    ],
+    centroid: { x: 150, y: 215.386 },
+    values: [
+      { label: 'A netto', value: '105 086,28 mm²', focus: 'section' },
+      { label: 'x_C', value: '0 mm', focus: 'centroid' },
+      { label: 'y_C', value: '215,386 mm', focus: 'centroid' },
+      { label: 'I_x', value: '1,35776·10⁹ mm⁴', focus: 'Ix' },
+      { label: 'I_x', value: '135 776,1 cm⁴', focus: 'Ix' },
+      { label: 'I_y', value: '7,73396·10⁸ mm⁴', focus: 'Iy' },
+      { label: 'I_y', value: '77 339,6 cm⁴', focus: 'Iy' },
+    ],
+    note: 'Osie centralne przechodzą przez C = (0; 215,386 mm); otwory są odejmowane jako pole ujemne.',
+  },
   scenes: [
     {
       title: 'Przyjmij osie i podziel przekrój',

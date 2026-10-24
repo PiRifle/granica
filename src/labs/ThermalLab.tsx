@@ -23,6 +23,7 @@ export function ThermalLab() {
   const midX = (110 + freeRightX) / 2
   const initialMidX = 110 + barWidth / 2
   const thermalArrowLength = 15 + Math.min(45, (Math.abs(sigma) / 300) * 45)
+  const compression = sigma < 0
 
   return (
     <Lab
@@ -142,23 +143,29 @@ export function ThermalLab() {
               <line x1={rightX} y1="110" x2={rightX} y2="200" stroke="currentColor" strokeWidth="5" />
               <path d={`M${rightX + 25} 120 L${rightX} 155 L${rightX + 25} 190 Z`} fill="currentColor" opacity="0.35" />
               <line
-                x1={103 - thermalArrowLength}
+                x1={compression ? 103 - thermalArrowLength : 103}
                 y1="152"
-                x2="103"
+                x2={compression ? 103 : 103 - thermalArrowLength}
                 y2="152"
                 stroke="#ff6b45"
                 strokeWidth="3"
                 markerEnd="url(#thermal-reaction)"
               />
               <line
-                x1={rightX + 7 + thermalArrowLength}
+                x1={compression ? rightX + 7 + thermalArrowLength : rightX + 7}
                 y1="152"
-                x2={rightX + 7}
+                x2={compression ? rightX + 7 : rightX + 7 + thermalArrowLength}
                 y2="152"
                 stroke="#ff6b45"
                 strokeWidth="3"
                 markerEnd="url(#thermal-reaction)"
               />
+              <text x="100" y="140" textAnchor="end" fontSize="12" fill="#ff6b45">
+                {fmt(sigma)} MPa
+              </text>
+              <text x={rightX + 10} y="140" textAnchor="start" fontSize="12" fill="#ff6b45">
+                {fmt(sigma)} MPa
+              </text>
               <text x={midX} y="115" textAnchor="middle" fontSize="14" fill="#ff6b45">
                 Reakcje podpór równoważą siłę termiczną
               </text>

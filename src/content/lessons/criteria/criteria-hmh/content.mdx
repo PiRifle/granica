@@ -7,7 +7,6 @@ shortTitle: HMH
 description: >-
   Poznaj hipotezę Hubera–Misesa–Hencky’ego i obliczaj wytężenie materiałów
   plastycznych bez błędów w potęgach.
-duration: 8
 eyebrow: Energia odkształcenia postaciowego
 outcomes:
   - >-
@@ -30,32 +29,176 @@ outcomes:
     przyjęty warunek.
 ---
 
-Hipoteza HMH ocenia wytężenie przez energię zmiany postaci, a nie przez samą zmianę objętości. Jednostajne ściskanie ze wszystkich stron zmienia objętość, ale nie zmienia kształtu, dlatego w modelu HMH nie zwiększa naprężenia zredukowanego.
+Wyobraź sobie kawałek metalu zanurzony w komorze ciśnieniowej, w której ze wszystkich stron działa jednakowe ciśnienie. Metal zmniejsza objętość, ale nie zmienia kształtu i zwykle nie ulega zniszczeniu, dopóki ciśnienie nie osiągnie ekstremalnych wartości. Inaczej jest, gdy ten sam metal jest rozciągany w jednym kierunku albo ścinany: wtedy zmienia kształt, a w krysztale zaczynają działać mechanizmy poślizgu. Hipoteza HMH opiera się właśnie na tej różnicy między zmianą objętości a zmianą postaci.
+
+Nazwa pochodzi od nazwisk Hubera, Misesa i Hencky’ego, którzy niezależnie opisali to samo kryterium. Ideą jest energia odkształcenia zmagazynowana w materiale, ale nie cała energia — tylko ta część, która odpowiada za zmianę kształtu. Część objętościowa, związana z jednakowym ściskaniem lub rozciąganiem we wszystkich kierunkach, nie powoduje uplastycznienia w typowym modelu metalu. Dlatego stan hydrostatyczny daje w HMH naprężenie zredukowane równe zero.
+
+Dla metali plastycznych jest to najczęściej używana hipoteza w praktyce inżynierskiej. Programy MES domyślnie pokazują naprężenie von Misesa, czyli właśnie HMH. Dobrze opisuje stal, aluminium, miedź i inne materiały, w których uplastycznienie następuje przez poślizg dyslokacji, a ciśnienie hydrostatyczne nie zmienia w istotny sposób granicy plastyczności. Trzeba jednak pamiętać, że nie jest to uniwersalne prawo dla każdego materiału.
+
+Po tej lekcji będziesz umiał wyprowadzić wzór HMH z energii odkształcenia, uprościć go do stanu płaskiego i do przypadku σx = σ, σy = 0 oraz τxy = τ. Nauczysz się też rozpoznawać, dlaczego przy ścinaniu pojawia się pierwiastek z trzech, a nie zwykły współczynnik 1. To pozwoli uniknąć najczęstszego błędu w zadaniach z wałami.
+
+## Zanim zaczniesz
+
+- **Naprężenia główne.** HMH można zapisać przez σ1, σ2, σ3 albo przez składowe σx, σy, τxy. Warto umieć przechodzić między tymi zapisami.
+- **Prawo Hooke'a i stałe sprężystości.** Przypomnij sobie związek między E, G i ν oraz to, że energia sprężysta zależy od kwadratów naprężeń.
+- **Energia odkształcenia.** W zakresie liniowo-sprężystym energia na jednostkę objętości jest połową iloczynu naprężenia i odkształcenia. Nie trzeba jej liczyć liczbowo, ale trzeba rozumieć zasadę rozkładu.
+- **Jednostki.** Współczynniki 3 i 4 są bezwymiarowe, więc jednostka wyniku jest taka sama jak jednostka naprężenia wejściowego. Nie zamieniaj MPa na Pa bez konsekwencji dla całego rachunku.
+- **Konwencja znaków.** HMH jest funkcją kwadratową, więc zmiana znaku wszystkich naprężeń nie zmienia wyniku. To konsekwencja braku wpływu ciśnienia hydrostatycznego.
+- **Typowa pułapka.** Nie używaj wzoru √(σ² + τ²) ani √(σ² + 4τ²). Dla HMH współczynnik przy τ² wynosi dokładnie 3.
+
+## Model i intuicja
+
+Model HMH traktuje materiał jako izotropowy i plastyczny. Zakładamy, że przed uplastycznieniem obowiązuje liniowa sprężystość, a o początku płynięcia decyduje energia odkształcenia postaciowego. Energia ta jest związana z odchyleniem stanu naprężenia od stanu hydrostatycznego. Im większa różnica między naprężeniami głównymi, tym większa energia zmiany postaci i tym bliżej granicy znajduje się materiał.
+
+Rozkład naprężenia na część hydrostatyczną i dewiatorową jest kluczowy. Część hydrostatyczna to średnia z trzech naprężeń głównych, działająca jak ciśnienie. Część dewiatorowa to to, co pozostaje po odjęciu średniej; to ona odpowiada za zmianę kształtu. W modelu HMH część hydrostatyczna nie wpływa na uplastycznienie, bo nie zmienia energii zmiany postaci. Dlatego stan σ1 = σ2 = σ3 = −p daje σHMH = 0, niezależnie od wartości p.
+
+To założenie dobrze sprawdza się dla metali, ale nie dla wszystkich materiałów. Polimery, gleby, pianki i niektóre materiały porowate są wrażliwe na ciśnienie: przy ściskaniu hydrostatycznym ich granica plastyczności rośnie, a przy rozciąganiu maleje. Dla nich potrzebne są kryteria zależne od ciśnienia, np. zmodyfikowane kryterium Druckera–Pragera albo model uwzględniający porowatość. HMH nie opisuje też kruchych materiałów, w których zniszczenie następuje przed uplastycznieniem.
+
+Model zakłada również proporcjonalne obciążenie i brak historii odkształcenia. W rzeczywistym procesie z odciążeniem i ponownym obciążeniem mogą powstać naprężenia resztkowe, a granica plastyczności może się zmienić wskutek umocnienia. HMH stosujemy wtedy do bieżącego stanu naprężenia, ale nie możemy twierdzić, że przewiduje całą historię odkształcenia.
+
+| Cecha modelu HMH                         | Znaczenie praktyczne                                |
+| ---------------------------------------- | --------------------------------------------------- |
+| Oparta na energii zmiany postaci         | Dobre dla metali plastycznych                       |
+| Niezależna od ciśnienia hydrostatycznego | Jednakowe ściskanie nie powoduje płynięcia          |
+| Kwadratowa względem naprężeń             | Zmiana znaku wszystkich naprężeń nie zmienia wyniku |
+| Izotropowa                               | Nie uwzględnia kierunku włókien ani tekstury        |
+| Opisuje początek płynięcia               | Nie przewiduje samego pękania kruchego              |
+
+## Laboratorium: co ustawić
+
+W laboratorium ustaw σx, σy i τxy, a następnie obserwuj naprężenia główne oraz maksymalne ścinanie. Porównaj stan czystego ścinania, w którym σx = σy = 0, ze stanem jednoosiowym, w którym τxy = 0. Spróbuj też dobrać naprężenia tak, aby σ1 i σ2 były sobie równe — wtedy przekonasz się, że stan hydrostatyczny w płaszczyźnie daje szczególny przypadek.
 
 <Lab id="mohr" />
+
+## Definicje i jednostki
+
+Naprężenie HMH, nazywane też naprężeniem von Misesa albo naprężeniem równoważnym, jest miarą energii zmiany postaci przeskalowaną tak, aby w jednoosiowym rozciąganiu była równa naprężeniu normalnemu. Dzięki temu można je porównać bezpośrednio z granicą plastyczności Re.
+
+| Symbol     | Znaczenie                                                 | Jednostka    |
+| ---------- | --------------------------------------------------------- | ------------ |
+| σHMH       | naprężenie zredukowane według HMH                         | MPa          |
+| σ1, σ2, σ3 | naprężenia główne                                         | MPa          |
+| p          | naprężenie hydrostatyczne, średnia naprężeń głównych      | MPa          |
+| s1, s2, s3 | składowe dewiatorowe naprężenia                           | MPa          |
+| Ud         | energia odkształcenia postaciowego na jednostkę objętości | J/m³ = Pa    |
+| Re         | granica plastyczności                                     | MPa          |
+| k          | granica plastyczności przy ścinaniu                       | MPa          |
+| n          | współczynnik bezpieczeństwa                               | bezwymiarowy |
+
+Warto zauważyć, że jednostka energii odkształcenia na jednostkę objętości jest taka sama jak jednostka naprężenia: J/m³ = N·m/m³ = N/m² = Pa. To dlatego wzór na naprężenie równoważne może być pierwiastkiem z kombinacji kwadratów naprężeń i nadal mieć jednostkę naprężenia. W obliczeniach wystarczy konsekwentnie używać MPa; nie trzeba przeliczać energii na dżule.
+
+## Wzór i wyprowadzenie
 
 <Formula>
 $$
 \sigma_{HMH} = \sqrt{\sigma_1^2 + \sigma_2^2 + \sigma_3^2 - \sigma_1\sigma_2 - \sigma_2\sigma_3 - \sigma_3\sigma_1}
 $$
 
-<Caption>Dla płaskiego stanu naprężenia przyjmujemy σ3 = 0. Gdy σx = σ, σy = 0 i τxy = τ, wzór upraszcza się do σHMH = √(σ² + 3τ²).</Caption>
+<Caption>Hipoteza Hubera–Misesa–Hencky’ego w naprężeniach głównych. Równoważnie można zapisać σHMH = √(1/2·[(σ1 − σ2)² + (σ2 − σ3)² + (σ3 − σ1)²]). Dla płaskiego stanu naprężenia σ3 = 0, a dla σx = σ, σy = 0 i τxy = τ otrzymujemy σHMH = √(σ² + 3τ²).</Caption>
 </Formula>
+
+Wyprowadzenie pokazuje, skąd bierze się ten wzór i dlaczego współczynnik przy τ² wynosi 3.
+
+1. **Rozkład naprężenia.** Definiujemy średnią p = (σ1 + σ2 + σ3)/3 oraz odchylenia s1 = σ1 − p, s2 = σ2 − p, s3 = σ3 − p. Suma odchyleń jest równa zero, więc opisują one czystą zmianę kształtu.
+2. **Energia sprężysta.** W zakresie liniowym energia na jednostkę objętości wynosi U = ½(σ1ε1 + σ2ε2 + σ3ε3). Po podstawieniu prawa Hooke'a można ją rozdzielić na część objętościową i postaciową.
+3. **Część objętościowa.** Udział objętościowy zależy tylko od sumy naprężeń głównych, czyli od p. Nie zależy od różnic między naprężeniami i przy p = 0 znika.
+4. **Część postaciowa.** Udział postaciowy ma postać Ud = (1 + ν)/(6E)·[(σ1 − σ2)² + (σ2 − σ3)² + (σ3 − σ1)²]. Zależy od różnic naprężeń, a nie od ich wspólnego przesunięcia.
+5. **Kalibracja.** W próbie jednoosiowej σ1 = Re, σ2 = σ3 = 0. Wtedy graniczna energia postaciowa wynosi Ud,gran = (1 + ν)/(6E)·[Re² + 0 + Re²] = (1 + ν)Re²/(3E). To jest energia graniczna dla danego materiału.
+6. **Definicja naprężenia równoważnego.** Przyjmujemy Ud = (1 + ν)/(3E)·σHMH², gdzie σHMH jest tak dobrane, aby przy σ1 = Re i σ2 = σ3 = 0 otrzymać Ud = Ud,gran. Porównanie z krokiem 4 daje σHMH² = ½[(σ1 − σ2)² + (σ2 − σ3)² + (σ3 − σ1)²].
+7. **Postać rozwinięta.** Po rozwinięciu nawiasów otrzymujemy σHMH² = σ1² + σ2² + σ3² − σ1σ2 − σ2σ3 − σ3σ1. To jest wzór z ramki. Pierwiastek daje naprężenie w MPa.
+8. **Stan płaski i przypadek σx, τxy.** Dla σ3 = 0 zostaje σHMH² = σ1² + σ2² − σ1σ2. Po przejściu do σx, σy, τxy otrzymujemy σHMH² = σx² − σxσy + σy² + 3τxy². Dla σy = 0 mamy σHMH = √(σ² + 3τ²).
+9. **Czyste ścinanie.** Przy σ = 0 i τ ≠ 0 wzór daje σHMH = √3·|τ|. Granica plastyczności przy ścinaniu wynosi więc Re/√3, a nie Re.
 
 <Insight>
   Przy czystym ścinaniu HMH daje σred = √3·τ. Wynika stąd, że granica plastyczności przy ścinaniu wynosi Re/√3, a nie Re
-  — to częsty błąd w zadaniach.
+  — to częsty błąd w zadaniach. Współczynnik 3 przy τ² nie jest ozdobą wzoru, lecz konsekwencją rozkładu energii na trzy
+  kierunki.
 </Insight>
 
 <WorkedExample>
-  <Given>Wał ma w pewnym punkcie σ = 80 MPa oraz τ = 60 MPa. Materiał ma Re = 235 MPa.</Given>
+  <Given>
+    Cienkościenny zbiornik ciśnieniowy jest wykonany ze stali o Re = 355 MPa. W pewnym punkcie ściany naprężenie
+    obwodowe wynosi σθ = 120 MPa, naprężenie wzdłużne σz = 60 MPa, a naprężenie promieniowe σr ≈ 0. Oblicz σHMH i
+    współczynnik bezpieczeństwa.
+  </Given>
   <Steps>
-    <Step>Dla płaskiego stanu z σx = σ, σy = 0 i τxy = τ stosujemy σHMH = √(σ² + 3τ²).</Step>
-    <Step>σHMH = √(80² + 3·60²) = √17 200 = 131,15 MPa.</Step>
-    <Step>Współczynnik bezpieczeństwa: n = Re/σHMH = 235/131,15 = 1,79.</Step>
+    <Step>Przyjmujemy naprężenia główne: σ1 = 120 MPa, σ2 = 60 MPa, σ3 = 0.</Step>
+    <Step>Podstawiamy do wzoru: σHMH² = 120² + 60² + 0² − 120·60 − 60·0 − 0·120.</Step>
+    <Step>Obliczamy składniki: 14 400 + 3600 − 7200 = 10 800 MPa².</Step>
+    <Step>Pierwiastek: σHMH = √10 800 = 103,92 MPa.</Step>
+    <Step>Współczynnik bezpieczeństwa: n = Re/σHMH = 355/103,92 = 3,42.</Step>
+    <Step>
+      Kontrola przez różnice: ½[(120 − 60)² + (60 − 0)² + (0 − 120)²] = ½(3600 + 3600 + 14 400) = 10 800, zgodnie z
+      poprzednim wynikiem.
+    </Step>
   </Steps>
-  <Result>Naprężenie zredukowane HMH wynosi 131,2 MPa, a współczynnik bezpieczeństwa około 1,79.</Result>
+  <Result>
+    Naprężenie zredukowane HMH wynosi 103,9 MPa, a zapas około 3,42. Dla porównania Tresca dałaby σT = 120 MPa i zapas
+    2,96, więc byłaby bardziej zachowawcza.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy punkt w wale, w którym naprężenie normalne od zginania wynosi σ = 150 MPa, a naprężenie styczne od skręcania τ = 80 MPa. Przyjmujemy σy = 0. Materiał ma Re = 355 MPa. Obliczymy HMH dwoma sposobami: bezpośrednio ze wzoru płaskiego i przez naprężenia główne.
+
+Bezpośrednio: σHMH = √(150² + 3·80²) = √(22 500 + 19 200) = √41 700 = 204,2 MPa. Współczynnik bezpieczeństwa n = 355/204,2 = 1,74. To już dość mały zapas, choć żadna pojedyncza składowa nie przekracza 150 MPa.
+
+Sprawdźmy przez naprężenia główne. Środek koła C = 150/2 = 75 MPa, promień R = √(75² + 80²) = √(5625 + 6400) = √12 025 = 109,7 MPa. Zatem σ1 = 184,7 MPa, σ2 = −34,7 MPa, σ3 = 0. Podstawiamy do pełnego wzoru: σHMH² = 184,7² + 34,7² − 184,7·(−34,7). Po obliczeniu otrzymujemy około 41 700 MPa², czyli ten sam wynik 204,2 MPa.
+
+Warto zwrócić uwagę, że największe naprężenie główne 184,7 MPa jest mniejsze od σHMH = 204,2 MPa, ale większe od σ = 150 MPa. To pokazuje, że HMH nie jest po prostu „największym naprężeniem”. Jest miarą energii, w której uczestniczą wszystkie trzy kierunki. Dla tego stanu Tresca dałaby σT = 184,7 − (−34,7) = 219,4 MPa, czyli jeszcze więcej.
+
+## Trzeci przykład: wariant odwrotny
+
+Punkt elementu jest rozciągany naprężeniem σ = 60 MPa i ścinany naprężeniem τ. Materiał ma Re = 235 MPa, a wymagany zapas wynosi n = 2,0. Pytamy, jakie maksymalne τ dopuszcza hipoteza HMH.
+
+Naprężenie dopuszczalne wynosi kr = Re/n = 235/2 = 117,5 MPa. Warunek ma postać √(60² + 3τ²) ≤ 117,5. Po podniesieniu do kwadratu: 3600 + 3τ² ≤ 13 806,25. Zatem 3τ² ≤ 10 206,25, czyli τ² ≤ 3402,1 i τ ≤ 58,3 MPa.
+
+Sprawdzenie: przy τ = 58,3 MPa otrzymujemy σHMH = √(3600 + 3·3402,1) = √13 806,3 = 117,5 MPa, czyli dokładnie kr. Gdyby zastosować Tresca, warunek miałby postać √(60² + 4τ²) ≤ 117,5, co dałoby 4τ² ≤ 10 206,25, czyli τ ≤ 50,5 MPa. Tresca byłaby więc w tym przypadku znacznie bardziej restrykcyjna.
+
+Odpowiedź: według HMH dopuszczalne naprężenie styczne wynosi około 58,3 MPa. To przykład na to, że wariant odwrotny wymaga nie tylko przekształcenia wzoru, ale też świadomego wyboru hipotezy. Wynik 58,3 MPa nie jest „prawdziwym” naprężeniem granicznym materiału; jest granicą wynikającą z przyjętego modelu i wymaganego zapasu.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Brak współczynnika 3.** Używanie σred = √(σ² + τ²) zaniża wynik. Dla HMH przy τ² stoi 3, dla Tresca 4.
+
+**Mylenie HMH z Tresca.** HMH daje √3·τ przy czystym ścinaniu, a Tresca 2τ. To nie są zamienne wzory.
+
+**Dodawanie naprężeń przed podniesieniem do kwadratu.** Najpierw podstawiamy do wzoru, a nie sumujemy σ i τ.
+
+**Zła kolejność znaków w pełnym wzorze.** Wyrażenia −σ1σ2 − σ2σ3 − σ3σ1 mają znaki minus. Przy σ2 = σ3 = 0 wzór redukuje się do σ1², co jest dobrą kontrolą.
+
+**Przeliczanie MPa na Pa bez potrzeby.** Wszystkie składniki są w tych samych jednostkach, więc wynik wychodzi w MPa. Zmiana jednostki na Pa zwiększa liczby, ale nie zmienia stosunku.
+
+**Stosowanie HMH do materiału kruchego.** Dla szkła, ceramiki lub żeliwa kryterium energii zmiany postaci może nie opisywać rzeczywistego mechanizmu pękania.
+
+**Zapominanie o stanie płaskim.** W płaskim stanie naprężenia σ3 = 0, ale nie oznacza to, że σ3 można pominąć w pełnym wzorze, jeśli korzystamy z zapisu przestrzennego.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Sprawdź, czy materiał jest plastyczny.** Stal, aluminium, miedź i inne metale o wyraźnym płynięciu nadają się do HMH. Materiały kruche raczej nie.
+2. **Ustal stan naprężenia.** Czy zadanie podaje σ1, σ2, σ3, czy σx, σy, τxy? Od tego zależy, którą postać wzoru wybrać.
+3. **Sprawdź, czy stan jest płaski.** Jeśli σ3 = 0, można użyć wzoru σHMH² = σ1² + σ2² − σ1σ2 albo postaci z σx, σy, τxy.
+4. **Wybierz wygodny wzór.** Gdy σy = 0, najszybciej jest użyć σHMH = √(σ² + 3τ²). Gdy znasz naprężenia główne, użyj pełnego wzoru lub różnic.
+5. **Oblicz σHMH i porównaj z Re lub kr.** Pamiętaj, że Re i kr muszą być w MPa, jeśli naprężenia są w MPa.
+6. **Policz zapas.** n = Re/σHMH. Jeśli wynik jest mniejszy od wymaganego, element nie spełnia warunku.
+7. **Wykonaj kontrolę przez naprężenia główne.** Dla tego samego stanu oblicz σ1, σ2 i podstaw do pełnego wzoru. Oba wyniki powinny się zgadzać.
+8. **Zinterpretuj wynik.** HMH większe od największego naprężenia głównego jest możliwe; nie traktuj tego jako błędu. To skutek uwzględnienia wszystkich kierunków.
+
+## Połącz z resztą kursu
+
+- **Stan naprężenia i koło Mohra** — dostarczają naprężeń głównych potrzebnych do pełnego wzoru HMH.
+- **Prawo Hooke'a i energia odkształcenia** — wyjaśniają, skąd bierze się rozkład na część objętościową i postaciową.
+- **Hipoteza Tresca** — jest alternatywnym kryterium plastycznym i zwykle daje większe wytężenie przy dominującym ścinaniu.
+- **Skręcanie wałów** — pokazuje, dlaczego granica przy ścinaniu wynosi Re/√3, a nie Re.
+- **Obciążenia złożone** — łączą σ od zginania i siły osiowej z τ od skręcania, co prowadzi bezpośrednio do wzoru √(σ² + 3τ²).
+- **Projektowanie elementów** — wykorzystuje HMH do doboru wymiaru i oceny zapasu.
+
+## Sprawdź się
+
+Pytania sprawdzają pełny wzór, uproszczenia dla stanu płaskiego oraz interpretację wpływu ciśnienia hydrostatycznego.
 
 <Quiz>
   <Question outcome="U1">
@@ -90,4 +233,77 @@ $$
       σred = √3·80 = 138,56 MPa, więc n = 240/138,56 = 1,73. Wartość 3,00 powstałaby z błędnego przyjęcia σred = τ.
     </Explanation>
   </Question>
+  <Question outcome="U1">
+    <Prompt>Dla σ1 = 120 MPa, σ2 = 60 MPa i σ3 = 0 ile wynosi σHMH?</Prompt>
+    <Answer correct>103,9 MPa</Answer>
+    <Answer>120 MPa</Answer>
+    <Answer>180 MPa</Answer>
+    <Hint>Użyj postaci σHMH² = σ1² + σ2² − σ1σ2.</Hint>
+    <Explanation>
+      σHMH² = 120² + 60² − 120·60 = 14 400 + 3600 − 7200 = 10 800, więc σHMH = 103,9 MPa. To mniej niż największe
+      naprężenie główne, bo stan jest częściowo hydrostatyczny.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>W wale zginanym i skręcanym, gdzie występuje największe σHMH?</Prompt>
+    <Answer>Zawsze w osi wału</Answer>
+    <Answer correct>
+      W punktach, w których kombinacja σ i τ daje największą energię zmiany postaci, zwykle na powierzchni
+    </Answer>
+    <Answer>Tylko tam, gdzie τ = 0</Answer>
+    <Hint>
+      σ od zginania rośnie z odległością od osi obojętnej, a τ od skręcania też jest największe na powierzchni.
+    </Hint>
+    <Explanation>
+      W pełnym przekroju kołowym naprężenie od zginania jest największe na powierzchni, a ścinanie od skręcania również
+      osiąga tam maksimum. Zwykle więc powierzchnia jest punktem krytycznym, ale trzeba sprawdzić konkretne włókno i
+      znaki składowych.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W czystym ścinaniu τ = 100 MPa. Która hipoteza daje większe wytężenie: HMH czy Tresca?</Prompt>
+    <Answer>HMH, bo daje 200 MPa</Answer>
+    <Answer correct>Tresca, bo daje 200 MPa, a HMH 173,2 MPa</Answer>
+    <Answer>Obie dają tyle samo</Answer>
+    <Hint>HMH daje √3·τ, a Tresca 2τ.</Hint>
+    <Explanation>
+      HMH daje 173,2 MPa, a Tresca 200 MPa. Przy czystym ścinaniu Tresca jest bardziej zachowawcza. Nie wolno porównywać
+      wyniku HMH z granicą ścinania wyprowadzoną z Tresca.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Czy w modelu HMH jednakowe zwiększenie wszystkich trzech naprężeń głównych o 50 MPa może samo spowodować
+      uplastycznienie?
+    </Prompt>
+    <Answer>Tak, bo każde naprężenie rośnie</Answer>
+    <Answer correct>
+      Nie, bo zmienia się tylko część hydrostatyczna, a energia zmiany postaci pozostaje taka sama
+    </Answer>
+    <Answer>Tak, ale tylko dla materiałów kruchych</Answer>
+    <Hint>Odejmij średnią od każdego naprężenia i zobacz, co dzieje się z odchyleniami.</Hint>
+    <Explanation>
+      Dodanie tej samej wartości do wszystkich naprężeń głównych nie zmienia różnic między nimi, a więc nie zmienia
+      energii zmiany postaci. W HMH taki stan nie przybliża materiału do granicy plastyczności.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla σx = 80 MPa, σy = 20 MPa i τxy = 30 MPa ile wynosi σHMH?</Prompt>
+    <Answer correct>88,9 MPa</Answer>
+    <Answer>80 MPa</Answer>
+    <Answer>104,4 MPa</Answer>
+    <Hint>Użyj σHMH² = σx² − σxσy + σy² + 3τxy².</Hint>
+    <Explanation>
+      σHMH² = 6400 − 1600 + 400 + 2700 = 7900, więc σHMH = 88,9 MPa. Wartość 104,4 MPa powstałaby z pominięcia składnika
+      −σxσy.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o hipotezach wytężeniowych; szukaj wyprowadzenia hipotezy energii zmiany postaci i porównania z innymi kryteriami.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I — omówienie naprężeń głównych i hipotez plastyczności; pomocne przy łączeniu HMH z kołem Mohra.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z wałami zginanymi i skręcanymi, w których stosuje się wzór √(σ² + 3τ²).
+- D. Roylance, _Mechanics of Materials_ (podręcznik otwarty) — rozdział 6.1 o uplastycznieniu; podaje kryterium von Misesa, sens energii dewiatorowej i przykład zbiornika ciśnieniowego.
+- T. Wierzbicki, _Structural Mechanics_ (podręcznik otwarty) — rozdział 3.2 o prawie sprężystości w ośrodku trójwymiarowym; wyjaśnia rozkład naprężenia na część hydrostatyczną i dewiatorową.

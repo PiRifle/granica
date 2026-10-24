@@ -7,7 +7,6 @@ shortTitle: Współczynnik n
 description: >-
   Rozróżniaj wytrzymałość od sztywności, obliczaj rzeczywisty zapas i wyznaczaj
   naprężenie dopuszczalne.
-duration: 10
 eyebrow: Bezpieczeństwo to warunek
 outcomes:
   - >-
@@ -30,70 +29,292 @@ outcomes:
     przyjęty warunek.
 ---
 
-Współczynnik bezpieczeństwa n mówi, ile razy granica materiału przewyższa obliczone wytężenie. Wartość n = 1 oznacza brak zapasu względem przyjętej granicy, a n &lt; 1 — jej przekroczenie.
+Most, dźwig i wał maszyny łączy jedna cecha: projektant musi zdecydować, o ile mocniejszy ma być element od tego, co wynika z obliczeń. Nawet jeśli obliczone naprężenie jest mniejsze od granicy materiału, nikt nie zaprojektuje konstrukcji tak, aby pracowała dokładnie na granicy. Potrzebna jest rezerwa na niepewność obciążenia, rozrzut właściwości materiału, uproszczenia modelu i konsekwencje ewentualnej awarii.
+
+Ta rezerwa nazywa się współczynnikiem bezpieczeństwa. W najprostszej postaci jest stosunkiem granicy materiału do obliczonego naprężenia. Wartość większa od jedności oznacza, że według przyjętego modelu jest jeszcze zapas; wartość równa jeden oznacza pracę na granicy; wartość mniejsza od jedności oznacza przekroczenie granicy. To brzmi prosto, ale w praktyce trzeba pilnować, która granica i które naprężenie wchodzą do stosunku.
+
+Drugie ważne rozróżnienie dotyczy wytrzymałości i sztywności. Element może mieć duży zapas wytrzymałości, a mimo to uginać się zbyt mocno, drgać w niepożądany sposób albo tracić stateczność. Warunek wytrzymałości mówi o zniszczeniu lub uplastycznieniu, natomiast warunek sztywności mówi o przemieszczeniu. To dwa osobne sprawdzenia, których nie wolno zastępować jednym współczynnikiem.
+
+Po tej lekcji będziesz umiał obliczyć rzeczywisty zapas, wyznaczyć naprężenie dopuszczalne i dobrać pole przekroju dla zadanej siły. Nauczysz się odróżniać wymagany zapas od rzeczywistego oraz rozpoznawać, kiedy o wyniku decyduje wytrzymałość, a kiedy sztywność. Przećwiczysz też wariant odwrotny: od wymaganego zapasu do minimalnej granicy materiału lub minimalnego przekroju.
+
+Współczynnik bezpieczeństwa nie jest liczbą uniwersalną. Zależy od rodzaju obciążenia, materiału, konsekwencji zniszczenia, jakości danych i przyjętej metodyki. W typowych zadaniach edukacyjnych przyjmuje się wartości rzędu 1,5–2,5, ale w rzeczywistym projekcie wybór wynika z norm, analizy ryzyka i doświadczenia. W tej lekcji wartości liczbowe traktujemy jako dane zadania, a nie jako zalecenie normowe.
+
+## Zanim zaczniesz
+
+- **Granice materiału.** Odróżnij granicę plastyczności $R_e$ od wytrzymałości na rozciąganie $R_m$. Dla metali plastycznych zwykle porównujemy się z $R_e$, a dla materiałów kruchych z $R_m$.
+- **Naprężenie zredukowane.** Musisz umieć obliczyć $\sigma_{red}$ według wybranej hipotezy. Współczynnik bezpieczeństwa ma sens tylko wtedy, gdy wiadomo, z jakim naprężeniem jest porównywana granica.
+- **Warunek wytrzymałości.** Przypomnij sobie postać $\sigma_{red}\le k$ oraz $n_{rz}\ge n_{wym}$. To dwa zapisy tego samego warunku, połączone zależnością $k=R_e/n_{wym}$.
+- **Jednostki.** Granica i naprężenie muszą być w tych samych jednostkach. Jeśli siła jest w kN, a pole w mm², zamień siłę na N przed dzieleniem.
+- **Sztywność.** Przypomnij sobie wzór $\Delta L=NL/(EA)$ dla pręta i zależność ugięcia belki od $EI$. Współczynnik wytrzymałości nie mówi nic o tych wielkościach.
+- **Typowa pułapka.** Nie porównuj zapasu obliczonego dla jednej hipotezy z wymaganiem zapisanym dla innej granicy. Nie zakładaj też, że większy zapas wytrzymałości automatycznie oznacza mniejsze ugięcie.
+
+## Model i intuicja
+
+Model bezpieczeństwa opiera się na porównaniu dwóch liczb: tego, co materiał może przenieść, i tego, co element rzeczywiście przenosi. Granica materiału jest wartością odniesienia, a naprężenie obliczeniowe opisuje stan elementu. Współczynnik bezpieczeństwa jest ilorazem tych dwóch wielkości i mówi, ile razy można by zwiększyć obciążenie, zanim według modelu osiągniemy granicę.
+
+Zakładamy proporcjonalne obciążenie: gdy zwiększamy siły, wszystkie składowe naprężenia rosną w tej samej proporcji. Wtedy współczynnik bezpieczeństwa można interpretować jako mnożnik obciążenia. Założenie przestaje obowiązywać, gdy obciążenie jest złożone z niezależnych składników, gdy występują odkształcenia plastyczne albo gdy geometria zmienia się na tyle, że rozkład sił wewnętrznych przestaje być liniowy.
+
+Drugie założenie dotyczy jednorodności materiału i powtarzalności wykonania. W rzeczywistym elemencie granica plastyczności nie jest jedną liczbą, lecz rozkładem wartości, a naprężenie obliczeniowe jest przybliżeniem. Współczynnik bezpieczeństwa pochłania część tej niepewności, ale nie zastępuje badań materiałowych ani analizy statystycznej. Im większa niepewność, tym większy zapas, ale samo zwiększanie zapasu nie naprawia błędnego modelu.
+
+Model ma także ograniczenie pojęciowe: jeden współczynnik nie opisuje całego elementu. Naprężenie zmienia się w przekroju i na długości, więc zapas jest przypisany do konkretnego punktu i konkretnej hipotezy. W elemencie może być punkt z zapasem 3,0 i punkt z zapasem 1,2; o bezpieczeństwie decyduje ten mniejszy. Dlatego najpierw szukamy punktu decydującego, a dopiero potem liczymy jeden zapas.
+
+| Pojęcie                 | Definicja                                    | Jednostka    |
+| ----------------------- | -------------------------------------------- | ------------ |
+| Granica materiału       | wartość odniesienia, np. $R_e$ lub $R_m$     | MPa          |
+| Naprężenie obliczeniowe | $\sigma_{red}$ w punkcie decydującym         | MPa          |
+| Zapas wymagany          | $n_{wym}$ przyjęty w zadaniu lub normie      | bezwymiarowy |
+| Zapas rzeczywisty       | $n_{rz}=R_e/\sigma_{red}$                    | bezwymiarowy |
+| Naprężenie dopuszczalne | $k=R_e/n_{wym}$                              | MPa          |
+| Mnożnik obciążenia      | stosunek obciążenia niszczącego do roboczego | bezwymiarowy |
+
+Zapas wymagany nie wynika z samego wzoru. Zależy od tego, jak dobrze znamy obciążenie, jak jednorodny jest materiał, jakie są konsekwencje zniszczenia i jak dokładny jest model. W konstrukcji, której awaria może być katastrofalna, przyjmuje się większy zapas niż w elemencie, którego zniszczenie prowadzi tylko do wymiany części. Wartości podawane w zadaniach są danymi, a nie uniwersalną receptą.
+
+| Źródło niepewności                           | Wpływ na zapas                         | Typowa reakcja projektanta                  |
+| -------------------------------------------- | -------------------------------------- | ------------------------------------------- |
+| obciążenie zmienne lub trudne do oszacowania | większe naprężenie niż obliczone       | większy $n_{wym}$ lub analiza obciążeń      |
+| rozrzut właściwości materiału                | możliwa niższa granica                 | badania, atesty, większy zapas              |
+| uproszczenie modelu                          | możliwe pominięte składowe             | analiza dokładniejsza lub korekta           |
+| koncentracja naprężeń                        | lokalne naprężenie wyższe od średniego | współczynnik koncentracji, zmiana geometrii |
+| konsekwencje zniszczenia                     | większe wymagania bezpieczeństwa       | wyższy $n_{wym}$ i kontrola jakości         |
+
+Tabela pokazuje, że zapas jest odpowiedzią na niepewność, a nie na niewiedzę, którą można zastąpić jedną liczbą. Dwie konstrukcje o tym samym naprężeniu obliczeniowym mogą wymagać różnych zapasów, jeśli różnią się konsekwencjami awarii. Dlatego porównywanie samych wartości $n$ między różnymi projektami bez kontekstu bywa mylące.
+
+## Laboratorium: co ustawić
+
+W laboratorium rozciągany jest pręt o zadanym polu przekroju. Ustaw siłę $F$, pole $A$, granicę $R_e$ i wymagany zapas $n$, a następnie obserwuj naprężenie rzeczywiste, zapas oraz minimalne pole. Spróbuj dobrać pole tak, aby warunek był spełniony z małym marginesem, i sprawdź, jak zmienia się wynik przy zmianie wymaganego zapasu.
 
 <Lab id="safety" />
 
+## Definicje i jednostki
+
+Naprężenie dopuszczalne to największa wartość naprężenia zredukowanego, jaką dopuszczamy w projekcie. Nie jest to granica materiału, lecz granica pomniejszona o wymagany zapas. Zapas rzeczywisty to stosunek granicy do naprężenia, które faktycznie występuje. Zapas wymagany to wartość, którą narzuca projekt, norma lub analiza ryzyka.
+
+| Symbol         | Znaczenie                                    | Jednostka    |
+| -------------- | -------------------------------------------- | ------------ |
+| $R_e$          | granica plastyczności                        | MPa          |
+| $R_m$          | wytrzymałość na rozciąganie                  | MPa          |
+| $\sigma_{red}$ | naprężenie zredukowane w punkcie decydującym | MPa          |
+| $n_{wym}$      | wymagany współczynnik bezpieczeństwa         | bezwymiarowy |
+| $n_{rz}$       | rzeczywisty współczynnik bezpieczeństwa      | bezwymiarowy |
+| $k$            | naprężenie dopuszczalne                      | MPa          |
+| $F$            | siła rozciągająca                            | N            |
+| $A$            | pole przekroju                               | mm²          |
+| $A_{min}$      | minimalne pole przekroju                     | mm²          |
+| $\Delta L$     | wydłużenie pręta                             | mm           |
+
+Warunek wytrzymałości można zapisać na trzy równoważne sposoby: $\sigma_{red}\le k$, $n_{rz}\ge n_{wym}$ oraz $R_e/\sigma_{red}\ge n_{wym}$. Wybór zapisu zależy od tego, czego szukamy. Gdy znamy przekrój, wygodniej liczyć $n_{rz}$; gdy dobieramy przekrój, wygodniej użyć $k$ i $A_{min}$. Wszystkie trzy zapisy wymagają tej samej granicy i tej samej hipotezy.
+
+| Warunek                     | Co porównujemy                | Kiedy używać                                    |
+| --------------------------- | ----------------------------- | ----------------------------------------------- |
+| $\sigma_{red}\le k$         | naprężenie z dopuszczalnym    | gdy znamy materiał i wymagany zapas             |
+| $n_{rz}\ge n_{wym}$         | zapas rzeczywisty z wymaganym | gdy sprawdzamy gotowy element                   |
+| $A\ge A_{min}$              | pole z minimalnym             | gdy dobieramy przekrój przy prostym rozciąganiu |
+| $\Delta L\le\Delta L_{dop}$ | wydłużenie z dopuszczalnym    | gdy decyduje sztywność, a nie wytrzymałość      |
+
+Te warunki nie są wymienne. Warunek wytrzymałości mówi o granicy materiału, a warunek sztywności o przemieszczeniu. Element może spełniać pierwszy i nie spełniać drugiego. W zadaniach z prętami rozciąganymi warto policzyć oba, bo wydłużenie zależy od długości, której nie ma we wzorze na naprężenie.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-n_{rz} = \frac{R_e}{\sigma_{red}} \geq n_{wym} \qquad k = \frac{R_e}{n_{wym}}
+n_{rz}=\frac{R_e}{\sigma_{red}}\ge n_{wym}, \qquad k=\frac{R_e}{n_{wym}}, \qquad A_{min}=\frac{F\,n_{wym}}{R_e}
 $$
 
-<Caption>Dla materiału kruchego zamiast Re można przyjąć wytrzymałość Rm. Warunek zawsze ma postać n_rz ≥ n_wym; wartość n_wym = 1 oznacza jedynie, że nie wymagamy dodatkowego zapasu.</Caption>
+<Caption>Podstawowy warunek bezpieczeństwa dla materiału plastycznego i prostego rozciągania. Dla innego stanu naprężenia w miejscu $\sigma_{red}$ podstawiamy wynik wybranej hipotezy, a dla materiału kruchego zamiast $R_e$ można przyjąć $R_m$. Trzeci wzór dotyczy tylko przypadku $F/A$ i nie zastępuje ogólnego warunku.</Caption>
 </Formula>
 
+Pierwszy wzór jest definicją, drugi wynika z niego przez przekształcenie, a trzeci jest szczególnym przypadkiem dla rozciągania. Kolejność jest ważna: najpierw ustalamy granicę i wymagany zapas, potem obliczamy naprężenie dopuszczalne, a dopiero na końcu dobieramy geometrię. Odwrócenie kolejności, czyli dobór przekroju bez ustalenia hipotezy, prowadzi do tego, że nie wiadomo, z czym porównać wynik.
+
+Wyprowadzenie pokazuje, skąd biorą się poszczególne postacie warunku i gdzie można popełnić błąd.
+
+1. **Granica materiału.** W próbie jednoosiowej stan graniczny występuje przy naprężeniu $R_e$ dla materiału plastycznego albo $R_m$ dla kruchego. Ta wartość jest punktem odniesienia dla całego elementu.
+2. **Naprężenie obliczeniowe.** W elemencie obliczamy $\sigma_{red}$ w punkcie decydującym. Nie jest to naprężenie średnie ani maksymalne z jednej składowej, lecz wynik redukcji całego stanu naprężenia.
+3. **Definicja zapasu.** Przyjmujemy $n_{rz}=R_e/\sigma_{red}$. Iloraz mówi, ile razy granica jest większa od naprężenia. Wartość $n_{rz}=1$ oznacza pracę na granicy, a $n_{rz}\lt 1$ przekroczenie granicy.
+4. **Wymaganie projektowe.** Projekt narzuca $n_{wym}$. Warunek $n_{rz}\ge n_{wym}$ oznacza, że rzeczywisty zapas nie może być mniejszy od wymaganego.
+5. **Naprężenie dopuszczalne.** Dzieląc obie strony przez $R_e$ i przekształcając, otrzymujemy $\sigma_{red}\le R_e/n_{wym}=k$. To jest ta sama informacja zapisana przez naprężenie, a nie przez stosunek.
+6. **Dobór przekroju.** Dla prostego rozciągania $\sigma_{red}=F/A$, więc $F/A\le R_e/n_{wym}$. Po przekształceniu $A\ge F n_{wym}/R_e=A_{min}$. Dla zginania lub skręcania trzeba analogicznie dobrać $W$ albo $W_o$.
+7. **Mnożnik obciążenia.** Przy proporcjonalnym obciążeniu naprężenie rośnie liniowo z siłą, więc $n_{rz}$ jest także mnożnikiem obciążenia: $F_{graniczne}=n_{rz}F_{robocze}$. To interpretacja ważna, ale obowiązuje tylko w zakresie liniowym.
+8. **Sztywność.** Wydłużenie pręta wynosi $\Delta L=FL/(EA)$ i zależy od $E$, $A$ oraz długości. Warunek $\Delta L\le\Delta L_{dop}$ jest niezależny od warunku wytrzymałości, bo $E$ nie występuje w $R_e$.
+9. **Stateczność.** Dla elementu ściskanego może decydować wyboczenie, a nie uplastycznienie. Wtedy zapas liczy się względem obciążenia krytycznego, a nie względem $R_e$.
+10. **Wybór granicy.** Na końcu sprawdzamy, czy hipoteza i granica pasują do materiału. Dla metalu plastycznego używamy $R_e$ i HMH lub Tresca, a dla materiału kruchego $R_m$ i kryterium naprężenia normalnego.
+
+Warto odróżnić zapas od współczynnika pewności stosowanego w normach. W zadaniach rachunkowych posługujemy się jednym stosunkiem granicy do naprężenia. W rzeczywistym projekcie normy mogą rozdzielać współczynniki na obciążenie, materiał, geometrię i konsekwencje zniszczenia, a wynikowy zapas jest iloczynem kilku czynników. To nie jest sprzeczność, lecz inny poziom modelowania. W tym kursie wystarczy zrozumieć, że $n_{wym}$ jest założeniem, a $n_{rz}$ wynikiem.
+
 <Insight>
-  Małe odkształcenie nie dowodzi dużego zapasu wytrzymałości. Warunki σred ≤ k i ugięcia lub przemieszczenia sprawdza
-  się niezależnie.
+  Współczynnik bezpieczeństwa jest przypisany do punktu, hipotezy i granicy. Samo stwierdzenie „mam zapas 2” nic nie
+  znaczy, dopóki nie wiadomo, gdzie, według czego i względem jakiej granicy został obliczony. Zawsze podawaj te trzy
+  informacje.
 </Insight>
 
 <WorkedExample>
-  <Given>Stal ma Re = 355 MPa. W elemencie σHMH = 142 MPa, a projekt wymaga n_wym ≥ 2,2.</Given>
+  <Given>
+    Pręt o polu przekroju $A=250\ \text{mm}^2$ jest rozciągany siłą $F=40\ \text{kN}$. Granica plastyczności wynosi $R_e=235\ \text{MPa}$, a projekt wymaga $n_{wym}=1{,}5$. Sprawdź warunek i oblicz brakujące pole.
+  </Given>
   <Steps>
-    <Step>Rzeczywisty zapas: n_rz = Re/σred = 355/142 = 2,50.</Step>
-    <Step>Porównanie: 2,50 ≥ 2,2, więc warunek jest spełniony.</Step>
-    <Step>Dopuszczalne naprężenie: k = Re/n_wym = 355/2,2 = 161,36 MPa.</Step>
-    <Step>Kontrola alternatywna: 142 ≤ 161,36 MPa.</Step>
+    <Step>Naprężenie: $\sigma=F/A=40\,000/250=160\ \text{MPa}$.</Step>
+    <Step>Naprężenie dopuszczalne: $k=R_e/n_{wym}=235/1{,}5=156{,}67\ \text{MPa}$.</Step>
+    <Step>Zapas rzeczywisty: $n_{rz}=235/160=1{,}469$.</Step>
+    <Step>Warunek: $160>156{,}67\ \text{MPa}$ oraz $1{,}469<1{,}5$, więc element nie spełnia wymagania.</Step>
+    <Step>Minimalne pole: $A_{min}=F n_{wym}/R_e=40\,000\cdot1{,}5/235=255{,}3\ \text{mm}^2$.</Step>
+    <Step>Brakuje $255{,}3-250=5{,}3\ \text{mm}^2$, czyli około 2 procent pola.</Step>
   </Steps>
   <Result>
-    Element spełnia warunek bezpieczeństwa; zapas rzeczywisty wynosi około 2,50, czyli przekracza wymagane 2,2.
+    Element jest zbyt wytężony: $\sigma=160\ \text{MPa}$ przekracza $k=156{,}7\ \text{MPa}$, a zapas $1{,}47$ jest mniejszy od wymaganego $1{,}5$. Potrzebne jest pole co najmniej $255{,}3\ \text{mm}^2$.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Rozważmy pręt o polu $A=400\ \text{mm}^2$, obciążony siłą $F=50\ \text{kN}$, wykonany ze stali o $R_e=235\ \text{MPa}$ i $E=200\ \text{GPa}$. Naprężenie wynosi $\sigma=50\,000/400=125\ \text{MPa}$, więc zapas $n=235/125=1{,}88$. Warunek wytrzymałości jest spełniony, jeśli wymagane jest na przykład $n_{wym}=1{,}5$.
+
+Sprawdźmy teraz sztywność dla dwóch długości: $L=1\ \text{m}$ i $L=3\ \text{m}$. Wydłużenie wynosi $\Delta L=FL/(EA)$. Dla $L=1000\ \text{mm}$ otrzymujemy $\Delta L=50\,000\cdot1\,000/(200\,000\cdot400)=0{,}625\ \text{mm}$. Dla $L=3\,000\ \text{mm}$ otrzymujemy $1{,}875\ \text{mm}$, czyli trzykrotnie więcej, bo długość wzrosła trzykrotnie.
+
+Zapas wytrzymałości w obu przypadkach jest identyczny i wynosi 1,88, ponieważ naprężenie nie zależy od długości. Jeżeli dopuszczalne wydłużenie wynosi $1{,}5\ \text{mm}$, to krótszy pręt je spełnia, a dłuższy nie. To klasyczny przykład sytuacji, w której duży zapas wytrzymałości nie gwarantuje poprawnej pracy konstrukcji. O sztywności decyduje iloczyn $EA$ i długość, a nie granica plastyczności.
+
+Wniosek praktyczny jest taki, że warunki trzeba sprawdzać niezależnie. Można zwiększyć pole przekroju, aby poprawić oba warunki, ale można też zmienić materiał na taki o większym $E$ albo skrócić element. Zwiększanie samej granicy $R_e$ poprawia wytrzymałość, ale prawie nie zmienia wydłużenia sprężystego, bo moduł Younga stali jest w przybliżeniu stały dla różnych gatunków.
+
+Ten przykład można odwrócić: przy zadanym dopuszczalnym wydłużeniu i znanej długości obliczyć wymagane pole. Dla $\Delta L_{dop}=1{,}5\ \text{mm}$, $L=3\,000\ \text{mm}$ i $F=50\ \text{kN}$ otrzymujemy $A\ge FL/(E\Delta L_{dop})=50\,000\cdot3\,000/(200\,000\cdot1{,}5)=500\ \text{mm}^2$. To więcej niż 400 mm², więc o doborze przekroju decyduje wtedy sztywność, a nie wytrzymałość.
+
+Taka sytuacja jest częsta w długich cięgnach, sprężynach i elementach, w których liczy się przemieszczenie. Projektant nie może poprzestać na sprawdzeniu $n\ge n_{wym}$, bo element o wystarczającym zapasie wytrzymałości może nadal być nieużyteczny z powodu zbyt dużego wydłużenia. Dopiero porównanie obu wymagań daje pełny obraz.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że element o polu $A=400\ \text{mm}^2$ ma przenieść siłę $F=60\ \text{kN}$ przy wymaganym zapasie $n_{wym}=2$. Naprężenie wynosi $\sigma=60\,000/400=150\ \text{MPa}$. Wymagana granica materiału to $R_{e,req}=\sigma n_{wym}=150\cdot2=300\ \text{MPa}$.
+
+Typowa stal konstrukcyjna o granicy 235 MPa nie wystarcza, bo dałaby zapas $235/150=1{,}57$, czyli mniej niż 2. Można wybrać stal o wyższej granicy, na przykład 355 MPa, i wtedy zapas wyniesie $355/150=2{,}37$, albo zwiększyć pole przekroju przy tej samej stali.
+
+Przy stali 235 MPa i zapasie 2 naprężenie dopuszczalne wynosi $k=117{,}5\ \text{MPa}$, więc minimalne pole to $A_{min}=60\,000/117{,}5=510{,}6\ \text{mm}^2$. Po zaokrągleniu do 511 mm² warunek jest spełniony z niewielkim marginesem. To zadanie odwrotne pokazuje, że ten sam wymagany zapas można osiągnąć przez zmianę materiału albo przez zmianę geometrii.
+
+W praktyce wybór między tymi drogami zależy od kosztu, masy, dostępności i sztywności. Stal o wyższej granicy jest często droższa, ale pozwala zachować mniejszy przekrój. Większy przekrój zwiększa masę i sztywność, co bywa zaletą lub wadą. Sam warunek wytrzymałości nie rozstrzyga tego wyboru, bo dochodzą do niego kryteria konstrukcyjne i ekonomiczne.
+
+Zauważ, że wymagana granica 300 MPa jest wartością stosunkowo wysoką dla typowej stali konstrukcyjnej, ale nie absurdalną. W zadaniach edukacyjnych często pojawiają się stale o granicy 235, 275, 355 MPa. Jeżeli obliczona wymagana granica wypada między dostępnymi gatunkami, projektant wybiera gatunek o wyższej granicy i ponownie sprawdza zapas. Nie zaokrągla granicy w dół, bo to zmniejszyłoby bezpieczeństwo.
+
+Wariant odwrotny można też rozwiązać przez zmianę wymaganego zapasu. Gdyby projekt dopuszczał $n_{wym}=1{,}5$ zamiast 2, to przy stali 235 MPa i polu 400 mm² warunek byłby spełniony, bo $1{,}57\ge1{,}5$. To pokazuje, że wynik zależy od założenia projektowego, a nie tylko od matematyki. W zadaniach trzeba więc zawsze sprawdzić, czy wymagany zapas dotyczy tej samej granicy i tego samego stanu naprężenia, dla którego liczony jest zapas rzeczywisty.
+
+Ostatnia kontrola dotyczy jednostek i rzędu wielkości. Naprężenie 150 MPa przy polu 400 mm² odpowiada sile 60 kN, czyli około 6 ton. To sensowna wartość dla pręta o średnicy około 22,6 mm. Gdyby wynik wychodził w setkach kiloniutonów albo w ułamkach niutona, trzeba sprawdzić przeliczenia, zanim uzna się zadanie za rozwiązane.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie zapasu wymaganego z rzeczywistym. $n_{wym}$ to założenie projektu, a $n_{rz}$ to wynik obliczeń; porównujemy je, a nie podstawiamy jedno za drugie.
+- Dzielenie naprężenia przez granicę zamiast granicy przez naprężenie. Odwrotność zapasu nie jest zapasem i prowadzi do błędnej interpretacji.
+- Stosowanie $R_e$ do materiału kruchego bez sprawdzenia, czy nie decyduje $R_m$ przy rozciąganiu. Kruche materiały mogą pękać przed uplastycznieniem.
+- Zapominanie o zamianie kN na N i kN·m na N·mm. Błąd jednostek zmienia wynik o tysiąc lub milion razy.
+- Uznanie, że duży zapas wytrzymałości gwarantuje małe ugięcie. Sztywność zależy od $E$ i geometrii, a nie od $R_e$.
+- Porównywanie zapasu wyliczonego według HMH z wymaganiem zapisanym dla Tresca lub dla innej granicy.
+- Zaokrąglanie średnicy lub pola w dół, mimo że warunek wymaga wartości nie mniejszej od obliczonej.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal, co jest sprawdzane.** Rozstrzygnij, czy zadanie dotyczy wytrzymałości, sztywności, stateczności, czy kilku warunków jednocześnie.
+2. **Wybierz granicę i hipotezę.** Dla metalu plastycznego użyj $R_e$ i HMH albo Tresca. Dla materiału kruchego użyj $R_m$ i kryterium naprężenia normalnego.
+3. **Znajdź punkt decydujący.** Oblicz $\sigma_{red}$ w kandydatach i wybierz największą wartość. Nie licz zapasu dla punktu, który nie jest najbardziej wytężony.
+4. **Oblicz zapas rzeczywisty.** Podziel granicę przez $\sigma_{red}$. Sprawdź, czy wynik jest większy od jedności, zanim porównasz go z $n_{wym}$.
+5. **Porównaj z wymaganiem.** Sprawdź $n_{rz}\ge n_{wym}$ albo równoważnie $\sigma_{red}\le k$. Wynik blisko granicy potraktuj jako sygnał do dokładniejszej analizy.
+6. **Sprawdź sztywność.** Osobno oblicz wydłużenie, ugięcie lub kąt skręcenia i porównaj z wartością dopuszczalną. Nie zastępuj tego warunkiem wytrzymałości.
+7. **Podejmij decyzję.** Jeśli warunek nie jest spełniony, zwiększ przekrój, zmień materiał lub zmień geometrię. Po zmianie powtórz obliczenia, bo nowe pole zmienia naprężenie i sztywność.
+
+## Połącz z resztą kursu
+
+- **Naprężenie zredukowane: jedna liczba dla złożonego stanu** pokazuje, jak z kilku składowych naprężenia otrzymać wartość, którą można porównać z granicą.
+- **HMH czy Tresca? Porównanie hipotez** przypomina, że zapas zależy od wybranej hipotezy i że trzeba go liczyć osobno dla każdej z nich.
+- **Zginanie, skręcanie i siła osiowa razem** dostarcza praktycznego przykładu, w którym zapas liczy się dla punktu decydującego w przekroju.
+- **Rozciąganie i ściskanie prętów** wprowadza warunek $\sigma=N/A$ oraz wydłużenie $\Delta L=NL/(EA)$, które są podstawą obu sprawdzeń.
+- **Skręcanie prętów kołowych** pokazuje warunek na kąt skręcenia, czyli typowy warunek sztywności niezależny od wytrzymałości.
+- **Zginanie belek** dostarcza warunku na ugięcie, który trzeba sprawdzić obok warunku na naprężenie normalne.
+
+## Sprawdź się
+
+Pytania sprawdzają rozróżnienie zapasu wymaganego i rzeczywistego, jednostki oraz granicę między wytrzymałością a sztywnością.
+
 <Quiz>
   <Question outcome="U3">
-    <Prompt>Materiał ma Re = 300 MPa, wymagane n = 2. Jakie jest naprężenie dopuszczalne?</Prompt>
+    <Prompt>Materiał ma $R_e=300\ \text{MPa}$, a wymagany zapas wynosi $n=2$. Jakie jest naprężenie dopuszczalne?</Prompt>
     <Answer correct>150 MPa</Answer>
     <Answer>300 MPa</Answer>
     <Answer>600 MPa</Answer>
     <Hint>Podziel granicę przez wymagany współczynnik.</Hint>
     <Explanation>
-      k = Re/n_wym = 300/2 = 150 MPa. Naprężenie dopuszczalne jest mniejsze od granicy, ponieważ rezerwujemy zapas.
+      $k=R_e/n=300/2=150\ \text{MPa}$. Naprężenie dopuszczalne jest mniejsze od granicy, ponieważ rezerwujemy zapas.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>
-      Dla Rm = 400 MPa i σred = 250 MPa materiał kruchy ma zapas n = 1,6, a projekt wymaga n ≥ 2. Jaki jest wynik
-      sprawdzenia wymaganego zapasu?
-    </Prompt>
-    <Answer correct>Warunek n ≥ 2 nie jest spełniony</Answer>
+    <Prompt>Dla $R_m=400\ \text{MPa}$ i $\sigma_{red}=250\ \text{MPa}$ materiał kruchy ma zapas $n=1{,}6$, a projekt wymaga $n\ge2$. Jaki jest wynik sprawdzenia?</Prompt>
+    <Answer correct>Warunek $n\ge2$ nie jest spełniony</Answer>
     <Answer>Element na pewno ma za małą sztywność</Answer>
-    <Answer>Naprężenie przekracza Rm</Answer>
+    <Answer>Naprężenie przekracza $R_m$</Answer>
     <Hint>Porównaj rzeczywisty zapas z wymaganym i osobno naprężenie z granicą.</Hint>
     <Explanation>
-      250 &lt; 400 MPa, więc granica nie jest przekroczona, ale 1,6 &lt; 2, więc wymagany zapas nie jest zapewniony. O
-      sztywności ten wynik nic nie mówi.
+      $250<400\ \text{MPa}$, więc granica nie jest przekroczona, ale $1{,}6<2$, więc wymagany zapas nie jest zapewniony. O sztywności ten wynik nic nie mówi.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>Jak zmieni się rzeczywiste n, jeśli przy niezmienionym materiale σred wzrośnie z 100 do 125 MPa?</Prompt>
-    <Answer>Wzrośnie o 25%</Answer>
-    <Answer correct>Zmniejszy się do 80% poprzedniej wartości</Answer>
+    <Prompt>Jak zmieni się rzeczywiste $n$, jeśli przy niezmienionym materiale $\sigma_{red}$ wzrośnie ze 100 do 125 MPa?</Prompt>
+    <Answer>Wzrośnie o 25 procent</Answer>
+    <Answer correct>Zmniejszy się do 80 procent poprzedniej wartości</Answer>
     <Answer>Nie zmieni się</Answer>
-    <Hint>n jest odwrotnie proporcjonalne do σred.</Hint>
+    <Hint>$n$ jest odwrotnie proporcjonalne do $\sigma_{red}$.</Hint>
     <Explanation>
-      Stosunek nowego i starego zapasu wynosi 100/125 = 0,8, więc zapas spada do 80% poprzedniej wartości. Wzrost
-      wytężenia o 25% nie zmniejsza zapasu o 25%, bo zależność jest odwrotnie proporcjonalna.
+      Stosunek nowego i starego zapasu wynosi $100/125=0{,}8$, więc zapas spada do 80 procent poprzedniej wartości. Wzrost wytężenia o 25 procent nie zmniejsza zapasu o 25 procent, bo zależność jest odwrotnie proporcjonalna.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła $F=40\ \text{kN}$ działa na pole $A=250\ \text{mm}^2$. Ile wynosi naprężenie?</Prompt>
+    <Answer correct>160 MPa</Answer>
+    <Answer>16 MPa</Answer>
+    <Answer>1600 MPa</Answer>
+    <Hint>Zamień kN na N, a następnie podziel przez pole w mm².</Hint>
+    <Explanation>
+      $40\ \text{kN}=40\,000\ \text{N}$, więc $\sigma=40\,000/250=160\ \text{MPa}$. Pominięcie zamiany kN na N dałoby 0,16 MPa, czyli wynik tysiąc razy za mały. Kontrola jednostek od razu pokazuje, że 160 MPa jest właściwym rzędem wielkości dla stali.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Przy $F=40\ \text{kN}$, $R_e=235\ \text{MPa}$ i $n_{wym}=1{,}5$ jakie jest minimalne pole przekroju?</Prompt>
+    <Answer>170,2 mm²</Answer>
+    <Answer correct>255,3 mm²</Answer>
+    <Answer>382,9 mm²</Answer>
+    <Hint>Użyj $A_{min}=F n_{wym}/R_e$ i pamiętaj o niutonach.</Hint>
+    <Explanation>
+      $A_{min}=40\,000\cdot1{,}5/235=255{,}3\ \text{mm}^2$. Wartość 170,2 mm² powstałaby z pominięcia wymaganego zapasu, a 382,9 mm² z dodatkowego pomnożenia przez 1,5.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Element ma zapas wytrzymałości $n=4$, ale jego ugięcie przekracza wartość dopuszczalną. Co z tego wynika?</Prompt>
+    <Answer>Zapas jest obliczony błędnie, bo przy $n=4$ ugięcie zawsze jest małe</Answer>
+    <Answer correct>Warunek wytrzymałości jest spełniony, ale warunek sztywności nie</Answer>
+    <Answer>Element jest bezpieczny, bo decyduje tylko wytrzymałość</Answer>
+    <Hint>Wytrzymałość i sztywność to dwa niezależne warunki.</Hint>
+    <Explanation>
+      Duży zapas wytrzymałości nie gwarantuje małego ugięcia, ponieważ ugięcie zależy od $E$, geometrii i długości. Warunek sztywności trzeba sprawdzić osobno i w tym przypadku nie jest spełniony.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Przy proporcjonalnym obciążeniu element ma zapas $n=2{,}5$. Ile wynosi obciążenie graniczne względem roboczego?</Prompt>
+    <Answer>0,4 obciążenia roboczego</Answer>
+    <Answer correct>2,5 razy obciążenie robocze</Answer>
+    <Answer>Nie da się tego określić bez modułu Younga</Answer>
+    <Hint>W zakresie liniowym naprężenie jest proporcjonalne do obciążenia.</Hint>
+    <Explanation>
+      Przy proporcjonalnym obciążeniu $F_{graniczne}=nF_{robocze}$, więc obciążenie graniczne jest 2,5 razy większe od roboczego. Moduł Younga nie wchodzi do warunku wytrzymałości, choć wpływa na sztywność.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Naprężenie w elemencie wynosi 150 MPa, a wymagany zapas to 2. Jakiej granicy materiału wymaga warunek wytrzymałości?</Prompt>
+    <Answer correct>300 MPa</Answer>
+    <Answer>75 MPa</Answer>
+    <Answer>150 MPa</Answer>
+    <Hint>Przekształć $n=R_e/\sigma$ względem $R_e$.</Hint>
+    <Explanation>
+      $R_{e,req}=\sigma n=150\cdot2=300\ \text{MPa}$. Wartość 75 MPa powstałaby z podzielenia przez zapas zamiast pomnożenia, co odpowiadałoby zupełnie innemu warunkowi.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o warunkach wytrzymałości i naprężeniach dopuszczalnych; szukaj przejścia od granicy materiału do wartości dopuszczalnej.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z doborem przekroju i współczynnikiem bezpieczeństwa; dobre do ćwiczenia jednostek i wariantu odwrotnego.
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o projektowaniu elementów i współczynniku bezpieczeństwa; pokazuje różnicę między wytrzymałością a sztywnością.
+- D. Roylance, _Mechanics of Materials_ (podręcznik otwarty) — rozdział 6.1 o uplastycznieniu; wyjaśnia, dlaczego projektuje się z zapasem względem granicy plastyczności.
+- MIT 3.11, _Mechanics of Materials_ (notatki otwarte) — wykład o krzywych naprężenie–odkształcenie; pokazuje sens granicy plastyczności i wytrzymałości na rozciąganie.

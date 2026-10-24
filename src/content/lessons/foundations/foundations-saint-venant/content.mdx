@@ -7,7 +7,6 @@ shortTitle: Saint-Venant
 description: >-
   Oceń, kiedy lokalny sposób przyłożenia siły przestaje decydować o rozkładzie
   naprężeń.
-duration: 10
 eyebrow: 'Lokalnie skomplikowanie, dalej prościej'
 outcomes:
   - W1 — ocenia zasięg uproszczeń modelu elementu
@@ -18,79 +17,332 @@ outcomes:
   - 'U3 — wybiera przekroje, w których prosty dobór jest zasadny'
 ---
 
-Siła przyłożona przez sztywną płytkę i ta sama wypadkowa rozłożona inaczej mogą dawać różne naprężenia tuż przy końcu. Wystarczająco daleko od miejsca przyłożenia rozkłady stają się praktycznie takie same, jeśli układy sił są statycznie równoważne.
+Wyobraź sobie pręt rozciągany uchwytem, który ściska go tylko na niewielkim fragmencie końca. Tuż przy uchwycie materiał jest ściskany, zginany i ścinany jednocześnie. Kilkadziesiąt milimetrów dalej rozkład naprężeń wygląda już znacznie spokojniej: siła rozkłada się równomiernie na całym przekroju, a wzór $\sigma=N/A$ zaczyna być dobrym przybliżeniem. Ta zmiana nie jest przypadkiem. Opisuje ją zasada Saint-Venanta.
+
+Zasada mówi, że dwa różne, ale statycznie równoważne sposoby przyłożenia obciążenia dają praktycznie taki sam stan naprężeń wystarczająco daleko od miejsca przyłożenia. „Statycznie równoważne” znaczy tyle, że mają tę samą wypadkową siłę i ten sam wypadkowy moment. Nie znaczy, że nacisk rozkłada się identycznie. Blisko uchwytu różnice mogą być ogromne; daleko od niego maleją.
+
+W tej lekcji nauczysz się odróżniać naprężenie nominalne, obliczane ze średniej siły na przekrój, od naprężenia lokalnego, które może być znacznie większe przy otworze, karbie lub miejscu mocowania. Nauczysz się też szacować, gdzie prosty model przestaje wystarczać, oraz posługiwać się współczynnikiem koncentracji naprężeń. To umiejętność, która chroni przed najczęstszym błędem podstawień: użyciem $\sigma=N/A$ w miejscu, w którym właśnie ono nie obowiązuje.
+
+Zasada Saint-Venanta nie jest tym samym co koncentracja naprężeń. Pierwsza mówi, jak szybko znika różnica między dwoma sposobami przyłożenia obciążenia. Druga opisuje lokalne wzmocnienie pola naprężeń wokół geometrycznego detalu, na przykład otworu. Otwór może powodować koncentrację nawet wtedy, gdy obciążenie jest przyłożone bardzo daleko. Te dwa efekty trzeba rozdzielić, bo mają różne źródła i różne zasady stosowania.
+
+Dla projektowania oznacza to prostą regułę: z dala od mocowań, otworów i nagłych zmian przekroju możesz użyć prostego wzoru i sprawdzić naprężenie nominalne. Przy samym detalu potrzebujesz albo współczynnika koncentracji dla konkretnej geometrii, albo dokładniejszej analizy. W konstrukcjach zmęczeniowych ten detal bywa ważniejszy niż cała reszta pręta, bo właśnie tam zaczynają się pęknięcia.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie, że naprężenie normalne przy rozciąganiu wynosi $\sigma=N/A$, gdzie $N$ jest siłą normalną, a $A$ polem przekroju. Wynik wychodzi w MPa, jeśli $N$ jest w N, a $A$ w mm².
+- Rozumiej pojęcie wypadkowej siły i momentu. Dwa układy obciążeń są statycznie równoważne, gdy dają tę samą wypadkową siłę i ten sam moment względem dowolnego punktu.
+- Odróżniaj przekrój brutto od przekroju netto. Przy otworze pole netto jest mniejsze od pola całego przekroju, więc średnie naprężenie w tym miejscu jest większe.
+- Wiedz, że współczynnik koncentracji naprężeń $K_t$ jest bezwymiarowy i zależy od geometrii oraz sposobu obciążenia, a nie jest stałą materiałową.
+- Uważaj na jednostki odległości. Zasięg strefy zaburzeń porównujesz z wymiarem poprzecznym przekroju, a nie z dowolną stałą liczbą milimetrów.
+- Pamiętaj, że wzór sprężysty z $K_t$ przestaje być dokładny, gdy naprężenie lokalne przekracza granicę plastyczności. Wtedy potrzebna jest analiza sprężysto-plastyczna albo doświadczenie.
+
+## Model i intuicja
+
+Rzeczywiste obciążenie jest przyłożone przez kontakt: przez płytkę, sworzeń, gwint, spoinę albo szczęki maszyny. Na niewielkim obszarze styku powstaje złożony stan naprężenia, często trójosiowy. W miarę oddalania się od tego obszaru wpływ szczegółów kontaktu maleje, a rozkład naprężeń dąży do prostszego, który zależy już tylko od wypadkowej siły wewnętrznej. Zasada Saint-Venanta opisuje właśnie ten zanik.
+
+Model przyjmuje, że materiał jest jednorodny, liniowo sprężysty i izotropowy, a odkształcenia są małe. Pręt jest smukły, więc jego wymiar poprzeczny jest znacznie mniejszy od długości. W tych warunkach strefa zaburzeń ma zasięg rzędu wymiaru poprzecznego: średnicy pręta, szerokości lub wysokości przekroju. Nie jest to uniwersalna liczba milimetrów ani jedna odległość dla każdego detalu. Dla pręta o średnicy 20 mm inna będzie strefa zaburzeń niż dla belki o wysokości 300 mm.
+
+„Wystarczająco daleko” nie znaczy „nieskończenie daleko”. W praktyce chodzi o odległość, po której różnica między rozkładami jest mała w porównaniu z dokładnością, jakiej potrzebujesz. W typowych oszacowaniach mówi się o kilku wymiarach poprzecznych, ale to zależy od geometrii i sposobu obciążenia. W podręcznikach znajdziesz różne zalecenia, dlatego zawsze podawaj założenie, a nie traktuj jednej liczby jak normy.
+
+Ważne rozróżnienie: zasada Saint-Venanta dotyczy różnicy między dwoma statycznie równoważnymi obciążeniami. Nie mówi, że naprężenie znika daleko od siły. Wręcz przeciwnie, daleko od końca pręt nadal przenosi siłę i naprężenie nominalne jest niezerowe. Znika jedynie różnica wynikająca ze szczegółowego rozkładu obciążenia. Podobnie otwór pozostawia lokalną koncentrację przy swojej krawędzi, nawet jeśli samo obciążenie jest przyłożone daleko.
+
+Prosty obraz: ten sam pręt możesz rozciągać przez równomiernie przyklejoną płytkę albo przez pojedynczy sworzeń. W obu przypadkach wypadkowa siła jest taka sama, więc daleko od końca naprężenie nominalne jest takie samo. Przy samym końcu płytka rozkłada nacisk inaczej niż sworzeń, więc lokalne maksima mogą się różnić. Zasada pozwala zastąpić jeden sposób drugim tylko wtedy, gdy interesuje nas odległy przekrój, a nie detal mocowania.
+
+Granica między strefą zaburzeń a obszarem jednorodnym nie jest ostrą linią. Przejście jest płynne, a to, czy różnica jest już do przyjęcia, zależy od wymaganej dokładności. W obliczeniach szkolnych często przyjmuje się, że po kilku wymiarach poprzecznych można użyć prostego wzoru. W obliczeniach konstrukcyjnych przy połączeniach i karbach lepiej posłużyć się współczynnikiem koncentracji albo analizą numeryczną niż zgadywać odległość.
+
+Koncentrację naprężeń opisujemy współczynnikiem $K_t$. Naprężenie nominalne $\sigma_{\mathrm{nom}}$ obliczamy z siły i pola przekroju, a naprężenie maksymalne przy detalu szacujemy jako $K_t\sigma_{\mathrm{nom}}$. Dla małego otworu kołowego w szerokiej, sprężystej płycie rozciąganej jednoosiowo rozwiązanie Kirscha daje $K_t\approx 3$. To nie jest uniwersalna wartość dla każdego otworu: dla otworu blisko krawędzi, dla szczeliny, dla karbu o innym kształcie albo dla innego obciążenia współczynnik będzie inny.
+
+Model przestaje wystarczać w kilku sytuacjach. Przy bardzo ostrym karbie lub szczelinie naprężenie teoretyczne dąży do nieskończoności, więc samo $K_t$ przestaje być wygodnym narzędziem i potrzebna jest mechanika pękania. Przy lokalnym uplastycznieniu rozkład naprężeń się zmienia, a sprężysty $K_t$ zawyża maksimum. Przy materiale anizotropowym, kompozycie, połączeniu klejonym lub dużym odkształceniu założenia modelu również przestają być spełnione.
+
+Współczynniki koncentracji z wykresów są ważne tylko w określonym zakresie proporcji geometrycznych i sposobu obciążenia. Nie należy ekstrapolować ich poza zakres wykresu ani przenosić między rozciąganiem, zginaniem i skręcaniem. Przy połączeniach spawanych dochodzi niejednorodność materiału i naprężenia własne, więc sam $K_t$ nie opisuje całego problemu. W takich przypadkach potrzebna jest analiza numeryczna albo badanie doświadczalne, a nie kolejne podstawienie do wzoru.
+
+Roylance opisuje rozwiązanie Kirscha dla otworu kołowego i zauważa, że efekt koncentracji jest ograniczony do obszaru w pobliżu otworu, a naprężenia wracają do wartości dalekiego pola w odległości rzędu trzech średnic otworu. To jest właśnie praktyczna ilustracja zasady Saint-Venanta: zaburzenie jest lokalne, choć w samym miejscu zaburzenia może być bardzo silne. Wierzbicki pokazuje to samo na przykładzie pręta rozciąganego przez uchwyt: przy końcu stan naprężenia jest złożony, a dalej przechodzi w jednoosiowy.
+
+W praktyce pomiarowej zasadę Saint-Venanta wykorzystuje się do planowania tensometrów. Umieszcza się je z dala od uchwytów, w strefie, gdzie różne sposoby obciążenia dają podobny wynik. Jeśli tensometr jest zbyt blisko szczęk, pomiar zależy od sposobu zamocowania, a nie od samej siły w pręcie. To jest praktyczna konsekwencja różnicy między polem bliskim i dalekim.
+
+## Laboratorium: co ustawić
+
+Oddalaj badany przekrój od obciążonego końca i obserwuj, jak profil naprężeń się wygładza, a naprężenie średnie pozostaje równe $P/A$. Model w laboratorium jest jakościowy: pokazuje tendencję, a nie dokładne rozwiązanie sprężyste przy samym końcu.
 
 <Lab id="saintVenant" />
 
+## Definicje i jednostki
+
+| Pojęcie                          | Znaczenie                                                                 | Symbol i jednostka           |
+| -------------------------------- | ------------------------------------------------------------------------- | ---------------------------- |
+| Naprężenie nominalne             | Średnia siła normalna przypadająca na jednostkę pola przekroju            | $\sigma_{\mathrm{nom}}$, MPa |
+| Naprężenie maksymalne            | Największa wartość naprężenia w rozpatrywanym obszarze                    | $\sigma_{\max}$, MPa         |
+| Współczynnik koncentracji        | Stosunek naprężenia maksymalnego do nominalnego                           | $K_t$, bezwymiarowy          |
+| Strefa zaburzeń                  | Obszar, w którym rozkład naprężeń różni się od prostego modelu            | bez jednostki                |
+| Obciążenia statycznie równoważne | Układy o tej samej wypadkowej sile i tym samym wypadkowym momencie        | bez jednostki                |
+| Przekrój brutto                  | Pole przekroju bez odejmowania otworów                                    | $A$, mm²                     |
+| Przekrój netto                   | Pole przekroju po odjęciu otworów lub innych ubytków                      | $A_{\mathrm{net}}$, mm²      |
+| Wymiar charakterystyczny         | Średnica, szerokość lub wysokość przekroju, z którą porównujemy odległość | $d$ lub $b$, mm              |
+
+Symbole: $N$ — siła normalna, $P$ — siła zewnętrzna, $A$ — pole przekroju, $d$ — średnica otworu lub pręta, $b$ — szerokość, $t$ — grubość, $x$ — odległość od miejsca przyłożenia obciążenia lub od detalu. Jednostki naprężenia: 1 MPa = 1 N/mm² = 10⁶ Pa. Współczynnik $K_t$ jest bezwymiarowy, więc nie przypisujesz mu jednostki.
+
+Konwencja znaków: naprężenie rozciągające przyjmujemy jako dodatnie, a ściskające jako ujemne. Wartość $K_t$ jest dodatnia i dla koncentracji większa od jedności; $K_t=1$ oznacza brak koncentracji, czyli rozkład równomierny. Przy ocenie wytrzymałości interesuje nas zwykle wartość bezwzględna naprężenia, ale znak jest ważny przy łączeniu naprężeń z różnych obciążeń.
+
+Nie myl $K_t$ ze współczynnikiem intensywności naprężeń przy pęknięciu. $K_t$ opisuje stosunek maksimum lokalnego do średniej w zadaniu geometrycznym, a nie odporność materiału na pęknięcie. Przy bardzo ostrym karbie maksimum teoretyczne rośnie bez ograniczeń, więc samo $K_t$ przestaje wystarczać. Wtedy potrzebna jest mechanika pękania, a nie kolejne podstawienie do wzoru sprężystego.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma_{\mathrm{sr}}=\frac{N}{A}\quad\text{wystarczająco daleko od miejsca przyłożenia obciążenia}
+\sigma_{\mathrm{nom}}=\frac{N}{A},\qquad
+\sigma_{\max}=K_t\,\sigma_{\mathrm{nom}},\qquad
+K_t=\frac{\sigma_{\max}}{\sigma_{\mathrm{nom}}}
 $$
 
-<Caption>Zasada Saint-Venanta nie podaje jednej uniwersalnej odległości dla każdego detalu. Blisko karbów, otworów i mocowań trzeba osobno analizować koncentrację naprężeń.</Caption>
+<Caption>Poza strefą zaburzeń $K_t\to 1$ i wystarcza naprężenie nominalne. Przy otworze, karbie lub innym detalu $K_t$ jest większy od jedności, a jego wartość zależy od geometrii i sposobu obciążenia. Dla małego otworu kołowego w szerokiej płycie rozciąganej jednoosiowo $K_t\approx 3$.</Caption>
+</Formula>
+
+Wyprowadzenie zaczynamy od przekroju wystarczająco odległego od miejsca przyłożenia siły. Przecinamy pręt i rozpatrujemy jedną część. Siła normalna $N$ w przekroju jest wypadkową naprężeń normalnych działających na wszystkie elementy pola przekroju.
+
+1. Z równowagi odciętej części wynika, że wypadkowa naprężeń normalnych musi być równa sile zewnętrznej $N$.
+2. Naprężenie normalne $\sigma$ jest siłą na jednostkę powierzchni, więc wypadkową otrzymujemy przez całkowanie po polu przekroju: $N=\int_A\sigma\,\mathrm{d}A$.
+3. Daleko od miejsca przyłożenia obciążenia i przy równomiernym przyłożeniu siły rozkład naprężeń jest w przybliżeniu równomierny. To jest założenie modelu, a nie ogólna własność każdego przekroju.
+4. Jeśli $\sigma$ jest stałe na całym polu $A$, całka upraszcza się do $N=\sigma A$.
+5. Dzieląc przez pole, otrzymujemy $\sigma=N/A$. To jest naprężenie nominalne, czyli średnia po przekroju.
+6. Blisko miejsca przyłożenia obciążenia naprężenie nie jest równomierne. Ten sam $N$ może wywoływać większe naprężenie w jednych punktach i mniejsze w innych, ale całka z naprężenia nadal musi być równa $N$.
+7. Definiujemy naprężenie maksymalne $\sigma_{\max}$ jako największą wartość w rozpatrywanym obszarze i porównujemy je z naprężeniem nominalnym.
+8. Stosunek tych wartości nazywamy współczynnikiem koncentracji $K_t=\sigma_{\max}/\sigma_{\mathrm{nom}}$. Dla rozkładu równomiernego $K_t=1$, a przy koncentracji $K_t$ jest większy od jedności.
+9. Dla otworu kołowego w szerokiej płycie rozwiązanie Kirscha daje maksimum naprężenia stycznego na krawędzi otworu równe trzykrotności naprężenia dalekiego pola. Dla takiego przypadku $K_t\approx 3$.
+10. W miarę oddalania się od otworu lub miejsca przyłożenia siły różnica między rozkładem rzeczywistym a równomiernym maleje. Dlatego z dala od detalu można wrócić do $\sigma=N/A$, ale nie wolno tego robić w samym detalu.
+
+<Formula>
+$$
+A_{\mathrm{net}}=A-A_{\mathrm{otworu}},\qquad
+\sigma_{\mathrm{nom}}=\frac{N}{A_{\mathrm{net}}}
+$$
+
+<Caption>Przy otworze naprężenie nominalne liczymy często na przekroju netto, bo materiał musi przenieść siłę przez mniejsze pole. Przekrój brutto jest większy, więc naprężenie brutto jest mniejsze. Zawsze zapisz, którego pola użyłeś.</Caption>
 </Formula>
 
 <Insight>
-  Równość wypadkowych sił i momentów nie oznacza identycznych naprężeń w każdym punkcie. Upraszczając obciążenie,
-  akceptujemy różnice lokalne, ale musimy wiedzieć, gdzie model przestaje wystarczać.
+  Zasada Saint-Venanta nie mówi, że naprężenie znika daleko od obciążenia. Mówi, że znika różnica między dwoma
+  statycznie równoważnymi rozkładami obciążenia. Naprężenie nominalne nadal istnieje, a koncentracja przy otworze może
+  być silna nawet wtedy, gdy siła jest przyłożona bardzo daleko.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Pręt kołowy o średnicy d = 40 mm jest osiowo rozciągany siłą P = 80 kN. Oszacuj naprężenie w przekroju odległym od
-    mocowania.
+    Płaska taśma ma szerokość b = 80 mm i grubość t = 8 mm. W środku szerokości znajduje się otwór kołowy o średnicy d =
+    16 mm. Taśma jest rozciągana siłą P = 64 kN. Przyjmij do oszacowania Kt ≈ 3, jak dla małego otworu w szerokiej
+    płycie; rzeczywisty współczynnik dla skończonej szerokości jest zwykle mniejszy.
   </Given>
   <Steps>
-    <Step>Oblicz pole przekroju: A = πd²/4 = π·40²/4 ≈ 1256,64 mm².</Step>
-    <Step>Przelicz siłę: P = 80 kN = 80 000 N.</Step>
-    <Step>Z dala od strefy mocowania przyjmij równomierny model: σśr = P/A.</Step>
-    <Step>Podstaw: σśr = 80 000/1256,64 ≈ 63,66 N/mm².</Step>
-    <Step>Zaznacz, że przy samym mocowaniu może występować inny, lokalny rozkład naprężeń.</Step>
+    <Step>Oblicz pole przekroju netto: Anet = (b − d) · t = (80 − 16) · 8 = 512 mm².</Step>
+    <Step>Przelicz siłę: P = 64 kN = 64 000 N.</Step>
+    <Step>Oblicz naprężenie nominalne na przekroju netto: σnom = 64 000 / 512 = 125 MPa.</Step>
+    <Step>Oszacuj naprężenie maksymalne przy otworze: σmax ≈ Kt · σnom = 3 · 125 = 375 MPa.</Step>
+    <Step>
+      Dla porównania naprężenie brutto wynosi 64 000 / (80 · 8) = 100 MPa. Różnica między 100 MPa i 125 MPa wynika z
+      mniejszego pola netto, a nie z koncentracji.
+    </Step>
+    <Step>
+      Typowa granica plastyczności stali konstrukcyjnej wynosi około 235 MPa, więc lokalne naprężenie 375 MPa przekracza
+      ją. Oznacza to możliwe lokalne uplastycznienie; sprężysty wzór z Kt jest wtedy tylko oszacowaniem górnym.
+    </Step>
+    <Step>
+      W odległości około trzech średnic otworu, czyli mniej więcej 48 mm, rozkład naprężeń wraca w przybliżeniu do
+      nominalnego. Tam można używać σ = N/A, ale nie przy samej krawędzi otworu.
+    </Step>
   </Steps>
   <Result>
-    W przekroju odległym od mocowania σśr ≈ 63,7 MPa (rozciąganie); wynik nie opisuje lokalnego maksimum przy detalu.
+    σnom = 125 MPa na przekroju netto, a σmax ≈ 375 MPa jako górne oszacowanie przy Kt ≈ 3. Lokalne uplastycznienie jest
+    możliwe, więc wynik traktuj jako sygnał do dokładniejszej analizy, a nie jako dokładną wartość naprężenia w otworze.
   </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Okrągły pręt o średnicy 30 mm jest rozciągany siłą 50 kN przez sworzeń lub uchwyt. Oszacuj naprężenie nominalne z dala od uchwytu i zastanów się, gdzie prosty model przestaje być wiarygodny.
+
+Pole przekroju wynosi:
+
+$$
+A=\frac{\pi d^2}{4}=\frac{\pi\cdot 30^2}{4}\approx 706{,}9\ \text{mm}^2
+$$
+
+Naprężenie nominalne:
+
+$$
+\sigma_{\mathrm{nom}}=\frac{50\,000\ \text{N}}{706{,}9\ \text{mm}^2}\approx 70{,}7\ \text{MPa}
+$$
+
+Wymiar charakterystyczny to średnica 30 mm. Strefa zaburzeń ma zasięg rzędu tego wymiaru, więc dopiero po około 60–90 mm od uchwytu można spodziewać się rozkładu bliskiego równomiernemu. To oszacowanie, a nie norma: rzeczywisty zasięg zależy od sposobu mocowania, sztywności uchwytu i kontaktu. Przy samym sworzniu naprężenie jest trójosiowe i może być znacznie większe niż 70,7 MPa. Nie używaj tam $\sigma=N/A$ do oceny maksimum.
+
+## Trzeci przykład: wariant odwrotny
+
+Taśma o szerokości 80 mm i grubości 6 mm ma otwór o średnicy 16 mm. Przyjmij $K_t\approx 3$ i wyznacz siłę $P$, przy której maksymalne naprężenie przy otworze osiągnie 360 MPa.
+
+Najpierw obliczamy pole netto:
+
+$$
+A_{\mathrm{net}}=(80-16)\cdot 6=384\ \text{mm}^2
+$$
+
+Naprężenie nominalne wynika z zależności $\sigma_{\max}=K_t\sigma_{\mathrm{nom}}$:
+
+$$
+\sigma_{\mathrm{nom}}=\frac{\sigma_{\max}}{K_t}=\frac{360}{3}=120\ \text{MPa}
+$$
+
+Siła wynosi:
+
+$$
+P=\sigma_{\mathrm{nom}}A_{\mathrm{net}}=120\cdot 384=46\,080\ \text{N}\approx 46{,}1\ \text{kN}
+$$
+
+Sprawdzenie: naprężenie brutto bez otworu wynosi $46\,080/(80\cdot 6)=96$ MPa, a naprężenie netto 120 MPa. Otwór zwiększa naprężenie nominalne przez zmniejszenie pola, a koncentracja podnosi maksimum do 360 MPa. Gdyby siła była większa, wzór sprężysty dawałby wartość powyżej granicy plastyczności i wymagałby korekty. Gdyby otwór był mniejszy, $K_t$ mógłby być zbliżony do 3, ale pole netto byłoby większe, więc dopuszczalna siła wzrosłaby.
+
+Wniosek projektowy jest taki, że o nośności decyduje nie tylko pole netto, ale i kształt detalu. Dwa otwory o tym samym polu mogą dawać różne maksima, jeśli różnią się kształtem lub położeniem względem krawędzi. Dlatego przy doborze przekroju trzeba najpierw ustalić, gdzie może powstać koncentracja, a dopiero potem liczyć średnie naprężenie.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Stosowanie $\sigma=N/A$ przy samym otworze, karbie lub miejscu mocowania. To właśnie tam rozkład naprężeń jest najbardziej nierównomierny.
+- Twierdzenie, że zasada Saint-Venanta oznacza zanik naprężeń daleko od siły. Zanika różnica między równoważnymi rozkładami, a nie samo naprężenie.
+- Traktowanie jednej odległości, na przykład „zawsze trzy średnice”, jako uniwersalnej reguły. Zasięg zależy od geometrii, sposobu obciążenia i wymaganej dokładności.
+- Mylenie przekroju brutto z netto przy otworze. Naprężenie nominalne na netto jest większe i to ono jest podstawą do oszacowania koncentracji.
+- Używanie $K_t$ jak własności materiału. $K_t$ zależy od kształtu detalu i obciążenia, a nie od gatunku stali.
+- Stosowanie sprężystego $K_t$ po przekroczeniu granicy plastyczności. Lokalne uplastycznienie zmienia rozkład i może zmniejszyć maksimum, ale wymaga innej analizy.
+- Branie współczynnika koncentracji z wykresu dla innej geometrii lub innego rodzaju obciążenia. Wynik może być zaniżony nawet kilkukrotnie.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, czy pytanie dotyczy naprężenia średniego z dala od detalu, czy maksymalnego przy detalu. To decyduje o wyborze wzoru.
+2. Zidentyfikuj przekrój: brutto, netto, przy otworze, przy karbie, przy ścisku. Zapisz pole, którego używasz.
+3. Wyznacz siłę normalną $N$ z równowagi lub metody przekrojów. Sprawdź, czy nie ma dodatkowych sił osiowych na rozpatrywanym odcinku.
+4. Jeśli przekrój jest daleko od obciążeń i zmian geometrii, użyj $\sigma=N/A$ i sprawdź, czy odległość jest rzędu kilku wymiarów poprzecznych.
+5. Jeśli przekrój jest przy detalu, dobierz $K_t$ dla konkretnej geometrii i sposobu obciążenia. Nie przenoś współczynnika z innego zadania bez uzasadnienia.
+6. Oblicz $\sigma_{\max}=K_t\sigma_{\mathrm{nom}}$ i porównaj z granicą plastyczności. Jeśli $\sigma_{\max}$ przekracza granicę, traktuj wynik sprężysty jako oszacowanie i rozważ analizę sprężysto-plastyczną.
+7. Sprawdź jednostki i zapisz założenia: przekrój netto, wartość $K_t$, odległość od detalu oraz zakres ważności modelu.
+
+Kolejność obliczeń ma znaczenie: najpierw ustal, czy pytanie dotyczy pola dalekiego, czy lokalnego, potem wybierz pole przekroju, a na końcu dobierz wzór. Jeśli zaczniesz od $K_t$ bez sprawdzenia, czy detal rzeczywiście leży w strefie koncentracji, możesz niepotrzebnie zawyżyć wynik. Jeśli pominiesz $K_t$ przy otworze, możesz niebezpiecznie zaniżyć maksimum.
+
+## Połącz z resztą kursu
+
+- **Model obliczeniowy** — zasada Saint-Venanta jest przykładem świadomego uproszczenia i pokazuje, gdzie model przestaje być wiarygodny.
+- **Równowaga statyczna** — statyczna równoważność obciążeń jest warunkiem stosowania zasady; bez niej nie można zamieniać jednego rozkładu na drugi.
+- **Metoda przekrojów** — siła normalna $N$ potrzebna do $\sigma=N/A$ pochodzi z równowagi odciętej części.
+- **Rozciąganie i ściskanie** — wzór $\sigma=N/A$ obowiązuje z dala od zaburzeń; przy otworze wymaga współczynnika koncentracji.
+- **Materiał pod obciążeniem** — granica plastyczności decyduje, czy sprężysty $K_t$ jest jeszcze wystarczający.
+- **Projektowanie elementów** — przy doborze przekroju trzeba sprawdzić zarówno naprężenie nominalne, jak i lokalne maksimum przy karbie lub połączeniu.
+
+## Sprawdź się
+
+Odpowiedz, rozróżniając naprężenie średnie i lokalne. Jeśli w pytaniu jest otwór lub karb, najpierw ustal, czy liczysz naprężenie nominalne, czy maksymalne.
+
+Quiz sprawdza jedno kluczowe rozróżnienie: czy umiesz powiedzieć, kiedy wolno użyć średniej, a kiedy trzeba szukać maksimum. Odpowiedzi liczbowe są proste, ale każda wymaga ustalenia przekroju i założenia. Jeśli pomylisz brutto z netto, wynik będzie błędny nawet przy poprawnym wzorze.
 
 <Quiz>
   <Question outcome="W1">
     <Prompt>
-      Dwa sposoby przyłożenia obciążenia na końcu pręta mają tę samą wypadkową siłę i moment. Co wynika z zasady
-      Saint-Venanta?
+      Co wynika z zasady Saint-Venanta dla dwóch statycznie równoważnych obciążeń przyłożonych na końcu pręta?
     </Prompt>
     <Answer>Naprężenia są identyczne w każdym punkcie pręta</Answer>
-    <Answer correct>Różnice naprężeń są istotne głównie blisko miejsca przyłożenia i zanikają z odległością</Answer>
+    <Answer correct>Różnice naprężeń są istotne blisko końca i maleją z odległością</Answer>
     <Answer>Naprężenia są zerowe z dala od końca</Answer>
-    <Hint>Statyczna równoważność dotyczy skutku odległego, nie każdego lokalnego detalu.</Hint>
+    <Hint>Statyczna równoważność dotyczy wypadkowej siły i momentu, a nie lokalnego rozkładu kontaktu.</Hint>
     <Explanation>
-      Zasada mówi, że statycznie równoważne obciążenia dają praktycznie ten sam stan naprężeń wystarczająco daleko od
-      strefy przyłożenia. Blisko tej strefy rozkłady mogą się znacznie różnić.
+      Zasada mówi, że dwa różne, ale statycznie równoważne obciążenia dają praktycznie ten sam stan naprężeń
+      wystarczająco daleko od miejsca przyłożenia. Blisko końca rozkłady mogą się znacznie różnić.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Naprężenie nominalne $\sigma=N/A$ w przekroju z otworem opisuje:</Prompt>
+    <Answer>maksimum naprężenia na krawędzi otworu</Answer>
+    <Answer correct>średnią wartość naprężenia na przyjętym polu przekroju</Answer>
+    <Answer>naprężenie tylko w materiale odsuniętym od otworu</Answer>
+    <Hint>Naprężenie nominalne to siła podzielona przez pole, a nie lokalny pik.</Hint>
+    <Explanation>
+      Naprężenie nominalne jest średnią po przekroju. Maksimum przy otworze może być większe i opisuje je współczynnik
+      koncentracji. Dlatego $\sigma=N/A$ nie jest maksimum, nawet jeśli użyjesz pola netto.
     </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>
-      Dlaczego wzoru σ = N/A nie należy bezrefleksyjnie stosować tuż przy małym otworze w rozciąganej taśmie?
-    </Prompt>
-    <Answer>Bo siła osiowa znika przy otworze</Answer>
-    <Answer correct>Bo otwór powoduje nierównomierny rozkład i lokalną koncentrację naprężeń</Answer>
-    <Answer>Bo naprężenie zawsze mierzy się w innych jednostkach</Answer>
-    <Hint>Zasada Saint-Venanta nie usuwa koncentracji spowodowanej geometrią.</Hint>
+    <Prompt>Od czego przede wszystkim zależy zasięg strefy zaburzeń wokół miejsca przyłożenia siły?</Prompt>
+    <Answer>Wyłącznie od wartości siły</Answer>
+    <Answer correct>Od wymiaru poprzecznego przekroju i sposobu przyłożenia obciążenia</Answer>
+    <Answer>Wyłącznie od modułu Younga materiału</Answer>
+    <Hint>Porównaj odległość z średnicą, szerokością lub wysokością przekroju.</Hint>
     <Explanation>
-      Otwór zmienia drogę przenoszenia siły i powoduje lokalne maksima naprężeń. Średnie N/A nie opisuje tych maksimów,
-      które są istotne dla bezpieczeństwa.
+      Strefa zaburzeń ma zasięg rzędu wymiaru poprzecznego, a jej dokładny przebieg zależy od geometrii i kontaktu.
+      Moduł Younga wpływa na odkształcenia, ale nie wyznacza samego zasięgu w prosty sposób.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pręt o polu przekroju 500 mm² przenosi siłę normalną 100 kN. Jakie jest naprężenie nominalne?</Prompt>
+    <Answer>20 MPa</Answer>
+    <Answer correct>200 MPa</Answer>
+    <Answer>2000 MPa</Answer>
+    <Hint>Przelicz 100 kN na 100 000 N i podziel przez 500 mm².</Hint>
+    <Explanation>
+      σ = 100 000 N / 500 mm² = 200 N/mm² = 200 MPa. To wartość średnia, która nie uwzględnia lokalnych koncentracji
+      przy mocowaniu.
     </Explanation>
   </Question>
   <Question outcome="U1">
     <Prompt>
-      Pręt o A = 1250 mm² przenosi N = 75 kN. Jakie średnie naprężenie osiowe można przyjąć z dala od mocowania?
+      Taśma o szerokości 60 mm i grubości 10 mm ma otwór o średnicy 20 mm. Siła wynosi 80 kN, a Kt ≈ 3. Jakie jest
+      maksymalne naprężenie przy otworze na przekroju netto?
     </Prompt>
-    <Answer>6 MPa</Answer>
-    <Answer correct>60 MPa</Answer>
-    <Answer>600 MPa</Answer>
-    <Hint>Przelicz 75 kN na 75 000 N i podziel przez pole.</Hint>
+    <Answer>200 MPa</Answer>
+    <Answer correct>600 MPa</Answer>
+    <Answer>800 MPa</Answer>
+    <Hint>Najpierw oblicz pole netto (60 − 20) · 10, potem naprężenie nominalne, a na końcu pomnóż przez Kt.</Hint>
     <Explanation>
-      σśr = 75 000 N / 1250 mm² = 60 N/mm² = 60 MPa. Jest to wartość średnia dla prostego modelu osiowego, nie gwarancja
-      maksimum przy mocowaniu.
+      A_net = 400 mm², σnom = 80 000 / 400 = 200 MPa, a σmax ≈ 3 · 200 = 600 MPa. Wynik jest oszacowaniem sprężystym i
+      może przekraczać granicę plastyczności.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W której sytuacji prosty wzór $\sigma=N/A$ najbardziej wymaga uzupełnienia o analizę lokalną?</Prompt>
+    <Answer>W środku długiego, prostego pręta z dala od mocowań</Answer>
+    <Answer correct>Przy ostrym karbie lub otworze w strefie rozciągania</Answer>
+    <Answer>W pręcie o stałym przekroju, obciążonym osiowo na całej długości</Answer>
+    <Hint>Szukaj miejsca, w którym geometria wymusza nierównomierny rozkład naprężeń.</Hint>
+    <Explanation>
+      Karb lub otwór zmienia drogę przenoszenia siły i powoduje lokalne maksimum. Z dala od takich detali rozkład może
+      być równomierny, więc $\sigma=N/A$ wystarcza.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Który przekrój najlepiej nadaje się do prostego sprawdzenia naprężenia nominalnego w długim pręcie rozciąganym?
+    </Prompt>
+    <Answer>Przekrój tuż przy uchwycie</Answer>
+    <Answer>Przekrój przez środek otworu montażowego</Answer>
+    <Answer correct>Przekrój w środku długości, z dala od mocowań i zmian geometrii</Answer>
+    <Hint>Zasada Saint-Venanta mówi, gdzie różnice lokalne przestają dominować.</Hint>
+    <Explanation>
+      W środku długiego, jednorodnego odcinka rozkład naprężeń jest bliski równomiernemu. Przy uchwycie i otworze
+      dominują efekty lokalne, więc potrzebna jest dokładniejsza analiza.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Co oznacza $K_t\approx 3$ dla małego otworu kołowego w szerokiej płycie rozciąganej jednoosiowo?</Prompt>
+    <Answer>Że średnie naprężenie w całej płycie jest trzy razy większe</Answer>
+    <Answer correct>
+      Że maksimum naprężenia stycznego na krawędzi otworu jest około trzy razy większe od naprężenia dalekiego pola
+    </Answer>
+    <Answer>Że otwór zmniejsza naprężenie wokół siebie</Answer>
+    <Hint>Kt odnosi maksimum lokalne do naprężenia nominalnego, a nie do całej objętości.</Hint>
+    <Explanation>
+      Współczynnik koncentracji opisuje stosunek maksimum przy detalu do naprężenia nominalnego. Dla otworu kołowego w
+      szerokiej płycie maksimum występuje na krawędzi otworu i jest około trzykrotnie większe od naprężenia dalekiego
+      pola.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o stanie naprężenia i koncentracji naprężeń; omówienie zasady Saint-Venanta w prętach.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — rozciąganie prętów, naprężenia lokalne i wpływ sposobu przyłożenia obciążenia.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z otworami, karbami i doborem przekroju; dobre do ćwiczenia przekroju netto.
+- D. Roylance, _Mechanics of Materials_ — rozdział o rozwiązaniach zamkniętych i koncentracji naprężeń wokół otworu; rozwiązanie Kirscha, $K_t\approx 3$ i zasięg zaburzeń.
+- T. Wierzbicki, _Structural Mechanics_ — rozdział o tensorze naprężenia; pokazuje, jak złożony stan przy końcu pręta przechodzi w jednoosiowy i formułuje zasadę Saint-Venanta.

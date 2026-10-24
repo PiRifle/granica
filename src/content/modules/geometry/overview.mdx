@@ -1,1 +1,178 @@
-Środek ciężkości, momenty statyczne i bezwładności, twierdzenie Steinera, osie centralne oraz wskaźniki wytrzymałości i racjonalne kształty.
+## Co to jest ten moduł
+
+Wyobraź sobie dwie półki o tej samej masie: jedna z deski ułożonej płasko, druga z deski ustawionej na kant. Deska na
+kancie ugina się znacznie mniej, choć zużyto na nią tyle samo materiału. Różnica nie bierze się z gatunku drewna ani z
+pola przekroju, lecz z rozmieszczenia materiału względem osi zginania. Geometria przekrojów to dział, który tę różnicę
+opisuje liczbowo i pozwala ją świadomie projektować.
+
+W tym module zajmujemy się płaskim przekrojem elementu: belki, wspornika, wału lub pręta. Interesuje nas wyłącznie
+kształt tego przekroju, a nie materiał, z którego jest wykonany. Odpowiadamy na pytania: gdzie leży środek ciężkości,
+jak duży jest moment statyczny względem wybranej osi, jak bardzo materiał jest rozproszony od osi obojętnej, gdzie
+przebiegają osie główne i jaki wskaźnik wytrzymałości ma przekrój.
+
+Pojęcia wprowadzamy stopniowo. Najpierw środek ciężkości figury prostej, potem składanie figur złożonych i otworów,
+następnie momenty bezwładności, twierdzenie Steinera, osie centralne i główne, wskaźnik wytrzymałości oraz racjonalne
+kształty. Każdy kolejny krok korzysta z poprzedniego, dlatego moduł ma wyraźną kolejność i nie warto go przeskakiwać.
+
+To moduł pomostowy. Z jednej strony korzysta z matematyki i statyki, z drugiej przygotowuje narzędzia do zginania,
+ścinania, stanu naprężenia i projektowania. Bez poprawnie policzonego środka ciężkości i momentu bezwładności wzory
+wytrzymałościowe będą dawały liczby, ale te liczby nie będą miały sensu fizycznego.
+
+## Dlaczego to ważne
+
+Przy zginaniu naprężenie normalne zależy od odległości od osi obojętnej i od momentu bezwładności przekroju. Oś
+obojętna przechodzi przez środek ciężkości, więc błąd w centroidzie przesuwa cały rozkład naprężeń. Z kolei moment
+bezwładności decyduje o tym, jak mocno belka się ugnie przy danym obciążeniu. Te dwie wielkości są podstawą każdego
+obliczenia belki, od prostej półki po dźwigar mostu.
+
+Geometria przekroju odpowiada też na pytania projektowe. Dlaczego rury są puste w środku? Dlaczego dwuteownik ma
+szerokie półki? Dlaczego wał napędowy jest często cienkościenny? Odpowiedź brzmi: materiał blisko osi obojętnej
+pracuje słabo, a materiał daleko od niej wnosi duży wkład do momentu bezwładności. Moduł pozwala policzyć, ile
+zyskujemy, przesuwając materiał, i kiedy ten zysk przestaje być opłacalny.
+
+Zaniedbanie geometrii prowadzi do konkretnych awarii. Zbyt mały wskaźnik wytrzymałości oznacza naprężenia powyżej
+granicy plastyczności i trwałe odkształcenie. Zbyt mały moment bezwładności oznacza nadmierne ugięcie, które może
+uszkodzić tynki, szyby lub mechanizmy, nawet jeśli naprężenia są bezpieczne. Źle dobrane osie główne przy zginaniu
+ukośnym mogą wywołać jednoczesne zginanie w dwóch płaszczyznach i naprężenia, których nikt się nie spodziewał.
+
+W codziennej pracy inżyniera te obliczenia są szybkie i powtarzalne. Katalogi kształtowników podają pola, momenty
+bezwładności, promienie bezwładności i wskaźniki wytrzymałości. Umiejętność ich czytania i przeliczania na własny
+układ osi jest równie ważna jak samo wyprowadzanie wzorów. Dzięki temu można porównać dwie koncepcje przekroju, zanim
+powstanie pierwszy rysunek.
+
+## Czego się nauczysz
+
+- **W1 — analiza wpływu rozmieszczenia materiału na pracę elementu.** Zobaczysz, że o sztywności i nośności decyduje
+  nie tylko pole, ale przede wszystkim odległość materiału od osi obojętnej.
+- **W2 — przygotowanie wielkości geometrycznych do przypadków wytrzymałościowych.** Nauczysz się przekazywać pole,
+  środek ciężkości, momenty bezwładności i wskaźniki do wzorów na naprężenia i ugięcia.
+- **W3 — wyznaczanie i interpretacja charakterystyk geometrycznych.** Będziesz liczyć centroidy, momenty statyczne,
+  momenty bezwładności, moment dewiacyjny i rozpoznawać osie główne.
+- **U1 — obliczanie środków ciężkości, momentów bezwładności i wskaźników.** Przećwiczysz pełne rachunki na
+  prostokątach, trójkątach, kołach, rurach i przekrojach złożonych.
+- **U2 — przygotowanie osi i wielkości do analizy kołem Mohra.** Zobaczysz, jak układ osi przekroju wiąże się z
+  kierunkami naprężeń głównych i jak nie mieszać oznaczeń.
+- **U3 — dobór racjonalnego przekroju.** Porównasz przekroje przy tej samej masie i nauczysz się uzasadniać wybór
+  kształtu względami wytrzymałości, sztywności i stateczności.
+
+## Od czego zacząć
+
+- Potrzebujesz podstaw z modułu „Podstawy”: jednostek SI, sił, momentów, równowagi, reakcji podpór i momentu siły.
+  Geometria przekroju używa tych samych pojęć, tylko zamiast siły występuje pole.
+- Przyda się moduł „Rozciąganie i ściskanie”: naprężenie, odkształcenie, prawo Hooke'a i współczynnik bezpieczeństwa.
+  Wtedy łatwiej zobaczysz, po co liczymy $I$ i $W$.
+- Z matematyki wystarczą całki oznaczone wielomianów, pierwiastek, potęgi i podstawowa algebra. Nie potrzebujesz całek
+  podwójnych ani równań różniczkowych.
+- Przygotuj kartkę, ołówek i kalkulator. Rysowanie przekroju w skali i zapisywanie tabeli części jest ważniejsze niż
+  szybkie liczenie w pamięci.
+- Pracuj w kolejności lekcji. Lekcja o Steinerze zakłada umiejętność składania figur, a lekcja o wskaźniku $W$
+  zakłada znajomość momentu bezwładności.
+
+## Mapa lekcji
+
+**Lekcja 1: Środek ciężkości figur prostych.** Uczysz się, czym jest centroid, jak wykorzystać symetrię i skąd biorą
+się wzory dla prostokąta, trójkąta, koła i półkola. To punkt wyjścia dla wszystkich dalszych charakterystyk.
+
+**Lekcja 2: Momenty statyczne i figury złożone.** Dzielisz przekrój na proste części, sumujesz pola i momenty, a
+otwory traktujesz jako pola ujemne. Uczysz się tabeli części i kontroli, czy wyznaczony środek jest sensowny.
+
+**Lekcja 3: Momenty bezwładności przekroju.** Definiujesz $I_x$, $I_y$ i moment biegunowy, wyprowadzasz $bh^3/12$ oraz
+$\pi d^4/64$ i uczysz się odróżniać moment względem osi centralnej od momentu względem podstawy.
+
+**Lekcja 4: Twierdzenie Steinera.** Przenosisz moment bezwładności z osi własnej części na wspólną oś przekroju.
+Rozwiązujesz pełny dwuteownik i teownik oraz zadanie odwrotne, w którym dobierasz odległość części.
+
+**Lekcja 5: Osie centralne i główne.** Sprawdzasz warunki $S_{xc}=S_{yc}=0$ oraz $I_{xy}=0$, rozpoznajesz osie
+symetrii i dowiadujesz się, kiedy zginanie rozdziela się na dwa niezależne kierunki.
+
+**Lekcja 6: Wskaźnik wytrzymałości W.** Przechodzisz od momentu bezwładności do największego naprężenia zginającego.
+Uczysz się, dlaczego przekrój niesymetryczny ma dwa wskaźniki i który z nich decyduje o nośności.
+
+**Lekcja 7: Racjonalne kształty przekrojów.** Porównujesz przekroje przy tej samej masie, liczysz $I/A$ i $W/A$ oraz
+rozumiesz, dlaczego dwuteowniki i rury wygrywają przy określonych obciążeniach, a kiedy przegrywają.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+\bar{x}=\frac{S_y}{A}, \qquad \bar{y}=\frac{S_x}{A}, \qquad S_x=\int_A y\,dA, \qquad S_y=\int_A x\,dA
+$$
+
+<Caption>Środek ciężkości to moment statyczny podzielony przez pole. Dla figury złożonej całki zastępujemy sumami po
+częściach, a otwory mają pole ujemne. Względem osi przez środek ciężkości oba momenty statyczne są zerowe.</Caption>
+</Formula>
+
+<Formula>
+$$
+I_x=\int_A y^2\,dA, \qquad I_x=\frac{bh^3}{12}, \qquad I=\frac{\pi d^4}{64}
+$$
+
+<Caption>Moment bezwładności przekroju mierzy rozproszenie pola względem osi i ma jednostkę mm⁴. Wzory dla prostokąta
+i koła dotyczą osi przechodzących przez środek ciężkości; dla innych osi trzeba użyć twierdzenia Steinera.</Caption>
+</Formula>
+
+<Formula>
+$$
+I_x=I_{xc}+Aa^2
+$$
+
+<Caption>$I_{xc}$ jest momentem względem osi własnego środka ciężkości, $A$ polem figury, a $a$ odległością do osi
+równoległej. Składnik $Aa^2$ jest nieujemny, więc moment względem osi centralnej jest najmniejszy.</Caption>
+</Formula>
+
+<Formula>
+$$
+W_x=\frac{I_x}{c_{max}}, \qquad \sigma_{max}=\frac{|M_x|}{W_x}
+$$
+
+<Caption>$c_{max}$ to odległość od osi obojętnej do najbardziej odległego włókna. Dla przekroju niesymetrycznego liczy
+się $W$ dla obu stron i do oceny nośności bierze mniejszą wartość.</Caption>
+</Formula>
+
+<Insight>
+  Geometria przekroju nie zmienia materiału, ale zmienia sposób, w jaki materiał pracuje. Ten sam kilogram stali może
+  być sztywny albo wiotki w zależności od tego, jak daleko od osi zostanie umieszczony. Dlatego projektowanie przekroju
+  jest grą między kształtem, masą i technologią.
+</Insight>
+
+## Jak się uczyć
+
+1. Zaczynaj od rysunku. Narysuj przekrój w skali, zaznacz osie i wymiary, a dopiero potem sięgaj po wzór. Większość
+   błędów w tym module powstaje z niewłaściwego układu odniesienia, a nie z rachunków.
+2. Prowadź tabelę części. Kolumny $A_i$, $\bar{x}_i$, $\bar{y}_i$ dla środka ciężkości oraz $A_i$, $I_{xci}$, $a_i$
+   dla Steinera porządkują rachunek i ułatwiają kontrolę.
+3. Korzystaj z laboratoriów jak z eksperymentu. Przewiduj wynik przed przesunięciem suwaka, a potem sprawdzaj, czy
+   zmiana jest proporcjonalna do $h^3$, do $a^2$ albo liniowa względem pola.
+4. Sprawdzaj jednostki i rząd wielkości po każdym kroku. Pole w mm², moment statyczny w mm³, moment bezwładności w
+   mm⁴, wskaźnik w mm³. Jeśli jednostka się nie zgadza, wynik na pewno jest błędny.
+5. Rozwiązuj zadania odwrotne. Zamiast tylko liczyć $I$ dla danego przekroju, spróbuj dobrać wysokość, szerokość lub
+   odległość części tak, aby uzyskać wymaganą wartość. To uczy rozumienia, a nie odtwarzania wzoru.
+6. Wracaj do modułu „Zginanie” i łącz geometrię z naprężeniem oraz ugięciem. Dopiero wtedy widać, po co były wszystkie
+   momenty i wskaźniki.
+
+## Po tym module
+
+Następny moduł, „Ścinanie i skręcanie”, korzysta z geometrii przekroju inaczej: pojawi się moment biegunowy $I_o$,
+wskaźnik skręcania i rozkład naprężeń stycznych. Umiejętność liczenia $I$ oraz rozróżniania osi będzie tam niezbędna.
+
+W module „Zginanie” geometria wchodzi do wzoru $\sigma=My/I$ i do równania ugięcia. Będziesz tam potrzebować
+położenia osi obojętnej, momentu bezwładności względem niej oraz wskaźnika $W$. To bezpośrednie zastosowanie lekcji
+1–6.
+
+W module „Stan naprężenia” osie główne przekroju okażą się analogiczne do kierunków głównych naprężeń. Koło Mohra dla
+naprężeń i koło Mohra dla momentów bezwładności mają tę samą strukturę matematyczną, więc warto zobaczyć to
+podobieństwo zawczasu.
+
+W module „Projektowanie” dochodzi kompromis między nośnością, sztywnością, masą i statecznością. Geometria przekroju
+jest tam jednym z głównych narzędzi doboru, obok doboru materiału i współczynnika bezpieczeństwa.
+
+## Źródła
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdziały o geometrycznych charakterystykach figur
+  płaskich, momentach bezwładności i twierdzeniu o osiach równoległych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — charakterystyki geometryczne przekrojów i ich
+  zastosowanie w obliczeniach wytrzymałościowych.
+- E. Osgood, L. Cameron, P. Christensen, _Engineering Mechanics: Statics_ (otwarty podręcznik) — środki masy,
+  centroidy figur złożonych, rodzaje bezwładności i twierdzenie o osiach równoległych.
+- D. Roylance, _Mechanics of Materials_ (otwarty podręcznik) — naprężenia w belkach, oś obojętna, moment bezwładności
+  i twierdzenie o polu złożonym.

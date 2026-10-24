@@ -7,7 +7,6 @@ shortTitle: Granice materiału
 description: >-
   Znaczenie granicy plastyczności, wytrzymałości na rozciąganie oraz różnicy
   między odkształceniem znikającym a trwałym.
-duration: 8
 eyebrow: Czytamy krzywą materiału
 outcomes:
   - W1 — wiąże punkty wykresu próby z zachowaniem elementu
@@ -18,56 +17,221 @@ outcomes:
   - U3 — wybiera właściwą granicę materiału do oceny bezpieczeństwa
 ---
 
-W zakresie sprężystym materiał wraca do pierwotnego kształtu jak sprężyna. Po przekroczeniu granicy plastyczności pozostaje odkształcenie trwałe, mimo że element nie musi się od razu zerwać.
+Weź spinacz biurowy i zegnij go lekko. Jeśli nie przekroczysz pewnej granicy, wróci do pierwotnego kształtu. Jeśli zegniesz mocniej, pozostanie wygięty. Podobnie zachowuje się stalowy pręt w konstrukcji: do pewnego naprężenia pracuje sprężyście, a po jego przekroczeniu zaczyna płynąć i odkształca się trwale.
+
+Ta granica jest jednym z najważniejszych punktów na krzywej materiału. Nazywamy ją granicą plastyczności i oznaczamy $R_e$. Nie jest to jednak jedyny charakterystyczny punkt. Po rozpoczęciu płynięcia wiele metali nadal się umacnia, więc siła potrzebna do dalszego wydłużania rośnie. Największą siłę w próbie opisuje wytrzymałość na rozciąganie $R_m$. Dopiero po niej próbka zaczyna się przewężać i w końcu pęka.
+
+Trzy pojęcia — granica plastyczności, wytrzymałość i zniszczenie — brzmią podobnie, ale odpowiadają różnym zdarzeniom. Granica plastyczności mówi, kiedy odkształcenie staje się trwałe. Wytrzymałość mówi, jaka jest największa siła, jaką próbka przeniesie. Zniszczenie oznacza utratę ciągłości materiału. W konstrukcji stalowej zwykle projektujemy tak, aby nie przekroczyć granicy plastyczności, mimo że element mógłby jeszcze przenieść większą siłę.
+
+Po tej lekcji będziesz umiał odczytać te punkty z wykresu, policzyć odpowiadające im siły i uzasadnić, która granica jest właściwa do oceny bezpieczeństwa. Zobaczysz też, dlaczego po odciążeniu część odkształcenia znika, a część pozostaje. To przygotowanie do prawa Hooke’a, do analizy sztywności i do późniejszych kryteriów wytrzymałościowych.
+
+Warto od razu rozdzielić trzy warstwy opisu. Pierwsza to zachowanie materiału: sprężystość, płynięcie, umocnienie, zniszczenie. Druga to sposób pomiaru: siła, wydłużenie, pole początkowe i umowne odkształcenie. Trzecia to decyzja projektowa: jaką granicę przyjąć i z jakim zapasem. Mieszanie tych warstw jest najczęstszą przyczyną błędów w zadaniach.
+
+## Zanim zaczniesz
+
+- **Naprężenie i odkształcenie.** Wróć do definicji $\sigma=N/S_0$ oraz $\varepsilon=\Delta L/L_0$. Granice $R_e$ i $R_m$ są naprężeniami, więc mają jednostkę $\text{MPa}$, a nie $\text{kN}$. Siła graniczna to iloczyn naprężenia i pola.
+- **Pole początkowe.** W oznaczeniach granic używamy pola sprzed obciążenia. To ważne, ponieważ po przewężeniu rzeczywiste pole maleje, a my chcemy opisać materiał w sposób porównywalny dla różnych próbek.
+- **Procenty i promile.** Odkształcenie $0{,}002$ to $0{,}2\%$, czyli 2‰. Umowne wydłużenie przy zerwaniu podaje się często w procentach, ale jest to inna wielkość niż odkształcenie w zakresie sprężystym.
+- **Umowna granica plastyczności.** Nie każdy materiał ma wyraźne plateau płynięcia. Wtedy przyjmuje się naprężenie, przy którym trwałe odkształcenie osiąga umowną wartość, najczęściej $0{,}2\%$. Mówimy wtedy o $R_{0{,}2}$.
+- **Typowe pułapki.** Mylenie $R_e$ z $R_m$, branie siły maksymalnej za siłę zniszczenia, używanie pola przewężenia do obliczeń inżynierskich oraz zakładanie, że każdy materiał ma wyraźną granicę plastyczności.
+
+## Model i intuicja
+
+Model materiału ciągliwego wygląda następująco. Najpierw odkształcenie rośnie liniowo z naprężeniem. Potem nachylenie krzywej maleje, materiał zaczyna płynąć, a po odciążeniu pozostaje odkształcenie trwałe. W niektórych stalach widać wyraźne plateau lub nawet miejscowy spadek naprężenia po pierwszym szczycie. W innych metalach przejście jest łagodne i granicę trzeba wyznaczyć umownie.
+
+Po rozpoczęciu płynięcia materiał może się umacniać. Oznacza to, że do dalszego odkształcenia potrzeba coraz większego naprężenia. Dzieje się tak wskutek zmian w mikrostrukturze, na przykład ruchu dyslokacji i ich wzajemnego blokowania. Na wykresie inżynierskim widzimy rosnącą część aż do maksimum. To maksimum nazywamy wytrzymałością na rozciąganie, choć nie jest to naprężenie, przy którym próbka pęka.
+
+Po osiągnięciu maksimum sytuacja się zmienia. Próbka zaczyna się przewężać, a pole przekroju w szyjce maleje szybciej, niż materiał się umacnia. Siła potrzebna do dalszego rozciągania spada, mimo że lokalne naprężenie rzeczywiste w szyjce może nadal rosnąć. Krzywa inżynierska opada, ponieważ cały czas dzielimy siłę przez pierwotne pole. Zniszczenie następuje później, gdy szyjka ulegnie zerwaniu.
+
+Dla potrzeb obliczeń konstrukcyjnych często upraszczamy ten obraz do modelu sprężysto-idealnie plastycznego. Materiał jest liniowo sprężysty do granicy plastyczności, a potem płynie przy stałym naprężeniu. To idealizacja; rzeczywiste metale umacniają się lub wykazują spadek. Model jest jednak wystarczający, jeśli interesuje nas początek trwałych odkształceń, a nie pełna historia aż do zerwania.
+
+Model przestaje być odpowiedni dla materiałów kruchych, które pękają bez wyraźnego płynięcia. Inny jest też dla tworzyw, których granica zależy od prędkości odkształcania i temperatury. W długotrwałym obciążeniu w podwyższonej temperaturze dochodzi pełzanie, a przy cyklicznym — zmęczenie. Wszystkie te zjawiska wymagają osobnych modeli, ale pojęcia granicy i odkształcenia trwałego pozostają punktem odniesienia.
+
+W materiałach kruchych, takich jak szkło czy ceramika, nie obserwujemy wyraźnego plateau płynięcia. Próbka może pęknąć, zanim odkształcenie trwałe osiągnie zauważalną wartość. Wtedy $R_e$ w sensie metali ciągliwych praktycznie nie istnieje, a o nośności decyduje wytrzymałość na rozciąganie lub wytrzymałość na ściskanie. Beton jest tu dobrym przykładem: dobrze przenosi ściskanie, a słabo rozciąganie, więc sama jedna „granica” nie opisuje jego zachowania.
+
+Dla metali ciągliwych typowy przebieg jest inny. Po płynięciu następuje umocnienie, więc $R_m$ jest większe od $R_e$. Stosunek tych wartości opisuje, jak bardzo materiał potrafi się umocnić między początkiem płynięcia a maksimum; nie jest to współczynnik bezpieczeństwa, lecz miara kształtu krzywej.
+
+W konstrukcjach, w których niedopuszczalne jest nawet niewielkie odkształcenie trwałe, liczy się przede wszystkim $R_e$. W elementach formowanych, zaciskanych lub przeciążanych świadomie dopuszczamy płynięcie, ale nadal nie chcemy przekroczyć $R_m$. Rozróżnienie tych sytuacji jest częścią projektu, a nie tylko interpretacji wykresu.
+
+## Laboratorium: co ustawić
+
+Zwiększaj odkształcenie próbki i obserwuj, kiedy pojawia się trwałe odkształcenie po odciążeniu. Ustaw granicę plastyczności oraz wytrzymałość, a następnie przekrocz $R_e$ i wróć suwakiem. Zwróć uwagę, że krzywa odciążania jest równoległa do początkowej części sprężystej, a na osi odkształcenia pozostaje trwały ślad.
 
 <Lab id="tensileTest" />
 
+## Definicje i jednostki
+
+| Wielkość                     | Symbol             | Jednostka     | Znaczenie                                                                       |
+| ---------------------------- | ------------------ | ------------- | ------------------------------------------------------------------------------- |
+| Granica plastyczności        | $R_e$              | $\text{MPa}$  | Naprężenie, przy którym zaczyna się wyraźne odkształcenie trwałe                |
+| Umowna granica plastyczności | $R_{0{,}2}$        | $\text{MPa}$  | Naprężenie przy trwałym odkształceniu $0{,}2\%$                                 |
+| Wytrzymałość na rozciąganie  | $R_m$              | $\text{MPa}$  | Największe naprężenie inżynierskie, odpowiadające sile $F_m$                    |
+| Siła granicy plastyczności   | $F_e$              | $\text{N}$    | Siła, przy której pojawia się płynięcie                                         |
+| Maksymalna siła próby        | $F_m$              | $\text{N}$    | Największa siła zarejestrowana przed zniszczeniem                               |
+| Pole początkowe              | $S_0$              | $\text{mm}^2$ | Pole przekroju przed obciążeniem                                                |
+| Wydłużenie przy zerwaniu     | $A$                | $\%$          | Trwałe wydłużenie próbki po zniszczeniu, odniesione do długości początkowej     |
+| Przewężenie                  | $Z$                | $\%$          | Zmniejszenie pola przekroju w miejscu zerwania, odniesione do pola początkowego |
+| Granica proporcjonalności    | $R_p$              | $\text{MPa}$  | Koniec odcinka, na którym naprężenie jest proporcjonalne do odkształcenia       |
+| Granica sprężystości         | $R_{e,\text{spr}}$ | $\text{MPa}$  | Największe naprężenie, po którym odciążenie nie pozostawia trwałego wydłużenia  |
+| Odkształcenie trwałe         | $\varepsilon_p$    | bezwymiarowe  | Część odkształcenia pozostająca po usunięciu obciążenia                         |
+
+Granica plastyczności i wytrzymałość są własnościami materiału tylko wtedy, gdy zostały wyznaczone w powtarzalnych warunkach. Zależą od temperatury, prędkości odkształcania, stanu materiału i sposobu przygotowania próbki. Wartości podawane w tablicach są zwykle wartościami typowymi lub minimalnymi gwarantowanymi. W zadaniach projektowych trzeba wiedzieć, którą wartość wolno przyjąć.
+
+Wydłużenie przy zerwaniu i przewężenie opisują ciągliwość. Duże wydłużenie i duże przewężenie oznaczają, że materiał potrafi się znacznie odkształcić przed pęknięciem. Małe wartości wskazują na materiał kruchy lub na niekorzystny stan materiału. Sama wytrzymałość nie mówi jeszcze, czy materiał jest ciągliwy. Dwa materiały o podobnym $R_m$ mogą zachowywać się zupełnie inaczej po przekroczeniu granicy sprężystości.
+
+Granica proporcjonalności i granica sprężystości bywają bliskie, ale nie są identyczne. Pierwsza kończy ścisłą proporcjonalność naprężenia i odkształcenia. Druga kończy pełną odwracalność odkształcenia. W praktyce dla wielu metali różnica jest niewielka i w podstawowych obliczeniach mówimy po prostu o granicy sprężystości lub o granicy plastyczności. W precyzyjnym opisie warto jednak pamiętać, że to różne pojęcia.
+
+Dla zadań szkolnych najważniejsze jest praktyczne rozróżnienie: do obliczeń sprężystych używamy $R_e$ jako granicy stosowalności, a do opisu maksymalnej nośności — $R_m$. Jeżeli w zadaniu pojawia się „dopuszczalne odkształcenie trwałe”, prawie zawsze chodzi o granicę plastyczności, a nie o wytrzymałość.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-R_e = \frac{F_e}{S_0}, \qquad R_m = \frac{F_m}{S_0}
+R_e=\frac{F_e}{S_0}, \qquad R_{0{,}2}=\frac{F_{0{,}2}}{S_0}, \qquad R_m=\frac{F_m}{S_0}
 $$
 
-<Caption>Fₑ to siła odpowiadająca granicy plastyczności, Fₘ — największa siła w próbie, a S₀ — początkowe pole przekroju pomiarowego. Rₑ i Rₘ są granicami materiału wyrażonymi jako naprężenia, dlatego nie zależą od wielkości próbki.</Caption>
+<Caption>Fₑ to siła odpowiadająca granicy plastyczności, F₀,₂ — sile przy umownym trwałym odkształceniu 0,2%, a Fₘ — największej sile w próbie. Wszystkie trzy granice odnosimy do początkowego pola przekroju S₀, dlatego nie zależą od wielkości próbki w zakresie porównywalnych pomiarów.</Caption>
 </Formula>
 
+Wyprowadzenie jest krótkie, ale każdy krok ma znaczenie. Zaczynamy od zapisu próby i stopniowo przechodzimy od siły do naprężenia.
+
+1. Rejestrujemy siłę $F$ i wydłużenie odcinka pomiarowego $\Delta L$. Z tych danych tworzymy wykres inżynierski, dzieląc siłę przez $S_0$, a wydłużenie przez $L_0$.
+2. Szukamy końca początkowego odcinka liniowego. Jeśli materiał ma wyraźne plateau, odczytujemy siłę, przy której zaczyna się płynięcie, i oznaczamy ją $F_e$.
+3. Jeśli plateau nie występuje, prowadzimy prostą równoległą do początkowego odcinka sprężystego, zaczynając od odkształcenia $0{,}002$. Punkt przecięcia z krzywą daje siłę $F_{0{,}2}$.
+4. Dzielimy odpowiednią siłę przez początkowe pole: $R_e=F_e/S_0$ albo $R_{0{,}2}=F_{0{,}2}/S_0$. Otrzymujemy naprężenie, a nie siłę.
+5. Kontynuujemy obciążanie aż do maksimum siły. W tym punkcie nachylenie krzywej siła–wydłużenie zmienia znak z dodatniego na ujemny.
+6. Oznaczamy maksymalną siłę przez $F_m$ i dzielimy przez to samo pole początkowe: $R_m=F_m/S_0$.
+7. Po maksimum próbka się przewęża. Siła maleje, ale nie znaczy to, że materiał stracił wytrzymałość lokalnie; zmienia się geometria przekroju.
+8. Zerwanie następuje przy sile mniejszej od $F_m$. Dlatego siła zniszczenia nie jest tym samym co maksymalna siła próby.
+9. Na końcu sprawdzamy, czy porównujemy wartości z tego samego zakresu i tej samej próby. $R_e$, $R_{0{,}2}$ i $R_m$ to trzy różne miary, nawet jeśli wszystkie mają jednostkę $\text{MPa}$.
+
 <Insight>
-  Przekroczenie Rₑ oznacza trwałe odkształcenie, a osiągnięcie Rₘ — maksymalną siłę, jaką próbka przeniesie. W typowych
-  konstrukcjach stalowych stan dopuszczalny odnosi się przede wszystkim do Rₑ, a nie do zerwania.
+  Przekroczenie $R_e$ oznacza trwałe odkształcenie, a osiągnięcie $R_m$ — maksymalną siłę, jaką próbka przeniesie. W
+  typowych konstrukcjach stalowych stan dopuszczalny odnosi się przede wszystkim do $R_e$, a nie do zerwania. $R_m$ jest
+  ważne jako miara granicy, ale nie jako naprężenie robocze.
 </Insight>
 
 <WorkedExample>
-  <Given>Próbka stalowa ma pole S₀ = 80 mm². Materiał ma Rₑ = 300 MPa i Rₘ = 450 MPa.</Given>
+  <Given>Próbka stalowa ma pole $S_0=80\ \text{mm}^2$. Materiał ma $R_e=300\ \text{MPa}$ i $R_m=450\ \text{MPa}$.</Given>
   <Steps>
-    <Step>Granica plastyczności pozwala wyznaczyć początek istotnych odkształceń trwałych: Fₑ = RₑS₀.</Step>
-    <Step>Fₑ = 300 N/mm²·80 mm² = 24 000 N = 24 kN.</Step>
-    <Step>Największa siła wynika z wytrzymałości: Fₘ = RₘS₀ = 450·80 = 36 000 N = 36 kN.</Step>
+    <Step>Granica plastyczności odpowiada sile $F_e=R_eS_0$.</Step>
+    <Step>$F_e=300\ \text{N/mm}^2\cdot 80\ \text{mm}^2=24\,000\ \text{N}=24\ \text{kN}$.</Step>
+    <Step>Największa siła wynika z wytrzymałości: $F_m=R_mS_0=450\cdot 80=36\,000\ \text{N}=36\ \text{kN}$.</Step>
+    <Step>Stosunek $R_m/R_e=450/300=1{,}5$ opisuje umocnienie między początkiem płynięcia a maksimum.</Step>
     <Step>
-      Różnica 36 − 24 = 12 kN pokazuje przyrost siły między uplastycznieniem a największą siłą, ale nie jest zapasem
-      przeznaczonym do swobodnego wykorzystania w projekcie.
+      Różnica $36-24=12\ \text{kN}$ pokazuje przyrost siły między uplastycznieniem a największą siłą, ale nie jest zapasem przeznaczonym do swobodnego wykorzystania w projekcie.
     </Step>
+    <Step>Kontrola jednostek: $\text{MPa}\cdot\text{mm}^2=\text{N}$, więc wynik w niutonach jest poprawny.</Step>
   </Steps>
-  <Result>Uplastycznienie próbki zaczyna się przy około 24 kN, a wytrzymałości Rₘ odpowiada siła 36 kN.</Result>
+  <Result>Uplastycznienie próbki zaczyna się przy około $24\ \text{kN}$, a wytrzymałości $R_m$ odpowiada siła $36\ \text{kN}$. Zerwanie nastąpi przy sile mniejszej od $36\ \text{kN}$, po przewężeniu.</Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Przyjmijmy teraz stal o $R_e=235\ \text{MPa}$ i $R_m=370\ \text{MPa}$, próbkę o polu $S_0=120\ \text{mm}^2$. Siły graniczne wynoszą
+
+$$
+F_e=235\cdot 120=28\,200\ \text{N}=28{,}2\ \text{kN},
+$$
+
+$$
+F_m=370\cdot 120=44\,400\ \text{N}=44{,}4\ \text{kN}.
+$$
+
+Załóżmy, że element pracuje pod siłą $N=18\ \text{kN}$. Naprężenie wynosi
+
+$$
+\sigma=\frac{18\,000}{120}=150\ \text{MPa}.
+$$
+
+Jest ono mniejsze od $R_e=235\ \text{MPa}$, więc element pozostaje w zakresie sprężystym, a odkształcenie po odciążeniu zniknie. Odległość do granicy plastyczności wynosi $235-150=85\ \text{MPa}$, czyli zapas naprężeniowy około $36\%$ względem $R_e$.
+
+Gdyby ta sama siła działała na próbkę o polu $60\ \text{mm}^2$, naprężenie wzrosłoby do $300\ \text{MPa}$. To już przekracza $R_e$, więc po odciążeniu pozostałoby odkształcenie trwałe. Element nie musiałby jeszcze pęknąć, ponieważ $300\ \text{MPa}$ jest mniejsze od $R_m=370\ \text{MPa}$, ale jego geometria uległaby zmianie. To klasyczny przykład stanu, w którym „jeszcze nie pękło” nie znaczy „jest bezpieczne”.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że z próby wiemy, iż siła $F_e=60\ \text{kN}$ odpowiada granicy plastyczności próbki o polu $S_0=250\ \text{mm}^2$. Jaką granicę plastyczności ma materiał? Korzystamy z definicji:
+
+$$
+R_e=\frac{60\,000}{250}=240\ \text{MPa}.
+$$
+
+Jeśli wymagany współczynnik bezpieczeństwa względem tej granicy wynosi $n=1{,}5$, to naprężenie dopuszczalne jest równe
+
+$$
+\sigma_{\mathrm{dop}}=\frac{240}{1{,}5}=160\ \text{MPa}.
+$$
+
+Maksymalna siła robocza dla tego samego przekroju wynosi więc
+
+$$
+N_{\mathrm{dop}}=\sigma_{\mathrm{dop}}S_0=160\cdot 250=40\,000\ \text{N}=40\ \text{kN}.
+$$
+
+Sprawdzenie: przy $40\ \text{kN}$ naprężenie wynosi $40\,000/250=160\ \text{MPa}$, czyli dokładnie $\sigma_{\mathrm{dop}}$. Zapas do granicy plastyczności wynosi $240/160=1{,}5$, zgodnie z założeniem.
+
+Zauważ, że wynik $R_e=240\ \text{MPa}$ jest typowy dla zwykłej stali konstrukcyjnej, ale nie jest uniwersalny. Inna stal może mieć $R_e=355\ \text{MPa}$, a stal o podwyższonej wytrzymałości jeszcze więcej. W zadaniu zawsze korzystaj z danych podanych w treści albo z wartości wyraźnie oznaczonej jako typowa.
+
+Warto zauważyć, że nie użyliśmy tutaj $R_m$. Gdyby materiał był kruchy i pękał bez uprzedniego płynięcia, właściwą granicą byłoby $R_m$, a nie $R_e$. Wybór granicy zależy od mechanizmu zniszczenia, nie od tego, która liczba jest większa.
+
+Ten sam rachunek można odwrócić inaczej: mając wymaganą siłę roboczą i przyjęty współczynnik bezpieczeństwa, można wyznaczyć minimalne pole przekroju. Dla $N=40\ \text{kN}$, $R_e=240\ \text{MPa}$ i $n=1{,}5$ otrzymujemy $S_{0,\min}=N n/R_e=40\,000\cdot 1{,}5/240=250\ \text{mm}^2$. To dokładnie pole użyte w przykładzie, co potwierdza spójność obliczeń.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie granicy plastyczności z wytrzymałością. $R_e$ opisuje początek odkształcenia trwałego, a $R_m$ największą siłę, nie moment zerwania.
+- Używanie siły zerwania zamiast siły maksymalnej do obliczenia $R_m$. Po przewężeniu siła spada, więc $F_m$ jest większe od siły w chwili zerwania.
+- Dzielenie przez pole szyjki przy wyznaczaniu granic inżynierskich. Definicje odnoszą się do pola początkowego $S_0$.
+- Traktowanie $R_m$ jako naprężenia dopuszczalnego bez sprawdzenia, czy materiał jest ciągliwy i czy dopuszczalne jest odkształcenie trwałe.
+- Odczyt $R_e$ z pierwszego szczytu, gdy materiał nie ma wyraźnego plateau. Wtedy trzeba stosować umowną granicę $R_{0{,}2}$.
+- Pomijanie wpływu temperatury i prędkości odkształcania. Granice nie są stałe dla dowolnych warunków pracy.
+- Zakładanie, że każdy materiał po przekroczeniu granicy musi się umocnić. Niektóre materiały płyną przy prawie stałym naprężeniu, a inne pękają krucho.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal, którą granicę podano.** Przeczytaj uważnie, czy w zadaniu jest $R_e$, $R_{0{,}2}$, $R_m$, czy może siła $F_e$ lub $F_m$. To nie są zamienne liczby.
+2. **Znajdź pole początkowe.** Jeśli podano średnicę, oblicz $S_0=\pi d^2/4$. Jeśli podano wymiary prostokąta, użyj iloczynu boków. Nie używaj pola po przewężeniu.
+3. **Zamień jednostki.** Naprężenie w $\text{MPa}$ pomnożone przez pole w $\text{mm}^2$ daje siłę w niutonach. Podzielenie przez $1000$ daje kiloniutony.
+4. **Oblicz siłę graniczną.** Dla granicy plastyczności użyj $F_e=R_eS_0$, dla wytrzymałości $F_m=R_mS_0$. Zapisz, która siła odpowiada któremu zjawisku.
+5. **Sprawdź stan pracy.** Porównaj naprężenie robocze z wybraną granicą. Jeśli interesuje cię tylko brak odkształcenia trwałego, porównuj z $R_e$.
+6. **Dobierz granicę do materiału.** Dla stali i innych metali ciągliwych zwykle decyduje $R_e$. Dla materiałów kruchych podstawą może być $R_m$. W razie wątpliwości sprawdź, jaki mechanizm zniszczenia jest krytyczny.
+7. **Zinterpretuj wynik.** Napisz, czy element jest sprężysty, czy tylko nie pękł. To dwa różne stany i w projekcie mają różne konsekwencje.
+8. **Sprawdź, czy granica nie jest umowna.** Jeśli materiał nie ma wyraźnego plateau, wynik $R_e$ może w rzeczywistości oznaczać $R_{0{,}2}$. W zadaniu trzeba to nazwać wprost.
+
+## Połącz z resztą kursu
+
+- **Próba rozciągania i ściskania** dostarcza krzywej, z której odczytujemy $R_e$ i $R_m$. Tutaj uczymy się interpretować punkty, które tam tylko zaznaczaliśmy.
+- **Prawo Hooke’a i sztywność osiowa** opisuje zachowanie przed granicą plastyczności. Granica $R_e$ wyznacza koniec zakresu, w którym prawo Hooke’a jest bezpiecznie stosowane.
+- **Wydłużenia i skrócenia prętów** korzystają z założenia sprężystości. Po przekroczeniu $R_e$ proste wzory na wydłużenie przestają być wystarczające.
+- **Naprężenie dopuszczalne i współczynnik bezpieczeństwa** przekształca $R_e$ lub $R_m$ w warunek projektowy. Ten moduł wyjaśnia, dlaczego wybór granicy nie jest dowolny.
+- **Koło Mohra: narysuj je krok po kroku** wykorzystuje stan jednoosiowy jako najprostszy przypadek. $R_e$ z próby staje się później granicą w kryteriach wieloosiowych.
+- **Dobór ze względu na wytrzymałość i sztywność** pokazuje, jak z granicy materiału i warunku użytkowania powstaje konkretny wymiar przekroju.
+
+## Sprawdź się
+
+Pytania sprawdzają zarówno rozpoznanie pojęć, jak i proste obliczenia. Przy każdym wyniku sprawdź jednostkę i zastanów się, czy opisuje siłę, naprężenie, czy odkształcenie.
 
 <Quiz>
   <Question outcome="W2">
     <Prompt>Stalowy pręt odkształcił się trwale, ale nie pękł. Które zdanie najlepiej opisuje ten stan?</Prompt>
-    <Answer correct>Na pewno przekroczono Rₑ</Answer>
-    <Answer>Nie mogło zostać przekroczone Rₑ</Answer>
-    <Answer>Na pewno osiągnięto Rₘ</Answer>
+    <Answer correct>Na pewno przekroczono $R_e$</Answer>
+    <Answer>Nie mogło zostać przekroczone $R_e$</Answer>
+    <Answer>Na pewno osiągnięto $R_m$</Answer>
     <Hint>Zastanów się, która granica dotyczy trwałego odkształcenia, a która największej siły.</Hint>
     <Explanation>
-      Trwałe odkształcenie świadczy o uplastycznieniu, czyli przekroczeniu granicy plastyczności. Element może nadal
-      przenosić obciążenie i nie osiągnąć jeszcze maksimum Rₘ.
+      Trwałe odkształcenie świadczy o uplastycznieniu, czyli przekroczeniu granicy plastyczności. Element może nadal przenosić obciążenie i nie osiągnąć jeszcze maksimum $R_m$.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Dla stali Rₑ = 250 MPa i Rₘ = 400 MPa. Jakie siły graniczne odpowiadają próbce o polu 100 mm²?</Prompt>
-    <Answer>2,5 kN i 4 kN</Answer>
-    <Answer correct>25 kN i 40 kN</Answer>
-    <Answer>250 kN i 400 kN</Answer>
-    <Hint>Pomnóż każde naprężenie w N/mm² przez pole w mm².</Hint>
-    <Explanation>1 MPa = 1 N/mm². Zatem Fₑ = 250·100 = 25 000 N = 25 kN, a Fₘ = 400·100 = 40 kN.</Explanation>
+    <Prompt>Dla stali $R_e=250\ \text{MPa}$ i $R_m=400\ \text{MPa}$. Jakie siły graniczne odpowiadają próbce o polu $100\ \text{mm}^2$?</Prompt>
+    <Answer>$2{,}5\ \text{kN}$ i $4\ \text{kN}$</Answer>
+    <Answer correct>$25\ \text{kN}$ i $40\ \text{kN}$</Answer>
+    <Answer>$250\ \text{kN}$ i $400\ \text{kN}$</Answer>
+    <Hint>Pomnóż każde naprężenie w $\text{N/mm}^2$ przez pole w $\text{mm}^2$.</Hint>
+    <Explanation>
+      $1\ \text{MPa}=1\ \text{N/mm}^2$. Zatem $F_e=250\cdot 100=25\,000\ \text{N}=25\ \text{kN}$, a $F_m=400\cdot 100=40\,000\ \text{N}=40\ \text{kN}$.
+    </Explanation>
   </Question>
   <Question outcome="W2">
     <Prompt>Po odciążeniu próbki część wydłużenia znika, a część pozostaje. Jak nazywamy te dwie części?</Prompt>
@@ -76,8 +240,67 @@ $$
     <Answer correct>Znikająca jest sprężysta, a pozostała plastyczna</Answer>
     <Hint>Przypisz nazwy według tego, co dzieje się po zdjęciu siły.</Hint>
     <Explanation>
-      Sprężystość oznacza powrót po usunięciu obciążenia. Odkształcenie plastyczne jest trwałe i pozostaje po
-      odciążeniu.
+      Sprężystość oznacza powrót po usunięciu obciążenia. Odkształcenie plastyczne jest trwałe i pozostaje po odciążeniu. W rzeczywistym materiale obie części mogą występować jednocześnie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Który punkt na inżynierskiej krzywej naprężenie–odkształcenie odpowiada największej sile przenoszonej przez próbkę?</Prompt>
+    <Answer>Początek odcinka liniowego</Answer>
+    <Answer correct>Maksimum krzywej, czyli $R_m$</Answer>
+    <Answer>Punkt zerwania, zawsze położony najwyżej</Answer>
+    <Hint>Po maksimum próbka się przewęża i siła maleje.</Hint>
+    <Explanation>
+      Największa siła występuje w maksimum krzywej inżynierskiej. Po tym punkcie przewężenie zmniejsza pole na tyle, że siła potrzebna do dalszego odkształcania spada. Zerwanie następuje później, przy mniejszej sile.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dwie próbki z tego samego materiału mają różne pola początkowe $S_0$, ale są badane w ten sam sposób. Co będzie takie samo dla obu próbek?</Prompt>
+    <Answer>Siła granicy plastyczności</Answer>
+    <Answer correct>Naprężenie granicy plastyczności $R_e$</Answer>
+    <Answer>Wydłużenie bezwzględne przy tej samej sile</Answer>
+    <Hint>Granice materiału są naprężeniami, więc siła jest odnoszona do pola.</Hint>
+    <Explanation>
+      $R_e$ jest własnością materiału w danych warunkach, więc nie zależy od pola próbki. Siły graniczne będą proporcjonalne do $S_0$, a wydłużenia zależą dodatkowo od długości i sztywności.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Dobierasz zwykły element stalowy, który nie powinien odkształcić się trwale. Którą granicę przyjmiesz jako podstawę naprężenia dopuszczalnego?</Prompt>
+    <Answer>$R_m$, bo jest największa</Answer>
+    <Answer correct>$R_e$ lub $R_{0{,}2}$, bo opisuje początek odkształcenia trwałego</Answer>
+    <Answer>Siłę zerwania podzieloną przez aktualne pole szyjki</Answer>
+    <Hint>Pytanie dotyczy braku odkształcenia trwałego, a nie maksymalnej nośności.</Hint>
+    <Explanation>
+      Dla materiału ciągliwego projektowanego w zakresie sprężystym podstawą jest granica plastyczności. $R_m$ opisuje maksimum, po którym element może być już silnie odkształcony lub przewężony, więc nie jest właściwą granicą roboczą.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła $F_e=90\ \text{kN}$ odpowiada granicy plastyczności próbki o polu $S_0=300\ \text{mm}^2$. Ile wynosi $R_e$?</Prompt>
+    <Answer>$30\ \text{MPa}$</Answer>
+    <Answer correct>$300\ \text{MPa}$</Answer>
+    <Answer>$3000\ \text{MPa}$</Answer>
+    <Hint>Zamień $90\ \text{kN}$ na $90\,000\ \text{N}$ i podziel przez $300\ \text{mm}^2$.</Hint>
+    <Explanation>
+      $R_e=90\,000/300=300\ \text{N/mm}^2=300\ \text{MPa}$. Wartość $30\ \text{MPa}$ powstała z pominięcia zamiany kiloniutonów na niutony.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      W jednoosiowym rozciąganiu naprężenie normalne w kierunku osi wynosi $\sigma$. Które zdanie poprawnie opisuje maksymalne ścinanie w tym stanie?
+    </Prompt>
+    <Answer>Jest równe $\sigma$ i działa na płaszczyźnie prostopadłej do osi</Answer>
+    <Answer correct>Jest równe $\sigma/2$ i działa na płaszczyźnie odchylonej o $45^\circ$ od osi</Answer>
+    <Answer>Jest równe zero, bo nie ma drugiego naprężenia normalnego</Answer>
+    <Hint>Narysuj koło Mohra dla $\sigma_1=\sigma$ i $\sigma_2=0$; promień to maksymalne ścinanie.</Hint>
+    <Explanation>
+      Dla stanu jednoosiowego promień koła Mohra wynosi $(\sigma_1-\sigma_2)/2=\sigma/2$. Maksymalne ścinanie działa na płaszczyźnie nachylonej o $45^\circ$ do osi rozciągania. To dlatego uplastycznienie metali jest związane ze ścinaniem, a nie z samym naprężeniem normalnym.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z granicą plastyczności i wytrzymałością; szukaj przykładów wyznaczania sił granicznych z pola przekroju.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — rozdział o własnościach mechanicznych materiałów i próbie rozciągania; zwróć uwagę na interpretację odkształcenia trwałego.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik; rozdziały o krzywych naprężenie–odkształcenie i uplastycznieniu wyjaśniają umocnienie, przewężenie i różnicę między naprężeniem inżynierskim a rzeczywistym.
+- MIT 3.11 _Mechanics of Materials_, notatki o uplastycznieniu — pokazują, dlaczego w materiałach ciągliwych projektuje się zwykle poniżej granicy plastyczności i jak definiuje się umowną granicę $0{,}2\%$.
+- R. C. Hibbeler, _Mechanics of Materials_, rozdział o właściwościach mechanicznych — dodatkowe wykresy i przykłady odczytywania granic dla stali, aluminium i materiałów kruchych.

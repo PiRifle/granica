@@ -7,7 +7,6 @@ shortTitle: Dylatacja objętości
 description: >-
   Oblicz względną zmianę objętości i powiąż ją ze średnim naprężeniem oraz
   modułem ściśliwości.
-duration: 9
 eyebrow: Kostka zmienia objętość
 outcomes:
   - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
@@ -26,64 +25,282 @@ outcomes:
     oraz sztywność
 ---
 
-Mała kostka może jednocześnie wydłużyć się w jednym kierunku i skrócić w dwóch pozostałych. O tym, czy jej objętość ostatecznie wzrośnie, decyduje suma trzech odkształceń liniowych, a nie pojedyncze ε.
+Wyobraź sobie małą kostkę materiału, na którą działają naprężenia z trzech stron. Każda ściana może się przesunąć, każda krawędź może się wydłużyć lub skrócić. Objętość kostki zmienia się w sposób, który nie zawsze jest oczywisty: jedna krawędź może się wydłużyć, dwie inne skrócić, a objętość mimo to wzrośnie albo zmaleje. Decyduje o tym suma trzech odkształceń liniowych, a nie pojedyncza wartość.
+
+Zmiana objętości jest ważna wszędzie tam, gdzie liczy się nie tylko kształt, ale i „ilość materiału” w elemencie. W zbiornikach ciśnieniowych decyduje o pojemności i o tym, jak szybko rośnie ciśnienie przy pompowaniu. W uszczelnieniach wpływa na docisk. W materiałach prawie nieściśliwych, takich jak guma, nawet duże odkształcenie postaciowe prawie nie zmienia objętości. To dlatego gumowa uszczelka może się silnie odkształcić, a mimo to nadal wypełnia szczelinę.
+
+W tej lekcji połączysz geometrię z materiałem. Najpierw wyprowadzisz przybliżony wzór na względną zmianę objętości z iloczynu nowych długości krawędzi. Potem podstawisz uogólnione prawo Hooke’a, żeby powiązać dylatację ze średnim naprężeniem. Na końcu zobaczysz, skąd bierze się moduł ściśliwości $K$ i dlaczego dla $\nu$ bliskiego $0{,}5$ materiał staje się praktycznie nieściśliwy.
+
+Po tej lekcji będziesz umiał obliczyć $\Delta V/V_0$ z odkształceń lub naprężeń, wyznaczyć ciśnienie hydrostatyczne, sprawdzić, czy zmiana objętości jest duża, czy pomijalna, oraz rozpoznać stan czystego ścinania, w którym objętość nie zmienia się w pierwszym przybliżeniu.
+
+Warto pamiętać, że zmiana objętości jest wielkością lokalną. Nawet jeśli cały element zmienia objętość o ułamek procenta, w jednym punkcie może być ściskany, a w innym rozciągany. W zadaniach konstrukcyjnych interesuje nas zwykle albo wartość średnia dla całego elementu, albo wartość w najbardziej wytężonym punkcie. Te dwie liczby nie muszą być takie same.
+
+## Zanim zaczniesz
+
+- Znasz definicje $\varepsilon_x$, $\varepsilon_y$ i $\varepsilon_z$ oraz umiesz dodawać liczby bliskie zeru.
+- Rozróżniasz naprężenie normalne od stycznego i wiesz, że ciśnienie hydrostatyczne działa jednakowo w trzech kierunkach.
+- Pamiętasz uogólnione prawo Hooke’a i potrafisz podstawić do niego trzy naprężenia.
+- Rozumiesz, że $\nu$ opisuje skurcz poprzeczny, a nie bezpośrednio zmianę objętości.
+- Pamiętasz, że $1\,\text{GPa}=1000\,\text{MPa}$ i że jednostka modułu ściśliwości jest taka sama jak naprężenia.
+- Uważaj na znaki: dodatnie naprężenie normalne to rozciąganie, a dodatnie ciśnienie $p$ przyjmujemy jako ściskające.
+
+## Model i intuicja
+
+Model dylatacji opiera się na małej kostce o początkowych krawędziach $a$, $b$ i $c$. Po odkształceniu każda krawędź ma nową długość: $a(1+\varepsilon_x)$, $b(1+\varepsilon_y)$ i $c(1+\varepsilon_z)$. Nowa objętość jest iloczynem tych trzech długości. Względna zmiana objętości to różnica nowej i starej objętości podzielona przez starą.
+
+Dla małych odkształceń iloczyny $\varepsilon_x\varepsilon_y$, $\varepsilon_y\varepsilon_z$ i $\varepsilon_z\varepsilon_x$ są drugiego rzędu, więc można je pominąć. Zostaje suma $\varepsilon_x+\varepsilon_y+\varepsilon_z$. Ta suma nazywa się śladem tensora odkształcenia albo odkształceniem objętościowym. Jest to jednocześnie pierwszy niezmiennik tensora, więc nie zależy od obrotu układu współrzędnych.
+
+Ważne założenie: kostka odkształca się jednorodnie, a materiał jest liniowo-sprężysty i izotropowy. W rzeczywistej konstrukcji zmiana objętości może być niejednorodna, na przykład przy koncentracji naprężeń. Wtedy liczymy dylatację lokalnie, w danym punkcie, a nie dla całego elementu.
+
+Model przestaje wystarczać przy dużych odkształceniach, w piankach o otwartych komórkach, w materiałach porowatych i przy przemianach fazowych. W takich przypadkach sama suma odkształceń liniowych nie opisuje już dokładnie zmiany objętości, bo trzeba uwzględnić wyrazy wyższego rzędu i zmianę gęstości.
+
+### Kiedy model przestaje działać
+
+- Odkształcenia są tak duże, że iloczyny $\varepsilon_x\varepsilon_y$ nie są już pomijalne.
+- Materiał jest porowaty lub spieniony i zmiana objętości wynika głównie z zapadania się komórek.
+- Występuje płynięcie plastyczne przy prawie stałej objętości, a mimo to kształt zmienia się znacznie.
+- Zachodzą przemiany fazowe lub wydzielenia, które zmieniają objętość właściwą materiału.
+- Element jest silnie niejednorodny i lokalna dylatacja różni się od średniej.
+- Występuje pełzanie lub relaksacja, więc zmiana objętości zależy od czasu.
+
+## Laboratorium: co ustawić
+
+W tym laboratorium sprawdzisz przeliczanie jednostek siły i naprężenia. Ma to bezpośredni związek z dylatacją: ciśnienie i moduł ściśliwości muszą być wyrażone w tych samych jednostkach, inaczej wynik zmiany objętości będzie błędny o rzędy wielkości. Ustaw kilka wartości i porównaj MPa z N/mm² oraz kN/cm².
 
 <Lab id="units" />
 
+## Definicje i jednostki
+
+| Wielkość                   | Symbol          | Znaczenie                                | Jednostka    | Uwaga                                                           |
+| -------------------------- | --------------- | ---------------------------------------- | ------------ | --------------------------------------------------------------- |
+| Odkształcenie objętościowe | $\varepsilon_v$ | względna zmiana objętości                | bezwymiarowe | $\varepsilon_v\approx\varepsilon_x+\varepsilon_y+\varepsilon_z$ |
+| Zmiana objętości           | $\Delta V$      | różnica objętości końcowej i początkowej | mm³ lub m³   | znak zależy od sumy $\varepsilon$                               |
+| Objętość początkowa        | $V_0$           | objętość przed odkształceniem            | mm³ lub m³   | musi być dodatnia                                               |
+| Ciśnienie hydrostatyczne   | $p$             | średnie naprężenie ściskające            | MPa          | $p=-(\sigma_x+\sigma_y+\sigma_z)/3$                             |
+| Moduł ściśliwości          | $K$             | opór materiału wobec zmiany objętości    | MPa lub GPa  | $K=E/[3(1-2\nu)]$                                               |
+| Współczynnik Poissona      | $\nu$           | miara skurczu poprzecznego               | bezwymiarowy | $0\le\nu\lt0{,}5$ dla typowych materiałów                       |
+| Moduł Younga               | $E$             | sztywność liniowa                        | MPa lub GPa  | stała materiałowa                                               |
+
+Odkształcenie objętościowe jest bezwymiarowe, podobnie jak odkształcenia liniowe. Często podajemy je w procentach lub w mikrostrainach objętościowych. Na przykład $\Delta V/V_0=-0{,}0005$ oznacza zmniejszenie objętości o $0{,}05\,\%$. Nie należy mylić tego z $0{,}05\,\%$ zmiany długości: to zupełnie inna wielkość.
+
+Moduł ściśliwości $K$ ma jednostkę naprężenia. Dla stali jest rzędu $160$–$180\,\text{GPa}$, dla aluminium około $70\,\text{GPa}$, a dla gumy bardzo mały, ponieważ guma jest prawie nieściśliwa i przy niewielkim ciśnieniu niewiele zmienia objętość. Wartości $K$ nie należy mylić z modułem Younga $E$; dla stali $K$ jest nieco mniejszy od $E$, ale dla materiałów o $\nu$ bliskim $0{,}5$ $K$ może być wielokrotnie większy od $E$.
+
+### Znak ciśnienia i objętości
+
+- Dodatnie naprężenie normalne oznacza rozciąganie i zwiększa objętość.
+- Ujemne naprężenie normalne oznacza ściskanie i zmniejsza objętość.
+- Ciśnienie hydrostatyczne $p$ przyjmujemy dodatnie przy ściskaniu.
+- Dlatego we wzorze $\Delta V/V_0=-p/K$ występuje minus.
+- Dodatnie $p$ daje ujemną zmianę objętości, czyli jej zmniejszenie.
+- Ujemne $p$ odpowiada rozciąganiu hydrostatycznemu i dodatniej zmianie objętości.
+
+### Orientacyjne wartości modułu ściśliwości
+
+| Materiał  | $K$ w przybliżeniu          | Uwaga                                  |
+| --------- | --------------------------- | -------------------------------------- |
+| Stal      | $160$–$170\,\text{GPa}$     | zależnie od $E$ i $\nu$                |
+| Aluminium | około $70\,\text{GPa}$      | lekki, bardziej ściśliwy od stali      |
+| Miedź     | około $130\,\text{GPa}$     | wartość orientacyjna                   |
+| Guma      | rząd $\text{GPa}$ lub mniej | silnie zależna od składu               |
+| Woda      | około $2{,}2\,\text{GPa}$   | dla porównania, nie jest ciałem stałym |
+
+Tabela pokazuje, że „sztywny” materiał konstrukcyjny wcale nie musi być nieściśliwy. Stal jest około $80$ razy mniej ściśliwa od wody, ale nadal zmienia objętość pod ciśnieniem. Dopiero materiały o $\nu$ bliskim $0{,}5$, takie jak guma, zachowują się praktycznie nieściśliwie.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\frac{\Delta V}{V_0}\approx\varepsilon_x+\varepsilon_y+\varepsilon_z=\frac{1-2\nu}{E}(\sigma_x+\sigma_y+\sigma_z),\qquad p=-\frac{\sigma_x+\sigma_y+\sigma_z}{3},\quad \frac{\Delta V}{V_0}=-\frac{p}{K}
+\frac{\Delta V}{V_0}\approx\varepsilon_x+\varepsilon_y+\varepsilon_z=\frac{1-2\nu}{E}(\sigma_x+\sigma_y+\sigma_z),\qquad p=-\frac{\sigma_x+\sigma_y+\sigma_z}{3},\qquad \frac{\Delta V}{V_0}=-\frac{p}{K}
 $$
 
-<Caption>K = E/[3(1−2ν)] oznacza moduł ściśliwości. Przyjęto dodatnie naprężenia jako rozciągające, a dodatnie ciśnienie p jako ściskające. Przybliżenie ΔV/V dotyczy małych odkształceń; γ nie wpływa na objętość w pierwszym rzędzie.</Caption>
+<Caption>Pierwsza równość to suma odkształceń liniowych dla małej kostki. Druga wynika z uogólnionego prawa Hooke’a. Trzecia wprowadza ciśnienie hydrostatyczne $p$ i moduł ściśliwości $K=E/[3(1-2\nu)]$. Dodatnie $p$ oznacza ściskanie, więc dodatnie ciśnienie zmniejsza objętość.</Caption>
 </Formula>
 
+Wyprowadzenie dzielimy na część geometryczną i materiałową.
+
+1. Kostka ma początkową objętość $V_0=abc$.
+2. Po odkształceniu krawędzie mają długości $a(1+\varepsilon_x)$, $b(1+\varepsilon_y)$ i $c(1+\varepsilon_z)$.
+3. Nowa objętość wynosi $V=abc(1+\varepsilon_x)(1+\varepsilon_y)(1+\varepsilon_z)$.
+4. Rozwijamy iloczyn: $V/V_0=1+\varepsilon_x+\varepsilon_y+\varepsilon_z+\varepsilon_x\varepsilon_y+\varepsilon_y\varepsilon_z+\varepsilon_z\varepsilon_x+\varepsilon_x\varepsilon_y\varepsilon_z$.
+5. Odejmujemy $1$ i otrzymujemy $\Delta V/V_0=\varepsilon_x+\varepsilon_y+\varepsilon_z+\text{wyrazy drugiego i trzeciego rzędu}$.
+6. Dla małych odkształceń wyrazy drugiego rzędu są pomijalne, więc $\Delta V/V_0\approx\varepsilon_x+\varepsilon_y+\varepsilon_z$.
+7. Podstawiamy uogólnione prawo Hooke’a. Suma trzech równań daje $\varepsilon_x+\varepsilon_y+\varepsilon_z=[(1-2\nu)(\sigma_x+\sigma_y+\sigma_z)]/E$.
+8. Definiujemy ciśnienie hydrostatyczne $p=-(\sigma_x+\sigma_y+\sigma_z)/3$. Wtedy suma naprężeń wynosi $-3p$.
+9. Otrzymujemy $\Delta V/V_0=(1-2\nu)(-3p)/E=-p/[E/(3(1-2\nu))]$.
+10. Wprowadzamy $K=E/[3(1-2\nu)]$ i dostajemy zwartą postać $\Delta V/V_0=-p/K$.
+11. Sprawdzamy przypadek jednoosiowy: suma odkształceń wynosi $\varepsilon_x(1-2\nu)$, więc dla $\nu=0{,}5$ objętość nie zmienia się w pierwszym rzędzie.
+12. Sprawdzamy przypadek czystego ścinania: ślad tensora naprężenia jest zerowy, więc $p=0$ i $\Delta V/V_0=0$ w pierwszym przybliżeniu.
+
+Kontrola znaków: przy ściskaniu hydrostatycznym wszystkie naprężenia są ujemne, więc $p$ jest dodatnie, a $\Delta V/V_0$ ujemne. Objętość maleje. Przy rozciąganiu hydrostatycznym $p$ jest ujemne, a objętość rośnie. Dla czystego ścinania suma naprężeń normalnych jest zerowa, więc w pierwszym przybliżeniu objętość się nie zmienia.
+
+### Związek między $K$, $E$ i $\nu$
+
+<Formula>
+$$
+K=\frac{E}{3(1-2\nu)},\qquad E=3K(1-2\nu),\qquad \nu=\frac{3K-2G}{2(3K+G)}
+$$
+
+<Caption>Pierwsze dwa wzory pozwalają przeliczać się między modułem ściśliwości i modułem Younga. Trzeci wiąże $\nu$ z $K$ i $G$; bywa używany, gdy znane są moduły objętościowy i ścinania. Dla $\nu\to0{,}5$ moduł $K$ rośnie nieograniczenie.</Caption>
+</Formula>
+
+Te zależności pokazują, że nie można dowolnie wybrać wszystkich stałych sprężystości niezależnie. W materiale izotropowym istnieją tylko dwie niezależne stałe. Jeśli znamy $E$ i $\nu$, znamy $G$ i $K$. Jeśli znamy $K$ i $G$, znamy $E$ i $\nu$. To bardzo użyteczna kontrola spójności danych materiałowych.
+
+### Kontrola wyniku
+
+- Sprawdź, czy $\Delta V/V_0$ jest bezwymiarowe, a nie wyrażone w milimetrach sześciennych.
+- Sprawdź, czy znak odpowiada ściskaniu lub rozciąganiu.
+- Sprawdź, czy $K$ i $p$ są w tych samych jednostkach.
+- Sprawdź, czy $K$ jest dodatnie; ujemne $K$ oznaczałoby niestabilność materiału.
+- Sprawdź, czy dla $\nu$ bliskiego $0{,}5$ nie dzielisz przez liczbę bliską zera.
+- Sprawdź, czy suma odkształceń nie jest przypadkiem większa niż kilka procent.
+
 <Insight>
-  Czyste ścinanie zmienia kształt, ale nie daje pierwszorzędowej zmiany objętości. Dla ν = 0,5 model przewiduje K → ∞,
-  czyli nieściśliwość.
+  Czyste ścinanie zmienia kształt, ale nie zmienia objętości w pierwszym rzędzie. To dlatego w teorii plastyczności
+  rozdziela się część objętościową i postaciową: plastyczność metali przebiega przy prawie stałej objętości, a
+  odkształcenie objętościowe pozostaje sprężyste.
 </Insight>
 
 <WorkedExample>
-  <Given>Stal: E = 210 GPa, ν = 0,30. Hydrostatyczne ściskanie: σx = σy = σz = −90 MPa.</Given>
+  <Given>Stalowy element ma $E=200\,\text{GPa}$ i $\nu=0{,}30$. Działa na niego hydrostatyczne ściskanie $\sigma_x=\sigma_y=\sigma_z=-120\,\text{MPa}$.</Given>
   <Steps>
-    <Step>Suma naprężeń wynosi −270 MPa, a 1 − 2ν = 0,4.</Step>
-    <Step>ΔV/V0 = 0,4·(−270)/210 000 = −108/210 000 = −0,000514286.</Step>
-    <Step>Kontrolnie K = 210 000/[3·0,4] = 175 000 MPa.</Step>
-    <Step>Ciśnienie p = −(−270)/3 = 90 MPa, więc −p/K = −90/175 000 = −0,000514286.</Step>
+    <Step>Suma naprężeń: $-120-120-120=-360\,\text{MPa}$.</Step>
+    <Step>Ciśnienie hydrostatyczne: $p=-(-360)/3=120\,\text{MPa}$.</Step>
+    <Step>Współczynnik $1-2\nu=1-0{,}60=0{,}40$.</Step>
+    <Step>$\Delta V/V_0=0{,}40\cdot(-360)/200\,000=-144/200\,000=-0{,}00072$.</Step>
+    <Step>Moduł ściśliwości: $K=200\,000/(3\cdot0{,}40)=166\,667\,\text{MPa}$.</Step>
+    <Step>Kontrola przez $K$: $-p/K=-120/166\,667=-0{,}00072$.</Step>
   </Steps>
-  <Result>Objętość zmniejsza się o około 0,000514, czyli 0,0514%. Obie metody dają ten sam wynik.</Result>
+  <Result>Objętość zmniejsza się o $0{,}00072$, czyli $0{,}072\,\%$. Obie drogi obliczeń dają ten sam wynik, co potwierdza spójność wzorów.</Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy jednoosiowe rozciąganie stali: $\sigma_x=150\,\text{MPa}$, $\sigma_y=\sigma_z=0$, $E=200\,\text{GPa}$ i $\nu=0{,}30$. Obliczamy kolejno $\varepsilon_x=150/200\,000=0{,}00075$, $\varepsilon_y=\varepsilon_z=-0{,}30\cdot0{,}00075=-0{,}000225$. Suma wynosi $0{,}00075-0{,}000225-0{,}000225=0{,}0003$.
+
+Objętość rośnie o $0{,}03\,\%$. Wynik jest dodatni, mimo że dwa z trzech odkształceń są ujemne. To typowe dla rozciągania metali: wydłużenie w kierunku obciążenia przewyższa sumę skurczów poprzecznych. Gdyby $\nu$ było bliskie $0{,}5$, suma zbliżyłaby się do zera i objętość prawie by się nie zmieniła.
+
+Ten przykład pokazuje też, dlaczego nie można oceniać zmiany objętości na podstawie jednej średnicy. Zmiana średnicy może być wyraźna, a zmiana objętości nadal niewielka.
+
+### Co dzieje się przy ściskaniu jednoosiowym
+
+Przy ściskaniu jednoosiowym $\sigma_x\lt0$, a pozostałe naprężenia są zerowe. Odkształcenie w kierunku obciążenia jest ujemne, a w dwóch pozostałych kierunkach dodatnie. Suma może być dodatnia, ujemna lub bliska zeru, w zależności od $\nu$. Dla $\nu=0{,}3$ objętość nadal maleje, ale znacznie słabiej niż w stanie hydrostatycznym o tym samym naprężeniu.
+
+## Trzeci przykład: wariant odwrotny
+
+W zbiorniku pod ciśnieniem zmierzono względną zmianę objętości $\Delta V/V_0=-0{,}0012$ przy ciśnieniu $p=200\,\text{MPa}$. Zakładamy, że odkształcenie jest sprężyste i hydrostatyczne. Jaki jest moduł ściśliwości, a jaki moduł Younga przy $\nu=0{,}30$?
+
+Z definicji $K=-p/(\Delta V/V_0)=-200/(-0{,}0012)=166\,667\,\text{MPa}$, czyli około $166{,}7\,\text{GPa}$. Następnie przekształcamy $K=E/[3(1-2\nu)]$ do postaci $E=3K(1-2\nu)$. Dla $\nu=0{,}30$ mamy $1-2\nu=0{,}40$, więc $E=3\cdot166\,667\cdot0{,}40=200\,000\,\text{MPa}=200\,\text{GPa}$.
+
+Otrzymaliśmy typowe wartości dla stali. Gdyby wyliczony moduł Younga wyszedł na przykład $20\,\text{GPa}$ albo $2000\,\text{GPa}$, należałoby sprawdzić jednostki, znak ciśnienia lub założenie o hydrostatyczności stanu. W rzeczywistym zbiorniku ścianki są rozciągane w dwóch kierunkach, więc czyste ściskanie hydrostatyczne byłoby zbyt dużym uproszczeniem.
+
+### Jak wykorzystać ten wynik w projektowaniu
+
+Znajomość $K$ pozwala oszacować, o ile wzrośnie ciśnienie w zamkniętym zbiorniku po wtłoczeniu dodatkowej objętości cieczy. Jeśli ścianki są sztywne, wzrost ciśnienia jest duży; jeśli materiał jest bardziej ściśliwy, część objętości „zużywa się” na odkształcenie ścianek. W obliczeniach trzeba jednak uwzględnić również rozciąganie ścianek, a nie tylko ściskanie hydrostatyczne materiału.
+
+<Callout kind="warning" title="Typowe błędy">
+  - Dodawanie tylko dwóch odkształceń i pomijanie trzeciego kierunku.
+  - Mylenie zmiany objętości ze zmianą długości lub średnicy.
+  - Używanie znaku dodatniego dla ciśnienia ściskającego i jednoczesne zostawienie minusa we wzorze, co daje podwójną negację.
+  - Podstawianie $K$ w GPa i $p$ w MPa bez przeliczenia.
+  - Zakładanie, że czyste ścinanie zmienia objętość proporcjonalnie do $\gamma$.
+  - Stosowanie wzoru liniowego do gumy lub pianki przy dużych odkształceniach.
+  - Traktowanie $\nu=0{,}5$ jako zwykłej wartości liczbowej, choć prowadzi ona do nieskończonego $K$.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, czy masz dane odkształcenia, czy naprężenia. W pierwszym przypadku użyj sumy $\varepsilon_x+\varepsilon_y+\varepsilon_z$; w drugim podstaw uogólnione prawo Hooke’a.
+2. Sprawdź, czy stan jest hydrostatyczny. Jeśli $\sigma_x=\sigma_y=\sigma_z$, rachunek upraszcza się do $p$ i $K$.
+3. Ujednolić jednostki: $E$ i $K$ w MPa, naprężenia i ciśnienie w MPa.
+4. Ustal konwencję znaku ciśnienia. Przyjmujemy $p$ dodatnie przy ściskaniu, więc objętość maleje, gdy $p$ jest dodatnie.
+5. Odróżnij czyste ścinanie od ścinania z naprężeniami normalnymi. Tylko w czystym ścinaniu suma naprężeń normalnych znika.
+6. Sprawdź rząd wielkości: sprężysta zmiana objętości metalu jest zwykle mniejsza niż $0{,}1\,\%$.
+7. Jeśli wynik jest większy niż kilka procent, zastanów się, czy materiał nie jest porowaty, czy nie płynie plastycznie i czy model małych odkształceń jest właściwy.
+
+## Połącz z resztą kursu
+
+- W lekcji o odkształceniach $\varepsilon$ i $\gamma$ poznałeś składniki, których suma daje dylatację.
+- W lekcji o efekcie Poissona zobaczyłeś, dlaczego $\nu$ bliskie $0{,}5$ oznacza prawie nieściśliwość.
+- W uogólnionym prawie Hooke’a trzy równania liniowe łączą się w jedno równanie objętościowe.
+- W module o zbiornikach ciśnieniowych zmiana objętości wiąże się z rozciąganiem ścianek i pojemnością zbiornika.
+- W module o hipotezach wytężeniowych rozdzielenie części objętościowej i postaciowej wyjaśnia, dlaczego plastyczność zależy głównie od naprężeń stycznych.
+- W lekcjach o tensometrach pomiar w trzech kierunkach pozwala oszacować dylatację bezpośrednio z sumy odkształceń.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz obliczyć sumę odkształceń, rozpoznać stan hydrostatyczny i przeliczyć ciśnienie na zmianę objętości.
 
 <Quiz>
   <Question outcome="W3">
-    <Prompt>Dla εx = 0,002, εy = −0,0005 i εz = −0,0004 ile wynosi przybliżona zmiana objętości?</Prompt>
-    <Answer correct>+0,0011</Answer>
-    <Answer>−0,0011</Answer>
-    <Answer>+0,0029</Answer>
-    <Hint>Dodaj trzy odkształcenia liniowe z uwzględnieniem znaków.</Hint>
-    <Explanation>
-      ΔV/V0 ≈ 0,002 − 0,0005 − 0,0004 = 0,0011. Objętość rośnie o 0,11%, mimo skurczu w dwóch kierunkach.
-    </Explanation>
+    <Prompt>Dla $\varepsilon_x=0{,}0015$, $\varepsilon_y=-0{,}0004$ i $\varepsilon_z=-0{,}0003$ ile wynosi $\Delta V/V_0$?</Prompt>
+    <Answer correct>$0{,}0008$</Answer>
+    <Answer>$-0{,}0008$</Answer>
+    <Answer>$0{,}0022$</Answer>
+    <Hint>Dodaj trzy odkształcenia z ich znakami.</Hint>
+    <Explanation>$0{,}0015-0{,}0004-0{,}0003=0{,}0008$, czyli wzrost objętości o $0{,}08\,\%$.</Explanation>
   </Question>
   <Question outcome="W3">
     <Prompt>Jak czyste ścinanie wpływa na objętość w teorii małych odkształceń?</Prompt>
-    <Answer correct>Nie powoduje zmiany objętości w pierwszym rzędzie</Answer>
+    <Answer correct>Nie zmienia objętości w pierwszym przybliżeniu</Answer>
     <Answer>Zmniejsza objętość o połowę</Answer>
-    <Answer>Zwiększa objętość proporcjonalnie do γ</Answer>
-    <Hint>Ślad tensora odkształcenia zawiera składowe normalne, nie styczne.</Hint>
-    <Explanation>
-      Dla czystego ścinania εx = εy = εz = 0, więc ΔV/V0 ≈ 0. Zmieniają się kąty i kształt, lecz nie objętość w
-      przybliżeniu pierwszego rzędu.
-    </Explanation>
+    <Answer>Zwiększa objętość proporcjonalnie do $\gamma$</Answer>
+    <Hint>Ślad tensora odkształcenia zawiera tylko składowe normalne.</Hint>
+    <Explanation>W czystym ścinaniu $\varepsilon_x=\varepsilon_y=\varepsilon_z=0$, więc suma znika. Zmieniają się kąty i kształt, ale nie objętość w pierwszym rzędzie.</Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Dla p = 100 MPa i K = 2 GPa jaka jest względna zmiana objętości?</Prompt>
-    <Answer correct>−0,05</Answer>
-    <Answer>−0,005</Answer>
-    <Answer>+0,02</Answer>
-    <Hint>2 GPa = 2000 MPa; ciśnienie ściskające zmniejsza objętość.</Hint>
-    <Explanation>
-      ΔV/V0 = −p/K = −100/2000 = −0,05, czyli zmniejszenie o 5%. Znak wynika z przyjęcia dodatniego p jako ściskania.
-    </Explanation>
+    <Prompt>Dla $p=80\,\text{MPa}$ i $K=160\,\text{GPa}$ ile wynosi $\Delta V/V_0$?</Prompt>
+    <Answer correct>$-0{,}0005$</Answer>
+    <Answer>$-0{,}005$</Answer>
+    <Answer>$+0{,}0005$</Answer>
+    <Hint>Zamień $K$ na $160\,000\,\text{MPa}$ i użyj $\Delta V/V_0=-p/K$.</Hint>
+    <Explanation>$-80/160\,000=-0{,}0005$, czyli zmniejszenie objętości o $0{,}05\,\%$.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla stali $E=200\,\text{GPa}$, $\nu=0{,}30$ i hydrostatycznego ściskania $-100\,\text{MPa}$ w każdym kierunku ile wynosi $\Delta V/V_0$?</Prompt>
+    <Answer correct>$-0{,}0006$</Answer>
+    <Answer>$-0{,}0002$</Answer>
+    <Answer>$-0{,}001$</Answer>
+    <Hint>Suma naprężeń wynosi $-300\,\text{MPa}$, a $1-2\nu=0{,}4$.</Hint>
+    <Explanation>$\Delta V/V_0=0{,}4\cdot(-300)/200\,000=-120/200\,000=-0{,}0006$.</Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Co dzieje się z modułem ściśliwości, gdy $\nu$ dąży do $0{,}5$?</Prompt>
+    <Answer correct>Rośnie do nieskończoności</Answer>
+    <Answer>Maleje do zera</Answer>
+    <Answer>Pozostaje równy $E$</Answer>
+    <Hint>Popatrz na mianownik $3(1-2\nu)$.</Hint>
+    <Explanation>Przy $\nu\to0{,}5$ mianownik $3(1-2\nu)$ dąży do zera, więc $K$ rośnie nieograniczenie. Materiał staje się nieściśliwy.</Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Przy jednoosiowym rozciąganiu $\varepsilon_x=1000\,\mu\varepsilon$ i $\nu=0{,}30$. Ile wynosi suma odkształceń liniowych?</Prompt>
+    <Answer correct>$400\,\mu\varepsilon$</Answer>
+    <Answer>$1000\,\mu\varepsilon$</Answer>
+    <Answer>$-600\,\mu\varepsilon$</Answer>
+    <Hint>Odkształcenia poprzeczne wynoszą po $-300\,\mu\varepsilon$.</Hint>
+    <Explanation>$\varepsilon_y=\varepsilon_z=-0{,}30\cdot1000=-300\,\mu\varepsilon$. Suma $1000-300-300=400\,\mu\varepsilon$.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla $E=210\,\text{GPa}$ i $\nu=0{,}30$ ile wynosi $K$?</Prompt>
+    <Answer correct>$175\,\text{GPa}$</Answer>
+    <Answer>$105\,\text{GPa}$</Answer>
+    <Answer>$350\,\text{GPa}$</Answer>
+    <Hint>Użyj $K=E/[3(1-2\nu)]$.</Hint>
+    <Explanation>$K=210/[3\cdot0{,}40]=210/1{,}2=175\,\text{GPa}$.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Jeśli $\Delta V/V_0=-0{,}001$ i $K=200\,\text{GPa}$, jakie jest ciśnienie hydrostatyczne?</Prompt>
+    <Answer correct>$200\,\text{MPa}$</Answer>
+    <Answer>$20\,\text{MPa}$</Answer>
+    <Answer>$2000\,\text{MPa}$</Answer>
+    <Hint>Przekształć $\Delta V/V_0=-p/K$ do $p=-K\Delta V/V_0$.</Hint>
+    <Explanation>$p=-200\,000\cdot(-0{,}001)=200\,\text{MPa}$. Dodatnie $p$ oznacza ściskanie, które zmniejsza objętość.</Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o odkształceniach i własnościach materiałów; dobry do powiązania dylatacji z modułem ściśliwości.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o stanie odkształcenia; klasyczne wyprowadzenie zmiany objętości i związku z $\nu$.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z odkształceń objętościowych; warto przećwiczyć rachunek znaków i jednostek.
+- D. Roylance, _Mechanics of Materials_ — rozdział o kinematyce odkształceń; wyprowadzenie $\Delta V/V\approx\varepsilon_x+\varepsilon_y+\varepsilon_z$ z iloczynu krawędzi.
+- T. Wierzbicki, _Structural Mechanics_ — rozdział o prawie sprężystości w trójwymiarowym ośrodku; związek ciśnienia hydrostatycznego, modułu ściśliwości i śladu tensora.

@@ -10,6 +10,7 @@ import {
   FlaskConical,
   Gauge,
   Layers3,
+  Library,
   MousePointer2,
   Play,
   RotateCw,
@@ -34,7 +35,15 @@ import { classNames, cx } from '../lib/css'
 const h = classNames(home)
 const moduleIcons = [Layers3, Zap, Thermometer, Atom, RotateCw, BookOpen, Sparkles, Gauge, ShieldCheck, Award]
 
-export function Home({ onStart, onTool }: { onStart: (id: LessonId) => void; onTool: (view: View) => void }) {
+export function Home({
+  onStart,
+  onModule,
+  onTool,
+}: {
+  onStart: (id: LessonId) => void
+  onModule: (id: string) => void
+  onTool: (view: View) => void
+}) {
   const { completed, lastLesson, scores } = useCourseStore()
   const [query, setQuery] = useState('')
   const percent = (completed.length / lessons.length) * 100
@@ -160,7 +169,7 @@ export function Home({ onStart, onTool }: { onStart: (id: LessonId) => void; onT
                 <button key={lesson.id} onClick={() => onStart(lesson.id)}>
                   <span>{getModuleForLesson(lesson).shortTitle}</span>
                   <strong>{lesson.title}</strong>
-                  <small>{lesson.duration} min</small>
+                  <small>{lesson.totalMinutes} min</small>
                   <ChevronRight size={15} />
                 </button>
               ))}
@@ -171,24 +180,23 @@ export function Home({ onStart, onTool }: { onStart: (id: LessonId) => void; onT
               const Icon = moduleIcons[index % moduleIcons.length]
               const done = module.lessons.filter((lesson) => completed.includes(lesson.id)).length
               const modulePercent = (done / module.lessons.length) * 100
-              const next = module.lessons.find((lesson) => !completed.includes(lesson.id)) ?? module.lessons[0]
               const bestScore = Math.max(...module.lessons.map((lesson) => scores[lesson.id] ?? 0))
               return (
                 <article className={h('module-card')} key={module.id}>
-                  <button className={h('module-card-main')} onClick={() => onStart(next.id)}>
+                  <button className={h('module-card-main')} onClick={() => onModule(module.id)}>
                     <span className={cx(h('chapter-icon'), done === module.lessons.length && h('done'))}>
                       {done === module.lessons.length ? <Check /> : <Icon />}
                     </span>
                     <span className={h('module-copy')}>
                       <small>
                         MODUŁ {String(module.number).padStart(2, '0')} · {module.lessons.length} LEKCJI ·{' '}
-                        {module.lessons.reduce((sum, lesson) => sum + lesson.duration, 0)} MIN
+                        {module.lessons.reduce((sum, lesson) => sum + lesson.totalMinutes, 0)} MIN
                       </small>
                       <strong>{module.title}</strong>
                       <span>{module.description}</span>
                     </span>
                     <span className={h('chapter-action')}>
-                      {done ? `${done}/${module.lessons.length}` : 'Zacznij'}
+                      {done ? `${done}/${module.lessons.length}` : 'Otwórz'}
                       <ChevronRight />
                     </span>
                   </button>
@@ -223,7 +231,7 @@ export function Home({ onStart, onTool }: { onStart: (id: LessonId) => void; onT
           <div className={h('section-heading')}>
             <span className={h('section-kicker')}>NARZĘDZIA</span>
             <h2>Ucz się, licz i sprawdzaj.</h2>
-            <p>Cztery tryby wspierające kurs: od luźnego treningu po warunki kolokwium.</p>
+            <p>Pięć trybów wspierających kurs: od luźnego treningu po warunki kolokwium i bibliotekę źródeł.</p>
           </div>
           <div className={h('tool-grid')}>
             <button onClick={() => onTool('training')}>
@@ -246,6 +254,11 @@ export function Home({ onStart, onTool }: { onStart: (id: LessonId) => void; onT
               <strong>Mapa sylabusa</strong>
               <span>Pokrycie karty przedmiotu i efekty W1–W3, U1–U3.</span>
             </button>
+            <button onClick={() => onTool('library')}>
+              <Library />
+              <strong>Biblioteka</strong>
+              <span>Książki z sylabusa, otwarte podręczniki i mapa źródeł.</span>
+            </button>
           </div>
         </section>
         <section className={h('research-note')}>
@@ -264,6 +277,11 @@ export function Home({ onStart, onTool }: { onStart: (id: LessonId) => void; onT
       </main>
       <footer className={h('footer')}>
         <Logo onClick={() => window.scrollTo({ top: 0 })} />
+        {import.meta.env.DEV && (
+          <a className={h('debug-link')} href={`${import.meta.env.BASE_URL}debug/labs`}>
+            Debug laboratoriów
+          </a>
+        )}
         <span>Mniej zapamiętywania. Więcej rozumienia.</span>
       </footer>
     </div>

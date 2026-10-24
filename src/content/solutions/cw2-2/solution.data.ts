@@ -12,6 +12,39 @@ export default {
   ],
   result:
     'Reakcje ściskają pręt siłą R = 2,681 MN. N₁ = N₂ = −2,681 MN; σ₁ = −421,37 MPa, σ₂ = −533,30 MPa. Odkształcenia całkowite: ε₁ = +0,00029314, ε₂ = −0,00026649; wydłużenia odcinków +0,05863 mm i −0,05863 mm.',
+  figure: {
+    kind: 'axial',
+    top: 'fixed',
+    bottom: 'fixed',
+    units: { N: 'kN', σ: 'MPa', ε: '–', ΔL: 'mm', αΔT: '–', ΔL_T: 'mm', A: 'mm²' },
+    segments: [
+      {
+        id: 'górny',
+        label: 'górny · d₁',
+        length: 200,
+        area: 6361.725,
+        n: -2680.65,
+        sigma: -421.37,
+        epsilon: 0.00029314,
+        deltaL: 0.058628,
+        thermalStrain: 0.0024,
+        freeDeltaL: 0.48,
+      },
+      {
+        id: 'dolny',
+        label: 'dolny · d₂',
+        length: 220,
+        area: 5026.548,
+        n: -2680.65,
+        sigma: -533.3,
+        epsilon: -0.00026649,
+        deltaL: -0.058628,
+        thermalStrain: 0.0024,
+        freeDeltaL: 0.528,
+      },
+    ],
+    note: 'αΔT = 0,0024; po zablokowaniu oba końce pozostają nieruchome, więc ΔL₁ + ΔL₂ = 0.',
+  },
   scenes: [
     {
       title: 'Model pełnego utwierdzenia',

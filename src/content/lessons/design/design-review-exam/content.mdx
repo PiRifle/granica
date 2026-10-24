@@ -7,7 +7,6 @@ shortTitle: Błędy i strategia
 description: >-
   Ćwicz rozpoznawanie modelu, pilnuj jednostek i kończ zadanie kontrolą wyniku
   oraz wszystkich warunków projektowych.
-duration: 10
 eyebrow: Pełna powtórka
 outcomes:
   - >-
@@ -31,68 +30,282 @@ outcomes:
 solutionId: cw9-1
 ---
 
-Na kolokwium najwięcej punktów traci się nie na trudnym wzorze, lecz na błędnym schemacie, jednostkach i braku jednoznacznej decyzji końcowej. Stała kolejność pracy zamienia chaos w listę kontrolną.
+Na kolokwium z wytrzymałości materiałów punkty traci się najczęściej nie na trudnym wzorze, lecz na błędnym schemacie, pomieszanych jednostkach i braku jednoznacznej decyzji końcowej. Student potrafi policzyć moment, ale podstawia go w kN·m do wzoru, w którym potrzebne są N·mm. Potrafi dobrać średnicę, ale nie sprawdza, czy ugięcie lub kąt skręcenia są dopuszczalne. Potrafi rozwiązać dwa warunki, ale nie zapisuje, który z nich decyduje.
+
+Ta lekcja jest powtórką mieszaną. Nie wprowadza nowej teorii, lecz porządkuje wszystkie wcześniejsze narzędzia w jedną procedurę egzaminacyjną. Zobaczysz, jak rozpoznać, czy zadanie dotyczy rozciągania, zginania, skręcania czy obciążenia złożonego, jak dobrać model i jak sprawdzić wynik. Nauczysz się też, jak wygląda poprawna odpowiedź: nie tylko liczba, ale też jednostka, warunek decydujący i krótkie uzasadnienie.
+
+Największą pułapką jest pośpiech. Zadanie, które wygląda na proste, często zawiera dodatkowy warunek: luz, zmianę temperatury, dwa różne materiały albo kilka odcinków. Pośpiech prowadzi do pominięcia tego warunku. Dlatego warto mieć stałą listę kontrolną, która działa niezależnie od tematu. Ta lista jest ważniejsza niż pamięciowe opanowanie wszystkich wzorów.
+
+Laboratorium przypomina o jednostkach. Przesuwając siłę i naprężenie, zobaczysz, że ta sama wielkość fizyczna może być zapisana na kilka sposobów. To proste ćwiczenie, ale właśnie ono wychwytuje większość błędów rachunkowych. Po tej lekcji powinieneś umieć rozwiązać mieszane zadanie egzaminacyjne i uzasadnić każdy krok.
+
+## Zanim zaczniesz
+
+- Umiej zapisać równowagę dla pręta, belki i wału. Dla belki potrzebne są reakcje, dla wału moment skręcający, a dla pręta siła normalna.
+- Znaj podstawowe wzory: $\sigma=N/A$, $\sigma=M/W$, $\tau=T/W_o$, $\Delta L=NL/(EA)$, $f=PL^3/(48EI)$ i $\varphi=TL/(GJ_o)$.
+- Rozróżniaj sztywność od wytrzymałości. $E$ i $G$ opisują sztywność, a $R_e$ i $k$ opisują granice naprężeń.
+- Pamiętaj o konwersjach: $1\ \text{MPa}=1\ \text{N/mm}^2$, $1\ \text{kN}=1000\ \text{N}$, $1\ \text{kN}\cdot\text{m}=10^6\ \text{N}\cdot\text{mm}$, $1\ \text{GPa}=1000\ \text{MPa}$.
+- Zamieniaj kąty na radiany przed podstawieniem do wzorów. $1^\circ=\pi/180\ \text{rad}$, więc $1{,}5^\circ\approx0{,}02618\ \text{rad}$.
+- Pamiętaj, że warunek naprężeniowy i warunek sztywności mogą dawać różne wymiary. Przyjmuje się większy wymiar, a potem sprawdza oba warunki.
+- W obciążeniu złożonym nie sumuj naprężeń różnych rodzajów bezpośrednio. Najpierw wyznacz $\sigma$ i $\tau$, a potem użyj hipotezy wytężeniowej.
+
+## Model i intuicja
+
+Każde zadanie projektowe sprowadza się do tego samego łańcucha: schemat, siły wewnętrzne, naprężenia, warunki, decyzja, kontrola. Różnią się tylko wzory w środku. Jeśli rozpoznasz, że element jest prętem, belką czy wałem, wiesz już, jakich sił wewnętrznych szukać i jakie warunki zastosować. To rozpoznanie jest ważniejsze niż samo podstawienie do wzoru.
+
+Model pręta osiowego zakłada równomierny rozkład naprężenia normalnego i pomija wyboczenie. Model belki zakłada płaskie przekroje i liniowy rozkład naprężenia od zginania, a ścinanie traktuje zwykle jako drugorzędne. Model wału zakłada kołowy przekrój i brak wypaczenia. W zadaniu mieszanym może wystąpić kilka modeli jednocześnie, na przykład zginanie ze skręcaniem w wale.
+
+Drugi krok to ustalenie, które warunki są aktywne. Warunek wytrzymałości dotyczy naprężeń i prowadzi do $W$ lub $W_o$. Warunek sztywności dotyczy odkształceń i prowadzi do $I$ lub $J_o$. Warunek stateczności dotyczy wyboczenia lub zwichrzenia. W zadaniu mogą wystąpić dwa lub trzy warunki, a decyduje ten, który daje największy wymiar lub najmniejsze dopuszczalne obciążenie.
+
+Model przestaje wystarczać, gdy element jest smukły i ściskany, gdy występuje koncentracja naprężeń, gdy materiał pracuje poza zakresem sprężystym albo gdy obciążenie jest zmienne w czasie. W typowym zadaniu egzaminacyjnym te efekty są albo wyłączone, albo sygnalizowane osobnym warunkiem. Czytając treść, warto podkreślić słowa „smukły”, „zablokowany”, „luz”, „cyklicznie” i „dopuszczalne ugięcie”, bo one zmieniają model.
+
+Ważne jest też, żeby nie mieszać układów jednostek. Najbezpieczniej jest liczyć w niutonach i milimetrach: siła w N, moment w N·mm, długość w mm, pole w mm², naprężenie w MPa. Wtedy $E$ w GPa trzeba zamienić na MPa, a moment w kN·m na N·mm. Wynik wychodzi wtedy w jednostkach naturalnych: naprężenie w MPa, ugięcie w mm, kąt w radianach.
+
+Na koniec zostaje decyzja. Poprawna odpowiedź nie brzmi „wyszło 43,6 mm”, lecz „przyjęto 45 mm, ponieważ decyduje wytrzymałość, a ugięcie i naprężenie są dopuszczalne”. Taki zapis pokazuje, że rozumiesz całe zadanie, a nie tylko jeden wzór. Nawet jeśli popełnisz błąd rachunkowy, czytelna procedura pozwala przyznać częściowe punkty.
+
+## Laboratorium: co ustawić
+
+Ustaw siłę $F$ i naprężenie $\sigma$, a następnie odczytaj ich równoważne wartości w innych jednostkach. Obserwuj, że zmiana zapisu nie zmienia wielkości fizycznej, tylko sposób jej wyrażenia.
 
 <Lab id="units" />
 
+W laboratorium $12\ \text{kN}$ to $12\,000\ \text{N}$, a $80\ \text{MPa}$ to $80\ \text{N/mm}^2$ i $8\ \text{kN/cm}^2$. Zwróć uwagę, że MPa i N/mm² mają tę samą wartość liczbową, natomiast kN/cm² jest dziesięć razy mniejsze. To właśnie ta dziesiątka jest źródłem wielu pomyłek, gdy ktoś miesza jednostki naprężenia.
+
+## Definicje i jednostki
+
+| Wielkość               | Symbol          | Jednostka podstawowa     | Typowy zapis w zadaniu   |
+| ---------------------- | --------------- | ------------------------ | ------------------------ |
+| siła                   | $P,\ F,\ N$     | $\text{N}$               | $\text{kN}$              |
+| moment                 | $M,\ T$         | $\text{N}\cdot\text{mm}$ | $\text{kN}\cdot\text{m}$ |
+| długość                | $L,\ a,\ b$     | $\text{mm}$              | $\text{m}$               |
+| pole                   | $A$             | $\text{mm}^2$            | $\text{cm}^2$            |
+| moment bezwładności    | $I,\ J_o$       | $\text{mm}^4$            | $\text{cm}^4$            |
+| wskaźnik wytrzymałości | $W,\ W_o$       | $\text{mm}^3$            | $\text{cm}^3$            |
+| naprężenie             | $\sigma,\ \tau$ | $\text{MPa}$             | $\text{kPa}$             |
+| moduł Younga           | $E$             | $\text{MPa}$             | $\text{GPa}$             |
+| moduł Kirchhoffa       | $G$             | $\text{MPa}$             | $\text{GPa}$             |
+| kąt                    | $\varphi$       | $\text{rad}$             | $^\circ$                 |
+| temperatura            | $\Delta T$      | $\text{K}$               | $^\circ\text{C}$         |
+
+Najważniejsze przeliczenia warto mieć w jednym miejscu. Nie chodzi o zapamiętywanie wszystkich współczynników, lecz o umiejętność szybkiego sprawdzenia, czy wynik ma sens.
+
+| Przeliczenie                | Wartość                        |
+| --------------------------- | ------------------------------ |
+| $1\ \text{kN}$              | $1000\ \text{N}$               |
+| $1\ \text{kN}\cdot\text{m}$ | $10^6\ \text{N}\cdot\text{mm}$ |
+| $1\ \text{GPa}$             | $1000\ \text{MPa}$             |
+| $1\ \text{MPa}$             | $1\ \text{N/mm}^2$             |
+| $1\ \text{MPa}$             | $0{,}1\ \text{kN/cm}^2$        |
+| $1\ \text{cm}^2$            | $100\ \text{mm}^2$             |
+| $1^\circ$                   | $\pi/180\ \text{rad}$          |
+
+Jednostki naprężenia są szczególnie mylące, ponieważ MPa, N/mm² i kN/cm² opisują tę samą wielkość, ale mają różne wartości liczbowe. W zadaniach konstrukcyjnych najwygodniej jest pracować w N i mm, bo wtedy naprężenie wychodzi bezpośrednio w MPa. Jeśli w treści podano GPa, trzeba pamiętać, że $200\ \text{GPa}=200\,000\ \text{MPa}$, a nie $200$.
+
+Kąt skręcenia i ugięcie mają różne jednostki: kąt w radianach, ugięcie w milimetrach. Nie wolno porównywać kąta w stopniach z kątem dopuszczalnym w radianach bez zamiany. Podobnie nie wolno porównywać ugięcia w metrach z wartością dopuszczalną w milimetrach. Najlepiej od razu sprowadzić wszystkie wielkości do jednego układu.
+
+W zadaniach z temperaturą pamiętaj, że różnica temperatur w kelwinach ma tę samą wartość liczbową co w stopniach Celsjusza. Współczynnik rozszerzalności $\alpha$ ma jednostkę $1/\text{K}$. Nie podstawiaj temperatury bezwzględnej zamiast różnicy, bo wynik straci sens.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\text{schemat} \rightarrow \text{siły wewnętrzne} \rightarrow \text{naprężenia} \rightarrow \text{warunki} \rightarrow \text{dobór i kontrola}
+\sigma_{\mathrm{red}}=\sqrt{\sigma^2+3\tau^2}\le k \qquad \sigma=\frac{M}{W} \qquad \tau=\frac{T}{W_o} \qquad k=\frac{R_e}{n}
 $$
 
-<Caption>Podstawowe kontrole: 1 MPa = 1 N/mm², 1 kN·m = 10⁶ N·mm, E = 200 GPa = 200 000 MPa, a kąt z TL/(GJ) otrzymujemy w radianach.</Caption>
+<Caption>Wzór na naprężenie zredukowane według hipotezy HMH dotyczy płaskiego stanu naprężenia, w którym $\sigma$ i $\tau$ działają w tym samym punkcie. Dla przekroju kołowego $W_o=2W$, więc $\sigma_{\mathrm{red}}=\sqrt{M^2+0{,}75T^2}/W$. $M$ i $T$ podstawiamy w $\text{N}\cdot\text{mm}$, a $k$ w MPa.</Caption>
 </Formula>
 
+1. Ustalamy schemat i wymiary. Zapisujemy, gdzie działają siły i momenty, jakie są podpory i jakie warunki brzegowe. To determinuje, czy układ jest statycznie wyznaczalny.
+2. Wyznaczamy siły wewnętrzne. Dla pręta to $N$, dla belki $M$ i $V$, dla wału $T$. W układzie złożonym może występować kilka z nich jednocześnie.
+3. Wyznaczamy naprężenia w najbardziej wytężonym punkcie. Dla zginania $\sigma=M/W$, dla skręcania $\tau=T/W_o$, dla rozciągania $\sigma=N/A$.
+4. Sprawdzamy, czy naprężenia działają w tym samym punkcie i w tym samym kierunku. Jeśli tak, można je zredukować hipotezą wytężeniową. Jeśli nie, trzeba rozpatrzyć kilka punktów osobno.
+5. Dla HMH w płaskim stanie naprężenia używamy $\sigma_{\mathrm{red}}=\sqrt{\sigma^2+3\tau^2}$. Dla Treski $\sigma_{\mathrm{red}}=\sqrt{\sigma^2+4\tau^2}$. Wybór hipotezy musi być świadomy.
+6. Warunek wytrzymałości zapisujemy jako $\sigma_{\mathrm{red}}\le k$. Jeśli w zadaniu podano już $k$, nie dziel go ponownie przez $n$; w przeciwnym razie wyznacz $k=R_e/n$.
+7. Dla przekroju kołowego wykorzystujemy $W_o=2W$. Wtedy $\sigma_{\mathrm{red}}=\sqrt{M^2+0{,}75T^2}/W$, co pozwala dobrać średnicę z jednego warunku zamiast dwóch.
+8. Osobno sprawdzamy sztywność: ugięcie belki, kąt skręcenia wału lub wydłużenie pręta. Te warunki zależą od $E$, $G$, $I$ i $J_o$, a nie od $W$.
+9. Przyjmujemy wymiar większy od wszystkich wymagań, zaokrąglamy w górę i wracamy do obliczeń. Zapisujemy rzeczywiste naprężenie, odkształcenie, zapas i warunek decydujący.
+
+Dla przekroju kołowego warto zapamiętać równoważny moment $M_{\mathrm{eq}}=\sqrt{M^2+0{,}75T^2}$. Wtedy $\sigma_{\mathrm{red}}=M_{\mathrm{eq}}/W$, a dobór średnicy wygląda jak zwykłe zginanie z momentem $M_{\mathrm{eq}}$. To skrót rachunkowy, który działa tylko dla przekroju kołowego i hipotezy HMH. Dla innego kształtu lub innej hipotezy trzeba wrócić do ogólnego wzoru.
+
+W zadaniu egzaminacyjnym warto najpierw sprawdzić, czy nie można rozdzielić warunków. Czasem wytrzymałość i sztywność dotyczą różnych przekrojów lub różnych odcinków. Wtedy nie mnoży się ich przez siebie, lecz sprawdza każdy odcinek osobno. Największe naprężenie i największe odkształcenie mogą wystąpić w różnych miejscach.
+
 <Insight>
-  Po obliczeniu wymiaru nie kończ zadania: przyjmij wymiar katalogowy, podstaw go z powrotem i zapisz, który warunek
-  jest decydujący.
+  Najczęstszy błąd na kolokwium to pominięcie jednostki albo warunku. Poprawna odpowiedź zawiera trzy elementy: wynik
+  liczbowy z jednostką, wskazanie warunku decydującego i kontrolę wszystkich pozostałych warunków. Sam wynik bez
+  uzasadnienia jest wart znacznie mniej.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Dobierany pręt musi mieć A ≥ 450 mm² ze względu na wytrzymałość i A ≥ 520 mm² ze względu na dopuszczalne wydłużenie.
-    Dostępny przekrój ma A = 550 mm², E = 200 GPa, L = 2 m, a siła wynosi P = 30 kN.
+    Wał pełny jest obciążony momentem zginającym $M=800\ \text{N}\cdot\text{m}$ i momentem skręcającym $T=600\ \text{N}\cdot\text{m}$. Przyjmij $R_e=235\ \text{MPa}$, współczynnik bezpieczeństwa $n=2$ i hipotezę HMH. Dobierz średnicę wału.
   </Given>
   <Steps>
-    <Step>Warunek decydujący: A ≥ max(450, 520) = 520 mm².</Step>
-    <Step>Przyjmujemy A = 550 mm², ponieważ 550 ≥ 520.</Step>
-    <Step>Kontrola wydłużenia: ΔL = PL/(EA) = 30 000·2000/(200 000·550) = 0,545 mm.</Step>
-    <Step>Zapis końcowy powinien wskazać przyjęty przekrój i potwierdzić spełnienie obu warunków.</Step>
+    <Step>Naprężenie dopuszczalne: $k=R_e/n=235/2=117{,}5\ \text{MPa}$.</Step>
+    <Step>Moment równoważny: $M_{\mathrm{eq}}=\sqrt{M^2+0{,}75T^2}=\sqrt{800^2+0{,}75\cdot600^2}\approx953{,}9\ \text{N}\cdot\text{m}$.</Step>
+    <Step>Zamiana jednostek: $M_{\mathrm{eq}}\approx953\,900\ \text{N}\cdot\text{mm}$, $k=117{,}5\ \text{N/mm}^2$.</Step>
+    <Step>Wymagana średnica: $d\ge\sqrt[3]{32M_{\mathrm{eq}}/(\pi k)}=\sqrt[3]{32\cdot953\,900/(\pi\cdot117{,}5)}\approx43{,}6\ \text{mm}$.</Step>
+    <Step>Przyjmujemy $d=45\ \text{mm}$ z szeregu wymiarów co $5\ \text{mm}$.</Step>
+    <Step>Wskaźniki: $W=\pi\cdot45^3/32\approx8946\ \text{mm}^3$, $W_o=2W\approx17\,892\ \text{mm}^3$.</Step>
+    <Step>Naprężenia: $\sigma=800\,000/8946\approx89{,}4\ \text{MPa}$, $\tau=600\,000/17\,892\approx33{,}5\ \text{MPa}$.</Step>
+    <Step>Naprężenie zredukowane: $\sigma_{\mathrm{red}}=\sqrt{89{,}4^2+3\cdot33{,}5^2}\approx106{,}6\ \text{MPa}\le117{,}5\ \text{MPa}$.</Step>
+    <Step>Zapas rzeczywisty: $n_{rz}=235/106{,}6\approx2{,}20$, czyli więcej niż wymagane $2$.</Step>
   </Steps>
-  <Result>Przyjmujemy A = 550 mm²; decyduje sztywność, a obliczone wydłużenie wynosi około 0,545 mm.</Result>
+  <Result>
+    Przyjęto $d=45\ \text{mm}$. Naprężenie zredukowane wynosi około $106{,}6\ \text{MPa}$ i jest mniejsze od dopuszczalnego $117{,}5\ \text{MPa}$, a rzeczywisty zapas względem $R_e$ wynosi około $2{,}20$.
+  </Result>
 </WorkedExample>
+
+Zwróć uwagę, że średnica $43{,}6\ \text{mm}$ nie mogła zostać przyjęta jako $43\ \text{mm}$. Zaokrąglenie w dół dałoby $\sigma_{\mathrm{red}}$ większe od dopuszczalnego. Wybór $45\ \text{mm}$ daje zapas i jest zgodny z typowym szeregiem wymiarów. To prosty przykład decyzji, której brak kosztuje punkty.
+
+## Drugi przykład
+
+Rozważmy wał schodkowy złożony z dwóch odcinków. Pierwszy ma $D_1=60\ \text{mm}$ i $L_1=0{,}8\ \text{m}$, drugi $D_2=40\ \text{mm}$ i $L_2=0{,}6\ \text{m}$. Wał przenosi moment $T=500\ \text{N}\cdot\text{m}$, a $G=80\ \text{GPa}$. Przyjmij $\tau_{\mathrm{dop}}=40\ \text{MPa}$ i $\varphi_{\mathrm{dop}}=1{,}2^\circ$.
+
+Dla pierwszego odcinka $J_{o1}=\pi\cdot60^4/32\approx1\,272\,345\ \text{mm}^4$, a $W_{o1}=2J_{o1}/60\approx42\,412\ \text{mm}^3$. Naprężenie wynosi $\tau_1=500\,000/42\,412\approx11{,}8\ \text{MPa}$. Dla drugiego odcinka $J_{o2}=\pi\cdot40^4/32\approx251\,327\ \text{mm}^4$, a $W_{o2}=2J_{o2}/40\approx12\,566\ \text{mm}^3$, więc $\tau_2=500\,000/12\,566\approx39{,}8\ \text{MPa}$, czyli blisko granicy $40\ \text{MPa}$.
+
+Kąty skręcenia wynoszą $\varphi_1=500\,000\cdot800/(80\,000\cdot1\,272\,345)\approx0{,}00393\ \text{rad}$ oraz $\varphi_2=500\,000\cdot600/(80\,000\cdot251\,327)\approx0{,}01492\ \text{rad}$. Suma to około $0{,}01885\ \text{rad}$, czyli $1{,}08^\circ$, mniej niż $1{,}2^\circ$.
+
+Decyduje drugi odcinek, ponieważ ma mniejszą średnicę i większy iloraz $T/W_o$. Kąt jest sumą udziałów obu odcinków, więc nie wolno policzyć go tylko dla jednego z nich. Gdyby odcinki miały różne materiały, trzeba by użyć różnych $G$ i zsumować kąty z odpowiednimi wartościami.
+
+Ten przykład pokazuje, że w układzie schodkowym trzeba sprawdzić każdy odcinek osobno. Największy moment jest wspólny, ale najmniejsza średnica decyduje o naprężeniu. Podobnie najdłuższy i najcieńszy odcinek może decydować o kącie. Tabela odcinków jest tu równie przydatna jak w zadaniach z prętami.
+
+## Trzeci przykład: wariant odwrotny
+
+Na kolokwium często trzeba ocenić gotowe rozwiązanie. Przypuśćmy, że student oblicza belkę dla $M=3\ \text{kN}\cdot\text{m}$ i $k=150\ \text{MPa}$, a następnie zapisuje $W=3/150=0{,}02\ \text{mm}^3$ i wnioskuje, że średnica może wynosić około $0{,}6\ \text{mm}$. Wynik jest absurdalny, więc trzeba znaleźć błąd.
+
+Błąd polega na pominięciu zamiany jednostek. Moment $3\ \text{kN}\cdot\text{m}$ to $3\,000\,000\ \text{N}\cdot\text{mm}$, a nie $3$. Poprawny wskaźnik wynosi $W=3\,000\,000/150=20\,000\ \text{mm}^3$. Dla pełnego koła $d=\sqrt[3]{32W/\pi}=\sqrt[3]{640\,000/\pi}\approx58{,}8\ \text{mm}$, więc sensowny wymiar to $60\ \text{mm}$.
+
+Sprawdzenie przyjętego wymiaru: $W=\pi\cdot60^3/32\approx21\,206\ \text{mm}^3$, a $\sigma=3\,000\,000/21\,206\approx141{,}5\ \text{MPa}\le150\ \text{MPa}$. Wynik jest poprawny i ma niewielki zapas. Gdyby student użył $3000/150=20\ \text{mm}^3$, otrzymałby $d\approx5{,}9\ \text{mm}$, co również jest absurdalne dla belki o takim momencie.
+
+Wariant odwrotny uczy, że kontrola rzędu wielkości jest częścią rozwiązania. Średnica $0{,}6\ \text{mm}$ lub $5{,}9\ \text{mm}$ powinna natychmiast wzbudzić podejrzenie. Podobnie moment $18\,200\ \text{N}\cdot\text{mm}$ zamiast $18\,200\,000\ \text{N}\cdot\text{mm}$ daje wskaźnik tysiąc razy za mały, a średnicę około dziesięć razy za małą. Zawsze warto zapytać, czy otrzymany wymiar jest realistyczny dla danej konstrukcji.
+
+<Callout kind="warning" title="Typowe błędy">
+  1. **Mieszanie jednostek momentu.** $1\ \text{kN}\cdot\text{m}=10^6\ \text{N}\cdot\text{mm}$. Podstawienie kN·m bez zamiany daje wskaźnik tysiąc razy za mały, a średnicę około dziesięć razy za małą.
+  2. **Mieszanie GPa i MPa.** $200\ \text{GPa}=200\,000\ \text{MPa}$, a nie $200$. Błąd tysiąckrotny zmienia ugięcie i kąt skręcenia.
+  3. **Stopnie zamiast radianów.** Do wzoru na kąt skręcenia podstawia się radiany. $1{,}5^\circ$ to około $0{,}02618\ \text{rad}$, a nie $1{,}5$.
+  4. **Pominięcie warunku sztywności.** Belka lub wał mogą być wystarczająco wytrzymałe, a mimo to zbyt podatne. Zawsze sprawdzaj $f$ lub $\varphi$.
+  5. **Zaokrąglenie wymiaru w dół.** Wynik $43{,}6\ \text{mm}$ nie pozwala przyjąć $43\ \text{mm}$. Trzeba wybrać najmniejszy dostępny wymiar większy od wyniku.
+  6. **Zła hipoteza wytężeniowa.** HMH i Tresca dają różne wartości. Nie wolno porównywać wyniku HMH z granicą wyprowadzoną z Treski.
+  7. **Brak decyzji końcowej.** Odpowiedź musi wskazywać przyjęty wymiar, warunek decydujący i potwierdzenie pozostałych warunków. Sam rachunek nie wystarcza.
+  8. **Pominięcie koncentracji naprężeń.** Otwór, karb lub wpust mogą zwiększyć naprężenie lokalne. W zadaniu podstawowym zwykle się je pomija, ale trzeba to świadomie zaznaczyć.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Przeczytaj treść i podkreśl dane.** Zapisz, co jest dane, czego szukasz i jakie warunki są podane. Zwróć uwagę na słowa „dopuszczalne”, „zablokowany”, „luz” i „smukły”.
+2. **Narysuj schemat.** Zaznacz podpory, siły, momenty i wymiary. Dla wału zaznacz, gdzie przyłożono moment skręcający, a dla belki — gdzie działa siła.
+3. **Rozpoznaj typ obciążenia.** Pręt, belka, wał czy układ złożony? Czy występuje rozciąganie, zginanie, skręcanie, temperatura lub kilka z tych efektów jednocześnie?
+4. **Wyznacz siły wewnętrzne.** Użyj równowagi i metody przekrojów. Dla belki narysuj $M(x)$ i $V(x)$, dla wału $T(x)$, dla pręta $N(x)$.
+5. **Znajdź najbardziej wytężony punkt.** To nie zawsze ten sam przekrój, w którym siła jest największa. Porównaj ilorazy $M/W$, $T/W_o$ lub $N/A$.
+6. **Sprawdź warunki wytrzymałości i sztywności.** Zapisz oba osobno. Dla obciążenia złożonego użyj hipotezy wytężeniowej.
+7. **Porównaj wymagania.** Przyjmij wymiar większy od wszystkich wymagań i zaokrąglij w górę do dostępnego szeregu.
+8. **Wróć do obliczeń.** Sprawdź rzeczywiste naprężenie, odkształcenie i zapas. Zapisz, który warunek decyduje.
+9. **Skontroluj jednostki i rząd wielkości.** Czy średnica jest realistyczna? Czy kąt jest w radianach? Czy ugięcie jest w milimetrach?
+10. **Zapisz odpowiedź w jednym zdaniu.** Podaj wymiar, materiał lub obciążenie, warunek decydujący i potwierdzenie spełnienia pozostałych warunków.
+
+Ta procedura działa również wtedy, gdy zadanie jest nietypowe. Jeśli nie wiesz, od czego zacząć, wróć do schematu i równowagi. Większość zadań egzaminacyjnych daje się rozłożyć na te same kroki, nawet jeśli wzory wyglądają inaczej.
+
+## Połącz z resztą kursu
+
+- **Dobór wymiaru z warunku wytrzymałości** uczy przechodzenia od $M$ do $W$ i od $W$ do wymiaru. To pierwszy element każdego zadania projektowego.
+- **Dobór materiału i obciążenia dopuszczalnego** wyjaśnia, skąd bierze się $k$ i jak porównywać materiały. Bez tego nie wiadomo, czy $k$ to granica, czy już wartość dopuszczalna.
+- **Pełne zadanie: pręt osiowy** pokazuje sumowanie odcinków i kontrolę wydłużenia. Ten sam schemat pojawia się w wałach schodkowych.
+- **Pełne zadanie: temperatura** dodaje warunek zgodności odkształceń. Przypomina, że naprężenie może powstawać bez widocznej siły zewnętrznej.
+- **Pełne zadanie: belka** i **Pełne zadanie: wał** są bezpośrednim zastosowaniem procedury do zginania i skręcania.
+- **Hipotezy wytężeniowe** dostarczają wzorów na $\sigma_{\mathrm{red}}$. W zadaniu złożonym bez nich nie da się ocenić bezpieczeństwa.
+
+## Sprawdź się
+
+Pytania mieszają jednostki, wytrzymałość, sztywność, temperaturę i obciążenie złożone. Odpowiadaj bez zaglądania do notatek, ale po każdym pytaniu sprawdź, czy wynik ma sens i czy jednostka jest poprawna.
+
+Jeśli pomylisz jednostki, wróć do tabeli przeliczeń. Jeśli pomylisz warunek decydujący, porównaj wymagane wymiary, a nie same naprężenia. Jeśli pomylisz hipotezę, sprawdź, czy używasz HMH czy Treski.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Moment M = 3 kN·m dzielisz przez k = 150 MPa, by otrzymać W. Które podstawienie jest poprawne?</Prompt>
-    <Answer>3/150 m³</Answer>
-    <Answer>3000/150 mm³</Answer>
-    <Answer correct>3 000 000/150 mm³</Answer>
-    <Hint>Najpierw zamień kN·m na N·mm.</Hint>
-    <Explanation>3 kN·m = 3000 N·m = 3 000 000 N·mm. Zatem W = 3 000 000/150 = 20 000 mm³.</Explanation>
+    <Prompt>Moment $M=5\ \text{kN}\cdot\text{m}$ dzielisz przez $k=125\ \text{MPa}$, aby otrzymać $W$. Który wynik jest poprawny?</Prompt>
+    <Answer>$40\ \text{mm}^3$</Answer>
+    <Answer>$400\ \text{mm}^3$</Answer>
+    <Answer correct>$40\,000\ \text{mm}^3$</Answer>
+    <Hint>$5\ \text{kN}\cdot\text{m}=5\,000\,000\ \text{N}\cdot\text{mm}$.</Hint>
+    <Explanation>
+      $W=5\,000\,000/125=40\,000\ \text{mm}^3$. Bez zamiany jednostek wynik byłby tysiąc razy za mały.
+    </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>W obciążeniu złożonym obliczono σ = 90 MPa i τ = 50 MPa. Jaki następny krok jest poprawny dla HMH?</Prompt>
-    <Answer>σred = 90 + 50</Answer>
-    <Answer correct>σred = √(90² + 3·50²)</Answer>
-    <Answer>σred = 90² + 3·50² bez pierwiastka</Answer>
-    <Hint>Składowe redukujemy dopiero po ich wyznaczeniu we właściwym punkcie.</Hint>
+    <Prompt>W obciążeniu złożonym obliczono $\sigma=90\ \text{MPa}$ i $\tau=50\ \text{MPa}$. Jaki jest poprawny wynik HMH?</Prompt>
+    <Answer>$140\ \text{MPa}$</Answer>
+    <Answer correct>$124{,}9\ \text{MPa}$</Answer>
+    <Answer>$90\ \text{MPa}$</Answer>
+    <Hint>$\sigma_{\mathrm{red}}=\sqrt{\sigma^2+3\tau^2}$.</Hint>
     <Explanation>
-      HMH daje σred = √(90² + 3·50²) = √15 600 = 124,90 MPa. Brak pierwiastka zmieniłby jednostkę z MPa na MPa².
+      $\sigma_{\mathrm{red}}=\sqrt{90^2+3\cdot50^2}=\sqrt{8100+7500}=\sqrt{15\,600}\approx124{,}9\ \text{MPa}$. Dodanie $90+50$ jest błędne, bo naprężenia mają różny charakter.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>
-      Z wytrzymałości wyszło d = 31,4 mm, a z sztywności d = 35,1 mm; dostępne wymiary co 1 mm. Jaka decyzja końcowa
-      jest poprawna?
-    </Prompt>
-    <Answer>31 mm, bo wytrzymałość jest ważniejsza</Answer>
-    <Answer>35 mm, bo to średnia praktyczna</Answer>
-    <Answer correct>36 mm, a potem kontrola obu warunków</Answer>
+    <Prompt>Z wytrzymałości wyszło $d=31{,}4\ \text{mm}$, a z sztywności $d=35{,}1\ \text{mm}$; dostępne wymiary są co $1\ \text{mm}$. Jaka decyzja jest poprawna?</Prompt>
+    <Answer>$31\ \text{mm}$, bo wytrzymałość jest ważniejsza</Answer>
+    <Answer>$35\ \text{mm}$, bo to średnia praktyczna</Answer>
+    <Answer correct>$36\ \text{mm}$, a potem kontrola obu warunków</Answer>
     <Hint>Wybierz maksimum wymagań i zaokrąglij w górę.</Hint>
     <Explanation>
-      Decyduje większa wartość 35,1 mm. Najbliższy dostępny wymiar 35 mm jest mniejszy od wymaganego, więc przyjmujemy
-      36 mm i sprawdzamy naprężenie oraz odkształcenie dla tej średnicy.
+      Decyduje większa wartość $35{,}1\ \text{mm}$. Najbliższy dostępny wymiar $35\ \text{mm}$ jest mniejszy od wymaganego, więc przyjmujemy $36\ \text{mm}$ i sprawdzamy naprężenie oraz odkształcenie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Belka swobodnie podparta jest obciążona siłą skupioną poza środkiem rozpiętości. Gdzie występuje maksymalny moment zginający?</Prompt>
+    <Answer>Zawsze w środku rozpiętości</Answer>
+    <Answer correct>Pod siłą</Answer>
+    <Answer>Na podporze</Answer>
+    <Hint>Moment jest całką siły tnącej, a $V$ zmienia znak pod siłą.</Hint>
+    <Explanation>
+      Dla siły skupionej moment rośnie liniowo od podpory do siły, a potem maleje. Ekstremum wypada tam, gdzie $V$ przecina zero, czyli pod siłą.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Warunek wytrzymałości daje $d\ge40\ \text{mm}$, a warunek sztywności $d\ge46\ \text{mm}$. Który warunek decyduje i jaki wymiar przyjąć?</Prompt>
+    <Answer>Wytrzymałość, $40\ \text{mm}$</Answer>
+    <Answer correct>Sztywność, co najmniej $46\ \text{mm}$</Answer>
+    <Answer>Oba jednakowo, $43\ \text{mm}$</Answer>
+    <Hint>Oba warunki muszą być spełnione jednocześnie.</Hint>
+    <Explanation>
+      Większe wymaganie pochodzi z warunku sztywności. Przy $40\ \text{mm}$ naprężenie byłoby dopuszczalne, ale ugięcie przekroczyłoby wartość dopuszczalną.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pręt stalowy jest idealnie zablokowany między dwoma podporami i ogrzany o $\Delta T=30\ \text{K}$. Przyjmij $E=200\ \text{GPa}$ i $\alpha=12\cdot10^{-6}\ \text{1/K}$. Jakie naprężenie powstanie?</Prompt>
+    <Answer correct>$72\ \text{MPa}$ ściskające</Answer>
+    <Answer>$72\ \text{MPa}$ rozciągające</Answer>
+    <Answer>$36\ \text{MPa}$ ściskające</Answer>
+    <Hint>$\sigma=-E\alpha\Delta T$.</Hint>
+    <Explanation>
+      $\sigma=-200\,000\cdot12\cdot10^{-6}\cdot30=-72\ \text{MPa}$. Znak minus oznacza ściskanie, ponieważ pręt chce się wydłużyć, a podpory mu nie pozwalają.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W wale obliczono $\sigma=80\ \text{MPa}$ i $\tau=40\ \text{MPa}$. Ile wynosi naprężenie zredukowane według HMH?</Prompt>
+    <Answer>$120\ \text{MPa}$</Answer>
+    <Answer correct>$105{,}8\ \text{MPa}$</Answer>
+    <Answer>$89{,}4\ \text{MPa}$</Answer>
+    <Hint>$\sigma_{\mathrm{red}}=\sqrt{80^2+3\cdot40^2}$.</Hint>
+    <Explanation>
+      $\sigma_{\mathrm{red}}=\sqrt{6400+4800}=\sqrt{11\,200}\approx105{,}8\ \text{MPa}$. Suma $80+40$ nie ma uzasadnienia fizycznego.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Po doborze $d=45\ \text{mm}$ z warunku $d\ge43{,}6\ \text{mm}$ jaki krok kończy zadanie?</Prompt>
+    <Answer>Zakończyć, bo $45\ \text{mm}$ jest większe od $43{,}6\ \text{mm}$</Answer>
+    <Answer correct>Obliczyć rzeczywiste naprężenia i zapas oraz zapisać warunek decydujący</Answer>
+    <Answer>Zaokrąglić w dół do $43\ \text{mm}$</Answer>
+    <Hint>Dobór wymiaru to nie to samo co kontrola przyjętego wymiaru.</Hint>
+    <Explanation>
+      Po zaokrągleniu trzeba wrócić do wzorów i sprawdzić rzeczywiste $\sigma$, $\tau$, ugięcie lub kąt. Dopiero ta kontrola potwierdza poprawność projektu i pozwala wskazać warunek decydujący.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — rozdziały o zginaniu, skręcaniu i układach złożonych; dobry trening przed kolokwium z mieszanymi schematami.
+- R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_, PWN, Warszawa 1966 — zbiór zadań o różnym stopniu trudności; szukaj przykładów z jednostkami i wieloma warunkami.
+- D. Roylance, _Mechanics of Materials_, MIT OpenCourseWare — rozdziały o belkach, skręcaniu i ugięciach; otwarty podręcznik z pełnymi przykładami i kontrolą jednostek.
+- MIT 3.11 _Mechanics of Materials_, tablice przeliczeń jednostek — otwarte notatki z dokładnymi współczynnikami; pomocne przy sprawdzaniu wyników.
+- MIT 3.11 _Mechanics of Materials_, wykłady o projektowaniu i efektywności materiałowej — otwarte notatki o relacji formy i funkcji oraz o mapach efektywności; pomocne w myśleniu o kompromisie między kształtem, materiałem i kosztem.

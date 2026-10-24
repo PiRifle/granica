@@ -7,7 +7,6 @@ shortTitle: Rysowanie koła
 description: >-
   Przejdź od trzech składowych naprężenia do poprawnego wykresu, kątów i odczytu
   naprężeń głównych.
-duration: 9
 eyebrow: Geometria zamiast zgadywania
 outcomes:
   - >-
@@ -24,56 +23,214 @@ outcomes:
   - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
 ---
 
-Koło Mohra zamienia wzory transformacji na rysunek. Każdy punkt obwodu odpowiada jednej orientacji przekroju. Dzięki temu skrajne rozciąganie i ściskanie odczytujemy jako przecięcia z osią σ, a maksymalne ścinanie jako największą rzędną — bez przeglądania długiej listy liczb.
+Koło Mohra zamienia wzory transformacyjne na rysunek. Każdy punkt obwodu odpowiada jednej orientacji przekroju, a nie jednemu punktowi materiału. Dzięki temu skrajne rozciąganie i ściskanie odczytujemy jako przecięcia z osią naprężeń normalnych, a maksymalne ścinanie jako największą rzędną. Zamiast pamiętać długą listę przypadków, rysujemy okrąg i odczytujemy z niego potrzebne wartości.
+
+Wykres jest też narzędziem kontroli. Jeśli obliczony punkt nie leży na okręgu albo środek nie wypada w średniej naprężeń normalnych, gdzieś jest błąd w znaku lub w jednostkach. Koło pokazuje całą rodzinę stanów na wszystkich przekrojach przechodzących przez dany punkt, więc pozwala szybko zauważyć, że dwa różne przekroje mogą mieć bardzo różne naprężenia przy tym samym obciążeniu.
+
+W praktyce koło Mohra pojawia się przy analizie spoin, połączeń klejowych, pękania kruchych materiałów i uplastycznienia stali. W spoinie chcemy znać naprężenia na płaszczyźnie spoiny, a nie tylko w układzie osi pręta. W kredzie skręcanej w palcach pęknięcie biegnie ukośnie, bo w tym kierunku pojawia się rozciąganie. Koło pozwala przewidzieć ten kierunek bez rozwiązywania układu równań dla każdego kąta.
+
+W tej lekcji nauczysz się rysować koło od zera: zaznaczać punkty odpowiadające ścianom $x$ i $y$, wyznaczać środek i promień, a następnie odczytywać naprężenia główne, maksymalne ścinanie i kąty. Zobaczysz, dlaczego kąt na wykresie jest podwojony i jak nie pomylić gałęzi. Nauczysz się też rozpoznawać przypadki, w których rysunek jest niejednoznaczny lub przestaje wystarczać.
+
+Najważniejsza umiejętność to kolejność pracy. Najpierw dane, potem punkty, potem środek, potem okrąg, a na końcu odczyt. Nie zaczynamy od rysowania „na oko”, bo wtedy łatwo przesunąć średnicę i otrzymać błędne naprężenia główne. Laboratorium pozwoli sprawdzić każdy krok na konkretnych liczbach.
+
+## Zanim zaczniesz
+
+- **Wzory transformacyjne.** Potrzebujesz zależności na $\sigma_n$ i $\tau_{nt}$ po obrocie oraz umiejętności zapisania ich przez $\sigma_{avg}$ i $a$.
+- **Naprężenia główne.** Wiesz, że $\sigma_1=\sigma_{avg}+R$ i $\sigma_2=\sigma_{avg}-R$, a $R=\sqrt{a^2+\tau_{xy}^2}$.
+- **Konwencja znaków.** Dodatnie $\sigma$ oznacza rozciąganie. Znak $\tau_{xy}$ zależy od przyjętych dodatnich zwrotów osi; nie zmieniaj ich w połowie zadania.
+- **Geometria okręgu.** Środek odcinka o końcach $X$ i $Y$ leży w połowie drogi między nimi, a promień to odległość środka od końca.
+- **Kąt i jednostka.** Kąty na wykresie są podwojone względem kątów fizycznych. Tryb kalkulatora musi odpowiadać jednostce kąta.
+- **Typowa pułapka.** Zaznaczenie obu punktów z tym samym znakiem $\tau$. Ściany $x$ i $y$ mają przeciwne znaki stycznej w przyjętej konwencji wykresu.
+
+## Model i intuicja
+
+Rozważamy płaski stan naprężenia w punkcie. Wycinamy mały kwadratowy element, którego ściany są prostopadłe do osi $x$ i $y$. Na ścianie prostopadłej do $x$ działają naprężenia $\sigma_x$ i $\tau_{xy}$. Na ścianie prostopadłej do $y$ działają $\sigma_y$ i styczna o przeciwnym znaku, jeśli patrzymy na dodatnie zwroty w przyjętym układzie. Te dwie ściany reprezentują dwa punkty na wykresie.
+
+Wykres ma na osi poziomej naprężenie normalne $\sigma$, a na osi pionowej naprężenie styczne $\tau$. Punkt $X$ ma współrzędne $(\sigma_x,\tau_{xy})$, a punkt $Y$ ma $(\sigma_y,-\tau_{xy})$. Odcinek $XY$ jest średnicą koła. Jego środek leży na osi poziomej w $\sigma_{avg}$, bo średnia rzędnych obu punktów wynosi zero. Promień jest odległością środka od $X$ lub $Y$.
+
+Każdy inny przekrój przez ten sam punkt odpowiada innemu punktowi na obwodzie. Obrót przekroju o kąt $\theta$ przesuwa punkt na wykresie o $2\theta$. To podwojenie wynika z tego, że przekrój i jego przeciwny kierunek opisują tę samą płaszczyznę, więc pełny obrót fizyczny o $180^\circ$ musi wrócić do tego samego punktu wykresu. Funkcje trygonometryczne we wzorach transformacyjnych mają argument $2\theta$, więc naturalnym parametrem okręgu jest właśnie podwojony kąt.
+
+Model zakłada jednorodny stan naprężenia w punkcie i liniową transformację składowych. Nie zależy od modułu Younga ani od liczby Poissona, bo opisuje sam tensor naprężenia, a nie odkształcenia. Koło płaskie nie wystarcza, gdy niezerowe są $\tau_{xz}$ lub $\tau_{yz}$; wtedy potrzebne są trzy koła lub pełne wartości własne. Nie wystarcza też przy dużych odkształceniach, gdy orientacja osi zmienia się w trakcie deformacji.
+
+Warto odróżnić koło naprężeń od koła odkształceń. Drugie rysujemy z odkształceniem normalnym na osi poziomej i połową kąta postaciowego $\gamma/2$ na osi pionowej. Ten czynnik $1/2$ wynika z definicji odkształcenia postaciowego i bywa źródłem pomyłek. W tej lekcji zajmujemy się wyłącznie naprężeniami, ale warto wiedzieć, że geometria jest podobna.
+
+Koło jest użyteczne tylko wtedy, gdy potrafimy wskazać, któremu przekrojowi odpowiada dany punkt. Punkt $X$ odpowiada ścianie o normalnej $x$, a punkt $Y$ ścianie o normalnej $y$. Pozostałe punkty obwodu odpowiadają przekrojom pośrednim. Jeśli zadanie pyta o naprężenia na spoinie nachylonej pod kątem $\theta$, szukamy punktu odległego od $X$ o kąt $2\theta$ na wykresie. Bez tej interpretacji rysunek staje się tylko ozdobą.
+
+Kolejna ważna obserwacja dotyczy kierunku odczytu. Przecięcia z osią poziomą dają wartości główne, ale nie mówią same z siebie, który kierunek jest z nimi związany. Kierunek trzeba wyznaczyć z kąta, a następnie sprawdzić, czy odpowiada $\sigma_1$, czy $\sigma_2$. Dwa kierunki różnią się o $90^\circ$, więc pomyłka jest łatwa do wychwycenia, jeśli narysujemy element i zaznaczymy normalne.
+
+## Laboratorium: co ustawić
+
+Ustaw $\sigma_x=80$, $\sigma_y=20$ i $\tau_{xy}=40\ \mathrm{MPa}$. Zaznacz na wykresie $X=(80,40)$ i $Y=(20,-40)$, znajdź środek $C=(50,0)$ i sprawdź, że promień wynosi 50 MPa. Następnie zmieniaj $\tau_{xy}$ i obserwuj, jak rosną promień i odległość przecięć od środka.
 
 <Lab id="mohr" />
 
+Zmień znak $\sigma_y$ na ujemny i sprawdź, czy środek przesuwa się w lewo, a koło nadal przechodzi przez oba punkty. Na koniec ustaw $\tau_{xy}=0$: punkty $X$ i $Y$ leżą wtedy na osi poziomej, a koło degeneruje się do odcinka. To dobry test zrozumienia, bo pokazuje, że naprężenia główne nie zawsze odpowiadają punktom $X$ i $Y$.
+
+## Definicje i jednostki
+
+| Symbol         | Znaczenie                          | Jednostka           | Uwaga                           |
+| -------------- | ---------------------------------- | ------------------- | ------------------------------- |
+| $\sigma_n$     | naprężenie normalne na przekroju   | MPa                 | dodatnie przy rozciąganiu       |
+| $\tau_{nt}$    | naprężenie styczne na przekroju    | MPa                 | znak zależy od zwrotu osi       |
+| $\sigma_{avg}$ | średnia naprężeń normalnych        | MPa                 | $(\sigma_x+\sigma_y)/2$         |
+| $a$            | połowa różnicy naprężeń normalnych | MPa                 | $(\sigma_x-\sigma_y)/2$         |
+| $R$            | promień koła Mohra                 | MPa                 | $R=\sqrt{a^2+\tau_{xy}^2}$      |
+| $C$            | środek koła                        | MPa                 | $(\sigma_{avg},0)$              |
+| $X$            | punkt ściany prostopadłej do $x$   | MPa                 | $(\sigma_x,\tau_{xy})$          |
+| $Y$            | punkt ściany prostopadłej do $y$   | MPa                 | $(\sigma_y,-\tau_{xy})$         |
+| $2\theta$      | kąt na wykresie                    | stopnie lub radiany | podwojony kąt fizyczny          |
+| $\theta_p$     | kąt kierunku głównego              | stopnie lub radiany | normalna do płaszczyzny głównej |
+
+Przyjmujemy konwencję, w której $X$ ma rzędną $+\tau_{xy}$, a $Y$ ma $-\tau_{xy}$. Dodatniemu obrotowi fizycznemu $\theta$ odpowiada na wykresie obrót o $2\theta$ zgodnie z ruchem wskazówek zegara. Inne podręczniki mogą przyjąć przeciwny znak stycznej lub przeciwny kierunek obrotu; wtedy rysunek wygląda lustrzanie, ale odczytane wartości główne są takie same. Zawsze sprawdź konwencję na początku zadania.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-C=(\sigma_{avg},0),\qquad X=(\sigma_x,\tau_{xy}),\qquad Y=(\sigma_y,-\tau_{xy}),\qquad \sigma_{avg}=\frac{\sigma_x+\sigma_y}{2},\qquad R=|CX|
+C=(\sigma_{avg},0),\qquad X=(\sigma_x,\tau_{xy}),\qquad Y=(\sigma_y,-\tau_{xy}),\qquad R=|CX|=\sqrt{a^2+\tau_{xy}^2}
 $$
 
-<Caption>Stosujemy konwencję wykresu zgodną z podaną transformacją: X ma rzędną +τxy, a Y −τxy. Dodatniemu fizycznemu obrotowi θ odpowiada na wykresie obrót o 2θ zgodnie z ruchem wskazówek zegara.</Caption>
+<Caption>Przepis na koło. Środek leży na osi naprężeń normalnych, a promień jest odległością środka od punktu $X$. Punkty $X$ i $Y$ są końcami średnicy, bo ich średnia rzędna wynosi zero, a średnia odcięta jest równa $\sigma_{avg}$.</Caption>
 </Formula>
 
+<Formula>
+$$
+(\sigma_n-\sigma_{avg})^2+\tau_{nt}^2=R^2,\qquad \sigma_{1,2}=\sigma_{avg}\pm R,\qquad \tau_{\max}^{(xy)}=R
+$$
+
+<Caption>Równanie koła we współrzędnych naprężeń. Przecięcia z osią poziomą mają rzędną zero i wyznaczają naprężenia główne. Najwyższy i najniższy punkt mają odciętą $\sigma_{avg}$ i rzędne $\pm R$, więc opisują płaskie maksimum ścinania.</Caption>
+</Formula>
+
+Wyprowadzenie opiera się na wzorach transformacyjnych z lekcji o obrocie przekroju.
+
+1. **Zapisz naprężenie normalne.** $\sigma_n=\sigma_{avg}+a\cos2\theta+\tau_{xy}\sin2\theta$.
+2. **Zapisz naprężenie styczne.** $\tau_{nt}=-a\sin2\theta+\tau_{xy}\cos2\theta$.
+3. **Odejmij średnią.** Zdefiniuj $u=\sigma_n-\sigma_{avg}=a\cos2\theta+\tau_{xy}\sin2\theta$.
+4. **Podnieś do kwadratu.** $u^2=a^2\cos^22\theta+2a\tau_{xy}\sin2\theta\cos2\theta+\tau_{xy}^2\sin^22\theta$.
+5. **Dodaj kwadrat stycznej.** $\tau_{nt}^2=a^2\sin^22\theta-2a\tau_{xy}\sin2\theta\cos2\theta+\tau_{xy}^2\cos^22\theta$.
+6. **Skróć wyrazy mieszane.** Po dodaniu składniki z iloczynem $\sin2\theta\cos2\theta$ redukują się, a suma kwadratów funkcji daje jedynkę.
+7. **Otrzymaj równanie okręgu.** $u^2+\tau_{nt}^2=a^2+\tau_{xy}^2=R^2$, czyli $(\sigma_n-\sigma_{avg})^2+\tau_{nt}^2=R^2$.
+8. **Znajdź punkty szczególne.** Dla $\theta=0$ mamy $X=(\sigma_x,\tau_{xy})$, a dla $\theta=90^\circ$ mamy $Y=(\sigma_y,-\tau_{xy})$. Ich środek to $(\sigma_{avg},0)$.
+9. **Odczytaj wartości główne.** Na przecięciu z osią poziomą $\tau_{nt}=0$, więc $\sigma_n=\sigma_{avg}\pm R$. To $\sigma_1$ i $\sigma_2$.
+10. **Odczytaj maksimum ścinania.** W najwyższym punkcie $u=0$, więc $\tau_{nt}=\pm R$, a naprężenie normalne wynosi $\sigma_{avg}$. Kąt na wykresie jest podwojony, bo we wzorach występuje $2\theta$.
+
 <Insight>
-  Najpierw zaznacz X i Y, potem środek jako środek odcinka XY, a na końcu okrąg. Przecięcia z osią σ dają naprężenia
-  główne, a najwyższy i najniższy punkt koła wyznaczają ±R.
+  Nie licz najpierw naprężeń głównych, a potem „dorysowuj” koło. Najpierw zaznacz $X$ i $Y$, potem środek jako środek
+  odcinka $XY$, a na końcu okrąg. Przecięcia z osią poziomą same podadzą $\sigma_1$ i $\sigma_2$. Kolejność odwrotna
+  sprzyja przesunięciu średnicy i błędowi w znaku.
 </Insight>
 
 <WorkedExample>
-  <Given>Narysuj koło dla σx = 90 MPa, σy = 30 MPa, τxy = 40 MPa.</Given>
+  <Given>
+    Narysuj koło Mohra dla $\sigma_x=90\ \mathrm{MPa}$, $\sigma_y=30\ \mathrm{MPa}$ i $\tau_{xy}=40\ \mathrm{MPa}$.
+    Odczytaj naprężenia główne, maksymalne ścinanie i kąt kierunku głównego.
+  </Given>
   <Steps>
-    <Step>Zaznacz X = (90,40) MPa i Y = (30,−40) MPa.</Step>
-    <Step>Wyznacz środek C = ((90 + 30)/2,0) = (60,0) MPa.</Step>
-    <Step>Oblicz R = √[(90 − 60)² + (40 − 0)²] = 50 MPa i zakreśl okrąg.</Step>
-    <Step>Odczytaj przecięcia z osią σ: 60 − 50 = 10 MPa i 60 + 50 = 110 MPa.</Step>
+    <Step>Zaznacz $X=(90,40)\ \mathrm{MPa}$ i $Y=(30,-40)\ \mathrm{MPa}$.</Step>
+    <Step>Środek: $C=((90+30)/2,0)=(60,0)\ \mathrm{MPa}$.</Step>
+    <Step>Promień: $R=\sqrt{(90-60)^2+40^2}=\sqrt{900+1600}=50\ \mathrm{MPa}$.</Step>
+    <Step>Zakreśl okrąg o środku $C$ i promieniu $R$; przechodzi on przez $X$ i $Y$.</Step>
+    <Step>Przecięcia z osią poziomą: $60-50=10\ \mathrm{MPa}$ oraz $60+50=110\ \mathrm{MPa}$.</Step>
+    <Step>Maksymalne ścinanie w płaszczyźnie: $R=50\ \mathrm{MPa}$, przy naprężeniu normalnym $60\ \mathrm{MPa}$.</Step>
+    <Step>
+      Kąt: $\tan2\theta_p=2\tau_{xy}/(\sigma_x-\sigma_y)=80/60=1{,}333$, więc $2\theta_p=53{,}13^\circ$ i
+      $\theta_p=26{,}57^\circ$ dla kierunku $\sigma_1$.
+    </Step>
+    <Step>
+      Sprawdź podstawieniem: $\cos53{,}13^\circ=0{,}6$ i $\sin53{,}13^\circ=0{,}8$, więc
+      $\sigma_n=60+30\cdot0{,}6+40\cdot0{,}8=110\ \mathrm{MPa}$.
+    </Step>
   </Steps>
   <Result>
-    Koło ma środek (60,0) MPa i promień 50 MPa. Daje σ1 = 110 MPa, σ2 = 10 MPa oraz płaskie |τ|max = 50 MPa.
+    Koło ma środek $(60,0)\ \mathrm{MPa}$ i promień $50\ \mathrm{MPa}$. Daje $\sigma_1=110\ \mathrm{MPa}$,
+    $\sigma_2=10\ \mathrm{MPa}$ oraz płaskie $\tau_{\max}=50\ \mathrm{MPa}$. Kierunek większego naprężenia głównego
+    jest obrócony o około $26{,}6^\circ$ od osi $x$.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Rozważmy stan z ujemnym naprężeniem normalnym w kierunku $x$: $\sigma_x=-20\ \mathrm{MPa}$, $\sigma_y=60\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$. Zaznaczamy $X=(-20,30)$ i $Y=(60,-30)$. Środek ma odciętą $(-20+60)/2=20\ \mathrm{MPa}$, a promień $R=\sqrt{(-40)^2+30^2}=50\ \mathrm{MPa}$.
+
+Przecięcia z osią poziomą to $20-50=-30\ \mathrm{MPa}$ i $20+50=70\ \mathrm{MPa}$. Zatem $\sigma_1=70\ \mathrm{MPa}$, a $\sigma_2=-30\ \mathrm{MPa}$. Maksymalne ścinanie w płaszczyźnie wynosi 50 MPa i występuje przy naprężeniu normalnym 20 MPa, czyli w najwyższym punkcie koła.
+
+Kąt kierunku głównego obliczamy z $\tan2\theta_p=2\cdot30/(-20-60)=60/(-80)=-0{,}75$. Sam arcus tangens daje około $-36{,}87^\circ$, ale to odpowiada naprężeniu $\sigma_2=-30\ \mathrm{MPa}$. Dla $\sigma_1$ trzeba dodać $180^\circ$ do $2\theta_p$, otrzymując $143{,}13^\circ$, czyli $\theta_p=71{,}57^\circ$.
+
+Sprawdzenie: $\cos143{,}13^\circ=-0{,}8$ i $\sin143{,}13^\circ=0{,}6$. Wtedy $\sigma_n=20+(-40)(-0{,}8)+30\cdot0{,}6=20+32+18=70\ \mathrm{MPa}$. To potwierdza, że wybraliśmy właściwą gałąź. Drugi kierunek jest prostopadły i odpowiada $\sigma_2=-30\ \mathrm{MPa}$.
+
+Ten przykład pokazuje, dlaczego sam tangens nie wystarcza. Funkcja $\arctan$ zwraca kąt w przedziale od $-90^\circ$ do $90^\circ$, a równanie na $2\theta_p$ ma rozwiązania różniące się o $180^\circ$. Ćwiartkę trzeba ustalić z pary $\cos2\theta_p$ i $\sin2\theta_p$ albo przez podstawienie do wzoru na $\sigma_n$.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że znamy naprężenia główne $\sigma_1=100\ \mathrm{MPa}$ i $\sigma_2=20\ \mathrm{MPa}$ oraz składową $\sigma_x=80\ \mathrm{MPa}$. Chcemy odtworzyć $\sigma_y$, $|\tau_{xy}|$ i położenie punktu $X$ na kole. To zadanie „od wyniku do danych”.
+
+Środek koła leży w średniej naprężeń głównych: $C=(100+20)/2=60\ \mathrm{MPa}$. Promień wynosi $(100-20)/2=40\ \mathrm{MPa}$. Z definicji średniej $(\sigma_x+\sigma_y)/2=60$, więc $\sigma_y=120-80=40\ \mathrm{MPa}$. Połowa różnicy to $a=(80-40)/2=20\ \mathrm{MPa}$.
+
+Z równania koła $40^2=20^2+\tau_{xy}^2$, więc $|\tau_{xy}|=\sqrt{1600-400}=\sqrt{1200}\approx34{,}64\ \mathrm{MPa}$. Punkt $X$ ma współrzędne $(80,34{,}64)$ lub $(80,-34{,}64)$, zależnie od znaku stycznej. Oba punkty leżą na tym samym okręgu i dają te same naprężenia główne, ale odpowiadają lustrzanym kierunkom.
+
+Kąt kierunku głównego wynika z $\cos2\theta_p=a/R=20/40=0{,}5$ oraz $\sin2\theta_p=\tau_{xy}/R$. Dla dodatniego $\tau_{xy}$ mamy $2\theta_p=60^\circ$, czyli $\theta_p=30^\circ$. Sprawdzenie: $\sigma_n=60+20\cdot0{,}5+34{,}64\cdot0{,}866\approx60+10+30=100\ \mathrm{MPa}$. Dla ujemnego $\tau_{xy}$ kąt zmienia znak, ale wartości główne pozostają takie same.
+
+To zadanie pokazuje, że koło opisuje wartości główne jednoznacznie, ale orientacja wymaga znaku stycznej. Sama para $\sigma_1$ i $\sigma_2$ nie mówi, po której stronie osi leży punkt $X$. W praktyce znak $\tau_{xy}$ bierzemy z konwencji zadania albo z pomiaru na określonym kierunku.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Zły znak drugiego punktu.** Przy konwencji $X=(\sigma_x,\tau_{xy})$ punkt $Y$ ma rzędną $-\tau_{xy}$, a nie $+\tau_{xy}$. Oba punkty muszą leżeć po przeciwnych stronach osi poziomej.
+- **Rysowanie średnicy poziomej.** Średnica $XY$ jest pozioma tylko wtedy, gdy $\tau_{xy}=0$. W ogólnym przypadku jest nachylona.
+- **Używanie kąta $\theta$ zamiast $2\theta$.** Na wykresie odkładamy podwojony kąt. Kąt fizyczny jest dwa razy mniejszy.
+- **Zły kierunek obrotu.** Przyjęta konwencja może różnić się między podręcznikami. Sprawdź znak $\tau$ i kierunek obrotu przed odczytem kąta.
+- **Odczyt maksymalnego ścinania jako naprężenia głównego.** Najwyższy punkt koła ma rzędną $R$, ale jego odcięta to $\sigma_{avg}$, a nie $\sigma_1$.
+- **Pomijanie znaku $\sigma$.** Ujemne naprężenie normalne leży po lewej stronie początku układu. To zmienia położenie środka i kolejność wartości głównych.
+- **Przenoszenie koła płaskiego do stanu przestrzennego.** Jedno koło nie opisuje trzech wymiarów. Przy niezerowych $\tau_{xz}$ lub $\tau_{yz}$ potrzebne są trzy koła.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Zapisz dane i konwencję.** Wypisz $\sigma_x$, $\sigma_y$ i $\tau_{xy}$ ze znakami. Ustal, gdzie jest dodatnia oś $\sigma$ i dodatnia oś $\tau$.
+2. **Oblicz $\sigma_{avg}$ i $a$.** Te wartości wyznaczają środek i połowę średnicy; pozwalają też szybko sprawdzić promień.
+3. **Zaznacz $X$ i $Y$.** Użyj $X=(\sigma_x,\tau_{xy})$ i $Y=(\sigma_y,-\tau_{xy})$. Sprawdź, że ich średnia rzędna wynosi zero.
+4. **Znajdź środek.** Połącz $X$ i $Y$ odcinkiem; jego środek leży na osi poziomej w $\sigma_{avg}$.
+5. **Oblicz promień.** Użyj $R=\sqrt{a^2+\tau_{xy}^2}$ albo odległości $CX$. Wynik musi być nieujemny.
+6. **Zakreśl koło.** Sprawdź, że przechodzi przez oba punkty i przecina oś poziomą w $\sigma_{avg}\pm R$.
+7. **Odczytaj wartości główne.** Przecięcia z osią poziomą to $\sigma_2$ i $\sigma_1$ w kolejności od lewej do prawej.
+8. **Odczytaj maksimum ścinania.** Najwyższy i najniższy punkt mają rzędne $\pm R$ i odciętą $\sigma_{avg}$.
+9. **Wyznacz kąt.** Użyj $\tan2\theta_p=2\tau_{xy}/(\sigma_x-\sigma_y)$ i sprawdź ćwiartkę przez znaki $\cos$ i $\sin$.
+10. **Sprawdź wynik.** Podstaw kąt do wzoru na $\sigma_n$ i porównaj z odczytem z koła. Sprawdź też sumę $\sigma_1+\sigma_2=\sigma_x+\sigma_y$.
+
+## Połącz z resztą kursu
+
+- **Obrót przekroju.** Koło jest graficznym zapisem wzorów transformacyjnych; każdy punkt obwodu odpowiada innemu kątowi $\theta$.
+- **Naprężenia główne.** Przecięcia koła z osią poziomą to wartości główne. Dzięki temu nie trzeba rozwiązywać równania kwadratowego od nowa.
+- **Kierunki główne.** Kąt na kole jest podwojony, więc kierunki główne odczytujemy jako połowę kąta do przecięcia z osią.
+- **Maksymalne ścinanie.** Najwyższy punkt koła daje płaskie maksimum ścinania; w przestrzeni trzeba jeszcze uwzględnić zero jako trzecie naprężenie główne.
+- **Kryteria wytężenia.** Koło pozwala szybko odczytać $\sigma_1$, $\sigma_2$ i $\tau_{\max}$, które są danymi wejściowymi do hipotez Treski i Hubera–von Misesa.
+- **Spoiny i połączenia.** Naprężenia na płaszczyźnie spoiny odczytujemy z punktu koła odpowiadającego kątowi spoiny.
+
+## Sprawdź się
+
+Pytania sprawdzają kolejność rysowania, odczyt współrzędnych i rozróżnienie wartości głównych od maksymalnego ścinania. Przy każdym zadaniu najpierw ustal, czy pytanie dotyczy punktu na kole, czy przecięcia z osią.
+
 <Quiz>
   <Question outcome="U2">
-    <Prompt>Jakie współrzędne mają X i Y dla σx = 70 MPa, σy = 10 MPa, τxy = 20 MPa w przyjętej konwencji?</Prompt>
-    <Answer correct>X = (70, 20), Y = (10, −20)</Answer>
-    <Answer>X = (70, −20), Y = (10, 20)</Answer>
-    <Answer>X = (40, 20), Y = (40, −20)</Answer>
-    <Hint>Pierwsza współrzędna to naprężenie normalne na danej ścianie.</Hint>
+    <Prompt>Jakie współrzędne mają $X$ i $Y$ dla $\sigma_x=70\ \mathrm{MPa}$, $\sigma_y=10\ \mathrm{MPa}$ i $\tau_{xy}=20\ \mathrm{MPa}$ w przyjętej konwencji?</Prompt>
+    <Answer correct>$X=(70,20)$, $Y=(10,-20)$</Answer>
+    <Answer>$X=(70,-20)$, $Y=(10,20)$</Answer>
+    <Answer>$X=(40,20)$, $Y=(40,-20)$</Answer>
+    <Hint>Pierwsza współrzędna to naprężenie normalne na danej ścianie, a rzędne obu punktów mają przeciwne znaki.</Hint>
     <Explanation>
-      Przy tej konwencji X = (σx, τxy) = (70,20), a Y = (σy,−τxy) = (10,−20), wszystko w MPa. Środek odcinka XY leży
-      przy σ = 40 MPa.
+      Przy tej konwencji $X=(\sigma_x,\tau_{xy})=(70,20)$, a $Y=(\sigma_y,-\tau_{xy})=(10,-20)$, wszystko w MPa.
+      Środek odcinka $XY$ leży przy $\sigma=40\ \mathrm{MPa}$.
     </Explanation>
   </Question>
   <Question outcome="U2">
-    <Prompt>Dlaczego kąt między promieniami CX i CY wynosi 180°, mimo że ściany x i y są prostopadłe?</Prompt>
+    <Prompt>Dlaczego kąt między promieniami $CX$ i $CY$ wynosi $180^\circ$, mimo że ściany $x$ i $y$ są prostopadłe?</Prompt>
     <Answer correct>Bo kąty fizyczne są na kole podwojone</Answer>
-    <Answer>Bo ściany są równoległe</Answer>
-    <Answer>To błąd: powinno być 90°</Answer>
-    <Hint>We wzorach transformacji występuje 2θ.</Hint>
+    <Answer>Bo ściany $x$ i $y$ są równoległe</Answer>
+    <Answer>To błąd: powinno być $90^\circ$</Answer>
+    <Hint>We wzorach transformacji występuje $2\theta$.</Hint>
     <Explanation>
-      Fizyczne 90° odpowiada 2·90° = 180° na kole. Punkty X i Y są więc przeciwległymi końcami średnicy.
+      Fizyczne $90^\circ$ odpowiada $2\cdot90^\circ=180^\circ$ na kole. Punkty $X$ i $Y$ są więc przeciwległymi
+      końcami średnicy, a nie punktami odległymi o ćwierć okręgu.
     </Explanation>
   </Question>
   <Question outcome="U2">
@@ -81,10 +238,64 @@ $$
     <Answer correct>Największe naprężenie główne w danej płaszczyźnie</Answer>
     <Answer>Maksymalne ścinanie</Answer>
     <Answer>Zawsze zerowe naprężenie</Answer>
-    <Hint>Ten punkt leży na poziomej osi σ.</Hint>
+    <Hint>Ten punkt leży na poziomej osi naprężeń normalnych.</Hint>
     <Explanation>
-      Prawy koniec średnicy ma współrzędne (σavg + R, 0), czyli σ1 i zerowe ścinanie. Maksymalne ścinanie odpowiada
-      natomiast górnemu lub dolnemu punktowi koła.
+      Prawy koniec średnicy ma współrzędne $(\sigma_{avg}+R,0)$, czyli $\sigma_1$ i zerowe ścinanie. Maksymalne
+      ścinanie odpowiada natomiast górnemu lub dolnemu punktowi koła.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dla $\sigma_x=100\ \mathrm{MPa}$, $\sigma_y=20\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$ wyznacz środek i promień koła.</Prompt>
+    <Answer>$C=(60,0)$ i $R=30\ \mathrm{MPa}$</Answer>
+    <Answer correct>$C=(60,0)$ i $R=50\ \mathrm{MPa}$</Answer>
+    <Answer>$C=(40,0)$ i $R=50\ \mathrm{MPa}$</Answer>
+    <Hint>Środek to średnia naprężeń normalnych, a promień oblicz z połowy różnicy i stycznej.</Hint>
+    <Explanation>
+      $\sigma_{avg}=(100+20)/2=60\ \mathrm{MPa}$, a $a=(100-20)/2=40\ \mathrm{MPa}$. Zatem
+      $R=\sqrt{40^2+30^2}=50\ \mathrm{MPa}$. Środek leży w $(60,0)$, a nie w $(40,0)$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Koło przechodzi przez $X=(90,40)$ i $Y=(30,-40)$. Jakie są naprężenia główne?</Prompt>
+    <Answer correct>$110\ \mathrm{MPa}$ i $10\ \mathrm{MPa}$</Answer>
+    <Answer>$90\ \mathrm{MPa}$ i $30\ \mathrm{MPa}$</Answer>
+    <Answer>$60\ \mathrm{MPa}$ i $40\ \mathrm{MPa}$</Answer>
+    <Hint>Środek to średnia odciętych, a promień to odległość środka od $X$.</Hint>
+    <Explanation>
+      Środek ma odciętą $(90+30)/2=60\ \mathrm{MPa}$, a promień $\sqrt{30^2+40^2}=50\ \mathrm{MPa}$. Przecięcia
+      z osią to $60\pm50$, czyli $110$ i $10\ \mathrm{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla koła o środku $(60,0)\ \mathrm{MPa}$ i promieniu $50\ \mathrm{MPa}$ ile wynosi płaskie maksymalne naprężenie styczne?</Prompt>
+    <Answer>25 MPa</Answer>
+    <Answer correct>50 MPa</Answer>
+    <Answer>110 MPa</Answer>
+    <Hint>Maksymalne ścinanie to rzędna najwyższego punktu koła.</Hint>
+    <Explanation>
+      Najwyższy punkt ma rzędną $R=50\ \mathrm{MPa}$, więc płaskie maksimum ścinania wynosi 50 MPa. Wartość 110 MPa
+      to $\sigma_1$, a nie $\tau_{\max}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dla $\sigma_x=90\ \mathrm{MPa}$, $\sigma_y=30\ \mathrm{MPa}$ i $\tau_{xy}=40\ \mathrm{MPa}$ jaki jest najmniejszy dodatni kąt $\theta_p$ kierunku $\sigma_1$?</Prompt>
+    <Answer correct>$26{,}6^\circ$</Answer>
+    <Answer>$53{,}1^\circ$</Answer>
+    <Answer>$45^\circ$</Answer>
+    <Hint>$\tan2\theta_p=80/60$, a potem podziel kąt przez dwa.</Hint>
+    <Explanation>
+      $2\theta_p=\arctan(1{,}333)\approx53{,}13^\circ$, więc $\theta_p\approx26{,}57^\circ$. Kąt $53{,}1^\circ$ to
+      $2\theta_p$, a nie $\theta_p$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania na kreślenie koła Mohra i odczyt naprężeń głównych; dobre do przećwiczenia konwencji znaków.
+- R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_, PWN, Warszawa 1966 — klasyczne zadania z kołem Mohra, w tym przypadki z ujemnymi naprężeniami normalnymi.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o płaskim stanie naprężenia i graficznych metodach wyznaczania naprężeń głównych.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik, podrozdział o kole Mohra; podaje przepis na rysowanie, związek z wzorami transformacyjnymi i przykłady pękania kredy przy skręcaniu.
+- MIT 3.11 _Mechanics of Materials_ — otwarte notatki, wykład o naprężeniach w belkach; pokazuje, jak koło Mohra powstaje z rozkładu naprężeń normalnych i stycznych w przekroju.
+
+Przy czytaniu zwróć uwagę na różne konwencje znaku stycznej i kierunku obrotu. Niektóre książki rysują koło lustrzanie względem naszego. Wartości główne i promień muszą wyjść takie same, ale kąt może mieć przeciwny znak. Zawsze sprawdź przypadek $\theta=0$ i porównaj położenie punktu $X$ z danymi.

@@ -1,1 +1,153 @@
-Od siły osiowej i naprężenia do wykresów N, odkształceń prętów schodkowych oraz warunków wytrzymałości i sztywności.
+Ten moduł jest o najprostszym, a zarazem najbardziej fundamentalnym sposobie obciążenia elementu: o rozciąganiu i ściskaniu wzdłuż jego osi. Zaczynamy od pytania, które w praktyce inżynierskiej pojawia się niemal natychmiast: skoro wiem, jaka siła działa na pręt, to jak ocenić, czy materiał jej nie przekroczy i jak bardzo pręt się odkształci?
+
+## Co to jest ten moduł
+
+Wyobraź sobie wieszak, linkę windy, śrubę w konstrukcji albo kratownicę dachu. W każdym z tych elementów dominująca siła działa wzdłuż osi elementu. Materiał nie „widzi” jednak samej siły — widzi jej rozłożenie na powierzchni przekroju. Dlatego pierwszym i najważniejszym pojęciem modułu jest naprężenie normalne, czyli siła przypadająca na jednostkę pola przekroju.
+
+Drugim pojęciem jest siła osiowa oznaczana jako $N$. W pręcie z wieloma obciążeniami $N$ zmienia się skokowo lub liniowo wzdłuż długości. Wykres siły osiowej jest więc mapą, która mówi, który przekrój jest rozciągany, który ściskany i gdzie znajduje się największa siła wewnętrzna. Bez tej mapy nie da się poprawnie policzyć ani naprężeń, ani wydłużeń.
+
+Trzecim elementem jest geometria. Pręt schodkowy, czyli taki, którego przekrój zmienia się na długości, przenosi zwykle tę samą siłę w kolejnych odcinkach, ale nie to samo naprężenie. Najsłabszym miejscem staje się odcinek o najmniejszym polu, a niekoniecznie ten, w którym siła jest największa. To rozróżnienie jest źródłem wielu błędów w zadaniach i w projektowaniu.
+
+Czwartym elementem jest odpowiedź materiału. W zakresie liniowo sprężystym naprężenie i odkształcenie są proporcjonalne, a stałą proporcjonalności jest moduł Younga $E$. Dzięki temu możemy połączyć siłę z rzeczywistą zmianą długości pręta. Wzór na wydłużenie zawiera jednocześnie materiał, geometrię i obciążenie, dlatego świetnie pokazuje, co naprawdę decyduje o sztywności konstrukcji.
+
+Na końcu moduł prowadzi do dwóch warunków projektowych. Warunek wytrzymałości pilnuje, żeby naprężenie nie przekroczyło wartości dopuszczalnej. Warunek sztywności pilnuje, żeby wydłużenie lub skrócenie nie było zbyt duże. Element może spełniać pierwszy warunek i nadal nie nadawać się do użytku, bo będzie się zbyt mocno odkształcał albo powodował luz w mechanizmie.
+
+Warto podkreślić, że moduł nie jest zbiorem niezależnych wzorów. To jeden łańcuch zależności: obciążenie prowadzi do siły wewnętrznej, siła wewnętrzna do naprężenia, naprężenie do odkształcenia, a odkształcenie do zmiany długości. Każde ogniwo ma własne założenia i własny zakres stosowalności. Zrozumienie tych powiązań jest ważniejsze niż zapamiętanie pojedynczych przekształceń.
+
+W typowym zadaniu nie widać od razu całego łańcucha. Najpierw trzeba znaleźć siłę w pręcie, często przez równowagę węzła lub reakcję podpory. Dopiero potem pojawia się naprężenie i odkształcenie. Dlatego moduł ćwiczy nie tylko wzory, ale też kolejność myślenia: od schematu i równowagi do decyzji o wymiarze.
+
+Wiele osób zna wzory, ale gubi się w zadaniu, bo nie wie, od czego zacząć. Ten moduł porządkuje kolejność: schemat, reakcje, siła wewnętrzna, naprężenie, odkształcenie, warunek projektowy. Jeśli będziesz jej przestrzegać, nawet trudniejsze zadanie rozpadnie się na kilka prostych kroków.
+
+## Dlaczego to ważne
+
+Rozciąganie i ściskanie są punktem wyjścia do całej wytrzymałości materiałów. Zanim zrozumiesz zginanie, skręcanie czy złożony stan naprężenia, musisz umieć odpowiedzieć na pytanie, jak zachowuje się prosty pręt obciążony wzdłuż osi. Większość wzorów stosowanych później powstaje przez uogólnienie właśnie tego przypadku.
+
+W praktyce inżynierskiej ten moduł przekłada się na codzienne decyzje: jaki przekrój ma mieć śruba, ile może wynosić naciąg linki, czy wspornik nie wydłuży się za bardzo pod obciążeniem, czy cienki pręt ściskany nie wyboczy się przed zniszczeniem materiału. Błąd jednostkowy albo pominięcie zmiany przekroju potrafi zmienić wynik o rząd wielkości.
+
+Rozciąganie bywa też mylone z wytrzymałością. To dwa różne pytania. Wytrzymałość mówi, przy jakim obciążeniu element może ulec zniszczeniu. Sztywność mówi, jak bardzo element się odkształci przy obciążeniu roboczym. Konstrukcja może być bezpieczna od zerwania i jednocześnie bezużyteczna z powodu zbyt dużego ugięcia lub wydłużenia.
+
+Wreszcie moduł uczy dyscypliny obliczeniowej: konsekwentnego znaku, jednolitych jednostek, rozdzielania odcinków i sprawdzania wyniku na końcu. Te nawyki będą potrzebne w każdym kolejnym module, niezależnie od tego, czy liczysz wał, belkę, czy połączenie śrubowe.
+
+Znaczenie tego modułu widać szczególnie wyraźnie w analizie awarii. Zniszczenie pręta rozciąganego często zaczyna się w miejscu, którego nie sprawdzono, bo wydawało się mniej obciążone. Może to być zwężenie, otwór, gwint albo odcinek o innym materiale. Umiejętność znalezienia przekroju krytycznego i poprawnego oszacowania naprężenia jest więc bezpośrednio związana z bezpieczeństwem, a nie tylko z zaliczeniem kolokwium.
+
+Drugi praktyczny powód jest ekonomiczny. Przewymiarowany pręt jest bezpieczny, ale ciężki i drogi. Niedowymiarowany jest tańszy, ale ryzykowny. Moduł uczy, jak znaleźć minimalny przekrój, który spełnia oba warunki, i jak uzasadnić tę decyzję. To umiejętność przydatna zarówno w budownictwie, jak i w projektowaniu maszyn, gdzie masa ma bezpośredni wpływ na zużycie energii.
+
+W zadaniach projektowych rzadko chodzi o jedną odpowiedź. Często trzeba porównać kilka wariantów i wyjaśnić, który jest lepszy ze względu na masę, koszt lub sztywność. Ten moduł daje pierwsze narzędzia do takiego porównania, choć pełna analiza wariantów pojawi się w module projektowania.
+
+## Czego się nauczysz
+
+- **W1 — analiza prętów z obciążeniem osiowym.** Nauczysz się rozpoznawać, kiedy element można potraktować jako pręt rozciągany lub ściskany, a kiedy trzeba uwzględnić zginanie albo wyboczenie.
+- **W2 — rozciąganie, ściskanie i zakres liniowo sprężysty.** Odróżnisz dodatnią siłę osiową od ujemnej, naprężenie od odkształcenia oraz stan sprężysty od plastycznego.
+- **W3 — zmienne pole przekroju i długości odcinków.** Podzielisz pręt na odcinki obliczeniowe i sprawdzisz, który z nich naprawdę decyduje o wytrzymałości i sztywności.
+- **U1 — obliczanie N, naprężeń, odkształceń i wydłużeń.** Wyznaczysz siłę osiową metodą przekrojów, policzysz naprężenie normalne, a następnie odkształcenie i zmianę długości.
+- **U2 — jednoosiowy stan jako granica koła Mohra.** Zobaczysz, że przypadek osiowy jest szczególnym stanem naprężenia, w którym jedno naprężenie główne jest różne od zera, a drugie jest zerowe.
+- **U3 — dobór przekroju z warunków bezpieczeństwa i sztywności.** Zaprojektujesz pole przekroju tak, aby spełnić jednocześnie ograniczenie naprężenia i ograniczenie przemieszczenia.
+
+Te efekty są ze sobą powiązane. Nie da się dobrze dobrać przekroju bez wykresu $N$, a nie da się sprawdzić sztywności bez modułu Younga i geometrii. Dlatego lista efektów nie jest listą tematów do wykucia, lecz opisem jednej umiejętności: pełnej analizy pręta od obciążenia do decyzji projektowej.
+
+## Od czego zacząć
+
+Moduł zakłada znajomość podstaw z modułu pierwszego: jednostek SI, różnicy między modelem rzeczywistym a schematem obliczeniowym, rodzajów obciążeń i podpór, równowagi oraz metody przekrojów. Szczególnie ważna jest umiejętność wyznaczania reakcji w prostych układach statycznie wyznaczalnych.
+
+Warto też swobodnie przeliczać jednostki: niutony na kiloniutony, milimetry kwadratowe na metry kwadratowe, megapaskale na gigapaskale. W tym module najwygodniejszy zestaw to siła w niutonach, długość w milimetrach i pole w milimetrach kwadratowych. Wtedy naprężenie wychodzi wprost w MPa, a wydłużenie w milimetrach.
+
+Kolejność pracy jest następująca: najpierw naprężenie normalne, potem wykres siły osiowej, następnie pręty schodkowe, prawo Hooke’a, wydłużenia, warunek wytrzymałości i na końcu warunek sztywności. Nie pomijaj lekcji o wykresie $N$, bo bez niej kolejne zadania zamienią się w zgadywanie znaków i wartości.
+
+Jeżeli masz mało czasu, potraktuj lekcje 1–4 jako blok podstawowy, a lekcje 5–7 jako blok projektowy. Po każdym bloku rozwiąż przynajmniej jedno zadanie rachunkowe bez zaglądania do rozwiązania. Dopiero samodzielne przejście od danych do wyniku pokazuje, czy rozumiesz kolejność kroków, a nie tylko rozpoznajesz wzory.
+
+Przed pierwszym podejściem przygotuj kartkę ze wzorami i jednostkami. Nie chodzi o ściągę, lecz o uporządkowanie oznaczeń: $N$, $A$, $\sigma$, $\varepsilon$, $E$, $\Delta L$. Gdy oznaczenia są spójne, łatwiej dostrzec, którego wzoru brakuje i jakie dane trzeba jeszcze wyznaczyć.
+
+Jeśli nie pamiętasz którejś z podstaw, nie zaczynaj od razu od lekcji 5. Wróć do krótkiej powtórki z modułu pierwszego, szczególnie do metody przekrojów i jednostek. Lepiej poświęcić pół godziny na przypomnienie niż później poprawiać całe zadanie z powodu jednego pomylonego znaku.
+
+## Mapa lekcji
+
+**Naprężenie normalne: siła na przekroju.** Lekcja wprowadza wzór $\sigma=N/A$, konwencję znaku i pojęcie naprężenia nominalnego. Dowiesz się, dlaczego sama siła nie wystarcza do oceny obciążenia materiału.
+
+**Wykres siły osiowej N.** Nauczysz się budować wykres $N$ metodą przekrojów, rozpoznawać skoki w miejscach sił skupionych i liniowe zmiany pod obciążeniem rozłożonym. To narzędzie będzie używane w każdym kolejnym zadaniu modułu.
+
+**Pręty schodkowe: ta sama siła, inne naprężenie.** Podzielisz pręt na odcinki o stałym przekroju i wskażesz przekrój krytyczny. Zobaczysz, dlaczego największa siła i największe naprężenie nie muszą występować w tym samym miejscu.
+
+**Prawo Hooke’a: proporcjonalne odkształcenie.** Połączysz naprężenie z odkształceniem względnym przez moduł Younga. Zrozumiesz różnicę między sztywnością materiału a jego wytrzymałością.
+
+**Wydłużenia i skrócenia prętów.** Zsumujesz zmiany długości kolejnych odcinków i zobaczysz, jak długość, pole i moduł materiału wpływają na całkowite przemieszczenie końca pręta.
+
+**Warunek wytrzymałości i zapas bezpieczeństwa.** Dobierzesz pole przekroju na podstawie naprężenia dopuszczalnego i sprawdzisz rzeczywisty współczynnik zapasu. Uwzględnisz niepewność obciążenia i materiału.
+
+Współczynnik bezpieczeństwa nie jest jedną liczbą uniwersalną. Zależy od konsekwencji zniszczenia, jakości danych i rodzaju obciążenia. W module materiałowym zobaczysz, skąd bierze się jego wartość, a tutaj nauczysz się go stosować w prostym warunku naprężeniowym.
+
+**Warunek sztywności: bezpiecznie i bez nadmiernych ruchów.** Ograniczysz wydłużenie niezależnie od wytrzymałości. Nauczysz się wybierać większe z dwóch wymaganych pól i sprawdzać oba warunki na przyjętym przekroju.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+\sigma=\frac{N}{A},\qquad N>0:\ \text{rozciąganie},\qquad N<0:\ \text{ściskanie}
+$$
+
+<Caption>Naprężenie normalne to siła osiowa podzielona przez pole przekroju. Wzór daje wartość średnią i nominalną, ważną z dala od miejsc przyłożenia obciążeń oraz zmian geometrii.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sigma=E\varepsilon,\qquad \varepsilon=\frac{\Delta L}{L_0},\qquad \Delta L=\frac{NL_0}{EA}
+$$
+
+<Caption>Prawo Hooke’a wiąże naprężenie i odkształcenie w zakresie liniowo sprężystym. Moduł Younga E ma jednostkę naprężenia, a iloczyn EA nazywamy sztywnością osiową przekroju.</Caption>
+</Formula>
+
+<Formula>
+$$
+|\sigma|_{\max}\le \sigma_{\mathrm{dop}},\qquad |\Delta L|\le \Delta L_{\mathrm{dop}}
+$$
+
+<Caption>Dwa niezależne warunki projektowe: wytrzymałościowy ogranicza naprężenie, a sztywnościowy ogranicza zmianę długości. Element jest poprawny dopiero wtedy, gdy spełnia oba.</Caption>
+</Formula>
+
+<Formula>
+$$
+\Delta L=\sum_i\frac{N_iL_i}{E_iA_i},\qquad A_{i,\min}=\frac{|N_i|}{\sigma_{\mathrm{dop}}}
+$$
+
+<Caption>Dla pręta schodkowego wydłużenia sumujemy po odcinkach, a pole dobieramy osobno dla każdego odcinka. Indeks i oznacza odcinek o stałych N, L, E i A.</Caption>
+</Formula>
+
+<Insight>
+  Najczęstszy błąd w tym module to porównywanie samej siły z wytrzymałością materiału. Siła 50 kN może być bezpieczna
+  dla pręta o polu 500 mm² i niebezpieczna dla pręta o polu 100 mm². Dopiero naprężenie, czyli siła odniesiona do pola,
+  pozwala porównać obciążenie z właściwościami materiału.
+</Insight>
+
+<Callout kind="info" title="Jak czytać ten moduł">
+  Nie traktuj kolejnych lekcji jak osobnych rozdziałów. Po każdej lekcji wróć do poprzedniej i sprawdź, czy potrafisz
+  połączyć nowy wzór z wcześniejszym. Na przykład po prawie Hooke’a powinieneś umieć wyjaśnić, dlaczego dwa pręty o tym
+  samym naprężeniu mogą mieć różne wydłużenia. Po warunku sztywności powinieneś umieć wskazać, który warunek decyduje o
+  doborze przekroju w konkretnym zadaniu.
+</Callout>
+
+## Jak się uczyć
+
+1. **Zawsze rysuj schemat.** Zaznacz oś pręta, zwroty sił, podpory i miejsca zmiany przekroju. Bez rysunku łatwo pomylić stronę, z której liczysz siłę osiową.
+2. **Ustal znak przed liczeniem.** Przyjmij dodatni kierunek osi i zapisz, że dodatnie $N$ oznacza rozciąganie. Konsekwentnie używaj tego samego znaku w całym zadaniu.
+3. **Pracuj na odcinkach.** Podziel pręt w miejscach przyłożenia sił i zmian pola. Na każdym odcinku $N$, $A$ i $E$ powinny być stałe albo opisane prostą funkcją.
+4. **Sprawdzaj jednostki na każdym kroku.** Najbezpieczniejszy zestaw to N, mm i MPa. Jeśli używasz kN, przelicz je przed podstawieniem do wzoru na naprężenie.
+5. **Kontroluj wynik fizycznie.** Wydłużenie pręta stalowego o długości metra przy naprężeniu 100 MPa powinno być rzędu dziesiątych części milimetra, a nie centymetra. Wynik spoza rzędu wielkości oznacza błąd.
+6. **Odpowiedz na oba pytania projektowe.** Po doborze przekroju sprawdź nie tylko naprężenie, ale też wydłużenie. Dopiero potem uznaj zadanie za rozwiązane.
+
+Na koniec każdej lekcji zapisz jedno zdanie podsumowania własnymi słowami. Jeśli nie potrafisz go sformułować bez zaglądania do tekstu, wróć do miejsca, w którym zgubiłeś tok rozumowania. Takie aktywne przypomnienie jest skuteczniejsze niż ponowne czytanie tego samego fragmentu.
+
+## Po tym module
+
+Następny moduł zajmuje się materiałem pod obciążeniem: próbą rozciągania, granicą plastyczności, wytrzymałością na rozciąganie, wpływem temperatury i ciężaru własnego oraz współczynnikiem bezpieczeństwa. Rozciąganie i ściskanie dostarcza tam języka i wzorów, na których opiera się interpretacja wykresu $\sigma$–$\varepsilon$.
+
+Później ten sam schemat rozumowania wróci przy ścinaniu i skręcaniu, gdzie naprężenie również rozkłada się na przekroju, oraz przy zginaniu, gdzie dochodzi zmienność naprężenia na wysokości przekroju. W module stanu naprężenia przypadek jednoosiowy okaże się szczególnym kołem Mohra, a w module projektowania warunki wytrzymałości i sztywności połączą się w jedną strategię doboru wymiarów.
+
+Warto wrócić do tego modułu przed kolokwium, nawet jeśli tematy wydają się proste. Większość trudniejszych zadań z późniejszych modułów zawiera ukryty pręt osiowy: śrubę, cięgno, słup, kratownicę albo element złożony. Błąd w znaku lub jednostce na tym poziomie potrafi zepsuć całe rozwiązanie, mimo poprawnego pomysłu na dalszą część.
+
+Dobrym testem gotowości jest zadanie odwrotne: mając wykres siły osiowej i dopuszczalne naprężenie, zaproponuj przekroje, a potem sprawdź je ponownie. Jeśli potrafisz to zrobić bez podpowiedzi, masz podstawy potrzebne w kolejnych modułach.
+
+## Źródła
+
+- **A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ (WNT).** Rozdział o rozciąganiu i ściskaniu prętów prostych: definicja naprężenia, założenia modelu i przykłady obliczeniowe.
+- **M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ (WNT).** Zbiór zadań z wykresami sił osiowych, prętami schodkowymi i doborem przekroju.
+- **D. Roylance, _Mechanics of Materials_ (otwarty podręcznik MIT).** Rozdziały o elastic response i trusses: wyprowadzenie $\sigma=N/A$, prawo Hooke’a i zależność sztywności od geometrii.
+- **T. Wierzbicki, _Structural Mechanics_ (otwarty podręcznik MIT).** Rozdziały o odkształceniu jednoosiowym i prawie konstytutywnym: precyzyjne definicje $\varepsilon$ oraz granice stosowalności modelu liniowego.

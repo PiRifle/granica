@@ -12,6 +12,22 @@ export default {
   ],
   result:
     'σα = 150 MPa, σβ = σγ = 140 MPa; εα = 0,00075, εβ = εγ = 0,00070. Wydłużenia: 1,125 mm, 0,700 mm, 0,700 mm; ΔL = 2,525 mm.',
+  figure: {
+    kind: 'axial',
+    top: 'fixed',
+    bottom: 'free',
+    units: { N: 'kN', σ: 'MPa', ε: '–', ΔL: 'mm', A: 'mm²' },
+    segments: [
+      { id: 'γ', label: 'γ', length: 1000, area: 500, n: 70, sigma: 140, epsilon: 0.0007, deltaL: 0.7 },
+      { id: 'β', label: 'β', length: 1000, area: 500, n: 70, sigma: 140, epsilon: 0.0007, deltaL: 0.7 },
+      { id: 'α', label: 'α', length: 1500, area: 200, n: 30, sigma: 150, epsilon: 0.00075, deltaL: 1.125 },
+    ],
+    loads: [
+      { node: 2, value: 40, label: 'P₂ = 40 kN' },
+      { node: 3, value: 30, label: 'P₁ = 30 kN' },
+    ],
+    note: 'E = 200 000 MPa; suma wydłużeń odcinków daje 2,525 mm.',
+  },
   scenes: [
     {
       title: 'Model i przyjęcie modułu Younga',

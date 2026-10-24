@@ -7,7 +7,6 @@ shortTitle: Wytrzymałość
 description: >-
   Dobierz przekrój tak, aby maksymalne naprężenie nie przekroczyło wartości
   dopuszczalnej.
-duration: 9
 eyebrow: Nie projektuj na granicy zniszczenia
 outcomes:
   - W1 — wskazuje przekroje krytyczne elementu osiowo obciążonego
@@ -18,71 +17,296 @@ outcomes:
   - U3 — dobiera przekrój z zachowaniem wymaganego bezpieczeństwa
 ---
 
-Nie wystarczy, że obliczone naprężenie jest mniejsze od wytrzymałości materiału. Współczynnik bezpieczeństwa pozostawia zapas na niepewność obciążeń, właściwości materiału i modelu obliczeniowego.
+Nikt nie projektuje mostu ani dźwigu tak, aby w normalnej eksploatacji pracował dokładnie na granicy zniszczenia. Nawet jeśli obliczenia wskazują, że naprężenie jest mniejsze od wytrzymałości materiału, pozostawia się zapas. Ten zapas nie jest przejawem przesadnej ostrożności, lecz odpowiedzią na niepewność obciążenia, rozrzut właściwości materiału, uproszczenia modelu i konsekwencje ewentualnej awarii.
+
+Warunek wytrzymałości łączy trzy rzeczy: rzeczywiste naprężenie w najbardziej wytężonym przekroju, wartość graniczną charakterystyczną dla materiału oraz współczynnik bezpieczeństwa. Z tych trzech elementów powstaje naprężenie dopuszczalne, czyli poziom, którego w projekcie nie wolno przekroczyć. Następnie przekształcamy warunek tak, aby otrzymać minimalne pole przekroju potrzebne do przeniesienia siły.
+
+Po lekcji będziesz umiał wybrać właściwą wartość graniczną dla materiału ciągliwego i kruchego, obliczyć naprężenie dopuszczalne, dobrać pole przekroju i sprawdzić rzeczywisty zapas przyjętego rozwiązania. Nauczysz się też rozpoznawać przekrój krytyczny w pręcie o zmiennym polu oraz dostrzegać miejsca, w których samo $N/A$ nie opisuje lokalnego maksimum naprężenia.
+
+Ta lekcja jest pomostem między analizą stanu naprężenia a projektowaniem. Wcześniej liczyliśmy naprężenie dla danego przekroju. Teraz odwracamy pytanie: jaki przekrój jest potrzebny, aby naprężenie pozostało bezpieczne. W następnej lekcji dołączy do tego drugi warunek, dotyczący przemieszczenia, i okaże się, że bezpieczeństwo materiału nie zawsze wystarcza.
+
+Współczynnik bezpieczeństwa jest decyzją inżynierską, a nie uniwersalną stałą materiałową. Zależy od rodzaju konstrukcji, niepewności danych, możliwości kontroli jakości, konsekwencji zniszczenia i obowiązujących norm. Dlatego w zadaniach wartość $n$ zwykle dostajemy jako dane, a naszym zadaniem jest konsekwentne zastosowanie warunku, a nie wymyślanie własnej normy.
+
+Warto podkreślić, że warunek wytrzymałości jest nierównością, a nie równaniem. Nie projektujemy na dokładne osiągnięcie $\sigma_{\mathrm{dop}}$, lecz na pozostawanie poniżej tej wartości. Zapas pola ponad $A_{\min}$ jest normalnym i pożądanym skutkiem zaokrąglenia do dostępnego wymiaru, o ile nie prowadzi do absurdalnie ciężkiej konstrukcji.
+
+## Zanim zaczniesz
+
+- **Naprężenie normalne.** Znasz $\sigma=N/A$ i umiesz wyznaczyć siłę osiową w przekroju. Pamiętaj, że znak opisuje rozciąganie lub ściskanie, a do porównania z wartością dopuszczalną używamy wartości bezwzględnej.
+- **Jednostki.** $1\ \text{MPa}=1\ \text{N/mm}^2$, a $1\ \text{GPa}=1000\ \text{MPa}$. Siłę w kiloniutonach zamień na niutony przed dzieleniem przez pole w milimetrach kwadratowych.
+- **Właściwości materiału.** Rozróżnij granicę plastyczności $R_e$, umowną granicę plastyczności $R_{0,2}$ i wytrzymałość na rozciąganie $R_m$. Dla metali ciągliwych zwykle projektuje się względem $R_e$ lub $R_{0,2}$, a nie względem $R_m$.
+- **Nierówność projektowa.** Warunek wytrzymałości ma postać $|\sigma|\le\sigma_{\mathrm{dop}}$. Przekształcenie do pola wymaga podzielenia siły przez naprężenie dopuszczalne, a nie pomnożenia.
+- **Przekrój netto.** Przy otworach, gwintach i podcięciach pole brutto może być większe od pola rzeczywistego przenoszącego siłę. Sprawdź, które pole jest właściwe.
+- **Typowa pułapka.** Współczynnik bezpieczeństwa większy od jedności zmniejsza naprężenie dopuszczalne. Mnożenie przez $n$ zamiast dzielenia daje wynik niebezpieczny.
+
+## Model i intuicja
+
+Warunek wytrzymałości dotyczy stanu granicznego, po którym element przestaje spełniać swoją funkcję. Dla materiału ciągliwego takim stanem jest zwykle osiągnięcie granicy plastyczności, ponieważ po jej przekroczeniu pojawiają się odkształcenia trwałe i zmiana geometrii. Dla materiału kruchego, który nie wykazuje wyraźnego płynięcia, punktem odniesienia jest często wytrzymałość na rozciąganie, ale przy większym zapasie, bo zniszczenie jest nagłe i bez ostrzeżenia.
+
+Naprężenie dopuszczalne otrzymujemy przez podzielenie wartości granicznej przez współczynnik bezpieczeństwa. Jeśli $R_e=235\ \text{MPa}$ i $n=1{,}5$, to $\sigma_{\mathrm{dop}}=156{,}7\ \text{MPa}$. Oznacza to, że w normalnej eksploatacji dopuszczamy naprężenie około dwóch trzecich granicy plastyczności. Pozostała część jest rezerwą na nieprzewidziane przeciążenia i niedokładności.
+
+Co dokładnie obejmuje ten zapas? Po pierwsze, niepewność obciążenia: rzeczywisty ciężar, wiatr, śnieg, udar lub przeciążenie mogą być większe od założonych. Po drugie, rozrzut materiału: nawet w tej samej partii stali granica plastyczności nie jest identyczna w każdym elemencie. Po trzecie, uproszczenia modelu: nie uwzględniamy wszystkich koncentracji naprężeń, imperfekcji i efektów drugiego rzędu. Po czwarte, wykonanie i eksploatacja: mimośrody, luz, korozja, zmęczenie i zużycie.
+
+Rozrzut wytrzymałości materiału jest realny i mierzalny. W badaniach serii próbek wyznacza się wartość średnią i odchylenie standardowe, a następnie często przyjmuje się wartość odniesienia jako średnią pomniejszoną o pewną liczbę odchyleń. W typowych danych współczynnik zmienności wytrzymałości mieści się w kilku procentach, choć dla materiałów kompozytowych i kruchych bywa większy. Współczynnik bezpieczeństwa jest prostym, deterministycznym sposobem uwzględnienia tego rozrzutu bez przeprowadzania pełnej analizy probabilistycznej.
+
+W praktyce normy łączą kilka współczynników cząstkowych: osobno traktuje się obciążenia stałe i zmienne, osobno materiał, a osobno konsekwencje zniszczenia. W tym kursie posługujemy się jednym wypadkowym współczynnikiem $n$, ponieważ pozwala on skupić się na samej logice warunku. Nie oznacza to, że w rzeczywistym projekcie wystarczy jedna liczba; oznacza jedynie, że model dydaktyczny został uproszczony do najważniejszej idei.
+
+W pręcie o zmiennym przekroju warunek trzeba sprawdzić dla każdego odcinka osobno. O nośności decyduje odcinek o największym ilorazie $|N_i|/A_i$, a nie ten z największą siłą. Podobnie w pręcie o stałym polu, ale z różnymi materiałami, decyduje odcinek o najmniejszym stosunku wytrzymałości do naprężenia. Zasada najsłabszego ogniwa jest tu w pełni uzasadniona.
+
+Samo $N/A$ opisuje naprężenie nominalne, uśrednione po przekroju. Przy otworze, gwincie, rowku lub ostrym przejściu średnic rzeczywiste naprężenie lokalne może być większe. Współczynnik koncentracji $K_t$ opisuje stosunek maksimum lokalnego do wartości nominalnej. W zadaniach szkolnych często się go pomija, ale w konstrukcjach odpowiedzialnych nie wolno o tym zapominać, zwłaszcza dla materiałów kruchych i obciążeń zmęczeniowych.
+
+Model przestaje wystarczać w kilku sytuacjach. Pręt ściskany i smukły może ulec wyboczeniu przy naprężeniu znacznie mniejszym od granicy plastyczności. Element może pęknąć zmęczeniowo przy naprężeniach niższych od wytrzymałości statycznej, jeśli obciążenie powtarza się miliony razy. W wysokiej temperaturze pojawia się pełzanie, a w materiale mogą występować naprężenia własne. Warunek wytrzymałości jest więc pierwszym, koniecznym sprawdzeniem, ale nie jedynym możliwym mechanizmem zniszczenia.
+
+Zbyt duży zapas też ma koszt. Grubszy przekrój oznacza więcej materiału, większą masę, większe obciążenie własne i trudniejsze wykonanie. Projektowanie polega na znalezieniu przekroju, który spełnia warunek z wymaganym zapasem, ale nie jest niepotrzebnie przewymiarowany. W zadaniach edukacyjnych ten kompromis sprowadza się do wyboru najmniejszego dostępnego przekroju spełniającego nierówność.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmień siłę $F$, pole $A$, granicę materiału $R_e$ i wymagany współczynnik $n$. Obserwuj, jak naprężenie rzeczywiste zbliża się do naprężenia dopuszczalnego oraz jak zmienia się wymagane pole $A_{\min}$. Pamiętaj, że laboratoryjny warunek dotyczy wyłącznie naprężenia normalnego w modelu $F/A$; nie sprawdza wyboczenia ani zmęczenia.
 
 <Lab id="safety" />
 
+## Definicje i jednostki
+
+**Naprężenie graniczne** $\sigma_{\mathrm{lim}}$ to wartość odniesienia, względem której oceniamy bezpieczeństwo. Może to być granica plastyczności, umowna granica plastyczności albo wytrzymałość na rozciąganie, zależnie od materiału i mechanizmu zniszczenia. **Naprężenie dopuszczalne** $\sigma_{\mathrm{dop}}$ to największe naprężenie dozwolone w projekcie, równe $\sigma_{\mathrm{lim}}/n$.
+
+**Współczynnik bezpieczeństwa** $n$ to stosunek wartości granicznej do naprężenia dopuszczalnego. Jest większy od jedności. **Rzeczywisty współczynnik zapasu** $n_{\mathrm{rz}}$ to stosunek wartości granicznej do naprężenia, które faktycznie wystąpi w przyjętym przekroju. Dopiero ten drugi współczynnik opisuje gotowe rozwiązanie.
+
+| Wielkość                     | Symbol                  | Jednostka    | Znaczenie                                    |
+| ---------------------------- | ----------------------- | ------------ | -------------------------------------------- | ------ | --------- |
+| Naprężenie graniczne         | $\sigma_{\mathrm{lim}}$ | MPa          | wartość odniesienia dla materiału            |
+| Granica plastyczności        | $R_e$                   | MPa          | naprężenie początku odkształceń trwałych     |
+| Umowna granica plastyczności | $R_{0,2}$               | MPa          | naprężenie przy 0,2% odkształcenia trwałego  |
+| Wytrzymałość na rozciąganie  | $R_m$                   | MPa          | maksymalne naprężenie inżynierskie w próbie  |
+| Naprężenie dopuszczalne      | $\sigma_{\mathrm{dop}}$ | MPa          | $\sigma_{\mathrm{lim}}/n$                    |
+| Współczynnik bezpieczeństwa  | $n$                     | bezwymiarowy | wymagany zapas w projekcie                   |
+| Rzeczywisty zapas            | $n_{\mathrm{rz}}$       | bezwymiarowy | $\sigma\_{\mathrm{lim}}/                     | \sigma | \_{\max}$ |
+| Minimalne pole               | $A_{\min}$              | mm²          | pole wymagane przez warunek wytrzymałości    |
+| Pole netto                   | $A_{\mathrm{net}}$      | mm²          | pole po odjęciu otworów i podcięć            |
+| Współczynnik koncentracji    | $K_t$                   | bezwymiarowy | stosunek naprężenia lokalnego do nominalnego |
+
+W obliczeniach używamy spójnego zestawu: siła w niutonach, pole w milimetrach kwadratowych, naprężenie w MPa. Wtedy $A_{\min}=|N|/\sigma_{\mathrm{dop}}$ wychodzi w milimetrach kwadratowych, a naprężenie w megapaskalach. Jeśli $R_e$ jest podane w GPa, zamieniamy je na MPa. Jeśli pole jest w centymetrach kwadratowych, pamiętamy, że $1\ \text{cm}^2=100\ \text{mm}^2$.
+
+Wartość $n$ jest bezwymiarowa, ale nie jest uniwersalna. Ten sam współczynnik może być odpowiedni dla elementu, którego zniszczenie jest zauważalne i niegroźne, a niewystarczający dla konstrukcji, której awaria zagraża życiu. W zadaniach przyjmujemy $n$ jako dane i nie oceniamy, czy jest ono właściwe dla konkretnej budowli. To należy do projektanta znającego normy i kontekst.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-|\sigma|_{\max}\leq \sigma_{\mathrm{dop}}=\frac{\sigma_{\mathrm{lim}}}{n},\qquad A_{\min}=\frac{|N|}{\sigma_{\mathrm{dop}}}
+|\sigma|_{\max}\le\sigma_{\mathrm{dop}}=\frac{\sigma_{\mathrm{lim}}}{n},
+\qquad
+A_{\min}=\frac{|N|}{\sigma_{\mathrm{dop}}}=\frac{|N|\,n}{\sigma_{\mathrm{lim}}},
+\qquad
+n_{\mathrm{rz}}=\frac{\sigma_{\mathrm{lim}}}{|\sigma|_{\max}}
 $$
 
-<Caption>σlim i sposób wyznaczenia naprężenia dopuszczalnego zależą od materiału oraz przyjętej normy lub kryterium. n &gt; 1 jest wymaganym współczynnikiem bezpieczeństwa.</Caption>
+<Caption>σlim i sposób jego wyznaczenia zależą od materiału oraz przyjętego kryterium. n jest większe od jedności. Po doborze przekroju trzeba sprawdzić rzeczywiste naprężenie i rzeczywisty zapas.</Caption>
 </Formula>
 
+1. Wyznacz siłę osiową $N$ w analizowanym przekroju z równowagi lub z wykresu siły osiowej. Zachowaj znak, ale do warunku użyj wartości bezwzględnej.
+2. Oblicz naprężenie nominalne $\sigma=N/A$. W pręcie o zmiennym polu zrób to dla każdego odcinka osobno.
+3. Wybierz wartość graniczną $\sigma_{\mathrm{lim}}$ odpowiednią dla materiału i mechanizmu zniszczenia. Dla metali ciągliwych typowo jest to $R_e$ lub $R_{0,2}$, dla materiałów kruchych $R_m$.
+4. Przyjmij wymagany współczynnik bezpieczeństwa $n$. Wartość pochodzi z zadania, normy lub decyzji projektowej; nie obliczamy jej z samego wzoru.
+5. Oblicz naprężenie dopuszczalne $\sigma_{\mathrm{dop}}=\sigma_{\mathrm{lim}}/n$. Dzielenie przez $n$ obniża wartość dopuszczalną, co jest zgodne z ideą zapasu.
+6. Zapisz warunek $|\sigma|\le\sigma_{\mathrm{dop}}$ i podstaw $\sigma=|N|/A$. Otrzymujesz $|N|/A\le\sigma_{\mathrm{lim}}/n$.
+7. Pomnóż obie strony przez $A$ i podziel przez $\sigma_{\mathrm{dop}}$. Otrzymujesz $A\ge|N|/\sigma_{\mathrm{dop}}$, czyli minimalne pole $A_{\min}$.
+8. Wybierz dostępny przekrój o polu nie mniejszym od $A_{\min}$. Zaokrąglenie w dół jest niedopuszczalne, bo zwiększa naprężenie ponad wartość dopuszczalną.
+9. Oblicz rzeczywiste naprężenie dla przyjętego pola i sprawdź $n_{\mathrm{rz}}=\sigma_{\mathrm{lim}}/|\sigma|_{\max}$. Warunek jest spełniony, gdy $n_{\mathrm{rz}}\ge n$.
+10. Dla pręta schodkowego powtórz kroki dla każdego odcinka. Dla przekroju z otworem lub gwintem użyj pola netto, a przy ostrych zmianach geometrii rozważ współczynnik $K_t$.
+
 <Insight>
-  Po doborze trzeba sprawdzić rzeczywiście przyjęty przekrój, nie tylko Amin. Zaokrąglenie wymiaru w dół może zwiększyć
-  naprężenie ponad wartość dopuszczalną.
+  Po doborze trzeba sprawdzić rzeczywiście przyjęty przekrój, a nie tylko wartość $A_{\min}$. Zaokrąglenie wymiaru w dół może zwiększyć naprężenie ponad wartość dopuszczalną. Rzeczywisty zapas $n_{\mathrm{rz}}$ jest ważniejszy od samego faktu, że pole „wyszło większe od minimum”.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Pręt rozciągany siłą N = 90 kN wykonano z materiału o σlim = 240 MPa. Wymagany współczynnik bezpieczeństwa n = 1,5.
-    Dobierz A i sprawdź przekrój 600 mm².
+    Pręt rozciągany siłą N = 90 kN wykonano ze stali o granicy plastyczności Re = 235 MPa. Wymagany współczynnik
+    bezpieczeństwa wynosi n = 1,5. Dobierz pole przekroju i sprawdź rozwiązanie z przekrojem A = 600 mm².
   </Given>
   <Steps>
-    <Step>Oblicz naprężenie dopuszczalne: σdop = σlim/n = 240/1,5 = 160 MPa.</Step>
-    <Step>Wyznacz minimum: Amin = |N|/σdop = 90 000/160 = 562,5 mm².</Step>
-    <Step>Przyjęte A = 600 mm² jest większe od Amin, więc przechodzi wstępny dobór.</Step>
-    <Step>Sprawdź rzeczywiste naprężenie: σ = 90 000/600 = 150 MPa ≤ 160 MPa.</Step>
-    <Step>Oblicz zapas: nrzecz = 240/150 = 1,6 ≥ 1,5.</Step>
+    <Step>Oblicz naprężenie dopuszczalne: σdop = Re/n = 235/1,5 = 156,7 MPa.</Step>
+    <Step>Wyznacz minimalne pole: Amin = |N|/σdop = 90 000/156,7 = 574,5 mm².</Step>
+    <Step>Przyjęte A = 600 mm² jest większe od Amin, więc wstępny dobór jest poprawny.</Step>
+    <Step>Sprawdź rzeczywiste naprężenie: σ = 90 000/600 = 150 MPa.</Step>
+    <Step>Porównaj z dopuszczalnym: 150 MPa jest mniejsze od 156,7 MPa, więc warunek jest spełniony.</Step>
+    <Step>Oblicz rzeczywisty zapas: nrz = 235/150 = 1,567.</Step>
+    <Step>Sprawdź zakres sprężysty: 150 MPa jest znacznie poniżej 235 MPa, więc model liniowy jest uzasadniony.</Step>
+    <Step>
+      Zauważ, że przekrój 570 mm² dałby σ = 157,9 MPa, czyli przekroczyłby wartość dopuszczalną. Zaokrąglenie w dół
+      byłoby błędem.
+    </Step>
   </Steps>
-  <Result>Amin = 562,5 mm². Przekrój 600 mm² spełnia warunek: σ = 150 MPa i nrzecz = 1,6.</Result>
+  <Result>
+    Amin = 574,5 mm², a przekrój 600 mm² spełnia warunek: σ = 150 MPa, nrz = 1,567, czyli zapas jest większy od
+    wymaganego 1,5.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy pręt złożony z dwóch odcinków o różnych polach i różnych siłach osiowych. Pierwszy odcinek przenosi $N_1=60\ \text{kN}$ i ma pole $A_1=400\ \text{mm}^2$. Drugi przenosi $N_2=45\ \text{kN}$ i ma pole $A_2=250\ \text{mm}^2$. Materiał jest ten sam, $R_e=235\ \text{MPa}$, a wymagany zapas wynosi $n=1{,}5$, więc $\sigma_{\mathrm{dop}}=156{,}7\ \text{MPa}$.
+
+Naprężenia wynoszą $\sigma_1=60\,000/400=150\ \text{MPa}$ oraz $\sigma_2=45\,000/250=180\ \text{MPa}$. Pierwszy odcinek spełnia warunek, drugi nie, mimo że przenosi mniejszą siłę. Decyduje mniejsze pole. To klasyczny przykład zasady najsłabszego ogniwa: zwiększanie pola pierwszego odcinka nie poprawi nośności całego pręta, dopóki drugi pozostaje zbyt cienki.
+
+Minimalne pole drugiego odcinka wynosi $A_{2,\min}=45\,000/156{,}7=287{,}2\ \text{mm}^2$. Po zaokrągleniu do $300\ \text{mm}^2$ otrzymujemy $\sigma_2=150\ \text{MPa}$ i $n_{\mathrm{rz}}=235/150=1{,}567$. Teraz oba odcinki mają taki sam poziom naprężenia i taki sam zapas.
+
+W praktyce drugi odcinek może być nagwintowany albo mieć otwór. Wtedy do obliczeń nie wystarcza pole zewnętrzne, bo siłę przenosi mniejszy przekrój netto. Dodatkowo gwint i podcięcie powodują koncentrację naprężeń, więc lokalne maksimum może być większe od $N/A_{\mathrm{net}}$. W takim przypadku dobór samego pola nominalnego jest tylko pierwszym krokiem.
+
+Zauważmy też, że sama zmiana pola nie zmienia sił osiowych w statycznie wyznaczalnym pręcie. Siły wynikają z równowagi, a nie ze sztywności. Dopiero w układzie statycznie niewyznaczalnym, na przykład gdy pręt jest połączony równolegle z innym elementem, zmiana sztywności jednego elementu zmienia rozkład sił. Ten przypadek wykracza poza obecną lekcję, ale warto o nim pamiętać przy bardziej złożonych konstrukcjach.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem mamy gotowy przekrój i wymagany zapas, a szukamy maksymalnej dopuszczalnej siły. Pręt o polu $A=500\ \text{mm}^2$ wykonano ze stali $R_e=235\ \text{MPa}$. Wymagany współczynnik bezpieczeństwa wynosi $n=2{,}5$.
+
+Naprężenie dopuszczalne to $\sigma_{\mathrm{dop}}=235/2{,}5=94\ \text{MPa}$. Maksymalna siła wynosi $N_{\max}=\sigma_{\mathrm{dop}}A=94\cdot500=47\,000\ \text{N}$, czyli $47\ \text{kN}$. Przy $n=1{,}5$ ten sam przekrój mógłby przenieść $78{,}3\ \text{kN}$, bo $\sigma_{\mathrm{dop}}=156{,}7\ \text{MPa}$. Zwiększenie zapasu z $1{,}5$ do $2{,}5$ zmniejsza dopuszczalne obciążenie w stosunku $1{,}5/2{,}5=0{,}6$, czyli o 40%.
+
+Odwrotne pytanie brzmi: jakie pole jest potrzebne dla siły $60\ \text{kN}$ przy $n=2$? Wtedy $\sigma_{\mathrm{dop}}=117{,}5\ \text{MPa}$ i $A_{\min}=60\,000/117{,}5=510{,}6\ \text{mm}^2$. Po zaokrągleniu do $550\ \text{mm}^2$ otrzymujemy $\sigma=109{,}1\ \text{MPa}$ oraz $n_{\mathrm{rz}}=235/109{,}1=2{,}15$, czyli zapas jest większy od wymaganego.
+
+Widzimy, że współczynnik bezpieczeństwa nie jest dodatkiem do wyniku, lecz parametrem, który bezpośrednio zmienia nośność. Podwojenie $n$ przy stałym przekroju w przybliżeniu o połowę zmniejsza dopuszczalną siłę. To dlatego dobór $n$ musi być świadomą decyzją, a nie przypadkową liczbą.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Używanie $R_m$ zamiast $R_e$ dla metalu ciągliwego.** Dla stali konstrukcyjnej projektowanej w zakresie sprężystym punktem odniesienia jest zwykle granica plastyczności, a nie wytrzymałość na rozciąganie.
+
+**Mnożenie przez $n$ zamiast dzielenia.** Naprężenie dopuszczalne jest mniejsze od granicznego, więc $\sigma_{\mathrm{dop}}=\sigma_{\mathrm{lim}}/n$. Mnożenie daje wartość większą od granicy i jest błędem niebezpiecznym.
+
+**Pomijanie zamiany kN na N.** $90\ \text{kN}$ to $90\,000\ \text{N}$. Podstawienie $90$ daje pole tysiąc razy mniejsze od potrzebnego.
+
+**Zaokrąglanie pola w dół.** $A_{\min}=574{,}5\ \text{mm}^2$ nie oznacza, że $570\ \text{mm}^2$ wystarczy. Zmniejszenie pola zwiększa naprężenie ponad wartość dopuszczalną.
+
+**Stosowanie jednego przekroju do całego pręta schodkowego.** Każdy odcinek ma własne $N_i$ i $A_i$. Sprawdzać trzeba największy iloraz $|N_i|/A_i$, a nie tylko największą siłę.
+
+**Ignorowanie przekroju netto i karbu.** Otwór, gwint i podcięcie zmniejszają pole oraz zwiększają naprężenie lokalne. Nominalne $N/A$ może zaniżać rzeczywiste maksimum.
+
+**Traktowanie $n$ jako gwarancji.** Współczynnik bezpieczeństwa nie zastępuje analizy wyboczenia, zmęczenia, kruchego pękania ani wpływu korozji. To jedna z wielu kontroli, a nie uniwersalna ochrona.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal mechanizm zniszczenia i wartość graniczną.** Dla materiału ciągliwego porównuj z $R_e$ lub $R_{0,2}$, dla kruchego z $R_m$. Jeśli zadanie podaje $\sigma_{\mathrm{lim}}$ wprost, użyj tej wartości.
+2. **Odczytaj wymagany współczynnik bezpieczeństwa.** Zwykle jest podany w treści. Nie zmieniaj go bez powodu i nie myl z rzeczywistym zapasem gotowego przekroju.
+3. **Oblicz naprężenie dopuszczalne.** $\sigma_{\mathrm{dop}}=\sigma_{\mathrm{lim}}/n$. Sprawdź, czy wynik jest mniejszy od wartości granicznej.
+4. **Wyznacz siły osiowe.** Dla pręta schodkowego lub z obciążeniami pośrednimi narysuj wykres $N$ i wypisz $N_i$ dla każdego odcinka.
+5. **Oblicz naprężenia nominalne.** Dla każdego odcinka policz $|N_i|/A_i$ i wskaż maksimum. To jest przekrój krytyczny.
+6. **Sprawdź warunek.** Porównaj maksimum z $\sigma_{\mathrm{dop}}$. Jeśli warunek nie jest spełniony, przejdź do doboru pola.
+7. **Dobierz pole.** $A_{i,\min}=|N_i|/\sigma_{\mathrm{dop}}$. Przy przekroju kołowym oblicz średnicę z $d=\sqrt{4A/\pi}$ i przyjmij wymiar normalizowany nie mniejszy od wyniku.
+8. **Sprawdź rozwiązanie.** Oblicz rzeczywiste naprężenie i $n_{\mathrm{rz}}$. Sprawdź także przekrój netto, koncentrację naprężeń i stateczność przy ściskaniu.
+9. **Zapisz wniosek.** Podaj przekrój krytyczny, maksymalne naprężenie, wymagane pole i rzeczywisty zapas. Upewnij się, że jednostki są spójne.
+
+## Połącz z resztą kursu
+
+- **Naprężenie normalne.** Warunek wytrzymałości korzysta bezpośrednio z $\sigma=N/A$. Bez poprawnego naprężenia nie ma poprawnego doboru przekroju.
+- **Wykres siły osiowej N.** Dostarcza wartości $N_i$ w kolejnych odcinkach. Przekrój krytyczny wyznaczamy z ilorazu siły do pola, a nie z samego wykresu.
+- **Pręty schodkowe.** Każdy odcinek wymaga osobnego sprawdzenia. Największa siła nie musi oznaczać największego naprężenia.
+- **Wydłużenia i skrócenia.** Warunek wytrzymałości nie ogranicza przemieszczenia. Pręt może być bezpieczny i jednocześnie zbyt wiotki.
+- **Warunek sztywności.** Kolejna lekcja dodaje ograniczenie $\Delta L\le\Delta L_{\mathrm{dop}}$ i pokazuje, że o doborze może decydować sztywność, a nie wytrzymałość.
+- **Właściwości materiału i kryteria wytężenia.** Granica plastyczności jest punktem wyjścia do kryteriów Treski i von Misesa w bardziej złożonych stanach naprężenia.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz dobrać wartość graniczną, obliczyć naprężenie dopuszczalne i zweryfikować gotowy przekrój. Zwróć uwagę na jednostki, zaokrąglenia i na to, czy sprawdzasz naprężenie nominalne, czy lokalne.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Dla σlim = 240 MPa i wymaganego n = 1,5 naprężenie dopuszczalne wynosi:</Prompt>
-    <Answer correct>160 MPa</Answer>
-    <Answer>240 MPa</Answer>
-    <Answer>360 MPa</Answer>
+    <Prompt>Dla Re = 235 MPa i wymaganego n = 1,5 naprężenie dopuszczalne wynosi:</Prompt>
+    <Answer correct>156,7 MPa</Answer>
+    <Answer>352,5 MPa</Answer>
+    <Answer>235 MPa</Answer>
     <Hint>Naprężenie dopuszczalne jest mniejsze od granicznego: podziel przez n.</Hint>
     <Explanation>
-      σdop = 240/1,5 = 160 MPa. Mnożenie przez n zwiększyłoby naprężenie dopuszczalne ponad wartość graniczną, co jest
-      sprzeczne z ideą zapasu bezpieczeństwa.
+      σdop = 235/1,5 = 156,7 MPa. Mnożenie przez n dałoby 352,5 MPa, czyli wartość większą od granicy plastyczności, co
+      jest sprzeczne z ideą zapasu.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Przy |N| = 90 kN i σdop = 160 MPa minimalne pole przekroju wynosi:</Prompt>
-    <Answer>56,25 mm²</Answer>
-    <Answer correct>562,5 mm²</Answer>
-    <Answer>1440 mm²</Answer>
+    <Prompt>Przy |N| = 90 kN i σdop = 150 MPa minimalne pole przekroju wynosi:</Prompt>
+    <Answer correct>600 mm²</Answer>
+    <Answer>60 mm²</Answer>
+    <Answer>13 500 mm²</Answer>
     <Hint>Użyj Amin = |N|/σdop i zamień 90 kN na 90 000 N.</Hint>
     <Explanation>
-      Amin = 90 000 N / 160 N/mm² = 562,5 mm². Przyjęty przekrój powinien mieć pole co najmniej równe temu minimum, a
-      następnie należy sprawdzić rzeczywiste σ.
+      Amin = 90 000/150 = 600 mm². Wartość 60 mm² powstałaby przez pozostawienie siły w kiloniutonach, a 13 500 mm²
+      przez pomnożenie zamiast dzielenia.
     </Explanation>
   </Question>
   <Question outcome="U3">
     <Prompt>
-      Przyjęto A = 600 mm² dla N = 90 kN. Jaki jest rzeczywisty współczynnik zapasu względem σlim = 240 MPa?
+      Przyjęto A = 600 mm² dla N = 90 kN. Jaki jest rzeczywisty współczynnik zapasu względem Re = 235 MPa?
     </Prompt>
-    <Answer>1,2</Answer>
-    <Answer correct>1,6</Answer>
-    <Answer>2,4</Answer>
-    <Hint>Najpierw oblicz rzeczywiste σ, a potem nrzecz = σlim/σ.</Hint>
+    <Answer correct>Około 1,57</Answer>
+    <Answer>Około 1,20</Answer>
+    <Answer>Około 2,35</Answer>
+    <Hint>Najpierw oblicz rzeczywiste σ, a potem nrz = Re/σ.</Hint>
     <Explanation>
-      σ = 90 000/600 = 150 MPa. Rzeczywisty zapas nrzecz = 240/150 = 1,6, więc spełnia wymaganie nrzecz ≥ 1,5.
+      σ = 90 000/600 = 150 MPa. Rzeczywisty zapas nrz = 235/150 = 1,567, więc spełnia wymaganie n = 1,5. Wartość 1,20
+      powstałaby z błędnego podzielenia 90 przez 75.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Pręt nie pękł, ale jego wydłużenie przekracza dopuszczalne. Który warunek nie jest spełniony?</Prompt>
+    <Answer correct>Warunek sztywności</Answer>
+    <Answer>Warunek wytrzymałości</Answer>
+    <Answer>Warunek równowagi</Answer>
+    <Hint>Brak zniszczenia materiału i ograniczenie przemieszczenia to dwa różne wymagania.</Hint>
+    <Explanation>
+      Brak pęknięcia oznacza, że warunek wytrzymałości może być spełniony. Nadmierne wydłużenie narusza warunek
+      sztywności, który ogranicza przemieszczenie niezależnie od zapasu materiału.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Odcinek 1: N₁ = 60 kN, A₁ = 400 mm². Odcinek 2: N₂ = 45 kN, A₂ = 250 mm². Który odcinek jest krytyczny?
+    </Prompt>
+    <Answer correct>Drugi, bo ma 180 MPa</Answer>
+    <Answer>Pierwszy, bo ma większą siłę</Answer>
+    <Answer>Oba mają takie samo naprężenie</Answer>
+    <Hint>Oblicz iloraz |N|/A dla każdego odcinka osobno.</Hint>
+    <Explanation>
+      σ₁ = 60 000/400 = 150 MPa, a σ₂ = 45 000/250 = 180 MPa. Decyduje drugi odcinek, mimo mniejszej siły, ponieważ ma
+      znacznie mniejsze pole.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Którą wartość graniczną przyjmuje się zwykle dla metalu ciągliwego projektowanego w zakresie sprężystym?
+    </Prompt>
+    <Answer correct>Granicę plastyczności lub umowną granicę plastyczności</Answer>
+    <Answer>Wytrzymałość na rozciąganie, bo jest największa</Answer>
+    <Answer>Moduł Younga, bo opisuje sztywność</Answer>
+    <Hint>Projektujemy tak, aby nie powstały trwałe odkształcenia.</Hint>
+    <Explanation>
+      Dla metali ciągliwych granica plastyczności wyznacza początek odkształceń trwałych. Wytrzymałość na rozciąganie
+      jest większa, ale jej osiągnięcie oznacza już zaawansowane zniszczenie, więc nie jest właściwym punktem
+      odniesienia dla normalnej eksploatacji.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Co oznacza współczynnik bezpieczeństwa n = 2 przy danej wartości granicznej?</Prompt>
+    <Answer correct>Naprężenie dopuszczalne jest połową wartości granicznej</Answer>
+    <Answer>Dopuszczalna siła jest dwa razy większa od granicznej</Answer>
+    <Answer>Moduł Younga jest dwa razy mniejszy</Answer>
+    <Hint>σdop = σlim/n.</Hint>
+    <Explanation>
+      Przy n = 2 dopuszczamy naprężenie równe połowie wartości granicznej. W przybliżeniu liniowym oznacza to również
+      połowę siły, przy której osiągnięto by wartość graniczną.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Amin wynosi 574,5 mm². Który wniosek jest poprawny przy zaokrąglaniu do dostępnych wymiarów?</Prompt>
+    <Answer correct>Należy przyjąć przekrój o polu co najmniej 574,5 mm²</Answer>
+    <Answer>Można przyjąć 570 mm², bo różnica jest mała</Answer>
+    <Answer>Należy przyjąć dokładnie 574,5 mm², bo inne wartości są zabronione</Answer>
+    <Hint>Zmniejszenie pola poniżej Amin zwiększa naprężenie ponad wartość dopuszczalną.</Hint>
+    <Explanation>
+      Przekrój 570 mm² dałby naprężenie większe od dopuszczalnego. Wybieramy dostępny wymiar nie mniejszy od Amin, a
+      następnie sprawdzamy rzeczywiste naprężenie i zapas.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- **S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I (AGH).** Rozdział o warunku wytrzymałości i naprężeniach dopuszczalnych: definicja współczynnika bezpieczeństwa i dobór przekroju.
+- **M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ (WNT).** Zadania z doborem pola przekroju, sprawdzaniem zapasu i prętami o zmiennym polu.
+- **R. C. Hibbeler, _Mechanics of Materials_ (wyd. 10).** Rozdział o projektowaniu elementów osiowo obciążonych: naprężenia dopuszczalne, współczynnik bezpieczeństwa i przykłady doboru wymiarów.
+- **D. Roylance, _Mechanics of Materials_ (otwarty podręcznik MIT).** Rozdział o elastic response: rozróżnienie wytrzymałości i sztywności, współczynnik bezpieczeństwa oraz przykład doboru średnicy pręta.
+- **MIT 3.11, _Mechanics of Materials_ (otwarte notatki).** Moduł o statystyce wytrzymałości: wartość średnia, odchylenie standardowe, współczynnik zmienności i zasada trzech odchyleń jako tło dla zapasu bezpieczeństwa.

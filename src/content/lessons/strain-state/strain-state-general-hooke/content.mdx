@@ -7,7 +7,6 @@ shortTitle: Prawo Hooke’a 3D
 description: >-
   Oblicz odkształcenia przy wieloosiowym naprężeniu, nie zapominając o wpływie
   pozostałych kierunków i ścinania.
-duration: 8
 eyebrow: Superpozycja materiału
 outcomes:
   - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
@@ -27,68 +26,299 @@ outcomes:
 solutionId: cw7-1
 ---
 
-Naprężenie w kierunku x nie tylko wydłuża element wzdłuż x. Przez efekt Poissona wpływa także na kierunki y i z. Uogólnione prawo Hooke’a sumuje takie przyczynki, dopóki materiał pozostaje liniowo-sprężysty i izotropowy.
+W prostym zadaniu rozciągania wystarczyło $\sigma=E\varepsilon$. W rzeczywistej konstrukcji prawie nigdy nie działają naprężenia tylko w jednym kierunku. Śruba jest rozciągana i skręcana, blacha jest rozciągana w dwóch kierunkach, a element pod ciśnieniem jest ściskany z trzech stron. Każde z tych naprężeń wpływa nie tylko na odkształcenie w swoim kierunku, ale przez efekt Poissona także na pozostałe kierunki.
+
+Uogólnione prawo Hooke’a porządkuje tę wzajemną zależność. Mówi, że odkształcenie w danym kierunku jest sumą własnego udziału naprężenia w tym kierunku oraz poprzecznych udziałów od dwóch pozostałych naprężeń. Dla materiału izotropowego wystarczą do tego dwie stałe: moduł Younga $E$ i współczynnik Poissona $\nu$. Ścinanie opisuje osobna stała $G$, powiązana z $E$ i $\nu$.
+
+Ten wzór jest pomostem między mechaniką a pomiarem. Jeśli znasz naprężenia, obliczysz odkształcenia i sprawdzisz sztywność. Jeśli znasz odkształcenia z tensometrów, po odwróceniu wzoru obliczysz naprężenia. To drugie jest szczególnie ważne, bo tensometr mierzy odkształcenie, a nie naprężenie.
+
+Po tej lekcji będziesz umiał obliczać trzy odkształcenia liniowe i trzy postaciowe dla dowolnego przestrzennego stanu naprężenia, rozpoznawać wpływ naprężeń poprzecznych oraz odwracać prawo Hooke’a w płaskim stanie naprężenia. Zobaczysz też, dlaczego nie wolno stosować $\sigma=E\varepsilon$ osobno dla każdej osi.
+
+Uogólnione prawo Hooke’a jest liniowe, ale nie jest „trzema niezależnymi prawami Hooke’a”. Trzy równania są sprzężone przez $\nu$. Zmiana jednego naprężenia zmienia wszystkie trzy odkształcenia. To sprzężenie jest fizyczne, nie matematyczną wygodą, i właśnie dlatego stan wieloosiowy wymaga uważniejszego rachunku niż proste rozciąganie.
+
+## Zanim zaczniesz
+
+- Znasz prawo Hooke’a dla jednoosiowego rozciągania oraz definicję współczynnika Poissona.
+- Rozróżniasz naprężenia normalne $\sigma_x,\sigma_y,\sigma_z$ od stycznych $\tau_{xy},\tau_{yz},\tau_{zx}$.
+- Pamiętasz, że moduł Younga i moduł ścinania mają jednostkę naprężenia, a odkształcenia są bezwymiarowe.
+- Umiesz dodawać ułamki i porządkować wyrażenia z trzema naprężeniami; nie trzeba rozwiązywać dużego układu równań, wystarczy podstawienie.
+- Pamiętasz, że dodatnie naprężenie normalne oznacza rozciąganie, a ujemne ściskanie.
+- Wiesz, że wzór dotyczy materiału izotropowego, liniowo-sprężystego i małych odkształceń.
+
+## Model i intuicja
+
+Materiał izotropowy reaguje tak samo niezależnie od tego, jak obrócimy układ odniesienia. Dlatego w jego prawie sprężystości nie mogą występować wyróżnione kierunki. Wszystkie kierunki normalne są opisane tą samą stałą $E$, a wszystkie pary kierunków tą samą stałą $\nu$. To założenie jest bardzo silne, ale dobrze przybliża większość metali i wiele polimerów.
+
+Wyobraź sobie sześcian materialny, na którego ściany działają trzy naprężenia normalne. Rozciąganie w kierunku $x$ wydłuża sześcian w tym kierunku i zwęża go w kierunkach $y$ oraz $z$. Rozciąganie w kierunku $y$ robi to samo, tylko z innym kierunkiem uprzywilejowanym. Ponieważ materiał jest liniowy, skutki można dodawać. To zasada superpozycji, a nie nowe prawo fizyczne.
+
+Dla ścinania sytuacja jest prostsza: naprężenie styczne $\tau_{xy}$ wywołuje odkształcenie postaciowe $\gamma_{xy}$ tylko w tej samej płaszczyźnie. W materiale izotropowym nie ma sprzężenia między ścinaniem a odkształceniami liniowymi. Dlatego równania dla $\gamma$ są niezależne od równań dla $\varepsilon$.
+
+Model zakłada brak odkształceń termicznych, plastycznych, pełzania i wpływu czasu. Jeśli element jest nagrzewany, do wyniku trzeba dodać człon $\alpha\Delta T$. Jeśli materiał jest anizotropowy, na przykład kompozyt włóknisty, potrzebnych jest więcej stałych i macierz podatności przestaje być tak prosta.
+
+### Kiedy model przestaje działać
+
+- Materiał jest anizotropowy, na przykład drewno, kompozyt lub blacha o wyraźnej teksturze.
+- Odkształcenia są duże i trzeba użyć miar skończonych oraz innych naprężeń miarowych.
+- Występuje pełzanie, relaksacja lub inne zjawiska zależne od czasu.
+- Element jest nagrzewany, a odkształcenie termiczne nie jest uwzględnione.
+- Materiał przekroczył granicę plastyczności i nie obowiązuje już liniowa sprężystość.
+- Występuje silna koncentracja naprężeń i lokalne odkształcenia przekraczają zakres liniowy.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniaj siłę, pole przekroju i materiał. Odczyty pokazują, że przy tym samym naprężeniu różne materiały mają różne odkształcenia, a przy tym samym odkształceniu naprężenia mogą się znacznie różnić. To przygotowuje grunt pod wzór z trzema naprężeniami.
 
 <Lab id="hooke" />
 
+## Definicje i jednostki
+
+| Wielkość                 | Symbol                                      | Znaczenie                                    | Jednostka    | Uwaga                     |
+| ------------------------ | ------------------------------------------- | -------------------------------------------- | ------------ | ------------------------- |
+| Naprężenie normalne      | $\sigma_x,\sigma_y,\sigma_z$                | siła normalna do przekroju na jednostkę pola | MPa          | dodatnie przy rozciąganiu |
+| Naprężenie styczne       | $\tau_{xy}$                                 | siła styczna do przekroju na jednostkę pola  | MPa          | wywołuje ścinanie         |
+| Odkształcenie liniowe    | $\varepsilon_x,\varepsilon_y,\varepsilon_z$ | względna zmiana długości                     | bezwymiarowe | dodatnie przy wydłużeniu  |
+| Odkształcenie postaciowe | $\gamma_{xy}$                               | zmiana kąta prostego                         | radian       | inżynierskie, pełny kąt   |
+| Moduł Younga             | $E$                                         | sztywność przy rozciąganiu                   | GPa lub MPa  | stała materiałowa         |
+| Współczynnik Poissona    | $\nu$                                       | stosunek skurczu poprzecznego do wydłużenia  | bezwymiarowy | zwykle $0{,}2$–$0{,}35$   |
+| Moduł ścinania           | $G$                                         | sztywność przy ścinaniu                      | GPa lub MPa  | $G=E/[2(1+\nu)]$          |
+
+W praktyce inżynierskiej naprężenia podajemy w MPa, a moduły w GPa. Przed podstawieniem do wzoru trzeba je ujednolicić. Najprościej zamienić $E$ i $G$ na MPa, pamiętając, że $1\,\text{GPa}=1000\,\text{MPa}$. Odkształcenia pozostają bezwymiarowe, więc wynik nie wymaga dodatkowego przelicznika.
+
+### Jak czytać macierz podatności
+
+- Macierz podatności ma na przekątnej $1/E$ dla odkształceń liniowych i $1/G$ dla postaciowych.
+- Poza przekątną w części normalnej występuje $-\nu/E$; to udział naprężenia poprzecznego.
+- Zera między częścią normalną i styczną oznaczają brak sprzężenia w materiale izotropowym.
+- Macierz jest symetryczna, bo materiał izotropowy nie wyróżnia kierunku.
+- Odwrotność macierzy podatności nazywa się macierzą sztywności; nie jest ona po prostu macierzą $E$.
+- W układzie osi obróconym względem materiału anizotropowego zera mogą zniknąć i pojawić się sprzężenia.
+
+### Typowe stałe orientacyjne
+
+| Materiał  | $E$               | $\nu$    | $G$ w przybliżeniu |
+| --------- | ----------------- | -------- | ------------------ |
+| Stal      | $200\,\text{GPa}$ | $0{,}30$ | $77\,\text{GPa}$   |
+| Aluminium | $70\,\text{GPa}$  | $0{,}33$ | $26\,\text{GPa}$   |
+| Miedź     | $130\,\text{GPa}$ | $0{,}34$ | $48\,\text{GPa}$   |
+| Tytan     | $110\,\text{GPa}$ | $0{,}34$ | $41\,\text{GPa}$   |
+
+Wartości są orientacyjne i zależą od stopu oraz obróbki. Do obliczeń projektowych użyj danych materiałowych dla konkretnego wyrobu, a nie średniej z tabeli.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\varepsilon_x=\frac{\sigma_x-\nu(\sigma_y+\sigma_z)}{E},\quad \varepsilon_y=\frac{\sigma_y-\nu(\sigma_z+\sigma_x)}{E},\quad \varepsilon_z=\frac{\sigma_z-\nu(\sigma_x+\sigma_y)}{E},\quad \gamma_{xy}=\frac{\tau_{xy}}{G}
+\varepsilon_x=\frac{\sigma_x-\nu(\sigma_y+\sigma_z)}{E},\qquad \varepsilon_y=\frac{\sigma_y-\nu(\sigma_z+\sigma_x)}{E},\qquad \varepsilon_z=\frac{\sigma_z-\nu(\sigma_x+\sigma_y)}{E}
 $$
 
-<Caption>Analogiczne zależności dotyczą γyz i γzx. Dla materiału izotropowego G = E/[2(1+ν)]. Wzory zakładają małe odkształcenia, liniową sprężystość i brak dodatkowych odkształceń, na przykład termicznych. Moduły E i G muszą być wyrażone w tych samych jednostkach.</Caption>
+<Caption>Trzy równania opisują odkształcenia liniowe w materiale izotropowym. W każdym z nich naprężenie własne zwiększa odkształcenie, a dwa naprężenia poprzeczne je zmniejszają przez efekt Poissona. Wzory obowiązują dla małych odkształceń sprężystych i braku odkształceń termicznych.</Caption>
 </Formula>
 
+<Formula>
+$$
+\gamma_{xy}=\frac{\tau_{xy}}{G},\qquad \gamma_{yz}=\frac{\tau_{yz}}{G},\qquad \gamma_{zx}=\frac{\tau_{zx}}{G},\qquad G=\frac{E}{2(1+\nu)}
+$$
+
+<Caption>Odkształcenia postaciowe są niezależne od naprężeń normalnych. Moduł ścinania $G$ wynika z izotropii materiału i jest jednoznacznie wyznaczony przez $E$ oraz $\nu$. Dla stali o $E=200\,\text{GPa}$ i $\nu=0{,}30$ otrzymujemy $G\approx77\,\text{GPa}$.</Caption>
+</Formula>
+
+Wyprowadzenie opiera się na superpozycji trzech prostych prób rozciągania.
+
+1. Przyłożenie tylko $\sigma_x$ daje $\varepsilon_x=\sigma_x/E$ oraz $\varepsilon_y=\varepsilon_z=-\nu\sigma_x/E$.
+2. Przyłożenie tylko $\sigma_y$ daje $\varepsilon_y=\sigma_y/E$ oraz $\varepsilon_x=\varepsilon_z=-\nu\sigma_y/E$.
+3. Przyłożenie tylko $\sigma_z$ daje $\varepsilon_z=\sigma_z/E$ oraz $\varepsilon_x=\varepsilon_y=-\nu\sigma_z/E$.
+4. Dodajemy udział $\sigma_x$ do odkształcenia $\varepsilon_x$: $\varepsilon_x=\sigma_x/E-\nu\sigma_y/E-\nu\sigma_z/E$.
+5. Zwijamy wspólny mianownik i otrzymujemy $\varepsilon_x=[\sigma_x-\nu(\sigma_y+\sigma_z)]/E$.
+6. Powtarzamy ten sam rachunek dla $\varepsilon_y$ i $\varepsilon_z$, zamieniając role kierunków.
+7. Dla ścinania nie ma superpozycji z naprężeniami normalnymi: $\gamma_{xy}=\tau_{xy}/G$. Pozostałe płaszczyzny opisują analogiczne równania.
+8. W materiale izotropowym stałe $E$, $\nu$ i $G$ nie są niezależne. Z rozważań energetycznych lub z próby ścinania otrzymuje się $G=E/[2(1+\nu)]$.
+9. Sprawdzamy przypadek jednoosiowy: dla $\sigma_y=\sigma_z=0$ wzór redukuje się do $\varepsilon_x=\sigma_x/E$ i $\varepsilon_y=\varepsilon_z=-\nu\sigma_x/E$, czyli do znanych zależności.
+10. Sprawdzamy przypadek hydrostatyczny: dla $\sigma_x=\sigma_y=\sigma_z=-p$ każde odkształcenie wynosi $-(1-2\nu)p/E$, więc zmiana objętości zależy od $1-2\nu$.
+11. Sprawdzamy znak: dodatnie naprężenie poprzeczne zmniejsza odkształcenie w rozważanym kierunku, dlatego we wzorze jest minus.
+
+Warto zapamiętać strukturę wzoru: w każdym wierszu „własne naprężenie minus $\nu$ razy suma pozostałych”. To pozwala szybko napisać równanie bez zaglądania do tablic. Dla naprężeń ścinających nie ma takiego sprzężenia, dlatego $\gamma_{xy}$ zależy tylko od $\tau_{xy}$.
+
+### Przypadek płaskiego stanu naprężenia
+
+<Formula>
+$$
+\sigma_x=\frac{E}{1-\nu^2}(\varepsilon_x+\nu\varepsilon_y),\qquad \sigma_y=\frac{E}{1-\nu^2}(\varepsilon_y+\nu\varepsilon_x),\qquad \varepsilon_z=-\frac{\nu}{1-\nu}(\varepsilon_x+\varepsilon_y)
+$$
+
+<Caption>Wzory odwrotne dla płaskiego stanu naprężenia, gdy $\sigma_z=0$. Mianownik $1-\nu^2$ pojawia się dlatego, że odkształcenia w płaszczyźnie są sprzężone przez efekt Poissona. Ostatni wzór pokazuje, że grubość nadal się zmienia, choć naprężenie normalne w kierunku grubości jest zerowe.</Caption>
+</Formula>
+
+Te wzory są najczęściej używane w praktyce tensometrycznej. Mierzymy $\varepsilon_x$ i $\varepsilon_y$ na powierzchni elementu, zakładamy $\sigma_z=0$, a następnie obliczamy naprężenia w płaszczyźnie. Założenie płaskiego stanu naprężenia trzeba jednak świadomie uzasadnić; na powierzchni jest ono zwykle dobre, ale wewnątrz grubego elementu może już nie obowiązywać.
+
+### Kontrola wyniku
+
+- Sprawdź, czy $E$ i naprężenia są w tych samych jednostkach.
+- Sprawdź, czy każdy licznik ma naprężenie własne i dwa składniki poprzeczne.
+- Sprawdź, czy przy dodatnim $\nu$ naprężenie poprzeczne zmniejsza odkształcenie własne.
+- Sprawdź, czy $\gamma$ jest w radianach i czy nie pomnożyłeś jej przez dwa bez potrzeby.
+- Sprawdź, czy suma odkształceń daje sensowną zmianę objętości.
+- Sprawdź, czy wynik nie przekracza zakresu liniowo-sprężystego.
+
 <Insight>
-  Nawet przy σx = 0 może istnieć εx różne od zera, jeśli działają σy lub σz. Zerowe naprężenie w danym kierunku nie
-  oznacza automatycznie zerowego odkształcenia.
+  Zerowe naprężenie w danym kierunku nie oznacza zerowego odkształcenia w tym kierunku. Jeśli $\sigma_z=0$, ale
+  $\sigma_x$ i $\sigma_y$ są dodatnie, to $\varepsilon_z=-\nu(\sigma_x+\sigma_y)/E$ jest ujemne. To najczęstsza pułapka
+  w zadaniach z blachą i powłoką.
 </Insight>
 
 <WorkedExample>
-  <Given>
-    Aluminium: E = 70 000 MPa, ν = 0,33, G = 26 316 MPa. Stan: σx = 90 MPa, σy = −30 MPa, σz = 0, τxy = 40 MPa.
-  </Given>
+  <Given>Stalowy element ma $E=200\,\text{GPa}$ i $\nu=0{,}30$. Stan naprężenia: $\sigma_x=80\,\text{MPa}$, $\sigma_y=40\,\text{MPa}$, $\sigma_z=-20\,\text{MPa}$ oraz $\tau_{xy}=30\,\text{MPa}$.</Given>
   <Steps>
-    <Step>εx = [90 − 0,33(−30 + 0)]/70 000 = 99,9/70 000 = 0,0014271.</Step>
-    <Step>εy = [−30 − 0,33(0 + 90)]/70 000 = −59,7/70 000 = −0,0008529.</Step>
-    <Step>εz = [0 − 0,33(90 − 30)]/70 000 = −19,8/70 000 = −0,0002829.</Step>
-    <Step>γxy = 40/26 316 = 0,0015200 rad.</Step>
+    <Step>Moduł ścinania: $G=200\,000/[2(1+0{,}30)]=76\,923\,\text{MPa}$.</Step>
+    <Step>$\varepsilon_x=[80-0{,}30(40-20)]/200\,000=(80-6)/200\,000=0{,}00037$.</Step>
+    <Step>$\varepsilon_y=[40-0{,}30(-20+80)]/200\,000=(40-18)/200\,000=0{,}00011$.</Step>
+    <Step>$\varepsilon_z=[-20-0{,}30(80+40)]/200\,000=(-20-36)/200\,000=-0{,}00028$.</Step>
+    <Step>$\gamma_{xy}=30/76\,923=0{,}00039\,\text{rad}$.</Step>
+    <Step>Kontrola objętości: suma odkształceń liniowych wynosi $0{,}00037+0{,}00011-0{,}00028=0{,}00020$, czyli $0{,}02\,\%$.</Step>
   </Steps>
-  <Result>
-    εx ≈ 1427 µε, εy ≈ −853 µε, εz ≈ −283 µε i γxy ≈ 1520 µrad. Wszystkie składowe wynikają z jednoczesnego działania
-    naprężeń.
-  </Result>
+  <Result>$\varepsilon_x=370\,\mu\varepsilon$, $\varepsilon_y=110\,\mu\varepsilon$, $\varepsilon_z=-280\,\mu\varepsilon$ oraz $\gamma_{xy}=390\,\mu\text{rad}$. Objętość rośnie nieznacznie, mimo ujemnego naprężenia w kierunku $z$.</Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy cienką blachę w płaskim stanie naprężenia: $\sigma_z=0$, $\sigma_x=120\,\text{MPa}$, $\sigma_y=0$, $E=200\,\text{GPa}$ i $\nu=0{,}30$. Obliczamy $\varepsilon_x$, $\varepsilon_y$ i $\varepsilon_z$.
+
+$\varepsilon_x=(120-0{,}30\cdot0)/200\,000=0{,}0006$, czyli $600\,\mu\varepsilon$. $\varepsilon_y=(0-0{,}30\cdot120)/200\,000=-0{,}00018$, czyli $-180\,\mu\varepsilon$. $\varepsilon_z$ również wynosi $-0{,}00018$, bo w płaskim stanie naprężenia $\sigma_z=0$ i $\varepsilon_z=-\nu(\sigma_x+\sigma_y)/E=-\nu\sigma_x/E$. Grubość blachy maleje o $0{,}018\,\%$.
+
+Gdyby ktoś błędnie przyjął, że w kierunku $z$ nie ma odkształcenia, popełniłby błąd rzędu $180\,\mu\varepsilon$. Przy pomiarze tensometrycznym to wartość całkowicie mierzalna, więc założenie płaskiego stanu odkształcenia zamiast płaskiego stanu naprężenia musi być świadome.
+
+### Kiedy naprężenie poprzeczne naprawdę jest zerowe
+
+- Na swobodnej powierzchni elementu naprężenie normalne do powierzchni jest zwykle zerowe.
+- W cienkiej blasze obciążonej w swojej płaszczyźnie można często przyjąć płaski stan naprężenia.
+- W grubym elemencie wnętrze może być bliższe płaskiemu stanowi odkształcenia.
+- W połączeniu wciskowym naprężenia poprzeczne mogą być duże i nie wolno ich pomijać.
+- Przy kontakcie z podłożem lub szczeliną warunek brzegowy decyduje o tym, które naprężenie znika.
+- Założenie trzeba zapisać w rozwiązaniu, bo od niego zależą dalsze wzory.
+
+## Trzeci przykład: wariant odwrotny
+
+Z tensometrów wzdłuż osi $x$ i $y$ zmierzono $\varepsilon_x=500\,\mu\varepsilon$ i $\varepsilon_y=-150\,\mu\varepsilon$. Materiał ma $E=200\,\text{GPa}$ i $\nu=0{,}30$. Załóżmy, że to stan jednoosiowy i sprawdźmy, jakie naprężenie $\sigma_x$ daje takie odkształcenia.
+
+Dla jednoosiowego rozciągania $\varepsilon_x=\sigma_x/E$, więc $\sigma_x=E\varepsilon_x=200\,000\cdot0{,}0005=100\,\text{MPa}$. Przewidywane odkształcenie poprzeczne wynosi wtedy $-\nu\varepsilon_x=-0{,}30\cdot0{,}0005=-0{,}00015=-150\,\mu\varepsilon$. Zgadza się z pomiarem. To nie jest przypadek: właśnie w ten sposób sprawdza się, czy materiał rzeczywiście jest w stanie jednoosiowym, czy w pomiarze ukrywa się dodatkowe naprężenie.
+
+Gdyby zmierzone $\varepsilon_y$ było dodatnie, wniosek o czystym rozciąganiu byłby fałszywy. Trzeba by wrócić do pełnego układu równań i rozważyć naprężenie $\sigma_y$ lub odkształcenie termiczne.
+
+### Co jeszcze można wywnioskować z pomiaru
+
+Zgodność $\varepsilon_y=-\nu\varepsilon_x$ jest testem spójności, a nie dowodem jednoznaczności. Ten sam pomiar mogą wywołać różne kombinacje naprężeń i temperatury. Dopiero dodatkowe informacje, na przykład brak obciążenia w kierunku $y$, znany gradient temperatury lub pomiar w trzecim kierunku, pozwalają jednoznacznie zidentyfikować stan.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Stosowanie $\varepsilon_x=\sigma_x/E$ przy niezerowych $\sigma_y$ i $\sigma_z$; pomija to efekt Poissona.
+
+- Mylenie znaku: dodatnie $\sigma_y$ zmniejsza $\varepsilon_x$, więc nie dodaje się go bez minusa.
+
+- Używanie $G=E$ lub $G=E/2$ bez współczynnika $1+\nu$.
+
+- Podstawianie $E$ w GPa i naprężeń w MPa bez przeliczenia jednostek.
+
+- Dodawanie członu termicznego zamiast uwzględnienia go w pełnym równaniu odkształcenia.
+
+- Traktowanie wzoru jako ważnego po przekroczeniu granicy plastyczności.
+
+- Zapominanie, że w płaskim stanie naprężenia $\varepsilon_z$ nie musi być zerowe.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wypisz wszystkie sześć składowych naprężenia. Jeśli część jest zerowa, zaznacz to wyraźnie, bo upraszcza rachunek.
+2. Sprawdź, czy materiał jest izotropowy i czy zadanie mieści się w zakresie liniowo-sprężystym.
+3. Ujednolić jednostki: $E$ i $G$ w MPa, naprężenia w MPa.
+4. Dla każdego kierunku zastosuj schemat „własne naprężenie minus $\nu$ razy suma pozostałych”.
+5. Dla ścinania użyj $\gamma=\tau/G$; nie mieszaj $\gamma$ z tensorowym $\varepsilon_{xy}=\gamma/2$.
+6. Jeśli znasz odkształcenia, a szukasz naprężeń, odwróć wzór. W płaskim stanie naprężenia użyj $\sigma_x=E(\varepsilon_x+\nu\varepsilon_y)/(1-\nu^2)$ i analogicznie dla $\sigma_y$.
+7. Sprawdź wynik: odkształcenia sprężyste metali powinny być małe, a znaki powinny zgadzać się z intuicją rozciągania i ściskania.
+
+## Połącz z resztą kursu
+
+- W lekcji o odkształceniach $\varepsilon$ i $\gamma$ poznałeś definicje, na których opiera się cały zapis tensorowy.
+- W lekcji o efekcie Poissona zobaczyłeś szczególny przypadek jednego naprężenia; tutaj uogólniasz go na trzy kierunki.
+- W lekcji o zmianie objętości suma trzech równań liniowych doprowadzi do modułu ściśliwości.
+- W module o zginaniu uogólnione prawo Hooke’a wyjaśnia, dlaczego w belce powstają odkształcenia poprzeczne mimo zerowych naprężeń bocznych.
+- W lekcjach o tensometrach i rozecie odwrócenie tego prawa pozwala przejść od zmierzonych odkształceń do naprężeń.
+- W module o hipotezach wytężeniowych naprężenia główne obliczone z tensora staną się podstawą oceny bezpieczeństwa.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz zastosować pełny wzór, poprawnie uwzględnić znaki i odwrócić zależność w prostym przypadku.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Dla E = 200 GPa, ν = 0,25, σx = 100 MPa, σy = 50 MPa i σz = 0 ile wynosi εx?</Prompt>
-    <Answer correct>0,0004375</Answer>
-    <Answer>0,0005</Answer>
-    <Answer>0,0005625</Answer>
-    <Hint>Odejmij νσy od σx i podziel przez 200 000 MPa.</Hint>
-    <Explanation>
-      εx = [100 − 0,25(50 + 0)]/200 000 = 87,5/200 000 = 0,0004375 = 437,5 µε. Efekt Poissona zmniejsza wydłużenie x.
-    </Explanation>
+    <Prompt>Dla $E=200\,\text{GPa}$, $\nu=0{,}30$, $\sigma_x=120\,\text{MPa}$, $\sigma_y=40\,\text{MPa}$ i $\sigma_z=0$ ile wynosi $\varepsilon_x$?</Prompt>
+    <Answer correct>$540\,\mu\varepsilon$</Answer>
+    <Answer>$600\,\mu\varepsilon$</Answer>
+    <Answer>$480\,\mu\varepsilon$</Answer>
+    <Hint>Odejmij $\nu\sigma_y$ od $\sigma_x$ i podziel przez $200\,000\,\text{MPa}$.</Hint>
+    <Explanation>$\varepsilon_x=[120-0{,}30\cdot40]/200\,000=108/200\,000=0{,}00054=540\,\mu\varepsilon$.</Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Przy σx = σy = 60 MPa, σz = 0, E = 70 GPa i ν = 0,33 jaki znak ma εz?</Prompt>
-    <Answer>Dodatni</Answer>
-    <Answer correct>Ujemny</Answer>
-    <Answer>Zawsze zerowy</Answer>
-    <Hint>Chociaż σz = 0, naprężenia x i y wywołują skurcz poprzeczny.</Hint>
-    <Explanation>
-      εz = [0 − 0,33(60 + 60)]/70 000 = −39,6/70 000 ≈ −0,000566. Kierunek z ulega skróceniu mimo zerowego σz.
-    </Explanation>
+    <Prompt>Dla danych z poprzedniego pytania ile wynosi $\varepsilon_y$?</Prompt>
+    <Answer correct>$20\,\mu\varepsilon$</Answer>
+    <Answer>$200\,\mu\varepsilon$</Answer>
+    <Answer>$-20\,\mu\varepsilon$</Answer>
+    <Hint>W liczniku jest $\sigma_y-\nu(\sigma_z+\sigma_x)$.</Hint>
+    <Explanation>$\varepsilon_y=[40-0{,}30(0+120)]/200\,000=(40-36)/200\,000=0{,}00002=20\,\mu\varepsilon$.</Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Dla τxy = 60 MPa i G = 80 GPa ile wynosi inżynierskie γxy?</Prompt>
-    <Answer correct>0,00075</Answer>
-    <Answer>0,0015</Answer>
-    <Answer>750</Answer>
-    <Hint>Zamień 80 GPa na 80 000 MPa i podziel τ przez G.</Hint>
-    <Explanation>
-      γxy = 60/80 000 = 0,00075 rad = 750 µrad. Tensorowe εxy wyniosłoby połowę, czyli 0,000375.
-    </Explanation>
+    <Prompt>Dla $\sigma_x=160\,\text{MPa}$, $\sigma_y=\sigma_z=0$, $E=200\,\text{GPa}$ i $\nu=0{,}30$ ile wynosi $\varepsilon_z$?</Prompt>
+    <Answer correct>$-240\,\mu\varepsilon$</Answer>
+    <Answer>$+240\,\mu\varepsilon$</Answer>
+    <Answer>$-800\,\mu\varepsilon$</Answer>
+    <Hint>Skorzystaj z $\varepsilon_z=-\nu\sigma_x/E$.</Hint>
+    <Explanation>$\varepsilon_z=-0{,}30\cdot160/200\,000=-0{,}00024=-240\,\mu\varepsilon$. Kierunek $z$ kurczy się mimo zerowego naprężenia.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla $\tau_{xy}=45\,\text{MPa}$ i $G=80\,\text{GPa}$ ile wynosi $\gamma_{xy}$?</Prompt>
+    <Answer correct>$0{,}0005625$ rad</Answer>
+    <Answer>$0{,}001125$ rad</Answer>
+    <Answer>$562{,}5$ rad</Answer>
+    <Hint>Zamień $G$ na $80\,000\,\text{MPa}$ i podziel $\tau$ przez $G$.</Hint>
+    <Explanation>$\gamma_{xy}=45/80\,000=0{,}0005625$ rad. Tensorowa składowa byłaby połową tej wartości.</Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dla $E=210\,\text{GPa}$ i $\nu=0{,}30$ ile wynosi $G$?</Prompt>
+    <Answer correct>około $80{,}8\,\text{GPa}$</Answer>
+    <Answer>około $105\,\text{GPa}$</Answer>
+    <Answer>około $161{,}5\,\text{GPa}$</Answer>
+    <Hint>Użyj $G=E/[2(1+\nu)]$.</Hint>
+    <Explanation>$G=210/[2\cdot1{,}30]=210/2{,}6\approx80{,}77\,\text{GPa}$.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla $\sigma_x=0$, $\sigma_y=\sigma_z=50\,\text{MPa}$, $E=200\,\text{GPa}$ i $\nu=0{,}30$ ile wynosi $\varepsilon_x$?</Prompt>
+    <Answer correct>$-150\,\mu\varepsilon$</Answer>
+    <Answer>$+150\,\mu\varepsilon$</Answer>
+    <Answer>$0$</Answer>
+    <Hint>Naprężenie własne w kierunku $x$ jest zerowe, ale poprzeczne nie.</Hint>
+    <Explanation>$\varepsilon_x=[0-0{,}30(50+50)]/200\,000=-30/200\,000=-0{,}00015=-150\,\mu\varepsilon$.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W płaskim stanie naprężenia $E=70\,\text{GPa}$, $\nu=0{,}33$, $\varepsilon_x=600\,\mu\varepsilon$ i $\varepsilon_y=200\,\mu\varepsilon$. Ile wynosi $\sigma_x$?</Prompt>
+    <Answer correct>około $52{,}3\,\text{MPa}$</Answer>
+    <Answer>około $70\,\text{MPa}$</Answer>
+    <Answer>około $35\,\text{MPa}$</Answer>
+    <Hint>Użyj $\sigma_x=E(\varepsilon_x+\nu\varepsilon_y)/(1-\nu^2)$.</Hint>
+    <Explanation>$\sigma_x=70\,000(0{,}0006+0{,}33\cdot0{,}0002)/(1-0{,}33^2)\approx70\,000\cdot0{,}000666/0{,}8911\approx52{,}3\,\text{MPa}$.</Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Które stwierdzenie jest poprawne dla materiału izotropowego?</Prompt>
+    <Answer correct>Zerowe naprężenie w kierunku $z$ nie wyklucza niezerowego $\varepsilon_z$</Answer>
+    <Answer>Każde odkształcenie zależy tylko od naprężenia w tym samym kierunku</Answer>
+    <Answer>Naprężenie styczne wywołuje odkształcenie liniowe w kierunku prostopadłym</Answer>
+    <Hint>Przypomnij sobie rolę efektu Poissona i brak sprzężenia normalno-stycznego w materiale izotropowym.</Hint>
+    <Explanation>Naprężenia $\sigma_x$ i $\sigma_y$ wywołują odkształcenie $\varepsilon_z$ przez efekt Poissona, nawet gdy $\sigma_z=0$. Sprzężenie normalno-styczne nie występuje w układzie osi materiałowych materiału izotropowego.</Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o prawie Hooke’a dla stanu trójosiowego; dobre przykłady superpozycji i płaskiego stanu naprężenia.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z odkształceń wieloosiowych; warto przećwiczyć odwracanie wzoru i kontrolę znaków.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o związkach między naprężeniem i odkształceniem; klasyczne wyprowadzenie uogólnionego prawa Hooke’a.
+- D. Roylance, _Mechanics of Materials_ — rozdział o związkach konstytutywnych; macierz podatności, związek $G$ z $E$ i $\nu$ oraz rozkład na część objętościową i postaciową.
+- T. Wierzbicki, _Structural Mechanics_ — rozdział o prawie sprężystości w trójwymiarowym ośrodku; wyprowadzenie stałych Lamégo i relacji z $E$ oraz $\nu$.

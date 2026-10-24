@@ -7,7 +7,6 @@ shortTitle: Wykresy N
 description: >-
   Wyznacz siłę osiową na kolejnych odcinkach i narysuj wykres zgodny z
   obciążeniami punktowymi.
-duration: 8
 eyebrow: 'Jeden pręt, różne odcinki'
 outcomes:
   - W1 — analizuje przekroje pręta z różnymi obciążeniami osiowymi
@@ -19,21 +18,84 @@ outcomes:
 solutionId: cw1-3
 ---
 
-Wykres N pokazuje, jaką siłę przenosi każdy przekrój. Skok wykresu pojawia się tam, gdzie przyłożono osiową siłę skupioną; między takimi siłami N pozostaje stałe, jeśli nie ma obciążenia rozłożonego.
+W poprzedniej lekcji założyliśmy, że w pręcie działa jedna siła osiowa, więc naprężenie było takie samo na całej długości. W rzeczywistych konstrukcjach obciążeń jest zwykle więcej: siła na końcu, siła w połowie, ciężar własny, oddziaływanie sąsiedniego elementu. Siła wewnętrzna $N$ zmienia się wtedy od przekroju do przekroju i trzeba ją opisać funkcją albo wykresem.
+
+Wykres siły osiowej jest dla pręta tym, czym mapa dla podróżnika. Mówi, w którym miejscu materiał jest rozciągany, w którym ściskany i gdzie wartość siły jest największa. Bez niego nie można poprawnie dobrać przekroju, bo nie wiadomo, który odcinek jest najbardziej wytężony. Samo obliczenie reakcji podpory to za mało, ponieważ reakcja opisuje tylko jeden koniec układu.
+
+Lekcja uczy konsekwentnej metody: przecięcie, równowaga wybranej części, znak, skok. Zobaczysz, że siły skupione powodują skoki wykresu, a obciążenie rozłożone powoduje zmianę liniową. Nauczysz się też odczytywać z wykresu strefy rozciągania i ściskania oraz przygotowywać dane do obliczeń naprężeń w prętach schodkowych.
+
+Po tej lekcji będziesz umiał zbudować wykres $N$ dla pręta z dowolną liczbą sił skupionych, sprawdzić wynik przez równowagę całości i wskazać przekroje, które trzeba sprawdzić w warunku wytrzymałości. To umiejętność, która wróci przy belkach, kratownicach i zadaniach złożonych.
+
+## Zanim zaczniesz
+
+- **Równowaga sił.** Potrafisz zapisać $\sum F_x=0$ dla wybranej części układu i poprawnie przypisać znaki siłom skierowanym w lewo i w prawo.
+- **Metoda przekrojów.** Umiesz przeciąć pręt, narysować odciętą część i zastąpić działanie odrzuconej części siłą wewnętrzną.
+- **Reakcje podpór.** W układzie statycznie wyznaczalnym potrafisz wyznaczyć reakcję utwierdzenia lub podpory przesuwnej.
+- **Jednostki.** Siły skupione podajesz w kN lub N, obciążenie rozłożone w kN/m lub N/mm. Nie mieszaj tych jednostek w jednym równaniu.
+- **Konwencja znaku.** Dodatnie $N$ oznacza rozciąganie. Oś $x$ skierowana w prawo, siła dodatnia działa w prawo.
+- **Typowa pułapka.** Wartość $N$ na wolnym końcu nie jest równa zero, jeśli na tym końcu działa siła. Zero byłoby tylko wtedy, gdy koniec jest całkowicie swobodny i nieobciążony.
+
+## Model i intuicja
+
+Model pręta obciążonego osiowo zakłada, że wszystkie siły działają wzdłuż jednej osi, a pręt jest prosty i ma stały lub odcinkowo stały przekrój. Pomijamy zginanie i ścinanie, ponieważ obciążenia nie powodują momentów ani sił poprzecznych. Zakładamy też, że odkształcenia są małe, więc położenie przekrojów i ramiona sił nie zmieniają się istotnie podczas obciążenia.
+
+W takim modelu siła osiowa w dowolnym przekroju jest sumą algebraiczną sił zewnętrznych działających po jednej stronie tego przekroju. Można wybrać stronę lewą albo prawą; wynik musi być taki sam, jeśli konsekwentnie stosujemy znaki. W praktyce wygodniej jest zaczynać od końca swobodnego, bo nie trzeba wtedy znać reakcji.
+
+Wybór strony nie zmienia fizyki, ale zmienia liczbę znanych sił. Przy budowie wykresu od lewej strony trzeba najpierw wyznaczyć reakcję, a przy budowie od prawej można ją pozostawić na koniec jako kontrolę. W obu przypadkach warto zapisać na rysunku, która strona jest „odcięta”, i konsekwentnie używać jednego zwrotu dodatniego. Najczęstszy błąd to zmiana konwencji w połowie zadania.
+
+Między dwiema siłami skupionymi, przy braku obciążenia rozłożonego, siła osiowa jest stała. Dzieje się tak, ponieważ przesuwając przekrój w tym przedziale nie dodajemy ani nie odejmujemy żadnej siły zewnętrznej. W miejscu przyłożenia siły skupionej wykres zmienia się skokowo o wartość tej siły. Kierunek skoku zależy od zwrotu siły i od tego, z której strony patrzymy.
+
+Obciążenie rozłożone, na przykład ciężar własny albo tarcie działające wzdłuż pręta, zmienia $N$ w sposób ciągły. Przy stałym obciążeniu $q$ na jednostkę długości wykres jest linią prostą. Nachylenie wynika z tego, że każdy kolejny fragment długości dokłada lub odejmuje niewielką siłę. W zadaniach z ciężarem własnym taki wykres pojawia się w module materiałowym.
+
+Model przestaje być wystarczający, gdy obciążenie nie jest osiowe, gdy pręt jest zakrzywiony albo gdy występują duże przemieszczenia zmieniające geometrię. Wtedy siła osiowa może sprzęgać się ze zginaniem, a wykres $N$ nie opisuje całego stanu naprężenia. Dla typowych prętów i małych odkształceń pozostaje jednak podstawowym narzędziem.
+
+## Laboratorium: co ustawić
+
+W laboratorium wybierz liczbę odcinków, a następnie zmień siłę $P$ na końcu i siłę $Q$ na pierwszym połączeniu. Obserwuj, w którym miejscu wykres $N$ zmienia się skokowo i jak zmiana pola przekroju wpływa na naprężenie przy tej samej sile. Porównaj największe $|N|$ z największym $|\sigma|$ — to nie zawsze ten sam odcinek.
 
 <Lab id="steppedBar" />
 
+## Definicje i jednostki
+
+**Siła osiowa** $N(x)$ to wypadkowa sił wewnętrznych w przekroju o współrzędnej $x$, skierowana wzdłuż osi pręta. **Wykres siły osiowej** to graf funkcji $N(x)$ odłożony wzdłuż długości pręta. **Siła skupiona** $P$ działa w jednym przekroju i powoduje skok wykresu. **Obciążenie rozłożone** $q$ działa na długości i powoduje zmianę ciągłą.
+
+Przyjmujemy oś $x$ skierowaną w prawo. Dodatnia siła zewnętrzna działa w prawo. Dodatnia siła wewnętrzna $N$ rozciąga pręt. Przy takiej konwencji dla prawej odciętej części zachodzi $N=\sum F_{x,\text{prawa}}$, a przy przejściu przez siłę skupioną $P$ wykres zmienia się o $\Delta N=-P$.
+
+| Wielkość              | Symbol | Jednostka     | Znaczenie                              |
+| --------------------- | ------ | ------------- | -------------------------------------- |
+| Siła osiowa           | $N$    | N lub kN      | siła wewnętrzna w przekroju            |
+| Siła skupiona         | $P$    | N lub kN      | obciążenie przyłożone w punkcie        |
+| Obciążenie rozłożone  | $q$    | kN/m lub N/mm | siła na jednostkę długości             |
+| Współrzędna przekroju | $x$    | m lub mm      | położenie przekroju wzdłuż pręta       |
+| Reakcja podpory       | $R$    | N lub kN      | oddziaływanie utwierdzenia lub podpory |
+| Długość odcinka       | $L_i$  | m lub mm      | długość części o stałym przekroju      |
+
+Na wykresie $N$ wartość dodatnia odkładamy po jednej stronie osi, a ujemną po drugiej. Sposób odkładania jest umowny, ale musi być opisany. Najważniejsze, żeby z wykresu jednoznacznie wynikało, gdzie pręt jest rozciągany, a gdzie ściskany.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-N=\sum F_{x,\,\text{część prawa}}=-\sum F_{x,\,\text{część lewa}},\qquad \Delta N=-P
+N(x)=\sum F_{x,\,\text{część prawa}}=-\sum F_{x,\,\text{część lewa}},\qquad \Delta N=-P,\qquad \frac{dN}{dx}=-q
 $$
 
-<Caption>Oś x jest skierowana w prawo, a dodatnie N oznacza rozciąganie. P to siła skupiona dodatnia w prawo; przy przejściu przez nią wykres N zmienia się skokowo o −P.</Caption>
+<Caption>Oś x jest skierowana w prawo, a dodatnie N oznacza rozciąganie. P to siła skupiona dodatnia w prawo, a q to obciążenie rozłożone dodatnie w prawo. Przy przejściu przez siłę skupioną wykres zmienia się skokowo o −P.</Caption>
 </Formula>
 
+1. Ustal oś pręta i dodatni kierunek $x$. Zaznacz wszystkie siły zewnętrzne wraz z ich zwrotami. Przyjmij, że dodatnie $N$ oznacza rozciąganie.
+2. Wytnij myślowo przekrój w odległości $x$ od początku. Podziel pręt na część lewą i prawą. Wybierz tę część, dla której znasz więcej sił, zwykle prawą.
+3. Narysuj siły działające na wybraną część. Na przecięciu przyłóż siłę wewnętrzną $N$. Jej zwrot przyjmij zgodnie z umową: dla prawej części dodatnia $N$ działa w lewo, czyli rozciąga część.
+4. Zapisz równowagę wzdłuż osi: suma sił zewnętrznych na wybranej części plus $N$ z odpowiednim znakiem musi być zerowa. Po przekształceniu otrzymujesz $N$ jako sumę sił zewnętrznych po jednej stronie przekroju.
+5. Sprawdź znak na prostym przypadku. Pręt rozciągany siłą $P$ w prawo na prawym końcu ma na całej długości $N=+P$, co odpowiada rozciąganiu.
+6. Przesuwaj przekrój wzdłuż pręta. Dopóki nie mijasz żadnej siły skupionej ani początku obciążenia rozłożonego, zbiór sił po wybranej stronie się nie zmienia, więc $N$ jest stałe.
+7. W miejscu siły skupionej $P$ zbiór sił zmienia się o tę siłę. Przechodząc z lewej strony na prawą, tracisz $P$ z prawej części, więc $N$ zmienia się o $-P$. To daje skok wykresu.
+8. Przy obciążeniu rozłożonym $q$ rozważ fragment długości $dx$. Różnica sił między dwoma przekrojami wynosi $-q\,dx$, więc $dN/dx=-q$. Całkowanie tego związku daje liniowy przebieg $N(x)$.
+9. Na końcu sprawdź równowagę całego pręta. Reakcja podpory musi równoważyć sumę wszystkich obciążeń zewnętrznych, a wartość $N$ przy podporze musi być zgodna z tą reakcją.
+10. Narysuj wykres: odcinki poziome między siłami skupionymi, linie pochyłe pod obciążeniem rozłożonym i pionowe skoki w miejscach sił. Zaznacz znaki i wartości charakterystyczne.
+
 <Insight>
-  Reakcja w utwierdzeniu równoważy sumę obciążeń zewnętrznych, więc jej wartość jest związana z N na pierwszym odcinku.
-  Wykres trzeba jednak budować przekrój po przekroju — jedna wartość N nie musi opisywać całego pręta.
+  Reakcja w utwierdzeniu równoważy sumę obciążeń zewnętrznych, więc jej wartość jest związana z $N$ na pierwszym
+  odcinku. Wykres trzeba jednak budować przekrój po przekroju — jedna wartość $N$ nie musi opisywać całego pręta.
 </Insight>
 
 <WorkedExample>
@@ -48,8 +110,8 @@ $$
     </Step>
     <Step>Na środkowym odcinku po prawej stronie działają 10 kN w lewo i 5 kN w prawo, więc N₂ = −10 + 5 = −5 kN.</Step>
     <Step>
-      Na pierwszym odcinku po prawej stronie działają 20 kN w prawo, 10 kN w lewo i 5 kN w prawo, więc N₁ = +(20 − 10 +
-      5) = +15 kN.
+      Na pierwszym odcinku po prawej stronie działają 20 kN w prawo, 10 kN w lewo i 5 kN w prawo, więc N₁ = 20 − 10 + 5
+      = +15 kN.
     </Step>
     <Step>Z równowagi całego pręta reakcja w A wynosi 15 kN w lewo, co potwierdza N₁ = +15 kN.</Step>
     <Step>Narysuj trzy poziome stopnie: +15, −5 i +5 kN, ze skokami w przekrojach przyłożenia sił.</Step>
@@ -58,6 +120,79 @@ $$
     Od utwierdzenia do wolnego końca: N = +15 kN, −5 kN, +5 kN; środkowy odcinek jest ściskany, a pozostałe rozciągane.
   </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy pręt utwierdzony lewym końcem, o długości $L=2\ \text{m}$, obciążony na całej długości osiowym obciążeniem rozłożonym $q=8\ \text{kN/m}$ skierowanym w prawo. Na prawym końcu działa dodatkowo siła $P=6\ \text{kN}$ w prawo. Przyjmujemy oś $x$ od utwierdzenia w prawo.
+
+Dla przekroju w odległości $x$ po prawej stronie pozostaje odcinek długości $L-x$. Działa na niego siła końcowa $6\ \text{kN}$ oraz obciążenie rozłożone o wypadkowej $q(L-x)$. Zatem $N(x)=6+8(2-x)$ kN. Na wykresie jest to linia prosta od $22\ \text{kN}$ przy utwierdzeniu do $6\ \text{kN}$ na końcu.
+
+<Formula>
+$$
+N(x)=P+q(L-x),\qquad \frac{dN}{dx}=-q
+$$
+
+<Caption>Dla pręta utwierdzonego i obciążonego stałym q oraz siłą końcową P siła osiowa maleje liniowo od podpory do końca. Nachylenie wykresu jest równe −q.</Caption>
+</Formula>
+
+Sprawdźmy nachylenie: $dN/dx=-q=-8\ \text{kN/m}$, więc na każdym metrze siła osiowa maleje o $8\ \text{kN}$. Rzeczywiście, między $x=0$ i $x=2$ różnica wynosi $16\ \text{kN}$, co zgadza się z $22-6=16$. Reakcja utwierdzenia wynosi $22\ \text{kN}$ w lewo.
+
+Jeśli pole przekroju jest stałe i wynosi $A=250\ \text{mm}^2$, naprężenie zmienia się liniowo od $88\ \text{MPa}$ przy utwierdzeniu do $24\ \text{MPa}$ na końcu. Najbardziej wytężony jest przekrój przy podporze, mimo że dodatkowa siła skupiona działa na drugim końcu. To typowy efekt obciążenia rozłożonego: kumuluje się ono w kierunku podpory.
+
+Wykres $N$ pozwala też szybko sprawdzić, czy znak jest poprawny. Przy obciążeniu rozłożonym skierowanym w prawo i utwierdzeniu po lewej stronie pręt jest rozciągany na całej długości, więc wykres powinien leżeć po dodatniej stronie. Gdyby obciążenie działało w lewo, znak byłby ujemny, a pręt byłby ściskany. Taka kontrola znaku jest szybsza niż ponowne rozwiązywanie równań.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że znamy wykres siły osiowej, a chcemy odtworzyć obciążenia zewnętrzne i dobrać pola przekroju. Pręt ma trzy odcinki po $0{,}5\ \text{m}$: przy utwierdzeniu $N_1=+12\ \text{kN}$, w środku $N_2=-8\ \text{kN}$, przy swobodnym końcu $N_3=+4\ \text{kN}$.
+
+Zaczynamy od wolnego końca. Siła na końcu musi wynosić $4\ \text{kN}$ w prawo, bo tylko ona równoważy $N_3=+4\ \text{kN}$. Na granicy drugiego i trzeciego odcinka $N$ zmienia się z $-8$ na $+4\ \text{kN}$, czyli rośnie o $12\ \text{kN}$. Ze związku $\Delta N=-P$ wynika $P=-12\ \text{kN}$, a więc siła $12\ \text{kN}$ w lewo.
+
+Na granicy pierwszego i drugiego odcinka $N$ zmienia się z $+12$ na $-8\ \text{kN}$, czyli maleje o $20\ \text{kN}$. Stąd $P=+20\ \text{kN}$, czyli siła $20\ \text{kN}$ w prawo. Suma obciążeń zewnętrznych wynosi $20-12+4=12\ \text{kN}$ w prawo, więc reakcja utwierdzenia ma $12\ \text{kN}$ w lewo. Zgadza się to z $N_1=+12\ \text{kN}$.
+
+Przy naprężeniu dopuszczalnym $\sigma_{\mathrm{dop}}=120\ \text{MPa}$ wymagane pola wynoszą kolejno $100$, $66{,}7$ i $33{,}3\ \text{mm}^2$. Ostatni odcinek jest najcieńszy, ale drugi jest ściskany, więc dla niego trzeba dodatkowo sprawdzić wyboczenie. Widać, że dobór przekroju wymaga nie tylko znajomości $N$, ale też znaku i długości odcinka.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Zaczynanie od utwierdzenia bez reakcji.** Jeśli nie wyznaczysz reakcji, równanie równowagi będzie niekompletne. Albo policz reakcję, albo buduj wykres od wolnego końca.
+
+**Zerowanie N na wolnym końcu.** Wolny koniec może przenosić siłę skupioną. Zero pojawia się tylko wtedy, gdy na końcu nie ma obciążenia.
+
+**Brak skoku w miejscu siły.** Każda siła skupiona musi zostawić ślad na wykresie. Brak skoku oznacza, że siła została pominięta.
+
+**Zły kierunek skoku.** Znak skoku zależy od zwrotu siły i od strony, z której patrzysz. Nie ucz się reguły na pamięć bez rysunku.
+
+**Mieszanie kN i kN/m.** Obciążenie rozłożone trzeba pomnożyć przez długość, zanim dodasz je do siły skupionej.
+
+**Traktowanie wykresu N jak wykresu naprężeń.** To dwie różne wielkości. Naprężenie wymaga jeszcze podzielenia przez pole przekroju.
+
+**Pomijanie obciążenia rozłożonego.** Przy $q$ wykres nie jest poziomy, lecz pochyły. Stała wartość $N$ obowiązuje tylko między siłami skupionymi.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Narysuj pręt i zaznacz wszystkie obciążenia.** Zapisz ich zwroty, wartości i położenie. Zaznacz podpory i miejsce, od którego liczysz $x$.
+2. **Ustal, czy układ jest statycznie wyznaczalny.** Dla pręta utwierdzonego jednostronnie reakcja wynika z równowagi sił wzdłuż osi.
+3. **Wybierz stronę obliczeń.** Przy wolnym końcu zwykle wygodniej liczyć od końca. Przy znanej reakcji można liczyć od podpory.
+4. **Podziel pręt na przedziały.** Granice przedziałów to miejsca sił skupionych, początki i końce obciążeń rozłożonych oraz zmiany przekroju.
+5. **Dla każdego przedziału wybierz przekrój i zapisz równowagę.** Otrzymasz wartość $N$ albo funkcję $N(x)$.
+6. **Uwzględnij obciążenie rozłożone.** Wypadkowa $q$ razy długość działa w środku rozważanego fragmentu, ale do wykresu $N$ wystarczy całka $q$ po długości.
+7. **Nanieś wartości na wykres.** Zaznacz skoki, ekstrema i miejsca zmiany znaku. Opisz, które odcinki są rozciągane, a które ściskane.
+8. **Sprawdź równowagę całości.** Suma obciążeń i reakcji musi się zerować. Sprawdź też, czy $N$ przy podporze odpowiada reakcji.
+9. **Wskaż przekroje krytyczne.** Szukaj największego $|N|$, ale pamiętaj, że przy zmiennym polu o naprężeniu decyduje $|N|/A$.
+
+## Połącz z resztą kursu
+
+- **Naprężenie normalne.** Wykres $N$ jest wejściem do wzoru $\sigma=N/A$; bez niego nie wiadomo, którą siłę podstawić.
+- **Pręty schodkowe.** Połączenie wykresu $N$ ze zmiennym polem $A$ prowadzi do wskazania przekroju krytycznego.
+- **Prawo Hooke’a i wydłużenia.** Do sumowania wydłużeń potrzebne są wartości $N_i$ na kolejnych odcinkach.
+- **Warunek wytrzymałości.** Maksymalne $|N|/A$ wyznacza minimalne pole przekroju.
+- **Belki i wykresy sił poprzecznych.** W belkach analogiczną rolę odgrywają wykresy $T(x)$ i $M(x)$; metoda przekrojów jest ta sama.
+- **Kratownice.** Siły w prętach kratownicy wyznacza się z równowagi węzłów, a następnie analizuje jak pręty osiowe.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz odczytać wykres $N$ i powiązać go z obciążeniami. Pamiętaj o znaku, skokach i różnicy między siłą skupioną a rozłożoną.
 
 <Quiz>
   <Question outcome="W3">
@@ -99,4 +234,72 @@ $$
       więc N zmienia skokowo o wartość związaną z tą siłą.
     </Explanation>
   </Question>
+  <Question outcome="W1">
+    <Prompt>Dlaczego warto budować wykres N od wolnego końca pręta?</Prompt>
+    <Answer correct>Bo nie trzeba wtedy znać reakcji utwierdzenia</Answer>
+    <Answer>Bo siła osiowa na wolnym końcu zawsze wynosi zero</Answer>
+    <Answer>Bo wykres od utwierdzenia jest zawsze błędny</Answer>
+    <Hint>Na wolnym końcu znasz wszystkie siły po jednej stronie przekroju.</Hint>
+    <Explanation>
+      Zaczynając od wolnego końca, po prawej stronie przekroju widzisz tylko znane obciążenia. Reakcję można wyznaczyć
+      później z równowagi całości i użyć jej do kontroli.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Na pewnym odcinku wykres N leży poniżej osi. Co to oznacza dla materiału?</Prompt>
+    <Answer correct>Odcinek jest ściskany</Answer>
+    <Answer>Odcinek jest rozciągany, ale słabiej</Answer>
+    <Answer>Na odcinku nie ma żadnej siły wewnętrznej</Answer>
+    <Hint>Przypomnij sobie umowę znaku: dodatnie N to rozciąganie.</Hint>
+    <Explanation>
+      Ujemne N oznacza ściskanie. Wartość bezwzględna mówi, jak duża jest siła, a znak opisuje jej charakter. Dla
+      ściskanego smukłego odcinka trzeba dodatkowo sprawdzić wyboczenie.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Jak wygląda wykres N pod stałym obciążeniem rozłożonym q działającym wzdłuż pręta?</Prompt>
+    <Answer correct>Jest linią prostą o nachyleniu zależnym od q</Answer>
+    <Answer>Jest poziomy, bo q jest stałe</Answer>
+    <Answer>Jest parabolą, bo q działa na długości</Answer>
+    <Hint>Zwróć uwagę na związek dN/dx = −q.</Hint>
+    <Explanation>
+      Stałe q daje stałą pochodną N, czyli funkcję liniową. Wykres jest poziomy tylko wtedy, gdy q = 0. Parabola
+      pojawiłaby się przy liniowo zmiennym obciążeniu rozłożonym.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      W przekroju pręta po jego prawej stronie działają siły: 12 kN w prawo i 7 kN w lewo. Jaka jest siła osiowa N w tym
+      przekroju?
+    </Prompt>
+    <Answer correct>+5 kN, rozciąganie</Answer>
+    <Answer>−5 kN, ściskanie</Answer>
+    <Answer>+19 kN, rozciąganie</Answer>
+    <Hint>Zsumuj siły po prawej stronie z ich znakami, przyjmując prawo za dodatnie.</Hint>
+    <Explanation>
+      N = 12 − 7 = +5 kN. Znak dodatni oznacza rozciąganie. Dodanie wartości bez znaków dałoby błędne 19 kN.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Pręt utwierdzony lewym końcem jest obciążony siłami 20 kN i 8 kN, obie skierowane w prawo. Jaka reakcja
+      utwierdzenia jest potrzebna do równowagi?
+    </Prompt>
+    <Answer correct>28 kN w lewo</Answer>
+    <Answer>12 kN w lewo</Answer>
+    <Answer>28 kN w prawo</Answer>
+    <Hint>Reakcja musi zrównoważyć sumę wszystkich sił zewnętrznych wzdłuż osi.</Hint>
+    <Explanation>
+      Obie siły działają w prawo, więc ich suma wynosi 28 kN. Reakcja musi działać w lewo i mieć tę samą wartość.
+      Różnica 12 kN powstałaby przez odjęcie zamiast dodania sił.
+    </Explanation>
+  </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- **A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ (WNT).** Rozdział o siłach wewnętrznych i rozciąganiu: sposób wyznaczania $N$ oraz przykłady wykresów dla prętów z wieloma obciążeniami.
+- **S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I (AGH).** Omówienie metody przekrojów i konwencji znaku przy analizie prętów osiowych.
+- **R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_ (PWN).** Zadania z wykresami sił wewnętrznych i prętami obciążonymi wieloma siłami skupionymi.
+- **D. Roylance, _Mechanics of Materials_ (otwarty podręcznik MIT).** Rozdziały o elastic response i trusses: równowaga węzłów, siły osiowe i zależność między obciążeniem a siłą wewnętrzną.
+- **T. Wierzbicki, _Structural Mechanics_ (otwarty podręcznik MIT).** Rozdział o odkształceniu jednoosiowym: związek przemieszczenia, odkształcenia i siły wewnętrznej w pręcie.

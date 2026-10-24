@@ -7,7 +7,6 @@ shortTitle: Ciężar własny
 description: >-
   Obliczanie masy, ciężaru i obciążenia liniowego oraz naprężenia wywołanego
   własnym ciężarem pręta.
-duration: 9
 eyebrow: Konstrukcja też coś waży
 outcomes:
   - W1 — analizuje rozkład siły wewnętrznej wywołanej ciężarem własnym
@@ -18,76 +17,290 @@ outcomes:
   - U3 — uwzględnia ciężar własny w bezpiecznym doborze elementu
 ---
 
-Nawet bez dodatkowego ładunku pionowy słup lub pręt niesie własny ciężar. Im dłuższy jest wiszący pręt, tym więcej materiału znajduje się poniżej danego przekroju i tym większą siłę musi ten przekrój przenieść.
+Wyobraź sobie długą linę zwisającą ze wspornika. Górny przekrój musi utrzymać całą linę, dolny nie utrzymuje nic. Siła wewnętrzna rośnie więc od zera na swobodnym końcu do największej wartości przy zawieszeniu. Ten sam mechanizm działa w kominie, przewodzie wiertniczym, odciągu masztu i długim pręcie zawieszonym w szybie.
+
+Ciężar własny jest obciążeniem rozłożonym wzdłuż osi. W odróżnieniu od siły przyłożonej w jednym punkcie nie da się go zastąpić jedną siłą bez zmiany rozkładu naprężeń. Można go zastąpić wypadkową przy obliczaniu reakcji całego elementu, ale nie przy obliczaniu naprężenia w dowolnym przekroju. Tam trzeba patrzeć, ile materiału znajduje się poniżej lub powyżej przekroju.
+
+Najciekawszy wynik dotyczy jednorodnego pręta wiszącego. Naprężenie od ciężaru własnego rośnie liniowo i nie zależy od pola przekroju. Pogrubienie pręta zwiększa zarówno ciężar, jak i pole, więc iloraz pozostaje taki sam. Zwiększa się natomiast całkowita siła w zawieszeniu i sztywność pręta, a wydłużenie od ciężaru własnego pozostaje niezależne od pola.
+
+Po lekcji będziesz umiał obliczyć masę, ciężar, obciążenie liniowe, siłę wewnętrzną i naprężenie w pręcie obciążonym ciężarem własnym. Zobaczysz też, jak dodać ciężar własny do siły zewnętrznej i jak sprawdzić, czy element nie przekroczy granicy materiału. Nauczysz się rozpoznawać, kiedy ciężar własny można pominąć, a kiedy staje się on decydujący.
+
+W codziennym projektowaniu ciężar własny często ukrywa się pod nazwą „obciążenie stałe”. Dach, strop, przewody i warstwy wykończeniowe mają swoją masę, którą trzeba przenieść na podpory. W prostych budynkach dominuje obciążenie użytkowe, ale w długich przęsłach, wysokich konstrukcjach i elementach cienkościennych ciężar własny może decydować o wymiarze. Dlatego warto umieć go oszacować już na początku projektu.
+
+## Zanim zaczniesz
+
+- **Gęstość i ciężar objętościowy.** Gęstość $\rho$ podajemy w $\text{kg/m}^3$, a ciężar objętościowy $\gamma=\rho g$ w $\text{N/m}^3$. To nie są te same liczby. Dla stali $\rho\approx 7850\ \text{kg/m}^3$, a $\gamma\approx 77\,000\ \text{N/m}^3=77\ \text{kN/m}^3$.
+- **Pole i objętość.** Objętość pręta o stałym przekroju to $V=AL$. Uważaj na jednostki: $1\ \text{mm}^2=10^{-6}\ \text{m}^2$. Najwygodniej liczyć w $\text{N}$ i $\text{mm}$, wtedy ciężar objętościowy trzeba przeliczyć na $\text{N/mm}^3$.
+- **Siła wewnętrzna.** Przypomnij sobie metodę przekrojów. Siła osiowa w przekroju jest sumą obciążeń działających na jedną stronę przekroju. Znak zależy od przyjętego zwrotu.
+- **Całkowanie.** Wydłużenie od zmiennej siły obliczamy, sumując przyczynki z krótkich odcinków. W jednorodnym pręcie prowadzi to do całki z funkcji liniowej.
+- **Typowe pułapki.** Mylenie masy z ciężarem, używanie $\rho$ zamiast $\gamma$, liczenie naprężenia od ciężaru całego pręta w każdym przekroju oraz zapominanie, że największa siła w pręcie wiszącym jest przy zawieszeniu.
+
+## Model i intuicja
+
+Model to pionowy, jednorodny pręt o stałym przekroju, zawieszony u góry i swobodny na dole. Oś $x$ prowadzimy od swobodnego dolnego końca w górę, tak jak w laboratorium. Dzięki temu dolny koniec ma $x=0$, a zawieszenie $x=L$. Na każdy odcinek materiału działa ciężar objętościowy $\gamma$ na jednostkę objętości, czyli obciążenie $q=\gamma A$ na jednostkę długości.
+
+Rozetnijmy pręt na wysokości $x$ i rozważmy dolną część. Powyżej przekroju działa na nią siła wewnętrzna $N(x)$, a na całą dolną część działa ciężar $G(x)=\gamma A x$. Z równowagi wynika, że $N(x)=G(x)$. Siła rośnie liniowo od zera do $\gamma AL$ przy zawieszeniu. Naprężenie $\sigma=N/A=\gamma x$ również rośnie liniowo, ale nie zależy od pola.
+
+Gdy na dolnym końcu wisi dodatkowy ładunek $P$, siła w przekroju wynosi $N(x)=P+\gamma A x$. Wtedy pole przekroju przestaje się skracać w wyrażeniu na naprężenie, ponieważ $P$ nie jest proporcjonalne do $A$. Naprężenie przy zawieszeniu wynosi $(P+\gamma AL)/A=P/A+\gamma L$. Pierwszy składnik zależy od pola, drugi nie.
+
+Wydłużenie obliczamy z prawa Hooke’a dla krótkiego odcinka $dx$. Siła w tym odcinku wynosi $N(x)$, więc $d\delta=N(x)\,dx/(EA)$. Po podstawieniu $N(x)=\gamma A x$ pole się skraca i otrzymujemy całkę niezależną od $A$. To ten sam efekt, który widzieliśmy w naprężeniu: w jednorodnym pręcie wiszącym pogrubienie nie zmniejsza odkształcenia względnego od ciężaru własnego.
+
+Model przestaje być prosty, gdy przekrój się zmienia, materiał nie jest jednorodny albo pręt nie jest pionowy. W ukośnym odciągu ciężar ma składową wzdłuż osi i poprzeczną, co wywołuje zginanie. W bardzo długim pręcie może pojawić się wyboczenie, jeśli jest ściskany, albo dynamiczne efekty przy ruchu. W podwyższonej temperaturze dochodzi pełzanie, a w kompozytach anizotropia. Dla podstawowego przypadku pozostajemy jednak przy prostym modelu osiowym.
+
+W rzeczywistych konstrukcjach przekrój często zmienia się wraz z wysokością. Kominy są szersze u podstawy, a odciągi mają zbieżne lub stopniowane przekroje. Wtedy pole $A$ zależy od $x$ i nie skraca się w prosty sposób. Trzeba całkować $N(x)/(EA(x))$ oraz osobno sprawdzać naprężenie w każdym przekroju. Model stałego przekroju jest jednak pierwszym przybliżeniem i pokazuje główną zależność: siła rośnie w kierunku podpory.
+
+## Laboratorium: co ustawić
+
+W symulacji przekrój $x$ mierzony jest od swobodnego dolnego końca. Zmieniaj ciężar objętościowy, długość i pole przekroju, a następnie obserwuj siłę $N$ oraz naprężenie $\sigma$ przy utwierdzeniu. Sprawdź, że zmiana pola zmienia siłę w podporze, ale nie zmienia maksymalnego naprężenia od samego ciężaru.
 
 <Lab id="selfWeight" />
 
+## Definicje i jednostki
+
+| Wielkość              | Symbol      | Jednostka                          | Znaczenie                                                    |
+| --------------------- | ----------- | ---------------------------------- | ------------------------------------------------------------ |
+| Gęstość               | $\rho$      | $\text{kg/m}^3$                    | Masa materiału na jednostkę objętości                        |
+| Ciężar objętościowy   | $\gamma$    | $\text{N/m}^3$ lub $\text{kN/m}^3$ | Ciężar jednostki objętości, $\gamma=\rho g$                  |
+| Obciążenie liniowe    | $q$         | $\text{N/m}$ lub $\text{kN/m}$     | Ciężar na jednostkę długości, $q=\gamma A$                   |
+| Pole przekroju        | $A$         | $\text{mm}^2$ lub $\text{m}^2$     | Pole prostopadłe do osi pręta                                |
+| Położenie przekroju   | $x$         | $\text{mm}$ lub $\text{m}$         | Odległość od swobodnego dolnego końca                        |
+| Siła osiowa           | $N(x)$      | $\text{N}$ lub $\text{kN}$         | Siła w przekroju wywołana ciężarem poniżej                   |
+| Naprężenie normalne   | $\sigma(x)$ | $\text{MPa}$                       | $N(x)/A$ w przekroju                                         |
+| Ciężar całego pręta   | $G$         | $\text{N}$                         | $\gamma AL$                                                  |
+| Wydłużenie od ciężaru | $\delta$    | $\text{mm}$                        | Całkowite wydłużenie własne pręta                            |
+| Siła przy zawieszeniu | $N(L)$      | $\text{N}$                         | Ciężar całego pręta, ewentualnie powiększony o ładunek       |
+| Maksymalna długość    | $L_{\max}$  | $\text{m}$                         | Długość, przy której $\sigma_{\max}$ osiąga przyjętą granicę |
+
+W próbie i w zadaniach często używa się $\text{kN/m}^3$ dla $\gamma$. Wtedy objętość w $\text{m}^3$ daje ciężar w $\text{kN}$, a siła w przekroju wychodzi w kiloniutonach. Jeśli natomiast pole jest w $\text{mm}^2$, a długość w $\text{mm}$, wygodniej przeliczyć $\gamma$ na $\text{N/mm}^3$: $1\ \text{kN/m}^3=10^{-6}\ \text{N/mm}^3$. Mieszanie tych układów jest najczęstszym źródłem błędów dziesiętnych.
+
+Ciężar własny jest obciążeniem objętościowym, a nie skupionym. W równaniach równowagi całego pręta można go zastąpić wypadkową $G$ przyłożoną w środku ciężkości. W analizie przekroju nie wolno jednak przykładać całego ciężaru w jednym punkcie, ponieważ rozkład siły wewnętrznej zależy od położenia przekroju.
+
+Obciążenie liniowe $q=\gamma A$ ma sens tylko dla pręta o stałym przekroju. Jeśli przekrój się zmienia, $q$ jest funkcją $x$. Wtedy siła w przekroju jest całką $q$ od swobodnego końca do rozważanego miejsca. Ten sam zapis działa także dla pręta poziomego, jeśli ciężar jest przyłożony wzdłuż osi, na przykład w modelu jednowymiarowym. W pręcie pionowym ciężar działa wzdłuż osi, więc wywołuje przede wszystkim rozciąganie lub ściskanie, a nie zginanie.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-G = \rho g A L, \qquad q = \rho g A, \qquad \sigma_{max} = \rho g L
+G=\rho gAL, \qquad q=\rho gA, \qquad \sigma(x)=\rho gx, \qquad \sigma_{\max}=\rho gL
 $$
 
-<Caption>ρ to gęstość, g — przyspieszenie ziemskie, A — pole przekroju, L — długość, a q — ciężar na jednostkę długości. Wzór σmax = ρgL dotyczy jednorodnego pionowego pręta wiszącego i przekroju przy górnym zawieszeniu.</Caption>
+<Caption>ρ to gęstość, g — przyspieszenie ziemskie, A — pole przekroju, L — długość, a q — ciężar na jednostkę długości. Wzór na σ(x) dotyczy jednorodnego pionowego pręta wiszącego, a x mierzymy od swobodnego dolnego końca. Największe naprężenie występuje przy górnym zawieszeniu.</Caption>
 </Formula>
+
+Wyprowadzenie opiera się na równowadze odciętej części i całkowaniu wydłużeń. Warto przejść je krok po kroku, ponieważ pokazuje, dlaczego pole przekroju się skraca.
+
+1. Dolna część pręta od $0$ do $x$ ma objętość $V(x)=Ax$.
+2. Jej ciężar wynosi $G(x)=\gamma V(x)=\gamma A x$.
+3. W przekroju $x$ działa siła wewnętrzna $N(x)$. Z równowagi dolnej części, przy braku dodatkowego ładunku, $N(x)=G(x)=\gamma A x$.
+4. Naprężenie w przekroju to $\sigma(x)=N(x)/A=\gamma x$. Pole $A$ się skraca.
+5. Przy zawieszeniu $x=L$, więc $\sigma_{\max}=\gamma L=\rho gL$. Jest to naprężenie rozciągające w górnym przekroju.
+6. Rozważmy krótki odcinek $dx$. Działa w nim siła $N(x)$, więc jego wydłużenie wynosi $d\delta=N(x)\,dx/(EA)$.
+7. Podstawiamy $N(x)=\gamma A x$: $d\delta=\gamma x\,dx/E$. Pole znika również tutaj.
+8. Całkujemy od $0$ do $L$: $\delta=\int_0^L(\gamma x/E)\,dx=\gamma L^2/(2E)=\rho gL^2/(2E)$.
+9. Jeśli na dolnym końcu działa dodatkowa siła $P$, to $N(x)=P+\gamma A x$. Wtedy $\delta=PL/(EA)+\gamma L^2/(2E)$; pierwszy składnik zależy od pola, drugi nie.
+10. Maksymalną długość, przy której naprężenie od ciężaru własnego nie przekracza granicy $R_e$, wyznaczamy z $\gamma L_{\max}=R_e$, czyli $L_{\max}=R_e/(\rho g)$.
 
 <Insight>
   W pionowym pręcie wiszącym naprężenie od ciężaru własnego nie zależy od pola przekroju: zgrubienie zwiększa
-  równocześnie nośność i ciężar. Rośnie natomiast całkowita siła w podporze.
+  równocześnie nośność i ciężar. Rośnie natomiast całkowita siła w podporze oraz sztywność pręta. Dlatego „grubszy” nie
+  zawsze znaczy „bezpieczniejszy” w sensie naprężenia od ciężaru własnego.
 </Insight>
 
 <WorkedExample>
-  <Given>Pionowy stalowy pręt o A = 300 mm² i L = 4 m jest zawieszony u góry. ρ = 7850 kg/m³, g = 9,81 m/s².</Given>
+  <Given>Pionowy stalowy pręt o $A=300\ \text{mm}^2$ i $L=4\ \text{m}$ jest zawieszony u góry. Przyjmujemy $\rho=7850\ \text{kg/m}^3$, $g=9{,}81\ \text{m/s}^2$ oraz $E=200\ \text{GPa}$.</Given>
   <Steps>
-    <Step>Pole A = 300 mm² = 0,0003 m²; objętość V = AL = 0,0012 m³.</Step>
-    <Step>Masa m = ρV = 7850·0,0012 = 9,42 kg, a ciężar G = mg ≈ 92,4 N.</Step>
-    <Step>Obciążenie liniowe q = G/L = 92,4/4 = 23,1 N/m.</Step>
-    <Step>
-      Największe naprężenie przy zawieszeniu: σmax = G/A = 92,4/300 = 0,308 N/mm² = 0,308 MPa; ten sam wynik daje ρgL po
-      przeliczeniu jednostek.
-    </Step>
+    <Step>Ciężar objętościowy: $\gamma=\rho g=7850\cdot 9{,}81\approx 77\,000\ \text{N/m}^3=77\ \text{kN/m}^3$.</Step>
+    <Step>Pole $A=300\ \text{mm}^2=0{,}0003\ \text{m}^2$; objętość $V=AL=0{,}0012\ \text{m}^3$.</Step>
+    <Step>Masa $m=\rho V=7850\cdot 0{,}0012=9{,}42\ \text{kg}$, a ciężar $G=mg\approx 92{,}4\ \text{N}$.</Step>
+    <Step>Obciążenie liniowe $q=G/L=92{,}4/4=23{,}1\ \text{N/m}$.</Step>
+    <Step>Największe naprężenie przy zawieszeniu: $\sigma_{\max}=\gamma L=77\,000\cdot 4=308\,000\ \text{Pa}=0{,}308\ \text{MPa}$.</Step>
+    <Step>To samo daje $G/A=92{,}4/300=0{,}308\ \text{N/mm}^2=0{,}308\ \text{MPa}$.</Step>
+    <Step>Wydłużenie własne: $\delta=\gamma L^2/(2E)=77\,000\cdot 16/(2\cdot 200\cdot 10^9)=3{,}08\cdot 10^{-6}\ \text{m}=0{,}00308\ \text{mm}$.</Step>
+    <Step>Kontrola rzędu wielkości: naprężenie $0{,}308\ \text{MPa}$ jest znikome w porównaniu z typową granicą stali $235\ \text{MPa}$.</Step>
   </Steps>
   <Result>
-    Pręt ma masę około 9,42 kg, jego ciężar wynosi 92,4 N, a największe naprężenie od ciężaru własnego to około 0,308
-    MPa.
+    Pręt ma masę około $9{,}42\ \text{kg}$, jego ciężar wynosi $92{,}4\ \text{N}$, a największe naprężenie od ciężaru własnego to około $0{,}308\ \text{MPa}$. Wydłużenie własne jest rzędu tysięcznych części milimetra, więc w tym przypadku ciężar własny jest praktycznie nieistotny.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Do tego samego pręta zawieszono na dolnym końcu dodatkowy ładunek $P=5\ \text{kN}$. Siła przy zawieszeniu wynosi teraz
+
+$$
+N(L)=P+\gamma AL=5000+92{,}4=5092{,}4\ \text{N}.
+$$
+
+Naprężenie przy zawieszeniu:
+
+$$
+\sigma_{\max}=\frac{5092{,}4}{300}\approx 16{,}97\ \text{MPa}.
+$$
+
+Wydłużenie całkowite jest sumą wydłużenia od ładunku i od ciężaru własnego:
+
+$$
+\delta=\frac{PL}{EA}+\frac{\gamma L^2}{2E}
+=\frac{5000\cdot 4000}{200\,000\cdot 300}+\frac{77\,000\cdot 16}{2\cdot 200\cdot 10^9}.
+$$
+
+Pierwszy składnik wynosi około $0{,}333\ \text{mm}$, drugi około $0{,}00308\ \text{mm}$. Razem $\delta\approx 0{,}336\ \text{mm}$. Widzimy, że w tym zadaniu o wydłużeniu decyduje ładunek zewnętrzny, a ciężar własny daje mniej niż jeden procent wyniku.
+
+Gdyby ładunek zwiększyć do $50\ \text{kN}$, naprężenie wzrosłoby do około $170\ \text{MPa}$. Nadal byłoby mniejsze od typowej granicy plastyczności, ale zapas znacznie by się zmniejszył. Taki rachunek jest typowym elementem projektu: ciężar własny dodajemy do obciążenia użytkowego, a następnie sprawdzamy sumę.
+
+Zauważ, że w obu przypadkach wydłużenie od ciężaru własnego jest takie samo, bo nie zależy od ładunku $P$. Zmienia się tylko dodatkowy składnik $PL/(EA)$. Dzięki zasadzie superpozycji możemy analizować te dwa wpływy osobno i dodać wyniki, dopóki materiał pozostaje liniowo sprężysty.
+
+## Trzeci przykład: wariant odwrotny
+
+Pytanie odwrotne brzmi: jak długi może być stalowy pręt wiszący, zanim naprężenie od ciężaru własnego osiągnie granicę plastyczności? Dla $R_e=235\ \text{MPa}$, $\rho=7850\ \text{kg/m}^3$ i $g=9{,}81\ \text{m/s}^2$ otrzymujemy
+
+$$
+L_{\max}=\frac{R_e}{\rho g}
+=\frac{235\cdot 10^6}{7850\cdot 9{,}81}\approx 3052\ \text{m}.
+$$
+
+Jeśli wymagamy współczynnika bezpieczeństwa $n=2$ względem granicy plastyczności, dopuszczalne naprężenie wynosi $117{,}5\ \text{MPa}$, a maksymalna długość maleje do
+
+$$
+L_{\max,n}=\frac{117{,}5\cdot 10^6}{77\,000}\approx 1526\ \text{m}.
+$$
+
+Dla pręta o długości $300\ \text{m}$ naprężenie od ciężaru własnego wynosi tylko
+
+$$
+\sigma=\gamma L=77\,000\cdot 300=23{,}1\ \text{MPa},
+$$
+
+więc obliczony zapas względem $R_e$ jest równy $235/23{,}1\approx 10{,}2$. To pokazuje, że w typowych konstrukcjach budowlanych ciężar własny stali często nie jest dominujący, ale w bardzo długich elementach lub w materiałach o dużej gęstości i małej wytrzymałości może stać się warunkiem decydującym.
+
+Wniosek projektowy jest prosty: jeżeli długość jest ograniczona wytrzymałością od ciężaru własnego, to zmiana przekroju nie pomoże. Trzeba wybrać materiał o większym stosunku $R_e/\rho$ albo zmienić schemat konstrukcji, na przykład dodać podpory pośrednie. To jakościowo inna decyzja niż zwykłe „zwiększenie przekroju”, które działa przy sile skupionej.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie gęstości $\rho$ w $\text{kg/m}^3$ z ciężarem objętościowym $\gamma$ w $\text{N/m}^3$. Brak czynnika $g$ zmienia wynik około dziesięciokrotnie.
+- Podstawianie masy w kilogramach do wzoru na naprężenie. Naprężenie wymaga siły w niutonach, więc masę trzeba pomnożyć przez $g$.
+- Liczenie naprężenia od ciężaru całego pręta w każdym przekroju. W pręcie wiszącym siła rośnie od zera do maksimum przy zawieszeniu.
+- Zapominanie o zamianie $\text{mm}^2$ na $\text{m}^2$ przy pracy z $\gamma$ w $\text{N/m}^3$. Błąd jednostek daje wynik tysiąc lub milion razy za duży.
+- Zakładanie, że pogrubienie pręta zmniejsza naprężenie od ciężaru własnego. W jednorodnym pręcie wiszącym pole się skraca.
+- Pomijanie dodatkowego ładunku przy obliczaniu siły w zawieszeniu. Ciężar własny i obciążenie użytkowe działają równocześnie.
+- Stosowanie modelu wiszącego pręta do słupa stojącego na gruncie bez zmiany znaku i miejsca maksimum. W słupie ściskanie jest największe przy podstawie.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal geometrię i podparcie.** Czy pręt wisi, czy stoi? Gdzie jest swobodny koniec, a gdzie podpora? Od tego zależy, gdzie występuje maksimum siły.
+2. **Wybierz współrzędną.** Dla pręta wiszącego wygodnie mierzyć $x$ od dolnego końca. Wtedy $N(0)=0$, a $N(L)$ jest siłą w zawieszeniu.
+3. **Oblicz ciężar objętościowy.** Jeśli podano gęstość, użyj $\gamma=\rho g$. Jeśli podano ciężar właściwy lub $\gamma$ w $\text{kN/m}^3$, przelicz jednostki przed podstawieniem.
+4. **Wyznacz obciążenie liniowe.** $q=\gamma A$. Sprawdź, czy $A$ jest w tych samych jednostkach co długość w mianowniku.
+5. **Zapisz $N(x)$.** Dla samego ciężaru $N(x)=qx$. Jeśli na końcu działa siła $P$, dodaj ją: $N(x)=P+qx$.
+6. **Oblicz naprężenie.** $\sigma(x)=N(x)/A$. W jednorodnym pręcie bez dodatkowego ładunku otrzymasz $\sigma=\gamma x$.
+7. **Znajdź maksimum.** W pręcie wiszącym maksimum jest przy zawieszeniu. W słupie stojącym — przy podstawie. Sprawdź to rysunkiem, a nie pamięciowo.
+8. **Sprawdź wydłużenie i granicę.** Dla samego ciężaru użyj $\delta=\gamma L^2/(2E)$. Porównaj $\sigma_{\max}$ z $R_e$ i sprawdź, czy element nie jest zbyt długi.
+9. **Zinterpretuj wynik.** Napisz, czy ciężar własny jest pomijalny, czy decydujący. W długich elementach może zmienić dobór materiału.
+10. **Sprawdź, czy przekrój jest stały.** Jeśli nie, podziel pręt na odcinki o stałym $A$ albo całkuj $q(x)$ i $N(x)/(EA(x))$.
+
+## Połącz z resztą kursu
+
+- **Naprężenie normalne: siła na przekroju** dostarcza wzoru $\sigma=N/A$, którego tutaj używamy do zmiennej siły $N(x)$.
+- **Wykres siły osiowej N** pokazuje, jak narysować rozkład $N(x)$ dla obciążenia ciągłego. Ciężar własny jest szczególnym przypadkiem obciążenia rozłożonego.
+- **Wydłużenia i skrócenia prętów** wykorzystuje całkowanie $N(x)/(EA)$ do obliczenia przemieszczeń. Tutaj całkujemy funkcję liniową.
+- **Prawo Hooke’a i sztywność osiowa** wyjaśnia, dlaczego wydłużenie od ciężaru własnego zależy od $E$, a nie od pola przekroju.
+- **Naprężenie dopuszczalne i współczynnik bezpieczeństwa** pozwala przełożyć $\sigma_{\max}$ na warunek projektowy i wyznaczyć maksymalną długość lub wymagany przekrój.
+- **Temperatura: swoboda i zablokowanie** przypomina, że odkształcenie może mieć więcej niż jedno źródło. W rzeczywistym elemencie ciężar własny i temperatura mogą działać jednocześnie.
+- **Dobór ze względu na wytrzymałość i sztywność** pokazuje, jak połączyć ciężar własny z obciążeniem użytkowym i sprawdzić oba warunki jednocześnie.
+
+## Sprawdź się
+
+Pytania sprawdzają rozkład siły, zależność od pola przekroju oraz przeliczanie jednostek. Przy każdym wyniku zastanów się, czy opisuje siłę, naprężenie, czy wydłużenie.
+
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Stalowy pręt ma A = 200 mm², L = 3 m i ρ = 7850 kg/m³. Jaki jest jego ciężar przy g = 9,81 m/s²?</Prompt>
-    <Answer>około 4,62 N</Answer>
-    <Answer correct>około 46,2 N</Answer>
-    <Answer>około 462 N</Answer>
-    <Hint>Najpierw zamień 200 mm² na 0,0002 m², potem oblicz objętość i masę.</Hint>
+    <Prompt>Stalowy pręt ma $A=200\ \text{mm}^2$, $L=3\ \text{m}$ i $\rho=7850\ \text{kg/m}^3$. Jaki jest jego ciężar przy $g=9{,}81\ \text{m/s}^2$?</Prompt>
+    <Answer>około $4{,}62\ \text{N}$</Answer>
+    <Answer correct>około $46{,}2\ \text{N}$</Answer>
+    <Answer>około $462\ \text{N}$</Answer>
+    <Hint>Najpierw zamień $200\ \text{mm}^2$ na $0{,}0002\ \text{m}^2$, potem oblicz objętość i masę.</Hint>
     <Explanation>
-      Objętość V = 0,0002·3 = 0,0006 m³, masa m = 7850·0,0006 = 4,71 kg. Ciężar G = 4,71·9,81 ≈ 46,2 N. Wartość 4,62 N
-      powstała z dziesięciokrotnego błędu w przeliczeniu jednostek.
+      Objętość $V=0{,}0002\cdot 3=0{,}0006\ \text{m}^3$, masa $m=7850\cdot 0{,}0006=4{,}71\ \text{kg}$. Ciężar $G=4{,}71\cdot 9{,}81\approx 46{,}2\ \text{N}$.
     </Explanation>
   </Question>
   <Question outcome="W3">
-    <Prompt>
-      Jak zmieni się największe naprężenie od ciężaru własnego w pionowym, jednorodnym pręcie wiszącym po podwojeniu
-      pola przekroju przy tej samej długości?
-    </Prompt>
+    <Prompt>Jak zmieni się największe naprężenie od ciężaru własnego w pionowym, jednorodnym pręcie wiszącym po podwojeniu pola przekroju przy tej samej długości?</Prompt>
     <Answer correct>Nie zmieni się</Answer>
     <Answer>Wzrośnie dwa razy</Answer>
     <Answer>Zmaleje dwa razy</Answer>
     <Hint>Zapisz naprężenie jako ciężar podzielony przez pole i sprawdź, co się skróci.</Hint>
     <Explanation>
-      σmax = G/A = ρgAL/A = ρgL. Pole się skraca, więc naprężenie nie zależy od A, choć całkowity ciężar rośnie.
+      $\sigma_{\max}=G/A=\rho gAL/A=\rho gL$. Pole się skraca, więc naprężenie nie zależy od $A$, choć całkowity ciężar i siła w zawieszeniu rosną.
     </Explanation>
   </Question>
   <Question outcome="W1">
-    <Prompt>
-      Gdzie w pionowym pręcie zawieszonym u góry występuje największa siła osiowa od jego własnego ciężaru?
-    </Prompt>
+    <Prompt>Gdzie w pionowym pręcie zawieszonym u góry występuje największa siła osiowa od jego własnego ciężaru?</Prompt>
     <Answer>Na dolnym, swobodnym końcu</Answer>
     <Answer correct>Przy górnym zawieszeniu</Answer>
     <Answer>W połowie długości, gdzie wypada środek ciężkości</Answer>
     <Hint>Pomyśl, jaka część pręta znajduje się poniżej rozpatrywanego przekroju.</Hint>
     <Explanation>
-      Przekrój przy górnym zawieszeniu przenosi ciężar całego pręta. Na swobodnym dolnym końcu siła osiowa od ciężaru
-      jest zerowa i rośnie liniowo w górę.
+      Przekrój przy górnym zawieszeniu przenosi ciężar całego pręta. Na swobodnym dolnym końcu siła osiowa jest zerowa i rośnie liniowo w górę.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Czym różni się ciężar własny od siły skupionej przyłożonej na końcu pręta?</Prompt>
+    <Answer>Niczym, bo oba są siłami i można je zawsze zastąpić wypadkową</Answer>
+    <Answer correct>Cieżar własny działa na każdy element objętości, więc siła wewnętrzna zmienia się wzdłuż pręta</Answer>
+    <Answer>Cieżar własny działa tylko na dolny koniec pręta</Answer>
+    <Hint>Porównaj rozkład $N(x)$ dla obciążenia ciągłego i dla siły skupionej.</Hint>
+    <Explanation>
+      Siła skupiona daje skok siły wewnętrznej w jednym przekroju, a między punktami przyłożenia $N$ jest stałe. Ciężar własny działa na każdy odcinek, więc $N(x)$ zmienia się w sposób ciągły.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pionowy pręt o długości $2\ \text{km}$ ma ciężar objętościowy $77\ \text{kN/m}^3$. Jakie jest naprężenie od ciężaru własnego przy zawieszeniu?</Prompt>
+    <Answer>$0{,}154\ \text{MPa}$</Answer>
+    <Answer correct>$154\ \text{MPa}$</Answer>
+    <Answer>$1540\ \text{MPa}$</Answer>
+    <Hint>Użyj $\sigma_{\max}=\gamma L$ i zamień kilometry na metry, a wynik z paskali na megapaskale.</Hint>
+    <Explanation>
+      $\sigma_{\max}=77\,000\cdot 2000=154\,000\,000\ \text{Pa}=154\ \text{MPa}$. To mniej niż typowa granica plastyczności stali, ale zapas nie jest już duży.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Aby zwiększyć maksymalną długość pręta wiszącego bez przekroczenia granicy plastyczności, należy wybierać materiał o:</Prompt>
+    <Answer>jak największej gęstości przy tej samej wytrzymałości</Answer>
+    <Answer correct>jak najmniejszym stosunku gęstości do wytrzymałości</Answer>
+    <Answer>jak najmniejszym module Younga</Answer>
+    <Hint>Ze wzoru $L_{\max}=R_e/(\rho g)$ wynika, że liczy się stosunek wytrzymałości do ciężaru objętościowego.</Hint>
+    <Explanation>
+      $L_{\max}=R_e/(\rho g)$. Duża wytrzymałość i mała gęstość zwiększają osiągalną długość. Moduł Younga wpływa na wydłużenie, ale nie na tę graniczną długość.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla stalowego pręta o $L=100\ \text{m}$, $\gamma=77\ \text{kN/m}^3$ i $E=200\ \text{GPa}$ oblicz w przybliżeniu wydłużenie od ciężaru własnego.</Prompt>
+    <Answer>$0{,}019\ \text{mm}$</Answer>
+    <Answer correct>$1{,}93\ \text{mm}$</Answer>
+    <Answer>$19{,}3\ \text{mm}$</Answer>
+    <Hint>Użyj $\delta=\gamma L^2/(2E)$ i pamiętaj, że $\gamma$ jest w $\text{N/m}^3$.</Hint>
+    <Explanation>
+      $\delta=77\,000\cdot 100^2/(2\cdot 200\cdot 10^9)=1{,}925\cdot 10^{-3}\ \text{m}=1{,}93\ \text{mm}$. Wynik nie zależy od pola przekroju.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>W wysokim słupie stojącym na gruncie, obciążonym tylko własnym ciężarem, największe ściskanie występuje:</Prompt>
+    <Answer>na górnym, swobodnym końcu</Answer>
+    <Answer correct>przy podstawie</Answer>
+    <Answer>w środku wysokości, bo tam jest środek ciężkości</Answer>
+    <Hint>Przekrój przy podstawie przenosi ciężar całego słupa.</Hint>
+    <Explanation>
+      W słupie stojącym każdy przekrój przenosi ciężar materiału znajdującego się nad nim. Najwięcej materiału jest nad podstawą, więc tam ściskanie jest największe. To lustrzane odbicie przypadku pręta wiszącego.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania z ciężarem własnym prętów i obliczaniem rozkładu siły osiowej; szukaj przykładów z prętem wiszącym i słupem.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o rozciąganiu prętów obciążonych ciężarem własnym; zwróć uwagę na zależność naprężenia od położenia przekroju.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik; rozdział o sprężystej odpowiedzi zawiera pełne wyprowadzenie naprężenia i wydłużenia pręta obciążonego własnym ciężarem.
+- T. Wierzbicki, _Structural Mechanics_ — otwarty podręcznik; opis sił objętościowych w równaniach równowagi pokazuje, jak ująć ciężar własny w ogólniejszym modelu continuum.
+- R. C. Hibbeler, _Mechanics of Materials_, rozdział o odkształceniach osiowych — dodatkowe przykłady prętów o zmiennym przekroju obciążonych ciężarem własnym.

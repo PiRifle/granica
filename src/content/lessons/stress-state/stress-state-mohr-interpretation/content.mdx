@@ -7,7 +7,6 @@ shortTitle: Interpretacja i dobór
 description: >-
   Połącz odczyt koła Mohra z warunkiem wytrzymałości, kierunkiem pękania i
   świadomym doborem marginesu bezpieczeństwa.
-duration: 10
 eyebrow: Liczby podejmują decyzję
 outcomes:
   - >-
@@ -24,83 +23,305 @@ outcomes:
   - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
 ---
 
-Wykres nie jest celem samym w sobie. Pokazuje, czy grozi nam nadmierne rozciąganie, ściskanie czy ścinanie i w jakim kierunku. Dopiero porównanie właściwej miary z wytrzymałością materiału pozwala ocenić projekt.
+Wykres nie jest celem samym w sobie. Koło Mohra pokazuje, czy grozi nam nadmierne rozciąganie, ściskanie czy ścinanie i w jakim kierunku. Dopiero porównanie właściwej miary naprężenia z wytrzymałością materiału pozwala ocenić projekt. Dwie konstrukcje mogą mieć podobny wykres, a jedna będzie bezpieczna, druga nie, bo wykonano je z różnych materiałów lub przyjęto inny margines.
+
+W praktyce inżynierskiej rzadko mamy do czynienia z czystym rozciąganiem. Wał przenosi jednocześnie skręcanie i zginanie, śruba jest rozciągana i ścinana, a blacha z otworem ma lokalną koncentrację naprężeń. Każdy z tych przypadków prowadzi do stanu, w którym trzeba wyznaczyć naprężenia główne lub zastępcze, a następnie porównać je z granicą materiału. Koło Mohra jest wygodnym krokiem pośrednim, ale decyzja wymaga kryterium.
+
+Dla materiałów ciągliwych, takich jak stal konstrukcyjna, typowym mechanizmem zniszczenia jest uplastycznienie wywołane ścinaniem. Hipoteza Treski i hipoteza Hubera–von Misesa opisują ten mechanizm na dwa sposoby. Pierwsza patrzy na maksymalne ścinanie, druga na energię odkształcenia postaciowego. Dla materiałów kruchych, takich jak żeliwo lub beton, większe znaczenie ma największe rozciąganie, a ściskanie bywa znacznie lepiej znoszone.
+
+W tej lekcji połączysz odczyt koła z warunkiem wytrzymałości i nauczysz się dobierać wymiar. Zobaczysz, jak z obciążenia osiowego, zginającego i skręcającego powstaje stan naprężenia w jednym punkcie, jak obliczyć naprężenie zredukowane i jak porównać je z granicą plastyczności. Nauczysz się też odróżniać warunek wytrzymałości od warunku sztywności oraz rozpoznawać, kiedy decyduje koncentracja naprężeń.
+
+Najważniejsza myśl jest prosta: nie wystarczy jedno naprężenie. Trzeba wybrać miarę wytężenia odpowiednią do materiału i mechanizmu zniszczenia. To, że $\sigma_x$ jest mniejsze od granicy, nie oznacza jeszcze, że element jest bezpieczny. Laboratorium pozwoli prześledzić cały łańcuch od sił do współczynnika bezpieczeństwa.
+
+## Zanim zaczniesz
+
+- **Naprężenia główne i maksymalne ścinanie.** Potrzebujesz wzorów $\sigma_{1,2}=\sigma_{avg}\pm R$ oraz umiejętności uporządkowania trzech naprężeń głównych.
+- **Koło Mohra.** Powinieneś umieć odczytać z koła $\sigma_1$, $\sigma_2$ i $\tau_{\max}$ oraz wskazać płaszczyzny główne.
+- **Podstawy rozciągania, zginania i skręcania.** Wiesz, że $\sigma=N/A$, $\sigma=My/I$ oraz $\tau=Tr/J_o$, a dla pręta kołowego można użyć wskaźników $W$ i $W_p$.
+- **Granice materiałowe.** Rozróżniasz granicę plastyczności $R_e$, wytrzymałość na rozciąganie $R_m$ i wytrzymałość na ściskanie $R_c$. Dla materiałów kruchych nie stosuje się samego $R_e$.
+- **Jednostki.** Siły w niutonach, momenty w niutonometrach, długości w milimetrach, naprężenia w MPa. Moment $1\ \mathrm{N\cdot m}$ to $1000\ \mathrm{N\cdot mm}$.
+- **Typowa pułapka.** Porównanie tylko $\sigma_x$ z $R_e$ przy niezerowym $\tau$. Wtedy trzeba użyć naprężenia zredukowanego, a nie pojedynczej składowej.
+
+## Model i intuicja
+
+Rozważamy pręt kołowy, w którym w wybranym punkcie przekroju występuje naprężenie normalne od siły osiowej i zginania oraz naprężenie styczne od skręcania. Punkt wybieramy na obwodzie, bo tam naprężenie od zginania jest największe, a naprężenie od skręcania również osiąga maksimum. W tym punkcie stan naprężenia jest płaski: $\sigma_x$ jest sumą udziału osiowego i zginającego, $\sigma_y=0$, a $\tau_{xy}=\tau$ od skręcania.
+
+Taki model jest uproszczeniem. Zakładamy, że rozkład naprężeń od zginania jest liniowy, a od skręcania liniowy względem promienia. Zakładamy też, że siła osiowa działa osiowo, a moment zginający nie wywołuje dodatkowych efektów drugiego rzędu. W pobliżu miejsca przyłożenia obciążenia, karbu lub otworu rozkład może być znacznie bardziej złożony. Wtedy potrzebna jest analiza lokalna albo współczynnik koncentracji naprężeń.
+
+Dla materiału ciągliwego przyjmujemy, że niebezpieczne jest uplastycznienie, a nie natychmiastowe pęknięcie. Hipoteza Treski zakłada, że granica zostaje osiągnięta, gdy maksymalne naprężenie styczne osiągnie połowę granicy plastyczności przy rozciąganiu. Hipoteza Hubera–von Misesa zakłada, że decyduje energia odkształcenia postaciowego, czyli odchylenie tensora naprężenia od stanu hydrostatycznego. Obie hipotezy dają podobne wyniki dla metali, ale Treska jest zwykle bardziej konserwatywna.
+
+Dla materiału kruchego model jest inny. Decyduje największe rozciągające naprężenie główne, a ściskanie może być znacznie mniej groźne. Dlatego nie wolno automatycznie stosować $R_e$ do żeliwa, betonu czy szkła. Trzeba znać wytrzymałość na rozciąganie i ściskanie, a także rozrzut wytrzymałości. W takim przypadku koło Mohra nadal pomaga, bo wskazuje kierunek największego rozciągania i płaszczyznę możliwego pęknięcia.
+
+Model przestaje wystarczać przy obciążeniach cyklicznych, gdy decyduje zmęczenie, oraz przy dużych gradientach naprężeń, gdy lokalne uplastycznienie może być dopuszczalne, ale musi być kontrolowane. Nie wystarcza też przy stateczności, na przykład przy wyboczeniu pręta ściskanego, gdzie o zniszczeniu decyduje geometria i imperfekcje, a nie sama wytrzymałość materiału.
+
+## Laboratorium: co ustawić
+
+Ustaw domyślne obciążenia: $N=30\ \mathrm{kN}$, $M=1{,}2\ \mathrm{kN\cdot m}$, $T=800\ \mathrm{N\cdot m}$ oraz $R_e=235\ \mathrm{MPa}$. Odczytaj $\sigma_x$, $\tau$, naprężenie zredukowane według HMH i Treski oraz oba współczynniki bezpieczeństwa. Następnie zmieniaj znak siły osiowej i obserwuj, jak zmienia się dominujący mechanizm.
 
 <Lab id="combined" />
 
+Zwróć uwagę, że przy pewnych kombinacjach $N$ i $M$ naprężenie $\sigma_x$ może zmienić znak. Wtedy rośnie znaczenie ściskania i może pojawić się potrzeba sprawdzenia wyboczenia, jeśli element jest smukły. Zwiększ moment skręcający i sprawdź, czy różnica między HMH i Treską rośnie. Na koniec ustaw $T=0$ i porównaj wynik z prostym rozciąganiem lub zginaniem.
+
+## Definicje i jednostki
+
+| Symbol              | Znaczenie                           | Jednostka    | Uwaga                                   |
+| ------------------- | ----------------------------------- | ------------ | --------------------------------------- |
+| $\sigma_x$          | naprężenie normalne w punkcie       | MPa          | suma udziału osiowego i zginającego     |
+| $\tau$              | naprężenie styczne od skręcania     | MPa          | w punkcie na obwodzie                   |
+| $\sigma_1,\sigma_2$ | naprężenia główne w płaszczyźnie    | MPa          | $\sigma_{1,2}=\sigma_{avg}\pm R$        |
+| $\sigma_3$          | trzecie naprężenie główne           | MPa          | w stanie płaskim równe zero             |
+| $\sigma_{zred}$     | naprężenie zredukowane              | MPa          | miara wytężenia według hipotezy         |
+| $\sigma_{HMH}$      | naprężenie według Hubera–von Misesa | MPa          | oparte na energii postaciowej           |
+| $\sigma_{Tresca}$   | naprężenie według Treski            | MPa          | oparte na maksymalnym ścinaniu          |
+| $R_e$               | granica plastyczności               | MPa          | typowa stal konstrukcyjna około 235 MPa |
+| $R_m$               | wytrzymałość na rozciąganie         | MPa          | nie mylić z granicą plastyczności       |
+| $n$                 | współczynnik bezpieczeństwa         | bezwymiarowy | $n=R_e/\sigma_{zred}$                   |
+
+Granica plastyczności jest umowną granicą materiału, a nie naprężeniem dopuszczalnym. Naprężenie dopuszczalne otrzymujemy, dzieląc granicę przez wymagany współczynnik bezpieczeństwa. Współczynnik $n$ większy od jedności oznacza zapas, ale jego wymagana wartość zależy od rodzaju konstrukcji, konsekwencji zniszczenia, dokładności obciążenia i kontroli jakości. Nie ma jednej uniwersalnej wartości odpowiedniej dla każdego projektu.
+
+Dla pręta kołowego o średnicy $d$ pole przekroju wynosi $A=\pi d^2/4$, wskaźnik zginania $W=\pi d^3/32$, a wskaźnik skręcania $W_p=\pi d^3/16$. Dla przekroju pełnego $W_p=2W$. Dla przekroju wydrążonego trzeba użyć innych wzorów, ale zasada obliczeń pozostaje ta sama: najpierw naprężenia w punkcie, potem miara wytężenia, na końcu współczynnik bezpieczeństwa.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-n_\sigma=\frac{R_e}{\sigma_{eq}},\qquad n_\tau=\frac{R_{e\tau}}{\tau_{max}},\qquad \sigma_{eq}\ \text{według hipotezy}
+\sigma_x=\frac{N}{A}+\frac{M}{W},\qquad \tau=\frac{T}{W_p},\qquad A=\frac{\pi d^2}{4},\quad W=\frac{\pi d^3}{32},\quad W_p=\frac{\pi d^3}{16}
 $$
 
-<Caption>Re oznacza granicę plastyczności, a Reτ — granicę plastyczności przy ścinaniu. Dla materiałów ciągliwych stosuje się zwykle hipotezę Hubera–von Misesa albo Treski; dla materiałów kruchych trzeba osobno uwzględnić rozciąganie i ściskanie. Żadnego z tych kryteriów nie zastępuje się samym σx.</Caption>
+<Caption>Naprężenia w punkcie na obwodzie pełnego pręta kołowego. Znak $N$ rozróżnia rozciąganie i ściskanie, a znak $M$ zależy od strony włókna. Skręcanie daje naprężenie styczne styczne do obwodu. Wzory zakładają liniową sprężystość i brak koncentracji naprężeń.</Caption>
 </Formula>
 
+<Formula>
+$$
+\sigma_{HMH}=\sqrt{\sigma_x^2-\sigma_x\sigma_y+\sigma_y^2+3\tau_{xy}^2},\qquad \sigma_{Tresca}=\max\left(|\sigma_I-\sigma_{II}|,\ |\sigma_{II}-\sigma_{III}|,\ |\sigma_{III}-\sigma_I|\right)
+$$
+
+<Caption>Dwie hipotezy wytężenia. Wzór na HMH jest zapisany dla płaskiego stanu naprężenia; w ogólnym przypadku używa się różnic trzech naprężeń głównych. Wzór Treski jest ogólny, a w stanie płaskim z $\sigma_3=0$ redukuje się do maksimum z $|\sigma_1-\sigma_2|$, $|\sigma_1|$ i $|\sigma_2|$.</Caption>
+</Formula>
+
+<Formula>
+$$
+n_{HMH}=\frac{R_e}{\sigma_{HMH}},\qquad n_{Tresca}=\frac{R_e}{\sigma_{Tresca}},\qquad n=\min\left(n_{HMH},n_{Tresca}\right)
+$$
+
+<Caption>Współczynniki bezpieczeństwa dla materiału ciągliwego. Mniejsza wartość jest miarodajna, bo odpowiada hipotezie, która wcześniej przewiduje uplastycznienie. Dla materiału kruchego zamiast $R_e$ trzeba użyć wytrzymałości na rozciąganie lub ściskanie, zależnie od znaku naprężenia głównego.</Caption>
+</Formula>
+
+Wyprowadzenie prowadzimy od pojedynczego punktu na obwodzie pręta.
+
+1. **Ustal mechanizm zniszczenia.** Dla materiału ciągliwego przyjmujemy uplastycznienie, dla kruchego — pękanie od rozciągania. To wybór determinuje hipotezę i granicę materiałową.
+2. **Zapisz naprężenia w punkcie.** $\sigma_x=N/A+M/W$ oraz $\tau=T/W_p$. W punkcie na obwodzie udział zginania jest największy, a udział skręcania również osiąga maksimum.
+3. **Uzupełnij stan płaski.** $\sigma_y=0$, a trzecie naprężenie główne $\sigma_3=0$. To ważne, bo zero może być wartością skrajną.
+4. **Oblicz naprężenia główne.** $\sigma_{avg}=\sigma_x/2$, $R=\sqrt{(\sigma_x/2)^2+\tau^2}$, a następnie $\sigma_1=\sigma_{avg}+R$ i $\sigma_2=\sigma_{avg}-R$.
+5. **Zapisz hipotezę Treski.** Uplastycznienie następuje, gdy maksymalne ścinanie osiągnie $R_e/2$. Po pomnożeniu przez dwa otrzymujemy różnicę skrajnych naprężeń głównych.
+6. **Zapisz hipotezę HMH.** Energia odkształcenia postaciowego w stanie trójosiowym jest proporcjonalna do sumy kwadratów różnic naprężeń głównych. Po podstawieniu $\sigma_3=0$ i wyrażeniu przez $\sigma_x$ i $\tau$ otrzymujemy pierwiastek z $\sigma_x^2+3\tau^2$ przy $\sigma_y=0$.
+7. **Oblicz naprężenia zredukowane.** Dla domyślnych danych $\sigma_x\approx67{,}2\ \mathrm{MPa}$ i $\tau\approx18{,}9\ \mathrm{MPa}$.
+8. **Oblicz współczynniki.** Podziel $R_e$ przez każde naprężenie zredukowane. Mniejszy współczynnik jest miarodajny.
+9. **Sprawdź sztywność.** Warunek wytrzymałości nie gwarantuje, że ugięcie lub kąt skręcenia są dopuszczalne. Osobno sprawdź $\delta\le\delta_{dop}$ i $\varphi\le\varphi_{dop}$.
+10. **Sprawdź koncentrację i zmęczenie.** Przy otworach, karbach i zmianach przekroju lokalne naprężenie może być większe od nominalnego. Przy obciążeniu cyklicznym decyduje amplituda naprężenia, a nie tylko wartość maksymalna.
+
 <Insight>
-  Zwiększenie przekroju może zmniejszyć wszystkie naprężenia, ale dodaje masę; zmiana kształtu lub trasy obciążenia bywa
-  skuteczniejsza. Warunek wytrzymałości i warunek sztywności należy sprawdzać osobno.
+  $\sigma_x$ nie jest miarą wytężenia, gdy występuje ścinanie. Dla czystego ścinania Treska daje $2\tau$, a HMH
+  $\sqrt{3}\tau\approx1{,}73\tau$. Treska jest więc bardziej konserwatywna, ale obie hipotezy trzeba umieć
+  zastosować. Warunek wytrzymałości i warunek sztywności są niezależne: element może być wytrzymały, a mimo to
+  zbyt wiotki.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Płaski stan daje σ1 = 140 MPa, σ2 = 20 MPa, σz = 0. Dla hipotezy Treski przyjmij Re = 240 MPa; oblicz współczynnik
-    bezpieczeństwa.
+    Pełny pręt kołowy o średnicy $d=60\ \mathrm{mm}$ jest obciążony siłą osiową $N=30\ \mathrm{kN}$, momentem
+    zginającym $M=1{,}2\ \mathrm{kN\cdot m}$ i momentem skręcającym $T=800\ \mathrm{N\cdot m}$. Granica
+    plastyczności wynosi $R_e=235\ \mathrm{MPa}$. Oblicz współczynniki bezpieczeństwa według HMH i Treski.
   </Given>
   <Steps>
-    <Step>Pełne uporządkowanie: σI = 140, σII = 20, σIII = 0 MPa.</Step>
-    <Step>Różnica skrajnych naprężeń: σI − σIII = 140 MPa.</Step>
+    <Step>Pole przekroju: $A=\pi\cdot60^2/4=2827{,}4\ \mathrm{mm^2}$.</Step>
+    <Step>Wskaźnik zginania: $W=\pi\cdot60^3/32=21\,205{,}8\ \mathrm{mm^3}$.</Step>
+    <Step>Wskaźnik skręcania: $W_p=2W=42\,411{,}5\ \mathrm{mm^3}$.</Step>
+    <Step>Naprężenie osiowe: $\sigma_N=30\,000/2827{,}4=10{,}61\ \mathrm{MPa}$.</Step>
     <Step>
-      Maksymalne naprężenie styczne wynosi τmax = 140/2 = 70 MPa. W hipotezie Treski porównujemy jednak podwojoną
-      wartość, czyli σI − σIII, z granicą Re.
+      Naprężenie od zginania: $\sigma_M=1{,}2\cdot10^6/21\,205{,}8=56{,}59\ \mathrm{MPa}$. Suma:
+      $\sigma_x=67{,}20\ \mathrm{MPa}$.
     </Step>
-    <Step>n = Re/(σI − σIII) = 240/140 = 1,714.</Step>
+    <Step>Naprężenie styczne: $\tau=800\,000/42\,411{,}5=18{,}86\ \mathrm{MPa}$.</Step>
+    <Step>
+      HMH: $\sigma_{HMH}=\sqrt{67{,}20^2+3\cdot18{,}86^2}=\sqrt{4515{,}7+1067{,}4}=74{,}7\ \mathrm{MPa}$.
+    </Step>
+    <Step>
+      Treska: $\sigma_{avg}=33{,}60\ \mathrm{MPa}$, $R=\sqrt{33{,}60^2+18{,}86^2}=38{,}53\ \mathrm{MPa}$, więc
+      $\sigma_1=72{,}13$ i $\sigma_2=-4{,}93\ \mathrm{MPa}$. Największa różnica to $77{,}06\ \mathrm{MPa}$.
+    </Step>
+    <Step>Współczynniki: $n_{HMH}=235/74{,}7=3{,}15$ oraz $n_{Tresca}=235/77{,}06=3{,}05$.</Step>
   </Steps>
   <Result>
-    Współczynnik bezpieczeństwa wynosi około 1,71 według Treski. Akceptowalność zależy od wymaganego n projektowego;
-    wynik nie zastępuje osobnej kontroli sztywności.
+    Współczynnik bezpieczeństwa wynosi około $3{,}15$ według HMH i $3{,}05$ według Treski. Miarodajna jest
+    mniejsza wartość, czyli około $3{,}05$. Obie hipotezy dają podobny wynik, bo dominuje zginanie, a udział
+    ścinania jest umiarkowany. Wynik nie zastępuje sprawdzenia ugięcia i kąta skręcenia.
   </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy blachę z otworem kołowym, rozciąganą nominalnie naprężeniem $\sigma=120\ \mathrm{MPa}$. W pobliżu otworu naprężenie styczne do brzegu osiąga około trzykrotności wartości nominalnej, czyli $360\ \mathrm{MPa}$. Dla stali o $R_e=235\ \mathrm{MPa}$ nominalny współczynnik bezpieczeństwa wynosi $235/120\approx1{,}96$, ale lokalne naprężenie przekracza granicę plastyczności o 125 MPa.
+
+Co z tego wynika? W materiale ciągliwym strefa plastyczna wokół otworu może się rozwinąć i częściowo wyrównać naprężenia, ale nie znaczy to, że problem znika. Przy obciążeniu cyklicznym lokalne uplastycznienie sprzyja inicjacji pęknięcia zmęczeniowego. W materiale kruchym lokalne naprężenie może doprowadzić do pęknięcia bez wcześniejszego ostrzeżenia. Sam nominalny współczynnik bezpieczeństwa nie opisuje więc sytuacji.
+
+Współczynnik koncentracji naprężeń dla otworu kołowego w rozciąganej blasze jest równy około 3 i nie zależy od średnicy otworu. Efekt jest silny tylko w pobliżu otworu, w odległości rzędu kilku średnic. To przejaw zasady de Saint-Venanta: zaburzenie pola naprężeń wygasa z odległością. W obliczeniach trzeba więc rozróżnić naprężenie nominalne, liczone dla przekroju bez otworu, od naprężenia lokalnego.
+
+Ten przykład pokazuje, że koło Mohra i kryterium wytężenia to dopiero część analizy. Trzeba jeszcze wiedzieć, gdzie przyłożone jest obciążenie i jaka jest geometria. W strefie karbu samo $\sigma=N/A$ może zaniżać naprężenie nawet kilkukrotnie. Dlatego inżynier najpierw szuka miejsc, w których naprężenia mogą się koncentrować, a dopiero potem wykonuje obliczenia szczegółowe.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że dla tych samych obciążeń $N=30\ \mathrm{kN}$, $M=1{,}2\ \mathrm{kN\cdot m}$ i $T=800\ \mathrm{N\cdot m}$ trzeba dobrać średnicę pręta tak, aby współczynnik bezpieczeństwa według HMH wynosił co najmniej $2{,}5$. Granica plastyczności wynosi $R_e=235\ \mathrm{MPa}$. To zadanie „od wyniku do danych”.
+
+Naprężenie dopuszczalne wynosi $R_e/2{,}5=94\ \mathrm{MPa}$. Szukamy średnicy $d$, dla której $\sigma_{HMH}\le94\ \mathrm{MPa}$. Ponieważ naprężenia zależą od $d$ w różny sposób — osiowe odwrotnie proporcjonalnie do $d^2$, a zginanie i skręcanie odwrotnie proporcjonalnie do $d^3$ — równanie najlepiej rozwiązać iteracyjnie.
+
+Dla $d=55\ \mathrm{mm}$ otrzymujemy $A=2375{,}8\ \mathrm{mm^2}$, $W=16\,332{,}4\ \mathrm{mm^3}$ i $W_p=32\,664{,}8\ \mathrm{mm^3}$. Wtedy $\sigma_N=12{,}63\ \mathrm{MPa}$, $\sigma_M=73{,}47\ \mathrm{MPa}$, $\sigma_x=86{,}10\ \mathrm{MPa}$ oraz $\tau=24{,}49\ \mathrm{MPa}$. Naprężenie HMH wynosi około $95{,}98\ \mathrm{MPa}$, czyli nieco więcej niż dopuszczalne.
+
+Dla $d=56\ \mathrm{mm}$ mamy $A=2463{,}0\ \mathrm{mm^2}$, $W=17\,239{,}5\ \mathrm{mm^3}$ i $W_p=34\,479{,}1\ \mathrm{mm^3}$. Stąd $\sigma_N=12{,}18\ \mathrm{MPa}$, $\sigma_M=69{,}61\ \mathrm{MPa}$, $\sigma_x=81{,}79\ \mathrm{MPa}$ oraz $\tau=23{,}20\ \mathrm{MPa}$. Naprężenie HMH wynosi około $91{,}13\ \mathrm{MPa}$, a współczynnik $235/91{,}13=2{,}58$, czyli jest większy od wymaganego.
+
+Wniosek: średnica $55\ \mathrm{mm}$ jest zbyt mała, a $56\ \mathrm{mm}$ wystarcza. W praktyce wybieramy kolejny dostępny wymiar handlowy, często z zapasem na korozję, tolerancje i koncentrację naprężeń. Obliczenie graniczne pokazuje, że wymaganie $n=2{,}5$ jest bliskie granicy między tymi dwoma wymiarami, więc nie należy zaokrąglać w dół.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Porównywanie tylko $\sigma_x$ z $R_e$.** Przy niezerowym $\tau$ trzeba użyć naprężenia zredukowanego. Samo $\sigma_x$ może być mniejsze od granicy, a element nadal może ulec uplastycznieniu.
+- **Mylenie $R_e$ z $R_m$.** Granica plastyczności i wytrzymałość na rozciąganie to różne wielkości. Do oceny uplastycznienia używamy $R_e$, a nie $R_m$.
+- **Stosowanie $R_e$ do materiału kruchego.** Żeliwo, beton i szkło mają różną wytrzymałość na rozciąganie i ściskanie. Dla nich trzeba użyć odpowiedniej wytrzymałości i odpowiedniego kryterium.
+- **Pomijanie trzeciego naprężenia głównego.** W stanie płaskim $\sigma_3=0$ może być wartością skrajną. Wpływa to na $\sigma_{Tresca}$ i na maksymalne ścinanie.
+- **Zła konwersja jednostek.** Moment w $\mathrm{kN\cdot m}$ trzeba zamienić na $\mathrm{N\cdot mm}$, mnożąc przez $10^6$. Błąd jednostek daje wynik różniący się o rzędy wielkości.
+- **Traktowanie $n$ jako jedynego kryterium.** Współczynnik bezpieczeństwa nie opisuje sztywności, stateczności, zmęczenia ani koncentracji naprężeń. Każdy z tych warunków sprawdzamy osobno.
+- **Zbyt duże zaufanie do obliczeń nominalnych.** W strefie otworu lub karbu naprężenie lokalne może być kilkukrotnie większe. Samo $\sigma=N/A$ nie wystarcza.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal materiał i mechanizm zniszczenia.** Czy element jest ciągliwy, czy kruchy? Czy decyduje uplastycznienie, pęknięcie, zmęczenie, czy stateczność?
+2. **Zbierz obciążenia.** Zapisz $N$, $M$ i $T$ ze znakami oraz jednostkami. Sprawdź, czy momenty są podane w $\mathrm{kN\cdot m}$, czy w $\mathrm{N\cdot m}$.
+3. **Wyznacz geometrię przekroju.** Oblicz $A$, $W$ i $W_p$. Dla pręta pełnego użyj wzorów z tej lekcji; dla innych przekrojów sprawdź właściwe wskaźniki.
+4. **Oblicz naprężenia w punkcie.** $\sigma_x=N/A+M/W$ oraz $\tau=T/W_p$. Uwzględnij znak siły osiowej i strony włókna.
+5. **Uzupełnij stan naprężenia.** Przyjmij $\sigma_y=0$ i $\sigma_z=0$, jeśli model na to pozwala. Sprawdź, czy nie ma dodatkowych naprężeń od docisku lub karbu.
+6. **Oblicz naprężenia główne.** Użyj $\sigma_{avg}$, $R$ oraz $\sigma_{1,2}=\sigma_{avg}\pm R$. Uporządkuj trzy wartości, jeśli potrzebna jest hipoteza pełna.
+7. **Wybierz hipotezę.** Dla materiału ciągliwego oblicz HMH i Treskę, a następnie wybierz mniejszy współczynnik. Dla materiału kruchego porównaj największe rozciąganie z wytrzymałością na rozciąganie.
+8. **Oblicz współczynnik bezpieczeństwa.** Podziel granicę przez naprężenie zredukowane. Porównaj z wymaganym $n$, a nie z dowolną wartością większą od jedności.
+9. **Sprawdź sztywność i stateczność.** Osobno oblicz ugięcie, kąt skręcenia i sprawdź wyboczenie, jeśli element jest ściskany i smukły.
+10. **Sprawdź lokalne efekty.** Oceń koncentrację naprężeń, zmęczenie i wpływ tolerancji. Dopiero komplet tych kontroli daje podstawę do decyzji projektowej.
+
+## Połącz z resztą kursu
+
+- **Naprężenia główne.** Warunek wytężenia korzysta z $\sigma_1$, $\sigma_2$ i $\sigma_3$, a nie z pojedynczej składowej tensora.
+- **Koło Mohra.** Koło daje szybki odczyt naprężeń głównych i maksymalnego ścinania, które są danymi wejściowymi do hipotez.
+- **Maksymalne ścinanie.** Hipoteza Treski jest bezpośrednio związana z $\tau_{\max}^{abs}$ i różnicą skrajnych naprężeń głównych.
+- **Skręcanie i zginanie.** W pręcie kołowym oba obciążenia nakładają się w tym samym punkcie, dlatego trzeba je rozpatrywać łącznie.
+- **Kryteria wytężenia.** HMH i Treska to tylko dwa przykłady. Dla materiałów kruchych stosuje się inne kryteria, na przykład maksymalnego naprężenia głównego.
+- **Projektowanie i zmęczenie.** Warunek wytrzymałości statycznej to początek. Przy obciążeniach zmiennych decyduje amplituda i liczba cykli, a nie tylko naprężenie maksymalne.
+
+## Sprawdź się
+
+Pytania sprawdzają wybór hipotezy, rachunek naprężeń zredukowanych i interpretację współczynnika bezpieczeństwa. Pamiętaj, że mniejszy współczynnik jest miarodajny, a warunek sztywności sprawdzamy osobno.
 
 <Quiz>
   <Question outcome="U3">
     <Prompt>
-      Dla stalowego elementu σ1 = 180 MPa, σ2 = 60 MPa, σ3 = 0. Jakie τmax należy użyć w warunku Treski dla pełnego
-      stanu?
+      Dla domyślnych danych laboratorium $\sigma_x=67{,}2\ \mathrm{MPa}$ i $\tau=18{,}9\ \mathrm{MPa}$ oblicz
+      naprężenie zredukowane według HMH.
     </Prompt>
-    <Answer>60 MPa</Answer>
-    <Answer correct>90 MPa</Answer>
-    <Answer>120 MPa</Answer>
-    <Hint>Weź połowę różnicy największego i najmniejszego naprężenia głównego.</Hint>
+    <Answer>67,2 MPa</Answer>
+    <Answer correct>74,7 MPa</Answer>
+    <Answer>82,0 MPa</Answer>
+    <Hint>Użyj $\sigma_{HMH}=\sqrt{\sigma_x^2+3\tau^2}$ dla $\sigma_y=0$.</Hint>
     <Explanation>
-      σI = 180 MPa, a σIII = 0. Zatem τmax = (180 − 0)/2 = 90 MPa. Warunek Treski porównuje σI − σIII = 180 MPa z
-      granicą plastyczności.
+      $\sigma_{HMH}=\sqrt{67{,}2^2+3\cdot18{,}9^2}=\sqrt{4515{,}8+1071{,}6}\approx74{,}7\ \mathrm{MPa}$.
+      Sama wartość $\sigma_x$ zaniża miarę wytężenia, bo pomija udział ścinania.
     </Explanation>
   </Question>
   <Question outcome="U3">
     <Prompt>
-      Jeśli w płytce kruchej σ1 = 75 MPa, a wytrzymałość na rozciąganie Rt = 60 MPa, co wynika z porównania?
+      Dla $\sigma_1=72{,}1\ \mathrm{MPa}$, $\sigma_2=-4{,}9\ \mathrm{MPa}$ i $\sigma_3=0$ oblicz naprężenie
+      zredukowane według Treski.
     </Prompt>
-    <Answer>Warunek jest spełniony, bo σ1 jest dodatnie</Answer>
+    <Answer>72,1 MPa</Answer>
+    <Answer correct>77,1 MPa</Answer>
+    <Answer>67,2 MPa</Answer>
+    <Hint>Weź największą różnicę spośród trzech par naprężeń głównych.</Hint>
+    <Explanation>
+      Różnice wynoszą $77{,}0$, $4{,}9$ i $72{,}1\ \mathrm{MPa}$. Największa to $77{,}0\ \mathrm{MPa}$, więc
+      $\sigma_{Tresca}\approx77{,}1\ \mathrm{MPa}$. To więcej niż $\sigma_x$, bo uwzględniamy ścinanie.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Jeśli $n_{HMH}=3{,}15$ i $n_{Tresca}=3{,}05$, który współczynnik jest miarodajny i dlaczego?</Prompt>
+    <Answer correct>Mniejszy, czyli $3{,}05$, bo odpowiada wcześniejszemu uplastycznieniu</Answer>
+    <Answer>Większy, czyli $3{,}15$, bo daje większy zapas</Answer>
+    <Answer>Oba są równoważne, więc można wybrać dowolny</Answer>
+    <Hint>Hipoteza, która przewiduje zniszczenie przy mniejszym obciążeniu, jest bardziej konserwatywna.</Hint>
+    <Explanation>
+      Mniejszy współczynnik oznacza, że dana hipoteza przewiduje osiągnięcie granicy przy niższym obciążeniu. W tym
+      przypadku decyduje Treska, która jest zwykle bardziej konserwatywna dla materiałów ciągliwych.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Krucha płytka ma największe naprężenie główne $\sigma_1=75\ \mathrm{MPa}$, a wytrzymałość na rozciąganie
+      $R_t=60\ \mathrm{MPa}$. Co wynika z porównania?
+    </Prompt>
+    <Answer>Warunek jest spełniony, bo naprężenie jest dodatnie</Answer>
     <Answer correct>Przekroczono wytrzymałość na rozciąganie</Answer>
-    <Answer>Wystarczy sprawdzić tylko τmax</Answer>
+    <Answer>Wystarczy sprawdzić tylko maksymalne ścinanie</Answer>
     <Hint>Materiał kruchy jest szczególnie wrażliwy na największe rozciąganie.</Hint>
     <Explanation>
-      75 MPa &gt; 60 MPa, więc naprężenie przekracza wytrzymałość o 15 MPa, czyli o 25%. Samo ścinanie nie opisuje tu
-      ryzyka pęknięcia prostopadłego do kierunku σ1.
+      $75\ \mathrm{MPa}$ przekracza $60\ \mathrm{MPa}$ o 15 MPa, czyli o 25 proc. Samo ścinanie nie opisuje tego
+      ryzyka, bo pęknięcie otwiera się prostopadle do kierunku największego rozciągania.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>
-      Koło Mohra pokazuje duże τmax, lecz projekt spełnia warunek wytrzymałości. Czy to gwarantuje wystarczającą
-      sztywność?
-    </Prompt>
+    <Prompt>Koło Mohra pokazuje duże $\tau_{\max}$, lecz projekt spełnia warunek wytrzymałości. Czy to gwarantuje wystarczającą sztywność?</Prompt>
     <Answer>Tak, zawsze</Answer>
     <Answer correct>Nie, trzeba jeszcze sprawdzić odkształcenia lub przemieszczenia</Answer>
     <Answer>Tak, jeśli koło ma duży promień</Answer>
     <Hint>Wytrzymałość dotyczy zniszczenia lub uplastycznienia, a sztywność — wielkości deformacji.</Hint>
     <Explanation>
       Element może nie ulec zniszczeniu, ale odkształcać się ponad dopuszczalną granicę użytkowania. Potrzebne są
-      odkształcenia, zależności materiałowe E, G, ν oraz geometria całego elementu.
+      odkształcenia, zależności materiałowe $E$, $G$, $\nu$ oraz geometria całego elementu.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Blacha z otworem jest rozciągana nominalnie $\sigma=120\ \mathrm{MPa}$. Współczynnik koncentracji wynosi około
+      3, a $R_e=235\ \mathrm{MPa}$. Jaki wniosek jest poprawny?
+    </Prompt>
+    <Answer correct>Lokalne naprężenie około 360 MPa przekracza $R_e$, mimo nominalnego zapasu</Answer>
+    <Answer>Nominalny zapas 1,96 wystarcza, bo otwór jest mały</Answer>
+    <Answer>Koncentracja nie ma znaczenia, bo dotyczy tylko powierzchni</Answer>
+    <Hint>Pomnóż naprężenie nominalne przez współczynnik koncentracji.</Hint>
+    <Explanation>
+      Lokalnie $3\cdot120=360\ \mathrm{MPa}$, czyli więcej niż $235\ \mathrm{MPa}$. W materiale ciągliwym powstaje
+      strefa plastyczna, a przy obciążeniu cyklicznym może iniciować się pęknięcie zmęczeniowe. Nominalny
+      współczynnik bezpieczeństwa nie opisuje tego efektu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla $R_e=235\ \mathrm{MPa}$ i wymaganego $n=2{,}5$ naprężenie dopuszczalne wynosi 94 MPa. Średnica 56 mm daje
+      $\sigma_{HMH}=91{,}1\ \mathrm{MPa}$, a średnica 55 mm daje $96{,}0\ \mathrm{MPa}$. Który wniosek jest poprawny?
+    </Prompt>
+    <Answer correct>Wystarcza średnica 56 mm, a 55 mm jest zbyt mała</Answer>
+    <Answer>Wystarcza średnica 55 mm, bo 96 MPa jest blisko 94 MPa</Answer>
+    <Answer>Obie średnice są zbyt małe, bo naprężenie jest dodatnie</Answer>
+    <Hint>Porównaj naprężenie zredukowane z naprężeniem dopuszczalnym, a nie z granicą $R_e$.</Hint>
+    <Explanation>
+      $91{,}1\ \mathrm{MPa}$ jest mniejsze od $94\ \mathrm{MPa}$, więc średnica 56 mm spełnia warunek. Wartość
+      $96{,}0\ \mathrm{MPa}$ przekracza dopuszczalne 94 MPa, więc 55 mm nie wystarcza. W praktyce wybiera się
+      kolejny wymiar handlowy z zapasem.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o hipotezach wytężenia i stanie naprężenia; klasyczne omówienie Treski oraz warunku wytrzymałości.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania na obliczanie naprężeń zredukowanych i dobór przekroju przy złożonym obciążeniu.
+- R. C. Hibbeler, _Mechanics of Materials_, 10th ed. — rozdział o złożonym obciążeniu i kryteriach wytężenia; dużo przykładów z wałami i prętami.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik, rozdziały o kole Mohra, koncentracji naprężeń i plastyczności; rozwiązanie Kirscha dla otworu wyjaśnia, dlaczego nominalny współczynnik bezpieczeństwa bywa mylący.
+- MIT 3.11 _Mechanics of Materials_ — otwarte notatki, wykład o naprężeniach w belkach i o stanie naprężenia; pokazuje, jak naprężenia normalne i styczne składają się w tym samym punkcie.
+
+Przy czytaniu zwróć uwagę, że podręczniki różnią się nazewnictwem hipotez. Hipoteza Treski bywa nazywana hipotezą maksymalnego naprężenia stycznego, a HMH hipotezą energii odkształcenia postaciowego lub hipotezą von Misesa. Wzory są te same, ale sposób zapisu może się różnić. Zawsze sprawdź, czy autor używa $R_e$, czy naprężenia dopuszczalnego, i czy wynik dotyczy materiału ciągliwego, czy kruchego.

@@ -66,7 +66,7 @@ export function SelfWeightLab() {
       visual={
         <>
           <svg
-            viewBox="0 0 720 155"
+            viewBox="0 0 720 162"
             width="100%"
             role="img"
             aria-label="Pionowy pręt utwierdzony u góry i obciążony ciężarem własnym"
@@ -142,7 +142,7 @@ export function SelfWeightLab() {
             aria-label="Wykres siły osiowej i naprężenia od położenia przekroju"
           >
             <ResponsiveContainer width="100%" height={210}>
-              <LineChart data={chartData} margin={chartMargin}>
+              <LineChart data={chartData} margin={{ ...chartMargin, left: 14, right: 16, top: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.25} />
                 <XAxis
                   dataKey="xM"
@@ -153,15 +153,15 @@ export function SelfWeightLab() {
                 />
                 <YAxis
                   yAxisId="force"
-                  width={48}
+                  width={62}
                   tickFormatter={(value: number) => fmt(value, 1)}
                   label={{ value: 'N [kN]', angle: -90, position: 'insideLeft' }}
                 />
                 <YAxis
                   yAxisId="stress"
                   orientation="right"
-                  width={48}
-                  tickFormatter={(value: number) => fmt(value, 2)}
+                  width={62}
+                  tickFormatter={(value: number) => (value === 0 ? '' : fmt(value, 2))}
                   label={{ value: 'σ [MPa]', angle: 90, position: 'insideRight' }}
                 />
                 <Tooltip labelFormatter={(value) => `x = ${fmt(Number(value), 2)} m`} />

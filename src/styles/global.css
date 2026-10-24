@@ -199,6 +199,8 @@ svg {
 }
 
 .formula-card {
+  max-width: 100%;
+  overflow-x: auto;
   background: #f5f7fc;
   border: 1px solid #e1e6f0;
   border-radius: 10px;
@@ -214,11 +216,22 @@ svg {
   font-size: 1.45em;
   color: #34445c;
 }
+.formula-card-compact .katex {
+  font-size: 1.05em;
+}
+.formula-card-compact .katex-display {
+  margin: 6px 0 8px;
+}
 .formula-card p {
   font-size: 10px;
   color: #788493;
   line-height: 1.5;
   margin: 0;
+}
+
+.lab-chart {
+  width: 100%;
+  min-width: 0;
 }
 
 .recharts-wrapper {

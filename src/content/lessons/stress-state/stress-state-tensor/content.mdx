@@ -7,7 +7,6 @@ shortTitle: Składowe tensora
 description: >-
   Uporządkuj naprężenia normalne i styczne oraz zobacz, dlaczego sama wartość σx
   nie opisuje całego obciążenia.
-duration: 7
 eyebrow: Punkt pod lupą
 outcomes:
   - >-
@@ -24,35 +23,195 @@ outcomes:
   - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
 ---
 
-Wyobraź sobie bardzo małą kostkę wyciętą wewnątrz materiału. Na każdej jej ścianie mogą działać naprężenie normalne, prostopadłe do ściany, oraz naprężenia styczne, działające w płaszczyźnie ściany. Tensor naprężenia jest uporządkowanym zapisem tych wielkości, a nie dodatkową siłą przyłożoną do elementu.
+Wyobraź sobie bardzo małą kostkę wyciętą wewnątrz materiału. Na każdej jej ścianie mogą działać naprężenie normalne, prostopadłe do ściany, oraz naprężenia styczne, działające w płaszczyźnie ściany. Tensor naprężenia jest uporządkowanym zapisem tych wielkości, a nie dodatkową siłą przyłożoną do elementu. To różnica podobna do tej między temperaturą w punkcie a listą temperatur wzdłuż pręta: jedno i drugie opisuje stan, ale w innym sensie.
+
+W codziennym doświadczeniu naprężenie kojarzy się z jedną liczbą. Mówimy, że pręt jest rozciągany siłą 20 kN, a naprężenie wynosi 100 MPa. Taki obraz wystarcza, dopóki obciążenie jest osiowe, przekrój prosty, a punkt leży daleko od mocowań i karbów. Wtedy dominuje jedna składowa i można ją obliczyć ze wzoru $\sigma=N/A$. W rzeczywistym połączeniu, przy zginaniu ze skręcaniem albo w pobliżu otworu, ten sam punkt może być jednocześnie rozciągany w jednym kierunku, ściskany w innym i ścinany w dwóch płaszczyznach.
+
+Tensor porządkuje ten chaos. Zamiast pytać „jaka jest siła w materiale”, pytamy „jaka jest trakcja na ścianie o danej normalnej”. Trakcja to wektor siły przypadający na jednostkę powierzchni. Gdy znamy tensor, możemy obliczyć trakcję na dowolnie zorientowanej płaszczyźnie, nie wykonując nowego doświadczenia. To właśnie czyni tensor użytecznym: jest przepisem, który dla każdego kierunku cięcia zwraca wektor naprężenia.
+
+W tej lekcji nauczysz się czytać macierz naprężenia, odróżniać naprężenia normalne od stycznych, stosować konwencję znaków i budować tensor z trakcji na trzech prostopadłych ściankach. Zobaczysz też, dlaczego macierz ma tylko sześć niezależnych składowych i dlaczego nie wolno utożsamiać $\sigma_x$ z całym stanem naprężenia. Laboratorium pokaże najprostszy przypadek: równomierne rozciąganie pręta, w którym tensor redukuje się do jednej liczby.
+
+Można myśleć o trzech poziomach opisu. Pierwszy to siła wypadkowa w przekroju, drugi to naprężenie średnie, a trzeci to tensor w punkcie. Każdy następny poziom zawiera więcej informacji, ale wymaga więcej danych. W prostym pręcie wystarcza drugi poziom. W połączeniu, przy złożonym obciążeniu albo w analizie zmęczeniowej potrzebny jest trzeci. Ta lekcja buduje właśnie ten trzeci poziom.
+
+## Zanim zaczniesz
+
+- **Siła, pole i jednostki.** Przypomnij sobie, że naprężenie to siła podzielona przez pole. W układzie SI jednostką jest paskal, ale w wytrzymałości materiałów wygodniej używać megapaskala: $1\ \mathrm{MPa}=1\ \mathrm{N/mm^2}$. Przeliczenie $1\ \mathrm{GPa}=1000\ \mathrm{MPa}$ musi być automatyczne.
+- **Znak naprężenia normalnego.** Dodatnie $\sigma$ oznacza rozciąganie, ujemne ściskanie. Ta umowa będzie używana konsekwentnie w całym module. Nie zmieniaj jej w trakcie zadania, bo znaki styczne zależą od przyjętego układu.
+- **Wektory i normalna płaszczyzny.** Potrzebna jest umiejętność rozłożenia wektora na składowe oraz pojęcie wektora jednostkowego prostopadłego do powierzchni. Dla płaszczyzny prostopadłej do osi $x$ normalna to $(1,0,0)$, a dla płaszczyzny nachylonej pod kątem $\theta$ — $(\cos\theta,\sin\theta,0)$.
+- **Równowaga sił i momentów.** Tensor nie powstaje z niczego: jego symetria wynika z równowagi momentów elementarnej kostki. Warto pamiętać, że moment siły to iloczyn siły i ramienia, a nie osobny rodzaj obciążenia.
+- **Typowa pułapka.** Najczęstszy błąd to potraktowanie $\tau_{xy}$ i $\tau_{yx}$ jako dwóch niezależnych wielkości. W klasycznej teorii ciągłego ośrodka są one równe, bo inaczej nieskończenie mała kostka miałaby niezerowy moment wypadkowy.
+- **Płaszczyzna a normalna.** Normalna jest prostopadła do płaszczyzny, a nie leży w niej. Kąt $\theta$ opisuje położenie normalnej, więc płaszczyzna jest do niej prostopadła. Pomylenie tych dwóch pojęć przesuwa wynik o $90^\circ$.
+
+## Model i intuicja
+
+Model zaczyna się od założenia, że materiał jest ciągły. Oznacza to, że w każdym punkcie można zdefiniować naprężenie jako granicę ilorazu siły i pola, gdy pole dąży do zera. W rzeczywistym materiale ta granica ma sens tylko na skali większej od odległości między atomami i od rozmiaru mikrostruktury. Dla stali i aluminium jest to skala mikrometrów, dla betonu większa, a dla kompozytu zależy od rozmiaru włókien. W typowych zadaniach inżynierskich ten warunek jest spełniony z dużym zapasem.
+
+Wybieramy infinitezymalną kostkę, której ściany są prostopadłe do osi $x$, $y$ i $z$. Na każdej ścianie definiujemy wektor trakcji. Ma on trzy składowe: jedną prostopadłą do ściany i dwie styczne. Dla trzech ścian daje to dziewięć liczb. Zapisujemy je w macierzy, w której pierwszy indeks oznacza ścianę, a drugi kierunek działania. Na przykład $\tau_{xy}$ działa na ścianie prostopadłej do $x$, w kierunku $y$.
+
+Dlaczego nie wystarczy jeden wektor? Ponieważ trakcja zależy od orientacji płaszczyzny. Ten sam punkt można przeciąć płaszczyzną poziomą, pionową albo ukośną. Na każdej z nich wektor trakcji będzie inny, mimo że stan materiału się nie zmienia. Tensor jest operatorem, który przyjmuje normalną płaszczyzny i zwraca trakcję. To odróżnia go od zwykłego wektora, który nie zależy od dodatkowego kierunku odniesienia.
+
+Przyjmujemy, że naprężenia są jednorodne na długości krawędzi kostki. To założenie jest uzasadnione, gdy kostka jest bardzo mała: różnica naprężeń między przeciwległymi ścianami jest rzędu gradientu pomnożonego przez długość, czyli wielkością wyższego rzędu. Dzięki temu w równowadze sił możemy pominąć przyrosty naprężeń, a w równowadze momentów — momenty objętościowe. Właśnie z tego uproszczenia wynika symetria tensora.
+
+Model przestaje być wystarczający w miejscach, gdzie naprężenie zmienia się gwałtownie na odległości porównywalnej z rozmiarem elementu. Typowe przykłady to karb, otwór, strefa kontaktu, spoina, szczelina i wierzchołek pęknięcia. W takich miejscach średnie naprężenie z prostego wzoru może być znacznie mniejsze od lokalnego maksimum. Potrzebne są wtedy rozwiązania teorii sprężystości, współczynniki koncentracji albo analiza numeryczna. Tensor nadal obowiązuje, ale nie wystarcza już prosta równowaga globalna.
+
+Warto też rozróżnić płaski stan naprężenia od płaskiego stanu odkształcenia. W cienkiej blasze naprężenia w kierunku grubości są bliskie zeru, więc mówimy o płaskim stanie naprężenia. W długim elemencie, któremu uniemożliwiono odkształcenie w jednym kierunku, może wystąpić płaski stan odkształcenia, a naprężenie w tym kierunku nie musi być zerowe. Sam tensor jest w obu przypadkach trójwymiarowy; redukcja dotyczy tylko części składowych.
+
+Drugie uproszczenie dotyczy jednorodności w obrębie przekroju. W pręcie rozciąganym naprężenie jest w przybliżeniu stałe, ale w pobliżu uchwytu rozkład staje się nierównomierny. Zasada de Saint-Venanta mówi, że różnica między statycznie równoważnymi sposobami przyłożenia obciążenia zanika w odległości porównywalnej z wymiarem przekroju. To dlatego wzór $\sigma=N/A$ działa dobrze w środku pręta, a zawodzi przy samym mocowaniu.
+
+Trzecie uproszczenie to pominięcie momentów objętościowych i sprzężonych naprężeń momentowych. W klasycznej mechanice ośrodków ciągłych zakładamy, że element nie przenosi skupionego momentu objętościowego, który mógłby zaburzyć symetrię tensora. W większości konstrukcji inżynierskich to założenie jest spełnione. W materiałach komórkowych, piankach o specjalnej mikrostrukturze albo modelach z naprężeniami momentowymi model może wymagać rozszerzenia.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniasz siłę osiową i pole przekroju pręta. Obserwuj, że naprężenie $\sigma=F/A$ jest jednakowe na całym przekroju i zależy od obu wielkości, a nie tylko od siły. To najprostszy przypadek tensora: wszystkie składowe poza $\sigma_x$ są zerowe.
 
 <Lab id="stress" />
 
+W tym doświadczeniu nie zobaczysz ścinania ani naprężeń w kierunku poprzecznym, bo model pręta jest jednoosiowy. To celowe uproszczenie. Gdy zwiększysz siłę przy stałym polu, naprężenie rośnie liniowo. Gdy zwiększysz pole przy stałej sile, naprężenie maleje odwrotnie proporcjonalnie. Sprawdź oba kierunki zmian i zapisz jeden wynik ręcznie, aby porównać z suwakiem.
+
+## Definicje i jednostki
+
+| Symbol      | Znaczenie                                          | Jednostka | Uwaga o znaku                     |
+| ----------- | -------------------------------------------------- | --------- | --------------------------------- |
+| $\sigma_x$  | naprężenie normalne na ścianie prostopadłej do $x$ | MPa       | dodatnie przy rozciąganiu         |
+| $\sigma_y$  | naprężenie normalne na ścianie prostopadłej do $y$ | MPa       | dodatnie przy rozciąganiu         |
+| $\sigma_z$  | naprężenie normalne na ścianie prostopadłej do $z$ | MPa       | dodatnie przy rozciąganiu         |
+| $\tau_{xy}$ | naprężenie styczne na ścianie $x$, w kierunku $y$  | MPa       | znak według dodatnich zwrotów osi |
+| $\tau_{xz}$ | naprężenie styczne na ścianie $x$, w kierunku $z$  | MPa       | znak według dodatnich zwrotów osi |
+| $\tau_{yz}$ | naprężenie styczne na ścianie $y$, w kierunku $z$  | MPa       | znak według dodatnich zwrotów osi |
+
+Tensor zapisujemy jako macierz symetryczną. Pierwszy indeks oznacza ścianę, drugi kierunek. Na przykład $\tau_{xy}$ i $\tau_{yx}$ to ta sama wielkość fizyczna, mimo że w zapisie występują na dwóch różnych miejscach macierzy. Dzięki symetrii dziewięć pól redukuje się do sześciu niezależnych liczb: trzech naprężeń normalnych i trzech stycznych.
+
+Trakcję oznaczamy wektorem $\mathbf{T}$. Jest to siła na jednostkę powierzchni, więc ma jednostkę naprężenia. Normalna $\mathbf{n}$ jest wektorem jednostkowym, więc jej składowe są bezwymiarowe. Naprężenie normalne na płaszczyźnie to rzut trakcji na normalną, $\sigma_n=\mathbf{T}\cdot\mathbf{n}$. Naprężenie styczne to część trakcji leżąca w płaszczyźnie; jego wartość można obliczyć z twierdzenia Pitagorasa dla wektorów.
+
+W zadaniach często podaje się naprężenia w MPa, a siły w kN. Nie mieszaj tych jednostek w jednym działaniu. Najbezpieczniej przeliczyć wszystko na N i mm przed podstawieniem. Wtedy wynik wychodzi wprost w MPa, bo $\mathrm{N/mm^2}=\mathrm{MPa}$. Kontrola rzędu wielkości jest równie ważna: naprężenie 0,05 MPa jest bardzo małe, a 5000 MPa przekracza wytrzymałość większości metali.
+
+| Wielkość   | Jednostka podstawowa | Jednostka praktyczna | Przeliczenie                          |
+| ---------- | -------------------- | -------------------- | ------------------------------------- |
+| naprężenie | Pa                   | MPa                  | $1\ \mathrm{MPa}=10^6\ \mathrm{Pa}$   |
+| naprężenie | $\mathrm{N/mm^2}$    | MPa                  | $1\ \mathrm{N/mm^2}=1\ \mathrm{MPa}$  |
+| siła       | N                    | kN                   | $1\ \mathrm{kN}=1000\ \mathrm{N}$     |
+| pole       | $\mathrm{m^2}$       | $\mathrm{mm^2}$      | $1\ \mathrm{m^2}=10^6\ \mathrm{mm^2}$ |
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\boldsymbol{\sigma}=\begin{bmatrix}\sigma_x&\tau_{xy}&\tau_{xz}\\\tau_{xy}&\sigma_y&\tau_{yz}\\\tau_{xz}&\tau_{yz}&\sigma_z\end{bmatrix}
+\boldsymbol{\sigma}=\begin{bmatrix}\sigma_x&\tau_{xy}&\tau_{xz}\\\tau_{xy}&\sigma_y&\tau_{yz}\\\tau_{xz}&\tau_{yz}&\sigma_z\end{bmatrix},\qquad \mathbf{T}=\boldsymbol{\sigma}\mathbf{n}
 $$
 
-<Caption>Symbol σ oznacza naprężenie normalne, prostopadłe do ściany, a τ — naprężenie styczne, działające w jej płaszczyźnie. Dodatnia wartość σ odpowiada rozciąganiu. Równości τxy = τyx, τxz = τzx i τyz = τzy wynikają z równowagi momentów elementarnej kostki przy pominięciu momentów objętościowych.</Caption>
+<Caption>Tensor naprężenia jest symetryczny. Wzór Cauchy'ego $\mathbf{T}=\boldsymbol{\sigma}\mathbf{n}$ mówi, że trakcja na płaszczyźnie o normalnej $\mathbf{n}$ jest iloczynem tensora i tej normalnej. Dla $\mathbf{n}=(1,0,0)$ otrzymujemy pierwszą kolumnę tensora, czyli trakcję na ścianie prostopadłej do $x$.</Caption>
 </Formula>
 
+<Formula>
+$$
+\begin{aligned}
+T_x&=\sigma_x n_x+\tau_{xy}n_y+\tau_{xz}n_z,\\
+T_y&=\tau_{xy}n_x+\sigma_y n_y+\tau_{yz}n_z,\\
+T_z&=\tau_{xz}n_x+\tau_{yz}n_y+\sigma_z n_z
+\end{aligned}
+$$
+
+<Caption>Rozwinięta postać wzoru Cauchy'ego. Każda składowa trakcji jest sumą trzech wkładów: jednego normalnego i dwóch stycznych. Po obliczeniu $\mathbf{T}$ naprężenie normalne otrzymujemy jako $\sigma_n=\mathbf{T}\cdot\mathbf{n}$, a styczne jako długość części trakcji prostopadłej do $\mathbf{n}$.</Caption>
+</Formula>
+
+Wyprowadzenie wzoru Cauchy'ego opiera się na równowadze czworościanu. Wyobraź sobie mały czworościan, którego trzy ściany leżą w płaszczyznach współrzędnych, a czwarta jest nachylona. Normalna nachylonej ściany to $\mathbf{n}$. Pole tej ściany oznaczymy przez $A$. Pola trzech ścian współrzędnościowych są rzutami $A$ na odpowiednie płaszczyzny.
+
+1. **Rzuty pola.** Ściana prostopadła do osi $x$ ma pole $A n_x$, ściana prostopadła do $y$ ma pole $A n_y$, a ściana prostopadła do $z$ ma pole $A n_z$. To wynika z geometrii rzutu: im bardziej płaszczyzna jest nachylona, tym mniejsze jest jej pole widziane wzdłuż danej osi.
+2. **Trakcje na ścianach.** Na nachylonej ścianie działa trakcja $\mathbf{T}$. Na ścianie $x$ działa trakcja o składowych $(\sigma_x,\tau_{xy},\tau_{xz})$, na ścianie $y$ — $(\tau_{xy},\sigma_y,\tau_{yz})$, a na ścianie $z$ — $(\tau_{xz},\tau_{yz},\sigma_z)$.
+3. **Równowaga sił.** Suma sił na wszystkich czterech ścianach musi być zerowa. Siła to trakcja pomnożona przez pole. Po uwzględnieniu znaków ścian ukrytych wewnątrz czworościanu otrzymujemy $\mathbf{T}A=\boldsymbol{\sigma}\mathbf{n}A$.
+4. **Skrócenie pola.** Dzielimy obie strony przez $A$. Pole znika, więc wynik nie zależy od rozmiaru czworościanu. To dlatego naprężenie jest wielkością lokalną, a nie zależną od tego, jak duży element wytniemy.
+5. **Zapis składowych.** W rozwiniętej postaci $T_x=\sigma_x n_x+\tau_{xy}n_y+\tau_{xz}n_z$ i analogicznie dla $T_y$ oraz $T_z$. Wzór macierzowy jest po prostu skróconym zapisem tych trzech równań.
+6. **Równowaga momentów.** Obliczamy momenty względem środka kostki. Dwie styczne naprzeciwległe tworzą parę sił. Ramiona są proporcjonalne do długości krawędzi, a siły do iloczynu naprężenia i pola. Po podzieleniu przez objętość kostki człon z momentem znika szybciej niż człon z naprężeniem, więc pozostaje warunek $\tau_{xy}=\tau_{yx}$.
+7. **Pozostałe pary.** Analogicznie $\tau_{xz}=\tau_{zx}$ oraz $\tau_{yz}=\tau_{zy}$. Macierz jest symetryczna względem przekątnej.
+8. **Liczba niezależnych składowych.** Z dziewięciu pól zostają trzy na przekątnej i trzy różne pola poza przekątną. Razem sześć. To nie jest dodatkowe założenie, lecz konsekwencja równowagi.
+9. **Przypadek jednoosiowy.** Gdy $\sigma_x=\sigma$ i pozostałe składowe są zerowe, dla $\mathbf{n}=(1,0,0)$ trakcja wynosi $(\sigma,0,0)$. Dla $\mathbf{n}=(0,1,0)$ trakcja jest zerowa. Na płaszczyźnie nachylonej pojawiają się obie składowe, mimo że tensor ma tylko jedno niezerowe pole.
+10. **Kontrola wymiarowa.** Po lewej stronie wzoru Cauchy'ego stoi wektor trakcji w MPa. Po prawej tensor w MPa mnożymy przez bezwymiarową normalną. Jednostki się zgadzają, co potwierdza, że normalna nie wnosi skali, tylko kierunek.
+
 <Insight>
-  Tensor zawiera sześć niezależnych składowych. Obrót układu współrzędnych zmienia ich wartości, ale nie zmienia
-  fizycznego stanu naprężenia w punkcie.
+  Tensor nie jest „siłą w punkcie”, lecz przepisem na trakcję dla dowolnej normalnej. Sześć niezależnych składowych
+  wystarcza, bo symetria eliminuje trzy pola. Jeżeli w zadaniu pojawia się tylko $\sigma_x$, to zwykle znaczy, że
+  wybrano bardzo szczególny przekrój albo pominięto resztę stanu.
 </Insight>
 
 <WorkedExample>
-  <Given>W punkcie płyty: σx = 100 MPa, σy = −40 MPa, τxy = 30 MPa; pozostałe składowe są zerowe.</Given>
+  <Given>
+    W punkcie płyty panuje płaski stan naprężenia: $\sigma_x=120\ \mathrm{MPa}$, $\sigma_y=40\ \mathrm{MPa}$, $\tau_{xy}=30\ \mathrm{MPa}$, a pozostałe składowe są zerowe. Oblicz trakcję, naprężenie normalne i styczne na płaszczyźnie o normalnej $\mathbf{n}=(\cos 30^\circ,\sin 30^\circ,0)$.
+  </Given>
   <Steps>
-    <Step>Na przekątnej wpisujemy naprężenia normalne: 100, −40 i 0 MPa.</Step>
-    <Step>W pola (x,y) i (y,x) wpisujemy 30 MPa, korzystając z symetrii tensora.</Step>
-    <Step>Odczytujemy rozciąganie w kierunku x, ściskanie w kierunku y oraz obecność ścinania w płaszczyźnie xy.</Step>
+    <Step>Zapisz tensor: wiersz pierwszy $(120,30,0)$, drugi $(30,40,0)$, trzeci $(0,0,0)$ MPa.</Step>
+    <Step>Oblicz składowe normalnej: $\cos 30^\circ\approx0{,}8660$ oraz $\sin 30^\circ=0{,}5$.</Step>
+    <Step>Trakcja w kierunku $x$: $T_x=120\cdot0{,}8660+30\cdot0{,}5=103{,}92+15=118{,}92\ \mathrm{MPa}$.</Step>
+    <Step>Trakcja w kierunku $y$: $T_y=30\cdot0{,}8660+40\cdot0{,}5=25{,}98+20=45{,}98\ \mathrm{MPa}$.</Step>
+    <Step>Składowa $T_z$ jest zerowa, bo cały trzeci wiersz i trzecia kolumna tensora są zerowe.</Step>
+    <Step>Naprężenie normalne: $\sigma_n=T_x n_x+T_y n_y=118{,}92\cdot0{,}8660+45{,}98\cdot0{,}5\approx102{,}99+22{,}99=125{,}98\ \mathrm{MPa}$.</Step>
+    <Step>Kwadrat długości trakcji: $118{,}92^2+45{,}98^2\approx14142+2114=16256\ \mathrm{MPa^2}$.</Step>
+    <Step>Naprężenie styczne: $\tau=\sqrt{16256-125{,}98^2}\approx\sqrt{16256-15871}\approx19{,}6\ \mathrm{MPa}$.</Step>
   </Steps>
   <Result>
-    Tensor ma postać [[100, 30, 0], [30, −40, 0], [0, 0, 0]] MPa. To stan płaski, ale nie jednoosiowy: bez σy i τxy
-    ocena samego σx byłaby niepełna.
+    Trakcja wynosi około $(118{,}9;\ 46{,}0;\ 0)\ \mathrm{MPa}$, naprężenie normalne około $126{,}0\ \mathrm{MPa}$, a styczne około $19{,}6\ \mathrm{MPa}$. Jednostka MPa oznacza $1\ \mathrm{N/mm^2}$, więc wynik jest spójny z danymi. Kontrola $\sigma_n^2+\tau^2\approx|T|^2$ potwierdza rachunek.
   </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy stan hydrostatyczny: $\sigma_x=\sigma_y=\sigma_z=-50\ \mathrm{MPa}$, a wszystkie naprężenia styczne są zerowe. Macierz jest więc mnożeniem macierzy jednostkowej przez $-50\ \mathrm{MPa}$. Dla dowolnej normalnej $\mathbf{n}$ trakcja wynosi $\mathbf{T}=-50\mathbf{n}$. Oznacza to, że wektor trakcji jest zawsze prostopadły do płaszczyzny i skierowany do wnętrza materiału, niezależnie od tego, jak tę płaszczyznę poprowadzimy.
+
+Naprężenie normalne na każdej płaszczyźnie wynosi $-50\ \mathrm{MPa}$, a styczne jest zerowe. W tym stanie nie ma wyróżnionego kierunku: każda płaszczyzna jest płaszczyzną główną, a każde trzy wzajemnie prostopadłe kierunki można nazwać głównymi. To ważny przypadek graniczny, który później wyjaśnia, dlaczego w zadaniach o kierunkach głównych pojawia się niejednoznaczność, gdy $\sigma_x=\sigma_y$ i $\tau_{xy}=0$.
+
+Hydrostatyczne ściskanie zmienia objętość, ale nie powoduje ścinania. Dlatego materiały ciągliwe znoszą je zwykle znacznie lepiej niż rozciąganie. Wzrost ciśnienia hydrostatycznego może jednak zmieniać mechanizm zniszczenia i wpływać na granicę plastyczności w bardziej złożonych modelach. W tym module wystarczy zapamiętać, że tensor będący wielokrotnością macierzy jednostkowej nie ma kierunków wyróżnionych przez ścinanie.
+
+Sprawdźmy rachunkowo. Dla $\mathbf{n}=(0{,}6;0{,}8;0)$ trakcja to $(-30;-40;0)\ \mathrm{MPa}$. Rzut na normalną daje $-30\cdot0{,}6-40\cdot0{,}8=-18-32=-50\ \mathrm{MPa}$. Długość trakcji wynosi $50\ \mathrm{MPa}$, więc część styczna jest zerowa. Ten sam wynik otrzymamy dla każdej innej normalnej, co potwierdza, że stan jest izotropowy w sensie kierunku.
+
+Warto zauważyć, że w tym stanie naprężenia normalne są ujemne na każdej płaszczyźnie. Nie oznacza to, że materiał jest „ściskany tylko w jednym kierunku”. Ściskanie jest jednakowe we wszystkich kierunkach, więc każda ścianka jest ściskana tak samo. Taki stan odpowiada ciśnieniu hydrostatycznemu i jest dobrym testem konwencji znaków: jeśli w którymś rachunku pojawi się dodatnie naprężenie normalne, gdzieś zgubiono minus.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że z pomiarów znamy trakcje na dwóch prostopadłych ściankach. Na ścianie prostopadłej do $x$ trakcja wynosi $(80,25,0)\ \mathrm{MPa}$, a na ścianie prostopadłej do $y$ — $(25,-20,0)\ \mathrm{MPa}$. Chcemy odtworzyć tensor i sprawdzić, jakie naprężenie wystąpi na płaszczyźnie o normalnej $\mathbf{n}=(0{,}6;0{,}8;0)$.
+
+Pierwsza kolumna tensora to trakcja na ścianie $x$, czyli $(80,25,0)$. Druga kolumna to trakcja na ścianie $y$, czyli $(25,-20,0)$. Trzecia kolumna jest zerowa. Symetria jest spełniona, bo w obu trakcjach składowa mieszana wynosi $25\ \mathrm{MPa}$. Tensor ma więc postać z $\sigma_x=80$, $\sigma_y=-20$ i $\tau_{xy}=25\ \mathrm{MPa}$.
+
+Obliczamy trakcję na wybranej płaszczyźnie: $T_x=80\cdot0{,}6+25\cdot0{,}8=48+20=68\ \mathrm{MPa}$ oraz $T_y=25\cdot0{,}6-20\cdot0{,}8=15-16=-1\ \mathrm{MPa}$. Naprężenie normalne wynosi $68\cdot0{,}6-1\cdot0{,}8=40{,}8-0{,}8=40\ \mathrm{MPa}$. Długość trakcji podniesiona do kwadratu to $68^2+1^2=4625$, więc $\tau=\sqrt{4625-1600}=\sqrt{3025}=55\ \mathrm{MPa}$.
+
+Wynik jest sensowny: na płaszczyźnie działa głównie rozciąganie $40\ \mathrm{MPa}$ i dość duże ścinanie $55\ \mathrm{MPa}$. Gdybyśmy znali tylko $\sigma_x=80\ \mathrm{MPa}$ z pierwszej trakcji, przeszacowalibyśmy naprężenie normalne na tej płaszczyźnie i pominęlibyśmy ścinanie. To dobrze pokazuje, dlaczego tensor, a nie jedna składowa, jest pełnym opisem stanu.
+
+Zauważ, że do odtworzenia tensora wystarczyły dwie trakcje, bo stan był płaski i trzecia kolumna była zerowa. W ogólnym przypadku potrzeba trzech trakcji na trzech niewspółpłaszczyznowych płaszczyznach. To odwrotność wzoru Cauchy'ego: zamiast mnożyć tensor przez normalną, składamy tensor z odpowiedzi materiału na trzy niezależne kierunki. W praktyce tak właśnie działają niektóre metody pomiarowe i identyfikacja modeli numerycznych.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Utożsamianie $\sigma_x$ z całym stanem.** Jedna składowa opisuje tylko jedną ścianę. Na innej płaszczyźnie mogą działać inne naprężenia normalne i styczne.
+- **Traktowanie $\tau_{xy}$ i $\tau_{yx}$ jako niezależnych.** W klasycznej teorii są równe. Wpisanie różnych wartości łamie równowagę momentów.
+- **Zły znak na ścianie ujemnej.** Na ścianie o normalnej przeciwnej do osi dodatniej zwrot trakcji się odwraca. Łatwo o pomyłkę, jeśli nie narysujesz kostki.
+- **Mieszanie kN, N, cm² i mm².** Najpierw przelicz wszystkie dane na N i mm, potem podstawiaj. Wynik w MPa pojawi się sam.
+- **Brak kontroli rzędu wielkości.** Naprężenie rzędu tysięcy MPa w zwykłej stali powinno zatrzymać rachunek i skłonić do sprawdzenia jednostek.
+- **Stosowanie wzoru $\sigma=N/A$ do każdego punktu.** To naprężenie średnie przy prostym rozciąganiu, a nie pełny tensor w miejscu z karbem lub przy złożonym obciążeniu.
+- **Pomijanie trzeciego wymiaru bez uzasadnienia.** Płaski stan naprężenia to konkretne założenie, a nie automatyczna konsekwencja tego, że rysunek jest dwuwymiarowy.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal układ i znaki.** Narysuj osie $x$, $y$, $z$ i zaznacz, które ściany uznajesz za dodatnie. Zapisz umowę: rozciąganie dodatnie, ścinanie na ścianie dodatniej w kierunku dodatniej osi dodatnie.
+2. **Wypisz dane w macierzy.** Wpisz naprężenia normalne na przekątnej, a styczne w odpowiednie pola. Uzupełnij brakujące pola z symetrii, zanim zaczniesz liczyć.
+3. **Sprawdź, czy stan jest płaski.** Jeżeli wszystkie składowe z indeksem $z$ są zerowe, możesz pracować w płaszczyźnie $xy$. Jeżeli nie, potrzebny jest pełny tensor albo przynajmniej analiza trójwymiarowa.
+4. **Określ pytanie.** Czy chodzi o trakcję na konkretnej płaszczyźnie, o naprężenie normalne, o ścinanie, czy o skrajne wartości? Dla trakcji użyj $\mathbf{T}=\boldsymbol{\sigma}\mathbf{n}$, a dla skrajnych wartości przejdź do lekcji o naprężeniach głównych.
+5. **Zbuduj normalną.** Dla płaszczyzny pod kątem $\theta$ w płaszczyźnie $xy$ przyjmij $\mathbf{n}=(\cos\theta,\sin\theta,0)$. Upewnij się, że wektor jest jednostkowy.
+6. **Policz trakcję, potem rozkład.** Najpierw mnożenie macierzy przez wektor, potem rzut na normalną i część styczna. Nie mieszaj tych dwóch etapów.
+7. **Skontroluj wynik.** Sprawdź, czy $\sigma_n^2+\tau^2$ daje kwadrat długości trakcji. Sprawdź, czy dla $\theta=0$ wynik zgadza się z pierwszą kolumną tensora.
+8. **Zinterpretuj.** Powiedz, czy dominuje rozciąganie, ściskanie czy ścinanie. Sama macierz bez interpretacji nie odpowiada na pytanie inżynierskie.
+9. **Zapisz wynik w formie macierzy.** Nawet jeśli pytanie dotyczy jednej płaszczyzny, pełny tensor porządkuje dane i ułatwia późniejsze obliczenia. Unikniesz wtedy sytuacji, w której kolejny krok wymaga składowej, której nigdzie nie zapisałeś.
+
+## Połącz z resztą kursu
+
+- **Naprężenie normalne i rozciąganie.** Wzór $\sigma=N/A$ jest szczególnym przypadkiem tensora z jedną niezerową składową. To dobry punkt wyjścia, ale nie uniwersalny opis.
+- **Ścinanie i skręcanie.** W wale skręcanym pojawia się czyste ścinanie, które w tensorze ma niezerowe $\tau_{xy}$ lub $\tau_{xz}$. Ten sam stan można opisać jako rozciąganie i ściskanie pod kątem $45^\circ$.
+- **Zginanie.** Naprężenie normalne zmienia się po wysokości przekroju, a siła tnąca dodaje naprężenia styczne. Tensor w punkcie łączy oba efekty.
+- **Stan odkształcenia.** Tensor odkształcenia ma podobną strukturę i również sześć niezależnych składowych. Uogólnione prawo Hooke'a łączy oba tensory.
+- **Kryteria wytężenia.** Hipotezy wytrzymałościowe korzystają z naprężeń głównych, czyli z informacji zawartej w tensorze, a nie z pojedynczej składowej.
+- **Projektowanie i MES.** Programy numeryczne zwracają pełny tensor. Umiejętność jego odczytania jest warunkiem sensownego wykorzystania wyników.
+
+## Sprawdź się
+
+Odpowiedz bez zaglądania do rozwiązań. Jeśli któreś pytanie sprawia trudność, wróć do odpowiedniego fragmentu i wykonaj podobny rachunek na innych liczbach.
 
 <Quiz>
   <Question outcome="W1">
@@ -62,31 +221,116 @@ $$
     <Answer>9</Answer>
     <Hint>Policz trzy składowe na przekątnej i trzy różne pary składowych stycznych.</Hint>
     <Explanation>
-      Macierz ma dziewięć pól, ale symetria daje τxy = τyx, τxz = τzx i τyz = τzy. Pozostaje 3 naprężenia normalne + 3
-      niezależne styczne = 6.
+      Macierz ma dziewięć pól, ale symetria daje $\tau_{xy}=\tau_{yx}$, $\tau_{xz}=\tau_{zx}$ i $\tau_{yz}=\tau_{zy}$.
+      Pozostaje 3 naprężenia normalne i 3 niezależne styczne, razem 6.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Które pole macierzy opisuje naprężenie styczne na ścianie prostopadłej do $x$, działające w kierunku $y$?
+    </Prompt>
+    <Answer>$\sigma_x$</Answer>
+    <Answer>$\tau_{yx}$</Answer>
+    <Answer correct>$\tau_{xy}$</Answer>
+    <Hint>Pierwszy indeks oznacza ścianę, drugi kierunek działania.</Hint>
+    <Explanation>
+      Pierwszy indeks to normalna ściany, drugi kierunek. Dlatego $\tau_{xy}$ oznacza styczne na ścianie $x$ w kierunku
+      $y$. Z symetrii jest równe $\tau_{yx}$.
     </Explanation>
   </Question>
   <Question outcome="W2">
-    <Prompt>W pewnym punkcie σx = 80 MPa, a wszystkie pozostałe składowe wynoszą zero. Co opisuje taki stan?</Prompt>
-    <Answer correct>Jednoosiowe rozciąganie w kierunku x</Answer>
+    <Prompt>
+      W pewnym punkcie $\sigma_x=80\ \mathrm{MPa}$, a wszystkie pozostałe składowe wynoszą zero. Co opisuje taki stan?
+    </Prompt>
+    <Answer correct>Jednoosiowe rozciąganie w kierunku $x$</Answer>
     <Answer>Czyste ścinanie</Answer>
     <Answer>Jednakowe ściskanie we wszystkich kierunkach</Answer>
     <Hint>Jest tylko jedno dodatnie naprężenie normalne.</Hint>
     <Explanation>
-      Dodatnie σx oznacza rozciąganie w kierunku osi x, czyli prostopadłe do ściany o normalnej x. Zerowe pozostałe
-      składowe dają klasyczny stan jednoosiowy, mimo że w innych przekrojach można wykazać naprężenia styczne.
+      Dodatnie $\sigma_x$ oznacza rozciąganie w kierunku osi $x$, czyli prostopadłe do ściany o normalnej $x$. Zerowe
+      pozostałe składowe dają klasyczny stan jednoosiowy, mimo że na innych przekrojach można wykazać naprężenia
+      styczne.
     </Explanation>
   </Question>
-  <Question outcome="W1">
-    <Prompt>Dlaczego sama zmiana oznaczeń osi x i y nie zmienia nośności elementu?</Prompt>
-    <Answer>Bo tensor zawsze jest zerowy</Answer>
-    <Answer correct>Bo opisuje ten sam fizyczny stan, tylko w innych współrzędnych</Answer>
-    <Answer>Bo znikają wszystkie naprężenia styczne</Answer>
-    <Hint>Odróżnij fizyczne obciążenie od sposobu jego zapisu.</Hint>
+  <Question outcome="W3">
+    <Prompt>
+      Ten sam punkt materiału przecięto dwiema płaszczyznami o różnych normalnych. Co się zmieni, a co pozostanie takie
+      samo?
+    </Prompt>
+    <Answer correct>Zmieni się trakcja, a tensor pozostanie ten sam</Answer>
+    <Answer>Zmieni się tensor, a trakcja pozostanie taka sama</Answer>
+    <Answer>Zarówno tensor, jak i trakcja pozostaną takie same</Answer>
+    <Hint>Tensor opisuje stan, a trakcja zależy od wybranej płaszczyzny.</Hint>
     <Explanation>
-      Przemianowanie osi odpowiada obrotowi układu współrzędnych, który przekształca składowe tensora według ścisłych
-      zależności. Niezmienniki, naprężenia główne i fizyczne skutki pozostają takie same, więc sam opis nie zmienia
-      nośności ani bezpieczeństwa.
+      Tensor jest własnością stanu w punkcie i nie zależy od przekroju. Trakcja jest rzutem tensora na konkretną
+      normalną, więc zmienia się przy zmianie płaszczyzny. To rozróżnienie jest kluczowe dla całego modułu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla $\sigma_x=60\ \mathrm{MPa}$, $\sigma_y=20\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$ oblicz trakcję na
+      płaszczyźnie o normalnej $(1,0,0)$.
+    </Prompt>
+    <Answer>$(60,20,0)\ \mathrm{MPa}$</Answer>
+    <Answer correct>$(60,30,0)\ \mathrm{MPa}$</Answer>
+    <Answer>$(30,20,0)\ \mathrm{MPa}$</Answer>
+    <Hint>Pierwsza kolumna tensora to trakcja na ścianie $x$.</Hint>
+    <Explanation>
+      Dla $\mathbf{n}=(1,0,0)$ wzór Cauchy'ego zwraca pierwszą kolumnę: $(\sigma_x,\tau_{xy},\tau_{xz})=(60,30,0)\
+      \mathrm{MPa}$. Składowa $y$ trakcji to ścinanie, a nie $\sigma_y$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla tego samego stanu $\sigma_x=60$, $\sigma_y=20$, $\tau_{xy}=30\ \mathrm{MPa}$ oblicz naprężenie normalne na
+      płaszczyźnie o normalnej $(1/\sqrt{2},1/\sqrt{2},0)$.
+    </Prompt>
+    <Answer>40 MPa</Answer>
+    <Answer correct>70 MPa</Answer>
+    <Answer>100 MPa</Answer>
+    <Hint>Użyj $\sigma_n=\sigma_x n_x^2+\sigma_y n_y^2+2\tau_{xy}n_xn_y$.</Hint>
+    <Explanation>
+      $n_x=n_y=1/\sqrt{2}$, więc $n_x^2=n_y^2=1/2$, a $2n_xn_y=1$. Stąd $\sigma_n=60/2+20/2+30=30+10+30=70\ \mathrm{MPa}
+      $.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Dlaczego w ocenie bezpieczeństwa nie wystarcza sprawdzenie tylko $\sigma_x$, nawet jeśli jest to największa
+      pojedyncza składowa?
+    </Prompt>
+    <Answer correct>Bo inne składowe mogą dawać większe naprężenie główne lub ścinanie na pochyłej płaszczyźnie</Answer>
+    <Answer>Bo $\sigma_x$ zawsze zależy od temperatury</Answer>
+    <Answer>Bo tensor nie ma związku z wytrzymałością materiału</Answer>
+    <Hint>Pomyśl o obrocie układu i o naprężeniach głównych.</Hint>
+    <Explanation>
+      Największa pojedyncza składowa nie musi odpowiadać największemu naprężeniu normalnemu w dowolnym kierunku.
+      Ścinanie i pozostałe naprężenia normalne mogą po obrocie dać większą wartość główną, a to ona decyduje o
+      wytężeniu. Dlatego potrzebna jest analiza pełnego tensora.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dla stanu $\sigma_x=60$, $\sigma_y=20$ i $\tau_{xy}=30\ \mathrm{MPa}$ oblicz naprężenie styczne na płaszczyźnie o
+      normalnej $(0,1,0)$.
+    </Prompt>
+    <Answer>20 MPa</Answer>
+    <Answer correct>30 MPa</Answer>
+    <Answer>60 MPa</Answer>
+    <Hint>Druga kolumna tensora to trakcja na ścianie $y$. Rozłóż ją na normalną i styczną.</Hint>
+    <Explanation>
+      Trakcja na ścianie $y$ wynosi $(\tau_{xy},\sigma_y,\tau_{yz})=(30,20,0)\ \mathrm{MPa}$. Normalna to $(0,1,0)$,
+      więc naprężenie normalne wynosi $20\ \mathrm{MPa}$, a styczne $30\ \mathrm{MPa}$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT, Warszawa 1970 — rozdział o stanie naprężenia i tensorze; szukaj definicji składowych, konwencji znaków i uzasadnienia symetrii.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — zadania na zapis tensora i trakcje na pochyłych przekrojach; dobre do sprawdzenia rachunków.
+- D. Roylance, _Mechanics of Materials_ — otwarty podręcznik, rozdział o transformacjach tensora i wzorze Cauchy'ego; pokazuje przejście od równowagi do zapisu macierzowego.
+- T. Wierzbicki, _Structural Mechanics_ — otwarte notatki, rozdział o tensorze naprężenia; zawiera wyprowadzenie wzoru Cauchy'ego, symetrii i równań równowagi w zapisie wskaźnikowym.
+- MIT 3.11 _Mechanics of Materials_ — otwarte notatki MIT, wykład o naprężeniach Cauchy'ego i równowadze; pokazuje wyprowadzenie trakcji oraz symetrii tensora w zapisie wskaźnikowym.
+
+Czytając te pozycje, zwróć uwagę na różnice w zapisie: jedne książki używają indeksów $x,y,z$, inne $1,2,3$, a jeszcze inne zapisu wskaźnikowego. To ten sam tensor, tylko inna notacja. Wybierz jedną konwencję i trzymaj się jej w całym zadaniu, żeby nie mnożyć nieporozumień.

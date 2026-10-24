@@ -7,7 +7,6 @@ shortTitle: Czyste zginanie
 description: >-
   Wydziel przypadek, w którym przekrój przenosi moment, ale nie przenosi siły
   tnącej.
-duration: 9
 eyebrow: Moment bez ścinania
 outcomes:
   - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
@@ -24,67 +23,396 @@ outcomes:
     sztywności
 ---
 
-W czystym zginaniu moment zginający na rozpatrywanym odcinku jest stały. Skoro M się nie zmienia, siła tnąca T = dM/dx jest równa zeru. Przekrój przenosi moment, ale nie siłę poprzeczną.
+Czyste zginanie to szczególny przypadek pracy belki, w którym na pewnym odcinku działa tylko
+moment zginający, a siła tnąca jest równa zeru. Pozwala ono oddzielić efekt zginania od efektu
+ścinania i zobaczyć, skąd bierze się liniowy rozkład naprężeń normalnych. Bez tego kroku wzór
+na naprężenia zginające wisiałby w powietrzu.
+
+Wyobraź sobie linijkę trzymaną w dwóch dłoniach i zginaną symetrycznie. Między dłońmi linijka
+jest zakrzywiona, ale nie jest nigdzie „przesuwana” w poprzek. Jeżeli przyłożysz obciążenie
+w dwóch punktach, a podeprzesz belkę w dwóch innych, środkowy odcinek znajdzie się właśnie
+w takim stanie: moment jest tam stały, a siła tnąca znika. To dlatego czteropunktowy test
+zginania jest klasycznym źródłem czystego zginania w laboratorium.
+
+Po tej lekcji będziesz umiał rozpoznać odcinek czystego zginania na wykresie $T$ i $M$,
+obliczyć moment, krzywiznę i naprężenia oraz wyjaśnić, dlaczego brak siły tnącej nie oznacza
+braku naprężeń. Zobaczysz też, kiedy model przestaje być dobrym opisem rzeczywistej belki.
+Czyste zginanie spotyka się między skupionymi siłami, w elementach obciążonych parami momentów
+i w próbkach do badań; jest też punktem wyjścia do opisu zginania ogólnego.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje belki i naszkicować wykresy $T(x)$ oraz $M(x)$. Czyste zginanie
+  rozpoznajesz po kształcie tych wykresów, a nie po samym rysunku obciążenia.
+- Przypomnij sobie zależność $T = dM/dx$. Stały moment ma zerową pochodną, więc od razu daje
+  $T = 0$.
+- Rozróżniaj moment zginający $M$ od momentu skupionego przyłożonego do belki. Pierwszy jest
+  siłą wewnętrzną przekroju, drugi jest obciążeniem zewnętrznym.
+- Umiej policzyć moment bezwładności prostokąta i koła oraz wskaźnik wytrzymałości
+  $W = I/c$. Te wielkości są potrzebne do przejścia od momentu do naprężeń.
+- Przyjmij konwencję: dodatni moment wygina belkę wypukłością w dół, a dodatnie naprężenie
+  oznacza rozciąganie. Oś $y$ odmierzaj od osi obojętnej, dodatnio w dół.
+- Pamiętaj o jednostkach: moment w kN·m zamieniaj na N·mm, a naprężenie w MPa to N/mm².
+  Mieszanie metrów z milimetrami jest najczęstszą przyczyną błędów o trzy rzędy wielkości.
+
+## Model i intuicja
+
+Rozpatrujemy prosty odcinek belki o stałym przekroju, obciążony wyłącznie momentami na końcach
+albo znajdujący się między dwiema równymi siłami w układzie czteropunktowym. Na tym odcinku
+moment $M$ jest stały i niezerowy. Z równowagi fragmentu belki wynika wtedy, że siła tnąca
+$T$ jest równa zeru, a obciążenie ciągłe $q$ także znika.
+
+Model opiera się na hipotezie Eulera–Bernoulliego. Zakładamy, że przekroje płaskie pozostają
+płaskie i prostopadłe do osi belki po odkształceniu, ugięcia są małe, materiał jest liniowo
+sprężysty i jednorodny, nie ma siły osiowej ani poślizgu między warstwami. Wtedy odkształcenie
+wzdłużne zmienia się liniowo wraz z odległością od osi obojętnej, a naprężenie jest do niego
+proporcjonalne przez moduł Younga.
+
+Co upraszczamy? Pomijamy odkształcenia postaciowe wywołane siłą tnącą; przy $T = 0$ jest to
+uzasadnione. Pomijamy też ciężar własny, który w rzeczywistej belce tworzy obciążenie ciągłe,
+więc moment nie jest idealnie stały, a $T$ nie znika. Model przestaje wystarczać, gdy belka
+jest krótka i gruba, gdy naprężenia przekraczają granicę sprężystości, gdy materiał jest
+niejednorodny lub warstwowy, gdy ugięcia są duże albo działa duża siła osiowa. Wtedy potrzebna
+jest teoria Timoshenki, analiza sprężysto-plastyczna albo model trójwymiarowy.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniaj siłę $P$, rozpiętość $L$ i średnicę przekroju; obserwuj wykres $T$,
+na którym przy obciążeniu w środku siła tnąca jest stała na każdym z dwóch odcinków i zmienia
+znak pod siłą. To nie jest jeszcze czyste zginanie, ale dobrze pokazuje różnicę: w czteropunktowym
+układzie między siłami byłoby $T = 0$ na całym środkowym odcinku. Zwróć uwagę, że największe
+naprężenie pojawia się tam, gdzie moment jest największy, a nie tam, gdzie $T$ ma największą
+wartość.
 
 <Lab id="bending" />
 
+## Definicje i jednostki
+
+**Czyste zginanie** to stan, w którym na rozpatrywanym odcinku belki moment zginający jest
+stały i niezerowy, a siła tnąca oraz obciążenie ciągłe są równe zeru.
+
+**Moment zginający** $M(x)$ jest wypadkowym momentem naprężeń normalnych w przekroju. Jednostka
+to kN·m albo N·mm.
+
+**Siła tnąca** $T(x)$ jest wypadkową naprężeń stycznych w przekroju. W czystym zginaniu $T = 0$.
+
+**Krzywizna** $\kappa$ opisuje zakrzywienie osi belki. Jest odwrotnością promienia krzywizny
+$\rho$, czyli $\kappa = 1/\rho$. Jednostka to 1/m albo 1/mm.
+
+| Symbol        | Wielkość               | Jednostka     | Uwaga                         |
+| ------------- | ---------------------- | ------------- | ----------------------------- |
+| $M$           | moment zginający       | kN·m lub N·mm | w czystym zginaniu stały      |
+| $T$           | siła tnąca             | kN lub N      | w czystym zginaniu równa zero |
+| $\kappa$      | krzywizna              | 1/m lub 1/mm  | $\kappa = M/(EI)$             |
+| $E$           | moduł Younga           | MPa lub GPa   | dla stali typowo 200–210 GPa  |
+| $I$           | moment bezwładności    | mm⁴ lub m⁴    | względem osi obojętnej        |
+| $W$           | wskaźnik wytrzymałości | mm³ lub m³    | $W = I/c$                     |
+| $\sigma$      | naprężenie normalne    | MPa           | dodatnie oznacza rozciąganie  |
+| $\varepsilon$ | odkształcenie wzdłużne | —             | bezwymiarowe                  |
+
+W tym kursie przyjmujemy, że dodatni moment wygina belkę wypukłością w dół. Oś $y$ mierzymy
+od osi obojętnej dodatnio w dół, więc dolne włókna mają $y$ dodatnie i są rozciągane, a górne
+mają $y$ ujemne i są ściskane. Naprężenie dodatnie oznacza rozciąganie. Taka konwencja jest
+spójna z lekcjami o wykresach $T$ i $M$.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-M(x) = M_0 \neq 0 \qquad T(x) = \frac{dM}{dx} = 0
+M(x) = M_0 \ne 0, \qquad T(x) = \frac{dM}{dx} = 0, \qquad q(x) = -\frac{dT}{dx} = 0
 $$
 
-<Caption>Czyste zginanie oznacza T = 0 na całym odcinku. Występuje np. między dwiema równymi siłami w czteropunktowym układzie obciążenia; belka ma tam stałą krzywiznę.</Caption>
+<Caption>
+Warunek czystego zginania na odcinku. Stały, niezerowy moment ma zerową pochodną, więc siła
+tnąca znika, a wraz z nią znika obciążenie ciągłe.
+</Caption>
+</Formula>
+
+Z tego warunku wynika cała mechanika odkształcenia. Wyprowadzenie wzoru na naprężenia przebiega
+następująco.
+
+1. Wytnij z belki odcinek o długości $dx$ i przyjmij układ współrzędnych: $x$ wzdłuż osi belki,
+   $y$ od osi obojętnej w dół. Na końcach odcinka działają momenty $M$ w przeciwne strony.
+2. Załóż, że przekroje pozostają płaskie. Obrót przekroju względem sąsiedniego jest proporcjonalny
+   do krzywizny $\kappa$, więc odkształcenie wzdłużne rośnie liniowo z $y$:
+   $\varepsilon_x = \kappa y$. Na osi obojętnej $y = 0$ odkształcenie znika.
+3. Zastosuj prawo Hooke'a dla stanu jednosiowego: $\sigma_x = E\varepsilon_x = E\kappa y$.
+   Naprężenie zmienia się liniowo z odległością od osi obojętnej.
+4. Wykorzystaj warunek braku siły osiowej: $\int_A \sigma_x\,dA = 0$. Po podstawieniu
+   $\sigma_x$ otrzymujesz $E\kappa \int_A y\,dA = 0$, czyli moment statyczny względem osi
+   obojętnej jest zerowy. Oś obojętna przechodzi więc przez środek ciężkości przekroju.
+5. Zapisz moment zginający jako wypadkowy moment naprężeń: $M = \int_A \sigma_x y\,dA$.
+   Po podstawieniu $\sigma_x$ dostajesz $M = E\kappa \int_A y^2\,dA = E\kappa I$.
+6. Stąd krzywizna wynosi $\kappa = M/(EI)$, a promień krzywizny $\rho = EI/M$. Iloczyn $EI$
+   nazywamy sztywnością zginania.
+7. Podstaw krzywiznę do prawa Hooke'a: $\sigma_x = E\kappa y = My/I$. Na skrajnym włóknie
+   $\sigma_{\max} = Mc/I = M/W$, gdzie $W = I/c$. To końcowy wzór na rozkład naprężeń.
+
+<Formula>
+$$
+\kappa = \frac{M}{EI}, \qquad \varepsilon_x(y) = \kappa y, \qquad \sigma_x(y) = \frac{M y}{I},
+\qquad \sigma_{\max} = \frac{M}{W}, \quad W = \frac{I}{c}
+$$
+
+<Caption>
+Skutki czystego zginania. Krzywizna jest stała na całym odcinku, odkształcenie i naprężenie
+zmieniają się liniowo od osi obojętnej, a największa wartość bezwzględna naprężenia występuje
+w najbardziej oddalonym włóknie.
+</Caption>
 </Formula>
 
 <Insight>
-  Brak siły tnącej nie oznacza braku naprężeń. Moment nadal wywołuje naprężenia normalne: rozciąganie po jednej stronie
-  osi obojętnej i ściskanie po drugiej.
+  Brak siły tnącej nie oznacza braku naprężeń. W czystym zginaniu naprężenia styczne rzeczywiście znikają, ale
+  naprężenia normalne nadal rosną liniowo od zera na osi obojętnej do maksimum na skrajnych włóknach. Mylenie $T = 0$ z
+  $M = 0$ jest najczęstszym błędem w tym temacie.
 </Insight>
 
 <WorkedExample>
-  <Given>Na odcinku czystego zginania M = 12 kN·m. Przekrój ma wskaźnik wytrzymałości W = 300 cm³.</Given>
+  <Given>
+    Belka swobodnie podparta o rozpiętości $L = 4$ m jest obciążona w układzie czteropunktowym:
+    dwie siły $P = 12$ kN działają w odległości $a = 1$ m od każdej podpory. Przekrój jest
+    prostokątny, $b = 60$ mm i $h = 120$ mm, a materiał ma $E = 200$ GPa.
+  </Given>
   <Steps>
-    <Step>Warunek czystego zginania oznacza T = dM/dx = 0 na całym odcinku.</Step>
-    <Step>Zamień M = 12 kN·m = 12 000 000 N·mm oraz W = 300 cm³ = 300 000 mm³.</Step>
-    <Step>Naprężenia skrajne: σmax = M/W = 12 000 000/300 000 = 40 MPa.</Step>
+    <Step>Z symetrii reakcje wynoszą $R_A = R_B = P = 12$ kN.</Step>
+    <Step>Na odcinku między siłami, od $x = 1$ m do $x = 3$ m, moment jest stały:
+      $M = P a = 12 \cdot 1 = 12$ kN·m. Siła tnąca na tym odcinku jest równa zeru.</Step>
+    <Step>Moment bezwładności przekroju: $I = b h^3/12 = 60 \cdot 120^3/12 = 8{,}64 \cdot 10^6$ mm⁴.</Step>
+    <Step>Odległość skrajnego włókna: $c = h/2 = 60$ mm, więc $W = I/c = 144{,}000$ mm³.</Step>
+    <Step>Zamień moment na N·mm: $M = 12 \cdot 10^6$ N·mm. Wtedy
+      $\sigma_{\max} = M/W = 12 \cdot 10^6/144{,}000 = 83{,}3$ MPa.</Step>
+    <Step>Krzywizna: $\kappa = M/(EI) = 12 \cdot 10^6/(200{,}000 \cdot 8{,}64 \cdot 10^6)
+      = 6{,}94 \cdot 10^{-6}$ 1/mm, czyli $6{,}94 \cdot 10^{-3}$ 1/m.</Step>
+    <Step>Promień krzywizny: $\rho = 1/\kappa \approx 144$ m. Odkształcenie skrajnego włókna:
+      $\varepsilon = \sigma/E = 83{,}3/200{,}000 = 4{,}17 \cdot 10^{-4}$.</Step>
+    <Step>Kontrola: podwojenie siły $P$ podwoi moment i naprężenie, ale nie zmieni położenia
+      osi obojętnej ani znaku naprężeń.</Step>
   </Steps>
-  <Result>T = 0, a skrajne włókna mają naprężenia +40 MPa i −40 MPa po przeciwnych stronach osi obojętnej.</Result>
+  <Result>
+    Między siłami panuje czyste zginanie: $M = 12$ kN·m i $T = 0$. Naprężenia skrajne wynoszą
+    $\pm 83{,}3$ MPa, a oś belki zakrzywia się w łuk o promieniu około 144 m. Górne włókna są
+    ściskane, dolne rozciągane.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy belkę swobodnie podpartą, obciążoną na obu końcach parami momentów o wartości
+$M = 8$ kN·m. Taki układ daje czyste zginanie na całej długości, ponieważ na belkę nie działają
+siły poprzeczne. Reakcje pionowe są zerowe, a moment jest stały.
+
+Przekrój jest prostokątny, $b = 50$ mm i $h = 100$ mm, a materiał ma $E = 210$ GPa. Moment
+bezwładności względem osi poziomej wynosi
+
+$$
+I = \frac{50 \cdot 100^3}{12} = 4{,}167 \cdot 10^6\ \text{mm}^4.
+$$
+
+Wskaźnik wytrzymałości to $W = I/c = 4{,}167 \cdot 10^6/50 = 83{,}333$ mm³, więc naprężenie
+skrajne wynosi $\sigma_{\max} = 8 \cdot 10^6/83{,}333 = 96$ MPa. Krzywizna jest równa
+
+$$
+\kappa = \frac{8 \cdot 10^6}{210{,}000 \cdot 4{,}167 \cdot 10^6}
+= 9{,}14 \cdot 10^{-6}\ \text{1/mm},
+$$
+
+czyli promień krzywizny $\rho \approx 109$ m. Odkształcenie skrajne $\varepsilon = 96/210{,}000
+= 4{,}57 \cdot 10^{-4}$ jest znacznie mniejsze od typowego odkształcenia przy granicy
+sprężystości stali, więc model liniowy jest uzasadniony.
+
+Po obrocie przekroju o 90 stopni, czyli przy $b = 100$ mm i $h = 50$ mm, moment bezwładności
+maleje czterokrotnie, a wskaźnik $W$ dwukrotnie. Naprężenie rośnie wtedy do 192 MPa, a promień
+krzywizny maleje do około 27 m. Ten sam moment i materiał dają inną odpowiedź, bo decyduje
+ustawienie przekroju względem płaszczyzny zginania.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy dopuszczalne naprężenie i przekrój, a szukamy największego momentu, jaki można
+bezpiecznie przyłożyć. Prostokąt ma $b = 40$ mm i $h = 80$ mm, materiał ma $E = 200$ GPa,
+a naprężenie dopuszczalne wynosi $\sigma_{dop} = 160$ MPa. Wtedy
+
+$$
+W = \frac{b h^2}{6} = \frac{40 \cdot 80^2}{6} = 42{,}667\ \text{mm}^3, \qquad
+M_{\max} = \sigma_{dop} W = 160 \cdot 42{,}667 = 6{,}83 \cdot 10^6\ \text{N·mm}.
+$$
+
+Maksymalny moment wynosi więc około $6{,}83$ kN·m. Jeżeli chcemy zrealizować go w układzie
+czteropunktowym z siłą $P = 10$ kN, ramię musi wynosić $a = M/P = 0{,}683$ m. Przy rozpiętości
+$L = 3$ m odcinek czystego zginania ma długość $L - 2a = 1{,}63$ m, więc rozwiązanie jest
+geometrycznie możliwe.
+
+Kontrola stanu granicznego: $I = 40 \cdot 80^3/12 = 1{,}707 \cdot 10^6$ mm⁴, więc
+$\kappa = 6{,}83 \cdot 10^6/(200{,}000 \cdot 1{,}707 \cdot 10^6) = 2{,}0 \cdot 10^{-5}$
+1/mm. Promień krzywizny to około 50 m, a odkształcenie skrajne $\varepsilon = 160/200{,}000
+= 8 \cdot 10^{-4}$. Naprężenie, odkształcenie i krzywizna są spójne i mieszczą się w zakresie
+sprężystym stali.
+
+<Callout kind="warning" title="Typowe błędy">
+
+1. Uznanie, że $T = 0$ oznacza $M = 0$. W czystym zginaniu moment jest właśnie stały i niezerowy;
+   znika tylko siła tnąca.
+2. Mylenie czystego zginania z trójpunktowym testem. W teście trójpunktowym siła tnąca jest
+   stała na obu odcinkach i nie znika; czyste zginanie występuje dopiero w układzie
+   czteropunktowym, między siłami.
+3. Pomiar $y$ od dolnej krawędzi przekroju zamiast od osi obojętnej. Wzór $\sigma = My/I$
+   wymaga odległości od osi obojętnej, a nie od dowolnej krawędzi.
+4. Mieszanie jednostek: moment w kN·m, wymiary w mm, a moduł w GPa. Najbezpieczniej przeliczyć
+   wszystko na N i mm przed podstawieniem.
+5. Stosowanie wzoru na czyste zginanie do odcinka, na którym działa obciążenie ciągłe. Ciężar
+   własny tworzy $q$, więc moment nie jest stały, a siła tnąca nie znika.
+6. Zapominanie, że w przekroju niesymetrycznym trzeba sprawdzić oba skrajne włókna. Największe
+   naprężenie występuje po stronie większego $c$, ale znaki mogą się różnić.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj schemat swobodnego ciała i wyznacz reakcje. Bez reakcji nie zbudujesz poprawnych
+   wykresów $T$ i $M$.
+2. Znajdź funkcje $T(x)$ i $M(x)$ lub przynajmniej ich wartości na granicach odcinków.
+3. Szukaj odcinka, na którym $T = 0$ przez cały czas, a $M$ jest stałe i niezerowe. To jest
+   odcinek czystego zginania.
+4. Sprawdź, czy na tym odcinku nie działa obciążenie ciągłe. Jeżeli $q \ne 0$, to $T$ nie może
+   być stałe, więc czyste zginanie jest tylko przybliżeniem.
+5. Oblicz położenie osi obojętnej i moment bezwładności względem tej osi. Dla przekroju
+   symetrycznego osią jest oś symetrii przechodząca przez środek ciężkości.
+6. Zastosuj $\kappa = M/(EI)$, a następnie $\sigma = My/I$. Sprawdź znak naprężenia po obu
+   stronach osi obojętnej.
+7. Oblicz $\sigma_{\max} = M/W$ i porównaj z naprężeniem dopuszczalnym. Na końcu sprawdź
+   jednostki, rząd wielkości i sens fizyczny wyniku.
+
+## Połącz z resztą kursu
+
+- **Zależności q–T–M.** Czyste zginanie to szczególny przypadek łańcucha: $q = 0$ daje stałe
+  $T$, a $T = 0$ daje stałe $M$. Ta lekcja korzysta bezpośrednio z tamtych zależności.
+- **Siła tnąca T(x).** Porównanie czystego zginania z zginaniem ze ścinaniem pokazuje, że
+  $T$ i $M$ opisują różne efekty i nie można ich utożsamiać.
+- **Rozkład σ i oś obojętna.** Tam rozwijamy wzór $\sigma = My/I$ dla przekrojów symetrycznych
+  i niesymetrycznych oraz omawiamy położenie osi obojętnej.
+- **Dobór przekroju i kontrola sztywności.** Krzywizna i ugięcie zależą od $EI$, więc czyste
+  zginanie jest punktem wyjścia do projektowania na sztywność.
+- **Stan naprężenia i koło Mohra.** W czystym zginaniu w punkcie panuje stan jednosiowy, więc
+  koło Mohra jest szczególnie proste; to dobry test zrozumienia tensora naprężenia.
+- **Materiały i kryteria zniszczenia.** Naprężenie skrajne porównujesz z granicą plastyczności
+  lub wytrzymałością, co łączy mechanikę belki z modułami o materiałach i kryteriach.
+
+## Sprawdź się
+
+Pytania sprawdzają rozpoznawanie czystego zginania, obliczanie naprężeń i różnicę między momentem a siłą tnącą.
 
 <Quiz>
   <Question outcome="W2">
     <Prompt>Która para warunków opisuje czyste zginanie na odcinku belki?</Prompt>
-    <Answer correct>M jest stałe i niezerowe, T = 0</Answer>
-    <Answer>M = 0, T jest stałe i niezerowe</Answer>
-    <Answer>M rośnie liniowo, T jest stałe i niezerowe</Answer>
-    <Hint>Skorzystaj z zależności T = dM/dx.</Hint>
+    <Answer correct>$M$ jest stałe i niezerowe, $T = 0$</Answer>
+    <Answer>$M = 0$, a $T$ jest stałe i niezerowe</Answer>
+    <Answer>$M$ rośnie liniowo, a $T$ jest stałe i niezerowe</Answer>
+    <Answer>$M$ i $T$ są jednocześnie równe zeru</Answer>
+    <Hint>Skorzystaj z zależności $T = dM/dx$.</Hint>
     <Explanation>
-      Stały niezerowy moment ma zerową pochodną, więc T = 0. To właśnie czyste zginanie. Stałe niezerowe T powodowałoby
-      liniową zmianę M.
+      Stały niezerowy moment ma zerową pochodną, więc $T = 0$. To właśnie czyste zginanie.
+      Stałe niezerowe $T$ powodowałoby liniową zmianę $M$, a nie stały moment.
     </Explanation>
   </Question>
-  <Question outcome="W2">
-    <Prompt>Czy przy czystym zginaniu naprężenia normalne w przekroju znikają?</Prompt>
-    <Answer correct>Nie, nadal wynikają z M i zmieniają znak względem osi obojętnej</Answer>
-    <Answer>Tak, bo T = 0 oznacza brak wszystkich naprężeń</Answer>
-    <Answer>Tak, ale tylko w stali</Answer>
-    <Hint>Rozróżnij naprężenia normalne od momentu i styczne od siły tnącej.</Hint>
-    <Explanation>
-      Moment zginający wytwarza σ = My/I niezależnie od tego, że T = 0. Znikają naprężenia styczne związane z siłą
-      tnącą, a nie naprężenia normalne od zginania.
-    </Explanation>
-  </Question>
-  <Question outcome="W2">
+
+<Question outcome="W2">
+  <Prompt>
+    W czteropunktowym układzie zginania, między dwiema równymi siłami, która wielkość wewnętrzna jest równa zeru?
+  </Prompt>
+  <Answer correct>Siła tnąca $T$</Answer>
+  <Answer>Moment zginający $M$</Answer>
+  <Answer>Zarówno $T$, jak i $M$</Answer>
+  <Answer>Żadna z nich; obie są niezerowe</Answer>
+  <Hint>Między siłami nie ma obciążenia, a moment jest stały.</Hint>
+  <Explanation>
+    Na środkowym odcinku moment jest stały, więc jego pochodna $T$ znika. Moment pozostaje niezerowy i to on wywołuje
+    naprężenia normalne.
+  </Explanation>
+</Question>
+
+<Question outcome="W3">
+  <Prompt>Jak zmienia się naprężenie normalne w przekroju poddanym czystemu zginaniu?</Prompt>
+  <Answer correct>Liniowo od zera na osi obojętnej do maksimum na skrajnych włóknach</Answer>
+  <Answer>Jest stałe w całym przekroju</Answer>
+  <Answer>Rośnie proporcjonalnie do kwadratu odległości od osi obojętnej</Answer>
+  <Answer>Jest największe na osi obojętnej, a zerowe na krawędziach</Answer>
+  <Hint>Wzór $\sigma = My/I$ zawiera $y$ w pierwszej potędze.</Hint>
+  <Explanation>
+    Przy stałych $M$ i $I$ naprężenie jest proporcjonalne do $y$. Na osi obojętnej wynosi zero, a największą wartość
+    bezwzględną osiąga na włóknach najbardziej oddalonych.
+  </Explanation>
+</Question>
+
+  <Question outcome="U1">
     <Prompt>
-      W teście zginania czteropunktowego między dwiema równymi siłami moment jest stały. Jaki jest tam wykres T?
+      W układzie czteropunktowym siła $P = 15$ kN działa w odległości $a = 0{,}8$ m od każdej
+      podpory. Ile wynosi moment w środkowym odcinku?
     </Prompt>
-    <Answer correct>Zerowy</Answer>
-    <Answer>Liniowo rosnący</Answer>
-    <Answer>Paraboliczny</Answer>
-    <Hint>Między siłami nie ma q, a stały M ma zerową pochodną.</Hint>
+    <Answer>$6$ kN·m</Answer>
+    <Answer correct>$12$ kN·m</Answer>
+    <Answer>$18{,}75$ kN·m</Answer>
+    <Answer>$24$ kN·m</Answer>
+    <Hint>Między siłami moment jest równy $P a$.</Hint>
     <Explanation>
-      Ponieważ dM/dx = T, stały moment wymusza T = 0. Odcinek między siłami jest klasycznym przykładem czystego
-      zginania.
+      $M = P a = 15 \cdot 0{,}8 = 12$ kN·m. Siła tnąca na tym odcinku jest równa zeru, więc
+      moment się nie zmienia.
+    </Explanation>
+  </Question>
+
+  <Question outcome="U1">
+    <Prompt>Prostokąt ma $b = 50$ mm i $h = 100$ mm. Ile wynosi $W$ względem osi poziomej?</Prompt>
+    <Answer>$41{,}667$ mm³</Answer>
+    <Answer correct>$83{,}333$ mm³</Answer>
+    <Answer>$166{,}667$ mm³</Answer>
+    <Answer>$4{,}167 \cdot 10^6$ mm³</Answer>
+    <Hint>Dla prostokąta $W = b h^2/6$.</Hint>
+    <Explanation>
+      $W = 50 \cdot 100^2/6 = 83{,}333$ mm³. Wskaźnik ma jednostkę mm³, a nie mm⁴ jak moment
+      bezwładności.
+    </Explanation>
+  </Question>
+
+<Question outcome="U2">
+  <Prompt>
+    W czystym zginaniu w skrajnym włóknie działa tylko naprężenie normalne $\sigma_x$. Jak wygląda koło Mohra dla tego
+    punktu?
+  </Prompt>
+  <Answer correct>Przechodzi przez początek układu i ma średnicę $|\sigma_x|$</Answer>
+  <Answer>Jest punktem w środku układu, niezależnie od $\sigma_x$</Answer>
+  <Answer>Ma promień równy $2|\sigma_x|$</Answer>
+  <Answer>Nie można go narysować, bo brakuje naprężeń stycznych</Answer>
+  <Hint>Przy $\sigma_y = 0$ i $\tau_{xy} = 0$ koło ma środek w $\sigma_x/2$.</Hint>
+  <Explanation>
+    Stan jednosiowy ma $\sigma_y = 0$ i $\tau_{xy} = 0$. Koło Mohra ma środek w $\sigma_x/2$ i promień $|\sigma_x|/2$,
+    więc przechodzi przez zero. Naprężenia główne to $\sigma_x$ i 0.
+  </Explanation>
+</Question>
+
+  <Question outcome="W1">
+    <Prompt>
+      Przy dodatnim momencie zginającym belka ugina się w dół. Jakie naprężenia występują
+      w przekroju symetrycznym?
+    </Prompt>
+    <Answer correct>Ściskanie u góry i rozciąganie u dołu</Answer>
+    <Answer>Rozciąganie u góry i ściskanie u dołu</Answer>
+    <Answer>Wyłącznie rozciąganie w całym przekroju</Answer>
+    <Answer>Wyłącznie ściskanie w całym przekroju</Answer>
+    <Hint>Ugięcie w dół wydłuża dolne włókna, a skraca górne.</Hint>
+    <Explanation>
+      Dolne włókna wydłużają się, więc są rozciągane, a górne skracają się i są ściskane.
+      Oś obojętna rozdziela te dwa obszary i tam naprężenie wynosi zero.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o zginaniu; szukaj
+  definicji czystego zginania i założeń o płaskich przekrojach.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT — zadania
+  z czystym zginaniem i układem czteropunktowym; dobre do ćwiczenia zamiany jednostek.
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o zginaniu; pokazuje związek między
+  krzywizną, odkształceniem i naprężeniem w układzie współrzędnych.
+- D. Roylance, _Mechanics of Materials_ (MIT OpenCourseWare) — podrozdział o naprężeniach
+  w belkach; wyprowadzenie $\sigma = -My/I$ i omówienie czystego zginania.
+- T. Wierzbicki, _Structural Mechanics_ (MIT OpenCourseWare) — rozdziały o hipotezie
+  Eulera–Bernoulliego i prawie Hooke'a dla belek; wyjaśnia związek $M = EI\kappa$.

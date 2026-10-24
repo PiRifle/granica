@@ -7,7 +7,6 @@ shortTitle: Ścinanie techniczne
 description: >-
   Zobacz, kiedy warstwy materiału przesuwają się względem siebie i jak oszacować
   średnie naprężenie styczne.
-duration: 7
 eyebrow: Przekrój pracuje na ścinanie
 outcomes:
   - >-
@@ -22,47 +21,225 @@ outcomes:
     zachowaniem bezpieczeństwa
 ---
 
-Wyobraź sobie stos kartek popychany z boku: kartki przesuwają się jedna po drugiej. W ścinanym elemencie podobne przesuwanie warstw wywołuje naprężenia styczne do przekroju. W obliczeniach technicznych zastępujemy rzeczywisty rozkład naprężeń wartością średnią.
+Wyobraź sobie stos kartek leżący na stole. Naciskasz z boku górną kartkę i przesuwasz ją względem sąsiedniej. Kartki nie rozciągają się przy tym zauważalnie, nie wydłużają się też ich brzegi. Zmienia się natomiast wzajemne położenie warstw: jedna ślizga się po drugiej. To jest ścinanie w najprostszej postaci.
+
+W pręcie rozciąganym siła działa wzdłuż osi, a materiał odpowiada wydłużeniem. W elemencie ścinanym siła działa w poprzek przekroju, a materiał odpowiada przesunięciem. Kierunek naprężenia jest styczny do płaszczyzny, na której działa, dlatego nazywamy je naprężeniem stycznym i oznaczamy grecką literą tau. Naprężenie normalne, oznaczane sigma, działa prostopadle do przekroju.
+
+W typowym połączeniu blach sworzeń nie jest rozciągany wzdłuż osi. Blachy naciskają na niego z boku, a on przenosi siłę jak belka o bardzo krótkiej rozpiętości. W miejscu styku blach sworzeń jest przecinany na dwie części. Jeżeli siła jest zbyt duża, materiał w tym przekroju ulega poślizgowi i łącznik zostaje ścięty. Projektant musi więc sprawdzić, czy średnie naprężenie styczne nie przekracza wartości dopuszczalnej.
+
+W praktyce nie znamy dokładnego rozkładu naprężeń w sworzniu, spoinie czy wpuście. Znamy siłę i pole powierzchni, przez którą ta siła przechodzi. Dlatego wprowadzamy model ścinania technicznego: dzielimy siłę przez pole i otrzymujemy naprężenie średnie. To uczciwe oszacowanie inżynierskie, pod warunkiem że rozumiemy jego założenia i wiemy, kiedy nie wystarcza.
+
+Po tej lekcji będziesz umiał wskazać płaszczyznę ścinania w prostym połączeniu, policzyć średnie naprężenie styczne, sprawdzić jednostki i ocenić, czy wynik ma sens. Nauczysz się też odróżniać pole ścinane od pola docisku, bo to najczęstsze źródło pomyłek w zadaniach z połączeń.
+
+## Zanim zaczniesz
+
+- **Pole koła i prostokąta.** Przypomnij sobie, że pole koła wynosi $\pi d^2/4$, a pole prostokąta to iloczyn boków. W połączeniach pole ścinane często jest prostokątem o wymiarach długość razy szerokość.
+- **Równowaga sił.** Wiesz już, że siła zewnętrzna musi być zrównoważona przez siły wewnętrzne w przekroju. Ścinanie jest po prostu innym kierunkiem tej równowagi.
+- **Jednostki.** $1\ \text{kN} = 1000\ \text{N}$, a $1\ \text{N/mm}^2 = 1\ \text{MPa}$. Naprężenie w MPa jest więc liczbowo równe sile w niutonach podzielonej przez pole w milimetrach kwadratowych.
+- **Metoda przekrojów.** Umiesz przeciąć element myślową płaszczyzną i narysować siły działające na odciętą część. Bez tego kroku nie ustalisz, gdzie naprawdę występuje ścinanie.
+- **Rozróżnienie naprężeń.** Naprężenie normalne działa prostopadle do przekroju, a styczne w jego płaszczyźnie. Mieszanie tych dwóch pojęć prowadzi do użycia niewłaściwego pola.
+- **Typowe pułapki.** Najczęściej myli się pole przekroju łącznika z polem docisku blachy, zapomina o dwóch płaszczyznach lub podstawia średnicę w milimetrach razem z siłą w kiloniutonach bez przeliczenia.
+
+## Model i intuicja
+
+W ścinaniu technicznym wycinamy myślowo cienką warstwę materiału w miejscu, w którym element ma się przeciąć. Na tę warstwę działa siła styczna. Zakładamy, że naprężenie styczne jest rozłożone równomiernie po całym polu ścinanym. Dzięki temu możemy zastąpić całkę po powierzchni prostym iloczynem naprężenia i pola.
+
+To założenie nie jest dokładne. W rzeczywistym sworzniu naprężenie jest większe w pobliżu krawędzi blachy i mniejsze w środku. W spoinie klejowej rozkład zależy od sztywności kleju, grubości warstwy i sposobu obciążenia. W pobliżu otworu pojawiają się koncentracje naprężeń. Model techniczny celowo pomija te szczegóły, ponieważ dla typowych połączeń inżynierskich błąd jest akceptowalny, a obliczenia stają się proste i porównywalne.
+
+Model ma kilka wyraźnych założeń. Materiał jest jednorodny w obszarze ścinania. Siła przechodzi przez całe pole, a nie tylko przez jego część. Element nie jest zginany ani rozciągany w stopniu, który zmienia obraz zniszczenia. Odkształcenia są małe, więc pole przekroju nie zmienia się istotnie podczas obciążenia. Jeżeli którykolwiek z tych warunków jest daleki od rzeczywistości, wynik traktujemy tylko jako wstępne oszacowanie.
+
+Kiedy model przestaje wystarczać? Przy bardzo krótkich, grubych łącznikach dominuje zginanie i docisk, a nie czyste przecięcie. W połączeniach wieloszeregowych siła nie rozkłada się równo między łączniki, bo blachy się wydłużają i pierwszy rząd przenosi więcej. Przy materiałach kruchych pęknięcie może rozpocząć się od rozciągania na płaszczyźnie nachylonej pod kątem 45 stopni, a nie od czystego ścinania. W takich przypadkach potrzebna jest dokładniejsza analiza stanu naprężenia.
+
+Mimo tych ograniczeń ścinanie techniczne jest pierwszym narzędziem, po które sięga projektant. Pozwala szybko oszacować, czy łącznik ma sensowną średnicę, zanim wykona się kosztowną analizę numeryczną. Dobrze dobrany zapas bezpieczeństwa pochłania część niepewności modelu, ale nie zastępuje zrozumienia mechanizmu.
+
+Wybór pola ścinanego jest decyzją modelową, a nie tylko rachunkową. Ten sam łącznik można opisać na kilka sposobów, zależnie od tego, który mechanizm zniszczenia uznajemy za krytyczny. W zadaniu egzaminacyjnym wystarczy zwykle jedno pole, ale w rzeczywistym projekcie trzeba sprawdzić kilka mechanizmów i wybrać ten, który daje najmniejszą nośność.
+
+W spoinie pachwinowej pole ścinane liczy się inaczej niż w spoinie czołowej. Dla spoiny pachwinowej o długości $l$ i obliczeniowej grubości $a$ przyjmuje się pole $A_s = a l$, ewentualnie ze współczynnikiem zależnym od kształtu. Nie jest to pole trójkąta widoczne na przekroju. Zawsze sprawdź, którą definicję pola stosuje zadanie, bo od tego zależy wynik.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniasz siłę i średnicę nitu oraz przełączasz połączenie jednocięte i dwucięte. Przewiduj najpierw, jak zmieni się średnie naprężenie, a dopiero potem przesuń suwak. Zwróć uwagę na to, że narzędzie liczy wartość średnią i nie ocenia, czy materiał jest bezpieczny.
 
 <Lab id="shearJoint" />
+
+## Definicje i jednostki
+
+| Symbol      | Wielkość                   | Definicja                                                          | Jednostka    |
+| ----------- | -------------------------- | ------------------------------------------------------------------ | ------------ |
+| $F$         | siła ścinająca             | siła przenoszona przez płaszczyznę ścinania                        | N            |
+| $A_s$       | pole ścinane               | suma pól wszystkich płaszczyzn, na których materiał jest przecięty | mm²          |
+| $\tau_{sr}$ | średnie naprężenie styczne | siła podzielona przez pole ścinane                                 | MPa = N/mm²  |
+| $A$         | pole jednego przekroju     | pole przekroju łącznika, np. $\pi d^2/4$                           | mm²          |
+| $n$         | liczba płaszczyzn          | liczba miejsc, w których łącznik jest przecięty                    | bezwymiarowa |
+| $d$         | średnica łącznika          | wymiar poprzeczny sworznia lub nitu                                | mm           |
+
+Naprężenie styczne jest dodatnie, gdy na dodatniej ściance elementu działa w dodatnim kierunku osi stycznej. W prostych zadaniach z połączeniami znak zwykle nie ma znaczenia, ponieważ interesuje nas wartość bezwzględna naprężenia. Ważne jest natomiast, żeby konsekwentnie traktować siłę jako tę, która rzeczywiście przechodzi przez dany przekrój.
+
+Pole ścinane to nie to samo co pole przekroju łącznika. W połączeniu jednociętym są one równe tylko dlatego, że łącznik jest przecięty raz. W połączeniu dwuciętym pole ścinane jest dwa razy większe od pola jednego przekroju. W spoinie klejowej pole ścinane jest iloczynem długości i szerokości spoiny, a nie polem powierzchni blachy.
+
+Jednostka MPa jest wygodna, ponieważ $1\ \text{MPa} = 1\ \text{N/mm}^2$. Jeżeli siłę podasz w niutonach, a pole w milimetrach kwadratowych, nie musisz nic więcej przeliczać. Jeżeli siła jest w kiloniutonach, najpierw pomnóż ją przez 1000. Jeżeli pole jest w centymetrach kwadratowych, pamiętaj, że $1\ \text{cm}^2 = 100\ \text{mm}^2$.
+
+W przypadku wpustu pole ścinane jest iloczynem długości wpustu i jego szerokości, a nie wysokości. Wpust przenosi moment przez docisk boczny, a ścinanie następuje w płaszczyźnie równoległej do wału. To kolejny przykład, w którym trzeba najpierw narysować mechanizm, a potem wybrać wymiary do wzoru.
+
+Nie ma jednego uniwersalnego wzoru na pole ścinane. Jest natomiast uniwersalna zasada: pole musi odpowiadać powierzchni, po której materiał rzeczywiście się rozdzieli. Jeśli potrafisz wskazać tę powierzchnię palcem na rysunku, prawdopodobnie wybrałeś właściwe wymiary.
+
+W połączeniu gwintowanym pole ścinane śruby liczy się inaczej niż w sworzniu gładkim. Gwint zmniejsza pole rdzenia, a siła może być przenoszona przez zwoje. To pokazuje, że nawet pozornie prosty łącznik wymaga ustalenia, który przekrój jest krytyczny. Model techniczny daje pierwsze oszacowanie, ale dobór konkretnego wyrobu wymaga danych producenta.
+
+## Wzór i wyprowadzenie
 
 <Formula>
 $$
 \tau_{sr} = \frac{F}{A_s}
 $$
 
-<Caption>F to siła ścinająca, a A_s to łączne pole wszystkich przekrojów ścinanych. Wynik w N/mm² jest równy MPa.</Caption>
+<Caption>F to siła ścinająca w niutonach, a A_s to łączne pole wszystkich przekrojów ścinanych w milimetrach kwadratowych. Wynik w N/mm² jest równy MPa.</Caption>
 </Formula>
 
+Wyprowadzenie opiera się na równowadze odciętej części elementu i na założeniu równomiernego rozkładu naprężenia.
+
+1. **Wytnij element myślową płaszczyzną.** Przetnij połączenie w miejscu, w którym spodziewasz się zniszczenia. Na jednej części elementu działa siła zewnętrzna $F$.
+2. **Zastąp siłę naprężeniem.** Na przeciętej powierzchni działa naprężenie styczne $\tau$, które równoważy siłę zewnętrzną. W zapisie różniczkowym siła elementarna wynosi $\mathrm{d}F = \tau\,\mathrm{d}A$.
+3. **Zsumuj po całym polu.** Równowaga sił daje $F = \int_{A_s} \tau\,\mathrm{d}A$. To jest dokładny warunek równowagi, jeszcze bez żadnego uproszczenia.
+4. **Przyjmij równomierny rozkład.** W ścinaniu technicznym zakładamy, że $\tau$ jest stałe na całym polu $A_s$. Wtedy całka upraszcza się do iloczynu $\tau_{sr} A_s$.
+5. **Zapisz równowagę.** Otrzymujesz $\tau_{sr} A_s = F$, czyli $F$ jest równoważone przez naprężenie średnie działające na całe pole.
+6. **Podziel przez pole.** Dzielisz obie strony przez $A_s$ i otrzymujesz wzór $\tau_{sr} = F/A_s$.
+7. **Sprawdź jednostki.** Niuton podzielony przez milimetr kwadratowy daje N/mm², czyli MPa. To potwierdza, że wzór jest spójny wymiarowo.
+8. **Zinterpretuj wynik.** Otrzymana wartość jest średnią po polu. Nie mówi, jakie jest naprężenie w konkretnym punkcie, ale pozwala porównać je z naprężeniem dopuszczalnym dla całego połączenia.
+
+W przypadku łącznika o przekroju kołowym i jednej płaszczyźnie ścinania możesz podstawić $A_s = A = \pi d^2/4$. Wtedy wzór przyjmuje postać $\tau_{sr} = 4F/(\pi d^2)$. To ta sama zależność, tylko wyrażona przez średnicę. W połączeniu wielociętym użyj $A_s = nA$, gdzie $n$ jest liczbą płaszczyzn.
+
 <Insight>
-  Ścinanie techniczne zakłada równomierny rozkład naprężeń po polu ścinania. To świadome uproszczenie inżynierskie, a
-  nie dokładny opis naprężeń w każdym punkcie przekroju.
+  Ścinanie techniczne jest modelem równowagi, a nie opisem rzeczywistego rozkładu naprężeń. Wzór jest dokładny dla
+  założenia równomiernego rozkładu, ale to założenie jest przybliżeniem. Zawsze pytaj, czy w danym zadaniu można je
+  przyjąć.
 </Insight>
 
 <WorkedExample>
-  <Given>Łącznik jest ścinany siłą F = 20 kN. Łączne pole przekroju ścinanego wynosi A_s = 200 mm².</Given>
+  <Given>
+    Sworzeń o średnicy $d = 20\ \text{mm}$ pracuje w połączeniu jednociętym i przenosi siłę $F = 30\ \text{kN}$. Oblicz średnie naprężenie styczne i sprawdź wynik.
+  </Given>
   <Steps>
-    <Step>Przelicz siłę: 20 kN = 20 000 N, aby otrzymać naprężenie w N/mm².</Step>
-    <Step>Podstaw do wzoru ścinania technicznego: τsr = 20 000/200 = 100 N/mm².</Step>
-    <Step>
-      Zinterpretuj wynik jako wartość średnią po całym polu, a nie gwarancję jednakowego naprężenia w każdym punkcie.
-    </Step>
+    <Step>Pole przekroju sworznia: $A = \pi d^2/4 = \pi \cdot 20^2/4 = 314{,}16\ \text{mm}^2$.</Step>
+    <Step>Zamień siłę na niutony: $F = 30\ \text{kN} = 30\,000\ \text{N}$.</Step>
+    <Step>Podstaw do wzoru: $\tau_{sr} = 30\,000/314{,}16 = 95{,}49\ \text{N/mm}^2$.</Step>
+    <Step>Sprawdź rząd wielkości: wynik około 95 MPa jest typowy dla stali konstrukcyjnej i znacznie poniżej granicy plastyczności.</Step>
   </Steps>
-  <Result>τsr = 100 N/mm² = 100 MPa.</Result>
+  <Result>
+    $\tau_{sr} \approx 95{,}5\ \text{MPa}$. Wartość jest średnia po przekroju; w rzeczywistym sworzniu naprężenie może być lokalnie większe, szczególnie przy krawędzi blachy.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy złącze klejowe, w którym dwie deski są połączone zakładkowo. Siła rozciągająca wynosi $F = 18\ \text{kN}$, a spoina ma długość $l = 150\ \text{mm}$ i szerokość $b = 50\ \text{mm}$. Pole ścinane to cała powierzchnia spoiny, czyli $A_s = l \cdot b = 150 \cdot 50 = 7500\ \text{mm}^2$.
+
+Siła w niutonach wynosi $18\,000\ \text{N}$, więc średnie naprężenie styczne to $\tau_{sr} = 18\,000/7500 = 2{,}4\ \text{MPa}$. Taki wynik jest typowy dla kleju konstrukcyjnego i pokazuje, że połączenie klejowe przenosi dużą siłę dzięki temu, że rozkłada ją na znaczną powierzchnię.
+
+Zwróć uwagę, że grubość deski nie wchodzi do pola ścinanego. Grubość wpływa na wytrzymałość deski na rozciąganie i na docisk, ale samo ścinanie kleju odbywa się w płaszczyźnie spoiny. To częsty błąd: uczniowie mnożą długość przez grubość deski, a nie przez szerokość spoiny.
+
+Wynik 2,4 MPa należy porównać z wytrzymałością kleju na ścinanie, a nie z granicą plastyczności stali. Dla klejów konstrukcyjnych wartości dopuszczalne często mieszczą się w zakresie kilku megapaskali, więc otrzymany wynik jest wiarygodny. Ostateczna ocena wymaga jednak uwzględnienia przygotowania powierzchni, temperatury i starzenia się kleju.
+
+W rzeczywistym złączu zakładkowym obciążenie jest mimośrodowe. Linie działania sił w obu deskach nie pokrywają się, więc powstaje dodatkowy moment zginający. Powoduje on odrywanie końców spoiny, co jest szczególnie groźne dla klejów o małej wytrzymałości na rozciąganie. Model czystego ścinania tego nie pokazuje, dlatego w konstrukcjach klejowych stosuje się zakładki i dodatkowe dociski.
+
+Podobny efekt występuje w połączeniu nitowym z jedną nakładką. Sworzeń jest zginany, a nacisk na blachę nierównomierny. Im grubsza blacha i im większy mimośród, tym większe dodatkowe naprężenia. Ścinanie techniczne pozostaje pierwszym oszacowaniem, ale nie opisuje całego zjawiska.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że znamy dopuszczalne naprężenie styczne i chcemy dobrać średnicę sworznia. Połączenie jest jednocięte, siła wynosi $F = 50\ \text{kN}$, a naprężenie dopuszczalne przyjęto $\tau_{dop} = 80\ \text{MPa}$. Szukamy najmniejszej średnicy, dla której warunek $\tau_{sr} \le \tau_{dop}$ jest spełniony.
+
+Najpierw wyznaczamy wymagane pole ścinane: $A_s \ge F/\tau_{dop} = 50\,000/80 = 625\ \text{mm}^2$. Dla jednej płaszczyzny ścinania $A_s = \pi d^2/4$, więc $d \ge \sqrt{4A_s/\pi} = \sqrt{4 \cdot 625/\pi} = \sqrt{795{,}77} = 28{,}2\ \text{mm}$.
+
+Najmniejsza średnica z warunku wytrzymałości to około 28,2 mm. W praktyce wybieramy najbliższy dostępny wymiar większy od tej wartości, na przykład 30 mm. Sprawdzamy: $A = \pi \cdot 30^2/4 = 706{,}86\ \text{mm}^2$, a $\tau_{sr} = 50\,000/706{,}86 = 70{,}7\ \text{MPa}$, czyli mniej niż 80 MPa.
+
+Ten przykład pokazuje typową kolejność pracy projektowej. Najpierw przekształcasz wzór, potem zaokrąglasz wynik w górę do wymiaru handlowego, a na końcu wracasz do wzoru i sprawdzasz, czy zaokrąglenie nie zepsuło warunku. Nigdy nie zostawiaj wyniku bez tej końcowej kontroli.
+
+Zwróć uwagę, że zaokrąglenie średnicy w górę jest bezpieczne, ale nie zawsze wystarcza. Przy średnicy 30 mm naprężenie spadło do 70,7 MPa, jednak nadal trzeba sprawdzić docisk blachy i wytrzymałość przekroju netto. Sam sworzeń może być mocny, a blacha wokół otworu zbyt cienka. Projektowanie połączenia to zawsze sprawdzenie całego układu, nie tylko jednego elementu.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Pole docisku zamiast pola ścinania.** W sworzniu pole ścinane to przekrój poprzeczny, a nie powierzchnia boczna walca. Powierzchnia boczna służy do sprawdzania docisku, nie ścinania.
+- **Zapomniana liczba płaszczyzn.** W połączeniu dwuciętym trzeba użyć $2A$, a nie $A$. Samo policzenie łączników nie wystarcza.
+- **Średnica zamiast promienia.** We wzorze na pole koła jest $d^2/4$, a nie $d^2$. Podstawienie średnicy w miejsce promienia daje czterokrotny błąd.
+- **Kiloniutony bez przeliczenia.** Dzielenie 30 kN przez pole w mm² daje wynik tysiąc razy za mały. Zawsze zamień siłę na niutony.
+- **Mieszanie jednostek długości.** Pole w cm² trzeba przeliczyć na mm², mnożąc przez 100. Inaczej naprężenie wyjdzie sto razy za małe.
+- **Traktowanie wyniku jako dokładnego.** Wartość średnia nie opisuje koncentracji naprężeń przy otworze. W połączeniach o skomplikowanym kształcie potrzebne są dodatkowe współczynniki lub analiza numeryczna.
+- **Brak kontroli sensowności.** Wynik rzędu 0,1 MPa lub 10 000 MPa powinien wzbudzić czujność. Sprawdź wtedy jednostki, pole i potęgi.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Przeczytaj, co jest obciążone, a co jest łącznikiem.** Siła działa na blachy, a łącznik przenosi ją przez określone przekroje. Nazwij te elementy po kolei.
+2. **Narysuj płaszczyznę zniszczenia.** Zapytaj, wzdłuż której powierzchni jedna część materiału przesunęłaby się względem drugiej. To jest płaszczyzna ścinania.
+3. **Policz pole jednego przekroju.** Dla sworznia użyj $\pi d^2/4$, dla spoiny iloczynu długości i szerokości, dla wpustu iloczynu długości i szerokości.
+4. **Ustal liczbę płaszczyzn.** Jeden styk blach oznacza zwykle jedną płaszczyznę, dwa styki w symetrycznym połączeniu oznaczają dwie. Nie licz blach ani łączników.
+5. **Ujednolić jednostki.** Siła w niutonach, pole w milimetrach kwadratowych, naprężenie w MPa. Dopiero potem dziel.
+6. **Oblicz i porównaj.** Jeżeli szukasz naprężenia, podziel siłę przez pole. Jeżeli szukasz wymiaru, przekształć wzór i zaokrąglij średnicę w górę.
+7. **Sprawdź wynik.** Porównaj rząd wielkości z typowymi wartościami dla materiału i upewnij się, że pole odpowiada rzeczywistej płaszczyźnie zniszczenia.
+8. **Sprawdź, czy nie pominąłeś docisku.** Ścinanie łącznika to jedno, a docisk blachy to drugie. W cienkiej blasze często decyduje docisk, mimo że sworzeń ma zapas.
+
+Po rozwiązaniu zadania wróć do rysunku i sprawdź, czy zaznaczona płaszczyzna rzeczywiście rozdzieliłaby połączenie. To szybki test, który wyłapuje większość błędów modelowych. Dopiero potem oceniaj, czy wynik liczbowy jest sensowny.
+
+## Połącz z resztą kursu
+
+- **Podstawy — metoda przekrojów.** Ścinanie techniczne jest bezpośrednim zastosowaniem równowagi odciętej części. Jeśli umiesz ciąć pręt, umiesz też ciąć połączenie.
+- **Rozciąganie — naprężenie normalne.** Wzór $\sigma = N/A$ ma identyczną strukturę jak $\tau_{sr} = F/A_s$. Różni się kierunkiem siły względem przekroju.
+- **Połączenia jedno- i dwucięte.** Następna lekcja rozwija ten sam wzór przez wprowadzenie liczby płaszczyzn i analizę symetrycznego połączenia trzech blach.
+- **Naprężenia i odkształcenia styczne.** Tam zobaczysz, co dzieje się z materiałem wewnątrz przekroju i skąd bierze się odkształcenie postaciowe.
+- **Dobór wału.** W wałach pojawi się podobny iloraz momentu przez wskaźnik przekroju, ale rozkład naprężeń nie będzie już równomierny.
+- **Hipotezy wytrzymałościowe.** Ścinanie techniczne daje jedno naprężenie średnie, a hipotezy pozwalają ocenić stan złożony, w którym jednocześnie działają naprężenia normalne i styczne.
+
+## Sprawdź się
+
+Rozwiąż krótki test. W pytaniach rachunkowych najpierw zapisz jednostki, a potem podstaw liczby.
 
 <Quiz>
   <Question outcome="U1">
     <Prompt>
-      Sworzeń o polu przekroju 150 mm² przenosi siłę ścinającą 12 kN na jednym przekroju. Ile wynosi średnie naprężenie
-      styczne?
+      Sworzeń o polu przekroju $A_s = 225\ \text{mm}^2$ przenosi siłę ścinającą $F = 18\ \text{kN}$ na jednej płaszczyźnie. Ile wynosi średnie naprężenie styczne?
     </Prompt>
     <Answer>8 MPa</Answer>
     <Answer correct>80 MPa</Answer>
     <Answer>180 MPa</Answer>
-    <Hint>Zamień 12 kN na niutony i podziel przez pole ścinania.</Hint>
+    <Hint>Zamień 18 kN na 18 000 N i podziel przez 225 mm².</Hint>
     <Explanation>
-      τsr = F/A_s = 12 000 N / 150 mm² = 80 N/mm² = 80 MPa. W mianowniku jest pole przekroju, a nie obwód sworznia.
+      $\tau_{sr} = 18\,000/225 = 80\ \text{N/mm}^2 = 80\ \text{MPa}$. W mianowniku jest pole przekroju, a nie obwód sworznia.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Spoina klejowa ma długość 100 mm i szerokość 40 mm. Przenosi siłę 10 kN. Jakie jest średnie naprężenie styczne w spoinie?
+    </Prompt>
+    <Answer>0,25 MPa</Answer>
+    <Answer correct>2,5 MPa</Answer>
+    <Answer>25 MPa</Answer>
+    <Hint>Pole spoiny to iloczyn długości i szerokości, a nie grubości deski.</Hint>
+    <Explanation>
+      $A_s = 100 \cdot 40 = 4000\ \text{mm}^2$, więc $\tau_{sr} = 10\,000/4000 = 2{,}5\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Które pole należy przyjąć do obliczenia ścinania sworznia w połączeniu jednociętym?
+    </Prompt>
+    <Answer>Powierzchnię boczną walca, czyli $\pi d h$</Answer>
+    <Answer correct>Pole przekroju poprzecznego, czyli $\pi d^2/4$</Answer>
+    <Answer>Pole blachy wokół otworu</Answer>
+    <Hint>Płaszczyzna ścinania jest prostopadła do osi sworznia.</Hint>
+    <Explanation>
+      Sworzeń jest przecięty w płaszczyźnie prostopadłej do swojej osi. Polem ścinanym jest więc pole przekroju poprzecznego. Powierzchnia boczna służy do oceny docisku.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Dlaczego wzór $\tau_{sr} = F/A_s$ jest tylko oszacowaniem, a nie dokładnym opisem rozkładu naprężeń w sworzniu?
+    </Prompt>
+    <Answer correct>Ponieważ zakłada równomierny rozkład i pomija lokalne spiętrzenia naprężeń</Answer>
+    <Answer>Ponieważ naprężenie styczne zawsze jest zerowe</Answer>
+    <Answer>Ponieważ wzór nie uwzględnia wartości siły</Answer>
+    <Hint>Zwróć uwagę na słowo „średnie” i założenie równomiernego rozkładu.</Hint>
+    <Explanation>
+      W ścinaniu technicznym zastępujemy rzeczywisty, zwykle nierównomierny rozkład wartością średnią. W pobliżu docisku i krawędzi otworów mogą wystąpić naprężenia lokalnie większe od średniej.
     </Explanation>
   </Question>
   <Question outcome="W3">
@@ -72,23 +249,53 @@ $$
     <Answer correct>Spadnie trzykrotnie</Answer>
     <Answer>Wzrośnie trzykrotnie</Answer>
     <Answer>Spadnie dziewięciokrotnie</Answer>
-    <Hint>Pole znajduje się w mianowniku wzoru τsr = F/A_s.</Hint>
+    <Hint>Pole znajduje się w mianowniku wzoru $\tau_{sr} = F/A_s$.</Hint>
     <Explanation>
-      Pole występuje w mianowniku, więc τsr jest odwrotnie proporcjonalne do A_s. Trzykrotnie większe pole daje
-      trzykrotnie mniejsze średnie naprężenie.
+      Pole występuje w mianowniku, więc naprężenie jest odwrotnie proporcjonalne do pola. Trzykrotnie większe pole daje trzykrotnie mniejsze średnie naprężenie.
     </Explanation>
   </Question>
-  <Question outcome="W2">
+  <Question outcome="U1">
     <Prompt>
-      Dlaczego wzór τsr = F/A_s jest tylko oszacowaniem, a nie dokładnym opisem rozkładu naprężeń w sworzniu?
+      Siła ścinająca wzrasta dwukrotnie, a pole ścinane również wzrasta dwukrotnie. Co dzieje się ze średnim naprężeniem stycznym?
     </Prompt>
-    <Answer correct>Ponieważ zakłada równomierny rozkład i pomija lokalne spiętrzenia naprężeń</Answer>
-    <Answer>Ponieważ naprężenie styczne zawsze jest zerowe</Answer>
-    <Answer>Ponieważ wzór nie uwzględnia wartości siły</Answer>
-    <Hint>Zwróć uwagę na słowo „średnie” i założenie równomiernego rozkładu.</Hint>
+    <Answer>Rośnie dwukrotnie</Answer>
+    <Answer>Spada dwukrotnie</Answer>
+    <Answer correct>Nie zmienia się</Answer>
+    <Hint>Zapisz stosunek nowej i starej wartości: $(2F)/(2A_s)$.</Hint>
     <Explanation>
-      W ścinaniu technicznym zastępujemy rzeczywisty, zwykle nierównomierny rozkład wartością średnią. W pobliżu docisku
-      i krawędzi otworów mogą występować dodatkowe, miejscowo większe naprężenia.
+      W liczniku i mianowniku pojawia się ten sam współczynnik 2, który się skraca. Stosunek $F/A_s$ pozostaje bez zmian.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Dwa sworznie jednocięte o średnicy $d = 12\ \text{mm}$ przenoszą razem siłę $F = 20\ \text{kN}$. Jakie jest średnie naprężenie styczne w jednym sworzniu?
+    </Prompt>
+    <Answer>44 MPa</Answer>
+    <Answer correct>88 MPa</Answer>
+    <Answer>177 MPa</Answer>
+    <Hint>Pole jednego sworznia wynosi około 113 mm², a siła na jeden sworzeń to 10 kN.</Hint>
+    <Explanation>
+      $A = \pi \cdot 12^2/4 = 113{,}10\ \text{mm}^2$. Na jeden sworzeń przypada 10 kN, więc $\tau_{sr} = 10\,000/113{,}10 = 88{,}4\ \text{MPa}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      W zadaniu jest mowa o „przecięciu sworznia”. Co to znaczy w języku naprężeń?
+    </Prompt>
+    <Answer>Że sworzeń uległ rozciągnięciu wzdłuż osi</Answer>
+    <Answer correct>Że materiał w pewnej płaszczyźnie przesunął się względem siebie i utracił nośność</Answer>
+    <Answer>Że blacha uległa zgięciu przy otworze</Answer>
+    <Hint>Ścinanie to poślizg warstw, a nie wydłużenie ani zginanie.</Hint>
+    <Explanation>
+      Przecięcie oznacza zniszczenie przez poślizg w płaszczyźnie ścinania. Sworzeń może się przy tym zginać, ale to inny mechanizm niż samo przecięcie.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, rozdział o ścinaniu technicznym — definicja naprężenia stycznego, założenia uproszczonego modelu i przykłady połączeń.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, zadania z połączeń sworzniowych i spoin — dużo wariantów rachunkowych z kontrolą jednostek.
+- D. Roylance, _Mechanics of Materials_, rozdział o ścinaniu i skręcaniu (MIT OpenCourseWare) — omówienie różnicy między odkształceniem normalnym a postaciowym oraz przykład złącza klejowego.
+- MIT 3.11 _Mechanics of Materials_, wykład o ścinaniu i skręcaniu — geometryczna interpretacja ścinania i wprowadzenie do analizy wałów.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, część I, rozdział o ścinaniu — polskie ujęcie założeń i znaków w zadaniach technicznych.

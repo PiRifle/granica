@@ -12,6 +12,21 @@ export default {
   ],
   result:
     'N górnego odcinka wynosi 50 kN, a dolnego 170 kN; oba są rozciągane. Naprężenia wynoszą odpowiednio 159,15 MPa i 106,25 MPa. Reakcja dolna ma wartość 170 kN.',
+  figure: {
+    kind: 'axial',
+    top: 'free',
+    bottom: 'fixed',
+    units: { N: 'kN', σ: 'MPa', A: 'mm²' },
+    segments: [
+      { id: 'górny', label: 'górny · koło', length: 500, area: 314.159, n: 50, sigma: 159.15 },
+      { id: 'dolny', label: 'dolny · kwadrat', length: 200, area: 1600, n: 170, sigma: 106.25 },
+    ],
+    loads: [
+      { node: 0, value: 50, label: 'P₂ = 50 kN' },
+      { node: 1, value: 120, label: '2P₁ = 120 kN' },
+    ],
+    note: 'Szerokość pręta na rysunku jest proporcjonalna do pierwiastka z pola przekroju.',
+  },
   scenes: [
     {
       title: 'Budujemy model osiowy',

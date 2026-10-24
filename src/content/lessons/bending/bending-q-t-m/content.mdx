@@ -7,7 +7,6 @@ shortTitle: Zależności q–T–M
 description: >-
   Przewiduj kształt wykresów bez liczenia każdego punktu: q jest nachyleniem T,
   a T nachyleniem M.
-duration: 9
 eyebrow: 'Trzy wykresy, jedna historia'
 outcomes:
   - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
@@ -24,65 +23,389 @@ outcomes:
     sztywności
 ---
 
-Obciążenie ciągłe q działa na każdym metrze belki. Steruje tempem zmiany siły tnącej, a siła tnąca — tempem zmiany momentu. To ta sama logika, co w ruchu: przyspieszenie zmienia prędkość, a prędkość — położenie.
+Obciążenie ciągłe $q$ działa na każdym metrze belki. Można je sobie wyobrazić jako nieskończenie
+wiele małych sił przyłożonych jeden przy drugim. Każda z nich zmienia siłę tnącą o niewielką
+wartość, a zmieniona siła tnąca zmienia moment. W ten sposób powstaje łańcuch: obciążenie,
+siła tnąca, moment. Trzy wykresy opowiadają tę samą historię na trzech poziomach.
+
+Łatwo to porównać z kinematyką. Przyspieszenie mówi, jak zmienia się prędkość, a prędkość — jak
+zmienia się położenie. Tutaj obciążenie $q$ jest jak przyspieszenie, siła tnąca $T$ jak prędkość,
+a moment $M$ jak położenie. Jeśli znasz jedno, możesz odtworzyć drugie przez całkowanie. Jeśli
+znasz kształt jednego, możesz przewidzieć kształt następnego przez różniczkowanie.
+
+W tej lekcji nauczysz się trzech zależności różniczkowych, które łączą $q$, $T$ i $M$. Zobaczysz,
+dlaczego stałe obciążenie daje liniową siłę tnącą i paraboliczny moment, dlaczego zerowe
+obciążenie daje stałą siłę tnącą i liniowy moment oraz dlaczego maksimum momentu wypada tam,
+gdzie siła tnąca znika. Nauczysz się też kontrolować wykresy bez liczenia każdego punktu.
+
+Te zależności są narzędziem codziennym inżyniera. Pozwalają szybko naszkicować wykresy, sprawdzić
+wynik programu komputerowego i zauważyć błąd, zanim stanie się podstawą projektu. Wystarczy
+spojrzeć na stopień funkcji i znak drugiej pochodnej, żeby ocenić, czy wykres w ogóle może być
+poprawny.
+
+## Zanim zaczniesz
+
+- Umiej różniczkować i całkować wielomiany. Zależności q–T–M to przede wszystkim pochodne
+  i całki, a nie nowe wzory do pamięci.
+- Rozróżniaj $q$, $T$ i $M$ oraz ich jednostki: kN/m, kN i kN·m. Mieszanie tych wielkości
+  prowadzi do błędów już na poziomie zapisu.
+- Przypomnij sobie, że pochodna funkcji to jej nachylenie, a całka to pole pod wykresem.
+  W zadaniach belkowych te dwa obrazy są równie ważne.
+- Przyjmij konwencję: $q$ dodatnie działa w dół, dodatnia $T$ daje dodatnie nachylenie $M$,
+  a dodatni $M$ rozciąga dolne włókna.
+- Pamiętaj o warunkach brzegowych: $M = 0$ na podporze przegubowej i rolce, $T = 0$ na swobodnym
+  końcu belki bez siły skupionej.
+- Umiej rozpoznać stopień funkcji: stała, liniowa, kwadratowa. To wystarczy do jakościowej
+  kontroli większości wykresów.
+
+## Model i intuicja
+
+Wyprowadzenie zaczynamy od małego fragmentu belki o długości $dx$. Na tym fragmencie obciążenie
+$q$ można uznać za stałe, ponieważ $dx$ jest nieskończenie małe. Po lewej stronie fragmentu
+działają $T$ i $M$, a po prawej — $T + dT$ i $M + dM$. Różnice $dT$ i $dM$ są przyrostami
+siły tnącej i momentu na długości $dx$.
+
+Równowaga sił pionowych dla fragmentu daje związek między przyrostem $T$ a obciążeniem $q$.
+Równowaga momentów daje związek między przyrostem $M$ a siłą tnącą $T$. W równaniu momentów
+pojawia się mały wyraz z iloczynem $q\,dx$ i ramieniem $dx/2$. Jest to wielkość drugiego rzędu,
+która przy $dx$ dążącym do zera znika szybciej niż wyrazy pierwszego rzędu. Dlatego ją pomijamy.
+
+Model zakłada belkę jednowymiarową, małe odkształcenia i brak sił osiowych. Obciążenie może
+być dowolną funkcją $q(x)$, ale musi być ciągłe na rozpatrywanym odcinku. Siłę skupioną
+traktujemy jako granicę bardzo wąskiego obciążenia ciągłego; wtedy $T$ ma skok, a $M$ pozostaje
+ciągły. Moment skupiony traktujemy jako granicę pary sił; wtedy skok ma $M$.
+
+Model przestaje wystarczać, gdy belka jest bardzo krótka i odkształcenia postaciowe są duże,
+gdy przemieszczenia są porównywalne z wymiarami, gdy występują duże siły osiowe albo gdy
+analizujemy drgania i uderzenia. W codziennych zadaniach statyki belek zależności q–T–M są
+jednak niezastąpionym narzędziem kontrolnym.
+
+## Laboratorium: co ustawić
+
+W laboratorium porównuj trzy wykresy jednocześnie: obciążenie, siłę tnącą i moment. Przesuwaj
+siłę i obserwuj, jak zmienia się nachylenie $T$ oraz gdzie wypada maksimum $M$. Spróbuj
+przewidzieć kształt wykresu przed zmianą parametru, a potem sprawdź, czy intuicja się zgadza.
 
 <Lab id="beamGeneral" />
 
+## Definicje i jednostki
+
+**Obciążenie ciągłe** $q(x)$ to siła na jednostkę długości. Dodatnie $q$ działa w dół. Jednostka
+to kN/m albo N/mm.
+
+**Siła tnąca** $T(x)$ jest wypadkową naprężeń stycznych w przekroju. Jej pochodna $dT/dx$ jest
+równa $-q$, więc obciążenie steruje nachyleniem wykresu $T$.
+
+**Moment zginający** $M(x)$ jest wypadkowym momentem naprężeń normalnych. Jego pochodna $dM/dx$
+jest równa $T$, więc siła tnąca steruje nachyleniem wykresu $M$.
+
+**Druga pochodna momentu** $d^2M/dx^2 = -q$ opisuje krzywiznę wykresu $M$. Przy dodatnim $q$
+wykres momentu ma ujemną drugą pochodną, czyli jest „odwróconą parabolą” na odcinku stałego
+obciążenia.
+
+| Symbol      | Wielkość          | Jednostka | Rola w łańcuchu         |
+| ----------- | ----------------- | --------- | ----------------------- |
+| $q(x)$      | obciążenie ciągłe | kN/m      | steruje nachyleniem $T$ |
+| $T(x)$      | siła tnąca        | kN        | steruje nachyleniem $M$ |
+| $M(x)$      | moment zginający  | kN·m      | wynik całkowania $T$    |
+| $dT/dx$     | nachylenie $T$    | kN/m      | równe $-q$              |
+| $dM/dx$     | nachylenie $M$    | kN        | równe $T$               |
+| $d^2M/dx^2$ | krzywizna $M$     | kN/m      | równa $-q$              |
+| $x$         | współrzędna       | m lub mm  | zmienna niezależna      |
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\frac{dT}{dx} = -q \qquad \frac{dM}{dx} = T
+\frac{dT}{dx} = -q(x), \qquad \frac{dM}{dx} = T(x), \qquad \frac{d^2M}{dx^2} = -q(x)
 $$
 
-<Caption>Przyjmujemy q &gt; 0 dla obciążenia w dół oraz dodatni moment odpowiadający ugięciu w dół, czyli rozciąganiu dolnych włókien.</Caption>
+<Caption>
+Trzy równoważne zapisy tej samej informacji. Znak minus przy $q$ wynika z przyjęcia, że
+obciążenie dodatnie działa w dół, a dodatnia siła tnąca daje dodatnie nachylenie momentu.
+</Caption>
 </Formula>
 
+Wyprowadzenie dla fragmentu belki o długości $dx$ przebiega następująco.
+
+1. Wytnij fragment belki między $x$ i $x + dx$. Na lewej ściance działają $T$ i $M$ w zwrotach
+   dodatnich, a na prawej — $T + dT$ i $M + dM$.
+2. Obciążenie ciągłe na fragmencie zastąp wypadkową $q\,dx$, działającą w środku fragmentu.
+   Przy dodatnim $q$ działa ona w dół.
+3. Zapisz równowagę sił pionowych. Po lewej stronie masz $T$ w dół, po prawej $T + dT$ w górę,
+   a do tego $q\,dx$ w dół. Po uporządkowaniu otrzymujesz $dT = -q\,dx$, czyli $dT/dx = -q$.
+4. Zapisz równowagę momentów względem prawej ścianki. Moment $M$ działa przeciwnie do $M + dM$,
+   a siła $T$ daje moment $T\,dx$. Obciążenie $q\,dx$ daje moment $(q\,dx)(dx/2)$.
+5. Pomijamy wyraz $(q\,dx)(dx/2)$, ponieważ jest drugiego rzędu. Zostaje $dM = T\,dx$, czyli
+   $dM/dx = T$.
+6. Zróżniczkuj $dM/dx = T$ względem $x$ i podstaw $dT/dx = -q$. Otrzymujesz
+   $d^2M/dx^2 = -q$.
+7. Całkując pierwsze równanie, dostajesz $T(x) = -\int q\,dx + C_1$. Całkując drugie,
+   dostajesz $M(x) = \int T\,dx + C_2$.
+8. Stałe $C_1$ i $C_2$ wyznaczasz z warunków brzegowych. Na przykład dla belki swobodnie
+   podpartej $M(0) = 0$ i $M(L) = 0$, a reakcje ustalają wartość początkową $T$.
+
+W praktyce nie całkujesz funkcji od zera do końca, lecz budujesz wykres odcinkami. Na odcinku
+stałego $q$ siła tnąca jest liniowa, a moment kwadratowy. Na odcinku bez obciążenia $T$ jest
+stałe, a $M$ liniowe. Na odcinku z liniowym $q$ siła tnąca jest kwadratowa, a moment sześcienny.
+Każde całkowanie podnosi stopień wielomianu o jeden.
+
 <Insight>
-  Stałe q daje liniowe T i kwadratowe M. Gdy q = 0, T jest stałe, a M liniowe — to szybki test poprawności wykresów.
+  Stopień funkcji rośnie o jeden przy każdym całkowaniu: stałe $q$ daje liniowe $T$ i kwadratowe $M$. Gdy $q = 0$, $T$
+  jest stałe, a $M$ liniowe — to najszybszy test poprawności wykresów. Maksimum momentu występuje tam, gdzie $T$ zmienia
+  znak, a nie tam, gdzie $T$ ma największą wartość bezwzględną.
 </Insight>
 
 <WorkedExample>
-  <Given>Belka swobodnie podparta o L = 6 m obciążona równomiernie q = 5 kN/m na całej długości.</Given>
+  <Given>
+    Belka swobodnie podparta ma rozpiętość $L = 5$ m. Na całej długości działa obciążenie
+    równomierne $q = 8$ kN/m. Przyjmij, że ciężar własny jest już wliczony w $q$.
+  </Given>
   <Steps>
-    <Step>Z symetrii RA = RB = qL/2 = 15 kN.</Step>
-    <Step>T(x) = RA − qx = 15 − 5x kN, więc T = 0 dla x = 3 m.</Step>
-    <Step>M(x) = RA·x − qx²/2 = 15x − 2,5x² kN·m.</Step>
-    <Step>Mmax = M(3) = 45 − 22,5 = 22,5 kN·m, zgodnie ze wzorem qL²/8.</Step>
+    <Step>Reakcje z symetrii: $R_A = R_B = qL/2 = 8 \cdot 5 / 2 = 20$ kN.</Step>
+    <Step>Siła tnąca: $T(x) = R_A - qx = 20 - 8x$ kN.</Step>
+    <Step>Miejsce zerowe: $20 - 8x = 0$ daje $x = 2{,}5$ m.</Step>
+    <Step>Moment: $M(x) = R_A x - qx^2/2 = 20x - 4x^2$ kN·m.</Step>
+    <Step>Maksimum: $M(2{,}5) = 50 - 25 = 25$ kN·m.</Step>
+    <Step>Kontrola wzorem: $qL^2/8 = 8 \cdot 25 / 8 = 25$ kN·m.</Step>
+    <Step>Kontrola jednostek: $q = 8$ kN/m $= 8$ N/mm, $L = 5000$ mm, $R_A = 20\,000$ N,
+      a moment w N·mm wynosi $20\,000 \cdot 2500 - 8 \cdot 2500^2/2 = 25\,000\,000$ N·mm,
+      czyli 25 kN·m.</Step>
   </Steps>
-  <Result>T zmienia się liniowo od +15 do −15 kN; Mmax = 22,5 kN·m na środku.</Result>
+  <Result>
+    $T$ maleje liniowo od $+20$ kN do $-20$ kN i znika w połowie rozpiętości. Moment jest
+    paraboliczny, a jego maksimum wynosi $25$ kN·m w środku belki.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy belkę swobodnie podpartą o $L = 6$ m, obciążoną równomiernie $q = 3$ kN/m oraz siłą
+skupioną $P = 12$ kN w połowie rozpiętości. Obciążenie jest symetryczne, więc reakcje są równe:
+$R_A = R_B = (qL + P)/2 = (18 + 12)/2 = 15$ kN.
+
+Na lewym odcinku, od $x = 0$ do $x = 3$ m, siła tnąca wynosi
+
+$$
+T(x) = 15 - 3x\ \text{kN}.
+$$
+
+Tuż przed siłą $T(3) = 15 - 9 = +6$ kN. Pod siłą następuje skok w dół o 12 kN, więc tuż za nią
+$T = -6$ kN. Na prawym odcinku $T(x) = 3 - 3x$ kN, co daje $-6$ kN przy $x = 3$ i $-15$ kN przy
+$x = 6$. Reakcja $R_B$ domyka wykres do zera.
+
+Siła tnąca nie przechodzi przez zero w sposób ciągły, ale pod siłą przeskakuje z wartości
+dodatniej na ujemną. To wystarcza, żeby moment osiągnął maksimum właśnie tam. Moment w środku
+obliczamy z lewej części:
+
+$$
+M(3) = 15 \cdot 3 - \frac{3 \cdot 3^2}{2} = 45 - 13{,}5 = 31{,}5\ \text{kN·m}.
+$$
+
+Wykres momentu jest paraboliczny na obu odcinkach, ale w środku ma charakterystyczne załamanie
+stycznej, ponieważ siła tnąca zmienia się skokowo. To przykład, w którym załamanie wykresu $M$
+nie oznacza błędu: pochodna $M$ jest nieciągła, bo $T$ jest nieciągła.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy funkcję momentu i odtwarzamy obciążenie. Dla belki swobodnie podpartej o $L = 6$ m
+moment opisuje wzór
+
+$$
+M(x) = 12x - 2x^2\ \text{kN·m}, \qquad 0 \le x \le 6\ \text{m}.
+$$
+
+Jaka jest siła tnąca, obciążenie i reakcje? Różniczkujemy moment:
+
+$$
+T(x) = \frac{dM}{dx} = 12 - 4x\ \text{kN}.
+$$
+
+Następnie różniczkujemy siłę tnącą:
+
+$$
+q(x) = -\frac{dT}{dx} = 4\ \text{kN/m}.
+$$
+
+Obciążenie jest więc stałe i działa w dół. Reakcje odczytujemy z końców wykresu $T$:
+$R_A = T(0) = 12$ kN, a $R_B = -T(6) = 12$ kN. Suma reakcji wynosi 24 kN, czyli tyle, ile
+wypadkowa obciążenia $qL = 4 \cdot 6 = 24$ kN. Maksimum momentu wypada tam, gdzie $T = 0$,
+czyli w $x = 3$ m:
+
+$$
+M_{\max} = M(3) = 36 - 18 = 18\ \text{kN·m}.
+$$
+
+Kontrola wzorem $qL^2/8 = 4 \cdot 36 / 8 = 18$ kN·m potwierdza wynik. Ten wariant pokazuje,
+że cała informacja o obciążeniu jest zawarta w drugiej pochodnej momentu.
+
+<Callout kind="warning" title="Typowe błędy">
+
+1. Zgubienie znaku minus przy $q$. Przy dodatnim $q$ siła tnąca maleje, a nie rośnie; wykres
+   $T$ opada.
+2. Całkowanie bez stałych. Funkcja $T$ i $M$ zależy od warunków brzegowych, więc sam kształt
+   nie wystarcza.
+3. Pomylenie stopnia funkcji. Stałe $q$ daje liniowe $T$ i kwadratowe $M$, a nie odwrotnie.
+4. Uznanie, że maksimum $M$ jest tam, gdzie $T$ ma największą wartość. Ekstremum jest tam,
+   gdzie $T$ przechodzi przez zero.
+5. Traktowanie $T = 0$ jako $M = 0$. W miejscu zerowej siły tnącej moment jest na ogół
+   największy, a nie zerowy.
+6. Mieszanie jednostek. $q$ w kN/m, $x$ w m i $M$ w kN·m; przy milimetrach trzeba przeliczyć
+   wszystko spójnie.
+7. Rysowanie wykresu $M$ bez kontroli nachylenia. Nachylenie $M$ musi zgadzać się z $T$ na
+   każdym odcinku.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, co jest dane: obciążenie $q(x)$, siła tnąca $T(x)$ czy moment $M(x)$. Od tego zależy,
+   czy całkujesz, czy różniczkujesz.
+2. Wyznacz reakcje, jeśli nie są dane. Reakcje są warunkami początkowymi dla wykresu $T$.
+3. Podziel belkę na odcinki, na których $q$ jest stałe lub ma prostą postać. Na każdym odcinku
+   ustal stopień $T$ i $M$.
+4. Jeśli znasz $q$, całkuj kolejno: $q \rightarrow T \rightarrow M$. Pamiętaj o znaku minus
+   przy pierwszym całkowaniu.
+5. Jeśli znasz $M$, różniczkuj: $M \rightarrow T \rightarrow -q$. Sprawdź, czy otrzymane $q$
+   ma sens fizyczny i znak zgodny z obciążeniem.
+6. Wyznacz miejsca $T = 0$ i sprawdź, czy $T$ zmienia tam znak. Tam szukaj ekstremum $M$.
+7. Skontroluj stopnie funkcji, jednostki i warunki brzegowe. Na końcu sprawdź, czy wykresy
+   zamykają się w podporach.
+
+## Połącz z resztą kursu
+
+- **Siła tnąca T(x).** Zależność $dT/dx = -q$ jest uogólnieniem obserwacji, że siła skupiona
+  tworzy skok, a obciążenie ciągłe — odcinek liniowy.
+- **Moment zginający M(x).** Zależność $dM/dx = T$ wyjaśnia, dlaczego pole pod $T$ jest zmianą
+  $M$ i dlaczego ekstremum wypada przy zerze $T$.
+- **Czyste zginanie.** Odcinek z $q = 0$ i $T = 0$ ma stały moment. To szczególny przypadek
+  łańcucha q–T–M.
+- **Rozkład σ i oś obojętna.** Moment jest wejściem do wzoru na naprężenia. Zależności q–T–M
+  pozwalają szybko znaleźć jego maksimum bez liczenia całego wykresu.
+- **Dobór przekroju i kontrola sztywności.** Ugięcie zależy od całki z momentu, więc poprawne
+  $M(x)$ jest potrzebne także wtedy, gdy nie przekraczasz naprężeń dopuszczalnych.
+- **Projektowanie elementów.** W pełnym zadaniu kolejność jest zawsze ta sama: obciążenie,
+  reakcje, $T$, $M$, naprężenia, warunki projektowe.
+
+## Sprawdź się
+
+Pytania sprawdzają, czy potrafisz przewidzieć kształt wykresu i znaleźć ekstremum bez liczenia
+wszystkich punktów.
 
 <Quiz>
   <Question outcome="W1">
-    <Prompt>Na belce działa stałe obciążenie q &gt; 0 w dół. Jakiego stopnia są funkcje T(x) i M(x)?</Prompt>
-    <Answer correct>T liniowa, M kwadratowa</Answer>
-    <Answer>T stała, M liniowa</Answer>
-    <Answer>T kwadratowa, M sześcienna</Answer>
-    <Hint>Całkowanie stałego q daje funkcję liniową, a całkowanie funkcji liniowej — kwadratową.</Hint>
+    <Prompt>Na belce działa stałe obciążenie $q$ dodatnie, czyli w dół. Jakiego stopnia są
+      funkcje $T(x)$ i $M(x)$?</Prompt>
+    <Answer correct>$T$ liniowa, $M$ kwadratowa</Answer>
+    <Answer>$T$ stała, $M$ liniowa</Answer>
+    <Answer>$T$ kwadratowa, $M$ sześcienna</Answer>
+    <Answer>$T$ liniowa, $M$ liniowa</Answer>
+    <Hint>Całkowanie stałego $q$ daje funkcję liniową, a całkowanie liniowej $T$ — kwadratową.</Hint>
     <Explanation>
-      Całkowanie stałego q daje liniową funkcję T, a całkowanie liniowej T — kwadratową funkcję M.
+      Całka ze stałej jest liniowa, a całka z funkcji liniowej jest kwadratowa. Dlatego stałe
+      $q$ daje liniowe $T$ i paraboliczne $M$.
     </Explanation>
   </Question>
+
+<Question outcome="U1">
+  <Prompt>
+    Dla belki swobodnie podpartej o rozpiętości $L$ z równomiernym obciążeniem $q$ maksymalny moment występuje:
+  </Prompt>
+  <Answer>Na podporze, gdzie $M = 0$</Answer>
+  <Answer correct>Na środku, gdzie $T = 0$</Answer>
+  <Answer>W miejscu największej wartości bezwzględnej $T$</Answer>
+  <Answer>Na obu końcach jednocześnie</Answer>
+  <Hint>Z symetrii siła tnąca zmienia znak w połowie rozpiętości.</Hint>
+  <Explanation>
+    $T(x) = qL/2 - qx$ znika dla $x = L/2$ i zmienia znak z plusa na minus. Tam $M$ osiąga maksimum $qL^2/8$.
+  </Explanation>
+</Question>
+
+<Question outcome="W1">
+  <Prompt>
+    Na wykresie $M(x)$ pojawia się załamanie, choć $T$ jest ciągłe i nie przyłożono momentu skupionego. Co należy
+    zrobić?
+  </Prompt>
+  <Answer correct>Sprawdzić obliczenia, bo $dM/dx = T$ wymaga ciągłego nachylenia $M$</Answer>
+  <Answer>Uznać to zawsze za poprawny skutek obciążenia $q$</Answer>
+  <Answer>Zastąpić wykres $M$ wykresem $T$</Answer>
+  <Answer>Pominąć załamanie, bo moment i tak jest ciągły</Answer>
+  <Hint>Nachylenie $M$ jest równe $T$; zastanów się, co oznacza ciągłość $T$ dla stycznej do $M$.</Hint>
+  <Explanation>
+    Jeżeli $T$ jest ciągłe, nachylenie $M$ zmienia się w sposób ciągły, więc $M$ nie ma załamania. Skok $M$ może
+    natomiast wywołać przyłożony moment skupiony.
+  </Explanation>
+</Question>
+
   <Question outcome="U1">
-    <Prompt>Dla belki swobodnie podpartej o L z równomiernym q maksymalny moment występuje:</Prompt>
-    <Answer>Na podporze, gdzie M = 0</Answer>
-    <Answer correct>Na środku, gdzie T = 0</Answer>
-    <Answer>W miejscu największej wartości bezwzględnej T</Answer>
-    <Hint>Z symetrii siła tnąca zmienia znak w połowie rozpiętości.</Hint>
+    <Prompt>
+      Belka swobodnie podparta o $L = 6$ m jest obciążona równomiernie $q = 6$ kN/m. Ile wynosi
+      maksymalny moment?
+    </Prompt>
+    <Answer>18 kN·m</Answer>
+    <Answer correct>27 kN·m</Answer>
+    <Answer>36 kN·m</Answer>
+    <Answer>54 kN·m</Answer>
+    <Hint>Użyj $M_{\max} = qL^2/8$.</Hint>
     <Explanation>
-      T(x) = qL/2 − qx znika dla x = L/2 i zmienia znak z plusa na minus. Tam M osiąga maksimum qL²/8.
+      $M_{\max} = 6 \cdot 36 / 8 = 27$ kN·m. Maksimum występuje w połowie rozpiętości, gdzie
+      $T = 0$.
     </Explanation>
   </Question>
+
+<Question outcome="W1">
+  <Prompt>Przy dodatnim $q$ drugа pochodna momentu $d^2M/dx^2$ jest ujemna. Co to mówi o wykresie $M$?</Prompt>
+  <Answer correct>Wykres jest „odwróconą parabolą” i ma maksimum w środku</Answer>
+  <Answer>Wykres jest liniowy</Answer>
+  <Answer>Wykres jest wypukły do dołu i ma minimum</Answer>
+  <Answer>Wykres jest stały</Answer>
+  <Hint>Ujemna druga pochodna oznacza, że funkcja zakrzywia się w dół.</Hint>
+  <Explanation>
+    Ujemna druga pochodna oznacza wklęsłość skierowaną w dół, czyli kształt odwróconej paraboli. Dla belki swobodnie
+    podpartej daje to maksimum w środku rozpiętości.
+  </Explanation>
+</Question>
+
+<Question outcome="U1">
+  <Prompt>
+    Belka swobodnie podparta o $L = 5$ m ma obciążenie równomierne $q = 4$ kN/m. Ile wynosi siła tnąca w przekroju $x =
+    1$ m?
+  </Prompt>
+  <Answer>$+8$ kN</Answer>
+  <Answer correct>$+6$ kN</Answer>
+  <Answer>$+4$ kN</Answer>
+  <Answer>$-6$ kN</Answer>
+  <Hint>Reakcja wynosi $qL/2 = 10$ kN, a ubytek to $q x$.</Hint>
+  <Explanation>
+    $T(1) = 10 - 4 \cdot 1 = 6$ kN. Siła tnąca maleje liniowo i zeruje się w połowie rozpiętości.
+  </Explanation>
+</Question>
+
   <Question outcome="W1">
     <Prompt>
-      Na wykresie M(x) pojawia się załamanie, choć T jest ciągłe i nie przyłożono momentu skupionego. Co należy zrobić?
+      Na pewnym odcinku belki $T = 0$ przez cały czas, a $q = 0$. Co można powiedzieć o $M$?
     </Prompt>
-    <Answer correct>Sprawdzić obliczenia, bo dM/dx = T wymaga tu ciągłego nachylenia M</Answer>
-    <Answer>Uznać to zawsze za poprawny skutek obciążenia q</Answer>
-    <Answer>Zastąpić wykres M wykresem T</Answer>
-    <Hint>Nachylenie M jest równe T; zastanów się, co oznacza ciągłość T dla stycznej do M.</Hint>
+    <Answer correct>$M$ jest stałe na tym odcinku</Answer>
+    <Answer>$M$ musi być równe zero</Answer>
+    <Answer>$M$ rośnie liniowo</Answer>
+    <Answer>$M$ jest paraboliczne</Answer>
+    <Hint>Skorzystaj z $dM/dx = T = 0$.</Hint>
     <Explanation>
-      Jeżeli T jest ciągłe, nachylenie M zmienia się w sposób ciągły, więc M nie ma załamania. Skok M może natomiast
-      wywołać przyłożony moment skupiony.
+      Zerowa pochodna oznacza stały moment. Taki odcinek jest przykładem czystego zginania,
+      jeśli moment jest niezerowy; nie musi on być równy zero.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o zależnościach między
+  obciążeniem, siłą tnącą i momentem; szukaj wyprowadzeń różniczkowych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — analiza belek i wykresy sił
+  wewnętrznych; dobre do powtórzenia warunków brzegowych.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT — zadania
+  z wykresami q–T–M; zwróć uwagę na stopnie funkcji.
+- D. Roylance, _Mechanics of Materials_ (MIT OpenCourseWare) — rozdział o wykresach sił
+  tnących i momentów; pokazuje kolejne całkowanie obciążenia.
+- T. Wierzbicki, _Structural Mechanics_ (MIT OpenCourseWare) — rozdział o równaniach równowagi
+  belki; wyjaśnia $dV/dx + q = 0$ i $dM/dx = V$ w innej konwencji znaków.

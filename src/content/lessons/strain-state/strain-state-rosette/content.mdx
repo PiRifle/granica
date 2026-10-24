@@ -7,7 +7,6 @@ shortTitle: Rozeta tensometryczna
 description: >-
   Wyznacz εx, εy i γxy z trzech kierunków, a następnie oblicz odkształcenia
   główne i maksymalne ścinanie.
-duration: 9
 eyebrow: Trzy kierunki wystarczą
 outcomes:
   - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
@@ -27,68 +26,301 @@ outcomes:
 solutionId: cw7-2
 ---
 
-Trzy tensometry przyklejone pod różnymi kątami mierzą odkształcenia w tym samym punkcie. Ich odczyty pozwalają odtworzyć pełny płaski stan odkształcenia: dwa odkształcenia liniowe i jedno postaciowe.
+Masz jedną powierzchnię, jeden punkt pomiarowy i nie wiesz, w którą stronę działa największe rozciąganie. Pojedynczy tensometr powie ci tylko, jakie jest odkształcenie wzdłuż jego osi. Jeśli obrócisz czujnik o kilka stopni, odczyt się zmieni, choć stan materiału w tym punkcie pozostaje ten sam. To znak, że odkształcenie jest wielkością kierunkową, a nie jedną liczbą.
+
+Rozeta tensometryczna rozwiązuje ten problem, układając trzy czujniki pod różnymi kątami na jednym podłożu. Najczęściej są to kierunki $0^\circ$, $45^\circ$ i $90^\circ$. Pierwszy i trzeci mierzą odkształcenia w dwóch prostopadłych osiach, a środkowy wnosi informację o odkształceniu postaciowym. Z tych trzech liczb można odtworzyć pełny płaski stan odkształcenia w danym punkcie.
+
+Ta umiejętność jest potrzebna wszędzie tam, gdzie kierunek główny nie jest z góry znany: na powierzchni zbiornika, w strefie przy otworze, na spoinie, w elemencie maszyny pod złożonym obciążeniem. Projektant nie może założyć, że największe odkształcenie działa wzdłuż osi, którą akurat narysował na rysunku. Musi je znaleźć z pomiaru albo z obliczeń.
+
+Po tej lekcji będziesz umiał odczytać z rozety prostokątnej składowe $\varepsilon_x$, $\varepsilon_y$ i $\gamma_{xy}$, obliczyć odkształcenia główne oraz ich kierunek, a także narysować koło Mohra odkształceń we właściwych osiach. Zobaczysz też, dlaczego trzeci czujnik pod kątem $45^\circ$ jest niezbędny i jak rozpoznać, kiedy wynik pomiaru przestaje być wiarygodny.
+
+W codziennym życiu spotykasz podobny problem, gdy próbujesz opisać nachylenie dachu. Jedna linijka wzdłuż jednej krawędzi nie wystarcza, jeśli nie wiesz, w którą stronę dach opada. Potrzebujesz co najmniej dwóch kierunków albo jednego kierunku i kąta. W tensometrii jest podobnie, tylko zamiast nachylenia mierzymy względne zmiany długości i kąta.
+
+## Zanim zaczniesz
+
+- Znasz definicję $\varepsilon_x$, $\varepsilon_y$ oraz inżynierskiego $\gamma_{xy}$ i wiesz, że $\gamma$ podajemy w radianach.
+- Pamiętasz, że składowa tensorowa wynosi $\varepsilon_{xy}=\gamma_{xy}/2$; w kołach Mohra dla odkształceń używa się właśnie połowy.
+- Umiesz używać wzorów na $\cos 2\theta$ i $\sin 2\theta$ oraz rozpoznawać kąty $0^\circ$, $45^\circ$ i $90^\circ$.
+- Rozróżniasz odkształcenie mierzone w jednym kierunku od pełnego tensora odkształcenia w punkcie.
+- Pamiętasz, że dodatnie $\varepsilon$ oznacza wydłużenie, a dodatnie $\gamma_{xy}$ odpowiada umownej orientacji osi.
+- Wiesz, że tensometr mierzy wartość uśrednioną na bazie, a nie nieskończenie mały punkt.
+
+## Model i intuicja
+
+Model rozety opiera się na transformacji odkształcenia przy obrocie układu współrzędnych. W punkcie istnieje tensor odkształcenia o trzech niezależnych składowych w płaszczyźnie: $\varepsilon_x$, $\varepsilon_y$ i $\gamma_{xy}$. Odkształcenie liniowe w kierunku odchylonym o kąt $\theta$ od osi $x$ jest kombinacją tych trzech składowych. Trzy niezależne pomiary w trzech różnych kierunkach dają więc układ trzech równań, z którego można wyznaczyć trzy niewiadome.
+
+Najprostsza jest rozeta prostokątna, zwana też rozetą $0^\circ/45^\circ/90^\circ$. Dwa czujniki są prostopadłe, a trzeci leży dokładnie pomiędzy nimi. Taki układ jest wygodny, bo pierwszy i trzeci odczyt dają od razu $\varepsilon_x$ i $\varepsilon_y$, a środkowy pozwala obliczyć $\gamma_{xy}$ bez rozwiązywania pełnego układu. To dlatego rozeta prostokątna jest standardem w badaniach doświadczalnych.
+
+Model zakłada, że wszystkie trzy czujniki mierzą w tym samym punkcie i w tej samej płaszczyźnie. W rzeczywistości mają skończoną bazę i są rozmieszczone obok siebie, więc mierzą wartości uśrednione w nieco różnych miejscach. Jeśli pole odkształcenia jest łagodne, różnica jest pomijalna. Jeśli w pobliżu jest karb, otwór lub spoina, uśrednienie może zafałszować obraz. Wtedy trzeba albo użyć mniejszej rozety, albo świadomie zaakceptować przybliżenie.
+
+Drugie założenie dotyczy płaskiego stanu naprężenia w płaszczyźnie powierzchni. Na swobodnej powierzchni naprężenie normalne do powierzchni jest zwykle zerowe, więc mamy płaski stan naprężenia, a odkształcenie w kierunku grubości wynika z efektu Poissona. Rozeta mierzy odkształcenia w płaszczyźnie, ale nie mierzy $\varepsilon_z$. Do obliczeń naprężeń w płaszczyźnie to wystarcza, jeśli znamy $E$ i $\nu$ oraz potrafimy uzasadnić założenie o stanie naprężenia.
+
+Trzecie założenie dotyczy małych odkształceń i braku dużych obrotów. Wzory transformacyjne są liniowe i dotyczą zakresu sprężystego. Przy odkształceniach plastycznych lub dużych obrotach kierunki główne mogą się zmieniać w trakcie procesu, a proste wzory przestają opisywać rzeczywistość. Podobnie przy pełzaniu lub relaksacji odczyt zależy od historii obciążenia, a nie tylko od chwilowego stanu.
+
+### Kiedy model przestaje działać
+
+- Pole odkształcenia zmienia się gwałtownie na odległości porównywalnej z rozmiarem rozety.
+- Czujniki nie są przyklejone dokładnie pod kątami $0^\circ$, $45^\circ$ i $90^\circ$.
+- Powierzchnia jest silnie zakrzywiona i czujniki nie leżą w jednej płaszczyźnie.
+- Odkształcenia przekraczają zakres liniowy lub materiał płynie plastycznie.
+- Występują duże obroty, a małoobrotowe wzory transformacyjne przestają być dokładne.
+- Temperatura poszczególnych czujników różni się na tyle, że kompensacja jest nieskuteczna.
+- Czujnik jest uszkodzony, odklejony lub ma zmienioną rezystancję przez wilgoć.
+
+## Laboratorium: co ustawić
+
+W laboratorium wpisz odczyty trzech czujników i wybierz materiał. Obserwuj, jak zmiana odczytu $45^\circ$ przy stałych skrajnych wartościach zmienia $\gamma_{xy}$, kierunek główny i naprężenia. Zwróć uwagę, że przy $\gamma_{xy}=0$ osie $x$ i $y$ są już kierunkami głównymi.
 
 <Lab id="rosette" />
 
+## Definicje i jednostki
+
+| Wielkość                    | Symbol             | Znaczenie                                        | Jednostka    | Uwaga                                           |
+| --------------------------- | ------------------ | ------------------------------------------------ | ------------ | ----------------------------------------------- |
+| Odczyt czujnika $0^\circ$   | $\varepsilon_0$    | odkształcenie w kierunku osi $x$                 | bezwymiarowe | utożsamiane z $\varepsilon_x$                   |
+| Odczyt czujnika $45^\circ$  | $\varepsilon_{45}$ | odkształcenie w kierunku pośrednim               | bezwymiarowe | zawiera informację o ścinaniu                   |
+| Odczyt czujnika $90^\circ$  | $\varepsilon_{90}$ | odkształcenie w kierunku osi $y$                 | bezwymiarowe | utożsamiane z $\varepsilon_y$                   |
+| Odkształcenie postaciowe    | $\gamma_{xy}$      | zmiana kąta prostego w płaszczyźnie $xy$         | radian       | inżynierskie, pełny kąt                         |
+| Odkształcenie główne        | $\varepsilon_1$    | największe odkształcenie liniowe w punkcie       | bezwymiarowe | może być ujemne                                 |
+| Drugie odkształcenie główne | $\varepsilon_2$    | najmniejsze odkształcenie liniowe w płaszczyźnie | bezwymiarowe | $\varepsilon_1\ge\varepsilon_2$                 |
+| Promień koła odkształceń    | $R_\varepsilon$    | połowa różnicy odkształceń głównych              | bezwymiarowe | $R_\varepsilon=(\varepsilon_1-\varepsilon_2)/2$ |
+| Kąt kierunku głównego       | $\theta_p$         | kąt od osi $x$ do kierunku $\varepsilon_1$       | stopnie      | znak zależy od konwencji                        |
+
+Wszystkie odkształcenia są bezwymiarowe, ale w praktyce podajemy je w mikrostrainach. Jeden mikrostrain to $10^{-6}$, więc odczyt $500$ w jednostkach $\mu\varepsilon$ oznacza $0{,}0005$. W obliczeniach z $\gamma$ trzeba pamiętać, że również $\gamma$ jest bezwymiarowe, a nie podane w stopniach. Kąt $\theta$ w funkcjach trygonometrycznych musi być w radianach albo świadomie używany w stopniach z odpowiednim przeliczeniem.
+
+### Konwencja znaków
+
+- Dodatnie $\varepsilon_0$ i $\varepsilon_{90}$ oznaczają wydłużenie wzdłuż odpowiednich osi.
+- Dodatnie $\gamma_{xy}$ oznacza umownie zmniejszenie kąta między dodatnimi półosiami $x$ i $y$.
+- Kąt $\theta_p$ mierzymy od osi $x$ do kierunku pierwszego odkształcenia głównego.
+- Ten sam stan można opisać kątem $\theta_p$ lub $\theta_p+180^\circ$; kierunek główny jest osią, a nie strzałką.
+- Przy zamianie $\varepsilon_1$ i $\varepsilon_2$ zmienia się znak różnicy, więc trzeba pilnować uporządkowania.
+- W kołach Mohra dla odkształceń na osi pionowej odkładamy $\gamma/2$, a nie $\gamma$.
+
+### Jednostki w praktyce
+
+| Zapis      | Wartość bezwymiarowa | Mikrostrainy           | Uwaga                          |
+| ---------- | -------------------- | ---------------------- | ------------------------------ |
+| $0{,}0002$ | $2\cdot10^{-4}$      | $200\,\mu\varepsilon$  | typowe odkształcenie sprężyste |
+| $0{,}0005$ | $5\cdot10^{-4}$      | $500\,\mu\varepsilon$  | często spotykane w pomiarach   |
+| $0{,}001$  | $10^{-3}$            | $1000\,\mu\varepsilon$ | $0{,}1\,\%$                    |
+| $0{,}002$  | $2\cdot10^{-3}$      | $2000\,\mu\varepsilon$ | $0{,}2\,\%$                    |
+| $0{,}0008$ | $8\cdot10^{-4}$      | $800\,\mu\varepsilon$  | warto przeliczać przed wzorem  |
+
+Tabela pomaga uniknąć najczęstszego błędu: wstawienia „500” zamiast „0,0005”. W zadaniach z rozetą wszystkie trzy odczyty muszą być w tej samej jednostce. Jeśli jeden jest w mikrostrainach, a drugi w procentach, wynik będzie bez sensu nawet przy poprawnym wzorze.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\varepsilon_\theta=\varepsilon_{avg}+a\cos2\theta+\frac{\gamma_{xy}}{2}\sin2\theta,\quad \varepsilon_{avg}=\frac{\varepsilon_x+\varepsilon_y}{2},\quad a=\frac{\varepsilon_x-\varepsilon_y}{2},\quad \gamma_{xy}=2\varepsilon_{45}-\varepsilon_0-\varepsilon_{90}
+\varepsilon_\theta=\varepsilon_x\cos^2\theta+\varepsilon_y\sin^2\theta+\gamma_{xy}\sin\theta\cos\theta
 $$
 
-<Caption>Dla rozety 0°/45°/90° przyjmuje się εx = ε0 oraz εy = ε90. Następnie ε1,2 = (εx+εy)/2 ± √&#123;[(εx−εy)/2]² + (γxy/2)²&#125;, a inżynierskie γmax(xy) = 2Rε, gdzie Rε jest promieniem koła odkształceń.</Caption>
+<Caption>Odkształcenie liniowe w kierunku odchylonym o kąt $\theta$ od osi $x$. Wzór obowiązuje dla małych odkształceń i płaskiego stanu w płaszczyźnie pomiaru. $\gamma_{xy}$ jest odkształceniem inżynierskim, a nie tensorowym.</Caption>
 </Formula>
 
+<Formula>
+$$
+\varepsilon_\theta=\frac{\varepsilon_x+\varepsilon_y}{2}+\frac{\varepsilon_x-\varepsilon_y}{2}\cos2\theta+\frac{\gamma_{xy}}{2}\sin2\theta
+$$
+
+<Caption>Ta sama zależność zapisana przez kąt podwojony. Postać ta jest wygodna, bo pokazuje, że $\varepsilon_\theta$ zmienia się sinusoidalnie wokół średniej. Dzięki niej można narysować koło Mohra odkształceń i wyznaczyć wartości główne.</Caption>
+</Formula>
+
+Wyprowadzenie dla rozety prostokątnej jest krótkie, jeśli skorzystamy z obu postaci.
+
+1. Dla $\theta=0^\circ$ funkcje przyjmują $\cos0=1$ i $\sin0=0$, więc $\varepsilon_0=\varepsilon_x$.
+2. Dla $\theta=90^\circ$ mamy $\cos90=0$ i $\sin90=1$, więc $\varepsilon_{90}=\varepsilon_y$.
+3. Dla $\theta=45^\circ$ mamy $\cos45=\sin45=1/\sqrt{2}$, więc $\cos^2 45=\sin^2 45=1/2$ oraz $\sin45\cos45=1/2$.
+4. Podstawiamy: $\varepsilon_{45}=(\varepsilon_x+\varepsilon_y)/2+\gamma_{xy}/2$.
+5. Mnożymy przez dwa: $2\varepsilon_{45}=\varepsilon_x+\varepsilon_y+\gamma_{xy}$.
+6. Porządkujemy: $\gamma_{xy}=2\varepsilon_{45}-\varepsilon_x-\varepsilon_y$.
+7. Ponieważ $\varepsilon_x=\varepsilon_0$ i $\varepsilon_y=\varepsilon_{90}$, otrzymujemy $\gamma_{xy}=2\varepsilon_{45}-\varepsilon_0-\varepsilon_{90}$.
+8. Średnia odkształceń wynosi $\varepsilon_{avg}=(\varepsilon_x+\varepsilon_y)/2$.
+9. Promień koła odkształceń to $R_\varepsilon=\sqrt{[(\varepsilon_x-\varepsilon_y)/2]^2+(\gamma_{xy}/2)^2}$.
+10. Odkształcenia główne wynoszą $\varepsilon_1=\varepsilon_{avg}+R_\varepsilon$ oraz $\varepsilon_2=\varepsilon_{avg}-R_\varepsilon$.
+
+Kąt kierunku głównego wyznaczamy z zależności $\tan2\theta_p=\gamma_{xy}/(\varepsilon_x-\varepsilon_y)$. Trzeba pamiętać, że funkcja $\tan$ ma okres $180^\circ$, więc równanie daje dwa kierunki różniące się o $90^\circ$. Jeden odpowiada $\varepsilon_1$, a drugi $\varepsilon_2$. Aby wybrać właściwy, można podstawić kąt do wzoru na $\varepsilon_\theta$ i sprawdzić, czy otrzymujemy wartość większą, czy mniejszą.
+
+### Koło Mohra odkształceń
+
+Koło Mohra dla odkształceń rysujemy w układzie $(\varepsilon,\gamma/2)$. Środek koła leży w punkcie $(\varepsilon_{avg},0)$, a promień wynosi $R_\varepsilon$. Punkty odpowiadające kierunkom $x$ i $y$ mają współrzędne $(\varepsilon_x,\gamma_{xy}/2)$ oraz $(\varepsilon_y,-\gamma_{xy}/2)$. Odkształcenia główne to przecięcia koła z osią poziomą, a maksymalne odkształcenie postaciowe odpowiada pionowym skrajom koła.
+
+Jeśli na osi pionowej odłożysz $\gamma$ zamiast $\gamma/2$, koło będzie dwukrotnie wyższe niż powinno. Kąty na takim rysunku przestaną odpowiadać rzeczywistym kierunkom. To najczęstszy błąd przy ręcznym rozwiązywaniu zadań z rozetą.
+
+### Maksymalne ścinanie
+
+W płaskim opisie w płaszczyźnie pomiaru maksymalne odkształcenie postaciowe wynosi $\gamma_{max}=2R_\varepsilon=\varepsilon_1-\varepsilon_2$. Jest to wartość inżynierska, a nie tensorowa. Tensorowa składowa maksymalna byłaby połową tej liczby. W zadaniach trzeba uważnie czytać, o którą wersję pytają, bo różnią się czynnikiem dwa.
+
+### Kontrola wyniku
+
+- Sprawdź, czy wszystkie trzy odczyty są w tej samej jednostce i przeliczone na wartości bezwymiarowe.
+- Sprawdź, czy $\varepsilon_1\ge\varepsilon_2$ i czy ich średnia zgadza się z $\varepsilon_{avg}$.
+- Sprawdź, czy $R_\varepsilon\ge0$; pierwiastek nie może dać wartości ujemnej.
+- Sprawdź, czy $\gamma_{max}=2R_\varepsilon$ jest większe od zera.
+- Sprawdź, czy kąt $\theta_p$ mieści się w zakresie $0^\circ$ do $180^\circ$ lub $0$ do $\pi$.
+- Sprawdź, czy znak $\gamma_{xy}$ odpowiada kierunkowi obrotu opisanemu w zadaniu.
+
 <Insight>
-  Koło odkształceń rysuje się w osiach (ε, γ/2), nie (ε, γ). Odczyt 45° zawiera informację o ścinaniu; bez niego nie
-  można jednoznacznie wyznaczyć γxy.
+  Koło odkształceń rysuje się w osiach $(\varepsilon,\gamma/2)$, nie $(\varepsilon,\gamma)$. Odczyt $45^\circ$ zawiera
+  informację o ścinaniu; bez niego nie można jednoznacznie wyznaczyć $\gamma_{xy}$. To najważniejsza różnica między
+  rozetą a trzema niezależnymi czujnikami liniowymi.
 </Insight>
 
 <WorkedExample>
-  <Given>Odczyty rozety: ε0 = 800 µε, ε45 = 500 µε, ε90 = 200 µε.</Given>
+  <Given>
+    Rozeta prostokątna dała odczyty $\varepsilon_0=800\,\mu\varepsilon$, $\varepsilon_{45}=500\,\mu\varepsilon$ i
+    $\varepsilon_{90}=200\,\mu\varepsilon$.
+  </Given>
   <Steps>
-    <Step>εx = 800 µε i εy = 200 µε.</Step>
-    <Step>γxy = 2·500 − 800 − 200 = 0 µrad.</Step>
-    <Step>Średnia εavg = (800 + 200)/2 = 500 µε.</Step>
-    <Step>Rε = √&#123;[(800 − 200)/2]² + 0²&#125; = 300 µε.</Step>
+    <Step>Przypisujemy $\varepsilon_x=800\,\mu\varepsilon$ i $\varepsilon_y=200\,\mu\varepsilon$.</Step>
+    <Step>
+      Obliczamy $\gamma_{xy}=2\cdot500-800-200=0\,\mu\text{rad}$.
+    </Step>
+    <Step>Średnia: $\varepsilon_{avg}=(800+200)/2=500\,\mu\varepsilon$.</Step>
+    <Step>
+      Promień: połowa różnicy odkształceń to $300\,\mu\varepsilon$, a $\gamma_{xy}/2=0$, więc
+      $R_\varepsilon=300\,\mu\varepsilon$.
+    </Step>
+    <Step>
+      Odkształcenia główne: $\varepsilon_1=500+300=800\,\mu\varepsilon$ oraz
+      $\varepsilon_2=500-300=200\,\mu\varepsilon$.
+    </Step>
+    <Step>
+      Maksymalne ścinanie: $\gamma_{max}=2R_\varepsilon=600\,\mu\text{rad}$.
+    </Step>
+    <Step>Kąt: $\tan2\theta_p=0/(800-200)=0$, więc $\theta_p=0^\circ$. Osie $x$ i $y$ są już kierunkami głównymi.</Step>
   </Steps>
   <Result>
-    ε1 = 800 µε, ε2 = 200 µε i γmax(xy) = 600 µrad. Zerowa wartość γxy oznacza, że osie x i y są już kierunkami głównymi
-    w tym pomiarze.
+    $\varepsilon_1=800\,\mu\varepsilon$, $\varepsilon_2=200\,\mu\varepsilon$ i $\gamma_{max}=600\,\mu\text{rad}$. Zerowa
+    wartość $\gamma_{xy}$ oznacza, że w tym punkcie nie ma ścinania względem osi rozety, a kierunki główne pokrywają się
+    z osiami czujników.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Rozeta dała $\varepsilon_0=600\,\mu\varepsilon$, $\varepsilon_{45}=300\,\mu\varepsilon$ i $\varepsilon_{90}=-200\,\mu\varepsilon$. Tym razem ścinanie nie znika. Obliczamy $\gamma_{xy}=2\cdot300-600-(-200)=200\,\mu\text{rad}$. Średnia wynosi $(600-200)/2=200\,\mu\varepsilon$, a połowa różnicy odkształceń liniowych to $(600+200)/2=400\,\mu\varepsilon$.
+
+Promień koła wynosi $R_\varepsilon=\sqrt{400^2+100^2}=\sqrt{160000+10000}=\sqrt{170000}\approx412{,}3\,\mu\varepsilon$. Zatem $\varepsilon_1\approx612{,}3\,\mu\varepsilon$ i $\varepsilon_2\approx-212{,}3\,\mu\varepsilon$. Maksymalne ścinanie to $2R_\varepsilon\approx824{,}6\,\mu\text{rad}$. Kąt kierunku głównego: $\tan2\theta_p=200/800=0{,}25$, więc $2\theta_p\approx14{,}04^\circ$ i $\theta_p\approx7{,}02^\circ$.
+
+Wynik mówi, że największe rozciąganie działa pod kątem około $7^\circ$ od osi pierwszego czujnika. To niewiele, ale przy projektowaniu połączenia lub otworu taki obrót może mieć znaczenie. Drugie odkształcenie główne jest ujemne, czyli w kierunku prostopadłym materiał jest ściskany. Taki stan jest typowy dla rozciągania z udziałem ścinania.
+
+### Co zmienia znak ścinania
+
+Gdyby $\varepsilon_{45}$ było mniejsze od średniej, $\gamma_{xy}$ byłoby ujemne, a kierunek główny obróciłby się w przeciwną stronę. Wartości główne zależą od kwadratu $\gamma_{xy}$, więc zmiana znaku ścinania nie zmienia $\varepsilon_1$ i $\varepsilon_2$, ale zmienia kierunek. To ważne: samo wzmocnienie materiału nie wystarczy, jeśli kierunek główny jest źle zinterpretowany i element zostanie zaprojektowany w niewłaściwej orientacji.
+
+## Trzeci przykład: wariant odwrotny
+
+Załóżmy, że z obliczeń wynika, iż w punkcie panują odkształcenia główne $\varepsilon_1=700\,\mu\varepsilon$ i $\varepsilon_2=-100\,\mu\varepsilon$, a kierunek pierwszy jest odchylony o $\theta_p=20^\circ$ od osi $x$. Jakie odczyty powinna dać rozeta $0^\circ/45^\circ/90^\circ$?
+
+Średnia wynosi $(700-100)/2=300\,\mu\varepsilon$, a promień $R_\varepsilon=(700+100)/2=400\,\mu\varepsilon$. Dla osi $x$ kąt względem kierunku głównego wynosi $-20^\circ$, więc $\cos2\theta=\cos(-40^\circ)\approx0{,}766$ i $\sin2\theta=\sin(-40^\circ)\approx-0{,}643$. Z wzoru transformacyjnego $\varepsilon_0=300+400\cdot0{,}766\approx606\,\mu\varepsilon$. Odpowiednio $\varepsilon_{90}=300-400\cdot0{,}766\approx-6\,\mu\varepsilon$.
+
+Dla kierunku $45^\circ$ kąt względem kierunku głównego wynosi $45^\circ-20^\circ=25^\circ$, więc $2\theta=50^\circ$. Stąd $\varepsilon_{45}=300+400\cos50^\circ\approx300+257=557\,\mu\varepsilon$. Odczyty wynoszą więc około $606$, $557$ i $-6\,\mu\varepsilon$. Kontrola: $\gamma_{xy}=2\cdot557-606-(-6)=514\,\mu\text{rad}$, co odpowiada $2R_\varepsilon\sin40^\circ=800\cdot0{,}643\approx514\,\mu\text{rad}$.
+
+### Co z tego wynika dla pomiaru
+
+Ten przykład pokazuje, że rozeta nie „wymyśla” kierunku głównego, tylko go rekonstruuje. Dwa różne stany mogą dawać podobne odczyty, jeśli różnią się kierunkiem i wartościami głównymi w skompensowany sposób. Dlatego sama trójka liczb jest poprawna tylko wtedy, gdy znasz konwencję kątów i kolejność czujników. Zamiana miejscami $\varepsilon_0$ i $\varepsilon_{90}$ nie zmienia wartości $\gamma_{xy}$, bo wzór jest symetryczny względem tej pary, ale zmienia znak różnicy $\varepsilon_x-\varepsilon_y$, a więc obraca interpretację kierunku głównego.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Rysowanie koła Mohra w osiach $(\varepsilon,\gamma)$ zamiast $(\varepsilon,\gamma/2)$.
+- Używanie $\gamma_{xy}=2\varepsilon_{45}-\varepsilon_0-\varepsilon_{90}$ bez zachowania znaków odczytów.
+- Mylenie odkształcenia inżynierskiego $\gamma$ z tensorowym $\varepsilon_{xy}$.
+- Zamiana kolejności czujników $0^\circ$ i $90^\circ$, co zmienia interpretację kąta kierunku głównego.
+- Wstawianie odczytów w mikrostrainach jako liczb całkowitych bez przeliczenia.
+- Zakładanie, że $\varepsilon_1$ zawsze odpowiada kierunkowi $x$; to prawda tylko przy $\gamma_{xy}=0$.
+- Pomijanie faktu, że rozeta mierzy wartości uśrednione na skończonej bazie.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy dane są odczytami rozety $0^\circ/45^\circ/90^\circ$, czy ogólnymi kątami. Dla rozety prostokątnej użyj gotowych zależności.
+2. Zapisz $\varepsilon_x=\varepsilon_0$ i $\varepsilon_y=\varepsilon_{90}$ tylko wtedy, gdy osie rozety pokrywają się z osiami układu.
+3. Oblicz $\gamma_{xy}=2\varepsilon_{45}-\varepsilon_x-\varepsilon_y$ i sprawdź znak.
+4. Oblicz średnią $\varepsilon_{avg}$ i promień $R_\varepsilon$; to one dają wartości główne.
+5. Wyznacz $\varepsilon_1$ i $\varepsilon_2$, pamiętając o uporządkowaniu.
+6. Oblicz $\tan2\theta_p=\gamma_{xy}/(\varepsilon_x-\varepsilon_y)$ i sprawdź, który kierunek odpowiada $\varepsilon_1$.
+7. Jeśli pytanie dotyczy maksymalnego ścinania, użyj $\gamma_{max}=2R_\varepsilon$ i nie dziel przez dwa bez potrzeby.
+8. Sprawdź, czy wynik ma sens: średnia powinna leżeć między wartościami głównymi, a promień nie może być ujemny.
+
+## Połącz z resztą kursu
+
+- W lekcji o odkształceniach $\varepsilon$ i $\gamma$ poznałeś definicje, które rozeta mierzy w trzech kierunkach.
+- W lekcji o tensometrach zobaczyłeś, jak pojedynczy czujnik zamienia opór na odkształcenie; tutaj łączysz trzy takie pomiary.
+- W lekcji o uogólnionym prawie Hooke’a odkształcenia główne z rozety zamienisz na naprężenia.
+- W module o stanie naprężenia koło Mohra dla naprężeń ma analogiczną konstrukcję, ale inne osie i inne znaczenie.
+- W module o skręcaniu zobaczysz, że ścinanie często występuje razem z rozciąganiem, więc kierunek główny nie pokrywa się z osią pręta.
+- W module o hipotezach wytężeniowych wartości główne staną się wejściem do oceny bezpieczeństwa.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz wyznaczyć $\gamma_{xy}$, wartości główne i kierunek, a także czy rozumiesz, dlaczego trzeci czujnik jest konieczny.
+
 <Quiz>
   <Question outcome="U2">
-    <Prompt>Rozeta dała ε0 = 600 µε, ε45 = 300 µε, ε90 = −200 µε. Ile wynosi γxy?</Prompt>
-    <Answer correct>200 µrad</Answer>
-    <Answer>400 µrad</Answer>
-    <Answer>1000 µrad</Answer>
-    <Hint>Użyj 2ε45 − ε0 − ε90 i zachowaj znaki.</Hint>
-    <Explanation>
-      γxy = 2·300 − 600 − (−200) = 200 µrad. Wszystkie odczyty są w µε, więc wynik wychodzi bezpośrednio w
-      mikroradianach.
-    </Explanation>
+    <Prompt>Rozeta dała $\varepsilon_0=600\,\mu\varepsilon$, $\varepsilon_{45}=300\,\mu\varepsilon$ i $\varepsilon_{90}=-200\,\mu\varepsilon$. Ile wynosi $\gamma_{xy}$?</Prompt>
+    <Answer correct>$200\,\mu\text{rad}$</Answer>
+    <Answer>$400\,\mu\text{rad}$</Answer>
+    <Answer>$1000\,\mu\text{rad}$</Answer>
+    <Hint>Użyj $2\varepsilon_{45}-\varepsilon_0-\varepsilon_{90}$ i zachowaj znaki.</Hint>
+    <Explanation>$\gamma_{xy}=2\cdot300-600-(-200)=200\,\mu\text{rad}$. Wszystkie odczyty są w mikrostrainach, więc wynik wychodzi bezpośrednio w mikroradianach.</Explanation>
   </Question>
   <Question outcome="U2">
-    <Prompt>Dla εx = 500 µε, εy = 100 µε i γxy = 600 µrad ile wynoszą odkształcenia główne?</Prompt>
-    <Answer correct>Około 661 µε i −61 µε</Answer>
-    <Answer>800 µε i −200 µε</Answer>
-    <Answer>600 µε i 200 µε</Answer>
-    <Hint>Średnia to 300 µε, a do promienia wstaw γxy/2 = 300 µε.</Hint>
-    <Explanation>
-      Rε = √(200² + 300²) = 360,555 µε. Zatem ε1 ≈ 660,56 µε i ε2 ≈ −60,56 µε, czyli po zaokrągleniu 661 µε i −61 µε.
-    </Explanation>
+    <Prompt>Dla $\varepsilon_x=500\,\mu\varepsilon$, $\varepsilon_y=100\,\mu\varepsilon$ i $\gamma_{xy}=600\,\mu\text{rad}$ ile wynoszą odkształcenia główne?</Prompt>
+    <Answer correct>Około $661\,\mu\varepsilon$ i $-61\,\mu\varepsilon$</Answer>
+    <Answer>$800\,\mu\varepsilon$ i $-200\,\mu\varepsilon$</Answer>
+    <Answer>$600\,\mu\varepsilon$ i $200\,\mu\varepsilon$</Answer>
+    <Hint>Średnia to $300\,\mu\varepsilon$, a do promienia wstaw $\gamma_{xy}/2=300\,\mu\varepsilon$.</Hint>
+    <Explanation>$R_\varepsilon=\sqrt{200^2+300^2}=360{,}555\,\mu\varepsilon$. Zatem $\varepsilon_1\approx660{,}56\,\mu\varepsilon$ i $\varepsilon_2\approx-60{,}56\,\mu\varepsilon$, czyli po zaokrągleniu $661\,\mu\varepsilon$ i $-61\,\mu\varepsilon$.</Explanation>
   </Question>
   <Question outcome="U2">
-    <Prompt>W jakich osiach należy narysować koło Mohra dla odkształceń przy inżynierskim γxy?</Prompt>
-    <Answer correct>(ε, γ/2)</Answer>
-    <Answer>(ε, γ)</Answer>
-    <Answer>(σ, τ)</Answer>
-    <Hint>Transformacja odkształceń ma tę samą postać co naprężeń po zastąpieniu τ przez γ/2.</Hint>
-    <Explanation>
-      Na osi poziomej jest ε, a na pionowej γ/2. Użycie γ bez podzielenia przez dwa podwoiłoby promień i zaburzyłoby
-      interpretację kątów.
-    </Explanation>
+    <Prompt>W jakich osiach należy narysować koło Mohra dla odkształceń przy inżynierskim $\gamma_{xy}$?</Prompt>
+    <Answer correct>$(\varepsilon,\gamma/2)$</Answer>
+    <Answer>$(\varepsilon,\gamma)$</Answer>
+    <Answer>$(\sigma,\tau)$</Answer>
+    <Hint>Transformacja odkształceń ma tę samą postać co naprężeń po zastąpieniu $\tau$ przez $\gamma/2$.</Hint>
+    <Explanation>Na osi poziomej jest $\varepsilon$, a na pionowej $\gamma/2$. Użycie $\gamma$ bez podzielenia przez dwa podwoiłoby promień i zaburzyło interpretację kątów.</Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dlaczego do wyznaczenia pełnego płaskiego stanu odkształcenia potrzebne są trzy niezależne kierunki?</Prompt>
+    <Answer correct>Bo tensor w płaszczyźnie ma trzy niezależne składowe</Answer>
+    <Answer>Bo każdy tensometr mierzy tylko temperaturę</Answer>
+    <Answer>Bo $\gamma_{xy}$ jest zawsze równe zeru</Answer>
+    <Hint>Policz niezależne składowe $\varepsilon_x$, $\varepsilon_y$ i $\gamma_{xy}$.</Hint>
+    <Explanation>W płaszczyźnie potrzebne są trzy liczby. Jeden czujnik daje jedno równanie, więc trzy czujniki pod różnymi kątami dają układ trzech równań z trzema niewiadomymi.</Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dla $\varepsilon_x=600\,\mu\varepsilon$, $\varepsilon_y=200\,\mu\varepsilon$ i $\gamma_{xy}=400\,\mu\text{rad}$ ile wynosi kąt $\theta_p$ do kierunku pierwszego?</Prompt>
+    <Answer correct>$22{,}5^\circ$</Answer>
+    <Answer>$45^\circ$</Answer>
+    <Answer>$11{,}25^\circ$</Answer>
+    <Hint>$\tan2\theta_p=\gamma_{xy}/(\varepsilon_x-\varepsilon_y)=400/400=1$.</Hint>
+    <Explanation>$\tan2\theta_p=1$, więc $2\theta_p=45^\circ$ i $\theta_p=22{,}5^\circ$. Kąt mierzymy od osi $x$ do kierunku $\varepsilon_1$.</Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Odkształcenia główne wynoszą $\varepsilon_1=800\,\mu\varepsilon$ i $\varepsilon_2=-200\,\mu\varepsilon$. Ile wynosi maksymalne inżynierskie odkształcenie postaciowe w płaszczyźnie?</Prompt>
+    <Answer correct>$1000\,\mu\text{rad}$</Answer>
+    <Answer>$500\,\mu\text{rad}$</Answer>
+    <Answer>$600\,\mu\text{rad}$</Answer>
+    <Hint>$\gamma_{max}=2R_\varepsilon=\varepsilon_1-\varepsilon_2$.</Hint>
+    <Explanation>$\gamma_{max}=800-(-200)=1000\,\mu\text{rad}$. Tensorowa składowa maksymalna byłaby równa $500\,\mu\text{rad}$, czyli połowie tej wartości.</Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Rozeta daje trzy jednakowe odczyty $100\,\mu\varepsilon$. Co można powiedzieć o stanie odkształcenia?</Prompt>
+    <Answer correct>$\gamma_{xy}=0$ i oba odkształcenia główne są równe $100\,\mu\varepsilon$</Answer>
+    <Answer>$\gamma_{xy}=200\,\mu\text{rad}$ i $\varepsilon_1=300\,\mu\varepsilon$</Answer>
+    <Answer>Stan jest czystym ścinaniem</Answer>
+    <Hint>Jeśli odczyt nie zależy od kierunku, koło Mohra redukuje się do punktu.</Hint>
+    <Explanation>$\gamma_{xy}=2\cdot100-100-100=0$, a $R_\varepsilon=0$. Oba odkształcenia główne są równe $100\,\mu\varepsilon$, więc stan jest izotropowym rozciąganiem w płaszczyźnie, a nie czystym ścinaniem.</Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- R. C. Hibbeler, _Mechanics of Materials_ — rozdział o transformacji odkształceń i rozetach tensometrycznych; dobre przykłady kątów i znaków.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z rozet i kół Mohra; warto przećwiczyć ręczne wyznaczanie kierunku głównego.
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o stanie odkształcenia i transformacji układu współrzędnych; klasyczne wyprowadzenie wzorów.
+- D. Roylance, _Mechanics of Materials_ — rozdział o rozwiązaniach doświadczalnych; przykład rozety $0^\circ/45^\circ/90^\circ$, wzory na $\gamma_{xy}$ i wartości główne.
+- T. Wierzbicki, _Structural Mechanics_ — rozdział o odkształceniu jednowymiarowym i jego rozszerzeniu do trzech wymiarów; dobrze wyjaśnia sens części symetrycznej tensora.

@@ -7,7 +7,6 @@ shortTitle: Naprężenia zginające
 description: >-
   Zobacz, dlaczego naprężenie rośnie liniowo z odległością od osi obojętnej i
   gdzie przekrój pracuje najmocniej.
-duration: 9
 eyebrow: Od ściskania do rozciągania
 outcomes:
   - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
@@ -24,67 +23,395 @@ outcomes:
     sztywności
 ---
 
-Przy zginaniu jedna strona belki się wydłuża, a druga skraca. Pomiędzy nimi leży warstwa, której długość nie zmienia się — to oś obojętna przekroju.
+Kiedy belka się ugina, jedna jej strona się wydłuża, a druga skraca. Pomiędzy nimi musi więc
+istnieć warstwa, której długość się nie zmienia. Ta warstwa to oś obojętna. Wszystko, co dzieje
+się dalej, wynika z prostego pytania: jak szybko odkształcenie rośnie, gdy oddalamy się od tej
+osi?
+
+Odpowiedź jest liniowa. Przekroje płaskie pozostają płaskie, więc odległość między dwoma
+sąsiednimi przekrojami zmienia się proporcjonalnie do odległości od osi obojętnej. Tam, gdzie
+włókna są dalej, różnica wydłużeń jest większa, a więc większe jest też naprężenie. To dlatego
+w belce prostokątnej najwięcej „pracują” włókna przy górnej i dolnej krawędzi, a materiał
+w pobliżu środka jest wykorzystany słabo.
+
+Po tej lekcji będziesz umiał wyznaczyć położenie osi obojętnej, obliczyć moment bezwładności
+względem niej, narysować rozkład naprężeń i znaleźć włókno, w którym naprężenie jest największe.
+Nauczysz się też odróżniać przekrój symetryczny od niesymetrycznego, w którym dwa skrajne
+włókna mogą mieć różne naprężenia.
+
+To umiejętność codzienna w projektowaniu. Półka, nadproże, wałek, rama rowerowa i dźwigar
+dachowy pracują przede wszystkim na zginanie. Projektant musi wiedzieć nie tylko, jaki jest
+moment, ale też gdzie w przekroju pojawi się największe naprężenie i czy materiał wytrzyma
+jego znak — ściskanie czy rozciąganie.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć moment zginający $M(x)$ i odróżnić go od siły tnącej $T(x)$. Wzór na
+  naprężenia zależy od $M$, a nie od $T$.
+- Przypomnij sobie pojęcie środka ciężkości przekroju. Oś obojętna w jednorodnym przekroju
+  przechodzi właśnie przez środek ciężkości.
+- Umiej policzyć moment bezwładności prostokąta, koła i przekroju złożonego. Przypomnij sobie
+  twierdzenie Steinera, czyli równoległe przesunięcie osi.
+- Rozróżniaj $I$ od $W$. Moment bezwładności ma jednostkę mm⁴, a wskaźnik wytrzymałości mm³.
+  Mylenie ich to jeden z najczęstszych błędów rachunkowych.
+- Przyjmij konwencję: dodatni moment wygina belkę wypukłością w dół, oś $y$ mierzymy od osi
+  obojętnej w dół, a naprężenie dodatnie oznacza rozciąganie.
+- Pamiętaj o prawie Hooke'a $\sigma = E\varepsilon$ i o tym, że obowiązuje ono tylko w zakresie
+  sprężystym. Po uplastycznieniu rozkład naprężeń przestaje być liniowy.
+
+## Model i intuicja
+
+Rozpatrujemy przekrój belki w miejscu, gdzie działa moment $M$. Zakładamy, że przekroje płaskie
+pozostają płaskie i prostopadłe do osi belki, ugięcia są małe, a materiał jest liniowo sprężysty
+i jednorodny. Nie działają siły osiowe, więc wypadkowa naprężeń normalnych w przekroju jest
+zerowa. To założenie wyznacza położenie osi obojętnej.
+
+Wyobraź sobie, że przekrój obraca się sztywno względem sąsiedniego. Włókna położone wyżej
+skracają się, a te niżej wydłużają. Odkształcenie jest proporcjonalne do odległości od osi
+obrotu, bo kąt obrotu jest wspólny dla całego przekroju. Prawo Hooke'a zamienia tę geometrię
+na naprężenie: im dalej od osi, tym większe naprężenie, ale wciąż liniowo.
+
+Model upraszcza rzeczywistość w kilku miejscach. Pomija siłę tnącą i związane z nią naprężenia
+styczne, które w pobliżu osi obojętnej mogą być znaczne. Zakłada, że materiał jest jednorodny,
+więc nie opisuje belek zespolonych ani żelbetu bez dodatkowej analizy. Nie uwzględnia też
+dużych ugięć, lokalnych koncentracji naprężeń przy otworach i karbach oraz utraty stateczności
+ścianek. W typowych belkach o stosunku długości do wysokości większym niż około 10 model jest
+jednak bardzo dobry.
+
+## Laboratorium: co ustawić
+
+W laboratorium zmieniaj średnicę przekroju i siłę, a następnie obserwuj maksymalne naprężenie
+oraz położenie osi obojętnej. W przekroju kołowym oś przechodzi przez środek, a naprężenie
+rośnie liniowo w obie strony. Sprawdź, jak zmiana średnicy wpływa na $W$ i na naprężenie przy
+tym samym momencie.
 
 <Lab id="bending" />
 
+## Definicje i jednostki
+
+**Oś obojętna** to linia w przekroju, na której odkształcenie i naprężenie normalne są równe
+zeru. W jednorodnym przekroju zginanym momentem w płaszczyźnie symetrii przechodzi przez środek
+ciężkości.
+
+**Naprężenie normalne** $\sigma_x$ działa wzdłuż osi belki. Dodatnie oznacza rozciąganie,
+ujemne ściskanie. Jednostka to MPa, czyli N/mm².
+
+**Moment bezwładności** $I_z$ opisuje rozkład pola przekroju względem osi zginania. Jednostka
+to mm⁴. To on decyduje o sztywności zginania $EI$.
+
+**Wskaźnik wytrzymałości** $W_z = I_z/c$ wiąże moment z maksymalnym naprężeniem. Jednostka to
+mm³. Przekrój ma zwykle dwa wskaźniki: dla górnego i dolnego włókna, jeśli nie jest symetryczny.
+
+**Krzywizna** $\kappa = M/(EI)$ opisuje zakrzywienie osi belki. Odwrotność krzywizny to promień
+krzywizny $\rho$.
+
+| Symbol   | Wielkość                   | Jednostka     | Uwaga                      |
+| -------- | -------------------------- | ------------- | -------------------------- |
+| $M$      | moment zginający           | kN·m lub N·mm | dodatni wygina belkę w dół |
+| $y$      | odległość od osi obojętnej | mm            | dodatnia w dół             |
+| $c$      | największa odległość       | mm            | do skrajnego włókna        |
+| $I_z$    | moment bezwładności        | mm⁴           | względem osi obojętnej     |
+| $W_z$    | wskaźnik wytrzymałości     | mm³           | $W_z = I_z/c$              |
+| $\sigma$ | naprężenie normalne        | MPa           | dodatnie to rozciąganie    |
+| $E$      | moduł Younga               | MPa lub GPa   | stal typowo 200–210 GPa    |
+| $\kappa$ | krzywizna                  | 1/mm lub 1/m  | $\kappa = M/(EI)$          |
+
+W przekroju symetrycznym względem osi poziomej $c = h/2$ i wystarcza jeden wskaźnik $W$. W
+przekroju niesymetrycznym, na przykład teowym, trzeba sprawdzić osobno górne i dolne włókno.
+Największe naprężenie występuje po stronie większego $c$, ale znak może być różny.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma_x(y) = \frac{M y}{I_z} \qquad \sigma_{\max} = \frac{M}{W_z}, \quad W_z = \frac{I_z}{c}
+\sigma_x(y) = \frac{M y}{I_z}, \qquad \sigma_{\max} = \frac{M}{W_z}, \qquad W_z = \frac{I_z}{c}
 $$
 
-<Caption>y jest odległością od osi obojętnej mierzoną w przyjętym kierunku, c to największa odległość do skrajnego włókna, a I_z to moment bezwładności względem osi zginania. Wzór na σmax podaje największą wartość bezwzględną naprężenia.</Caption>
+<Caption>
+Rozkład naprężeń normalnych w przekroju zginanym. $y$ jest odległością od osi obojętnej,
+$c$ największą odległością do skrajnego włókna, a $I_z$ momentem bezwładności względem osi
+zginania.
+</Caption>
 </Formula>
 
+Wyprowadzenie pokazuje, skąd bierze się liniowość i dlaczego oś obojętna przechodzi przez
+środek ciężkości.
+
+1. Wytnij krótki odcinek belki o długości $dx$. Przyjmij, że przekroje pozostają płaskie,
+   a kąt obrotu przekroju względem sąsiedniego wynosi $d\theta$.
+2. Odkształcenie wzdłużne jest różnicą przemieszczeń podzieloną przez długość. Z geometrii
+   dostajesz $\varepsilon_x = y\kappa$, gdzie $\kappa = d\theta/dx$ jest krzywizną.
+3. Z prawa Hooke'a $\sigma_x = E\varepsilon_x = E\kappa y$. Naprężenie jest liniową funkcją
+   odległości od osi obojętnej.
+4. Wypadkowa naprężeń normalnych musi być zerowa, bo nie ma siły osiowej:
+   $\int_A \sigma_x\,dA = 0$.
+5. Po podstawieniu $\sigma_x = E\kappa y$ otrzymujesz $E\kappa \int_A y\,dA = 0$. Całka
+   $\int_A y\,dA$ to moment statyczny względem osi obojętnej; musi być zerowy.
+6. Zerowy moment statyczny oznacza, że oś obojętna przechodzi przez środek ciężkości przekroju.
+   To nie jest dodatkowe założenie, lecz wniosek z równowagi.
+7. Moment zginający jest wypadkowym momentem naprężeń: $M = \int_A \sigma_x y\,dA$. Po
+   podstawieniu $\sigma_x$ dostajesz $M = E\kappa \int_A y^2\,dA = E\kappa I_z$.
+8. Stąd $\kappa = M/(EI_z)$, a po powrocie do prawa Hooke'a $\sigma_x = My/I_z$. Na skrajnym
+   włóknie $\sigma_{\max} = Mc/I_z = M/W_z$.
+
 <Insight>
-  Na osi obojętnej σ = 0, a naprężenie rośnie liniowo z odległością |y|. W jednorodnym przekroju symetrycznym względem
-  osi zginania oś obojętna przechodzi przez środek ciężkości.
+  Naprężenie zależy od odległości od osi obojętnej, a nie od pola przekroju. Dlatego materiał przy środku przekroju jest
+  słabo wykorzystany. Przesunięcie materiału na zewnątrz, na przykład w kształcie dwuteownika, zwiększa $I$ przy tym
+  samym polu i znacznie zmniejsza naprężenie.
 </Insight>
 
 <WorkedExample>
-  <Given>Przekrój prostokątny b = 80 mm, h = 160 mm przenosi moment M = 8 kN·m.</Given>
+  <Given>
+    Prostokątny przekrój belki ma $b = 80$ mm i $h = 160$ mm. Działa moment $M = 8$ kN·m,
+    a materiał ma $E = 200$ GPa. Przyjmij, że zginanie odbywa się względem osi poziomej.
+  </Given>
   <Steps>
-    <Step>Iz = bh³/12 = 80·160³/12 = 27 306 667 mm⁴.</Step>
-    <Step>Najdalsze włókno ma c = h/2 = 80 mm, więc Wz = Iz/c = 341 333 mm³.</Step>
-    <Step>M = 8 kN·m = 8 000 000 N·mm.</Step>
-    <Step>σmax = M/Wz = 8 000 000/341 333 = 23,44 MPa; na osi obojętnej σ = 0.</Step>
+    <Step>Moment bezwładności: $I_z = b h^3/12 = 80 \cdot 160^3/12 = 27{,}31 \cdot 10^6$ mm⁴.</Step>
+    <Step>Skrajne włókno: $c = h/2 = 80$ mm, więc $W_z = I_z/c = 341{,}333$ mm³.</Step>
+    <Step>Moment w N·mm: $M = 8 \cdot 10^6$ N·mm.</Step>
+    <Step>Naprężenie maksymalne: $\sigma_{\max} = 8 \cdot 10^6/341{,}333 = 23{,}44$ MPa.</Step>
+    <Step>Naprężenie w połowie drogi do osi, przy $y = 40$ mm:
+      $\sigma = 8 \cdot 10^6 \cdot 40/27{,}31 \cdot 10^6 = 11{,}72$ MPa.</Step>
+    <Step>Krzywizna: $\kappa = 8 \cdot 10^6/(200{,}000 \cdot 27{,}31 \cdot 10^6)
+      = 1{,}465 \cdot 10^{-6}$ 1/mm, czyli $\rho \approx 683$ m.</Step>
+    <Step>Odkształcenie skrajne: $\varepsilon = \sigma/E = 23{,}44/200{,}000 = 1{,}17 \cdot 10^{-4}$.</Step>
   </Steps>
   <Result>
-    Naprężenia skrajne mają wartość bezwzględną 23,4 MPa: ściskanie po jednej i rozciąganie po drugiej stronie osi.
+    Naprężenia skrajne mają wartość bezwzględną 23,4 MPa: ściskanie u góry i rozciąganie u dołu.
+    Na osi obojętnej naprężenie wynosi zero, a w połowie wysokości jest dwa razy mniejsze.
   </Result>
 </WorkedExample>
 
+## Drugi przykład
+
+Rozważmy przekrój teowy złożony z półki $100 \times 20$ mm i środnika $20 \times 80$ mm.
+Całkowita wysokość wynosi 100 mm. Taki przekrój nie jest symetryczny względem osi poziomej,
+więc oś obojętna nie leży w połowie wysokości. Trzeba najpierw znaleźć środek ciężkości.
+
+Pole półki to $A_1 = 2000$ mm², a jej środek ciężkości leży 10 mm od góry. Pole środnika to
+$A_2 = 1600$ mm², a jego środek leży 60 mm od góry. Wspólny środek ciężkości jest w odległości
+
+$$
+\bar{y} = \frac{2000 \cdot 10 + 1600 \cdot 60}{3600} = 32{,}22\ \text{mm}
+$$
+
+od góry. To jest jednocześnie położenie osi obojętnej. Do góry zostaje $c_g = 32{,}22$ mm,
+a do dołu $c_d = 100 - 32{,}22 = 67{,}78$ mm.
+
+Moment bezwładności liczymy twierdzeniem Steinera. Dla półki $I_1 = 100 \cdot 20^3/12
+= 66{,}667$ mm⁴, a przesunięcie względem wspólnej osi wynosi $22{,}22$ mm. Dla środnika
+$I_2 = 20 \cdot 80^3/12 = 853{,}333$ mm⁴, a przesunięcie $27{,}78$ mm. Po zsumowaniu
+
+$$
+I_z = 66{,}667 + 2000 \cdot 22{,}22^2 + 853{,}333 + 1600 \cdot 27{,}78^2
+= 3{,}142 \cdot 10^6\ \text{mm}^4.
+$$
+
+Przy $M = 5$ kN·m naprężenia skrajne wynoszą
+
+$$
+\sigma_g = -\frac{5 \cdot 10^6 \cdot 32{,}22}{3{,}142 \cdot 10^6} = -51{,}3\ \text{MPa},
+\qquad
+\sigma_d = \frac{5 \cdot 10^6 \cdot 67{,}78}{3{,}142 \cdot 10^6} = 107{,}9\ \text{MPa}.
+$$
+
+Górna półka jest ściskana, a dolna krawędź środnika rozciągana. Mimo że górna półka jest
+szersza, to dolne włókno jest dalej od osi obojętnej, więc to ono decyduje o największym
+naprężeniu. Wniosek jest ogólny: w przekroju niesymetrycznym zawsze sprawdzaj oba skrajne
+włókna, bo „większy przekrój” nie oznacza automatycznie mniejszego naprężenia.
+
+## Trzeci przykład: wariant odwrotny
+
+Tym razem znamy dopuszczalne naprężenie i moment, a szukamy wymiarów przekroju. Przyjmijmy
+$\sigma_{dop} = 140$ MPa i $M = 10$ kN·m. Wymagany wskaźnik wytrzymałości wynosi
+
+$$
+W_{\min} = \frac{M}{\sigma_{dop}} = \frac{10 \cdot 10^6}{140} = 71{,}429\ \text{mm}^3.
+$$
+
+Wybierzmy prostokąt o stosunku $b = h/2$, czyli dwukrotnie wyższy niż szeroki. Wtedy
+$W = b h^2/6 = h^3/12$, więc
+
+$$
+h \ge \sqrt[3]{12 W_{\min}} = \sqrt[3]{857{,}143} \approx 95{,}0\ \text{mm}.
+$$
+
+Przyjmujemy $h = 100$ mm i $b = 50$ mm. Wtedy $W = 50 \cdot 100^2/6 = 83{,}333$ mm³, a
+naprężenie wynosi $\sigma_{\max} = 10 \cdot 10^6/83{,}333 = 120$ MPa, czyli mieści się
+w granicy 140 MPa. Moment bezwładności $I = 50 \cdot 100^3/12 = 4{,}167 \cdot 10^6$ mm⁴.
+
+Wariant odwrotny pokazuje, że dobór przekroju nie polega na zgadywaniu. Z warunku na naprężenie
+wynika minimalny wskaźnik $W$, a z niego — wymiary. Dopiero po wybraniu konkretnego przekroju
+sprawdza się rzeczywiste naprężenie i ewentualnie koryguje wymiary.
+
+<Callout kind="warning" title="Typowe błędy">
+
+1. Mierzenie $y$ od górnej lub dolnej krawędzi zamiast od osi obojętnej. Wzór $\sigma = My/I$
+   wymaga odległości od osi obojętnej.
+2. Używanie $c = h/2$ w przekroju niesymetrycznym. Wtedy trzeba osobno wyznaczyć $c_g$ i $c_d$.
+3. Liczenie $I$ względem krawędzi, a nie względem osi przechodzącej przez środek ciężkości.
+   Bez twierdzenia Steinera wynik jest błędny.
+4. Mylenie $I$ z $W$. $I$ ma jednostkę mm⁴ i opisuje sztywność, a $W$ ma mm³ i wiąże moment
+   z naprężeniem.
+5. Mieszanie jednostek: $M$ w kN·m, $I$ w mm⁴, a $E$ w GPa. Przeliczaj konsekwentnie na N i mm.
+6. Pomijanie znaku naprężenia. Wartość bezwzględna nie wystarcza, gdy materiał ma różną
+   wytrzymałość na rozciąganie i ściskanie.
+7. Stosowanie wzoru liniowego po przekroczeniu granicy sprężystości. W stanie plastycznym
+   rozkład naprężeń zmienia się i wzór przestaje obowiązywać.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal moment zginający $M$ w rozpatrywanym przekroju. Jeśli trzeba, wyznacz go z wykresu
+   $M(x)$.
+2. Znajdź położenie środka ciężkości przekroju. W przekroju symetrycznym leży on w połowie
+   wysokości, w niesymetrycznym trzeba go obliczyć.
+3. Przyjmij oś $y$ od osi obojętnej i ustal znak momentu. Sprawdź, która strona jest ściskana,
+   a która rozciągana.
+4. Oblicz moment bezwładności względem osi obojętnej. Dla przekroju złożonego użyj twierdzenia
+   Steinera.
+5. Znajdź $c$ dla obu skrajnych włókien i oblicz $W$ osobno dla góry i dołu, jeśli przekrój
+   nie jest symetryczny.
+6. Zastosuj $\sigma = My/I$ lub $\sigma_{\max} = M/W$. Sprawdź jednostki i rząd wielkości.
+7. Porównaj naprężenie z wartością dopuszczalną. Jeśli przekracza, zwiększ wymiar, zmień kształt
+   przekroju albo materiał.
+
+## Połącz z resztą kursu
+
+- **Czyste zginanie.** Tam wyprowadzamy ten sam wzór dla stałego momentu i pokazujemy, że
+  krzywizna jest stała. Ta lekcja rozwija rachunek przekrojowy.
+- **Siła tnąca T(x).** Naprężenia styczne są największe przy osi obojętnej, a normalne — na
+  skrajnych włóknach. To dwa różne rozkłady, które trzeba sprawdzać osobno.
+- **Geometria przekroju.** Środek ciężkości, momenty bezwładności i twierdzenie Steinera to
+  narzędzia, bez których nie policzysz $I$ dla rzeczywistego kształtu.
+- **Stan naprężenia i koło Mohra.** W skrajnym włóknie panuje stan jednosiowy, a w środniku
+  dochodzi ścinanie; koło Mohra pokazuje, gdzie powstaje największe naprężenie główne.
+- **Dobór przekroju i kontrola sztywności.** $W$ służy do sprawdzenia wytrzymałości, a $I$ do
+  sprawdzenia ugięcia. Oba wynikają z geometrii przekroju.
+- **Materiały i kryteria zniszczenia.** Naprężenie zginające porównujesz z granicą plastyczności
+  lub wytrzymałością, zależnie od materiału i rodzaju zniszczenia.
+
+## Sprawdź się
+
+Pytania sprawdzają rozkład naprężeń, położenie osi obojętnej i rachunek wskaźnika
+wytrzymałości.
+
 <Quiz>
   <Question outcome="W3">
-    <Prompt>Jak zmienia się naprężenie normalne od zginania w funkcji odległości y od osi obojętnej?</Prompt>
-    <Answer correct>Liniowo; jest zerowe dla y = 0</Answer>
+    <Prompt>Jak zmienia się naprężenie normalne w funkcji odległości $y$ od osi obojętnej?</Prompt>
+    <Answer correct>Liniowo; jest zerowe dla $y = 0$</Answer>
     <Answer>Jest stałe w całym przekroju</Answer>
-    <Answer>Rośnie proporcjonalnie do y² i nigdy nie zmienia znaku</Answer>
-    <Hint>W σ = My/I wielkość y występuje w pierwszej potędze.</Hint>
+    <Answer>Rośnie proporcjonalnie do $y^2$ i nigdy nie zmienia znaku</Answer>
+    <Answer>Jest największe na osi obojętnej, a zerowe na krawędziach</Answer>
+    <Hint>W $\sigma = My/I$ wielkość $y$ występuje w pierwszej potędze.</Hint>
     <Explanation>
-      Przy ustalonych M i I naprężenie jest wprost proporcjonalne do y. Dla y = 0 wynosi zero, a po przeciwnych stronach
-      osi ma przeciwne znaki.
+      Przy ustalonych $M$ i $I$ naprężenie jest wprost proporcjonalne do $y$. Dla $y = 0$
+      wynosi zero, a po przeciwnych stronach osi ma przeciwne znaki.
     </Explanation>
   </Question>
+
   <Question outcome="U1">
-    <Prompt>Prostokąt ma b = 60 mm i h = 120 mm. Ile wynosi jego wskaźnik Wz względem osi poziomej?</Prompt>
-    <Answer>72 000 mm³</Answer>
-    <Answer correct>144 000 mm³</Answer>
-    <Answer>864 000 mm³</Answer>
-    <Hint>Dla prostokąta Wz = bh²/6.</Hint>
+    <Prompt>Prostokąt ma $b = 60$ mm i $h = 120$ mm. Ile wynosi jego $W_z$ względem osi poziomej?</Prompt>
+    <Answer>$72{,}000$ mm³</Answer>
+    <Answer correct>$144{,}000$ mm³</Answer>
+    <Answer>$864{,}000$ mm³</Answer>
+    <Answer>$8{,}640{,}000$ mm³</Answer>
+    <Hint>Dla prostokąta $W_z = b h^2/6$.</Hint>
     <Explanation>
-      Wz = 60·120²/6 = 60·14 400/6 = 144 000 mm³. Wskaźnik ma jednostkę mm³, a nie mm⁴ jak moment bezwładności.
+      $W_z = 60 \cdot 120^2/6 = 144{,}000$ mm³. Wskaźnik ma jednostkę mm³, a nie mm⁴ jak moment
+      bezwładności.
     </Explanation>
   </Question>
-  <Question outcome="W3">
-    <Prompt>Przy dodatnim momencie zginającym belkę w dół typowe naprężenia w przekroju symetrycznym to:</Prompt>
-    <Answer correct>Ściskanie u góry i rozciąganie u dołu</Answer>
-    <Answer>Rozciąganie u góry i ściskanie u dołu</Answer>
-    <Answer>Wyłącznie rozciąganie w całym przekroju</Answer>
-    <Hint>Wygięta belka skraca górne włókna, a wydłuża dolne.</Hint>
+
+<Question outcome="W3">
+  <Prompt>
+    Przy dodatnim momencie zginającym belka ugina się w dół. Jakie naprężenia występują w przekroju symetrycznym?
+  </Prompt>
+  <Answer correct>Ściskanie u góry i rozciąganie u dołu</Answer>
+  <Answer>Rozciąganie u góry i ściskanie u dołu</Answer>
+  <Answer>Wyłącznie rozciąganie w całym przekroju</Answer>
+  <Answer>Wyłącznie ściskanie w całym przekroju</Answer>
+  <Hint>Ugięcie w dół wydłuża dolne włókna, a skraca górne.</Hint>
+  <Explanation>
+    Dolne włókna wydłużają się, więc są rozciągane, a górne skracają się i są ściskane. Oś obojętna rozdziela te obszary
+    i tam naprężenie wynosi zero.
+  </Explanation>
+</Question>
+
+  <Question outcome="U1">
+    <Prompt>
+      Moment $M = 12$ kN·m działa na przekrój o wskaźniku $W = 100$ cm³. Ile wynosi naprężenie
+      maksymalne?
+    </Prompt>
+    <Answer>$12$ MPa</Answer>
+    <Answer correct>$120$ MPa</Answer>
+    <Answer>$1{,}2$ MPa</Answer>
+    <Answer>$1200$ MPa</Answer>
+    <Hint>Zamień $W$ na mm³: $100$ cm³ to $100{,}000$ mm³.</Hint>
     <Explanation>
-      Ugięcie w dół wydłuża dolne włókna i skraca górne. Dlatego u góry występuje ściskanie, a u dołu rozciąganie; oś
-      obojętna dzieli te obszary.
+      $M = 12 \cdot 10^6$ N·mm, więc $\sigma_{\max} = 12 \cdot 10^6/100{,}000 = 120$ MPa.
+      Zamiana cm³ na mm³ jest tu krokiem, w którym najczęściej pojawia się błąd.
+    </Explanation>
+  </Question>
+
+<Question outcome="W3">
+  <Prompt>
+    W przekroju teowym oś obojętna leży bliżej półki. Które włókno ma większe naprężenie bezwzględne przy tym samym $M$?
+  </Prompt>
+  <Answer correct>Dolne, bo jest dalej od osi obojętnej</Answer>
+  <Answer>Górne, bo półka jest szersza</Answer>
+  <Answer>Oba mają dokładnie takie samo naprężenie</Answer>
+  <Answer>Nie można tego ustalić bez modułu Younga</Answer>
+  <Hint>Naprężenie jest proporcjonalne do odległości od osi obojętnej, a nie do pola części.</Hint>
+  <Explanation>
+    Największe naprężenie występuje w włóknie najbardziej oddalonym od osi obojętnej. Szersza półka nie oznacza
+    większego naprężenia, bo decyduje odległość $c$, a nie pole.
+  </Explanation>
+</Question>
+
+<Question outcome="U2">
+  <Prompt>
+    W skrajnym włóknie belki zginanej działa tylko naprężenie normalne $\sigma_x$. Jak wygląda koło Mohra dla tego
+    punktu?
+  </Prompt>
+  <Answer correct>Przechodzi przez początek układu i ma średnicę $|\sigma_x|$</Answer>
+  <Answer>Jest punktem w środku układu, niezależnie od $\sigma_x$</Answer>
+  <Answer>Ma promień równy $2|\sigma_x|$</Answer>
+  <Answer>Nie można go narysować bez naprężeń stycznych</Answer>
+  <Hint>Przy $\sigma_y = 0$ i $\tau_{xy} = 0$ środek koła leży w $\sigma_x/2$.</Hint>
+  <Explanation>
+    Stan jednosiowy ma $\sigma_y = 0$ i $\tau_{xy} = 0$. Koło ma środek w $\sigma_x/2$ i promień $|\sigma_x|/2$, więc
+    przechodzi przez zero. Naprężenia główne to $\sigma_x$ i 0.
+  </Explanation>
+</Question>
+
+  <Question outcome="U3">
+    <Prompt>
+      Przy stałym momencie wysokość przekroju prostokątnego rośnie dwukrotnie, a szerokość
+      pozostaje bez zmian. Jak zmieni się naprężenie maksymalne?
+    </Prompt>
+    <Answer correct>Zmniejszy się czterokrotnie</Answer>
+    <Answer>Zmniejszy się dwukrotnie</Answer>
+    <Answer>Pozostanie bez zmian</Answer>
+    <Answer>Wzrośnie dwukrotnie</Answer>
+    <Hint>$W = b h^2/6$ rośnie z kwadratem wysokości.</Hint>
+    <Explanation>
+      Podwojenie $h$ zwiększa $W$ czterokrotnie, więc przy stałym $M$ naprężenie maleje
+      czterokrotnie. Moment bezwładności rośnie wtedy ośmiokrotnie.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o zginaniu; szukaj
+  wyprowadzenia rozkładu naprężeń i położenia osi obojętnej.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — geometria przekrojów
+  i momenty bezwładności; dobre do powtórzenia twierdzenia Steinera.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT — zadania
+  z przekrojami niesymetrycznymi; zwróć uwagę na sprawdzanie obu skrajnych włókien.
+- D. Roylance, _Mechanics of Materials_ (MIT OpenCourseWare) — podrozdział o naprężeniach
+  w belkach; wyprowadzenie $\sigma = -My/I$ i związek z krzywizną.
+- T. Wierzbicki, _Structural Mechanics_ (MIT OpenCourseWare) — rozdział o prawie Hooke'a dla
+  belek; pokazuje, że oś obojętna wynika z zerowego momentu statycznego.

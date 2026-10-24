@@ -18,6 +18,12 @@ export function BendingLab() {
   const beam = simplySupportedCenterLoad(forceKN, lengthMM)
   const sectionModulus = circleSectionModulusMM3(diameterMM)
   const sigmaMax = bendingStressMPa(beam.maxMomentKNM, sectionModulus)
+  const momentOfInertiaMM4 = (Math.PI * diameterMM ** 4) / 64
+  const maxPossibleMomentKNM = (40 * 6000) / 4000
+  const stressIntensity = Math.min(1, beam.maxMomentKNM / maxPossibleMomentKNM)
+  const stressZoneOpacity = 0.25 + 0.75 * stressIntensity
+  const stressDiagramW = 18 + 52 * stressIntensity
+  const springTransition = { type: 'spring' as const, stiffness: 160, damping: 23 }
   const span = 240 + ((lengthMM - 1000) / 5000) * 280
   const beamLeft = 290 - span / 2
   const beamRight = 290 + span / 2
@@ -78,9 +84,9 @@ export function BendingLab() {
             viewBox="0 0 720 245"
             width="100%"
             role="img"
-            aria-label="Belka z siłą w środku, reakcjami i kołowym przekrojem"
+            aria-label="Belka swobodnie podparta z siłą w środku rozpiętości i reakcjami podporowymi"
           >
-            <title>Schemat belki i przekrój zginany</title>
+            <title>Schemat belki zginanej siłą w połowie rozpiętości</title>
             <defs>
               <marker
                 id="bending-force"
@@ -104,12 +110,6 @@ export function BendingLab() {
               >
                 <path d="M0 0L10 5L0 10z" fill="#27835a" />
               </marker>
-              <linearGradient id="bending-section" x1="0" y1="0" x2="0" y2="1">
-                <stop stopColor="#4f6df5" />
-                <stop offset="0.48" stopColor="#4f6df5" stopOpacity="0.15" />
-                <stop offset="0.52" stopColor="#ff6b45" stopOpacity="0.15" />
-                <stop offset="1" stopColor="#ff6b45" />
-              </linearGradient>
             </defs>
             <line
               x1={beamLeft}
@@ -155,7 +155,7 @@ export function BendingLab() {
               strokeWidth={reactionStroke}
               markerEnd="url(#bending-reaction)"
             />
-            <text x={beamLeft - 32} y="215" fontSize="13" fill="#27835a">
+            <text x={Math.max(8, beamLeft - 32)} y="215" fontSize="13" fill="#27835a">
               RA
             </text>
             <text x={beamRight + 13} y="215" fontSize="13" fill="#27835a">
@@ -164,31 +164,128 @@ export function BendingLab() {
             <text x="290" y="158" textAnchor="middle" fontSize="13" fill="currentColor">
               L = {lengthMM} mm
             </text>
+          </svg>
+          <svg
+            viewBox="0 0 720 225"
+            width="100%"
+            role="img"
+            aria-label="Rozkład naprężeń zginających w kołowym przekroju belki: strefa ściskania, strefa rozciągania i oś obojętna"
+          >
+            <title>Przekrój kołowy z rozkładem naprężeń normalnych od zginania</title>
+            <defs>
+              <clipPath id="bending-zone-top">
+                <rect x="90" y="40" width="160" height="80" />
+              </clipPath>
+              <clipPath id="bending-zone-bottom">
+                <rect x="90" y="120" width="160" height="80" />
+              </clipPath>
+            </defs>
+            <text x="16" y="20" fontSize="14" fill="currentColor">
+              Przekrój w połowie belki (x = L/2): naprężenie σ(y) = M·y / I, d = {diameterMM} mm
+            </text>
             <motion.circle
-              cx="625"
-              cy="126"
-              fill="url(#bending-section)"
+              cx="170"
+              cy="120"
+              fill="#4f6df5"
+              clipPath="url(#bending-zone-top)"
+              animate={{ r: sectionR, opacity: stressZoneOpacity }}
+              transition={springTransition}
+            />
+            <motion.circle
+              cx="170"
+              cy="120"
+              fill="#ff6b45"
+              clipPath="url(#bending-zone-bottom)"
+              animate={{ r: sectionR, opacity: stressZoneOpacity }}
+              transition={springTransition}
+            />
+            <motion.circle
+              cx="170"
+              cy="120"
+              fill="none"
               stroke="currentColor"
               strokeWidth="2"
               animate={{ r: sectionR }}
-              transition={{ type: 'spring', stiffness: 160, damping: 23 }}
+              transition={springTransition}
+            />
+            <line x1="76" y1="120" x2="264" y2="120" stroke="currentColor" strokeDasharray="6 4" />
+            <text x="268" y="125" fontSize="11" fill="currentColor">
+              oś obojętna
+            </text>
+            <text x="170" y={120 - sectionR} textAnchor="middle" fontSize="13" fill="#4f6df5">
+              strefa ściskania
+            </text>
+            <text x="170" y={120 + sectionR + 18} textAnchor="middle" fontSize="13" fill="#ff6b45">
+              strefa rozciągania
+            </text>
+            <line
+              x1="176"
+              y1={120 - sectionR}
+              x2={360 - stressDiagramW}
+              y2={120 - sectionR}
+              stroke="#4f6df5"
+              strokeDasharray="2 4"
+              opacity="0.5"
             />
             <line
-              x1={625 - sectionR - 8}
-              y1="126"
-              x2={625 + sectionR + 8}
-              y2="126"
-              stroke="currentColor"
-              strokeDasharray="6 4"
+              x1="176"
+              y1={120 + sectionR}
+              x2={360 + stressDiagramW}
+              y2={120 + sectionR}
+              stroke="#ff6b45"
+              strokeDasharray="2 4"
+              opacity="0.5"
             />
-            <text x="625" y={126 - sectionR - 10} textAnchor="middle" fontSize="13" fill="#4f6df5">
-              ściskanie (−σ)
+            <polygon
+              points={`360,120 360,${120 - sectionR} ${360 - stressDiagramW},${120 - sectionR}`}
+              fill="#4f6df5"
+              fillOpacity="0.35"
+              stroke="#4f6df5"
+              strokeWidth="1.5"
+            />
+            <polygon
+              points={`360,120 360,${120 + sectionR} ${360 + stressDiagramW},${120 + sectionR}`}
+              fill="#ff6b45"
+              fillOpacity="0.35"
+              stroke="#ff6b45"
+              strokeWidth="1.5"
+            />
+            <line x1="360" y1={114 - sectionR} x2="360" y2={126 + sectionR} stroke="currentColor" opacity="0.5" />
+            <text x="360" y={120 - sectionR + 18} textAnchor="middle" fontSize="13" fill="#1b2350">
+              σg = −{fmt(sigmaMax)} MPa
             </text>
-            <text x="625" y={126 + sectionR + 18} textAnchor="middle" fontSize="13" fill="#ff6b45">
-              rozciąganie (+σ)
+            <text x="360" y={120 + sectionR - 14} textAnchor="middle" fontSize="13" fill="#7a2f1c">
+              σd = +{fmt(sigmaMax)} MPa
             </text>
-            <text x="625" y={126 + sectionR + 34} textAnchor="middle" fontSize="12" fill="currentColor">
-              oś obojętna: σ = 0 · d = {diameterMM} mm
+            <text x="520" y="44" fontSize="13" fontWeight="600" fill="currentColor">
+              Legenda
+            </text>
+            <rect x="520" y="54" width="12" height="12" rx="2" fill="#4f6df5" />
+            <text x="538" y="64" fontSize="12" fill="currentColor">
+              ściskanie (σ &lt; 0)
+            </text>
+            <rect x="520" y="74" width="12" height="12" rx="2" fill="#ff6b45" />
+            <text x="538" y="84" fontSize="12" fill="currentColor">
+              rozciąganie (σ &gt; 0)
+            </text>
+            <line x1="520" y1="100" x2="532" y2="100" stroke="currentColor" strokeDasharray="4 3" />
+            <text x="538" y="104" fontSize="12" fill="currentColor">
+              oś obojętna (σ = 0)
+            </text>
+            <text x="520" y="130" fontSize="11" fill="currentColor">
+              σ(y) = M·y / I — rozkład liniowy
+            </text>
+            <text x="520" y="148" fontSize="11" fill="currentColor">
+              Mmax = {fmt(beam.maxMomentKNM, 2)} kN·m
+            </text>
+            <text x="520" y="162" fontSize="11" fill="currentColor">
+              W = {fmt(sectionModulus, 0)} mm³
+            </text>
+            <text x="520" y="176" fontSize="11" fill="currentColor">
+              I = {fmt(momentOfInertiaMM4, 0)} mm⁴
+            </text>
+            <text x="520" y="192" fontSize="11" fill="currentColor" opacity="0.65">
+              nasycenie barwy rośnie z |σ|
             </text>
           </svg>
           <div className="lab-chart" aria-label="Wykres siły tnącej wzdłuż belki">

@@ -7,7 +7,6 @@ shortTitle: Osie równoległe
 description: >-
   Przenoszenie momentu bezwładności między osiami równoległymi i składanie
   przekrojów złożonych względem wspólnej osi.
-duration: 9
 eyebrow: Przesuwamy oś odniesienia
 outcomes:
   - W1 — analizuje udział odległych części przekroju w bezwładności
@@ -19,58 +18,307 @@ outcomes:
 solutionId: cw5-2
 ---
 
-Spośród osi równoległych moment bezwładności jest najmniejszy względem osi przechodzącej przez środek ciężkości. Przesunięcie osi o a dodaje składnik Aa², dlatego oddalone półki przekroju złożonego tak skutecznie zwiększają sztywność.
+Wyobraź sobie dwie deski połączone dwoma krótkimi dystansami, tworzące rodzaj skrzynki. Ich wspólny moment
+bezwładności względem osi poziomej jest znacznie większy niż suma momentów własnych każdej deski. Dodatkowy wkład
+pochodzi z samego faktu, że deski są odsunięte od osi. To jest treść twierdzenia Steinera: przesunięcie osi
+równoległej dodaje składnik równy polu razy kwadrat odległości.
+
+Twierdzenie to jest jednym z najczęściej używanych narzędzi w geometrii przekrojów. Bez niego nie da się policzyć
+momentu bezwładności dwuteownika, ceownika ani żadnego przekroju złożonego z prostokątów. Wystarczy znać moment
+własny każdej części względem jej środka ciężkości, a potem przenieść go na wspólną oś całego przekroju.
+
+Wzór wygląda prosto, ale jego poprawne stosowanie wymaga dyscypliny. Składnik $Aa^2$ liczy się od osi przechodzącej
+przez własny środek ciężkości części do osi docelowej. Nie wolno przeskakiwać dowolnie między dwiema osiami
+zewnętrznymi ani zapominać o momencie własnym. W przekroju z otworem trzeba odjąć zarówno moment własny otworu, jak i
+jego składnik przesunięcia.
+
+Po tej lekcji będziesz umiał wyprowadzić twierdzenie z definicji, zastosować je do przekroju dwuteowego i teowego,
+obliczyć moment względem wspólnej osi centralnej oraz rozwiązać zadanie odwrotne: dobrać odległość części tak, aby
+uzyskać wymaganą sztywność. Zrozumiesz też, dlaczego półki dwuteownika są tak skuteczne.
+
+W projektowaniu twierdzenie Steinera wyjaśnia sens kształtowników. Materiał umieszczony daleko od osi obojętnej wnosi
+do $I$ wkład rosnący z kwadratem odległości, więc nawet cienka półka na dużej wysokości może przewyższyć masywny
+środnik. To ta sama obserwacja, która stoi za rurami, skrzynkami i blachownicami o szerokich pasach.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie momenty własne figur prostych względem osi centralnych: prostokąt $bh^3/12$, koło $\pi d^4/64$,
+  trójkąt $bh^3/36$. To one wchodzą jako $I_{xc}$ w twierdzeniu.
+- Umiej wyznaczyć środek ciężkości przekroju złożonego metodą momentów statycznych. Bez poprawnego $\bar{y}$ nie
+  wiadomo, gdzie jest wspólna oś centralna.
+- Utrzymuj jednolite jednostki: $A$ w mm², $a$ w mm, więc $Aa^2$ wychodzi w mm⁴. Zamiana $a$ na cm przy $A$ w mm²
+  daje błąd stukrotny.
+- Pamiętaj, że $a$ jest odległością między osiami równoległymi, a nie współrzędną środka. Dla osi poziomych jest to
+  różnica współrzędnych $y$, dla pionowych różnica $x$.
+- Znak $a$ nie ma znaczenia, bo we wzorze występuje $a^2$. Liczy się wartość bezwzględna odległości.
+- Typowa pułapka: dodanie $Aa^2$ do momentu względem osi, która nie przechodzi przez środek ciężkości części. Twierdzenie
+  zawsze startuje od osi własnej, centralnej.
+
+## Model i intuicja
+
+Rozważmy dowolną figurę płaską o polu $A$ i środku ciężkości $C$. Przez $C$ przechodzi oś $x_c$. Oś $x$ jest do niej
+równoległa i odległa o $a$. Moment względem osi $x$ można potraktować jako sumę dwóch efektów: tego, jak pole jest
+rozłożone wokół własnego środka, oraz tego, że cały środek jest odsunięty od osi docelowej.
+
+Pierwszy efekt opisuje $I_{xc}$. Drugi zależy tylko od pola i odległości, a nie od kształtu wewnątrz figury. To
+dlatego dwie figury o tym samym polu i tym samym środku, ale różnym rozkładzie wokół środka, mają różne $I_{xc}$, ale
+ten sam składnik $Aa^2$. Twierdzenie rozdziela więc informację „jaki kształt” od informacji „jak daleko”.
+
+Model jest dokładny dla dowolnej figury płaskiej i dowolnej pary osi równoległych, o ile jedna z nich przechodzi
+przez środek ciężkości. Nie jest to przybliżenie inżynierskie ani uproszczenie wynikające z małych odkształceń.
+Tożsamość wynika wprost z definicji całkowej i własności $S_{xc}=0$.
+
+W przekroju złożonym stosujemy twierdzenie osobno do każdej części. Dla każdej z nich wyznaczamy własny moment
+centralny, odległość jej środka od wspólnej osi i pole, a potem sumujemy. Otwory traktujemy jak części o polu
+ujemnym: odejmujemy i moment własny, i składnik $Aa^2$. Nie wystarczy odjąć samo pole.
+
+Ograniczeniem jest kierunek osi. Twierdzenie Steinera dotyczy wyłącznie osi równoległych. Przy obrocie osi trzeba
+korzystać z formuł transformacyjnych, w których pojawia się moment dewiacyjny $I_{xy}$. Dla przekroju niesymetrycznego
+oś główna może być obrócona względem krawędzi, a wtedy samo przesunięcie równoległe nie wystarcza.
+
+W materiale niejednorodnym twierdzenie nadal opisuje geometrię, ale nie wystarcza do oceny sztywności. Trzeba
+przeliczyć pola przez stosunek modułów, a dopiero potem sumować momenty. W przeciwnym razie część o większym module
+zostałaby potraktowana tak samo jak część podatna, co zaniża sztywność całego przekroju.
+
+## Laboratorium: co ustawić
+
+Ustaw $b=120$ mm, $h=40$ mm i odległość osi $d=100$ mm. Porównaj własny moment $I_0$ z wkładem $Ad^2$ i zwróć uwagę,
+który składnik dominuje. Następnie zmniejsz $d$ do 0 i sprawdź, czy $I$ wraca do $I_0$; na koniec ustaw $d=40$ mm i
+oceń, jaka jest wtedy przewaga przesunięcia. W laboratorium odległość osi oznaczono $d$; w zapisie wzoru używamy $a$.
 
 <Lab id="steiner" />
+
+## Definicje i jednostki
+
+Twierdzenie Steinera wiąże moment bezwładności względem osi centralnej $x_c$ z momentem względem dowolnej osi $x$
+równoległej do niej i odległej o $a$. Moment względem osi centralnej jest najmniejszy spośród wszystkich momentów
+względem osi równoległych, bo składnik $Aa^2$ jest nieujemny i znika tylko dla $a=0$.
+
+| Symbol   | Znaczenie                                         | Jednostka |
+| -------- | ------------------------------------------------- | --------- |
+| $I_{xc}$ | moment względem osi przez własny środek ciężkości | mm⁴       |
+| $I_x$    | moment względem osi równoległej, odległej o $a$   | mm⁴       |
+| $A$      | pole części lub całego przekroju                  | mm²       |
+| $a$      | odległość między osiami równoległymi              | mm        |
+| $d$      | oznaczenie odległości osi w laboratorium          | mm        |
+| $i_x$    | promień bezwładności względem osi $x$             | mm        |
+| $S_{xc}$ | moment statyczny względem osi centralnej, równy 0 | mm³       |
+
+Dla przekroju złożonego wygodnie jest myśleć o tabeli: dla każdej części zapisujemy $A_i$, $I_{xci}$, $a_i$, a
+następnie $I_{xci}+A_ia_i^2$. Suma tych wyrazów daje moment całego przekroju. Otwory mają $A_i$ ujemne, więc cały
+wyraz $I_{xci}+A_ia_i^2$ też jest odejmowany.
+
+Warto odróżnić moment własny od momentu przeniesionego. $I_{xc}$ to charakterystyka kształtu względem jego środka.
+$I_x$ to charakterystyka względem wybranej osi zewnętrznej. Ten sam kształt ma nieskończenie wiele wartości $I_x$,
+ale tylko jedną wartość $I_{xc}$ dla danego kierunku osi. Dlatego w tabelach kształtowników podaje się momenty
+względem osi centralnych.
+
+## Wzór i wyprowadzenie
 
 <Formula>
 $$
 I_x = I_{xc} + A a^2
 $$
 
-<Caption>Ixc dotyczy osi przechodzącej przez środek ciężkości danej figury i równoległej do osi x, A jest jej polem, a a — odległością między osiami. Przy odejmowaniu otworu odejmujemy cały wyraz Ixc + Aa².</Caption>
+<Caption>$I_{xc}$ dotyczy osi przechodzącej przez środek ciężkości figury i równoległej do osi $x$, $A$ jest jej polem,
+a $a$ odległością między osiami. Przy odejmowaniu otworu odejmujemy cały wyraz $I_{xc}+Aa^2$, a nie tylko pole.</Caption>
 </Formula>
 
+Wyprowadzenie pokazuje, dlaczego w twierdzeniu nie ma wyrazu liniowego. Wystarczy rozwinąć kwadrat i skorzystać z
+definicji środka ciężkości.
+
+1. Umieść początek układu na osi docelowej $x$. Współrzędna $y$ mierzy odległość od tej osi.
+2. Oś centralna $x_c$ jest równoległa i leży o $a$ od osi $x$. Dla punktu o współrzędnej $y$ względem osi $x$ jego
+   współrzędna względem osi centralnej wynosi $y_c=y-a$.
+3. Z definicji $I_x=\int_A y^2\,dA$. Podstaw $y=y_c+a$.
+4. Rozwiń kwadrat: $y^2=y_c^2+2ay_c+a^2$.
+5. Całkuj wyraz po wyrazie: $I_x=\int_A y_c^2\,dA+2a\int_A y_c\,dA+a^2\int_A dA$.
+6. Pierwsza całka to $I_{xc}$, bo jest to moment względem osi przez środek ciężkości.
+7. Druga całka to moment statyczny względem osi centralnej, czyli $S_{xc}=0$. Znika, bo oś przechodzi przez środek
+   ciężkości.
+8. Trzecia całka to $a^2A$. Ostatecznie $I_x=I_{xc}+Aa^2$.
+9. Dla przekroju złożonego sumujemy po częściach: $I_x=\sum_i\left(I_{xci}+A_ia_i^2\right)$, przy czym dla otworów
+   $A_i$ jest ujemne.
+10. Funkcja $I_x(a)=I_{xc}+Aa^2$ ma minimum w $a=0$, ponieważ pochodna $2Aa$ zmienia znak z ujemnego na dodatni.
+    To potwierdza, że oś centralna daje najmniejszy moment.
+
+Znak $a$ nie wpływa na wynik, bo odległość jest podnoszona do kwadratu. W praktyce wygodnie jest liczyć $a$ jako wartość
+bezwzględną różnicy współrzędnych środków. Ważne jest natomiast, żeby dla każdej części odnieść się do tej samej osi
+docelowej; nie można dla jednej części wybrać osi dolnej, a dla innej górnej.
+
 <Insight>
-  Twierdzenie Steinera stosujemy zawsze od osi własnego środka ciężkości do osi równoległej, a nie dowolnie między
-  dwiema osiami zewnętrznymi. W figurze złożonej każda część ma własną odległość a od wspólnej osi centralnej.
+  Twierdzenie Steinera zawsze startuje od osi własnego środka ciężkości i idzie do osi równoległej. Nie stosuje się go
+  między dwiema dowolnymi osiami zewnętrznymi. W przekroju złożonym każda część ma własne $a_i$, a otwór odejmujemy
+  razem z jego momentem własnym i składnikiem przesunięcia.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Dla przekroju teowego z poprzedniej lekcji: środnik 20 × 100 mm, półka 120 × 20 mm, wspólne ȳ = 82,73 mm od dołu.
+    Dwuteownik ma dwie półki 120 × 20 mm i środnik 20 × 160 mm. Wysokość całkowita wynosi 200 mm, szerokość 120 mm.
+    Przekrój jest symetryczny względem obu osi centralnych.
   </Given>
   <Steps>
     <Step>
-      Środnik: Ixc1 = 20·100³/12 = 1,667·10⁶ mm⁴; odległość jego środka od osi centralnej a₁ = |82,73 − 50| = 32,73 mm.
+      Z symetrii środek ciężkości leży w połowie wysokości, czyli 100 mm od dolnej krawędzi. Pola: półka
+      $A_p=120\cdot 20=2400\ \text{mm}^2$, środnik $A_s=20\cdot 160=3200\ \text{mm}^2$, razem
+      $A=8000\ \text{mm}^2$.
     </Step>
-    <Step>Moment środnika: I₁ = 1,667·10⁶ + 2000·32,73² ≈ 3,809·10⁶ mm⁴.</Step>
-    <Step>Półka: Ixc2 = 120·20³/12 = 0,080·10⁶ mm⁴; a₂ = |110 − 82,73| = 27,27 mm.</Step>
-    <Step>Moment półki: I₂ = 0,080·10⁶ + 2400·27,27² ≈ 1,865·10⁶ mm⁴; suma Ix = I₁ + I₂ ≈ 5,674·10⁶ mm⁴.</Step>
+    <Step>
+      Półka: $I_{xc,p}=120\cdot 20^3/12=80\,000\ \text{mm}^4$. Jej środek leży 90 mm od osi centralnej, więc
+      $a_p=90$ mm.
+    </Step>
+    <Step>
+      Wkład jednej półki: $80\,000+2400\cdot 90^2=80\,000+19\,440\,000=19\,520\,000\ \text{mm}^4$. Dwie półki dają
+      $39\,040\,000\ \text{mm}^4$.
+    </Step>
+    <Step>
+      Środnik: $I_{xc,s}=20\cdot 160^3/12\approx 6\,826\,667\ \text{mm}^4$. Jego środek leży na osi centralnej, więc
+      $a_s=0$ i nie ma składnika przesunięcia.
+    </Step>
+    <Step>
+      Suma: $I_x=39\,040\,000+6\,826\,667=45\,866\,667\ \text{mm}^4\approx 45{,}87\cdot 10^6\ \text{mm}^4$.
+    </Step>
+    <Step>
+      Kontrola przez odejmowanie pustek: pełny prostokąt 120 × 200 ma $I=80\cdot 10^6\ \text{mm}^4$. Dwie pustki
+      50 × 160 mają razem $2\cdot 50\cdot 160^3/12\approx 34{,}13\cdot 10^6\ \text{mm}^4$. Różnica daje
+      $45{,}87\cdot 10^6\ \text{mm}^4$.
+    </Step>
+    <Step>
+      Porównanie z pełnym prostokątem: pole spadło z 24 000 do 8000 mm², czyli do jednej trzeciej, a moment pozostał
+      na poziomie około 57,3% wartości pełnej.
+    </Step>
   </Steps>
-  <Result>Moment bezwładności przekroju teowego względem poziomej osi centralnej wynosi około 5,67·10⁶ mm⁴.</Result>
+  <Result>
+    Moment bezwładności dwuteownika względem poziomej osi centralnej wynosi około
+    $45{,}87\cdot 10^6\ \text{mm}^4\approx 4587\ \text{cm}^4$. Przy jednej trzeciej materiału przekrój zachowuje ponad
+    połowę sztywności
+    pełnego prostokąta, co pokazuje skuteczność oddalania półek od osi.
+  </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Wróćmy do przekroju teowego z lekcji o momentach statycznych: środnik 20 × 100 mm, półka 120 × 20 mm, środek
+ciężkości 82,73 mm od dolnego końca środnika. Pole wynosi 4400 mm². Policzymy moment względem poziomej osi centralnej,
+korzystając z twierdzenia Steinera dla obu części.
+
+Dla środnika $I_{xc,1}=20\cdot 100^3/12=1\,666\,667\ \text{mm}^4$, a odległość jego środka od osi centralnej to
+$a_1=82{,}73-50=32{,}73$ mm. Wkład środnika:
+
+$$
+I_1=1\,666\,667+2000\cdot 32{,}73^2\approx 1\,666\,667+2\,142\,149=3\,808\,816\ \text{mm}^4.
+$$
+
+Dla półki $I_{xc,2}=120\cdot 20^3/12=80\,000\ \text{mm}^4$, a $a_2=110-82{,}73=27{,}27$ mm. Wkład półki:
+
+$$
+I_2=80\,000+2400\cdot 27{,}27^2\approx 80\,000+1\,785\,124=1\,865\,124\ \text{mm}^4.
+$$
+
+Suma daje $I_x\approx 5\,673\,940\ \text{mm}^4$, czyli około $5{,}67\cdot 10^6\ \text{mm}^4$. Kontrola przez moment
+względem podstawy: $I_{\text{podstawa}}\approx 35{,}79\cdot 10^6\ \text{mm}^4$, a po odjęciu $A\bar{y}^2$ otrzymujemy
+z powrotem około $5{,}67\cdot 10^6\ \text{mm}^4$.
+
+Zwróć uwagę, że wkład półki jest prawie tak duży jak wkład większego pola środnika, mimo że półka ma mniejsze pole.
+Decyduje odległość od osi. To wyjaśnia, dlaczego w przekrojach zginanych półki umieszcza się na zewnątrz, a nie przy
+środku.
+
+## Trzeci przykład: wariant odwrotny
+
+Prostokąt 120 × 40 mm ma $I_{xc}=120\cdot 40^3/12=640\,000\ \text{mm}^4$ i pole $A=4800\ \text{mm}^2$. Chcemy, aby
+jego moment względem pewnej osi równoległej wynosił $6{,}4\cdot 10^6\ \text{mm}^4$, czyli był dziesięć razy większy
+od momentu własnego. Jak daleko musi być ta oś?
+
+Korzystamy z $I_x=I_{xc}+Aa^2$ i rozwiązujemy względem $a$:
+
+$$
+a=\sqrt{\frac{I_x-I_{xc}}{A}}=\sqrt{\frac{6{,}4\cdot 10^6-0{,}64\cdot 10^6}{4800}}
+=\sqrt{\frac{5{,}76\cdot 10^6}{4800}}=\sqrt{1200}\approx 34{,}64\ \text{mm}.
+$$
+
+Odległość około 34,6 mm wystarcza, aby dziesięciokrotnie zwiększyć moment względem osi własnej. Warto zauważyć, że
+gdyby $a$ było równe promieniowi bezwładności $i_{xc}=\sqrt{640\,000/4800}\approx 11{,}55$ mm, moment wzrósłby
+dokładnie dwukrotnie. To ogólna zależność: $I=I_{xc}+A i_{xc}^2=2I_{xc}$ dla $a=i_{xc}$.
+
+Zadanie można też odwrócić w drugą stronę: mając zmierzony moment względem osi zewnętrznej i moment
+centralny, można wyznaczyć odległość osi, a stąd położenie środka ciężkości. To bywa użyteczne w pomiarach
+doświadczalnych, gdy nie znamy rozkładu masy, ale potrafimy zmierzyć sztywność względem dwóch osi.
+
+<Callout kind="warning" title="Typowe błędy">
+
+**Użycie $Aa$ zamiast $Aa^2$.** Wymiar się nie zgadza: $A\cdot a$ ma mm³, a moment bezwładności musi mieć mm⁴.
+
+**Startowanie od osi podstawy lub krawędzi.** Twierdzenie wymaga osi własnego środka ciężkości jako punktu wyjścia.
+
+**Pominięcie momentu własnego $I_{xc}$.** Sama korekta $Aa^2$ nie opisuje kształtu części.
+
+**Liczenie $a$ w centymetrach przy polu w mm².** Najlepiej od razu przeliczyć wszystkie długości na mm.
+
+**Stosowanie twierdzenia między dwiema osiami, z których żadna nie przechodzi przez środek ciężkości.** Wtedy trzeba
+najpierw przejść przez oś centralną.
+
+**Odejmowanie otworu tylko przez pole.** Otwór ma również moment własny i składnik $Aa^2$ względem wspólnej osi.
+
+**Używanie twierdzenia dla osi obróconych.** Dla osi nierównoległych potrzebna jest transformacja z momentem
+dewiacyjnym.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal wspólną oś, względem której ma być policzony moment całego przekroju. Przy zginaniu jest to pozioma oś
+   centralna przekroju.
+2. Wyznacz środek ciężkości całego przekroju, jeśli przekrój nie jest symetryczny. Bez tego nie znasz położenia osi
+   docelowej.
+3. Podziel przekrój na części, dla których znasz pole i moment własny względem ich środków. Zapisz $A_i$, $I_{xci}$,
+   $\bar{y}_i$.
+4. Dla każdej części oblicz $a_i=|\bar{y}_i-\bar{y}|$, czyli odległość jej środka od wspólnej osi.
+5. Policz $I_{xci}+A_ia_i^2$ dla każdej części. Otwory wpisz z ujemnym polem i odejmij cały wyraz.
+6. Zsumuj wkłady. Sprawdź, czy wynik jest większy od sumy momentów własnych — przesunięcie może tylko zwiększać $I$.
+7. Wykonaj kontrolę alternatywną, na przykład przez odejmowanie pustek od pełnego prostokąta albo przez moment
+   względem podstawy minus $A\bar{y}^2$.
+
+## Połącz z resztą kursu
+
+- „Momenty statyczne i figury złożone” daje współrzędne $\bar{y}_i$ i wspólny środek, potrzebne do wyznaczenia $a_i$.
+- „Momenty bezwładności przekroju” dostarcza wzorów na $I_{xci}$ dla figur prostych, które przenosimy twierdzeniem
+  Steinera.
+- „Osie centralne i główne” wykorzystuje momenty względem osi centralnych i pokazuje, co się dzieje przy obrocie osi.
+- „Wskaźnik wytrzymałości przekroju W” korzysta z $I$ względem osi obojętnej i odległości skrajnego włókna.
+- W module „Zginanie” sztywność $EI$ i naprężenie $\sigma=My/I$ zależą od momentu względem właściwej osi; błąd w
+  Steinerze przenosi się wprost na wynik.
+- W module „Racjonalne kształty przekrojów” składnik $Aa^2$ jest ilościowym wyjaśnieniem, dlaczego półki i rury
+  wygrywają z pełnymi przekrojami.
+
+## Sprawdź się
+
+Rozwiąż pytania, zapisując dla każdej części $A_i$, $I_{xci}$ i $a_i$. Najczęstsze błędy pojawiają się nie w samym
+wzorze, lecz w ustaleniu, od której osi mierzyć odległość.
 
 <Quiz>
   <Question outcome="U1">
     <Prompt>
-      Prostokąt ma Ixc = 2·10⁶ mm⁴ i A = 2000 mm². Ile wynosi moment względem osi równoległej oddalonej o a = 30 mm?
+      Prostokąt ma $I_{xc}=2\cdot 10^6\ \text{mm}^4$ i $A=2000\ \text{mm}^2$. Moment względem osi równoległej
+      oddalonej o $a=30$ mm wynosi:
     </Prompt>
-    <Answer>2,06·10⁶ mm⁴</Answer>
-    <Answer correct>3,8·10⁶ mm⁴</Answer>
-    <Answer>8·10⁶ mm⁴</Answer>
+    <Answer>$2{,}06\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer correct>$3{,}8\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer>$8\cdot 10^6\ \text{mm}^4$</Answer>
     <Hint>Najpierw podnieś odległość do kwadratu, potem pomnóż przez pole.</Hint>
-    <Explanation>Aa² = 2000·30² = 1,8·10⁶ mm⁴. Zatem Ix = 2·10⁶ + 1,8·10⁶ = 3,8·10⁶ mm⁴.</Explanation>
+    <Explanation>
+      $Aa^2=2000\cdot 30^2=1{,}8\cdot 10^6\ \text{mm}^4$. Zatem
+      $I_x=2\cdot 10^6+1{,}8\cdot 10^6=3{,}8\cdot 10^6\ \text{mm}^4$.
+    </Explanation>
   </Question>
   <Question outcome="W3">
     <Prompt>Co jest poprawne przy odejmowaniu oddalonego od osi otworu kołowego?</Prompt>
     <Answer>Odejmujemy tylko pole otworu</Answer>
-    <Answer correct>Odejmujemy Ixc otworu oraz jego składnik Aa²</Answer>
-    <Answer>Dodajemy składnik Aa², bo otwór jest pusty</Answer>
+    <Answer correct>Odejmujemy $I_{xc}$ otworu oraz jego składnik $Aa^2$</Answer>
+    <Answer>Dodajemy składnik $Aa^2$, bo otwór jest pusty</Answer>
     <Hint>Twierdzenie Steinera dotyczy całej figury, również tej odejmowanej.</Hint>
     <Explanation>
-      Otwór jest figurą o polu ujemnym, więc odejmujemy cały moment względem wspólnej osi: Iotw = Ixc + |A|a². Jego
-      oddalenie ma istotne znaczenie.
+      Otwór jest figurą o polu ujemnym, więc odejmujemy cały moment względem wspólnej osi:
+      $I_{\text{otwór}}=I_{xc}+|A|a^2$. Jego oddalenie ma istotne znaczenie.
     </Explanation>
   </Question>
   <Question outcome="W3">
@@ -80,8 +328,69 @@ $$
     <Answer>Zawsze osi na dolnej krawędzi</Answer>
     <Hint>Znajdź położenie osi, dla którego dodatkowy składnik znika.</Hint>
     <Explanation>
-      I = Ic + Aa², a składnik Aa² jest nieujemny i najmniejszy dla a = 0. Dlatego minimum odpowiada osi centralnej
-      równoległej.
+      $I=I_{xc}+Aa^2$, a składnik $Aa^2$ jest nieujemny i najmniejszy dla $a=0$. Dlatego minimum odpowiada osi
+      centralnej równoległej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Figura ma $I_{xc}=5\cdot 10^6\ \text{mm}^4$ i pole $A=2500\ \text{mm}^2$. Oś docelowa jest oddalona o 40 mm.
+      Moment względem niej wynosi:
+    </Prompt>
+    <Answer>$5{,}1\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer correct>$9\cdot 10^6\ \text{mm}^4$</Answer>
+    <Answer>$45\cdot 10^6\ \text{mm}^4$</Answer>
+    <Hint>$Aa^2=2500\cdot 1600$.</Hint>
+    <Explanation>
+      $Aa^2=2500\cdot 40^2=2500\cdot 1600=4\cdot 10^6\ \text{mm}^4$. Suma z momentem własnym daje
+      $9\cdot 10^6\ \text{mm}^4$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Moment względem podstawy wynosi $10\cdot 10^6\ \text{mm}^4$, moment względem osi centralnej
+      $4\cdot 10^6\ \text{mm}^4$, a pole $A=1500\ \text{mm}^2$. Odległość środka od podstawy jest równa około:
+    </Prompt>
+    <Answer>40 mm</Answer>
+    <Answer correct>63,2 mm</Answer>
+    <Answer>80 mm</Answer>
+    <Hint>Różnica momentów to $Aa^2$; wyznacz $a$ i pamiętaj o pierwiastku.</Hint>
+    <Explanation>
+      $Aa^2=10\cdot 10^6-4\cdot 10^6=6\cdot 10^6\ \text{mm}^4$, więc $a^2=6\cdot 10^6/1500=4000$ i
+      $a\approx 63{,}25$ mm.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Dlaczego umieszczenie półek dwuteownika daleko od osi obojętnej tak skutecznie zwiększa $I$?</Prompt>
+    <Answer>Ponieważ zwiększa pole przekroju bez zmiany masy</Answer>
+    <Answer correct>Ponieważ składnik $Aa^2$ rośnie z kwadratem odległości półki</Answer>
+    <Answer>Ponieważ półki zmieniają moduł Younga materiału</Answer>
+    <Hint>Odnieś się do wzoru Steinera, a nie do wytrzymałości materiału.</Hint>
+    <Explanation>
+      Półka ma pole $A$, a jej odległość od osi $a$ wchodzi do wzoru w kwadracie. Nawet niezbyt duże pole daje duży
+      wkład $Aa^2$, dlatego dwuteownik jest efektywny przy zginaniu.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Do której osi można bezpośrednio zastosować twierdzenie Steinera względem danej osi centralnej?</Prompt>
+    <Answer>Do dowolnej osi, także ukośnej</Answer>
+    <Answer correct>Do osi równoległej do osi centralnej</Answer>
+    <Answer>Tylko do osi prostopadłej do osi centralnej</Answer>
+    <Hint>Twierdzenie opisuje przesunięcie równoległe, a nie obrót.</Hint>
+    <Explanation>
+      Wzór $I=I_{xc}+Aa^2$ zakłada, że obie osie są równoległe. Przy obrocie osi trzeba użyć formuł
+      transformacyjnych z momentem dewiacyjnym $I_{xy}$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, WNT — rozdział o momentach bezwładności i twierdzeniu o osiach
+  równoległych; przykłady przekrojów złożonych.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH — charakterystyki geometryczne przekrojów; dobre
+  wyprowadzenie twierdzenia i omówienie osi centralnych.
+- E. Osgood, L. Cameron, P. Christensen, _Engineering Mechanics: Statics_ (otwarty podręcznik) — rozdział o
+  twierdzeniu o osiach równoległych; przykłady z figurami złożonymi i masami.
+- D. Roylance, _Mechanics of Materials_ (otwarty podręcznik) — rozdział o naprężeniach w belkach; zastosowanie
+  twierdzenia do przekroju teowego i wyznaczanie osi obojętnej.

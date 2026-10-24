@@ -7,7 +7,6 @@ shortTitle: Jedno i dwa cięcia
 description: >-
   Policz rzeczywiste płaszczyzny ścinania i uniknij najczęstszej pomyłki przy
   dwuciętym sworzniu.
-duration: 8
 eyebrow: 'Licz przekroje, nie płyty'
 outcomes:
   - >-
@@ -22,70 +21,280 @@ outcomes:
     zachowaniem bezpieczeństwa
 ---
 
-W połączeniu dwuciętym sworzeń trzeba przeciąć w dwóch miejscach, aby blachy się rozdzieliły. Ta sama siła rozkłada się więc na dwa przekroje, a średnie naprężenie styczne jest mniejsze.
+Weź do ręki dwie blachy połączone jednym sworzniem i pociągnij je w przeciwne strony. Sworzeń zostanie przecięty w jednym miejscu, na styku blach. To połączenie jednocięte. Teraz dołóż trzecią blachę i ustaw ją w środku, a dwie zewnętrzne połącz z nią tym samym sworzniem. Sworzeń będzie musiał zostać przecięty w dwóch miejscach, po jednym z każdej strony blachy środkowej. To połączenie dwucięte.
+
+Różnica jest ogromna, mimo że nadal mamy jeden sworzeń i trzy blachy. W połączeniu jednociętym cała siła przechodzi przez jeden przekrój. W dwuciętym siła rozdziela się na dwa przekroje, więc każdy z nich przenosi około połowy obciążenia. Przy tej samej średnicy i tym samym materiale średnie naprężenie styczne spada o połowę, a nośność połączenia rośnie.
+
+W typowych konstrukcjach spotkasz oba warianty. Połączenia zakładkowe z jedną blachą nakładkową są proste i tanie, ale obciążenie działa mimośrodowo, co dodatkowo zgina sworzeń. Połączenia dwucięte z blachą środkową i dwiema nakładkami są symetryczne i lepiej wykorzystują łącznik, choć wymagają więcej materiału i staranniejszego montażu.
+
+Najczęstszy błąd w zadaniach polega na liczeniu blach albo łączników zamiast płaszczyzn ścinania. Trzy blachy nie oznaczają trzech cięć, a cztery nity nie oznaczają czterech płaszczyzn. Trzeba wyobrazić sobie, w ilu miejscach sworzeń zostałby fizycznie przecięty, gdyby połączenie się rozpadło.
+
+Po tej lekcji będziesz umiał narysować przekrój myślowy przez połączenie, policzyć łączną liczbę płaszczyzn, obliczyć naprężenie w sworzniu oraz dobrać średnicę lub liczbę łączników do zadanej siły. Nauczysz się też rozpoznawać, kiedy model jednocięty jest zbyt dużym uproszczeniem.
+
+## Zanim zaczniesz
+
+- **Pole koła.** Wzór $A = \pi d^2/4$ musi być dla ciebie automatyczny. W połączeniach pojawia się przy każdym łączniku kołowym.
+- **Równowaga sił w węźle.** Umiesz zapisać, że suma sił na wyciętą blachę wynosi zero. To pozwala ustalić, ile siły przechodzi przez każdy styk.
+- **Ścinanie techniczne.** Wiesz już, że $\tau_{sr} = F/A_s$ i że pole $A_s$ oznacza łączne pole płaszczyzn ścinania, a nie pole jednego łącznika.
+- **Liczba płaszczyzn a liczba łączników.** W połączeniu z wieloma nitami każdy nit może być jednocięty lub dwucięty. Łączna liczba płaszczyzn to iloczyn liczby łączników i liczby cięć na jeden łącznik.
+- **Jednostki.** Siłę zamieniasz na niutony, średnicę na milimetry, a wynik otrzymujesz w MPa. Uważaj na średnicę podaną w centymetrach.
+- **Typowe pułapki.** Mylenie blachy środkowej z nakładką, liczenie styków zamiast przecięć, zapominanie o wszystkich łącznikach oraz mieszanie siły całkowitej z siłą przypadającą na jeden łącznik.
+
+## Model i intuicja
+
+W połączeniu jednociętym mamy dwie blachy i jeden styk. Siła $F$ działa na jedną blachę w lewo, a na drugą w prawo. Sworzeń jest ścinany w płaszczyźnie styku. Na tę płaszczyznę działa siła $F$, więc średnie naprężenie wynosi $F/A$, gdzie $A$ jest polem przekroju sworznia.
+
+W połączeniu dwuciętym mamy trzy blachy: dwie zewnętrzne i jedną środkową. Jeżeli siła $F$ działa na blachę środkową, a zewnętrzne są unieruchomione, to siła rozkłada się na dwa styki. Każdy styk przenosi około $F/2$, a sworzeń jest ścinany w dwóch płaszczyznach. Łączne pole ścinania wynosi $2A$, więc naprężenie wynosi $F/(2A)$.
+
+Model zakłada, że obie płaszczyzny przenoszą taki sam udział siły. W symetrycznym połączeniu jest to uzasadnione, dopóki blachy mają podobną sztywność i nie występują duże odkształcenia plastyczne. W rzeczywistości nierównomierny montaż, luz w otworach i różnice grubości mogą powodować, że jedna płaszczyzna jest obciążona bardziej. Zapas bezpieczeństwa powinien uwzględniać tę niepewność.
+
+W połączeniu wieloszeregowym sytuacja jest jeszcze bardziej złożona. Siła nie rozkłada się równo między wszystkimi nitami, ponieważ blacha między rzędami się wydłuża. Pierwszy rząd przenosi zwykle więcej niż wynikałoby to z prostego podziału. Model techniczny z równomiernym podziałem jest więc uproszczeniem, które trzeba stosować świadomie.
+
+Kiedy model przestaje wystarczać? Przy połączeniach zakładkowych z jedną nakładką, gdzie obciążenie jest mimośrodowe i sworzeń jest zginany. Przy połączeniach z luzem, gdzie część siły przenoszona jest przez tarcie. Przy krótkich, grubych łącznikach, gdzie dominuje docisk blachy, a nie przecięcie. W takich przypadkach potrzebne są dodatkowe sprawdzenia, ale nadal zaczynamy od bilansu płaszczyzn.
+
+Model zakłada też obciążenie statyczne. W rzeczywistych konstrukcjach siła może zmieniać się cyklicznie, a wtedy nawet naprężenie mniejsze od granicy plastyczności może po wielu cyklach doprowadzić do pęknięcia zmęczeniowego. Ścinanie techniczne opisuje nośność doraźną, a nie trwałość połączenia.
+
+## Laboratorium: co ustawić
+
+W laboratorium wybierz połączenie jednocięte, a potem dwucięte, zachowując tę samą siłę i średnicę nitu. Zaobserwuj, jak zmienia się siła przypadająca na jedną płaszczyznę oraz średnie naprężenie. Następnie zwiększ średnicę i sprawdź, czy wzrost pola przekroju rzeczywiście obniża naprężenie.
 
 <Lab id="shearJoint" />
 
+## Definicje i jednostki
+
+| Symbol      | Wielkość                   | Znaczenie                                   | Jednostka    |
+| ----------- | -------------------------- | ------------------------------------------- | ------------ |
+| $F$         | siła w połączeniu          | siła przenoszona przez całe połączenie      | N            |
+| $m$         | liczba łączników           | liczba sworzni, nitów lub śrub w połączeniu | bezwymiarowa |
+| $n$         | liczba cięć na łącznik     | 1 dla jednocięcia, 2 dla dwucięcia          | bezwymiarowa |
+| $A$         | pole jednego przekroju     | pole przekroju jednego łącznika             | mm²          |
+| $F_p$       | siła na płaszczyznę        | $F/(mn)$ przy równomiernym podziale         | N            |
+| $A_s$       | łączne pole ścinania       | $m n A$                                     | mm²          |
+| $\tau_{sr}$ | średnie naprężenie styczne | $F/A_s$                                     | MPa          |
+
+W zadaniach często pojawia się oznaczenie $n$ na liczbę łączników, a nie na liczbę cięć. Zawsze sprawdź, co autor ma na myśli. W tym kursie $n$ oznacza liczbę płaszczyzn ścinania na jeden łącznik, a $m$ liczbę łączników. Łączna liczba płaszczyzn wynosi wtedy $mn$.
+
+Płaszczyzna ścinania jest prostopadła do osi łącznika. W połączeniu jednociętym jest jedna taka płaszczyzna na łącznik. W dwuciętym są dwie. Jeżeli łącznik przechodzi przez trzy blachy, ale dwie z nich są po tej samej stronie i stykają się bezpośrednio, nadal mamy jedną płaszczyznę na tym styku. Liczy się liczba przecięć, a nie liczba blach.
+
+Pole docisku jest inne od pola ścinania. Docisk działa na powierzchnię walcową otworu i opisuje się iloczynem średnicy i grubości blachy. Ścinanie działa na przekrój poprzeczny łącznika. W typowym zadaniu sprawdza się oba mechanizmy, ale nie wolno ich mieszać we wzorach.
+
+Jeżeli łączniki mają różne średnice, nie można zastosować jednego pola $A$ do całego połączenia. Trzeba podzielić je na grupy o jednakowych wymiarach i obliczyć udział każdej grupy w przenoszeniu siły. W prostych zadaniach zwykle zakłada się jednakowe łączniki, ale w rzeczywistym węźle mogą wystąpić śruby różnej klasy.
+
+W połączeniu z czterema blachami liczba płaszczyzn zależy od tego, które blachy są ruchome. Dwie blachy zewnętrzne po jednej stronie i dwie po drugiej mogą dać jedną lub dwie płaszczyzny, zależnie od układu sił. Dlatego rysunek jest ważniejszy niż nazwa „połączenie wielowarstwowe”.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\tau_{sr} = \frac{F}{n A} \qquad A = \frac{\pi d^2}{4}
+\tau_{sr} = \frac{F}{m n A}, \qquad A = \frac{\pi d^2}{4}
 $$
 
-<Caption>n to liczba płaszczyzn ścinania: n = 1 dla połączenia jednociętego i n = 2 dla dwuciętego. A to pole jednego przekroju sworznia, a d to jego średnica.</Caption>
+<Caption>F to całkowita siła w połączeniu, m to liczba łączników, n to liczba płaszczyzn ścinania na jeden łącznik, a A to pole jednego przekroju. Dla jednego łącznika jednociętego m = 1 i n = 1, dla dwuciętego m = 1 i n = 2.</Caption>
 </Formula>
+
+Wyprowadzenie wynika z bilansu sił i policzenia wszystkich przecięć.
+
+1. **Ustal siłę całkowitą.** Całe połączenie przenosi siłę $F$. W symetrycznym układzie jest ona rozdzielona między łączniki, ale suma musi się zgadzać.
+2. **Policz łączniki.** Oznacz liczbę łączników przez $m$. Jeżeli wszystkie mają tę samą średnicę i są jednakowo obciążone, każdy przenosi $F/m$.
+3. **Policz przecięcia jednego łącznika.** Oznacz przez $n$ liczbę płaszczyzn, w których jeden łącznik jest ścinany. Dla jednocięcia $n = 1$, dla dwucięcia $n = 2$.
+4. **Policz siłę na jedną płaszczyznę.** Przy równomiernym podziale na jedną płaszczyznę przypada $F_p = F/(mn)$.
+5. **Zapisz równowagę płaszczyzny.** Na jednej płaszczyźnie działa naprężenie średnie $\tau_{sr}$ na polu $A$, więc równowaga daje $\tau_{sr} A = F_p$.
+6. **Podstaw siłę.** Otrzymujesz $\tau_{sr} A = F/(mn)$.
+7. **Podziel przez pole.** Po przekształceniu $\tau_{sr} = F/(mnA)$. To jest ogólny wzór dla dowolnej liczby jednakowych łączników i cięć.
+8. **Sprawdź szczególne przypadki.** Dla $m = 1$ i $n = 1$ wzór redukuje się do $F/A$. Dla $m = 1$ i $n = 2$ daje $F/(2A)$, czyli połowę naprężenia jednociętego.
+
+Wzór zakłada, że wszystkie łączniki i wszystkie płaszczyzny przenoszą jednakowy udział siły. To założenie jest rozsądne w prostym, symetrycznym połączeniu, ale może być zbyt optymistyczne w długim szeregu nitów. Wtedy rzeczywisty pierwszy rząd przenosi więcej i trzeba zastosować współczynniki korekcyjne albo analizę odkształceń.
 
 <Insight>
   Drugie cięcie zmniejsza średnie naprężenie o połowę przy tym samym sworzniu i tej samej sile. Samo dołożenie blachy
-  nie wystarcza — sworzeń musi zostać przecięty w dwóch miejscach.
+  nie wystarcza. Sworzeń musi zostać fizycznie przecięty w dwóch miejscach, a obie płaszczyzny muszą rzeczywiście
+  przenosić obciążenie.
 </Insight>
 
 <WorkedExample>
-  <Given>Dwucięty sworzeń o średnicy d = 16 mm przenosi F = 60 kN.</Given>
+  <Given>
+    Dwucięty sworzeń o średnicy $d = 20\ \text{mm}$ przenosi siłę $F = 100\ \text{kN}$. Oblicz średnie naprężenie styczne i siłę przypadającą na jedną płaszczyznę.
+  </Given>
   <Steps>
-    <Step>Pole jednego przekroju: A = π·16²/4 = 201,06 mm².</Step>
-    <Step>Dla dwóch cięć łączne pole ścinania wynosi 2A = 402,12 mm².</Step>
-    <Step>Średnie naprężenie: τsr = 60 000/402,12 = 149,2 MPa.</Step>
+    <Step>Pole jednego przekroju: $A = \pi \cdot 20^2/4 = 314{,}16\ \text{mm}^2$.</Step>
+    <Step>Liczba płaszczyzn dla jednego sworznia dwuciętego: $n = 2$, więc łączne pole wynosi $2A = 628{,}32\ \text{mm}^2$.</Step>
+    <Step>Siła na jedną płaszczyznę: $F_p = 100/2 = 50\ \text{kN} = 50\,000\ \text{N}$.</Step>
+    <Step>Średnie naprężenie: $\tau_{sr} = 100\,000/628{,}32 = 159{,}15\ \text{MPa}$.</Step>
+    <Step>Kontrola: ta sama siła na jednym cięciu dałaby $100\,000/314{,}16 = 318{,}3\ \text{MPa}$, czyli dwa razy więcej.</Step>
   </Steps>
   <Result>
-    τsr ≈ 149 MPa; na każdą płaszczyznę ścinania przypada F/2 = 30 kN, a dla jednego cięcia naprężenie byłoby dwa razy
-    większe.
+    $\tau_{sr} \approx 159\ \text{MPa}$, a każda płaszczyzna przenosi 50 kN. Wynik jest typowy dla stali konstrukcyjnej, ale wymaga porównania z naprężeniem dopuszczalnym i sprawdzenia docisku blach.
   </Result>
 </WorkedExample>
+
+## Drugi przykład
+
+Rozważmy połączenie z czterema nitami, z których każdy jest dwucięty. Całkowita siła wynosi $F = 180\ \text{kN}$, a średnica nitu $d = 18\ \text{mm}$. Tym razem nie liczymy tylko jednego łącznika, bo siła rozkłada się na wszystkie cztery.
+
+Pole jednego przekroju wynosi $A = \pi \cdot 18^2/4 = 254{,}47\ \text{mm}^2$. Liczba łączników $m = 4$, liczba cięć na łącznik $n = 2$, więc łączne pole ścinania to $A_s = m n A = 4 \cdot 2 \cdot 254{,}47 = 2035{,}75\ \text{mm}^2$.
+
+Średnie naprężenie wynosi $\tau_{sr} = 180\,000/2035{,}75 = 88{,}42\ \text{MPa}$. Na jeden nit przypada $180/4 = 45\ \text{kN}$, a na jedną płaszczyznę $45/2 = 22{,}5\ \text{kN}$. Kontrola: $22\,500/254{,}47 = 88{,}42\ \text{MPa}$.
+
+Ten przykład pokazuje, że liczba łączników i liczba cięć działają mnożnikowo. Cztery nity dwucięte dają osiem płaszczyzn ścinania. Gdyby te same cztery nity były jednocięte, łączne pole byłoby dwa razy mniejsze, a naprężenie dwa razy większe, czyli około 176,8 MPa.
+
+W praktyce nie zakładaj automatycznie, że wszystkie nity przenoszą równy udział siły. W krótkim połączeniu z jednakowymi blachami jest to dobre przybliżenie. W długim szeregu pierwszy nit może przenosić nawet kilkadziesiąt procent więcej niż wynika to z podziału. Dlatego normy wprowadzają współczynniki redukcyjne albo wymagają sprawdzenia nośności na docisk i rozerwanie blachy.
+
+W krótkim połączeniu z dwoma lub trzema nitami w szeregu nierównomierność jest niewielka. W długim szeregu może być znacząca, szczególnie gdy blachy są cienkie i podatne. Wtedy obliczenie z równym podziałem daje naprężenie mniejsze od rzeczywistego w pierwszym rzędzie. Zapas bezpieczeństwa powinien to uwzględniać.
+
+## Trzeci przykład: wariant odwrotny
+
+Zaprojektujmy średnicę sworznia dwuciętego dla siły $F = 90\ \text{kN}$ i naprężenia dopuszczalnego $\tau_{dop} = 120\ \text{MPa}$. Tym razem szukamy wymiaru, a nie naprężenia.
+
+Wymagane łączne pole ścinania wynosi $A_s \ge F/\tau_{dop} = 90\,000/120 = 750\ \text{mm}^2$. Dla jednego sworznia dwuciętego $A_s = 2A$, więc pole jednego przekroju musi wynosić co najmniej $A \ge 375\ \text{mm}^2$.
+
+Z zależności $A = \pi d^2/4$ otrzymujemy $d \ge \sqrt{4A/\pi} = \sqrt{4 \cdot 375/\pi} = \sqrt{477{,}46} = 21{,}85\ \text{mm}$. Najmniejsza dopuszczalna średnica to około 21,9 mm.
+
+Wybieramy średnicę handlową 22 mm i sprawdzamy ponownie. Pole wynosi $A = \pi \cdot 22^2/4 = 380{,}13\ \text{mm}^2$, łączne pole $2A = 760{,}27\ \text{mm}^2$, a naprężenie $\tau_{sr} = 90\,000/760{,}27 = 118{,}38\ \text{MPa}$, czyli poniżej 120 MPa. Warunek jest spełniony.
+
+Zwróć uwagę, że zaokrąglenie średnicy w górę zwiększa pole, ale nie zmienia liczby płaszczyzn. Gdyby wynik był blisko granicy, moglibyśmy rozważyć zwiększenie liczby sworzni zamiast średnicy. To decyzja projektowa: większa średnica oznacza cięższy łącznik i większy otwór w blasze, a większa liczba łączników oznacza dłuższe połączenie i bardziej złożony montaż.
+
+W praktyce projektant często iteruje: dobiera średnicę, sprawdza rozstaw i odległości od krawędzi, a potem wraca do obliczeń. Nasz przykład pomija te szczegóły, ale pokazuje logikę. Najpierw warunek wytrzymałości, potem zaokrąglenie, na końcu kontrola. Dopiero po niej można przejść do rysunku wykonawczego.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- **Liczenie blach zamiast cięć.** Trzy blachy w symetrycznym układzie dają dwie płaszczyzny ścinania, a nie trzy. Policz miejsca, w których sworzeń jest przecięty.
+- **Zapominanie o wszystkich łącznikach.** We wzorze musi pojawić się liczba łączników, jeżeli siła rozkłada się na kilka sworzni. Samo pole jednego łącznika nie wystarcza.
+- **Podwójne liczenie płaszczyzn.** W połączeniu dwuciętym nie licz dodatkowo obu blach zewnętrznych jako osobnych płaszczyzn. Płaszczyzny są dwie, bo dwa są styki.
+- **Mylenie siły całkowitej z siłą na łącznik.** Jeżeli cztery nity przenoszą 100 kN, to na jeden nit przypada 25 kN, a nie 100 kN. Zawsze wracaj do bilansu.
+- **Używanie średnicy w centymetrach.** Pole w cm² trzeba przeliczyć na mm². Inaczej naprężenie wyjdzie sto razy za małe.
+- **Mieszanie ścinania z dociskiem.** Pole docisku to średnica razy grubość blachy. Nie podstawiaj tego pola do wzoru na ścinanie łącznika.
+- **Brak sprawdzenia blachy.** Nawet idealny sworzeń nie pomoże, jeśli blacha rozerwie się przy otworze albo ulegnie nadmiernemu dociskowi. Połączenie trzeba sprawdzić jako całość.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Narysuj połączenie z boku.** Zaznacz blachy, łączniki i kierunek siły. Rysunek od razu pokazuje, gdzie są styki.
+2. **Policz łączniki.** Ustal $m$. Jeżeli łączniki mają różne średnice, podziel zadanie na grupy o jednakowych wymiarach.
+3. **Policz przecięcia jednego łącznika.** Ustal $n$, przechodząc wzrokiem wzdłuż osi łącznika i licząc miejsca styku blach, które przenoszą siłę w przeciwnych kierunkach.
+4. **Policz pole jednego przekroju.** Dla łącznika kołowego użyj $\pi d^2/4$. Sprawdź, czy podana jest średnica, a nie promień.
+5. **Oblicz łączne pole.** Pomnóż $A_s = m n A$. To jest mianownik wzoru.
+6. **Ujednolić jednostki i podziel.** Siła w niutonach, pole w mm², wynik w MPa.
+7. **Sprawdź, czego szukano.** Jeżeli pytanie dotyczy średnicy, przekształć wzór i zaokrąglij w górę. Jeżeli dotyczy nośności, oblicz $F_{max} = \tau_{dop} m n A$.
+8. **Sprawdź dodatkowe warunki.** Docisk blachy, rozerwanie przekroju netto i zginanie mimośrodowe mogą decydować o nośności bardziej niż samo ścinanie.
+9. **Zapisz wynik w kontekście.** Podaj naprężenie średnie, siłę na płaszczyznę i liczbę płaszczyzn. Sam wynik w MPa bez informacji, ile wynosi $m$ i $n$, jest trudny do sprawdzenia.
+
+## Połącz z resztą kursu
+
+- **Ścinanie techniczne.** Ta lekcja rozwija wzór $F/A_s$ przez wprowadzenie liczby łączników i płaszczyzn. Fundament pozostaje ten sam.
+- **Rozciąganie — siła wewnętrzna.** Bilans sił w połączeniu przypomina metodę przekrojów w pręcie. Siła musi przejść przez każdy styk.
+- **Naprężenia i odkształcenia styczne.** Średnie naprężenie w łączniku można powiązać z odkształceniem postaciowym, ale tylko wtedy, gdy znamy moduł ścinania i potrafimy oszacować rzeczywisty rozkład.
+- **Skręcanie wału.** W wale naprężenie styczne nie jest równomierne, więc liczba płaszczyzn nie wystarcza. Trzeba użyć momentu bezwładności przekroju.
+- **Dobór średnicy.** Wariant odwrotny z tej lekcji jest prostą wersją projektowania. W wale dochodzi jeszcze warunek sztywności.
+- **Hipotezy wytrzymałościowe.** Połączenie może być obciążone jednocześnie ścinaniem i rozciąganiem. Wtedy samo porównanie z naprężeniem dopuszczalnym na ścinanie nie wystarcza.
+
+## Sprawdź się
+
+Sprawdź, czy potrafisz policzyć płaszczyzny, a nie tylko podstawić liczby do wzoru.
 
 <Quiz>
   <Question outcome="W1">
     <Prompt>
-      Ten sam sworzeń przenosi tę samą siłę najpierw w połączeniu jednociętym, a potem dwuciętym. Jak zmieni się τsr?
+      Ten sam sworzeń przenosi tę samą siłę najpierw w połączeniu jednociętym, a potem dwuciętym. Jak zmieni się średnie naprężenie styczne?
     </Prompt>
     <Answer correct>Spadnie o połowę</Answer>
     <Answer>Spadnie czterokrotnie</Answer>
     <Answer>Nie zmieni się</Answer>
-    <Hint>Porównaj n = 1 i n = 2 we wzorze F/(nA).</Hint>
+    <Hint>Porównaj $n = 1$ i $n = 2$ we wzorze $F/(mnA)$.</Hint>
     <Explanation>
-      W połączeniu dwuciętym pole ścinania wynosi 2A, więc τsr = F/(2A). To dokładnie połowa wartości F/A dla jednego
-      cięcia.
+      W połączeniu dwuciętym pole ścinania wynosi $2A$, więc naprężenie to $F/(2A)$. To dokładnie połowa wartości $F/A$ dla jednego cięcia.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>Sworzeń o średnicy d = 10 mm jest dwucięty siłą F = 15,7 kN. Jakie jest przybliżone τsr?</Prompt>
+    <Prompt>
+      Sworzeń o średnicy $d = 12\ \text{mm}$ jest dwucięty siłą $F = 22{,}6\ \text{kN}$. Jakie jest przybliżone średnie naprężenie styczne?
+    </Prompt>
     <Answer>50 MPa</Answer>
     <Answer correct>100 MPa</Answer>
     <Answer>200 MPa</Answer>
-    <Hint>Najpierw policz πd²/4, a potem pomnóż pole przez dwa.</Hint>
-    <Explanation>A = π·10²/4 ≈ 78,54 mm², a 2A ≈ 157,08 mm². Zatem τsr = 15 700/157,08 ≈ 100 MPa.</Explanation>
+    <Hint>Policz $\pi d^2/4$, a potem pomnóż pole przez dwa.</Hint>
+    <Explanation>
+      $A = \pi \cdot 12^2/4 \approx 113{,}10\ \text{mm}^2$, a $2A \approx 226{,}19\ \text{mm}^2$. Zatem $\tau_{sr} = 22\,600/226{,}19 \approx 100\ \text{MPa}$.
+    </Explanation>
   </Question>
   <Question outcome="W1">
     <Prompt>
-      W symetrycznym połączeniu trzech blach środkowa przenosi F, a zewnętrzne razem odprowadzają F. Ile płaszczyzn
-      ścinania ma sworzeń?
+      W symetrycznym połączeniu trzech blach środkowa przenosi $F$, a zewnętrzne razem odprowadzają $F$. Ile płaszczyzn ścinania ma jeden sworzeń?
     </Prompt>
     <Answer>Jedną, bo jest jeden sworzeń</Answer>
     <Answer correct>Dwie, po jednej na styku blachy środkowej z każdą zewnętrzną</Answer>
     <Answer>Trzy, bo w połączeniu są trzy blachy</Answer>
     <Hint>Wyobraź sobie rozdzielenie blach i zaznacz miejsca przecięcia sworznia.</Hint>
     <Explanation>
-      Sworzeń przecina się na dwóch stykach blach. Każdy z dwóch przekrojów przenosi F/2, co daje łączne pole ścinania
-      2A.
+      Sworzeń przecina się na dwóch stykach blach. Każdy z dwóch przekrojów przenosi około $F/2$, co daje łączne pole ścinania $2A$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Sześć nitów, każdy dwucięty, przenosi siłę 240 kN. Ile wynosi łączna liczba płaszczyzn ścinania?
+    </Prompt>
+    <Answer>6</Answer>
+    <Answer>8</Answer>
+    <Answer correct>12</Answer>
+    <Hint>Pomnóż liczbę nitów przez liczbę cięć na jeden nit.</Hint>
+    <Explanation>
+      $m = 6$ oraz $n = 2$, więc łączna liczba płaszczyzn wynosi $mn = 12$. Na jedną płaszczyznę przypada $240/12 = 20\ \text{kN}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Dlaczego w połączeniu dwuciętym przyjmujemy, że każda płaszczyzna przenosi około połowy siły?
+    </Prompt>
+    <Answer correct>Bo układ jest symetryczny i obie płaszczyzny mają podobną sztywność</Answer>
+    <Answer>Bo połowa siły zawsze znika w sworzniu</Answer>
+    <Answer>Bo siła jest dzielona przez liczbę blach</Answer>
+    <Hint>Wróć do bilansu sił i założenia równomiernego podziału.</Hint>
+    <Explanation>
+      W symetrycznym połączeniu obie strony sworznia odkształcają się podobnie, więc siła rozkłada się mniej więcej równo. To założenie może zawieść przy luzach, różnej grubości blach lub dużym mimośrodzie.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Sworzeń jednocięty o średnicy 20 mm przenosi 100 kN. Jakie jest średnie naprężenie styczne?
+    </Prompt>
+    <Answer>159 MPa</Answer>
+    <Answer correct>318 MPa</Answer>
+    <Answer>636 MPa</Answer>
+    <Hint>Pole wynosi około 314 mm², a liczba płaszczyzn to jeden.</Hint>
+    <Explanation>
+      $A = 314{,}16\ \text{mm}^2$, więc $\tau_{sr} = 100\,000/314{,}16 = 318{,}3\ \text{MPa}$. W połączeniu dwuciętym byłoby to około 159 MPa.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>
+      Dla $F = 60\ \text{kN}$, $\tau_{dop} = 100\ \text{MPa}$ i połączenia dwuciętego najmniejsza średnica sworznia wynosi około:
+    </Prompt>
+    <Answer>9,8 mm</Answer>
+    <Answer correct>19,5 mm</Answer>
+    <Answer>27,6 mm</Answer>
+    <Hint>Najpierw oblicz wymagane pole jednego przekroju $A \ge F/(2\tau_{dop})$.</Hint>
+    <Explanation>
+      $A \ge 60\,000/(2 \cdot 100) = 300\ \text{mm}^2$, więc $d \ge \sqrt{4 \cdot 300/\pi} = 19{,}5\ \text{mm}$. Zaokrąglenie w górę prowadzi do 20 mm.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Trzy nity dwucięte o średnicy $d = 16\ \text{mm}$ przenoszą siłę $F = 120\ \text{kN}$. Jakie jest średnie naprężenie styczne?
+    </Prompt>
+    <Answer>50 MPa</Answer>
+    <Answer correct>99 MPa</Answer>
+    <Answer>199 MPa</Answer>
+    <Hint>Pole jednego nitu wynosi około 201 mm², a łącznych płaszczyzn jest sześć.</Hint>
+    <Explanation>
+      $A = \pi \cdot 16^2/4 = 201{,}06\ \text{mm}^2$. Łączne pole to $3 \cdot 2 \cdot 201{,}06 = 1206{,}37\ \text{mm}^2$, więc $\tau_{sr} = 120\,000/1206{,}37 = 99{,}5\ \text{MPa}$.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_, rozdział o połączeniach i ścinaniu technicznym — liczenie płaszczyzn i przykłady połączeń wielonitowych.
+- R. Kurowski, Z. Parszewski, _Zbiór zadań z wytrzymałości materiałów_, zadania z połączeń sworzniowych — warianty z wieloma łącznikami i różnymi układami blach.
+- D. Roylance, _Mechanics of Materials_, rozdział o ścinaniu i skręcaniu (MIT OpenCourseWare) — przykład złącza na wpust i język, w którym siła przechodzi przez powierzchnię ścinaną.
+- MIT 3.11 _Mechanics of Materials_, wykład o ścinaniu i skręcaniu — wprowadzenie do rozkładu naprężeń stycznych i analizy połączeń.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, rozdział o ścinaniu — typowe zadania projektowe z doborem średnicy.

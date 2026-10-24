@@ -7,7 +7,6 @@ shortTitle: Materiał i P dopuszczalne
 description: >-
   Porównuj wymaganą wytrzymałość z danymi materiału, wyznaczaj Pdop i pamiętaj o
   osobnym warunku sztywności.
-duration: 8
 eyebrow: Dwie strony nierówności
 outcomes:
   - >-
@@ -30,67 +29,276 @@ outcomes:
     warunek sztywności.
 ---
 
-Materiał opisuje, jakie naprężenie można dopuścić, a przekrój — jaką siłę przeniesie. Mocniejszy materiał nie zawsze zmniejszy odkształcenie, ponieważ o sztywności decyduje przede wszystkim moduł Younga E.
+Materiał odpowiada na pytanie, jakie naprężenie można bezpiecznie dopuścić. Przekrój odpowiada na pytanie, jaką siłę przeniesie przy tym naprężeniu. Dopiero razem te dwie informacje pozwalają wyznaczyć obciążenie dopuszczalne. W tej lekcji uczymy się łączyć dane z próby rozciągania z warunkami projektowymi.
+
+Najczęstszy błąd polega na utożsamieniu wytrzymałości ze sztywnością. Stal o większej granicy plastyczności wytrzyma większą siłę, ale nie musi odkształcić się mniej niż aluminium, jeśli mają różne moduły Younga. Element może być bezpieczny pod względem zerwania, a jednocześnie zbyt podatny w normalnej pracy. Projektant musi więc patrzeć na dwie różne rodziny własności.
+
+Próba rozciągania jest podstawowym źródłem danych. Z krzywej naprężenie–odkształcenie odczytujemy moduł Younga, granicę plastyczności, wytrzymałość na rozciąganie i zakres odkształceń trwałych. Na tej podstawie przyjmujemy granicę materiału, współczynnik bezpieczeństwa i naprężenie dopuszczalne. Wszystkie te decyzje są ze sobą powiązane, ale nie są tym samym.
+
+Po tej lekcji będziesz umieć wyznaczyć obciążenie dopuszczalne z warunku wytrzymałości i z warunku sztywności, a następnie wybrać mniejszą z otrzymanych wartości. Nauczysz się też porównywać materiały nie tylko po granicy plastyczności, lecz także po module Younga, gęstości i koszcie. To przygotowuje grunt pod pełne zadania projektowe.
+
+## Zanim zaczniesz
+
+- Rozróżniaj naprężenie $\sigma=N/A$ od odkształcenia $\varepsilon=\Delta L/L$. Pierwsze opisuje intensywność obciążenia materiału, drugie względną zmianę długości.
+- Znaj prawo Hooke'a $\sigma=E\varepsilon$ oraz wzór na wydłużenie $\Delta L=NL/(EA)$. Pamiętaj, że obowiązują w zakresie liniowo sprężystym.
+- Wiedz, czym różnią się granica plastyczności $R_e$ i wytrzymałość na rozciąganie $R_m$. Dla stali plastycznej projektuje się zwykle względem $R_e$, a nie względem zerwania.
+- Rozumiej pojęcie współczynnika bezpieczeństwa $n$: $k=R_e/n$. Większe $n$ oznacza mniejsze naprężenie dopuszczalne i większy wymagany przekrój.
+- Pamiętaj, że moduł Younga $E$ jest własnością sztywności, a nie wytrzymałości. Dwa materiały o różnym $E$ odkształcają się różnie przy tym samym naprężeniu.
+- Uważaj na jednostki: $E$ w GPa trzeba zamienić na MPa, mnożąc przez $1000$; $1\ \text{MPa}=1\ \text{N/mm}^2$.
+
+## Model i intuicja
+
+Model materiału w tej lekcji to jednoosiowe rozciąganie w zakresie liniowo sprężystym, z granicą plastyczności jako progiem bezpieczeństwa dla materiałów ciągliwych. Zakładamy, że naprężenie jest równomiernie rozłożone w przekroju, a materiał jest izotropowy. W zakresie sprężystym obowiązuje proporcjonalność $\sigma=E\varepsilon$, a po odciążeniu element wraca do pierwotnego kształtu.
+
+Równomierność naprężenia jest uproszczeniem. W rzeczywistym pręcie przy mocowaniu, otworach i zmianach przekroju występuje koncentracja naprężeń. Model $N/A$ opisuje wartość średnią z dala od takich stref, zgodnie z zasadą Saint-Venanta. Do pierwszej oceny nośności to wystarcza, ale detal konstrukcyjny wymaga osobnej analizy.
+
+Dla materiałów ciągliwych, takich jak typowa stal konstrukcyjna, przekroczenie $R_e$ oznacza trwałe odkształcenie. Konstrukcja może wtedy stracić geometrię, a w skrajnym przypadku ulec zniszczeniu. Dlatego jako granicę przyjmujemy $R_e$, a nie $R_m$. Wytrzymałość na rozciąganie jest ważna jako miara maksymalnej nośności i dla materiałów kruchych, które nie wykazują wyraźnego płynięcia.
+
+Dla materiałów kruchych, takich jak szkło, ceramika czy niektóre tworzywa, zniszczenie następuje bez widocznego odkształcenia plastycznego. Wtedy granicą może być $R_m$ lub wytrzymałość na ściskanie, zależnie od znaku naprężenia. Model liniowo sprężysty nadal bywa użyteczny, ale kryterium zniszczenia jest inne. Nie można mechanicznie przenosić zasad doboru stali na każdy materiał.
+
+Model przestaje wystarczać, gdy pojawia się zmęczenie, pełzanie, korozja naprężeniowa, wyboczenie lub silna koncentracja naprężeń. Wtedy sama granica z próby statycznej nie opisuje bezpieczeństwa. W typowym zadaniu podstawowym zakładamy jednak obciążenie statyczne, jednorodne i niezbyt wysoką temperaturę. Dla takich warunków para $R_e$ i $E$ wystarcza do pierwszej oceny.
+
+Temperatura zmienia zarówno granicę plastyczności, jak i moduł Younga, choć w różnym stopniu. Dla stali w typowym zakresie użytkowym zmiany $E$ są mniejsze niż zmiany $R_e$, ale przy wysokich temperaturach dochodzi pełzanie. W zadaniach, w których podano temperaturę pracy, trzeba sprawdzić, czy dane materiałowe odpowiadają właśnie tej temperaturze, a nie temperaturze pokojowej.
+
+Ważne jest też rozróżnienie naprężenia inżynierskiego i rzeczywistego. W próbie rozciągania naprężenie inżynierskie liczymy względem początkowego pola $A_0$. Po przewężeniu rzeczywiste pole jest mniejsze, więc naprężenie rzeczywiste jest większe. Do doboru przekroju w zakresie sprężystym używamy zwykle naprężenia inżynierskiego i początkowego pola, ponieważ odkształcenia są małe.
+
+W zadaniach projektowych nie liczymy zwykle naprężenia rzeczywistego, ale warto wiedzieć, że krzywa inżynierska ma maksimum przy $R_m$ między innymi z powodu zmniejszania się pola przekroju. To maksimum nie oznacza, że materiał staje się słabszy w sensie lokalnym; jest efektem geometrycznym.
+
+## Laboratorium: co ustawić
+
+Ustaw granicę plastyczności $R_e$, wytrzymałość $R_m$ i odkształcenie próbki. Przejdź przez zakres sprężysty, płynięcie i umocnienie, a potem cofnij suwak, aby zobaczyć odciążenie sprężyste i odkształcenie trwałe. Porównaj moment, w którym zaczyna się płynięcie, z wartością $R_e$.
 
 <Lab id="tensileTest" />
 
+W laboratorium moduł Younga jest stały i wynosi $200\ \text{GPa}$, a pole przekroju próbki $100\ \text{mm}^2$. Dzięki temu możesz skupić się na relacji między siłą, naprężeniem i odkształceniem. Zauważ, że po przekroczeniu $R_e$ naprężenie nie rośnie już proporcjonalnie do odkształcenia, a po odciążeniu pozostaje odkształcenie trwałe.
+
+## Definicje i jednostki
+
+| Symbol             | Znaczenie                   | Jednostka typowa              |
+| ------------------ | --------------------------- | ----------------------------- |
+| $R_e$              | granica plastyczności       | $\text{MPa}$                  |
+| $R_m$              | wytrzymałość na rozciąganie | $\text{MPa}$                  |
+| $E$                | moduł Younga                | $\text{MPa}$ lub $\text{GPa}$ |
+| $A$                | pole przekroju              | $\text{mm}^2$                 |
+| $N$                | siła osiowa                 | $\text{N}$                    |
+| $k$                | naprężenie dopuszczalne     | $\text{MPa}$                  |
+| $n$                | współczynnik bezpieczeństwa | bezwymiarowy                  |
+| $P_{\mathrm{dop}}$ | obciążenie dopuszczalne     | $\text{N}$                    |
+| $\varepsilon$      | odkształcenie względne      | bezwymiarowe                  |
+| $\Delta L$         | wydłużenie                  | $\text{mm}$                   |
+
+Typowe wartości orientacyjne dla dwóch często porównywanych materiałów zestawiono poniżej. Są to wartości rzędu wielkości, a nie dane konkretnego wyrobu; w rzeczywistym projekcie trzeba użyć danych dostawcy lub normy.
+
+| Materiał           | $E$                     | $R_e$                   | gęstość                     |
+| ------------------ | ----------------------- | ----------------------- | --------------------------- |
+| stal konstrukcyjna | około $200\ \text{GPa}$ | około $235\ \text{MPa}$ | około $7850\ \text{kg/m}^3$ |
+| aluminium          | około $70\ \text{GPa}$  | około $120\ \text{MPa}$ | około $2700\ \text{kg/m}^3$ |
+
+Granica plastyczności $R_e$ jest naprężeniem, przy którym pojawia się wyraźne odkształcenie trwałe. W praktyce często używa się umownej granicy plastyczności przy odkształceniu $0{,}2$ procent, ponieważ dokładny początek płynięcia jest trudny do uchwycenia. Wytrzymałość $R_m$ odpowiada największej sile w próbie rozciągania podzielonej przez początkowe pole przekroju.
+
+Naprężenie dopuszczalne $k$ nie jest własnością materiału. To wartość przyjęta do projektu, zależna od granicy materiału i współczynnika bezpieczeństwa: $k=R_e/n$. Ten sam materiał może mieć różne $k$ w różnych zastosowaniach, jeśli wymagania bezpieczeństwa są inne. Dlatego w zadaniu trzeba zawsze sprawdzić, czy podano $R_e$, $R_m$ czy już gotowe $k$.
+
+Moduł Younga $E$ ma jednostkę naprężenia, ale opisuje sztywność, a nie nośność. Typowa stal ma $E\approx 200\ \text{GPa}$, aluminium około $70\ \text{GPa}$, a tworzywa często kilka GPa. Różnica $E$ jest ogromna i bezpośrednio wpływa na wydłużenie. Granice plastyczności mogą być natomiast zbliżone lub nawet wyższe dla stopów aluminium niż dla niektórych stali.
+
+Dlatego porównanie „stal czy aluminium” bez podania kryterium jest niepełne. W jednym zastosowaniu ważna będzie masa, w innym sztywność, a w jeszcze innym koszt lub odporność na korozję. Projektant musi najpierw ustalić, które własności są naprawdę krytyczne.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-P_{dop} = \frac{k A}{n_{obc}} \qquad k = \frac{R_e}{n} \qquad \Delta L = \frac{PL}{EA}
+P_{\mathrm{dop}} = kA = \frac{R_eA}{n} \qquad \Delta L = \frac{P L}{E A} \le \Delta L_{\mathrm{dop}} \quad\Rightarrow\quad P_{\mathrm{dop},\Delta} = \frac{E A\,\Delta L_{\mathrm{dop}}}{L}
 $$
 
-<Caption>n oznacza współczynnik bezpieczeństwa materiału, a n_obc — ewentualny współczynnik obciążenia; jeśli P jest już obciążeniem obliczeniowym, przyjmujemy n_obc = 1. Najpierw ustal konwencję przyjętą w zadaniu.</Caption>
+<Caption>Pierwszy wzór dotyczy wytrzymałości, drugi sztywności. $P_{\mathrm{dop}}$ jest mniejszą z obu wartości. Dla materiału kruchego zamiast $R_e$ można przyjąć właściwą granicę wytrzymałości, ale wybór granicy musi być świadomy. $E$ i $k$ podstawiamy w MPa, $A$ w $\text{mm}^2$, a długość w mm.</Caption>
 </Formula>
 
+1. Zaczynamy od warunku naprężeniowego: $\sigma=N/A\le k$. Dla pręta rozciąganego siłą $P$ mamy $N=P$.
+2. Mnożymy obie strony przez $A$: $P\le kA$. Prawa strona jest obciążeniem dopuszczalnym z warunku wytrzymałości.
+3. Naprężenie dopuszczalne wyznaczamy z granicy materiału: $k=R_e/n$. Dla materiału ciągliwego używamy $R_e$, dla kruchego — odpowiedniej granicy wytrzymałości.
+4. Podstawiamy $k$ do warunku: $P_{\mathrm{dop},w}=R_eA/n$. Widać, że nośność rośnie liniowo z polem i granicą, a maleje z współczynnikiem bezpieczeństwa.
+5. Drugi warunek wynika z prawa Hooke'a: $\Delta L=PL/(EA)$. Wymagamy, aby wydłużenie nie przekroczyło wartości dopuszczalnej.
+6. Przekształcamy: $P\le EA\Delta L_{\mathrm{dop}}/L$. To obciążenie dopuszczalne z warunku sztywności.
+7. Oba warunki muszą być spełnione jednocześnie, więc przyjmujemy $P_{\mathrm{dop}}=\min(P_{\mathrm{dop},w},P_{\mathrm{dop},\Delta})$.
+8. Po wyborze obciążenia sprawdzamy rzeczywiste naprężenie i wydłużenie. Dopiero ten krok potwierdza, że żaden warunek nie został naruszony.
+
+W zadaniach odwrotnych, gdy znamy obciążenie i przekrój, a pytamy o materiał, przekształcamy warunek do postaci $R_e\ge nP/A$. To wymagana granica plastyczności. Podobnie dla sztywności: $E\ge PL/(A\Delta L_{\mathrm{dop}})$. Wtedy porównujemy wymagania z danymi materiałów i wybieramy ten, który spełnia oba.
+
 <Insight>
-  Dobierając Pdop z kilku warunków, przyjmujemy najmniejszą wartość. Przy doborze średnicy z kilku warunków przyjmujemy
-  największy wymagany wymiar.
+  Większa wytrzymałość nie oznacza większej sztywności. Granica plastyczności mówi, przy jakim naprężeniu materiał
+  zaczyna płynąć, a moduł Younga — jak bardzo odkształca się przed tym progiem. Można mieć materiał bardzo wytrzymały i
+  stosunkowo mało sztywny albo odwrotnie. W projekcie trzeba sprawdzić obie własności, bo odpowiadają na różne pytania.
 </Insight>
 
 <WorkedExample>
-  <Given>Pręt o A = 250 mm² ma k = 160 MPa. Z warunku wydłużenia wynika P ≤ 32 kN.</Given>
+  <Given>
+    Pręt ma pole $A=300\ \text{mm}^2$, długość $L=1{,}5\ \text{m}$, moduł $E=200\ \text{GPa}$ i granicę plastyczności $R_e=235\ \text{MPa}$. Wymagany współczynnik bezpieczeństwa wynosi $n=1{,}8$, a dopuszczalne wydłużenie $\Delta L_{\mathrm{dop}}=1\ \text{mm}$.
+  </Given>
   <Steps>
-    <Step>Z wytrzymałości: Pdop = kA = 160·250 = 40 000 N = 40 kN.</Step>
-    <Step>Z warunku sztywności: Pdop = 32 kN.</Step>
-    <Step>Przyjmujemy mniejszą wartość: min(40, 32) = 32 kN.</Step>
+    <Step>Naprężenie dopuszczalne: $k=R_e/n=235/1{,}8\approx 130{,}56\ \text{MPa}$.</Step>
+    <Step>Obciążenie dopuszczalne z wytrzymałości: $P_{\mathrm{dop},w}=kA=130{,}56\cdot 300=39\,167\ \text{N}\approx 39{,}2\ \text{kN}$.</Step>
+    <Step>Obciążenie dopuszczalne ze sztywności: $P_{\mathrm{dop},\Delta}=EA\Delta L_{\mathrm{dop}}/L$.</Step>
+    <Step>Podstawiamy w spójnych jednostkach: $E=200\,000\ \text{MPa}$, $A=300\ \text{mm}^2$, $\Delta L_{\mathrm{dop}}=1\ \text{mm}$, $L=1500\ \text{mm}$.</Step>
+    <Step>$P_{\mathrm{dop},\Delta}=200\,000\cdot 300\cdot 1/1500=40\,000\ \text{N}=40\ \text{kN}$.</Step>
+    <Step>Przyjmujemy mniejszą wartość: $P_{\mathrm{dop}}=\min(39{,}2;40)=39{,}2\ \text{kN}$.</Step>
+    <Step>Kontrola naprężenia: $\sigma=39\,167/300\approx 130{,}56\ \text{MPa}\le k$, więc warunek wytrzymałości jest spełniony.</Step>
+    <Step>Kontrola wydłużenia: $\Delta L=39\,167\cdot 1500/(200\,000\cdot 300)\approx 0{,}979\ \text{mm}\le 1\ \text{mm}$.</Step>
   </Steps>
-  <Result>Obciążenie dopuszczalne wynosi 32 kN i decyduje o nim warunek sztywności.</Result>
+  <Result>
+    Obciążenie dopuszczalne wynosi około $39{,}2\ \text{kN}$ i decyduje o nim wytrzymałość. Wydłużenie przy tej sile wynosi około $0{,}98\ \text{mm}$, czyli mieści się w dopuszczalnym $1\ \text{mm}$.
+  </Result>
 </WorkedExample>
+
+W tym przykładzie oba warunki dają zbliżone wartości: $39{,}2\ \text{kN}$ i $40\ \text{kN}$. To sytuacja graniczna, w której niewielka zmiana danych może zmienić warunek decydujący. Dlatego po zaokrągleniu wymiaru lub zmiany materiału trzeba przeliczyć oba warunki ponownie, zamiast zakładać, że nadal decyduje ten sam.
+
+## Drugi przykład
+
+Rozważmy wybór między stalą a aluminium dla pręta o długości $L=1{,}2\ \text{m}$, obciążonego siłą $P=25\ \text{kN}$. Wymagany współczynnik bezpieczeństwa wynosi $n=1{,}5$, a dopuszczalne wydłużenie $1{,}2\ \text{mm}$. Dla stali przyjmujemy $R_e=235\ \text{MPa}$, $E=200\ \text{GPa}$, a dla aluminium $R_e=120\ \text{MPa}$, $E=70\ \text{GPa}$.
+
+Dla stali naprężenie dopuszczalne wynosi $k=235/1{,}5=156{,}7\ \text{MPa}$. Wymagane pole z wytrzymałości to $A\ge25\,000/156{,}7=159{,}6\ \text{mm}^2$. Wymagane pole ze sztywności to $A\ge PL/(E\Delta L_{\mathrm{dop}})=25\,000\cdot1200/(200\,000\cdot1{,}2)=125\ \text{mm}^2$. Decyduje wytrzymałość, więc przyjmujemy $A=160\ \text{mm}^2$.
+
+Dla aluminium $k=120/1{,}5=80\ \text{MPa}$, więc z wytrzymałości $A\ge25\,000/80=312{,}5\ \text{mm}^2$. Ze sztywności $A\ge25\,000\cdot1200/(70\,000\cdot1{,}2)=357{,}1\ \text{mm}^2$. Decyduje sztywność, więc przyjmujemy $A=360\ \text{mm}^2$.
+
+Mimo większego pola aluminium może być lżejsze. Masa stali to około $160\cdot1200\cdot7{,}85\cdot10^{-6}\approx1{,}51\ \text{kg}$, a aluminium $360\cdot1200\cdot2{,}70\cdot10^{-6}\approx1{,}17\ \text{kg}$. Różnica wynika z mniejszej gęstości aluminium, mimo że jego moduł Younga jest prawie trzykrotnie mniejszy. To dobry przykład tego, że dobór materiału nie sprowadza się do jednej liczby.
+
+W rzeczywistym projekcie dochodzi jeszcze koszt materiału i wykonania. Aluminium jest lżejsze, ale często droższe za kilogram i ma mniejszą sztywność, co wymaga większego przekroju. Stal jest tańsza i sztywniejsza, ale cięższa. Decyzja zależy od tego, które kryterium jest ważniejsze: masa, koszt, sztywność czy dostępność.
+
+## Trzeci przykład: wariant odwrotny
+
+Pręt o polu $A=250\ \text{mm}^2$ jest wykonany ze stali o $R_e=235\ \text{MPa}$ i obciążony siłą $P=40\ \text{kN}$. Wymagany współczynnik bezpieczeństwa wynosi $n=2$. Czy materiał wystarcza?
+
+Naprężenie rzeczywiste: $\sigma=P/A=40\,000/250=160\ \text{MPa}$. Wymagana granica: $R_e\ge n\sigma=2\cdot160=320\ \text{MPa}$. Ponieważ dostępna stal ma $235\ \text{MPa}$, warunek nie jest spełniony.
+
+Rzeczywisty zapas względem dostępnej stali wynosi $n=235/160\approx1{,}47$, czyli mniej niż wymagane $2$. Rozwiązania są trzy: wybrać stal o wyższej granicy, zwiększyć pole przekroju albo zmniejszyć obciążenie. Nowe pole przy tej samej stali i $n=2$ musi wynieść $A\ge nP/R_e=2\cdot40\,000/235\approx341\ \text{mm}^2$.
+
+Wariant odwrotny pokazuje, że „materiał nie wystarcza” nie jest końcem zadania. Trzeba wskazać, jaki parametr trzeba zmienić i o ile. Taki wniosek jest bardziej użyteczny niż samo stwierdzenie, że warunek jest niespełniony.
+
+Można też zapytać, jaki materiał byłby potrzebny przy niezmienionym polu. Wymagana granica $320\ \text{MPa}$ jest typowa dla stali o podwyższonej wytrzymałości, ale trzeba sprawdzić, czy taki materiał jest dostępny i czy jego $E$ nie zmienia warunku sztywności. Sam wzrost $R_e$ nie musi rozwiązać problemu, jeśli element jest zbyt podatny.
+
+Błędy w doborze materiału wynikają najczęściej z pomylenia nośności ze sztywnością albo z niewłaściwego wyboru granicy. Poniższa lista pomaga ich uniknąć.
+
+<Callout kind="warning" title="Typowe błędy">
+  1. **Użycie $R_m$ zamiast $R_e$ dla stali plastycznej.** To zawyża nośność i pomija odkształcenie trwałe. Dla
+  materiałów ciągliwych podstawą jest zwykle $R_e$. 2. **Mnożenie przez $n$ zamiast dzielenia.** Naprężenie dopuszczalne
+  to $R_e/n$, a nie $R_e\cdot n$. Większy zapas zmniejsza dopuszczalne naprężenie. 3. **Utożsamienie wytrzymałości ze
+  sztywnością.** Większe $R_e$ nie zmniejsza wydłużenia, jeśli $E$ pozostaje takie samo. Warunek sztywności trzeba
+  sprawdzić osobno. 4. **Pominięcie warunku sztywności.** Element może przenieść siłę, ale odkształcić się zbyt mocno.
+  Wtedy o doborze decyduje $E$, a nie $R_e$. 5. **Brak zamiany GPa na MPa.** $200\ \text{GPa}=200\,000\ \text{MPa}$.
+  Pomylenie tych jednostek daje wynik tysiąc razy za mały lub za duży. 6. **Mylenie naprężenia inżynierskiego z
+  rzeczywistym.** W zakresie sprężystym różnica jest mała, ale po przewężeniu staje się duża. Do doboru przekroju używaj
+  spójnej definicji. 7. **Przyjęcie jednej wartości materiału bez zakresu.** Rzeczywiste $R_e$ zmienia się między
+  partiami i zależy od temperatury. Współczynnik bezpieczeństwa ma między innymi tę zmienność uwzględniać.
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Ustal, czy pytanie dotyczy wytrzymałości, sztywności, czy obu.** Jeśli zadanie podaje dopuszczalne wydłużenie lub ugięcie, prawie zawsze trzeba sprawdzić drugi warunek.
+2. **Zidentyfikuj dane materiałowe.** Czy podano $R_e$, $R_m$, $E$, czy gotowe $k$? Czy materiał jest ciągliwy, czy kruchy? Od tego zależy wybór granicy.
+3. **Ustal współczynnik bezpieczeństwa.** Jeśli jest podany, użyj $k=R_e/n$. Jeśli nie, sprawdź, czy zadanie oczekuje obliczenia zapasu rzeczywistego.
+4. **Oblicz wymagane pole lub obciążenie z wytrzymałości.** Użyj $A\ge P/k$ albo $P_{\mathrm{dop}}\le kA$.
+5. **Oblicz wymagane pole lub obciążenie ze sztywności.** Użyj $A\ge PL/(E\Delta L_{\mathrm{dop}})$ albo $P_{\mathrm{dop}}\le EA\Delta L_{\mathrm{dop}}/L$.
+6. **Porównaj oba wyniki.** Przy doborze wymiaru przyjmij większe pole, przy doborze obciążenia — mniejszą siłę. Zawsze wskaż, który warunek decyduje.
+7. **Sprawdź przyjęte rozwiązanie.** Podstaw rzeczywiste $A$ lub $P$ i oblicz naprężenie oraz wydłużenie. Zapisz zapas względem granicy materiału.
+
+Dwie kontrole warto wykonać zawsze na końcu:
+
+- **Jednostki:** naprężenie w MPa, pole w $\text{mm}^2$, siła w N, długość w mm. Jeśli wynik wychodzi w dziwnej jednostce, trzeba wrócić do przeliczeń.
+- **Decyzja:** zapisz, który warunek decyduje i jaki jest rzeczywisty zapas. Sama liczba bez komentarza nie odpowiada na pytanie projektowe.
+
+## Połącz z resztą kursu
+
+- **Próba rozciągania** daje $R_e$, $R_m$ i $E$. Bez zrozumienia kształtu krzywej nie da się świadomie wybrać granicy projektowej.
+- **Prawo Hooke'a i wydłużenie** opisują sztywność pręta. To ten sam model, który w tej lekcji prowadzi do drugiego warunku.
+- **Naprężenie dopuszczalne i współczynnik bezpieczeństwa** wyjaśniają, skąd bierze się $k$ i dlaczego nie jest ono własnością materiału.
+- **Dobór wymiaru z warunku wytrzymałości** rozwiązuje podobny problem dla zginania. Tam zamiast pola pojawia się wskaźnik przekroju, ale logika porównania warunków pozostaje.
+- **Pełne zadanie: pręt osiowo obciążony** łączy materiał, przekrój i wydłużenie w jeden kompletny rachunek.
+- **Strategia kolokwium** przypomina, żeby na końcu zawsze zapisać warunek decydujący i rzeczywisty zapas.
+
+Warto zauważyć, że materiał i przekrój nie są niezależnymi decyzjami. Zmiana materiału zmienia $E$ i $R_e$, a więc może przenieść decydujący warunek z wytrzymałości na sztywność. Dlatego porównanie wariantów trzeba prowadzić dla konkretnego zadania, a nie w oderwaniu od geometrii.
+
+## Sprawdź się
+
+Pytania sprawdzają zarówno podstawienia, jak i decyzje projektowe. Przy każdym zastanów się, czy pytanie dotyczy granicy materiału, naprężenia dopuszczalnego, sztywności czy zapasu.
+
+Jeśli pomylisz $R_e$ z $R_m$ albo $E$ z $R_e$, wróć do tabeli symboli i do różnicy między nośnością a sztywnością. To dwa najczęstsze źródła błędów w tym dziale.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>Pręt ma A = 200 mm², k = 150 MPa, a P jest siłą obliczeniową. Ile wynosi Pdop z wytrzymałości?</Prompt>
+    <Prompt>Pręt ma $A=200\ \text{mm}^2$, $k=150\ \text{MPa}$, a $P$ jest siłą obliczeniową. Ile wynosi $P_{\mathrm{dop}}$ z wytrzymałości?</Prompt>
     <Answer correct>30 kN</Answer>
     <Answer>75 kN</Answer>
     <Answer>300 kN</Answer>
-    <Hint>P = kA; 1 MPa·mm² = 1 N.</Hint>
+    <Hint>$P=kA$; $1\ \text{MPa}\cdot\text{mm}^2=1\ \text{N}$.</Hint>
     <Explanation>
-      Pdop = 150·200 = 30 000 N = 30 kN. Współczynnik obciążenia nie jest ponownie stosowany, bo P jest obliczeniowe.
+      $P_{\mathrm{dop}}=150\cdot200=30\,000\ \text{N}=30\ \text{kN}$. Współczynnik obciążenia nie jest ponownie stosowany, jeśli $P$ jest już siłą obliczeniową.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>Warunek wytrzymałości daje Pdop = 42 kN, a warunek wydłużenia 35 kN. Jaką wartość przyjąć?</Prompt>
+    <Prompt>Warunek wytrzymałości daje $P_{\mathrm{dop}}=42\ \text{kN}$, a warunek wydłużenia $35\ \text{kN}$. Jaką wartość przyjąć?</Prompt>
     <Answer>42 kN</Answer>
     <Answer>38,5 kN</Answer>
     <Answer correct>35 kN</Answer>
     <Hint>Oba warunki muszą być spełnione jednocześnie.</Hint>
     <Explanation>
-      Przyjmujemy min(42, 35) = 35 kN. Przy większej sile warunek sztywności zostałby naruszony, mimo zapasu
-      wytrzymałości.
+      Przyjmujemy $\min(42;35)=35\ \text{kN}$. Przy większej sile warunek sztywności zostałby naruszony, mimo zapasu wytrzymałości.
     </Explanation>
   </Question>
   <Question outcome="U3">
-    <Prompt>
-      Dwa materiały mają takie samo E, ale różne Re. Jak zmiana na większe Re wpłynie na pręt przy stałej sile i
-      geometrii?
-    </Prompt>
+    <Prompt>Dwa materiały mają takie samo $E$, ale różne $R_e$. Jak zmiana na materiał o większym $R_e$ wpłynie na pręt przy stałej sile i geometrii?</Prompt>
     <Answer correct>Zwiększy zapas, ale nie zmieni sprężystego wydłużenia</Answer>
     <Answer>Zmniejszy wydłużenie o połowę</Answer>
     <Answer>Nie zmieni niczego</Answer>
-    <Hint>Rozdziel Re w warunku wytrzymałości od E w prawie Hooke’a.</Hint>
+    <Hint>Rozdziel $R_e$ w warunku wytrzymałości od $E$ w prawie Hooke'a.</Hint>
     <Explanation>
-      Większe Re zwiększa k i zapas n. Przy niezmienionych E, A, L i P wydłużenie PL/(EA) pozostaje takie samo, ponieważ
-      zależy od E, a nie od Re.
+      Większe $R_e$ zwiększa $k$ i zapas $n$. Przy niezmienionych $E$, $A$, $L$ i $P$ wydłużenie $PL/(EA)$ pozostaje takie samo, ponieważ zależy od $E$, a nie od $R_e$.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Która własność materiału decyduje przede wszystkim o sprężystym wydłużeniu pręta przy stałej sile i przekroju?</Prompt>
+    <Answer>$R_e$</Answer>
+    <Answer>$R_m$</Answer>
+    <Answer correct>$E$</Answer>
+    <Hint>Popatrz na wzór $\Delta L=PL/(EA)$.</Hint>
+    <Explanation>
+      Wydłużenie jest odwrotnie proporcjonalne do $E$. Granice $R_e$ i $R_m$ opisują nośność, a nie sztywność sprężystą.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dla typowej stali konstrukcyjnej, która wykazuje wyraźne płynięcie, którą granicę należy przyjąć jako podstawę naprężenia dopuszczalnego?</Prompt>
+    <Answer correct>$R_e$</Answer>
+    <Answer>$R_m$</Answer>
+    <Answer>moduł $E$</Answer>
+    <Hint>Chodzi o granicę, po przekroczeniu której pojawia się odkształcenie trwałe.</Hint>
+    <Explanation>
+      Dla materiału ciągliwego przekroczenie $R_e$ oznacza trwałe odkształcenie, dlatego projektuje się względem tej granicy. $R_m$ odpowiada zerwaniu i jest zbyt odległą granicą dla normalnej pracy.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pręt ma $A=250\ \text{mm}^2$, $P=50\ \text{kN}$ i $R_e=235\ \text{MPa}$. Ile wynosi rzeczywisty zapas względem granicy plastyczności?</Prompt>
+    <Answer correct>1,18</Answer>
+    <Answer>2,35</Answer>
+    <Answer>0,85</Answer>
+    <Hint>Najpierw $\sigma=P/A$, potem $n=R_e/\sigma$.</Hint>
+    <Explanation>
+      $\sigma=50\,000/250=200\ \text{MPa}$, więc $n=235/200=1{,}175\approx1{,}18$. Wartość mniejsza od jedności oznaczałaby przekroczenie granicy.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Zastępujesz stal aluminium o tym samym polu przekroju i tej samej długości, przy niezmienionej sile. Moduł $E$ aluminium jest około $2{,}86$ razy mniejszy. Jak zmieni się sprężyste wydłużenie?</Prompt>
+    <Answer correct>Wzrośnie około 2,86 razy</Answer>
+    <Answer>Zmniejszy się około 2,86 razy</Answer>
+    <Answer>Nie zmieni się, bo siła jest taka sama</Answer>
+    <Hint>$\Delta L$ jest odwrotnie proporcjonalne do $E$.</Hint>
+    <Explanation>
+      Przy stałych $P$, $L$ i $A$ wydłużenie jest odwrotnie proporcjonalne do $E$. Mniejszy moduł oznacza większe wydłużenie, około $2{,}86$ razy.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+Przy każdym zadaniu warto zajrzeć do rozdziału o próbie rozciągania i do rozdziału o doborze przekroju, a nie tylko do gotowego wzoru. Dopiero zestawienie danych materiałowych z warunkiem projektowym daje pełny obraz.
+
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_, WNT, Warszawa 2002 — rozdział o rozciąganiu i doborze przekroju; szukaj zadań z doborem materiału i obciążenia dopuszczalnego.
+- S. Wolny, A. Siemieniec, _Wytrzymałość materiałów_, cz. I, AGH, Kraków 2002 — rozdział o próbie rozciągania i własnościach materiałów; dobre omówienie $R_e$, $R_m$ i zakresu sprężystego.
+- D. Roylance, _Mechanics of Materials_, MIT OpenCourseWare — rozdział o krzywych naprężenie–odkształcenie; otwarty podręcznik z omówieniem granicy plastyczności, przewężenia i energii odkształcenia.
+- MIT 3.11 _Mechanics of Materials_, OpenCourseWare — wykłady o próbie rozciągania i plastyczności; pomocne w zrozumieniu różnicy między naprężeniem inżynierskim a rzeczywistym.

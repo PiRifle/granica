@@ -7,7 +7,6 @@ shortTitle: Obciążenia złożone
 description: >-
   Zsumuj naprężenia normalne we właściwym punkcie przekroju, dodaj ścinanie od
   skręcania i zastosuj HMH lub Tresca.
-duration: 9
 eyebrow: 'Najpierw składowe, potem redukcja'
 outcomes:
   - >-
@@ -30,71 +29,290 @@ outcomes:
     przyjęty warunek.
 ---
 
-Siła osiowa obciąża cały przekrój równomiernie, zginanie daje największe naprężenia w skrajnych włóknach, a skręcanie — największe ścinanie na powierzchni. Dlatego punktem decydującym jest często skrajne włókno, ale trzeba też sprawdzić inne punkty, w których suma składowych może być większa.
+Wyobraź sobie wał przekładni, na którym osadzone jest koło zębate. Siły między zębami obciążają wał poprzecznie, więc powstaje moment gnący. Ten sam wał przenosi moment obrotowy, więc powstaje skręcanie. Do tego łożysko oporowe może wprowadzić siłę osiową, a ciężar koła dodaje jeszcze zginanie w innej płaszczyźnie. W jednym przekroju działa jednocześnie kilka obciążeń, a w jednym punkcie przekroju kilka składowych naprężenia.
+
+Nie można obliczyć bezpieczeństwa, biorąc największe naprężenie z każdego obciążenia osobno i dodając je jak liczby. Naprężenie normalne od siły osiowej rozkłada się równomiernie, od zginania zmienia się liniowo, a od skręcania pojawia się ścinanie rosnące z odległością od osi. Każda składowa ma inny rozkład w przekroju, więc jej maksimum może wypadać w innym punkcie. Dopiero po ustaleniu, gdzie suma składowych jest największa, można zastosować hipotezę wytężeniową.
+
+Kluczowa jest kolejność działań. Najpierw wyznaczamy siły wewnętrzne w przekroju: siłę osiową $N$, moment gnący $M$ i moment skręcający $T$. Potem obliczamy naprężenia w konkretnym punkcie przekroju. Dopiero na końcu redukujemy stan naprężenia do jednej liczby według HMH albo Tresca. Odwrócenie kolejności, czyli dodanie momentów jako liczb, prowadzi do błędów, których nie da się naprawić później.
+
+Po tej lekcji będziesz umiał wyznaczyć naprężenie normalne i styczne w dowolnym punkcie przekroju kołowego, wybrać punkt decydujący i sprawdzić warunek wytrzymałości. Zobaczysz, dlaczego w skrajnym włóknie siła poprzeczna zwykle nie daje ścinania, a na osi obojętnej zginanie znika. Nauczysz się też rozwiązywać zadanie odwrotne: dobrać średnicę wału na podstawie momentu zastępczego.
+
+W praktyce obciążenia złożone spotkasz w wałach, kolumnach mimośrodowo ściskanych, wspornikach, śrubach i elementach ram. W każdym z nich trzeba najpierw ustalić, które składowe naprężenia działają w tym samym punkcie i w tej samej płaszczyźnie. To umiejętność bardziej geometryczna niż algebraiczna: rysunek przekroju i zaznaczenie punktu są często ważniejsze niż sam wzór.
+
+## Zanim zaczniesz
+
+- **Siła osiowa i pole przekroju.** Przypomnij sobie, że $\sigma=N/A$ obowiązuje z dala od strefy przyłożenia siły i przy równomiernym rozkładzie. Rozciąganie przyjmujemy jako dodatnie, ściskanie jako ujemne.
+- **Zginanie i wskaźnik wytrzymałości.** Musisz znać związek $\sigma=M/W$ oraz $W=I/c$. Dla przekroju kołowego $W=\pi d^3/32$, a dla prostokąta $W=bh^2/6$.
+- **Skręcanie.** Przypomnij sobie, że $\tau=T r/J_o$, a na powierzchni $\tau=T/W_o$. Dla pełnego koła $W_o=2W=\pi d^3/16$.
+- **Naprężenia główne w płaszczyźnie.** Potrzebny jest wzór $\sigma_{1,2}=\sigma_x/2\pm\sqrt{(\sigma_x/2)^2+\tau^2}$ dla przypadku $\sigma_y=0$.
+- **Jednostki.** Siłę w kN zamień na N, moment w kN·m na N·mm, pole w mm² zostaw bez zmian. Wtedy naprężenie wychodzi w MPa, czyli N/mm².
+- **Typowa pułapka.** Nie dodawaj $M$ i $T$ jako liczb. Nie zakładaj też, że punkt z największym $N/A$ jest punktem decydującym.
+
+## Model i intuicja
+
+Model obciążeń złożonych opiera się na superpozycji. Zakładamy, że materiał jest liniowo sprężysty, odkształcenia są małe, a poszczególne obciążenia nie zmieniają w istotny sposób geometrii przekroju. Wtedy naprężenia od $N$, $M$ i $T$ można obliczyć osobno i dodać w tym samym punkcie, oczywiście z uwzględnieniem znaków i kierunków. Superpozycja dotyczy naprężeń, a nie momentów ani sił o różnych wymiarach.
+
+Rozkłady w przekroju są różne. Siła osiowa daje równomierne naprężenie normalne na całym polu. Zginanie daje naprężenie normalne proporcjonalne do odległości od osi obojętnej, więc maksimum jest w skrajnych włóknach, a zero na osi. Skręcanie daje naprężenie styczne proporcjonalne do promienia, więc maksimum jest na obwodzie, a zero w środku. Siła poprzeczna daje ścinanie o innym rozkładzie, często największe na osi obojętnej.
+
+Punkt decydujący nie jest więc z góry znany. W skrajnym włóknie suma naprężeń normalnych od $N$ i $M$ jest największa, ale ścinanie od siły poprzecznej jest tam zwykle zerowe, a od skręcania osiąga maksimum. Na osi obojętnej znika zginanie, ale może pojawić się ścinanie od siły poprzecznej i od skręcania. Trzeba porównać kilka kandydatów, a nie ograniczać się do jednego wzoru.
+
+Model przestaje być wystarczający przy dużych odkształceniach plastycznych, przy niestabilności geometrycznej, przy koncentracji naprężeń i przy skręcaniu przekrojów niekołowych, które się spacza. W cienkościennych profilach otwartych skręcanie wywołuje dodatkowe naprężenia normalne i deformację przekroju, których nie opisuje proste $\tau=T/W_o$. W połączeniach spawanych i nitowanych decyduje lokalny stan przy karbie, a nie średnia w przekroju.
+
+| Składowa              | Rozkład w przekroju      | Maksimum             | Uwaga                                    |
+| --------------------- | ------------------------ | -------------------- | ---------------------------------------- |
+| Siła osiowa $N$       | równomierny              | całe pole            | znak zależy od rozciągania lub ściskania |
+| Moment gnący $M$      | liniowy od osi obojętnej | skrajne włókna       | zero na osi obojętnej                    |
+| Moment skręcający $T$ | liniowy od środka        | obwód                | zero w środku przekroju kołowego         |
+| Siła poprzeczna $V$   | paraboliczny lub inny    | zależnie od kształtu | w kole najmniejsze na obwodzie           |
+
+W przekrojach cienkościennych zamkniętych, na przykład w rurze, rozkład ścinania od skręcania jest zbliżony do równomiernego po obwodzie, a nie liniowy jak w pełnym kole. To dlatego $W_o$ liczy się inaczej, a wzór $\tau=T/W_o$ nadal obowiązuje tylko przy odpowiednio zdefiniowanym wskaźniku. W rurach cienkościennych wygodniej używać wzoru Bredta $\tau=T/(2A_0t)$, gdzie $A_0$ jest polem zamkniętym linią środkową ścianki, a $t$ grubością. Ten wzór nie jest tym samym co $\tau=Tr/J_o$ dla pełnego przekroju.
+
+Z tego powodu zadania z rurami trzeba czytać uważnie. Jeżeli w treści podano średnicę zewnętrzną i wewnętrzną, to nie wolno podstawiać samej średnicy zewnętrznej do wzoru na pełne koło. Jeżeli natomiast podano tylko grubość ścianki i średnicę środkową, może być potrzebny wzór cienkościenny. Wybór modelu zależy od stosunku grubości do średnicy, a nie od wygody rachunku.
+
+| Punkt przekroju           | $\sigma_N$ | $\sigma_M$ | $\tau$ od $T$    | Co zwykle decyduje             |
+| ------------------------- | ---------- | ---------- | ---------------- | ------------------------------ |
+| skrajne włókno rozciągane | $N/A$      | $+M/W$     | $T/W_o$          | suma naprężeń normalnych       |
+| skrajne włókno ściskane   | $N/A$      | $-M/W$     | $T/W_o$          | moduł sumy naprężeń normalnych |
+| oś obojętna               | $N/A$      | 0          | $T/W_o$ oraz $V$ | ścinanie i siła osiowa         |
+| środek przekroju          | $N/A$      | 0          | 0                | tylko naprężenie od $N$        |
+
+Tabela nie zastępuje obliczeń, ale porządkuje przeszukiwanie punktów. W większości zadań wystarczy sprawdzić dwa skrajne włókna, a punkt na osi obojętnej tylko wtedy, gdy działa siła poprzeczna i gdy ścinanie od niej może być większe od ścinania od skręcania. Wartości $N/A$, $M/W$ i $T/W_o$ trzeba przy tym liczyć dla tego samego przekroju, a nie dla różnych przekrojów wału.
+
+## Laboratorium: co ustawić
+
+W laboratorium badamy włókno A na obwodzie pełnego pręta o średnicy 60 mm. Zmieniaj siłę osiową $N$, moment gnący $M$ i moment skręcający $T$, a następnie obserwuj $\sigma_x=N/A+M/W$, $\tau=T/W_o$ oraz naprężenia zredukowane. Spróbuj zmienić znak $N$ i sprawdź, w którym włóknie suma naprężeń normalnych jest większa.
 
 <Lab id="combined" />
 
+## Definicje i jednostki
+
+Siła wewnętrzna to wypadkowa naprężeń działających na przekrój. Moment gnący to moment sił wewnętrznych względem osi obojętnej, a moment skręcający to moment względem osi pręta. Wskaźnik wytrzymałości $W$ opisuje, jak geometria przekroju zamienia moment na naprężenie normalne. Wskaźnik $W_o$ robi to samo dla skręcania.
+
+| Symbol         | Znaczenie                           | Jednostka    |
+| -------------- | ----------------------------------- | ------------ |
+| $N$            | siła osiowa w przekroju             | N            |
+| $A$            | pole przekroju                      | mm²          |
+| $M$            | moment gnący w przekroju            | N·mm         |
+| $W$            | wskaźnik wytrzymałości na zginanie  | mm³          |
+| $T$            | moment skręcający                   | N·mm         |
+| $W_o$          | wskaźnik wytrzymałości na skręcanie | mm³          |
+| $\sigma_N$     | naprężenie normalne od siły osiowej | MPa          |
+| $\sigma_M$     | naprężenie normalne od zginania     | MPa          |
+| $\tau$         | naprężenie styczne od skręcania     | MPa          |
+| $\sigma_{red}$ | naprężenie zredukowane              | MPa          |
+| $n$            | współczynnik bezpieczeństwa         | bezwymiarowy |
+
+Dla pełnego przekroju kołowego o średnicy $d$ zachodzi $A=\pi d^2/4$, $W=\pi d^3/32$ oraz $W_o=\pi d^3/16=2W$. Dla przekroju pierścieniowego o średnicy zewnętrznej $D$ i wewnętrznej $d$ trzeba użyć $W=\pi(D^4-d^4)/(32D)$, a nie różnicy wskaźników. To częsty błąd, ponieważ wskaźnik wytrzymałości zależy od czwartej potęgi średnic i od podziału przez średnicę zewnętrzną.
+
+W zadaniach z momentem gnącym w dwóch płaszczyznach dochodzi jeszcze superpozycja $\sigma=M_y z/I_y+M_z y/I_z$. Dla przekroju kołowego można wtedy użyć wypadkowego momentu gnącego $M=\sqrt{M_y^2+M_z^2}$, ale tylko dlatego, że przekrój jest kołowy i oba wskaźniki są jednakowe. Dla przekroju prostokątnego tak nie jest i trzeba dodawać naprężenia z osobna. To kolejny przykład, w którym geometria decyduje o tym, czy wolno uprościć rachunek.
+
+## Wzór i wyprowadzenie
+
 <Formula>
 $$
-\sigma = \frac{N}{A} + \frac{M}{W} \qquad \tau = \frac{T}{W_o}
+\sigma_x=\frac{N}{A}\pm\frac{M}{W}, \qquad \tau=\frac{T}{W_o},
+\qquad
+\sigma_{HMH}=\sqrt{\sigma_x^2+3\tau^2}, \qquad \sigma_T=\sqrt{\sigma_x^2+4\tau^2}
 $$
 
-<Caption>Znaki N/A i M/W trzeba ustalić dla konkretnego włókna. Wo oznacza wskaźnik wytrzymałości przekroju na skręcanie. Gdy σ jest jedynym naprężeniem normalnym w rozważanym kierunku, a τ działa w tej samej płaszczyźnie, stosujemy σHMH = √(σ² + 3τ²) albo σT = √(σ² + 4τ²).</Caption>
+<Caption>Zapis dotyczy punktu na obwodzie przekroju kołowego, w którym naprężenie normalne od zginania ma znak wynikający z wybranej strony przekroju. Znak plus przy $M/W$ oznacza, że w rozważanym włóknie zginanie daje rozciąganie. Wzory na $\sigma_{HMH}$ i $\sigma_T$ stosujemy, gdy $\sigma_y=0$ i $\tau$ działa w tej samej płaszczyźnie co $\sigma_x$.</Caption>
 </Formula>
 
+Wzór wygląda jak prosta suma, ale każdy jego składnik trzeba policzyć w tym samym punkcie. $N/A$ jest takie samo w całym przekroju, $M/W$ zmienia znak po przeciwnych stronach osi obojętnej, a $T/W_o$ osiąga maksimum na obwodzie. Jeżeli pomylimy punkt, suma może wyjść mniejsza niż w rzeczywistości, bo składowe, które powinny działać zgodnie, zostaną dodane z przeciwnymi znakami.
+
+Wyprowadzenie porządkuje kolejność obliczeń i pokazuje, dlaczego nie wolno dodawać momentów.
+
+1. **Geometria przekroju.** Oblicz pole $A$, moment bezwładności $I$, wskaźnik $W=I/c$ oraz wskaźnik na skręcanie $W_o=J_o/c$. Dla koła $c=d/2$, więc $W=\pi d^3/32$ i $W_o=\pi d^3/16$.
+2. **Siła osiowa.** Naprężenie normalne od $N$ wynosi $\sigma_N=N/A$. Jest równomierne, jeżeli pominiemy koncentrację przy przyłożeniu siły. Znak wynika z umowy: rozciąganie dodatnie, ściskanie ujemne.
+3. **Zginanie.** Naprężenie normalne zmienia się liniowo: $\sigma_M=M y/I$, gdzie $y$ jest odległością od osi obojętnej. W skrajnym włóknie $y=c$, więc $\sigma_M=M/W$. Po przeciwnej stronie znak jest przeciwny.
+4. **Superpozycja naprężeń normalnych.** W wybranym punkcie dodajemy $\sigma_x=N/A+\sigma_M$. Nie dodajemy sił ani momentów, tylko naprężenia w tym samym punkcie i o tym samym kierunku.
+5. **Skręcanie.** Naprężenie styczne wynosi $\tau=T r/J_o$ i jest prostopadłe do promienia. Na obwodzie $r=c$, więc $\tau=T/W_o$. W środku przekroju jest zero.
+6. **Siła poprzeczna.** Jeśli w przekroju działa $V$, dochodzi ścinanie o rozkładzie zależnym od kształtu. W kołzie jest ono zerowe na obwodzie, a maksymalne na osi obojętnej, więc w skrajnym włóknie zwykle go nie dodajemy.
+7. **Stan naprężenia w punkcie.** W skrajnym włóknie mamy $\sigma_x$ od $N$ i $M$, $\tau$ od $T$ oraz $\sigma_y=\sigma_z=0$. To płaski stan naprężenia opisany dwiema liczbami.
+8. **Naprężenia główne.** Dla $\sigma_y=0$ otrzymujemy $\sigma_{1,2}=\sigma_x/2\pm\sqrt{(\sigma_x/2)^2+\tau^2}$, a maksymalne ścinanie wynosi $\sqrt{(\sigma_x/2)^2+\tau^2}$.
+9. **Redukcja.** Podstawiamy $\sigma_x$ i $\tau$ do wybranej hipotezy. Dla HMH wychodzi $\sqrt{\sigma_x^2+3\tau^2}$, a dla Tresca $\sqrt{\sigma_x^2+4\tau^2}$. To nie są sumy naprężeń, lecz funkcje ich kwadratów.
+10. **Punkt decydujący.** Powtarzamy obliczenia dla kilku kandydatów: obu skrajnych włókien i punktów na osi obojętnej, jeśli działa siła poprzeczna. Wybieramy ten, dla którego $\sigma_{red}$ jest największe.
+
+Kolejność kroków ma znaczenie także ze względu na jednostki. $N/A$ daje MPa, jeśli $N$ jest w niutonach, a $A$ w mm². $M/W$ daje MPa, jeśli $M$ jest w N·mm, a $W$ w mm³. $T/W_o$ daje MPa, jeśli $T$ jest w N·mm, a $W_o$ w mm³. Dopiero gdy wszystkie trzy składowe są w MPa, można je podstawić do hipotezy. Mieszanie kN·m z mm³ daje wynik tysiąc razy mniejszy i często nie zostaje wychwycone, bo liczba nadal wygląda wiarygodnie.
+
 <Insight>
-  Nie sumuj momentu zginającego ze skręcającym jako liczb. Najpierw wyznacz σ i τ w tym samym punkcie, a dopiero potem
-  zredukuj je według wybranej hipotezy.
+  Najpierw składowe w jednym punkcie, potem redukcja. Kolejność „dodaj momenty, a na końcu podziel przez wskaźnik” jest
+  błędna, ponieważ $M$ i $T$ mają różne jednostki i różne rozkłady w przekroju. Dopiero naprężenia można zestawić ze
+  sobą.
 </Insight>
 
 <WorkedExample>
   <Given>
-    Pręt ma N/A = 20 MPa, M/W = 80 MPa oraz T/Wo = 50 MPa. W wybranym włóknie wszystkie składowe działają łącznie.
+    Pełny pręt stalowy o średnicy $d=60\ \text{mm}$ jest obciążony siłą osiową $N=30\ \text{kN}$, momentem gnącym $M=1{,}2\ \text{kN·m}$ oraz momentem skręcającym $T=800\ \text{N·m}$. Granica plastyczności wynosi $R_e=235\ \text{MPa}$. Sprawdź skrajne włókno, w którym zginanie daje rozciąganie.
   </Given>
   <Steps>
-    <Step>Naprężenie normalne: σ = N/A + M/W = 20 + 80 = 100 MPa; w tym włóknie obie składowe mają ten sam znak.</Step>
-    <Step>Naprężenie styczne od skręcania: τ = T/Wo = 50 MPa.</Step>
-    <Step>HMH: σred = √(100² + 3·50²) = 132,29 MPa.</Step>
-    <Step>Tresca: σred = √(100² + 4·50²) = 141,42 MPa.</Step>
+    <Step>Pole: $A=\pi\cdot60^2/4=2\,827\ \text{mm}^2$. Wskaźniki: $W=\pi\cdot60^3/32=21\,206\ \text{mm}^3$ oraz $W_o=2W=42\,412\ \text{mm}^3$.</Step>
+    <Step>Naprężenie od siły osiowej: $\sigma_N=30\,000/2\,827=10{,}61\ \text{MPa}$.</Step>
+    <Step>Naprężenie od zginania: $M=1{,}2\ \text{kN·m}=1{,}2\cdot10^6\ \text{N·mm}$, więc $\sigma_M=1{,}2\cdot10^6/21\,206=56{,}59\ \text{MPa}$.</Step>
+    <Step>Suma: $\sigma_x=10{,}61+56{,}59=67{,}20\ \text{MPa}$. Ścinanie: $T=800\ \text{N·m}=800\,000\ \text{N·mm}$, więc $\tau=800\,000/42\,412=18{,}86\ \text{MPa}$.</Step>
+    <Step>HMH: $\sigma_{HMH}=\sqrt{67{,}20^2+3\cdot18{,}86^2}=\sqrt{4\,516+1\,067}=74{,}7\ \text{MPa}$.</Step>
+    <Step>Tresca: $\sigma_T=\sqrt{67{,}20^2+4\cdot18{,}86^2}=\sqrt{4\,516+1\,423}=77{,}1\ \text{MPa}$.</Step>
+    <Step>Zapasy: $n_{HMH}=235/74{,}7=3{,}15$ oraz $n_T=235/77{,}1=3{,}05$.</Step>
   </Steps>
-  <Result>W tym punkcie σ = 100 MPa i τ = 50 MPa; σHMH = 132,3 MPa, σT = 141,4 MPa.</Result>
+  <Result>
+    W rozważanym włóknie $\sigma_x=67{,}2\ \text{MPa}$ i $\tau=18{,}9\ \text{MPa}$, więc $\sigma_{HMH}=74{,}7\ \text{MPa}$ i $\sigma_T=77{,}1\ \text{MPa}$. Oba zapasy przekraczają 3, więc element jest bezpieczny z dużym marginesem.
+  </Result>
 </WorkedExample>
+
+Warto sprawdzić, czy wynik jest sensowny jakościowo. Naprężenie normalne 67,2 MPa jest sumą 10,6 MPa od rozciągania i 56,6 MPa od zginania, więc zginanie dominuje. Ścinanie 18,9 MPa jest znacznie mniejsze od naprężenia normalnego, dlatego redukcja podnosi wynik tylko o około 11 procent. Gdyby moment skręcający był większy, udział $\tau$ w hipotezie wzrósłby, a różnica między HMH i Tresca powiększyłaby się.
+
+## Drugi przykład
+
+Ten sam pręt o średnicy 60 mm jest teraz ściskany siłą $N=-20\ \text{kN}$, zginany momentem $M=1{,}2\ \text{kN·m}$ i skręcany momentem $T=500\ \text{N·m}$. Sprawdzimy dwa przeciwległe włókna, aby przekonać się, które decyduje.
+
+Pole i wskaźniki są takie same jak poprzednio. Naprężenie od siły osiowej wynosi $\sigma_N=-20\,000/2\,827=-7{,}07\ \text{MPa}$. Zginanie daje $+56{,}59\ \text{MPa}$ w jednym włóknie i $-56{,}59\ \text{MPa}$ w przeciwległym. W pierwszym włóknie $\sigma_x=49{,}52\ \text{MPa}$, w drugim $\sigma_x=-63{,}66\ \text{MPa}$.
+
+Ścinanie od skręcania wynosi $\tau=500\,000/42\,412=11{,}79\ \text{MPa}$ i ma ten sam moduł w obu włóknach, choć przeciwne zwroty. Dla włókna rozciąganego HMH daje $\sqrt{49{,}52^2+3\cdot11{,}79^2}=\sqrt{2\,452+417}=53{,}6\ \text{MPa}$. Dla włókna ściskanego $\sqrt{(-63{,}66)^2+3\cdot11{,}79^2}=\sqrt{4\,053+417}=66{,}9\ \text{MPa}$.
+
+Decyduje więc włókno ściskane, mimo że siła osiowa miała znak ujemny. Suma $-7{,}07-56{,}59$ ma większy moduł niż $+56{,}59-7{,}07$, ponieważ siła osiowa i zginanie działają w tym włóknie zgodnie. To pokazuje, że wybór punktu nie może opierać się na intuicji „rozciąganie jest zawsze gorsze”. Trzeba porównać moduły naprężeń normalnych i dopiero potem redukować.
+
+Dla $R_e=235\ \text{MPa}$ zapas według HMH wynosi $235/66{,}9=3{,}51$, a według Tresca $\sqrt{4\,053+4\cdot139}=\sqrt{4\,609}=67{,}9\ \text{MPa}$, czyli $n_T=3{,}46$. Oba warianty są bezpieczne, ale punkt decydujący jest inny niż w pierwszym przykładzie.
+
+Gdyby siła osiowa była rozciągająca, a nie ściskająca, decydowałoby włókno, w którym zginanie dodaje się do rozciągania. Wtedy $\sigma_x$ wyniosłoby $56{,}59+7{,}07=63{,}66\ \text{MPa}$, a w przeciwległym włóknie $7{,}07-56{,}59=-49{,}52\ \text{MPa}$. Maksimum modułu nadal wypada w tym samym miejscu geometrycznym, ale po przeciwnej stronie przekroju. To pokazuje, że znak siły osiowej przesuwa punkt krytyczny, a nie tylko zmienia wartość naprężenia.
+
+W zadaniach z mimośrodowym rozciąganiem lub ściskaniem warto więc narysować rozkład $\sigma_x$ wzdłuż wysokości przekroju. Siła osiowa przesuwa cały wykres równolegle, a zginanie go obraca. Punkt decydujący to miejsce, w którym wypadkowa wartość jest najbardziej oddalona od zera. Dopiero po tym rysunku sensowne jest liczenie $\sigma_{red}$.
+
+## Trzeci przykład: wariant odwrotny
+
+Zaprojektujmy średnicę wału dla $M=1{,}2\ \text{kN·m}$, $T=0{,}8\ \text{kN·m}$, bez siły osiowej. Przyjmujemy $R_e=235\ \text{MPa}$ i wymagany zapas $n_{wym}=2$, więc naprężenie dopuszczalne wynosi $k=117{,}5\ \text{MPa}$. Tym razem wychodzimy od dopuszczalnego naprężenia i szukamy geometrii.
+
+Dla HMH można użyć momentu zastępczego $M_{eq}=\sqrt{M^2+0{,}75T^2}$. Podstawiamy $M=1{,}2\ \text{kN·m}$ i $T=0{,}8\ \text{kN·m}$: $M_{eq}=\sqrt{1{,}44+0{,}48}=\sqrt{1{,}92}=1{,}386\ \text{kN·m}$. Wymagany wskaźnik wynosi $W\ge M_{eq}/k=1{,}386\cdot10^6/117{,}5=11\,796\ \text{mm}^3$. Stąd $d=(32W/\pi)^{1/3}=(32\cdot11\,796/\pi)^{1/3}=49{,}3\ \text{mm}$.
+
+Dla Tresca moment zastępczy to $M_{eq}=\sqrt{M^2+T^2}=\sqrt{1{,}44+0{,}64}=1{,}442\ \text{kN·m}$. Wymagany wskaźnik wynosi $W\ge1{,}442\cdot10^6/117{,}5=12\,272\ \text{mm}^3$, a średnica $d=(32\cdot12\,272/\pi)^{1/3}=50{,}0\ \text{mm}$.
+
+Obie hipotezy prowadzą do średnicy około 50 mm, ale nieco inne wartości pośrednie pokazują różnicę modeli. Po zaokrągleniu do typowego wymiaru 50 mm otrzymujemy $W=12\,272\ \text{mm}^3$ i sprawdzamy: dla HMH $\sigma_{red}=1{,}386\cdot10^6/12\,272=112{,}9\ \text{MPa}$, dla Tresca około $117{,}5\ \text{MPa}$, czyli praktycznie na granicy $k$. Dokładna średnica według Tresca jest nieznacznie większa niż 50,0 mm, więc po zaokrągleniu warunek pozostaje spełniony. Zaokrąglenie średnicy w górę jest częścią projektu, a nie tylko kosmetyką.
+
+Warto zauważyć, że moment zastępczy pozwala sprowadzić zginanie ze skręcaniem do jednego momentu, ale tylko wtedy, gdy nie ma siły osiowej i gdy przekrój jest pełnym kołem. Dla przekroju pierścieniowego wskaźniki $W$ i $W_o$ nie są w prostym stosunku 1 do 2, więc wzór na moment zastępczy trzeba wyprowadzić od nowa. Dla dowolnego przekroju bezpieczniej jest liczyć $\sigma_x$ i $\tau$ osobno, a potem stosować hipotezę.
+
+Trzeba też pamiętać, że średnica dobrana ze względu na wytrzymałość może nie wystarczyć ze względu na sztywność. Kąt skręcenia wału rośnie jak $1/d^4$, więc kryterium sztywności bywa ostrzejsze dla długich wałów. W zadaniu projektowym liczymy oba warunki i wybieramy większą średnicę. To typowy przykład tego, że warunek wytrzymałości nie jest jedynym warunkiem projektu.
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dodawanie momentu gnącego i skręcającego jako liczb o tej samej jednostce, mimo że wywołują różne składowe naprężenia.
+- Obliczanie $\sigma=N/A+M/W$ bez ustalenia, czy w wybranym włóknie obie składowe mają ten sam znak. Po przeciwnej stronie przekroju znak $M/W$ się zmienia.
+- Używanie $W_o=W$ dla przekroju kołowego. Dla pełnego koła $W_o=2W$, a dla pierścienia zależność też wynika z $J_o/c$.
+- Pomijanie siły poprzecznej przy obliczaniu ścinania na osi obojętnej, gdzie zginanie znika, a ścinanie od $V$ może być największe.
+- Podstawianie $M$ w kN·m i $W$ w mm³ bez zamiany momentu na N·mm. Wynik wychodzi wtedy tysiąc razy za mały.
+- Traktowanie $\sigma_{HMH}$ jako sumy $\sigma_x+\tau$. Hipoteza używa kwadratów i współczynników, a nie zwykłego dodawania.
+- Zakładanie, że skręcanie nie wpływa na naprężenie normalne w skrajnym włóknie. Wpływa pośrednio przez redukcję, mimo że $\tau$ jest styczne.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. **Zidentyfikuj przekrój.** Wybierz przekrój, w którym moment gnący, moment skręcający lub siła osiowa osiągają maksimum. W zadaniach z wałem często trzeba sprawdzić kilka przekrojów.
+2. **Wyznacz siły wewnętrzne.** Oblicz $N$, $M$ i $T$ z równowagi lub z wykresów. Ustal znaki i płaszczyzny działania momentów.
+3. **Oblicz geometrię.** Policz $A$, $W$ i $W_o$. Dla przekroju kołowego sprawdź, czy używasz średnicy, a nie promienia.
+4. **Wskaż kandydatów.** Rozważ oba skrajne włókna, a jeśli działa siła poprzeczna, także punkt na osi obojętnej. Zapisz, jakie składowe działają w każdym z nich.
+5. **Policz naprężenia.** Dla każdego kandydata oblicz $\sigma_x=N/A\pm M/W$ oraz $\tau=T/W_o$. Pamiętaj o zamianie jednostek.
+6. **Zredukuj stan.** Zastosuj HMH albo Tresca do pary $\sigma_x$ i $\tau$. Porównaj wyniki dla wszystkich kandydatów i wybierz największy.
+7. **Sprawdź warunek.** Porównaj $\sigma_{red}$ z $k=R_e/n_{wym}$ albo oblicz $n=R_e/\sigma_{red}$. Jeśli wynik jest blisko granicy, wróć do założeń i sprawdź, czy nie pominięto siły poprzecznej lub koncentracji.
+
+## Połącz z resztą kursu
+
+- **Naprężenie zredukowane: jedna liczba dla złożonego stanu** wyjaśnia, dlaczego po obliczeniu składowych trzeba przejść do jednej miary wytężenia.
+- **Hipoteza HMH: energia zmiany postaci** dostarcza wzoru $\sqrt{\sigma^2+3\tau^2}$ używanego w wałach zginanych i skręcanych.
+- **Hipoteza Tresca: największe ścinanie** daje alternatywny wzór $\sqrt{\sigma^2+4\tau^2}$ i pokazuje, kiedy ocena jest ostrzejsza.
+- **Skręcanie prętów kołowych** przypomina rozkład $\tau=Tr/J_o$ oraz związek $W_o=2W$ dla pełnego przekroju.
+- **Zginanie belek** dostarcza wzoru $\sigma=M/W$ i pojęcia osi obojętnej, bez którego nie da się wybrać punktu decydującego.
+- **Współczynnik bezpieczeństwa: ile zapasu ma element?** zamyka cały łańcuch obliczeń przez porównanie $\sigma_{red}$ z naprężeniem dopuszczalnym.
+
+## Sprawdź się
+
+Pytania sprawdzają kolejność obliczeń, znaki oraz dobór punktu decydującego w przekroju.
 
 <Quiz>
   <Question outcome="U1">
-    <Prompt>
-      W skrajnym włóknie N/A = 30 MPa, a zginanie daje tam rozciąganie M/W = 90 MPa. Ile wynosi σ przed redukcją?
-    </Prompt>
+    <Prompt>W skrajnym włóknie $N/A=30\ \text{MPa}$, a zginanie daje tam rozciąganie $M/W=90\ \text{MPa}$. Ile wynosi $\sigma_x$ przed redukcją?</Prompt>
     <Answer>60 MPa</Answer>
     <Answer>90 MPa</Answer>
     <Answer correct>120 MPa</Answer>
     <Hint>Oba naprężenia normalne są w tym punkcie rozciągające.</Hint>
     <Explanation>
-      σ = N/A + M/W = 30 + 90 = 120 MPa. Gdyby na przeciwnej stronie przekroju zginanie dawało ściskanie, znak M/W byłby
-      przeciwny i suma byłaby mniejsza.
+      $\sigma_x=30+90=120\ \text{MPa}$. Po przeciwnej stronie przekroju zginanie dawałoby ściskanie, więc znak $M/W$ byłby przeciwny i suma wyniosłaby $-60\ \text{MPa}$.
     </Explanation>
   </Question>
   <Question outcome="U1">
-    <Prompt>W punkcie σ = 100 MPa i τ = 60 MPa. Ile wynosi σHMH po połączeniu obciążeń?</Prompt>
+    <Prompt>W punkcie $\sigma_x=100\ \text{MPa}$ i $\tau=60\ \text{MPa}$. Ile wynosi $\sigma_{HMH}$?</Prompt>
     <Answer>116,6 MPa</Answer>
     <Answer correct>144,2 MPa</Answer>
     <Answer>160 MPa</Answer>
-    <Hint>Użyj wzoru z współczynnikiem 3 przy τ².</Hint>
+    <Hint>Użyj wzoru ze współczynnikiem 3 przy $\tau^2$.</Hint>
     <Explanation>
-      σHMH = √(100² + 3·60²) = √20 800 = 144,22 MPa. To nie jest suma 100 + 60 = 160 MPa, ponieważ σ i τ wchodzą do
-      hipotezy przez kwadraty.
+      $\sigma_{HMH}=\sqrt{100^2+3\cdot60^2}=\sqrt{20\,800}=144{,}2\ \text{MPa}$. To nie jest suma $100+60=160\ \text{MPa}$, ponieważ naprężenia wchodzą do hipotezy przez kwadraty.
     </Explanation>
   </Question>
   <Question outcome="W1">
-    <Prompt>Dlaczego w punkcie na osi obojętnej pełnego przekroju nie wystarczy sprawdzić tylko M/W?</Prompt>
+    <Prompt>Dlaczego w punkcie na osi obojętnej pełnego przekroju nie wystarczy sprawdzić tylko $M/W$?</Prompt>
     <Answer>Bo zginanie daje tam maksimum</Answer>
-    <Answer correct>Bo M/W = 0, ale mogą tam działać N/A oraz τ od skręcania i siły poprzecznej</Answer>
+    <Answer correct>Bo $M/W=0$, ale mogą tam działać $N/A$ oraz ścinanie od skręcania i siły poprzecznej</Answer>
     <Answer>Bo skręcanie zawsze daje tam maksimum</Answer>
     <Hint>Rozłóż wpływ zginania, siły osiowej, skręcania i siły poprzecznej na osobne składowe.</Hint>
     <Explanation>
-      Na osi obojętnej naprężenie od zginania jest zerowe, lecz N/A może być różne od zera. W przekroju kołowym τ od
-      skręcania rośnie z odległością od środka, więc na osi obojętnej na ogół nie znika; dochodzi jeszcze ścinanie od
-      siły poprzecznej. Punkt decydujący trzeba wybrać po porównaniu wszystkich składowych.
+      Na osi obojętnej naprężenie od zginania jest zerowe, lecz $N/A$ może być różne od zera. W przekroju kołowym ścinanie od skręcania rośnie z odległością od środka, więc na osi obojętnej na ogół nie znika, a dochodzi jeszcze ścinanie od siły poprzecznej. Punkt decydujący trzeba wybrać po porównaniu wszystkich składowych.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dla $\sigma_x=80\ \text{MPa}$ i $\tau=60\ \text{MPa}$ ile wynosi maksymalne naprężenie styczne w punkcie?</Prompt>
+    <Answer>60,0 MPa</Answer>
+    <Answer correct>72,1 MPa</Answer>
+    <Answer>100,0 MPa</Answer>
+    <Hint>Promień koła Mohra wynosi $\sqrt{(\sigma_x/2)^2+\tau^2}$.</Hint>
+    <Explanation>
+      $\tau_{max}=\sqrt{40^2+60^2}=\sqrt{1\,600+3\,600}=\sqrt{5\,200}=72{,}1\ \text{MPa}$. To więcej niż samo $\tau$, bo do ścinania od skręcania dochodzi udział różnicy naprężeń normalnych.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Jak zmieni się naprężenie od zginania, jeśli średnicę pełnego wału zwiększymy dwukrotnie przy tym samym momencie?</Prompt>
+    <Answer>Zmniejszy się dwukrotnie</Answer>
+    <Answer correct>Zmniejszy się ośmiokrotnie</Answer>
+    <Answer>Nie zmieni się</Answer>
+    <Hint>$W$ dla koła jest proporcjonalny do $d^3$.</Hint>
+    <Explanation>
+      $W=\pi d^3/32$, więc podwojenie średnicy zwiększa $W$ osiem razy. Przy stałym $M$ naprężenie $M/W$ maleje ośmiokrotnie. Naprężenie od siły osiowej maleje tylko czterokrotnie, bo $A$ jest proporcjonalne do $d^2$.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Dla $\sigma_{red}=130\ \text{MPa}$ i $R_e=260\ \text{MPa}$ jaki jest współczynnik bezpieczeństwa?</Prompt>
+    <Answer correct>2,0</Answer>
+    <Answer>0,5</Answer>
+    <Answer>390 MPa</Answer>
+    <Hint>Podziel granicę przez naprężenie zredukowane.</Hint>
+    <Explanation>
+      $n=260/130=2{,}0$. Współczynnik bezpieczeństwa jest liczbą bezwymiarową, a nie naprężeniem, więc odpowiedź 390 MPa jest niepoprawna także wymiarowo.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Która składowa naprężenia jest zwykle zerowa w skrajnym włóknie przekroju kołowego przy zginaniu?</Prompt>
+    <Answer>Naprężenie normalne od zginania</Answer>
+    <Answer correct>Ścinanie od siły poprzecznej</Answer>
+    <Answer>Naprężenie normalne od siły osiowej</Answer>
+    <Hint>Przypomnij sobie rozkład ścinania od siły poprzecznej w przekroju kołowym.</Hint>
+    <Explanation>
+      Ścinanie od siły poprzecznej ma w przekroju kołowym maksimum na osi obojętnej, a zero na obwodzie. Dlatego w skrajnym włóknie, gdzie zginanie daje maksimum, zwykle nie dodajemy tego ścinania do $\tau$ od skręcania.
+    </Explanation>
+  </Question>
+  <Question outcome="U3">
+    <Prompt>Wał ma $\sigma_{red}=150\ \text{MPa}$, a granica wynosi $R_e=300\ \text{MPa}$. O ile można zwiększyć obciążenie przy proporcjonalnym wzroście, zanim osiągnięta zostanie granica?</Prompt>
+    <Answer>O 50 procent</Answer>
+    <Answer correct>O 100 procent, czyli dwukrotnie</Answer>
+    <Answer>O 300 procent</Answer>
+    <Hint>Zapas to stosunek granicy do naprężenia, a przy proporcjonalnym obciążeniu jest on także mnożnikiem siły.</Hint>
+    <Explanation>
+      $n=300/150=2$, więc obciążenie można zwiększyć dwukrotnie, czyli o 100 procent względem wartości roboczej. Wzrost o 50 procent dałby naprężenie 225 MPa, czyli zapas 1,33, a nie 1.
     </Explanation>
   </Question>
 </Quiz>
+
+## Źródła i dalsze czytanie
+
+- A. Jakubowicz, Z. Orłoś, _Wytrzymałość materiałów_ — rozdział o obciążeniach złożonych; szukaj przykładów wałów zginanych i skręcanych oraz zasady superpozycji naprężeń.
+- M. Niezgodziński, T. Niezgodziński, _Zadania z wytrzymałości materiałów_ — zadania z wałami i elementami mimośrodowo obciążonymi; dobre do ćwiczenia wyboru punktu decydującego.
+- T. Wierzbicki, _Structural Mechanics_ (podręcznik otwarty) — rozdział 3.2 o prawie sprężystości w ośrodku trójwymiarowym; pokazuje, jak składowe tensora naprężenia łączą się w stan opisujący punkt.
+- D. Roylance, _Mechanics of Materials_ (podręcznik otwarty) — rozdziały o zginaniu i skręcaniu; pokazują rozkłady naprężeń, które trzeba zestawić w jednym punkcie.
+- MIT 3.11, _Mechanics of Materials_ (notatki otwarte) — wykłady o skręcaniu i naprężeniach w belkach; pomocne przy interpretacji wskaźników wytrzymałości.
