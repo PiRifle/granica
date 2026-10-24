@@ -7,6 +7,7 @@ import {
   totalDuration,
   workedSolutions,
 } from './course'
+import { contentInventory } from '../content/registry'
 import { labRegistry } from '../components/LabRegistry'
 
 describe('integralność kursu', () => {
@@ -77,4 +78,22 @@ describe('integralność kursu', () => {
       expect(modules.some((module) => module.id === item.moduleId), item.moduleId).toBe(true)
     }
   })
+
+  it('ma dokładnie jeden plik MDX na każdą lekcję i rozwiązanie', () => {
+    const pair = (path: string) => path.replace(/[^/]+$/, 'content.mdx')
+    expect(contentInventory.lessonData.map(pair).sort()).toEqual(contentInventory.lessonBodies)
+    expect(contentInventory.solutionData.map(pair).sort()).toEqual(contentInventory.solutionBodies)
+    expect(contentInventory.moduleData.map((path) => path.replace(/[^/]+$/, 'overview.mdx')).sort()).toEqual(contentInventory.moduleOverviews)
+  })
+
+  it('kompiluje treść MDX każdej lekcji i rozwiązania', async () => {
+    for (const lesson of lessons) {
+      const body = await lesson.loadBody()
+      expect(typeof body.default, lesson.id).toBe('function')
+    }
+    for (const solution of workedSolutions) {
+      const body = await solution.loadBody()
+      expect(typeof body.default, solution.id).toBe('function')
+    }
+  }, 30_000)
 })

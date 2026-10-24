@@ -1,4 +1,8 @@
+import type { ComponentType } from 'react'
+
 export type LessonId = string
+
+export type MdxBody = () => Promise<{ default: ComponentType<{ components?: Record<string, ComponentType<any>> }> }>
 
 export interface Question {
   question: string
@@ -24,7 +28,6 @@ export interface Lesson {
   description: string
   duration: number
   eyebrow: string
-  intuition: string
   formula: string
   formulaNote: string
   insight: string
@@ -35,6 +38,10 @@ export interface Lesson {
   solutionId?: string
 }
 
+export interface CourseLesson extends Lesson {
+  loadBody: MdxBody
+}
+
 export interface CourseModule {
   id: string
   number: number
@@ -42,7 +49,7 @@ export interface CourseModule {
   shortTitle: string
   description: string
   outcomes: string[]
-  lessons: Lesson[]
+  lessons: CourseLesson[]
 }
 
 export interface SolutionScene {
@@ -57,9 +64,12 @@ export interface SolutionScene {
 export interface WorkedSolution {
   id: string
   title: string
-  problem: string
   duration: number
   given: string[]
   result: string
   scenes: SolutionScene[]
+}
+
+export interface CourseSolution extends WorkedSolution {
+  loadBody: MdxBody
 }

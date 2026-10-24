@@ -1,0 +1,38 @@
+.content { color: #687161; }
+.content > p { font-size: 13px; line-height: 1.75; }
+.content p { line-height: 1.7; }
+.content h2 { font-size: 18px; letter-spacing: -.025em; color: #2f382b; margin: 26px 0 10px; }
+.content h3 { font-size: 15px; margin: 20px 0 8px; }
+.content ul, .content ol { margin: 10px 0 16px; padding-left: 22px; display: grid; gap: 7px; }
+.content li { font-size: 12px; line-height: 1.6; }
+.content strong { color: #3f4b36; }
+.content a { color: #6e8c37; text-decoration: underline; text-underline-offset: 2px; }
+.content code { background: #f2f5eb; border-radius: 4px; padding: 1px 4px; font-size: .92em; }
+.content table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 11px; }
+.content th, .content td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; }
+.content th { background: #f6f8f1; color: #4c5942; }
+
+.insight { display: flex; gap: 13px; background: #fff8ee; border-left: 3px solid #e4b563; padding: 15px 17px; border-radius: 0 8px 8px 0; color: #bf914a; margin-top: 19px; }
+.insight svg { width: 19px; flex: 0 0 19px; }
+.insight strong { display: block; color: #8b6e40; font-size: 11px; }
+.insight p { font-size: 11px; color: #8d806b; line-height: 1.6; margin: 4px 0 0; }
+
+.callout { border-left: 3px solid #9dbb61; background: #f5f9ed; border-radius: 0 8px 8px 0; padding: 13px 16px; margin: 16px 0; }
+.callout[data-kind='warning'] { border-left-color: #e4b563; background: #fff8ee; }
+.callout[data-kind='info'] { border-left-color: #86a9c2; background: #f2f6f9; }
+.callout-title { display: block; font-size: 10px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #6d7f50; margin-bottom: 5px; }
+.callout p:last-child { margin-bottom: 0; }
+
+.workedExample { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
+.workedHeading { display: flex; align-items: center; gap: 13px; margin-bottom: 15px; }
+.workedHeading :global(.section-kicker) { margin-bottom: 4px; font-size: 8px; }
+.workedHeading h2 { font-size: 19px; margin: 0; letter-spacing: -.03em; }
+.workedGiven { font-size: 12px; color: #68715f; line-height: 1.65; }
+.workedExample ol { margin: 13px 0; }
+.workedResult { display: flex; align-items: flex-start; gap: 8px; background: #f2f8e7; color: #5d753b; border-radius: 8px; padding: 12px 14px; font-size: 12px; line-height: 1.55; }
+.workedResult svg { flex: 0 0 17px; margin-top: 2px; color: #7c9c43; }
+
+.loading { min-height: 120px; display: grid; place-items: center; color: #929a87; font-size: 11px; }
+
+.roundIcon { width: 40px; height: 40px; border-radius: 50%; background: #eff5e2; color: #8ba452; display: grid; place-items: center; flex: 0 0 40px; }
+.roundIcon svg { width: 19px; }

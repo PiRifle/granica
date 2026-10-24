@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import {
   ChevronLeft,
@@ -8,8 +8,12 @@ import {
   Play,
   RotateCcw,
 } from 'lucide-react'
-import type { SolutionScene, WorkedSolution } from '../types'
+import type { CourseSolution, SolutionScene } from '../types'
 import { Formula } from './UI'
+import styles from './SolutionPlayer.module.css'
+
+const cx = (...values: Array<string | false | null | undefined>) => values.filter(Boolean).join(' ')
+const local = (names: string) => names.split(/\s+/).filter(Boolean).map((name) => styles[name] ?? name).join(' ')
 
 const SPEEDS = [1, 1.5, 2] as const
 const SCENE_MS = 7000
@@ -145,10 +149,11 @@ function SceneVisual({ scene, index }: { scene: SolutionScene; index: number }) 
   }
 }
 
-export function SolutionPlayer({ solution }: { solution: WorkedSolution }) {
+export function SolutionPlayer({ solution }: { solution: CourseSolution }) {
   const [index, setIndex] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [speed, setSpeed] = useState<number>(1)
+  const Body = useMemo(() => lazy(solution.loadBody), [solution.id, solution.loadBody])
   const scene = solution.scenes[index]
   const lastIndex = solution.scenes.length - 1
   const progress = ((index + 1) / solution.scenes.length) * 100
@@ -177,59 +182,59 @@ export function SolutionPlayer({ solution }: { solution: WorkedSolution }) {
     <button
       key={`${item.title}-${dotIndex}`}
       type="button"
-      className={dotIndex === index ? 'solution-dot active' : dotIndex < index ? 'solution-dot done' : 'solution-dot'}
+      className={local(dotIndex === index ? 'solution-dot active' : dotIndex < index ? 'solution-dot done' : 'solution-dot')}
       aria-label={`Scena ${dotIndex + 1}: ${item.title}`}
       aria-current={dotIndex === index}
       onClick={() => { setIndex(dotIndex); setPlaying(false) }}
     />
   )), [solution.scenes, index])
 
-  return <section className="solution-player" aria-label={`Animowane rozwiązanie: ${solution.title}`}>
-    <div className="solution-head">
+  return <section className={local('solution-player')} aria-label={`Animowane rozwiązanie: ${solution.title}`}>
+    <div className={local('solution-head')}>
       <div>
-        <span className="section-kicker">ROZWIĄZANIE KROK PO KROKU</span>
+        <span className={local('section-kicker')}>ROZWIĄZANIE KROK PO KROKU</span>
         <h2>{solution.title}</h2>
-        <p>{solution.problem}</p>
+        <div className={local('solution-problem')}><Suspense fallback={<p>Ładowanie treści…</p>}><Body components={{}} /></Suspense></div>
       </div>
-      <span className="solution-duration"><Gauge size={15} /> {solution.duration} min</span>
+      <span className={local('solution-duration')}><Gauge size={15} /> {solution.duration} min</span>
     </div>
-    <div className="solution-given">
+    <div className={local('solution-given')}>
       {solution.given.map((item) => <span key={item}>{item}</span>)}
     </div>
-    <div className="solution-stage">
-      <div className="solution-visual">
+    <div className={local('solution-stage')}>
+      <div className={local('solution-visual')}>
         <AnimatePresence mode="wait">
           <motion.div key={`${solution.id}-${index}`} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
             <SceneVisual scene={scene} index={index} />
           </motion.div>
         </AnimatePresence>
-        <span className="solution-scene-count">SCENA {index + 1} / {solution.scenes.length}</span>
+        <span className={local('solution-scene-count')}>SCENA {index + 1} / {solution.scenes.length}</span>
       </div>
-      <div className="solution-copy">
+      <div className={local('solution-copy')}>
         <AnimatePresence mode="wait">
           <motion.div key={`copy-${index}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
-            <span className="solution-scene-title">{scene.title}</span>
+            <span className={local('solution-scene-title')}>{scene.title}</span>
             <p>{scene.narration}</p>
             {scene.formula && <Formula>{scene.formula}</Formula>}
-            <p className="solution-caption">{scene.caption}</p>
-            {scene.emphasis && <p className="solution-emphasis">{scene.emphasis}</p>}
+            <p className={local('solution-caption')}>{scene.caption}</p>
+            {scene.emphasis && <p className={local('solution-emphasis')}>{scene.emphasis}</p>}
           </motion.div>
         </AnimatePresence>
       </div>
     </div>
-    <div className="solution-controls">
-      <div className="solution-buttons">
-        <button className="icon-button" type="button" onClick={reset} aria-label="Od początku"><RotateCcw size={17} /></button>
-        <button className="icon-button" type="button" onClick={() => { setPlaying(false); setIndex((current) => Math.max(0, current - 1)) }} aria-label="Poprzednia scena" disabled={index === 0}><ChevronLeft size={18} /></button>
-        <button className="button button-dark button-small" type="button" onClick={toggle}>{playing ? <Pause size={15} /> : <Play size={15} />}{playing ? 'Pauza' : 'Odtwarzaj'}</button>
-        <button className="icon-button" type="button" onClick={() => { setPlaying(false); setIndex((current) => Math.min(lastIndex, current + 1)) }} aria-label="Następna scena" disabled={index === lastIndex}><ChevronRight size={18} /></button>
-        <div className="solution-speed" role="group" aria-label="Tempo odtwarzania">
-          {SPEEDS.map((value) => <button key={value} type="button" className={speed === value ? 'active' : ''} aria-pressed={speed === value} onClick={() => setSpeed(value)}>{value}×</button>)}
+    <div className={local('solution-controls')}>
+      <div className={local('solution-buttons')}>
+        <button className={local('icon-button')} type="button" onClick={reset} aria-label="Od początku"><RotateCcw size={17} /></button>
+        <button className={local('icon-button')} type="button" onClick={() => { setPlaying(false); setIndex((current) => Math.max(0, current - 1)) }} aria-label="Poprzednia scena" disabled={index === 0}><ChevronLeft size={18} /></button>
+        <button className={local('button button-dark button-small')} type="button" onClick={toggle}>{playing ? <Pause size={15} /> : <Play size={15} />}{playing ? 'Pauza' : 'Odtwarzaj'}</button>
+        <button className={local('icon-button')} type="button" onClick={() => { setPlaying(false); setIndex((current) => Math.min(lastIndex, current + 1)) }} aria-label="Następna scena" disabled={index === lastIndex}><ChevronRight size={18} /></button>
+        <div className={local('solution-speed')} role="group" aria-label="Tempo odtwarzania">
+          {SPEEDS.map((value) => <button key={value} type="button" className={speed === value ? local('active') : undefined} aria-pressed={speed === value} onClick={() => setSpeed(value)}>{value}×</button>)}
         </div>
       </div>
-      <div className="solution-progress" aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
-      <div className="solution-dots">{dots}</div>
+      <div className={local('solution-progress')} aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
+      <div className={local('solution-dots')}>{dots}</div>
     </div>
-    <div className="solution-result"><strong>Wynik:</strong><span>{solution.result}</span></div>
+    <div className={local('solution-result')}><strong>Wynik:</strong><span>{solution.result}</span></div>
   </section>
 }

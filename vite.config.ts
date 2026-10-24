@@ -1,9 +1,19 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import mdx from '@mdx-js/rollup'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   plugins: [
+    {
+      enforce: 'pre',
+      ...mdx({
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [[rehypeKatex, { throwOnError: true, strict: 'error' }]],
+      }),
+    },
     react(),
     VitePWA({
       registerType: 'autoUpdate',

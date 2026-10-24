@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { Control, Lab, Metric, fmt } from './UI'
+import { Control, Lab, Metric, Segmented, fmt } from './UI'
 import {
   axialStrain,
   bendingStressMPa,
@@ -28,31 +28,6 @@ import {
   torsionAngleDeg,
   torsionShearMPa,
 } from '../lib/engineering'
-
-interface SegmentOption<T extends string> {
-  value: T
-  label: string
-}
-
-function Segmented<T extends string>({ label, value, options, onChange }: {
-  label: string
-  value: T
-  options: ReadonlyArray<SegmentOption<T>>
-  onChange: (value: T) => void
-}) {
-  return <div className="control segmented-control">
-    <span className="control-label"><span>{label}</span></span>
-    <div className="segmented" role="group" aria-label={label}>
-      {options.map((option) => <button
-        key={option.value}
-        type="button"
-        className={value === option.value ? 'segment active' : 'segment'}
-        aria-pressed={value === option.value}
-        onClick={() => onChange(option.value)}
-      >{option.label}</button>)}
-    </div>
-  </div>
-}
 
 const chartMargin = { top: 12, right: 18, left: 4, bottom: 24 }
 

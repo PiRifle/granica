@@ -1,0 +1,56 @@
+.lab { background: #fff; border: 1px solid #dfe4d8; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px #35402508; }
+.lab-heading { padding: 22px 24px 19px; display: flex; justify-content: space-between; gap: 20px; border-bottom: 1px solid #e7eae2; }
+.lab-tag { display: flex; align-items: center; gap: 6px; color: #8c9b70; font-size: 8px; font-weight: 800; letter-spacing: .12em; margin-bottom: 8px; }
+.lab-tag i { width: 5px; height: 5px; border-radius: 50%; background: #a3bd65; box-shadow: 0 0 0 3px #a3bd6520; }
+.lab-heading h2 { font-size: 18px; letter-spacing: -.025em; margin-bottom: 7px; }
+.lab-heading p { font-size: 11px; line-height: 1.5; color: #848c7c; max-width: 650px; margin: 0; }
+.lab-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 225px; min-height: 340px; }
+.lab-visual { min-width: 0; background: #fafbf8; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #626b5c; overflow: hidden; }
+.lab-visual > svg { width: 100%; max-height: 330px; }
+.lab-controls { border-left: 1px solid #e7eae2; padding: 21px 20px; background: #fff; }
+.lab-controls h3 { font-size: 11px; margin-bottom: 25px; }
+.control { display: block; margin-bottom: 25px; }
+.control-label { display: flex; align-items: center; justify-content: space-between; font-size: 10px; color: #7a8272; margin-bottom: 13px; gap: 8px; }
+.control-label strong { color: #414a3c; font-size: 12px; white-space: nowrap; }
+.control-label small { font-size: 9px; color: #7e8876; font-weight: 500; }
+.slider-root { position: relative; display: flex; align-items: center; user-select: none; touch-action: none; width: 100%; height: 15px; }
+.slider-track { background: #e8ece2; position: relative; flex: 1; border-radius: 10px; height: 4px; }
+.slider-range { background: #a7c65f; position: absolute; border-radius: inherit; height: 100%; }
+.slider-thumb { display: block; width: 16px; height: 16px; background: #fff; border: 4px solid #8ead4e; border-radius: 50%; box-shadow: 0 1px 5px #35402522; cursor: grab; }
+.slider-thumb:active { cursor: grabbing; }
+.control-range { display: flex; justify-content: space-between; color: #adb2a5; font-size: 8px; margin-top: 3px; }
+.segmented { display: flex; gap: 4px; background: #f1f3ed; border-radius: 7px; padding: 3px; }
+.segment { flex: 1; border: 0; background: transparent; border-radius: 5px; padding: 7px 4px; font-size: 9px; color: #788170; }
+.segment.active { background: white; color: #4d6037; font-weight: 700; box-shadow: 0 1px 4px #35402514; }
+.metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #e5e8df; }
+.metric { padding: 17px 23px; min-width: 0; }
+.metric + .metric { border-left: 1px solid #e5e8df; }
+.metric > span { display: block; color: #899180; font-size: 9px; margin-bottom: 6px; }
+.metric strong { font-family: 'Manrope', sans-serif; font-size: 21px; letter-spacing: -.03em; font-weight: 700; }
+.metric strong small { font-family: 'DM Sans', sans-serif; font-size: 10px; color: #818a78; font-weight: 500; letter-spacing: 0; }
+.metric.accent strong { color: #708e35; }
+
+@media (max-width: 1000px) {
+  .lab-workspace { grid-template-columns: minmax(0, 1fr) 200px; }
+  .lab-controls { padding: 20px 15px; }
+  .metric { padding: 15px; }
+  .metric strong { font-size: 18px; }
+}
+
+@media (max-width: 760px) {
+  .lab-workspace { display: flex; flex-direction: column; }
+  .lab-visual { min-height: 290px; }
+  .lab-controls { border-left: 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 22px; }
+  .lab-controls h3 { grid-column: 1 / -1; margin-bottom: 18px; }
+  .control { margin-bottom: 18px; }
+  .segmented-control { grid-column: 1 / -1; }
+}
+
+@media (max-width: 480px) {
+  .lab-heading { padding: 19px 17px; }
+  .lab-heading h2 { font-size: 16px; }
+  .lab-visual { padding: 6px; min-height: 250px; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .metric { padding: 14px 16px; }
+  .metric:nth-child(3) { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); }
+}
