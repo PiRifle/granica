@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrengthStiffnessDesignAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-strength-stiffness-design',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 2,5 m', 'N = 60 kN', 'E = 200 GPa', 'σ_dop = 160 MPa', 'ΔL_dop = 1,2 mm'],
   result:
     'Decyduje warunek sztywności. Minimalne pole wynosi 625 mm^2, a po zaokrągleniu do 30 mm otrzymujemy naprężenie około 84,9 MPa i wydłużenie około 1,06 mm. Oba warunki są spełnione.',
-  animation: StrengthStiffnessDesignAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StrengthStiffnessDesignAnimation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

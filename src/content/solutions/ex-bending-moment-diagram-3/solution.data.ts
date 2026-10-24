@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingMomentExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-moment-diagram-3',
@@ -49,7 +49,7 @@ export default {
     ],
     note: 'Przy sile w środku rozpiętości M_max = PL/4 = 30 · 6 / 4 = 45 kN·m.',
   },
-  animation: BendingMomentExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BendingMomentExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

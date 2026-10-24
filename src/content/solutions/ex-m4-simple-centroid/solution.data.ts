@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SimpleCentroidTriangleAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-simple-centroid',
@@ -8,7 +8,7 @@ export default {
   given: ['b = 240 mm', 'h = 180 mm'],
   result:
     'Środek ciężkości blachy ma współrzędne (80; 60) mm, a jej pole wynosi 21 600 mm^2, czyli 216 cm². Wynik jest zgodny z regułą jednej trzeciej wysokości od podstawy.',
-  animation: SimpleCentroidTriangleAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SimpleCentroidTriangleAnimation }))),
   scenes: [
     {
       title: 'Dane i układ osi',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearStressStrainExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-stress-strain-2',
@@ -18,7 +18,9 @@ export default {
     ],
     note: 'Dane pomiarowe dla aluminium: moduł ścinania, liczba Poissona i zmierzony kąt odkształcenia.',
   },
-  animation: ShearStressStrainExample2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.ShearStressStrainExample2Animation })),
+  ),
   scenes: [
     {
       title: 'Pomiar odkształcenia',

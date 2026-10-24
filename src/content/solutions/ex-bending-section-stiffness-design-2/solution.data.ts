@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SectionStiffnessDesign2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-section-stiffness-design-2',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 4 m', 'q = 9 kN/m', 'sigma_{dop} = 160 MPa', 'E = 210 GPa'],
   result:
     'Ten przykład pokazuje typową iterację projektową. Nie wystarczy dobrać przekroju „na naprężenie” i zakończyć. Po każdej zmianie wymiarów trzeba przeliczyć I, W i ugięcie, ponieważ wszystkie te wielkości zmieniają się razem.',
-  animation: SectionStiffnessDesign2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionStiffnessDesign2Animation }))),
   figure: {
     kind: 'beam',
     length: 4,

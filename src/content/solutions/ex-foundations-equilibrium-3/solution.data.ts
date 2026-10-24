@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { EquilibriumExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-equilibrium-3',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 4,0 m', 'a = 1,5 m', 'P = 8 kN', 'R_B = 14 kN'],
   result:
     'q = 5,5 kN/m, R_A = 16 kN, a maksimum momentu wynosi 17,8 kN·m pod siłą P. Sprawdzenie momentem względem B: R_A·4 = 64 kN·m oraz P·2,5 + Q·2 = 20 + 44 = 64 kN·m. Gdyby R_B było mniejsze niż Pa/L = 3 kN, otrzymalibyśmy ujemne q, czyli obciążenie skierowane do góry. To sygnał, że dane nie odpowiadają założonemu modelowi belki z obciążeniem w dół.',
-  animation: EquilibriumExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.EquilibriumExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

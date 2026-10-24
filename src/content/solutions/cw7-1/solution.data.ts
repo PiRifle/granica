@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'cw7-1',
@@ -27,6 +28,7 @@ export default {
     ],
     note: 'Sztywne ścianki blokują ε_x i ε_y, więc naprężenia poziome nie są zerowe.',
   },
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ConstrainedCubeAnimation }))),
   scenes: [
     {
       title: 'Rozpoznaj warunki brzegowe',
@@ -35,6 +37,7 @@ export default {
       formula: '\\varepsilon_x=\\varepsilon_y=0,\\qquad \\sigma_x=\\sigma_y,\\qquad \\tau_{xy}=\\tau_{yz}=\\tau_{zx}=0',
       caption: 'Brak odkształcenia w kierunku nie oznacza braku naprężenia — właśnie reakcja ścianek blokuje ruch.',
       visual: 'cube',
+      focus: { metric: 'constraints' },
     },
     {
       title: 'Oblicz naprężenie pionowe',
@@ -43,6 +46,7 @@ export default {
       formula: '\\sigma_z=-\\frac{P}{a^2}=-\\frac{5\\,000}{10^2}=-50\\ \\text{N/mm}^2=-50\\ \\text{MPa}',
       caption: 'Naprężenie jest jednorodne w przyjętym modelu sześcianu.',
       visual: 'cube',
+      focus: { metric: 'stress' },
     },
     {
       title: 'Zapisz uogólnione prawo Hooke’a',
@@ -52,6 +56,7 @@ export default {
         '\\varepsilon_x=\\frac{\\sigma_x-\\nu(\\sigma_y+\\sigma_z)}{E},\\qquad \\varepsilon_z=\\frac{\\sigma_z-\\nu(\\sigma_x+\\sigma_y)}{E}',
       caption: 'Nie używamy prostego σ = Eε, bo sześcian znajduje się w trójosiowym stanie naprężenia.',
       visual: 'cube',
+      focus: { metric: 'hooke' },
     },
     {
       title: 'Wyznacz naciski ścianek',
@@ -61,6 +66,7 @@ export default {
         '(1-\\nu)\\sigma_x=\\nu\\sigma_z\\quad\\Rightarrow\\quad \\sigma_x=\\sigma_y=\\frac{0,35}{1-0,35}(-50)=-26,9231\\ \\text{MPa}',
       caption: 'Ścianki wycięcia ściskają sześcian w kierunkach x i y.',
       visual: 'cube',
+      focus: { metric: 'lateral' },
     },
     {
       title: 'Oblicz odkształcenie pionowe',
@@ -69,6 +75,7 @@ export default {
       formula: '\\varepsilon_z=\\frac{-50-0,35(-26,9231-26,9231)}{70\\,000}=-4,45055\\cdot10^{-4}',
       caption: 'W mikroodkształceniach: ε_z = −445,055 µε; ε_x = ε_y = 0.',
       visual: 'cube',
+      focus: { metric: 'strain' },
     },
     {
       title: 'Zapisz pełny stan odkształcenia',
@@ -77,6 +84,7 @@ export default {
       formula: '\\boldsymbol{\\varepsilon}=\\begin{bmatrix}0&0&0\\\\0&0&0\\\\0&0&-4,45055\\cdot10^{-4}\\end{bmatrix}',
       caption: 'Skrócenie pionowe jest małe, ale objętość zmienia się mimo zablokowania dwóch wymiarów.',
       visual: 'cube',
+      focus: { metric: 'tensor' },
     },
     {
       title: 'Oblicz odkształcenie objętościowe',
@@ -85,6 +93,7 @@ export default {
       formula: '\\theta=\\frac{\\Delta V}{V_0}=\\varepsilon_x+\\varepsilon_y+\\varepsilon_z=-4,45055\\cdot10^{-4}',
       caption: 'Znak ujemny oznacza zmniejszenie objętości, a nie ujemną objętość.',
       visual: 'cube',
+      focus: { metric: 'volumetric' },
     },
     {
       title: 'Wyznacz zmianę objętości',
@@ -93,6 +102,7 @@ export default {
       formula: '\\Delta V=V_0\\theta=1\\,000(-4,45055\\cdot10^{-4})=-0,445055\\ \\text{mm}^3',
       caption: 'Równoważnie ΔV = −4,45055·10⁻¹⁰ m³.',
       visual: 'cube',
+      focus: { metric: 'volume-change' },
     },
     {
       title: 'Sprawdź rząd wielkości i znak',
@@ -101,6 +111,7 @@ export default {
       formula: '\\boxed{\\varepsilon_z=-4,45055\\cdot10^{-4},\\qquad \\Delta V=-0,445055\\ \\text{mm}^3}',
       caption: 'Więzy zmieniają zarówno stan naprężenia, jak i odkształcenie względem swobodnego ściskania.',
       visual: 'cube',
+      focus: { metric: 'result' },
       emphasis: 'Klucz zadania: zerowe ε_x i ε_y służą do wyznaczenia nieznanych σ_x i σ_y.',
     },
   ],

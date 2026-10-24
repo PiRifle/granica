@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingShearForceExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-shear-force-2',
@@ -53,7 +53,9 @@ export default {
     ],
     note: 'Nachylenie wykresu T wynosi -q = -4 kN/m, a zero wypada w połowie rozpiętości.',
   },
-  animation: BendingShearForceExample2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.BendingShearForceExample2Animation })),
+  ),
   scenes: [
     {
       title: 'Model i dane',

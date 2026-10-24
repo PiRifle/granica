@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainRosetteExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-rosette-2',
@@ -8,7 +8,7 @@ export default {
   given: ['varepsilon_0=600', 'varepsilon_45=300', 'varepsilon_90=-200', 'gamma_{xy}=200'],
   result:
     'Wynik mówi, że największe rozciąganie działa pod kątem około 7° od osi pierwszego czujnika. To niewiele, ale przy projektowaniu połączenia lub otworu taki obrót może mieć znaczenie. Drugie odkształcenie główne jest ujemne, czyli w kierunku prostopadłym materiał jest ściskany. Taki stan jest typowy dla rozciągania z udziałem ścinania.',
-  animation: StrainRosetteExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StrainRosetteExample2Animation }))),
   scenes: [
     {
       title: 'Model rozety i trzy odczyty',

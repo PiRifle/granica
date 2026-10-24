@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { GeneralHookeExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-general-hooke-3',
@@ -8,7 +8,7 @@ export default {
   given: ['varepsilon_x=500', 'varepsilon_y=-150', 'E=200 GPa', 'nu=0,30'],
   result:
     'Gdyby zmierzone ε_y było dodatnie, wniosek o czystym rozciąganiu byłby fałszywy. Trzeba by wrócić do pełnego układu równań i rozważyć naprężenie σ_y lub odkształcenie termiczne.',
-  animation: GeneralHookeExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.GeneralHookeExample3Animation }))),
   scenes: [
     {
       title: 'Pomiar tensometrami',

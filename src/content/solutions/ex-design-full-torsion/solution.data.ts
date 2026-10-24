@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-torsion',
@@ -140,135 +141,77 @@ export default {
     note: 'Rura ∅56/∅34 jest o około 35% lżejsza od wału pełnego ∅55 przy zbliżonych warunkach pracy.',
     shape: 'circle',
   },
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullTorsion1Animation }))),
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Moment w jednostkach spójnych: T=1200 N·m=1 200 000 N·mm.',
-      caption: 'Moment w jednostkach spójnych: T=1200 N·m=1 200 000 N·mm.',
+      title: 'Model i dane',
+      narration:
+        'Wał stalowy przenosi moment T = 1200 N·m na długości L = 1200 mm. Przyjmujemy τ_dop = 45 MPa, φ_dop = 1,5°, G = 80 GPa. Dla rury stosunek średnic wynosi α = d/D = 0,6.',
+      caption: 'Znamy obciążenie, długość i materiał — średnica wału jest niewiadomą.',
       visual: 'section',
       focus: {
-        metric: 'load',
-      },
-      formula: 'T=1200\\ \\text{N}\\cdot\\text{m}=1\\,200\\,000\\ \\text{N}\\cdot\\text{mm}',
-    },
-    {
-      title: 'Krok 2',
-      narration: 'Kąt dopuszczalny: φ_dop=1,5·π/180≈0,02618 rad.',
-      caption: 'Kąt dopuszczalny: φ_dop=1,5·π/180≈0,02618 rad.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: '\\varphi_{\\mathrm{dop}}=1{,}5\\cdot\\pi/180\\approx0{,}02618\\ \\text{rad}',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Wał pełny, wytrzymałość: W_o,min=T/τ_dop=1 200 000/45=26 667 mm^3.',
-      caption: 'Wał pełny, wytrzymałość: W_o,min=T/τ_dop=1 200 000/45=26 667 mm^3.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'W_{o,\\min}=T/\\tau_{\\mathrm{dop}}=1\\,200\\,000/45=26\\,667\\ \\text{mm}^3',
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Średnica z wytrzymałości: d≥∛(16T/(πτ_dop))=∛(19 200 000/(π·45))≈51,4 mm.',
-      caption: 'Średnica z wytrzymałości: d≥∛(16T/(πτ_dop))=∛(19 200 000/(π·45))≈51,4 mm.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
+        metric: 'model',
       },
       formula:
-        'd\\ge\\sqrt[3]{16T/(\\pi\\tau_{\\mathrm{dop}})}=\\sqrt[3]{19\\,200\\,000/(\\pi\\cdot45)}\\approx51{,}4\\ \\text{mm}',
+        'T=1200\\ \\text{N}\\cdot\\text{m}=1\\,200\\,000\\ \\text{N}\\cdot\\text{mm},\\qquad L=1200\\ \\text{mm}',
     },
     {
-      title: 'Krok 5',
-      narration: 'Wał pełny, sztywność: J_o,min=TL/(Gφ_dop)=1 200 000·1200/(80 000·0,02618)≈687 500 mm^4.',
-      caption: 'Wał pełny, sztywność: J_o,min=TL/(Gφ_dop)=1 200 000·1200/(80 000·0,02618)≈687 500 mm^4.',
+      title: 'Warunek wytrzymałości',
+      narration: 'Dla wału pełnego W_o,min = T/τ_dop = 1 200 000/45 = 26 667 mm³. Stąd d ≥ ∛(16T/(πτ_dop)) ≈ 51,4 mm.',
+      caption: 'Z warunku naprężenia wał pełny wymaga d ≥ 51,4 mm.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'strength',
       },
       formula:
-        'J_{o,\\min}=TL/(G\\varphi_{\\mathrm{dop}})=1\\,200\\,000\\cdot1200/(80\\,000\\cdot0{,}02618)\\approx687\\,500\\ \\text{mm}^4',
+        'W_{o,\\min}=T/\\tau_{\\mathrm{dop}}=1\\,200\\,000/45=26\\,667\\ \\text{mm}^3\\quad\\Rightarrow\\quad d\\ge51{,}4\\ \\text{mm}',
     },
     {
-      title: 'Krok 6',
-      narration: 'Średnica ze sztywności: d≥√(32J_o,min/π)=√(32·687 500/π)≈51,5 mm.',
-      caption: 'Średnica ze sztywności: d≥√(32J_o,min/π)=√(32·687 500/π)≈51,5 mm.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'd\\ge\\sqrt[4]{32J_{o,\\min}/\\pi}=\\sqrt[4]{32\\cdot687\\,500/\\pi}\\approx51{,}5\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 7',
+      title: 'Warunek sztywności',
       narration:
-        'Przyjmujemy d=55 mm. Wtedy W_o=π·55^3/16≈32 668 mm^3, τ_max=1 200 000/32 668≈36,7 MPa, a J_o≈898 360 mm^4.',
-      caption:
-        'Przyjmujemy d=55 mm. Wtedy W_o=π·55^3/16≈32 668 mm^3, τ_max=1 200 000/32 668≈36,7 MPa, a J_o≈898 360 mm^4.',
+        'Kąt dopuszczalny φ_dop = 1,5·π/180 ≈ 0,02618 rad. Z warunku φ = TL/(GJ_o) ≤ φ_dop otrzymujemy J_o,min = TL/(Gφ_dop) ≈ 687 500 mm⁴, czyli d ≥ 51,5 mm.',
+      caption: 'Sztywność daje praktycznie tę samą średnicę — trzeba sprawdzić oba warunki.',
       visual: 'section',
       focus: {
-        metric: 'stress',
-      },
-      formula: 'd=55\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 8',
-      narration: 'Kąt wału pełnego: φ=1 200 000·1200/(80 000·898 360)≈0,02004 rad≈1,15°≤1,5°.',
-      caption: 'Kąt wału pełnego: φ=1 200 000·1200/(80 000·898 360)≈0,02004 rad≈1,15°≤1,5°.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
+        metric: 'stiffness',
       },
       formula:
-        '\\varphi=1\\,200\\,000\\cdot1200/(80\\,000\\cdot898\\,360)\\approx0{,}02004\\ \\text{rad}\\approx1{,}15^\\circ\\le1{,}5^\\circ',
+        'J_{o,\\min}=\\frac{TL}{G\\varphi_{\\mathrm{dop}}}\\approx687\\,500\\ \\text{mm}^4\\quad\\Rightarrow\\quad d\\ge51{,}5\\ \\text{mm}',
     },
     {
-      title: 'Krok 9',
-      narration: 'Rura o α=0,6: 1-α^4=1-0,1296=0,8704. Z wytrzymałości D≥∛(16T/[πτ_dop(1-α^4)])≈53,8 mm.',
-      caption: 'Rura o α=0,6: 1-α^4=1-0,1296=0,8704. Z wytrzymałości D≥∛(16T/[πτ_dop(1-α^4)])≈53,8 mm.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: '\\alpha=0{,}6',
-    },
-    {
-      title: 'Krok 10',
-      narration: 'Ze sztywności D≥√(32TL/[π Gφ_dop(1-α^4)])≈53,3 mm, więc decyduje wytrzymałość.',
-      caption: 'Ze sztywności D≥√(32TL/[π Gφ_dop(1-α^4)])≈53,3 mm, więc decyduje wytrzymałość.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'D\\ge\\sqrt[4]{32TL/[\\pi G\\varphi_{\\mathrm{dop}}(1-\\alpha^4)]}\\approx53{,}3\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 11',
+      title: 'Wał pełny — wybór i kontrola',
       narration:
-        'Przyjmujemy D=56 mm i d=34 mm. Wtedy J_o≈834 300 mm^4, W_o=2J_o/D≈29 797 mm^3, τ_max≈40,3 MPa, a φ≈0,02158 rad≈1,24°.',
-      caption:
-        'Przyjmujemy D=56 mm i d=34 mm. Wtedy J_o≈834 300 mm^4, W_o=2J_o/D≈29 797 mm^3, τ_max≈40,3 MPa, a φ≈0,02158 rad≈1,24°.',
+        'Przyjmujemy d = 55 mm. Wtedy W_o ≈ 32 668 mm³ i τ_max ≈ 36,7 MPa, a J_o ≈ 898 360 mm⁴ i φ ≈ 1,15° ≤ 1,5°. Oba warunki są spełnione.',
+      caption: 'Średnica 55 mm spełnia wytrzymałość i sztywność; decyduje nieco większe wymaganie sztywności.',
       visual: 'section',
       focus: {
-        metric: 'stress',
+        metric: 'check',
       },
-      formula: 'D=56\\ \\text{mm}',
+      formula:
+        '\\tau_{\\max}=\\frac{1\\,200\\,000}{32\\,668}\\approx36{,}7\\ \\text{MPa},\\qquad\\varphi\\approx1{,}15^\\circ\\le1{,}5^\\circ',
     },
     {
-      title: 'Krok 12',
+      title: 'Rura α = 0,6',
       narration:
-        'Pola: wał pełny A=π·55^2/4≈2376 mm^2, rura A=π(56^2-34^2)/4≈1555 mm^2, czyli oszczędność około 35 procent.',
-      caption:
-        'Pola: wał pełny A=π·55^2/4≈2376 mm^2, rura A=π(56^2-34^2)/4≈1555 mm^2, czyli oszczędność około 35 procent.',
+        'Dla rury 1 − α⁴ = 0,8704. Z wytrzymałości D ≥ ∛(16T/[πτ_dop(1 − α⁴)]) ≈ 53,8 mm, a ze sztywności D ≥ 53,3 mm. Przyjmujemy D = 56 mm i d = 34 mm.',
+      caption: 'Rura wymaga większej średnicy zewnętrznej, ale ma znacznie mniejsze pole przekroju.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'hollow',
       },
-      formula: 'A=\\pi\\cdot55^2/4\\approx2376\\ \\text{mm}^2',
+      formula: 'D\\ge\\sqrt[3]{16T/[\\pi\\tau_{\\mathrm{dop}}(1-\\alpha^4)]}\\approx53{,}8\\ \\text{mm}',
+    },
+    {
+      title: 'Porównanie pełny / drążony',
+      narration:
+        'Rura ∅56/∅34 ma τ_max ≈ 40,3 MPa i φ ≈ 1,24°, więc oba warunki są spełnione. Jej pole wynosi 1555 mm² wobec 2376 mm² wału pełnego — oszczędność około 35 procent.',
+      caption: 'Przy podobnych naprężeniach i kącie rura jest o około 35% lżejsza, ale ma większą średnicę zewnętrzną.',
+      visual: 'section',
+      focus: {
+        metric: 'compare',
+      },
+      formula:
+        'A_{\\text{pełny}}=\\frac{\\pi\\cdot55^2}{4}\\approx2376\\ \\text{mm}^2,\\qquad A_{\\text{rura}}=\\frac{\\pi(56^2-34^2)}{4}\\approx1555\\ \\text{mm}^2',
     },
   ],
 } satisfies SolutionData

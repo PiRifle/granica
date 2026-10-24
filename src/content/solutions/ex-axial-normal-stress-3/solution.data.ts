@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { NormalStressExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-normal-stress-3',
@@ -8,7 +8,7 @@ export default {
   given: ['N=72 kN', 'sigma_{dop}=120 MPa'],
   result:
     'Przyjęto d = 28 mm, czyli A ≈ 615,8 mm². Naprężenie wynosi wtedy 116,9 MPa i spełnia warunek σ ≤ 120 MPa. Gdyby ten sam pręt miał przenosić siłę ściskającą, trzeba by jeszcze sprawdzić smukłość i wyboczenie.',
-  animation: NormalStressExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.NormalStressExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MethodOfSectionsSteppedBarAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-method-of-sections-2',
@@ -8,7 +8,9 @@ export default {
   given: ['L_AB = 1,2 m', 'A_AB = 300 mm²', 'L_BC = 0,8 m', 'A_BC = 200 mm²', 'P_B = 15 kN', 'P_C = 10 kN'],
   result:
     'N_BC = 10 kN, N_AB = 25 kN, σ_BC = 50 MPa, σ_AB = 83,3 MPa. Największa siła i największe naprężenie występują w odcinku AB, ale to nie jest regułą. Gdyby odcinek BC miał znacznie mniejsze pole, mógłby mieć większe naprężenie mimo mniejszej siły. Dlatego po wyznaczeniu N w każdym przedziale trzeba sprawdzić iloraz |N|/A, a nie tylko największe |N|.',
-  animation: MethodOfSectionsSteppedBarAnimation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.MethodOfSectionsSteppedBarAnimation })),
+  ),
   scenes: [
     {
       title: 'Model i dane',

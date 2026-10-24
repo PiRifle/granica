@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearTechnicalExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-technical',
@@ -8,7 +8,7 @@ export default {
   given: ['d = 20 mm', 'F = 30 kN'],
   result:
     'τ_sr ≈ 95,5 MPa. Wartość jest średnia po przekroju; w rzeczywistym sworzeniu naprężenie może być lokalnie większe, szczególnie przy krawędzi blachy.',
-  animation: ShearTechnicalExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearTechnicalExample1Animation }))),
   figure: {
     kind: 'section',
     width: 20,

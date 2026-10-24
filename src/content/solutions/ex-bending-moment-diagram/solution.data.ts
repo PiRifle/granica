@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingMomentExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-moment-diagram',
@@ -49,7 +49,7 @@ export default {
     ],
     note: 'Moment rośnie liniowo do 40 kN·m pod siłą, a potem liniowo maleje do zera w podporze B.',
   },
-  animation: BendingMomentExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BendingMomentExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

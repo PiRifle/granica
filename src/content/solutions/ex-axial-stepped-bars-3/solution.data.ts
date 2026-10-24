@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SteppedBarsExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-stepped-bars-3',
@@ -8,7 +8,7 @@ export default {
   given: ['N₁ = +45 kN', 'N₂ = +30 kN', 'N₃ = −20 kN', 'σdop = 150 MPa'],
   result:
     'Odcinek trzeci jest ściskany. Sam warunek naprężenia nie wystarcza, jeśli odcinek jest długi i smukły. Trzeba sprawdzić, czy siła 20 kN nie spowoduje wyboczenia przy założonej długości i sposobie zamocowania. Dopiero po tej kontroli dobór średnic można uznać za kompletny.',
-  animation: SteppedBarsExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteppedBarsExample3Animation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

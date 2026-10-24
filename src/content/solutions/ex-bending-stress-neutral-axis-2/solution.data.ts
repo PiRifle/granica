@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingStressNeutralAxis2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-stress-neutral-axis-2',
@@ -8,7 +8,9 @@ export default {
   given: [],
   result:
     'Górna półka jest ściskana, a dolna krawędź środnika rozciągana. Mimo że górna półka jest szersza, to dolne włókno jest dalej od osi obojętnej, więc to ono decyduje o największym naprężeniu. Wniosek jest ogólny: w przekroju niesymetrycznym zawsze sprawdzaj oba skrajne włókna, bo „większy przekrój” nie oznacza automatycznie mniejszego naprężenia.',
-  animation: BendingStressNeutralAxis2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.BendingStressNeutralAxis2Animation })),
+  ),
   figure: {
     kind: 'beam',
     length: 4,

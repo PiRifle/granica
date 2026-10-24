@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainStressLinkExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-stress-link',
@@ -42,7 +42,9 @@ export default {
     ],
     note: 'Kierunki główne pokrywają się z osiami pomiaru, bo γ_xy = 0; naprężenia wynikają z płaskiego stanu naprężenia.',
   },
-  animation: StrainStressLinkExample1Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrainStressLinkExample1Animation })),
+  ),
   scenes: [
     {
       title: 'Zapisz odkształcenia główne',

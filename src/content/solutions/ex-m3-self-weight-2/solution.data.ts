@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SelfWeightExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-self-weight-2',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 300 mm²', 'L = 4 m', 'P = 5 kN', 'ρ = 7850 kg/m³', 'γ = 77 kN/m³', 'E = 200 GPa'],
   result:
     'Zauważ, że w obu przypadkach wydłużenie od ciężaru własnego jest takie samo, bo nie zależy od ładunku P. Zmienia się tylko dodatkowy składnik PL/(EA). Dzięki zasadzie superpozycji możemy analizować te dwa wpływy osobno i dodać wyniki, dopóki materiał pozostaje liniowo sprężysty.',
-  animation: SelfWeightExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SelfWeightExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

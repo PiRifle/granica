@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SectionStiffnessDesign3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-section-stiffness-design-3',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 3,5 m', 'P = 8 kN', 'E = 200 GPa', 'f_{dop} = 10 mm', 'b = 50 mm'],
   result:
     'czyli jest mniejsze od 10 mm. Sprawdźmy jeszcze wytrzymałość: M_max = P L/4 = 7 kN·m, W = 83,333 mm³, więc σ_max = 84 MPa, znacznie poniżej typowego σ_dop. W tym zadaniu o wymiarze decyduje sztywność, a nie wytrzymałość.',
-  animation: SectionStiffnessDesign3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionStiffnessDesign3Animation }))),
   figure: {
     kind: 'beam',
     length: 3.5,

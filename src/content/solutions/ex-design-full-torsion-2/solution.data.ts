@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-torsion-2',
@@ -115,65 +116,63 @@ export default {
     note: 'Przy równej masie rura ∅70/∅43,3 ma ponad dwukrotnie większy J_o od wału pełnego ∅55.',
     shape: 'circle',
   },
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullTorsion2Animation }))),
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Ta sama masa, ten sam moment',
       narration:
-        'Porównajmy teraz wał pełny i rurę przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Wał pełny ma d=55 mm i pole około 2376 mm^2, a więc J_o≈898 360 mm^4. Dobierzmy rurę o tej samej długości i masie, ale o większej średnicy zewnętrznej D=70 mm.',
-      caption:
-        'Porównajmy teraz wał pełny i rurę przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Wał pełny ma d=55 mm i pole…',
+        'Porównajmy wał pełny i rurę przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Wał pełny ma d = 55 mm i pole około 2376 mm². Dobierzmy rurę o tej samej długości i masie, ale o większej średnicy zewnętrznej D = 70 mm.',
+      caption: 'Równa masa oznacza równe pole przekroju — średnica wewnętrzna rury jest jeszcze niewiadoma.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'model',
       },
-      formula: 'd=55\\ \\text{mm}',
+      formula: 'd=55\\ \\text{mm},\\qquad D=70\\ \\text{mm},\\qquad A=2376\\ \\text{mm}^2',
     },
     {
-      title: 'Krok 2',
+      title: 'Geometria rury',
       narration:
-        'Z równości pól: π(70^2-d^2)/4=2376, czyli d^2=70^2-4·2376/π≈1875. Stąd d≈43,3 mm. Moment bezwładności rury wynosi J_o=π(70^4-43,3^4)/32≈2,01·10^6 mm^4, czyli około 2,24 razy więcej niż wału pełnego.',
-      caption:
-        'Z równości pól: π(70^2-d^2)/4=2376, czyli d^2=70^2-4·2376/π≈1875. Stąd d≈43,3 mm. Moment bezwładności rury wynosi…',
+        'Z równości pól: π(70² − d²)/4 = 2376, czyli d² = 70² − 4·2376/π ≈ 1875. Stąd d ≈ 43,3 mm. Otwór zabiera tyle materiału, ile wynosi cały przekrój wału pełnego.',
+      caption: 'Średnica wewnętrzna rury wynika wyłącznie z warunku równej masy.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'geometry',
       },
-      formula: '\\pi(70^2-d^2)/4=2376',
+      formula: '\\pi(70^2-d^2)/4=2376\\quad\\Rightarrow\\quad d\\approx43{,}3\\ \\text{mm}',
     },
     {
-      title: 'Krok 3',
+      title: 'Moment bezwładności',
       narration:
-        'Przy tym samym momencie T=1200 N·m naprężenie w rurze wynosi około 20,9 MPa zamiast 36,7 MPa, a kąt skręcenia około 0,512° zamiast 1,15°. Rura jest więc jednocześnie lżejsza w przeliczeniu na jednostkę długości, sztywniejsza i mniej wytężona. To wyjaśnia, dlaczego wały napędowe i drążki skrętne często mają przekrój rurowy.',
-      caption:
-        'Przy tym samym momencie T=1200 N·m naprężenie w rurze wynosi około 20,9 MPa zamiast 36,7 MPa, a kąt skręcenia około 0,512°…',
+        'Moment bezwładności rury wynosi J_o = π(70⁴ − 43,3⁴)/32 ≈ 2,01·10⁶ mm⁴, czyli około 2,24 razy więcej niż wału pełnego. Materiał jest dalej od osi, więc ten sam moment skręcający wywołuje mniejszy kąt.',
+      caption: 'Przy równej masie rura ma wyraźnie większy J_o — jest sztywniejsza na skręcanie.',
       visual: 'section',
       focus: {
-        metric: 'stress',
+        metric: 'inertia',
       },
-      formula: 'T=1200\\ \\text{N}\\cdot\\text{m}',
+      formula: 'J_o=\\frac{\\pi(70^4-43{,}3^4)}{32}\\approx2{,}01\\cdot10^6\\ \\text{mm}^4',
     },
     {
-      title: 'Krok 4',
+      title: 'Naprężenie i kąt',
       narration:
-        'Cena tego rozwiązania to większa średnica zewnętrzna, a więc większe wymagania gabarytowe i większa podatność cienkiej ścianki na uszkodzenia. Rura o małej grubości ścianki może też wymagać żeber, tulei lub ograniczenia obciążenia skupionego. W zadaniu projektowym trzeba więc porównać nie tylko masę i sztywność, ale też przestrzeń, sposób mocowania i koszt wykonania.',
-      caption:
-        'Cena tego rozwiązania to większa średnica zewnętrzna, a więc większe wymagania gabarytowe i większa podatność cienkiej ścianki na…',
+        'Przy tym samym momencie T = 1200 N·m naprężenie w rurze wynosi około 20,9 MPa zamiast 36,7 MPa, a kąt skręcenia około 0,512° zamiast 1,15°. Rura jest więc lżejsza w przeliczeniu na jednostkę długości, sztywniejsza i mniej wytężona.',
+      caption: 'Mniejszy kąt i mniejsze naprężenie wynikają z większego J_o oraz większej średnicy zewnętrznej.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'check',
       },
+      formula: '\\tau_{\\text{rura}}\\approx20{,}9\\ \\text{MPa},\\qquad\\varphi_{\\text{rura}}\\approx0{,}512^\\circ',
     },
     {
-      title: 'Krok 5',
+      title: 'Cena większej średnicy',
       narration:
-        'Przy tej samej masie rura ma większy J_o, a w naszym przykładzie także większy W_o niż wał pełny o średnicy 55 mm, ponieważ jej średnica zewnętrzna jest większa. Wskaźnik rury wynosi około 57 500 mm^3, a wału pełnego 32 668 mm^3. To pokazuje, że porównanie „na masę” jest zupełnie inne niż porównanie „na średnicę”.',
+        'Wskaźnik rury wynosi około 57 500 mm³, a wału pełnego 32 668 mm³. Przewaga wynika jednak z większej średnicy zewnętrznej, która zajmuje więcej miejsca i zwiększa podatność cienkiej ścianki na uszkodzenia. Porównanie „na masę” jest więc inne niż porównanie „na średnicę”.',
       caption:
-        'Przy tej samej masie rura ma większy J_o, a w naszym przykładzie także większy W_o niż wał pełny o średnicy 55 mm, ponieważ jej…',
+        'Większe D daje większy W_o i mniejszy kąt, ale wymaga więcej przestrzeni oraz staranniejszego mocowania.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'tradeoff',
       },
-      formula: 'J_o',
+      formula: 'W_o=\\frac{2J_o}{D}\\quad\\Rightarrow\\quad W_{o,\\text{rura}}\\approx57\\,500\\ \\text{mm}^3',
     },
   ],
 } satisfies SolutionData

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SteinerParallelAxisAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-steiner-parallel-axis',
@@ -8,7 +8,7 @@ export default {
   given: ['półki 120 × 20 mm', 'środnik 20 × 160 mm'],
   result:
     'Moment bezwładności dwuteownika względem poziomej osi centralnej wynosi około 45,87· 10^6 mm^4≈ 4587 cm^4. Przy jednej trzeciej materiału przekrój zachowuje ponad połowę sztywności pełnego prostokąta, co pokazuje skuteczność oddalania półek od osi.',
-  animation: SteinerParallelAxisAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteinerParallelAxisAnimation }))),
   figure: {
     kind: 'section',
     width: 120,

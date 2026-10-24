@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { GeneralHookeExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-general-hooke-2',
@@ -8,7 +8,7 @@ export default {
   given: ['sigma_z=0', 'sigma_x=120 MPa', 'sigma_y=0', 'E=200 GPa', 'nu=0,30'],
   result:
     'Gdyby ktoś błędnie przyjął, że w kierunku z nie ma odkształcenia, popełniłby błąd rzędu 180 με. Przy pomiarze tensometrycznym to wartość całkowicie mierzalna, więc założenie płaskiego stanu odkształcenia zamiast płaskiego stanu naprężenia musi być świadome.',
-  animation: GeneralHookeExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.GeneralHookeExample2Animation }))),
   scenes: [
     {
       title: 'Model: płaski stan naprężenia',

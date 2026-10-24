@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainEpsilonGammaAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-epsilon-gamma',
@@ -8,7 +8,7 @@ export default {
   given: ['L_0=250 mm', 'ΔL=0,18 mm', 'γ_xy=0,0009 rad'],
   result:
     'ε_x=720 με, γ_xy=0,0009 rad, a ε_xy=0,00045. Wydłużenie i ścinanie są osobnymi miarami i mają różne wartości liczbowe.',
-  animation: StrainEpsilonGammaAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StrainEpsilonGammaAnimation }))),
   figure: {
     kind: 'rosette',
     gauges: [

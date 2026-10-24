@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressStateDirectionsAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-directions',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_x = 100 MPa', 'σ_y = 20 MPa', 'τ_xy = 30 MPa'],
   result:
     'Kierunek σ_1=110 MPa jest obrócony o około 18,44° od osi x; kierunek σ_2=10 MPa jest do niego prostopadły i leży pod kątem około 108,44°. Na obu płaszczyznach głównych τ=0. Kąt 18,44° jest najmniejszym dodatnim kątem kierunku głównego w tym zadaniu.',
-  animation: StressStateDirectionsAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StressStateDirectionsAnimation }))),
   figure: {
     kind: 'cube',
     stresses: { x: 100, y: 20, z: 0 },

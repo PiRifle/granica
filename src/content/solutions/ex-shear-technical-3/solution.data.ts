@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearTechnicalExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-technical-3',
@@ -8,7 +8,7 @@ export default {
   given: ['F = 50 kN', 'τ_dop = 80 MPa'],
   result:
     'Zwróć uwagę, że zaokrąglenie średnicy w górę jest bezpieczne, ale nie zawsze wystarcza. Przy średnicy 30 mm naprężenie spadło do 70,7 MPa, jednak nadal trzeba sprawdzić docisk blachy i wytrzymałość przekroju netto. Sam sworzeń może być mocny, a blacha wokół otworu zbyt cienka. Projektowanie połączenia to zawsze sprawdzenie całego układu, nie tylko jednego elementu.',
-  animation: ShearTechnicalExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearTechnicalExample3Animation }))),
   figure: {
     kind: 'section',
     width: 30,

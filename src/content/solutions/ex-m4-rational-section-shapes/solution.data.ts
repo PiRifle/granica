@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { RationalSectionShapesAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-rational-section-shapes',
@@ -8,7 +8,7 @@ export default {
   given: ['D = 100 mm', 'd = 90 mm', 'c = 50 mm'],
   result:
     'Rura ma około 19,0% masy przekroju pełnego, zachowując około 34,4% jego I i W. Na jednostkę pola jest około 1,81 razy efektywniejsza, ale przy tej samej średnicy zewnętrznej ma mniejszą nośność bezwzględną. Porównanie „rura jest lepsza” ma sens tylko po ustaleniu kryterium: masa, średnica czy nośność.',
-  animation: RationalSectionShapesAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.RationalSectionShapesAnimation }))),
   scenes: [
     {
       title: 'Model: ta sama średnica zewnętrzna',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressTensorExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-tensor-2',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_x = σ_y = σ_z = -50 MPa'],
   result:
     'Warto zauważyć, że w tym stanie naprężenia normalne są ujemne na każdej płaszczyźnie. Nie oznacza to, że materiał jest „ściskany tylko w jednym kierunku”. Ściskanie jest jednakowe we wszystkich kierunkach, więc każda ścianka jest ściskana tak samo. Taki stan odpowiada ciśnieniu hydrostatycznemu i jest dobrym testem konwencji znaków: jeśli w którymś rachunku pojawi się dodatnie naprężenie normalne, gdzieś zgubiono minus.',
-  animation: StressTensorExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StressTensorExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

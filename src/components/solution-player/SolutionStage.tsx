@@ -1,4 +1,4 @@
-import type { RefObject } from 'react'
+import { Suspense, type RefObject } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import type { CourseSolution, SolutionScene } from '../../types'
 import type { Focus } from '../solution-figures/focus'
@@ -55,31 +55,33 @@ export function SolutionStage({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
           >
-            {Animation ? (
-              <Animation
-                scene={scene}
-                index={index}
-                playing={playing}
-                stepProgress={stepProgress}
-                sceneProgress={sceneProgress}
-                revealedMath={revealedMath}
-              />
-            ) : solution.figure ? (
-              <SolutionFigureView
-                figure={solution.figure}
-                scene={scene}
-                focus={figureFocus}
-                animationKey={`${index}-${stepIndex}`}
-                progress={playing ? stepProgress : 1}
-                revealedFocus={revealedFocus}
-                sceneIndex={index}
-                revealedMath={revealedMath}
-                heightFloor={heightFloor}
-                onRequestHeight={requestHeight}
-              />
-            ) : (
-              <SceneVisual scene={scene} index={index} />
-            )}
+            <Suspense fallback={null}>
+              {Animation ? (
+                <Animation
+                  scene={scene}
+                  index={index}
+                  playing={playing}
+                  stepProgress={stepProgress}
+                  sceneProgress={sceneProgress}
+                  revealedMath={revealedMath}
+                />
+              ) : solution.figure ? (
+                <SolutionFigureView
+                  figure={solution.figure}
+                  scene={scene}
+                  focus={figureFocus}
+                  animationKey={`${index}-${stepIndex}`}
+                  progress={playing ? stepProgress : 1}
+                  revealedFocus={revealedFocus}
+                  sceneIndex={index}
+                  revealedMath={revealedMath}
+                  heightFloor={heightFloor}
+                  onRequestHeight={requestHeight}
+                />
+              ) : (
+                <SceneVisual scene={scene} index={index} />
+              )}
+            </Suspense>
           </motion.div>
         </AnimatePresence>
         <span className={local('solution-scene-count')}>

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BeamReactionsExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-beams-reactions',
@@ -56,7 +56,7 @@ export default {
     ],
     note: 'Wypadkowa Q = 12 kN działa w x = 3 m, a maksimum momentu wypada pod siłą P.',
   },
-  animation: BeamReactionsExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BeamReactionsExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

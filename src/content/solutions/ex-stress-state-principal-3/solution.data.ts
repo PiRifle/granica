@@ -1,10 +1,10 @@
 import type { SolutionData } from '../../model'
-import { PrincipalExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-principal-3',
   title: 'Naprężenia główne: skrajne wartości bez ścinania — przykład 3',
-  animation: PrincipalExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.PrincipalExample3Animation }))),
   duration: 7,
   given: ['σ_1 = 80 MPa', 'σ_2 = -20 MPa', 'σ_x = 20 MPa'],
   result:

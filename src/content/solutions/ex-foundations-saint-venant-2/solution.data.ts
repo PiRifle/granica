@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SaintVenantExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-saint-venant-2',
@@ -8,7 +8,7 @@ export default {
   given: ['d = 30 mm', 'P = 50 kN'],
   result:
     'Pole przekroju wynosi około 706,9 mm², a naprężenie nominalne około 70,7 MPa. Wymiar charakterystyczny to średnica 30 mm, więc strefa zaburzeń ma zasięg rzędu 60–90 mm. To oszacowanie, a nie norma: rzeczywisty zasięg zależy od sposobu mocowania, sztywności uchwytu i kontaktu. Przy samym sworzniu naprężenie jest trójosiowe i może być znacznie większe niż 70,7 MPa.',
-  animation: SaintVenantExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SaintVenantExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

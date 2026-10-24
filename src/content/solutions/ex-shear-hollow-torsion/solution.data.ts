@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HollowTorsionAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-hollow-torsion',
@@ -8,7 +8,7 @@ export default {
   given: ['D = 80 mm', 'd = 50 mm', 'T = 2,5 kN·m'],
   result:
     'τ_max ≈ 29,4 MPa na zewnętrznej powierzchni rury. Przy tej samej średnicy zewnętrznej wał pełny miałby naprężenie około 24,9 MPa, więc rura jest w tym porównaniu słabsza, ale zużywa o 39% mniej materiału.',
-  animation: HollowTorsionAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HollowTorsionAnimation }))),
   scenes: [
     {
       title: 'Model rury i moment',

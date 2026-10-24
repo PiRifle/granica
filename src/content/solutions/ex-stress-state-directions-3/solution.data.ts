@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressStateDirectionsExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-directions-3',
@@ -8,7 +8,9 @@ export default {
   given: ['θ_p = 30°', 'σ_x = 100 MPa', 'σ_y = 20 MPa'],
   result:
     'Zwróć uwagę, że w tym wariancie założyliśmy, iż θ_p=30° odpowiada σ_1. To założenie jest częścią danych: bez niego ten sam zestaw wartości głównych mógłby odpowiadać kierunkowi odbitemu względem osi x.',
-  animation: StressStateDirectionsExample3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StressStateDirectionsExample3Animation })),
+  ),
   figure: {
     kind: 'cube',
     stresses: { x: 100, y: 20, z: 0 },

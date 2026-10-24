@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HollowTorsionEqualMassAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-hollow-torsion-2',
@@ -8,7 +8,7 @@ export default {
   given: ['D_wału = 80 mm', 'd_rury = 50 mm', 'T = 2,5 kN·m'],
   result:
     'Ten przykład pokazuje, dlaczego samo stwierdzenie „rura jest lżejsza” nie wystarcza. Trzeba podać, co pozostaje stałe: średnica zewnętrzna, masa, moment, a może gabaryt. Dopiero wtedy porównanie ma sens i można policzyć konkretną różnicę.',
-  animation: HollowTorsionEqualMassAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HollowTorsionEqualMassAnimation }))),
   scenes: [
     {
       title: 'Model: ta sama masa',

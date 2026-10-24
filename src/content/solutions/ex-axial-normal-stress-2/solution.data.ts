@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { NormalStressExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-normal-stress-2',
@@ -8,7 +8,7 @@ export default {
   given: ['N=30 kN', 'A_1=300 mm²', 'A_2=150 mm²'],
   result:
     'Przy σdop = 160 MPa pierwszy pręt spełnia warunek, a drugi nie. Aby go spełnić, drugi pręt musiałby mieć pole co najmniej A_2,min=30 000/160=187,5 mm². Dobór przekroju wymaga sprawdzenia każdego elementu osobno.',
-  animation: NormalStressExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.NormalStressExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

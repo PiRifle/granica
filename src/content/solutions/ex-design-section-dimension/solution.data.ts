@@ -1,10 +1,12 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-section-dimension',
   title: 'Dobór wymiaru z warunku wytrzymałości — przykład 1',
   duration: 7,
   given: ['L=3 m', 'P=12 kN', 'k=140 MPa', 'E=200 GPa'],
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionDimension1Animation }))),
   result:
     'Wymagany wskaźnik wynosi około 64 286 mm^3, a najmniejsza przyjęta średnica to 90 mm. Naprężenie 125,8 MPa jest mniejsze od 140 MPa, a ugięcie 10,5 mm nie przekracza 12 mm.',
   figure: {
@@ -62,95 +64,56 @@ export default {
   },
   scenes: [
     {
-      title: 'Reakcje',
-      narration: 'Przy symetrycznym obciążeniu reakcje wynoszą R_A = R_B = P/2 = 12/2 = 6 kN.',
-      caption: 'Przy symetrycznym obciążeniu reakcje wynoszą R_A = R_B = P/2 = 12/2 = 6 kN.',
+      title: 'Model i obciążenie',
+      narration:
+        'Belka swobodnie podparta ma L = 3 m i jest obciążona siłą P = 12 kN w środku. Reakcje wynoszą R_A = R_B = 6 kN, a maksymalny moment to M_max = PL/4 = 9 kN·m.',
+      caption:
+        'Belka swobodnie podparta ma L = 3 m i jest obciążona siłą P = 12 kN w środku. Reakcje wynoszą R_A = R_B = 6 kN, a maksymalny moment to M_max = PL/4 = 9 kN·m.',
       visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A = R_B = P/2 = 12/2 = 6\\ \\text{kN}',
-    },
-    {
-      title: 'Siła tnąca',
-      narration: 'Siła tnąca wynosi T = R_A = 6 kN po lewej stronie siły i T = -R_B = -6 kN po prawej.',
-      caption: 'Siła tnąca wynosi T = R_A = 6 kN po lewej stronie siły i T = -R_B = -6 kN po prawej.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T = R_A = 6\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 1',
-      narration: 'Maksymalny moment: M_max=PL/4=12 000· 3000/4=9 000 000 N·mm.',
-      caption: 'Maksymalny moment: M_max=PL/4=12 000· 3000/4=9 000 000 N·mm.',
-      visual: 'beam',
-      focus: { metric: 'M' },
+      focus: { metric: 'load' },
       formula: 'M_{\\max}=PL/4=12\\,000\\cdot 3000/4=9\\,000\\,000\\ \\text{N}\\cdot\\text{mm}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Wymagany wskaźnik: W_min=M_max/k=9 000 000/140=64 285,7 mm^3.',
-      caption: 'Wymagany wskaźnik: W_min=M_max/k=9 000 000/140=64 285,7 mm^3.',
+      title: 'Wymagany wskaźnik',
+      narration:
+        'Z warunku σ = M/W ≤ k wynika W_min = M_max/k = 9 000 000/140 = 64 285,7 mm³. To jeszcze nie wymiar, tylko wymagana cecha geometryczna przekroju.',
+      caption:
+        'Z warunku σ = M/W ≤ k wynika W_min = M_max/k = 9 000 000/140 = 64 285,7 mm³. To jeszcze nie wymiar, tylko wymagana cecha geometryczna przekroju.',
       visual: 'beam',
-      focus: { metric: 'design' },
+      focus: { metric: 'required' },
       formula: 'W_{\\min}=M_{\\max}/k=9\\,000\\,000/140=64\\,285{,}7\\ \\text{mm}^3',
     },
     {
-      title: 'Krok 3',
-      narration: 'Średnica minimalna: d_min=∛(32M_max/(π k))=∛(32· 9 000 000/(π· 140))=∛(654 795)≈ 86,8 mm.',
-      caption: 'Średnica minimalna: d_min=∛(32M_max/(π k))=∛(32· 9 000 000/(π· 140))=∛(654 795)≈ 86,8 mm.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula:
-        'd_{\\min}=\\sqrt[3]{32M_{\\max}/(\\pi k)}=\\sqrt[3]{32\\cdot 9\\,000\\,000/(\\pi\\cdot 140)}=\\sqrt[3]{654\\,795}\\approx 86{,}8\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 4',
+      title: 'Dobór średnicy',
       narration:
-        'Przyjmujemy d=90 mm, ponieważ jest to najmniejsza dostępna średnica z krokiem 10 mm większa od wyniku.',
-      caption: 'Przyjmujemy d=90 mm, ponieważ jest to najmniejsza dostępna średnica z krokiem 10 mm większa od wyniku.',
+        'Dla pełnego koła W = πd³/32, więc d_min = ∛(32M_max/(πk)) ≈ 86,8 mm. Z szeregu wymiarów co 10 mm przyjmujemy najmniejszą większą średnicę d = 90 mm.',
+      caption:
+        'Dla pełnego koła W = πd³/32, więc d_min = ∛(32M_max/(πk)) ≈ 86,8 mm. Z szeregu wymiarów co 10 mm przyjmujemy najmniejszą większą średnicę d = 90 mm.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'd=90\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 5',
-      narration: 'Rzeczywisty wskaźnik: W=π· 90^3/32=71 569 mm^3, więc σ=9 000 000/71 569≈ 125,8 MPa.',
-      caption: 'Rzeczywisty wskaźnik: W=π· 90^3/32=71 569 mm^3, więc σ=9 000 000/71 569≈ 125,8 MPa.',
-      visual: 'beam',
-      focus: { metric: 'stress' },
-      formula: 'W=\\pi\\cdot 90^3/32=71\\,569\\ \\text{mm}^3',
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Kontrola wytrzymałości: 125,8 MPa≤ 140 MPa, zapas względem k wynosi około 1,11.',
-      caption: 'Kontrola wytrzymałości: 125,8 MPa≤ 140 MPa, zapas względem k wynosi około 1,11.',
-      visual: 'beam',
-      focus: { metric: 'stress' },
-      formula: '125{,}8\\ \\text{MPa}\\le 140\\ \\text{MPa}',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Moment bezwładności: I=π· 90^4/64≈ 3 220 000 mm^4.',
-      caption: 'Moment bezwładności: I=π· 90^4/64≈ 3 220 000 mm^4.',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'I=\\pi\\cdot 90^4/64\\approx 3\\,220\\,000\\ \\text{mm}^4',
-    },
-    {
-      title: 'Krok 8',
-      narration: 'Ugięcie: f=PL^3/(48EI)=12 000· 3000^3/(48· 200 000· 3 220 000)≈ 10,5 mm.',
-      caption: 'Ugięcie: f=PL^3/(48EI)=12 000· 3000^3/(48· 200 000· 3 220 000)≈ 10,5 mm.',
-      visual: 'beam',
-      focus: { metric: 'design' },
+      focus: { metric: 'dimension' },
       formula:
-        'f=PL^3/(48EI)=12\\,000\\cdot 3000^3/(48\\cdot 200\\,000\\cdot 3\\,220\\,000)\\approx 10{,}5\\ \\text{mm}',
+        'd_{\\min}=\\sqrt[3]{32M_{\\max}/(\\pi k)}\\approx86{,}8\\ \\text{mm}\\quad\\Rightarrow\\quad d=90\\ \\text{mm}',
     },
     {
-      title: 'Krok 9',
-      narration: 'Wartość dopuszczalna: L/250=3000/250=12 mm, więc warunek sztywności również jest spełniony.',
-      caption: 'Wartość dopuszczalna: L/250=3000/250=12 mm, więc warunek sztywności również jest spełniony.',
+      title: 'Kontrola naprężeń',
+      narration:
+        'Przyjęty przekrój ma W = π·90³/32 = 71 569 mm³, więc σ_max = 9 000 000/71 569 ≈ 125,8 MPa. Warunek 125,8 MPa ≤ 140 MPa jest spełniony, a wykorzystanie wynosi około 90%.',
+      caption:
+        'Przyjęty przekrój ma W = π·90³/32 = 71 569 mm³, więc σ_max = 9 000 000/71 569 ≈ 125,8 MPa. Warunek 125,8 MPa ≤ 140 MPa jest spełniony, a wykorzystanie wynosi około 90%.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'L/250=3000/250=12\\ \\text{mm}',
+      focus: { metric: 'stress' },
+      formula:
+        '\\sigma_{\\max}=\\frac{M_{\\max}}{W}=\\frac{9\\,000\\,000}{71\\,569}\\approx125{,}8\\ \\text{MPa}\\le140\\ \\text{MPa}',
+    },
+    {
+      title: 'Kontrola ugięcia',
+      narration:
+        'Osobno sprawdzamy sztywność: I = π·90⁴/64 ≈ 3 220 000 mm⁴, a f = PL³/(48EI) ≈ 10,5 mm. Jest to mniej niż L/250 = 12 mm, więc o wymiarze decyduje wytrzymałość.',
+      caption:
+        'Osobno sprawdzamy sztywność: I = π·90⁴/64 ≈ 3 220 000 mm⁴, a f = PL³/(48EI) ≈ 10,5 mm. Jest to mniej niż L/250 = 12 mm, więc o wymiarze decyduje wytrzymałość.',
+      visual: 'beam',
+      focus: { metric: 'stiffness' },
+      formula: 'f=\\frac{PL^3}{48EI}\\approx10{,}5\\ \\text{mm}\\le\\frac{L}{250}=12\\ \\text{mm}',
     },
   ],
 } satisfies SolutionData

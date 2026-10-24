@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SaintVenantExampleAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-saint-venant',
@@ -8,7 +8,7 @@ export default {
   given: ['b = 80 mm', 't = 8 mm', 'd = 16 mm', 'P = 64 kN', 'K_t ≈ 3'],
   result:
     'σ_nom = 125 MPa na przekroju netto, a σ_max ≈ 375 MPa jako górne oszacowanie przy K_t ≈ 3. Lokalne uplastycznienie jest możliwe, więc wynik traktuj jako sygnał do dokładniejszej analizy, a nie jako dokładną wartość naprężenia w otworze.',
-  animation: SaintVenantExampleAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SaintVenantExampleAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

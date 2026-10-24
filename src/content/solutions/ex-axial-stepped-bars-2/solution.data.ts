@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SteppedBarsExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-stepped-bars-2',
@@ -8,7 +8,7 @@ export default {
   given: ['A₁ = 500 mm²', 'A₂ = 150 mm²', 'P = 30 kN', 'Q = 20 kN'],
   result:
     'Przy σdop = 160 MPa pierwszy odcinek spełnia warunek, a drugi nie. Minimalne pole drugiego odcinka wynosi 30 000/160 = 187,5 mm². Zwiększanie pola pierwszego odcinka nie pomoże, dopóki drugi pozostaje zbyt cienki. To praktyczna ilustracja zasady najsłabszego ogniwa.',
-  animation: SteppedBarsExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteppedBarsExample2Animation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

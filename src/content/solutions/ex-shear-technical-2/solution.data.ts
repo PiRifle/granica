@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearTechnicalExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-technical-2',
@@ -8,7 +8,7 @@ export default {
   given: ['F = 18 kN', 'l = 150 mm', 'b = 50 mm'],
   result:
     'Podobny efekt występuje w połączeniu nitowym z jedną nakładką. Sworzeń jest zginany, a nacisk na blachę nierównomierny. Im grubsza blacha i im większy mimośród, tym większe dodatkowe naprężenia. Ścinanie techniczne pozostaje pierwszym oszacowaniem, ale nie opisuje całego zjawiska.',
-  animation: ShearTechnicalExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearTechnicalExample2Animation }))),
   figure: {
     kind: 'section',
     width: 150,

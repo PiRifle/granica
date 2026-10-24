@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { GaugeResolutionAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-gauges-3',
@@ -8,7 +8,7 @@ export default {
   given: ['R_0 = 350 Ω', 'GF = 2,0', 'ε = 1 με'],
   result:
     'Z tego samego rachunku wynika, dlaczego tensometry mają zwykle opór 120 lub 350 Ω, a nie bardzo mały. Większy opór początkowy daje większą bezwzględną zmianę ΔR przy tym samym GF i ε, co ułatwia pomiar. Nie można jednak zwiększać oporu dowolnie, bo rośnie też szum i maleje odporność na zakłócenia.',
-  animation: GaugeResolutionAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.GaugeResolutionAnimation }))),
   scenes: [
     {
       title: 'Zapisz cel pomiaru',

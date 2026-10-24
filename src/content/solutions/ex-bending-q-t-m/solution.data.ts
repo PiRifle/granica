@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingQtmAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-q-t-m',
@@ -51,7 +51,7 @@ export default {
     ],
     note: 'T maleje liniowo od +20 kN do -20 kN i zeruje się w środku, gdzie moment osiąga 25 kN·m.',
   },
-  animation: BendingQtmAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BendingQtmAnimation }))),
   scenes: [
     {
       title: 'Model i obciążenie',

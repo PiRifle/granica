@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { TensileTestExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-tension-compression-test-3',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 40 mm²', 'ε = 800·10⁻⁶', 'E = 200 GPa', 'L₀ = 80 mm'],
   result:
     'Naprężenie wynosi 160 MPa, siła osiowa 6,4 kN, a wydłużenie bazy 0,064 mm. Ponieważ 160 MPa < Re ≈ 235 MPa, zastosowanie liniowego prawa Hooke’a jest uzasadnione.',
-  animation: TensileTestExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.TensileTestExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SteinerParallelAxis2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-steiner-parallel-axis-2',
@@ -8,7 +8,7 @@ export default {
   given: ['środnik 20 × 100 mm', 'półka 120 × 20 mm'],
   result:
     'Zwróć uwagę, że wkład półki jest prawie tak duży jak wkład większego pola środnika, mimo że półka ma mniejsze pole. Decyduje odległość od osi. To wyjaśnia, dlaczego w przekrojach zginanych półki umieszcza się na zewnątrz, a nie przy środku.',
-  animation: SteinerParallelAxis2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteinerParallelAxis2Animation }))),
   figure: {
     kind: 'section',
     width: 120,

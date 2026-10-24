@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { PureBendingExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-pure',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 4 m', 'P = 12 kN', 'a = 1 m', 'b = 60 mm', 'h = 120 mm', 'E = 200 GPa'],
   result:
     'Między siłami panuje czyste zginanie: M = 12 kN·m i T = 0. Naprężenia skrajne wynoszą ± 83,3 MPa, a oś belki zakrzywia się w łuk o promieniu około 144 m. Górne włókna są ściskane, dolne rozciągane.',
-  animation: PureBendingExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.PureBendingExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

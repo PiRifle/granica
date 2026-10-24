@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { NormalStressExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-normal-stress',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 250 mm²', 'N = 50 kN'],
   result:
     'σ = +200 MPa, czyli naprężenie rozciągające. Pręt jest blisko granicy plastyczności typowej stali, więc zapas byłby niewielki.',
-  animation: NormalStressExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.NormalStressExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

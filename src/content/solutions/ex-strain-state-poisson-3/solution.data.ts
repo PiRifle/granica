@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { PoissonExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-poisson-3',
@@ -8,7 +8,7 @@ export default {
   given: ['d₀ = 10 mm', '|Δd| ≤ 0,002 mm', 'ν = 0,30'],
   result:
     'Przy E=200 GPa odpowiada to naprężeniu σ=Eε≈133 MPa. To sensowny zakres dla stali konstrukcyjnej. Gdyby dopuszczalna zmiana średnicy była dziesięć razy mniejsza, limit naprężenia spadłby do około 13 MPa — pokazuje to, jak rygorystyczne mogą być wymagania wymiarowe w precyzyjnych pasowaniach.',
-  animation: PoissonExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.PoissonExample3Animation }))),
   scenes: [
     {
       title: 'Limit wymiarowy i model wałka',

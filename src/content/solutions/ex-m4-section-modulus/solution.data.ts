@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SectionModulusExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-section-modulus',
@@ -24,7 +24,7 @@ export default {
     ],
     note: 'Teownik o różnych odległościach górnej i dolnej krawędzi od osi centralnej.',
   },
-  animation: SectionModulusExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionModulusExample1Animation }))),
   scenes: [
     {
       title: 'Dane i układ osi',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { EquilibriumExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-equilibrium-2',
@@ -8,7 +8,7 @@ export default {
   given: ['F=10 kN'],
   result:
     'Kontrola momentów względem B daje -M_A+A_y· 2,4=-19,2+19,2=0. Siła pozioma nie wnosi momentu względem B, bo działa wzdłuż osi belki. Wniosek: utwierdzenie przenosi zarówno siłę osiową, jak i moment, nawet jeśli w tym zadaniu siła osiowa nie wpływa na zginanie. Gdyby belka była wykonana z materiału o małej wytrzymałości na rozciąganie, sama siła osiowa mogłaby zdecydować o doborze przekroju. Reakcje trzeba więc raportować wszystkie, a nie tylko te, które są wygodne w równaniu momentów.',
-  animation: EquilibriumExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.EquilibriumExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

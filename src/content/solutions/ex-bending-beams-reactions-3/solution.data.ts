@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BeamReactionsExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-beams-reactions-3',
@@ -24,7 +24,7 @@ export default {
     ],
     note: 'Większa reakcja R_A = 30 kN potwierdza, że siła P działa bliżej lewej podpory.',
   },
-  animation: BeamReactionsExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BeamReactionsExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

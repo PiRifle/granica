@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainRosetteExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-rosette-3',
@@ -8,7 +8,7 @@ export default {
   given: ['varepsilon_1=700', 'varepsilon_2=-100', 'theta_p=20°'],
   result:
     'Dla kierunku 45° kąt względem kierunku głównego wynosi 45° − 20° = 25°, więc 2θ = 50°. Stąd ε_45 = 300 + 400·cos 50° ≈ 300 + 257 = 557 με. Odczyty wynoszą więc około 606, 557 i −6 με. Kontrola: γ_xy = 2·557 − 606 − (−6) = 514 μrad, co odpowiada 2R_ε·sin 40° = 800·0,643 ≈ 514 μrad.',
-  animation: StrainRosetteExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StrainRosetteExample3Animation }))),
   scenes: [
     {
       title: 'Zapisz dany stan główny',

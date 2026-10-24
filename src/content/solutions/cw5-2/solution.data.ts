@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'cw5-2',
@@ -11,54 +12,29 @@ export default {
     'Przyjęto osie jak na rysunku: x pozioma, y pionowa w osi symetrii; początek pomocniczego układu na dolnym końcu środnika teownika',
   ],
   result: 'y_C = 8,2539 cm od dolnego końca środnika, x_C = 0; I_x = 273,53 cm⁴, I_y = 132,43 cm⁴.',
-  figure: {
-    kind: 'section',
-    width: 10,
-    height: 15,
-    parts: [
-      { x: 0, y: 9, width: 10, height: 1, label: 'półka T', tone: 'light' },
-      { x: 4.6, y: 0, width: 0.8, height: 9, label: 'środnik', tone: 'accent' },
-      { x: 4.1, y: 10, width: 0.4, height: 4.5, tone: 'solid' },
-      { x: 0.9, y: 10, width: 3.6, height: 0.4, tone: 'solid' },
-      { x: 5.5, y: 10, width: 0.4, height: 4.5, tone: 'solid' },
-      { x: 5.5, y: 10, width: 3.6, height: 0.4, tone: 'solid' },
-    ],
-    centroid: { x: 5, y: 8.2539 },
-    values: [
-      { label: 'A', value: '27,88 cm²', focus: 'section' },
-      { label: 'x_C', value: '0 cm (symetria)', focus: 'centroid' },
-      { label: 'y_C', value: '8,2539 cm', focus: 'centroid' },
-      { label: 'I_x', value: '273,53 cm⁴', focus: 'Ix' },
-      { label: 'I_y', value: '132,43 cm⁴', focus: 'Iy' },
-    ],
-    note: 'Teownik T100 i dwa kątowniki L45; oś y pokrywa się z osią symetrii.',
-  },
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteinerCompositeAnimation }))),
   scenes: [
     {
-      title: 'Ustal osie i geometrię połączenia',
+      title: 'Model i dane',
       narration:
-        'Przyjmijmy y pionowo w górę od dolnego końca środnika, a x poziomo w prawo. Oś pionowa profilu jest osią symetrii. Półka teownika kończy się na wysokości 10 cm. Kątowniki stoją pionowymi ramionami po obu stronach środnika, a ich poziome ramiona leżą na górnej powierzchni półki.',
-      formula: 'x_C=0\\quad\\text{z symetrii}',
+        'Przyjmijmy y pionowo w górę od dolnego końca środnika, a x poziomo w prawo. Oś pionowa profilu jest osią symetrii. Półka teownika kończy się na wysokości 10 cm. Kątowniki stoją pionowymi ramionami po obu stronach środnika, a ich poziome ramiona leżą na górnej powierzchni półki. Pole całkowite to A = 20,9 + 2·3,49 = 27,88 cm².',
+      formula: 'A_T=20,9\\ \\text{cm}^2,\\qquad A_L=3,49\\ \\text{cm}^2,\\qquad A=A_T+2A_L=27,88\\ \\text{cm}^2',
       caption: 'Cały przekrój liczymy w centymetrach, ponieważ dane tablicowe podano w cm² i cm⁴.',
       visual: 'section',
+      focus: { metric: 'model' },
+      emphasis: 'Oś y pokrywa się z osią symetrii przekroju, więc x_C = 0.',
     },
     {
-      title: 'Połóż centroid teownika',
+      title: 'Centroidy profili',
       narration:
-        'Tablicowe d = 2,74 cm jest odległością środka ciężkości teownika od dolnej powierzchni jego półki. Ponieważ nasz początek układu jest 10 cm niżej, współrzędna centroidu teownika wynosi y_T = 10 − d = 7,26 cm.',
-      formula: 'y_T=10-2,74=7,26\\ \\text{cm},\\qquad x_T=0',
-      caption: 'Nie dodajemy d do 10 cm: d mierzymy w dół od spodu półki.',
-      visual: 'section',
-      emphasis: 'Moment I_xT = 178,2 cm⁴ jest już centralnym momentem samego teownika.',
-    },
-    {
-      title: 'Połóż centroidy kątowników',
-      narration:
-        'Dla równoramiennego kątownika y_s = z_s = 1,23 cm mierzymy od zewnętrznych powierzchni ramion. Zatem pionowa współrzędna każdego kątownika to y_L = 10 + 1,23 = 11,23 cm. Prawy kątownik ma zewnętrzną powierzchnię pionowego ramienia 0,5 + 0,4 = 0,9 cm od osi symetrii, więc jego centroid leży na x = 0,9 + 1,23 = 2,13 cm; lewy ma x = −2,13 cm.',
-      formula: 'y_L=11,23\\ \\text{cm},\\qquad x_{L}=\\pm(0,5+0,4+1,23)=\\pm2,13\\ \\text{cm}',
+        'Tablicowe d = 2,74 cm jest odległością środka ciężkości teownika od dolnej powierzchni jego półki. Ponieważ nasz początek układu jest 10 cm niżej, współrzędna centroidu teownika wynosi y_T = 10 − d = 7,26 cm. Dla równoramiennego kątownika y_s = z_s = 1,23 cm mierzymy od zewnętrznych powierzchni ramion, więc y_L = 10 + 1,23 = 11,23 cm. Prawy kątownik ma zewnętrzną powierzchnię pionowego ramienia 0,9 cm od osi symetrii, więc jego centroid leży na x = 0,9 + 1,23 = 2,13 cm; lewy ma x = −2,13 cm.',
+      formula:
+        'y_T=10-2,74=7,26\\ \\text{cm},\\qquad y_L=10+1,23=11,23\\ \\text{cm},\\qquad x_L=\\pm(0,5+0,4+1,23)=\\pm2,13\\ \\text{cm}',
       caption:
         'Grubość 0,4 cm dodajemy, bo tablicową odległość centroidu mierzymy od zewnętrznego, nie wewnętrznego, lica ramienia.',
       visual: 'section',
+      focus: { metric: 'part-centroids' },
+      emphasis: 'Moment I_xT = 178,2 cm⁴ jest już centralnym momentem samego teownika.',
     },
     {
       title: 'Wyznacz wspólny środek ciężkości',
@@ -68,31 +44,29 @@ export default {
         'y_C=\\frac{A_Ty_T+2A_Ly_L}{A_T+2A_L}=\\frac{20,9\\cdot7,26+2\\cdot3,49\\cdot11,23}{27,88}=8,2539\\ \\text{cm}',
       caption: 'Centralna oś x leży 8,2539 cm nad dolnym końcem środnika; centralna oś y pokrywa się z osią symetrii.',
       visual: 'section',
+      focus: { metric: 'centroid' },
     },
     {
-      title: 'Oblicz odległości do osi centralnej x',
+      title: 'Przesuń oś i dodaj składnik Ad²',
       narration:
-        'Przed zastosowaniem Steinera wyznaczamy odległości pionowe centroidów profili od wspólnej osi x. Są to wartości bezwzględne, a we wzorze i tak występują ich kwadraty.',
-      formula: '\\Delta y_T=7,26-8,2539=-0,9939\\ \\text{cm},\\qquad \\Delta y_L=11,23-8,2539=2,9761\\ \\text{cm}',
-      caption: 'Każdy profil ma własną odległość od wspólnego centroidu.',
-      visual: 'diagram',
-    },
-    {
-      title: 'Zastosuj Steinera dla osi x',
-      narration:
-        'Dodajemy centralne momenty tablicowe i składniki przesunięcia. Dla kątowników suma obejmuje dwa własne momenty oraz dwa składniki A_LΔy_L².',
-      formula: 'I_x=178,2+20,9(-0,9939)^2+2\\left[6,43+3,49(2,9761)^2\\right]',
-      caption:
-        'Składnik teownika z przesunięciem wynosi 198,8468 cm⁴; dwa własne momenty kątowników 12,86 cm⁴, a ich przesunięcia łącznie 61,8221 cm⁴.',
-      visual: 'diagram',
+        'Przed zastosowaniem Steinera wyznaczamy odległości pionowe centroidów profili od wspólnej osi x: Δy_T = 7,26 − 8,2539 = −0,9939 cm oraz Δy_L = 11,23 − 8,2539 = 2,9761 cm. Przesuwamy każdą własną oś poziomą równolegle do wspólnej osi centralnej. Składnik przesunięcia rośnie z kwadratem odległości: dla teownika A_TΔy_T² = 20,65 cm⁴, a dla dwóch kątowników 2A_LΔy_L² = 61,82 cm⁴. Moment własny jest przy tym mały wobec składnika przesunięcia.',
+      formula:
+        '\\Delta y_T=-0,9939\\ \\text{cm},\\qquad \\Delta y_L=2,9761\\ \\text{cm},\\qquad A_T\\Delta y_T^2=20,65\\ \\text{cm}^4,\\qquad 2A_L\\Delta y_L^2=61,82\\ \\text{cm}^4',
+      caption: 'Składnik AΔy² rośnie z kwadratem przesunięcia osi; znak Δy nie ma znaczenia, bo występuje kwadrat.',
+      visual: 'section',
+      focus: { metric: 'steiner-x' },
+      emphasis: 'Twierdzenie Steinera startuje od osi własnego środka ciężkości każdej części.',
     },
     {
       title: 'Otrzymaj centralny moment I_x',
       narration:
-        'Suma wszystkich składników daje moment względem poziomej osi centralnej. Kątowniki zwiększają go nie tylko przez własne momenty, ale przede wszystkim przez oddalenie ich pól od centroidu całego przekroju.',
-      formula: '\\boxed{I_x=198,8468+12,86+61,8221=273,5289\\ \\text{cm}^4\\approx273,53\\ \\text{cm}^4}',
+        'Dodajemy centralne momenty tablicowe i składniki przesunięcia. Dla kątowników suma obejmuje dwa własne momenty oraz dwa składniki A_LΔy_L². Suma wszystkich składników daje moment względem poziomej osi centralnej: 198,8468 + 12,86 + 61,8221 = 273,5289 cm⁴.',
+      formula: 'I_x=178,2+20,9(-0,9939)^2+2\\left[6,43+3,49(2,9761)^2\\right]=273,53\\ \\text{cm}^4',
       caption: 'Nie wolno dodawać samych momentów tablicowych bez składników Steinera.',
-      visual: 'diagram',
+      visual: 'section',
+      focus: { metric: 'ix' },
+      emphasis:
+        'Składnik teownika z przesunięciem wynosi 198,8468 cm⁴; dwa własne momenty kątowników 12,86 cm⁴, a ich przesunięcia łącznie 61,8221 cm⁴.',
     },
     {
       title: 'Oblicz centralny moment I_y',
@@ -101,6 +75,7 @@ export default {
       formula: 'I_y=87,9+2\\left(6,43+3,49\\cdot2,13^2\\right)=87,9+2(6,43+15,8338)',
       caption: 'Dla osi pionowej używamy odległości poziomych, a nie współrzędnych y_L.',
       visual: 'section',
+      focus: { metric: 'iy' },
     },
     {
       title: 'Zapisz i sprawdź wynik',
@@ -109,6 +84,7 @@ export default {
       formula: '\\boxed{y_C=8,2539\\ \\text{cm},\\quad I_x=273,53\\ \\text{cm}^4,\\quad I_y=132,43\\ \\text{cm}^4}',
       caption: 'Wynik dotyczy dokładnie orientacji kątowników pokazanej na rysunku.',
       visual: 'section',
+      focus: { metric: 'result' },
       emphasis: 'Symetria upraszcza centroid i eliminuje moment dewiacji, ale nie zwalnia z przesunięć Steinera.',
     },
   ],

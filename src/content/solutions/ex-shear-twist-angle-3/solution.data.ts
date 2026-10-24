@@ -1,11 +1,11 @@
 import type { SolutionData } from '../../model'
-import { ShearTwistAngle3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-twist-angle-3',
   title: 'Kąt skręcenia i sztywność wału — przykład 3',
   duration: 7,
-  animation: ShearTwistAngle3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearTwistAngle3Animation }))),
   given: ['T = 800 N·m', 'L = 1,5 m', 'G = 80 GPa', 'φ_dop = 1,5°'],
   result:
     'Wariant odwrotny pokazuje, że warunek sztywności można przekształcić w wymaganie na średnicę. W praktyce oblicza się średnicę z obu warunków, wytrzymałości i sztywności, a następnie przyjmuje większą wartość. W tej lekcji sprawdzamy tylko kąt; pełną procedurę doboru rozwinie kolejna lekcja.',

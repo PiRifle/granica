@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react'
+import type { ComponentType, LazyExoticComponent } from 'react'
 
 export type LessonId = string
 
@@ -221,7 +221,7 @@ export interface WorkedSolution {
   result: string
   scenes: SolutionScene[]
   figure?: SolutionFigure
-  animation?: ComponentType<SolutionAnimationProps>
+  animation?: ComponentType<SolutionAnimationProps> | LazyExoticComponent<ComponentType<SolutionAnimationProps>>
 }
 
 export interface CourseSolution extends WorkedSolution {

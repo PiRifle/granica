@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { CompositeStaticMoments3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-composite-static-moments-3',
@@ -8,7 +8,7 @@ export default {
   given: ['płyta 200 × 120 mm', 'otwór d = 60 mm', 'x_C = 95 mm'],
   result:
     'Otwór o promieniu 30 mm zajmuje przedział od 107,4 mm do 167,4 mm, więc mieści się w płycie. Gdyby wymagano x=90 mm, otrzymalibyśmy x_h≈ 174,9 mm, czyli otwór wystawałby poza prawą krawędź. To pokazuje, że wariant odwrotny trzeba zawsze sprawdzić geometrycznie, a nie tylko algebraicznie.',
-  animation: CompositeStaticMoments3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.CompositeStaticMoments3Animation }))),
   scenes: [
     {
       title: 'Dane i układ osi',

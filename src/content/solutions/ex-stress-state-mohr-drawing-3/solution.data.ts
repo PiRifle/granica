@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MohrDrawingExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-mohr-drawing-3',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_1 = 100 MPa', 'σ_2 = 20 MPa', 'σ_x = 80 MPa'],
   result:
     'To zadanie pokazuje, że koło opisuje wartości główne jednoznacznie, ale orientacja wymaga znaku stycznej. Sama para σ_1 i σ_2 nie mówi, po której stronie osi leży punkt X. W praktyce znak τ_xy bierzemy z konwencji zadania albo z pomiaru na określonym kierunku.',
-  animation: MohrDrawingExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MohrDrawingExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

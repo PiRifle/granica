@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { LoadTypesExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-load-types-3',
@@ -8,7 +8,7 @@ export default {
   given: ['γ = 77 kN/m³', 'σ_dop = 120 MPa', 'współczynnik bezpieczeństwa n = 2'],
   result:
     'Maksymalna długość linki wynosi około 1558 m. Przy współczynniku bezpieczeństwa 2 dopuszczalne naprężenie spada do 60 MPa, a długość do około 779 m. Ciężar własny może stać się głównym ograniczeniem, gdy element jest bardzo długi.',
-  animation: LoadTypesExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.LoadTypesExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

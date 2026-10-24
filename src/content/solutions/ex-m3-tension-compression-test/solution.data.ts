@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { TensileTestExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-tension-compression-test',
@@ -8,7 +8,7 @@ export default {
   given: ['d = 10 mm', 'N = 15,7 kN', 'L₀ = 100 mm', 'ΔL = 0,1 mm'],
   result:
     'W próbce działa naprężenie około 200 MPa, odkształcenie względne wynosi 0,001, a moduł Younga około 200 GPa. Punkt leży w zakresie sprężystym, ponieważ 200 MPa < Re ≈ 235 MPa.',
-  animation: TensileTestExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.TensileTestExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-max-normal-3',
   title: 'Hipoteza największego naprężenia normalnego — przykład 3',
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MaxNormalExample3Animation }))),
   duration: 7,
   given: ['σy = −40 MPa', 'σx = 0', 'kr = 150 MPa', 'n = 2,0'],
   result:
@@ -35,67 +37,41 @@ export default {
     {
       title: 'Zapisz stan naprężenia',
       narration:
-        'Płyta z materiału kruchego jest ściskana w jednym kierunku: σ_y = −40 MPa, σ_x = 0. Dopuszczalna wytrzymałość na rozciąganie wynosi k_r = 150 MPa, a wymagany zapas n = 2,0.',
-      caption: 'σ_x = 0, σ_y = −40 MPa, k_r = 150 MPa, n = 2,0.',
+        'Płyta z materiału kruchego jest ściskana w jednym kierunku: σ_y = −40 MPa, σ_x = 0. Dopuszczalna wytrzymałość na rozciąganie wynosi k_r = 150 MPa, a wymagany zapas n = 2,0, więc naprężenie dopuszczalne to k_r/n = 75 MPa.',
+      caption: 'σ_x = 0, σ_y = −40 MPa, k_r = 150 MPa, n = 2,0, σ_dop = 75 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_x=0,\\qquad \\sigma_y=-40\\,\\text{MPa},\\qquad k_r=150\\,\\text{MPa},\\qquad n=2{,}0',
-    },
-    {
-      title: 'Oblicz naprężenie dopuszczalne',
-      narration:
-        'Naprężenie dopuszczalne na rozciąganie wynosi k_r/n = 150/2 = 75 MPa. Środek koła Mohra to C = −20 MPa, a promień R = √(20² + τ²).',
-      caption: 'k_r/n = 75 MPa, C = −20 MPa.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'state' },
       formula:
-        '\\frac{k_r}{n}=\\frac{150}{2}=75\\,\\text{MPa},\\qquad C=-20\\,\\text{MPa},\\qquad R=\\sqrt{20^2+\\tau^2}',
+        '\\sigma_x=0,\\qquad \\sigma_y=-40\\,\\text{MPa},\\qquad k_r=150\\,\\text{MPa},\\qquad n=2{,}0,\\qquad \\frac{k_r}{n}=75\\,\\text{MPa}',
     },
     {
-      title: 'Zapisz warunek na naprężenie główne',
+      title: 'Powiąż τ z naprężeniem głównym',
       narration:
-        'Naprężenia główne wynoszą σ_1 = −20 + R i σ_2 = −20 − R. Największe rozciągające to σ_1, więc wymagamy −20 + √(400 + τ²) ≤ 75.',
+        'Środek koła Mohra to C = −20 MPa, a promień R = √(20² + τ²). Naprężenia główne wynoszą σ_1 = −20 + R i σ_2 = −20 − R. Największe rozciągające to σ_1, więc wymagamy −20 + √(400 + τ²) ≤ 75.',
       caption: 'σ_1 = −20 + √(400 + τ²) ≤ 75 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_1=-20+\\sqrt{400+\\tau^2}\\le75\\,\\text{MPa}',
+      focus: { metric: 'mohr' },
+      formula:
+        'C=-20\\,\\text{MPa},\\qquad R=\\sqrt{20^2+\\tau^2},\\qquad \\sigma_1=-20+\\sqrt{400+\\tau^2}\\le75\\,\\text{MPa}',
     },
     {
       title: 'Wyznacz maksymalne τ',
-      narration: 'Po przekształceniu √(400 + τ²) ≤ 95, więc 400 + τ² ≤ 9 025. Stąd τ² ≤ 8 625 i τ ≤ 92,9 MPa.',
+      narration:
+        'Po przekształceniu √(400 + τ²) ≤ 95, więc 400 + τ² ≤ 9 025. Stąd τ² ≤ 8 625 i τ ≤ 92,9 MPa. Przy tej wartości koło Mohra styka się z granicą σ_1 = 75 MPa.',
       caption: 'τ_max = 92,9 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'limit' },
       formula:
         '\\sqrt{400+\\tau^2}\\le95,\\qquad 400+\\tau^2\\le9\\,025,\\qquad \\tau^2\\le8\\,625,\\qquad \\tau\\le92{,}9\\,\\text{MPa}',
     },
     {
       title: 'Sprawdź naprężenia przy τ_max',
       narration:
-        'Przy τ = 92,9 MPa otrzymujemy σ_1 = 75 MPa i σ_2 = −115 MPa. Warunek ściskania 115 ≤ k_c/n jest spełniony z dużym zapasem, jeśli k_c = 600 MPa.',
-      caption: 'σ_1 = 75 MPa, σ_2 = −115 MPa.',
+        'Przy τ = 92,9 MPa otrzymujemy σ_1 = 75 MPa i σ_2 = −115 MPa. Warunek ściskania 115 ≤ k_c/n jest spełniony z dużym zapasem, jeśli k_c = 600 MPa. O wyniku decyduje rozciąganie, które osiąga granicę.',
+      caption: 'σ_1 = 75 MPa, σ_2 = −115 MPa; decyduje rozciąganie.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'check' },
       formula: '\\sigma_1=-20+\\sqrt{400+92{,}9^2}=75\\,\\text{MPa},\\qquad \\sigma_2=-20-95=-115\\,\\text{MPa}',
-    },
-    {
-      title: 'Przelicz stan na odkształcenia',
-      narration:
-        'Dla stali E = 200 GPa i ν = 0,30 naprężenia główne 75, 0 i −115 MPa dają ε_1 = 547,5 με, ε_2 = 60 με i ε_3 = −687,5 με. Ślad −80 με oznacza niewielki spadek objętości.',
-      caption: 'ε_1 = 547,5 με, ε_2 = 60 με, ε_3 = −687,5 με, θ = −80 με.',
-      visual: 'cube',
-      focus: { metric: 'strain' },
-      formula:
-        '\\varepsilon_1=547{,}5\\,\\mu\\varepsilon,\\qquad \\varepsilon_2=60\\,\\mu\\varepsilon,\\qquad \\varepsilon_3=-687{,}5\\,\\mu\\varepsilon,\\qquad \\theta=-80\\,\\mu\\varepsilon',
-    },
-    {
-      title: 'Sprawdź zmianę objętości',
-      narration:
-        'Ślad tensora odkształcenia jest ujemny, więc objętość elementu maleje. Wartość bezwzględna śladu jest miarą względnej zmiany objętości.',
-      caption: 'Kontrola: θ = −80 με.',
-      visual: 'cube',
-      focus: { metric: 'volume' },
-      formula: '|\\theta|=80\\,\\mu\\varepsilon',
     },
   ],
 } satisfies SolutionData

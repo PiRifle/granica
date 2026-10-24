@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingStressNeutralAxis3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-stress-neutral-axis-3',
@@ -8,7 +8,9 @@ export default {
   given: ['sigma_{dop} = 140 MPa', 'M = 10 kN·m'],
   result:
     'Wariant odwrotny pokazuje, że dobór przekroju nie polega na zgadywaniu. Z warunku na naprężenie wynika minimalny wskaźnik W, a z niego — wymiary. Dopiero po wybraniu konkretnego przekroju sprawdza się rzeczywiste naprężenie i ewentualnie koryguje wymiary.',
-  animation: BendingStressNeutralAxis3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.BendingStressNeutralAxis3Animation })),
+  ),
   figure: {
     kind: 'beam',
     length: 4,

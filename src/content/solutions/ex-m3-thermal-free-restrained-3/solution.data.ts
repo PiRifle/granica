@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ThermalGapDesignAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-thermal-free-restrained-3',
@@ -8,7 +8,7 @@ export default {
   given: ['L=10 m', 'alpha=12', 'E=200 GPa', 's=3 mm', 'sigma_dop=80 MPa'],
   result:
     'Największy dopuszczalny przyrost temperatury wynosi około 58,3 K: 25 K zużywa luz, a 33,3 K odpowiada naprężeniu dopuszczalnemu 80 MPa. Przy ΔT = 70 K naprężenie osiąga −108 MPa, więc przekracza limit. Dodatkowo trzeba sprawdzić wyboczenie, które może wystąpić przed osiągnięciem σ_dop.',
-  animation: ThermalGapDesignAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ThermalGapDesignAnimation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { PoissonExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-poisson-2',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_z = 0', 'ε_x = 800 με', 'ε_y = 400 με', 'ν = 0,30'],
   result:
     'Podstawiamy ε_x+ε_y=1200 με i ν/(1-ν)=0,3/0,7≈0,4286. Stąd ε_z≈-514 με. Grubość blachy maleje, mimo że naprężenie normalne w kierunku grubości jest zerowe. To ten sam mechanizm, który widzieliśmy w pręcie, tylko opisany w płaskim stanie naprężenia.',
-  animation: PoissonExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.PoissonExample2Animation }))),
   scenes: [
     {
       title: 'Model blachy w płaskim stanie naprężenia',

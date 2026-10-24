@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HookeStiffnessAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-hooke-stiffness',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 2 m', 'A = 250 mm²', 'N = 50 kN', 'E = 200 GPa'],
   result:
     'Pręt ma naprężenie 200 MPa, odkształcenie 0,001 i wydłuża się o 2 mm, o ile pozostaje w zakresie sprężystym. Jego sztywność osiowa wynosi około 25 MN/m.',
-  animation: HookeStiffnessAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HookeStiffnessAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

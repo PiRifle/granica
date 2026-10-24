@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { PoissonExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-poisson',
@@ -8,7 +8,7 @@ export default {
   given: ['E = 200 GPa', 'ν = 0,30', 'd₀ = 16 mm', 'ε_x = 900 με'],
   result:
     'Średnica zmniejsza się o około 0,0043 mm, czyli 4,3 μm. Odkształcenie poprzeczne wynosi -270 με, a naprężenie osiowe około 180 MPa.',
-  animation: PoissonExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.PoissonExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane pręta',

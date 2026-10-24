@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MohrDrawingExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-mohr-drawing-2',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_x = -20 MPa', 'σ_y = 60 MPa', 'τ_xy = 30 MPa'],
   result:
     'Ten przykład pokazuje, dlaczego sam tangens nie wystarcza. Funkcja arctan zwraca kąt w przedziale od -90° do 90°, a równanie na 2θ_p ma rozwiązania różniące się o 180°. Ćwiartkę trzeba ustalić z pary cos2θ_p i sin2θ_p albo przez podstawienie do wzoru na σ_n.',
-  animation: MohrDrawingExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MohrDrawingExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

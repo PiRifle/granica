@@ -1,12 +1,14 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-bending-2',
   title: 'Pełne zadanie: dobór belki na zginanie — przykład 2',
   duration: 7,
-  given: ['L=4 m', 'P=20 kN', 'a=1,4 m', 'h=2b', 'k=160 MPa', 'E=200 GPa'],
+  given: ['L=4 m', 'P=20 kN', 'a=1,4 m', 'h=2b', 'k=160 MPa', 'E=200 GPa', 'f_dop=16 mm'],
   result:
-    'W praktyce projektant często zaczyna od kształtu znanego z katalogu, a potem sprawdza, czy spełnia oba warunki. Katalog podaje I i W dla konkretnej osi, więc nie trzeba ich wyprowadzać od zera. Ważne jest natomiast, aby nie mieszać osi i nie podstawiać W dla jednego kierunku do momentu działającego w innym. To częsty błąd przy belkach zginanych ukośnie.',
+    'Przekrój 60 × 120 mm spełnia oba warunki: σ_max = 126,4 MPa < 160 MPa oraz f = 12,8 mm < 16 mm. Przy podobnej nośności jest lżejszy od koła ∅110 mm, ale wymaga poprawnego ustawienia względem osi zginania.',
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullBendingDesign2Animation }))),
   figure: {
     kind: 'beam',
     length: 4,
@@ -64,79 +66,62 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Reakcje dla schematu: R_A=Pb/L=20·2,6/4=13 kN, R_B=Pa/L=20·1,4/4=7 kN.',
-      caption: 'Reakcje dla schematu: R_A=Pb/L=20·2,6/4=13 kN, R_B=Pa/L=20·1,4/4=7 kN.',
-      visual: 'beam',
-      focus: { metric: 'reaction' },
-      formula: 'R_A=Pb/L=20\\cdot2{,}6/4=13\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 2',
-      narration: 'Siła tnąca wynosi T=13 kN po lewej stronie siły i T=-7 kN po prawej.',
-      caption: 'Siła tnąca wynosi T=13 kN po lewej stronie siły i T=-7 kN po prawej.',
-      visual: 'beam',
-      focus: { metric: 'T' },
-      formula: 'T=13\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 3',
+      title: 'Model i dane',
       narration:
-        'Rozważmy ten sam schemat i moment M_max=18,2 kN·m, ale przekrój prostokątny o proporcji h=2b. Wymagany wskaźnik nadal wynosi W_min=113 750 mm^3. Dla prostokąta W=bh^2/6=b(2b)^2/6=2b^3/3, więc b^3≥3W_min/2=170 625 i b≥55,5 mm.',
-      caption:
-        'Rozważmy ten sam schemat i moment M_max=18,2 kN·m, ale przekrój prostokątny o proporcji h=2b. Wymagany wskaźnik nadal wynosi…',
+        'Ten sam schemat: L = 4 m, P = 20 kN w odległości a = 1,4 m, więc M_max = 18,2 kN·m. Tym razem przekrój jest prostokątny o proporcji h = 2b; przyjmujemy k = 160 MPa, E = 200 GPa i f_dop = L/250 = 16 mm.',
+      caption: 'Schemat i dane; szukamy szerokości b przy zadanym stosunku h = 2b.',
       visual: 'beam',
-      focus: { metric: 'M' },
-      formula: 'M_{\\max}=18{,}2\\ \\text{kN}\\cdot\\text{m}',
+      focus: { metric: 'model' },
+      formula:
+        'L=4\\ \\text{m},\\quad P=20\\ \\text{kN},\\quad a=1{,}4\\ \\text{m},\\quad h=2b,\\quad k=160\\ \\text{MPa}',
     },
     {
-      title: 'Krok 4',
+      title: 'Reakcje i moment maksymalny',
       narration:
-        'Przyjmujemy b=60 mm i h=120 mm. Rzeczywisty wskaźnik wynosi W=60·120^2/6=144 000 mm^3, a naprężenie σ=18 200 000/144 000≈126,4 MPa, czyli mniej niż 160 MPa. Moment bezwładności I=60·120^3/12=8 640 000 mm^4, a ugięcie f≈12,8 mm, więc warunek 16 mm jest spełniony z większym zapasem niż dla koła.',
-      caption:
-        'Przyjmujemy b=60 mm i h=120 mm. Rzeczywisty wskaźnik wynosi W=60·120^2/6=144 000 mm^3, a naprężenie σ=18 200 000/144 000≈126,4…',
+        'Reakcje wynoszą R_A = 13 kN i R_B = 7 kN. Moment maksymalny pod siłą to M_max = Pab/L = 18,2 kN·m = 18 200 000 N·mm — identycznie jak dla koła, bo moment nie zależy od przekroju.',
+      caption: 'Wierzchołek M wypada pod siłą; sam moment nie zależy od kształtu przekroju.',
+      visual: 'beam',
+      focus: { metric: 'moment' },
+      formula:
+        'R_A=13\\ \\text{kN},\\qquad M_{\\max}=18{,}2\\ \\text{kN}\\cdot\\text{m}=18\\,200\\,000\\ \\text{N}\\cdot\\text{mm}',
+    },
+    {
+      title: 'Warunek wytrzymałości',
+      narration:
+        'Wymagany wskaźnik wynosi W_min = 113 750 mm³. Dla prostokąta W = bh²/6 = b(2b)²/6 = 2b³/3, więc b³ ≥ 3W_min/2 = 170 625 i b ≥ 55,5 mm.',
+      caption: 'Proporcja h = 2b redukuje dobór do jednej niewiadomej b; wynik to 55,5 mm.',
+      visual: 'beam',
+      focus: { metric: 'strength' },
+      formula:
+        'W_{\\min}=113\\,750\\ \\text{mm}^3,\\qquad b\\ge\\sqrt[3]{\\frac{3\\cdot113\\,750}{2}}\\approx55{,}5\\ \\text{mm}',
+    },
+    {
+      title: 'Dobór przekroju',
+      narration:
+        'Przyjmujemy b = 60 mm i h = 120 mm. Rzeczywisty wskaźnik W = 60·120²/6 = 144 000 mm³, a moment bezwładności I = 60·120³/12 = 8 640 000 mm⁴. Oba są większe od wymagań.',
+      caption: 'Przekrój 60 × 120 mm ma W = 144 000 mm³ > W_min oraz I = 8,64·10⁶ mm⁴.',
+      visual: 'beam',
+      focus: { metric: 'section' },
+      formula:
+        'b=60\\ \\text{mm},\\quad h=120\\ \\text{mm},\\quad W=144\\,000\\ \\text{mm}^3,\\quad I=8\\,640\\,000\\ \\text{mm}^4',
+    },
+    {
+      title: 'Kontrola naprężeń',
+      narration:
+        'Naprężenie maksymalne σ_max = M_max/W = 18 200 000/144 000 ≈ 126,4 MPa, czyli mniej niż k = 160 MPa. Zapas wytrzymałości jest większy niż dla koła ∅110 mm.',
+      caption: 'σ_max = 126,4 MPa ≤ 160 MPa — warunek wytrzymałości spełniony.',
       visual: 'beam',
       focus: { metric: 'stress' },
-      formula: 'b=60\\ \\text{mm}',
+      formula: '\\sigma_{\\max}=\\frac{18\\,200\\,000}{144\\,000}\\approx126{,}4\\ \\text{MPa}\\le160\\ \\text{MPa}',
     },
     {
-      title: 'Krok 5',
+      title: 'Kontrola ugięcia',
       narration:
-        'Porównanie jest pouczające. Pole prostokąta wynosi 7200 mm^2, a koła o d=110 mm około 9503 mm^2. Prostokąt jest więc lżejszy, mimo że ma większą wysokość. Wskaźnik na jednostkę pola wynosi 20,0 mm dla prostokąta i około 13,8 mm dla koła. To dlatego belki o przekroju dwuteowym lub skrzynkowym są znacznie bardziej efektywne: materiał jest odsunięty od osi obojętnej, gdzie pracuje najskuteczniej.',
-      caption:
-        'Porównanie jest pouczające. Pole prostokąta wynosi 7200 mm^2, a koła o d=110 mm około 9503 mm^2. Prostokąt jest więc lżejszy,…',
+        'Ugięcie f = P a²b²/(3EIL) = 20 000·1400²·2600²/(3·200 000·8 640 000·4000) ≈ 12,8 mm, więc jest mniejsze od f_dop = 16 mm. Prostokąt 60 × 120 mm ma pole 7200 mm², czyli mniejsze niż koło ∅110 mm (9503 mm²), ale jest bardziej podatny na zwichrzenie i wymaga poprawnego ustawienia względem osi zginania.',
+      caption: 'f = 12,8 mm ≤ 16 mm; przy podobnej nośności prostokąt jest lżejszy, lecz mniej odporny na zwichrzenie.',
       visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '7200\\ \\text{mm}^2',
-    },
-    {
-      title: 'Krok 6',
-      narration:
-        'Nie oznacza to, że prostokąt jest zawsze lepszy. Wysoka i wąska belka jest podatna na zwichrzenie boczne, a jej wykonanie i połączenia mogą być trudniejsze. Koło jest symetryczne i wygodne w montażu. Wybór kształtu to kompromis między nośnością, sztywnością, masą, statecznością i technologią.',
-      caption:
-        'Nie oznacza to, że prostokąt jest zawsze lepszy. Wysoka i wąska belka jest podatna na zwichrzenie boczne, a jej wykonanie i…',
-      visual: 'beam',
-      focus: { metric: 'design' },
-    },
-    {
-      title: 'Krok 7',
-      narration:
-        'Kierunek zginania ma tu ogromne znaczenie. Prostokąt 60×120 mm jest efektywny, gdy jest zginany względem osi równoległej do krótszego boku, czyli gdy obciążenie działa w płaszczyźnie wysokości 120 mm. Po obróceniu o 90° ten sam przekrój ma znacznie mniejszy W, ponieważ wysokość wynosi wtedy 60 mm. W zadaniu trzeba więc zawsze sprawdzić, względem której osi liczony jest moment bezwładności.',
-      caption:
-        'Kierunek zginania ma tu ogromne znaczenie. Prostokąt 60×120 mm jest efektywny, gdy jest zginany względem osi równoległej do…',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: '60\\times120\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 8',
-      narration:
-        'W praktyce projektant często zaczyna od kształtu znanego z katalogu, a potem sprawdza, czy spełnia oba warunki. Katalog podaje I i W dla konkretnej osi, więc nie trzeba ich wyprowadzać od zera. Ważne jest natomiast, aby nie mieszać osi i nie podstawiać W dla jednego kierunku do momentu działającego w innym. To częsty błąd przy belkach zginanych ukośnie.',
-      caption:
-        'W praktyce projektant często zaczyna od kształtu znanego z katalogu, a potem sprawdza, czy spełnia oba warunki. Katalog podaje I…',
-      visual: 'beam',
-      focus: { metric: 'design' },
-      formula: 'I',
+      focus: { metric: 'deflection' },
+      formula: 'f=\\frac{P a^2b^2}{3EIL}\\approx12{,}8\\ \\text{mm}\\le16\\ \\text{mm}',
     },
   ],
 } satisfies SolutionData

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialStiffnessConditionAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-stiffness-condition',
@@ -8,7 +8,7 @@ export default {
   given: ['N = 80 kN', 'L = 2 m', 'E = 200 GPa', 'ΔL_dop = 1 mm', 'σ_dop = 160 MPa'],
   result:
     'Minimalne pole wynosi 800 mm² i decyduje sztywność. Dla tego pola ΔL = 1,0 mm, σ = 100 MPa, a zapas względem granicy plastyczności wynosi 2,35.',
-  animation: AxialStiffnessConditionAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialStiffnessConditionAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

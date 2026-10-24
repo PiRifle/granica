@@ -1,10 +1,10 @@
 import type { SolutionData } from '../../model'
-import { TauMaxExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-tau-max',
   title: 'Maksymalne ścinanie: płaskie i absolutne — przykład 1',
-  animation: TauMaxExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.TauMaxExample1Animation }))),
   duration: 7,
   given: ['σ_x = 90 MPa', 'σ_y = 30 MPa', 'τ_xy = 40 MPa', 'σ_z = 0'],
   result:

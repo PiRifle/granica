@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainGaugeChainAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-gauges',
@@ -8,7 +8,7 @@ export default {
   given: ['R_0 = 350 Ω', 'GF = 2,10', 'ΔR = 0,147 Ω'],
   result:
     'Czujnik wskazuje ε=200 με, czyli wydłużenie względne 0,02 % w kierunku swojej osi, uśrednione na bazie. Wynik jest spójny z danymi i nie wymaga poprawki na jednostki.',
-  animation: StrainGaugeChainAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StrainGaugeChainAnimation }))),
   scenes: [
     {
       title: 'Model i dane pomiaru',

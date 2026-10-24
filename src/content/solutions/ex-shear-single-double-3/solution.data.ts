@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearDesignAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-single-double-3',
@@ -8,7 +8,7 @@ export default {
   given: ['F = 90 kN', 'τ_dop = 120 MPa'],
   result:
     'W praktyce projektant często iteruje: dobiera średnicę, sprawdza rozstaw i odległości od krawędzi, a potem wraca do obliczeń. Nasz przykład pomija te szczegóły, ale pokazuje logikę. Najpierw warunek wytrzymałości, potem zaokrąglenie, na końcu kontrola. Dopiero po niej można przejść do rysunku wykonawczego.',
-  animation: ShearDesignAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearDesignAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

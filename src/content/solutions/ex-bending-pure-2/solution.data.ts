@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { PureBendingExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-pure-2',
@@ -8,7 +8,7 @@ export default {
   given: ['M = 8 kN·m'],
   result:
     'Po obrocie przekroju o 90 stopni, czyli przy b = 100 mm i h = 50 mm, moment bezwładności maleje czterokrotnie, a wskaźnik W dwukrotnie. Naprężenie rośnie wtedy do 192 MPa, a promień krzywizny maleje do około 27 m. Ten sam moment i materiał dają inną odpowiedź, bo decyduje ustawienie przekroju względem płaszczyzny zginania.',
-  animation: PureBendingExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.PureBendingExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

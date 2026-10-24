@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HookeStiffness2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-hooke-stiffness-2',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 1,5 m', 'd = 16 mm', 'N = 12 kN', 'E = 70 GPa'],
   result:
     'Aluminiowy pręt ma pole 201,06 mm², naprężenie 59,68 MPa, odkształcenie 0,000853 i wydłużenie 1,28 mm. Gdyby średnicę zwiększyć dwukrotnie, pole i sztywność wzrosłyby czterokrotnie, a wydłużenie spadłoby do 0,32 mm — kosztem czterokrotnie większej masy.',
-  animation: HookeStiffness2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HookeStiffness2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

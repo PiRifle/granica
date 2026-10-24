@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MohrInterpretationExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-mohr-interpretation-3',
@@ -8,7 +8,9 @@ export default {
   given: ['N = 30 kN', 'M = 1,2 kN·m', 'T = 800 N·m', 'R_e = 235 MPa', 'n = 2,5'],
   result:
     'Wniosek: średnica 55 mm jest zbyt mała, a 56 mm wystarcza. W praktyce wybieramy kolejny dostępny wymiar handlowy, często z zapasem na korozję, tolerancje i koncentrację naprężeń.',
-  animation: MohrInterpretationExample3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.MohrInterpretationExample3Animation })),
+  ),
   scenes: [
     {
       title: 'Model i wymaganie',

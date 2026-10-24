@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { RationalSectionShapes2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-rational-section-shapes-2',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 7854 mm²', 'D pręta = 100 mm', 'D rury = 200 mm'],
   result:
     'Ten wynik jest bardziej uczciwym porównaniem niż poprzedni. Przy tej samej masie rura o większej średnicy jest wyraźnie sztywniejsza i mocniejsza, ale zajmuje więcej miejsca i ma cieńszą ściankę. Właśnie dlatego w konstrukcjach o ograniczonej masie stosuje się rury i przekroje skrzynkowe, a nie pełne pręty.',
-  animation: RationalSectionShapes2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.RationalSectionShapes2Animation }))),
   scenes: [
     {
       title: 'Model: ta sama masa',

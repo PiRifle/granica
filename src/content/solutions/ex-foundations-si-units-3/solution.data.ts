@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SiUnitsExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-si-units-3',
@@ -8,7 +8,7 @@ export default {
   given: ['P = 120 kN', 'σ_dop = 160 MPa', 'dobrano d = 32 mm'],
   result:
     'A_min = 750 mm², d_min ≈ 30,9 mm, przyjęto d = 32 mm, czyli A ≈ 804 mm². Naprężenie wynosi σ ≈ 149 MPa < 160 MPa, więc dobór jest poprawny. Zaokrąglenie średnicy w dół dałoby przekrój mniejszy od minimalnego i naprężenie większe od dopuszczalnego.',
-  animation: SiUnitsExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SiUnitsExample3Animation }))),
   scenes: [
     {
       title: 'Model, dane i dobór przekroju',

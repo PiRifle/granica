@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainStateVolumeExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-volume-2',
@@ -8,7 +8,9 @@ export default {
   given: ['σ_x=150 MPa', 'σ_y=σ_z=0', 'E=200 GPa', 'ν=0,30'],
   result:
     'ε_x=750 με, ε_y=ε_z=−225 με, a ślad tensora wynosi 300 με. Objętość rośnie o 0,03 %, mimo że dwie z trzech krawędzi się skracają.',
-  animation: StrainStateVolumeExample2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrainStateVolumeExample2Animation })),
+  ),
   figure: {
     kind: 'cube',
     stresses: { x: 150, y: 0, z: 0 },

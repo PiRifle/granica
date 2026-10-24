@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrengthElasticityPlasticityAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-strength-elasticity-plasticity',
@@ -8,7 +8,9 @@ export default {
   given: ['S_0=80 mm²', 'R_e=300 MPa', 'R_m=450 MPa'],
   result:
     'Uplastycznienie próbki zaczyna się przy około 24 kN, a wytrzymałości R_m odpowiada siła 36 kN. Zerwanie nastąpi przy sile mniejszej od 36 kN, po przewężeniu.',
-  animation: StrengthElasticityPlasticityAnimation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrengthElasticityPlasticityAnimation })),
+  ),
   figure: {
     kind: 'axial',
     top: 'free',

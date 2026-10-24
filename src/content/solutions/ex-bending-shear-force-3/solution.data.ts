@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingShearForceExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-shear-force-3',
@@ -51,7 +51,9 @@ export default {
     ],
     note: 'Skok wykresu T ma wartość 12 - (-8) = 20 kN i wyznacza siłę P działającą w x = 2 m.',
   },
-  animation: BendingShearForceExample3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.BendingShearForceExample3Animation })),
+  ),
   scenes: [
     {
       title: 'Dany wykres T',

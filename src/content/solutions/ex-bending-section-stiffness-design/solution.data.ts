@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SectionStiffnessDesign1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-section-stiffness-design',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 4 m', 'P = 10 kN', 'E = 210 GPa', 'sigma_{dop} = 160 MPa', 'b = 50 mm', 'h = 100 mm'],
   result:
     'Przekrój 50 × 100 mm spełnia oba warunki: σ_max = 120 MPa oraz f_max = 15,24 mm. Zapas sztywności jest niewielki, więc każdy wzrost obciążenia lub rozpiętości wymaga ponownego sprawdzenia ugięcia.',
-  animation: SectionStiffnessDesign1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionStiffnessDesign1Animation }))),
   figure: {
     kind: 'beam',
     length: 4,

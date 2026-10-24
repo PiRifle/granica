@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainStateVolumeExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-volume-3',
@@ -8,7 +8,9 @@ export default {
   given: ['p=200 MPa', 'ΔV/V₀=−0,0012', 'ν=0,30'],
   result:
     'Moduł ściśliwości wynosi 166 667 MPa, a moduł Younga 200 000 MPa. Trzy równe odkształcenia normalne po −400 με dają ślad −1200 με, czyli dokładnie zmierzoną dylatację.',
-  animation: StrainStateVolumeExample3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrainStateVolumeExample3Animation })),
+  ),
   figure: {
     kind: 'cube',
     stresses: { x: -200, y: -200, z: -200 },

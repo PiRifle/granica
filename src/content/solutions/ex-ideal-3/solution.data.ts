@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { Ideal3InverseAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-ideal-3',
@@ -11,7 +11,7 @@ export default {
     'Szukamy maksymalnej intensywności q₀',
   ],
   result: 'Maksymalna intensywność obciążenia wynosi q₀ = 9 kN/m.',
-  animation: Ideal3InverseAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.Ideal3InverseAnimation }))),
   scenes: [
     {
       title: 'Dane odwrotne: znana wypadkowa i położenie',

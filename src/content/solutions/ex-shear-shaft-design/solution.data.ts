@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShaftDesignAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-shaft-design',
@@ -8,7 +8,7 @@ export default {
   given: ['T = 2,2 kN·m', 'L = 1800 mm', 'G = 80 GPa', 'tau_{dop} = 45 MPa', 'varphi_{dop} = 1,2°'],
   result:
     'Przyjęto d = 75 mm. Oba warunki są spełnione: τ_max ≈ 26,6 MPa jest znacznie poniżej 45 MPa, a kąt 0,913° jest mniejszy od 1,2°. O doborze zadecydowała sztywność, nie wytrzymałość.',
-  animation: ShaftDesignAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShaftDesignAnimation }))),
   figure: {
     kind: 'section',
     width: 75,

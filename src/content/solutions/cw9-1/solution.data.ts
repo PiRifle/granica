@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'cw9-1',
@@ -59,6 +60,7 @@ export default {
     ],
     note: 'Skok M w B wynika z momentu skupionego 8 kNm; T pozostaje tam ciągłe.',
   },
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BeamOverhangDesignAnimation }))),
   scenes: [
     {
       title: '1. Oznacz punkty i przyjmij znaki',
@@ -67,6 +69,7 @@ export default {
       formula: 'x_A=0\\quad x_B=1{,}5\\,\\mathrm{m}\\quad x_C=2{,}0\\,\\mathrm{m}\\quad x_D=2{,}5\\,\\mathrm{m}',
       caption: 'Rysunek belki: q na AB, moment 8 kNm w B, podpora C i siła P na końcu przewieszenia D.',
       visual: 'beam',
+      focus: { metric: 'model' },
       emphasis: 'Najpierw jedna spójna umowa znaków — dopiero potem równania.',
     },
     {
@@ -76,6 +79,7 @@ export default {
       formula: 'Q=q,l_1=16\\cdot1{,}5=24\\,\\mathrm{kN}\\qquad x_Q=0{,}75\\,\\mathrm{m}',
       caption: 'Prostokąt q × 1,5 m zastąpiony jedną siłą 24 kN przyłożoną w jego środku.',
       visual: 'beam',
+      focus: { metric: 'load' },
     },
     {
       title: '3. Oblicz reakcje z równowagi',
@@ -85,6 +89,7 @@ export default {
         '\\sum M_A=0:\\quad 2R_C-24\\cdot0{,}75-8-12\\cdot2{,}5=0\\\\R_C=28\\,\\mathrm{kN},\\qquad R_A=24+12-28=8\\,\\mathrm{kN}',
       caption: 'Schemat zastępczy z reakcjami 8 kN w A i 28 kN w C; wypadkowa q działa w odległości 0,75 m od A.',
       visual: 'beam',
+      focus: { metric: 'reaction' },
       emphasis: 'Obie reakcje są dodatnie, czyli rzeczywiście działają w górę.',
     },
     {
@@ -95,6 +100,7 @@ export default {
         'T_1(x)=R_A-qx=8-16x\\,\\mathrm{kN}\\\\T_1(0)=8\\,\\mathrm{kN}\\quad T_1(1{,}5^-)=-16\\,\\mathrm{kN}\\quad x_{T=0}=0{,}5\\,\\mathrm{m}',
       caption: 'Wykres T na AB: linia prosta od +8 kN w A do −16 kN tuż przed B, z zerem w x = 0,5 m.',
       visual: 'diagram',
+      focus: { metric: 'shear' },
     },
     {
       title: '5. Moment gnący na AB',
@@ -104,6 +110,7 @@ export default {
         'M_1(x)=R_Ax-\\frac{qx^2}{2}=8x-8x^2\\,\\mathrm{kNm}\\\\M_1(0)=0\\quad M_1(0{,}5)=2\\,\\mathrm{kNm}\\quad M_1(1{,}5^-)=-6\\,\\mathrm{kNm}',
       caption: 'Wykres M na AB: parabola od 0 przez maksimum +2 kNm w x = 0,5 m do −6 kNm przed B.',
       visual: 'diagram',
+      focus: { metric: 'moment' },
     },
     {
       title: '6. Skok momentu w B i odcinek BC',
@@ -113,6 +120,7 @@ export default {
         'T_2(x)=8-24=-16\\,\\mathrm{kN}\\qquad 1{,}5<x<2\\\\M_2(x)=8x-24(x-0{,}75)+8=-16x+26\\,\\mathrm{kNm}\\\\M(1{,}5^+)=2\\,\\mathrm{kNm}\\qquad M(2^-)=-6\\,\\mathrm{kNm}',
       caption: 'W B wykres M skacze z −6 do +2 kNm; na BC prosta spada do −6 kNm w C, a T pozostaje równe −16 kN.',
       visual: 'diagram',
+      focus: { metric: 'jump' },
       emphasis: 'Skok występuje na wykresie M, nie na wykresie T.',
     },
     {
@@ -123,6 +131,7 @@ export default {
         'T_3(x)=-16+28=12\\,\\mathrm{kN}\\qquad 2<x<2{,}5\\\\M_3(x)=-12(2{,}5-x)=12x-30\\,\\mathrm{kNm}\\\\M(2^+)=-6\\,\\mathrm{kNm}\\qquad M(2{,}5)=0',
       caption: 'Na CD wykres T ma poziom +12 kN, a wykres M rośnie liniowo od −6 kNm w C do 0 w D.',
       visual: 'diagram',
+      focus: { metric: 'overhang' },
     },
     {
       title: '8. Zestaw wartości i wybierz Mmax',
@@ -132,6 +141,7 @@ export default {
         'M_{\\max}^{(+)}=2\\,\\mathrm{kNm}\\qquad M_{\\min}=-6\\,\\mathrm{kNm}\\qquad |M|_{\\max}=6\\,\\mathrm{kNm}',
       caption: 'Zestawione wykresy: T z poziomami i skokiem w C; M z parabolą AB, skokiem w B i prostymi BC oraz CD.',
       visual: 'diagram',
+      focus: { metric: 'max-moment' },
       emphasis: 'Do warunku wytrzymałości przyjmujemy |M|max = 6 kNm.',
     },
     {
@@ -142,7 +152,20 @@ export default {
         '\\sigma_{\\max}=\\frac{|M|_{\\max}}{W_y}=\\frac{6\\cdot10^6}{81{,}9\\cdot10^3}=73{,}3\\,\\mathrm{MPa}\\\\73{,}3\\,\\mathrm{MPa}<k_g=100\\,\\mathrm{MPa}',
       caption: 'Przekrój I 140 ze wskazanymi skrajnymi włóknami; porównanie 73,3 MPa z granicą 100 MPa.',
       visual: 'section',
+      focus: { metric: 'design' },
       emphasis: 'Warunek wytrzymałości jest spełniony.',
+    },
+    {
+      title: '10. Skontroluj ugięcie',
+      narration:
+        'Kształt linii ugięcia wynika z równania EI w″ = −M(x). Belka ugina się w sposób sprężysty, a strzałka na rysunku jest celowo powiększona. Warunek sztywności wymaga f_max ≤ f_dop. W treści nie podano f_dop, więc pokazujemy jakościowy kształt ugięcia; w tym zadaniu o doborze dwuteownika I 140 decyduje naprężenie normalne.',
+      formula: "EI\\,w''=-M(x)\\qquad f_{\\max}\\le f_{\\mathrm{dop}}",
+      caption:
+        'Linia ugięcia belki z przewieszeniem: podpory A i C pozostają nieruchome, a koniec D przemieszcza się w dół. Kształt jest poglądowy, bez skali.',
+      visual: 'beam',
+      focus: { metric: 'deflection' },
+      emphasis:
+        'Pełna kontrola sztywności wymaga porównania f_max z f_dop; sam kształt ugięcia nie zastępuje tej nierówności.',
     },
   ],
 } satisfies SolutionData

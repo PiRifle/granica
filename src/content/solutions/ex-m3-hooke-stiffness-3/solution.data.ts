@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HookeStiffness3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-hooke-stiffness-3',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 3 m', 'N = 40 kN', 'ΔL_dop = 1,5 mm', 'E = 200 GPa'],
   result:
     'Minimalne pole przekroju wynosi 400 mm², co odpowiada średnicy około 22,6 mm. Naprężenie 100 MPa jest bezpieczne, więc o wymiarze decyduje sztywność, a nie wytrzymałość. Przy dopuszczalnym wydłużeniu 1 mm wymagane pole wzrosłoby do 600 mm².',
-  animation: HookeStiffness3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HookeStiffness3Animation }))),
   scenes: [
     {
       title: 'Model i dane',
