@@ -250,10 +250,6 @@ Testy sprawdzają między innymi:
 - bank 210 pytań egzaminacyjnych,
 - obliczenia inżynierskie w `src/lib`.
 
-
-
-
-
 ## Rozwiązywanie problemów
 
 | Problem                    | Rozwiązanie                                                                                 |
