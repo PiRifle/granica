@@ -3,15 +3,27 @@ import type { AxialFigure, AxialSegment, SolutionScene } from '../../types'
 import { resolveFocus, type Focus } from './focus'
 import { formatNumber, local, SEGMENT_COLORS } from './shared'
 
-const METRIC_DEFS = [
-  { key: 'N', label: 'N', get: (segment: AxialSegment) => segment.n },
-  { key: 'σ', label: 'σ', get: (segment: AxialSegment) => segment.sigma },
-  { key: 'ε', label: 'ε', get: (segment: AxialSegment) => segment.epsilon },
-  { key: 'ΔL', label: 'ΔL', get: (segment: AxialSegment) => segment.deltaL },
-  { key: 'ΔL_T', label: 'ΔL_T', get: (segment: AxialSegment) => segment.freeDeltaL },
-  { key: 'αΔT', label: 'αΔT', get: (segment: AxialSegment) => segment.thermalStrain },
-  { key: 'A', label: 'A', get: (segment: AxialSegment) => segment.area },
-] as const
+const HIDDEN_LABELS = new Set(['', 'górny', 'dolny', 'g', 'd'])
+
+function mergeSegments(segments: AxialSegment[]) {
+  const merged: AxialSegment[] = []
+  const sourceIndex: number[] = []
+  for (const segment of segments) {
+    const last = merged[merged.length - 1]
+    const sameArea = last ? (last.area ?? null) === (segment.area ?? null) : false
+    const sameLabel = last ? last.label === segment.label : false
+    const artificial = last ? HIDDEN_LABELS.has(last.label) && HIDDEN_LABELS.has(segment.label) : false
+    if (last && sameArea && (sameLabel || artificial)) {
+      last.length += segment.length
+      if (artificial) last.label = ''
+      sourceIndex.push(merged.length - 1)
+    } else {
+      merged.push({ ...segment })
+      sourceIndex.push(merged.length - 1)
+    }
+  }
+  return { segments: merged, sourceIndex }
+}
 
 export function AxialView({
   figure,
@@ -33,38 +45,47 @@ export function AxialView({
   revealedMath?: string
 }) {
   const focus = suppliedFocus ?? resolveFocus(scene, figure)
-  const requested = focus.metric === 'reaction' || focus.metric === 'load' ? 'N' : focus.metric
-  const available = METRIC_DEFS.filter((definition) =>
-    figure.segments.some((segment) => definition.get(segment) != null),
-  )
-  const metric = available.find((definition) => definition.key === requested) ?? available[0] ?? METRIC_DEFS[0]
-  const unit =
-    figure.units?.[metric.key] ??
-    (metric.key === 'N'
-      ? 'kN'
-      : metric.key === 'σ'
-        ? 'MPa'
-        : metric.key === 'A'
-          ? 'mm²'
-          : metric.key === 'ΔL' || metric.key === 'ΔL_T'
-            ? 'mm'
-            : '–')
+  const { segments, sourceIndex } = mergeSegments(figure.segments)
+  const totalLength = segments.reduce((sum, segment) => sum + segment.length, 0)
 
   const chart = { top: 32, bottom: 252, centerX: 188 }
   const usable = chart.bottom - chart.top
-  const rawHeights = figure.segments.map(
-    (segment) => (segment.length / figure.segments.reduce((sum, item) => sum + item.length, 0)) * usable,
-  )
+  const rawHeights = segments.map((segment) => (segment.length / totalLength) * usable)
   const scale = Math.min(1, usable / rawHeights.reduce((sum, value) => sum + Math.max(value, 30), 0))
   const heights = rawHeights.map((value) => Math.max(value, 30) * scale)
   const nodes = [chart.top]
   for (const height of heights) nodes.push(nodes[nodes.length - 1] + height)
 
-  const maxArea = Math.max(...figure.segments.map((segment) => segment.area ?? 1), 1)
-  const halfWidths = figure.segments.map((segment) => 14 + 46 * Math.sqrt((segment.area ?? maxArea) / maxArea))
+  const ratios = [0]
+  let runningLength = 0
+  for (const segment of segments) {
+    runningLength += segment.length
+    ratios.push(runningLength / totalLength)
+  }
+  const sourceRatios = [0]
+  let sourceLength = 0
+  const sourceTotal = figure.segments.reduce((sum, segment) => sum + segment.length, 0)
+  for (const segment of figure.segments) {
+    sourceLength += segment.length
+    sourceRatios.push(sourceLength / sourceTotal)
+  }
+
+  const yForRatio = (ratio: number) => {
+    for (let index = 0; index < segments.length; index += 1) {
+      if (ratio <= ratios[index + 1] || index === segments.length - 1) {
+        const span = ratios[index + 1] - ratios[index]
+        const within = span > 0 ? (ratio - ratios[index]) / span : 0
+        return nodes[index] + Math.min(1, Math.max(0, within)) * heights[index]
+      }
+    }
+    return nodes[nodes.length - 1]
+  }
+
+  const maxArea = Math.max(...segments.map((segment) => segment.area ?? 1), 1)
+  const halfWidths = segments.map((segment) => 14 + 46 * Math.sqrt((segment.area ?? maxArea) / maxArea))
   const maxHalfWidth = Math.max(...halfWidths)
-  const activeSegment = focus.segment
-  const activeHeight = figure.segments.findIndex((segment) => segment.id === activeSegment)
+  const activeSource = figure.segments.findIndex((segment) => segment.id === focus.segment)
+  const activeHeight = activeSource >= 0 ? sourceIndex[activeSource] : -1
 
   const support = (y: number, direction: 'top' | 'bottom') => {
     const sign = direction === 'top' ? -1 : 1
@@ -82,11 +103,7 @@ export function AxialView({
   return (
     <div className={local('figure')}>
       <div className={local('figure-canvas')}>
-        <svg
-          viewBox="0 0 460 280"
-          role="img"
-          aria-label={`Pręt podzielony na ${figure.segments.length} odcinków z wykresem ${metric.label}`}
-        >
+        <svg viewBox="0 0 460 280" role="img" aria-label={`Pręt podzielony na ${segments.length} odcinków`}>
           {figure.top === 'fixed' && support(chart.top, 'top')}
           {figure.top === 'gap' && (
             <text x={chart.centerX} y={chart.top - 10} textAnchor="middle" fontSize={10} fill="#87929d">
@@ -111,14 +128,14 @@ export function AxialView({
             </g>
           )}
 
-          {figure.segments.map((segment, index) => {
+          {segments.map((segment, index) => {
             const y = nodes[index]
             const height = heights[index]
             const color = SEGMENT_COLORS[index % SEGMENT_COLORS.length]
             const active = index === activeHeight
             const width = halfWidths[index] * 2
             return (
-              <g key={segment.id}>
+              <g key={`${segment.id}-${index}`}>
                 <motion.rect
                   x={chart.centerX - halfWidths[index]}
                   y={y}
@@ -150,16 +167,18 @@ export function AxialView({
                     transition={{ pathLength: { duration: 0.12, ease: 'linear' }, opacity: { duration: 0.3 } }}
                   />
                 )}
-                <text
-                  x={chart.centerX - halfWidths[index] - 10}
-                  y={y + height / 2 + 4}
-                  textAnchor="end"
-                  fontSize={12}
-                  fontWeight={700}
-                  fill={color}
-                >
-                  {segment.label}
-                </text>
+                {!HIDDEN_LABELS.has(segment.label) && (
+                  <text
+                    x={chart.centerX - halfWidths[index] - 10}
+                    y={y + height / 2 + 4}
+                    textAnchor="end"
+                    fontSize={12}
+                    fontWeight={700}
+                    fill={color}
+                  >
+                    {segment.label}
+                  </text>
+                )}
                 <text x={chart.centerX + maxHalfWidth + 16} y={y + height / 2 - 2} fontSize={9} fill="#87929d">
                   L = {formatNumber(segment.length)}
                 </text>
@@ -173,7 +192,7 @@ export function AxialView({
           })}
 
           {(figure.loads ?? []).map((load, index) => {
-            const y = nodes[load.node] ?? chart.top
+            const y = yForRatio(sourceRatios[load.node] ?? 0)
             const direction = load.direction ?? 'down'
             const x = chart.centerX + maxHalfWidth + 66 + (index % 2) * 0
             const start = direction === 'down' ? y - 38 : y + 38
@@ -197,19 +216,6 @@ export function AxialView({
             )
           })}
         </svg>
-        <div className={local('lookup')}>
-          <div className={local('lookup-head')}>
-            <span>{metric.label}</span>
-            <span>[{unit}]</span>
-          </div>
-          {figure.segments.map((segment, index) => (
-            <div key={segment.id} className={local('lookup-row', segment.id === activeSegment && 'active')}>
-              <span className={local('swatch')} style={{ background: SEGMENT_COLORS[index % SEGMENT_COLORS.length] }} />
-              <span className={local('lookup-label')}>{segment.label}</span>
-              <strong>{formatNumber(metric.get(segment))}</strong>
-            </div>
-          ))}
-        </div>
       </div>
       {figure.note && <p className={local('note')}>{figure.note}</p>}
     </div>
