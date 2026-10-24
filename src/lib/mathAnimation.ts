@@ -283,16 +283,13 @@ export function tokenizeFormula(value: string): MathToken[] {
       }
       let math = value.slice(index, end)
       if (command === 'sqrt') {
-        const optional = readGroup(value, end)
-        if (optional) {
-          math = value.slice(index, optional.end)
-          end = optional.end
+        if (value[end] === '[') {
+          const optional = readGroup(value, end)
+          if (optional) end = optional.end
         }
         const argument = readArgument(value, end)
-        if (argument) {
-          math = value.slice(index, argument.end)
-          end = argument.end
-        }
+        if (argument) end = argument.end
+        math = value.slice(index, end)
       } else if (ARGUMENT_COMMANDS.has(command)) {
         const argumentCount = TWO_ARGUMENT_COMMANDS.has(command) ? 2 : 1
         for (let argumentIndex = 0; argumentIndex < argumentCount; argumentIndex += 1) {

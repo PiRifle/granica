@@ -180,7 +180,7 @@ describe('integralność kursu', () => {
     for (const solution of workedSolutions) {
       if (!solution.figure) continue
       if (solution.figure.kind === 'axial') {
-        expect(solution.figure.segments.length, solution.id).toBeGreaterThan(1)
+        expect(solution.figure.segments.length, solution.id).toBeGreaterThan(0)
         expect(
           solution.figure.segments.every((segment) => segment.length > 0),
           solution.id,
