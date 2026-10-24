@@ -11,13 +11,60 @@ export default {
   animation: LoadTypesExample3Animation,
   scenes: [
     {
-      title: 'Model, dane i obliczenia',
+      title: 'Model i dane',
       narration:
-        'Linka stalowa przenosi wyłącznie ciężar własny. Przyjmujemy ciężar objętościowy stali γ = 77 kN/m³ i dopuszczalne naprężenie σ_dop = 120 MPa. Szukamy największej długości, przy której naprężenie nie przekroczy tej wartości. W pręcie obciążonym tylko ciężarem własnym maksymalne naprężenie występuje u góry i rośnie liniowo z długością: σ_max = γL. Warunek bezpieczeństwa ma więc postać γL ≤ σ_dop. Przekształcamy warunek do postaci L_max = σ_dop / γ. Dzielimy 120 000 kN/m² przez 77 kN/m³ i otrzymujemy około 1558 m. Zamieniamy 120 MPa na 120 000 kPa, czyli 120 000 kN/m². Dzielenie przez ciężar objętościowy w kN/m³ daje metry. Bez tej zamiany wynik byłby tysiące razy za mały. Podstawiamy długość 1558 m z powrotem do wzoru: σ = 77 · 1558 ≈ 120 000 kN/m² = 120 MPa. Wynik jest równy dopuszczalnemu, co potwierdza obliczenie. Przy współczynniku bezpieczeństwa 2 dopuszczalne naprężenie wynosi 60 MPa. Długość graniczna maleje do 60 000 / 77 ≈ 779 m. Zapas bezpieczeństwa zmniejsza dopuszczalną długość o połowę. Ten przykład pokazuje, że ciężar własny może stać się głównym ograniczeniem, gdy element jest bardzo długi. W typowych konstrukcjach budowlanych zwykle nie decyduje o nośności, ale w kablach, linach i wysmukłych masztach trzeba go liczyć osobno.',
+        'Linka stalowa przenosi wyłącznie ciężar własny. Przyjmujemy ciężar objętościowy stali γ = 77 kN/m³ i dopuszczalne naprężenie σ_dop = 120 MPa. Szukamy największej długości L, przy której naprężenie u góry nie przekroczy tej wartości. Pole przekroju nie jest potrzebne.',
+      caption: 'Linka obciążona równomiernie rozłożonym ciężarem własnym; długość L jest szukana.',
+      visual: 'axial',
+      focus: { metric: 'N' },
+      formula: '\\gamma=77\\ \\text{kN/m}^3,\\quad \\sigma_{\\text{dop}}=120\\ \\text{MPa},\\quad L=?',
+    },
+    {
+      title: 'Naprężenie rośnie ku górze',
+      narration:
+        'W przekroju odległym o x od swobodnego końca naprężenie wynosi σ(x) = γx. Rośnie ono liniowo od zera na swobodnym końcu do maksimum przy utwierdzeniu. Dzięki temu maksimum wystarczy sprawdzić u góry linki.',
+      caption: 'σ(x) = γx — największe naprężenie występuje u góry linki.',
+      visual: 'axial',
+      focus: { metric: 'σ' },
+      formula: '\\sigma(x)=\\gamma x,\\qquad \\sigma_{\\max}=\\gamma L',
+    },
+    {
+      title: 'Warunek wytrzymałości',
+      narration:
+        'U góry linki naprężenie nie może przekroczyć wartości dopuszczalnej. Warunek bezpieczeństwa ma więc postać γL ≤ σ_dop. Długość linki jest jedyną niewiadomą, bo pole przekroju skraca się we wzorze na naprężenie.',
+      caption: 'Naprężenie u góry nie może przekroczyć wartości dopuszczalnej.',
+      visual: 'axial',
+      focus: { metric: 'σ' },
+      formula: '\\sigma_{\\max}=\\gamma L\\le\\sigma_{\\text{dop}}',
+    },
+    {
+      title: 'Długość maksymalna',
+      narration:
+        'Przekształcamy warunek do postaci L_max = σ_dop / γ. Zamieniamy 120 MPa na 120 000 kN/m² i dzielimy przez 77 kN/m³. Otrzymujemy L_max ≈ 1558 m, czyli około 1,56 km.',
+      caption: 'L_max ≈ 1558 m; przy tej długości naprężenie u góry osiąga 120 MPa.',
+      visual: 'axial',
+      focus: { metric: 'σ' },
+      formula:
+        '120\\ \\text{MPa}=120\\,000\\ \\text{kN/m}^2,\\qquad L_{\\max}=\\frac{\\sigma_{\\text{dop}}}{\\gamma}=\\frac{120\\,000}{77}\\approx1558\\ \\text{m}',
+    },
+    {
+      title: 'Współczynnik bezpieczeństwa',
+      narration:
+        'Przy współczynniku bezpieczeństwa n = 2 dopuszczalne naprężenie wynosi 60 MPa. Długość graniczna maleje do 60 000 / 77 ≈ 779 m. Zapas bezpieczeństwa zmniejsza dopuszczalną długość o połowę.',
+      caption: 'Dla n = 2: σ_dop = 60 MPa, L_max ≈ 779 m.',
+      visual: 'axial',
+      focus: { metric: 'σ' },
+      formula:
+        '\\sigma_{\\text{dop}}=\\frac{120}{2}=60\\ \\text{MPa},\\qquad L_{\\max}=\\frac{60\\,000}{77}\\approx779\\ \\text{m}',
+    },
+    {
+      title: 'Wniosek',
+      narration:
+        'Ten przykład pokazuje, że ciężar własny może stać się głównym ograniczeniem, gdy element jest bardzo długi. W typowych konstrukcjach budowlanych zwykle nie decyduje o nośności, ale w kablach, linach i wysmukłych masztach trzeba go liczyć osobno.',
       caption: 'W długiej linie o nośności decyduje ciężar własny, nie obciążenie zewnętrzne.',
       visual: 'axial',
-      formula:
-        '\\gamma=77\\ \\text{kN/m}^3,\\quad \\sigma_{\\text{dop}}=120\\ \\text{MPa}\\qquad \\sigma_{\\max}=\\gamma L\\le\\sigma_{\\text{dop}}\\qquad L_{\\max}=\\frac{\\sigma_{\\text{dop}}}{\\gamma}=\\frac{120\\,000}{77}\\approx1558\\ \\text{m}\\qquad 120\\ \\text{MPa}=120\\,000\\ \\text{kPa}=120\\,000\\ \\text{kN/m}^2\\qquad \\sigma_{\\max}=77\\cdot1558\\approx120\\,000\\ \\text{kN/m}^2=120\\ \\text{MPa}\\qquad \\sigma_{\\text{dop}}=\\frac{120}{2}=60\\ \\text{MPa},\\qquad L_{\\max}=\\frac{60\\,000}{77}\\approx779\\ \\text{m}',
+      focus: { metric: 'σ' },
+      formula: '\\sigma_{\\max}=\\gamma L\\le\\sigma_{\\text{dop}}',
     },
   ],
 } satisfies SolutionData

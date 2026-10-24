@@ -56,7 +56,14 @@ export function SolutionStage({
             transition={{ duration: 0.35 }}
           >
             {Animation ? (
-              <Animation />
+              <Animation
+                scene={scene}
+                index={index}
+                playing={playing}
+                stepProgress={stepProgress}
+                sceneProgress={sceneProgress}
+                revealedMath={revealedMath}
+              />
             ) : solution.figure ? (
               <SolutionFigureView
                 figure={solution.figure}

@@ -11,13 +11,50 @@ export default {
   animation: EquilibriumExample2Animation,
   scenes: [
     {
-      title: 'Model, dane i obliczenia',
+      title: 'Model i dane',
       narration:
-        'Wspornik jest utwierdzony w ścianie w punkcie A i ma długość 2,4 m. Na swobodnym końcu B działa siła F = 10 kN, której składowa pozioma wynosi 6 kN w prawo, a pionowa 8 kN w dół. Siła pozioma działa w osi belki. W utwierdzeniu przyjmujemy A_x w prawo. Równowaga pozioma daje A_x + 6 = 0, czyli A_x = -6 kN. Minus oznacza, że rzeczywista reakcja działa w lewo. Równowaga pionowa: A_y − 8 = 0, więc A_y = 8 kN w górę. Siła 8 kN działa w odległości 2,4 m od A i obraca belkę zgodnie z ruchem wskazówek zegara, więc jej moment wynosi -8 · 2,4 = -19,2 kN·m. Reakcja momentowa równoważy moment od siły pionowej: M_A − 19,2 = 0, więc M_A = 19,2 kN·m. Kontrola momentów względem B daje -M_A + A_y · 2,4 = -19,2 + 19,2 = 0. Siła pozioma nie wnosi momentu względem B, bo działa wzdłuż osi belki.',
+        'Wspornik jest utwierdzony w ścianie w punkcie A i ma długość L = 2,4 m. Na swobodnym końcu B działa siła F = 10 kN. Jej składowa pozioma wynosi F_x = 6 kN w prawo, a pionowa F_y = 8 kN w dół. Siła pozioma działa w osi belki.',
+      caption: 'Wspornik z siłą F = 10 kN przyłożoną na końcu B.',
+      visual: 'beam',
+      focus: { metric: 'load' },
+      formula: 'L=2{,}4\\ \\text{m},\\quad F_x=6{,}0\\ \\text{kN},\\quad F_y=8{,}0\\ \\text{kN}',
+    },
+    {
+      title: 'Rozkład siły na składowe',
+      narration:
+        'Siłę F rozkładamy na składową poziomą F_x = 6 kN w prawo i pionową F_y = 8 kN w dół. Obie składowe działają w tym samym punkcie B co siła wypadkowa.',
+      caption: 'Składowe F_x i F_y zastępują siłę F w punkcie B.',
+      visual: 'beam',
+      focus: { metric: 'components' },
+      formula: 'F=\\sqrt{F_x^2+F_y^2}=\\sqrt{6^2+8^2}=10\\ \\text{kN}',
+    },
+    {
+      title: 'Reakcje w utwierdzeniu',
+      narration:
+        'W utwierdzeniu A przyjmujemy A_x w prawo, A_y w górę i M_A przeciwnie do ruchu wskazówek zegara. Równowaga pozioma daje A_x + 6 = 0, czyli A_x = −6 kN (w lewo), a pionowa A_y − 8 = 0, czyli A_y = 8 kN w górę.',
+      caption: 'A_x działa w lewo, A_y w górę, a M_A przeciwnie do ruchu wskazówek zegara.',
+      visual: 'beam',
+      focus: { metric: 'reaction' },
+      formula:
+        'A_x+F_x=0 \\quad\\Rightarrow\\quad A_x=-6{,}0\\ \\text{kN},\\qquad A_y-F_y=0 \\quad\\Rightarrow\\quad A_y=8{,}0\\ \\text{kN}',
+    },
+    {
+      title: 'Moment utwierdzenia',
+      narration:
+        'Siła pionowa F_y działa na ramieniu L = 2,4 m i daje moment −8 · 2,4 = −19,2 kN·m względem A. Reakcja momentowa M_A równoważy ten moment: M_A = 19,2 kN·m.',
+      caption: 'M_A = F_y · L = 19,2 kN·m.',
+      visual: 'beam',
+      focus: { metric: 'moment' },
+      formula: 'M_A-F_y\\cdot L=0 \\quad\\Rightarrow\\quad M_A=8\\cdot2{,}4=19{,}2\\ \\text{kN·m}',
+    },
+    {
+      title: 'Kontrola względem B',
+      narration:
+        'Kontrola momentów względem B: −M_A + A_y · 2,4 = −19,2 + 19,2 = 0. Siła pozioma nie wnosi momentu względem B, bo działa wzdłuż osi belki.',
       caption: 'Bilans momentów względem B potwierdza reakcje.',
       visual: 'beam',
-      formula:
-        'L=2{,}4\\ \\text{m},\\quad F_x=6\\ \\text{kN},\\quad F_y=8\\ \\text{kN}\\qquad A_x+6=0 \\quad\\Rightarrow\\quad A_x=-6\\ \\text{kN}\\qquad A_y-8=0 \\quad\\Rightarrow\\quad A_y=8\\ \\text{kN}\\qquad -8\\cdot 2{,}4=-19{,}2\\ \\text{kN·m}\\qquad M_A-19{,}2=0 \\quad\\Rightarrow\\quad M_A=19{,}2\\ \\text{kN·m}\\qquad -M_A+A_y\\cdot 2{,}4=-19{,}2+19{,}2=0',
+      focus: { metric: 'check' },
+      formula: '-M_A+A_y\\cdot2{,}4=-19{,}2+19{,}2=0,\\qquad A_x+F_x=-6{,}0+6{,}0=0',
     },
   ],
 } satisfies SolutionData

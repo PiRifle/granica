@@ -147,6 +147,15 @@ export interface RosetteFigure {
 
 export type SolutionFigure = AxialFigure | BeamFigure | SectionFigure | CubeFigure | RosetteFigure
 
+export interface SolutionAnimationProps {
+  scene: SolutionScene
+  index: number
+  playing: boolean
+  stepProgress: number
+  sceneProgress: number
+  revealedMath: string
+}
+
 export interface WorkedSolution {
   id: string
   title: string
@@ -155,7 +164,7 @@ export interface WorkedSolution {
   result: string
   scenes: SolutionScene[]
   figure?: SolutionFigure
-  animation?: ComponentType
+  animation?: ComponentType<SolutionAnimationProps>
 }
 
 export interface CourseSolution extends WorkedSolution {
