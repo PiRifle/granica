@@ -1,7 +1,124 @@
-Przy czystym zginaniu każdy przekrój rozpatrywanego odcinka ma ten sam moment zginający. Nie ma zmiany momentu, więc nie ma siły tnącej — przekrój zgina się, ale nie jest ścinany siłą poprzeczną.
+---
+id: bending-pure
+moduleId: bending
+number: 5
+title: Czyste zginanie
+shortTitle: Czyste zginanie
+description: >-
+  Wydziel przypadek, w którym przekrój przenosi moment, ale nie przenosi siły
+  tnącej.
+duration: 9
+eyebrow: Moment bez ścinania
+outcomes:
+  - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
+  - >-
+    W2 — rozróżnia przypadki obciążenia oraz czyste zginanie i zginanie z
+    udziałem siły tnącej
+  - W3 — wyjaśnia wpływ geometrii przekroju na rozkład naprężeń i ugięcie
+  - 'U1 — oblicza reakcje, funkcje T(x) i M(x) oraz naprężenia zginające'
+  - >-
+    U2 — wykorzystuje koło Mohra do analizy stanu naprężenia w zginanym
+    elemencie
+  - >-
+    U3 — dobiera przekrój belki z warunków bezpieczeństwa, wytrzymałości i
+    sztywności
+---
 
-<Formula />
+W czystym zginaniu moment zginający na rozpatrywanym odcinku jest stały. Skoro M się nie zmienia, siła tnąca T = dM/dx jest równa zeru. Przekrój przenosi moment, ale nie siłę poprzeczną.
 
-<Insight />
+<Lab id="bending" />
 
-<WorkedExample />
+<Formula>
+$$
+M(x) = M_0 \neq 0 \qquad T(x) = \frac{dM}{dx} = 0
+$$
+
+<Caption>Czyste zginanie oznacza T = 0 na całym odcinku. Występuje np. między dwiema równymi siłami w czteropunktowym układzie obciążenia; belka ma tam stałą krzywiznę.</Caption>
+</Formula>
+
+<Insight>
+Brak siły tnącej nie oznacza braku naprężeń. Moment nadal wywołuje naprężenia normalne: rozciąganie po jednej stronie osi obojętnej i ściskanie po drugiej.
+</Insight>
+
+<WorkedExample>
+<Given>
+Na odcinku czystego zginania M = 12 kN·m. Przekrój ma wskaźnik wytrzymałości W = 300 cm³.
+</Given>
+<Steps>
+<Step>
+Warunek czystego zginania oznacza T = dM/dx = 0 na całym odcinku.
+</Step>
+<Step>
+Zamień M = 12 kN·m = 12 000 000 N·mm oraz W = 300 cm³ = 300 000 mm³.
+</Step>
+<Step>
+Naprężenia skrajne: σmax = M/W = 12 000 000/300 000 = 40 MPa.
+</Step>
+</Steps>
+<Result>
+T = 0, a skrajne włókna mają naprężenia +40 MPa i −40 MPa po przeciwnych stronach osi obojętnej.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W2">
+<Prompt>
+Która para warunków opisuje czyste zginanie na odcinku belki?
+</Prompt>
+<Answer correct>
+M jest stałe i niezerowe, T = 0
+</Answer>
+<Answer>
+M = 0, T jest stałe i niezerowe
+</Answer>
+<Answer>
+M rośnie liniowo, T jest stałe i niezerowe
+</Answer>
+<Hint>
+Skorzystaj z zależności T = dM/dx.
+</Hint>
+<Explanation>
+Stały niezerowy moment ma zerową pochodną, więc T = 0. To właśnie czyste zginanie. Stałe niezerowe T powodowałoby liniową zmianę M.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+Czy przy czystym zginaniu naprężenia normalne w przekroju znikają?
+</Prompt>
+<Answer correct>
+Nie, nadal wynikają z M i zmieniają znak względem osi obojętnej
+</Answer>
+<Answer>
+Tak, bo T = 0 oznacza brak wszystkich naprężeń
+</Answer>
+<Answer>
+Tak, ale tylko w stali
+</Answer>
+<Hint>
+Rozróżnij naprężenia normalne od momentu i styczne od siły tnącej.
+</Hint>
+<Explanation>
+Moment zginający wytwarza σ = My/I niezależnie od tego, że T = 0. Znikają naprężenia styczne związane z siłą tnącą, a nie naprężenia normalne od zginania.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+W teście zginania czteropunktowego między dwiema równymi siłami moment jest stały. Jaki jest tam wykres T?
+</Prompt>
+<Answer correct>
+Zerowy
+</Answer>
+<Answer>
+Liniowo rosnący
+</Answer>
+<Answer>
+Paraboliczny
+</Answer>
+<Hint>
+Między siłami nie ma q, a stały M ma zerową pochodną.
+</Hint>
+<Explanation>
+Ponieważ dM/dx = T, stały moment wymusza T = 0. Odcinek między siłami jest klasycznym przykładem czystego zginania.
+</Explanation>
+</Question>
+</Quiz>

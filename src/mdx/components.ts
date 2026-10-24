@@ -1,14 +1,26 @@
 import type { MDXComponents } from 'mdx/types.js'
 import { Callout } from './Callout'
+import { Caption, Formula } from './Formula'
 import { Insight } from './Insight'
-import { LabEmbed } from './LabEmbed'
-import { LessonFormula } from './LessonFormula'
-import { WorkedExample } from './WorkedExample'
+import { Lab } from './LabEmbed'
+import { Answer, Explanation, Hint, Prompt, Question, Quiz } from './Quiz'
+import { Given, Result, Step, Steps, WorkedExample } from './WorkedExample'
 
 export const mdxComponents = {
-  Formula: LessonFormula,
-  Insight,
-  WorkedExample,
+  Formula,
+  Caption,
   Callout,
-  Lab: LabEmbed,
+  Insight,
+  Lab,
+  WorkedExample,
+  Given,
+  Steps,
+  Step,
+  Result,
+  Quiz,
+  Question,
+  Prompt,
+  Answer,
+  Hint,
+  Explanation,
 } satisfies MDXComponents

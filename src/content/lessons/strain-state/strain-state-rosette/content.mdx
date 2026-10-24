@@ -1,7 +1,130 @@
-Trzy tensometry sklejone pod różnymi kątami patrzą na ten sam punkt z trzech stron. Ich odczyty pozwalają odtworzyć pełny płaski stan: dwa wydłużenia i jedno zniekształcenie kątowe.
+---
+id: strain-state-rosette
+moduleId: strain-state
+number: 6
+title: 'Rozeta 0°/45°/90°: trzy odczyty, pełny obraz'
+shortTitle: Rozeta tensometryczna
+description: >-
+  Wyznacz εx, εy i γxy z trzech kierunków, a następnie oblicz odkształcenia
+  główne i maksymalne ścinanie.
+duration: 9
+eyebrow: Trzy kierunki wystarczą
+outcomes:
+  - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
+  - >-
+    W2 — rozpoznaje sprężyste przypadki wytrzymałościowe z udziałem efektu
+    Poissona
+  - >-
+    W3 — wiąże geometrię, zmianę objętości i położenie czujników z mierzonymi
+    wielkościami
+  - >-
+    U1 — oblicza odkształcenia z uogólnionego prawa Hooke’a i danych
+    tensometrycznych
+  - U2 — przekształca pomiary rozety w koło Mohra odkształceń i wielkości główne
+  - >-
+    U3 — dobiera parametry materiałowe i geometryczne z uwagi na bezpieczeństwo
+    oraz sztywność
+solutionId: cw7-2
+---
 
-<Formula />
+Trzy tensometry przyklejone pod różnymi kątami mierzą odkształcenia w tym samym punkcie. Ich odczyty pozwalają odtworzyć pełny płaski stan odkształcenia: dwa odkształcenia liniowe i jedno postaciowe.
 
-<Insight />
+<Lab id="rosette" />
 
-<WorkedExample />
+<Formula>
+$$
+\varepsilon_\theta=\varepsilon_{avg}+a\cos2\theta+\frac{\gamma_{xy}}{2}\sin2\theta,\quad \varepsilon_{avg}=\frac{\varepsilon_x+\varepsilon_y}{2},\quad a=\frac{\varepsilon_x-\varepsilon_y}{2},\quad \gamma_{xy}=2\varepsilon_{45}-\varepsilon_0-\varepsilon_{90}
+$$
+
+<Caption>Dla rozety 0°/45°/90° przyjmuje się εx = ε0 oraz εy = ε90. Następnie ε1,2 = (εx+εy)/2 ± √&#123;[(εx−εy)/2]² + (γxy/2)²&#125;, a inżynierskie γmax(xy) = 2Rε, gdzie Rε jest promieniem koła odkształceń.</Caption>
+</Formula>
+
+<Insight>
+Koło odkształceń rysuje się w osiach (ε, γ/2), nie (ε, γ). Odczyt 45° zawiera informację o ścinaniu; bez niego nie można jednoznacznie wyznaczyć γxy.
+</Insight>
+
+<WorkedExample>
+<Given>
+Odczyty rozety: ε0 = 800 µε, ε45 = 500 µε, ε90 = 200 µε.
+</Given>
+<Steps>
+<Step>
+εx = 800 µε i εy = 200 µε.
+</Step>
+<Step>
+γxy = 2·500 − 800 − 200 = 0 µrad.
+</Step>
+<Step>
+Średnia εavg = (800 + 200)/2 = 500 µε.
+</Step>
+<Step>
+Rε = √&#123;[(800 − 200)/2]² + 0²&#125; = 300 µε.
+</Step>
+</Steps>
+<Result>
+ε1 = 800 µε, ε2 = 200 µε i γmax(xy) = 600 µrad. Zerowa wartość γxy oznacza, że osie x i y są już kierunkami głównymi w tym pomiarze.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U2">
+<Prompt>
+Rozeta dała ε0 = 600 µε, ε45 = 300 µε, ε90 = −200 µε. Ile wynosi γxy?
+</Prompt>
+<Answer correct>
+200 µrad
+</Answer>
+<Answer>
+400 µrad
+</Answer>
+<Answer>
+1000 µrad
+</Answer>
+<Hint>
+Użyj 2ε45 − ε0 − ε90 i zachowaj znaki.
+</Hint>
+<Explanation>
+γxy = 2·300 − 600 − (−200) = 200 µrad. Wszystkie odczyty są w µε, więc wynik wychodzi bezpośrednio w mikroradianach.
+</Explanation>
+</Question>
+<Question outcome="U2">
+<Prompt>
+Dla εx = 500 µε, εy = 100 µε i γxy = 600 µrad ile wynoszą odkształcenia główne?
+</Prompt>
+<Answer correct>
+Około 661 µε i −61 µε
+</Answer>
+<Answer>
+800 µε i −200 µε
+</Answer>
+<Answer>
+600 µε i 200 µε
+</Answer>
+<Hint>
+Średnia to 300 µε, a do promienia wstaw γxy/2 = 300 µε.
+</Hint>
+<Explanation>
+Rε = √(200² + 300²) = 360,555 µε. Zatem ε1 ≈ 660,56 µε i ε2 ≈ −60,56 µε, czyli po zaokrągleniu 661 µε i −61 µε.
+</Explanation>
+</Question>
+<Question outcome="U2">
+<Prompt>
+W jakich osiach należy narysować koło Mohra dla odkształceń przy inżynierskim γxy?
+</Prompt>
+<Answer correct>
+(ε, γ/2)
+</Answer>
+<Answer>
+(ε, γ)
+</Answer>
+<Answer>
+(σ, τ)
+</Answer>
+<Hint>
+Transformacja odkształceń ma tę samą postać co naprężeń po zastąpieniu τ przez γ/2.
+</Hint>
+<Explanation>
+Na osi poziomej jest ε, a na pionowej γ/2. Użycie γ bez podzielenia przez dwa podwoiłoby promień i zaburzyłoby interpretację kątów.
+</Explanation>
+</Question>
+</Quiz>

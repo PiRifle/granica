@@ -1,7 +1,122 @@
-Podczas skręcania przekroje wału obracają się względem siebie. Punkty blisko osi przesuwają się mało, a przy powierzchni najbardziej — dlatego tam naprężenie styczne osiąga maksimum.
+---
+id: shear-solid-torsion
+moduleId: shear
+number: 4
+title: Skręcanie wału pełnego
+shortTitle: Wał pełny
+description: >-
+  Prześledź liniowy rozkład naprężeń od osi do powierzchni i oblicz τmax dla
+  okrągłego wału.
+duration: 9
+eyebrow: 'Najdalej od osi, największe τ'
+outcomes:
+  - >-
+    W1 — analizuje elementy ścinane i skręcane oraz wskazuje przekroje
+    przenoszące obciążenie
+  - W2 — rozróżnia przypadki ścinania technicznego i swobodnego skręcania
+  - W3 — wyjaśnia wpływ geometrii przekroju na naprężenia i sztywność
+  - 'U1 — oblicza naprężenia styczne, kąt skręcenia i siły w przekrojach'
+  - U2 — wykorzystuje koło Mohra do opisu czystego ścinania
+  - >-
+    U3 — dobiera średnicę wału z warunków wytrzymałości i sztywności z
+    zachowaniem bezpieczeństwa
+---
 
-<Formula />
+Podczas skręcania przekroje wału obracają się względem siebie. Punkty blisko osi przesuwają się nieznacznie, a przy powierzchni najbardziej — dlatego naprężenie styczne rośnie liniowo od zera w osi do maksimum na obwodzie.
 
-<Insight />
+<Lab id="torsion" />
 
-<WorkedExample />
+<Formula>
+$$
+\tau(r) = \frac{T r}{J_o} \qquad J_o = \frac{\pi d^4}{32} \qquad \tau_{\max} = \frac{16T}{\pi d^3}
+$$
+
+<Caption>T to moment skręcający w N·mm, r i d podajemy w mm, a J_o w mm⁴. Naprężenie otrzymasz w MPa. Wskaźnik wytrzymałości na skręcanie wynosi W_o = J_o/(d/2) = πd³/16.</Caption>
+</Formula>
+
+<Insight>
+Maksymalne naprężenie jest odwrotnie proporcjonalne do d³, a sztywność na skręcanie GJ_o rośnie z d⁴. Dlatego średnica znacznie silniej wpływa na kąt skręcenia niż na samo naprężenie.
+</Insight>
+
+<WorkedExample>
+<Given>
+Pełny wał o średnicy d = 50 mm przenosi moment T = 2 kN·m.
+</Given>
+<Steps>
+<Step>
+Zamień moment: T = 2 kN·m = 2 000 000 N·mm.
+</Step>
+<Step>
+Wskaźnik wytrzymałości na skręcanie: W_o = πd³/16 = π·50³/16 = 24 543,7 mm³.
+</Step>
+<Step>
+Oblicz τmax = T/W_o = 2 000 000/24 543,7 = 81,49 MPa.
+</Step>
+</Steps>
+<Result>
+τmax ≈ 81,5 MPa na powierzchni wału; w osi naprężenie styczne wynosi zero.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W2">
+<Prompt>
+Jak zmienia się naprężenie styczne wzdłuż promienia pełnego, sprężyście skręcanego wału?
+</Prompt>
+<Answer correct>
+Rośnie liniowo od zera w osi do maksimum na powierzchni
+</Answer>
+<Answer>
+Jest stałe w całym przekroju
+</Answer>
+<Answer>
+Jest największe w osi i maleje ku powierzchni
+</Answer>
+<Hint>
+We wzorze τ(r) = Tr/J_o promień r jest w liczniku.
+</Hint>
+<Explanation>
+Przy stałych T i J_o naprężenie jest wprost proporcjonalne do r. Dlatego τ(0) = 0, a maksimum występuje dla r = d/2.
+</Explanation>
+</Question>
+<Question outcome="W3">
+<Prompt>
+Średnica wału pełnego wzrasta dwukrotnie przy niezmienionym momencie T. Jak zmieni się τmax?
+</Prompt>
+<Answer>
+Spadnie 2 razy
+</Answer>
+<Answer correct>
+Spadnie 8 razy
+</Answer>
+<Answer>
+Spadnie 16 razy
+</Answer>
+<Hint>
+W τmax = 16T/(πd³) średnica jest w trzeciej potędze.
+</Hint>
+<Explanation>
+Po podstawieniu 2d mianownik rośnie (2d)³/d³ = 8 razy. Maksymalne naprężenie spada więc ośmiokrotnie.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Wał o średnicy d = 40 mm przenosi T = 0,628 kN·m. Jakie jest w przybliżeniu τmax?
+</Prompt>
+<Answer>
+25 MPa
+</Answer>
+<Answer correct>
+50 MPa
+</Answer>
+<Answer>
+100 MPa
+</Answer>
+<Hint>
+Użyj T = 628 000 N·mm i τmax = 16T/(πd³).
+</Hint>
+<Explanation>
+τmax = 16·628 000/(π·40³) ≈ 50 MPa. Moment w kN·m trzeba najpierw zamienić na N·mm.
+</Explanation>
+</Question>
+</Quiz>

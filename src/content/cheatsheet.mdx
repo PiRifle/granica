@@ -1,0 +1,883 @@
+# Ściąga
+
+Wszystkie najważniejsze wzory i wnioski kursu.
+
+## Fundamenty wytrzymałości materiałów
+
+Od jednostek i modelu rzeczywistego elementu do reakcji, równowagi oraz sił wewnętrznych wyznaczanych metodą przekrojów.
+
+### Jednostki SI
+
+<Formula>
+$$
+1\,\mathrm{kN}=10^3\,\mathrm{N},\qquad 1\,\mathrm{MPa}=1\,\mathrm{N/mm^2}=10^6\,\mathrm{Pa}
+$$
+
+<Caption>W obliczeniach prętów wygodnie używać N i mm: naprężenie wyjdzie wprost w MPa. Nie wolno mieszać kN z N bez przeliczenia.</Caption>
+</Formula>
+
+Analiza jednostek wychwytuje wiele błędów: jeśli po skróceniu N/mm zamiast N/mm², wynik nie jest naprężeniem, nawet gdy liczba wygląda sensownie.
+
+### Modele
+
+<Formula>
+$$
+P=\int_0^L q(x)\,\mathrm{d}x,\qquad x_P=\frac{\int_0^L xq(x)\,\mathrm{d}x}{P}
+$$
+
+<Caption>Obciążenie rozłożone q(x) można zastąpić wypadkową P przyłożoną w jego środku ciężkości. Ta równoważność dotyczy reakcji całego ciała, nie zawsze lokalnych naprężeń.</Caption>
+</Formula>
+
+Model ciała sztywnego wystarcza do wyznaczenia reakcji statycznie wyznaczalnych, ale do obliczenia odkształceń trzeba uwzględnić podatność materiału.
+
+### Obciążenia
+
+<Formula>
+$$
+q_g=\rho g A,\qquad G=q_g L=\rho g A L
+$$
+
+<Caption>ρ to gęstość materiału, g ≈ 9,81 m/s², A to pole przekroju, a qg jest ciężarem na jednostkę długości w N/m.</Caption>
+</Formula>
+
+Ta sama wartość liczbowa może oznaczać co innego: 10 kN to siła, 10 kN/m to obciążenie liniowe, a 10 kN·m to moment. Jednostka ujawnia charakter obciążenia.
+
+### Podpory
+
+<Formula>
+$$
+\text{podpora przesuwna: }1R,\qquad \text{przegub: }2R,\qquad \text{utwierdzenie: }2R+M
+$$
+
+<Caption>Zapis dotyczy zadania płaskiego. R oznacza składową reakcji siłowej, a M reakcję momentową. Kierunek reakcji przesuwnej jest prostopadły do powierzchni toczenia.</Caption>
+</Formula>
+
+Przegub nie oznacza braku reakcji — pozwala na obrót, ale nadal przenosi siły. Utwierdzenie jako jedyne z tych trzech schematów przenosi moment.
+
+### Równowaga
+
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0,\qquad \sum M_A=0
+$$
+
+<Caption>Dla płaskiego, statycznie wyznaczalnego ciała trzy niezależne równania pozwalają wyznaczyć trzy niewiadome reakcje. Punkt A do sumy momentów można wybrać dowolnie.</Caption>
+</Formula>
+
+Sumę momentów warto pisać względem punktu, przez który przechodzi linia działania niewiadomej siły — jej moment wtedy znika, a równanie staje się prostsze.
+
+### Metoda przekrojów
+
+<Formula>
+$$
+N:\ \text{działa wzdłuż osi},\qquad V:\ \text{prostopadle do osi},\qquad M:\ \text{obrót przekroju}
+$$
+
+<Caption>W zadaniu płaskim N to siła osiowa, V siła poprzeczna (tnąca), a M moment zginający. Ich wartości w przekroju wyznacza się z równowagi jednej z odciętych części.</Caption>
+</Formula>
+
+Możesz wybrać lewą albo prawą część — poprawny wynik będzie ten sam. Na dwóch stronach cięcia siły wewnętrzne mają przeciwne zwroty zgodnie z zasadą akcji i reakcji.
+
+### Saint-Venant
+
+<Formula>
+$$
+\sigma_{\mathrm{sr}}=\frac{N}{A}\quad\text{z dala od strefy przyłożenia obciążenia}
+$$
+
+<Caption>Zasada Saint-Venanta nie podaje jednej uniwersalnej odległości dla każdego detalu. Blisko karbów, otworów i mocowań trzeba osobno analizować koncentrację naprężeń.</Caption>
+</Formula>
+
+Równość wypadkowych sił i momentów nie oznacza identycznych naprężeń wszędzie. Upraszczając obciążenie, akceptujemy różnice lokalne, ale musimy wiedzieć, gdzie model przestaje wystarczać.
+
+## Rozciąganie i ściskanie
+
+Od siły osiowej i naprężenia do wykresów N, odkształceń prętów schodkowych oraz warunków wytrzymałości i sztywności.
+
+### Naprężenie σ
+
+<Formula>
+$$
+\sigma=\frac{N}{A},\qquad N>0:\ \text{rozciąganie},\qquad N<0:\ \text{ściskanie}
+$$
+
+<Caption>Wzór opisuje średnie naprężenie przy osiowym obciążeniu i równomiernym rozkładzie. Przy N w N i A w mm² wynik otrzymujemy w MPa.</Caption>
+</Formula>
+
+Znak naprężenia ma znaczenie fizyczne: dodatnie σ wydłuża włókna, ujemne je skraca. Duże ściskanie smukłego pręta może dodatkowo wymagać sprawdzenia wyboczenia.
+
+### Wykresy N
+
+<Formula>
+$$
+N(x)=-\sum F_{x,\,\mathrm{jedna\ strona}},\qquad \Delta N=-P\ \text{przy konwencji osi x}
+$$
+
+<Caption>Najpewniej wyznaczać N osobno z równowagi wybranej części, zamiast uczyć się reguły skoku bez rysunku. Znak dodatni oznacza rozciąganie.</Caption>
+</Formula>
+
+Reakcja w utwierdzeniu odpowiada sile osiowej na pierwszym odcinku, ale wykres trzeba budować przekrój po przekroju — jedna wartość N nie musi opisywać całego pręta.
+
+### Pręty schodkowe
+
+<Formula>
+$$
+\sigma_i=\frac{N_i}{A_i},\qquad |\sigma|_{\max}=\max_i\left|\frac{N_i}{A_i}\right|
+$$
+
+<Caption>Każdy odcinek ma własne Ni i Ai. Przy nagłej zmianie średnicy rzeczywiste maksimum lokalne zależy także od karbu; N/A daje wartość nominalną.</Caption>
+</Formula>
+
+Nie wystarczy znaleźć maksymalne |N| dla całego pręta. Decyduje największa wartość ilorazu |Ni|/Ai, dlatego trzeba sprawdzić wszystkie odcinki.
+
+### Prawo Hooke’a
+
+<Formula>
+$$
+\sigma=E\varepsilon,\qquad \varepsilon=\frac{\Delta L}{L}
+$$
+
+<Caption>E ma jednostkę naprężenia, np. GPa lub MPa. Dla stali często E ≈ 200 GPa = 200 000 MPa. Prawo Hooke’a nie obowiązuje przy dowolnie dużych odkształceniach.</Caption>
+</Formula>
+
+Duża wytrzymałość nie oznacza automatycznie dużego E. Wytrzymałość mówi o granicy bezpiecznego obciążenia, a moduł Younga o sztywności sprężystej.
+
+### Wydłużenia
+
+<Formula>
+$$
+\Delta L=\sum_i\frac{N_iL_i}{E_iA_i},\qquad EA:\ \text{sztywność osiowa przekroju}
+$$
+
+<Caption>Dodatnie ΔL oznacza wydłużenie, a ujemne skrócenie. Wzór sumuje odcinki, na których N, E i A są stałe, w zakresie liniowo sprężystym.</Caption>
+</Formula>
+
+Największe naprężenie i największy udział we wydłużeniu nie zawsze dotyczą tego samego odcinka: ΔLi zależy również od Li. Dlatego warunek wytrzymałości i sztywności sprawdzamy osobno.
+
+### Wytrzymałość
+
+<Formula>
+$$
+|\sigma|_{\max}\leq \sigma_{\mathrm{dop}}=\frac{\sigma_{\mathrm{lim}}}{n},\qquad A_{\min}=\frac{|N|}{\sigma_{\mathrm{dop}}}
+$$
+
+<Caption>σlim i sposób wyznaczenia naprężenia dopuszczalnego zależą od materiału oraz przyjętej normy lub kryterium. n &gt; 1 jest wymaganym współczynnikiem bezpieczeństwa.</Caption>
+</Formula>
+
+Po doborze trzeba sprawdzić rzeczywiście przyjęty przekrój, nie tylko Amin. Zaokrąglenie wymiaru w dół może zwiększyć naprężenie ponad wartość dopuszczalną.
+
+### Sztywność
+
+<Formula>
+$$
+|\Delta L|\leq \Delta L_{\mathrm{dop}},\qquad A_{\min,\Delta}=\frac{|N|L}{E\Delta L_{\mathrm{dop}}}
+$$
+
+<Caption>Drugi wzór dotyczy jednorodnego pręta o stałych N, E i A. Ostatecznie przyjmujemy pole spełniające zarówno wymagania wytrzymałości, jak i sztywności.</Caption>
+</Formula>
+
+Jeśli Amin z warunku sztywności jest większe niż Amin z wytrzymałości, sztywność decyduje o doborze. Większe E zmniejsza wydłużenie, ale nie podnosi automatycznie wytrzymałości materiału.
+
+## Materiał pod obciążeniem
+
+Od próby rozciągania do doboru materiału: granice wytrzymałości, odkształcenia, ciężar własny, temperatura i bezpieczeństwo.
+
+### Próby materiałowe
+
+<Formula>
+$$
+\sigma = \frac{N}{A}, \qquad \varepsilon = \frac{\Delta L}{L_0}
+$$
+
+<Caption>σ to naprężenie normalne, N — siła osiowa, A — pole przekroju, ε — odkształcenie względne, a L₀ — początkowa długość pomiarowa. Przy ściskaniu przyjmujemy zwykle ujemne N i ΔL.</Caption>
+</Formula>
+
+Naprężenie mówi, jak mocno obciążony jest materiał, a odkształcenie — jak bardzo się wydłużył w stosunku do początkowej długości. To dwa różne opisy i nie wolno ich ze sobą mieszać.
+
+### Granice materiału
+
+<Formula>
+$$
+R_e = \frac{F_e}{S_0}, \qquad R_m = \frac{F_m}{S_0}
+$$
+
+<Caption>Fₑ to siła odpowiadająca granicy plastyczności, Fₘ — największa siła w próbie, a S₀ — początkowe pole przekroju. Rₑ i Rₘ są granicami materiału wyrażonymi jako naprężenia.</Caption>
+</Formula>
+
+Przekroczenie Rₑ oznacza trwałe odkształcenie, a osiągnięcie Rₘ — maksymalną siłę, jaką próbka przeniesie. W typowych konstrukcjach stalowych dopuszczalny stan odnosi się przede wszystkim do Rₑ, nie do zerwania.
+
+### Sprężystość
+
+<Formula>
+$$
+\sigma = E\varepsilon, \qquad \Delta L = \frac{NL}{EA}
+$$
+
+<Caption>E to moduł Younga, N — siła osiowa, L — długość, A — pole przekroju. Wzór na ΔL stosujemy przy stałych N, E i A na długości L oraz w zakresie liniowo sprężystym.</Caption>
+</Formula>
+
+Wytrzymałość odpowiada na pytanie „czy materiał wytrzyma?”, a sztywność — „czy odkształcenie nie będzie za duże?”. Element może być bezpieczny względem zerwania, lecz zbyt podatny w użytkowaniu.
+
+### Ciężar własny
+
+<Formula>
+$$
+G = \rho g A L, \qquad q = \rho g A, \qquad \sigma_{max} = \rho g L
+$$
+
+<Caption>ρ to gęstość, g — przyspieszenie ziemskie, A — pole przekroju, L — długość, a q — ciężar na jednostkę długości. Wzór σmax = ρgL dotyczy jednorodnego pionowego pręta wiszącego, w przekroju przy górnym utwierdzeniu.</Caption>
+</Formula>
+
+W pionowym pręcie wiszącym naprężenie od ciężaru własnego nie zależy od pola przekroju: zgrubienie zwiększa równolegle nośność i ciężar. Nadal jednak rośnie siła w podporze.
+
+### Efekt temperatury
+
+<Formula>
+$$
+\Delta L_T = \alpha \Delta T L, \qquad \sigma = -E\alpha\Delta T
+$$
+
+<Caption>α to współczynnik liniowej rozszerzalności cieplnej, ΔT — zmiana temperatury. Drugi wzór dotyczy jednorodnego pręta z całkowicie zablokowaną zmianą długości i liniową sprężystością; minus przy ogrzewaniu oznacza ściskanie.</Caption>
+</Formula>
+
+Swobodne odkształcenie termiczne nie musi oznaczać naprężenia. Naprężenie powstaje z ograniczenia odkształcenia, a nie z samej obecności temperatury.
+
+### Zapas bezpieczeństwa
+
+<Formula>
+$$
+\sigma_{dop} = \frac{R_{gr}}{n}, \quad n \ge 1; \qquad \sigma_{max} \le \sigma_{dop}
+$$
+
+<Caption>Rgr jest przyjętą granicą materiału, np. Rₑ dla stali plastycznej, a n — wymaganym współczynnikiem bezpieczeństwa. Konkretną granicę i n dobiera się według materiału, zagrożenia i zasad projektowania.</Caption>
+</Formula>
+
+Większe n oznacza mniejsze dopuszczalne naprężenie i większy wymagany przekrój przy tej samej sile. Nie należy przyjmować, że Rₘ jest zawsze właściwą granicą: dla plastycznej stali często decyduje Rₑ.
+
+### Dwa warunki doboru
+
+<Formula>
+$$
+A \ge \frac{N}{\sigma_{dop}} \qquad \text{oraz} \qquad A \ge \frac{NL}{E\,\Delta L_{dop}}
+$$
+
+<Caption>Pierwszy warunek ogranicza naprężenie, drugi — wydłużenie ΔLdop. Oba dotyczą pręta o stałym przekroju, stałej sile osiowej i liniowo sprężystego materiału; przyjmujemy pole spełniające oba.</Caption>
+</Formula>
+
+Warunek decydujący to ten, który wymaga większego pola. Zwiększenie E pomaga sztywności, ale nie podnosi automatycznie granicy plastyczności; stal o większej wytrzymałości nie musi mieć większego modułu Younga.
+
+## Geometria przekrojów
+
+Środek ciężkości, momenty statyczne i bezwładności, twierdzenie Steinera, osie centralne oraz wskaźniki wytrzymałości i racjonalne kształty.
+
+### Środek ciężkości
+
+<Formula>
+$$
+\bar{x} = \frac{1}{A}\int_A x\,dA, \qquad \bar{y} = \frac{1}{A}\int_A y\,dA
+$$
+
+<Caption>A to pole całej figury, a x i y — współrzędne elementu pola dA. Dla jednorodnej figury płaskiej położenie zależy od geometrii, nie od gęstości materiału.</Caption>
+</Formula>
+
+Symetria ułatwia zadanie, ale figura bez dwóch osi symetrii nadal ma środek ciężkości. Trójkąt ma środek w przecięciu środkowych, w odległości h/3 od podstawy.
+
+### Przekroje złożone
+
+<Formula>
+$$
+S_x = \sum A_i \bar{y}_i, \qquad S_y = \sum A_i \bar{x}_i, \qquad \bar{y} = \frac{S_x}{A}, \qquad \bar{x} = \frac{S_y}{A}
+$$
+
+<Caption>Aᵢ oraz x̄ᵢ, ȳᵢ to pole i środek i-tej części. Do Sₓ używamy odległości y od osi x, a do Sᵧ — odległości x od osi y. Otwór ma pole ujemne.</Caption>
+</Formula>
+
+Najczęstszy błąd to uśrednianie samych współrzędnych środków bez uwzględnienia pól. Środek figury złożonej jest średnią ważoną polami, a moment statyczny względem osi przechodzącej przez środek ciężkości wynosi zero.
+
+### Bezwładność
+
+<Formula>
+$$
+I_x = \int_A y^2\,dA; \qquad \text{prostokąt: } I_x = \frac{bh^3}{12}; \qquad \text{koło: } I = \frac{\pi d^4}{64}
+$$
+
+<Caption>Dla prostokąta b jest szerokością równoległą do osi x, a h — wysokością prostopadłą do niej; wzór dotyczy osi środkowej. Jednostką I jest mm⁴ lub m⁴. Dla pierścienia odejmujemy moment otworu.</Caption>
+</Formula>
+
+Nie wolno zastępować I iloczynem pola i zwykłej odległości: w definicji występuje kwadrat odległości. Zamiana b z h w prostokącie zmienia sztywność zginania, choć pole pozostaje takie samo.
+
+### Osie równoległe
+
+<Formula>
+$$
+I_x = I_{xc} + A a^2
+$$
+
+<Caption>Ixc dotyczy osi przechodzącej przez środek ciężkości danej figury i równoległej do osi x, A jest jej polem, a a — odległością między osiami. Przy odejmowaniu otworu odejmujemy cały wyraz Ixc + Aa².</Caption>
+</Formula>
+
+Steinera stosujemy zawsze od osi własnego środka ciężkości do osi równoległej, nie dowolnie między dwiema osiami zewnętrznymi. W figurze złożonej każda część ma własną odległość a od wspólnej osi centralnej.
+
+### Osie przekroju
+
+<Formula>
+$$
+S_{xc} = S_{yc} = 0; \qquad \text{w osiach głównych: } I_{xy} = 0
+$$
+
+<Caption>Osie centralne przechodzą przez środek ciężkości. Osie główne są osiami centralnymi o Ixy = 0; oś symetrii przekroju wraz z osią prostopadłą przechodzącą przez środek tworzą układ główny.</Caption>
+</Formula>
+
+Każda oś główna jest centralna, ale nie każda para osi centralnych jest główna. Dla przekroju niesymetrycznego kierunki główne mogą być obrócone względem krawędzi.
+
+### Wskaźnik W
+
+<Formula>
+$$
+W_x = \frac{I_x}{c_{max}}, \qquad \sigma_{max} = \frac{|M_x|}{W_x}
+$$
+
+<Caption>cmax to największa odległość od osi obojętnej do skrajnego włókna. Dla przekroju niesymetrycznego względem osi oblicza się W dla obu stron; mniejszy W odpowiada większemu bezwzględnemu naprężeniu przy tym samym M.</Caption>
+</Formula>
+
+Dwa przekroje o tym samym I mogą mieć różne W, jeżeli różnią się odległością do skrajnych włókien. Do warunku wytrzymałości potrzebujemy największej wartości |σ|, a nie tylko naprężenia w środku ciężkości.
+
+### Racjonalny przekrój
+
+<Formula>
+$$
+I = \int_A r^2\,dA, \qquad W = \frac{I}{c}; \qquad \text{efektywność oceniamy przez } I/A \text{ i } W/A
+$$
+
+<Caption>I/A i W/A są pomocnicznymi miarami porównawczymi, a nie uniwersalnymi wskaźnikami jakości. Ostateczny dobór zależy też od kierunku obciążenia, stateczności ścianek, połączeń, wykonania i warunków użytkowania.</Caption>
+</Formula>
+
+Dwuteownik jest racjonalny przy zginaniu w swojej mocnej płaszczyźnie, a cienkościenna rura dobrze wykorzystuje materiał przy skręcaniu. Nie istnieje jeden najlepszy kształt dla każdego obciążenia.
+
+## Ścinanie i skręcanie
+
+Od ścinanego sworznia do skręcanego wału: naprężenia styczne, odkształcenia oraz dobór przekroju pełnego i rurowego.
+
+### Ścinanie techniczne
+
+<Formula>
+$$
+\tau_{sr} = \frac{F}{A_s}
+$$
+
+<Caption>F to siła ścinająca, a A_s to łączne pole przekrojów ścinanych. Wynik w N/mm² jest równy MPa.</Caption>
+</Formula>
+
+Ścinanie techniczne zakłada równomierny rozkład naprężeń po polu ścinania. To użyteczne przybliżenie inżynierskie, a nie dokładny obraz naprężeń w każdym punkcie.
+
+### Jedno i dwa cięcia
+
+<Formula>
+$$
+\tau_{sr} = \frac{F}{n A} \qquad A = \frac{\pi d^2}{4}
+$$
+
+<Caption>n to liczba płaszczyzn ścinania: n = 1 dla połączenia jednociętego i n = 2 dla dwuciętego; d to średnica sworznia.</Caption>
+</Formula>
+
+Drugie cięcie zmniejsza średnie naprężenie o połowę przy tym samym sworzniu i tej samej sile. Samo dodanie płyty nie wystarcza — musi powstać druga płaszczyzna ścinania.
+
+### Naprężenia styczne
+
+<Formula>
+$$
+\tau = G\gamma \qquad \sigma_{1,2} = \pm\tau \quad \text{(czyste ścinanie)}
+$$
+
+<Caption>G to moduł Kirchhoffa w MPa, γ jest w radianach. W czystym ścinaniu naprężenia główne mają przeciwne znaki.</Caption>
+</Formula>
+
+W stanie czystego ścinania koło Mohra ma środek w zerze. Na płaszczyznach głównych nie ma ścinania, ale występują rozciąganie i ściskanie o wartości τ.
+
+### Wał pełny
+
+<Formula>
+$$
+\tau(r) = \frac{T r}{J_o} \qquad J_o = \frac{\pi d^4}{32} \qquad \tau_{max} = \frac{16T}{\pi d^3}
+$$
+
+<Caption>T to moment skręcający w N·mm, d i r w mm, J_o w mm⁴. Wartość τ otrzymasz w MPa.</Caption>
+</Formula>
+
+Naprężenie zależy od d³, ale moment bezwładności biegunowy od d⁴. To dwie różne zależności: pierwszą stosujesz do wytrzymałości, drugą m.in. do kąta skręcenia.
+
+### Wał rurowy
+
+<Formula>
+$$
+J_o = \frac{\pi(D^4-d^4)}{32} \qquad W_o = \frac{J_o}{D/2} = \frac{\pi(D^4-d^4)}{16D}
+$$
+
+<Caption>D to średnica zewnętrzna, d to średnica wewnętrzna. τmax = T/W_o występuje na zewnętrznym promieniu.</Caption>
+</Formula>
+
+Nie wolno liczyć J_o jako π(D−d)⁴/32. Odejmuje się czwarte potęgi średnic, ponieważ moment bezwładności zależy od rozmieszczenia pola względem osi.
+
+### Kąt skręcenia
+
+<Formula>
+$$
+\varphi = \frac{T L}{G J_o} \qquad \varphi_{deg} = \varphi \frac{180}{\pi}
+$$
+
+<Caption>φ w pierwszym wzorze wychodzi w radianach. L jest długością wału, a GJ_o nazywamy sztywnością na skręcanie.</Caption>
+</Formula>
+
+Kąt rośnie liniowo z T i L, a maleje z G i J_o. Ponieważ J_o zależy od d⁴, zwiększenie średnicy bardzo skutecznie ogranicza skręcanie.
+
+### Dobór wału
+
+<Formula>
+$$
+d \geq \sqrt[3]{\frac{16T}{\pi\tau_{dop}}} \qquad d \geq \sqrt[4]{\frac{32TL}{\pi G\varphi_{dop}}}
+$$
+
+<Caption>Wzory dotyczą wału pełnego. τdop powinno uwzględniać wymagane bezpieczeństwo, a φdop trzeba podstawić w radianach.</Caption>
+</Formula>
+
+Oblicz d osobno z obu warunków, wybierz większą średnicę, zaokrąglij ją w górę do dostępnego wymiaru i sprawdź ponownie naprężenie oraz kąt.
+
+## Zginanie belek
+
+Od reakcji podporowych przez wykresy T i M do naprężeń, osi obojętnej oraz doboru przekroju i kontroli ugięcia.
+
+### Belki i reakcje
+
+<Formula>
+$$
+\sum F_y = 0 \qquad \sum M_A = 0
+$$
+
+<Caption>Dla belki w płaszczyźnie potrzebny jest także warunek ΣF_x = 0. Zwroty reakcji przyjmij zgodnie z przyjętymi znakami.</Caption>
+</Formula>
+
+Reakcje zależą od położenia siły, nie tylko od jej wartości. Bliższa podpora przejmuje większą część obciążenia.
+
+### Siła tnąca
+
+<Formula>
+$$
+T(x) = R_A - \sum P_i - \int_0^x q(\xi)\,d\xi
+$$
+
+<Caption>Zapis dotyczy przyjętej konwencji dodatniego T i obciążeń pionowych działających w dół. Skok wykresu odpowiada sile skupionej.</Caption>
+</Formula>
+
+Siła skupiona powoduje skok T o wartość tej siły. Między siłami skupionymi i bez q wykres T jest stały.
+
+### Moment zginający
+
+<Formula>
+$$
+\frac{dM}{dx} = T \qquad M(x_2)-M(x_1) = \int_{x_1}^{x_2}T(x)\,dx
+$$
+
+<Caption>Przy dM/dx = T maksimum dodatniego M często występuje tam, gdzie T przechodzi przez zero, zmieniając znak z plusa na minus.</Caption>
+</Formula>
+
+Stała, dodatnia wartość T daje liniowo rosnący M. Zerowa wartość T oznacza poziome styczne wykresu M, ale nie zawsze sam moment równy zero.
+
+### Zależności q–T–M
+
+<Formula>
+$$
+\frac{dT}{dx} = -q \qquad \frac{dM}{dx} = T
+$$
+
+<Caption>Przyjmujemy q &gt; 0 dla obciążenia w dół oraz konwencję dodatniego M wyginającego belkę wypukłością w dół.</Caption>
+</Formula>
+
+Stałe q daje liniowe T i kwadratowe M. Gdy q = 0, T jest stałe, a M liniowe — to szybki test poprawności wykresów.
+
+### Czyste zginanie
+
+<Formula>
+$$
+M(x) = const \neq 0 \qquad T(x) = \frac{dM}{dx} = 0
+$$
+
+<Caption>Czyste zginanie oznacza T = 0 na rozpatrywanym odcinku. Może występować np. między dwiema równymi siłami w układzie czteropunktowym.</Caption>
+</Formula>
+
+Brak siły tnącej nie oznacza brak naprężeń. Nadal występują naprężenia normalne od momentu: rozciąganie po jednej stronie osi obojętnej i ściskanie po drugiej.
+
+### Naprężenia zginające
+
+<Formula>
+$$
+\sigma_x(y) = \frac{M y}{I_z} \qquad \sigma_{max} = \frac{M}{W_z}, \quad W_z = \frac{I_z}{c}
+$$
+
+<Caption>y jest odległością od osi obojętnej, c największą odległością do skrajnego włókna, a I_z momentem bezwładności względem osi zginania.</Caption>
+</Formula>
+
+Na osi obojętnej σ = 0, a największe co do wartości naprężenia występują najdalej od niej. Dla przekroju symetrycznego oś obojętna przechodzi przez środek ciężkości.
+
+### Dobór przekroju
+
+<Formula>
+$$
+W_z \geq \frac{M_{max}}{\sigma_{dop}} \qquad f_{max} = \frac{P L^3}{48EI} \leq f_{dop}
+$$
+
+<Caption>Wzór na f dotyczy belki swobodnie podpartej z siłą P na środku. σdop powinno uwzględniać bezpieczeństwo, a E i I należy podstawiać w zgodnych jednostkach.</Caption>
+</Formula>
+
+Warunek wytrzymałości wyznacza wymagane W, a sztywności wymagane I. Po wyborze przekroju sprawdź oba; większa wysokość zwykle bardzo skutecznie zwiększa I.
+
+## Stan naprężenia: od składowych do koła Mohra
+
+Zrozum, jak opisać obciążenie w punkcie, co zmienia obrót układu i jak znaleźć kierunki najważniejsze dla bezpieczeństwa konstrukcji.
+
+### Składowe tensora
+
+<Formula>
+$$
+\boldsymbol{\sigma}=\begin{bmatrix}\sigma_x&\tau_{xy}&\tau_{xz}\\\tau_{xy}&\sigma_y&\tau_{yz}\\\tau_{xz}&\tau_{yz}&\sigma_z\end{bmatrix}
+$$
+
+<Caption>σ opisuje działanie prostopadłe do ściany, a τ styczne. Dodatnie σ oznacza rozciąganie. Równość τxy = τyx i analogiczne pary wynika z równowagi momentów elementarnej kostki bez momentów objętościowych.</Caption>
+</Formula>
+
+Tensor zawiera sześć niezależnych składowych. Obrót układu współrzędnych zmienia ich wartości, ale nie zmienia fizycznego stanu obciążenia w punkcie.
+
+### Transformacja obrotu
+
+<Formula>
+$$
+\sigma_n=\sigma_{avg}+a\cos2\theta+\tau_{xy}\sin2\theta,\quad \tau_{nt}=-a\sin2\theta+\tau_{xy}\cos2\theta,\quad a=\frac{\sigma_x-\sigma_y}{2}
+$$
+
+<Caption>σavg = (σx + σy)/2, a θ to obrót osi n względem x. Przyjmujemy dodatni τxy na dodatniej ścianie x w stronę dodatniej osi y. Kąt pojawia się jako 2θ, dlatego obrót o 90° daje pełny cykl na kole Mohra.</Caption>
+</Formula>
+
+Suma σn + σt = σx + σy jest stała przy obrocie. Zmieniają się składowe, ale średnia i naprężenia główne pozostają niezmienne.
+
+### Naprężenia główne
+
+<Formula>
+$$
+\sigma_{1,2}=\sigma_{avg}\pm R,\qquad \sigma_{avg}=\frac{\sigma_x+\sigma_y}{2},\qquad R=\sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^2+\tau_{xy}^2}
+$$
+
+<Caption>W płaszczyźnie σ1 ≥ σ2. Przy stanie płaskim σz = 0 jest trzecim naprężeniem głównym; do uporządkowania przestrzennego trzeba porównać wszystkie trzy wartości, także zero.</Caption>
+</Formula>
+
+Średnia przesuwa środek możliwych wartości, a promień R mówi, jak daleko od niej sięgają naprężenia główne. Wzrost ścinania zwiększa R, nawet gdy naprężenia normalne się nie zmieniają.
+
+### Kierunki główne
+
+<Formula>
+$$
+\tan2\theta_p=\frac{2\tau_{xy}}{\sigma_x-\sigma_y},\qquad \theta_{p2}=\theta_{p1}+90^\circ
+$$
+
+<Caption>Kąt θp odpowiada przyjętej wcześniej transformacji. Ponieważ tangens powtarza się co 180°, równanie dla 2θ wymaga sprawdzenia znaku licznika i mianownika lub podstawienia kąta do wzoru na σn.</Caption>
+</Formula>
+
+Kierunki główne są wzajemnie prostopadłe. Gdy σx = σy i τxy = 0, każdy kierunek w płaszczyźnie jest główny — nie ma jednego wyróżnionego kąta.
+
+### τ maksymalne
+
+<Formula>
+$$
+\tau_{max}^{(xy)}=R=\frac{\sigma_1-\sigma_2}{2},\qquad \tau_{max}^{abs}=\frac{\sigma_{I}-\sigma_{III}}{2}
+$$
+
+<Caption>σI i σIII to odpowiednio największe i najmniejsze z trzech naprężeń głównych. Płaszczyzny maksymalnego ścinania są nachylone o 45° do odpowiednich kierunków głównych, a występuje na nich średnie naprężenie normalne.</Caption>
+</Formula>
+
+Jeżeli σ1 i σ2 mają ten sam znak, zero w kierunku z staje się jedną ze skrajnych wartości i τmax(abs) może być większe niż promień koła w płaszczyźnie xy.
+
+### Rysowanie koła
+
+<Formula>
+$$
+C=(\sigma_{avg},0),\qquad X=(\sigma_x,\tau_{xy}),\qquad Y=(\sigma_y,-\tau_{xy}),\qquad R=|CX|
+$$
+
+<Caption>Stosujemy konwencję wykresu zgodną z podaną transformacją: X ma rzędną +τxy, a Y −τxy. Dodatni fizyczny obrót θ odpowiada na tym wykresie obrotowi o 2θ zgodnie z ruchem wskazówek zegara.</Caption>
+</Formula>
+
+Najpierw zaznacz X i Y, potem środek jako środek odcinka XY, a na końcu okrąg. Przecięcia z osią σ dają naprężenia główne, górna i dolna krańcowa rzędna dają ±R.
+
+### Interpretacja i dobór
+
+<Formula>
+$$
+n_\sigma=\frac{R_e}{\sigma_{eq}},\qquad n_\tau=\frac{R_{e\tau}}{\tau_{max}},\qquad \sigma_{eq}\;\text{dobiera się do materiału}
+$$
+
+<Caption>Re to granica plastyczności, a Reτ granica przy ścinaniu. Dla materiałów ciągliwych często stosuje się hipotezę Hubera–von Misesa lub Treski; dla kruchych trzeba osobno uwzględnić rozciąganie i ściskanie. Nie wolno zastępować tych kryteriów samym σx.</Caption>
+</Formula>
+
+Zwiększenie przekroju może zmniejszyć wszystkie naprężenia, ale dodaje masę; zmiana kształtu lub trasy obciążenia bywa skuteczniejsza. Warunek wytrzymałości i warunek sztywności należy sprawdzać osobno.
+
+## Stan odkształcenia: pomiar, Hooke i rozeta
+
+Połącz zmiany długości i kątów z prawami materiału, odczytaj tensometry oraz przejdź od pomiaru rozety do naprężeń i decyzji projektowej.
+
+### ε i γ
+
+<Formula>
+$$
+\varepsilon_x=\frac{\Delta L_x}{L_{0x}},\qquad \gamma_{xy}=\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x},\qquad \varepsilon_{xy}=\frac{\gamma_{xy}}{2}
+$$
+
+<Caption>Dodatnie ε oznacza wydłużenie. γ jest odkształceniem inżynierskim w radianach; składowa tensorowa εxy jest połową γxy. Przy małych odkształceniach u i v oznaczają przemieszczenia w kierunkach x i y.</Caption>
+</Formula>
+
+Zapis 500 µε oznacza 500·10⁻⁶ = 0,0005, czyli 0,05%. Nie należy wstawiać do wzorów liczby 500 bez przeliczenia ani utożsamiać γxy z εxy.
+
+### Współczynnik Poissona
+
+<Formula>
+$$
+\nu=-\frac{\varepsilon_{poprz}}{\varepsilon_{osi}},\qquad \varepsilon_y=\varepsilon_z=-\nu\frac{\sigma_x}{E}\quad\text{dla jednoosiowego }\sigma_x
+$$
+
+<Caption>Dla typowego ν &gt; 0 dodatnie rozciąganie osiowe daje ujemne odkształcenia poprzeczne. Dla izotropowych materiałów liniowo-sprężystych zwykle 0 ≤ ν &lt; 0,5; istnieją też materiały auksetyczne o ν &lt; 0.</Caption>
+</Formula>
+
+Przy ν bliskim 0,5 materiał jest prawie nieściśliwy w zakresie małych odkształceń. Poprzeczne skurcze nie oznaczają same w sobie zniszczenia — są częścią sprężystej odpowiedzi materiału.
+
+### Prawo Hooke’a 3D
+
+<Formula>
+$$
+\varepsilon_x=\frac{\sigma_x-\nu(\sigma_y+\sigma_z)}{E},\quad \varepsilon_y=\frac{\sigma_y-\nu(\sigma_z+\sigma_x)}{E},\quad \varepsilon_z=\frac{\sigma_z-\nu(\sigma_x+\sigma_y)}{E},\quad \gamma_{xy}=\frac{\tau_{xy}}{G}
+$$
+
+<Caption>Analogiczne zależności dotyczą γyz i γzx. Dla materiału izotropowego G = E/[2(1+ν)]. Wzory zakładają małe odkształcenia, liniową sprężystość i brak dodatkowych odkształceń, np. termicznych.</Caption>
+</Formula>
+
+Nawet przy σx = 0 może istnieć εx różne od zera, jeśli działają σy lub σz. Zerowe naprężenie w danym kierunku nie oznacza automatycznie zerowego odkształcenia.
+
+### Dylatacja objętości
+
+<Formula>
+$$
+\frac{\Delta V}{V_0}\approx\varepsilon_x+\varepsilon_y+\varepsilon_z=\frac{1-2\nu}{E}(\sigma_x+\sigma_y+\sigma_z),\qquad p=-\frac{\sigma_x+\sigma_y+\sigma_z}{3},\quad \frac{\Delta V}{V_0}=-\frac{p}{K}
+$$
+
+<Caption>K = E/[3(1−2ν)] to moduł ściśliwości. Przyjęto dodatnie naprężenia jako rozciągające i dodatnie ciśnienie p jako ściskające. Przybliżenie dla ΔV/V dotyczy małych odkształceń; γ nie wpływa na objętość w pierwszym rzędzie.</Caption>
+</Formula>
+
+Czyste ścinanie zmienia kształt, ale nie daje pierwszorzędowej zmiany objętości. Dla ν = 0,5 model przewiduje K → ∞, czyli nieściśliwość.
+
+### Pomiar tensometryczny
+
+<Formula>
+$$
+GF=\frac{\Delta R/R_0}{\varepsilon},\qquad \Delta R/R_0=GF\cdot\varepsilon
+$$
+
+<Caption>GF to współczynnik czułości (gauge factor), R0 opór początkowy, a ε odkształcenie wzdłuż osi czujnika. Poprawny pomiar wymaga dobrej adhezji, właściwego mostka pomiarowego i kompensacji wpływu temperatury.</Caption>
+</Formula>
+
+Pomiar 1000 µε oznacza zmianę oporu rzędu tylko około 0,2% dla GF ≈ 2. Dlatego błędy montażu, dryft temperatury i kierunek klejenia mają praktyczne znaczenie.
+
+### Rozeta tensometryczna
+
+<Formula>
+$$
+\varepsilon_\theta=\varepsilon_{avg}+a\cos2\theta+\frac{\gamma_{xy}}{2}\sin2\theta,\quad \gamma_{xy}=2\varepsilon_{45}-\varepsilon_0-\varepsilon_{90}
+$$
+
+<Caption>Dla rozety 0°/45°/90°: εx = ε0, εy = ε90. Następnie ε1,2 = (εx+εy)/2 ± √&#123;[(εx−εy)/2]² + (γxy/2)²&#125;, a inżynierskie γmax(xy) = 2Rε.</Caption>
+</Formula>
+
+Koło odkształceń rysuje się w osiach (ε, γ/2), nie (ε, γ). Odczyt 45° zawiera informację o ścinaniu; bez niego nie można jednoznacznie wyznaczyć γxy.
+
+### Powiązanie stanów
+
+<Formula>
+$$
+\sigma_1=\frac{E}{1-\nu^2}(\varepsilon_1+\nu\varepsilon_2),\quad \sigma_2=\frac{E}{1-\nu^2}(\varepsilon_2+\nu\varepsilon_1),\quad G=\frac{E}{2(1+\nu)}
+$$
+
+<Caption>Podane wzory na σ1 i σ2 dotyczą płaskiego stanu naprężenia (σz = 0) i izotropowego materiału liniowo-sprężystego. Dla płaskiego stanu odkształcenia relacje są inne. W stanie izotropowym kierunki główne naprężeń i odkształceń pokrywają się.</Caption>
+</Formula>
+
+Nie wolno używać σ = Eε osobno dla każdej osi przy ogólnym stanie wieloosiowym: pomija to efekt Poissona. Bezpieczny dobór wymaga właściwego modelu stanu, współczynnika bezpieczeństwa i kontroli deformacji.
+
+## Hipotezy wytężeniowe i warunek wytrzymałości
+
+Od pojedynczego naprężenia do jednej miary wytężenia: naprężenia główne, HMH, Tresca, obciążenia złożone i współczynnik bezpieczeństwa.
+
+### Naprężenie zredukowane
+
+<Formula>
+$$
+\sigma_{red} \leq k_r = \frac{R_e}{n} \qquad n = \frac{R_e}{\sigma_{red}}
+$$
+
+<Caption>kr to dopuszczalne naprężenie przy rozciąganiu, Re — granica plastyczności, n — wymagany lub obliczony współczynnik bezpieczeństwa. Wartości podstawiamy w MPa.</Caption>
+</Formula>
+
+Naprężenie zredukowane nie jest nową siłą ani dodatkową składową w przekroju. To wartość obliczeniowa zależna od przyjętej hipotezy.
+
+### Maksimum normalne
+
+<Formula>
+$$
+\sigma_{red} = \max(|\sigma_1|, |\sigma_2|, |\sigma_3|)
+$$
+
+<Caption>Dla różnych dopuszczalnych wartości na rozciąganie i ściskanie sprawdzamy oddzielnie dodatnie i ujemne naprężenia główne. Przy stanie płaskim σ3 = 0.</Caption>
+</Formula>
+
+Przy czystym ścinaniu σ1 = τ i σ2 = −τ, więc hipoteza największego naprężenia normalnego przewiduje granicę przy |τ| = k, a nie przy τ = 0.
+
+### HMH
+
+<Formula>
+$$
+\sigma_{HMH} = \sqrt{\sigma_1^2 + \sigma_2^2 + \sigma_3^2 - \sigma_1\sigma_2 - \sigma_2\sigma_3 - \sigma_3\sigma_1}
+$$
+
+<Caption>Dla stanu płaskiego σ3 = 0. Dla σx = σ, σy = 0 i τxy = τ zachodzi wygodny wzór σHMH = √(σ² + 3τ²).</Caption>
+</Formula>
+
+Przy czystym ścinaniu HMH daje σred = √3·τ. Dlatego granica przy ścinaniu wynosi Re/√3, a nie Re.
+
+### Tresca
+
+<Formula>
+$$
+\sigma_T = \sigma_{max} - \sigma_{min} = 2\tau_{max}
+$$
+
+<Caption>W stanie przestrzennym trzeba uwzględnić σ1, σ2 i σ3. Dla σ oraz τ w płaskim stanie: σT = √(σ² + 4τ²).</Caption>
+</Formula>
+
+W stanie płaskim jedno naprężenie główne jest równe zerowi σ3. Jeśli σ1 i σ2 mają ten sam znak, zero może być skrajną wartością i nie wolno go pominąć.
+
+### Porównanie hipotez
+
+<Formula>
+$$
+\sqrt{\sigma^2 + 3\tau^2} \leq \sqrt{\sigma^2 + 4\tau^2}
+$$
+
+<Caption>Nierówność dotyczy omawianego stanu σ, τ. HMH i Tresca są równe przy czystym jednoosiowym rozciąganiu lub ściskaniu, gdy τ = 0.</Caption>
+</Formula>
+
+Większe σred oznacza mniejszy obliczony zapas n = Re/σred. Nie wolno porównywać wyniku HMH z granicą ścinania wyprowadzoną z Tresca.
+
+### Obciążenia złożone
+
+<Formula>
+$$
+\sigma = \frac{N}{A} + \frac{M}{W} \qquad \tau = \frac{T}{W_o}
+$$
+
+<Caption>W zadaniu trzeba uwzględnić znaki N/A i M/W. Wo to wskaźnik wytrzymałości przekroju na skręcanie. Następnie σHMH = √(σ² + 3τ²) albo σT = √(σ² + 4τ²).</Caption>
+</Formula>
+
+Nie sumuj momentu zginającego ze skręcającym jako liczb bezpośrednio. Najpierw wyznacz σ i τ, a dopiero potem zredukuj je według hipotezy.
+
+### Współczynnik n
+
+<Formula>
+$$
+n_{rz} = \frac{R_e}{\sigma_{red}} \geq n_{wym} \qquad k = \frac{R_e}{n_{wym}}
+$$
+
+<Caption>Dla materiału kruchego granicą może być wytrzymałość Rm zamiast Re. Warunek n ≥ 1 dotyczy tylko sytuacji, gdy wymagany współczynnik wynosi 1.</Caption>
+</Formula>
+
+Małe odkształcenie nie dowodzi dużego zapasu wytrzymałości. Warunki σred ≤ k i ugięcia lub przemieszczenia sprawdza się niezależnie.
+
+## Projektowanie elementów i pełne zadania
+
+Przekładaj warunki wytrzymałości i sztywności na wymiar, materiał lub obciążenie dopuszczalne; ćwicz pełne rozwiązania i strategię kolokwium.
+
+### Dobór wymiaru
+
+<Formula>
+$$
+W \geq \frac{M}{k} \qquad W = \frac{\pi d^3}{32} \Rightarrow d \geq \sqrt[3]{\frac{32M}{\pi k}}
+$$
+
+<Caption>Dla pełnego przekroju kołowego zginanego. Jeśli M jest w N·mm, a k w MPa = N/mm², to W wychodzi w mm³, a d w mm.</Caption>
+</Formula>
+
+Wymagane W rośnie liniowo z momentem, ale średnica rośnie dopiero z pierwiastkiem trzeciego stopnia z W. Dlatego podwojenie momentu nie wymaga podwojenia średnicy.
+
+### Materiał i P dopuszczalne
+
+<Formula>
+$$
+P_{dop} = \frac{k A}{n_{obc}} \qquad k = \frac{R_e}{n} \qquad \Delta L = \frac{PL}{EA}
+$$
+
+<Caption>nobc uwzględnia ewentualny współczynnik obciążenia; jeśli P jest już obciążeniem obliczeniowym, nobc = 1. Najpierw ustal konwencję przyjętą w zadaniu.</Caption>
+</Formula>
+
+Dobierając Pdop z kilku warunków, przyjmujemy najmniejszą wartość. Przy doborze średnicy z kilku warunków przyjmujemy największy wymagany wymiar.
+
+### Zadanie: pręt
+
+<Formula>
+$$
+\sigma_i = \frac{N_i}{A_i} \leq k \qquad \Delta L = \sum_i \frac{N_iL_i}{E A_i}
+$$
+
+<Caption>Suma obejmuje przedziały o stałych N, E i A. Przy ściskaniu smukłego pręta konieczna może być dodatkowo kontrola wyboczenia, której nie zastępuje warunek N/A ≤ k.</Caption>
+</Formula>
+
+Najpierw wykres N, potem tabela przedziałów. Taki porządek ogranicza pomylenie długości, pola lub znaku siły.
+
+### Zadanie: temperatura
+
+<Formula>
+$$
+\Delta L = \frac{NL}{EA} + \alpha\Delta T L = 0 \qquad N = -EA\alpha\Delta T
+$$
+
+<Caption>Wzór dotyczy jednorodnego pręta idealnie zablokowanego, bez innych obciążeń. Dla ΔT &gt; 0 siła N jest ujemna, czyli ściskająca.</Caption>
+</Formula>
+
+W idealnie zablokowanym pręcie całkowita długość się nie zmienia, ale odkształcenie termiczne i mechaniczne nie znikają — wzajemnie się równoważą.
+
+### Zadanie: belka
+
+<Formula>
+$$
+M_{max} = \frac{PL}{4} \qquad W_{wym} = \frac{M_{max}}{k} \qquad f = \frac{PL^3}{48EI}
+$$
+
+<Caption>Wzory dotyczą belki swobodnie podpartej o rozpiętości L z siłą P na środku. W = I/c, gdzie c to odległość skrajnego włókna od osi obojętnej.</Caption>
+</Formula>
+
+Ten sam moment zginający może dać różne naprężenia w przekrojach o tym samym polu. Decyduje rozmieszczenie materiału, opisane przez I i W.
+
+### Zadanie: wał
+
+<Formula>
+$$
+\tau_{max} = \frac{T}{W_o} \qquad J_o = \frac{\pi(D^4-d^4)}{32} \qquad \varphi = \frac{TL}{GJ_o}
+$$
+
+<Caption>Wo = Jo/(D/2) dla wału drążonego. Kąt φ z wzoru wychodzi w radianach; 1 rad ≈ 57,2958°.</Caption>
+</Formula>
+
+Przy stałym T i L warunek wytrzymałości wyznacza wymagane Wo, a warunek sztywności wymagane Jo. To różne wielkości geometryczne.
+
+### Błędy i strategia
+
+<Formula>
+$$
+\text{schemat} \rightarrow \text{siły wewnętrzne} \rightarrow \text{naprężenia} \rightarrow \text{warunki} \rightarrow \text{dobór i kontrola}
+$$
+
+<Caption>Podstawowa kontrola: 1 MPa = 1 N/mm², 1 kN·m = 10⁶ N·mm, E = 200 GPa = 200 000 MPa, kąt z TL/(GJ) jest w radianach.</Caption>
+</Formula>
+
+Po obliczeniu wymiaru nie kończ zadania: przyjmij wymiar katalogowy, podstaw go z powrotem i zapisz, który warunek jest decydujący.

@@ -1,7 +1,133 @@
-Współczynnik n mówi, ile razy granica materiału przewyższa obliczone wytężenie. n = 1 oznacza brak zapasu względem przyjętej granicy, a n &lt; 1 — jej przekroczenie.
+---
+id: criteria-safety-factor
+moduleId: criteria
+number: 7
+title: 'Współczynnik bezpieczeństwa: ile zapasu ma element?'
+shortTitle: Współczynnik n
+description: >-
+  Rozróżniaj wytrzymałość od sztywności, obliczaj rzeczywisty zapas i wyznaczaj
+  naprężenie dopuszczalne.
+duration: 10
+eyebrow: Bezpieczeństwo to warunek
+outcomes:
+  - >-
+    W1 — analizuję element konstrukcji i wskazuję przekrój oraz punkt decydujący
+    o bezpieczeństwie.
+  - >-
+    W2 — rozróżniam przypadki wytrzymałościowe i dobieram hipotezę do materiału
+    oraz stanu naprężenia.
+  - >-
+    W3 — uwzględniam geometrię przekroju przy wyznaczaniu naprężeń normalnych i
+    stycznych.
+  - >-
+    U1 — obliczam naprężenie zredukowane i sprawdzam warunek wytrzymałości z
+    zachowaniem jednostek.
+  - >-
+    U2 — stosuję koło Mohra do wyznaczenia naprężeń głównych i maksymalnego
+    naprężenia stycznego.
+  - >-
+    U3 — wyznaczam współczynnik bezpieczeństwa i oceniam, czy element spełnia
+    przyjęty warunek.
+---
 
-<Formula />
+Współczynnik bezpieczeństwa n mówi, ile razy granica materiału przewyższa obliczone wytężenie. Wartość n = 1 oznacza brak zapasu względem przyjętej granicy, a n &lt; 1 — jej przekroczenie.
 
-<Insight />
+<Lab id="safety" />
 
-<WorkedExample />
+<Formula>
+$$
+n_{rz} = \frac{R_e}{\sigma_{red}} \geq n_{wym} \qquad k = \frac{R_e}{n_{wym}}
+$$
+
+<Caption>Dla materiału kruchego zamiast Re można przyjąć wytrzymałość Rm. Warunek zawsze ma postać n_rz ≥ n_wym; wartość n_wym = 1 oznacza jedynie, że nie wymagamy dodatkowego zapasu.</Caption>
+</Formula>
+
+<Insight>
+Małe odkształcenie nie dowodzi dużego zapasu wytrzymałości. Warunki σred ≤ k i ugięcia lub przemieszczenia sprawdza się niezależnie.
+</Insight>
+
+<WorkedExample>
+<Given>
+Stal ma Re = 355 MPa. W elemencie σHMH = 142 MPa, a projekt wymaga n_wym ≥ 2,2.
+</Given>
+<Steps>
+<Step>
+Rzeczywisty zapas: n_rz = Re/σred = 355/142 = 2,50.
+</Step>
+<Step>
+Porównanie: 2,50 ≥ 2,2, więc warunek jest spełniony.
+</Step>
+<Step>
+Dopuszczalne naprężenie: k = Re/n_wym = 355/2,2 = 161,36 MPa.
+</Step>
+<Step>
+Kontrola alternatywna: 142 ≤ 161,36 MPa.
+</Step>
+</Steps>
+<Result>
+Element spełnia warunek bezpieczeństwa; zapas rzeczywisty wynosi około 2,50, czyli przekracza wymagane 2,2.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U3">
+<Prompt>
+Materiał ma Re = 300 MPa, wymagane n = 2. Jakie jest naprężenie dopuszczalne?
+</Prompt>
+<Answer correct>
+150 MPa
+</Answer>
+<Answer>
+300 MPa
+</Answer>
+<Answer>
+600 MPa
+</Answer>
+<Hint>
+Podziel granicę przez wymagany współczynnik.
+</Hint>
+<Explanation>
+k = Re/n_wym = 300/2 = 150 MPa. Naprężenie dopuszczalne jest mniejsze od granicy, ponieważ rezerwujemy zapas.
+</Explanation>
+</Question>
+<Question outcome="U3">
+<Prompt>
+Dla Rm = 400 MPa i σred = 250 MPa materiał kruchy ma zapas n = 1,6, a projekt wymaga n ≥ 2. Jaki jest wynik sprawdzenia wymaganego zapasu?
+</Prompt>
+<Answer correct>
+Warunek n ≥ 2 nie jest spełniony
+</Answer>
+<Answer>
+Element na pewno ma za małą sztywność
+</Answer>
+<Answer>
+Naprężenie przekracza Rm
+</Answer>
+<Hint>
+Porównaj rzeczywisty zapas z wymaganym i osobno naprężenie z granicą.
+</Hint>
+<Explanation>
+250 &lt; 400 MPa, więc granica nie jest przekroczona, ale 1,6 &lt; 2, więc wymagany zapas nie jest zapewniony. O sztywności ten wynik nic nie mówi.
+</Explanation>
+</Question>
+<Question outcome="U3">
+<Prompt>
+Jak zmieni się rzeczywiste n, jeśli przy niezmienionym materiale σred wzrośnie z 100 do 125 MPa?
+</Prompt>
+<Answer>
+Wzrośnie o 25%
+</Answer>
+<Answer correct>
+Zmniejszy się do 80% poprzedniej wartości
+</Answer>
+<Answer>
+Nie zmieni się
+</Answer>
+<Hint>
+n jest odwrotnie proporcjonalne do σred.
+</Hint>
+<Explanation>
+Stosunek nowego i starego zapasu wynosi 100/125 = 0,8, więc zapas spada do 80% poprzedniej wartości. Wzrost wytężenia o 25% nie zmniejsza zapasu o 25%, bo zależność jest odwrotnie proporcjonalna.
+</Explanation>
+</Question>
+</Quiz>

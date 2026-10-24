@@ -1,7 +1,121 @@
+---
+id: foundations-method-of-sections
+moduleId: foundations
+number: 6
+title: 'Metoda przekrojów: zajrzyj do środka'
+shortTitle: Metoda przekrojów
+description: >-
+  Przetnij myślowo element, zachowaj równowagę jednej części i wyznacz siły
+  wewnętrzne.
+duration: 9
+eyebrow: Równowaga każdej części
+outcomes:
+  - W1 — analizuje przekrój jako granicę oddziaływań między częściami
+  - 'W2 — rozróżnia rozciąganie, ścinanie i zginanie'
+  - W3 — lokalizuje przekrój i siły względem osi elementu
+  - 'U1 — wyznacza N, V i M z równowagi odciętej części'
+  - U2 — przygotowuje siły przekrojowe do analizy stanu naprężenia
+  - U3 — wskazuje przekroje potrzebne do sprawdzenia nośności
+---
+
 Zewnętrznie nieruchomy pręt nie jest „pusty” w środku. Jego części działają na siebie siłami i momentami. Myślowe przecięcie ujawnia te oddziaływania jako N, V i M.
 
-<Formula />
+<Lab id="sections" />
 
-<Insight />
+<Formula>
+$$
+N:\ \text{działa wzdłuż osi},\qquad V:\ \text{prostopadle do osi},\qquad M:\ \text{obrót przekroju}
+$$
 
-<WorkedExample />
+<Caption>W zadaniu płaskim N to siła osiowa, V siła poprzeczna (tnąca), a M moment zginający. Ich wartości w przekroju wyznacza się z równowagi jednej z odciętych części.</Caption>
+</Formula>
+
+<Insight>
+Możesz wybrać lewą albo prawą część — poprawny wynik będzie ten sam. Na dwóch stronach cięcia siły wewnętrzne mają przeciwne zwroty zgodnie z zasadą akcji i reakcji.
+</Insight>
+
+<WorkedExample>
+<Given>
+Poziomy pręt jest utwierdzony lewym końcem, a na prawym końcu działa osiowa siła rozciągająca P = 30 kN. Wyznacz N w dowolnym przekroju między końcami.
+</Given>
+<Steps>
+<Step>
+Przetnij pręt w wybranym miejscu i zachowaj prawą część wraz z przyłożoną siłą P.
+</Step>
+<Step>
+Na lewej ścianie odciętej części przyjmij dodatnią siłę N skierowaną w lewo, czyli rozciągającą przekrój.
+</Step>
+<Step>
+Zapisz równowagę sił poziomych: ΣFx = P − N = 0.
+</Step>
+<Step>
+Wyznacz N = P = 30 kN. Brak sił poprzecznych i momentów zewnętrznych daje V = 0 i M = 0.
+</Step>
+</Steps>
+<Result>
+W całym rozpatrywanym odcinku N = +30 kN (rozciąganie), V = 0 i M = 0.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Co należy zrobić po myślowym przecięciu pręta i odrzuceniu jednej części?
+</Prompt>
+<Answer>
+Pominąć wszystkie oddziaływania odrzuconej części
+</Answer>
+<Answer correct>
+Zastąpić oddziaływanie odrzuconej części siłami i momentem w przekroju
+</Answer>
+<Answer>
+Dodać nową podporę w miejscu cięcia
+</Answer>
+<Hint>
+Pozostawiona część nadal musi być w równowadze.
+</Hint>
+<Explanation>
+W przekroju wprowadzamy N, V i M odpowiadające oddziaływaniu usuniętej części. Dzięki temu można zastosować równania równowagi do pozostawionej części i wyznaczyć siły wewnętrzne.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+W pręcie osiowo rozciąganym siła wewnętrzna N jest dodatnia. Co fizycznie oznacza ten przypadek?
+</Prompt>
+<Answer correct>
+Odcięte części są od siebie oddalane, czyli przekrój jest rozciągany
+</Answer>
+<Answer>
+Przekrój jest wyłącznie skręcany
+</Answer>
+<Answer>
+Siła osiowa musi być równa ciężarowi pręta
+</Answer>
+<Hint>
+Dodatnie N odpowiada konwencji rozciągania.
+</Hint>
+<Explanation>
+Dodatnia siła osiowa rozciąga przekrój: części pręta „ciągną” siebie w przeciwnych kierunkach. Ściskaniu odpowiada N ujemne.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Ten sam przekrój analizowano raz z lewej, a raz z prawej strony. Co powinno być wspólne w obu obliczeniach?
+</Prompt>
+<Answer correct>
+Ta sama wartość i ten sam fizyczny charakter siły wewnętrznej
+</Answer>
+<Answer>
+Identyczny zwrot wektora narysowany względem całego pręta
+</Answer>
+<Answer>
+Brak konieczności uwzględniania obciążeń zewnętrznych
+</Answer>
+<Hint>
+Porównaj zasadę akcji i reakcji z fizyczną wielkością w przekroju.
+</Hint>
+<Explanation>
+Obie strony dają tę samą wartość N, V lub M, choć wektory na przeciwnych ścianach przekroju mają przeciwne zwroty. Każda analiza musi zawierać wszystkie obciążenia wybranej części.
+</Explanation>
+</Question>
+</Quiz>

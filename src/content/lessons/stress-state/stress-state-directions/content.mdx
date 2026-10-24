@@ -1,7 +1,127 @@
-Kierunek główny wskazuje normalną do ściany, na której nie ma ścinania. W materiale podatnym na pękanie od rozciągania jest szczególnie ważny: to względem niego oceniamy możliwy początek pęknięcia.
+---
+id: stress-state-directions
+moduleId: stress-state
+number: 4
+title: 'Kierunki główne: gdzie znika ścinanie'
+shortTitle: Kierunki główne
+description: >-
+  Wyznacz położenie płaszczyzn głównych i naucz się rozstrzygać
+  niejednoznaczność kąta oraz przypadek stanu hydrostatycznego.
+duration: 9
+eyebrow: Znajdź właściwy kierunek
+outcomes:
+  - >-
+    W1 — analizuje stan naprężenia w punkcie i dobiera składowe do opisu
+    elementu
+  - >-
+    W2 — rozpoznaje przypadki wytrzymałościowe związane z rozciąganiem,
+    ściskaniem i ścinaniem
+  - W3 — odróżnia wpływ geometrii przekroju i kierunku przekroju na naprężenia
+  - >-
+    U1 — oblicza składowe po obrocie, naprężenia główne i maksymalne naprężenie
+    styczne
+  - U2 — kreśli i interpretuje koło Mohra oraz wyznacza kierunki główne
+  - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
+---
 
-<Formula />
+Kierunek główny wyznacza normalną do płaszczyzny, na której naprężenie styczne jest zerowe. W materiale podatnym na pękanie od rozciągania ma szczególne znaczenie: względem niego oceniamy możliwy początek pęknięcia.
 
-<Insight />
+<Lab id="mohr" />
 
-<WorkedExample />
+<Formula>
+$$
+\tan2\theta_p=\frac{2\tau_{xy}}{\sigma_x-\sigma_y},\qquad \theta_{p2}=\theta_{p1}+90^\circ
+$$
+
+<Caption>Kąt θp odnosi się do przyjętej wcześniej konwencji transformacji. Ponieważ tangens powtarza się co 180°, równanie dla 2θ ma dwa rozwiązania różniące się o 180°; właściwe wskazujemy, sprawdzając znak licznika i mianownika albo podstawiając kąt do wzoru na σn.</Caption>
+</Formula>
+
+<Insight>
+Kierunki główne są wzajemnie prostopadłe. Gdy σx = σy i τxy = 0, naprężenie styczne znika w każdej orientacji w tej płaszczyźnie, więc każdy kierunek jest główny i nie istnieje jeden wyróżniony kąt.
+</Insight>
+
+<WorkedExample>
+<Given>
+Dla σx = 100 MPa, σy = 20 MPa, τxy = 30 MPa wyznacz kierunki główne.
+</Given>
+<Steps>
+<Step>
+Równanie daje tan2θp = 2·30/(100 − 20) = 0,75.
+</Step>
+<Step>
+Jedno rozwiązanie to 2θp = 36,87°, zatem θp = 18,435°.
+</Step>
+<Step>
+Sprawdzenie przez podstawienie: σavg = 60 MPa, a = 40 MPa, więc σn = 60 + 40·cos36,87° + 30·sin36,87° = 110 MPa. To potwierdza, że wybrany kąt daje większe naprężenie główne.
+</Step>
+<Step>
+Drugi kierunek: θp2 = 18,435° + 90° = 108,435°, z naprężeniem σ2 = 10 MPa.
+</Step>
+</Steps>
+<Result>
+Kierunek σ1 = 110 MPa jest obrócony o około 18,44° od osi x; kierunek σ2 = 10 MPa jest do niego prostopadły. Na obu płaszczyznach głównych τ = 0.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U2">
+<Prompt>
+Dla σx = σy = 50 MPa i τxy = 0 co można powiedzieć o kierunkach głównych w płaszczyźnie?
+</Prompt>
+<Answer>
+Występują tylko przy 45°
+</Answer>
+<Answer correct>
+Każdy kierunek jest główny
+</Answer>
+<Answer>
+Nie istnieją
+</Answer>
+<Hint>
+Oblicz promień R i pomyśl, czy koło ma wyróżniony punkt na obwodzie.
+</Hint>
+<Explanation>
+R = 0, więc koło Mohra redukuje się do punktu σ = 50 MPa. Na każdym przekroju w tej płaszczyźnie τ = 0 i σ = 50 MPa, zatem każdy kierunek jest główny.
+</Explanation>
+</Question>
+<Question outcome="U2">
+<Prompt>
+Dla σx = 80 MPa, σy = 0 i τxy = 40 MPa, jaki najmniejszy dodatni kąt θp wskazuje kierunek o większym naprężeniu głównym?
+</Prompt>
+<Answer correct>
+22,5°
+</Answer>
+<Answer>
+45°
+</Answer>
+<Answer>
+67,5°
+</Answer>
+<Hint>
+tan2θp = 80/80 = 1; wybierz 2θp = 45°, a nie kąt o 180° dalszy.
+</Hint>
+<Explanation>
+2θp = 45° daje θp = 22,5°. Podstawienie do σn daje 40 + 40·cos45° + 40·sin45° ≈ 96,57 MPa, czyli większą wartość główną; drugi kierunek jest o 90°.
+</Explanation>
+</Question>
+<Question outcome="U2">
+<Prompt>
+Dlaczego samo wyrażenie 0,5·arctan[2τxy/(σx−σy)] może wskazać niewłaściwą z dwóch osi głównych?
+</Prompt>
+<Answer correct>
+Bo arctan nie rozróżnia pełnego położenia kąta 2θ na kole
+</Answer>
+<Answer>
+Bo kierunki główne nie są prostopadłe
+</Answer>
+<Answer>
+Bo wzór nie zawiera naprężeń normalnych
+</Answer>
+<Hint>
+Tangens ma okres 180°, a funkcja arctan zwykle zwraca tylko jedną gałąź.
+</Hint>
+<Explanation>
+Ta sama wartość tangensa odpowiada kątom 2θ różniącym się o 180°, czyli kierunkom θ różniącym się o 90°. Trzeba ustalić, który odpowiada σ1, np. przez podstawienie do transformacji.
+</Explanation>
+</Question>
+</Quiz>

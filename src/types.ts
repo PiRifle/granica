@@ -13,13 +13,7 @@ export interface Question {
   outcome?: string
 }
 
-export interface WorkedExample {
-  given: string
-  steps: string[]
-  result: string
-}
-
-export interface Lesson {
+export interface LessonMeta {
   id: LessonId
   moduleId: string
   number: number
@@ -28,18 +22,11 @@ export interface Lesson {
   description: string
   duration: number
   eyebrow: string
-  formula: string
-  formulaNote: string
-  insight: string
-  lab: string
   outcomes: string[]
-  questions: Question[]
-  workedExample?: WorkedExample
   solutionId?: string
-  solutionIds?: string[]
 }
 
-export interface CourseLesson extends Lesson {
+export interface CourseLesson extends LessonMeta {
   loadBody: MdxBody
 }
 

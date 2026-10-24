@@ -1,7 +1,125 @@
-Podpory przekazują gruntowi obciążenie belki. Zanim znajdziesz siły wewnętrzne, potraktuj belkę jako całość i zadbaj, aby nie przesuwała się i nie obracała.
+---
+id: bending-beams-reactions
+moduleId: bending
+number: 1
+title: Belki i reakcje podporowe
+shortTitle: Belki i reakcje
+description: Zbuduj schemat statyczny i wyznacz reakcje z równowagi sił oraz momentów.
+duration: 7
+eyebrow: Najpierw cała belka
+outcomes:
+  - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
+  - >-
+    W2 — rozróżnia przypadki obciążenia oraz czyste zginanie i zginanie z
+    udziałem siły tnącej
+  - W3 — wyjaśnia wpływ geometrii przekroju na rozkład naprężeń i ugięcie
+  - 'U1 — oblicza reakcje, funkcje T(x) i M(x) oraz naprężenia zginające'
+  - >-
+    U2 — wykorzystuje koło Mohra do analizy stanu naprężenia w zginanym
+    elemencie
+  - >-
+    U3 — dobiera przekrój belki z warunków bezpieczeństwa, wytrzymałości i
+    sztywności
+---
 
-<Formula />
+Podpory przekazują obciążenie belki na podłoże. Zanim wyznaczysz siły wewnętrzne, rozpatrz belkę jako całość i zapisz warunki równowagi.
 
-<Insight />
+<Lab id="reactions" />
 
-<WorkedExample />
+<Formula>
+$$
+\sum F_y = 0 \qquad \sum M_A = 0
+$$
+
+<Caption>Dla belki w płaszczyźnie obowiązuje także warunek ΣF_x = 0, który dotyczy sił poziomych. Zwroty reakcji przyjmij z góry i konsekwentnie je stosuj.</Caption>
+</Formula>
+
+<Insight>
+Reakcje zależą od położenia siły, a nie tylko od jej wartości. Podpora bliżej siły przejmuje większą część obciążenia.
+</Insight>
+
+<WorkedExample>
+<Given>
+Belka AB o długości L = 6 m jest podparta przegubowo w A i na rolce w B. Pionowa siła P = 24 kN działa w odległości a = 2 m od A.
+</Given>
+<Steps>
+<Step>
+Z równowagi momentów względem A: ΣM_A = RB·6 − 24·2 = 0.
+</Step>
+<Step>
+Stąd RB = 48/6 = 8 kN.
+</Step>
+<Step>
+Z równowagi sił pionowych: RA + RB − 24 = 0, więc RA = 16 kN.
+</Step>
+<Step>
+Kontrola momentów względem B: RA·6 − 24·4 = 16·6 − 96 = 0.
+</Step>
+</Steps>
+<Result>
+RA = 16 kN w górę, RB = 8 kN w górę; reakcja pozioma w A wynosi zero, bo nie ma obciążeń poziomych.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Na belce swobodnie podpartej o L = 6 m siła P = 24 kN działa 2 m od lewej podpory A. Ile wynoszą reakcje pionowe?
+</Prompt>
+<Answer>
+RA = 8 kN, RB = 16 kN
+</Answer>
+<Answer correct>
+RA = 16 kN, RB = 8 kN
+</Answer>
+<Answer>
+RA = RB = 12 kN
+</Answer>
+<Hint>
+Z momentów względem A: RB·6 = P·2; następnie RA = P − RB.
+</Hint>
+<Explanation>
+RB = 24·2/6 = 8 kN, a RA = 24 − 8 = 16 kN. Siła jest bliżej A, dlatego lewa reakcja jest większa.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+Jeżeli po rozwiązaniu równań reakcja ma znak ujemny, co to oznacza?
+</Prompt>
+<Answer correct>
+Rzeczywisty zwrot jest przeciwny do założonego
+</Answer>
+<Answer>
+Belka na pewno jest niestateczna
+</Answer>
+<Answer>
+Obciążenie musi być równe zero
+</Answer>
+<Hint>
+Znak odnosi się do zwrotu przyjętego przed obliczeniami.
+</Hint>
+<Explanation>
+Ujemna reakcja ma wartość równą modułowi wyniku, lecz działa przeciwnie do strzałki przyjętej na schemacie. Sam znak nie przesądza o stateczności.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+Dlaczego w belce z siłą przyłożoną poza środkiem reakcje zwykle nie są równe?
+</Prompt>
+<Answer correct>
+Ponieważ muszą spełniać zarówno równowagę sił, jak i momentów
+</Answer>
+<Answer>
+Ponieważ prawa podpora zawsze przenosi więcej
+</Answer>
+<Answer>
+Ponieważ suma reakcji nie zależy od obciążenia
+</Answer>
+<Hint>
+Sama suma sił nie określa podziału obciążenia między podpory.
+</Hint>
+<Explanation>
+Równowaga sił daje RA + RB = P, a równowaga momentów określa ich podział według ramion siły. Dlatego położenie P zmienia reakcje.
+</Explanation>
+</Question>
+</Quiz>

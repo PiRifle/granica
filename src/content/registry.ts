@@ -1,11 +1,11 @@
 import type { MdxBody } from '../types'
-import type { LessonData, ModuleData, SolutionData } from './model'
-import type { CourseLesson, CourseModule, CourseSolution } from '../types'
+import type { ModuleData, SolutionData } from './model'
+import type { CourseLesson, CourseModule, CourseSolution, LessonMeta } from '../types'
+import { lessonMeta } from './generated/lesson-meta'
 
 type DataModule<T> = { default: T }
 type BodyModule = Awaited<ReturnType<MdxBody>>
 
-const lessonDataFiles = import.meta.glob<DataModule<LessonData>>('./lessons/*/*/lesson.data.ts', { eager: true })
 const lessonBodyFiles = import.meta.glob<BodyModule>('./lessons/*/*/content.mdx')
 const moduleDataFiles = import.meta.glob<DataModule<ModuleData>>('./modules/*/module.data.ts', { eager: true })
 const moduleOverviewFiles = import.meta.glob<BodyModule>('./modules/*/overview.mdx')
@@ -20,10 +20,11 @@ function resolveLoader<T>(files: Record<string, () => Promise<T>>, dataPath: str
 }
 
 export const lessonEntries = Object.fromEntries(
-  Object.entries(lessonDataFiles).map(([dataPath, module]) => {
-    const data = module.default
-    const loadBody = resolveLoader(lessonBodyFiles, dataPath, 'content.mdx')
-    return [data.id, { ...data, loadBody } satisfies CourseLesson]
+  lessonMeta.map((meta) => {
+    const bodyPath = `./lessons/${meta.moduleId}/${meta.id}/content.mdx`
+    const loadBody = lessonBodyFiles[bodyPath]
+    if (!loadBody) throw new Error(`Brak treści MDX dla lekcji ${meta.id}`)
+    return [meta.id, { ...meta, loadBody } satisfies CourseLesson]
   }),
 ) as Record<string, CourseLesson>
 
@@ -62,7 +63,7 @@ export function getModule(id: string): CourseModule {
   return modules.find((module) => module.id === id) ?? modules[0]
 }
 
-export function getModuleForLesson(lesson: LessonData): CourseModule {
+export function getModuleForLesson(lesson: LessonMeta): CourseModule {
   return getModule(lesson.moduleId)
 }
 
@@ -77,11 +78,3 @@ export function lessonIndex(id: string): number {
 export const lessonIds = lessons.map((lesson) => lesson.id)
 export const totalDuration = lessons.reduce((sum, lesson) => sum + lesson.duration, 0)
 export const modulesById = new Map(modules.map((module) => [module.id, module]))
-export const contentInventory = {
-  lessonData: Object.keys(lessonDataFiles).sort(),
-  lessonBodies: Object.keys(lessonBodyFiles).sort(),
-  solutionData: Object.keys(solutionDataFiles).sort(),
-  solutionBodies: Object.keys(solutionBodyFiles).sort(),
-  moduleData: Object.keys(moduleDataFiles).sort(),
-  moduleOverviews: Object.keys(moduleOverviewFiles).sort(),
-}

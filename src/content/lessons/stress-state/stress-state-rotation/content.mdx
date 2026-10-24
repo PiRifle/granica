@@ -1,7 +1,127 @@
-Ten sam kawałek materiału można przeciąć pod różnymi kątami. Na jednym przekroju zobaczymy głównie rozciąganie, na innym więcej ścinania. Nie pojawia się nowe obciążenie — zmienia się kierunek, względem którego je rozkladamy.
+---
+id: stress-state-rotation
+moduleId: stress-state
+number: 2
+title: 'Obrót przekroju: ten sam stan, inne liczby'
+shortTitle: Transformacja obrotu
+description: >-
+  Oblicz naprężenia na ścianach obróconego elementu i sprawdź, które wielkości
+  nie zależą od wyboru osi.
+duration: 8
+eyebrow: Zmień perspektywę
+outcomes:
+  - >-
+    W1 — analizuje stan naprężenia w punkcie i dobiera składowe do opisu
+    elementu
+  - >-
+    W2 — rozpoznaje przypadki wytrzymałościowe związane z rozciąganiem,
+    ściskaniem i ścinaniem
+  - W3 — odróżnia wpływ geometrii przekroju i kierunku przekroju na naprężenia
+  - >-
+    U1 — oblicza składowe po obrocie, naprężenia główne i maksymalne naprężenie
+    styczne
+  - U2 — kreśli i interpretuje koło Mohra oraz wyznacza kierunki główne
+  - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
+---
 
-<Formula />
+Ten sam fragment materiału można przeciąć pod różnymi kątami. Na jednym przekroju zobaczymy głównie rozciąganie, na innym — więcej ścinania. Nie pojawia się nowe obciążenie; zmienia się jedynie kierunek, względem którego rozkładamy ten sam stan naprężenia.
 
-<Insight />
+<Lab id="stressTransform" />
 
-<WorkedExample />
+<Formula>
+$$
+\sigma_n=\sigma_{avg}+a\cos2\theta+\tau_{xy}\sin2\theta,\quad \tau_{nt}=-a\sin2\theta+\tau_{xy}\cos2\theta,\quad \sigma_{avg}=\frac{\sigma_x+\sigma_y}{2},\quad a=\frac{\sigma_x-\sigma_y}{2}
+$$
+
+<Caption>Kąt θ jest kątem obrotu osi n względem osi x. Przyjmujemy dodatni τxy na dodatniej ścianie x, skierowany w stronę dodatniej osi y. Kąt występuje jako 2θ, dlatego obrót przekroju o 90° odpowiada pełnemu cyklowi na kole Mohra.</Caption>
+</Formula>
+
+<Insight>
+Suma naprężeń normalnych na dwóch prostopadłych ścianach, σn + σt, jest równa σx + σy i nie zmienia się przy obrocie. Zmieniają się poszczególne składowe, ale średnia i naprężenia główne pozostają niezmienne.
+</Insight>
+
+<WorkedExample>
+<Given>
+σx = 120 MPa, σy = 40 MPa, τxy = 30 MPa. Wyznacz składowe dla θ = 30°.
+</Given>
+<Steps>
+<Step>
+Obliczamy σavg = (120 + 40)/2 = 80 MPa oraz a = (120 − 40)/2 = 40 MPa.
+</Step>
+<Step>
+Dla 2θ = 60°: cos60° = 0,5 i sin60° ≈ 0,8660.
+</Step>
+<Step>
+σn = 80 + 40·0,5 + 30·0,8660 = 125,98 MPa.
+</Step>
+<Step>
+τnt = −40·0,8660 + 30·0,5 = −19,64 MPa.
+</Step>
+</Steps>
+<Result>
+Na obróconym przekroju σn ≈ 126,0 MPa i τnt ≈ −19,6 MPa. Na przekroju prostopadłym σt = 160 − 125,98 = 34,02 MPa, co potwierdza stałość sumy.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Dla σx = 100 MPa, σy = 20 MPa i τxy = 0 ile wynoszą σn i τnt po obrocie osi o 45°?
+</Prompt>
+<Answer correct>
+σn = 60 MPa, τnt = −40 MPa
+</Answer>
+<Answer>
+σn = 120 MPa, τnt = 0
+</Answer>
+<Answer>
+σn = 40 MPa, τnt = 60 MPa
+</Answer>
+<Hint>
+Dla 2θ = 90° cosinus jest zerowy, a sinus równy 1.
+</Hint>
+<Explanation>
+σavg = 60 MPa i a = 40 MPa. Zatem σn = 60 + 40·0 + 0 = 60 MPa, a τnt = −40·1 + 0 = −40 MPa. Znak τ opisuje stronę działania w przyjętym układzie.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+Która wielkość nie zmienia się przy obrocie osi w płaszczyźnie xy?
+</Prompt>
+<Answer>
+σx − σy
+</Answer>
+<Answer correct>
+σx + σy
+</Answer>
+<Answer>
+τxy
+</Answer>
+<Hint>
+Dodaj do siebie naprężenia normalne na dwóch prostopadłych ścianach.
+</Hint>
+<Explanation>
+Pierwszy niezmiennik płaskiego stanu wynosi σx + σy. Pojedyncze składowe i różnica ulegają transformacji, ale ich suma pozostaje stała.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+W czystym ścinaniu σx = σy = 0 i τxy = 50 MPa. Jakie naprężenie normalne występuje dla θ = 45°?
+</Prompt>
+<Answer>
+0 MPa
+</Answer>
+<Answer correct>
+50 MPa
+</Answer>
+<Answer>
+100 MPa
+</Answer>
+<Hint>
+Pozostaje wyraz τxy sin2θ.
+</Hint>
+<Explanation>
+Dla θ = 45° mamy sin90° = 1, więc σn = 50 MPa. Czyste ścinanie jest więc równoważne rozciąganiu i ściskaniu o wartości 50 MPa w kierunkach głównych.
+</Explanation>
+</Question>
+</Quiz>

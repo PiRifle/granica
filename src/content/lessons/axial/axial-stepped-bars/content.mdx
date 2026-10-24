@@ -1,7 +1,122 @@
-W szeregowym pręcie bez sił pośrednich każdy odcinek przenosi tę samą N, ale nie to samo naprężenie. Największe σ pojawia się w odcinku o najmniejszym polu, jeśli pominiemy lokalne karby przy zmianie przekroju.
+---
+id: axial-stepped-bars
+moduleId: axial
+number: 3
+title: 'Pręty schodkowe: ta sama siła, inne σ'
+shortTitle: Pręty schodkowe
+description: >-
+  Analizuj odcinki o różnych przekrojach i wskaż miejsce największego
+  naprężenia.
+duration: 8
+eyebrow: Geometria zmienia obciążenie materiału
+outcomes:
+  - W1 — dzieli pręt schodkowy na jednorodne odcinki obliczeniowe
+  - W2 — rozpoznaje rozciąganie i ściskanie na kolejnych odcinkach
+  - W3 — ocenia wpływ zmiany pola na naprężenia nominalne
+  - U1 — oblicza naprężenia i wskazuje przekrój decydujący
+  - U2 — opisuje stan naprężenia osobno dla każdego odcinka
+  - U3 — dobiera najsłabszy odcinek z zachowaniem bezpieczeństwa
+solutionId: cw1-2
+---
 
-<Formula />
+W pręcie złożonym z odcinków połączonych szeregowo i obciążonym tylko na końcach każdy odcinek przenosi tę samą N, ale nie to samo naprężenie. Największe nominalne σ pojawia się w odcinku o najmniejszym polu, jeśli pominiemy lokalne karby przy zmianie przekroju.
 
-<Insight />
+<Lab id="steppedBar" />
 
-<WorkedExample />
+<Formula>
+$$
+\sigma_i=\frac{N_i}{A_i},\qquad |\sigma|_{\max}=\max_i\left|\frac{N_i}{A_i}\right|
+$$
+
+<Caption>Każdy odcinek ma własne Ni i Ai. Przy nagłej zmianie średnicy rzeczywiste maksimum lokalne zależy także od karbu; N/A daje wartość nominalną.</Caption>
+</Formula>
+
+<Insight>
+Nie wystarczy znaleźć maksymalnej |N| dla całego pręta. Decyduje największa wartość ilorazu |Ni|/Ai, dlatego trzeba sprawdzić wszystkie odcinki.
+</Insight>
+
+<WorkedExample>
+<Given>
+Dwa szeregowo połączone odcinki przenoszą rozciągającą N = 60 kN. Ich pola wynoszą A₁ = 300 mm² i A₂ = 150 mm². Oblicz naprężenia nominalne.
+</Given>
+<Steps>
+<Step>
+Ponieważ nie ma obciążeń pośrednich, N₁ = N₂ = +60 000 N.
+</Step>
+<Step>
+Dla pierwszego odcinka: σ₁ = 60 000/300 = 200 MPa.
+</Step>
+<Step>
+Dla drugiego odcinka: σ₂ = 60 000/150 = 400 MPa.
+</Step>
+<Step>
+Porównaj wartości bezwzględne: 400 MPa &gt; 200 MPa, więc decyduje węższy odcinek.
+</Step>
+</Steps>
+<Result>
+σ₁ = +200 MPa, σ₂ = +400 MPa; maksymalne nominalne naprężenie rozciągające wynosi 400 MPa.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W3">
+<Prompt>
+Pręt schodkowy bez obciążeń pośrednich ma dwa odcinki o polach 300 i 150 mm². Gdzie występuje większe nominalne |σ|?
+</Prompt>
+<Answer correct>
+Na odcinku 150 mm²
+</Answer>
+<Answer>
+Na odcinku 300 mm²
+</Answer>
+<Answer>
+Naprężenia są zawsze jednakowe
+</Answer>
+<Hint>
+Oba odcinki przenoszą tę samą N.
+</Hint>
+<Explanation>
+Przy tej samej N mniejsze pole daje większą wartość |N/A|. Dla 150 mm² naprężenie jest dwa razy większe niż dla 300 mm².
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Na kolejnych odcinkach |N| wynosi 20 i 30 kN, a pola 200 i 400 mm². Który odcinek decyduje o maksymalnym |σ|?
+</Prompt>
+<Answer correct>
+Pierwszy: 100 MPa
+</Answer>
+<Answer>
+Drugi: 75 MPa
+</Answer>
+<Answer>
+Żaden, trzeba uśrednić naprężenia
+</Answer>
+<Hint>
+Oblicz osobno oba ilorazy |N|/A, pamiętając o kN → N.
+</Hint>
+<Explanation>
+Pierwszy odcinek: 20 000/200 = 100 MPa. Drugi: 30 000/400 = 75 MPa. Mimo większej siły na drugim odcinku decyduje pierwszy.
+</Explanation>
+</Question>
+<Question outcome="W3">
+<Prompt>
+Dlaczego naprężenie N/A przy nagłym zwężeniu nazywamy nominalnym?
+</Prompt>
+<Answer correct>
+Bo nie opisuje lokalnej koncentracji przy przejściu geometrycznym
+</Answer>
+<Answer>
+Bo nie zależy od siły osiowej
+</Answer>
+<Answer>
+Bo jest zawsze równe zero w mniejszym przekroju
+</Answer>
+<Hint>
+Prosty wzór zakłada równomierny rozkład z dala od zakłóceń.
+</Hint>
+<Explanation>
+Nagła zmian geometrii zaburza równomierny rozkład i może powodować karb. N/A opisuje naprężenie nominalne, a lokalne maksimum wymaga dodatkowego współczynnika lub dokładniejszej analizy.
+</Explanation>
+</Question>
+</Quiz>

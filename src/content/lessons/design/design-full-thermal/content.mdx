@@ -1,7 +1,131 @@
-Temperatura sama w sobie nie jest siłą. Reakcje pojawiają się wtedy, gdy podpory ograniczają swobodną zmianę długości. Warunek zgodności mówi, ile wynosi całkowita zmiana długości.
+---
+id: design-full-thermal
+moduleId: design
+number: 4
+title: 'Pełne zadanie: obciążenie mechaniczne i temperatura'
+shortTitle: 'Zadanie: temperatura'
+description: >-
+  Łącz równowagę, zgodność odkształceń i prawo Hooke’a w pręcie zablokowanym
+  oraz sprawdzaj zapas.
+duration: 9
+eyebrow: Pełne rozwiązanie 2
+outcomes:
+  - >-
+    W1 — analizuję schemat elementu, obciążenia i warunki podparcia przed
+    rozpoczęciem obliczeń.
+  - >-
+    W2 — rozpoznaję równoczesne przypadki wytrzymałościowe i warunek decydujący
+    o wymiarze.
+  - >-
+    W3 — dobieram wymiary i wskaźniki przekroju, uwzględniając jego kształt oraz
+    sztywność.
+  - >-
+    U1 — wykonuję pełne obliczenia wymiaru, obciążenia dopuszczalnego i zapasu
+    wytrzymałości.
+  - >-
+    U2 — wykorzystuję koło Mohra do kontroli stanu naprężenia w obciążeniach
+    złożonych.
+  - >-
+    U3 — dobieram materiał i przekrój z wymaganym bezpieczeństwem oraz sprawdzam
+    warunek sztywności.
+solutionId: cw2-1
+---
 
-<Formula />
+Temperatura sama w sobie nie jest siłą. Reakcje pojawiają się wtedy, gdy podpory ograniczają swobodną zmianę długości. Warunek zgodności mówi, jaka jest całkowita zmiana długości pręta.
 
-<Insight />
+<Lab id="thermal" />
 
-<WorkedExample />
+<Formula>
+$$
+\Delta L = \frac{NL}{EA} + \alpha\Delta T L = 0 \qquad N = -EA\alpha\Delta T
+$$
+
+<Caption>Wzór dotyczy jednorodnego pręta idealnie zablokowanego i bez innych obciążeń. Dla ΔT &gt; 0 siła N jest ujemna, czyli ściskająca.</Caption>
+</Formula>
+
+<Insight>
+W idealnie zablokowanym pręcie całkowita długość się nie zmienia, ale odkształcenie termiczne i mechaniczne nie znikają — wzajemnie się równoważą.
+</Insight>
+
+<WorkedExample>
+<Given>
+Pręt ma A = 400 mm², E = 200 GPa, α = 12·10⁻⁶/K i ogrzewa się o 40 K przy pełnym zablokowaniu. Dopuszczalne naprężenie przy ściskaniu wynosi kc = 160 MPa.
+</Given>
+<Steps>
+<Step>
+Naprężenie termiczne: σ = −EαΔT = −200 000·12·10⁻⁶·40 = −96 MPa.
+</Step>
+<Step>
+N = σA = −96·400 = −38 400 N = −38,4 kN.
+</Step>
+<Step>
+Przy kc = 160 MPa: |σ| = 96 MPa ≤ 160 MPa.
+</Step>
+</Steps>
+<Result>
+W pręcie powstaje ściskanie 96 MPa i siła ściskająca 38,4 kN; warunek jest spełniony.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W1">
+<Prompt>
+Co jest warunkiem zgodności dla jednorodnego pręta utwierdzonego na obu końcach, bez luzu?
+</Prompt>
+<Answer>
+N = 0
+</Answer>
+<Answer correct>
+Całkowita zmiana długości ΔL = 0
+</Answer>
+<Answer>
+Odkształcenie termiczne εT = 0
+</Answer>
+<Hint>
+Podpory nie zmieniają wzajemnej odległości.
+</Hint>
+<Explanation>
+Całkowite ΔL musi być zerowe. Odkształcenie termiczne jest niezerowe po zmianie temperatury, ale kompensuje je odkształcenie mechaniczne o przeciwnym znaku.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Stalowy pręt ma E = 200 GPa, α = 12·10⁻⁶/K i jest w pełni zablokowany. Jakie naprężenie wywoła ΔT = 50 K?
+</Prompt>
+<Answer correct>
+Ściskanie 120 MPa
+</Answer>
+<Answer>
+Rozciąganie 120 MPa
+</Answer>
+<Answer>
+Ściskanie 12 MPa
+</Answer>
+<Hint>
+|σ| = EαΔT; przy ogrzewaniu podpory ściskają pręt.
+</Hint>
+<Explanation>
+|σ| = 200 000·12·10⁻⁶·50 = 120 MPa. Znak jest ujemny: σ = −120 MPa, czyli ściskanie.
+</Explanation>
+</Question>
+<Question outcome="W3">
+<Prompt>
+Jak wpłynie na naprężenie termiczne idealnie zablokowanego pręta dwukrotne zwiększenie A?
+</Prompt>
+<Answer>
+Zmniejszy się dwukrotnie
+</Answer>
+<Answer correct>
+Nie zmieni się
+</Answer>
+<Answer>
+Wzrośnie dwukrotnie
+</Answer>
+<Hint>
+N rośnie z A, ale naprężenie to N/A.
+</Hint>
+<Explanation>
+N = −EAαΔT rośnie proporcjonalnie do A, więc σ = N/A = −EαΔT nie zależy od pola. Zmienia się siła reakcji, nie naprężenie.
+</Explanation>
+</Question>
+</Quiz>

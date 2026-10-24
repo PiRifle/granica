@@ -1,7 +1,129 @@
-Rozciągnięta linijka zmienia długość, a ścinana kostka zmienia kąty, nawet jeśli niektóre wymiary pozostają podobne. ε mierzy względną zmianę długości, a inżynierskie γ mierzy zmianę początkowo prostego kąta.
+---
+id: strain-state-epsilon-gamma
+moduleId: strain-state
+number: 1
+title: 'Odkształcenia: długości i kąty'
+shortTitle: ε i γ
+description: >-
+  Rozróżnij względną zmianę długości od zniekształcenia postaciowego i poprawnie
+  używaj bezwymiarowych wielkości.
+duration: 7
+eyebrow: Jak zmienia się kształt
+outcomes:
+  - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
+  - >-
+    W2 — rozpoznaje sprężyste przypadki wytrzymałościowe z udziałem efektu
+    Poissona
+  - >-
+    W3 — wiąże geometrię, zmianę objętości i położenie czujników z mierzonymi
+    wielkościami
+  - >-
+    U1 — oblicza odkształcenia z uogólnionego prawa Hooke’a i danych
+    tensometrycznych
+  - U2 — przekształca pomiary rozety w koło Mohra odkształceń i wielkości główne
+  - >-
+    U3 — dobiera parametry materiałowe i geometryczne z uwagi na bezpieczeństwo
+    oraz sztywność
+---
 
-<Formula />
+Rozciągany pręt wydłuża się, a ścinana kostka zmienia kąty, choć jej objętość może pozostawać stała. Odkształcenie ε opisuje względną zmianę długości, a inżynierskie γ — zmianę początkowo prostego kąta.
 
-<Insight />
+<Lab id="tensileTest" />
 
-<WorkedExample />
+<Formula>
+$$
+\varepsilon_x=\frac{\Delta L_x}{L_{0x}},\qquad \gamma_{xy}=\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x},\qquad \varepsilon_{xy}=\frac{\gamma_{xy}}{2}
+$$
+
+<Caption>Dodatnia wartość ε oznacza wydłużenie. γ jest odkształceniem inżynierskim wyrażonym w radianach; składowa tensorowa εxy jest połową γxy. Przy małych odkształceniach u i v oznaczają przemieszczenia odpowiednio w kierunkach x i y.</Caption>
+</Formula>
+
+<Insight>
+Zapis 500 µε oznacza 500·10⁻⁶ = 0,0005, czyli 0,05%. Nie należy wstawiać do wzorów liczby 500 bez przeliczenia ani utożsamiać γxy z εxy.
+</Insight>
+
+<WorkedExample>
+<Given>
+Baza pomiarowa L0 = 50 mm wydłużyła się o 0,075 mm, a prosty kąt zmienił się tak, że γxy = 0,0012 rad.
+</Given>
+<Steps>
+<Step>
+Odkształcenie liniowe: εx = 0,075/50 = 0,0015.
+</Step>
+<Step>
+Zapis w mikroodkształceniach: 0,0015·10⁶ = 1500 µε.
+</Step>
+<Step>
+Odkształcenie postaciowe inżynierskie pozostaje γxy = 0,0012 = 1200 µrad.
+</Step>
+<Step>
+Składowa tensorowa: εxy = 0,0012/2 = 0,0006.
+</Step>
+</Steps>
+<Result>
+εx = 1500 µε (wydłużenie 0,15%), γxy = 0,0012 rad, a εxy = 0,0006. Są to różne miary deformacji i nie wolno ich mieszać.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W1">
+<Prompt>
+Odcinek o długości 200 mm wydłużył się o 0,30 mm. Ile wynosi odkształcenie?
+</Prompt>
+<Answer correct>
+0,0015
+</Answer>
+<Answer>
+0,015
+</Answer>
+<Answer>
+1,5
+</Answer>
+<Hint>
+Podziel zmianę długości przez długość początkową, używając tych samych jednostek.
+</Hint>
+<Explanation>
+ε = 0,30/200 = 0,0015 = 1500·10⁻⁶ = 1500 µε. Odpowiada to wydłużeniu względnemu 0,15%.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+Początkowo prosty kąt zmniejszył się o 0,002 rad. Przy konwencji, w której dodatnie γ oznacza zmniejszenie tego kąta, ile wynoszą γxy i tensorowe εxy?
+</Prompt>
+<Answer correct>
+γxy = 0,002, εxy = 0,001
+</Answer>
+<Answer>
+γxy = 0,001, εxy = 0,002
+</Answer>
+<Answer>
+Obie wielkości wynoszą 0,002
+</Answer>
+<Hint>
+Składowa tensorowa jest połową odkształcenia inżynierskiego.
+</Hint>
+<Explanation>
+Inżynierskie γxy opisuje pełną zmianę kąta i wynosi 0,002 rad. Do tensora wpisujemy εxy = γxy/2 = 0,001.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+Tensometr wskazuje −800 µε. Co oznacza znak i wartość?
+</Prompt>
+<Answer correct>
+Skrócenie względne 0,0008
+</Answer>
+<Answer>
+Wydłużenie względne 0,08
+</Answer>
+<Answer>
+Zmianę kąta o 800 rad
+</Answer>
+<Hint>
+Przedrostek µ oznacza milionową część, a minus skrócenie.
+</Hint>
+<Explanation>
+−800 µε = −800·10⁻⁶ = −0,0008, czyli skrócenie o 0,08% długości pomiarowej. Nie jest to miara kątowa.
+</Explanation>
+</Question>
+</Quiz>

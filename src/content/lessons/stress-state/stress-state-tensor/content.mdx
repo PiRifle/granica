@@ -1,7 +1,124 @@
-Wyobraź sobie bardzo małą kostkę wyciętą wewnątrz materiału. Na każdej ścianie mogą działać siła prostopadła i siły styczne. Tensor jest uporządkowanym zapisem tych działań, a nie dodatkową siłą przyłożoną do elementu.
+---
+id: stress-state-tensor
+moduleId: stress-state
+number: 1
+title: 'Tensor naprężenia: mapa sił w punkcie'
+shortTitle: Składowe tensora
+description: >-
+  Uporządkuj naprężenia normalne i styczne oraz zobacz, dlaczego sama wartość σx
+  nie opisuje całego obciążenia.
+duration: 7
+eyebrow: Punkt pod lupą
+outcomes:
+  - >-
+    W1 — analizuje stan naprężenia w punkcie i dobiera składowe do opisu
+    elementu
+  - >-
+    W2 — rozpoznaje przypadki wytrzymałościowe związane z rozciąganiem,
+    ściskaniem i ścinaniem
+  - W3 — odróżnia wpływ geometrii przekroju i kierunku przekroju na naprężenia
+  - >-
+    U1 — oblicza składowe po obrocie, naprężenia główne i maksymalne naprężenie
+    styczne
+  - U2 — kreśli i interpretuje koło Mohra oraz wyznacza kierunki główne
+  - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
+---
 
-<Formula />
+Wyobraź sobie bardzo małą kostkę wyciętą wewnątrz materiału. Na każdej jej ścianie mogą działać naprężenie normalne, prostopadłe do ściany, oraz naprężenia styczne, działające w płaszczyźnie ściany. Tensor naprężenia jest uporządkowanym zapisem tych wielkości, a nie dodatkową siłą przyłożoną do elementu.
 
-<Insight />
+<Lab id="stress" />
 
-<WorkedExample />
+<Formula>
+$$
+\boldsymbol{\sigma}=\begin{bmatrix}\sigma_x&\tau_{xy}&\tau_{xz}\\\tau_{xy}&\sigma_y&\tau_{yz}\\\tau_{xz}&\tau_{yz}&\sigma_z\end{bmatrix}
+$$
+
+<Caption>Symbol σ oznacza naprężenie normalne, prostopadłe do ściany, a τ — naprężenie styczne, działające w jej płaszczyźnie. Dodatnia wartość σ odpowiada rozciąganiu. Równości τxy = τyx, τxz = τzx i τyz = τzy wynikają z równowagi momentów elementarnej kostki przy pominięciu momentów objętościowych.</Caption>
+</Formula>
+
+<Insight>
+Tensor zawiera sześć niezależnych składowych. Obrót układu współrzędnych zmienia ich wartości, ale nie zmienia fizycznego stanu naprężenia w punkcie.
+</Insight>
+
+<WorkedExample>
+<Given>
+W punkcie płyty: σx = 100 MPa, σy = −40 MPa, τxy = 30 MPa; pozostałe składowe są zerowe.
+</Given>
+<Steps>
+<Step>
+Na przekątnej wpisujemy naprężenia normalne: 100, −40 i 0 MPa.
+</Step>
+<Step>
+W pola (x,y) i (y,x) wpisujemy 30 MPa, korzystając z symetrii tensora.
+</Step>
+<Step>
+Odczytujemy rozciąganie w kierunku x, ściskanie w kierunku y oraz obecność ścinania w płaszczyźnie xy.
+</Step>
+</Steps>
+<Result>
+Tensor ma postać [[100, 30, 0], [30, −40, 0], [0, 0, 0]] MPa. To stan płaski, ale nie jednoosiowy: bez σy i τxy ocena samego σx byłaby niepełna.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W1">
+<Prompt>
+Ile niezależnych składowych ma symetryczny tensor naprężenia w opisie przestrzennym?
+</Prompt>
+<Answer>
+3
+</Answer>
+<Answer correct>
+6
+</Answer>
+<Answer>
+9
+</Answer>
+<Hint>
+Policz trzy składowe na przekątnej i trzy różne pary składowych stycznych.
+</Hint>
+<Explanation>
+Macierz ma dziewięć pól, ale symetria daje τxy = τyx, τxz = τzx i τyz = τzy. Pozostaje 3 naprężenia normalne + 3 niezależne styczne = 6.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+W pewnym punkcie σx = 80 MPa, a wszystkie pozostałe składowe wynoszą zero. Co opisuje taki stan?
+</Prompt>
+<Answer correct>
+Jednoosiowe rozciąganie w kierunku x
+</Answer>
+<Answer>
+Czyste ścinanie
+</Answer>
+<Answer>
+Jednakowe ściskanie we wszystkich kierunkach
+</Answer>
+<Hint>
+Jest tylko jedno dodatnie naprężenie normalne.
+</Hint>
+<Explanation>
+Dodatnie σx oznacza rozciąganie w kierunku osi x, czyli prostopadłe do ściany o normalnej x. Zerowe pozostałe składowe dają klasyczny stan jednoosiowy, mimo że w innych przekrojach można wykazać naprężenia styczne.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+Dlaczego sama zmiana oznaczeń osi x i y nie zmienia nośności elementu?
+</Prompt>
+<Answer>
+Bo tensor zawsze jest zerowy
+</Answer>
+<Answer correct>
+Bo opisuje ten sam fizyczny stan, tylko w innych współrzędnych
+</Answer>
+<Answer>
+Bo znikają wszystkie naprężenia styczne
+</Answer>
+<Hint>
+Odróżnij fizyczne obciążenie od sposobu jego zapisu.
+</Hint>
+<Explanation>
+Przemianowanie osi odpowiada obrotowi układu współrzędnych, który przekształca składowe tensora według ścisłych zależności. Niezmienniki, naprężenia główne i fizyczne skutki pozostają takie same, więc sam opis nie zmienia nośności ani bezpieczeństwa.
+</Explanation>
+</Question>
+</Quiz>

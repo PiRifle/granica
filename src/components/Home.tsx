@@ -24,7 +24,7 @@ export function Home({ onStart, onTool }: { onStart: (id: LessonId) => void; onT
   const percent = completed.length / lessons.length * 100
   const normalized = query.trim().toLowerCase()
   const results = useMemo(() => normalized.length < 2 ? [] : lessons.filter((lesson) =>
-    [lesson.title, lesson.shortTitle, lesson.description, lesson.formula, lesson.insight]
+    [lesson.title, lesson.shortTitle, lesson.description]
       .some((value) => value.toLowerCase().includes(normalized))).slice(0, 8), [normalized])
   const resume = lastLesson && lessons.some((lesson) => lesson.id === lastLesson) ? lastLesson : lessons[0].id
 

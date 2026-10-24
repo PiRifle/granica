@@ -1,7 +1,121 @@
-Moduł Younga opisuje „twardość” samego materiału, ale wydłużenie zależy też od konstrukcji. Gruby i krótki pręt jest sztywniejszy osiowo niż cienki i długi z tego samego materiału.
+---
+id: m3-hooke-stiffness
+moduleId: material
+number: 3
+title: Prawo Hooke’a i sztywność osiowa
+shortTitle: Sprężystość
+description: >-
+  Liniowa zależność w zakresie sprężystym oraz wpływ materiału, pola i długości
+  na wydłużenie pręta.
+duration: 8
+eyebrow: Ile przesunie się element?
+outcomes:
+  - W1 — analizuje sprężystą odpowiedź pręta na siłę osiową
+  - W2 — rozpoznaje granice stosowalności prawa Hooke’a
+  - W3 — rozróżnia własność materiału E od sztywności całego pręta EA/L
+  - 'U1 — oblicza naprężenia, odkształcenia i wydłużenia'
+  - U2 — rozumie odkształcenia osiowe potrzebne do analizy koła Mohra
+  - 'U3 — kontroluje element zarówno ze względu na wytrzymałość, jak i sztywność'
+---
 
-<Formula />
+Moduł Younga opisuje sztywność samego materiału, ale wydłużenie zależy także od geometrii elementu. Krótki i gruby pręt jest osiowo sztywniejszy niż długi i cienki pręt z tego samego materiału.
 
-<Insight />
+<Lab id="hooke" />
 
-<WorkedExample />
+<Formula>
+$$
+\sigma = E\varepsilon, \qquad \Delta L = \frac{NL}{EA}
+$$
+
+<Caption>E to moduł Younga, N — siła osiowa, L — długość, A — pole przekroju. Wzór na ΔL stosujemy przy stałych N, E i A na długości L oraz w zakresie sprężystości liniowej. Dodatnie N oznacza rozciąganie, a ujemne — ściskanie.</Caption>
+</Formula>
+
+<Insight>
+Wytrzymałość odpowiada na pytanie „czy materiał wytrzyma?”, a sztywność — „czy odkształcenie nie będzie zbyt duże?”. Element może być bezpieczny ze względu na zerwanie, a mimo to zbyt podatny w codziennym użytkowaniu.
+</Insight>
+
+<WorkedExample>
+<Given>
+Stalowy pręt o długości L = 2 m i polu A = 250 mm² rozciąga siła N = 50 kN. Moduł E = 200 GPa.
+</Given>
+<Steps>
+<Step>
+Naprężenie: σ = N/A = 50 000/250 = 200 MPa.
+</Step>
+<Step>
+Odkształcenie z prawa Hooke’a: ε = σ/E = 200/200 000 = 0,001.
+</Step>
+<Step>
+Wydłużenie: ΔL = εL = 0,001·2000 mm = 2 mm.
+</Step>
+<Step>
+Ten sam wynik daje ΔL = NL/(EA) = 50 000·2000/(200 000·250) = 2 mm.
+</Step>
+</Steps>
+<Result>
+Pręt ma naprężenie 200 MPa, odkształcenie 0,001 i wydłuża się o 2 mm, o ile pozostaje w zakresie sprężystym.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Pręt ma N = 20 kN, L = 1 m, A = 100 mm² i E = 200 GPa. Ile wynosi jego wydłużenie?
+</Prompt>
+<Answer>
+0,1 mm
+</Answer>
+<Answer correct>
+1 mm
+</Answer>
+<Answer>
+10 mm
+</Answer>
+<Hint>
+Zamień długość na mm, E na N/mm² i podstaw do NL/(EA).
+</Hint>
+<Explanation>
+ΔL = NL/(EA) = 20 000·1000/(200 000·100) = 1 mm. Moduł E = 200 GPa = 200 000 N/mm².
+</Explanation>
+</Question>
+<Question outcome="W3">
+<Prompt>
+Jak zmieni się wydłużenie pręta, jeżeli przy tej samej sile i materiale podwoimy jego długość oraz pole przekroju?
+</Prompt>
+<Answer correct>
+Nie zmieni się
+</Answer>
+<Answer>
+Wzrośnie dwa razy
+</Answer>
+<Answer>
+Zmaleje dwa razy
+</Answer>
+<Hint>
+Podstaw 2L i 2A, a następnie skróć wspólne czynniki.
+</Hint>
+<Explanation>
+W ΔL = NL/(EA) długość rośnie dwa razy, a iloczyn EA również rośnie dwa razy. Te zmiany się znoszą.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+Dlaczego nie wolno stosować σ = Eε do dowolnie dużych odkształceń stali?
+</Prompt>
+<Answer correct>
+Bo prawo Hooke’a opisuje tylko zakres liniowej sprężystości
+</Answer>
+<Answer>
+Bo naprężenie nie zależy od materiału
+</Answer>
+<Answer>
+Bo po uplastycznieniu nie istnieją odkształcenia
+</Answer>
+<Hint>
+Nazwa „prawo” nie znosi zakresu jego stosowalności.
+</Hint>
+<Explanation>
+Liniowa proporcjonalność σ = Eε obowiązuje tylko w zakresie sprężystości liniowej. Po uplastycznieniu zależność staje się nieliniowa i pojawia się odkształcenie trwałe.
+</Explanation>
+</Question>
+</Quiz>

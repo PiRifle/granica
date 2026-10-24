@@ -1,7 +1,121 @@
-Siła skupiona jest wygodnym modelem oddziaływania na małym obszarze, a obciążenie rozłożone opisuje np. ciężar własny. Moment zginający lub skręcający powoduje obrót albo dążenie do obrotu, więc nie można go traktować jak zwykłej siły.
+---
+id: foundations-load-types
+moduleId: foundations
+number: 3
+title: 'Obciążenia: siła, rozkład i moment'
+shortTitle: Obciążenia
+description: >-
+  Rozpoznaj sposób działania obciążenia i zapisz jego wartość, kierunek oraz
+  miejsce przyłożenia.
+duration: 8
+eyebrow: Co działa na element?
+outcomes:
+  - W1 — identyfikuje zewnętrzne oddziaływania na element konstrukcji
+  - W2 — rozróżnia obciążenia powodujące różne przypadki wytrzymałościowe
+  - W3 — uwzględnia ciężar własny zależny od pola i długości
+  - U1 — oblicza wypadkowe obciążeń skupionych i rozłożonych
+  - U2 — rozróżnia dane wejściowe potrzebne do późniejszej analizy naprężeń
+  - U3 — zestawia obciążenia potrzebne do bezpiecznego i sztywnego doboru
+---
 
-<Formula />
+Siła skupiona jest wygodnym modelem oddziaływania na małym obszarze, a obciążenie rozłożone opisuje np. ciężar własny. Moment zewnętrzny opisuje działanie obrotowe: może wywoływać zginanie lub skręcanie, więc nie można go traktować jak zwykłej siły.
 
-<Insight />
+<Lab id="selfWeight" />
 
-<WorkedExample />
+<Formula>
+$$
+q_g=\rho g A,\qquad G=q_g L=\rho g A L
+$$
+
+<Caption>ρ to gęstość materiału, g ≈ 9,81 m/s², A to pole przekroju, a qg oznacza ciężar przypadający na jednostkę długości (N/m).</Caption>
+</Formula>
+
+<Insight>
+Ta sama wartość liczbowa może oznaczać co innego: 10 kN to siła, 10 kN/m to obciążenie liniowe, a 10 kN·m to moment. Jednostka ujawnia charakter obciążenia.
+</Insight>
+
+<WorkedExample>
+<Given>
+Stalowy pręt ma A = 0,002 m², L = 4 m i gęstość ρ = 7850 kg/m³. Przyjmij g = 9,81 m/s².
+</Given>
+<Steps>
+<Step>
+Oblicz objętość: V = AL = 0,002 m² · 4 m = 0,008 m³.
+</Step>
+<Step>
+Oblicz ciężar na jednostkę długości: qg = ρgA = 7850 · 9,81 · 0,002 ≈ 154,0 N/m.
+</Step>
+<Step>
+Oblicz ciężar całego pręta: G = qgL = 154,0 N/m · 4 m ≈ 616 N.
+</Step>
+<Step>
+Dla pręta poziomego zastąp ciężar G równomiernym obciążeniem qg skierowanym pionowo w dół.
+</Step>
+</Steps>
+<Result>
+Ciężar własny wynosi około 616 N, co odpowiada obciążeniu qg ≈ 154 N/m.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W3">
+<Prompt>
+Belka ma pole przekroju A i długość L, a jej materiał ma gęstość ρ. Jak zmieni się ciężar własny przy dwukrotnym zwiększeniu pola A?
+</Prompt>
+<Answer correct>
+Rośnie dwa razy
+</Answer>
+<Answer>
+Nie zmienia się
+</Answer>
+<Answer>
+Rośnie cztery razy niezależnie od L
+</Answer>
+<Hint>
+Objętość pręta to V = AL.
+</Hint>
+<Explanation>
+Przy stałych ρ i L ciężar G = ρgAL jest wprost proporcjonalny do A. Dwukrotne zwiększenie pola przekroju daje dwukrotnie większą objętość i ciężar.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+Który zapis może opisywać równomiernie rozłożony ciężar własny pręta?
+</Prompt>
+<Answer correct>
+q = 180 N/m
+</Answer>
+<Answer>
+P = 180 N·m
+</Answer>
+<Answer>
+M = 180 N
+</Answer>
+<Hint>
+Obciążenie liniowe podaje siłę przypadającą na jednostkę długości.
+</Hint>
+<Explanation>
+Ciężar rozłożony wzdłuż pręta opisujemy w N/m lub kN/m. N·m jest jednostką momentu, a samo N — siły skupionej.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+Moment zewnętrzny przyłożony do końca pręta różni się od siły skupionej tym, że:
+</Prompt>
+<Answer>
+ma jednostkę N/m
+</Answer>
+<Answer correct>
+opisuje działanie obrotowe, a nie przesuwne, i ma jednostkę N·m
+</Answer>
+<Answer>
+nie może wywołać reakcji w podporach
+</Answer>
+<Hint>
+Porównaj N·m z N i pomyśl o dokręcaniu kluczem.
+</Hint>
+<Explanation>
+Moment ma jednostkę N·m i opisuje działanie obrotowe, natomiast siła ma jednostkę N i opisuje działanie przesuwne. Podpory mogą reagować zarówno siłami, jak i momentem.
+</Explanation>
+</Question>
+</Quiz>

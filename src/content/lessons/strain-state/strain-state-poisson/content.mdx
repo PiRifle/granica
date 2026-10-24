@@ -1,7 +1,126 @@
-Gdy rozciągasz gumkę, staje się cieńsza. Współczynnik Poissona ν mówi, jak silne jest to poprzeczne skracanie względem wydłużenia osiowego. Dla materiału izotropowego efekt jest taki sam we wszystkich kierunkach poprzecznych.
+---
+id: strain-state-poisson
+moduleId: strain-state
+number: 2
+title: 'Efekt Poissona: dlaczego pręt robi się cieńszy'
+shortTitle: Współczynnik Poissona
+description: >-
+  Powiąż odkształcenie osiowe z poprzecznym i odróżnij zmianę przekroju od
+  utraty objętości.
+duration: 8
+eyebrow: 'Jedno rozciąganie, trzy reakcje'
+outcomes:
+  - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
+  - >-
+    W2 — rozpoznaje sprężyste przypadki wytrzymałościowe z udziałem efektu
+    Poissona
+  - >-
+    W3 — wiąże geometrię, zmianę objętości i położenie czujników z mierzonymi
+    wielkościami
+  - >-
+    U1 — oblicza odkształcenia z uogólnionego prawa Hooke’a i danych
+    tensometrycznych
+  - U2 — przekształca pomiary rozety w koło Mohra odkształceń i wielkości główne
+  - >-
+    U3 — dobiera parametry materiałowe i geometryczne z uwagi na bezpieczeństwo
+    oraz sztywność
+---
 
-<Formula />
+Gdy rozciągasz gumkę, staje się ona cieńsza. Współczynnik Poissona ν określa, jak silne jest poprzeczne skracanie w stosunku do wydłużenia osiowego. W materiale izotropowym efekt jest taki sam w obu kierunkach poprzecznych.
 
-<Insight />
+<Lab id="hooke" />
 
-<WorkedExample />
+<Formula>
+$$
+\nu=-\frac{\varepsilon_{poprz}}{\varepsilon_{osi}},\qquad \varepsilon_y=\varepsilon_z=-\nu\frac{\sigma_x}{E}\quad\text{dla jednoosiowego }\sigma_x
+$$
+
+<Caption>Dla typowego ν &gt; 0 dodatnie rozciąganie osiowe daje ujemne odkształcenia poprzeczne. Dla izotropowych materiałów liniowo-sprężystych zwykle 0 ≤ ν &lt; 0,5; istnieją też materiały auksetyczne o ν &lt; 0.</Caption>
+</Formula>
+
+<Insight>
+Przy ν bliskim 0,5 materiał jest prawie nieściśliwy w zakresie małych odkształceń. Poprzeczne skurcze nie oznaczają same w sobie zniszczenia — są częścią sprężystej odpowiedzi materiału.
+</Insight>
+
+<WorkedExample>
+<Given>
+Stalowy pręt o ν = 0,29 i średnicy 20 mm rozciągano tak, że εx = 1000 µε.
+</Given>
+<Steps>
+<Step>
+Odkształcenie osiowe w zapisie bezwymiarowym: εx = 0,001.
+</Step>
+<Step>
+Odkształcenie średnicy: εd = −ν εx = −0,29·0,001 = −0,00029.
+</Step>
+<Step>
+Zmiana średnicy: Δd = εd·d0 = −0,00029·20 = −0,0058 mm.
+</Step>
+</Steps>
+<Result>
+Średnica zmniejsza się o 0,0058 mm, czyli 5,8 µm, do około 19,9942 mm. Jest to skutek sprężystego efektu Poissona.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Pręt ma εx = 0,002, a ν = 0,30. Ile wynoszą εy i εz przy jednoosiowym rozciąganiu?
+</Prompt>
+<Answer correct>
+−0,0006
+</Answer>
+<Answer>
++0,0006
+</Answer>
+<Answer>
+−0,006
+</Answer>
+<Hint>
+Odkształcenie poprzeczne to −ν razy odkształcenie osiowe.
+</Hint>
+<Explanation>
+εy = εz = −0,30·0,002 = −0,0006, czyli −600 µε. Oba kierunki poprzeczne ulegają skróceniu.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Mierzono εosi = 1200 µε i εpoprz = −360 µε. Jaki jest współczynnik Poissona?
+</Prompt>
+<Answer correct>
+0,30
+</Answer>
+<Answer>
+3,33
+</Answer>
+<Answer>
+−0,30
+</Answer>
+<Hint>
+Weź minus iloraz odkształcenia poprzecznego i osiowego.
+</Hint>
+<Explanation>
+ν = −(−360)/1200 = 0,30. Znak minus we wzorze powoduje, że dla zwykłego materiału ν jest dodatnie.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+Co oznacza ν bliskie 0,5 dla izotropowego materiału sprężystego?
+</Prompt>
+<Answer correct>
+Bardzo małą zmianę objętości przy odkształceniu
+</Answer>
+<Answer>
+Brak odkształceń poprzecznych
+</Answer>
+<Answer>
+Zerowy moduł Younga
+</Answer>
+<Hint>
+Dla małych odkształceń zmiana objętości zależy od sumy trzech ε.
+</Hint>
+<Explanation>
+Przy jednoosiowym obciążeniu suma wynosi εx(1 − 2ν). Dla ν → 0,5 dąży ona do zera, czyli materiał staje się prawie nieściśliwy; odkształcenia poprzeczne nadal występują.
+</Explanation>
+</Question>
+</Quiz>

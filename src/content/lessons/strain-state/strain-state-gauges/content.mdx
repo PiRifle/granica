@@ -1,7 +1,126 @@
-Tensometr oporowy to cienka ścieżka przyklejona do powierzchni. Gdy rozciąga się razem z nią, zmienia opór elektryczny. Mierzy średnie odkształcenie na swojej bazie i głównie w kierunku swojej osi — nie „cały stan” automatycznie.
+---
+id: strain-state-gauges
+moduleId: strain-state
+number: 5
+title: 'Tensometry: od oporu do odkształcenia'
+shortTitle: Pomiar tensometryczny
+description: >-
+  Zrozumij zasadę pomiaru, bazę czujnika, kierunkowość i najważniejsze źródła
+  błędów.
+duration: 9
+eyebrow: Zobacz niewidzialne
+outcomes:
+  - W1 — analizuje odkształcenia liniowe i postaciowe w elemencie konstrukcyjnym
+  - >-
+    W2 — rozpoznaje sprężyste przypadki wytrzymałościowe z udziałem efektu
+    Poissona
+  - >-
+    W3 — wiąże geometrię, zmianę objętości i położenie czujników z mierzonymi
+    wielkościami
+  - >-
+    U1 — oblicza odkształcenia z uogólnionego prawa Hooke’a i danych
+    tensometrycznych
+  - U2 — przekształca pomiary rozety w koło Mohra odkształceń i wielkości główne
+  - >-
+    U3 — dobiera parametry materiałowe i geometryczne z uwagi na bezpieczeństwo
+    oraz sztywność
+---
 
-<Formula />
+Tensometr oporowy to cienka ścieżka oporowa przyklejona do powierzchni. Gdy odkształca się razem z nią, zmienia opór elektryczny. Mierzy odkształcenie uśrednione na swojej bazie i tylko w kierunku swojej osi — sam nie daje pełnego obrazu stanu odkształcenia.
 
-<Insight />
+<Lab id="tensileTest" />
 
-<WorkedExample />
+<Formula>
+$$
+GF=\frac{\Delta R/R_0}{\varepsilon},\qquad \Delta R/R_0=GF\cdot\varepsilon
+$$
+
+<Caption>GF oznacza współczynnik czułości tensometru, R0 — opór początkowy, a ε — odkształcenie wzdłuż osi czujnika. Poprawny pomiar wymaga dobrego przyklejenia, właściwie dobranego mostka pomiarowego i kompensacji wpływu temperatury.</Caption>
+</Formula>
+
+<Insight>
+Pomiar 1000 µε oznacza zmianę oporu zaledwie około 0,2% dla GF ≈ 2. Dlatego błędy montażu, wpływ temperatury i kierunek klejenia mają praktyczne znaczenie.
+</Insight>
+
+<WorkedExample>
+<Given>
+Czujnik: R0 = 350 Ω, GF = 2,10. Mostek wyznaczył ΔR = 0,147 Ω. Oblicz odkształcenie.
+</Given>
+<Steps>
+<Step>
+Względna zmiana oporu: ΔR/R0 = 0,147/350 = 0,00042.
+</Step>
+<Step>
+Odkształcenie: ε = (ΔR/R0)/GF = 0,00042/2,10 = 0,0002.
+</Step>
+<Step>
+Przeliczenie: 0,0002·10⁶ = 200 µε.
+</Step>
+</Steps>
+<Result>
+Czujnik wskazuje ε = 200 µε. Jest to wydłużenie względne 0,02% w kierunku jego osi, uśrednione na bazie.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Tensometr ma R0 = 120 Ω, GF = 2,0 i mierzy ε = 800 µε. Jaka jest zmiana oporu ΔR?
+</Prompt>
+<Answer correct>
+0,192 Ω
+</Answer>
+<Answer>
+1,92 Ω
+</Answer>
+<Answer>
+19,2 Ω
+</Answer>
+<Hint>
+Najpierw zamień 800 µε na 0,0008.
+</Hint>
+<Explanation>
+ΔR = GF·ε·R0 = 2·0,0008·120 = 0,192 Ω. Względna zmiana oporu wynosi 0,0016, czyli 0,16%.
+</Explanation>
+</Question>
+<Question outcome="W3">
+<Prompt>
+Dlaczego pojedynczy tensometr nie wystarcza do wyznaczenia pełnego płaskiego stanu odkształcenia?
+</Prompt>
+<Answer correct>
+Bo daje jedną liczbę dla jednego kierunku
+</Answer>
+<Answer>
+Bo nie mierzy odkształceń dodatnich
+</Answer>
+<Answer>
+Bo zawsze mierzy wyłącznie γxy
+</Answer>
+<Hint>
+Płaski stan wymaga trzech niezależnych składowych.
+</Hint>
+<Explanation>
+Jeden odczyt daje εθ dla osi czujnika. Do wyznaczenia εx, εy i γxy potrzeba co najmniej trzech niezależnych pomiarów w różnych kierunkach, np. rozety.
+</Explanation>
+</Question>
+<Question outcome="W3">
+<Prompt>
+Czujnik o bazie 10 mm jest umieszczony w obszarze gwałtownie zmiennego odkształcenia. Co odczyta?
+</Prompt>
+<Answer>
+Dokładnie wartość maksymalną w jednym punkcie
+</Answer>
+<Answer correct>
+Średnią na bazie, która może ukryć lokalny pik
+</Answer>
+<Answer>
+Zawsze zero
+</Answer>
+<Hint>
+Czujnik ma skończoną długość i integruje deformację przyklejonego odcinka.
+</Hint>
+<Explanation>
+Tensometr uśrednia odkształcenie wzdłuż bazy. Przy dużym gradiencie krótsza baza może lepiej uchwycić lokalną zmienność, ale nadal nie daje idealnej wartości punktowej.
+</Explanation>
+</Question>
+</Quiz>

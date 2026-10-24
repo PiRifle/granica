@@ -30,14 +30,7 @@
 .lesson-title > p { color: #747d6c; font-size: 14px; line-height: 1.6; margin-bottom: 11px; }
 .lesson-time { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #92998a; }
 .mobile-menu { display: none; }
-.lab-fallback { border: 1px dashed #ccd4c0; border-radius: 12px; padding: 25px; text-align: center; color: #8a9280; font-size: 12px; }
 
-.explanation { background: #fff; border: 1px solid var(--line); border-radius: 15px; padding: 28px; margin-top: 25px; }
-.explanation-heading { display: flex; gap: 13px; align-items: center; margin-bottom: 19px; }
-.round-icon { width: 40px; height: 40px; border-radius: 50%; background: #eff5e2; color: #8ba452; display: grid; place-items: center; flex: 0 0 40px; }
-.round-icon svg { width: 19px; }
-.explanation-heading :global(.section-kicker) { margin-bottom: 5px; font-size: 8px; }
-.explanation-heading h2 { font-size: 20px; letter-spacing: -.03em; margin: 0; }
 
 .quiz { border: 1px solid #dfe4d8; background: #fff; border-radius: 15px; padding: 28px; margin-top: 25px; }
 .quiz-top { display: flex; justify-content: space-between; align-items: center; }
@@ -89,8 +82,6 @@
 }
 
 @media (max-width: 480px) {
-  .explanation, .quiz { padding: 21px 17px; }
-  .explanation-heading h2 { font-size: 17px; }
   .lesson-navigation :global(.button) { padding: 10px 12px; }
   .lesson-navigation svg { width: 15px; }
 }

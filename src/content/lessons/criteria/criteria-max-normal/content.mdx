@@ -1,7 +1,133 @@
-W tej hipotezie materiał jest jak kruchy element pękający od nadmiernego rozciągnięcia w jednym kierunku. Nie wystarczy największa wartość bezwzględna dowolnej składowej — potrzebne są naprężenia główne.
+---
+id: criteria-max-normal
+moduleId: criteria
+number: 2
+title: Hipoteza największego naprężenia normalnego
+shortTitle: Maksimum normalne
+description: >-
+  Sprawdź, kiedy o zniszczeniu decyduje skrajne naprężenie główne i dlaczego
+  trzeba zachować jego znak.
+duration: 8
+eyebrow: Najpierw kierunki główne
+outcomes:
+  - >-
+    W1 — analizuję element konstrukcji i wskazuję przekrój oraz punkt decydujący
+    o bezpieczeństwie.
+  - >-
+    W2 — rozróżniam przypadki wytrzymałościowe i dobieram hipotezę do materiału
+    oraz stanu naprężenia.
+  - >-
+    W3 — uwzględniam geometrię przekroju przy wyznaczaniu naprężeń normalnych i
+    stycznych.
+  - >-
+    U1 — obliczam naprężenie zredukowane i sprawdzam warunek wytrzymałości z
+    zachowaniem jednostek.
+  - >-
+    U2 — stosuję koło Mohra do wyznaczenia naprężeń głównych i maksymalnego
+    naprężenia stycznego.
+  - >-
+    U3 — wyznaczam współczynnik bezpieczeństwa i oceniam, czy element spełnia
+    przyjęty warunek.
+---
 
-<Formula />
+Hipoteza największego naprężenia normalnego zakłada, że kruchy materiał pęka, gdy naprężenie główne osiągnie wytrzymałość — inną przy rozciąganiu, a inną przy ściskaniu. Nie wystarczy więc największa składowa σx, σy czy τxy: najpierw trzeba wyznaczyć naprężenia główne, ponieważ to one opisują skrajne rozciąganie i ściskanie w danym punkcie.
 
-<Insight />
+<Lab id="stressTransform" />
 
-<WorkedExample />
+<Formula>
+$$
+\sigma_{red} = \max(|\sigma_1|, |\sigma_2|, |\sigma_3|)
+$$
+
+<Caption>Wzór dotyczy przypadku, gdy dopuszczalna wytrzymałość jest jednakowa dla rozciągania i ściskania. Gdy kr ≠ kc, sprawdzamy osobno największe naprężenie dodatnie względem kr oraz największe co do modułu naprężenie ujemne względem kc. W stanie płaskim przyjmujemy σ3 = 0.</Caption>
+</Formula>
+
+<Insight>
+Przy czystym ścinaniu σ1 = τ, σ2 = −τ i σ3 = 0. Hipoteza przewiduje więc zniszczenie przy |τ| = k, czyli przy ścinaniu równym wytrzymałości na rozciąganie. Tresca dałaby wtedy τ = k/2, a HMH τ = k/√3 — to pokazuje, jak ważny jest dobór hipotezy do rodzaju materiału.
+</Insight>
+
+<WorkedExample>
+<Given>
+Stan płaski: σx = 60 MPa, σy = 0, τxy = 80 MPa. Dopuszczalna wytrzymałość jest jednakowa przy rozciąganiu i ściskaniu.
+</Given>
+<Steps>
+<Step>
+Środek koła Mohra: C = (σx + σy)/2 = (60 + 0)/2 = 30 MPa.
+</Step>
+<Step>
+Promień: R = √[(σx − σy)²/4 + τxy²] = √(30² + 80²) = 85,44 MPa.
+</Step>
+<Step>
+Naprężenia główne: σ1 = C + R = 115,44 MPa, σ2 = C − R = −55,44 MPa, σ3 = 0.
+</Step>
+<Step>
+Największa wartość bezwzględna to |σ1| = 115,44 MPa, więc σred = 115,44 MPa.
+</Step>
+</Steps>
+<Result>
+Według hipotezy największego naprężenia normalnego σred ≈ 115,4 MPa. Naprężenie ściskające −55,4 MPa ma mniejszy moduł, więc nie decyduje o wyniku.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Dla σ1 = 80 MPa, σ2 = −140 MPa i σ3 = 0 ile wynosi σred według hipotezy największego naprężenia normalnego, gdy kr = kc?
+</Prompt>
+<Answer>
+60 MPa
+</Answer>
+<Answer>
+80 MPa
+</Answer>
+<Answer correct>
+140 MPa
+</Answer>
+<Hint>
+Porównaj wartości bezwzględne |σ1|, |σ2| i |σ3|.
+</Hint>
+<Explanation>
+|σ1| = 80 MPa, |σ2| = 140 MPa, |σ3| = 0, więc decyduje σ2 i σred = 140 MPa. Znak jest istotny przy osobnej kontroli rozciągania i ściskania, natomiast do samej wartości σred wchodzi moduł naprężenia.
+</Explanation>
+</Question>
+<Question outcome="U2">
+<Prompt>
+Element ma σx = 70 MPa, σy = 0 i τxy = 30 MPa. Czy można przyjąć σred = 70 MPa w tej hipotezie?
+</Prompt>
+<Answer>
+Tak, σx jest zawsze decydujące
+</Answer>
+<Answer correct>
+Nie, trzeba najpierw wyznaczyć naprężenia główne
+</Answer>
+<Answer>
+Tak, jeśli σy = 0
+</Answer>
+<Hint>
+Ścinanie zmienia promień koła Mohra, a więc także naprężenia główne.
+</Hint>
+<Explanation>
+Dla σy = 0: σ1,2 = σx/2 ± √[(σx/2)² + τxy²] = 35 ± 46,1 MPa, czyli 81,1 i −11,1 MPa. Największy moduł wynosi 81,1 MPa, więc σred = 81,1 MPa, a nie 70 MPa.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+Materiał ma kr = 90 MPa i kc = 180 MPa, a naprężenia główne wynoszą 70 i −150 MPa. Jaki jest wynik sprawdzenia?
+</Prompt>
+<Answer correct>
+Oba warunki spełnione
+</Answer>
+<Answer>
+Przekroczone rozciąganie
+</Answer>
+<Answer>
+Przekroczone ściskanie
+</Answer>
+<Hint>
+Porównaj dodatnie σ1 z kr, a moduł ujemnego σ2 z kc.
+</Hint>
+<Explanation>
+Rozciąganie: 70 ≤ 90 MPa. Ściskanie: |−150| = 150 ≤ 180 MPa. Oba warunki są spełnione, mimo że materiał ma różne granice dla rozciągania i ściskania.
+</Explanation>
+</Question>
+</Quiz>

@@ -1,7 +1,121 @@
-Lina może utrzymać ciężar, ale nadmiernie się wydłużać. Podobnie pręt konstrukcyjny musi spełnić jednocześnie warunek wytrzymałości i ograniczenie odkształcenia; wybieramy większe z wymaganych pól.
+---
+id: m3-strength-stiffness-design
+moduleId: material
+number: 7
+title: Dobór ze względu na wytrzymałość i sztywność
+shortTitle: Dwa warunki doboru
+description: >-
+  Łączenie warunków naprężeniowego i przemieszczeniowego oraz rozpoznawanie,
+  który z nich decyduje o wymiarze.
+duration: 10
+eyebrow: 'Nie wystarczy, że nie pęknie'
+outcomes:
+  - W1 — analizuje element pod kątem kilku jednoczesnych wymagań
+  - W2 — rozróżnia zniszczenie od nadmiernej deformacji
+  - W3 — dobiera geometrię przekroju na podstawie warunku decydującego
+  - U1 — wykonuje kompletne obliczenia naprężeniowe i sztywnościowe
+  - U2 — interpretuje obliczony stan osiowy jako punkt wyjścia do analizy Mohra
+  - U3 — dobiera element z uwagi na bezpieczeństwo i dopuszczalną podatność
+---
 
-<Formula />
+Lina może utrzymać ciężar, ale nadmiernie się wydłużać. Podobnie pręt konstrukcyjny musi spełniać jednocześnie warunek wytrzymałości i ograniczenie odkształcenia; przyjmujemy większe z wymaganych pól.
 
-<Insight />
+<Lab id="steppedBar" />
 
-<WorkedExample />
+<Formula>
+$$
+A \ge \frac{N}{\sigma_{dop}} \qquad \text{oraz} \qquad A \ge \frac{NL}{E\,\Delta L_{dop}}
+$$
+
+<Caption>Pierwszy warunek ogranicza naprężenie, drugi — wydłużenie ΔLdop. Oba dotyczą pręta o stałym przekroju, stałej sile osiowej i materiale sprężystym liniowo; przyjmujemy pole spełniające oba warunki.</Caption>
+</Formula>
+
+<Insight>
+Decyduje warunek wymagający większego pola. Zwiększenie E poprawia sztywność, ale nie podnosi automatycznie granicy plastyczności; stal o większej wytrzymałości nie musi mieć większego modułu Younga.
+</Insight>
+
+<WorkedExample>
+<Given>
+Pręt o L = 2 m i E = 200 GPa przenosi N = 40 kN. Dopuszczalne naprężenie wynosi 150 MPa, a dopuszczalne wydłużenie 1 mm.
+</Given>
+<Steps>
+<Step>
+Warunek wytrzymałości: A ≥ N/σdop = 40 000/150 = 266,7 mm².
+</Step>
+<Step>
+Warunek sztywności: A ≥ NL/(EΔLdop) = 40 000·2000/(200 000·1) = 400 mm².
+</Step>
+<Step>
+Decyduje sztywność, ponieważ 400 mm² &gt; 266,7 mm². Przyjmujemy A = 400 mm².
+</Step>
+<Step>
+Kontrola: σ = 40 000/400 = 100 MPa ≤ 150 MPa oraz ΔL = 40 000·2000/(200 000·400) = 1 mm.
+</Step>
+</Steps>
+<Result>
+Minimalne pole wynosi 400 mm² i decyduje o nim dopuszczalne wydłużenie. Przy tym polu naprężenie wynosi 100 MPa, a wydłużenie dokładnie 1 mm.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U3">
+<Prompt>
+Warunek wytrzymałości wymaga A ≥ 250 mm², a warunek sztywności A ≥ 400 mm². Które pole należy przyjąć przed uwzględnieniem dostępnych wymiarów katalogowych?
+</Prompt>
+<Answer>
+250 mm²
+</Answer>
+<Answer>
+średnią 325 mm²
+</Answer>
+<Answer correct>
+400 mm²
+</Answer>
+<Hint>
+Sprawdź, przy którym polu oba warunki będą jednocześnie spełnione.
+</Hint>
+<Explanation>
+Element musi spełnić oba warunki, więc wybieramy większe minimum: 400 mm². Pole 325 mm² nie spełniłoby warunku sztywności.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Dla N = 40 kN, L = 2 m, E = 200 GPa i ΔLdop = 1 mm wymagane pole ze względu na sztywność wynosi:
+</Prompt>
+<Answer>
+100 mm²
+</Answer>
+<Answer>
+200 mm²
+</Answer>
+<Answer correct>
+400 mm²
+</Answer>
+<Hint>
+Przekształć ΔL = NL/(EA) tak, aby wyznaczyć A.
+</Hint>
+<Explanation>
+A ≥ NL/(EΔLdop) = 40 000·2000/(200 000·1) = 400 mm². Wartość 200 mm² powstałaby po podstawieniu L = 1 m zamiast 2 m.
+</Explanation>
+</Question>
+<Question outcome="U3">
+<Prompt>
+Zastąpiono stal stalą o większej granicy plastyczności, ale o takim samym E. Bez zmiany przekroju i obciążenia:
+</Prompt>
+<Answer>
+wydłużenie sprężyste zmaleje, bo Rₑ jest większe
+</Answer>
+<Answer correct>
+wydłużenie sprężyste nie zmieni się
+</Answer>
+<Answer>
+moduł E automatycznie wzrośnie
+</Answer>
+<Hint>
+Sprawdź, które wielkości występują we wzorze na wydłużenie, a których w nim nie ma.
+</Hint>
+<Explanation>
+Przy stałych N, L, A i E wydłużenie ΔL = NL/(EA) pozostaje takie samo. Większa granica plastyczności zwiększa możliwości wytrzymałościowe, ale nie sztywność sprężystą.
+</Explanation>
+</Question>
+</Quiz>

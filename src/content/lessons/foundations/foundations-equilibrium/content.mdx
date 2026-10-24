@@ -1,7 +1,122 @@
+---
+id: foundations-equilibrium
+moduleId: foundations
+number: 5
+title: 'Równowaga statyczna: trzy równania'
+shortTitle: Równowaga
+description: Wyznacz reakcje płaskiego układu za pomocą równowagi sił i momentów.
+duration: 9
+eyebrow: Spoczynek ma swoją matematykę
+outcomes:
+  - W1 — analizuje równowagę odizolowanego elementu
+  - W2 — rozróżnia obciążenia zewnętrzne i reakcje w równaniach
+  - W3 — wykorzystuje ramiona sił wynikające z geometrii
+  - U1 — wyznacza reakcje z równowagi sił i momentów
+  - U2 — sprawdza zgodność znaków potrzebną w dalszej analizie naprężeń
+  - U3 — ustala obciążenia obliczeniowe przed doborem przekroju
+---
+
 Jeśli element nie przyspiesza ani się nie obraca, wszystkie działające na niego siły i momenty muszą się równoważyć. Równania są konsekwencją fizyki, a nie trzema niezależnymi sztuczkami rachunkowymi.
 
-<Formula />
+<Lab id="reactions" />
 
-<Insight />
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0,\qquad \sum M_A=0
+$$
 
-<WorkedExample />
+<Caption>Dla płaskiego, statycznie wyznaczalnego ciała trzy niezależne równania pozwalają wyznaczyć trzy niewiadome reakcje. Punkt, względem którego sumujemy momenty, można wybrać dowolnie.</Caption>
+</Formula>
+
+<Insight>
+Sumę momentów warto pisać względem punktu, przez który przechodzi linia działania niewiadomej siły — jej moment wtedy znika, a równanie staje się prostsze.
+</Insight>
+
+<WorkedExample>
+<Given>
+Belka AB o długości L = 4 m jest podparta przegubowo nieprzesuwnie w A i przesuwnie w B. Siła P = 20 kN działa pionowo w dół w odległości a = 1 m od A. Pomiń ciężar własny.
+</Given>
+<Steps>
+<Step>
+Przyjmij reakcje RA i RB skierowane w górę oraz poziomą Ax w A. Brak obciążeń poziomych daje Ax = 0.
+</Step>
+<Step>
+Zapisz równowagę momentów względem A: ΣMA = RB·4 − 20·1 = 0.
+</Step>
+<Step>
+Wyznacz RB = 20·1/4 = 5 kN.
+</Step>
+<Step>
+Z równowagi pionowej RA + RB − 20 = 0 otrzymaj RA = 20 − 5 = 15 kN.
+</Step>
+<Step>
+Sprawdź momenty względem A: RB·4 m = 5 kN·4 m = 20 kN·m oraz P·1 m = 20 kN·1 m = 20 kN·m.
+</Step>
+</Steps>
+<Result>
+RA = 15 kN w górę, RB = 5 kN w górę oraz Ax = 0.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Na belkę długości 4 m działa pionowa siła 20 kN w odległości 1 m od lewej podpory A. Ile wynosi reakcja pionowa na prawej podporze B?
+</Prompt>
+<Answer correct>
+5 kN
+</Answer>
+<Answer>
+10 kN
+</Answer>
+<Answer>
+15 kN
+</Answer>
+<Hint>
+Napisz sumę momentów względem A: RB·4 − 20·1 = 0.
+</Hint>
+<Explanation>
+RB = 20 kN · 1 m / 4 m = 5 kN. Pozostałą część przenosi A, więc RA = 15 kN; suma reakcji wynosi 20 kN.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Dlaczego przy wyznaczaniu reakcji wygodnie sumować momenty względem punktu przyłożenia jednej z niewiadomych sił?
+</Prompt>
+<Answer correct>
+Bo jej ramię i moment względem tego punktu są zerowe
+</Answer>
+<Answer>
+Bo pozostałe reakcje zawsze znikają
+</Answer>
+<Answer>
+Bo suma sił przestaje być potrzebna
+</Answer>
+<Hint>
+Moment siły to siła razy prostopadłe ramię.
+</Hint>
+<Explanation>
+Siła przechodząca przez wybrany punkt ma zerowe ramię, więc nie pojawia się w równaniu momentów. Upraszcza to obliczenie pozostałych niewiadomych, ale równania sił nadal obowiązują.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Po obliczeniu reakcji otrzymano RA = −3 kN przy założeniu, że RA skierowana jest w górę. Co oznacza wynik?
+</Prompt>
+<Answer>
+Obliczenia są niemożliwe, bo reakcja nie może być ujemna
+</Answer>
+<Answer correct>
+Rzeczywista reakcja ma wartość 3 kN i jest skierowana w dół
+</Answer>
+<Answer>
+Trzeba zmienić typ podpory na utwierdzenie
+</Answer>
+<Hint>
+Znak odnosi się do przyjętego na schemacie kierunku.
+</Hint>
+<Explanation>
+Minus informuje, że rzeczywisty zwrot jest przeciwny do założonego. Wartość bezwzględna reakcji wynosi 3 kN; nie jest to samo w sobie sygnałem błędu modelu.
+</Explanation>
+</Question>
+</Quiz>

@@ -1,7 +1,134 @@
-Belka może mieć małe naprężenia, a jednocześnie uginać się na tyle, że konstrukcja przestaje być użyteczna. Projekt wymaga sprawdzenia zarówno nośności, jak i ugięcia.
+---
+id: bending-section-stiffness-design
+moduleId: bending
+number: 7
+title: Dobór przekroju i kontrola sztywności
+shortTitle: Dobór przekroju
+description: >-
+  Dobierz przekrój na moment zginający, a następnie sprawdź dopuszczalne ugięcie
+  belki.
+duration: 10
+eyebrow: 'Wytrzymała, ale czy dostatecznie sztywna?'
+outcomes:
+  - 'W1 — analizuje schematy belek, podpory i wewnętrzne siły przekrojowe'
+  - >-
+    W2 — rozróżnia przypadki obciążenia oraz czyste zginanie i zginanie z
+    udziałem siły tnącej
+  - W3 — wyjaśnia wpływ geometrii przekroju na rozkład naprężeń i ugięcie
+  - 'U1 — oblicza reakcje, funkcje T(x) i M(x) oraz naprężenia zginające'
+  - >-
+    U2 — wykorzystuje koło Mohra do analizy stanu naprężenia w zginanym
+    elemencie
+  - >-
+    U3 — dobiera przekrój belki z warunków bezpieczeństwa, wytrzymałości i
+    sztywności
+solutionId: cw9-1
+---
 
-<Formula />
+Belka może mieć małe naprężenia, a mimo to uginać się tak mocno, że konstrukcja przestaje być użyteczna. Projekt wymaga sprawdzenia zarówno wytrzymałości, jak i sztywności.
 
-<Insight />
+<Lab id="sections" />
 
-<WorkedExample />
+<Formula>
+$$
+W_z \geq \frac{M_{\max}}{\sigma_{dop}} \qquad f_{\max} = \frac{P L^3}{48EI} \leq f_{dop}
+$$
+
+<Caption>Wzór na f dotyczy belki swobodnie podpartej z siłą P w środku. σdop i fdop to wartości dopuszczalne; E i I podstawiaj w spójnych jednostkach.</Caption>
+</Formula>
+
+<Insight>
+Warunek wytrzymałości wyznacza wymagane W, a warunek sztywności — wymagane I. Po wyborze przekroju sprawdź oba; zwiększenie wysokości zwykle bardzo skutecznie zwiększa I.
+</Insight>
+
+<WorkedExample>
+<Given>
+Belka swobodnie podparta o L = 4 m, P = 10 kN w środku, E = 210 GPa, σdop = 160 MPa, fdop = L/250 = 16 mm. Rozważ przekrój b = 50 mm, h = 100 mm.
+</Given>
+<Steps>
+<Step>
+Mmax = PL/4 = 10·4/4 = 10 kN·m = 10 000 000 N·mm.
+</Step>
+<Step>
+Wymagane Wmin = Mmax/σdop = 10 000 000/160 = 62 500 mm³ = 62,5 cm³.
+</Step>
+<Step>
+Wymagane Imin = PL³/(48Efdop) = 10 000·4000³/(48·210 000·16) = 3 968 254 mm⁴.
+</Step>
+<Step>
+Dla przekroju W = bh²/6 = 50·100²/6 = 83 333 mm³ &gt; Wmin.
+</Step>
+<Step>
+Dla przekroju I = bh³/12 = 50·100³/12 = 4 166 667 mm⁴ &gt; Imin.
+</Step>
+<Step>
+Kontrola: σmax = 10 000 000/83 333 = 120 MPa &lt; 160 MPa; fmax = PL³/(48EI) = 15,24 mm &lt; 16 mm.
+</Step>
+</Steps>
+<Result>
+Przekrój 50 × 100 mm spełnia oba warunki: σmax = 120 MPa i fmax ≈ 15,24 mm.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U3">
+<Prompt>
+Dla Mmax = 16 kN·m i σdop = 160 MPa minimalny wskaźnik wytrzymałości przekroju wynosi:
+</Prompt>
+<Answer>
+10 cm³
+</Answer>
+<Answer correct>
+100 cm³
+</Answer>
+<Answer>
+1000 cm³
+</Answer>
+<Hint>
+Zamień M na 16 000 000 N·mm; wynik w mm³ podziel przez 1000, aby otrzymać cm³.
+</Hint>
+<Explanation>
+Wmin = 16 000 000/160 = 100 000 mm³ = 100 cm³. Przyjęty przekrój musi mieć W co najmniej takiej wartości.
+</Explanation>
+</Question>
+<Question outcome="U3">
+<Prompt>
+Przekrój spełnia warunek σmax ≤ σdop, ale ugięcie przekracza fdop. Co to oznacza?
+</Prompt>
+<Answer correct>
+Przekrój nie spełnia warunku; trzeba zwiększyć sztywność EI
+</Answer>
+<Answer>
+Przekrój jest poprawny, bo wytrzymałość zawsze unieważnia sztywność
+</Answer>
+<Answer>
+Należy zmniejszyć I, aby ograniczyć ugięcie
+</Answer>
+<Hint>
+Oba warunki muszą być spełnione jednocześnie.
+</Hint>
+<Explanation>
+Warunek wytrzymałości nie zastępuje kontroli odkształcalności. Ugięcie maleje ze wzrostem EI, więc trzeba dobrać większy I, lepszy materiał albo inny schemat belki.
+</Explanation>
+</Question>
+<Question outcome="W3">
+<Prompt>
+Dla prostokąta o stałej szerokości b wysokość h wzrasta dwukrotnie. Jak zmieni się I = bh³/12 i ugięcie przy pozostałych danych bez zmian?
+</Prompt>
+<Answer correct>
+I wzrośnie 8 razy, ugięcie spadnie 8 razy
+</Answer>
+<Answer>
+I wzrośnie 2 razy, ugięcie spadnie 2 razy
+</Answer>
+<Answer>
+I wzrośnie 4 razy, ugięcie spadnie 4 razy
+</Answer>
+<Hint>
+h jest w trzeciej potędze, a f jest odwrotnie proporcjonalne do I.
+</Hint>
+<Explanation>
+I rośnie 2³ = 8 razy. Ponieważ f = PL³/(48EI), przy stałych P, L i E ugięcie spada ośmiokrotnie.
+</Explanation>
+</Question>
+</Quiz>

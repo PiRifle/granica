@@ -8,12 +8,18 @@
     "build": "npm run validate:content && tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
-    "validate:content": "vitest run src/content/course.test.ts"
+    "validate:content": "vitest run src/content/course.test.ts",
+    "content:meta": "node scripts/generate-meta.mjs",
+    "predev": "npm run content:meta",
+    "prebuild": "npm run content:meta",
+    "pretest": "npm run content:meta",
+    "prevalidate:content": "npm run content:meta"
   },
   "dependencies": {
     "@mdx-js/rollup": "^3.1.1",
     "@radix-ui/react-progress": "^1.2.1",
     "@radix-ui/react-slider": "^1.6.1",
+    "gray-matter": "^4.0.3",
     "katex": "^0.19.1",
     "lucide-react": "^1.61.0",
     "motion": "^14.6.0",
@@ -23,12 +29,14 @@
     "react-router-dom": "^7.18.4",
     "recharts": "^3.10.1",
     "rehype-katex": "^7.0.1",
+    "remark-frontmatter": "^5.0.0",
     "remark-math": "^6.0.0",
     "vite-plugin-pwa": "^2.0.0",
     "zustand": "^5.0.16"
   },
   "devDependencies": {
     "@types/katex": "^0.16.8",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/react-katex": "^3.0.4",

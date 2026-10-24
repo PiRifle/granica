@@ -1,7 +1,122 @@
-W połączeniu dwuciętym sworzeń musi zostać przecięty w dwóch miejscach, aby części się rozdzieliły. Ta sama siła rozkłada się więc na dwa przekroje.
+---
+id: shear-single-double
+moduleId: shear
+number: 2
+title: Połączenia jedno- i dwucięte
+shortTitle: Jedno i dwa cięcia
+description: >-
+  Policz rzeczywiste płaszczyzny ścinania i uniknij najczęstszej pomyłki przy
+  dwuciętym sworzniu.
+duration: 8
+eyebrow: 'Licz przekroje, nie płyty'
+outcomes:
+  - >-
+    W1 — analizuje elementy ścinane i skręcane oraz wskazuje przekroje
+    przenoszące obciążenie
+  - W2 — rozróżnia przypadki ścinania technicznego i swobodnego skręcania
+  - W3 — wyjaśnia wpływ geometrii przekroju na naprężenia i sztywność
+  - 'U1 — oblicza naprężenia styczne, kąt skręcenia i siły w przekrojach'
+  - U2 — wykorzystuje koło Mohra do opisu czystego ścinania
+  - >-
+    U3 — dobiera średnicę wału z warunków wytrzymałości i sztywności z
+    zachowaniem bezpieczeństwa
+---
 
-<Formula />
+W połączeniu dwuciętym sworzeń trzeba przeciąć w dwóch miejscach, aby blachy się rozdzieliły. Ta sama siła rozkłada się więc na dwa przekroje, a średnie naprężenie styczne jest mniejsze.
 
-<Insight />
+<Lab id="shearJoint" />
 
-<WorkedExample />
+<Formula>
+$$
+\tau_{sr} = \frac{F}{n A} \qquad A = \frac{\pi d^2}{4}
+$$
+
+<Caption>n to liczba płaszczyzn ścinania: n = 1 dla połączenia jednociętego i n = 2 dla dwuciętego. A to pole jednego przekroju sworznia, a d to jego średnica.</Caption>
+</Formula>
+
+<Insight>
+Drugie cięcie zmniejsza średnie naprężenie o połowę przy tym samym sworzniu i tej samej sile. Samo dołożenie blachy nie wystarcza — sworzeń musi zostać przecięty w dwóch miejscach.
+</Insight>
+
+<WorkedExample>
+<Given>
+Dwucięty sworzeń o średnicy d = 16 mm przenosi F = 60 kN.
+</Given>
+<Steps>
+<Step>
+Pole jednego przekroju: A = π·16²/4 = 201,06 mm².
+</Step>
+<Step>
+Dla dwóch cięć łączne pole ścinania wynosi 2A = 402,12 mm².
+</Step>
+<Step>
+Średnie naprężenie: τsr = 60 000/402,12 = 149,2 MPa.
+</Step>
+</Steps>
+<Result>
+τsr ≈ 149 MPa; na każdą płaszczyznę ścinania przypada F/2 = 30 kN, a dla jednego cięcia naprężenie byłoby dwa razy większe.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W1">
+<Prompt>
+Ten sam sworzeń przenosi tę samą siłę najpierw w połączeniu jednociętym, a potem dwuciętym. Jak zmieni się τsr?
+</Prompt>
+<Answer correct>
+Spadnie o połowę
+</Answer>
+<Answer>
+Spadnie czterokrotnie
+</Answer>
+<Answer>
+Nie zmieni się
+</Answer>
+<Hint>
+Porównaj n = 1 i n = 2 we wzorze F/(nA).
+</Hint>
+<Explanation>
+W połączeniu dwuciętym pole ścinania wynosi 2A, więc τsr = F/(2A). To dokładnie połowa wartości F/A dla jednego cięcia.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Sworzeń o średnicy d = 10 mm jest dwucięty siłą F = 15,7 kN. Jakie jest przybliżone τsr?
+</Prompt>
+<Answer>
+50 MPa
+</Answer>
+<Answer correct>
+100 MPa
+</Answer>
+<Answer>
+200 MPa
+</Answer>
+<Hint>
+Najpierw policz πd²/4, a potem pomnóż pole przez dwa.
+</Hint>
+<Explanation>
+A = π·10²/4 ≈ 78,54 mm², a 2A ≈ 157,08 mm². Zatem τsr = 15 700/157,08 ≈ 100 MPa.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+W symetrycznym połączeniu trzech blach środkowa przenosi F, a zewnętrzne razem odprowadzają F. Ile płaszczyzn ścinania ma sworzeń?
+</Prompt>
+<Answer>
+Jedną, bo jest jeden sworzeń
+</Answer>
+<Answer correct>
+Dwie, po jednej na styku blachy środkowej z każdą zewnętrzną
+</Answer>
+<Answer>
+Trzy, bo w połączeniu są trzy blachy
+</Answer>
+<Hint>
+Wyobraź sobie rozdzielenie blach i zaznacz miejsca przecięcia sworznia.
+</Hint>
+<Explanation>
+Sworzeń przecina się na dwóch stykach blach. Każdy z dwóch przekrojów przenosi F/2, co daje łączne pole ścinania 2A.
+</Explanation>
+</Question>
+</Quiz>

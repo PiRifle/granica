@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { Award, CheckCircle2, Clock, RefreshCw, Target, XCircle } from 'lucide-react'
-import { lessons } from '../content/course'
+import { examBank } from '../content/exam/exam-bank'
 import type { Question } from '../types'
 import tools from './Tools.module.css'
 import exam from './Exam.module.css'
@@ -22,14 +22,14 @@ const EXAM_SIZE = 20
 const EXAM_SECONDS = 20 * 60
 
 function buildPool(): ExamQuestion[] {
-  return lessons.flatMap((lesson) => lesson.questions.map((question, index) => ({
-    key: `${lesson.id}-${index}`,
-    lessonId: lesson.id,
-    lessonTitle: lesson.shortTitle,
-    moduleId: lesson.moduleId,
-    moduleTitle: lesson.moduleId,
+  return examBank.map((question, index) => ({
+    key: `${question.lessonId}-${index}`,
+    lessonId: question.lessonId,
+    lessonTitle: question.lessonTitle,
+    moduleId: question.moduleId,
+    moduleTitle: question.moduleId,
     question,
-  })))
+  }))
 }
 
 function shuffle<T>(values: T[]): T[] {

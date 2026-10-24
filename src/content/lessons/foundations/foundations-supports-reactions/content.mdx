@@ -1,7 +1,121 @@
-Reakcja pojawia się tam, gdzie podpora blokuje ruch. Podpora przegubowa przesuwana blokuje ruch w jednym kierunku, nieprzesuwana w dwóch, a utwierdzenie dodatkowo uniemożliwia obrót.
+---
+id: foundations-supports-reactions
+moduleId: foundations
+number: 4
+title: 'Podpory i reakcje: jak konstrukcja odpowiada'
+shortTitle: Podpory
+description: >-
+  Dobierz schemat podparcia i określ, które ruchy lub obroty ogranicza każda
+  podpora.
+duration: 9
+eyebrow: 'Najpierw swobody, potem reakcje'
+outcomes:
+  - W1 — rozpoznaje ograniczenia ruchu w modelach podpór
+  - W2 — wiąże sposób podparcia z przenoszonymi obciążeniami
+  - W3 — uwzględnia położenie podpór względem geometrii elementu
+  - U1 — przewiduje liczbę i kierunki składowych reakcji
+  - U2 — oddziela reakcje siłowe od informacji o stanie naprężenia
+  - U3 — tworzy poprawny model wejściowy do wymiarowania
+---
 
-<Formula />
+Reakcja pojawia się tam, gdzie podpora blokuje ruch. Podpora przesuwna blokuje przesunięcie tylko w kierunku prostopadłym do podłoża, przegub nieprzesuwny — w dwóch kierunkach, a utwierdzenie dodatkowo uniemożliwia obrót.
 
-<Insight />
+<Lab id="reactions" />
 
-<WorkedExample />
+<Formula>
+$$
+\text{podpora przesuwna: }1R,\qquad \text{przegub nieprzesuwny: }2R,\qquad \text{utwierdzenie: }2R+M
+$$
+
+<Caption>Zapis dotyczy zadania płaskiego. R oznacza składową reakcji siłowej, a M reakcję momentową. Kierunek reakcji przesuwnej jest prostopadły do powierzchni toczenia.</Caption>
+</Formula>
+
+<Insight>
+Przegub nie oznacza braku reakcji — pozwala na obrót, ale nadal przenosi siły. Utwierdzenie jako jedyne z tych trzech schematów przenosi moment.
+</Insight>
+
+<WorkedExample>
+<Given>
+Płaski element jest utwierdzony w punkcie A. Przez A przechodzą linie działania sił 8 kN w prawo i 5 kN w dół; działa też moment zewnętrzny 12 kN·m przeciwnie do wskazówek zegara.
+</Given>
+<Steps>
+<Step>
+Przyjmij w A reakcje Ax, Ay i MA oraz dodatnie kierunki: w prawo, w górę i przeciwnie do wskazówek zegara.
+</Step>
+<Step>
+Z równowagi poziomej: Ax + 8 = 0, więc Ax = −8 kN, czyli 8 kN w lewo.
+</Step>
+<Step>
+Z równowagi pionowej: Ay − 5 = 0, więc Ay = 5 kN w górę.
+</Step>
+<Step>
+Z równowagi momentów: MA + 12 = 0, więc MA = −12 kN·m, czyli zgodnie ze wskazówkami zegara.
+</Step>
+</Steps>
+<Result>
+W utwierdzeniu występują reakcje 8 kN w lewo, 5 kN w górę i 12 kN·m zgodnie ze wskazówkami zegara.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W1">
+<Prompt>
+Jakie reakcje należy przyjąć w idealnym utwierdzeniu płaskiego pręta?
+</Prompt>
+<Answer>
+Tylko jedną siłę pionową
+</Answer>
+<Answer correct>
+Dwie składowe siły i moment
+</Answer>
+<Answer>
+Wyłącznie moment, bo pręt jest nieruchomy
+</Answer>
+<Hint>
+Utwierdzenie blokuje dwa przesunięcia i obrót.
+</Hint>
+<Explanation>
+W zadaniu płaskim utwierdzenie ogranicza przesunięcia w dwóch kierunkach oraz obrót. Dlatego występują Rx, Ry i M, choć w konkretnym zadaniu niektóre mogą wyjść zerowe.
+</Explanation>
+</Question>
+<Question outcome="W1">
+<Prompt>
+Podpora przegubowa nieprzesuwna różni się od przesuwnej tym, że:
+</Prompt>
+<Answer>
+przenosi moment zginający
+</Answer>
+<Answer correct>
+blokuje także przesunięcie w kierunku, w którym podpora przesuwna mogłaby się przetoczyć
+</Answer>
+<Answer>
+nie przenosi żadnych sił
+</Answer>
+<Hint>
+Obie podpory pozwalają na obrót; porównaj możliwe przesunięcia.
+</Hint>
+<Explanation>
+Przegub nieprzesuwny ma dwie składowe reakcji, a przesuwny jedną. Obie idealne podpory nie przenoszą momentu, ponieważ dopuszczają obrót.
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+W pionowym pręcie utwierdzonym u góry i obciążonym wyłącznie pionową siłą osiową reakcja pozioma wynosi zero. Czy to oznacza, że utwierdzenie działa jak podpora przesuwna?
+</Prompt>
+<Answer>
+Tak, zerowa reakcja zmienia typ podpory
+</Answer>
+<Answer correct>
+Nie, zerowa wartość składowej nie usuwa pozostałych ograniczeń modelu
+</Answer>
+<Answer>
+Tak, ale tylko dla prętów stalowych
+</Answer>
+<Hint>
+Rozróżnij możliwe reakcje w modelu od ich wartości w konkretnym obciążeniu.
+</Hint>
+<Explanation>
+Typ podpory opisuje blokowane ruchy, a nie tylko niezerowe wartości reakcji. Utwierdzenie nadal może przenosić siłę poziomą i moment, nawet jeśli dla danego obciążenia któraś reakcja jest zerowa.
+</Explanation>
+</Question>
+</Quiz>

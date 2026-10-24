@@ -1,7 +1,121 @@
-Jednostka mówi, co fizycznie oznacza liczba. Samo „40” nie opisuje naprężenia — dopiero 40 MPa informuje, że na każdy milimetr kwadratowy przypada 40 N siły.
+---
+id: foundations-si-units
+moduleId: foundations
+number: 1
+title: 'Jednostki SI: wspólny język obliczeń'
+shortTitle: Jednostki SI
+description: >-
+  Łącz niutony, milimetry i megapaskale bez zgadywania oraz kontroluj wynik
+  przez analizę jednostek.
+duration: 7
+eyebrow: Najpierw uporządkuj dane
+outcomes:
+  - W1 — rozróżnia wielkości fizyczne opisujące element i jego obciążenie
+  - 'W2 — podaje jednostki siły, naprężenia i odkształcenia'
+  - W3 — stosuje jednostki długości i pola przy opisie geometrii
+  - U1 — przelicza jednostki i sprawdza poprawność wzorów
+  - U2 — zapisuje naprężenia w jednostkach używanych przy kole Mohra
+  - U3 — unika błędów jednostkowych przy doborze nośności i sztywności
+---
 
-<Formula />
+Jednostka mówi, co fizycznie oznacza liczba. Samo „40” nie opisuje naprężenia — dopiero 40 MPa informuje, że na każdy milimetr kwadratowy przekroju przypada 40 N siły.
 
-<Insight />
+<Lab id="units" />
 
-<WorkedExample />
+<Formula>
+$$
+1\,\mathrm{kN}=10^3\,\mathrm{N},\qquad 1\,\mathrm{MPa}=1\,\mathrm{N/mm^2}=10^6\,\mathrm{Pa}
+$$
+
+<Caption>W obliczeniach prętów wygodnie jest używać N i mm: naprężenie wychodzi wtedy wprost w MPa. Nie wolno mieszać kN i N bez przeliczenia.</Caption>
+</Formula>
+
+<Insight>
+Analiza jednostek wychwytuje wiele błędów: jeśli z obliczeń wychodzi N/mm zamiast N/mm², otrzymana wielkość nie jest naprężeniem, nawet gdy liczba wygląda sensownie.
+</Insight>
+
+<WorkedExample>
+<Given>
+Pręt o polu przekroju A = 300 mm² przenosi siłę N = 12 kN. Oblicz naprężenie w MPa.
+</Given>
+<Steps>
+<Step>
+Przelicz siłę: N = 12 kN = 12 000 N.
+</Step>
+<Step>
+Podstaw spójne jednostki: σ = N/A = 12 000 N / 300 mm².
+</Step>
+<Step>
+Wykonaj dzielenie i zidentyfikuj jednostkę: σ = 40 N/mm².
+</Step>
+<Step>
+Zapisz wynik w MPa, korzystając z równoważności 1 N/mm² = 1 MPa.
+</Step>
+</Steps>
+<Result>
+Naprężenie wynosi σ = 40 MPa; dodatnia wartość oznacza rozciąganie.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U1">
+<Prompt>
+Przekrój ma 250 mm², a siła wynosi 10 kN. Które podstawienie do σ = N/A jest poprawne?
+</Prompt>
+<Answer>
+σ = 10/250 = 0,04 MPa
+</Answer>
+<Answer correct>
+σ = 10 000/250 = 40 MPa
+</Answer>
+<Answer>
+σ = 10 000/250 = 40 Pa
+</Answer>
+<Hint>
+Najpierw zamień kiloniutony na niutony, a następnie zwróć uwagę na N/mm².
+</Hint>
+<Explanation>
+10 kN = 10 000 N, więc σ = 10 000 N / 250 mm² = 40 N/mm² = 40 MPa. Wynik 0,04 MPa powstaje przez błędne pozostawienie siły w kN, a 40 Pa to niepoprawna jednostka dla ilorazu N/mm².
+</Explanation>
+</Question>
+<Question outcome="W2">
+<Prompt>
+Jaką jednostkę ma odkształcenie względne ε = ΔL/L?
+</Prompt>
+<Answer correct>
+Jest bezwymiarowe
+</Answer>
+<Answer>
+Jest wyrażone w MPa
+</Answer>
+<Answer>
+Jest wyrażone w mm
+</Answer>
+<Hint>
+Podziel jednostkę wydłużenia przez jednostkę długości początkowej.
+</Hint>
+<Explanation>
+ΔL i L mają tę samą jednostkę, która się skraca. Dlatego ε jest bezwymiarowe, choć często zapisujemy je także w promilach lub procentach.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Wzór na wielkość X daje po skróceniu jednostkę N/mm. Dlaczego X nie może być naprężeniem?
+</Prompt>
+<Answer>
+Naprężenie zawsze jest bezwymiarowe
+</Answer>
+<Answer correct>
+Naprężenie wymaga N/mm², a N/mm opisuje siłę na długość
+</Answer>
+<Answer>
+Naprężenie musi mieć jednostkę N·m
+</Answer>
+<Hint>
+Porównaj wymiar wyniku ze wzorem σ = N/A.
+</Hint>
+<Explanation>
+Pole ma jednostkę mm², dlatego naprężenie ma wymiar N/mm². Jednostka N/mm odpowiada natomiast np. intensywności obciążenia liniowego lub sztywności sprężyny, a N·m jest jednostką momentu.
+</Explanation>
+</Question>
+</Quiz>

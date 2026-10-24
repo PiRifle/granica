@@ -1,0 +1,3202 @@
+import type { Question } from '../../types'
+
+export interface ExamQuestion extends Question {
+  moduleId: string
+  lessonId: string
+  lessonTitle: string
+}
+
+export const examBank: ExamQuestion[] = [
+  {
+    "question": "Przekrój ma 250 mm², a siła wynosi 10 kN. Które podstawienie do σ = N/A jest poprawne?",
+    "answers": [
+      "σ = 10/250 = 0,04 MPa",
+      "σ = 10 000/250 = 40 MPa",
+      "σ = 10 000/250 = 40 Pa"
+    ],
+    "correct": 1,
+    "hint": "Najpierw zamień kiloniutony na niutony, a następnie zwróć uwagę na N/mm².",
+    "explanation": "10 kN = 10 000 N, więc σ = 10 000 N / 250 mm² = 40 N/mm² = 40 MPa. Wynik 0,04 MPa powstaje przez błędne pozostawienie siły w kN.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-si-units",
+    "lessonTitle": "Jednostki SI"
+  },
+  {
+    "question": "Odkształcenie względne ε = ΔL/L ma jaką jednostkę?",
+    "answers": [
+      "Jest bezwymiarowe",
+      "Jest wyrażone w MPa",
+      "Jest wyrażone w mm"
+    ],
+    "correct": 0,
+    "hint": "Podziel jednostkę wydłużenia przez jednostkę długości początkowej.",
+    "explanation": "ΔL i L mają tę samą jednostkę, która się skraca. Dlatego ε jest bezwymiarowe, choć często zapisujemy je także w promilach lub procentach.",
+    "outcome": "W2",
+    "moduleId": "foundations",
+    "lessonId": "foundations-si-units",
+    "lessonTitle": "Jednostki SI"
+  },
+  {
+    "question": "Wzór na wielkość X daje po skróceniu jednostkę N/mm. Dlaczego X nie może być naprężeniem?",
+    "answers": [
+      "Naprężenie zawsze jest bezwymiarowe",
+      "Naprężenie wymaga N/mm², a N/mm opisuje siłę na długość",
+      "W naprężeniu nie mogą występować niutony"
+    ],
+    "correct": 1,
+    "hint": "Porównaj wymiar wyniku ze wzorem σ = N/A.",
+    "explanation": "Pole ma jednostkę mm², dlatego naprężenie ma wymiar N/mm². N/mm odpowiada natomiast np. intensywności obciążenia liniowego lub sztywności sprężyny.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-si-units",
+    "lessonTitle": "Jednostki SI"
+  },
+  {
+    "question": "Dlaczego przy obliczaniu wydłużenia pręta nie wolno przyjąć modelu idealnie sztywnego?",
+    "answers": [
+      "Bo nie można wtedy narysować osi pręta",
+      "Bo model sztywny z definicji pomija odkształcenia",
+      "Bo siła osiowa zawsze wynosi zero"
+    ],
+    "correct": 1,
+    "hint": "Zastanów się, jaką własność materiału ma opisywać wzór ΔL = NL/(EA).",
+    "explanation": "Ciało idealnie sztywne nie zmienia kształtu ani wymiarów pod obciążeniem. Taki model może służyć do analizy równowagi, lecz usuwa zjawisko, które chcemy obliczyć.",
+    "outcome": "W2",
+    "moduleId": "foundations",
+    "lessonId": "foundations-idealized-models",
+    "lessonTitle": "Modele"
+  },
+  {
+    "question": "Czy zastąpienie równomiernego obciążenia q jego wypadkową qL jest poprawne przy wyznaczaniu reakcji belki?",
+    "answers": [
+      "Tak, jeśli wypadkową przyłożymy w połowie obciążonego odcinka",
+      "Tak, ale tylko gdy belka jest nieważka",
+      "Nie, bo obciążenie rozłożone nie ma wypadkowej"
+    ],
+    "correct": 0,
+    "hint": "Wypadkowa musi dać tę samą sumę sił i momentów.",
+    "explanation": "Dla równomiernego q wypadkowa wynosi qL i działa w środku obciążonego odcinka. Zachowuje siłę oraz moment względem dowolnego punktu, więc nadaje się do równowagi całej belki.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-idealized-models",
+    "lessonTitle": "Modele"
+  },
+  {
+    "question": "Który szczegół jest najistotniejszy w modelu pręta osiowo rozciąganego z dala od mocowania?",
+    "answers": [
+      "Kolor powierzchni",
+      "Pole przekroju i moduł Younga",
+      "Dokładny kształt drobnej faktury powierzchni"
+    ],
+    "correct": 1,
+    "hint": "Wybierz wielkości występujące w σ = N/A i ΔL = NL/(EA).",
+    "explanation": "Pole A decyduje o średnim naprężeniu, a E i A o sztywności osiowej. Drobne detale powierzchni można pominąć w tym modelu, o ile nie tworzą istotnego karbu.",
+    "outcome": "W3",
+    "moduleId": "foundations",
+    "lessonId": "foundations-idealized-models",
+    "lessonTitle": "Modele"
+  },
+  {
+    "question": "Belka ma przekrój o polu A i długość L, a jej materiał ma gęstość ρ. Jak rośnie ciężar własny przy dwukrotnym zwiększeniu A?",
+    "answers": [
+      "Rośnie dwa razy",
+      "Nie zmienia się",
+      "Rośnie cztery razy niezależnie od L"
+    ],
+    "correct": 0,
+    "hint": "Objętość pręta to V = AL.",
+    "explanation": "Przy stałych ρ i L ciężar G = ρgAL jest wprost proporcjonalny do A. Dwukrotne zwiększenie przekroju daje dwukrotnie większą objętość i ciężar.",
+    "outcome": "W3",
+    "moduleId": "foundations",
+    "lessonId": "foundations-load-types",
+    "lessonTitle": "Obciążenia"
+  },
+  {
+    "question": "Który zapis może opisywać równomiernie rozłożony ciężar własny pręta?",
+    "answers": [
+      "q = 180 N/m",
+      "P = 180 N·m",
+      "M = 180 N"
+    ],
+    "correct": 0,
+    "hint": "Obciążenie liniowe podaje siłę przypadającą na jednostkę długości.",
+    "explanation": "Ciężar rozłożony wzdłuż pręta opisujemy w N/m lub kN/m. N·m jest jednostką momentu, a samo N — siły skupionej.",
+    "outcome": "W2",
+    "moduleId": "foundations",
+    "lessonId": "foundations-load-types",
+    "lessonTitle": "Obciążenia"
+  },
+  {
+    "question": "Moment zewnętrzny przyłożony do wolnego końca wydłużonego elementu różni się od siły tym, że:",
+    "answers": [
+      "ma jednostkę N/m",
+      "opisuje działanie obrotowe i jego skutek zależy od ramienia sił",
+      "nie może wywołać reakcji w podporach"
+    ],
+    "correct": 1,
+    "hint": "Porównaj N·m z N i pomyśl o dokręcaniu kluczem.",
+    "explanation": "Moment ma jednostkę N·m i opisuje skutek obrotowy. Dla pary sił lub siły na ramieniu zależy od odległości, a podpory mogą reagować zarówno siłami, jak i momentem.",
+    "outcome": "W1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-load-types",
+    "lessonTitle": "Obciążenia"
+  },
+  {
+    "question": "Jakie reakcje należy przyjąć w idealnym utwierdzeniu płaskiego pręta?",
+    "answers": [
+      "Tylko jedną siłę pionową",
+      "Dwie składowe siły i moment",
+      "Wyłącznie moment, bo pręt jest nieruchomy"
+    ],
+    "correct": 1,
+    "hint": "Utwierdzenie blokuje dwa przesunięcia i obrót.",
+    "explanation": "W zadaniu płaskim utwierdzenie ogranicza przesunięcia w dwóch kierunkach oraz obrót. Dlatego występują Rx, Ry i M, choć w konkretnym zadaniu niektóre mogą wyjść zerowe.",
+    "outcome": "W1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-supports-reactions",
+    "lessonTitle": "Podpory"
+  },
+  {
+    "question": "Podpora przegubowa nieprzesuwna różni się od przesuwnej tym, że:",
+    "answers": [
+      "przenosi moment zginający",
+      "blokuje również ruch wzdłuż kierunku, w którym może toczyć się podpora przesuwna",
+      "nie przenosi żadnych sił"
+    ],
+    "correct": 1,
+    "hint": "Obie podpory pozwalają na obrót; porównaj możliwe przesunięcia.",
+    "explanation": "Przegub nieprzesuwny ma dwie składowe reakcji, a przesuwny jedną. Obie idealne podpory nie przenoszą momentu, ponieważ dopuszczają obrót.",
+    "outcome": "W1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-supports-reactions",
+    "lessonTitle": "Podpory"
+  },
+  {
+    "question": "W pionowym pręcie utwierdzonym u góry i obciążonym wyłącznie pionową siłą osiową reakcja pozioma wynosi zero. Czy to oznacza, że utwierdzenie działa jak podpora przesuwna?",
+    "answers": [
+      "Tak, zerowa reakcja zmienia typ podpory",
+      "Nie, zerowa wartość składowej nie usuwa pozostałych ograniczeń modelu",
+      "Tak, ale tylko dla prętów stalowych"
+    ],
+    "correct": 1,
+    "hint": "Rozróżnij możliwe reakcje w modelu od ich wartości w konkretnym obciążeniu.",
+    "explanation": "Typ podpory opisuje blokowane ruchy, a nie tylko niezerowe liczby. Utwierdzenie nadal może przenosić siłę poziomą i moment, nawet jeśli dla danego obciążenia któraś reakcja jest zerowa.",
+    "outcome": "W2",
+    "moduleId": "foundations",
+    "lessonId": "foundations-supports-reactions",
+    "lessonTitle": "Podpory"
+  },
+  {
+    "question": "Na belkę długości 4 m działa pionowa siła 20 kN w odległości 1 m od lewej podpory A. Ile wynosi reakcja pionowa na prawej podporze B?",
+    "answers": [
+      "5 kN",
+      "10 kN",
+      "15 kN"
+    ],
+    "correct": 0,
+    "hint": "Napisz sumę momentów względem A: RB·4 − 20·1 = 0.",
+    "explanation": "RB = 20 kN · 1 m / 4 m = 5 kN. Pozostałą część przenosi A, więc RA = 15 kN; suma reakcji wynosi 20 kN.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-equilibrium",
+    "lessonTitle": "Równowaga"
+  },
+  {
+    "question": "Dlaczego przy wyznaczaniu reakcji wygodnie sumować momenty względem punktu przyłożenia jednej z niewiadomych sił?",
+    "answers": [
+      "Bo jej ramię i moment względem tego punktu są zerowe",
+      "Bo pozostałe reakcje zawsze znikają",
+      "Bo suma sił przestaje być potrzebna"
+    ],
+    "correct": 0,
+    "hint": "Moment siły to siła razy prostopadłe ramię.",
+    "explanation": "Siła przechodząca przez wybrany punkt ma zerowe ramię, więc nie pojawia się w równaniu momentów. Upraszcza to obliczenie pozostałych niewiadomych, ale równania sił nadal obowiązują.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-equilibrium",
+    "lessonTitle": "Równowaga"
+  },
+  {
+    "question": "Po obliczeniu reakcji otrzymano RA = −3 kN przy założeniu, że RA skierowana jest w górę. Co oznacza wynik?",
+    "answers": [
+      "Obliczenia są niemożliwe, bo reakcja nie może być ujemna",
+      "Rzeczywista reakcja ma wartość 3 kN i jest skierowana w dół",
+      "Trzeba zmienić typ podpory na utwierdzenie"
+    ],
+    "correct": 1,
+    "hint": "Znak odnosi się do przyjętego na schemacie kierunku.",
+    "explanation": "Minus informuje, że rzeczywisty zwrot jest przeciwny do założonego. Wartość bezwzględna reakcji wynosi 3 kN; nie jest to samo w sobie sygnałem błędu modelu.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-equilibrium",
+    "lessonTitle": "Równowaga"
+  },
+  {
+    "question": "Co należy zrobić po myślowym przecięciu pręta i odrzuceniu jednej części?",
+    "answers": [
+      "Pominąć wszystkie oddziaływania odrzuconej części",
+      "Zastąpić oddziaływanie odrzuconej części siłami i momentem w przekroju",
+      "Dodać nową podporę w miejscu cięcia"
+    ],
+    "correct": 1,
+    "hint": "Pozostawiona część nadal musi być w równowadze.",
+    "explanation": "W przekroju wprowadzamy N, V i M odpowiadające oddziaływaniu usuniętej części. Dzięki temu można zastosować równania równowagi do pozostawionej części i obliczyć siły wewnętrzne.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-method-of-sections",
+    "lessonTitle": "Metoda przekrojów"
+  },
+  {
+    "question": "W pręcie osiowo rozciąganym siła wewnętrzna N jest dodatnia. Co fizycznie oznacza ten przypadek?",
+    "answers": [
+      "Odcięte części są od siebie oddalane, czyli przekrój jest rozciągany",
+      "Przekrój jest wyłącznie skręcany",
+      "Siła osiowa musi być równa ciężarowi pręta"
+    ],
+    "correct": 0,
+    "hint": "Dodatnie N odpowiada konwencji rozciągania.",
+    "explanation": "Dodatnia siła osiowa rozciąga przekrój: części pręta „ciągną” siebie w przeciwnych kierunkach. Ściskaniu odpowiada N ujemne.",
+    "outcome": "W2",
+    "moduleId": "foundations",
+    "lessonId": "foundations-method-of-sections",
+    "lessonTitle": "Metoda przekrojów"
+  },
+  {
+    "question": "Ten sam przekrój analizowano raz z lewej, a raz z prawej strony. Co powinno być wspólne w obu obliczeniach?",
+    "answers": [
+      "Ta sama wartość i ten sam fizyczny charakter siły wewnętrznej",
+      "Identyczny zwrot wektora narysowany względem całego pręta",
+      "Brak konieczności uwzględniania obciążeń zewnętrznych"
+    ],
+    "correct": 0,
+    "hint": "Porównaj zasadę akcji i reakcji z fizyczną wielkością w przekroju.",
+    "explanation": "Obie strony dają tę samą wartość N, V lub M, choć wektory na przeciwnych ścianach przekroju mają przeciwne zwroty. Każda analiza musi zawierać wszystkie obciążenia wybranej części.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-method-of-sections",
+    "lessonTitle": "Metoda przekrojów"
+  },
+  {
+    "question": "Dwa sposoby przyłożenia obciążenia na końcu pręta mają tę samą wypadkową siłę i moment. Co wynika z zasady Saint-Venanta?",
+    "answers": [
+      "Naprężenia są identyczne w każdym punkcie pręta",
+      "Różnice naprężeń są istotne głównie blisko miejsca przyłożenia i zanikają z odległością",
+      "Naprężenia są zerowe z dala od końca"
+    ],
+    "correct": 1,
+    "hint": "Statyczna równoważność dotyczy skutku odległego, nie każdego lokalnego detalu.",
+    "explanation": "Zasada mówi, że statycznie równoważne obciążenia dają praktycznie ten sam stan naprężeń wystarczająco daleko od strefy przyłożenia. Blisko tej strefy rozkłady mogą się znacznie różnić.",
+    "outcome": "W1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-saint-venant",
+    "lessonTitle": "Saint-Venant"
+  },
+  {
+    "question": "Dlaczego wzoru σ = N/A nie należy bezrefleksyjnie stosować tuż przy małym otworze w rozciąganej taśmie?",
+    "answers": [
+      "Bo siła osiowa znika przy otworze",
+      "Bo otwór powoduje nierównomierny rozkład i lokalną koncentrację naprężeń",
+      "Bo naprężenie zawsze mierzy się w innych jednostkach"
+    ],
+    "correct": 1,
+    "hint": "Zasada Saint-Venanta nie usuwa koncentracji spowodowanej geometrią.",
+    "explanation": "Otwór zmienia drogę przenoszenia siły i powoduje lokalne maksima naprężeń. Średnie N/A nie opisuje tych maksimów, które są istotne dla bezpieczeństwa.",
+    "outcome": "W3",
+    "moduleId": "foundations",
+    "lessonId": "foundations-saint-venant",
+    "lessonTitle": "Saint-Venant"
+  },
+  {
+    "question": "Pręt o A = 1250 mm² przenosi N = 75 kN. Jakie średnie naprężenie osiowe można przyjąć z dala od mocowania?",
+    "answers": [
+      "6 MPa",
+      "60 MPa",
+      "600 MPa"
+    ],
+    "correct": 1,
+    "hint": "Przelicz 75 kN na 75 000 N i podziel przez pole.",
+    "explanation": "σśr = 75 000 N / 1250 mm² = 60 N/mm² = 60 MPa. Jest to wartość średnia dla prostego modelu osiowego, nie gwarancja maksimum przy mocowaniu.",
+    "outcome": "U1",
+    "moduleId": "foundations",
+    "lessonId": "foundations-saint-venant",
+    "lessonTitle": "Saint-Venant"
+  },
+  {
+    "question": "Dwa pręty przenoszą tę samą siłę rozciągającą. Pierwszy ma pole dwa razy mniejsze niż drugi. Jak porównają się ich naprężenia?",
+    "answers": [
+      "Pierwszy ma naprężenie dwa razy większe",
+      "Oba mają jednakowe naprężenie",
+      "Pierwszy ma naprężenie dwa razy mniejsze"
+    ],
+    "correct": 0,
+    "hint": "Przy stałym N naprężenie jest odwrotnie proporcjonalne do A.",
+    "explanation": "σ = N/A, więc zmniejszenie pola o połowę przy niezmienionym N podwaja naprężenie. To pokazuje, dlaczego sama siła nie wystarcza do oceny bezpieczeństwa.",
+    "outcome": "W3",
+    "moduleId": "axial",
+    "lessonId": "axial-normal-stress",
+    "lessonTitle": "Naprężenie σ"
+  },
+  {
+    "question": "Siła osiowa wynosi N = −40 kN, a pole A = 200 mm². Jaki jest pełny wynik naprężenia?",
+    "answers": [
+      "+200 MPa, rozciąganie",
+      "−200 MPa, ściskanie",
+      "−0,2 MPa, ściskanie"
+    ],
+    "correct": 1,
+    "hint": "Zachowaj znak N i przelicz 40 kN na 40 000 N.",
+    "explanation": "σ = −40 000 N / 200 mm² = −200 MPa. Minus oznacza ściskanie; pominięcie przeliczenia kN dałoby błędne −0,2 MPa.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-normal-stress",
+    "lessonTitle": "Naprężenie σ"
+  },
+  {
+    "question": "Kiedy prosty wzór σ = N/A nie wystarcza do oceny smukłego ściskanego pręta?",
+    "answers": [
+      "Gdy istnieje ryzyko wyboczenia mimo naprężenia poniżej granicy materiału",
+      "Wyłącznie gdy pręt jest rozciągany",
+      "Gdy pole przekroju jest stałe"
+    ],
+    "correct": 0,
+    "hint": "Utrata stateczności może nastąpić przed zniszczeniem materiału.",
+    "explanation": "Ściskany smukły pręt może się wyboczyć przy naprężeniu mniejszym niż wytrzymałość materiału. Wtedy oprócz σ = N/A potrzebna jest analiza stateczności.",
+    "outcome": "W2",
+    "moduleId": "axial",
+    "lessonId": "axial-normal-stress",
+    "lessonTitle": "Naprężenie σ"
+  },
+  {
+    "question": "Jak zmienia się N między dwiema sąsiednimi siłami osiowymi skupionymi, jeśli na tym odcinku nie ma obciążenia rozłożonego?",
+    "answers": [
+      "Jest stałe",
+      "Zawsze rośnie liniowo",
+      "Zawsze wynosi zero"
+    ],
+    "correct": 0,
+    "hint": "W przekroju na tym odcinku zestaw sił po jednej stronie nie zmienia się.",
+    "explanation": "Bez obciążenia rozłożonego nie pojawiają się nowe siły wraz z przesuwaniem przekroju między punktami przyłożenia. Równowaga daje więc stałe N na całym odcinku.",
+    "outcome": "W3",
+    "moduleId": "axial",
+    "lessonId": "axial-force-diagrams",
+    "lessonTitle": "Wykresy N"
+  },
+  {
+    "question": "Na wolnym końcu pręta działa osiowa siła 5 kN rozciągająca. Ile wynosi N na odcinku bez innych obciążeń tuż przy tym końcu?",
+    "answers": [
+      "0 kN, bo koniec jest wolny",
+      "+5 kN",
+      "−5 kN"
+    ],
+    "correct": 1,
+    "hint": "Odcięta część przy wolnym końcu musi równoważyć przyłożone 5 kN.",
+    "explanation": "Swobodny koniec nie oznacza zerowej siły wewnętrznej przy obciążeniu. Z równowagi niewielkiej części końcowej N = +5 kN, a znak plus oznacza rozciąganie.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-force-diagrams",
+    "lessonTitle": "Wykresy N"
+  },
+  {
+    "question": "Co powoduje skok wykresu N w miejscu osiowej siły skupionej?",
+    "answers": [
+      "Nowa siła zewnętrzna wchodzi do równowagi odciętej części",
+      "Nagły wzrost modułu Younga",
+      "Zmiana jednostki długości pręta"
+    ],
+    "correct": 0,
+    "hint": "Porównaj zestaw sił po tej samej stronie tuż przed i tuż za punktem przyłożenia.",
+    "explanation": "Przekrój przesunięty za siłę skupioną obejmuje dodatkowe obciążenie zewnętrzne. Zmienia się równanie równowagi, więc N zmienia skokowo o wartość związaną z tą siłą.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-force-diagrams",
+    "lessonTitle": "Wykresy N"
+  },
+  {
+    "question": "Pręt schodkowy bez obciążeń pośrednich ma dwa odcinki o polach 300 i 150 mm². Gdzie występuje większe nominalne |σ|?",
+    "answers": [
+      "Na odcinku 150 mm²",
+      "Na odcinku 300 mm²",
+      "Naprężenia są zawsze jednakowe"
+    ],
+    "correct": 0,
+    "hint": "Oba odcinki przenoszą tę samą N.",
+    "explanation": "Przy tej samej N mniejsze pole daje większe |N/A|. Dla 150 mm² naprężenie jest dwa razy większe niż dla 300 mm².",
+    "outcome": "W3",
+    "moduleId": "axial",
+    "lessonId": "axial-stepped-bars",
+    "lessonTitle": "Pręty schodkowe"
+  },
+  {
+    "question": "Na kolejnych odcinkach |N| wynosi 20 i 30 kN, a pola 200 i 400 mm². Który odcinek decyduje o maksymalnym |σ|?",
+    "answers": [
+      "Pierwszy: 100 MPa",
+      "Drugi: 75 MPa",
+      "Żaden, trzeba uśrednić naprężenia"
+    ],
+    "correct": 0,
+    "hint": "Oblicz osobno oba ilorazy |N|/A, pamiętając o kN → N.",
+    "explanation": "Pierwszy odcinek: 20 000/200 = 100 MPa. Drugi: 30 000/400 = 75 MPa. Mimo większej siły na drugim odcinku decyduje pierwszy.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-stepped-bars",
+    "lessonTitle": "Pręty schodkowe"
+  },
+  {
+    "question": "Dlaczego naprężenie N/A przy nagłym zwężeniu nazywamy nominalnym?",
+    "answers": [
+      "Bo nie opisuje lokalnej koncentracji przy przejściu geometrycznym",
+      "Bo nie zależy od siły osiowej",
+      "Bo jest zawsze równe zero w mniejszym przekroju"
+    ],
+    "correct": 0,
+    "hint": "Prosty wzór zakłada równomierny rozkład z dala od zakłóceń.",
+    "explanation": "Nagła zmian geometrii zaburza równomierny rozkład i może powodować karb. N/A opisuje naprężenie nominalne, a lokalne maksimum wymaga dodatkowego współczynnika lub dokładniejszej analizy.",
+    "outcome": "W3",
+    "moduleId": "axial",
+    "lessonId": "axial-stepped-bars",
+    "lessonTitle": "Pręty schodkowe"
+  },
+  {
+    "question": "Przy σ = 150 MPa i E = 200 000 MPa odkształcenie względne wynosi:",
+    "answers": [
+      "0,00075",
+      "0,075",
+      "1333"
+    ],
+    "correct": 0,
+    "hint": "Przekształć prawo Hooke’a do ε = σ/E.",
+    "explanation": "ε = 150/200 000 = 0,00075. Odpowiada to 0,075%, a nie 0,075; zachowanie jednostek MPa pozwala skrócić je w ilorazie.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-hooke-law",
+    "lessonTitle": "Prawo Hooke’a"
+  },
+  {
+    "question": "Dwa materiały mają tę samą granicę proporcjonalności, ale E₁ > E₂. Przy tym samym małym naprężeniu:",
+    "answers": [
+      "materiał 1 odkształci się mniej",
+      "materiał 2 odkształci się mniej",
+      "odkształcenia muszą być jednakowe"
+    ],
+    "correct": 0,
+    "hint": "Przy stałym σ odkształcenie ε = σ/E maleje ze wzrostem E.",
+    "explanation": "Większy moduł Younga oznacza większą sztywność sprężystą. Dla tego samego σ materiał 1 ma mniejsze ε, mimo jednakowej granicy proporcjonalności.",
+    "outcome": "W1",
+    "moduleId": "axial",
+    "lessonId": "axial-hooke-law",
+    "lessonTitle": "Prawo Hooke’a"
+  },
+  {
+    "question": "Co oznacza przekroczenie zakresu sprężystego?",
+    "answers": [
+      "Po odciążeniu może pozostać trwałe odkształcenie",
+      "Moduł Younga staje się nieskończony",
+      "Naprężenie i odkształcenie zawsze są zerowe"
+    ],
+    "correct": 0,
+    "hint": "Pomyśl o sprężynie rozciągniętej zbyt mocno.",
+    "explanation": "Poza zakresem sprężystym zależność przestaje być odwracalna i prostoliniowa. Po usunięciu obciążenia część odkształcenia może pozostać trwale.",
+    "outcome": "W2",
+    "moduleId": "axial",
+    "lessonId": "axial-hooke-law",
+    "lessonTitle": "Prawo Hooke’a"
+  },
+  {
+    "question": "Przy niezmienionych N, E i A długość pręta rośnie trzy razy. Jak zmieni się jego sprężyste wydłużenie?",
+    "answers": [
+      "Wzrośnie trzy razy",
+      "Nie zmieni się",
+      "Wzrośnie dziewięć razy"
+    ],
+    "correct": 0,
+    "hint": "W ΔL = NL/(EA) długość występuje w pierwszej potędze.",
+    "explanation": "Przy pozostałych danych stałych ΔL jest wprost proporcjonalne do L. Trzykrotnie dłuższy pręt ma trzykrotnie większe wydłużenie, choć ε = σ/E pozostaje takie samo.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-elongation",
+    "lessonTitle": "Wydłużenia"
+  },
+  {
+    "question": "Dwa odcinki mają osobno wydłużenie +1,2 mm i skrócenie −0,4 mm. Jaka jest całkowita zmiana długości?",
+    "answers": [
+      "+0,8 mm",
+      "+1,6 mm",
+      "−0,8 mm"
+    ],
+    "correct": 0,
+    "hint": "Dodaj wartości algebraicznie, zachowując znaki.",
+    "explanation": "ΔL = +1,2 mm − 0,4 mm = +0,8 mm. Całkowity wynik dodatni oznacza, że pręt jako całość się wydłużył.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-elongation",
+    "lessonTitle": "Wydłużenia"
+  },
+  {
+    "question": "Dlaczego dłuższy odcinek może dawać większy udział w ΔL, mimo że ma mniejsze naprężenie niż odcinek krótki?",
+    "answers": [
+      "Bo ΔL zależy od εL, a więc także od długości",
+      "Bo naprężenie nie wpływa na odkształcenie",
+      "Bo moduł Younga rośnie automatycznie z długością"
+    ],
+    "correct": 0,
+    "hint": "Zapisz ΔL = (σ/E)L i porównaj oba czynniki.",
+    "explanation": "Przy tym samym E wydłużenie odcinka to (σ/E)L. Mniejsze σ może zostać zrównoważone lub przeważone przez większe L, dlatego wkłady w całkowitą zmianę długości trzeba liczyć osobno.",
+    "outcome": "W3",
+    "moduleId": "axial",
+    "lessonId": "axial-elongation",
+    "lessonTitle": "Wydłużenia"
+  },
+  {
+    "question": "Dla σlim = 240 MPa i wymaganego n = 1,5 naprężenie dopuszczalne wynosi:",
+    "answers": [
+      "160 MPa",
+      "240 MPa",
+      "360 MPa"
+    ],
+    "correct": 0,
+    "hint": "Naprężenie dopuszczalne jest mniejsze od granicznego: podziel przez n.",
+    "explanation": "σdop = 240/1,5 = 160 MPa. Mnożenie przez n zwiększyłoby dopuszczalne naprężenie ponad granicę, co jest sprzeczne z ideą zapasu.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-strength-condition",
+    "lessonTitle": "Wytrzymałość"
+  },
+  {
+    "question": "Przy |N| = 90 kN i σdop = 160 MPa minimalne pole przekroju wynosi:",
+    "answers": [
+      "56,25 mm²",
+      "562,5 mm²",
+      "1440 mm²"
+    ],
+    "correct": 1,
+    "hint": "Użyj Amin = |N|/σdop i zamień 90 kN na 90 000 N.",
+    "explanation": "Amin = 90 000 N / 160 N/mm² = 562,5 mm². Przyjęty przekrój powinien mieć pole co najmniej takie, a następnie należy sprawdzić rzeczywiste σ.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-strength-condition",
+    "lessonTitle": "Wytrzymałość"
+  },
+  {
+    "question": "Przyjęto A = 600 mm² dla N = 90 kN. Jaki jest rzeczywisty współczynnik zapasu względem σlim = 240 MPa?",
+    "answers": [
+      "1,2",
+      "1,6",
+      "2,4"
+    ],
+    "correct": 1,
+    "hint": "Najpierw oblicz rzeczywiste σ, a potem nrzecz = σlim/σ.",
+    "explanation": "σ = 90 000/600 = 150 MPa. Rzeczywisty zapas nrzecz = 240/150 = 1,6, więc spełnia wymaganie nrzecz ≥ 1,5.",
+    "outcome": "U3",
+    "moduleId": "axial",
+    "lessonId": "axial-strength-condition",
+    "lessonTitle": "Wytrzymałość"
+  },
+  {
+    "question": "Pręt spełnia |σ| < σdop, ale jego wydłużenie przekracza dopuszczalne. Jak ocenić projekt?",
+    "answers": [
+      "Jest poprawny, bo wytrzymałość zawsze wystarcza",
+      "Nie spełnia warunku sztywności i wymaga zmiany",
+      "Jest poprawny tylko dla stali"
+    ],
+    "correct": 1,
+    "hint": "Bezpieczeństwo materiału i ograniczenie przemieszczeń to dwa osobne wymagania.",
+    "explanation": "Warunki projektowe muszą być spełnione jednocześnie. Brak zniszczenia nie rekompensuje nadmiernej zmiany długości, jeśli ogranicza ona użyteczność konstrukcji.",
+    "outcome": "W2",
+    "moduleId": "axial",
+    "lessonId": "axial-stiffness-condition",
+    "lessonTitle": "Sztywność"
+  },
+  {
+    "question": "Dla jednorodnego pręta Amin,Δ = 800 mm² z warunku sztywności, a Amin,σ = 500 mm² z warunku wytrzymałości. Jakie minimalne pole należy przyjąć?",
+    "answers": [
+      "500 mm²",
+      "650 mm² jako średnią",
+      "800 mm²"
+    ],
+    "correct": 2,
+    "hint": "Przyjęte pole musi być nie mniejsze od każdego z wymaganych minimów.",
+    "explanation": "Należy przyjąć co najmniej max(500, 800) = 800 mm². Mniejsze pole nie ograniczy wydłużenia do wymaganego poziomu; uśrednianie warunków nie ma uzasadnienia.",
+    "outcome": "U3",
+    "moduleId": "axial",
+    "lessonId": "axial-stiffness-condition",
+    "lessonTitle": "Sztywność"
+  },
+  {
+    "question": "Jak zmieni się wymagane Amin,Δ, jeśli dopuszczalne wydłużenie zmniejszymy o połowę przy pozostałych danych bez zmian?",
+    "answers": [
+      "Wzrośnie dwa razy",
+      "Zmaleje dwa razy",
+      "Nie zmieni się"
+    ],
+    "correct": 0,
+    "hint": "ΔLdop znajduje się w mianowniku Amin,Δ = NL/(EΔLdop).",
+    "explanation": "Bardziej rygorystyczny limit przemieszczenia wymaga sztywniejszego przekroju. Zmniejszenie ΔLdop o połowę podwaja Amin,Δ.",
+    "outcome": "U1",
+    "moduleId": "axial",
+    "lessonId": "axial-stiffness-condition",
+    "lessonTitle": "Sztywność"
+  },
+  {
+    "question": "Dwie próbki z tej samej stali mają długość L₀, ale druga ma czterokrotnie większe pole przekroju. Przy tej samej sile rozciągającej naprężenie w drugiej próbce wynosi:",
+    "answers": [
+      "cztery razy więcej",
+      "tyle samo",
+      "jedną czwartą",
+      "dwa razy więcej"
+    ],
+    "correct": 2,
+    "explanation": "Naprężenie σ = N/A. Czterokrotny wzrost A przy niezmienionym N zmniejsza naprężenie do N/(4A) = σ/4.",
+    "hint": "Porównaj iloraz siły i pola, nie same siły.",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-tension-compression-test",
+    "lessonTitle": "Próby materiałowe"
+  },
+  {
+    "question": "Próbka długości 200 mm wydłużyła się o 0,4 mm. Jej odkształcenie względne jest równe:",
+    "answers": [
+      "0,002",
+      "0,02",
+      "0,005",
+      "500"
+    ],
+    "correct": 0,
+    "explanation": "ε = ΔL/L₀ = 0,4/200 = 0,002, czyli 0,2%. Odkształcenie jest wielkością bezwymiarową.",
+    "hint": "Podziel przyrost długości przez długość początkową, używając tych samych jednostek.",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-tension-compression-test",
+    "lessonTitle": "Próby materiałowe"
+  },
+  {
+    "question": "Dlaczego przy krótkiej, osiowej próbie ściskania siła i skrócenie zwykle opisujemy znakami ujemnymi?",
+    "answers": [
+      "Bo materiał ma wtedy ujemny moduł E",
+      "Bo znak wskazuje zwrot działania względem przyjętego rozciągania",
+      "Bo pole przekroju staje się ujemne",
+      "Bo naprężenie zawsze musi być dodatnie"
+    ],
+    "correct": 1,
+    "explanation": "Znak jest umową opisującą kierunek: ściskanie działa przeciwnie do rozciągania i zmniejsza długość. Moduł sprężystości oraz pole przekroju pozostają dodatnie.",
+    "hint": "Znak opisuje kierunek, a nie „ujemną jakość” materiału.",
+    "outcome": "W2",
+    "moduleId": "material",
+    "lessonId": "m3-tension-compression-test",
+    "lessonTitle": "Próby materiałowe"
+  },
+  {
+    "question": "Stalowy pręt odkształcił się trwale, ale nie pękł. Które zdanie najlepiej opisuje ten stan?",
+    "answers": [
+      "Na pewno przekroczono Rₑ",
+      "Nie mogło zostać przekroczone Rₑ",
+      "Na pewno osiągnięto Rₘ",
+      "Materiał pozostał w całości w zakresie sprężystym"
+    ],
+    "correct": 0,
+    "explanation": "Trwałe odkształcenie świadczy o uplastycznieniu, czyli przekroczeniu granicy plastyczności. Element może nadal przenosić obciążenie i nie osiągnąć jeszcze maksimum Rₘ.",
+    "hint": "Zastanów się, która granica dotyczy trwałego odkształcenia, a która największej siły.",
+    "outcome": "W2",
+    "moduleId": "material",
+    "lessonId": "m3-strength-elasticity-plasticity",
+    "lessonTitle": "Granice materiału"
+  },
+  {
+    "question": "Dla stali Rₑ = 250 MPa i Rₘ = 400 MPa. Jakie siły graniczne odpowiadają próbce o polu 100 mm²?",
+    "answers": [
+      "2,5 kN i 4 kN",
+      "25 kN i 40 kN",
+      "250 kN i 400 kN",
+      "0,25 kN i 0,4 kN"
+    ],
+    "correct": 1,
+    "explanation": "1 MPa = 1 N/mm². Zatem Fₑ = 250·100 = 25 000 N = 25 kN, a Fₘ = 400·100 = 40 kN.",
+    "hint": "Pomnóż każde naprężenie w N/mm² przez pole w mm².",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-strength-elasticity-plasticity",
+    "lessonTitle": "Granice materiału"
+  },
+  {
+    "question": "Po odciążeniu próbki część wydłużenia znika, a część pozostaje. Jak nazywamy te dwie części?",
+    "answers": [
+      "Obie są wyłącznie sprężyste",
+      "Znikająca jest plastyczna, a pozostała sprężysta",
+      "Znikająca jest sprężysta, a pozostała plastyczna",
+      "Obie są zawsze równe"
+    ],
+    "correct": 2,
+    "explanation": "Sprężystość oznacza powrót po usunięciu obciążenia. Odkształcenie plastyczne jest trwałe i pozostaje po odciążeniu.",
+    "hint": "Przypisz nazwy według tego, co dzieje się po zdjęciu siły.",
+    "outcome": "W2",
+    "moduleId": "material",
+    "lessonId": "m3-strength-elasticity-plasticity",
+    "lessonTitle": "Granice materiału"
+  },
+  {
+    "question": "Pręt ma N = 20 kN, L = 1 m, A = 100 mm² i E = 200 GPa. Ile wynosi jego wydłużenie?",
+    "answers": [
+      "0,01 mm",
+      "0,1 mm",
+      "1 mm",
+      "10 mm"
+    ],
+    "correct": 2,
+    "explanation": "ΔL = NL/(EA) = 20 000·1000/(200 000·100) = 1 mm. E = 200 GPa = 200 000 N/mm².",
+    "hint": "Zamień długość na mm, E na N/mm² i podstaw do NL/(EA).",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-hooke-stiffness",
+    "lessonTitle": "Sprężystość"
+  },
+  {
+    "question": "Jak zmieni się wydłużenie pręta, jeżeli przy tej samej sile i materiale podwoimy jego długość oraz pole przekroju?",
+    "answers": [
+      "Nie zmieni się",
+      "Wzrośnie dwa razy",
+      "Zmaleje dwa razy",
+      "Wzrośnie cztery razy"
+    ],
+    "correct": 0,
+    "explanation": "W ΔL = NL/(EA) długość rośnie dwa razy, a iloczyn EA też rośnie dwa razy. Te zmiany znoszą się.",
+    "hint": "Podstaw 2L i 2A, a następnie skróć wspólne współczynniki.",
+    "outcome": "W3",
+    "moduleId": "material",
+    "lessonId": "m3-hooke-stiffness",
+    "lessonTitle": "Sprężystość"
+  },
+  {
+    "question": "Dlaczego nie wolno stosować σ = Eε do dowolnie dużych odkształceń stali?",
+    "answers": [
+      "Bo E zawsze jest równe zero",
+      "Bo prawo Hooke’a opisuje tylko liniowo sprężysty zakres",
+      "Bo naprężenie nie zależy od materiału",
+      "Bo po uplastycznieniu nie istnieją odkształcenia"
+    ],
+    "correct": 1,
+    "explanation": "Liniowa proporcjonalność σ = Eε obowiązuje tylko w zakresie liniowej sprężystości. Po uplastycznieniu zależność staje się nieliniowa i pojawia się odkształcenie trwałe.",
+    "hint": "Nazwa „prawo” nie usuwa zakresu jego stosowalności.",
+    "outcome": "W2",
+    "moduleId": "material",
+    "lessonId": "m3-hooke-stiffness",
+    "lessonTitle": "Sprężystość"
+  },
+  {
+    "question": "Stalowy pręt ma A = 200 mm², L = 3 m i ρ = 7850 kg/m³. Jaki jest jego ciężar przy g = 9,81 m/s²?",
+    "answers": [
+      "około 4,62 N",
+      "około 46,2 N",
+      "około 462 N",
+      "około 4,71 N"
+    ],
+    "correct": 1,
+    "explanation": "Objętość V = 0,0002·3 = 0,0006 m³, masa m = 7850·0,0006 = 4,71 kg. Ciężar G = 4,71·9,81 ≈ 46,2 N.",
+    "hint": "Najpierw zamień 200 mm² na 0,0002 m², potem oblicz objętość i masę.",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-self-weight",
+    "lessonTitle": "Ciężar własny"
+  },
+  {
+    "question": "Jak zmieni się największe naprężenie od ciężaru własnego w pionowym, jednorodnym pręcie wiszącym po podwojeniu pola przekroju przy tej samej długości?",
+    "answers": [
+      "Nie zmieni się",
+      "Wzrośnie dwa razy",
+      "Zmaleje dwa razy",
+      "Zmaleje cztery razy"
+    ],
+    "correct": 0,
+    "explanation": "σmax = G/A = ρgAL/A = ρgL. Pole się skraca, więc naprężenie nie zależy od A, choć całkowity ciężar rośnie.",
+    "hint": "Zapisz naprężenie jako ciężar podzielony przez pole i zobacz, co się skróci.",
+    "outcome": "W3",
+    "moduleId": "material",
+    "lessonId": "m3-self-weight",
+    "lessonTitle": "Ciężar własny"
+  },
+  {
+    "question": "Gdzie w pionowym pręcie zawieszonym u góry występuje największa siła osiowa od jego własnego ciężaru?",
+    "answers": [
+      "Na dolnym, swobodnym końcu",
+      "W połowie długości i jest wszędzie taka sama",
+      "Przy górnym zawieszeniu",
+      "Dokładnie w środku ciężkości, niezależnie od przekroju"
+    ],
+    "correct": 2,
+    "explanation": "Przekrój przy górnym zawieszeniu przenosi ciężar całego pręta. Na swobodnym dolnym końcu siła osiowa od ciężaru jest zerowa i rośnie liniowo w górę.",
+    "hint": "Pomyśl, jaka część pręta znajduje się poniżej rozpatrywanego przekroju.",
+    "outcome": "W1",
+    "moduleId": "material",
+    "lessonId": "m3-self-weight",
+    "lessonTitle": "Ciężar własny"
+  },
+  {
+    "question": "Stalowy pręt L = 2 m ogrzano o 50°C. Dla α = 12·10⁻⁶ 1/°C swobodne wydłużenie wynosi:",
+    "answers": [
+      "0,12 mm",
+      "1,2 mm",
+      "12 mm",
+      "120 mm"
+    ],
+    "correct": 1,
+    "explanation": "ΔLₜ = αΔTL = 12·10⁻⁶·50·2000 mm = 1,2 mm.",
+    "hint": "Podstaw długość w mm; współczynnik 10⁻⁶ oznacza milionowe części.",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-thermal-free-restrained",
+    "lessonTitle": "Efekt temperatury"
+  },
+  {
+    "question": "Ten sam pręt jest idealnie zablokowany między nieruchomymi podporami. Przy E = 200 GPa ogrzanie o 50°C wywołuje w modelu liniowo sprężystym:",
+    "answers": [
+      "120 MPa rozciągania",
+      "120 MPa ściskania",
+      "1,2 MPa ściskania",
+      "zerowe naprężenie, bo temperatura działa równomiernie"
+    ],
+    "correct": 1,
+    "explanation": "|σ| = EαΔT = 200 000·12·10⁻⁶·50 = 120 MPa. Podpory hamują rozszerzanie, więc pręt jest ściskany.",
+    "hint": "Najpierw oblicz odkształcenie termiczne αΔT, a potem pomnóż przez E i ustal znak.",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-thermal-free-restrained",
+    "lessonTitle": "Efekt temperatury"
+  },
+  {
+    "question": "Ogrzany pręt może swobodnie wydłużyć się o 2 mm, a następnie opiera się o sztywną przeszkodę. Co stanie się przy dalszym wzroście temperatury?",
+    "answers": [
+      "Naprężenie pozostanie zerowe przy każdej temperaturze",
+      "Naprężenie ściskające może narastać dopiero po zamknięciu luzu",
+      "Pręt przestanie się rozszerzać termicznie",
+      "Pojawi się wyłącznie rozciąganie"
+    ],
+    "correct": 1,
+    "explanation": "Przed wykorzystaniem luzu odkształcenie jest swobodne. Po kontakcie dalsza rozszerzalność jest ograniczana, więc reakcja przeszkody wywołuje ściskanie.",
+    "hint": "Rozdziel ruch przed kontaktem i ograniczenie ruchu po kontakcie.",
+    "outcome": "W2",
+    "moduleId": "material",
+    "lessonId": "m3-thermal-free-restrained",
+    "lessonTitle": "Efekt temperatury"
+  },
+  {
+    "question": "Dla stali Rₑ = 240 MPa przyjęto n = 1,5. Ile wynosi naprężenie dopuszczalne?",
+    "answers": [
+      "160 MPa",
+      "240 MPa",
+      "360 MPa",
+      "150 MPa"
+    ],
+    "correct": 0,
+    "explanation": "σdop = Rₑ/n = 240/1,5 = 160 MPa.",
+    "hint": "Naprężenie dopuszczalne jest mniejsze od granicy, więc podziel Rₑ przez n.",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-allowable-safety-factor",
+    "lessonTitle": "Zapas bezpieczeństwa"
+  },
+  {
+    "question": "Pręt przenosi N = 32 kN, a σdop = 160 MPa. Jakie minimalne pole przekroju jest potrzebne w samym warunku wytrzymałości?",
+    "answers": [
+      "20 mm²",
+      "50 mm²",
+      "200 mm²",
+      "512 mm²"
+    ],
+    "correct": 2,
+    "explanation": "Amin = N/σdop = 32 000 N/(160 N/mm²) = 200 mm². To minimum wynikające wyłącznie z przyjętego warunku naprężeniowego.",
+    "hint": "Z warunku N/A ≤ σdop wyznacz A.",
+    "outcome": "U3",
+    "moduleId": "material",
+    "lessonId": "m3-allowable-safety-factor",
+    "lessonTitle": "Zapas bezpieczeństwa"
+  },
+  {
+    "question": "Przy niezmienionej granicy materiału zwiększono wymagane n z 1,5 do 2. Co to oznacza?",
+    "answers": [
+      "Naprężenie dopuszczalne rośnie",
+      "Naprężenie dopuszczalne maleje do 75% poprzedniej wartości",
+      "Pole wymagane zawsze maleje",
+      "Rzeczywiste Rₑ materiału rośnie"
+    ],
+    "correct": 1,
+    "explanation": "σdop = Rgr/n. Stosunek nowej do starej wartości wynosi 1,5/2 = 0,75. Zmiana wymagania nie zmienia własności samego materiału.",
+    "hint": "Porównaj Rgr/2 z Rgr/1,5.",
+    "outcome": "U3",
+    "moduleId": "material",
+    "lessonId": "m3-allowable-safety-factor",
+    "lessonTitle": "Zapas bezpieczeństwa"
+  },
+  {
+    "question": "Warunek wytrzymałości wymaga A ≥ 250 mm², a warunek sztywności A ≥ 400 mm². Które pole należy przyjąć przed uwzględnieniem dostępnych wymiarów katalogowych?",
+    "answers": [
+      "150 mm²",
+      "250 mm²",
+      "400 mm²",
+      "średnią 325 mm²"
+    ],
+    "correct": 2,
+    "explanation": "Element musi spełnić oba warunki, więc wybieramy większe minimum: 400 mm². Pole 325 mm² nie spełniłoby warunku sztywności.",
+    "hint": "Sprawdź, przy którym polu oba warunki będą jednocześnie prawdziwe.",
+    "outcome": "U3",
+    "moduleId": "material",
+    "lessonId": "m3-strength-stiffness-design",
+    "lessonTitle": "Dwa warunki doboru"
+  },
+  {
+    "question": "Dla N = 40 kN, L = 2 m, E = 200 GPa i ΔLdop = 1 mm wymagane pole ze sztywności wynosi:",
+    "answers": [
+      "100 mm²",
+      "200 mm²",
+      "400 mm²",
+      "800 mm²"
+    ],
+    "correct": 2,
+    "explanation": "A ≥ NL/(EΔLdop) = 40 000·2000/(200 000·1) = 400 mm².",
+    "hint": "Przekształć ΔL = NL/(EA) tak, aby wyznaczyć A.",
+    "outcome": "U1",
+    "moduleId": "material",
+    "lessonId": "m3-strength-stiffness-design",
+    "lessonTitle": "Dwa warunki doboru"
+  },
+  {
+    "question": "Zastąpiono stal stalą o większej granicy plastyczności, ale takim samym E. Bez zmiany przekroju i obciążenia:",
+    "answers": [
+      "wydłużenie sprężyste zmaleje, bo Rₑ jest większe",
+      "wydłużenie sprężyste nie zmieni się",
+      "moduł E automatycznie wzrośnie",
+      "naprężenie od siły osiowej spadnie do zera"
+    ],
+    "correct": 1,
+    "explanation": "Przy stałych N, L, A i E wydłużenie ΔL = NL/(EA) pozostaje takie samo. Większa granica plastyczności zwiększa możliwości wytrzymałościowe, nie sztywność sprężystą.",
+    "hint": "Zobacz, które wielkości występują we wzorze na wydłużenie, a których w nim nie ma.",
+    "outcome": "U3",
+    "moduleId": "material",
+    "lessonId": "m3-strength-stiffness-design",
+    "lessonTitle": "Dwa warunki doboru"
+  },
+  {
+    "question": "Prostokąt ma szerokość b = 100 mm i wysokość h = 200 mm, a jego dolny lewy róg jest początkiem układu. Współrzędne środka ciężkości to:",
+    "answers": [
+      "(100; 200) mm",
+      "(50; 100) mm",
+      "(50; 200) mm",
+      "(25; 50) mm"
+    ],
+    "correct": 1,
+    "explanation": "Środek prostokąta leży w przecięciu osi symetrii: x̄ = b/2 = 50 mm, ȳ = h/2 = 100 mm.",
+    "hint": "Środek prostokąta dzieli każdy wymiar na połowy.",
+    "outcome": "U1",
+    "moduleId": "geometry",
+    "lessonId": "m4-simple-centroid",
+    "lessonTitle": "Środek ciężkości"
+  },
+  {
+    "question": "Trójkąt ma podstawę na osi x i wysokość h = 120 mm. Jak daleko od podstawy leży jego środek ciężkości?",
+    "answers": [
+      "20 mm",
+      "30 mm",
+      "40 mm",
+      "60 mm"
+    ],
+    "correct": 2,
+    "explanation": "Dla trójkąta ȳ = h/3 od podstawy, zatem 120/3 = 40 mm. Od wierzchołka odległość wynosi 2h/3.",
+    "hint": "Środek ciężkości trójkąta nie leży w połowie wysokości.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-simple-centroid",
+    "lessonTitle": "Środek ciężkości"
+  },
+  {
+    "question": "Figura ma dokładnie jedną pionową oś symetrii. Co można wywnioskować bez dalszych obliczeń?",
+    "answers": [
+      "Środek ciężkości leży na tej osi",
+      "Środek ciężkości leży dokładnie w połowie wysokości",
+      "Oba momenty bezwładności są równe",
+      "Figura nie ma środka ciężkości"
+    ],
+    "correct": 0,
+    "explanation": "Jedna oś symetrii wyznacza tylko położenie środka na tej osi. Nie daje automatycznie wysokości środka ani równości momentów bezwładności.",
+    "hint": "Symetria pionowa informuje o współrzędnej poziomej, nie pionowej.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-simple-centroid",
+    "lessonTitle": "Środek ciężkości"
+  },
+  {
+    "question": "Dwie części mają A₁ = 1000 mm², y₁ = 20 mm oraz A₂ = 2000 mm², y₂ = 80 mm. Współrzędna ȳ całości wynosi:",
+    "answers": [
+      "50 mm",
+      "60 mm",
+      "66,7 mm",
+      "70 mm"
+    ],
+    "correct": 1,
+    "explanation": "ȳ = (1000·20 + 2000·80)/(1000 + 2000) = 180 000/3000 = 60 mm. Nie jest to zwykła średnia 50 mm.",
+    "hint": "Zważ współrzędne środków polami obu części.",
+    "outcome": "U1",
+    "moduleId": "geometry",
+    "lessonId": "m4-composite-static-moments",
+    "lessonTitle": "Przekroje złożone"
+  },
+  {
+    "question": "Jak uwzględnić kołowy otwór przy obliczaniu środka ciężkości metodą figur złożonych?",
+    "answers": [
+      "Jako dodatnie pole w nieskończoności",
+      "Jako pole ujemne z rzeczywistym położeniem środka otworu",
+      "Jako pole dodatnie i pomnożenie wyniku przez dwa",
+      "Otwór nigdy nie wpływa na środek"
+    ],
+    "correct": 1,
+    "explanation": "Otwór usuwa materiał, więc jego pole i moment statyczny odejmujemy. Przyjmujemy Aᵢ < 0, a współrzędne rzeczywistego środka otworu.",
+    "hint": "Usunięcie pola oznacza znak przeciwny do dodanego materiału.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-composite-static-moments",
+    "lessonTitle": "Przekroje złożone"
+  },
+  {
+    "question": "Ile wynosi moment statyczny całego przekroju względem osi x przechodzącej przez jego środek ciężkości?",
+    "answers": [
+      "Zawsze zero",
+      "Zawsze pole razy wysokość",
+      "Tyle co moment bezwładności",
+      "Zależy tylko od gęstości"
+    ],
+    "correct": 0,
+    "explanation": "Z definicji ȳ = Sₓ/A. Jeżeli oś x przechodzi przez środek, w jej układzie ȳ = 0, więc także Sₓ = 0.",
+    "hint": "Skorzystaj z zależności Sₓ = A·ȳ w układzie osi przechodzącej przez środek.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-composite-static-moments",
+    "lessonTitle": "Przekroje złożone"
+  },
+  {
+    "question": "Prostokąt ma b = 100 mm i h = 200 mm. Moment bezwładności względem poziomej osi środkowej x wynosi:",
+    "answers": [
+      "6,667·10⁶ mm⁴",
+      "16,667·10⁶ mm⁴",
+      "66,67·10⁶ mm⁴",
+      "200·10⁶ mm⁴"
+    ],
+    "correct": 2,
+    "explanation": "Iₓ = bh³/12 = 100·200³/12 = 66,67·10⁶ mm⁴.",
+    "hint": "Do osi poziomej x odległość mierzymy pionowo, więc h wchodzi w trzeciej potędze.",
+    "outcome": "U1",
+    "moduleId": "geometry",
+    "lessonId": "m4-second-moments",
+    "lessonTitle": "Bezwładność"
+  },
+  {
+    "question": "Ten sam prostokąt obrócono o 90° w płaszczyźnie przekroju, zachowując nazwę osi zginania. Jak zmieni się I względem osi poziomej?",
+    "answers": [
+      "Nie zmieni się, bo pole jest stałe",
+      "Zmaleje cztery razy",
+      "Wzrośnie cztery razy",
+      "Zmaleje osiem razy"
+    ],
+    "correct": 1,
+    "explanation": "Początkowo I₁ = 100·200³/12. Po obrocie I₂ = 200·100³/12, więc I₂/I₁ = 100²/200² = 1/4.",
+    "hint": "Po obrocie szerokość i wysokość zamieniają się miejscami.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-second-moments",
+    "lessonTitle": "Bezwładność"
+  },
+  {
+    "question": "Dla rury o średnicy zewnętrznej D i wewnętrznej d prawidłowy moment bezwładności względem osi środkowej to:",
+    "answers": [
+      "π(D − d)⁴/64",
+      "π(D⁴ − d⁴)/64",
+      "π(D² − d²)/4",
+      "πD⁴/64 zawsze bez korekty"
+    ],
+    "correct": 1,
+    "explanation": "Od momentu pełnego koła odejmujemy moment otworu: I = πD⁴/64 − πd⁴/64. Nie wolno najpierw odejmować średnic i podnosić różnicy do czwartej potęgi.",
+    "hint": "Odejmuj momenty bezwładności dwóch współśrodkowych kół.",
+    "outcome": "U1",
+    "moduleId": "geometry",
+    "lessonId": "m4-second-moments",
+    "lessonTitle": "Bezwładność"
+  },
+  {
+    "question": "Prostokąt ma Ixc = 2·10⁶ mm⁴ i A = 2000 mm². Ile wynosi moment względem osi równoległej oddalonej o a = 30 mm?",
+    "answers": [
+      "2,06·10⁶ mm⁴",
+      "3,8·10⁶ mm⁴",
+      "8·10⁶ mm⁴",
+      "62·10⁶ mm⁴"
+    ],
+    "correct": 1,
+    "explanation": "Aa² = 2000·30² = 1,8·10⁶ mm⁴. Zatem Ix = 2·10⁶ + 1,8·10⁶ = 3,8·10⁶ mm⁴.",
+    "hint": "Najpierw podnieś odległość do kwadratu, potem pomnóż przez pole.",
+    "outcome": "U1",
+    "moduleId": "geometry",
+    "lessonId": "m4-steiner-parallel-axis",
+    "lessonTitle": "Osie równoległe"
+  },
+  {
+    "question": "Co jest poprawne przy odejmowaniu oddalonego od osi otworu kołowego?",
+    "answers": [
+      "Odejmujemy tylko pole otworu",
+      "Odejmujemy Ixc otworu oraz jego składnik Aa²",
+      "Dodajemy składnik Aa², bo otwór jest pusty",
+      "Pomijamy położenie otworu"
+    ],
+    "correct": 1,
+    "explanation": "Otwór jest figurą o polu ujemnym, więc odejmujemy cały moment względem wspólnej osi: Iotw = Ixc + |A|a². Jego oddalenie ma istotne znaczenie.",
+    "hint": "Twierdzenie Steinera dotyczy całej figury, również tej odejmowanej.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-steiner-parallel-axis",
+    "lessonTitle": "Osie równoległe"
+  },
+  {
+    "question": "Dla ustalonej figury, względem której z osi równoległych moment bezwładności jest najmniejszy?",
+    "answers": [
+      "Osi najbardziej oddalonej od figury",
+      "Osi przechodzącej przez środek ciężkości",
+      "Zawsze osi na dolnej krawędzi",
+      "Wszystkie dają ten sam moment"
+    ],
+    "correct": 1,
+    "explanation": "I = Ic + Aa², a składnik Aa² jest nieujemny i najmniejszy dla a = 0. Dlatego minimum odpowiada osi centralnej równoległej.",
+    "hint": "Znajdź położenie osi, dla którego dodatkowy składnik znika.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-steiner-parallel-axis",
+    "lessonTitle": "Osie równoległe"
+  },
+  {
+    "question": "Które zdanie poprawnie opisuje relację między osiami centralnymi i głównymi?",
+    "answers": [
+      "Żadna oś główna nie musi przechodzić przez środek",
+      "Każda oś centralna jest automatycznie główna",
+      "Osie główne są centralne i spełniają Ixy = 0",
+      "Osie główne występują tylko w kole"
+    ],
+    "correct": 2,
+    "explanation": "Główne osie bezwładności przechodzą przez środek ciężkości i mają zerowy moment dewiacyjny. Zwykłe osie centralne mogą mieć Ixy różne od zera.",
+    "hint": "Warunek główności zawiera zarówno położenie osi, jak i wartość Ixy.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-central-principal-axes",
+    "lessonTitle": "Osie przekroju"
+  },
+  {
+    "question": "Przekrój ma poziomą oś symetrii. Co można powiedzieć o tej osi i osi pionowej przechodzącej przez środek ciężkości?",
+    "answers": [
+      "Tworzą układ osi głównych",
+      "Na pewno mają równe momenty bezwładności",
+      "Nie przechodzą przez środek ciężkości",
+      "Moment dewiacyjny musi być dodatni"
+    ],
+    "correct": 0,
+    "explanation": "Oś symetrii przechodzi przez środek i daje Ixy = 0 względem osi prostopadłej przez środek. Nie oznacza to równości Ix i Iy.",
+    "hint": "Symetria upraszcza moment dewiacyjny, nie wymusza równych bezwładności.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-central-principal-axes",
+    "lessonTitle": "Osie przekroju"
+  },
+  {
+    "question": "Niesymetryczny kątownik ma osie x i y równoległe do półek i przechodzące przez środek ciężkości, ale Ixy ≠ 0. Co to oznacza?",
+    "answers": [
+      "Środek ciężkości został źle wyznaczony, bo Ixy musi być zerowe",
+      "Osie są centralne, lecz nie są główne",
+      "Przekrój nie ma osi głównych",
+      "Momenty statyczne na pewno są niezerowe"
+    ],
+    "correct": 1,
+    "explanation": "Osie przechodzą przez środek, więc są centralne i dają zerowe momenty statyczne. Niezerowe Ixy oznacza jedynie, że kierunki główne są obrócone.",
+    "hint": "Rozdziel warunek centralności od warunku główności.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-central-principal-axes",
+    "lessonTitle": "Osie przekroju"
+  },
+  {
+    "question": "Prostokąt 100 × 200 mm ma Ix = 66,67·10⁶ mm⁴ i cmax = 100 mm. Wskaźnik Wx wynosi:",
+    "answers": [
+      "66,67·10³ mm³",
+      "333,3·10³ mm³",
+      "666,7·10³ mm³",
+      "6,667·10⁹ mm³"
+    ],
+    "correct": 2,
+    "explanation": "Wx = Ix/cmax = 66,67·10⁶/100 = 666,7·10³ mm³.",
+    "hint": "Podziel moment bezwładności w mm⁴ przez odległość w mm.",
+    "outcome": "U1",
+    "moduleId": "geometry",
+    "lessonId": "m4-section-modulus",
+    "lessonTitle": "Wskaźnik W"
+  },
+  {
+    "question": "Dla przekroju o Wx = 500·10³ mm³ moment zginający ma wartość bezwzględną 20 kN·m. Największe naprężenie zginające wynosi:",
+    "answers": [
+      "4 MPa",
+      "25 MPa",
+      "40 MPa",
+      "400 MPa"
+    ],
+    "correct": 2,
+    "explanation": "20 kN·m = 20·10⁶ N·mm. σmax = 20·10⁶/(500·10³) = 40 N/mm² = 40 MPa.",
+    "hint": "Zamień kN·m na N·mm: 1 kN·m = 10⁶ N·mm.",
+    "outcome": "U1",
+    "moduleId": "geometry",
+    "lessonId": "m4-section-modulus",
+    "lessonTitle": "Wskaźnik W"
+  },
+  {
+    "question": "Przekrój teowy ma różne odległości od poziomej osi obojętnej do górnej i dolnej krawędzi. Które postępowanie jest poprawne?",
+    "answers": [
+      "Wyznaczamy W dla obu stron i do największego |σ| używamy mniejszego W",
+      "Zawsze używamy większego W do σmax",
+      "Wystarczy pole przekroju zamiast W",
+      "Naprężenie na obu krawędziach musi mieć tę samą wartość bezwzględną"
+    ],
+    "correct": 0,
+    "explanation": "σ = |M|c/I = |M|/W. Strona z większym c ma mniejsze W i większe bezwzględne naprężenie przy tym samym momencie.",
+    "hint": "Przy stałych M i I naprężenie rośnie wraz z odległością c.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-section-modulus",
+    "lessonTitle": "Wskaźnik W"
+  },
+  {
+    "question": "Dlaczego usunięcie materiału blisko osi obojętnej często mniej zmniejsza I niż usunięcie takiego samego pola przy skrajnych włóknach?",
+    "answers": [
+      "Bo blisko osi r jest małe, a w I występuje r²",
+      "Bo pole blisko osi jest ujemne",
+      "Bo naprężenie zginające jest największe na osi",
+      "Bo moment bezwładności zależy wyłącznie od masy"
+    ],
+    "correct": 0,
+    "explanation": "Wkład elementu pola do I wynosi r²dA. Przy małej odległości r od osi ten wkład jest niewielki, natomiast przy dużej rośnie kwadratowo.",
+    "hint": "Oceń wkład tego samego dA przy dwóch różnych odległościach r.",
+    "outcome": "W3",
+    "moduleId": "geometry",
+    "lessonId": "m4-rational-section-shapes",
+    "lessonTitle": "Racjonalny przekrój"
+  },
+  {
+    "question": "Pełny pręt i rura mają takie samo pole przekroju oraz materiał. Dla typowej rury o cienkiej ściance, z materiałem średnio dalej od środka:",
+    "answers": [
+      "moment bezwładności zwykle jest większy",
+      "moment bezwładności zawsze jest mniejszy",
+      "I zależy tylko od pola, więc jest identyczne",
+      "W zawsze jest zerowe"
+    ],
+    "correct": 0,
+    "explanation": "Przy równym polu rura rozmieszcza materiał przeciętnie dalej od osi, co zwiększa ∫r²dA. Ostateczny wynik zależy od wymiarów, ale to podstawowa zaleta przekroju rurowego.",
+    "hint": "Porównaj rozmieszczenie pola, nie tylko jego sumę.",
+    "outcome": "U3",
+    "moduleId": "geometry",
+    "lessonId": "m4-rational-section-shapes",
+    "lessonTitle": "Racjonalny przekrój"
+  },
+  {
+    "question": "Które stwierdzenie o dwuteowniku jest najtrafniejsze?",
+    "answers": [
+      "Jest jednakowo racjonalny przy każdym obciążeniu i w każdym kierunku",
+      "Jego półki oddalone od osi zwiększają I i W w mocnej płaszczyźnie zginania",
+      "Środnik sam zawsze przenosi cały moment zginający",
+      "Im cieńsze ścianki, tym lepiej, bez żadnych ograniczeń"
+    ],
+    "correct": 1,
+    "explanation": "Oddalone półki dają duży wkład Aa² do momentu bezwładności i zwiększają W. Jednak kierunek obciążenia oraz stateczność cienkich ścianek ograniczają dobór.",
+    "hint": "Połącz położenie półek z twierdzeniem Steinera i pamiętaj o innych warunkach projektowania.",
+    "outcome": "U3",
+    "moduleId": "geometry",
+    "lessonId": "m4-rational-section-shapes",
+    "lessonTitle": "Racjonalny przekrój"
+  },
+  {
+    "question": "Sworzeń o polu przekroju 150 mm² przenosi siłę ścinającą 12 kN na jednym przekroju. Ile wynosi średnie naprężenie styczne?",
+    "answers": [
+      "8 MPa",
+      "80 MPa",
+      "180 MPa"
+    ],
+    "correct": 1,
+    "hint": "Zamień 12 kN na niutony i podziel przez pole ścinania.",
+    "explanation": "τsr = F/A_s = 12 000 N / 150 mm² = 80 N/mm² = 80 MPa. Pole przekroju, nie obwód sworznia, występuje w mianowniku.",
+    "outcome": "U1",
+    "moduleId": "shear",
+    "lessonId": "shear-technical",
+    "lessonTitle": "Ścinanie techniczne"
+  },
+  {
+    "question": "Przy niezmienionej sile pole ścinania wzrasta trzykrotnie. Jak zmieni się średnie naprężenie styczne?",
+    "answers": [
+      "Spadnie trzykrotnie",
+      "Wzrośnie trzykrotnie",
+      "Spadnie dziewięciokrotnie"
+    ],
+    "correct": 0,
+    "hint": "Pole znajduje się w mianowniku wzoru τsr = F/A_s.",
+    "explanation": "Przy stałym F mamy τsr,2 = F/(3A_s) = τsr,1/3. Trzy razy większe pole przejmuje siłę przy trzy razy mniejszym średnim naprężeniu.",
+    "outcome": "W3",
+    "moduleId": "shear",
+    "lessonId": "shear-technical",
+    "lessonTitle": "Ścinanie techniczne"
+  },
+  {
+    "question": "Dlaczego wzoru τsr = F/A_s nie należy traktować jako dokładnego rozkładu naprężeń w każdym punkcie sworznia?",
+    "answers": [
+      "Ponieważ pomija nierównomierność rozkładu i złożony stan obciążenia",
+      "Ponieważ naprężenie styczne zawsze jest zerowe",
+      "Ponieważ wzór nie uwzględnia wartości siły"
+    ],
+    "correct": 0,
+    "hint": "Zwróć uwagę na słowo „średnie” i założenie rozkładu równomiernego.",
+    "explanation": "W ścinaniu technicznym zastępujemy rzeczywisty, zwykle nierównomierny rozkład wartością średnią. W pobliżu docisku i krawędzi otworów mogą występować dodatkowe, miejscowo większe naprężenia.",
+    "outcome": "W2",
+    "moduleId": "shear",
+    "lessonId": "shear-technical",
+    "lessonTitle": "Ścinanie techniczne"
+  },
+  {
+    "question": "Ten sam sworzeń przenosi tę samą siłę najpierw w połączeniu jednociętym, potem dwuciętym. Jak zmieni się τsr?",
+    "answers": [
+      "Spadnie o połowę",
+      "Spadnie czterokrotnie",
+      "Nie zmieni się"
+    ],
+    "correct": 0,
+    "hint": "Porównaj n = 1 i n = 2 we wzorze F/(nA).",
+    "explanation": "W połączeniu dwuciętym pole ścinania wynosi 2A, więc τsr = F/(2A). To dokładnie połowa wartości F/A dla jednego cięcia.",
+    "outcome": "W1",
+    "moduleId": "shear",
+    "lessonId": "shear-single-double",
+    "lessonTitle": "Jedno i dwa cięcia"
+  },
+  {
+    "question": "Sworzeń d = 10 mm jest dwucięty siłą F = 15,7 kN. Jakie jest przybliżone τsr?",
+    "answers": [
+      "50 MPa",
+      "100 MPa",
+      "200 MPa"
+    ],
+    "correct": 1,
+    "hint": "Najpierw policz πd²/4, a potem pomnóż pole przez dwa.",
+    "explanation": "A = π·10²/4 ≈ 78,54 mm², a 2A ≈ 157,08 mm². Zatem τsr = 15 700/157,08 ≈ 100 MPa.",
+    "outcome": "U1",
+    "moduleId": "shear",
+    "lessonId": "shear-single-double",
+    "lessonTitle": "Jedno i dwa cięcia"
+  },
+  {
+    "question": "W symetrycznym połączeniu trzech blach środkowa przenosi F, a zewnętrzne razem odprowadzają F. Ile płaszczyzn ścinania ma sworzeń?",
+    "answers": [
+      "Jedną, bo jest jeden sworzeń",
+      "Dwie, po jednej na styku blachy środkowej z każdą zewnętrzną",
+      "Trzy, bo w połączeniu są trzy blachy"
+    ],
+    "correct": 1,
+    "hint": "Wyobraź sobie rozdzielenie blach i zaznacz miejsca przecięcia sworznia.",
+    "explanation": "Sworzeń przecina się na dwóch stykach blach. Każdy z dwóch przekrojów przenosi F/2, co daje łączne pole ścinania 2A.",
+    "outcome": "W1",
+    "moduleId": "shear",
+    "lessonId": "shear-single-double",
+    "lessonTitle": "Jedno i dwa cięcia"
+  },
+  {
+    "question": "Przy τ = 80 MPa i G = 80 GPa odkształcenie postaciowe γ wynosi:",
+    "answers": [
+      "0,0001",
+      "0,001",
+      "0,01"
+    ],
+    "correct": 1,
+    "hint": "Zamień 80 GPa na 80 000 MPa i użyj γ = τ/G.",
+    "explanation": "γ = 80 MPa / 80 000 MPa = 0,001 rad. Jest to kąt odkształcenia, czyli około 0,0573°, a nie 1°.",
+    "outcome": "U1",
+    "moduleId": "shear",
+    "lessonId": "shear-stress-strain",
+    "lessonTitle": "Naprężenia styczne"
+  },
+  {
+    "question": "Jakie naprężenia główne odpowiadają czystemu ścinaniu τ = 50 MPa?",
+    "answers": [
+      "σ1 = 50 MPa, σ2 = −50 MPa",
+      "σ1 = σ2 = 50 MPa",
+      "σ1 = 100 MPa, σ2 = 0"
+    ],
+    "correct": 0,
+    "hint": "Koło ma środek C = 0 i promień R = τ.",
+    "explanation": "Dla czystego ścinania σ1 = C + R = τ, a σ2 = C − R = −τ. Przy τ = 50 MPa otrzymujemy odpowiednio +50 i −50 MPa.",
+    "outcome": "U2",
+    "moduleId": "shear",
+    "lessonId": "shear-stress-strain",
+    "lessonTitle": "Naprężenia styczne"
+  },
+  {
+    "question": "W liniowym zakresie sprężystym naprężenie styczne rośnie dwukrotnie, a G nie zmienia się. Co stanie się z γ?",
+    "answers": [
+      "Wzrośnie dwukrotnie",
+      "Spadnie dwukrotnie",
+      "Nie zmieni się"
+    ],
+    "correct": 0,
+    "hint": "Prawo Hooke’a dla ścinania jest wprost proporcjonalne: τ = Gγ.",
+    "explanation": "Przy stałym G zachodzi γ = τ/G, więc podwojenie τ podwaja γ. Dotyczy to tylko liniowego zakresu sprężystego.",
+    "outcome": "U1",
+    "moduleId": "shear",
+    "lessonId": "shear-stress-strain",
+    "lessonTitle": "Naprężenia styczne"
+  },
+  {
+    "question": "Jak zmienia się naprężenie styczne wzdłuż promienia pełnego, sprężyście skręcanego wału?",
+    "answers": [
+      "Rośnie liniowo od zera w osi do maksimum na powierzchni",
+      "Jest stałe w całym przekroju",
+      "Jest największe w osi i maleje ku powierzchni"
+    ],
+    "correct": 0,
+    "hint": "We wzorze τ(r) = Tr/J_o promień r jest w liczniku.",
+    "explanation": "Przy stałych T i J_o naprężenie jest wprost proporcjonalne do r. Dlatego τ(0) = 0, a maksimum występuje dla r = d/2.",
+    "outcome": "W2",
+    "moduleId": "shear",
+    "lessonId": "shear-solid-torsion",
+    "lessonTitle": "Wał pełny"
+  },
+  {
+    "question": "Średnica wału pełnego wzrasta dwukrotnie przy niezmienionym momencie T. Jak zmieni się τmax?",
+    "answers": [
+      "Spadnie 2 razy",
+      "Spadnie 8 razy",
+      "Spadnie 16 razy"
+    ],
+    "correct": 1,
+    "hint": "W τmax = 16T/(πd³) średnica jest w trzeciej potędze.",
+    "explanation": "Po podstawieniu 2d mianownik rośnie (2d)³/d³ = 8 razy. Maksymalne naprężenie spada więc ośmiokrotnie.",
+    "outcome": "W3",
+    "moduleId": "shear",
+    "lessonId": "shear-solid-torsion",
+    "lessonTitle": "Wał pełny"
+  },
+  {
+    "question": "Wał d = 40 mm przenosi T = 0,628 kN·m. Jakie jest w przybliżeniu τmax?",
+    "answers": [
+      "25 MPa",
+      "50 MPa",
+      "100 MPa"
+    ],
+    "correct": 1,
+    "hint": "Użyj T = 628 000 N·mm i τmax = 16T/(πd³).",
+    "explanation": "τmax = 16·628 000/(π·40³) ≈ 50 MPa. Moment w kN·m trzeba najpierw zamienić na N·mm.",
+    "outcome": "U1",
+    "moduleId": "shear",
+    "lessonId": "shear-solid-torsion",
+    "lessonTitle": "Wał pełny"
+  },
+  {
+    "question": "Które wyrażenie poprawnie opisuje J_o rury o średnicach D i d?",
+    "answers": [
+      "π(D⁴−d⁴)/32",
+      "π(D−d)⁴/32",
+      "π(D²−d²)/4"
+    ],
+    "correct": 0,
+    "hint": "Odejmij moment bezwładności pustego wnętrza od momentu pełnego koła.",
+    "explanation": "Dla koła J = πD⁴/32, więc dla rury J_o = πD⁴/32 − πd⁴/32. Ostatnie wyrażenie opisuje pole przekroju, nie moment bezwładności.",
+    "outcome": "W3",
+    "moduleId": "shear",
+    "lessonId": "shear-hollow-torsion",
+    "lessonTitle": "Wał rurowy"
+  },
+  {
+    "question": "Przy tym samym momencie T i tej samej średnicy zewnętrznej D rura ma zwykle w porównaniu z wałem pełnym:",
+    "answers": [
+      "Mniejsze J_o i większe τmax",
+      "Większe J_o i mniejsze τmax",
+      "Identyczne J_o i τmax"
+    ],
+    "correct": 0,
+    "hint": "Usunięcie wnętrza odejmuje dodatni składnik πd⁴/32.",
+    "explanation": "Rura ma mniejsze J_o oraz mniejsze W_o = J_o/(D/2), więc przy tym samym T osiąga większe τmax. Może jednak być korzystniejsza w przeliczeniu na masę.",
+    "outcome": "W3",
+    "moduleId": "shear",
+    "lessonId": "shear-hollow-torsion",
+    "lessonTitle": "Wał rurowy"
+  },
+  {
+    "question": "Dla cienkościennej rury największe naprężenie styczne od skręcania występuje:",
+    "answers": [
+      "Na promieniu zewnętrznym",
+      "Zawsze na promieniu wewnętrznym",
+      "Wszędzie dokładnie jednakowe, niezależnie od modelu"
+    ],
+    "correct": 0,
+    "hint": "W ogólnym wzorze τ(r) = Tr/J_o największe r jest na zewnątrz.",
+    "explanation": "Naprężenie rośnie liniowo z r, więc maksimum jest dla r = D/2. W przybliżeniu cienkościennym rozkład po grubości bywa uśredniany, ale nie zmienia to maksimum modelu ogólnego.",
+    "outcome": "W2",
+    "moduleId": "shear",
+    "lessonId": "shear-hollow-torsion",
+    "lessonTitle": "Wał rurowy"
+  },
+  {
+    "question": "Długość wału rośnie trzykrotnie, a T, G i J_o pozostają bez zmian. Jak zmieni się kąt skręcenia?",
+    "answers": [
+      "Wzrośnie trzykrotnie",
+      "Spadnie trzykrotnie",
+      "Wzrośnie dziewięciokrotnie"
+    ],
+    "correct": 0,
+    "hint": "L występuje w liczniku φ = TL/(GJ_o).",
+    "explanation": "Każdy odcinek wału dokłada swój względny obrót, więc trzykrotnie dłuższy wał ma trzykrotnie większy całkowity kąt skręcenia.",
+    "outcome": "W3",
+    "moduleId": "shear",
+    "lessonId": "shear-twist-angle",
+    "lessonTitle": "Kąt skręcenia"
+  },
+  {
+    "question": "Średnicę pełnego wału zwiększono dwukrotnie. Jak zmieni się φ przy pozostałych danych bez zmian?",
+    "answers": [
+      "Spadnie 16 razy",
+      "Spadnie 8 razy",
+      "Spadnie 2 razy"
+    ],
+    "correct": 0,
+    "hint": "Dla wału pełnego J_o jest proporcjonalne do d⁴.",
+    "explanation": "J_o wzrasta 2⁴ = 16 razy. Ponieważ φ jest odwrotnie proporcjonalne do J_o, kąt skręcenia spada 16 razy.",
+    "outcome": "W3",
+    "moduleId": "shear",
+    "lessonId": "shear-twist-angle",
+    "lessonTitle": "Kąt skręcenia"
+  },
+  {
+    "question": "Obliczony kąt φ = 0,02 rad. Ile to stopni?",
+    "answers": [
+      "Około 0,02°",
+      "Około 1,15°",
+      "Około 11,46°"
+    ],
+    "correct": 1,
+    "hint": "Pomnóż radiany przez 180/π ≈ 57,3.",
+    "explanation": "φ = 0,02·180/π ≈ 1,146°, czyli około 1,15°. Radiany i stopnie nie mogą być mieszane bez przeliczenia.",
+    "outcome": "U1",
+    "moduleId": "shear",
+    "lessonId": "shear-twist-angle",
+    "lessonTitle": "Kąt skręcenia"
+  },
+  {
+    "question": "Z warunku wytrzymałości wyszło d ≥ 42 mm, a ze sztywności d ≥ 48 mm. Jaką minimalną średnicę należy przyjąć przed zaokrągleniem do wymiaru katalogowego?",
+    "answers": [
+      "42 mm",
+      "45 mm jako średnią",
+      "48 mm"
+    ],
+    "correct": 2,
+    "hint": "Przyjęta średnica musi spełniać jednocześnie obie nierówności.",
+    "explanation": "Średnica 48 mm spełnia oba warunki, natomiast 42 mm nie spełnia warunku sztywności. Nie uśredniamy wymaganych minimów — wybieramy większą wartość.",
+    "outcome": "U3",
+    "moduleId": "shear",
+    "lessonId": "shear-shaft-design",
+    "lessonTitle": "Dobór wału"
+  },
+  {
+    "question": "Po doborze średnicy katalogowej większej od obliczonej wartości minimalnej należy:",
+    "answers": [
+      "Sprawdzić ponownie τmax i φ dla przyjętego wymiaru",
+      "Pominąć obliczenia, bo większy wał zawsze działa tak samo",
+      "Sprawdzić wyłącznie masę wału"
+    ],
+    "correct": 0,
+    "hint": "Projekt kończy się weryfikacją rzeczywiście przyjętego przekroju.",
+    "explanation": "Dla przyjętego d oblicza się rzeczywiste τmax i φ oraz porównuje je z granicami. Większa średnica zmniejsza obie wielkości, ale sprawdzenie potwierdza poprawność jednostek i obliczeń.",
+    "outcome": "U3",
+    "moduleId": "shear",
+    "lessonId": "shear-shaft-design",
+    "lessonTitle": "Dobór wału"
+  },
+  {
+    "question": "Do warunku sztywności podstawiono φdop = 1°, bez zamiany na radiany. Jaki to błąd?",
+    "answers": [
+      "Brak błędu, bo wzór zawsze wymaga stopni",
+      "Błąd jednostek; należy użyć 0,01745 rad",
+      "Błąd znaku; kąt musi być ujemny"
+    ],
+    "correct": 1,
+    "hint": "Wzór φ = TL/(GJ_o) daje wynik w radianach.",
+    "explanation": "Dopuszczalny kąt musi być wyrażony w tej samej miarze co obliczany. 1° = π/180 = 0,01745 rad; podstawienie liczby 1 zamiast 0,01745 da błędną średnicę.",
+    "outcome": "U3",
+    "moduleId": "shear",
+    "lessonId": "shear-shaft-design",
+    "lessonTitle": "Dobór wału"
+  },
+  {
+    "question": "Na belce swobodnie podpartej o L = 6 m siła P = 24 kN działa 2 m od lewej podpory A. Ile wynoszą reakcje pionowe?",
+    "answers": [
+      "RA = 8 kN, RB = 16 kN",
+      "RA = 16 kN, RB = 8 kN",
+      "RA = RB = 12 kN"
+    ],
+    "correct": 1,
+    "hint": "Z momentów względem A: RB·6 = P·2; następnie RA = P − RB.",
+    "explanation": "RB = 24·2/6 = 8 kN, a RA = 24−8 = 16 kN. Siła jest bliżej A, dlatego lewa reakcja jest większa.",
+    "outcome": "U1",
+    "moduleId": "bending",
+    "lessonId": "bending-beams-reactions",
+    "lessonTitle": "Belki i reakcje"
+  },
+  {
+    "question": "Jeżeli po rozwiązaniu równań reakcja ma znak ujemny, co to oznacza?",
+    "answers": [
+      "Rzeczywisty zwrot jest przeciwny do założonego",
+      "Belka na pewno jest niestateczna",
+      "Obciążenie musi być równe zero"
+    ],
+    "correct": 0,
+    "hint": "Znak odnosi się do zwrotu przyjętego przed obliczeniami.",
+    "explanation": "Ujemna reakcja ma wartość równą modułowi wyniku, lecz działa przeciwnie do strzałki przyjętej na schemacie. Sam znak nie przesądza o stateczności.",
+    "outcome": "W1",
+    "moduleId": "bending",
+    "lessonId": "bending-beams-reactions",
+    "lessonTitle": "Belki i reakcje"
+  },
+  {
+    "question": "Dlaczego w belce z siłą przyłożoną poza środkiem reakcje zwykle nie są równe?",
+    "answers": [
+      "Ponieważ muszą spełniać zarówno równowagę sił, jak i momentów",
+      "Ponieważ prawa podpora zawsze przenosi więcej",
+      "Ponieważ suma reakcji nie zależy od obciążenia"
+    ],
+    "correct": 0,
+    "hint": "Sama suma sił nie określa podziału obciążenia między podpory.",
+    "explanation": "Równowaga sił daje RA + RB = P, a równowaga momentów określa ich podział według ramion siły. Dlatego położenie P zmienia reakcje.",
+    "outcome": "W1",
+    "moduleId": "bending",
+    "lessonId": "bending-beams-reactions",
+    "lessonTitle": "Belki i reakcje"
+  },
+  {
+    "question": "Na belce swobodnie podpartej o L = 4 m działa P = 20 kN na środku. Jakie wartości ma T po lewej i prawej stronie siły?",
+    "answers": [
+      "+10 kN i −10 kN",
+      "+20 kN i −20 kN",
+      "0 kN i +20 kN"
+    ],
+    "correct": 0,
+    "hint": "Reakcje wynoszą po 10 kN, a pod siłą wykres skacze o 20 kN.",
+    "explanation": "Przed siłą T = RA = +10 kN. Pod P następuje spadek o 20 kN, więc za siłą T = 10−20 = −10 kN.",
+    "outcome": "U1",
+    "moduleId": "bending",
+    "lessonId": "bending-shear-force",
+    "lessonTitle": "Siła tnąca"
+  },
+  {
+    "question": "Na odcinku bez obciążenia ciągłego i bez sił skupionych wykres T(x) jest:",
+    "answers": [
+      "Stały",
+      "Zawsze paraboliczny",
+      "Zawsze równy zero"
+    ],
+    "correct": 0,
+    "hint": "Skoro q = 0, to dT/dx = −q = 0.",
+    "explanation": "Zależność dT/dx = −q oznacza przy q = 0 stałą wartość T. Może ona być dodatnia lub ujemna, nie musi być zerowa.",
+    "outcome": "W1",
+    "moduleId": "bending",
+    "lessonId": "bending-shear-force",
+    "lessonTitle": "Siła tnąca"
+  },
+  {
+    "question": "W punkcie przyłożenia pionowej siły skupionej 30 kN w dół wykres T, czytany od lewej do prawej:",
+    "answers": [
+      "Wykonuje skok w dół o 30 kN",
+      "Wykonuje skok w górę o 30 kN",
+      "Pozostaje zawsze ciągły"
+    ],
+    "correct": 0,
+    "hint": "Odjęta część belki musi zrównoważyć nową siłę w dół.",
+    "explanation": "Przy przyjętej konwencji siła w dół zmniejsza T o 30 kN. Wartość skoku odpowiada sile skupionej; w idealizowanym punkcie przyłożenia wykres jest nieciągły.",
+    "outcome": "W1",
+    "moduleId": "bending",
+    "lessonId": "bending-shear-force",
+    "lessonTitle": "Siła tnąca"
+  },
+  {
+    "question": "Jeżeli na pewnym odcinku T(x) = +5 kN jest stałe, to M(x):",
+    "answers": [
+      "Rośnie liniowo z nachyleniem 5 kN",
+      "Jest stałe i równe 5 kN·m",
+      "Maleje parabolicznie"
+    ],
+    "correct": 0,
+    "hint": "Nachylenie wykresu M jest równe T.",
+    "explanation": "dM/dx = T = 5 kN, więc wykres M jest prostą rosnącą. Jednostką nachylenia jest kN, bo moment w kN·m dzielimy przez długość w m.",
+    "outcome": "W1",
+    "moduleId": "bending",
+    "lessonId": "bending-moment-diagram",
+    "lessonTitle": "Moment zginający"
+  },
+  {
+    "question": "Dla siły P na środku belki swobodnie podpartej o rozpiętości L maksymalny moment wynosi:",
+    "answers": [
+      "PL/2",
+      "PL/4",
+      "PL"
+    ],
+    "correct": 1,
+    "hint": "Reakcja wynosi P/2, a ramię od podpory do środka L/2.",
+    "explanation": "Mmax = RA·L/2 = (P/2)(L/2) = PL/4. Moment jest największy pod siłą, gdzie T zmienia znak.",
+    "outcome": "U1",
+    "moduleId": "bending",
+    "lessonId": "bending-moment-diagram",
+    "lessonTitle": "Moment zginający"
+  },
+  {
+    "question": "T(x) przechodzi przez zero i zmienia znak z dodatniego na ujemny. Co dzieje się z M(x)?",
+    "answers": [
+      "Osiąga lokalne maksimum",
+      "Osiąga lokalne minimum",
+      "Musi wynosić zero"
+    ],
+    "correct": 0,
+    "hint": "Najpierw moment rośnie, a potem maleje.",
+    "explanation": "Dodatnie T oznacza rosnący M, a ujemne T malejący M. Zmiana znaku z + na − wyznacza więc lokalne maksimum momentu.",
+    "outcome": "W1",
+    "moduleId": "bending",
+    "lessonId": "bending-moment-diagram",
+    "lessonTitle": "Moment zginający"
+  },
+  {
+    "question": "Na belce działa stałe obciążenie q > 0 w dół. Jakiego rzędu są funkcje T(x) i M(x)?",
+    "answers": [
+      "T liniowa, M kwadratowa",
+      "T stała, M liniowa",
+      "T kwadratowa, M sześcienna"
+    ],
+    "correct": 0,
+    "hint": "Całkowanie stałego q daje funkcję liniową, a całkowanie funkcji liniowej — kwadratową.",
+    "explanation": "Z dT/dx = −q wynika T = −qx + C. Następnie dM/dx = T daje M jako wielomian drugiego stopnia.",
+    "outcome": "W1",
+    "moduleId": "bending",
+    "lessonId": "bending-q-t-m",
+    "lessonTitle": "Zależności q–T–M"
+  },
+  {
+    "question": "Dla belki swobodnie podpartej o L z równomiernym q maksymalny moment występuje:",
+    "answers": [
+      "Na podporze, gdzie M = 0",
+      "Na środku, gdzie T = 0",
+      "W miejscu największej wartości bezwzględnej T"
+    ],
+    "correct": 1,
+    "hint": "Z symetrii siła tnąca zmienia znak w połowie rozpiętości.",
+    "explanation": "T(x) = qL/2−qx znika dla x = L/2 i zmienia znak z + na −. Tam M osiąga maksimum qL²/8.",
+    "outcome": "U1",
+    "moduleId": "bending",
+    "lessonId": "bending-q-t-m",
+    "lessonTitle": "Zależności q–T–M"
+  },
+  {
+    "question": "Na wykresie M(x) pojawia się załamanie, choć T jest ciągłe i nie przyłożono momentu skupionego. Co należy zrobić?",
+    "answers": [
+      "Sprawdzić obliczenia, bo dM/dx = T wymaga tu ciągłego nachylenia M",
+      "Uznać to zawsze za poprawny skutek obciążenia q",
+      "Zastąpić wykres M wykresem T"
+    ],
+    "correct": 0,
+    "hint": "Nachylenie M jest równe T; zastanów się, co oznacza ciągłość T dla stycznej do M.",
+    "explanation": "Jeżeli T jest ciągłe, nachylenie M także zmienia się ciągle, więc M nie ma załamania. Skok M może natomiast wywołać przyłożony moment skupiony.",
+    "outcome": "W1",
+    "moduleId": "bending",
+    "lessonId": "bending-q-t-m",
+    "lessonTitle": "Zależności q–T–M"
+  },
+  {
+    "question": "Która para warunków opisuje czyste zginanie na odcinku belki?",
+    "answers": [
+      "M jest stałe i niezerowe, T = 0",
+      "M = 0, T jest stałe i niezerowe",
+      "M rośnie liniowo, T jest stałe i niezerowe"
+    ],
+    "correct": 0,
+    "hint": "Skorzystaj z zależności T = dM/dx.",
+    "explanation": "Stały niezerowy moment ma zerową pochodną, więc T = 0. To właśnie czyste zginanie; stałe niezerowe T powodowałoby liniową zmianę M.",
+    "outcome": "W2",
+    "moduleId": "bending",
+    "lessonId": "bending-pure",
+    "lessonTitle": "Czyste zginanie"
+  },
+  {
+    "question": "Czy przy czystym zginaniu naprężenia normalne w przekroju znikają?",
+    "answers": [
+      "Nie, nadal wynikają z M i zmieniają znak względem osi obojętnej",
+      "Tak, bo T = 0 oznacza brak wszystkich naprężeń",
+      "Tak, ale tylko w stali"
+    ],
+    "correct": 0,
+    "hint": "Rozróżnij naprężenia normalne od momentu i styczne od siły tnącej.",
+    "explanation": "Moment zginający wytwarza σ = My/I niezależnie od tego, że T = 0. Znikają naprężenia styczne związane z siłą tnącą, a nie normalne od zginania.",
+    "outcome": "W2",
+    "moduleId": "bending",
+    "lessonId": "bending-pure",
+    "lessonTitle": "Czyste zginanie"
+  },
+  {
+    "question": "W teście zginania czteropunktowego między dwiema równymi siłami moment jest stały. Jaki jest tam wykres T?",
+    "answers": [
+      "Zerowy",
+      "Liniowo rosnący",
+      "Paraboliczny"
+    ],
+    "correct": 0,
+    "hint": "Między siłami nie ma q, a stały M ma zerową pochodną.",
+    "explanation": "Ponieważ dM/dx = T, stały moment wymusza T = 0. Odcinek między siłami jest klasycznym przykładem czystego zginania.",
+    "outcome": "W2",
+    "moduleId": "bending",
+    "lessonId": "bending-pure",
+    "lessonTitle": "Czyste zginanie"
+  },
+  {
+    "question": "Jak zmienia się naprężenie normalne od zginania w funkcji odległości y od osi obojętnej?",
+    "answers": [
+      "Liniowo; jest zerowe dla y = 0",
+      "Jest stałe w całym przekroju",
+      "Rośnie proporcjonalnie do y² i nigdy nie zmienia znaku"
+    ],
+    "correct": 0,
+    "hint": "W σ = My/I wielkość y występuje w pierwszej potędze.",
+    "explanation": "Przy ustalonych M i I naprężenie jest wprost proporcjonalne do y. Dla y = 0 wynosi zero, a po przeciwnych stronach osi ma przeciwne znaki.",
+    "outcome": "W3",
+    "moduleId": "bending",
+    "lessonId": "bending-stress-neutral-axis",
+    "lessonTitle": "Naprężenia zginające"
+  },
+  {
+    "question": "Prostokąt ma b = 60 mm i h = 120 mm. Ile wynosi jego wskaźnik Wz względem osi poziomej?",
+    "answers": [
+      "72 000 mm³",
+      "144 000 mm³",
+      "864 000 mm³"
+    ],
+    "correct": 1,
+    "hint": "Dla prostokąta Wz = bh²/6.",
+    "explanation": "Wz = 60·120²/6 = 60·14 400/6 = 144 000 mm³. Wskaźnik ma jednostkę mm³, a nie mm⁴ jak moment bezwładności.",
+    "outcome": "U1",
+    "moduleId": "bending",
+    "lessonId": "bending-stress-neutral-axis",
+    "lessonTitle": "Naprężenia zginające"
+  },
+  {
+    "question": "Przy dodatnim momencie zginającym belkę w dół typowe naprężenia w przekroju symetrycznym to:",
+    "answers": [
+      "Ściskanie u góry i rozciąganie u dołu",
+      "Rozciąganie u góry i ściskanie u dołu",
+      "Wyłącznie rozciąganie w całym przekroju"
+    ],
+    "correct": 0,
+    "hint": "Wygięta belka skraca górne włókna, a wydłuża dolne.",
+    "explanation": "Górne włókna ulegają skróceniu, więc są ściskane; dolne wydłużają się, więc są rozciągane. Oś obojętna dzieli te obszary.",
+    "outcome": "W3",
+    "moduleId": "bending",
+    "lessonId": "bending-stress-neutral-axis",
+    "lessonTitle": "Naprężenia zginające"
+  },
+  {
+    "question": "Dla Mmax = 16 kN·m i σdop = 160 MPa minimalny wskaźnik wytrzymałości przekroju wynosi:",
+    "answers": [
+      "10 cm³",
+      "100 cm³",
+      "1000 cm³"
+    ],
+    "correct": 1,
+    "hint": "Zamień M na 16 000 000 N·mm; wynik w mm³ podziel przez 1000, aby otrzymać cm³.",
+    "explanation": "Wmin = 16 000 000/160 = 100 000 mm³ = 100 cm³. Przyjęty przekrój musi mieć W co najmniej takiej wartości.",
+    "outcome": "U3",
+    "moduleId": "bending",
+    "lessonId": "bending-section-stiffness-design",
+    "lessonTitle": "Dobór przekroju"
+  },
+  {
+    "question": "Przekrój spełnia warunek σmax ≤ σdop, ale ugięcie przekracza fdop. Co to oznacza?",
+    "answers": [
+      "Przekrój jest nieprzyjęty; trzeba zwiększyć sztywność EI",
+      "Przekrój jest poprawny, bo wytrzymałość zawsze unieważnia sztywność",
+      "Należy zmniejszyć I, aby ograniczyć ugięcie"
+    ],
+    "correct": 0,
+    "hint": "Oba warunki muszą być spełnione jednocześnie.",
+    "explanation": "Naprężeniowy warunek bezpieczeństwa nie zastępuje kontroli odkształcalności. Ugięcie maleje ze wzrostem EI, więc można dobrać większy I lub inny materiał/schemat.",
+    "outcome": "U3",
+    "moduleId": "bending",
+    "lessonId": "bending-section-stiffness-design",
+    "lessonTitle": "Dobór przekroju"
+  },
+  {
+    "question": "Dla prostokąta o stałej szerokości b wysokość h wzrasta dwukrotnie. Jak zmieni się I = bh³/12 i ugięcie przy pozostałych danych bez zmian?",
+    "answers": [
+      "I wzrośnie 8 razy, ugięcie spadnie 8 razy",
+      "I wzrośnie 2 razy, ugięcie spadnie 2 razy",
+      "I wzrośnie 4 razy, ugięcie spadnie 4 razy"
+    ],
+    "correct": 0,
+    "hint": "h jest w trzeciej potędze, a f jest odwrotnie proporcjonalne do I.",
+    "explanation": "I rośnie 2³ = 8 razy. Ponieważ f = PL³/(48EI), przy stałych P, L i E ugięcie spada ośmiokrotnie.",
+    "outcome": "W3",
+    "moduleId": "bending",
+    "lessonId": "bending-section-stiffness-design",
+    "lessonTitle": "Dobór przekroju"
+  },
+  {
+    "question": "Ile niezależnych składowych ma symetryczny tensor naprężenia w opisie przestrzennym?",
+    "answers": [
+      "3",
+      "6",
+      "9"
+    ],
+    "correct": 1,
+    "hint": "Policz trzy składowe na przekątnej i trzy różne pary składowych stycznych.",
+    "explanation": "Macierz ma dziewięć pól, ale symetria daje τxy = τyx, τxz = τzx i τyz = τzy. Pozostaje 3 naprężenia normalne + 3 niezależne styczne = 6.",
+    "outcome": "W1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-tensor",
+    "lessonTitle": "Składowe tensora"
+  },
+  {
+    "question": "W pewnym punkcie σx = 80 MPa, a wszystkie pozostałe składowe wynoszą zero. Co opisuje taki stan?",
+    "answers": [
+      "Jednoosiowe rozciąganie w kierunku x",
+      "Czyste ścinanie",
+      "Jednakowe ściskanie we wszystkich kierunkach"
+    ],
+    "correct": 0,
+    "hint": "Jest tylko jedno dodatnie naprężenie normalne.",
+    "explanation": "Dodatnie σx oznacza rozciąganie prostopadłe do ściany normalnej do osi x. Zerowe pozostałe składowe dają klasyczny stan jednoosiowy, mimo że w innych przekrojach można wykazać naprężenia styczne.",
+    "outcome": "W2",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-tensor",
+    "lessonTitle": "Składowe tensora"
+  },
+  {
+    "question": "Dlaczego zmiana nazw osi x i y nie może sama w sobie zmienić nośności elementu?",
+    "answers": [
+      "Bo tensor zawsze jest zerowy",
+      "Bo opisuje ten sam fizyczny stan, tylko w innych współrzędnych",
+      "Bo znikają wszystkie naprężenia styczne"
+    ],
+    "correct": 1,
+    "hint": "Odróżnij fizyczne obciążenie od sposobu jego zapisu.",
+    "explanation": "Obrót osi przekształca składowe tensora według ścisłych zależności. Niezmienniki, naprężenia główne i fizyczne skutki pozostają takie same, więc sama zmiana opisu nie zmienia bezpieczeństwa.",
+    "outcome": "W1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-tensor",
+    "lessonTitle": "Składowe tensora"
+  },
+  {
+    "question": "Dla σx = 100 MPa, σy = 20 MPa i τxy = 0 ile wynoszą σn i τnt po obrocie osi o 45°?",
+    "answers": [
+      "σn = 60 MPa, τnt = −40 MPa",
+      "σn = 120 MPa, τnt = 0",
+      "σn = 40 MPa, τnt = 60 MPa"
+    ],
+    "correct": 0,
+    "hint": "Dla 2θ = 90° cosinus jest zerowy, a sinus równy 1.",
+    "explanation": "σavg = 60 MPa i a = 40 MPa. Zatem σn = 60 + 40·0 + 0 = 60 MPa, a τnt = −40·1 + 0 = −40 MPa. Znak τ opisuje stronę działania w przyjętym układzie.",
+    "outcome": "U1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-rotation",
+    "lessonTitle": "Transformacja obrotu"
+  },
+  {
+    "question": "Która wielkość nie zmienia się przy obrocie osi w płaszczyźnie xy?",
+    "answers": [
+      "σx − σy",
+      "σx + σy",
+      "τxy"
+    ],
+    "correct": 1,
+    "hint": "Dodaj do siebie naprężenia normalne na dwóch prostopadłych ścianach.",
+    "explanation": "Pierwszy niezmiennik płaskiego stanu wynosi σx + σy. Pojedyncze składowe i różnica ulegają transformacji, ale ich suma pozostaje stała.",
+    "outcome": "W1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-rotation",
+    "lessonTitle": "Transformacja obrotu"
+  },
+  {
+    "question": "W czystym ścinaniu σx = σy = 0 i τxy = 50 MPa. Jakie naprężenie normalne występuje dla θ = 45°?",
+    "answers": [
+      "0 MPa",
+      "50 MPa",
+      "100 MPa"
+    ],
+    "correct": 1,
+    "hint": "Pozostaje wyraz τxy sin2θ.",
+    "explanation": "Dla θ = 45° mamy sin90° = 1, więc σn = 50 MPa. Czyste ścinanie jest więc równoważne rozciąganiu i ściskaniu o wartości 50 MPa w kierunkach głównych.",
+    "outcome": "U1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-rotation",
+    "lessonTitle": "Transformacja obrotu"
+  },
+  {
+    "question": "Dla σx = 90 MPa, σy = 30 MPa i τxy = 40 MPa ile wynoszą płaskie naprężenia główne?",
+    "answers": [
+      "60 MPa i 40 MPa",
+      "110 MPa i 10 MPa",
+      "130 MPa i −10 MPa"
+    ],
+    "correct": 1,
+    "hint": "Średnia wynosi 60 MPa, a promień oblicz z połowy różnicy i τxy.",
+    "explanation": "σavg = 60 MPa, połowa różnicy to 30 MPa, więc R = √(30² + 40²) = 50 MPa. Stąd σ1 = 60 + 50 = 110 MPa i σ2 = 60 − 50 = 10 MPa.",
+    "outcome": "U1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-principal",
+    "lessonTitle": "Naprężenia główne"
+  },
+  {
+    "question": "W stanie płaskim obliczono σ1 = 20 MPa i σ2 = −70 MPa, a σz = 0. Jakie jest najmniejsze naprężenie główne w opisie przestrzennym?",
+    "answers": [
+      "0 MPa",
+      "−70 MPa",
+      "20 MPa"
+    ],
+    "correct": 1,
+    "hint": "Uwzględnij także kierunek z i uporządkuj trzy liczby.",
+    "explanation": "Zbiór naprężeń głównych to {20, 0, −70} MPa. Najmniejsze wynosi −70 MPa. Zerowe σz nie zawsze jest skrajną wartością i nie wolno go pominąć.",
+    "outcome": "W1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-principal",
+    "lessonTitle": "Naprężenia główne"
+  },
+  {
+    "question": "Co jest wspólne dla wszystkich kierunków głównych?",
+    "answers": [
+      "Naprężenie normalne zawsze jest dodatnie",
+      "Naprężenie styczne na odpowiadających im płaszczyznach wynosi zero",
+      "Naprężenia główne zawsze są równe co do wartości"
+    ],
+    "correct": 1,
+    "hint": "To właśnie brak jednej składowej wyróżnia te płaszczyzny.",
+    "explanation": "Na płaszczyznach głównych τ = 0. Naprężenie normalne może być dodatnie, ujemne lub zerowe, a wartości główne mogą się różnić.",
+    "outcome": "W1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-principal",
+    "lessonTitle": "Naprężenia główne"
+  },
+  {
+    "question": "Dla σx = σy = 50 MPa i τxy = 0 co można powiedzieć o kierunkach głównych w płaszczyźnie?",
+    "answers": [
+      "Występują tylko przy 45°",
+      "Każdy kierunek jest główny",
+      "Nie istnieją"
+    ],
+    "correct": 1,
+    "hint": "Oblicz promień R i pomyśl, czy koło ma wyróżniony punkt na obwodzie.",
+    "explanation": "R = 0, więc koło Mohra redukuje się do punktu σ = 50 MPa. Na każdym przekroju w tej płaszczyźnie τ = 0 i σ = 50 MPa, zatem każdy kierunek jest główny.",
+    "outcome": "U2",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-directions",
+    "lessonTitle": "Kierunki główne"
+  },
+  {
+    "question": "Dla σx = 80 MPa, σy = 0 i τxy = 40 MPa, jaki najmniejszy dodatni kąt θp wskazuje kierunek o większym naprężeniu głównym?",
+    "answers": [
+      "22,5°",
+      "45°",
+      "67,5°"
+    ],
+    "correct": 0,
+    "hint": "tan2θp = 80/80 = 1; wybierz 2θp = 45°, a nie kąt o 180° dalszy.",
+    "explanation": "2θp = 45° daje θp = 22,5°. Podstawienie do σn daje 40 + 40·cos45° + 40·sin45° ≈ 96,57 MPa, czyli większą wartość główną; drugi kierunek jest o 90°.",
+    "outcome": "U2",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-directions",
+    "lessonTitle": "Kierunki główne"
+  },
+  {
+    "question": "Dlaczego samo wyrażenie 0,5·arctan[2τxy/(σx−σy)] może wskazać niewłaściwą z dwóch osi głównych?",
+    "answers": [
+      "Bo arctan nie rozróżnia pełnego położenia kąta 2θ na kole",
+      "Bo kierunki główne nie są prostopadłe",
+      "Bo wzór nie zawiera naprężeń normalnych"
+    ],
+    "correct": 0,
+    "hint": "Tangens ma okres 180°, a funkcja arctan zwykle zwraca tylko jedną gałąź.",
+    "explanation": "Ta sama wartość tangensa odpowiada kątom 2θ różniącym się o 180°, czyli kierunkom θ różniącym się o 90°. Trzeba ustalić, który odpowiada σ1, np. przez podstawienie do transformacji.",
+    "outcome": "U2",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-directions",
+    "lessonTitle": "Kierunki główne"
+  },
+  {
+    "question": "Dla płaskich naprężeń głównych σ1 = 120 MPa, σ2 = 40 MPa i σz = 0 ile wynosi absolutne maksymalne naprężenie styczne?",
+    "answers": [
+      "40 MPa",
+      "60 MPa",
+      "80 MPa"
+    ],
+    "correct": 1,
+    "hint": "Największa różnica jest między 120 MPa a zerem, nie między 120 a 40 MPa.",
+    "explanation": "Po uporządkowaniu σI = 120, σII = 40, σIII = 0 MPa. Dlatego τmax(abs) = (120 − 0)/2 = 60 MPa; płaskie R wynosiłoby tylko 40 MPa.",
+    "outcome": "U1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-tau-max",
+    "lessonTitle": "τ maksymalne"
+  },
+  {
+    "question": "Jakie średnie naprężenie normalne występuje na płaszczyźnie maksymalnego ścinania w płaszczyźnie dwóch naprężeń głównych σ1 i σ2?",
+    "answers": [
+      "Zawsze zero",
+      "(σ1 + σ2)/2",
+      "(σ1 − σ2)/2"
+    ],
+    "correct": 1,
+    "hint": "Jest to położenie środka odpowiedniego koła na osi σ.",
+    "explanation": "Na płaszczyźnie τmax naprężenie normalne odpowiada środkowi koła: (σ1 + σ2)/2. Ścinanie maksymalne nie oznacza zniknięcia naprężenia normalnego.",
+    "outcome": "U2",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-tau-max",
+    "lessonTitle": "τ maksymalne"
+  },
+  {
+    "question": "Dla czystego ścinania τxy = 70 MPa, przy σx = σy = σz = 0, ile wynosi τmax(abs)?",
+    "answers": [
+      "35 MPa",
+      "70 MPa",
+      "140 MPa"
+    ],
+    "correct": 1,
+    "hint": "Naprężeniami głównymi w płaszczyźnie są +70 i −70 MPa.",
+    "explanation": "Naprężenia główne wynoszą 70, 0 i −70 MPa. Największa różnica to 140 MPa, więc τmax(abs) = 70 MPa, zgodnie z wyjściowym ścinaniem.",
+    "outcome": "U1",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-tau-max",
+    "lessonTitle": "τ maksymalne"
+  },
+  {
+    "question": "Jakie współrzędne mają X i Y dla σx = 70 MPa, σy = 10 MPa, τxy = 20 MPa w przyjętej konwencji?",
+    "answers": [
+      "X = (70, 20), Y = (10, −20)",
+      "X = (70, −20), Y = (10, 20)",
+      "X = (40, 20), Y = (40, −20)"
+    ],
+    "correct": 0,
+    "hint": "Pierwsza współrzędna to naprężenie normalne na danej ścianie.",
+    "explanation": "Przy tej konwencji X = (σx, τxy) = (70,20), a Y = (σy,−τxy) = (10,−20), wszystko w MPa. Środek odcinka XY leży przy σ = 40 MPa.",
+    "outcome": "U2",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-mohr-drawing",
+    "lessonTitle": "Rysowanie koła"
+  },
+  {
+    "question": "Dlaczego kąt między promieniami CX i CY wynosi 180°, mimo że ściany x i y są prostopadłe?",
+    "answers": [
+      "Bo kąty fizyczne są na kole podwojone",
+      "Bo ściany są równoległe",
+      "To błąd: powinno być 90°"
+    ],
+    "correct": 0,
+    "hint": "We wzorach transformacji występuje 2θ.",
+    "explanation": "Fizyczne 90° odpowiada 2·90° = 180° na kole. Punkty X i Y są więc przeciwległymi końcami średnicy.",
+    "outcome": "U2",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-mohr-drawing",
+    "lessonTitle": "Rysowanie koła"
+  },
+  {
+    "question": "Co odczytujesz z najbardziej wysuniętego w prawo punktu koła?",
+    "answers": [
+      "Największe naprężenie główne w danej płaszczyźnie",
+      "Maksymalne ścinanie",
+      "Zawsze zerowe naprężenie"
+    ],
+    "correct": 0,
+    "hint": "Ten punkt leży na poziomej osi σ.",
+    "explanation": "Prawy koniec średnicy ma współrzędne (σavg + R, 0), czyli σ1 i zerowe ścinanie. Maksymalne ścinanie odpowiada natomiast górnemu lub dolnemu punktowi koła.",
+    "outcome": "U2",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-mohr-drawing",
+    "lessonTitle": "Rysowanie koła"
+  },
+  {
+    "question": "Dla stalowego elementu σ1 = 180 MPa, σ2 = 60 MPa, σ3 = 0. Jakie τmax należy użyć w warunku Treski dla pełnego stanu?",
+    "answers": [
+      "60 MPa",
+      "90 MPa",
+      "120 MPa"
+    ],
+    "correct": 1,
+    "hint": "Weź połowę różnicy największego i najmniejszego naprężenia głównego.",
+    "explanation": "σI = 180 MPa, a σIII = 0. Zatem τmax = (180 − 0)/2 = 90 MPa. Warunek Treski porównuje σI − σIII = 180 MPa z dopuszczalną wytrzymałością.",
+    "outcome": "U3",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-mohr-interpretation",
+    "lessonTitle": "Interpretacja i dobór"
+  },
+  {
+    "question": "Jeśli w płytce kruchej σ1 = 75 MPa, a wytrzymałość na rozciąganie Rt = 60 MPa, co wynika z porównania?",
+    "answers": [
+      "Warunek jest spełniony, bo σ1 jest dodatnie",
+      "Przekroczono wytrzymałość na rozciąganie",
+      "Wystarczy sprawdzić tylko τmax"
+    ],
+    "correct": 1,
+    "hint": "Materiał kruchy jest szczególnie wrażliwy na największe rozciąganie.",
+    "explanation": "75 MPa > 60 MPa, więc naprężenie przekracza wytrzymałość o 15 MPa, czyli o 25%. Samo ścinanie nie opisuje tu ryzyka pęknięcia prostopadłego do kierunku σ1.",
+    "outcome": "U3",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-mohr-interpretation",
+    "lessonTitle": "Interpretacja i dobór"
+  },
+  {
+    "question": "Koło Mohra pokazuje duże τmax, lecz projekt spełnia warunek wytrzymałości. Czy to gwarantuje wystarczającą sztywność?",
+    "answers": [
+      "Tak, zawsze",
+      "Nie, trzeba jeszcze sprawdzić odkształcenia lub przemieszczenia",
+      "Tak, jeśli koło ma duży promień"
+    ],
+    "correct": 1,
+    "hint": "Wytrzymałość dotyczy zniszczenia lub uplastycznienia, a sztywność wielkości deformacji.",
+    "explanation": "Element może nie ulec zniszczeniu, ale odkształcać się ponad dopuszczalną granicę użytkowania. Potrzebne są odkształcenia, zależności materiałowe E, G, ν oraz geometria całego elementu.",
+    "outcome": "U3",
+    "moduleId": "stress-state",
+    "lessonId": "stress-state-mohr-interpretation",
+    "lessonTitle": "Interpretacja i dobór"
+  },
+  {
+    "question": "Odcinek o długości 200 mm wydłużył się o 0,30 mm. Ile wynosi odkształcenie?",
+    "answers": [
+      "0,0015",
+      "0,015",
+      "1,5"
+    ],
+    "correct": 0,
+    "hint": "Podziel zmianę długości przez długość początkową, używając tych samych jednostek.",
+    "explanation": "ε = 0,30/200 = 0,0015 = 1500·10⁻⁶ = 1500 µε. Odpowiada to wydłużeniu względnemu 0,15%.",
+    "outcome": "W1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-epsilon-gamma",
+    "lessonTitle": "ε i γ"
+  },
+  {
+    "question": "Początkowo prosty kąt zmniejszył się o 0,002 rad przy dodatniej konwencji ścinania. Ile wynoszą γxy i tensorowe εxy?",
+    "answers": [
+      "γxy = 0,002, εxy = 0,001",
+      "γxy = 0,001, εxy = 0,002",
+      "Obie wielkości wynoszą 0,002"
+    ],
+    "correct": 0,
+    "hint": "Składowa tensorowa jest połową odkształcenia inżynierskiego.",
+    "explanation": "Inżynierskie γxy opisuje pełną zmianę kąta i wynosi 0,002 rad. Do tensora wpisujemy εxy = γxy/2 = 0,001.",
+    "outcome": "W1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-epsilon-gamma",
+    "lessonTitle": "ε i γ"
+  },
+  {
+    "question": "Tensometr wskazuje −800 µε. Co oznacza znak i wartość?",
+    "answers": [
+      "Skrócenie względne 0,0008",
+      "Wydłużenie względne 0,08",
+      "Zmianę kąta o 800 rad"
+    ],
+    "correct": 0,
+    "hint": "Przedrostek µ oznacza milionową część, a minus skrócenie.",
+    "explanation": "−800 µε = −800·10⁻⁶ = −0,0008, czyli skrócenie o 0,08% długości pomiarowej. Nie jest to miara kątowa.",
+    "outcome": "W1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-epsilon-gamma",
+    "lessonTitle": "ε i γ"
+  },
+  {
+    "question": "Pręt ma εx = 0,002, a ν = 0,30. Ile wynoszą εy i εz przy jednoosiowym rozciąganiu?",
+    "answers": [
+      "−0,0006",
+      "+0,0006",
+      "−0,006"
+    ],
+    "correct": 0,
+    "hint": "Odkształcenie poprzeczne to −ν razy odkształcenie osiowe.",
+    "explanation": "εy = εz = −0,30·0,002 = −0,0006, czyli −600 µε. Oba kierunki poprzeczne ulegają skróceniu.",
+    "outcome": "U1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-poisson",
+    "lessonTitle": "Współczynnik Poissona"
+  },
+  {
+    "question": "Mierzono εosi = 1200 µε i εpoprz = −360 µε. Jaki jest współczynnik Poissona?",
+    "answers": [
+      "0,30",
+      "3,33",
+      "−0,30"
+    ],
+    "correct": 0,
+    "hint": "Weź minus iloraz odkształcenia poprzecznego i osiowego.",
+    "explanation": "ν = −(−360)/1200 = 0,30. Znak minus we wzorze powoduje, że dla zwykłego materiału ν jest dodatnie.",
+    "outcome": "U1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-poisson",
+    "lessonTitle": "Współczynnik Poissona"
+  },
+  {
+    "question": "Co oznacza ν bliskie 0,5 dla izotropowego materiału sprężystego?",
+    "answers": [
+      "Bardzo małą zmianę objętości przy odkształceniu",
+      "Brak odkształceń poprzecznych",
+      "Zerowy moduł Younga"
+    ],
+    "correct": 0,
+    "hint": "Dla małych odkształceń zmiana objętości zależy od sumy trzech ε.",
+    "explanation": "Przy jednoosiowym obciążeniu suma wynosi εx(1 − 2ν). Dla ν → 0,5 dąży ona do zera, czyli materiał staje się prawie nieściśliwy; odkształcenia poprzeczne nadal występują.",
+    "outcome": "W2",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-poisson",
+    "lessonTitle": "Współczynnik Poissona"
+  },
+  {
+    "question": "Dla E = 200 GPa, ν = 0,25, σx = 100 MPa, σy = 50 MPa i σz = 0 ile wynosi εx?",
+    "answers": [
+      "0,0004375",
+      "0,0005",
+      "0,0005625"
+    ],
+    "correct": 0,
+    "hint": "Odejmij νσy od σx i podziel przez 200 000 MPa.",
+    "explanation": "εx = [100 − 0,25(50 + 0)]/200 000 = 87,5/200 000 = 0,0004375 = 437,5 µε. Efekt Poissona zmniejsza wydłużenie x.",
+    "outcome": "U1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-general-hooke",
+    "lessonTitle": "Prawo Hooke’a 3D"
+  },
+  {
+    "question": "Przy σx = σy = 60 MPa, σz = 0, E = 70 GPa i ν = 0,33 jaki znak ma εz?",
+    "answers": [
+      "Dodatni",
+      "Ujemny",
+      "Zawsze zerowy"
+    ],
+    "correct": 1,
+    "hint": "Chociaż σz = 0, naprężenia x i y wywołują skurcz poprzeczny.",
+    "explanation": "εz = [0 − 0,33(60 + 60)]/70 000 = −39,6/70 000 ≈ −0,000566. Kierunek z ulega skróceniu mimo zerowego σz.",
+    "outcome": "U1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-general-hooke",
+    "lessonTitle": "Prawo Hooke’a 3D"
+  },
+  {
+    "question": "Dla τxy = 60 MPa i G = 80 GPa ile wynosi inżynierskie γxy?",
+    "answers": [
+      "0,00075",
+      "0,0015",
+      "750"
+    ],
+    "correct": 0,
+    "hint": "Zamień 80 GPa na 80 000 MPa i podziel τ przez G.",
+    "explanation": "γxy = 60/80 000 = 0,00075 rad = 750 µrad. Tensorowe εxy wyniosłoby połowę, czyli 0,000375.",
+    "outcome": "U1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-general-hooke",
+    "lessonTitle": "Prawo Hooke’a 3D"
+  },
+  {
+    "question": "Dla εx = 0,002, εy = −0,0005 i εz = −0,0004 ile wynosi przybliżona zmiana objętości?",
+    "answers": [
+      "+0,0011",
+      "−0,0011",
+      "+0,0029"
+    ],
+    "correct": 0,
+    "hint": "Dodaj trzy odkształcenia liniowe z uwzględnieniem znaków.",
+    "explanation": "ΔV/V0 ≈ 0,002 − 0,0005 − 0,0004 = 0,0011. Objętość rośnie o 0,11%, mimo skurczu w dwóch kierunkach.",
+    "outcome": "W3",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-volume",
+    "lessonTitle": "Dylatacja objętości"
+  },
+  {
+    "question": "Jak czyste ścinanie wpływa na objętość w teorii małych odkształceń?",
+    "answers": [
+      "Nie powoduje zmiany objętości w pierwszym rzędzie",
+      "Zawsze podwaja objętość",
+      "Powoduje zmianę równą γ³"
+    ],
+    "correct": 0,
+    "hint": "Ślad tensora odkształcenia zawiera składowe normalne, nie styczne.",
+    "explanation": "Dla czystego ścinania εx = εy = εz = 0, więc ΔV/V0 ≈ 0. Zmieniają się kąty i kształt, lecz nie objętość w przybliżeniu pierwszego rzędu.",
+    "outcome": "W3",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-volume",
+    "lessonTitle": "Dylatacja objętości"
+  },
+  {
+    "question": "Dla p = 100 MPa i K = 2 GPa jaka jest względna zmiana objętości?",
+    "answers": [
+      "−0,05",
+      "−0,005",
+      "+0,02"
+    ],
+    "correct": 0,
+    "hint": "2 GPa = 2000 MPa; ciśnienie ściskające zmniejsza objętość.",
+    "explanation": "ΔV/V0 = −p/K = −100/2000 = −0,05, czyli zmniejszenie o 5%. Znak wynika z przyjęcia dodatniego p jako ściskania.",
+    "outcome": "U1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-volume",
+    "lessonTitle": "Dylatacja objętości"
+  },
+  {
+    "question": "Tensometr ma R0 = 120 Ω, GF = 2,0 i mierzy ε = 800 µε. Jaka jest zmiana oporu ΔR?",
+    "answers": [
+      "0,192 Ω",
+      "1,92 Ω",
+      "19,2 Ω"
+    ],
+    "correct": 0,
+    "hint": "Najpierw zamień 800 µε na 0,0008.",
+    "explanation": "ΔR = GF·ε·R0 = 2·0,0008·120 = 0,192 Ω. Względna zmiana oporu wynosi 0,0016, czyli 0,16%.",
+    "outcome": "U1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-gauges",
+    "lessonTitle": "Pomiar tensometryczny"
+  },
+  {
+    "question": "Dlaczego pojedynczy tensometr nie wystarcza do wyznaczenia pełnego płaskiego stanu odkształcenia?",
+    "answers": [
+      "Bo daje jedną liczbę dla jednego kierunku",
+      "Bo nie mierzy odkształceń dodatnich",
+      "Bo zawsze mierzy wyłącznie γxy"
+    ],
+    "correct": 0,
+    "hint": "Płaski stan wymaga trzech niezależnych składowych.",
+    "explanation": "Jeden odczyt daje εθ dla osi czujnika. Do wyznaczenia εx, εy i γxy potrzeba co najmniej trzech niezależnych pomiarów w różnych kierunkach, np. rozety.",
+    "outcome": "W3",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-gauges",
+    "lessonTitle": "Pomiar tensometryczny"
+  },
+  {
+    "question": "Czujnik o bazie 10 mm jest umieszczony w obszarze gwałtownie zmiennego odkształcenia. Co odczyta?",
+    "answers": [
+      "Dokładnie wartość maksymalną w jednym punkcie",
+      "Średnią na bazie, która może ukryć lokalny pik",
+      "Zawsze zero"
+    ],
+    "correct": 1,
+    "hint": "Czujnik ma skończoną długość i integruje deformację przyklejonego odcinka.",
+    "explanation": "Tensometr uśrednia odkształcenie wzdłuż bazy. Przy dużym gradiencie krótsza baza może lepiej uchwycić lokalną zmienność, ale nadal nie daje idealnej wartości punktowej.",
+    "outcome": "W3",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-gauges",
+    "lessonTitle": "Pomiar tensometryczny"
+  },
+  {
+    "question": "Rozeta dała ε0 = 600 µε, ε45 = 300 µε, ε90 = −200 µε. Ile wynosi γxy?",
+    "answers": [
+      "200 µrad",
+      "400 µrad",
+      "1000 µrad"
+    ],
+    "correct": 0,
+    "hint": "Użyj 2ε45 − ε0 − ε90 i zachowaj znaki.",
+    "explanation": "γxy = 2·300 − 600 − (−200) = 200 µrad. Wszystkie odczyty są w µε, więc wynik wychodzi bezpośrednio w mikroradianach.",
+    "outcome": "U2",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-rosette",
+    "lessonTitle": "Rozeta tensometryczna"
+  },
+  {
+    "question": "Dla εx = 500 µε, εy = 100 µε i γxy = 600 µrad ile wynoszą odkształcenia główne?",
+    "answers": [
+      "Około 661 µε i −61 µε",
+      "800 µε i −200 µε",
+      "600 µε i 200 µε"
+    ],
+    "correct": 0,
+    "hint": "Średnia to 300 µε, a do promienia wstaw γxy/2 = 300 µε.",
+    "explanation": "Rε = √(200² + 300²) = 360,555 µε. Zatem ε1 ≈ 660,56 µε i ε2 ≈ −60,56 µε, czyli po zaokrągleniu 661 µε i −61 µε.",
+    "outcome": "U2",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-rosette",
+    "lessonTitle": "Rozeta tensometryczna"
+  },
+  {
+    "question": "W jakich osiach należy narysować koło Mohra dla odkształceń przy inżynierskim γxy?",
+    "answers": [
+      "(ε, γ/2)",
+      "(ε, γ)",
+      "(σ, τ)"
+    ],
+    "correct": 0,
+    "hint": "Transformacja odkształceń ma tę samą postać co naprężeń po zastąpieniu τ przez γ/2.",
+    "explanation": "Na osi poziomej jest ε, a na pionowej γ/2. Użycie γ bez podzielenia przez dwa podwoiłoby promień i zaburzyłoby interpretację kątów.",
+    "outcome": "U2",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-rosette",
+    "lessonTitle": "Rozeta tensometryczna"
+  },
+  {
+    "question": "W płaskim stanie naprężenia zmierzono ε1 = 1000 µε, ε2 = −200 µε. Dla E = 200 GPa i ν = 0,30 ile wynosi σ1?",
+    "answers": [
+      "Około 206,6 MPa",
+      "200 MPa",
+      "Około 193,4 MPa"
+    ],
+    "correct": 0,
+    "hint": "Zastosuj E/(1−ν²) do sumy ε1 + νε2.",
+    "explanation": "σ1 = 200 000/(1−0,09)·[0,001 + 0,30·(−0,0002)] = 219 780,22·0,00094 ≈ 206,59 MPa. Proste Eε1 dałoby błędne 200 MPa.",
+    "outcome": "U1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-stress-link",
+    "lessonTitle": "Powiązanie stanów"
+  },
+  {
+    "question": "Dlaczego kierunki główne naprężeń i odkształceń pokrywają się dla izotropowego materiału liniowo-sprężystego?",
+    "answers": [
+      "Bo materiał reaguje tak samo niezależnie od kierunku, a prawo Hooke’a jest współosiowe z tensorami",
+      "Bo wszystkie odkształcenia styczne są zawsze zerowe",
+      "Bo ν zawsze wynosi zero"
+    ],
+    "correct": 0,
+    "hint": "Izotropia oznacza brak wyróżnionych kierunków materiałowych.",
+    "explanation": "W izotropowym prawie Hooke’a nie ma osobnych osi materiałowych obracających odpowiedź. Tensory naprężenia i odkształcenia mają wspólne kierunki własne, choć ich wartości główne są powiązane przez E i ν.",
+    "outcome": "W1",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-stress-link",
+    "lessonTitle": "Powiązanie stanów"
+  },
+  {
+    "question": "Pomiar wykazał małe odkształcenia i naprężenia poniżej granicy plastyczności. Czy element na pewno spełnia wymagania projektowe?",
+    "answers": [
+      "Tak, zawsze",
+      "Nie, trzeba jeszcze sprawdzić wymagane n, przemieszczenia i warunki użytkowania",
+      "Tylko jeśli γxy = 0"
+    ],
+    "correct": 1,
+    "hint": "Brak uplastycznienia nie wyklucza nadmiernego ugięcia ani zbyt małego zapasu.",
+    "explanation": "Trzeba porównać naprężenie równoważne z dopuszczalnym, sprawdzić wymagany współczynnik bezpieczeństwa oraz ograniczenia odkształceń i przemieszczeń. Sam fakt pozostania w zakresie sprężystym nie wystarcza.",
+    "outcome": "U3",
+    "moduleId": "strain-state",
+    "lessonId": "strain-state-stress-link",
+    "lessonTitle": "Powiązanie stanów"
+  },
+  {
+    "question": "W elemencie działają jednocześnie σ = 90 MPa i τ = 40 MPa. Dlaczego nie wolno sprawdzić wytrzymałości warunkiem 90 + 40 ≤ Re?",
+    "answers": [
+      "Bo MPa nie wolno dodawać",
+      "Bo trzeba zastosować hipotezę opisującą współdziałanie składowych",
+      "Bo τ zawsze należy pominąć"
+    ],
+    "correct": 1,
+    "hint": "Obie wartości mają te same jednostki, ale różne skutki fizyczne.",
+    "explanation": "Jednostki MPa można dodawać, lecz zwykła suma nie jest hipotezą wytężeniową. HMH lub Tresca określa, jak σ i τ wspólnie wytężają materiał.",
+    "outcome": "W2",
+    "moduleId": "criteria",
+    "lessonId": "criteria-reduced-stress",
+    "lessonTitle": "Naprężenie zredukowane"
+  },
+  {
+    "question": "Dla tego samego stanu naprężenia HMH daje 130 MPa, a Tresca 145 MPa. Co oznacza różnica?",
+    "answers": [
+      "Pomiar naprężeń był błędny",
+      "Hipotezy inaczej opisują mechanizm zniszczenia",
+      "Tresca zawsze jest błędna"
+    ],
+    "correct": 1,
+    "hint": "Naprężenie zredukowane zależy od przyjętego modelu.",
+    "explanation": "Składowe naprężenia są te same, ale hipotezy inaczej je redukują. Wynik należy porównać z wytrzymałością zgodnie z zasadami właściwymi dla wybranej hipotezy.",
+    "outcome": "W2",
+    "moduleId": "criteria",
+    "lessonId": "criteria-reduced-stress",
+    "lessonTitle": "Naprężenie zredukowane"
+  },
+  {
+    "question": "Przy Re = 240 MPa obliczono σred = 120 MPa. Ile wynosi rzeczywisty współczynnik bezpieczeństwa?",
+    "answers": [
+      "0,5",
+      "2",
+      "120"
+    ],
+    "correct": 1,
+    "hint": "Podziel granicę plastyczności przez naprężenie zredukowane.",
+    "explanation": "n = Re/σred = 240/120 = 2. Materiał osiąga granicę plastyczności przy dwukrotnie większym obciążeniu w zakresie proporcjonalności.",
+    "outcome": "U3",
+    "moduleId": "criteria",
+    "lessonId": "criteria-reduced-stress",
+    "lessonTitle": "Naprężenie zredukowane"
+  },
+  {
+    "question": "Dla σ1 = 80 MPa, σ2 = −140 MPa i σ3 = 0 ile wynosi σred według największego naprężenia normalnego?",
+    "answers": [
+      "60 MPa",
+      "80 MPa",
+      "140 MPa"
+    ],
+    "correct": 2,
+    "hint": "Porównaj wartości bezwzględne wszystkich trzech naprężeń głównych.",
+    "explanation": "Wartości bezwzględne to 80, 140 i 0 MPa, więc σred = 140 MPa. Znak −140 nie znika przy szukaniu największego wytężenia.",
+    "outcome": "U1",
+    "moduleId": "criteria",
+    "lessonId": "criteria-max-normal",
+    "lessonTitle": "Maksimum normalne"
+  },
+  {
+    "question": "Element ma σx = 70 MPa i τxy = 30 MPa. Czy σred = 70 MPa jest poprawne dla tej hipotezy?",
+    "answers": [
+      "Tak, normalna jest zawsze decydująca",
+      "Nie, trzeba najpierw wyznaczyć naprężenia główne",
+      "Tak, jeśli σy = 0"
+    ],
+    "correct": 1,
+    "hint": "Ścinanie zmienia promień koła Mohra, a więc także naprężenia główne.",
+    "explanation": "Dla σy = 0: σ1,2 = 35 ± √(35² + 30²), czyli około 81,1 i −11,1 MPa. Zatem σred = 81,1 MPa, nie 70 MPa.",
+    "outcome": "U2",
+    "moduleId": "criteria",
+    "lessonId": "criteria-max-normal",
+    "lessonTitle": "Maksimum normalne"
+  },
+  {
+    "question": "Materiał ma kr = 90 MPa i kc = 180 MPa, a naprężenia główne wynoszą 70 i −150 MPa. Jaki jest wynik sprawdzenia?",
+    "answers": [
+      "Oba warunki spełnione",
+      "Przekroczone rozciąganie",
+      "Przekroczone ściskanie"
+    ],
+    "correct": 0,
+    "hint": "Dodatnią wartość porównaj z kr, a moduł ujemnej z kc.",
+    "explanation": "Rozciąganie: 70 ≤ 90 MPa. Ściskanie: |−150| = 150 ≤ 180 MPa. Oba warunki są spełnione, mimo różnych wartości dopuszczalnych.",
+    "outcome": "W2",
+    "moduleId": "criteria",
+    "lessonId": "criteria-max-normal",
+    "lessonTitle": "Maksimum normalne"
+  },
+  {
+    "question": "Dla σ = 100 MPa i τ = 50 MPa ile wynosi σHMH?",
+    "answers": [
+      "111,8 MPa",
+      "132,3 MPa",
+      "150 MPa"
+    ],
+    "correct": 1,
+    "hint": "Użyj √(σ² + 3τ²), nie √(σ² + τ²).",
+    "explanation": "σHMH = √(100² + 3·50²) = √17 500 = 132,29 MPa. Czynnik 3 przy τ² jest istotną częścią hipotezy.",
+    "outcome": "U1",
+    "moduleId": "criteria",
+    "lessonId": "criteria-hmh",
+    "lessonTitle": "HMH"
+  },
+  {
+    "question": "Jakie σHMH odpowiada stanowi σ1 = σ2 = σ3 = −120 MPa?",
+    "answers": [
+      "0 MPa",
+      "120 MPa",
+      "360 MPa"
+    ],
+    "correct": 0,
+    "hint": "Podstaw równe naprężenia główne do pełnego wzoru.",
+    "explanation": "Wszystkie składniki kwadratowe i mieszane kasują się: 3σ² − 3σ² = 0. Jednakowe ciśnienie hydrostatyczne nie daje zmiany postaci w modelu HMH.",
+    "outcome": "W2",
+    "moduleId": "criteria",
+    "lessonId": "criteria-hmh",
+    "lessonTitle": "HMH"
+  },
+  {
+    "question": "Dla czystego ścinania τ = 80 MPa i Re = 240 MPa jaki zapas daje HMH?",
+    "answers": [
+      "1,73",
+      "2,60",
+      "3,00"
+    ],
+    "correct": 0,
+    "hint": "Najpierw σred = √3·τ, potem n = Re/σred.",
+    "explanation": "σred = √3·80 = 138,56 MPa, więc n = 240/138,56 = 1,732. Wartość 3 byłaby wynikiem błędnego przyjęcia σred = τ.",
+    "outcome": "U3",
+    "moduleId": "criteria",
+    "lessonId": "criteria-hmh",
+    "lessonTitle": "HMH"
+  },
+  {
+    "question": "Dla σ1 = 100 MPa, σ2 = 40 MPa, σ3 = 0 ile wynosi σT?",
+    "answers": [
+      "60 MPa",
+      "100 MPa",
+      "140 MPa"
+    ],
+    "correct": 1,
+    "hint": "Skrajne wartości to 100 i 0 MPa, nie 100 i 40 MPa.",
+    "explanation": "σT = σmax − σmin = 100 − 0 = 100 MPa. Różnica 100 − 40 pomija trzecie naprężenie główne równe zero.",
+    "outcome": "U1",
+    "moduleId": "criteria",
+    "lessonId": "criteria-tresca",
+    "lessonTitle": "Tresca"
+  },
+  {
+    "question": "Dla σ = 60 MPa i τ = 80 MPa ile wynosi σred według Tresca?",
+    "answers": [
+      "170,9 MPa",
+      "140 MPa",
+      "200 MPa"
+    ],
+    "correct": 0,
+    "hint": "Zastosuj σT = √(σ² + 4τ²).",
+    "explanation": "σT = √(60² + 4·80²) = √(3600 + 25 600) = √29 200 = 170,88 MPa. Współczynnik 4 przy τ² odróżnia ten wynik od HMH.",
+    "outcome": "U1",
+    "moduleId": "criteria",
+    "lessonId": "criteria-tresca",
+    "lessonTitle": "Tresca"
+  },
+  {
+    "question": "Czemu przy czystym ścinaniu Tresca daje σT = 2τ?",
+    "answers": [
+      "Bo naprężenia główne wynoszą τ i −τ",
+      "Bo σ1 = σ2 = τ",
+      "Bo naprężenie normalne zawsze jest zerowe"
+    ],
+    "correct": 0,
+    "hint": "Znajdź przecięcia koła Mohra dla czystego ścinania z osią σ.",
+    "explanation": "Koło ma środek w zerze i promień τ, więc σ1 = τ, σ2 = −τ. Średnica koła wynosi 2τ i to jest σT.",
+    "outcome": "U2",
+    "moduleId": "criteria",
+    "lessonId": "criteria-tresca",
+    "lessonTitle": "Tresca"
+  },
+  {
+    "question": "Dla σ = 0 i τ = 100 MPa jakie wartości dadzą HMH i Tresca?",
+    "answers": [
+      "HMH 100 MPa, Tresca 100 MPa",
+      "HMH 173,2 MPa, Tresca 200 MPa",
+      "HMH 200 MPa, Tresca 173,2 MPa"
+    ],
+    "correct": 1,
+    "hint": "Podstaw odpowiednio współczynniki 3 i 4 przy τ².",
+    "explanation": "HMH: √3·100 = 173,2 MPa. Tresca: √4·100 = 200 MPa. Dla czystego ścinania Tresca daje większe wytężenie.",
+    "outcome": "U1",
+    "moduleId": "criteria",
+    "lessonId": "criteria-comparison",
+    "lessonTitle": "Porównanie hipotez"
+  },
+  {
+    "question": "Przy Re = 250 MPa HMH daje 125 MPa, a Tresca 140 MPa. Jakie są odpowiednie zapasy?",
+    "answers": [
+      "2,00 i 1,79",
+      "1,79 i 2,00",
+      "Oba 2,00"
+    ],
+    "correct": 0,
+    "hint": "Dla każdej hipotezy osobno oblicz n = Re/σred.",
+    "explanation": "nHMH = 250/125 = 2,00, a nT = 250/140 = 1,79. Większe naprężenie zredukowane daje mniejszy zapas.",
+    "outcome": "U3",
+    "moduleId": "criteria",
+    "lessonId": "criteria-comparison",
+    "lessonTitle": "Porównanie hipotez"
+  },
+  {
+    "question": "Kiedy HMH i Tresca dają ten sam wynik dla σx = σ, σy = 0?",
+    "answers": [
+      "Przy każdym τ",
+      "Przy τ = 0",
+      "Tylko przy σ = 0"
+    ],
+    "correct": 1,
+    "hint": "Porównaj wyrażenia pod pierwiastkami.",
+    "explanation": "Przy τ = 0 oba wzory dają |σ|. Przy czystym ścinaniu σ = 0 wyniki są różne: √3·|τ| oraz 2|τ|.",
+    "outcome": "W2",
+    "moduleId": "criteria",
+    "lessonId": "criteria-comparison",
+    "lessonTitle": "Porównanie hipotez"
+  },
+  {
+    "question": "W skrajnym włóknie N/A = 30 MPa, a zginanie daje tam rozciąganie M/W = 90 MPa. Ile wynosi σ przed redukcją?",
+    "answers": [
+      "60 MPa",
+      "90 MPa",
+      "120 MPa"
+    ],
+    "correct": 2,
+    "hint": "Oba naprężenia normalne są w tym punkcie rozciągające.",
+    "explanation": "σ = N/A + M/W = 30 + 90 = 120 MPa. Na przeciwnej stronie zginanie mogłoby mieć przeciwny znak.",
+    "outcome": "U1",
+    "moduleId": "criteria",
+    "lessonId": "criteria-combined-loading",
+    "lessonTitle": "Obciążenia złożone"
+  },
+  {
+    "question": "W punkcie σ = 100 MPa i τ = 60 MPa. Ile wynosi σHMH po połączeniu obciążeń?",
+    "answers": [
+      "116,6 MPa",
+      "144,2 MPa",
+      "160 MPa"
+    ],
+    "correct": 1,
+    "hint": "Użyj wzoru z współczynnikiem 3 przy τ².",
+    "explanation": "σHMH = √(100² + 3·60²) = √20 800 = 144,22 MPa. Nie jest to suma 100 + 60.",
+    "outcome": "U1",
+    "moduleId": "criteria",
+    "lessonId": "criteria-combined-loading",
+    "lessonTitle": "Obciążenia złożone"
+  },
+  {
+    "question": "Dlaczego w punkcie na osi obojętnej pełnego przekroju nie wystarczy użyć tylko M/W?",
+    "answers": [
+      "Bo zginanie daje tam maksimum",
+      "Bo tam M/W = 0, ale mogą występować inne składowe",
+      "Bo skręcanie zawsze daje tam maksimum"
+    ],
+    "correct": 1,
+    "hint": "Rozłóż wpływ zginania, siły osiowej i skręcania na osobne składowe.",
+    "explanation": "Na osi obojętnej naprężenie od zginania znika, lecz N/A może pozostać. W pełnym przekroju kołowym τ od skręcania znika tylko w środku, a w pozostałych punktach osi obojętnej rośnie wraz z odległością od środka; trzeba też sprawdzić ścinanie od siły poprzecznej.",
+    "outcome": "W1",
+    "moduleId": "criteria",
+    "lessonId": "criteria-combined-loading",
+    "lessonTitle": "Obciążenia złożone"
+  },
+  {
+    "question": "Materiał ma Re = 300 MPa, wymagane n = 2. Jakie jest naprężenie dopuszczalne?",
+    "answers": [
+      "150 MPa",
+      "300 MPa",
+      "600 MPa"
+    ],
+    "correct": 0,
+    "hint": "Podziel granicę przez wymagany współczynnik.",
+    "explanation": "k = Re/n = 300/2 = 150 MPa. Dopuszczalna wartość jest mniejsza od granicy, ponieważ pozostawiamy zapas.",
+    "outcome": "U3",
+    "moduleId": "criteria",
+    "lessonId": "criteria-safety-factor",
+    "lessonTitle": "Współczynnik n"
+  },
+  {
+    "question": "Dla Rm = 400 MPa i σred = 250 MPa materiał kruchy ma zapas n = 1,6. Co to oznacza?",
+    "answers": [
+      "Warunek n ≥ 2 nie jest spełniony",
+      "Element na pewno ma za małą sztywność",
+      "Naprężenie przekracza Rm"
+    ],
+    "correct": 0,
+    "hint": "Porównaj rzeczywisty zapas z wymaganym i osobno naprężenie z granicą.",
+    "explanation": "250 < 400 MPa, więc granica nie jest przekroczona, ale 1,6 < 2, więc wymagany zapas nie jest zapewniony. O sztywności ten wynik nic nie mówi.",
+    "outcome": "U3",
+    "moduleId": "criteria",
+    "lessonId": "criteria-safety-factor",
+    "lessonTitle": "Współczynnik n"
+  },
+  {
+    "question": "Jak zmieni się rzeczywiste n, jeśli przy niezmienionym materiale σred wzrośnie z 100 do 125 MPa?",
+    "answers": [
+      "Wzrośnie o 25%",
+      "Spadnie do 80% poprzedniej wartości",
+      "Nie zmieni się"
+    ],
+    "correct": 1,
+    "hint": "n jest odwrotnie proporcjonalne do σred.",
+    "explanation": "Stosunek nowego i starego zapasu wynosi 100/125 = 0,8. Wzrost wytężenia o 25% zmniejsza zapas o 20%, a nie o 25%.",
+    "outcome": "U3",
+    "moduleId": "criteria",
+    "lessonId": "criteria-safety-factor",
+    "lessonTitle": "Współczynnik n"
+  },
+  {
+    "question": "Moment wynosi 2 kN·m, a k = 100 MPa. Ile wynosi wymagane W?",
+    "answers": [
+      "20 mm³",
+      "2000 mm³",
+      "20 000 mm³"
+    ],
+    "correct": 2,
+    "hint": "2 kN·m = 2 000 000 N·mm, a 100 MPa = 100 N/mm².",
+    "explanation": "W = M/k = 2 000 000/100 = 20 000 mm³. Bez zamiany kN·m na N·mm wynik byłby 1000 razy za mały.",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-section-dimension",
+    "lessonTitle": "Dobór wymiaru"
+  },
+  {
+    "question": "Jak zmieni się minimalna średnica, gdy moment wzrośnie 8 razy?",
+    "answers": [
+      "Wzrośnie 2 razy",
+      "Wzrośnie 8 razy",
+      "Spadnie 2 razy"
+    ],
+    "correct": 0,
+    "hint": "d jest proporcjonalne do pierwiastka trzeciego stopnia z M.",
+    "explanation": "d2/d1 = ∛8 = 2. Ośmiokrotny moment wymaga dwukrotnej średnicy, bo W pełnego koła rośnie z d³.",
+    "outcome": "W3",
+    "moduleId": "design",
+    "lessonId": "design-section-dimension",
+    "lessonTitle": "Dobór wymiaru"
+  },
+  {
+    "question": "Obliczenia dają dmin = 37,2 mm, a dostępne są średnice co 1 mm. Którą wybrać przy braku innych wymagań?",
+    "answers": [
+      "37 mm",
+      "38 mm",
+      "Dowolną, różnica jest mała"
+    ],
+    "correct": 1,
+    "hint": "Wybierz najbliższy wymiar nie mniejszy od wymaganego.",
+    "explanation": "37 mm dałoby W poniżej wymaganego i nadmierne naprężenie. 38 mm jest najmniejszą dostępną średnicą spełniającą warunek.",
+    "outcome": "U3",
+    "moduleId": "design",
+    "lessonId": "design-section-dimension",
+    "lessonTitle": "Dobór wymiaru"
+  },
+  {
+    "question": "Pręt ma A = 200 mm², k = 150 MPa, a P jest siłą obliczeniową. Ile wynosi Pdop z wytrzymałości?",
+    "answers": [
+      "30 kN",
+      "75 kN",
+      "300 kN"
+    ],
+    "correct": 0,
+    "hint": "P = kA; 1 MPa·mm² = 1 N.",
+    "explanation": "Pdop = 150·200 = 30 000 N = 30 kN. Współczynnik obciążenia nie jest ponownie stosowany, bo P jest obliczeniowe.",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-material-load",
+    "lessonTitle": "Materiał i P dopuszczalne"
+  },
+  {
+    "question": "Warunek wytrzymałości daje Pdop = 42 kN, a warunek wydłużenia 35 kN. Jaką wartość przyjąć?",
+    "answers": [
+      "42 kN",
+      "38,5 kN",
+      "35 kN"
+    ],
+    "correct": 2,
+    "hint": "Oba warunki muszą być spełnione jednocześnie.",
+    "explanation": "Przyjmujemy min(42, 35) = 35 kN. Przy większej sile warunek sztywności zostałby naruszony, mimo zapasu wytrzymałości.",
+    "outcome": "U3",
+    "moduleId": "design",
+    "lessonId": "design-material-load",
+    "lessonTitle": "Materiał i P dopuszczalne"
+  },
+  {
+    "question": "Dwa materiały mają takie samo E, ale różne Re. Jak zmiana na większe Re wpłynie na pręt przy stałej sile i geometrii?",
+    "answers": [
+      "Zwiększy zapas, ale nie zmieni sprężystego wydłużenia",
+      "Zmniejszy wydłużenie o połowę",
+      "Nie zmieni niczego"
+    ],
+    "correct": 0,
+    "hint": "Rozdziel Re w warunku wytrzymałości od E w prawie Hooke’a.",
+    "explanation": "Większe Re zwiększa k i zapas n. Przy niezmienionych E, A, L i P wydłużenie PL/(EA) pozostaje takie samo.",
+    "outcome": "U3",
+    "moduleId": "design",
+    "lessonId": "design-material-load",
+    "lessonTitle": "Materiał i P dopuszczalne"
+  },
+  {
+    "question": "Odcinek 1 ma N = 40 kN i A = 500 mm², a odcinek 2 N = 30 kN i A = 200 mm². Który decyduje o wytrzymałości?",
+    "answers": [
+      "Odcinek 1, bo ma większe N",
+      "Odcinek 2, bo ma większe N/A",
+      "Oba mają takie samo naprężenie"
+    ],
+    "correct": 1,
+    "hint": "Oblicz osobno naprężenia w MPa.",
+    "explanation": "σ1 = 40 000/500 = 80 MPa, a σ2 = 30 000/200 = 150 MPa. Mniejsza siła na znacznie mniejszym polu daje większe naprężenie.",
+    "outcome": "W1",
+    "moduleId": "design",
+    "lessonId": "design-full-axial",
+    "lessonTitle": "Zadanie: pręt"
+  },
+  {
+    "question": "Dwa odcinki mają N = 20 kN, L = 0,5 m, E = 200 GPa i A = 400 mm². Jakie jest ich łączne wydłużenie?",
+    "answers": [
+      "0,125 mm",
+      "0,25 mm",
+      "0,5 mm"
+    ],
+    "correct": 1,
+    "hint": "Każdy odcinek daje NL/(EA) = 0,125 mm.",
+    "explanation": "Pojedyncze wydłużenie: 20 000·500/(200 000·400) = 0,125 mm. Dwa odcinki dają 0,25 mm.",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-full-axial",
+    "lessonTitle": "Zadanie: pręt"
+  },
+  {
+    "question": "Dlaczego wynik N/A ≤ k nie wystarcza dla bardzo smukłego ściskanego pręta?",
+    "answers": [
+      "Bo ściskanie nie wywołuje naprężeń",
+      "Bo może nastąpić wyboczenie przed osiągnięciem granicy materiału",
+      "Bo E nie dotyczy ściskania"
+    ],
+    "correct": 1,
+    "hint": "Pomyśl o utracie prostoliniowej postaci równowagi.",
+    "explanation": "Wyboczenie jest zagadnieniem stateczności i może wystąpić przy naprężeniu poniżej k. Wymaga osobnej kontroli zależnej m.in. od smukłości i podparcia.",
+    "outcome": "W2",
+    "moduleId": "design",
+    "lessonId": "design-full-axial",
+    "lessonTitle": "Zadanie: pręt"
+  },
+  {
+    "question": "Co jest warunkiem zgodności dla jednorodnego pręta utwierdzonego na obu końcach, bez luzu?",
+    "answers": [
+      "N = 0",
+      "Całkowita zmiana długości ΔL = 0",
+      "Odkształcenie termiczne εT = 0"
+    ],
+    "correct": 1,
+    "hint": "Podpory nie zmieniają wzajemnej odległości.",
+    "explanation": "Całkowite ΔL musi być zerowe. Odkształcenie termiczne jest niezerowe po zmianie temperatury, ale kompensuje je odkształcenie mechaniczne.",
+    "outcome": "W1",
+    "moduleId": "design",
+    "lessonId": "design-full-thermal",
+    "lessonTitle": "Zadanie: temperatura"
+  },
+  {
+    "question": "Stalowy pręt ma E = 200 GPa, α = 12·10⁻⁶/K i jest w pełni zablokowany. Jakie naprężenie wywoła ΔT = 50 K?",
+    "answers": [
+      "Ściskanie 120 MPa",
+      "Rozciąganie 120 MPa",
+      "Ściskanie 12 MPa"
+    ],
+    "correct": 0,
+    "hint": "|σ| = EαΔT; przy ogrzewaniu podpory ściskają pręt.",
+    "explanation": "|σ| = 200 000·12·10⁻⁶·50 = 120 MPa. Znak jest ujemny: σ = −120 MPa, czyli ściskanie.",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-full-thermal",
+    "lessonTitle": "Zadanie: temperatura"
+  },
+  {
+    "question": "Jak wpłynie na naprężenie termiczne idealnie zablokowanego pręta dwukrotne zwiększenie A?",
+    "answers": [
+      "Spadnie 2 razy",
+      "Nie zmieni się",
+      "Wzrośnie 2 razy"
+    ],
+    "correct": 1,
+    "hint": "N rośnie z A, ale naprężenie to N/A.",
+    "explanation": "N = −EAαΔT rośnie proporcjonalnie do A, więc σ = N/A = −EαΔT nie zależy od pola. Zmienia się siła reakcji, nie naprężenie.",
+    "outcome": "W3",
+    "moduleId": "design",
+    "lessonId": "design-full-thermal",
+    "lessonTitle": "Zadanie: temperatura"
+  },
+  {
+    "question": "Belka o L = 4 m ma siłę P = 20 kN na środku. Ile wynosi Mmax?",
+    "answers": [
+      "20 kN·m",
+      "40 kN·m",
+      "80 kN·m"
+    ],
+    "correct": 0,
+    "hint": "Dla tego schematu Mmax = PL/4.",
+    "explanation": "Mmax = 20·4/4 = 20 kN·m. Reakcje wynoszą po 10 kN, a moment na środku to 10 kN·2 m = 20 kN·m.",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-full-bending",
+    "lessonTitle": "Zadanie: belka"
+  },
+  {
+    "question": "Przy Mmax = 20 kN·m i k = 160 MPa ile wynosi Wwym?",
+    "answers": [
+      "125 mm³",
+      "12 500 mm³",
+      "125 000 mm³"
+    ],
+    "correct": 2,
+    "hint": "20 kN·m = 20 000 000 N·mm.",
+    "explanation": "Wwym = 20 000 000/160 = 125 000 mm³. Poprawna zamiana jednostek zapobiega błędowi tysiąckrotnemu.",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-full-bending",
+    "lessonTitle": "Zadanie: belka"
+  },
+  {
+    "question": "Warunek wytrzymałości wymaga I ≥ 8·10⁶ mm⁴, a warunek ugięcia I ≥ 11·10⁶ mm⁴. Które I przyjąć?",
+    "answers": [
+      "8·10⁶ mm⁴",
+      "9,5·10⁶ mm⁴",
+      "Co najmniej 11·10⁶ mm⁴"
+    ],
+    "correct": 2,
+    "hint": "Jedno I musi spełnić obie nierówności.",
+    "explanation": "Przyjmujemy większą wymaganą wartość. Przy 8·10⁶ mm⁴ belka byłaby wystarczająco wytrzymała, ale zbyt podatna.",
+    "outcome": "U3",
+    "moduleId": "design",
+    "lessonId": "design-full-bending",
+    "lessonTitle": "Zadanie: belka"
+  },
+  {
+    "question": "Wał ma T = 500 N·m i Wo = 20 000 mm³. Ile wynosi τmax?",
+    "answers": [
+      "2,5 MPa",
+      "25 MPa",
+      "250 MPa"
+    ],
+    "correct": 1,
+    "hint": "500 N·m = 500 000 N·mm.",
+    "explanation": "τmax = T/Wo = 500 000/20 000 = 25 N/mm² = 25 MPa.",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-full-torsion",
+    "lessonTitle": "Zadanie: wał"
+  },
+  {
+    "question": "Jak zmieni się kąt skręcenia wału pełnego, jeśli średnica wzrośnie 2 razy?",
+    "answers": [
+      "Spadnie 16 razy",
+      "Spadnie 4 razy",
+      "Wzrośnie 16 razy"
+    ],
+    "correct": 0,
+    "hint": "Jo pełnego koła jest proporcjonalne do D⁴.",
+    "explanation": "φ = TL/(GJo), a Jo rośnie 2⁴ = 16 razy. Przy pozostałych danych bez zmian kąt spada 16 razy.",
+    "outcome": "W3",
+    "moduleId": "design",
+    "lessonId": "design-full-torsion",
+    "lessonTitle": "Zadanie: wał"
+  },
+  {
+    "question": "Z wytrzymałości wychodzi D ≥ 42 mm, a z kąta skręcenia D ≥ 48 mm. Co przyjąć?",
+    "answers": [
+      "42 mm",
+      "45 mm",
+      "Co najmniej 48 mm"
+    ],
+    "correct": 2,
+    "hint": "Większa średnica jest potrzebna, by spełnić oba warunki.",
+    "explanation": "Należy przyjąć co najmniej 48 mm. Przy 42 mm spełniony byłby warunek naprężeniowy, lecz kąt przekroczyłby wartość dopuszczalną.",
+    "outcome": "U3",
+    "moduleId": "design",
+    "lessonId": "design-full-torsion",
+    "lessonTitle": "Zadanie: wał"
+  },
+  {
+    "question": "Moment M = 3 kN·m dzielisz przez k = 150 MPa, by otrzymać W. Które podstawienie jest poprawne?",
+    "answers": [
+      "3/150 m³",
+      "3000/150 mm³",
+      "3 000 000/150 mm³"
+    ],
+    "correct": 2,
+    "hint": "Najpierw zamień kN·m na N·mm.",
+    "explanation": "3 kN·m = 3000 N·m = 3 000 000 N·mm. Zatem W = 3 000 000/150 = 20 000 mm³.",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-review-exam",
+    "lessonTitle": "Błędy i strategia"
+  },
+  {
+    "question": "W obciążeniu złożonym obliczono σ = 90 MPa i τ = 50 MPa. Jaki następny krok jest poprawny dla HMH?",
+    "answers": [
+      "σred = 90 + 50",
+      "σred = √(90² + 3·50²)",
+      "σred = 90² + 3·50² bez pierwiastka"
+    ],
+    "correct": 1,
+    "hint": "Składowe redukujemy dopiero po ich wyznaczeniu we właściwym punkcie.",
+    "explanation": "HMH daje σred = √(90² + 3·50²) = √15 600 = 124,90 MPa. Brak pierwiastka zmieniłby jednostkę z MPa na MPa².",
+    "outcome": "U1",
+    "moduleId": "design",
+    "lessonId": "design-review-exam",
+    "lessonTitle": "Błędy i strategia"
+  },
+  {
+    "question": "Z wytrzymałości wyszło d = 31,4 mm, a z sztywności d = 35,1 mm; dostępne wymiary co 1 mm. Jaka decyzja końcowa jest poprawna?",
+    "answers": [
+      "31 mm, bo wytrzymałość jest ważniejsza",
+      "35 mm, bo to średnia praktyczna",
+      "36 mm, a potem kontrola obu warunków"
+    ],
+    "correct": 2,
+    "hint": "Wybierz maksimum wymagań i zaokrąglij w górę.",
+    "explanation": "Decyduje większe 35,1 mm, a najbliższy niedostatecznie mały wymiar to 35 mm. Przyjmujemy 36 mm i sprawdzamy naprężenie oraz odkształcenie dla tej wartości.",
+    "outcome": "U3",
+    "moduleId": "design",
+    "lessonId": "design-review-exam",
+    "lessonTitle": "Błędy i strategia"
+  }
+]

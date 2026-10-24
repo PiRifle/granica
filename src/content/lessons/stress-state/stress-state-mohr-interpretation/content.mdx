@@ -1,7 +1,127 @@
+---
+id: stress-state-mohr-interpretation
+moduleId: stress-state
+number: 7
+title: Od koła do decyzji inżynierskiej
+shortTitle: Interpretacja i dobór
+description: >-
+  Połącz odczyt koła Mohra z warunkiem wytrzymałości, kierunkiem pękania i
+  świadomym doborem marginesu bezpieczeństwa.
+duration: 10
+eyebrow: Liczby podejmują decyzję
+outcomes:
+  - >-
+    W1 — analizuje stan naprężenia w punkcie i dobiera składowe do opisu
+    elementu
+  - >-
+    W2 — rozpoznaje przypadki wytrzymałościowe związane z rozciąganiem,
+    ściskaniem i ścinaniem
+  - W3 — odróżnia wpływ geometrii przekroju i kierunku przekroju na naprężenia
+  - >-
+    U1 — oblicza składowe po obrocie, naprężenia główne i maksymalne naprężenie
+    styczne
+  - U2 — kreśli i interpretuje koło Mohra oraz wyznacza kierunki główne
+  - U3 — wykorzystuje wyniki analizy do bezpiecznego i sztywnego doboru elementu
+---
+
 Wykres nie jest celem samym w sobie. Pokazuje, czy grozi nam nadmierne rozciąganie, ściskanie czy ścinanie i w jakim kierunku. Dopiero porównanie właściwej miary z wytrzymałością materiału pozwala ocenić projekt.
 
-<Formula />
+<Lab id="combined" />
 
-<Insight />
+<Formula>
+$$
+n_\sigma=\frac{R_e}{\sigma_{eq}},\qquad n_\tau=\frac{R_{e\tau}}{\tau_{max}},\qquad \sigma_{eq}\ \text{według hipotezy}
+$$
 
-<WorkedExample />
+<Caption>Re oznacza granicę plastyczności, a Reτ — granicę plastyczności przy ścinaniu. Dla materiałów ciągliwych stosuje się zwykle hipotezę Hubera–von Misesa albo Treski; dla materiałów kruchych trzeba osobno uwzględnić rozciąganie i ściskanie. Żadnego z tych kryteriów nie zastępuje się samym σx.</Caption>
+</Formula>
+
+<Insight>
+Zwiększenie przekroju może zmniejszyć wszystkie naprężenia, ale dodaje masę; zmiana kształtu lub trasy obciążenia bywa skuteczniejsza. Warunek wytrzymałości i warunek sztywności należy sprawdzać osobno.
+</Insight>
+
+<WorkedExample>
+<Given>
+Płaski stan daje σ1 = 140 MPa, σ2 = 20 MPa, σz = 0. Dla hipotezy Treski przyjmij Re = 240 MPa; oblicz współczynnik bezpieczeństwa.
+</Given>
+<Steps>
+<Step>
+Pełne uporządkowanie: σI = 140, σII = 20, σIII = 0 MPa.
+</Step>
+<Step>
+Różnica skrajnych naprężeń: σI − σIII = 140 MPa.
+</Step>
+<Step>
+Maksymalne naprężenie styczne wynosi τmax = 140/2 = 70 MPa. W hipotezie Treski porównujemy jednak podwojoną wartość, czyli σI − σIII, z granicą Re.
+</Step>
+<Step>
+n = Re/(σI − σIII) = 240/140 = 1,714.
+</Step>
+</Steps>
+<Result>
+Współczynnik bezpieczeństwa wynosi około 1,71 według Treski. Akceptowalność zależy od wymaganego n projektowego; wynik nie zastępuje osobnej kontroli sztywności.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="U3">
+<Prompt>
+Dla stalowego elementu σ1 = 180 MPa, σ2 = 60 MPa, σ3 = 0. Jakie τmax należy użyć w warunku Treski dla pełnego stanu?
+</Prompt>
+<Answer>
+60 MPa
+</Answer>
+<Answer correct>
+90 MPa
+</Answer>
+<Answer>
+120 MPa
+</Answer>
+<Hint>
+Weź połowę różnicy największego i najmniejszego naprężenia głównego.
+</Hint>
+<Explanation>
+σI = 180 MPa, a σIII = 0. Zatem τmax = (180 − 0)/2 = 90 MPa. Warunek Treski porównuje σI − σIII = 180 MPa z granicą plastyczności.
+</Explanation>
+</Question>
+<Question outcome="U3">
+<Prompt>
+Jeśli w płytce kruchej σ1 = 75 MPa, a wytrzymałość na rozciąganie Rt = 60 MPa, co wynika z porównania?
+</Prompt>
+<Answer>
+Warunek jest spełniony, bo σ1 jest dodatnie
+</Answer>
+<Answer correct>
+Przekroczono wytrzymałość na rozciąganie
+</Answer>
+<Answer>
+Wystarczy sprawdzić tylko τmax
+</Answer>
+<Hint>
+Materiał kruchy jest szczególnie wrażliwy na największe rozciąganie.
+</Hint>
+<Explanation>
+75 MPa &gt; 60 MPa, więc naprężenie przekracza wytrzymałość o 15 MPa, czyli o 25%. Samo ścinanie nie opisuje tu ryzyka pęknięcia prostopadłego do kierunku σ1.
+</Explanation>
+</Question>
+<Question outcome="U3">
+<Prompt>
+Koło Mohra pokazuje duże τmax, lecz projekt spełnia warunek wytrzymałości. Czy to gwarantuje wystarczającą sztywność?
+</Prompt>
+<Answer>
+Tak, zawsze
+</Answer>
+<Answer correct>
+Nie, trzeba jeszcze sprawdzić odkształcenia lub przemieszczenia
+</Answer>
+<Answer>
+Tak, jeśli koło ma duży promień
+</Answer>
+<Hint>
+Wytrzymałość dotyczy zniszczenia lub uplastycznienia, a sztywność — wielkości deformacji.
+</Hint>
+<Explanation>
+Element może nie ulec zniszczeniu, ale odkształcać się ponad dopuszczalną granicę użytkowania. Potrzebne są odkształcenia, zależności materiałowe E, G, ν oraz geometria całego elementu.
+</Explanation>
+</Question>
+</Quiz>

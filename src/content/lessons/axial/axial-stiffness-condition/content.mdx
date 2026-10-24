@@ -1,7 +1,124 @@
+---
+id: axial-stiffness-condition
+moduleId: axial
+number: 7
+title: 'Warunek sztywności: bezpiecznie i bez nadmiernych ruchów'
+shortTitle: Sztywność
+description: >-
+  Ogranicz wydłużenie pręta i wybierz przekrój spełniający jednocześnie oba
+  warunki projektowe.
+duration: 10
+eyebrow: Niezłamany to nie zawsze użyteczny
+outcomes:
+  - W1 — analizuje użyteczność elementu pod kątem przemieszczeń
+  - W2 — odróżnia warunek wytrzymałości od warunku sztywności
+  - W3 — dobiera geometrię ograniczającą zmianę długości
+  - U1 — oblicza pole wymagane przez dopuszczalne wydłużenie
+  - U2 — łączy naprężenie i odkształcenie w pełnej ocenie stanu osiowego
+  - U3 — wybiera przekrój decydujący z dwóch warunków i podaje zapasy
+---
+
 Pręt może wytrzymać obciążenie, ale wydłużyć się tak bardzo, że konstrukcja przestanie działać prawidłowo. Warunek sztywności ogranicza przemieszczenie niezależnie od zapasu wytrzymałości.
 
-<Formula />
+<Lab id="safety" />
 
-<Insight />
+<Formula>
+$$
+|\Delta L|\leq \Delta L_{\mathrm{dop}},\qquad A_{\min,\Delta}=\frac{|N|L}{E\Delta L_{\mathrm{dop}}}
+$$
 
-<WorkedExample />
+<Caption>Drugi wzór dotyczy jednorodnego pręta o stałych N, E i A. Ostatecznie przyjmujemy pole spełniające zarówno wymagania wytrzymałości, jak i sztywności.</Caption>
+</Formula>
+
+<Insight>
+Jeśli Amin z warunku sztywności jest większe niż Amin z warunku wytrzymałości, o doborze decyduje sztywność. Większe E zmniejsza wydłużenie, ale nie podnosi automatycznie wytrzymałości materiału.
+</Insight>
+
+<WorkedExample>
+<Given>
+Jednorodny pręt ma N = 80 kN, L = 2 m i E = 200 GPa. Dopuszczalne wydłużenie wynosi 1 mm, a naprężenie dopuszczalne 160 MPa. Dobierz minimalne pole.
+</Given>
+<Steps>
+<Step>
+Warunek sztywności: Amin,Δ = NL/(EΔLdop). Przyjmij N = 80 000 N, L = 2000 mm i E = 200 000 N/mm².
+</Step>
+<Step>
+Oblicz Amin,Δ = 80 000·2000/(200 000·1) = 800 mm².
+</Step>
+<Step>
+Warunek wytrzymałości: Amin,σ = N/σdop = 80 000/160 = 500 mm².
+</Step>
+<Step>
+Przyjmij A ≥ max(800, 500) = 800 mm², ponieważ muszą być spełnione oba warunki.
+</Step>
+<Step>
+Dla A = 800 mm²: ΔL = 1,0 mm ≤ 1,0 mm oraz σ = 80 000/800 = 100 MPa ≤ 160 MPa.
+</Step>
+</Steps>
+<Result>
+Minimalne pole wynosi 800 mm² i decyduje sztywność. Dla tego pola ΔL = 1,0 mm, a σ = 100 MPa.
+</Result>
+</WorkedExample>
+
+<Quiz>
+<Question outcome="W2">
+<Prompt>
+Pręt spełnia |σ| &lt; σdop, ale jego wydłużenie przekracza dopuszczalne. Jak ocenić projekt?
+</Prompt>
+<Answer>
+Jest poprawny, bo wytrzymałość zawsze wystarcza
+</Answer>
+<Answer correct>
+Nie spełnia warunku sztywności i wymaga zmiany
+</Answer>
+<Answer>
+Jest poprawny tylko dla stali
+</Answer>
+<Hint>
+Bezpieczeństwo materiału i ograniczenie przemieszczeń to dwa osobne wymagania.
+</Hint>
+<Explanation>
+Warunki projektowe muszą być spełnione jednocześnie. Brak zniszczenia nie rekompensuje nadmiernej zmiany długości, jeśli ogranicza ona użyteczność konstrukcji.
+</Explanation>
+</Question>
+<Question outcome="U3">
+<Prompt>
+Dla jednorodnego pręta Amin,Δ = 800 mm² z warunku sztywności, a Amin,σ = 500 mm² z warunku wytrzymałości. Jakie minimalne pole należy przyjąć?
+</Prompt>
+<Answer>
+500 mm²
+</Answer>
+<Answer>
+650 mm² jako średnią
+</Answer>
+<Answer correct>
+800 mm²
+</Answer>
+<Hint>
+Przyjęte pole musi być nie mniejsze od każdego z wymaganych minimów.
+</Hint>
+<Explanation>
+Należy przyjąć co najmniej max(500, 800) = 800 mm². Mniejsze pole nie ograniczy wydłużenia do wymaganego poziomu, a uśrednianie warunków nie ma uzasadnienia.
+</Explanation>
+</Question>
+<Question outcome="U1">
+<Prompt>
+Jak zmieni się wymagane Amin,Δ, jeśli dopuszczalne wydłużenie zmniejszymy o połowę przy pozostałych danych bez zmian?
+</Prompt>
+<Answer correct>
+Wzrośnie dwa razy
+</Answer>
+<Answer>
+Zmaleje dwa razy
+</Answer>
+<Answer>
+Nie zmieni się
+</Answer>
+<Hint>
+ΔLdop znajduje się w mianowniku Amin,Δ = NL/(EΔLdop).
+</Hint>
+<Explanation>
+Bardziej rygorystyczny limit przemieszczenia wymaga sztywniejszego przekroju. Zmniejszenie ΔLdop o połowę podwaja Amin,Δ.
+</Explanation>
+</Question>
+</Quiz>

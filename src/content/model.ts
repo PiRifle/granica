@@ -1,24 +1,6 @@
-import type { Question, WorkedExample } from '../types'
+import type { LessonMeta, SolutionScene } from '../types'
 
-export interface LessonData {
-  id: string
-  moduleId: string
-  number: number
-  title: string
-  shortTitle: string
-  description: string
-  duration: number
-  eyebrow: string
-  formula: string
-  formulaNote: string
-  insight: string
-  lab: string
-  outcomes: string[]
-  questions: Question[]
-  workedExample?: WorkedExample
-  solutionId?: string
-  solutionIds?: string[]
-}
+export type { LessonMeta }
 
 export interface ModuleData {
   id: string
@@ -35,5 +17,5 @@ export interface SolutionData {
   duration: number
   given: string[]
   result: string
-  scenes: import('../types').SolutionScene[]
+  scenes: SolutionScene[]
 }
