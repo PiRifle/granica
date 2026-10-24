@@ -5,9 +5,11 @@ import remarkMath from 'remark-math'
 import remarkFrontmatter from 'remark-frontmatter'
 import rehypeKatex from 'rehype-katex'
 import { VitePWA } from 'vite-plugin-pwa'
+import { contentMetaPlugin } from './scripts/content-meta-plugin.ts'
 
 export default defineConfig({
   plugins: [
+    contentMetaPlugin(),
     {
       enforce: 'pre',
       ...mdx({

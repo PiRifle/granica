@@ -1,7 +1,7 @@
 import type { MdxBody } from '../types'
 import type { ModuleData, SolutionData } from './model'
 import type { CourseLesson, CourseModule, CourseSolution, LessonMeta } from '../types'
-import { lessonMeta } from './generated/lesson-meta'
+import { lessonMeta } from 'virtual:lesson-meta'
 
 type DataModule<T> = { default: T }
 type BodyModule = Awaited<ReturnType<MdxBody>>

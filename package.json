@@ -9,11 +9,6 @@
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "validate:content": "vitest run src/content/course.test.ts",
-    "content:meta": "node scripts/generate-meta.mjs",
-    "predev": "npm run content:meta",
-    "prebuild": "npm run content:meta",
-    "pretest": "npm run content:meta",
-    "prevalidate:content": "npm run content:meta",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
