@@ -157,100 +157,15 @@ potęgą $L$ dla obciążenia ciągłego. To dlatego rozpiętość jest tak kryt
   znacznie słabiej.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma $L = 4$ m i siłę $P = 10$ kN w środku. Przyjmij $E = 210$ GPa,
-    $\sigma_{dop} = 160$ MPa oraz $f_{dop} = L/250 = 16$ mm. Rozważ przekrój $b = 50$ mm,
-    $h = 100$ mm.
-  </Given>
-  <Steps>
-    <Step>Maksymalny moment: $M_{\max} = P L/4 = 10 \cdot 4/4 = 10$ kN·m
-      $= 10 \cdot 10^6$ N·mm.</Step>
-    <Step>Wymagany wskaźnik: $W_{\min} = 10 \cdot 10^6/160 = 62{,}500$ mm³.</Step>
-    <Step>Wymagany moment bezwładności:
-      $I_{\min} = 10{,}000 \cdot 4000^3/(48 \cdot 210{,}000 \cdot 16)
-      = 3{,}968 \cdot 10^6$ mm⁴.</Step>
-    <Step>Dla przekroju $50 \times 100$: $W = 50 \cdot 100^2/6 = 83{,}333$ mm³,
-      czyli $W \ge W_{\min}$.</Step>
-    <Step>$I = 50 \cdot 100^3/12 = 4{,}167 \cdot 10^6$ mm⁴, czyli $I \ge I_{\min}$.</Step>
-    <Step>Kontrola naprężenia: $\sigma_{\max} = 10 \cdot 10^6/83{,}333 = 120$ MPa
-      $\le 160$ MPa.</Step>
-    <Step>Kontrola ugięcia: $f = 10{,}000 \cdot 4000^3/(48 \cdot 210{,}000 \cdot
-      4{,}167 \cdot 10^6) = 15{,}24$ mm $\le 16$ mm.</Step>
-    <Step>Siła tnąca $T = P/2 = 5$ kN, więc $\tau_{\max} = 1{,}5 T/A
-      = 1{,}5 \cdot 5000/5000 = 1{,}5$ MPa. Naprężenia styczne są pomijalne.</Step>
-  </Steps>
-  <Result>
-    Przekrój $50 \times 100$ mm spełnia oba warunki: $\sigma_{\max} = 120$ MPa oraz
-    $f_{\max} = 15{,}24$ mm. Zapas sztywności jest niewielki, więc każdy wzrost obciążenia
-    lub rozpiętości wymaga ponownego sprawdzenia ugięcia.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-bending-section-stiffness-design" />
 
 ## Drugi przykład
 
-Rozważmy belkę swobodnie podpartą o $L = 4$ m, obciążoną równomiernie $q = 9$ kN/m. Przyjmij
-$\sigma_{dop} = 160$ MPa, $E = 210$ GPa i $f_{dop} = L/250 = 16$ mm. Najpierw obliczamy moment
-maksymalny:
-
-$$
-M_{\max} = \frac{q L^2}{8} = \frac{9 \cdot 4^2}{8} = 18\ \text{kN·m}.
-$$
-
-Wymagany wskaźnik wynosi $W_{\min} = 18 \cdot 10^6/160 = 112{,}500$ mm³. Przyjmijmy prostokąt
-o $b = h/2$. Wtedy $W = h^3/12$, więc $h \ge \sqrt[3]{12 \cdot 112{,}500} \approx 110{,}5$ mm.
-Wybieramy $b = 60$ mm i $h = 120$ mm. Dla tego przekroju $W = 144{,}000$ mm³, a naprężenie
-wynosi $18 \cdot 10^6/144{,}000 = 125$ MPa, czyli warunek wytrzymałości jest spełniony.
-
-Sprawdźmy ugięcie. Dla obciążenia równomiernego $f = 5qL^4/(384EI)$, a $I = 60 \cdot 120^3/12
-= 8{,}64 \cdot 10^6$ mm⁴. Po podstawieniu $q = 9$ N/mm i $L = 4000$ mm otrzymujemy
-
-$$
-f = \frac{5 \cdot 9 \cdot 4000^4}{384 \cdot 210{,}000 \cdot 8{,}64 \cdot 10^6}
-= 16{,}53\ \text{mm}.
-$$
-
-To więcej niż $f_{dop} = 16$ mm, mimo że naprężenie jest bezpieczne. Warunek sztywności
-decyduje więc o wymiarze. Zwiększamy wysokość do $h = 140$ mm, pozostawiając $b = 60$ mm.
-Wtedy $I = 13{,}72 \cdot 10^6$ mm⁴, $W = 196{,}000$ mm³, naprężenie spada do 91,8 MPa, a ugięcie
-do około 10,4 mm. Dopiero ten przekrój spełnia oba warunki.
-
-Ten przykład pokazuje typową iterację projektową. Nie wystarczy dobrać przekroju „na naprężenie”
-i zakończyć. Po każdej zmianie wymiarów trzeba przeliczyć $I$, $W$ i ugięcie, ponieważ wszystkie
-te wielkości zmieniają się razem.
+<AnimatedSolution id="ex-bending-section-stiffness-design-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem to sztywność jest znana, a szukamy wymiaru. Belka swobodnie podparta ma $L = 3{,}5$ m,
-siłę $P = 8$ kN w środku, $E = 200$ GPa i dopuszczalne ugięcie $f_{dop} = 10$ mm. Szerokość
-przekroju jest narzucona: $b = 50$ mm. Jaka wysokość jest potrzebna?
-
-Z warunku $f = P L^3/(48EI) \le f_{dop}$ wynika
-
-$$
-I_{\min} = \frac{P L^3}{48 E f_{dop}}
-= \frac{8000 \cdot 3500^3}{48 \cdot 200{,}000 \cdot 10}
-= 3{,}573 \cdot 10^6\ \text{mm}^4.
-$$
-
-Dla prostokąta $I = b h^3/12$, więc
-
-$$
-h \ge \sqrt[3]{\frac{12 I_{\min}}{b}}
-= \sqrt[3]{\frac{12 \cdot 3{,}573 \cdot 10^6}{50}} \approx 95{,}0\ \text{mm}.
-$$
-
-Przyjmujemy $h = 100$ mm. Wtedy $I = 50 \cdot 100^3/12 = 4{,}167 \cdot 10^6$ mm⁴, a ugięcie
-wynosi
-
-$$
-f = \frac{8000 \cdot 3500^3}{48 \cdot 200{,}000 \cdot 4{,}167 \cdot 10^6}
-= 8{,}57\ \text{mm},
-$$
-
-czyli jest mniejsze od 10 mm. Sprawdźmy jeszcze wytrzymałość: $M_{\max} = P L/4 = 7$ kN·m,
-$W = 83{,}333$ mm³, więc $\sigma_{\max} = 84$ MPa, znacznie poniżej typowego $\sigma_{dop}$.
-W tym zadaniu o wymiarze decyduje sztywność, a nie wytrzymałość.
+<AnimatedSolution id="ex-bending-section-stiffness-design-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

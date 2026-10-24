@@ -119,72 +119,17 @@ $$
   zgadza się z wielkością, którą miałeś otrzymać. Liczba 40 bez jednostki nie mówi nic o naprężeniu.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pręt o polu przekroju 480 mm² jest rozciągany siłą 96 kN. Oblicz naprężenie normalne i podaj je w MPa oraz w kN/cm².
-  </Given>
-  <Steps>
-    <Step>Przelicz siłę na niutony: 96 kN = 96 000 N.</Step>
-    <Step>Pole zostaw w mm², bo razem z niutonami daje naprężenie w MPa.</Step>
-    <Step>Podstaw do wzoru: σ = 96 000 N / 480 mm².</Step>
-    <Step>Wykonaj dzielenie: 96 000 / 480 = 200, więc σ = 200 N/mm².</Step>
-    <Step>Zamień N/mm² na MPa: σ = 200 MPa.</Step>
-    <Step>Zamień na kN/cm²: 1 MPa = 0,1 kN/cm², więc 200 MPa = 20 kN/cm².</Step>
-  </Steps>
-  <Result>Naprężenie wynosi 200 MPa, czyli 20 kN/cm². Dodatnia wartość odpowiada rozciąganiu.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-foundations-si-units" />
 
 Kontrola rzędu wielkości: dla stali o module Younga około 200 GPa naprężenie 200 MPa daje odkształcenie $\varepsilon=\sigma/E=200/200\,000=0{,}001$, czyli 0,1 procenta. To jeszcze zakres sprężysty, więc wynik jest fizycznie wiarygodny. Gdyby z obliczeń wyszło 200 GPa, odkształcenie byłoby rzędu jedności, co dla stali oznaczałoby stan daleki od liniowej sprężystości.
 
 ## Drugi przykład
 
-Taśma stalowa ma szerokość 250 mm i grubość 12 mm. Działa na nią siła rozciągająca 150 kN. Oblicz naprężenie oraz wydłużenie odcinka o długości 2,5 m, przyjmując typowy moduł Younga stali $E=200\ \text{GPa}$.
-
-Najpierw pole przekroju:
-
-$$
-A=250\ \text{mm}\cdot 12\ \text{mm}=3000\ \text{mm}^2
-$$
-
-Siła w niutonach wynosi $150\,000\ \text{N}$, więc:
-
-$$
-\sigma=\frac{150\,000}{3000}=50\ \text{N/mm}^2=50\ \text{MPa}
-$$
-
-Do wydłużenia używamy $\Delta L=NL/(EA)$. Długość trzeba podać w milimetrach, bo pole jest w mm², a moduł w MPa:
-
-$$
-\Delta L=\frac{150\,000\ \text{N}\cdot 2500\ \text{mm}}{200\,000\ \text{MPa}\cdot 3000\ \text{mm}^2}
-=\frac{375\,000\,000}{600\,000\,000}\ \text{mm}=0{,}625\ \text{mm}
-$$
-
-Sprawdzenie: $200\,000\ \text{MPa}$ to $200\,000\ \text{N/mm}^2$. Iloczyn $EA$ ma więc jednostkę N, a $NL$ jednostkę N·mm. Iloraz daje mm, zgodnie z oczekiwaniem. Wydłużenie 0,625 mm na długości 2500 mm to około 0,025 procenta, co jest typowe dla stali w zakresie sprężystym.
+<AnimatedSolution id="ex-foundations-si-units-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy dopuszczalne naprężenie i szukamy minimalnego pola przekroju. Pręt ma przenieść siłę rozciągającą 120 kN, a naprężenie nie może przekroczyć 160 MPa. Jaki powinien być przekrój, jeśli zdecydujemy się na pręt okrągły?
-
-Zaczynamy od warunku $\sigma\le 160\ \text{MPa}$. Przy granicy wykorzystania:
-
-$$
-A_{\min}=\frac{N}{\sigma_{\text{dop}}}=\frac{120\,000\ \text{N}}{160\ \text{N/mm}^2}=750\ \text{mm}^2
-$$
-
-Dla pręta okrągłego $A=\pi d^2/4$, więc:
-
-$$
-d=\sqrt{\frac{4A}{\pi}}=\sqrt{\frac{4\cdot 750}{\pi}}\approx\sqrt{954{,}9}\approx 30{,}9\ \text{mm}
-$$
-
-Nie zamawiamy pręta o średnicy 30,9 mm, tylko wybieramy dostępny wymiar większy, na przykład 32 mm. Sprawdzamy go ponownie:
-
-$$
-A=\frac{\pi\cdot 32^2}{4}\approx 804\ \text{mm}^2,\qquad
-\sigma=\frac{120\,000}{804}\approx 149\ \text{MPa}
-$$
-
-Wynik jest poniżej 160 MPa, więc dobór jest poprawny. Ten przykład pokazuje typową kolejność pracy: od jednostek przez wzór do decyzji inżynierskiej. Zaokrąglenie średnicy w dół dałoby przekrój mniejszy od minimalnego i naprężenie większe od dopuszczalnego.
+<AnimatedSolution id="ex-foundations-si-units-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

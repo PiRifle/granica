@@ -3,6 +3,7 @@ import type { ModuleData, SolutionData } from './model'
 import type { CourseLesson, CourseModule, CourseSolution, LessonMeta } from '../types'
 import { lessonMeta } from 'virtual:lesson-meta'
 
+// Solver registry: solutions are discovered eagerly so ids stay stable.
 type DataModule<T> = { default: T }
 type BodyModule = Awaited<ReturnType<MdxBody>>
 

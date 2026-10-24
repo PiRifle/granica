@@ -125,53 +125,15 @@ Wyprowadzenie zaczynamy od warunku, że na płaszczyźnie głównej nie ma napr�
   zawsze prostopadłe, a w stanie hydrostatycznym nie ma jednego wyróżnionego kierunku.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Dla $\sigma_x=100\ \mathrm{MPa}$, $\sigma_y=20\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$ wyznacz kierunki główne.
-  </Given>
-  <Steps>
-    <Step>Oblicz $\sigma_{avg}=(100+20)/2=60\ \mathrm{MPa}$ oraz $a=(100-20)/2=40\ \mathrm{MPa}$.</Step>
-    <Step>Równanie na kąt: $\tan2\theta_p=2\cdot30/(100-20)=60/80=0{,}75$.</Step>
-    <Step>Jedno rozwiązanie to $2\theta_p\approx36{,}87^\circ$, więc $\theta_p\approx18{,}44^\circ$.</Step>
-    <Step>Promień: $R=\sqrt{40^2+30^2}=50\ \mathrm{MPa}$, więc $\sigma_1=60+50=110\ \mathrm{MPa}$ i $\sigma_2=60-50=10\ \mathrm{MPa}$.</Step>
-    <Step>Sprawdzenie przez podstawienie: $\cos36{,}87^\circ\approx0{,}8$ i $\sin36{,}87^\circ\approx0{,}6$.</Step>
-    <Step>$\sigma_n=60+40\cdot0{,}8+30\cdot0{,}6=60+32+18=110\ \mathrm{MPa}$. To potwierdza, że wybrany kąt daje większe naprężenie główne.</Step>
-    <Step>Drugi kierunek: $\theta_{p2}=18{,}44^\circ+90^\circ=108{,}44^\circ$, z naprężeniem $\sigma_2=10\ \mathrm{MPa}$.</Step>
-    <Step>Sprawdź $\tau_{nt}$ dla $\theta_{p1}$: $-40\cdot0{,}6+30\cdot0{,}8=-24+24=0$.</Step>
-    <Step>Sprawdź drugi kierunek: $\theta_{p2}=108{,}44^\circ$ daje $\sigma_n=60-32-18=10\ \mathrm{MPa}$, czyli $\sigma_2$.</Step>
-  </Steps>
-  <Result>
-    Kierunek $\sigma_1=110\ \mathrm{MPa}$ jest obrócony o około $18{,}44^\circ$ od osi $x$; kierunek $\sigma_2=10\ \mathrm{MPa}$ jest do niego prostopadły i leży pod kątem około $108{,}44^\circ$. Na obu płaszczyznach głównych $\tau=0$. Kąt $18{,}44^\circ$ jest najmniejszym dodatnim kątem kierunku głównego w tym zadaniu.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-stress-state-directions" />
 
 ## Drugi przykład
 
-Rozważmy $\sigma_x=80\ \mathrm{MPa}$, $\sigma_y=0$ i $\tau_{xy}=40\ \mathrm{MPa}$. Wtedy $\tan2\theta_p=2\cdot40/(80-0)=80/80=1$, więc $2\theta_p=45^\circ$ i $\theta_p=22{,}5^\circ$. Średnia wynosi $40\ \mathrm{MPa}$, a promień $R=\sqrt{40^2+40^2}\approx56{,}57\ \mathrm{MPa}$. Naprężenia główne to około $96{,}57\ \mathrm{MPa}$ i $-16{,}57\ \mathrm{MPa}$.
-
-Sprawdźmy pierwszy kierunek: $\cos45^\circ=\sin45^\circ\approx0{,}7071$. Stąd $\sigma_n=40+40\cdot0{,}7071+40\cdot0{,}7071\approx40+28{,}28+28{,}28=96{,}57\ \mathrm{MPa}$, czyli $\sigma_1$. Drugi kierunek jest o $90^\circ$ dalej i daje $\sigma_2=-16{,}57\ \mathrm{MPa}$.
-
-Ten przykład pokazuje, że duże ścinanie może znacznie obrócić kierunki główne względem osi $x$. Mimo że $\sigma_y=0$, kierunek największego rozciągania nie pokrywa się z osią $x$, lecz jest od niej odchylony o $22{,}5^\circ$. Wniosek: nie można zakładać, że oś największego rozciągania to zawsze oś, wzdłuż której przyłożono największą siłę.
-
-Warto zauważyć, że drugie rozwiązanie równania na tangens to $2\theta_p=225^\circ$, czyli $\theta_p=112{,}5^\circ$. Odejmując $90^\circ$, wracamy do kąta $22{,}5^\circ$; oba kąty opisują tę samą parę osi głównych, tylko z przeciwnym zwrotem normalnej.
-
-Gdyby zadanie wymagało podania kąta w przedziale od $0$ do $90^\circ$, wybralibyśmy $22{,}5^\circ$, a nie $112{,}5^\circ$. To nie zmienia stanu, tylko sposób raportowania. W praktyce warto podać oba kąty albo jeden kąt i informację, że drugi jest prostopadły. Czytelnik nie musi wtedy zgadywać, którą gałąź wybrano.
-
-Płaszczyzny maksymalnego ścinania leżą pod kątem $45^\circ$ od kierunków głównych. W tym przykładzie kierunki główne to $22{,}5^\circ$ i $112{,}5^\circ$, więc maksymalne ścinanie występuje wokół $67{,}5^\circ$. To nie jest ten sam kierunek co największe rozciąganie. Dlatego w materiale ciągliwym i kruchym inna płaszczyzna może być krytyczna, mimo że analizujemy ten sam stan naprężenia.
+<AnimatedSolution id="ex-stress-state-directions-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że wiemy, iż kierunek $\sigma_1$ jest obrócony o $\theta_p=30^\circ$ od osi $x$, a dane są $\sigma_x=100\ \mathrm{MPa}$ i $\sigma_y=20\ \mathrm{MPa}$. Chcemy znaleźć $\tau_{xy}$ oraz wartości główne. To zadanie odwrotne: od kierunku do brakującej składowej.
-
-Korzystamy z $\tan2\theta_p=2\tau_{xy}/(\sigma_x-\sigma_y)$. Dla $\theta_p=30^\circ$ mamy $2\theta_p=60^\circ$, więc $\tan60^\circ\approx1{,}732$. Podstawiamy $1{,}732=2\tau_{xy}/80$, skąd $\tau_{xy}\approx69{,}28\ \mathrm{MPa}$.
-
-Teraz obliczamy wartości główne. Średnia wynosi $60\ \mathrm{MPa}$, a $a=40\ \mathrm{MPa}$. Promień $R=\sqrt{40^2+69{,}28^2}\approx\sqrt{1600+4800}=80\ \mathrm{MPa}$. Zatem $\sigma_1=140\ \mathrm{MPa}$ i $\sigma_2=-20\ \mathrm{MPa}$.
-
-Sprawdźmy kąt: $\cos60^\circ=0{,}5$ i $\sin60^\circ\approx0{,}866$. Wtedy $\sigma_n=60+40\cdot0{,}5+69{,}28\cdot0{,}866\approx60+20+60=140\ \mathrm{MPa}$. To zgadza się z $\sigma_1$. Gdybyśmy przyjęli $\tau_{xy}=-69{,}28\ \mathrm{MPa}$, kierunek byłby odbiciem lustrzanym względem osi $x$, a wartości główne pozostałyby takie same.
-
-To zadanie pokazuje, że kąt kierunku głównego i wartości główne niosą częściowo tę samą informację, ale nie są równoważne. Znając kąt i dwie składowe normalne, możemy odtworzyć styczną. Znając tylko wartości główne, nie znamy orientacji. W praktyce potrzebne są oba elementy, dlatego pomiary rozetowe mierzą odkształcenia w kilku kierunkach, a nie tylko w jednym.
-
-Zwróć uwagę, że w tym wariancie założyliśmy, iż $\theta_p=30^\circ$ odpowiada $\sigma_1$. To założenie jest częścią danych: bez niego ten sam zestaw wartości głównych mógłby odpowiadać kierunkowi odbitemu względem osi $x$. W zadaniach egzaminacyjnych warto podać, do którego naprężenia głównego należy kąt, zamiast zostawiać czytelnikowi domysł.
+<AnimatedSolution id="ex-stress-state-directions-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

@@ -16,6 +16,7 @@ export function HookeLab() {
   const visualScale = Math.min(4, 48 / Math.max(deltaL, 0.0001))
   const visualDelta = deltaL * visualScale
   const maxStrain = Math.max(0.004, strain * 1.2)
+  const nearLeftEdge = strain < maxStrain * 0.3
   const forceArrowLength = 55 + (forceKN / 20) * 85
   const chartData = Array.from({ length: 31 }, (_, index) => {
     const currentStrain = (maxStrain * index) / 30
@@ -169,7 +170,11 @@ export function HookeLab() {
                   fill="#ff6b45"
                   stroke="white"
                   strokeWidth={2}
-                  label={{ value: 'stan bieżący', position: strain > maxStrain * 0.5 ? 'left' : 'right', fontSize: 12 }}
+                  label={{
+                    value: nearLeftEdge ? 'stan' : 'stan bieżący',
+                    position: nearLeftEdge ? 'right' : 'left',
+                    fontSize: 12,
+                  }}
                 />
               </LineChart>
             </ResponsiveContainer>

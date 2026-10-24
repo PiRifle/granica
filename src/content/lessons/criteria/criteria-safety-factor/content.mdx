@@ -146,52 +146,15 @@ Warto odróżnić zapas od współczynnika pewności stosowanego w normach. W za
   informacje.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pręt o polu przekroju $A=250\ \text{mm}^2$ jest rozciągany siłą $F=40\ \text{kN}$. Granica plastyczności wynosi $R_e=235\ \text{MPa}$, a projekt wymaga $n_{wym}=1{,}5$. Sprawdź warunek i oblicz brakujące pole.
-  </Given>
-  <Steps>
-    <Step>Naprężenie: $\sigma=F/A=40\,000/250=160\ \text{MPa}$.</Step>
-    <Step>Naprężenie dopuszczalne: $k=R_e/n_{wym}=235/1{,}5=156{,}67\ \text{MPa}$.</Step>
-    <Step>Zapas rzeczywisty: $n_{rz}=235/160=1{,}469$.</Step>
-    <Step>Warunek: $160>156{,}67\ \text{MPa}$ oraz $1{,}469<1{,}5$, więc element nie spełnia wymagania.</Step>
-    <Step>Minimalne pole: $A_{min}=F n_{wym}/R_e=40\,000\cdot1{,}5/235=255{,}3\ \text{mm}^2$.</Step>
-    <Step>Brakuje $255{,}3-250=5{,}3\ \text{mm}^2$, czyli około 2 procent pola.</Step>
-  </Steps>
-  <Result>
-    Element jest zbyt wytężony: $\sigma=160\ \text{MPa}$ przekracza $k=156{,}7\ \text{MPa}$, a zapas $1{,}47$ jest mniejszy od wymaganego $1{,}5$. Potrzebne jest pole co najmniej $255{,}3\ \text{mm}^2$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-criteria-safety-factor" />
 
 ## Drugi przykład
 
-Rozważmy pręt o polu $A=400\ \text{mm}^2$, obciążony siłą $F=50\ \text{kN}$, wykonany ze stali o $R_e=235\ \text{MPa}$ i $E=200\ \text{GPa}$. Naprężenie wynosi $\sigma=50\,000/400=125\ \text{MPa}$, więc zapas $n=235/125=1{,}88$. Warunek wytrzymałości jest spełniony, jeśli wymagane jest na przykład $n_{wym}=1{,}5$.
-
-Sprawdźmy teraz sztywność dla dwóch długości: $L=1\ \text{m}$ i $L=3\ \text{m}$. Wydłużenie wynosi $\Delta L=FL/(EA)$. Dla $L=1000\ \text{mm}$ otrzymujemy $\Delta L=50\,000\cdot1\,000/(200\,000\cdot400)=0{,}625\ \text{mm}$. Dla $L=3\,000\ \text{mm}$ otrzymujemy $1{,}875\ \text{mm}$, czyli trzykrotnie więcej, bo długość wzrosła trzykrotnie.
-
-Zapas wytrzymałości w obu przypadkach jest identyczny i wynosi 1,88, ponieważ naprężenie nie zależy od długości. Jeżeli dopuszczalne wydłużenie wynosi $1{,}5\ \text{mm}$, to krótszy pręt je spełnia, a dłuższy nie. To klasyczny przykład sytuacji, w której duży zapas wytrzymałości nie gwarantuje poprawnej pracy konstrukcji. O sztywności decyduje iloczyn $EA$ i długość, a nie granica plastyczności.
-
-Wniosek praktyczny jest taki, że warunki trzeba sprawdzać niezależnie. Można zwiększyć pole przekroju, aby poprawić oba warunki, ale można też zmienić materiał na taki o większym $E$ albo skrócić element. Zwiększanie samej granicy $R_e$ poprawia wytrzymałość, ale prawie nie zmienia wydłużenia sprężystego, bo moduł Younga stali jest w przybliżeniu stały dla różnych gatunków.
-
-Ten przykład można odwrócić: przy zadanym dopuszczalnym wydłużeniu i znanej długości obliczyć wymagane pole. Dla $\Delta L_{dop}=1{,}5\ \text{mm}$, $L=3\,000\ \text{mm}$ i $F=50\ \text{kN}$ otrzymujemy $A\ge FL/(E\Delta L_{dop})=50\,000\cdot3\,000/(200\,000\cdot1{,}5)=500\ \text{mm}^2$. To więcej niż 400 mm², więc o doborze przekroju decyduje wtedy sztywność, a nie wytrzymałość.
-
-Taka sytuacja jest częsta w długich cięgnach, sprężynach i elementach, w których liczy się przemieszczenie. Projektant nie może poprzestać na sprawdzeniu $n\ge n_{wym}$, bo element o wystarczającym zapasie wytrzymałości może nadal być nieużyteczny z powodu zbyt dużego wydłużenia. Dopiero porównanie obu wymagań daje pełny obraz.
+<AnimatedSolution id="ex-criteria-safety-factor-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że element o polu $A=400\ \text{mm}^2$ ma przenieść siłę $F=60\ \text{kN}$ przy wymaganym zapasie $n_{wym}=2$. Naprężenie wynosi $\sigma=60\,000/400=150\ \text{MPa}$. Wymagana granica materiału to $R_{e,req}=\sigma n_{wym}=150\cdot2=300\ \text{MPa}$.
-
-Typowa stal konstrukcyjna o granicy 235 MPa nie wystarcza, bo dałaby zapas $235/150=1{,}57$, czyli mniej niż 2. Można wybrać stal o wyższej granicy, na przykład 355 MPa, i wtedy zapas wyniesie $355/150=2{,}37$, albo zwiększyć pole przekroju przy tej samej stali.
-
-Przy stali 235 MPa i zapasie 2 naprężenie dopuszczalne wynosi $k=117{,}5\ \text{MPa}$, więc minimalne pole to $A_{min}=60\,000/117{,}5=510{,}6\ \text{mm}^2$. Po zaokrągleniu do 511 mm² warunek jest spełniony z niewielkim marginesem. To zadanie odwrotne pokazuje, że ten sam wymagany zapas można osiągnąć przez zmianę materiału albo przez zmianę geometrii.
-
-W praktyce wybór między tymi drogami zależy od kosztu, masy, dostępności i sztywności. Stal o wyższej granicy jest często droższa, ale pozwala zachować mniejszy przekrój. Większy przekrój zwiększa masę i sztywność, co bywa zaletą lub wadą. Sam warunek wytrzymałości nie rozstrzyga tego wyboru, bo dochodzą do niego kryteria konstrukcyjne i ekonomiczne.
-
-Zauważ, że wymagana granica 300 MPa jest wartością stosunkowo wysoką dla typowej stali konstrukcyjnej, ale nie absurdalną. W zadaniach edukacyjnych często pojawiają się stale o granicy 235, 275, 355 MPa. Jeżeli obliczona wymagana granica wypada między dostępnymi gatunkami, projektant wybiera gatunek o wyższej granicy i ponownie sprawdza zapas. Nie zaokrągla granicy w dół, bo to zmniejszyłoby bezpieczeństwo.
-
-Wariant odwrotny można też rozwiązać przez zmianę wymaganego zapasu. Gdyby projekt dopuszczał $n_{wym}=1{,}5$ zamiast 2, to przy stali 235 MPa i polu 400 mm² warunek byłby spełniony, bo $1{,}57\ge1{,}5$. To pokazuje, że wynik zależy od założenia projektowego, a nie tylko od matematyki. W zadaniach trzeba więc zawsze sprawdzić, czy wymagany zapas dotyczy tej samej granicy i tego samego stanu naprężenia, dla którego liczony jest zapas rzeczywisty.
-
-Ostatnia kontrola dotyczy jednostek i rzędu wielkości. Naprężenie 150 MPa przy polu 400 mm² odpowiada sile 60 kN, czyli około 6 ton. To sensowna wartość dla pręta o średnicy około 22,6 mm. Gdyby wynik wychodził w setkach kiloniutonów albo w ułamkach niutona, trzeba sprawdzić przeliczenia, zanim uzna się zadanie za rozwiązane.
+<AnimatedSolution id="ex-criteria-safety-factor-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

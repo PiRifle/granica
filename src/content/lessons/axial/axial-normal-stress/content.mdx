@@ -106,60 +106,15 @@ $$
   materiału.
 </Insight>
 
-<WorkedExample>
-  <Given>Pręt o polu przekroju A = 250 mm² przenosi osiową siłę rozciągającą 50 kN. Oblicz naprężenie normalne.</Given>
-  <Steps>
-    <Step>Przyjmij N = +50 kN, ponieważ pręt jest rozciągany.</Step>
-    <Step>Przelicz siłę na niutony: N = 50 000 N.</Step>
-    <Step>Zachowaj pole w milimetrach kwadratowych: A = 250 mm².</Step>
-    <Step>Podstaw do wzoru: σ = 50 000/250 = 200 N/mm².</Step>
-    <Step>Zapisz N/mm² jako MPa i pozostaw znak dodatni.</Step>
-    <Step>
-      Sprawdź rząd wielkości: 200 MPa to typowe naprężenie robocze stali konstrukcyjnej, poniżej granicy plastyczności
-      około 235 MPa.
-    </Step>
-    <Step>
-      Gdyby ta sama siła działała w drugą stronę, N byłoby ujemne, a naprężenie wyniosłoby −200 MPa. Wartość bezwzględna
-      byłaby ta sama, ale interpretacja zmieniłaby się na ściskanie.
-    </Step>
-  </Steps>
-  <Result>
-    σ = +200 MPa, czyli naprężenie rozciągające. Pręt jest blisko granicy plastyczności typowej stali, więc zapas byłby
-    niewielki.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-axial-normal-stress" />
 
 ## Drugi przykład
 
-Rozważmy dwa niezależne pręty, z których każdy przenosi tę samą siłę rozciągającą $N=30\ \text{kN}$. Pierwszy ma pole $A_1=300\ \text{mm}^2$, drugi $A_2=150\ \text{mm}^2$. Chcemy sprawdzić, który z nich jest bardziej wytężony.
-
-Dla pierwszego pręta naprężenie wynosi $\sigma_1=30\,000/300=100\ \text{MPa}$. Dla drugiego $\sigma_2=30\,000/150=200\ \text{MPa}$. Oba pręty są rozciągane, więc oba naprężenia są dodatnie, ale drugi pręt jest obciążony dwa razy mocniej.
-
-Ten przykład pokazuje, że „równolegle” nie oznacza „po równo”. Jeśli pręty mają różne sztywności, to przy wspólnym przemieszczeniu podział sił może być inny, ale przy niezależnym obciążeniu każdym z nich tą samą siłą decyduje wyłącznie pole. W zadaniach z prętami połączonymi równolegle trzeba dodatkowo sprawdzić warunek zgodności przemieszczeń, którym zajmiemy się w późniejszych modułach.
-
-Warto zauważyć różnicę między połączeniem szeregowym a równoległym. W szeregowym pręcie schodkowym wszystkie odcinki przenoszą tę samą siłę, a różnią się naprężeniem. W równoległym układzie prętów końce mają wspólne przemieszczenie, więc siły rozkładają się zgodnie ze sztywnościami. Ten sam wzór $\sigma=N/A$ obowiązuje w obu przypadkach, ale sposób wyznaczenia $N$ jest inny.
-
-Gdyby dopuszczalne naprężenie wynosiło $160\ \text{MPa}$, pierwszy pręt spełniałby warunek, a drugi nie. Aby go spełnić, drugi pręt musiałby mieć pole co najmniej $A_{2,\min}=30\,000/160=187{,}5\ \text{mm}^2$. To pokazuje, że dobór przekroju nie polega na skopiowaniu sąsiedniego elementu, lecz na sprawdzeniu każdego elementu osobno.
+<AnimatedSolution id="ex-axial-normal-stress-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy naprężenie dopuszczalne i siłę, a szukamy geometrii. Pręt rozciągany przenosi $N=72\ \text{kN}$, a materiał ma naprężenie dopuszczalne $\sigma_{\mathrm{dop}}=120\ \text{MPa}$. Przekrój ma być kołowy. Jaka średnica jest potrzebna?
-
-<Formula>
-$$
-A_{\min}=\frac{|N|}{\sigma_{\mathrm{dop}}},\qquad d=\sqrt{\frac{4A}{\pi}}
-$$
-
-<Caption>Przy doborze przekroju najpierw wyznaczamy minimalne pole z warunku wytrzymałości, a następnie wymiar geometryczny. Dla koła średnica wynika z pola, a nie odwrotnie.</Caption>
-</Formula>
-
-Najpierw wyznaczamy minimalne pole: $A_{\min}=N/\sigma_{\mathrm{dop}}=72\,000/120=600\ \text{mm}^2$. Następnie korzystamy z pola koła: $A=\pi d^2/4$, więc $d=\sqrt{4A/\pi}$. Po podstawieniu $d=\sqrt{4\cdot 600/\pi}\approx 27{,}6\ \text{mm}$.
-
-W praktyce nie kupuje się pręta o dowolnej średnicy, więc przyjmujemy średnicę normalizowaną, na przykład $d=28\ \text{mm}$. Pole wynosi wtedy $A=\pi\cdot 28^2/4\approx 615{,}8\ \text{mm}^2$. Rzeczywiste naprężenie jest równe $72\,000/615{,}8\approx 116{,}9\ \text{MPa}$, czyli poniżej wartości dopuszczalnej.
-
-Kontrola wyniku jest tu szczególnie ważna. Zaokrąglenie średnicy w dół do $27\ \text{mm}$ dałoby pole około $572{,}6\ \text{mm}^2$ i naprężenie około $125{,}7\ \text{MPa}$, a więc przekroczenie warunku. Przy doborze wymiarów zawsze sprawdzaj przyjęty przekrój, a nie tylko wartość minimalną.
-
-Gdyby ten sam pręt miał przenosić siłę ściskającą, dobór średnicy z warunku naprężenia byłby tylko pierwszym krokiem. Trzeba by jeszcze sprawdzić smukłość i wyboczenie. Krótki i gruby pręt może być bezpieczny, ale długi i cienki może utracić stateczność przy znacznie mniejszym obciążeniu. W zadaniach projektowych oba warunki sprawdza się niezależnie.
+<AnimatedSolution id="ex-axial-normal-stress-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

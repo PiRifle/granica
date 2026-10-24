@@ -156,25 +156,11 @@ Liniowość $GF$ jest dobra tylko w ograniczonym zakresie. Przy bardzo małych o
   temperatury i kierunek klejenia mają praktyczne znaczenie: sygnał użyteczny jest mały w porównaniu z zakłóceniami.
 </Insight>
 
-<WorkedExample>
-  <Given>Czujnik ma $R_0=350\,\Omega$ i $GF=2{,}10$. Mostek wyznaczył zmianę oporu $\Delta R=0{,}147\,\Omega$. Oblicz odkształcenie wzdłuż osi czujnika.</Given>
-  <Steps>
-    <Step>Względna zmiana oporu: $\Delta R/R_0=0{,}147/350=0{,}00042$.</Step>
-    <Step>Odkształcenie: $\varepsilon=(\Delta R/R_0)/GF=0{,}00042/2{,}10=0{,}0002$.</Step>
-    <Step>Przeliczenie na mikrostrainy: $0{,}0002\cdot10^6=200\,\mu\varepsilon$.</Step>
-    <Step>Kontrola: $200\,\mu\varepsilon=0{,}02\,\%$, czyli wynik jest mały i typowy dla zakresu sprężystego metalu.</Step>
-    <Step>Kontrola odwrotna: $GF\,\varepsilon\,R_0=2{,}10\cdot0{,}0002\cdot350=0{,}147\,\Omega$.</Step>
-  </Steps>
-  <Result>Czujnik wskazuje $\varepsilon=200\,\mu\varepsilon$, czyli wydłużenie względne $0{,}02\,\%$ w kierunku swojej osi, uśrednione na bazie. Wynik jest spójny z danymi i nie wymaga poprawki na jednostki.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-strain-state-gauges" />
 
 ## Drugi przykład
 
-Tensometr jest przyklejony do nieobciążonej stalowej belki, która nagrzała się o $18\,\text{K}$. Karta czujnika podaje pozorną wrażliwość około $11\,\mu\varepsilon/\text{K}$ dla stali. Ile wynosi pozorne odkształcenie i jakie fałszywe naprężenie otrzymalibyśmy, gdybyśmy zignorowali temperaturę?
-
-Pozorne odkształcenie wynosi $11\cdot18=198\,\mu\varepsilon$, czyli około $0{,}000198$. Przy $E=200\,\text{GPa}$ dałoby to fałszywe naprężenie $\sigma=E\varepsilon=200\,000\cdot0{,}000198\approx39{,}6\,\text{MPa}$. To wartość większa od naprężeń roboczych w wielu spokojnie obciążonych elementach. Wniosek jest jednoznaczny: bez kompensacji temperaturowej pomiar tensometryczny może wprowadzać błąd rzędu dziesiątek megapaskali.
-
-W praktyce nie odejmujemy tej liczby „na oko”. Stosujemy czujnik kompensacyjny lub czujnik samokompensujący, dopasowany do współczynnika rozszerzalności podłoża. Ważne jest też, żeby temperatura czujnika czynnego i odniesienia była rzeczywiście podobna. Jeśli belka jest nagrzewana lokalnie, sam czujnik odniesienia umieszczony na końcu może nie wystarczyć.
+<AnimatedSolution id="ex-strain-state-gauges-2" />
 
 ### Dwa czujniki po przeciwnych stronach
 
@@ -184,11 +170,7 @@ Taki układ nie naprawia jednak wszystkich błędów. Jeśli zginanie jest skrę
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że chcemy wykryć zmianę odkształcenia o $1\,\mu\varepsilon$ czujnikiem o $R_0=350\,\Omega$ i $GF=2{,}0$. Jakiej zmiany oporu musimy szukać i dlaczego zwykły omomierz nie wystarczy?
-
-Zmiana oporu wynosi $\Delta R=GF\,\varepsilon\,R_0=2{,}0\cdot1\cdot10^{-6}\cdot350=0{,}0007\,\Omega$, czyli $0{,}7\,\text{m}\Omega$. To mniej niż typowy opór przewodów połączeniowych i mniej niż dryft termiczny zwykłego multimetru. Dlatego potrzebny jest mostek, ekranowane przewody i staranne zerowanie. Sama rozdzielczość omomierza to za mało; liczy się cały tor pomiarowy.
-
-Z tego samego rachunku wynika, dlaczego tensometry mają zwykle opór $120$ lub $350\,\Omega$, a nie bardzo mały. Większy opór początkowy daje większą bezwzględną zmianę $\Delta R$ przy tym samym $GF$ i $\varepsilon$, co ułatwia pomiar. Nie można jednak zwiększać oporu dowolnie, bo rośnie też szum i maleje odporność na zakłócenia.
+<AnimatedSolution id="ex-strain-state-gauges-3" />
 
 ### Co to znaczy dla doboru czujnika
 

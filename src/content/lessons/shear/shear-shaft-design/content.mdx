@@ -117,47 +117,15 @@ Czynnik $1-k^4$ jest mniejszy od jedności, więc przy tym samym momencie rura w
   większa lub równa obu wartościom, więc wybieramy maksimum, a potem zaokrąglamy w górę.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Wał pełny przenosi $T = 2{,}2\ \text{kN}\cdot\text{m}$. Długość wynosi $L = 1{,}8\ \text{m}$, moduł ścinania $G = 80\ \text{GPa}$, naprężenie dopuszczalne $\tau_{dop} = 45\ \text{MPa}$, a dopuszczalny kąt $\varphi_{dop} = 1{,}2^\circ$. Dobierz średnicę i sprawdź wynik.
-  </Given>
-  <Steps>
-    <Step>Zamień dane: $T = 2\,200\,000\ \text{N}\cdot\text{mm}$, $L = 1800\ \text{mm}$, $\varphi_{dop} = 1{,}2 \cdot \pi/180 = 0{,}020944\ \text{rad}$.</Step>
-    <Step>Warunek wytrzymałości: $d \ge \sqrt[3]{16 \cdot 2\,200\,000/(\pi \cdot 45)} = \sqrt[3]{248\,989} = 62{,}91\ \text{mm}$.</Step>
-    <Step>Warunek sztywności: $d \ge \sqrt[4]{32 \cdot 2\,200\,000 \cdot 1800/(\pi \cdot 80\,000 \cdot 0{,}020944)} = \sqrt[4]{24\,080\,000} = 70{,}05\ \text{mm}$.</Step>
-    <Step>Decyduje sztywność. Najbliższa większa średnica handlowa to $75\ \text{mm}$; średnica $70\ \text{mm}$ jest zbyt blisko granicy i daje kąt nieco większy od dopuszczalnego.</Step>
-    <Step>Sprawdź naprężenie: $W_o = \pi \cdot 75^3/16 = 82\,808\ \text{mm}^3$, więc $\tau_{max} = 2\,200\,000/82\,808 = 26{,}6\ \text{MPa}$.</Step>
-    <Step>Sprawdź kąt: $J_o = \pi \cdot 75^4/32 = 3\,106\,336\ \text{mm}^4$, więc $\varphi = 2\,200\,000 \cdot 1800/(80\,000 \cdot 3\,106\,336) = 0{,}01594\ \text{rad}$.</Step>
-    <Step>Zamień kąt na stopnie: $0{,}01594 \cdot 180/\pi = 0{,}913^\circ$, czyli mniej niż $1{,}2^\circ$.</Step>
-  </Steps>
-  <Result>
-    Przyjęto $d = 75\ \text{mm}$. Oba warunki są spełnione: $\tau_{max} \approx 26{,}6\ \text{MPa}$ jest znacznie poniżej $45\ \text{MPa}$, a kąt $0{,}913^\circ$ jest mniejszy od $1{,}2^\circ$. O doborze zadecydowała sztywność, nie wytrzymałość.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-shear-shaft-design" />
 
 ## Drugi przykład
 
-Rozważmy teraz wał rurowy o stosunku średnic $k = d/D = 0{,}8$, przenoszący ten sam moment $T = 2{,}2\ \text{kN}\cdot\text{m}$ przy $L = 1{,}8\ \text{m}$. Parametry materiałowe i dopuszczalne pozostają bez zmian: $G = 80\ \text{GPa}$, $\tau_{dop} = 45\ \text{MPa}$, $\varphi_{dop} = 1{,}2^\circ$.
-
-Dla $k = 0{,}8$ mamy $1-k^4 = 1-0{,}4096 = 0{,}5904$. Warunek wytrzymałości daje $D \ge \sqrt[3]{16 \cdot 2\,200\,000/(\pi \cdot 45 \cdot 0{,}5904)} = \sqrt[3]{421\,700} = 75{,}0\ \text{mm}$. Warunek sztywności daje $D \ge \sqrt[4]{24\,080\,000/0{,}5904} = 79{,}9\ \text{mm}$.
-
-Przyjmujemy $D = 80\ \text{mm}$ i $d = 0{,}8 \cdot 80 = 64\ \text{mm}$. Grubość ścianki wynosi $8\ \text{mm}$. Sprawdzamy: $80^4-64^4 = 40\,960\,000-16\,777\,216 = 24\,182\,784$, więc $J_o = \pi \cdot 24\,182\,784/32 = 2\,374\,140\ \text{mm}^4$.
-
-Wtedy $\varphi = 3\,960\,000\,000/(80\,000 \cdot 2\,374\,140) = 0{,}02085\ \text{rad} = 1{,}195^\circ$, czyli tuż poniżej granicy. Naprężenie wynosi $\tau_{max} = 2\,200\,000 \cdot 40/2\,374\,140 = 37{,}1\ \text{MPa}$, poniżej $45\ \text{MPa}$.
-
-Pole rury to $\pi(80^2-64^2)/4 = 1810\ \text{mm}^2$, a pole wału pełnego o średnicy $75\ \text{mm}$ to $4418\ \text{mm}^2$. Rura zużywa więc około $59\%$ mniej materiału, ale ma większą średnicę zewnętrzną i cieńszą ściankę. W ciasnej obudowie lub przy dużym momencie skręcającym z udarami trzeba dodatkowo sprawdzić stateczność i naprężenia lokalne.
+<AnimatedSolution id="ex-shear-shaft-design-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Mamy istniejący wał rurowy o $D = 90\ \text{mm}$ i $d = 70\ \text{mm}$, wykonany ze stali o $G = 80\ \text{GPa}$. Dopuszczalne naprężenie wynosi $\tau_{dop} = 40\ \text{MPa}$, a dopuszczalny kąt to $1^\circ$ na długości $L = 2{,}5\ \text{m}$. Szukamy maksymalnego momentu, jaki można bezpiecznie przenieść.
-
-Najpierw obliczamy geometrię: $90^4-70^4 = 65\,610\,000-24\,010\,000 = 41\,600\,000\ \text{mm}^4$, więc $J_o = \pi \cdot 41\,600\,000/32 = 4\,084\,070\ \text{mm}^4$. Wskaźnik wynosi $W_o = J_o/45 = 90\,757\ \text{mm}^3$.
-
-Z warunku wytrzymałości $T \le \tau_{dop}W_o = 40 \cdot 90\,757 = 3\,630\,280\ \text{N}\cdot\text{mm}$, czyli około $3{,}63\ \text{kN}\cdot\text{m}$. Z warunku sztywności, po zamianie $1^\circ = 0{,}017453\ \text{rad}$, otrzymujemy $T \le G J_o \varphi_{dop}/L = 80\,000 \cdot 4\,084\,070 \cdot 0{,}017453/2500 = 2\,281\,000\ \text{N}\cdot\text{mm}$, czyli około $2{,}28\ \text{kN}\cdot\text{m}$.
-
-Decyduje sztywność. Bezpieczny moment wynosi około $2{,}28\ \text{kN}\cdot\text{m}$. Przy tej wartości naprężenie wynosi $2\,281\,000 \cdot 45/4\,084\,070 = 25{,}1\ \text{MPa}$, więc zapas wytrzymałości jest duży. Gdyby dopuszczalny kąt zwiększyć do $2^\circ$, warunek sztywności pozwoliłby na około $4{,}56\ \text{kN}\cdot\text{m}$, ale wtedy decydowałby już warunek wytrzymałości z granicą $3{,}63\ \text{kN}\cdot\text{m}$.
-
-Wariant odwrotny pokazuje, że ten sam przekrój może mieć różne ograniczenia w zależności od długości i wymaganego kąta. Dla krótkiego wału częściej decyduje wytrzymałość, a dla długiego sztywność. Projektant powinien sprawdzić oba warunki i wiedzieć, który z nich jest aktywny.
+<AnimatedSolution id="ex-shear-shaft-design-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

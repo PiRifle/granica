@@ -7,6 +7,7 @@ import { Insight } from './Insight'
 import { Lab } from './LabEmbed'
 import { Answer, Explanation, Hint, Prompt, Question, Quiz } from './Quiz'
 import { Given, Result, Step, Steps, WorkedExample } from './WorkedExample'
+import { AnimatedSolution } from './AnimatedSolution'
 
 function Table(props: ComponentPropsWithoutRef<'table'>) {
   return createElement('div', { className: styles.tableWrap }, createElement('table', props))
@@ -20,6 +21,7 @@ export const mdxComponents = {
   Insight,
   Lab,
   WorkedExample,
+  AnimatedSolution,
   Given,
   Steps,
   Step,

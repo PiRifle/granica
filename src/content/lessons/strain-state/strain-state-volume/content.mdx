@@ -160,26 +160,11 @@ Te zależności pokazują, że nie można dowolnie wybrać wszystkich stałych s
   odkształcenie objętościowe pozostaje sprężyste.
 </Insight>
 
-<WorkedExample>
-  <Given>Stalowy element ma $E=200\,\text{GPa}$ i $\nu=0{,}30$. Działa na niego hydrostatyczne ściskanie $\sigma_x=\sigma_y=\sigma_z=-120\,\text{MPa}$.</Given>
-  <Steps>
-    <Step>Suma naprężeń: $-120-120-120=-360\,\text{MPa}$.</Step>
-    <Step>Ciśnienie hydrostatyczne: $p=-(-360)/3=120\,\text{MPa}$.</Step>
-    <Step>Współczynnik $1-2\nu=1-0{,}60=0{,}40$.</Step>
-    <Step>$\Delta V/V_0=0{,}40\cdot(-360)/200\,000=-144/200\,000=-0{,}00072$.</Step>
-    <Step>Moduł ściśliwości: $K=200\,000/(3\cdot0{,}40)=166\,667\,\text{MPa}$.</Step>
-    <Step>Kontrola przez $K$: $-p/K=-120/166\,667=-0{,}00072$.</Step>
-  </Steps>
-  <Result>Objętość zmniejsza się o $0{,}00072$, czyli $0{,}072\,\%$. Obie drogi obliczeń dają ten sam wynik, co potwierdza spójność wzorów.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-strain-state-volume" />
 
 ## Drugi przykład
 
-Rozważmy jednoosiowe rozciąganie stali: $\sigma_x=150\,\text{MPa}$, $\sigma_y=\sigma_z=0$, $E=200\,\text{GPa}$ i $\nu=0{,}30$. Obliczamy kolejno $\varepsilon_x=150/200\,000=0{,}00075$, $\varepsilon_y=\varepsilon_z=-0{,}30\cdot0{,}00075=-0{,}000225$. Suma wynosi $0{,}00075-0{,}000225-0{,}000225=0{,}0003$.
-
-Objętość rośnie o $0{,}03\,\%$. Wynik jest dodatni, mimo że dwa z trzech odkształceń są ujemne. To typowe dla rozciągania metali: wydłużenie w kierunku obciążenia przewyższa sumę skurczów poprzecznych. Gdyby $\nu$ było bliskie $0{,}5$, suma zbliżyłaby się do zera i objętość prawie by się nie zmieniła.
-
-Ten przykład pokazuje też, dlaczego nie można oceniać zmiany objętości na podstawie jednej średnicy. Zmiana średnicy może być wyraźna, a zmiana objętości nadal niewielka.
+<AnimatedSolution id="ex-strain-state-volume-2" />
 
 ### Co dzieje się przy ściskaniu jednoosiowym
 
@@ -187,11 +172,7 @@ Przy ściskaniu jednoosiowym $\sigma_x\lt0$, a pozostałe naprężenia są zerow
 
 ## Trzeci przykład: wariant odwrotny
 
-W zbiorniku pod ciśnieniem zmierzono względną zmianę objętości $\Delta V/V_0=-0{,}0012$ przy ciśnieniu $p=200\,\text{MPa}$. Zakładamy, że odkształcenie jest sprężyste i hydrostatyczne. Jaki jest moduł ściśliwości, a jaki moduł Younga przy $\nu=0{,}30$?
-
-Z definicji $K=-p/(\Delta V/V_0)=-200/(-0{,}0012)=166\,667\,\text{MPa}$, czyli około $166{,}7\,\text{GPa}$. Następnie przekształcamy $K=E/[3(1-2\nu)]$ do postaci $E=3K(1-2\nu)$. Dla $\nu=0{,}30$ mamy $1-2\nu=0{,}40$, więc $E=3\cdot166\,667\cdot0{,}40=200\,000\,\text{MPa}=200\,\text{GPa}$.
-
-Otrzymaliśmy typowe wartości dla stali. Gdyby wyliczony moduł Younga wyszedł na przykład $20\,\text{GPa}$ albo $2000\,\text{GPa}$, należałoby sprawdzić jednostki, znak ciśnienia lub założenie o hydrostatyczności stanu. W rzeczywistym zbiorniku ścianki są rozciągane w dwóch kierunkach, więc czyste ściskanie hydrostatyczne byłoby zbyt dużym uproszczeniem.
+<AnimatedSolution id="ex-strain-state-volume-3" />
 
 ### Jak wykorzystać ten wynik w projektowaniu
 

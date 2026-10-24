@@ -141,60 +141,17 @@ W zadaniu projektowym często wygodniej jest najpierw dobrać przekrój na wytrz
   sztywność, jeśli materiał zostanie źle rozmieszczony.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma rozpiętość $L=4\ \text{m}$ i jest obciążona siłą $P=20\ \text{kN}$ w odległości $a=1{,}4\ \text{m}$ od lewej podpory. Przyjmij $k=160\ \text{MPa}$, $E=200\ \text{GPa}$, przekrój pełnego koła i ugięcie dopuszczalne $f_{\mathrm{dop}}=L/250$.
-  </Given>
-  <Steps>
-    <Step>Odległość od prawej podpory: $b=L-a=4-1{,}4=2{,}6\ \text{m}$.</Step>
-    <Step>Reakcje: $R_A=Pb/L=20\cdot2{,}6/4=13\ \text{kN}$, $R_B=Pa/L=20\cdot1{,}4/4=7\ \text{kN}$.</Step>
-    <Step>Moment maksymalny pod siłą: $M_{\max}=R_Aa=13\cdot1{,}4=18{,}2\ \text{kN}\cdot\text{m}=18\,200\,000\ \text{N}\cdot\text{mm}$.</Step>
-    <Step>Wymagany wskaźnik: $W_{\min}=18\,200\,000/160=113\,750\ \text{mm}^3$.</Step>
-    <Step>Średnica z warunku wytrzymałości: $d_{\min}=\sqrt[3]{32\cdot113\,750/\pi}=\sqrt[3]{1\,158\,650}\approx105{,}0\ \text{mm}$.</Step>
-    <Step>Przyjmujemy $d=110\ \text{mm}$ z szeregu wymiarów co $5\ \text{mm}$, ponieważ $105\ \text{mm}$ jest zbyt małe.</Step>
-    <Step>Rzeczywisty wskaźnik: $W=\pi\cdot110^3/32\approx130\,669\ \text{mm}^3$, więc $\sigma=18\,200\,000/130\,669\approx139{,}3\ \text{MPa}\le160\ \text{MPa}$.</Step>
-    <Step>Moment bezwładności: $I=\pi\cdot110^4/64\approx7\,186\,875\ \text{mm}^4$.</Step>
-    <Step>Ugięcie pod siłą: $f=Pa^2b^2/(3EIL)=20\,000\cdot1400^2\cdot2600^2/(3\cdot200\,000\cdot7\,186\,875\cdot4000)\approx15{,}4\ \text{mm}$.</Step>
-    <Step>Wartość dopuszczalna: $L/250=4000/250=16\ \text{mm}$, więc $15{,}4\ \text{mm}\le16\ \text{mm}$.</Step>
-  </Steps>
-  <Result>
-    Decyduje wytrzymałość: wymagana średnica wynosi około $105\ \text{mm}$, a przyjęto $110\ \text{mm}$. Naprężenie $139{,}3\ \text{MPa}$ jest mniejsze od $160\ \text{MPa}$, a ugięcie $15{,}4\ \text{mm}$ nie przekracza $16\ \text{mm}$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-design-full-bending" />
 
 Wynik jest blisko granicy ugięcia, więc belka nie ma dużego zapasu sztywności. Gdyby dopuszczalne ugięcie wynosiło $L/300\approx13{,}3\ \text{mm}$, ten sam przekrój nie spełniłby warunku. Wtedy trzeba by zwiększyć średnicę do około $115\ \text{mm}$ albo zmienić kształt przekroju na bardziej efektywny. To pokazuje, że „dobra” belka zależy od przyjętego kryterium, a nie tylko od naprężenia.
 
 ## Drugi przykład
 
-Rozważmy ten sam schemat i moment $M_{\max}=18{,}2\ \text{kN}\cdot\text{m}$, ale przekrój prostokątny o proporcji $h=2b$. Wymagany wskaźnik nadal wynosi $W_{\min}=113\,750\ \text{mm}^3$. Dla prostokąta $W=bh^2/6=b(2b)^2/6=2b^3/3$, więc $b^3\ge3W_{\min}/2=170\,625$ i $b\ge55{,}5\ \text{mm}$.
-
-Przyjmujemy $b=60\ \text{mm}$ i $h=120\ \text{mm}$. Rzeczywisty wskaźnik wynosi $W=60\cdot120^2/6=144\,000\ \text{mm}^3$, a naprężenie $\sigma=18\,200\,000/144\,000\approx126{,}4\ \text{MPa}$, czyli mniej niż $160\ \text{MPa}$. Moment bezwładności $I=60\cdot120^3/12=8\,640\,000\ \text{mm}^4$, a ugięcie $f\approx12{,}8\ \text{mm}$, więc warunek $16\ \text{mm}$ jest spełniony z większym zapasem niż dla koła.
-
-Porównanie jest pouczające. Pole prostokąta wynosi $7200\ \text{mm}^2$, a koła o $d=110\ \text{mm}$ około $9503\ \text{mm}^2$. Prostokąt jest więc lżejszy, mimo że ma większą wysokość. Wskaźnik na jednostkę pola wynosi $20{,}0\ \text{mm}$ dla prostokąta i około $13{,}8\ \text{mm}$ dla koła. To dlatego belki o przekroju dwuteowym lub skrzynkowym są znacznie bardziej efektywne: materiał jest odsunięty od osi obojętnej, gdzie pracuje najskuteczniej.
-
-Nie oznacza to, że prostokąt jest zawsze lepszy. Wysoka i wąska belka jest podatna na zwichrzenie boczne, a jej wykonanie i połączenia mogą być trudniejsze. Koło jest symetryczne i wygodne w montażu. Wybór kształtu to kompromis między nośnością, sztywnością, masą, statecznością i technologią.
-
-Kierunek zginania ma tu ogromne znaczenie. Prostokąt $60\times120\ \text{mm}$ jest efektywny, gdy jest zginany względem osi równoległej do krótszego boku, czyli gdy obciążenie działa w płaszczyźnie wysokości $120\ \text{mm}$. Po obróceniu o $90^\circ$ ten sam przekrój ma znacznie mniejszy $W$, ponieważ wysokość wynosi wtedy $60\ \text{mm}$. W zadaniu trzeba więc zawsze sprawdzić, względem której osi liczony jest moment bezwładności.
-
-W praktyce projektant często zaczyna od kształtu znanego z katalogu, a potem sprawdza, czy spełnia oba warunki. Katalog podaje $I$ i $W$ dla konkretnej osi, więc nie trzeba ich wyprowadzać od zera. Ważne jest natomiast, aby nie mieszać osi i nie podstawiać $W$ dla jednego kierunku do momentu działającego w innym. To częsty błąd przy belkach zginanych ukośnie.
+<AnimatedSolution id="ex-design-full-bending-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy przekrój i pytamy o dopuszczalne obciążenie. Belka swobodnie podparta ma $L=4\ \text{m}$, przekrój kołowy o $d=100\ \text{mm}$ i jest obciążona siłą w środku. Przyjmij $k=150\ \text{MPa}$, $E=200\ \text{GPa}$ i $f_{\mathrm{dop}}=L/300=13{,}33\ \text{mm}$.
-
-Najpierw wskaźnik i moment bezwładności: $W=\pi\cdot100^3/32\approx98\,175\ \text{mm}^3$, $I=\pi\cdot100^4/64\approx4\,908\,738\ \text{mm}^4$. Dopuszczalny moment z wytrzymałości wynosi $M_{\mathrm{dop}}=kW=150\cdot98\,175\approx14{,}73\ \text{kN}\cdot\text{m}$.
-
-Dla siły w środku $M_{\max}=PL/4$, więc z wytrzymałości $P\le4M_{\mathrm{dop}}/L=4\cdot14{,}73/4=14{,}73\ \text{kN}$. Z warunku sztywności $f=PL^3/(48EI)\le f_{\mathrm{dop}}$, czyli $P\le48EIf_{\mathrm{dop}}/L^3$. Po podstawieniu $P\le48\cdot200\,000\cdot4\,908\,738\cdot13{,}33/4000^3\approx9{,}82\ \text{kN}$.
-
-Decyduje sztywność, więc $P_{\max}\approx9{,}82\ \text{kN}$. Przy tej sile naprężenie wynosi około $100\ \text{MPa}$, czyli znacznie mniej niż $150\ \text{MPa}$. Widać, że zapas wytrzymałości nie jest w pełni wykorzystany, ponieważ belka jest zbyt podatna. Gdyby zadanie wymagało wykorzystania pełnej nośności, trzeba by zmienić materiał na sztywniejszy, zwiększyć średnicę albo skrócić rozpiętość.
-
-Wariant odwrotny uczy, że nie wolno zatrzymać się na pierwszym warunku. Często to nie wytrzymałość, lecz sztywność albo stateczność wyznacza rzeczywiste ograniczenie. Po obliczeniu $P_{\max}$ z obu warunków trzeba przyjąć mniejszą wartość i wyraźnie zapisać, który warunek jest decydujący.
-
-W zadaniach egzaminacyjnych warto po każdym kroku zapisać jednostkę i sprawdzić rząd wielkości. Moment $18{,}2\ \text{kN}\cdot\text{m}$ to $18{,}2$ miliona $\text{N}\cdot\text{mm}$, a nie $18\,200$. Średnica $105\ \text{mm}$ jest sensowna dla belki o rozpiętości $4\ \text{m}$ i sile $20\ \text{kN}$; średnica $1\ \text{mm}$ lub $1000\ \text{mm}$ sygnalizowałaby błąd jednostek.
-
-Kontrola rzędu wielkości jest szczególnie ważna przy doborze z katalogu. Jeśli dla małej belki wychodzi dwuteownik o wysokości $500\ \text{mm}$, prawdopodobnie w mianowniku użyto złej jednostki. Jeśli dla dużego stropu wychodzi pręt o średnicy $10\ \text{mm}$, prawdopodobnie pominięto czynnik $10^3$ lub $10^6$. Zanim zaakceptujesz wynik, porównaj go z typowymi wymiarami podobnych konstrukcji.
-
-Warto też pamiętać, że belka swobodnie podparta nie jest jedynym schematem. Wspornik ma maksimum momentu w utwierdzeniu i zupełnie inny wzór na ugięcie. Belka utwierdzona na obu końcach jest statycznie niewyznaczalna i wymaga warunków zgodności. W tej lekcji ograniczamy się do schematu swobodnie podpartego, ale procedura projektowa pozostaje podobna: schemat, siły wewnętrzne, naprężenia, warunki, decyzja.
+<AnimatedSolution id="ex-design-full-bending-3" />
 
 <Callout kind="warning" title="Typowe błędy">
   1. **Brak zamiany $\text{kN}\cdot\text{m}$ na $\text{N}\cdot\text{mm}$.** Moment $18{,}2\ \text{kN}\cdot\text{m}$ to $18\,200\,000\ \text{N}\cdot\text{mm}$. Podstawienie $18{,}2$ daje wskaźnik milion razy za mały.

@@ -105,78 +105,15 @@ Wyprowadzenie łączy definicje naprężenia i odkształcenia z liniową odpowie
   opisuje materiał, natomiast $EA/L$ opisuje konkretny pręt.
 </Insight>
 
-<WorkedExample>
-  <Given>Stalowy pręt o długości $L=2\ \text{m}$ i polu $A=250\ \text{mm}^2$ rozciąga siła $N=50\ \text{kN}$. Moduł $E=200\ \text{GPa}$.</Given>
-  <Steps>
-    <Step>Naprężenie: $\sigma=N/A=50\,000/250=200\ \text{MPa}$.</Step>
-    <Step>Odkształcenie z prawa Hooke’a: $\varepsilon=\sigma/E=200/200\,000=0{,}001$.</Step>
-    <Step>Wydłużenie: $\Delta L=\varepsilon L=0{,}001\cdot 2000\ \text{mm}=2\ \text{mm}$.</Step>
-    <Step>Ten sam wynik daje $\Delta L=NL/(EA)=50\,000\cdot 2000/(200\,000\cdot 250)=2\ \text{mm}$.</Step>
-    <Step>Sztywność: $k=EA/L=200\,000\cdot 250/2000=25\,000\ \text{N/mm}$, czyli $25\ \text{MN/m}$.</Step>
-    <Step>Kontrola: $k\Delta L=25\,000\cdot 2=50\,000\ \text{N}$, zgodnie z zadaną siłą.</Step>
-    <Step>Sprawdzenie zakresu: $200\ \text{MPa}$ jest mniejsze od typowej granicy plastyczności stali $235\ \text{MPa}$, więc wynik jest wiarygodny.</Step>
-  </Steps>
-  <Result>
-    Pręt ma naprężenie $200\ \text{MPa}$, odkształcenie $0{,}001$ i wydłuża się o $2\ \text{mm}$, o ile pozostaje w zakresie sprężystym. Jego sztywność osiowa wynosi około $25\ \text{MN/m}$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m3-hooke-stiffness" />
 
 ## Drugi przykład
 
-Rozważmy aluminiowy pręt o długości $L=1{,}5\ \text{m}$ i średnicy $d=16\ \text{mm}$, rozciągany siłą $N=12\ \text{kN}$. Moduł aluminium przyjmujemy $E=70\ \text{GPa}$. Pole przekroju wynosi
-
-$$
-A=\frac{\pi d^2}{4}=\frac{\pi\cdot 16^2}{4}\approx 201{,}06\ \text{mm}^2.
-$$
-
-Naprężenie jest równe
-
-$$
-\sigma=\frac{12\,000}{201{,}06}\approx 59{,}68\ \text{MPa}.
-$$
-
-Odkształcenie wynosi $\varepsilon=59{,}68/70\,000\approx 0{,}000853$, a wydłużenie
-
-$$
-\Delta L=\varepsilon L=0{,}000853\cdot 1500\approx 1{,}28\ \text{mm}.
-$$
-
-Sztywność pręta to
-
-$$
-k=\frac{EA}{L}=\frac{70\,000\cdot 201{,}06}{1500}\approx 9383\ \text{N/mm}\approx 9{,}38\ \text{MN/m}.
-$$
-
-Porównanie ze stalą jest pouczające. Aluminium ma około trzy razy mniejszy moduł, więc przy podobnym naprężeniu odkształca się około trzy razy bardziej. Nie znaczy to, że jest „gorsze”: jest lżejsze, a w wielu zastosowaniach mniejsza masa jest ważniejsza niż mniejsza sztywność. Wybór materiału zależy od tego, który warunek jest krytyczny.
-
-Gdyby średnicę aluminiowego pręta zwiększyć dwukrotnie, pole wzrosłoby czterokrotnie, a sztywność również czterokrotnie. Wydłużenie spadłoby do jednej czwartej poprzedniej wartości, ale masa pręta wzrosłaby czterokrotnie. To pokazuje typowy kompromis: sztywność można kupić materiałem albo geometrią, a każdy z tych sposobów ma swoją cenę.
+<AnimatedSolution id="ex-m3-hooke-stiffness-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że dla stalowego pręta o długości $L=3\ \text{m}$, obciążonego siłą $N=40\ \text{kN}$, wymagamy wydłużenia nie większego niż $\Delta L_{\mathrm{dop}}=1{,}5\ \text{mm}$. Moduł wynosi $E=200\ \text{GPa}$. Szukamy minimalnego pola przekroju.
-
-Z warunku sztywności
-
-$$
-\Delta L=\frac{NL}{EA}\le \Delta L_{\mathrm{dop}}
-$$
-
-po przekształceniu otrzymujemy
-
-$$
-A_{\min}=\frac{NL}{E\Delta L_{\mathrm{dop}}}
-=\frac{40\,000\cdot 3000}{200\,000\cdot 1{,}5}=400\ \text{mm}^2.
-$$
-
-Dla przekroju kołowego odpowiednia średnica wynosi
-
-$$
-d=\sqrt{\frac{4A_{\min}}{\pi}}=\sqrt{\frac{4\cdot 400}{\pi}}\approx 22{,}6\ \text{mm}.
-$$
-
-Sprawdzenie naprężenia: $\sigma=40\,000/400=100\ \text{MPa}$, czyli znacznie mniej niż typowa granica plastyczności stali. W tym zadaniu o wymiarze decyduje więc sztywność, a nie wytrzymałość. Gdybyśmy dobrali przekrój tylko z warunku naprężeniowego, mógłby być mniejszy, ale pręt wydłużałby się bardziej niż dopuszczono.
-
-Zwróć uwagę na wrażliwość wyniku. Gdyby dopuszczalne wydłużenie zmniejszyć do $1\ \text{mm}$, wymagane pole wzrosłoby do $600\ \text{mm}^2$. Wydłużenie jest liniową funkcją długości i siły, a odwrotnie proporcjonalne do pola. Dlatego w zadaniach projektowych małe zmiany wymagania sztywności mogą istotnie zmienić wymiar.
+<AnimatedSolution id="ex-m3-hooke-stiffness-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

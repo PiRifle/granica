@@ -155,95 +155,15 @@ przesuniętej w bok daje $S_{y'}=S_y-cA$. To użyteczny sposób sprawdzenia, czy
   że moment względem osi przez wyznaczony środek jest zerowy.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Przekrój teowy składa się z pionowego środnika 20 × 100 mm i poziomej półki 120 × 20 mm. Półka leży na górze
-    środnika, a współrzędną $y$ mierzymy od dolnego końca środnika. Początek osi $x$ przyjmujemy na lewej krawędzi
-    półki.
-  </Given>
-  <Steps>
-    <Step>
-      Środnik: $A_1=20\cdot 100=2000\ \text{mm}^2$, $\bar{y}_1=50$ mm, $\bar{x}_1=60$ mm, bo jest wyśrodkowany pod
-      półką.
-    </Step>
-    <Step>
-      Półka: $A_2=120\cdot 20=2400\ \text{mm}^2$, $\bar{y}_2=100+10=110$ mm, $\bar{x}_2=60$ mm.
-    </Step>
-    <Step>Pole całkowite: $A=2000+2400=4400\ \text{mm}^2$.</Step>
-    <Step>
-      Moment względem osi $x$: $S_x=2000\cdot 50+2400\cdot 110=100\,000+264\,000=364\,000\ \text{mm}^3$.
-    </Step>
-    <Step>
-      Środek: $\bar{y}=S_x/A=364\,000/4400\approx 82{,}73$ mm. Leży między 50 mm a 110 mm, bliżej półki, bo półka ma
-      większe pole i jest wyżej.
-    </Step>
-    <Step>
-      Moment względem osi $y$: z symetrii $\bar{x}=60$ mm, więc $S_y=4400\cdot 60=264\,000\ \text{mm}^3$. Kontrola:
-      $S_y/A=60$ mm.
-    </Step>
-  </Steps>
-  <Result>
-    Pole przekroju wynosi $4400\ \text{mm}^2$, czyli $44\ \text{cm}^2$. Środek ciężkości leży 82,73 mm nad dolnym końcem
-    środnika, a jego
-    współrzędna pozioma to 60 mm. Momenty statyczne wynoszą $S_x=364\,000\ \text{mm}^3$ i
-    $S_y=264\,000\ \text{mm}^3$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m4-composite-static-moments" />
 
 ## Drugi przykład
 
-Rozważmy kanał (ceownik) otwarty w prawo: środnik 10 × 180 mm oraz dwie półki 80 × 10 mm, górna i dolna. Wysokość
-całkowita wynosi 200 mm, a szerokość 80 mm. Dzielimy przekrój tak, aby części nie nachodziły na siebie: środnik zajmuje
-pas między półkami, a półki są pełnymi prostokątami.
-
-| Część       | $A_i$ [mm²] | $\bar{x}_i$ [mm] | $\bar{y}_i$ [mm] |
-| ----------- | ----------- | ---------------- | ---------------- |
-| środnik     | 1800        | 5                | 100              |
-| półka dolna | 800         | 40               | 5                |
-| półka górna | 800         | 40               | 195              |
-
-Pole całkowite $A=1800+800+800=3400\ \text{mm}^2$. Moment względem osi $x$:
-
-$$
-S_x=1800\cdot 100+800\cdot 5+800\cdot 195=180\,000+4000+156\,000=340\,000\ \text{mm}^3.
-$$
-
-Stąd $\bar{y}=340\,000/3400=100$ mm, co zgadza się z symetrią względem poziomej osi środkowej. Moment względem osi
-$y$:
-
-$$
-S_y=1800\cdot 5+800\cdot 40+800\cdot 40=9000+32\,000+32\,000=73\,000\ \text{mm}^3.
-$$
-
-Zatem $\bar{x}=73\,000/3400\approx 21{,}47$ mm. Wynik leży między 5 mm a 40 mm i jest bliżej środnika, który ma
-największe pole. Gdybyśmy przez pomyłkę policzyli środnik jako pełny prostokąt 10 × 200 mm, a półki jako 80 × 10 mm,
-pole wzrosłoby do 3600 mm² i pojawiłby się podwójnie policzony narożnik 10 × 10 mm.
+<AnimatedSolution id="ex-m4-composite-static-moments-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Płyta 200 × 120 mm ma kołowy otwór o średnicy 60 mm. Chcemy, aby środek ciężkości wypadł w odległości 95 mm od lewej
-krawędzi. Gdzie należy umieścić środek otworu? Zakładamy, że otwór leży na poziomej osi symetrii płyty, więc jego
-współrzędna $y$ wynosi 60 mm i nie wpływa na $\bar{y}$.
-
-Pole płyty $A_p=24\,000\ \text{mm}^2$, pole otworu $A_h=\pi\cdot 60^2/4=900\pi\approx 2827{,}43\ \text{mm}^2$.
-Pole wypadkowe $A=24\,000-2827{,}43=21\,172{,}57\ \text{mm}^2$. Środek płyty ma $\bar{x}_p=100$ mm, więc jej moment
-wynosi $S_{yp}=24\,000\cdot 100=2\,400\,000\ \text{mm}^3$.
-
-Warunek na wypadkowy środek to
-
-$$
-2\,400\,000-2827{,}43\,x_h=21\,172{,}57\cdot 95.
-$$
-
-Prawa strona wynosi $2\,011\,394\ \text{mm}^3$, zatem
-
-$$
-x_h=\frac{2\,400\,000-2\,011\,394}{2827{,}43}\approx 137{,}4\ \text{mm}.
-$$
-
-Otwór o promieniu 30 mm zajmuje przedział od 107,4 mm do 167,4 mm, więc mieści się w płycie. Gdyby wymagano
-$\bar{x}=90$ mm, otrzymalibyśmy $x_h\approx 174{,}9$ mm, czyli otwór wystawałby poza prawą krawędź. To pokazuje, że
-wariant odwrotny trzeba zawsze sprawdzić geometrycznie, a nie tylko algebraicznie.
+<AnimatedSolution id="ex-m4-composite-static-moments-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

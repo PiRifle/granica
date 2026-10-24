@@ -506,15 +506,7 @@ export function CombinedLab() {
                   animate={{ x1: cxS - (torqueDirection * tauLen) / 2, x2: cxS + (torqueDirection * tauLen) / 2 }}
                   transition={spring}
                 />
-                <motion.circle
-                  cx={cxS}
-                  cy={critY}
-                  fill={colorN}
-                  stroke="white"
-                  strokeWidth="2"
-                  animate={{ r: [6, 10, 6], opacity: [1, 0.75, 1] }}
-                  transition={{ duration: 1.6, repeat: Number.POSITIVE_INFINITY }}
-                />
+                <circle className="lab-pulse" cx={cxS} cy={critY} r="8" fill={colorN} stroke="white" strokeWidth="2" />
                 <text x={cxS + 16} y={critY - 4} fontSize="13" fontWeight="bold" fill={colorN}>
                   punkt krytyczny A
                 </text>

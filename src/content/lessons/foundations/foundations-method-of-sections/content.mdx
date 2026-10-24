@@ -122,90 +122,15 @@ Powyższy wzór jest skrótem myślowym, a nie uniwersalnym przepisem na każdy 
   podpory, równanie przestanie opisywać rzeczywisty element.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma długość L = 6 m. Siła P = 24 kN działa w dół w odległości 2 m od lewej podpory A.
-    Wyznacz N, V i M w przekrojach x = 1 m oraz x = 4 m. Pomiń ciężar własny.
-  </Given>
-  <Steps>
-    <Step>Oblicz reakcje: RB = P · a / L = 24 · 2 / 6 = 8 kN, RA = 24 − 8 = 16 kN.</Step>
-    <Step>
-      Dla x = 1 m wybierz lewą część. Na cięciu działają dodatnie N w lewo, V w dół i M przeciwnie do ruchu wskazówek
-      zegara.
-    </Step>
-    <Step>Równowaga pozioma: N = 0. Równowaga pionowa: 16 − V = 0, więc V = +16 kN.</Step>
-    <Step>Momenty względem cięcia: M − 16 · 1 = 0, więc M = +16 kN·m.</Step>
-    <Step>Dla x = 4 m lewa część zawiera siłę 24 kN. Równowaga pionowa: 16 − 24 − V = 0, więc V = −8 kN.</Step>
-    <Step>Momenty względem cięcia: M − 16 · 4 + 24 · (4 − 2) = 0, więc M = 64 − 48 = +16 kN·m.</Step>
-    <Step>
-      Sprawdź prawą stroną dla x = 4 m: RB = 8 kN działa w odległości 2 m, więc M = 8 · 2 = 16 kN·m. Zgodność potwierdza
-      wynik.
-    </Step>
-  </Steps>
-  <Result>
-    W x = 1 m: N = 0, V = +16 kN, M = +16 kN·m. W x = 4 m: N = 0, V = −8 kN, M = +16 kN·m. Znak minus przy V oznacza
-    zwrot przeciwny do założonego; moment dodatni wygina belkę wypukłością w dół.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-foundations-method-of-sections" />
 
 ## Drugi przykład
 
-Pionowy pręt jest utwierdzony górnym końcem A i składa się z dwóch odcinków. Odcinek AB ma długość 1,2 m i pole przekroju 300 mm². Odcinek BC ma długość 0,8 m i pole 200 mm². W punkcie B działa siła 15 kN w dół, a w swobodnym końcu C siła 10 kN w dół. Wyznacz siły normalne w obu odcinkach oraz naprężenia nominalne.
-
-Najpierw rozpatrujemy cały pręt. Reakcja w utwierdzeniu wynosi $R_A=15+10=25$ kN w górę. Teraz przecinamy odcinek BC i zostawiamy dolną część z siłą 10 kN.
-
-Na górnej ścianie dolnej części dodatnie $N$ jest skierowane w górę, bo rozciąga przekrój. Równowaga pionowa:
-
-$$
-N_{BC}-10=0 \quad\Rightarrow\quad N_{BC}=10\ \text{kN}
-$$
-
-Wartość dodatnia oznacza rozciąganie. Teraz przecinamy odcinek AB i zostawiamy dolną część, która zawiera obie siły: 15 kN w B i 10 kN w C.
-
-$$
-N_{AB}-15-10=0 \quad\Rightarrow\quad N_{AB}=25\ \text{kN}
-$$
-
-Reakcja w A jest równa sile normalnej w AB, co jest kontrolą globalnej równowagi. Naprężenia nominalne wynoszą:
-
-$$
-\sigma_{AB}=\frac{25\,000\ \text{N}}{300\ \text{mm}^2}=83{,}3\ \text{MPa},\qquad
-\sigma_{BC}=\frac{10\,000\ \text{N}}{200\ \text{mm}^2}=50\ \text{MPa}
-$$
-
-Największa siła i największe naprężenie występują w odcinku AB, ale to nie jest regułą. Gdyby odcinek BC miał znacznie mniejsze pole, mógłby mieć większe naprężenie mimo mniejszej siły. Dlatego po wyznaczeniu $N$ w każdym przedziale trzeba sprawdzić iloraz $|N|/A$, a nie tylko największe $|N|$.
+<AnimatedSolution id="ex-foundations-method-of-sections-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Belka swobodnie podparta ma długość 5 m. Siła skupiona $P$ działa w odległości 2 m od lewej podpory. W przekroju $x=1$ m zmierzono moment zginający $M=12$ kN·m. Wyznacz $P$, reakcje oraz maksymalny moment.
-
-Dla $x$ przed siłą lewa część belki zawiera tylko reakcję $R_A$. Reakcja ta wynosi:
-
-$$
-R_A=P\left(1-\frac{a}{L}\right)=P\left(1-\frac{2}{5}\right)=0{,}6P
-$$
-
-Moment w przekroju $x=1$ m wynosi:
-
-$$
-M=R_A\cdot 1=0{,}6P
-$$
-
-Stąd:
-
-$$
-0{,}6P=12 \quad\Rightarrow\quad P=20\ \text{kN}
-$$
-
-Reakcja prawej podpory wynosi $R_B=Pa/L=20\cdot 2/5=8$ kN, a lewej $R_A=12$ kN. Maksymalny moment pojawia się pod siłą:
-
-$$
-M_{\max}=R_A\cdot 2=12\cdot 2=24\ \text{kN·m}
-$$
-
-Kontrola z prawej strony: $R_B\cdot 3=8\cdot 3=24$ kN·m. Wynik jest spójny. Zauważ, że jeden zmierzony moment nie wystarczyłby do wyznaczenia zarówno $P$, jak i $a$. W tym zadaniu położenie siły było znane, więc niewiadoma była tylko jedna. Gdyby brakowało i $P$, i $a$, potrzebny byłby dodatkowy pomiar albo dodatkowe równanie.
-
-Wariant odwrotny uczy ostrożności z danymi. Moment w jednym przekroju zależy od reakcji, a reakcja od położenia i wartości siły. Ten sam moment można uzyskać przy mniejszej sile bliżej podpory albo większej sile dalej od niej. Dopiero dodatkowa informacja o geometrii albo drugi pomiar pozwala jednoznacznie odtworzyć obciążenie.
+<AnimatedSolution id="ex-foundations-method-of-sections-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

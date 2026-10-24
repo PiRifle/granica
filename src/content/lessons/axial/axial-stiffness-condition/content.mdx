@@ -106,54 +106,15 @@ $$
   Jeśli $A_{\min,\Delta}$ jest większe niż $A_{\min,\sigma}$, o doborze decyduje sztywność. Większe $E$ zmniejsza wydłużenie, ale nie podnosi automatycznie wytrzymałości materiału. Z kolei większe $A$ zmniejsza oba efekty, więc jest uniwersalnym, lecz kosztownym rozwiązaniem.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Jednorodny pręt ma N = 80 kN, L = 2 m i E = 200 GPa. Dopuszczalne wydłużenie wynosi 1 mm, a naprężenie dopuszczalne
-    160 MPa. Dobierz minimalne pole i sprawdź rozwiązanie.
-  </Given>
-  <Steps>
-    <Step>Warunek sztywności: Amin,Δ = NL/(EΔLdop). Przyjmij N = 80 000 N, L = 2000 mm i E = 200 000 MPa.</Step>
-    <Step>Oblicz Amin,Δ = 80 000·2000/(200 000·1) = 800 mm².</Step>
-    <Step>Warunek wytrzymałości: Amin,σ = N/σdop = 80 000/160 = 500 mm².</Step>
-    <Step>Przyjmij A ≥ max(800, 500) = 800 mm², ponieważ muszą być spełnione oba warunki.</Step>
-    <Step>Dla A = 800 mm²: ΔL = 80 000·2000/(200 000·800) = 1,0 mm, czyli dokładnie na granicy dopuszczalnej.</Step>
-    <Step>Naprężenie wynosi σ = 80 000/800 = 100 MPa, czyli jest mniejsze od 160 MPa.</Step>
-    <Step>Rzeczywisty zapas względem typowej granicy plastyczności 235 MPa wynosi 235/100 = 2,35.</Step>
-    <Step>
-      Gdyby przyjąć A = 500 mm², warunek wytrzymałości byłby spełniony, ale ΔL = 1,6 mm przekroczyłoby limit. Decyduje
-      sztywność.
-    </Step>
-  </Steps>
-  <Result>
-    Minimalne pole wynosi 800 mm² i decyduje sztywność. Dla tego pola ΔL = 1,0 mm, σ = 100 MPa, a zapas względem granicy
-    plastyczności wynosi 2,35.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-axial-stiffness-condition" />
 
 ## Drugi przykład
 
-Rozważmy pręt złożony z dwóch odcinków o różnych materiałach. Pierwszy odcinek jest stalowy: $L_1=1\ \text{m}$, $A_1=300\ \text{mm}^2$, $E_1=200\ \text{GPa}$. Drugi jest aluminiowy: $L_2=1\ \text{m}$, $A_2=500\ \text{mm}^2$, $E_2=70\ \text{GPa}$. Siła rozciągająca wynosi $N=30\ \text{kN}$, a dopuszczalne wydłużenie $1{,}2\ \text{mm}$.
-
-Wydłużenia wynoszą $\Delta L_1=30\,000\cdot1000/(200\,000\cdot300)=0{,}50\ \text{mm}$ oraz $\Delta L_2=30\,000\cdot1000/(70\,000\cdot500)=0{,}857\ \text{mm}$. Suma $1{,}357\ \text{mm}$ przekracza limit $1{,}2\ \text{mm}$, mimo że naprężenia są niskie: $\sigma_1=100\ \text{MPa}$ i $\sigma_2=60\ \text{MPa}$.
-
-Aby spełnić warunek sztywności, zwiększamy pole odcinka aluminiowego. Pozostałe odcinki mają już ustalone wydłużenie $0{,}50\ \text{mm}$, więc na odcinek drugi zostaje $0{,}70\ \text{mm}$. Wymagane pole wynosi $A_2\ge30\,000\cdot1000/(70\,000\cdot0{,}70)=612{,}2\ \text{mm}^2$. Po zaokrągleniu do $650\ \text{mm}^2$ otrzymujemy $\Delta L_2=0{,}659\ \text{mm}$ i sumę $1{,}159\ \text{mm}$, czyli warunek jest spełniony.
-
-Gdyby drugi odcinek był stalowy, wystarczyłoby około $214\ \text{mm}^2$, aby uzyskać to samo wydłużenie. Materiał o większym $E$ jest więc bardziej efektywny, jeśli chodzi o sztywność, ale może być droższy lub cięższy. W tym przykładzie o doborze decyduje aluminium o mniejszym module, a nie najbardziej wytężony odcinek. To kolejna ilustracja różnicy między warunkiem wytrzymałości a warunkiem sztywności.
+<AnimatedSolution id="ex-axial-stiffness-condition-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem szukamy wymaganego modułu Younga. Pręt o polu $A=250\ \text{mm}^2$ i długości $L=2{,}5\ \text{m}$ przenosi siłę $N=30\ \text{kN}$. Dopuszczalne wydłużenie wynosi $1{,}5\ \text{mm}$. Z warunku sztywności przekształcamy wzór do postaci
-
-$$
-E_{\min}=\frac{NL}{A\,\Delta L_{\mathrm{dop}}}
-=\frac{30\,000\cdot2500}{250\cdot1{,}5}=200\,000\ \text{MPa}=200\ \text{GPa}.
-$$
-
-Wymagany moduł odpowiada typowej stali. Sprawdźmy naprężenie: $\sigma=30\,000/250=120\ \text{MPa}$, czyli poniżej typowej granicy plastyczności $235\ \text{MPa}$. Rozwiązanie jest spójne: stalowy pręt o polu $250\ \text{mm}^2$ wydłuży się dokładnie o $1{,}5\ \text{mm}$.
-
-Gdyby ten sam pręt wykonano z aluminium o $E=70\ \text{GPa}$, wydłużenie wyniosłoby $30\,000\cdot2500/(70\,000\cdot250)=4{,}29\ \text{mm}$, czyli prawie trzy razy więcej niż dopuszczalne. Aby spełnić limit, potrzebne byłoby pole $A\ge30\,000\cdot2500/(70\,000\cdot1{,}5)=714{,}3\ \text{mm}^2$. Warunek wytrzymałości wymagałby tylko około $191\ \text{mm}^2$, więc sztywność decydowałaby o przekroju i to z dużym zapasem.
-
-Ten wariant pokazuje, że „wystarczająco mocny” nie znaczy „wystarczająco sztywny”. W zadaniach projektowych warto najpierw policzyć oba minima, a dopiero potem wybierać materiał i wymiar. Czasem tańszy materiał o mniejszym $E$ wymaga tak dużego przekroju, że przestaje być tańszy. Czasem z kolei sztywność jest tak ważna, że wybór materiału jest z góry narzucony.
+<AnimatedSolution id="ex-axial-stiffness-condition-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

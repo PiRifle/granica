@@ -113,49 +113,15 @@ Warto zauważyć, że $G$ zniknęło ze wzoru na naprężenie. W zakresie sprę�
   kąt skręcenia szesnastokrotnie.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pełny wał o średnicy $d = 60\ \text{mm}$ i długości $L = 1{,}2\ \text{m}$ przenosi moment $T = 1{,}5\ \text{kN}\cdot\text{m}$. Moduł ścinania wynosi $G = 80\ \text{GPa}$. Oblicz maksymalne naprężenie i kąt skręcenia.
-  </Given>
-  <Steps>
-    <Step>Zamień moment: $T = 1{,}5\ \text{kN}\cdot\text{m} = 1\,500\,000\ \text{N}\cdot\text{mm}$.</Step>
-    <Step>Oblicz wskaźnik wytrzymałości: $W_o = \pi \cdot 60^3/16 = 42\,411{,}5\ \text{mm}^3$.</Step>
-    <Step>Maksymalne naprężenie: $\tau_{max} = 1\,500\,000/42\,411{,}5 = 35{,}37\ \text{MPa}$.</Step>
-    <Step>Oblicz biegunowy moment bezwładności: $J_o = \pi \cdot 60^4/32 = 1\,272\,345\ \text{mm}^4$.</Step>
-    <Step>Zamień długość na mm: $L = 1{,}2\ \text{m} = 1200\ \text{mm}$.</Step>
-    <Step>Kąt skręcenia: $\varphi = 1\,500\,000 \cdot 1200/(80\,000 \cdot 1\,272\,345) = 0{,}01768\ \text{rad}$.</Step>
-    <Step>Zamień na stopnie: $0{,}01768 \cdot 180/\pi = 1{,}013^\circ$.</Step>
-  </Steps>
-  <Result>
-    $\tau_{max} \approx 35{,}4\ \text{MPa}$ na powierzchni wału, a kąt skręcenia wynosi około $0{,}0177\ \text{rad}$, czyli $1{,}01^\circ$. W osi naprężenie styczne jest równe zero.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-shear-solid-torsion" />
 
 ## Drugi przykład
 
-Rozważmy wał napędowy przenoszący moc $P = 15\ \text{kW}$ przy prędkości obrotowej $n = 1450\ \text{obr/min}$. Średnica wału wynosi $d = 25\ \text{mm}$, a materiał ma $G = 80\ \text{GPa}$. Chcemy obliczyć moment i maksymalne naprężenie.
-
-Najpierw zamieniamy prędkość obrotową na prędkość kątową: $\omega = 2\pi n/60 = 2\pi \cdot 1450/60 = 151{,}84\ \text{rad/s}$. Moc w watach to $15\,000\ \text{W}$, więc moment wynosi $T = P/\omega = 15\,000/151{,}84 = 98{,}79\ \text{N}\cdot\text{m}$.
-
-Moment w N·mm to $98\,790\ \text{N}\cdot\text{mm}$. Wskaźnik wytrzymałości dla $d = 25\ \text{mm}$ wynosi $W_o = \pi \cdot 25^3/16 = 3067{,}96\ \text{mm}^3$. Maksymalne naprężenie to $\tau_{max} = 98\,790/3067{,}96 = 32{,}2\ \text{MPa}$.
-
-Naprężenie 32,2 MPa jest znacznie poniżej typowej granicy plastyczności stali, ale nadal trzeba sprawdzić, czy wał nie skręca się zbyt mocno. Dla długości 1 m i modułu $G = 80\ \text{GPa}$ kąt wynosi $\varphi = 98\,790 \cdot 1000/(80\,000 \cdot 38\,349{,}5) = 0{,}0322\ \text{rad}$, czyli około $1{,}84^\circ$. To już zauważalne skręcenie, które może być nieakceptowalne w precyzyjnym napędzie.
-
-Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy moment i większe naprężenie. Dlatego wały wolnoobrotowe muszą być grubsze od szybkoobrotowych przenoszących tę samą moc.
+<AnimatedSolution id="ex-shear-solid-torsion-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Dobierzmy średnicę wału pełnego dla momentu $T = 800\ \text{N}\cdot\text{m}$ i naprężenia dopuszczalnego $\tau_{dop} = 40\ \text{MPa}$. Najpierw korzystamy z warunku wytrzymałości.
-
-Ze wzoru $\tau_{max} = 16T/(\pi d^3)$ otrzymujemy $d \ge \sqrt[3]{16T/(\pi\tau_{dop})}$. Podstawiamy $T = 800\,000\ \text{N}\cdot\text{mm}$: $d \ge \sqrt[3]{12\,800\,000/(\pi \cdot 40)} = \sqrt[3]{101\,859} = 46{,}7\ \text{mm}$.
-
-Najbliższa większa średnica handlowa to 48 mm. Sprawdzamy: $W_o = \pi \cdot 48^3/16 = 21\,714{,}4\ \text{mm}^3$, a $\tau_{max} = 800\,000/21\,714{,}4 = 36{,}85\ \text{MPa}$, czyli poniżej 40 MPa. Warunek wytrzymałości jest spełniony.
-
-Załóżmy teraz, że dopuszczalny kąt skręcenia wynosi $1^\circ$ na metr długości, czyli $\varphi_{dop} = 0{,}01745\ \text{rad/m}$. Z warunku $\varphi = TL/(GJ_o) \le \varphi_{dop}$ otrzymujemy $d \ge \sqrt[4]{32TL/(\pi G\varphi_{dop})}$. Dla $L = 1000\ \text{mm}$ i $G = 80\,000\ \text{MPa}$ mamy $d \ge \sqrt[4]{5\,836\,000} = 49{,}15\ \text{mm}$.
-
-Ostatecznie wybieramy 50 mm, bo to większa z dwóch średnic. Sprawdzamy naprężenie: $W_o = 24\,543{,}7\ \text{mm}^3$, więc $\tau_{max} = 32{,}6\ \text{MPa}$. Kąt wynosi $0{,}0163\ \text{rad/m}$, czyli $0{,}93^\circ$ na metr. Oba warunki są spełnione, a o wyborze zadecydowała sztywność, nie wytrzymałość.
-
-To bardzo typowa sytuacja w projektowaniu wałów. Warunek wytrzymałości daje średnicę minimalną, ale dopiero warunek sztywności często wymusza wymiar większy. W lekcji o kącie skręcenia zobaczysz tę procedurę dokładniej, a w lekcji o doborze średnicy połączysz oba warunki w pełny algorytm.
+<AnimatedSolution id="ex-shear-solid-torsion-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

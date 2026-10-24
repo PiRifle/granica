@@ -106,74 +106,15 @@ Wyprowadzenie opiera się na równowadze odciętej części i całkowaniu wydłu
   zawsze znaczy „bezpieczniejszy” w sensie naprężenia od ciężaru własnego.
 </Insight>
 
-<WorkedExample>
-  <Given>Pionowy stalowy pręt o $A=300\ \text{mm}^2$ i $L=4\ \text{m}$ jest zawieszony u góry. Przyjmujemy $\rho=7850\ \text{kg/m}^3$, $g=9{,}81\ \text{m/s}^2$ oraz $E=200\ \text{GPa}$.</Given>
-  <Steps>
-    <Step>Ciężar objętościowy: $\gamma=\rho g=7850\cdot 9{,}81\approx 77\,000\ \text{N/m}^3=77\ \text{kN/m}^3$.</Step>
-    <Step>Pole $A=300\ \text{mm}^2=0{,}0003\ \text{m}^2$; objętość $V=AL=0{,}0012\ \text{m}^3$.</Step>
-    <Step>Masa $m=\rho V=7850\cdot 0{,}0012=9{,}42\ \text{kg}$, a ciężar $G=mg\approx 92{,}4\ \text{N}$.</Step>
-    <Step>Obciążenie liniowe $q=G/L=92{,}4/4=23{,}1\ \text{N/m}$.</Step>
-    <Step>Największe naprężenie przy zawieszeniu: $\sigma_{\max}=\gamma L=77\,000\cdot 4=308\,000\ \text{Pa}=0{,}308\ \text{MPa}$.</Step>
-    <Step>To samo daje $G/A=92{,}4/300=0{,}308\ \text{N/mm}^2=0{,}308\ \text{MPa}$.</Step>
-    <Step>Wydłużenie własne: $\delta=\gamma L^2/(2E)=77\,000\cdot 16/(2\cdot 200\cdot 10^9)=3{,}08\cdot 10^{-6}\ \text{m}=0{,}00308\ \text{mm}$.</Step>
-    <Step>Kontrola rzędu wielkości: naprężenie $0{,}308\ \text{MPa}$ jest znikome w porównaniu z typową granicą stali $235\ \text{MPa}$.</Step>
-  </Steps>
-  <Result>
-    Pręt ma masę około $9{,}42\ \text{kg}$, jego ciężar wynosi $92{,}4\ \text{N}$, a największe naprężenie od ciężaru własnego to około $0{,}308\ \text{MPa}$. Wydłużenie własne jest rzędu tysięcznych części milimetra, więc w tym przypadku ciężar własny jest praktycznie nieistotny.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m3-self-weight" />
 
 ## Drugi przykład
 
-Do tego samego pręta zawieszono na dolnym końcu dodatkowy ładunek $P=5\ \text{kN}$. Siła przy zawieszeniu wynosi teraz
-
-$$
-N(L)=P+\gamma AL=5000+92{,}4=5092{,}4\ \text{N}.
-$$
-
-Naprężenie przy zawieszeniu:
-
-$$
-\sigma_{\max}=\frac{5092{,}4}{300}\approx 16{,}97\ \text{MPa}.
-$$
-
-Wydłużenie całkowite jest sumą wydłużenia od ładunku i od ciężaru własnego:
-
-$$
-\delta=\frac{PL}{EA}+\frac{\gamma L^2}{2E}
-=\frac{5000\cdot 4000}{200\,000\cdot 300}+\frac{77\,000\cdot 16}{2\cdot 200\cdot 10^9}.
-$$
-
-Pierwszy składnik wynosi około $0{,}333\ \text{mm}$, drugi około $0{,}00308\ \text{mm}$. Razem $\delta\approx 0{,}336\ \text{mm}$. Widzimy, że w tym zadaniu o wydłużeniu decyduje ładunek zewnętrzny, a ciężar własny daje mniej niż jeden procent wyniku.
-
-Gdyby ładunek zwiększyć do $50\ \text{kN}$, naprężenie wzrosłoby do około $170\ \text{MPa}$. Nadal byłoby mniejsze od typowej granicy plastyczności, ale zapas znacznie by się zmniejszył. Taki rachunek jest typowym elementem projektu: ciężar własny dodajemy do obciążenia użytkowego, a następnie sprawdzamy sumę.
-
-Zauważ, że w obu przypadkach wydłużenie od ciężaru własnego jest takie samo, bo nie zależy od ładunku $P$. Zmienia się tylko dodatkowy składnik $PL/(EA)$. Dzięki zasadzie superpozycji możemy analizować te dwa wpływy osobno i dodać wyniki, dopóki materiał pozostaje liniowo sprężysty.
+<AnimatedSolution id="ex-m3-self-weight-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Pytanie odwrotne brzmi: jak długi może być stalowy pręt wiszący, zanim naprężenie od ciężaru własnego osiągnie granicę plastyczności? Dla $R_e=235\ \text{MPa}$, $\rho=7850\ \text{kg/m}^3$ i $g=9{,}81\ \text{m/s}^2$ otrzymujemy
-
-$$
-L_{\max}=\frac{R_e}{\rho g}
-=\frac{235\cdot 10^6}{7850\cdot 9{,}81}\approx 3052\ \text{m}.
-$$
-
-Jeśli wymagamy współczynnika bezpieczeństwa $n=2$ względem granicy plastyczności, dopuszczalne naprężenie wynosi $117{,}5\ \text{MPa}$, a maksymalna długość maleje do
-
-$$
-L_{\max,n}=\frac{117{,}5\cdot 10^6}{77\,000}\approx 1526\ \text{m}.
-$$
-
-Dla pręta o długości $300\ \text{m}$ naprężenie od ciężaru własnego wynosi tylko
-
-$$
-\sigma=\gamma L=77\,000\cdot 300=23{,}1\ \text{MPa},
-$$
-
-więc obliczony zapas względem $R_e$ jest równy $235/23{,}1\approx 10{,}2$. To pokazuje, że w typowych konstrukcjach budowlanych ciężar własny stali często nie jest dominujący, ale w bardzo długich elementach lub w materiałach o dużej gęstości i małej wytrzymałości może stać się warunkiem decydującym.
-
-Wniosek projektowy jest prosty: jeżeli długość jest ograniczona wytrzymałością od ciężaru własnego, to zmiana przekroju nie pomoże. Trzeba wybrać materiał o większym stosunku $R_e/\rho$ albo zmienić schemat konstrukcji, na przykład dodać podpory pośrednie. To jakościowo inna decyzja niż zwykłe „zwiększenie przekroju”, które działa przy sile skupionej.
+<AnimatedSolution id="ex-m3-self-weight-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

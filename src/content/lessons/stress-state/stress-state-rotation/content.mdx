@@ -122,49 +122,15 @@ Wyprowadzenie zaczynamy od równowagi trójkątnego elementu. Oznaczamy pole nac
   wychwytuje większość błędów znaku.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Dane są $\sigma_x=120\ \mathrm{MPa}$, $\sigma_y=40\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$. Wyznacz $\sigma_n$, $\sigma_t$ i $\tau_{nt}$ dla $\theta=30^\circ$.
-  </Given>
-  <Steps>
-    <Step>Oblicz średnią: $\sigma_{avg}=(120+40)/2=80\ \mathrm{MPa}$.</Step>
-    <Step>Oblicz połowę różnicy: $a=(120-40)/2=40\ \mathrm{MPa}$.</Step>
-    <Step>Dla $\theta=30^\circ$ mamy $2\theta=60^\circ$, więc $\cos60^\circ=0{,}5$ i $\sin60^\circ\approx0{,}8660$.</Step>
-    <Step>Naprężenie normalne: $\sigma_n=80+40\cdot0{,}5+30\cdot0{,}8660=80+20+25{,}98=125{,}98\ \mathrm{MPa}$.</Step>
-    <Step>Naprężenie styczne: $\tau_{nt}=-40\cdot0{,}8660+30\cdot0{,}5=-34{,}64+15=-19{,}64\ \mathrm{MPa}$.</Step>
-    <Step>Naprężenie na przekroju prostopadłym: $\sigma_t=160-125{,}98=34{,}02\ \mathrm{MPa}$.</Step>
-    <Step>Sprawdź sumę: $125{,}98+34{,}02=160\ \mathrm{MPa}$, co zgadza się z $120+40$.</Step>
-  </Steps>
-  <Result>
-    Na obróconym przekroju $\sigma_n\approx126{,}0\ \mathrm{MPa}$ i $\tau_{nt}\approx-19{,}6\ \mathrm{MPa}$. Na przekroju prostopadłym $\sigma_t\approx34{,}0\ \mathrm{MPa}$. Znak minus oznacza kierunek działania stycznej w przyjętym układzie, a nie „ujemne ścinanie” w sensie fizycznym. Suma naprężeń normalnych pozostaje równa $160\ \mathrm{MPa}$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-stress-state-rotation" />
 
 ## Drugi przykład
 
-Rozważmy czyste ścinanie: $\sigma_x=\sigma_y=0$ i $\tau_{xy}=50\ \mathrm{MPa}$. Dla $\theta=45^\circ$ mamy $2\theta=90^\circ$, więc $\cos90^\circ=0$ i $\sin90^\circ=1$. Wzór daje $\sigma_n=0+0+50\cdot1=50\ \mathrm{MPa}$ oraz $\sigma_t=0-0-50\cdot1=-50\ \mathrm{MPa}$. Naprężenie styczne wynosi $\tau_{nt}=-0+50\cdot0=0$.
-
-Warto sprawdzić ten wynik na kole Mohra. Dla czystego ścinania środek koła leży w początku układu, a promień wynosi $50\ \mathrm{MPa}$. Punkty odpowiadające przekrojom o $\theta=0$ i $\theta=45^\circ$ leżą na przeciwległych końcach średnicy. Na jednym końcu widzimy czyste ścinanie, a na drugim czyste rozciąganie lub ściskanie. To ten sam okrąg, tylko inny punkt na obwodzie.
-
-Oznacza to, że na płaszczyznach nachylonych o $45^\circ$ do osi $x$ nie ma ścinania, a występuje czyste rozciąganie i ściskanie o wartości $50\ \mathrm{MPa}$. To ten sam stan, tylko opisany w innych osiach. Dlatego materiały kruche skręcane lub ścinane mogą pękać pod kątem $45^\circ$: pęknięcie otwiera się pod wpływem rozciągania, które w układzie pierwotnym było „ukryte” w ścinaniu.
-
-Na płaszczyźnie $\theta=0$ mamy z kolei $\sigma_n=0$ i $\tau_{nt}=50\ \mathrm{MPa}$. Ten sam punkt materiału ma więc na jednym przekroju tylko ścinanie, a na innym tylko rozciąganie i ściskanie. To najlepsza ilustracja tego, że stan naprężenia nie jest tym samym co jego zapis w jednym układzie.
-
-Zwróć uwagę na kolejność kątów. Maksymalne ścinanie w tym stanie występuje przy $\theta=0$, a maksymalne rozciąganie przy $\theta=45^\circ$. Gdyby ktoś zapytał „jaki jest kierunek niebezpieczny”, odpowiedź zależałaby od materiału: kruchy boi się rozciągania pod $45^\circ$, a ciągliwy może płynąć przy ścinaniu wzdłuż osi. Ten sam stan ma więc dwa różne „najgorsze” kierunki, zależnie od mechanizmu zniszczenia.
+<AnimatedSolution id="ex-stress-state-rotation-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że z pomiarów wiadomo, iż przy $\theta=0$ naprężenie normalne wynosi $80\ \mathrm{MPa}$, a styczne $30\ \mathrm{MPa}$. Przy $\theta=45^\circ$ naprężenie normalne wynosi $70\ \mathrm{MPa}$. Mamy odtworzyć brakujące składowe stanu.
-
-Z pierwszego pomiaru od razu wynika $\sigma_x=80\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$. Dla $\theta=45^\circ$ wzór upraszcza się, bo $\cos90^\circ=0$ i $\sin90^\circ=1$: $\sigma_n=\sigma_{avg}+\tau_{xy}$. Podstawiamy $70=(80+\sigma_y)/2+30$, więc $(80+\sigma_y)/2=40$, czyli $\sigma_y=0$.
-
-Ten krok pokazuje, dlaczego pomiar pod kątem $45^\circ$ jest tak użyteczny. W tym kierunku naprężenie normalne zawiera bezpośrednio sumę średniej i stycznej, więc pozwala szybko rozdzielić wpływy. Gdybyśmy mieli tylko pomiar przy $\theta=0$, nie odróżnilibyśmy stanu z $\sigma_y=0$ od stanu z inną kombinacją $\sigma_y$ i $\tau_{xy}$, która daje tę samą wartość na ścianie $x$.
-
-Sprawdźmy pozostałe wartości. Dla $\theta=45^\circ$ mamy $\sigma_t=80+0-70=10\ \mathrm{MPa}$ oraz $\tau_{nt}=-(80-0)/2+0=-40\ \mathrm{MPa}$. Suma $70+10=80$ zgadza się z $\sigma_x+\sigma_y=80$, a znak stycznej wynika z przyjętego kierunku $t$. Odtworzony stan to $\sigma_x=80$, $\sigma_y=0$ i $\tau_{xy}=30\ \mathrm{MPa}$.
-
-Taki wariant zadania jest typowy w praktyce: mamy pomiary na dwóch kierunkach i chcemy poznać pełny stan. Wniosek nie może opierać się tylko na jednym odczycie, bo wiele różnych stanów może dawać tę samą wartość na jednej płaszczyźnie. Dopiero druga, niezależna informacja pozwala rozdzielić wkłady $\sigma_y$ i $\tau_{xy}$.
-
-Warto zauważyć, że z dwóch pomiarów odtworzyliśmy trzy niewiadome, bo jedna z nich, $\sigma_x$, była znana bezpośrednio z kąta $0$. W ogólnym przypadku potrzeba trzech niezależnych pomiarów, na przykład w rozecie tensometrycznej. To pokazuje, że transformacja działa w obie strony: z pełnego stanu daje składowe na dowolnym kierunku, a z odpowiednio dobranych kierunków pozwala odtworzyć stan.
+<AnimatedSolution id="ex-stress-state-rotation-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

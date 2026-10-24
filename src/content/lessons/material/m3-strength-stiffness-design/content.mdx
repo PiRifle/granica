@@ -112,84 +112,15 @@ Wyprowadzenie łączy dwa niezależne warunki i pokazuje, dlaczego wybieramy wi�
   zwiększenie $R_e$ poprawia wytrzymałość, ale nie zmniejsza wydłużenia.
 </Insight>
 
-<WorkedExample>
-  <Given>Stalowy pręt o długości $L=2{,}5\ \text{m}$ przenosi siłę $N=60\ \text{kN}$. Przyjmujemy $E=200\ \text{GPa}$, $\sigma_{\mathrm{dop}}=160\ \text{MPa}$ oraz $\Delta L_{\mathrm{dop}}=1{,}2\ \text{mm}$. Przekrój jest okrągły i stały.</Given>
-  <Steps>
-    <Step>Warunek wytrzymałości: $A_\sigma=N/\sigma_{\mathrm{dop}}=60\,000/160=375\ \text{mm}^2$.</Step>
-    <Step>Warunek sztywności: $A_\delta=NL/(E\Delta L_{\mathrm{dop}})=60\,000\cdot2500/(200\,000\cdot1{,}2)=625\ \text{mm}^2$.</Step>
-    <Step>Porównanie: $625\ \text{mm}^2$ jest większe od $375\ \text{mm}^2$, więc decyduje sztywność.</Step>
-    <Step>Wymagana średnica: $d_{\min}=\sqrt{4\cdot625/\pi}\approx28{,}2\ \text{mm}$.</Step>
-    <Step>Wybieramy $d=30\ \text{mm}$, czyli $A=\pi\cdot30^2/4\approx706{,}9\ \text{mm}^2$.</Step>
-    <Step>Rzeczywiste naprężenie: $\sigma=60\,000/706{,}9\approx84{,}9\ \text{MPa}\le160\ \text{MPa}$.</Step>
-    <Step>Rzeczywiste wydłużenie: $\Delta L=60\,000\cdot2500/(200\,000\cdot706{,}9)\approx1{,}06\ \text{mm}\le1{,}2\ \text{mm}$.</Step>
-    <Step>Kontrola: przy średnicy $28\ \text{mm}$ pole wynosi około $615{,}8\ \text{mm}^2$, więc wydłużenie przekroczyłoby $1{,}2\ \text{mm}$. Zaokrąglenie w górę było konieczne.</Step>
-  </Steps>
-  <Result>
-    Decyduje warunek sztywności. Minimalne pole wynosi $625\ \text{mm}^2$, a po zaokrągleniu do $30\ \text{mm}$ otrzymujemy naprężenie około $84{,}9\ \text{MPa}$ i wydłużenie około $1{,}06\ \text{mm}$. Oba warunki są spełnione.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m3-strength-stiffness-design" />
 
 ## Drugi przykład
 
-Wróćmy do pręta schodkowego z laboratorium: trzy odcinki po $400\ \text{mm}$, pola $A_1=200\ \text{mm}^2$, $A_2=350\ \text{mm}^2$, $A_3=500\ \text{mm}^2$, siły $P=18\ \text{kN}$ na końcu i $Q=10\ \text{kN}$ na pierwszym połączeniu. Reakcja utwierdzenia wynosi $P+Q=28\ \text{kN}$. Siły wewnętrzne są równe $N_1=28\ \text{kN}$ oraz $N_2=N_3=18\ \text{kN}$.
-
-Naprężenia wynoszą
-
-$$
-\sigma_1=\frac{28\,000}{200}=140\ \text{MPa},
-\qquad
-\sigma_2=\frac{18\,000}{350}\approx51{,}4\ \text{MPa},
-\qquad
-\sigma_3=\frac{18\,000}{500}=36\ \text{MPa}.
-$$
-
-Najbardziej wytężony jest pierwszy odcinek, mimo że nie jest najdłuższy. Decyduje jednocześnie duża siła i małe pole. Wydłużenie całkowite obliczamy jako sumę
-
-$$
-\Delta L=\frac{28\,000\cdot400}{200\,000\cdot200}
-+\frac{18\,000\cdot400}{200\,000\cdot350}
-+\frac{18\,000\cdot400}{200\,000\cdot500}
-\approx0{,}280+0{,}103+0{,}072=0{,}455\ \text{mm}.
-$$
-
-Załóżmy, że dopuszczalne naprężenie wynosi $120\ \text{MPa}$, a dopuszczalne wydłużenie $0{,}40\ \text{mm}$. Warunek wytrzymałości jest naruszony tylko na pierwszym odcinku, bo $140\ \text{MPa}$ przekracza $120\ \text{MPa}$. Wymagane pole pierwszego odcinka to co najmniej $28\,000/120\approx233{,}3\ \text{mm}^2$.
-
-Warunek sztywności jest naruszony globalnie, bo $0{,}455\ \text{mm}$ przekracza $0{,}40\ \text{mm}$. Można zwiększyć wszystkie pola proporcjonalnie albo tylko pierwszy odcinek. Sprawdźmy drugi wariant. Pierwszy składnik wydłużenia musi zmaleć z $0{,}280$ do około $0{,}225\ \text{mm}$, aby suma spadła do $0{,}40\ \text{mm}$. Nowe pole pierwszego odcinka wynosi
-
-$$
-A_1'=\frac{28\,000\cdot400}{200\,000\cdot0{,}225}\approx248{,}9\ \text{mm}^2.
-$$
-
-Po zaokrągleniu do $250\ \text{mm}^2$ otrzymujemy $\sigma_1=112\ \text{MPa}$ oraz wydłużenie około $0{,}400\ \text{mm}$. Jeden odcinek wystarczył, aby naprawić oba warunki, ponieważ był jednocześnie najbardziej wytężony i miał największy udział w wydłużeniu. W innym układzie te dwa kryteria mogą wskazywać różne odcinki.
+<AnimatedSolution id="ex-m3-strength-stiffness-design-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Rozważmy pręt o polu $A=500\ \text{mm}^2$, $E=200\ \text{GPa}$, $\sigma_{\mathrm{dop}}=150\ \text{MPa}$ i $\Delta L_{\mathrm{dop}}=2\ \text{mm}$. Tym razem szukamy maksymalnej siły, a długość jest zmienna. Z warunku wytrzymałości
-
-$$
-N_\sigma=\sigma_{\mathrm{dop}}A=150\cdot500=75\,000\ \text{N}=75\ \text{kN}.
-$$
-
-Z warunku sztywności
-
-$$
-N_\delta=\frac{EA\Delta L_{\mathrm{dop}}}{L}
-=\frac{200\,000\cdot500\cdot2}{L}
-=\frac{200\,000\,000}{L}\ \text{N},
-$$
-
-gdzie $L$ podstawiamy w milimetrach. Dla $L=3000\ \text{mm}$ otrzymujemy $N_\delta\approx66{,}7\ \text{kN}$, więc decyduje sztywność i maksymalna siła wynosi około $66{,}7\ \text{kN}$.
-
-Granicę między warunkami wyznacza długość krytyczna
-
-$$
-L^*=\frac{E\Delta L_{\mathrm{dop}}}{\sigma_{\mathrm{dop}}}
-=\frac{200\,000\cdot2}{150}\approx2667\ \text{mm}\approx2{,}67\ \text{m}.
-$$
-
-Dla pręta krótszego niż $2{,}67\ \text{m}$ większe jest $N_\sigma$, więc decyduje wytrzymałość. Dla pręta dłuższego decyduje sztywność. Na przykład przy $L=2\ \text{m}$ mamy $N_\delta=100\ \text{kN}$, więc maksimum wynosi $75\ \text{kN}$ z warunku wytrzymałości. Przy $L=4\ \text{m}$ mamy $N_\delta=50\ \text{kN}$, więc maksimum spada do $50\ \text{kN}$.
-
-Ten wynik wyjaśnia, dlaczego długie elementy często wymagają większego przekroju, niż wynikałoby to z samej wytrzymałości. Wydłużenie rośnie liniowo z długością, a naprężenie nie. Wystarczy wydłużyć pręt, aby warunek sztywności stał się decydujący, nawet przy niezmienionym obciążeniu i materiale.
+<AnimatedSolution id="ex-m3-strength-stiffness-design-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

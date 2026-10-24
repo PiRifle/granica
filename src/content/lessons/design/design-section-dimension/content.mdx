@@ -130,53 +130,17 @@ Warto zapamiętać samą logikę przekształcenia, a nie tylko gotowy wzór. Zac
   Wymagany wskaźnik $W$ rośnie liniowo z momentem, ale średnica koła rośnie dopiero z pierwiastkiem trzeciego stopnia z $W$. Podwojenie momentu wymaga więc średnicy większej o czynnik $\sqrt[3]{2}\approx 1{,}26$, czyli o około 26 procent, a nie o 100 procent. To często mylące, ale wynika wprost z $W\propto d^3$.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma rozpiętość $L=3\ \text{m}$ i jest obciążona siłą $P=12\ \text{kN}$ w środku. Naprężenie dopuszczalne przy zginaniu wynosi $k=140\ \text{MPa}$, a przekrój jest pełnym kołem. Przyjmij $E=200\ \text{GPa}$ i sprawdź ugięcie względem $L/250$.
-  </Given>
-  <Steps>
-    <Step>Maksymalny moment: $M_{\max}=PL/4=12\,000\cdot 3000/4=9\,000\,000\ \text{N}\cdot\text{mm}$.</Step>
-    <Step>Wymagany wskaźnik: $W_{\min}=M_{\max}/k=9\,000\,000/140=64\,285{,}7\ \text{mm}^3$.</Step>
-    <Step>Średnica minimalna: $d_{\min}=\sqrt[3]{32M_{\max}/(\pi k)}=\sqrt[3]{32\cdot 9\,000\,000/(\pi\cdot 140)}=\sqrt[3]{654\,795}\approx 86{,}8\ \text{mm}$.</Step>
-    <Step>Przyjmujemy $d=90\ \text{mm}$, ponieważ jest to najmniejsza dostępna średnica z krokiem 10 mm większa od wyniku.</Step>
-    <Step>Rzeczywisty wskaźnik: $W=\pi\cdot 90^3/32=71\,569\ \text{mm}^3$, więc $\sigma=9\,000\,000/71\,569\approx 125{,}8\ \text{MPa}$.</Step>
-    <Step>Kontrola wytrzymałości: $125{,}8\ \text{MPa}\le 140\ \text{MPa}$, zapas względem $k$ wynosi około $1{,}11$.</Step>
-    <Step>Moment bezwładności: $I=\pi\cdot 90^4/64\approx 3\,220\,000\ \text{mm}^4$.</Step>
-    <Step>Ugięcie: $f=PL^3/(48EI)=12\,000\cdot 3000^3/(48\cdot 200\,000\cdot 3\,220\,000)\approx 10{,}5\ \text{mm}$.</Step>
-    <Step>Wartość dopuszczalna: $L/250=3000/250=12\ \text{mm}$, więc warunek sztywności również jest spełniony.</Step>
-  </Steps>
-  <Result>
-    Wymagany wskaźnik wynosi około $64\,286\ \text{mm}^3$, a najmniejsza przyjęta średnica to $90\ \text{mm}$. Naprężenie $125{,}8\ \text{MPa}$ jest mniejsze od $140\ \text{MPa}$, a ugięcie $10{,}5\ \text{mm}$ nie przekracza $12\ \text{mm}$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-design-section-dimension" />
 
 W przykładzie widać typową sytuację: po zaokrągleniu średnicy do $90\ \text{mm}$ naprężenie spada z wartości granicznej do około $126\ \text{MPa}$. Rzeczywisty zapas względem naprężenia dopuszczalnego wynosi $140/125{,}8\approx 1{,}11$. To niewiele, ale wystarcza, ponieważ $140\ \text{MPa}$ jest już wartością dopuszczalną, a nie granicą materiału. Gdyby $140\ \text{MPa}$ było granicą plastyczności, zapas względem niej byłby właśnie taki.
 
 ## Drugi przykład
 
-Rozważmy belkę o tym samym schemacie, ale z przekrojem prostokątnym o proporcji $h=2b$. Dane: $L=2\ \text{m}$, $P=12\ \text{kN}$, $k=160\ \text{MPa}$. Moment maksymalny wynosi $M_{\max}=12\cdot 2/4=6\ \text{kN}\cdot\text{m}=6\,000\,000\ \text{N}\cdot\text{mm}$.
-
-Wymagany wskaźnik to $W_{\min}=6\,000\,000/160=37\,500\ \text{mm}^3$. Dla $h=2b$ mamy $W=bh^2/6=b\cdot 4b^2/6=2b^3/3$. Po przekształceniu $b^3\ge 3W_{\min}/2=56\,250$, więc $b\ge 38{,}3\ \text{mm}$.
-
-Przyjmujemy $b=40\ \text{mm}$ i $h=80\ \text{mm}$. Rzeczywisty wskaźnik wynosi $W=40\cdot 80^2/6=42\,667\ \text{mm}^3$, a naprężenie $\sigma=6\,000\,000/42\,667=140{,}6\ \text{MPa}$, czyli mniej niż $160\ \text{MPa}$.
-
-Warto porównać przekrój prostokątny z kołem o tym samym $W$. Dla koła $W=42\,667$ daje $d^3=32W/\pi\approx 434\,500$, czyli $d\approx 75{,}7\ \text{mm}$. Pole koła wynosi około $4500\ \text{mm}^2$, a pole prostokąta $3200\ \text{mm}^2$. Prostokąt jest więc lżejszy przy podobnej nośności, ponieważ materiał jest odsunięty dalej od osi obojętnej. To pierwsza ilustracja tego, że kształt przekroju ma znaczenie.
+<AnimatedSolution id="ex-design-section-dimension-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy wymiar i pytamy o dopuszczalne obciążenie. Belka swobodnie podparta ma $L=2{,}5\ \text{m}$ i przekrój kołowy o $d=60\ \text{mm}$. Naprężenie dopuszczalne wynosi $k=150\ \text{MPa}$. Jaka jest największa siła $P$ w środku rozpiętości?
-
-Najpierw wskaźnik: $W=\pi\cdot 60^3/32=\pi\cdot 216\,000/32\approx 21\,206\ \text{mm}^3$. Dopuszczalny moment wynosi $M_{\max}=kW=150\cdot 21\,206=3\,180\,900\ \text{N}\cdot\text{mm}\approx 3{,}18\ \text{kN}\cdot\text{m}$.
-
-Z zależności $M_{\max}=PL/4$ otrzymujemy $P=4M_{\max}/L=4\cdot 3{,}18/2{,}5\approx 5{,}09\ \text{kN}$. To obciążenie wyczerpuje naprężenie dopuszczalne, więc w projekcie trzeba by je zmniejszyć o przyjęty zapas lub zwiększyć średnicę.
-
-Wariant odwrotny jest dobrym testem zrozumienia, ponieważ wymaga przejścia w obie strony: od geometrii do wskaźnika, od wskaźnika do momentu i od momentu do siły. Każdy z tych kroków ma inną jednostkę, co sprzyja błędom, jeśli nie zapisujemy jednostek na bieżąco.
-
-Warto przy tym zauważyć, że wynik $P\approx 5{,}09\ \text{kN}$ jest obciążeniem granicznym dla przyjętego $k$. W projekcie nie przyjmujemy go bez zapasu; albo zmniejszamy siłę, albo zwiększamy przekrój, albo obniżamy $k$ przez większy współczynnik bezpieczeństwa.
-
-Jeśli zadanie podaje wymagany współczynnik bezpieczeństwa $n$, zamiast $k$ używamy $k=R_e/n$. Wtedy dopuszczalny moment maleje proporcjonalnie do $1/n$, a dopuszczalna siła również. Warto od razu zapisać, czy $k$ jest już naprężeniem dopuszczalnym, czy dopiero granicą materiału. To rozróżnienie jest częstym źródłem nieporozumień.
-
-Większość błędów w tym zadaniu wynika z jednostek, potęgi przy średnicy albo pominięcia kontroli sztywności. Poniższa lista porządkuje najczęstsze pułapki.
+<AnimatedSolution id="ex-design-section-dimension-3" />
 
 <Callout kind="warning" title="Typowe błędy">
   1. **Brak zamiany $\text{kN}\cdot\text{m}$ na $\text{N}\cdot\text{mm}$.** Moment $9\ \text{kN}\cdot\text{m}$ to $9\,000\,000\ \text{N}\cdot\text{mm}$, a nie $9000$. Błąd daje wskaźnik tysiąc razy za mały.

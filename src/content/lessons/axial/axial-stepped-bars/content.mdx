@@ -96,59 +96,15 @@ $$
   trzeba sprawdzić wszystkie odcinki. Odcinek z mniejszą siłą, ale znacznie mniejszym polem, może być bardziej wytężony.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Trzy szeregowo połączone odcinki przenoszą rozciągającą N = 60 kN. Ich pola wynoszą A₁ = 300 mm², A₂ = 150 mm² i A₃
-    = 250 mm². Naprężenie dopuszczalne materiału wynosi 160 MPa.
-  </Given>
-  <Steps>
-    <Step>Ponieważ nie ma obciążeń pośrednich, N₁ = N₂ = N₃ = +60 000 N.</Step>
-    <Step>Dla pierwszego odcinka: σ₁ = 60 000/300 = 200 MPa.</Step>
-    <Step>Dla drugiego odcinka: σ₂ = 60 000/150 = 400 MPa.</Step>
-    <Step>Dla trzeciego odcinka: σ₃ = 60 000/250 = 240 MPa.</Step>
-    <Step>Porównaj wartości bezwzględne: 400 MPa jest największe, więc decyduje odcinek drugi.</Step>
-    <Step>
-      Sprawdź warunek wytrzymałości: wszystkie naprężenia przekraczają 160 MPa, więc żaden odcinek nie spełnia
-      wymagania.
-    </Step>
-    <Step>
-      Wyznacz minimalne pola: 375, 375 i 375 mm². Dla stałej N i wspólnego σdop każde pole musi wynosić co najmniej 375
-      mm².
-    </Step>
-  </Steps>
-  <Result>
-    σ₁ = 200 MPa, σ₂ = 400 MPa, σ₃ = 240 MPa. Przekrój krytyczny to odcinek drugi, a przy σdop = 160 MPa każde pole musi
-    wynosić co najmniej 375 mm².
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-axial-stepped-bars" />
 
 ## Drugi przykład
 
-Tym razem siła osiowa zmienia się na długości. Pręt jest utwierdzony lewym końcem. Odcinek pierwszy, przy utwierdzeniu, ma pole $A_1=500\ \text{mm}^2$, a odcinek drugi, przy swobodnym końcu, ma pole $A_2=150\ \text{mm}^2$. Na prawym końcu działa siła $P=30\ \text{kN}$ w prawo, a na połączeniu odcinków siła $Q=20\ \text{kN}$ w prawo.
-
-Zaczynamy od prawego końca. W drugim odcinku działa tylko siła $P$, więc $N_2=+30\ \text{kN}$. W pierwszym odcinku dochodzi siła $Q$, więc $N_1=30+20=+50\ \text{kN}$. Reakcja utwierdzenia wynosi $50\ \text{kN}$ w lewo i potwierdza wynik.
-
-Naprężenia wynoszą $\sigma_1=50\,000/500=100\ \text{MPa}$ oraz $\sigma_2=30\,000/150=200\ \text{MPa}$. Mimo że pierwszy odcinek przenosi większą siłę, to drugi jest bardziej wytężony, ponieważ ma ponad trzy razy mniejsze pole. Przekrojem krytycznym jest więc odcinek drugi.
-
-Przy $\sigma_{\mathrm{dop}}=160\ \text{MPa}$ pierwszy odcinek spełnia warunek, a drugi nie. Minimalne pole drugiego odcinka wynosi $30\,000/160=187{,}5\ \text{mm}^2$. Zwiększanie pola pierwszego odcinka nie pomoże, dopóki drugi pozostaje zbyt cienki. To praktyczna ilustracja zasady najsłabszego ogniwa.
+<AnimatedSolution id="ex-axial-stepped-bars-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Znamy siły osiowe i naprężenie dopuszczalne, a szukamy średnic odcinków. Pręt ma trzy odcinki o siłach $N_1=+45\ \text{kN}$, $N_2=+30\ \text{kN}$ i $N_3=-20\ \text{kN}$. Naprężenie dopuszczalne wynosi $\sigma_{\mathrm{dop}}=150\ \text{MPa}$, a przekroje mają być kołowe.
-
-Minimalne pola wyznaczamy z warunku wytrzymałości: $A_1\ge45\,000/150=300\ \text{mm}^2$, $A_2\ge30\,000/150=200\ \text{mm}^2$ oraz $A_3\ge20\,000/150=133{,}3\ \text{mm}^2$. Dla przekroju kołowego średnica wynosi $d=\sqrt{4A/\pi}$.
-
-<Formula>
-$$
-A_{i,\min}=\frac{|N_i|}{\sigma_{\mathrm{dop}}},\qquad d_i=\sqrt{\frac{4A_{i,\min}}{\pi}}
-$$
-
-<Caption>Dla każdego odcinka osobno wyznaczamy minimalne pole, a następnie średnicę. Przyjęta średnica musi być nie mniejsza od obliczonej i powinna odpowiadać wymiarowi normalizowanemu.</Caption>
-</Formula>
-
-Otrzymujemy kolejno około $19{,}5$, $16{,}0$ i $13{,}0\ \text{mm}$. Przyjmujemy wymiary normalizowane: $20$, $16$ i $14\ \text{mm}$. Pola wynoszą wtedy około $314{,}2$, $201{,}1$ i $153{,}9\ \text{mm}^2$, a naprężenia około $143{,}3$, $149{,}2$ i $129{,}9\ \text{MPa}$. Wszystkie mieszczą się poniżej $150\ \text{MPa}$.
-
-Odcinek trzeci jest ściskany. Sam warunek naprężenia nie wystarcza, jeśli odcinek jest długi i smukły. Trzeba sprawdzić, czy siła $20\ \text{kN}$ nie spowoduje wyboczenia przy założonej długości i sposobie zamocowania. Dopiero po tej kontroli dobór średnic można uznać za kompletny.
+<AnimatedSolution id="ex-axial-stepped-bars-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

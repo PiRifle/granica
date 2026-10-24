@@ -156,88 +156,15 @@ Każde całkowanie podnosi stopień wielomianu o jeden.
   znak, a nie tam, gdzie $T$ ma największą wartość bezwzględną.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma rozpiętość $L = 5$ m. Na całej długości działa obciążenie
-    równomierne $q = 8$ kN/m. Przyjmij, że ciężar własny jest już wliczony w $q$.
-  </Given>
-  <Steps>
-    <Step>Reakcje z symetrii: $R_A = R_B = qL/2 = 8 \cdot 5 / 2 = 20$ kN.</Step>
-    <Step>Siła tnąca: $T(x) = R_A - qx = 20 - 8x$ kN.</Step>
-    <Step>Miejsce zerowe: $20 - 8x = 0$ daje $x = 2{,}5$ m.</Step>
-    <Step>Moment: $M(x) = R_A x - qx^2/2 = 20x - 4x^2$ kN·m.</Step>
-    <Step>Maksimum: $M(2{,}5) = 50 - 25 = 25$ kN·m.</Step>
-    <Step>Kontrola wzorem: $qL^2/8 = 8 \cdot 25 / 8 = 25$ kN·m.</Step>
-    <Step>Kontrola jednostek: $q = 8$ kN/m $= 8$ N/mm, $L = 5000$ mm, $R_A = 20\,000$ N,
-      a moment w N·mm wynosi $20\,000 \cdot 2500 - 8 \cdot 2500^2/2 = 25\,000\,000$ N·mm,
-      czyli 25 kN·m.</Step>
-  </Steps>
-  <Result>
-    $T$ maleje liniowo od $+20$ kN do $-20$ kN i znika w połowie rozpiętości. Moment jest
-    paraboliczny, a jego maksimum wynosi $25$ kN·m w środku belki.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-bending-q-t-m" />
 
 ## Drugi przykład
 
-Rozważmy belkę swobodnie podpartą o $L = 6$ m, obciążoną równomiernie $q = 3$ kN/m oraz siłą
-skupioną $P = 12$ kN w połowie rozpiętości. Obciążenie jest symetryczne, więc reakcje są równe:
-$R_A = R_B = (qL + P)/2 = (18 + 12)/2 = 15$ kN.
-
-Na lewym odcinku, od $x = 0$ do $x = 3$ m, siła tnąca wynosi
-
-$$
-T(x) = 15 - 3x\ \text{kN}.
-$$
-
-Tuż przed siłą $T(3) = 15 - 9 = +6$ kN. Pod siłą następuje skok w dół o 12 kN, więc tuż za nią
-$T = -6$ kN. Na prawym odcinku $T(x) = 3 - 3x$ kN, co daje $-6$ kN przy $x = 3$ i $-15$ kN przy
-$x = 6$. Reakcja $R_B$ domyka wykres do zera.
-
-Siła tnąca nie przechodzi przez zero w sposób ciągły, ale pod siłą przeskakuje z wartości
-dodatniej na ujemną. To wystarcza, żeby moment osiągnął maksimum właśnie tam. Moment w środku
-obliczamy z lewej części:
-
-$$
-M(3) = 15 \cdot 3 - \frac{3 \cdot 3^2}{2} = 45 - 13{,}5 = 31{,}5\ \text{kN·m}.
-$$
-
-Wykres momentu jest paraboliczny na obu odcinkach, ale w środku ma charakterystyczne załamanie
-stycznej, ponieważ siła tnąca zmienia się skokowo. To przykład, w którym załamanie wykresu $M$
-nie oznacza błędu: pochodna $M$ jest nieciągła, bo $T$ jest nieciągła.
+<AnimatedSolution id="ex-bending-q-t-m-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy funkcję momentu i odtwarzamy obciążenie. Dla belki swobodnie podpartej o $L = 6$ m
-moment opisuje wzór
-
-$$
-M(x) = 12x - 2x^2\ \text{kN·m}, \qquad 0 \le x \le 6\ \text{m}.
-$$
-
-Jaka jest siła tnąca, obciążenie i reakcje? Różniczkujemy moment:
-
-$$
-T(x) = \frac{dM}{dx} = 12 - 4x\ \text{kN}.
-$$
-
-Następnie różniczkujemy siłę tnącą:
-
-$$
-q(x) = -\frac{dT}{dx} = 4\ \text{kN/m}.
-$$
-
-Obciążenie jest więc stałe i działa w dół. Reakcje odczytujemy z końców wykresu $T$:
-$R_A = T(0) = 12$ kN, a $R_B = -T(6) = 12$ kN. Suma reakcji wynosi 24 kN, czyli tyle, ile
-wypadkowa obciążenia $qL = 4 \cdot 6 = 24$ kN. Maksimum momentu wypada tam, gdzie $T = 0$,
-czyli w $x = 3$ m:
-
-$$
-M_{\max} = M(3) = 36 - 18 = 18\ \text{kN·m}.
-$$
-
-Kontrola wzorem $qL^2/8 = 4 \cdot 36 / 8 = 18$ kN·m potwierdza wynik. Ten wariant pokazuje,
-że cała informacja o obciążeniu jest zawarta w drugiej pochodnej momentu.
+<AnimatedSolution id="ex-bending-q-t-m-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

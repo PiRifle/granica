@@ -167,85 +167,15 @@ w najbardziej oddalonym włóknie.
   $M = 0$ jest najczęstszym błędem w tym temacie.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta o rozpiętości $L = 4$ m jest obciążona w układzie czteropunktowym:
-    dwie siły $P = 12$ kN działają w odległości $a = 1$ m od każdej podpory. Przekrój jest
-    prostokątny, $b = 60$ mm i $h = 120$ mm, a materiał ma $E = 200$ GPa.
-  </Given>
-  <Steps>
-    <Step>Z symetrii reakcje wynoszą $R_A = R_B = P = 12$ kN.</Step>
-    <Step>Na odcinku między siłami, od $x = 1$ m do $x = 3$ m, moment jest stały:
-      $M = P a = 12 \cdot 1 = 12$ kN·m. Siła tnąca na tym odcinku jest równa zeru.</Step>
-    <Step>Moment bezwładności przekroju: $I = b h^3/12 = 60 \cdot 120^3/12 = 8{,}64 \cdot 10^6$ mm⁴.</Step>
-    <Step>Odległość skrajnego włókna: $c = h/2 = 60$ mm, więc $W = I/c = 144{,}000$ mm³.</Step>
-    <Step>Zamień moment na N·mm: $M = 12 \cdot 10^6$ N·mm. Wtedy
-      $\sigma_{\max} = M/W = 12 \cdot 10^6/144{,}000 = 83{,}3$ MPa.</Step>
-    <Step>Krzywizna: $\kappa = M/(EI) = 12 \cdot 10^6/(200{,}000 \cdot 8{,}64 \cdot 10^6)
-      = 6{,}94 \cdot 10^{-6}$ 1/mm, czyli $6{,}94 \cdot 10^{-3}$ 1/m.</Step>
-    <Step>Promień krzywizny: $\rho = 1/\kappa \approx 144$ m. Odkształcenie skrajnego włókna:
-      $\varepsilon = \sigma/E = 83{,}3/200{,}000 = 4{,}17 \cdot 10^{-4}$.</Step>
-    <Step>Kontrola: podwojenie siły $P$ podwoi moment i naprężenie, ale nie zmieni położenia
-      osi obojętnej ani znaku naprężeń.</Step>
-  </Steps>
-  <Result>
-    Między siłami panuje czyste zginanie: $M = 12$ kN·m i $T = 0$. Naprężenia skrajne wynoszą
-    $\pm 83{,}3$ MPa, a oś belki zakrzywia się w łuk o promieniu około 144 m. Górne włókna są
-    ściskane, dolne rozciągane.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-bending-pure" />
 
 ## Drugi przykład
 
-Rozważmy belkę swobodnie podpartą, obciążoną na obu końcach parami momentów o wartości
-$M = 8$ kN·m. Taki układ daje czyste zginanie na całej długości, ponieważ na belkę nie działają
-siły poprzeczne. Reakcje pionowe są zerowe, a moment jest stały.
-
-Przekrój jest prostokątny, $b = 50$ mm i $h = 100$ mm, a materiał ma $E = 210$ GPa. Moment
-bezwładności względem osi poziomej wynosi
-
-$$
-I = \frac{50 \cdot 100^3}{12} = 4{,}167 \cdot 10^6\ \text{mm}^4.
-$$
-
-Wskaźnik wytrzymałości to $W = I/c = 4{,}167 \cdot 10^6/50 = 83{,}333$ mm³, więc naprężenie
-skrajne wynosi $\sigma_{\max} = 8 \cdot 10^6/83{,}333 = 96$ MPa. Krzywizna jest równa
-
-$$
-\kappa = \frac{8 \cdot 10^6}{210{,}000 \cdot 4{,}167 \cdot 10^6}
-= 9{,}14 \cdot 10^{-6}\ \text{1/mm},
-$$
-
-czyli promień krzywizny $\rho \approx 109$ m. Odkształcenie skrajne $\varepsilon = 96/210{,}000
-= 4{,}57 \cdot 10^{-4}$ jest znacznie mniejsze od typowego odkształcenia przy granicy
-sprężystości stali, więc model liniowy jest uzasadniony.
-
-Po obrocie przekroju o 90 stopni, czyli przy $b = 100$ mm i $h = 50$ mm, moment bezwładności
-maleje czterokrotnie, a wskaźnik $W$ dwukrotnie. Naprężenie rośnie wtedy do 192 MPa, a promień
-krzywizny maleje do około 27 m. Ten sam moment i materiał dają inną odpowiedź, bo decyduje
-ustawienie przekroju względem płaszczyzny zginania.
+<AnimatedSolution id="ex-bending-pure-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy dopuszczalne naprężenie i przekrój, a szukamy największego momentu, jaki można
-bezpiecznie przyłożyć. Prostokąt ma $b = 40$ mm i $h = 80$ mm, materiał ma $E = 200$ GPa,
-a naprężenie dopuszczalne wynosi $\sigma_{dop} = 160$ MPa. Wtedy
-
-$$
-W = \frac{b h^2}{6} = \frac{40 \cdot 80^2}{6} = 42{,}667\ \text{mm}^3, \qquad
-M_{\max} = \sigma_{dop} W = 160 \cdot 42{,}667 = 6{,}83 \cdot 10^6\ \text{N·mm}.
-$$
-
-Maksymalny moment wynosi więc około $6{,}83$ kN·m. Jeżeli chcemy zrealizować go w układzie
-czteropunktowym z siłą $P = 10$ kN, ramię musi wynosić $a = M/P = 0{,}683$ m. Przy rozpiętości
-$L = 3$ m odcinek czystego zginania ma długość $L - 2a = 1{,}63$ m, więc rozwiązanie jest
-geometrycznie możliwe.
-
-Kontrola stanu granicznego: $I = 40 \cdot 80^3/12 = 1{,}707 \cdot 10^6$ mm⁴, więc
-$\kappa = 6{,}83 \cdot 10^6/(200{,}000 \cdot 1{,}707 \cdot 10^6) = 2{,}0 \cdot 10^{-5}$
-1/mm. Promień krzywizny to około 50 m, a odkształcenie skrajne $\varepsilon = 160/200{,}000
-= 8 \cdot 10^{-4}$. Naprężenie, odkształcenie i krzywizna są spójne i mieszczą się w zakresie
-sprężystym stali.
+<AnimatedSolution id="ex-bending-pure-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

@@ -114,46 +114,15 @@ W przypadku łącznika o przekroju kołowym i jednej płaszczyźnie ścinania mo
   przyjąć.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Sworzeń o średnicy $d = 20\ \text{mm}$ pracuje w połączeniu jednociętym i przenosi siłę $F = 30\ \text{kN}$. Oblicz średnie naprężenie styczne i sprawdź wynik.
-  </Given>
-  <Steps>
-    <Step>Pole przekroju sworznia: $A = \pi d^2/4 = \pi \cdot 20^2/4 = 314{,}16\ \text{mm}^2$.</Step>
-    <Step>Zamień siłę na niutony: $F = 30\ \text{kN} = 30\,000\ \text{N}$.</Step>
-    <Step>Podstaw do wzoru: $\tau_{sr} = 30\,000/314{,}16 = 95{,}49\ \text{N/mm}^2$.</Step>
-    <Step>Sprawdź rząd wielkości: wynik około 95 MPa jest typowy dla stali konstrukcyjnej i znacznie poniżej granicy plastyczności.</Step>
-  </Steps>
-  <Result>
-    $\tau_{sr} \approx 95{,}5\ \text{MPa}$. Wartość jest średnia po przekroju; w rzeczywistym sworzniu naprężenie może być lokalnie większe, szczególnie przy krawędzi blachy.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-shear-technical" />
 
 ## Drugi przykład
 
-Rozważmy złącze klejowe, w którym dwie deski są połączone zakładkowo. Siła rozciągająca wynosi $F = 18\ \text{kN}$, a spoina ma długość $l = 150\ \text{mm}$ i szerokość $b = 50\ \text{mm}$. Pole ścinane to cała powierzchnia spoiny, czyli $A_s = l \cdot b = 150 \cdot 50 = 7500\ \text{mm}^2$.
-
-Siła w niutonach wynosi $18\,000\ \text{N}$, więc średnie naprężenie styczne to $\tau_{sr} = 18\,000/7500 = 2{,}4\ \text{MPa}$. Taki wynik jest typowy dla kleju konstrukcyjnego i pokazuje, że połączenie klejowe przenosi dużą siłę dzięki temu, że rozkłada ją na znaczną powierzchnię.
-
-Zwróć uwagę, że grubość deski nie wchodzi do pola ścinanego. Grubość wpływa na wytrzymałość deski na rozciąganie i na docisk, ale samo ścinanie kleju odbywa się w płaszczyźnie spoiny. To częsty błąd: uczniowie mnożą długość przez grubość deski, a nie przez szerokość spoiny.
-
-Wynik 2,4 MPa należy porównać z wytrzymałością kleju na ścinanie, a nie z granicą plastyczności stali. Dla klejów konstrukcyjnych wartości dopuszczalne często mieszczą się w zakresie kilku megapaskali, więc otrzymany wynik jest wiarygodny. Ostateczna ocena wymaga jednak uwzględnienia przygotowania powierzchni, temperatury i starzenia się kleju.
-
-W rzeczywistym złączu zakładkowym obciążenie jest mimośrodowe. Linie działania sił w obu deskach nie pokrywają się, więc powstaje dodatkowy moment zginający. Powoduje on odrywanie końców spoiny, co jest szczególnie groźne dla klejów o małej wytrzymałości na rozciąganie. Model czystego ścinania tego nie pokazuje, dlatego w konstrukcjach klejowych stosuje się zakładki i dodatkowe dociski.
-
-Podobny efekt występuje w połączeniu nitowym z jedną nakładką. Sworzeń jest zginany, a nacisk na blachę nierównomierny. Im grubsza blacha i im większy mimośród, tym większe dodatkowe naprężenia. Ścinanie techniczne pozostaje pierwszym oszacowaniem, ale nie opisuje całego zjawiska.
+<AnimatedSolution id="ex-shear-technical-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że znamy dopuszczalne naprężenie styczne i chcemy dobrać średnicę sworznia. Połączenie jest jednocięte, siła wynosi $F = 50\ \text{kN}$, a naprężenie dopuszczalne przyjęto $\tau_{dop} = 80\ \text{MPa}$. Szukamy najmniejszej średnicy, dla której warunek $\tau_{sr} \le \tau_{dop}$ jest spełniony.
-
-Najpierw wyznaczamy wymagane pole ścinane: $A_s \ge F/\tau_{dop} = 50\,000/80 = 625\ \text{mm}^2$. Dla jednej płaszczyzny ścinania $A_s = \pi d^2/4$, więc $d \ge \sqrt{4A_s/\pi} = \sqrt{4 \cdot 625/\pi} = \sqrt{795{,}77} = 28{,}2\ \text{mm}$.
-
-Najmniejsza średnica z warunku wytrzymałości to około 28,2 mm. W praktyce wybieramy najbliższy dostępny wymiar większy od tej wartości, na przykład 30 mm. Sprawdzamy: $A = \pi \cdot 30^2/4 = 706{,}86\ \text{mm}^2$, a $\tau_{sr} = 50\,000/706{,}86 = 70{,}7\ \text{MPa}$, czyli mniej niż 80 MPa.
-
-Ten przykład pokazuje typową kolejność pracy projektowej. Najpierw przekształcasz wzór, potem zaokrąglasz wynik w górę do wymiaru handlowego, a na końcu wracasz do wzoru i sprawdzasz, czy zaokrąglenie nie zepsuło warunku. Nigdy nie zostawiaj wyniku bez tej końcowej kontroli.
-
-Zwróć uwagę, że zaokrąglenie średnicy w górę jest bezpieczne, ale nie zawsze wystarcza. Przy średnicy 30 mm naprężenie spadło do 70,7 MPa, jednak nadal trzeba sprawdzić docisk blachy i wytrzymałość przekroju netto. Sam sworzeń może być mocny, a blacha wokół otworu zbyt cienka. Projektowanie połączenia to zawsze sprawdzenie całego układu, nie tylko jednego elementu.
+<AnimatedSolution id="ex-shear-technical-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

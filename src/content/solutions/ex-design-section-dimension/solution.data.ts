@@ -1,0 +1,156 @@
+import type { SolutionData } from '../../model'
+
+export default {
+  id: 'ex-design-section-dimension',
+  title: 'Dobór wymiaru z warunku wytrzymałości — przykład 1',
+  duration: 7,
+  given: ['L=3 m', 'P=12 kN', 'k=140 MPa', 'E=200 GPa'],
+  result:
+    'Wymagany wskaźnik wynosi około 64 286 mm^3, a najmniejsza przyjęta średnica to 90 mm. Naprężenie 125,8 MPa jest mniejsze od 140 MPa, a ugięcie 10,5 mm nie przekracza 12 mm.',
+  figure: {
+    kind: 'beam',
+    length: 3,
+    supports: [
+      { at: 0, label: 'A' },
+      { at: 3, label: 'B' },
+    ],
+    pointLoads: [{ at: 1.5, value: 12, label: 'P = 12 kN' }],
+    shear: [
+      [
+        [0, 6],
+        [1.5, 6],
+      ],
+      [
+        [1.5, -6],
+        [3, -6],
+      ],
+    ],
+    moment: [
+      [
+        [0, 0],
+        [1.5, 9],
+      ],
+      [
+        [1.5, 9],
+        [3, 0],
+      ],
+    ],
+    markers: [
+      { x: 1.5, y: 6, text: 'T = 6 kN', diagram: 'shear' },
+      { x: 1.5, y: -6, text: 'T = -6 kN', diagram: 'shear' },
+      { x: 1.5, y: 9, text: 'M = 9 kN·m', diagram: 'moment' },
+    ],
+    values: [
+      { label: 'L', value: '3,0 m', focus: 'load', reveal: 0 },
+      { label: 'P', value: '12,0 kN', focus: 'load', reveal: 0 },
+      { label: 'k', value: '140 MPa', focus: 'stress', reveal: 0 },
+      { label: 'E', value: '200 GPa', focus: 'design', reveal: 0 },
+      { label: 'R_A', value: '6,0 kN', focus: 'reaction' },
+      { label: 'R_B', value: '6,0 kN', focus: 'reaction' },
+      { label: 'T', value: '6,0 kN', focus: 'T' },
+      { label: 'M_max', value: '9,0 kN·m', focus: 'M' },
+      { label: 'W_min', value: '64 286 mm³', focus: 'design' },
+      { label: 'd_min', value: '86,8 mm', focus: 'design' },
+      { label: 'd', value: '90 mm', focus: 'design' },
+      { label: 'W', value: '71 569 mm³', focus: 'design' },
+      { label: 'σ_max', value: '125,8 MPa', focus: 'stress' },
+      { label: 'I', value: '3 220 000 mm⁴', focus: 'design' },
+      { label: 'f', value: '10,5 mm', focus: 'design' },
+      { label: 'f_dop', value: '12,0 mm', focus: 'design' },
+    ],
+    note: 'Decyduje wytrzymałość: d = 90 mm, a ugięcie 10,5 mm pozostaje poniżej 12 mm.',
+  },
+  scenes: [
+    {
+      title: 'Reakcje',
+      narration: 'Przy symetrycznym obciążeniu reakcje wynoszą R_A = R_B = P/2 = 12/2 = 6 kN.',
+      caption: 'Przy symetrycznym obciążeniu reakcje wynoszą R_A = R_B = P/2 = 12/2 = 6 kN.',
+      visual: 'beam',
+      focus: { metric: 'reaction' },
+      formula: 'R_A = R_B = P/2 = 12/2 = 6\\ \\text{kN}',
+    },
+    {
+      title: 'Siła tnąca',
+      narration: 'Siła tnąca wynosi T = R_A = 6 kN po lewej stronie siły i T = -R_B = -6 kN po prawej.',
+      caption: 'Siła tnąca wynosi T = R_A = 6 kN po lewej stronie siły i T = -R_B = -6 kN po prawej.',
+      visual: 'beam',
+      focus: { metric: 'T' },
+      formula: 'T = R_A = 6\\ \\text{kN}',
+    },
+    {
+      title: 'Krok 1',
+      narration: 'Maksymalny moment: M_max=PL/4=12 000· 3000/4=9 000 000 N·mm.',
+      caption: 'Maksymalny moment: M_max=PL/4=12 000· 3000/4=9 000 000 N·mm.',
+      visual: 'beam',
+      focus: { metric: 'M' },
+      formula: 'M_{\\max}=PL/4=12\\,000\\cdot 3000/4=9\\,000\\,000\\ \\text{N}\\cdot\\text{mm}',
+    },
+    {
+      title: 'Krok 2',
+      narration: 'Wymagany wskaźnik: W_min=M_max/k=9 000 000/140=64 285,7 mm^3.',
+      caption: 'Wymagany wskaźnik: W_min=M_max/k=9 000 000/140=64 285,7 mm^3.',
+      visual: 'beam',
+      focus: { metric: 'design' },
+      formula: 'W_{\\min}=M_{\\max}/k=9\\,000\\,000/140=64\\,285{,}7\\ \\text{mm}^3',
+    },
+    {
+      title: 'Krok 3',
+      narration: 'Średnica minimalna: d_min=∛(32M_max/(π k))=∛(32· 9 000 000/(π· 140))=∛(654 795)≈ 86,8 mm.',
+      caption: 'Średnica minimalna: d_min=∛(32M_max/(π k))=∛(32· 9 000 000/(π· 140))=∛(654 795)≈ 86,8 mm.',
+      visual: 'beam',
+      focus: { metric: 'design' },
+      formula:
+        'd_{\\min}=\\sqrt[3]{32M_{\\max}/(\\pi k)}=\\sqrt[3]{32\\cdot 9\\,000\\,000/(\\pi\\cdot 140)}=\\sqrt[3]{654\\,795}\\approx 86{,}8\\ \\text{mm}',
+    },
+    {
+      title: 'Krok 4',
+      narration:
+        'Przyjmujemy d=90 mm, ponieważ jest to najmniejsza dostępna średnica z krokiem 10 mm większa od wyniku.',
+      caption: 'Przyjmujemy d=90 mm, ponieważ jest to najmniejsza dostępna średnica z krokiem 10 mm większa od wyniku.',
+      visual: 'beam',
+      focus: { metric: 'design' },
+      formula: 'd=90\\ \\text{mm}',
+    },
+    {
+      title: 'Krok 5',
+      narration: 'Rzeczywisty wskaźnik: W=π· 90^3/32=71 569 mm^3, więc σ=9 000 000/71 569≈ 125,8 MPa.',
+      caption: 'Rzeczywisty wskaźnik: W=π· 90^3/32=71 569 mm^3, więc σ=9 000 000/71 569≈ 125,8 MPa.',
+      visual: 'beam',
+      focus: { metric: 'stress' },
+      formula: 'W=\\pi\\cdot 90^3/32=71\\,569\\ \\text{mm}^3',
+    },
+    {
+      title: 'Krok 6',
+      narration: 'Kontrola wytrzymałości: 125,8 MPa≤ 140 MPa, zapas względem k wynosi około 1,11.',
+      caption: 'Kontrola wytrzymałości: 125,8 MPa≤ 140 MPa, zapas względem k wynosi około 1,11.',
+      visual: 'beam',
+      focus: { metric: 'stress' },
+      formula: '125{,}8\\ \\text{MPa}\\le 140\\ \\text{MPa}',
+    },
+    {
+      title: 'Krok 7',
+      narration: 'Moment bezwładności: I=π· 90^4/64≈ 3 220 000 mm^4.',
+      caption: 'Moment bezwładności: I=π· 90^4/64≈ 3 220 000 mm^4.',
+      visual: 'beam',
+      focus: { metric: 'design' },
+      formula: 'I=\\pi\\cdot 90^4/64\\approx 3\\,220\\,000\\ \\text{mm}^4',
+    },
+    {
+      title: 'Krok 8',
+      narration: 'Ugięcie: f=PL^3/(48EI)=12 000· 3000^3/(48· 200 000· 3 220 000)≈ 10,5 mm.',
+      caption: 'Ugięcie: f=PL^3/(48EI)=12 000· 3000^3/(48· 200 000· 3 220 000)≈ 10,5 mm.',
+      visual: 'beam',
+      focus: { metric: 'design' },
+      formula:
+        'f=PL^3/(48EI)=12\\,000\\cdot 3000^3/(48\\cdot 200\\,000\\cdot 3\\,220\\,000)\\approx 10{,}5\\ \\text{mm}',
+    },
+    {
+      title: 'Krok 9',
+      narration: 'Wartość dopuszczalna: L/250=3000/250=12 mm, więc warunek sztywności również jest spełniony.',
+      caption: 'Wartość dopuszczalna: L/250=3000/250=12 mm, więc warunek sztywności również jest spełniony.',
+      visual: 'beam',
+      focus: { metric: 'design' },
+      formula: 'L/250=3000/250=12\\ \\text{mm}',
+    },
+  ],
+} satisfies SolutionData

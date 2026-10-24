@@ -121,62 +121,22 @@ W zadaniu odwrotnym, gdy szukamy dopuszczalnego obciążenia, wyznaczamy je z ka
   pomylenia długości i pola przy sumowaniu wydłużeń.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pręt schodkowy jest utwierdzony na lewym końcu. Ma trzy odcinki o długości $L=400\ \text{mm}$ każdy i polach $A_1=200$, $A_2=350$, $A_3=500\ \text{mm}^2$. Na pierwszym połączeniu działa siła $Q=10\ \text{kN}$, a na swobodnym końcu $P=18\ \text{kN}$, obie w kierunku osi. Przyjmij $E=200\ \text{GPa}$, $k=160\ \text{MPa}$ i $\Delta L_{\mathrm{dop}}=0{,}6\ \text{mm}$.
-  </Given>
-  <Steps>
-    <Step>Reakcja utwierdzenia: $R=P+Q=18+10=28\ \text{kN}$.</Step>
-    <Step>Siły normalne: $N_1=28\ \text{kN}$, $N_2=18\ \text{kN}$, $N_3=18\ \text{kN}$. Siła $Q$ działa tylko na pierwszy odcinek.</Step>
-    <Step>Naprężenia: $\sigma_1=28\,000/200=140\ \text{MPa}$, $\sigma_2=18\,000/350\approx51{,}4\ \text{MPa}$, $\sigma_3=18\,000/500=36\ \text{MPa}$.</Step>
-    <Step>Największe naprężenie występuje w odcinku 1 i wynosi $140\ \text{MPa}\le160\ \text{MPa}$.</Step>
-    <Step>Zapas względem granicy plastyczności $R_e=235\ \text{MPa}$: $n=235/140\approx1{,}68$.</Step>
-    <Step>Wydłużenie odcinka 1: $\Delta L_1=28\,000\cdot400/(200\,000\cdot200)=0{,}280\ \text{mm}$.</Step>
-    <Step>Wydłużenie odcinka 2: $\Delta L_2=18\,000\cdot400/(200\,000\cdot350)\approx0{,}1029\ \text{mm}$.</Step>
-    <Step>Wydłużenie odcinka 3: $\Delta L_3=18\,000\cdot400/(200\,000\cdot500)=0{,}072\ \text{mm}$.</Step>
-    <Step>Suma: $\Delta L\approx0{,}280+0{,}1029+0{,}072=0{,}4549\ \text{mm}\le0{,}6\ \text{mm}$.</Step>
-  </Steps>
-  <Result>
-    Wszystkie naprężenia są dopuszczalne, decyduje odcinek 1 z $\sigma_1=140\ \text{MPa}$. Całkowite wydłużenie wynosi około $0{,}455\ \text{mm}$ i nie przekracza $0{,}6\ \text{mm}$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-design-full-axial" />
 
 Zwróć uwagę, że odcinek 1 ma nie tylko największą siłę, ale też najmniejsze pole, więc decyduje podwójnie. Gdyby jego pole było większe, mogłoby się okazać, że o naprężeniu decyduje odcinek 2 lub 3. Dlatego po każdej zmianie geometrii trzeba powtórzyć porównanie, a nie zakładać, że poprzedni wniosek pozostaje aktualny.
 
 ## Drugi przykład
 
-Rozważmy pręt dwuodcinkowy utwierdzony na lewym końcu. Odcinek 1 ma $L_1=300\ \text{mm}$ i $A_1=400\ \text{mm}^2$, a odcinek 2 $L_2=500\ \text{mm}$ i $A_2=200\ \text{mm}^2$. Na swobodnym końcu działa siła $P=20\ \text{kN}$ w prawo, a na połączeniu siła $Q=25\ \text{kN}$ w lewo. Przyjmij $E=200\ \text{GPa}$.
-
-Reakcja z równowagi: $R-25+20=0$, więc $R=5\ \text{kN}$ w prawo. Siła normalna w odcinku 2, liczona od swobodnego końca, wynosi $N_2=20\ \text{kN}$ (rozciąganie). W odcinku 1 suma sił po lewej stronie cięcia daje $N_1=-5\ \text{kN}$ (ściskanie).
-
-Naprężenia: $\sigma_1=-5000/400=-12{,}5\ \text{MPa}$, $\sigma_2=20\,000/200=100\ \text{MPa}$. Odcinek 2 jest bardziej wytężony, mimo że ma mniejszą siłę bezwzględną, ponieważ jego pole jest dwa razy mniejsze.
+<AnimatedSolution id="ex-design-full-axial-2" />
 
 | Odcinek | $L$    | $A$     | $N$   | $\sigma$  |
 | ------- | ------ | ------- | ----- | --------- |
 | 1       | 300 mm | 400 mm² | −5 kN | −12,5 MPa |
 | 2       | 500 mm | 200 mm² | 20 kN | 100 MPa   |
 
-Wydłużenia: $\Delta L_1=-5000\cdot300/(200\,000\cdot400)=-0{,}01875\ \text{mm}$, $\Delta L_2=20\,000\cdot500/(200\,000\cdot200)=0{,}25\ \text{mm}$. Suma wynosi około $0{,}231\ \text{mm}$.
-
-Przykład pokazuje, że znak ma znaczenie. Odcinek 1 skraca się, ale odcinek 2 wydłuża się znacznie bardziej, więc cały pręt wydłuża się netto. Gdyby pominąć znak, suma byłaby zawyżona. Gdyby pominąć pole, można by błędnie uznać, że decyduje odcinek 1, bo ma większą siłę bezwzględną.
-
-Taki przypadek zdarza się w elementach, w których część przekroju jest wymieniona na cieńszą lub w których siła jest przyłożona w połowie długości. Nie wystarczy wtedy „największa siła” ani „najmniejszy przekrój” osobno; trzeba porównać iloczyn tych informacji w postaci naprężenia.
-
 ## Trzeci przykład: wariant odwrotny
 
-Wróćmy do geometrii z laboratorium: $L=400\ \text{mm}$, $A_1=200$, $A_2=350$, $A_3=500\ \text{mm}^2$, $Q=10\ \text{kN}$. Tym razem pytamy, jakie największe $P$ można przyłożyć, jeśli $k=150\ \text{MPa}$ i $\Delta L_{\mathrm{dop}}=0{,}5\ \text{mm}$.
-
-Siły normalne wynoszą $N_1=P+10$, $N_2=P$, $N_3=P$ (w kN). Z odcinka 1: $(P+10)\cdot1000/200\le150$, czyli $P+10\le30$, więc $P\le20\ \text{kN}$. Z odcinka 2: $P\cdot1000/350\le150$, więc $P\le52{,}5\ \text{kN}$. Z odcinka 3: $P\le75\ \text{kN}$.
-
-Decyduje odcinek 1, więc $P_{\max}=20\ \text{kN}$ z warunku wytrzymałości. Sprawdźmy sztywność przy tej sile: $N_1=30\ \text{kN}$, $N_2=N_3=20\ \text{kN}$. Wydłużenie wynosi $30\,000\cdot400/(200\,000\cdot200)+20\,000\cdot400/(200\,000\cdot350)+20\,000\cdot400/(200\,000\cdot500)=0{,}3+0{,}1143+0{,}08=0{,}4943\ \text{mm}$, czyli nieco mniej niż $0{,}5\ \text{mm}$.
-
-W tym przypadku oba warunki dają wynik blisko siebie. Gdyby dopuszczalne wydłużenie było mniejsze, o $P$ decydowałaby sztywność, a nie wytrzymałość. Wariant odwrotny uczy, że trzeba sprawdzić oba ograniczenia i wskazać to, które jest rzeczywiście aktywne.
-
-Warto też zauważyć, że ograniczenie z odcinka 1 ma postać $P\le20\ \text{kN}$, a nie $P\le30\ \text{kN}$. Siła $Q$ dodaje się do $P$ w pierwszym odcinku, więc zmniejsza dopuszczalne $P$ o $10\ \text{kN}$. To bezpośredni skutek tego, gdzie przyłożono obciążenie.
-
-Gdyby $Q$ działało w przeciwną stronę, mogłoby zmniejszać siłę w pierwszym odcinku, a nie zwiększać. Dlatego kierunek siły jest równie ważny jak jej wartość. W zadaniach z prętami warto zawsze zaznaczyć zwroty na rysunku, zanim zacznie się liczyć.
-
-W prętach schodkowych najwięcej błędów powstaje przy przypisaniu sił do odcinków oraz przy sumowaniu wydłużeń ze znakami. Poniższa lista zbiera najważniejsze kontrole.
+<AnimatedSolution id="ex-design-full-axial-3" />
 
 <Callout kind="warning" title="Typowe błędy">
   1. **Porównywanie tylko sił normalnych.** W pręcie schodkowym decyduje $|N_i|/A_i$, a nie samo $|N_i|$. Odcinek z

@@ -113,27 +113,7 @@ Wynik jest zaskakujący: pogrubienie pręta zwiększa zarówno nośność, jak i
   nośność, ale równocześnie zwiększa ciężar, więc stosunek siły do pola pozostaje bez zmian.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Stalowy pręt ma pole przekroju 500 mm² i długość 2,5 m. Gęstość stali wynosi 7850 kg/m³, a przyspieszenie ziemskie
-    9,81 m/s². Oblicz ciężar własny, obciążenie liniowe i maksymalne naprężenie przy utwierdzeniu.
-  </Given>
-  <Steps>
-    <Step>Oblicz ciężar objętościowy: γ = ρg = 7850 · 9,81 ≈ 77 009 N/m³.</Step>
-    <Step>Zamień pole na m²: A = 500 mm² = 500 · 10⁻⁶ m² = 0,0005 m².</Step>
-    <Step>Oblicz obciążenie liniowe: qg = γA = 77 009 · 0,0005 ≈ 38,5 N/m.</Step>
-    <Step>Oblicz ciężar całego pręta: G = qgL = 38,5 · 2,5 ≈ 96,3 N.</Step>
-    <Step>
-      Sprawdź przez objętość i masę: V = 0,0005 · 2,5 = 0,00125 m³, m = 7850 · 0,00125 ≈ 9,81 kg, G = mg ≈ 96,3 N.
-    </Step>
-    <Step>Oblicz maksymalne naprężenie: σmax = G/A = 96,3 / 0,0005 ≈ 192 600 Pa.</Step>
-    <Step>Zamień na MPa: 192 600 Pa ≈ 0,193 MPa. Ten sam wynik daje σmax = γL = 77 009 · 2,5.</Step>
-  </Steps>
-  <Result>
-    Ciężar pręta wynosi około 96,3 N, obciążenie liniowe około 38,5 N/m, a maksymalne naprężenie od ciężaru własnego
-    około 0,193 MPa.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-foundations-load-types" />
 
 Wynik rzędu 0,2 MPa jest mały w porównaniu z typową granicą plastyczności stali, ale to nie znaczy, że ciężar własny można zawsze pominąć. Dla pręta o długości 1 km naprężenie wzrośnie do około 77 MPa, a dla 3 km przekroczy 230 MPa. Wtedy staje się porównywalne z granicą materiału. Rząd wielkości zależy od długości, a nie od pola.
 
@@ -141,53 +121,11 @@ Kontrola wyniku polega tu na dwóch krokach: sprawdzeniu jednostki oraz sprawdze
 
 ## Drugi przykład
 
-Belka swobodnie podparta ma długość 6 m. Jej ciężar własny odpowiada równomiernemu obciążeniu $q=2{,}4\ \text{kN/m}$. Dodatkowo w środku rozpiętości działa siła skupiona $P=18\ \text{kN}$. Oblicz reakcje i maksymalny moment zginający.
-
-Wypadkowa ciężaru własnego:
-
-$$
-Q_q=qL=2{,}4\cdot 6=14{,}4\ \text{kN}
-$$
-
-Działa w środku belki, podobnie jak siła $18\ \text{kN}$. Całkowite obciążenie wynosi $32{,}4\ \text{kN}$, a z symetrii:
-
-$$
-R_A=R_B=\frac{32{,}4}{2}=16{,}2\ \text{kN}
-$$
-
-Moment w środku rozpiętości obliczamy z lewej części. Reakcja $R_A$ działa w odległości 3 m od środka, a obciążenie równomierne na lewej połowie ma wypadkową $q\cdot 3=7{,}2\ \text{kN}$ w odległości 1,5 m od środka:
-
-$$
-M_{\max}=R_A\cdot 3-(q\cdot 3)\cdot 1{,}5
-=16{,}2\cdot 3-7{,}2\cdot 1{,}5
-=48{,}6-10{,}8=37{,}8\ \text{kN}\cdot\text{m}
-$$
-
-Sprawdzenie drugim wzorem:
-
-$$
-M_{\max}=\frac{PL}{4}+\frac{qL^2}{8}
-=\frac{18\cdot 6}{4}+\frac{2{,}4\cdot 36}{8}
-=27+10{,}8=37{,}8\ \text{kN}\cdot\text{m}
-$$
-
-Oba sposoby dają ten sam wynik. Taka kontrola jest obowiązkowa: jeśli dwa poprawne rachunki dają różne liczby, trzeba znaleźć błąd, a nie wybrać wygodniejszy wynik.
+<AnimatedSolution id="ex-foundations-load-types-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Linka stalowa ma przenosić wyłącznie ciężar własny. Przyjmij ciężar objętościowy stali $\gamma=77\ \text{kN/m}^3$ i dopuszczalne naprężenie $120\ \text{MPa}$. Jaka jest największa długość linki, przy której naprężenie nie przekroczy tej wartości?
-
-Korzystamy z $\sigma_{\max}=\gamma L$, więc:
-
-$$
-L_{\max}=\frac{\sigma_{\text{dop}}}{\gamma}
-=\frac{120\,000\ \text{kN/m}^2}{77\ \text{kN/m}^3}
-\approx 1558\ \text{m}
-$$
-
-Zamiana jednostek jest tu kluczowa: $120\ \text{MPa}=120\,000\ \text{kPa}=120\,000\ \text{kN/m}^2$. Dzielenie przez $\text{kN/m}^3$ daje metry. Wynik około 1,56 km dotyczy sytuacji granicznej, bez dodatkowego obciążenia i bez współczynnika bezpieczeństwa. Przy współczynniku bezpieczeństwa 2 dopuszczalne naprężenie spada do 60 MPa, a długość do około 779 m.
-
-Ten przykład pokazuje, że ciężar własny może stać się głównym ograniczeniem, gdy element jest bardzo długi. W typowych konstrukcjach budowlanych zwykle nie decyduje o nośności, ale w kablach, linach i wysmukłych masztach trzeba go liczyć osobno.
+<AnimatedSolution id="ex-foundations-load-types-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

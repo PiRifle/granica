@@ -16,6 +16,16 @@
   width: 100%;
   max-height: 275px;
 }
+.beam-viewport {
+  width: 100%;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+.beam-svg {
+  display: block;
+  width: 100%;
+  max-height: none;
+}
 
 .lookup {
   background: #fff;
@@ -24,7 +34,10 @@
   padding: 7px 10px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 0;
+}
+.lookup-row-wrap {
+  overflow: hidden;
 }
 
 .lookup-head {

@@ -141,55 +141,17 @@ Kolejność kroków ma znaczenie także ze względu na jednostki. $N/A$ daje MPa
   sobą.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pełny pręt stalowy o średnicy $d=60\ \text{mm}$ jest obciążony siłą osiową $N=30\ \text{kN}$, momentem gnącym $M=1{,}2\ \text{kN·m}$ oraz momentem skręcającym $T=800\ \text{N·m}$. Granica plastyczności wynosi $R_e=235\ \text{MPa}$. Sprawdź skrajne włókno, w którym zginanie daje rozciąganie.
-  </Given>
-  <Steps>
-    <Step>Pole: $A=\pi\cdot60^2/4=2\,827\ \text{mm}^2$. Wskaźniki: $W=\pi\cdot60^3/32=21\,206\ \text{mm}^3$ oraz $W_o=2W=42\,412\ \text{mm}^3$.</Step>
-    <Step>Naprężenie od siły osiowej: $\sigma_N=30\,000/2\,827=10{,}61\ \text{MPa}$.</Step>
-    <Step>Naprężenie od zginania: $M=1{,}2\ \text{kN·m}=1{,}2\cdot10^6\ \text{N·mm}$, więc $\sigma_M=1{,}2\cdot10^6/21\,206=56{,}59\ \text{MPa}$.</Step>
-    <Step>Suma: $\sigma_x=10{,}61+56{,}59=67{,}20\ \text{MPa}$. Ścinanie: $T=800\ \text{N·m}=800\,000\ \text{N·mm}$, więc $\tau=800\,000/42\,412=18{,}86\ \text{MPa}$.</Step>
-    <Step>HMH: $\sigma_{HMH}=\sqrt{67{,}20^2+3\cdot18{,}86^2}=\sqrt{4\,516+1\,067}=74{,}7\ \text{MPa}$.</Step>
-    <Step>Tresca: $\sigma_T=\sqrt{67{,}20^2+4\cdot18{,}86^2}=\sqrt{4\,516+1\,423}=77{,}1\ \text{MPa}$.</Step>
-    <Step>Zapasy: $n_{HMH}=235/74{,}7=3{,}15$ oraz $n_T=235/77{,}1=3{,}05$.</Step>
-  </Steps>
-  <Result>
-    W rozważanym włóknie $\sigma_x=67{,}2\ \text{MPa}$ i $\tau=18{,}9\ \text{MPa}$, więc $\sigma_{HMH}=74{,}7\ \text{MPa}$ i $\sigma_T=77{,}1\ \text{MPa}$. Oba zapasy przekraczają 3, więc element jest bezpieczny z dużym marginesem.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-criteria-combined-loading" />
 
 Warto sprawdzić, czy wynik jest sensowny jakościowo. Naprężenie normalne 67,2 MPa jest sumą 10,6 MPa od rozciągania i 56,6 MPa od zginania, więc zginanie dominuje. Ścinanie 18,9 MPa jest znacznie mniejsze od naprężenia normalnego, dlatego redukcja podnosi wynik tylko o około 11 procent. Gdyby moment skręcający był większy, udział $\tau$ w hipotezie wzrósłby, a różnica między HMH i Tresca powiększyłaby się.
 
 ## Drugi przykład
 
-Ten sam pręt o średnicy 60 mm jest teraz ściskany siłą $N=-20\ \text{kN}$, zginany momentem $M=1{,}2\ \text{kN·m}$ i skręcany momentem $T=500\ \text{N·m}$. Sprawdzimy dwa przeciwległe włókna, aby przekonać się, które decyduje.
-
-Pole i wskaźniki są takie same jak poprzednio. Naprężenie od siły osiowej wynosi $\sigma_N=-20\,000/2\,827=-7{,}07\ \text{MPa}$. Zginanie daje $+56{,}59\ \text{MPa}$ w jednym włóknie i $-56{,}59\ \text{MPa}$ w przeciwległym. W pierwszym włóknie $\sigma_x=49{,}52\ \text{MPa}$, w drugim $\sigma_x=-63{,}66\ \text{MPa}$.
-
-Ścinanie od skręcania wynosi $\tau=500\,000/42\,412=11{,}79\ \text{MPa}$ i ma ten sam moduł w obu włóknach, choć przeciwne zwroty. Dla włókna rozciąganego HMH daje $\sqrt{49{,}52^2+3\cdot11{,}79^2}=\sqrt{2\,452+417}=53{,}6\ \text{MPa}$. Dla włókna ściskanego $\sqrt{(-63{,}66)^2+3\cdot11{,}79^2}=\sqrt{4\,053+417}=66{,}9\ \text{MPa}$.
-
-Decyduje więc włókno ściskane, mimo że siła osiowa miała znak ujemny. Suma $-7{,}07-56{,}59$ ma większy moduł niż $+56{,}59-7{,}07$, ponieważ siła osiowa i zginanie działają w tym włóknie zgodnie. To pokazuje, że wybór punktu nie może opierać się na intuicji „rozciąganie jest zawsze gorsze”. Trzeba porównać moduły naprężeń normalnych i dopiero potem redukować.
-
-Dla $R_e=235\ \text{MPa}$ zapas według HMH wynosi $235/66{,}9=3{,}51$, a według Tresca $\sqrt{4\,053+4\cdot139}=\sqrt{4\,609}=67{,}9\ \text{MPa}$, czyli $n_T=3{,}46$. Oba warianty są bezpieczne, ale punkt decydujący jest inny niż w pierwszym przykładzie.
-
-Gdyby siła osiowa była rozciągająca, a nie ściskająca, decydowałoby włókno, w którym zginanie dodaje się do rozciągania. Wtedy $\sigma_x$ wyniosłoby $56{,}59+7{,}07=63{,}66\ \text{MPa}$, a w przeciwległym włóknie $7{,}07-56{,}59=-49{,}52\ \text{MPa}$. Maksimum modułu nadal wypada w tym samym miejscu geometrycznym, ale po przeciwnej stronie przekroju. To pokazuje, że znak siły osiowej przesuwa punkt krytyczny, a nie tylko zmienia wartość naprężenia.
-
-W zadaniach z mimośrodowym rozciąganiem lub ściskaniem warto więc narysować rozkład $\sigma_x$ wzdłuż wysokości przekroju. Siła osiowa przesuwa cały wykres równolegle, a zginanie go obraca. Punkt decydujący to miejsce, w którym wypadkowa wartość jest najbardziej oddalona od zera. Dopiero po tym rysunku sensowne jest liczenie $\sigma_{red}$.
+<AnimatedSolution id="ex-criteria-combined-loading-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Zaprojektujmy średnicę wału dla $M=1{,}2\ \text{kN·m}$, $T=0{,}8\ \text{kN·m}$, bez siły osiowej. Przyjmujemy $R_e=235\ \text{MPa}$ i wymagany zapas $n_{wym}=2$, więc naprężenie dopuszczalne wynosi $k=117{,}5\ \text{MPa}$. Tym razem wychodzimy od dopuszczalnego naprężenia i szukamy geometrii.
-
-Dla HMH można użyć momentu zastępczego $M_{eq}=\sqrt{M^2+0{,}75T^2}$. Podstawiamy $M=1{,}2\ \text{kN·m}$ i $T=0{,}8\ \text{kN·m}$: $M_{eq}=\sqrt{1{,}44+0{,}48}=\sqrt{1{,}92}=1{,}386\ \text{kN·m}$. Wymagany wskaźnik wynosi $W\ge M_{eq}/k=1{,}386\cdot10^6/117{,}5=11\,796\ \text{mm}^3$. Stąd $d=(32W/\pi)^{1/3}=(32\cdot11\,796/\pi)^{1/3}=49{,}3\ \text{mm}$.
-
-Dla Tresca moment zastępczy to $M_{eq}=\sqrt{M^2+T^2}=\sqrt{1{,}44+0{,}64}=1{,}442\ \text{kN·m}$. Wymagany wskaźnik wynosi $W\ge1{,}442\cdot10^6/117{,}5=12\,272\ \text{mm}^3$, a średnica $d=(32\cdot12\,272/\pi)^{1/3}=50{,}0\ \text{mm}$.
-
-Obie hipotezy prowadzą do średnicy około 50 mm, ale nieco inne wartości pośrednie pokazują różnicę modeli. Po zaokrągleniu do typowego wymiaru 50 mm otrzymujemy $W=12\,272\ \text{mm}^3$ i sprawdzamy: dla HMH $\sigma_{red}=1{,}386\cdot10^6/12\,272=112{,}9\ \text{MPa}$, dla Tresca około $117{,}5\ \text{MPa}$, czyli praktycznie na granicy $k$. Dokładna średnica według Tresca jest nieznacznie większa niż 50,0 mm, więc po zaokrągleniu warunek pozostaje spełniony. Zaokrąglenie średnicy w górę jest częścią projektu, a nie tylko kosmetyką.
-
-Warto zauważyć, że moment zastępczy pozwala sprowadzić zginanie ze skręcaniem do jednego momentu, ale tylko wtedy, gdy nie ma siły osiowej i gdy przekrój jest pełnym kołem. Dla przekroju pierścieniowego wskaźniki $W$ i $W_o$ nie są w prostym stosunku 1 do 2, więc wzór na moment zastępczy trzeba wyprowadzić od nowa. Dla dowolnego przekroju bezpieczniej jest liczyć $\sigma_x$ i $\tau$ osobno, a potem stosować hipotezę.
-
-Trzeba też pamiętać, że średnica dobrana ze względu na wytrzymałość może nie wystarczyć ze względu na sztywność. Kąt skręcenia wału rośnie jak $1/d^4$, więc kryterium sztywności bywa ostrzejsze dla długich wałów. W zadaniu projektowym liczymy oba warunki i wybieramy większą średnicę. To typowy przykład tego, że warunek wytrzymałości nie jest jedynym warunkiem projektu.
+<AnimatedSolution id="ex-criteria-combined-loading-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

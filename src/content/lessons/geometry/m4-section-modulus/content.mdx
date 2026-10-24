@@ -112,67 +112,15 @@ Dla przekroju o jednakowych wymiarach w obu kierunkach, np. kwadratu lub koła, 
   więc „momentem bezwładności przeliczonym na skrajne włókno”.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Przekrój teowy ma środnik $20\times 100$ mm i półkę $120\times 20$ mm, całkowitą wysokość 120 mm. Moment względem poziomej osi centralnej wynosi $I_x\approx 5{,}674\cdot 10^6\ \text{mm}^4$, a środek ciężkości leży $82{,}73$ mm od dolnej krawędzi. Moment zginający ma wartość $|M_x|=10\ \text{kN}\cdot\text{m}$.
-  </Given>
-  <Steps>
-    <Step>Odległość dolnej krawędzi od osi: $c_d=82{,}73$ mm. Odległość górnej krawędzi: $c_g=120-82{,}73=37{,}27$ mm.</Step>
-    <Step>Wskaźnik dla dolnej krawędzi: $W_d=I_x/c_d=5{,}674\cdot 10^6/82{,}73\approx 68{,}6\cdot 10^3\ \text{mm}^3$.</Step>
-    <Step>Wskaźnik dla górnej krawędzi: $W_g=I_x/c_g=5{,}674\cdot 10^6/37{,}27\approx 152{,}2\cdot 10^3\ \text{mm}^3$.</Step>
-    <Step>Moment zamieniamy na N·mm: $10\ \text{kN}\cdot\text{m}=10\cdot 10^6\ \text{N}\cdot\text{mm}$.</Step>
-    <Step>Naprężenie na dolnej krawędzi: $\sigma_d=10\cdot 10^6/(68{,}6\cdot 10^3)\approx 145{,}8$ MPa.</Step>
-    <Step>Naprężenie na górnej krawędzi: $\sigma_g=10\cdot 10^6/(152{,}2\cdot 10^3)\approx 65{,}7$ MPa.</Step>
-    <Step>Strona krytyczna to dolna krawędź, bo ma mniejsze $W$ i większe naprężenie. Dla typowej stali konstrukcyjnej o $\sigma_{dop}=160$ MPa przekrój spełnia warunek z niewielkim zapasem.</Step>
-  </Steps>
-  <Result>
-    $W_d\approx 68{,}6\cdot 10^3\ \text{mm}^3$, $W_g\approx 152{,}2\cdot 10^3\ \text{mm}^3$. Przy $|M_x|=10\ \text{kN}\cdot\text{m}$ największe naprężenie wynosi około 145,8 MPa na dolnej krawędzi i około 65,7 MPa na górnej. Decyduje strona dolna.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m4-section-modulus" />
 
 ## Drugi przykład
 
-Porównajmy pełny pręt kołowy o średnicy $D=120$ mm z rurą o średnicy zewnętrznej $D=120$ mm i wewnętrznej $d=100$ mm. Oba przekroje mają tę samą odległość skrajnego włókna $c=60$ mm, więc stosunek ich wskaźników jest równy stosunkowi momentów bezwładności.
-
-Dla pręta pełnego:
-
-$$
-I_s=\frac{\pi D^4}{64}=\frac{\pi\cdot 120^4}{64}\approx 10{,}18\cdot 10^6\ \text{mm}^4,
-\qquad
-W_s=\frac{I_s}{60}\approx 169{,}6\cdot 10^3\ \text{mm}^3.
-$$
-
-Dla rury:
-
-$$
-I_r=\frac{\pi(D^4-d^4)}{64}=\frac{\pi(120^4-100^4)}{64}\approx 5{,}27\cdot 10^6\ \text{mm}^4,
-\qquad
-W_r=\frac{I_r}{60}\approx 87{,}8\cdot 10^3\ \text{mm}^3.
-$$
-
-Pole pręta pełnego wynosi około $11\,310\ \text{mm}^2$, a rury około $3456\ \text{mm}^2$, czyli rura ma około 30,6% materiału. Zachowuje jednak około 51,8% momentu bezwładności i tyle samo wskaźnika $W$. Przy momencie $8\ \text{kN}\cdot\text{m}$ naprężenie w pręcie pełnym wynosi około 47,2 MPa, a w rurze około 91,1 MPa. Rura jest więc lżejsza i bardziej efektywna na jednostkę masy, ale ma mniejszą nośność bezwzględną przy tej samej średnicy zewnętrznej.
-
-Ten przykład pokazuje, że $W$ trzeba porównywać przy jasno określonym kryterium: tej samej średnicy zewnętrznej, tej samej masie, tym samym momencie czy tym samym naprężeniu dopuszczalnym. Bez tego porównanie „rura jest lepsza” lub „pręt jest lepszy” jest niepełne.
+<AnimatedSolution id="ex-m4-section-modulus-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Projektant potrzebuje belki o przekroju prostokątnym, która przy $|M_x|=30\ \text{kN}\cdot\text{m}$ i $\sigma_{dop}=160$ MPa spełni warunek wytrzymałości. Szerokość jest ograniczona do $b=80$ mm. Jaka jest minimalna wysokość?
-
-Najpierw wymagany wskaźnik:
-
-$$
-W_{\min}=\frac{|M_x|}{\sigma_{dop}}=\frac{30\cdot 10^6}{160}=187\,500\ \text{mm}^3=187{,}5\ \text{cm}^3.
-$$
-
-Dla prostokąta $W=bh^2/6$, więc
-
-$$
-h=\sqrt{\frac{6W_{\min}}{b}}=\sqrt{\frac{6\cdot 187\,500}{80}}=\sqrt{14\,062{,}5}\approx 118{,}6\ \text{mm}.
-$$
-
-Przyjmujemy $h=120$ mm. Wtedy $W=80\cdot 120^2/6=192\,000\ \text{mm}^3$, a naprężenie wynosi $30\cdot 10^6/192\,000=156{,}25$ MPa, czyli poniżej 160 MPa. Moment bezwładności tego przekroju to $I=80\cdot 120^3/12=11{,}52\cdot 10^6\ \text{mm}^4$; warto sprawdzić, czy ta sztywność wystarcza również do warunku ugięcia.
-
-Gdyby wysokość była ograniczona do 100 mm, wymagana szerokość wyniosłaby $b=6W_{\min}/h^2=6\cdot 187\,500/10\,000=112{,}5$ mm. Przekrój byłby szerszy i zużywałby więcej materiału przy tym samym $W$, bo materiał bliżej osi obojętnej pracuje słabiej. To ta sama obserwacja, która prowadzi do kształtowników z półkami zamiast do masywnych prostokątów.
+<AnimatedSolution id="ex-m4-section-modulus-3" />
 
 ## Typowe błędy
 

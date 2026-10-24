@@ -109,68 +109,15 @@ Wyprowadzenie jest krótkie, ale warto je przejść, ponieważ porządkuje zale�
   wyboczyć się albo pęknąć zmęczeniowo.
 </Insight>
 
-<WorkedExample>
-  <Given>Stalowe cięgno przenosi siłę $N=120\ \text{kN}$. Przyjmujemy $R_e=235\ \text{MPa}$ i wymagany współczynnik bezpieczeństwa $n=1{,}5$. Przekrój jest okrągły, a pręt ma stałą średnicę.</Given>
-  <Steps>
-    <Step>Naprężenie dopuszczalne: $\sigma_{\mathrm{dop}}=R_e/n=235/1{,}5\approx156{,}7\ \text{MPa}$.</Step>
-    <Step>Minimalne pole: $A_{\min}=N/\sigma_{\mathrm{dop}}=120\,000/156{,}7\approx766\ \text{mm}^2$.</Step>
-    <Step>Wymagana średnica: $d_{\min}=\sqrt{4A_{\min}/\pi}=\sqrt{4\cdot766/\pi}\approx31{,}2\ \text{mm}$.</Step>
-    <Step>Wybieramy standardową średnicę $d=32\ \text{mm}$, czyli pole $A=\pi\cdot32^2/4\approx804\ \text{mm}^2$.</Step>
-    <Step>Rzeczywiste naprężenie: $\sigma=120\,000/804\approx149{,}2\ \text{MPa}$.</Step>
-    <Step>Rzeczywisty współczynnik: $n_{\mathrm{rz}}=235/149{,}2\approx1{,}58$.</Step>
-    <Step>Kontrola: $149{,}2\ \text{MPa}\le156{,}7\ \text{MPa}$ oraz $1{,}58\ge1{,}5$, więc warunek jest spełniony.</Step>
-    <Step>Uwaga: $R_m$ dla tej stali jest większe, ale nie używamy go, ponieważ krytyczne jest nadmierne odkształcenie trwałe, a nie zerwanie.</Step>
-  </Steps>
-  <Result>
-    Cięgno o średnicy $32\ \text{mm}$ ma pole około $804\ \text{mm}^2$, naprężenie około $149\ \text{MPa}$ i rzeczywisty współczynnik bezpieczeństwa około $1{,}58$ względem $R_e$. Warunek wytrzymałościowy jest spełniony.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m3-allowable-safety-factor" />
 
 ## Drugi przykład
 
-Ten sam pręt może być projektowany względem innej granicy. Załóżmy, że cięgno pracuje w maszynie wykonującej milion cykli, a dla materiału i geometrii przyjęto umowną granicę zmęczeniową $R_f=120\ \text{MPa}$. Wymagany współczynnik bezpieczeństwa wynosi teraz $n=2$. Naprężenie dopuszczalne jest równe
-
-$$
-\sigma_{\mathrm{dop}}=\frac{120}{2}=60\ \text{MPa}.
-$$
-
-Wymagane pole wynosi
-
-$$
-A_{\min}=\frac{120\,000}{60}=2000\ \text{mm}^2,
-$$
-
-czyli średnica około $50{,}5\ \text{mm}$. Po zaokrągleniu do $52\ \text{mm}$ otrzymujemy $A\approx2124\ \text{mm}^2$, naprężenie $\sigma\approx56{,}5\ \text{MPa}$ i $n_{\mathrm{rz}}=120/56{,}5\approx2{,}12$.
-
-Różnica względem poprzedniego wariantu jest ogromna: średnica rośnie z $32$ do $52\ \text{mm}$, mimo że materiał się nie zmienił. Zmienił się mechanizm decydujący o bezpieczeństwie. To pokazuje, dlaczego w zadaniu trzeba najpierw ustalić, co ma nie wystąpić. Samo „dobranie współczynnika” bez wskazania granicy jest bez znaczenia.
-
-Podobnie byłoby przy wyboczeniu. Gdyby ten sam pręt był ściskany i smukły, o dopuszczalnym obciążeniu decydowałoby naprężenie krytyczne, a nie $R_e$. Wtedy zwiększanie średnicy pomaga, ale zależność jest inna niż liniowa, a długość i warunki podparcia odgrywają większą rolę. Wzór $A_{\min}=N/\sigma_{\mathrm{dop}}$ nadal obowiązuje, ale $\sigma_{\mathrm{dop}}$ trzeba wyznaczyć z innego warunku.
+<AnimatedSolution id="ex-m3-allowable-safety-factor-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Rozważmy istniejący pręt o polu $A=500\ \text{mm}^2$ wykonany ze stali o $R_e=235\ \text{MPa}$. Wymagany współczynnik bezpieczeństwa wynosi $n=2$. Chcemy wyznaczyć maksymalną siłę roboczą.
-
-Naprężenie dopuszczalne jest równe
-
-$$
-\sigma_{\mathrm{dop}}=\frac{235}{2}=117{,}5\ \text{MPa}.
-$$
-
-Maksymalna siła wynosi więc
-
-$$
-N_{\max}=\sigma_{\mathrm{dop}}A=117{,}5\cdot500=58\,750\ \text{N}\approx58{,}8\ \text{kN}.
-$$
-
-Przy sile $50\ \text{kN}$ naprężenie wynosi $100\ \text{MPa}$, a rzeczywisty współczynnik $n_{\mathrm{rz}}=235/100=2{,}35$, więc element ma zapas większy od wymaganego. Przy sile $70\ \text{kN}$ naprężenie rośnie do $140\ \text{MPa}$, a $n_{\mathrm{rz}}=235/140\approx1{,}68$. Warunek $n_{\mathrm{rz}}\ge2$ nie jest spełniony, mimo że naprężenie jest jeszcze mniejsze od $R_e$. Element nie uległby natychmiastowemu zniszczeniu, ale nie spełnia przyjętego kryterium bezpieczeństwa.
-
-Jeżeli wymaganie wzrośnie do $n=2{,}5$, maksymalna siła maleje do
-
-$$
-N_{\max}=\frac{235\cdot500}{2{,}5}=47\,000\ \text{N}=47\ \text{kN}.
-$$
-
-Zależność jest odwrotnie proporcjonalna do $n$. Podwojenie wymaganego zapasu oznacza w tym modelu dwukrotne zmniejszenie dopuszczalnej siły przy tym samym przekroju. W praktyce oznacza to konieczność zwiększenia pola albo zmiany materiału, a nie „lepszego wykorzystania” istniejącego pręta.
+<AnimatedSolution id="ex-m3-allowable-safety-factor-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

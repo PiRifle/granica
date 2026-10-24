@@ -134,49 +134,17 @@ W zadaniu egzaminacyjnym warto najpierw sprawdzić, czy nie można rozdzielić w
   uzasadnienia jest wart znacznie mniej.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Wał pełny jest obciążony momentem zginającym $M=800\ \text{N}\cdot\text{m}$ i momentem skręcającym $T=600\ \text{N}\cdot\text{m}$. Przyjmij $R_e=235\ \text{MPa}$, współczynnik bezpieczeństwa $n=2$ i hipotezę HMH. Dobierz średnicę wału.
-  </Given>
-  <Steps>
-    <Step>Naprężenie dopuszczalne: $k=R_e/n=235/2=117{,}5\ \text{MPa}$.</Step>
-    <Step>Moment równoważny: $M_{\mathrm{eq}}=\sqrt{M^2+0{,}75T^2}=\sqrt{800^2+0{,}75\cdot600^2}\approx953{,}9\ \text{N}\cdot\text{m}$.</Step>
-    <Step>Zamiana jednostek: $M_{\mathrm{eq}}\approx953\,900\ \text{N}\cdot\text{mm}$, $k=117{,}5\ \text{N/mm}^2$.</Step>
-    <Step>Wymagana średnica: $d\ge\sqrt[3]{32M_{\mathrm{eq}}/(\pi k)}=\sqrt[3]{32\cdot953\,900/(\pi\cdot117{,}5)}\approx43{,}6\ \text{mm}$.</Step>
-    <Step>Przyjmujemy $d=45\ \text{mm}$ z szeregu wymiarów co $5\ \text{mm}$.</Step>
-    <Step>Wskaźniki: $W=\pi\cdot45^3/32\approx8946\ \text{mm}^3$, $W_o=2W\approx17\,892\ \text{mm}^3$.</Step>
-    <Step>Naprężenia: $\sigma=800\,000/8946\approx89{,}4\ \text{MPa}$, $\tau=600\,000/17\,892\approx33{,}5\ \text{MPa}$.</Step>
-    <Step>Naprężenie zredukowane: $\sigma_{\mathrm{red}}=\sqrt{89{,}4^2+3\cdot33{,}5^2}\approx106{,}6\ \text{MPa}\le117{,}5\ \text{MPa}$.</Step>
-    <Step>Zapas rzeczywisty: $n_{rz}=235/106{,}6\approx2{,}20$, czyli więcej niż wymagane $2$.</Step>
-  </Steps>
-  <Result>
-    Przyjęto $d=45\ \text{mm}$. Naprężenie zredukowane wynosi około $106{,}6\ \text{MPa}$ i jest mniejsze od dopuszczalnego $117{,}5\ \text{MPa}$, a rzeczywisty zapas względem $R_e$ wynosi około $2{,}20$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-design-review-exam" />
 
 Zwróć uwagę, że średnica $43{,}6\ \text{mm}$ nie mogła zostać przyjęta jako $43\ \text{mm}$. Zaokrąglenie w dół dałoby $\sigma_{\mathrm{red}}$ większe od dopuszczalnego. Wybór $45\ \text{mm}$ daje zapas i jest zgodny z typowym szeregiem wymiarów. To prosty przykład decyzji, której brak kosztuje punkty.
 
 ## Drugi przykład
 
-Rozważmy wał schodkowy złożony z dwóch odcinków. Pierwszy ma $D_1=60\ \text{mm}$ i $L_1=0{,}8\ \text{m}$, drugi $D_2=40\ \text{mm}$ i $L_2=0{,}6\ \text{m}$. Wał przenosi moment $T=500\ \text{N}\cdot\text{m}$, a $G=80\ \text{GPa}$. Przyjmij $\tau_{\mathrm{dop}}=40\ \text{MPa}$ i $\varphi_{\mathrm{dop}}=1{,}2^\circ$.
-
-Dla pierwszego odcinka $J_{o1}=\pi\cdot60^4/32\approx1\,272\,345\ \text{mm}^4$, a $W_{o1}=2J_{o1}/60\approx42\,412\ \text{mm}^3$. Naprężenie wynosi $\tau_1=500\,000/42\,412\approx11{,}8\ \text{MPa}$. Dla drugiego odcinka $J_{o2}=\pi\cdot40^4/32\approx251\,327\ \text{mm}^4$, a $W_{o2}=2J_{o2}/40\approx12\,566\ \text{mm}^3$, więc $\tau_2=500\,000/12\,566\approx39{,}8\ \text{MPa}$, czyli blisko granicy $40\ \text{MPa}$.
-
-Kąty skręcenia wynoszą $\varphi_1=500\,000\cdot800/(80\,000\cdot1\,272\,345)\approx0{,}00393\ \text{rad}$ oraz $\varphi_2=500\,000\cdot600/(80\,000\cdot251\,327)\approx0{,}01492\ \text{rad}$. Suma to około $0{,}01885\ \text{rad}$, czyli $1{,}08^\circ$, mniej niż $1{,}2^\circ$.
-
-Decyduje drugi odcinek, ponieważ ma mniejszą średnicę i większy iloraz $T/W_o$. Kąt jest sumą udziałów obu odcinków, więc nie wolno policzyć go tylko dla jednego z nich. Gdyby odcinki miały różne materiały, trzeba by użyć różnych $G$ i zsumować kąty z odpowiednimi wartościami.
-
-Ten przykład pokazuje, że w układzie schodkowym trzeba sprawdzić każdy odcinek osobno. Największy moment jest wspólny, ale najmniejsza średnica decyduje o naprężeniu. Podobnie najdłuższy i najcieńszy odcinek może decydować o kącie. Tabela odcinków jest tu równie przydatna jak w zadaniach z prętami.
+<AnimatedSolution id="ex-design-review-exam-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Na kolokwium często trzeba ocenić gotowe rozwiązanie. Przypuśćmy, że student oblicza belkę dla $M=3\ \text{kN}\cdot\text{m}$ i $k=150\ \text{MPa}$, a następnie zapisuje $W=3/150=0{,}02\ \text{mm}^3$ i wnioskuje, że średnica może wynosić około $0{,}6\ \text{mm}$. Wynik jest absurdalny, więc trzeba znaleźć błąd.
-
-Błąd polega na pominięciu zamiany jednostek. Moment $3\ \text{kN}\cdot\text{m}$ to $3\,000\,000\ \text{N}\cdot\text{mm}$, a nie $3$. Poprawny wskaźnik wynosi $W=3\,000\,000/150=20\,000\ \text{mm}^3$. Dla pełnego koła $d=\sqrt[3]{32W/\pi}=\sqrt[3]{640\,000/\pi}\approx58{,}8\ \text{mm}$, więc sensowny wymiar to $60\ \text{mm}$.
-
-Sprawdzenie przyjętego wymiaru: $W=\pi\cdot60^3/32\approx21\,206\ \text{mm}^3$, a $\sigma=3\,000\,000/21\,206\approx141{,}5\ \text{MPa}\le150\ \text{MPa}$. Wynik jest poprawny i ma niewielki zapas. Gdyby student użył $3000/150=20\ \text{mm}^3$, otrzymałby $d\approx5{,}9\ \text{mm}$, co również jest absurdalne dla belki o takim momencie.
-
-Wariant odwrotny uczy, że kontrola rzędu wielkości jest częścią rozwiązania. Średnica $0{,}6\ \text{mm}$ lub $5{,}9\ \text{mm}$ powinna natychmiast wzbudzić podejrzenie. Podobnie moment $18\,200\ \text{N}\cdot\text{mm}$ zamiast $18\,200\,000\ \text{N}\cdot\text{mm}$ daje wskaźnik tysiąc razy za mały, a średnicę około dziesięć razy za małą. Zawsze warto zapytać, czy otrzymany wymiar jest realistyczny dla danej konstrukcji.
+<AnimatedSolution id="ex-design-review-exam-3" />
 
 <Callout kind="warning" title="Typowe błędy">
   1. **Mieszanie jednostek momentu.** $1\ \text{kN}\cdot\text{m}=10^6\ \text{N}\cdot\text{mm}$. Podstawienie kN·m bez zamiany daje wskaźnik tysiąc razy za mały, a średnicę około dziesięć razy za małą.

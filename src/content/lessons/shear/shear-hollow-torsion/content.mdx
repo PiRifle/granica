@@ -116,51 +116,15 @@ Zauważ, że w cienkiej rurze naprężenie na powierzchni wewnętrznej jest tylk
   przekroju. Zawsze ustal, co jest ustalone w porównaniu.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Rura o średnicy zewnętrznej $D = 80\ \text{mm}$ i wewnętrznej $d = 50\ \text{mm}$ przenosi moment $T = 2{,}5\ \text{kN}\cdot\text{m}$. Oblicz $J_o$, $W_o$, maksymalne naprężenie styczne oraz oszczędność pola względem wału pełnego o tej samej średnicy zewnętrznej.
-  </Given>
-  <Steps>
-    <Step>Zamień moment: $T = 2{,}5\ \text{kN}\cdot\text{m} = 2\,500\,000\ \text{N}\cdot\text{mm}$.</Step>
-    <Step>Oblicz różnicę czwartych potęg: $80^4-50^4 = 40\,960\,000-6\,250\,000 = 34\,710\,000\ \text{mm}^4$.</Step>
-    <Step>Biegunowy moment bezwładności: $J_o = \pi \cdot 34\,710\,000/32 = 3\,407\,646\ \text{mm}^4$.</Step>
-    <Step>Wskaźnik wytrzymałości: $W_o = J_o/40 = 85\,191\ \text{mm}^3$.</Step>
-    <Step>Maksymalne naprężenie: $\tau_{max} = 2\,500\,000/85\,191 = 29{,}35\ \text{MPa}$.</Step>
-    <Step>Pole rury: $A = \pi(80^2-50^2)/4 = 3063\ \text{mm}^2$. Pole wału pełnego: $A_0 = \pi \cdot 80^2/4 = 5027\ \text{mm}^2$.</Step>
-    <Step>Oszczędność pola: $(5027-3063)/5027 = 0{,}391$, czyli około $39\%$.</Step>
-  </Steps>
-  <Result>
-    $\tau_{max} \approx 29{,}4\ \text{MPa}$ na zewnętrznej powierzchni rury. Przy tej samej średnicy zewnętrznej wał pełny miałby naprężenie około $24{,}9\ \text{MPa}$, więc rura jest w tym porównaniu słabsza, ale zużywa o $39\%$ mniej materiału.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-shear-hollow-torsion" />
 
 ## Drugi przykład
 
-Porównajmy teraz rurę z wału pełnego przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Przyjmijmy, że wał pełny ma średnicę $80\ \text{mm}$, a rura ma średnicę wewnętrzną $50\ \text{mm}$. Chcemy dobrać taką średnicę zewnętrzną rury, aby pole przekroju, a więc i masa na jednostkę długości, były takie same.
-
-Pole wału pełnego wynosi $A_0 = \pi \cdot 80^2/4 = 5027\ \text{mm}^2$. Dla rury $A = \pi(D^2-50^2)/4$. Przyrównanie pól daje $D^2-2500 = 6400$, czyli $D = \sqrt{8900} = 94{,}34\ \text{mm}$. Rura musi mieć więc większą średnicę zewnętrzną, ale jej ścianka ma grubość $(94{,}34-50)/2 = 22{,}17\ \text{mm}$.
-
-Dla takiej rury $J_o = \pi(94{,}34^4-50^4)/32 = 7\,162\,831\ \text{mm}^4$. Przy momencie $2{,}5\ \text{kN}\cdot\text{m}$ maksymalne naprężenie wynosi $\tau_{max} = 2\,500\,000 \cdot 47{,}17/7\,162\,831 = 16{,}46\ \text{MPa}$. Wał pełny o średnicy $80\ \text{mm}$ miał w tym samym zadaniu $24{,}87\ \text{MPa}$.
-
-Przy tej samej masie rura przenosi więc ten sam moment przy naprężeniu mniejszym o około $34\%$. Jej wadą jest większa średnica zewnętrzna, a więc większe gabaryty i większa powierzchnia zewnętrzna. W ciasnej obudowie maszyny ten warunek może przeważyć nad oszczędnością masy.
-
-Ten przykład pokazuje, dlaczego samo stwierdzenie „rura jest lżejsza” nie wystarcza. Trzeba podać, co pozostaje stałe: średnica zewnętrzna, masa, moment, a może gabaryt. Dopiero wtedy porównanie ma sens i można policzyć konkretną różnicę.
+<AnimatedSolution id="ex-shear-hollow-torsion-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Zaprojektujmy rurę o średnicy zewnętrznej $D = 100\ \text{mm}$, która przy momencie $T = 4\ \text{kN}\cdot\text{m}$ osiągnie naprężenie nie większe niż $\tau_{dop} = 40\ \text{MPa}$. Szukamy średnicy wewnętrznej $d$ i grubości ścianki $t$.
-
-Najpierw wyznaczamy wymagany wskaźnik wytrzymałości: $W_o \ge T/\tau_{dop} = 4\,000\,000/40 = 100\,000\ \text{mm}^3$. Następnie korzystamy ze wzoru $W_o = \pi(D^4-d^4)/(16D)$ i przekształcamy go względem $d$:
-
-$$
-d^4 = D^4 - \frac{16DW_o}{\pi}.
-$$
-
-Podstawiamy $D = 100\ \text{mm}$ i $W_o = 100\,000\ \text{mm}^3$: $d^4 = 100\,000\,000 - 50\,929\,581 = 49\,070\,419\ \text{mm}^4$. Pierwiastek czwartego stopnia daje $d = 83{,}70\ \text{mm}$. Grubość ścianki wynosi $t = (100-83{,}70)/2 = 8{,}15\ \text{mm}$.
-
-Sprawdzenie: $J_o = \pi(100^4-83{,}70^4)/32 = 4\,999\,090\ \text{mm}^4$, a $W_o = J_o/50 = 99\,982\ \text{mm}^3$. Naprężenie wynosi $4\,000\,000/99\,982 = 40{,}01\ \text{MPa}$, czyli praktycznie równa się wartości dopuszczalnej. Pole rury to około $2352\ \text{mm}^2$, a pole pełnego wału o średnicy $100\ \text{mm}$ to $7854\ \text{mm}^2$, więc oszczędność materiału sięga około $70\%$.
-
-Wariant odwrotny pokazuje, że dla zadanej średnicy zewnętrznej nośność rośnie wraz z grubością ścianki, ale nie liniowo. Początkowo wystarczy cienka ścianka, a przy dużych momentach potrzebna grubość rośnie szybko. Jednocześnie bardzo cienka ścianka może utracić stateczność miejscową, mimo że wzór na naprężenie nadal daje poprawny wynik sprężysty.
+<AnimatedSolution id="ex-shear-hollow-torsion-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

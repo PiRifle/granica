@@ -116,51 +116,15 @@ $$
   Po doborze trzeba sprawdzić rzeczywiście przyjęty przekrój, a nie tylko wartość $A_{\min}$. Zaokrąglenie wymiaru w dół może zwiększyć naprężenie ponad wartość dopuszczalną. Rzeczywisty zapas $n_{\mathrm{rz}}$ jest ważniejszy od samego faktu, że pole „wyszło większe od minimum”.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pręt rozciągany siłą N = 90 kN wykonano ze stali o granicy plastyczności Re = 235 MPa. Wymagany współczynnik
-    bezpieczeństwa wynosi n = 1,5. Dobierz pole przekroju i sprawdź rozwiązanie z przekrojem A = 600 mm².
-  </Given>
-  <Steps>
-    <Step>Oblicz naprężenie dopuszczalne: σdop = Re/n = 235/1,5 = 156,7 MPa.</Step>
-    <Step>Wyznacz minimalne pole: Amin = |N|/σdop = 90 000/156,7 = 574,5 mm².</Step>
-    <Step>Przyjęte A = 600 mm² jest większe od Amin, więc wstępny dobór jest poprawny.</Step>
-    <Step>Sprawdź rzeczywiste naprężenie: σ = 90 000/600 = 150 MPa.</Step>
-    <Step>Porównaj z dopuszczalnym: 150 MPa jest mniejsze od 156,7 MPa, więc warunek jest spełniony.</Step>
-    <Step>Oblicz rzeczywisty zapas: nrz = 235/150 = 1,567.</Step>
-    <Step>Sprawdź zakres sprężysty: 150 MPa jest znacznie poniżej 235 MPa, więc model liniowy jest uzasadniony.</Step>
-    <Step>
-      Zauważ, że przekrój 570 mm² dałby σ = 157,9 MPa, czyli przekroczyłby wartość dopuszczalną. Zaokrąglenie w dół
-      byłoby błędem.
-    </Step>
-  </Steps>
-  <Result>
-    Amin = 574,5 mm², a przekrój 600 mm² spełnia warunek: σ = 150 MPa, nrz = 1,567, czyli zapas jest większy od
-    wymaganego 1,5.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-axial-strength-condition" />
 
 ## Drugi przykład
 
-Rozważmy pręt złożony z dwóch odcinków o różnych polach i różnych siłach osiowych. Pierwszy odcinek przenosi $N_1=60\ \text{kN}$ i ma pole $A_1=400\ \text{mm}^2$. Drugi przenosi $N_2=45\ \text{kN}$ i ma pole $A_2=250\ \text{mm}^2$. Materiał jest ten sam, $R_e=235\ \text{MPa}$, a wymagany zapas wynosi $n=1{,}5$, więc $\sigma_{\mathrm{dop}}=156{,}7\ \text{MPa}$.
-
-Naprężenia wynoszą $\sigma_1=60\,000/400=150\ \text{MPa}$ oraz $\sigma_2=45\,000/250=180\ \text{MPa}$. Pierwszy odcinek spełnia warunek, drugi nie, mimo że przenosi mniejszą siłę. Decyduje mniejsze pole. To klasyczny przykład zasady najsłabszego ogniwa: zwiększanie pola pierwszego odcinka nie poprawi nośności całego pręta, dopóki drugi pozostaje zbyt cienki.
-
-Minimalne pole drugiego odcinka wynosi $A_{2,\min}=45\,000/156{,}7=287{,}2\ \text{mm}^2$. Po zaokrągleniu do $300\ \text{mm}^2$ otrzymujemy $\sigma_2=150\ \text{MPa}$ i $n_{\mathrm{rz}}=235/150=1{,}567$. Teraz oba odcinki mają taki sam poziom naprężenia i taki sam zapas.
-
-W praktyce drugi odcinek może być nagwintowany albo mieć otwór. Wtedy do obliczeń nie wystarcza pole zewnętrzne, bo siłę przenosi mniejszy przekrój netto. Dodatkowo gwint i podcięcie powodują koncentrację naprężeń, więc lokalne maksimum może być większe od $N/A_{\mathrm{net}}$. W takim przypadku dobór samego pola nominalnego jest tylko pierwszym krokiem.
-
-Zauważmy też, że sama zmiana pola nie zmienia sił osiowych w statycznie wyznaczalnym pręcie. Siły wynikają z równowagi, a nie ze sztywności. Dopiero w układzie statycznie niewyznaczalnym, na przykład gdy pręt jest połączony równolegle z innym elementem, zmiana sztywności jednego elementu zmienia rozkład sił. Ten przypadek wykracza poza obecną lekcję, ale warto o nim pamiętać przy bardziej złożonych konstrukcjach.
+<AnimatedSolution id="ex-axial-strength-condition-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem mamy gotowy przekrój i wymagany zapas, a szukamy maksymalnej dopuszczalnej siły. Pręt o polu $A=500\ \text{mm}^2$ wykonano ze stali $R_e=235\ \text{MPa}$. Wymagany współczynnik bezpieczeństwa wynosi $n=2{,}5$.
-
-Naprężenie dopuszczalne to $\sigma_{\mathrm{dop}}=235/2{,}5=94\ \text{MPa}$. Maksymalna siła wynosi $N_{\max}=\sigma_{\mathrm{dop}}A=94\cdot500=47\,000\ \text{N}$, czyli $47\ \text{kN}$. Przy $n=1{,}5$ ten sam przekrój mógłby przenieść $78{,}3\ \text{kN}$, bo $\sigma_{\mathrm{dop}}=156{,}7\ \text{MPa}$. Zwiększenie zapasu z $1{,}5$ do $2{,}5$ zmniejsza dopuszczalne obciążenie w stosunku $1{,}5/2{,}5=0{,}6$, czyli o 40%.
-
-Odwrotne pytanie brzmi: jakie pole jest potrzebne dla siły $60\ \text{kN}$ przy $n=2$? Wtedy $\sigma_{\mathrm{dop}}=117{,}5\ \text{MPa}$ i $A_{\min}=60\,000/117{,}5=510{,}6\ \text{mm}^2$. Po zaokrągleniu do $550\ \text{mm}^2$ otrzymujemy $\sigma=109{,}1\ \text{MPa}$ oraz $n_{\mathrm{rz}}=235/109{,}1=2{,}15$, czyli zapas jest większy od wymaganego.
-
-Widzimy, że współczynnik bezpieczeństwa nie jest dodatkiem do wyniku, lecz parametrem, który bezpośrednio zmienia nośność. Podwojenie $n$ przy stałym przekroju w przybliżeniu o połowę zmniejsza dopuszczalną siłę. To dlatego dobór $n$ musi być świadomą decyzją, a nie przypadkową liczbą.
+<AnimatedSolution id="ex-axial-strength-condition-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

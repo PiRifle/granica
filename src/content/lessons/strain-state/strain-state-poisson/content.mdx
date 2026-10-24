@@ -156,37 +156,15 @@ Ta zależność jest wygodna, ale też zdradza coś ważnego o modelu: materiał
   niezerowe.
 </Insight>
 
-<WorkedExample>
-  <Given>Stalowy pręt ma $E=200\,\text{GPa}$, $\nu=0{,}30$ i średnicę początkową $d_0=16\,\text{mm}$. Pod obciążeniem odkształcenie osiowe wynosi $\varepsilon_x=900\,\mu\varepsilon$.</Given>
-  <Steps>
-    <Step>Zamieniamy odkształcenie na wartość bezwymiarową: $\varepsilon_x=900\cdot10^{-6}=0{,}0009$.</Step>
-    <Step>Odkształcenie poprzeczne: $\varepsilon_y=-\nu\varepsilon_x=-0{,}30\cdot0{,}0009=-0{,}00027$.</Step>
-    <Step>Zmiana średnicy: $\Delta d=\varepsilon_y d_0=-0{,}00027\cdot16=-0{,}00432\,\text{mm}$.</Step>
-    <Step>Nowa średnica: $d=16-0{,}00432=15{,}99568\,\text{mm}$.</Step>
-    <Step>Kontrola naprężenia: $\sigma_x=E\varepsilon_x=200\,000\cdot0{,}0009=180\,\text{MPa}$, czyli poniżej typowej granicy plastyczności stali.</Step>
-  </Steps>
-  <Result>Średnica zmniejsza się o około $0{,}0043\,\text{mm}$, czyli $4{,}3\,\mu\text{m}$. Odkształcenie poprzeczne wynosi $-270\,\mu\varepsilon$, a naprężenie osiowe około $180\,\text{MPa}$.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-strain-state-poisson" />
 
 ## Drugi przykład
 
-Rozważmy płaski stan naprężenia w stalowej blasze, gdzie $\sigma_z=0$, a zmierzone odkształcenia w płaszczyźnie wynoszą $\varepsilon_x=800\,\mu\varepsilon$ i $\varepsilon_y=400\,\mu\varepsilon$. Przy $\nu=0{,}30$ oblicz odkształcenie grubości $\varepsilon_z$.
-
-Nie możemy po prostu napisać $\varepsilon_z=-\nu\varepsilon_x$, bo w płaskim stanie naprężenia $\varepsilon_z$ zależy od sumy odkształceń w płaszczyźnie. Z prawa Hooke’a dla $\sigma_z=0$ mamy $\varepsilon_z=-\nu(\sigma_x+\sigma_y)/E$. Dodając odkształcenia w płaszczyźnie, otrzymujemy $\varepsilon_x+\varepsilon_y=(1-\nu)(\sigma_x+\sigma_y)/E$. Po przekształceniu:
-
-$$
-\varepsilon_z=-\frac{\nu}{1-\nu}(\varepsilon_x+\varepsilon_y)
-$$
-
-Podstawiamy $\varepsilon_x+\varepsilon_y=1200\,\mu\varepsilon$ i $\nu/(1-\nu)=0{,}3/0{,}7\approx0{,}4286$. Stąd $\varepsilon_z\approx-514\,\mu\varepsilon$. Grubość blachy maleje, mimo że naprężenie normalne w kierunku grubości jest zerowe. To ten sam mechanizm, który widzieliśmy w pręcie, tylko opisany w płaskim stanie naprężenia.
+<AnimatedSolution id="ex-strain-state-poisson-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Projektant chce, aby średnica wałka o $d_0=10\,\text{mm}$ zmieniała się pod obciążeniem nie bardziej niż o $2\,\mu\text{m}$. Materiał ma $\nu=0{,}30$. Jakie jest maksymalne dopuszczalne odkształcenie osiowe?
-
-Najpierw zamieniamy limit średnicy na odkształcenie: $\varepsilon_{poprz}=\Delta d/d_0=0{,}002\,\text{mm}/10\,\text{mm}=0{,}0002$. Znak jest ujemny przy rozciąganiu, ale do limitu bierzemy wartość bezwzględną. Z definicji $\nu$ mamy $\varepsilon_{osi}=|\varepsilon_{poprz}|/\nu=0{,}0002/0{,}30=0{,}000667$, czyli około $667\,\mu\varepsilon$.
-
-Przy $E=200\,\text{GPa}$ odpowiada to naprężeniu $\sigma=E\varepsilon\approx133\,\text{MPa}$. To sensowny zakres dla stali konstrukcyjnej. Gdyby dopuszczalna zmiana średnicy była dziesięć razy mniejsza, limit naprężenia spadłby do około $13\,\text{MPa}$ — pokazuje to, jak rygorystyczne mogą być wymagania wymiarowe w precyzyjnych pasowaniach.
+<AnimatedSolution id="ex-strain-state-poisson-3" />
 
 ### Wnioski projektowe
 

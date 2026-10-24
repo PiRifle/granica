@@ -160,89 +160,15 @@ Wyprowadzenie pokazuje, skąd bierze się liniowość i dlaczego oś obojętna p
   samym polu i znacznie zmniejsza naprężenie.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Prostokątny przekrój belki ma $b = 80$ mm i $h = 160$ mm. Działa moment $M = 8$ kN·m,
-    a materiał ma $E = 200$ GPa. Przyjmij, że zginanie odbywa się względem osi poziomej.
-  </Given>
-  <Steps>
-    <Step>Moment bezwładności: $I_z = b h^3/12 = 80 \cdot 160^3/12 = 27{,}31 \cdot 10^6$ mm⁴.</Step>
-    <Step>Skrajne włókno: $c = h/2 = 80$ mm, więc $W_z = I_z/c = 341{,}333$ mm³.</Step>
-    <Step>Moment w N·mm: $M = 8 \cdot 10^6$ N·mm.</Step>
-    <Step>Naprężenie maksymalne: $\sigma_{\max} = 8 \cdot 10^6/341{,}333 = 23{,}44$ MPa.</Step>
-    <Step>Naprężenie w połowie drogi do osi, przy $y = 40$ mm:
-      $\sigma = 8 \cdot 10^6 \cdot 40/27{,}31 \cdot 10^6 = 11{,}72$ MPa.</Step>
-    <Step>Krzywizna: $\kappa = 8 \cdot 10^6/(200{,}000 \cdot 27{,}31 \cdot 10^6)
-      = 1{,}465 \cdot 10^{-6}$ 1/mm, czyli $\rho \approx 683$ m.</Step>
-    <Step>Odkształcenie skrajne: $\varepsilon = \sigma/E = 23{,}44/200{,}000 = 1{,}17 \cdot 10^{-4}$.</Step>
-  </Steps>
-  <Result>
-    Naprężenia skrajne mają wartość bezwzględną 23,4 MPa: ściskanie u góry i rozciąganie u dołu.
-    Na osi obojętnej naprężenie wynosi zero, a w połowie wysokości jest dwa razy mniejsze.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-bending-stress-neutral-axis" />
 
 ## Drugi przykład
 
-Rozważmy przekrój teowy złożony z półki $100 \times 20$ mm i środnika $20 \times 80$ mm.
-Całkowita wysokość wynosi 100 mm. Taki przekrój nie jest symetryczny względem osi poziomej,
-więc oś obojętna nie leży w połowie wysokości. Trzeba najpierw znaleźć środek ciężkości.
-
-Pole półki to $A_1 = 2000$ mm², a jej środek ciężkości leży 10 mm od góry. Pole środnika to
-$A_2 = 1600$ mm², a jego środek leży 60 mm od góry. Wspólny środek ciężkości jest w odległości
-
-$$
-\bar{y} = \frac{2000 \cdot 10 + 1600 \cdot 60}{3600} = 32{,}22\ \text{mm}
-$$
-
-od góry. To jest jednocześnie położenie osi obojętnej. Do góry zostaje $c_g = 32{,}22$ mm,
-a do dołu $c_d = 100 - 32{,}22 = 67{,}78$ mm.
-
-Moment bezwładności liczymy twierdzeniem Steinera. Dla półki $I_1 = 100 \cdot 20^3/12
-= 66{,}667$ mm⁴, a przesunięcie względem wspólnej osi wynosi $22{,}22$ mm. Dla środnika
-$I_2 = 20 \cdot 80^3/12 = 853{,}333$ mm⁴, a przesunięcie $27{,}78$ mm. Po zsumowaniu
-
-$$
-I_z = 66{,}667 + 2000 \cdot 22{,}22^2 + 853{,}333 + 1600 \cdot 27{,}78^2
-= 3{,}142 \cdot 10^6\ \text{mm}^4.
-$$
-
-Przy $M = 5$ kN·m naprężenia skrajne wynoszą
-
-$$
-\sigma_g = -\frac{5 \cdot 10^6 \cdot 32{,}22}{3{,}142 \cdot 10^6} = -51{,}3\ \text{MPa},
-\qquad
-\sigma_d = \frac{5 \cdot 10^6 \cdot 67{,}78}{3{,}142 \cdot 10^6} = 107{,}9\ \text{MPa}.
-$$
-
-Górna półka jest ściskana, a dolna krawędź środnika rozciągana. Mimo że górna półka jest
-szersza, to dolne włókno jest dalej od osi obojętnej, więc to ono decyduje o największym
-naprężeniu. Wniosek jest ogólny: w przekroju niesymetrycznym zawsze sprawdzaj oba skrajne
-włókna, bo „większy przekrój” nie oznacza automatycznie mniejszego naprężenia.
+<AnimatedSolution id="ex-bending-stress-neutral-axis-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy dopuszczalne naprężenie i moment, a szukamy wymiarów przekroju. Przyjmijmy
-$\sigma_{dop} = 140$ MPa i $M = 10$ kN·m. Wymagany wskaźnik wytrzymałości wynosi
-
-$$
-W_{\min} = \frac{M}{\sigma_{dop}} = \frac{10 \cdot 10^6}{140} = 71{,}429\ \text{mm}^3.
-$$
-
-Wybierzmy prostokąt o stosunku $b = h/2$, czyli dwukrotnie wyższy niż szeroki. Wtedy
-$W = b h^2/6 = h^3/12$, więc
-
-$$
-h \ge \sqrt[3]{12 W_{\min}} = \sqrt[3]{857{,}143} \approx 95{,}0\ \text{mm}.
-$$
-
-Przyjmujemy $h = 100$ mm i $b = 50$ mm. Wtedy $W = 50 \cdot 100^2/6 = 83{,}333$ mm³, a
-naprężenie wynosi $\sigma_{\max} = 10 \cdot 10^6/83{,}333 = 120$ MPa, czyli mieści się
-w granicy 140 MPa. Moment bezwładności $I = 50 \cdot 100^3/12 = 4{,}167 \cdot 10^6$ mm⁴.
-
-Wariant odwrotny pokazuje, że dobór przekroju nie polega na zgadywaniu. Z warunku na naprężenie
-wynika minimalny wskaźnik $W$, a z niego — wymiary. Dopiero po wybraniu konkretnego przekroju
-sprawdza się rzeczywiste naprężenie i ewentualnie koryguje wymiary.
+<AnimatedSolution id="ex-bending-stress-neutral-axis-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

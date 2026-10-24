@@ -167,44 +167,11 @@ W płaskim opisie w płaszczyźnie pomiaru maksymalne odkształcenie postaciowe 
   rozetą a trzema niezależnymi czujnikami liniowymi.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Rozeta prostokątna dała odczyty $\varepsilon_0=800\,\mu\varepsilon$, $\varepsilon_{45}=500\,\mu\varepsilon$ i
-    $\varepsilon_{90}=200\,\mu\varepsilon$.
-  </Given>
-  <Steps>
-    <Step>Przypisujemy $\varepsilon_x=800\,\mu\varepsilon$ i $\varepsilon_y=200\,\mu\varepsilon$.</Step>
-    <Step>
-      Obliczamy $\gamma_{xy}=2\cdot500-800-200=0\,\mu\text{rad}$.
-    </Step>
-    <Step>Średnia: $\varepsilon_{avg}=(800+200)/2=500\,\mu\varepsilon$.</Step>
-    <Step>
-      Promień: połowa różnicy odkształceń to $300\,\mu\varepsilon$, a $\gamma_{xy}/2=0$, więc
-      $R_\varepsilon=300\,\mu\varepsilon$.
-    </Step>
-    <Step>
-      Odkształcenia główne: $\varepsilon_1=500+300=800\,\mu\varepsilon$ oraz
-      $\varepsilon_2=500-300=200\,\mu\varepsilon$.
-    </Step>
-    <Step>
-      Maksymalne ścinanie: $\gamma_{max}=2R_\varepsilon=600\,\mu\text{rad}$.
-    </Step>
-    <Step>Kąt: $\tan2\theta_p=0/(800-200)=0$, więc $\theta_p=0^\circ$. Osie $x$ i $y$ są już kierunkami głównymi.</Step>
-  </Steps>
-  <Result>
-    $\varepsilon_1=800\,\mu\varepsilon$, $\varepsilon_2=200\,\mu\varepsilon$ i $\gamma_{max}=600\,\mu\text{rad}$. Zerowa
-    wartość $\gamma_{xy}$ oznacza, że w tym punkcie nie ma ścinania względem osi rozety, a kierunki główne pokrywają się
-    z osiami czujników.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-strain-state-rosette" />
 
 ## Drugi przykład
 
-Rozeta dała $\varepsilon_0=600\,\mu\varepsilon$, $\varepsilon_{45}=300\,\mu\varepsilon$ i $\varepsilon_{90}=-200\,\mu\varepsilon$. Tym razem ścinanie nie znika. Obliczamy $\gamma_{xy}=2\cdot300-600-(-200)=200\,\mu\text{rad}$. Średnia wynosi $(600-200)/2=200\,\mu\varepsilon$, a połowa różnicy odkształceń liniowych to $(600+200)/2=400\,\mu\varepsilon$.
-
-Promień koła wynosi $R_\varepsilon=\sqrt{400^2+100^2}=\sqrt{160000+10000}=\sqrt{170000}\approx412{,}3\,\mu\varepsilon$. Zatem $\varepsilon_1\approx612{,}3\,\mu\varepsilon$ i $\varepsilon_2\approx-212{,}3\,\mu\varepsilon$. Maksymalne ścinanie to $2R_\varepsilon\approx824{,}6\,\mu\text{rad}$. Kąt kierunku głównego: $\tan2\theta_p=200/800=0{,}25$, więc $2\theta_p\approx14{,}04^\circ$ i $\theta_p\approx7{,}02^\circ$.
-
-Wynik mówi, że największe rozciąganie działa pod kątem około $7^\circ$ od osi pierwszego czujnika. To niewiele, ale przy projektowaniu połączenia lub otworu taki obrót może mieć znaczenie. Drugie odkształcenie główne jest ujemne, czyli w kierunku prostopadłym materiał jest ściskany. Taki stan jest typowy dla rozciągania z udziałem ścinania.
+<AnimatedSolution id="ex-strain-state-rosette-2" />
 
 ### Co zmienia znak ścinania
 
@@ -212,11 +179,7 @@ Gdyby $\varepsilon_{45}$ było mniejsze od średniej, $\gamma_{xy}$ byłoby ujem
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że z obliczeń wynika, iż w punkcie panują odkształcenia główne $\varepsilon_1=700\,\mu\varepsilon$ i $\varepsilon_2=-100\,\mu\varepsilon$, a kierunek pierwszy jest odchylony o $\theta_p=20^\circ$ od osi $x$. Jakie odczyty powinna dać rozeta $0^\circ/45^\circ/90^\circ$?
-
-Średnia wynosi $(700-100)/2=300\,\mu\varepsilon$, a promień $R_\varepsilon=(700+100)/2=400\,\mu\varepsilon$. Dla osi $x$ kąt względem kierunku głównego wynosi $-20^\circ$, więc $\cos2\theta=\cos(-40^\circ)\approx0{,}766$ i $\sin2\theta=\sin(-40^\circ)\approx-0{,}643$. Z wzoru transformacyjnego $\varepsilon_0=300+400\cdot0{,}766\approx606\,\mu\varepsilon$. Odpowiednio $\varepsilon_{90}=300-400\cdot0{,}766\approx-6\,\mu\varepsilon$.
-
-Dla kierunku $45^\circ$ kąt względem kierunku głównego wynosi $45^\circ-20^\circ=25^\circ$, więc $2\theta=50^\circ$. Stąd $\varepsilon_{45}=300+400\cos50^\circ\approx300+257=557\,\mu\varepsilon$. Odczyty wynoszą więc około $606$, $557$ i $-6\,\mu\varepsilon$. Kontrola: $\gamma_{xy}=2\cdot557-606-(-6)=514\,\mu\text{rad}$, co odpowiada $2R_\varepsilon\sin40^\circ=800\cdot0{,}643\approx514\,\mu\text{rad}$.
+<AnimatedSolution id="ex-strain-state-rosette-3" />
 
 ### Co z tego wynika dla pomiaru
 

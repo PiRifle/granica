@@ -6,6 +6,7 @@ import styles from './SolutionDebug.module.css'
 
 export function SolutionDebug({ onBack }: { onBack: () => void }) {
   const [query, setQuery] = useState('')
+  const [limit, setLimit] = useState(12)
   const normalized = query.trim().toLowerCase()
 
   const visible = useMemo(
@@ -24,6 +25,7 @@ export function SolutionDebug({ onBack }: { onBack: () => void }) {
 
   const totalScenes = workedSolutions.reduce((sum, solution) => sum + solution.scenes.length, 0)
   const visibleScenes = visible.reduce((sum, solution) => sum + solution.scenes.length, 0)
+  const shown = visible.slice(0, limit)
 
   return (
     <div className={styles.page}>
@@ -49,7 +51,10 @@ export function SolutionDebug({ onBack }: { onBack: () => void }) {
             <Search size={16} />
             <input
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                setQuery(event.target.value)
+                setLimit(12)
+              }}
               placeholder="Filtruj po id, tytule lub formule…"
               aria-label="Filtruj odtwarzacze rozwiązań"
             />
@@ -57,7 +62,7 @@ export function SolutionDebug({ onBack }: { onBack: () => void }) {
           </label>
         </section>
 
-        {visible.map((solution) => (
+        {shown.map((solution) => (
           <section key={solution.id} className={styles.solution} data-solution-debug={solution.id}>
             <header className={styles.solutionHead}>
               <div>
@@ -74,6 +79,11 @@ export function SolutionDebug({ onBack }: { onBack: () => void }) {
         ))}
 
         {visible.length === 0 && <p className={styles.empty}>Brak odtwarzaczy pasujących do „{query}”.</p>}
+        {visible.length > limit && (
+          <button className={styles.more} type="button" onClick={() => setLimit((value) => value + 12)}>
+            Pokaż więcej ({visible.length - limit})
+          </button>
+        )}
       </main>
     </div>
   )

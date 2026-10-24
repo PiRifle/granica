@@ -116,54 +116,15 @@ Warto zauważyć, że w tym modelu nie ma pierwiastka ani kwadratów naprężeń
   ważny jest dobór hipotezy do rodzaju materiału.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    W punkcie żeliwnej płyty panuje stan płaski: σx = 50 MPa, σy = −20 MPa, τxy = 40 MPa. Dopuszczalna wytrzymałość na
-    rozciąganie wynosi kr = 80 MPa, a na ściskanie kc = 200 MPa. Sprawdź oba warunki.
-  </Given>
-  <Steps>
-    <Step>Środek koła Mohra: C = (σx + σy)/2 = (50 − 20)/2 = 15 MPa.</Step>
-    <Step>Promień: R = √[((σx − σy)/2)² + τxy²] = √(35² + 40²) = √2825 = 53,15 MPa.</Step>
-    <Step>
-      Naprężenia główne przed uporządkowaniem: 15 + 53,15 = 68,15 MPa oraz 15 − 53,15 = −38,15 MPa; trzecia wartość
-      główna wynosi 0.
-    </Step>
-    <Step>
-      Po uporządkowaniu: σ1 = 68,15 MPa, σ2 = 0, σ3 = −38,15 MPa. Największe dodatnie to 68,15 MPa, a największe co do
-      modułu ujemne to 38,15 MPa.
-    </Step>
-    <Step>Warunek rozciągania: 68,15 ≤ 80 MPa, więc jest spełniony. Zapas na rozciąganie: n_t = 80/68,15 = 1,17.</Step>
-    <Step>Warunek ściskania: 38,15 ≤ 200 MPa, więc jest spełniony. Zapas na ściskanie: n_c = 200/38,15 = 5,24.</Step>
-  </Steps>
-  <Result>
-    Oba warunki są spełnione, ale o bezpieczeństwie decyduje rozciąganie: zapas 1,17 jest znacznie mniejszy od zapasu
-    5,24 na ściskanie. Nawet niewielki wzrost naprężenia rozciągającego może przekroczyć kr.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-criteria-max-normal" />
 
 ## Drugi przykład
 
-Rozważmy żeliwny element poddany działaniu naprężeń głównych σ1 = 25 MPa, σ2 = −10 MPa i σ3 = −160 MPa. Materiał ma kr = 150 MPa i kc = 600 MPa. Taki stan może wystąpić w strefie ściskanej, gdzie poprzeczne rozciąganie jest skutkiem efektu Poissona albo sposobu podparcia.
-
-Sprawdzamy rozciąganie: największe naprężenie dodatnie wynosi 25 MPa, więc 25 ≤ 150 MPa. Zapas n_t = 150/25 = 6,0. Sprawdzamy ściskanie: największe naprężenie ujemne co do modułu wynosi 160 MPa, więc 160 ≤ 600 MPa. Zapas n_c = 600/160 = 3,75. Oba warunki są spełnione, a o wyniku decyduje ściskanie, mimo że wytrzymałość na ściskanie jest czterokrotnie większa od wytrzymałości na rozciąganie. Dzieje się tak, bo naprężenie ściskające jest znacznie większe od rozciągającego.
-
-Gdyby zwiększać tylko naprężenie rozciągające σ1, przy pewnej wartości to ono przejęłoby decydującą rolę. Próg wypada, gdy 150/σ1 = 600/160, czyli σ1 = 150·160/600 = 40 MPa. Dla σ1 powyżej 40 MPa zapas na rozciąganie staje się mniejszy niż 3,75. To pokazuje, że w materiałach o różnych granicach nie można oceniać bezpieczeństwa po jednej liczbie „największego naprężenia” bez porównania z właściwą granicą.
-
-Warto też zauważyć, że zero nie jest tutaj skrajną wartością co do modułu, bo 160 MPa jest większe od zera. Gdyby jednak σ1 i σ2 były ujemne, zero byłoby największym naprężeniem i warunek rozciągania byłby spełniony automatycznie. Właśnie dlatego porządek i znaki trzeba ustalać świadomie, a nie mechanicznie sortować wartości bezwzględne.
-
-Dla porównania HMH dałaby w tym stanie σHMH = √(25² + 10² + 160² − 25·(−10) − (−10)·(−160) − (−160)·25). Po obliczeniu otrzymujemy √(625 + 100 + 25 600 + 250 − 1600 + 4000) = √28 975 = 170,2 MPa. Przy Re = 600 MPa zapas wynosiłby 3,53, czyli byłby nieco mniejszy od zapasu na ściskanie według maksimum normalnego. Oba modele prowadzą więc do podobnego rzędu wielkości, ale nie do identycznej liczby.
+<AnimatedSolution id="ex-criteria-max-normal-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Płyta z materiału kruchego jest ściskana w jednym kierunku: σy = −40 MPa, σx = 0. Dopuszczalna wytrzymałość na rozciąganie wynosi kr = 150 MPa, a wymagany zapas n = 2,0. Pytamy, jakie maksymalne τxy można przyłożyć, aby nie przekroczyć wytrzymałości na rozciąganie.
-
-Naprężenie dopuszczalne na rozciąganie wynosi kr/n = 75 MPa. Przy σx = 0 i σy = −40 MPa środek koła to C = −20 MPa, a promień R = √(20² + τ²). Naprężenia główne wynoszą σ1 = −20 + R i σ2 = −20 − R. Największe naprężenie rozciągające to σ1, więc wymagamy σ1 ≤ 75 MPa.
-
-Stąd −20 + √(400 + τ²) ≤ 75, czyli √(400 + τ²) ≤ 95. Po podniesieniu do kwadratu: 400 + τ² ≤ 9025, więc τ² ≤ 8625 i τ ≤ 92,9 MPa. Przy τ = 92,9 MPa otrzymujemy σ1 = 75 MPa i σ2 = −115 MPa. Warunek ściskania ma postać 115 ≤ kc/n. Jeśli kc = 600 MPa, to kc/n = 300 MPa, więc ściskanie jest daleko od granicy.
-
-Odpowiedź: dopuszczalne τxy wynosi około 92,9 MPa. Gdyby materiał miał jednakowe granice na rozciąganie i ściskanie, trzeba by jeszcze sprawdzić, czy któreś z naprężeń nie przekracza wspólnej granicy. W tym przypadku decyduje rozciąganie, bo kruchy materiał jest na nie znacznie wrażliwszy.
-
-Warto zauważyć, że w tym zadaniu zwiększanie ścinania zwiększa jednocześnie naprężenie rozciągające i ściskające. Nie można więc powiedzieć, że „ścinanie jest bezpieczne, dopóki nie przekracza granicy ścinania”. W hipotezie maksimum normalnego ścinanie jest tylko pośrednim sposobem wytworzenia naprężeń głównych. To kolejny powód, dla którego trzeba najpierw policzyć σ1 i σ2, a dopiero potem porównywać je z granicami.
+<AnimatedSolution id="ex-criteria-max-normal-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

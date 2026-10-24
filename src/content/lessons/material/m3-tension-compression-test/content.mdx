@@ -113,69 +113,15 @@ Wyprowadzenie zaczynamy od równowagi próbki. W przekroju poprzecznym siła zew
   odkształcenie, zależnie od modułu Younga.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Okrągłą próbkę o średnicy $d=10\ \text{mm}$ rozciągano siłą $N=15{,}7\ \text{kN}$. Długość pomiarowa $L_0=100\ \text{mm}$ wzrosła o $\Delta L=0{,}1\ \text{mm}$.
-  </Given>
-  <Steps>
-    <Step>Pole przekroju: $A_0=\pi d^2/4=\pi\cdot 10^2/4=78{,}54\ \text{mm}^2$.</Step>
-    <Step>Siła w niutonach: $N=15{,}7\ \text{kN}=15\,700\ \text{N}$.</Step>
-    <Step>Naprężenie: $\sigma=15\,700/78{,}54\approx 199{,}9\ \text{MPa}$, czyli około $200\ \text{MPa}$.</Step>
-    <Step>Odkształcenie: $\varepsilon=0{,}1/100=0{,}001$, czyli $0{,}1\%$.</Step>
-    <Step>Moduł: $E=\sigma/\varepsilon=200/0{,}001=200\,000\ \text{MPa}=200\ \text{GPa}$, co jest typowe dla stali.</Step>
-    <Step>Sztywność próbki: $k=EA_0/L_0=200\,000\cdot 78{,}54/100\approx 157\,080\ \text{N/mm}$, czyli około $157\ \text{MN/m}$.</Step>
-    <Step>Kontrola: $k\Delta L=157\,080\cdot 0{,}1=15\,708\ \text{N}$, zgodnie z przyjętą siłą w granicach zaokrągleń.</Step>
-  </Steps>
-  <Result>
-    W próbce działa naprężenie około $200\ \text{MPa}$, odkształcenie względne wynosi $0{,}001$, a moduł Younga około $200\ \text{GPa}$. Wynik jest spójny z typową stalą i pozostaje w zakresie sprężystym, jeśli granica plastyczności jest wyższa od $200\ \text{MPa}$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m3-tension-compression-test" />
 
 ## Drugi przykład
 
-Rozważmy płaską próbkę stalową o szerokości $b=12{,}5\ \text{mm}$ i grubości $t=4\ \text{mm}$. Pole przekroju wynosi $A_0=50\ \text{mm}^2$, długość pomiarowa $L_0=50\ \text{mm}$, a siła rozciągająca $N=10\ \text{kN}$. Naprężenie obliczamy jako
-
-$$
-\sigma=\frac{10\,000}{50}=200\ \text{MPa}.
-$$
-
-Przy module $E=200\ \text{GPa}$ odkształcenie wynosi $\varepsilon=200/200\,000=0{,}001$, a wydłużenie
-
-$$
-\Delta L=\varepsilon L_0=0{,}001\cdot 50=0{,}05\ \text{mm}.
-$$
-
-Gdyby ta sama siła działała na próbkę o polu $25\ \text{mm}^2$, naprężenie wzrosłoby do $400\ \text{MPa}$. To już przekracza typową granicę plastyczności stali konstrukcyjnej, więc nie wolno by było twierdzić, że odkształcenie nadal wynosi $400/200\,000=0{,}002$. Prawo Hooke’a przestałoby obowiązywać, a rzeczywiste wydłużenie byłoby większe i częściowo trwałe.
-
-Ten przykład pokazuje, dlaczego w zadaniach trzeba sprawdzać nie tylko wynik arytmetyczny, ale także zakres modelu. Liczba $400\ \text{MPa}$ jest poprawnym naprężeniem nominalnym, ale błędem byłoby użycie jej do liniowego wzoru na wydłużenie bez sprawdzenia granicy materiału.
-
-Zauważ, że druga próbka ma identyczną długość pomiarową, więc różnica wydłużenia wynika wyłącznie z różnicy naprężenia. Gdyby dodatkowo zmienić długość, do porównania trzeba by użyć odkształcenia względnego, a nie samego wydłużenia. To właśnie dlatego krzywa materiału jest rysowana w układzie $\sigma$–$\varepsilon$, a nie siła–wydłużenie.
+<AnimatedSolution id="ex-m3-tension-compression-test-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że tensometr na stalowym pręcie o polu $A=40\ \text{mm}^2$ wskazał odkształcenie $\varepsilon=800\cdot 10^{-6}$. Moduł Younga stali przyjmujemy $E=200\ \text{GPa}$. Szukamy siły osiowej i wydłużenia na bazie pomiarowej $L_0=80\ \text{mm}$.
-
-Najpierw wyznaczamy naprężenie z prawa Hooke’a:
-
-$$
-\sigma=E\varepsilon=200\,000\cdot 800\cdot 10^{-6}=160\ \text{MPa}.
-$$
-
-Następnie przekształcamy definicję naprężenia:
-
-$$
-N=\sigma A=160\cdot 40=6400\ \text{N}=6{,}4\ \text{kN}.
-$$
-
-Wydłużenie wynosi
-
-$$
-\Delta L=\varepsilon L_0=800\cdot 10^{-6}\cdot 80=0{,}064\ \text{mm}.
-$$
-
-Sprawdzenie: $N L_0/(E A)=6400\cdot 80/(200\,000\cdot 40)=0{,}064\ \text{mm}$. Wynik jest spójny. Naprężenie $160\ \text{MPa}$ jest mniejsze od typowej granicy plastyczności stali $235\ \text{MPa}$, więc zastosowanie liniowego prawa Hooke’a jest uzasadnione. Gdyby tensometr wskazał $2000\cdot 10^{-6}$, otrzymalibyśmy $400\ \text{MPa}$ i musielibyśmy sprawdzić, czy materiał nie wszedł w zakres plastyczny.
-
-W praktyce tensometry mają niepewność pomiaru i mogą być przyklejone pod niewielkim kątem. Dlatego wynik zaokrągla się do liczby cyfr uzasadnionych dokładnością aparatury. W zadaniach szkolnych zwykle wystarczą trzy cyfry znaczące, ale w obliczeniach pośrednich warto zachować więcej, aby błąd zaokrąglenia nie urósł na końcu.
+<AnimatedSolution id="ex-m3-tension-compression-test-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

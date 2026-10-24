@@ -127,59 +127,15 @@ Wyprowadzenie prowadzimy od pojedynczego punktu na obwodzie pręta.
   zbyt wiotki.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pełny pręt kołowy o średnicy $d=60\ \mathrm{mm}$ jest obciążony siłą osiową $N=30\ \mathrm{kN}$, momentem
-    zginającym $M=1{,}2\ \mathrm{kN\cdot m}$ i momentem skręcającym $T=800\ \mathrm{N\cdot m}$. Granica
-    plastyczności wynosi $R_e=235\ \mathrm{MPa}$. Oblicz współczynniki bezpieczeństwa według HMH i Treski.
-  </Given>
-  <Steps>
-    <Step>Pole przekroju: $A=\pi\cdot60^2/4=2827{,}4\ \mathrm{mm^2}$.</Step>
-    <Step>Wskaźnik zginania: $W=\pi\cdot60^3/32=21\,205{,}8\ \mathrm{mm^3}$.</Step>
-    <Step>Wskaźnik skręcania: $W_p=2W=42\,411{,}5\ \mathrm{mm^3}$.</Step>
-    <Step>Naprężenie osiowe: $\sigma_N=30\,000/2827{,}4=10{,}61\ \mathrm{MPa}$.</Step>
-    <Step>
-      Naprężenie od zginania: $\sigma_M=1{,}2\cdot10^6/21\,205{,}8=56{,}59\ \mathrm{MPa}$. Suma:
-      $\sigma_x=67{,}20\ \mathrm{MPa}$.
-    </Step>
-    <Step>Naprężenie styczne: $\tau=800\,000/42\,411{,}5=18{,}86\ \mathrm{MPa}$.</Step>
-    <Step>
-      HMH: $\sigma_{HMH}=\sqrt{67{,}20^2+3\cdot18{,}86^2}=\sqrt{4515{,}7+1067{,}4}=74{,}7\ \mathrm{MPa}$.
-    </Step>
-    <Step>
-      Treska: $\sigma_{avg}=33{,}60\ \mathrm{MPa}$, $R=\sqrt{33{,}60^2+18{,}86^2}=38{,}53\ \mathrm{MPa}$, więc
-      $\sigma_1=72{,}13$ i $\sigma_2=-4{,}93\ \mathrm{MPa}$. Największa różnica to $77{,}06\ \mathrm{MPa}$.
-    </Step>
-    <Step>Współczynniki: $n_{HMH}=235/74{,}7=3{,}15$ oraz $n_{Tresca}=235/77{,}06=3{,}05$.</Step>
-  </Steps>
-  <Result>
-    Współczynnik bezpieczeństwa wynosi około $3{,}15$ według HMH i $3{,}05$ według Treski. Miarodajna jest
-    mniejsza wartość, czyli około $3{,}05$. Obie hipotezy dają podobny wynik, bo dominuje zginanie, a udział
-    ścinania jest umiarkowany. Wynik nie zastępuje sprawdzenia ugięcia i kąta skręcenia.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-stress-state-mohr-interpretation" />
 
 ## Drugi przykład
 
-Rozważmy blachę z otworem kołowym, rozciąganą nominalnie naprężeniem $\sigma=120\ \mathrm{MPa}$. W pobliżu otworu naprężenie styczne do brzegu osiąga około trzykrotności wartości nominalnej, czyli $360\ \mathrm{MPa}$. Dla stali o $R_e=235\ \mathrm{MPa}$ nominalny współczynnik bezpieczeństwa wynosi $235/120\approx1{,}96$, ale lokalne naprężenie przekracza granicę plastyczności o 125 MPa.
-
-Co z tego wynika? W materiale ciągliwym strefa plastyczna wokół otworu może się rozwinąć i częściowo wyrównać naprężenia, ale nie znaczy to, że problem znika. Przy obciążeniu cyklicznym lokalne uplastycznienie sprzyja inicjacji pęknięcia zmęczeniowego. W materiale kruchym lokalne naprężenie może doprowadzić do pęknięcia bez wcześniejszego ostrzeżenia. Sam nominalny współczynnik bezpieczeństwa nie opisuje więc sytuacji.
-
-Współczynnik koncentracji naprężeń dla otworu kołowego w rozciąganej blasze jest równy około 3 i nie zależy od średnicy otworu. Efekt jest silny tylko w pobliżu otworu, w odległości rzędu kilku średnic. To przejaw zasady de Saint-Venanta: zaburzenie pola naprężeń wygasa z odległością. W obliczeniach trzeba więc rozróżnić naprężenie nominalne, liczone dla przekroju bez otworu, od naprężenia lokalnego.
-
-Ten przykład pokazuje, że koło Mohra i kryterium wytężenia to dopiero część analizy. Trzeba jeszcze wiedzieć, gdzie przyłożone jest obciążenie i jaka jest geometria. W strefie karbu samo $\sigma=N/A$ może zaniżać naprężenie nawet kilkukrotnie. Dlatego inżynier najpierw szuka miejsc, w których naprężenia mogą się koncentrować, a dopiero potem wykonuje obliczenia szczegółowe.
+<AnimatedSolution id="ex-stress-state-mohr-interpretation-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że dla tych samych obciążeń $N=30\ \mathrm{kN}$, $M=1{,}2\ \mathrm{kN\cdot m}$ i $T=800\ \mathrm{N\cdot m}$ trzeba dobrać średnicę pręta tak, aby współczynnik bezpieczeństwa według HMH wynosił co najmniej $2{,}5$. Granica plastyczności wynosi $R_e=235\ \mathrm{MPa}$. To zadanie „od wyniku do danych”.
-
-Naprężenie dopuszczalne wynosi $R_e/2{,}5=94\ \mathrm{MPa}$. Szukamy średnicy $d$, dla której $\sigma_{HMH}\le94\ \mathrm{MPa}$. Ponieważ naprężenia zależą od $d$ w różny sposób — osiowe odwrotnie proporcjonalnie do $d^2$, a zginanie i skręcanie odwrotnie proporcjonalnie do $d^3$ — równanie najlepiej rozwiązać iteracyjnie.
-
-Dla $d=55\ \mathrm{mm}$ otrzymujemy $A=2375{,}8\ \mathrm{mm^2}$, $W=16\,332{,}4\ \mathrm{mm^3}$ i $W_p=32\,664{,}8\ \mathrm{mm^3}$. Wtedy $\sigma_N=12{,}63\ \mathrm{MPa}$, $\sigma_M=73{,}47\ \mathrm{MPa}$, $\sigma_x=86{,}10\ \mathrm{MPa}$ oraz $\tau=24{,}49\ \mathrm{MPa}$. Naprężenie HMH wynosi około $95{,}98\ \mathrm{MPa}$, czyli nieco więcej niż dopuszczalne.
-
-Dla $d=56\ \mathrm{mm}$ mamy $A=2463{,}0\ \mathrm{mm^2}$, $W=17\,239{,}5\ \mathrm{mm^3}$ i $W_p=34\,479{,}1\ \mathrm{mm^3}$. Stąd $\sigma_N=12{,}18\ \mathrm{MPa}$, $\sigma_M=69{,}61\ \mathrm{MPa}$, $\sigma_x=81{,}79\ \mathrm{MPa}$ oraz $\tau=23{,}20\ \mathrm{MPa}$. Naprężenie HMH wynosi około $91{,}13\ \mathrm{MPa}$, a współczynnik $235/91{,}13=2{,}58$, czyli jest większy od wymaganego.
-
-Wniosek: średnica $55\ \mathrm{mm}$ jest zbyt mała, a $56\ \mathrm{mm}$ wystarcza. W praktyce wybieramy kolejny dostępny wymiar handlowy, często z zapasem na korozję, tolerancje i koncentrację naprężeń. Obliczenie graniczne pokazuje, że wymaganie $n=2{,}5$ jest bliskie granicy między tymi dwoma wymiarami, więc nie należy zaokrąglać w dół.
+<AnimatedSolution id="ex-stress-state-mohr-interpretation-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

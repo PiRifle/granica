@@ -165,26 +165,11 @@ Te wzory są najczęściej używane w praktyce tensometrycznej. Mierzymy $\varep
   w zadaniach z blachą i powłoką.
 </Insight>
 
-<WorkedExample>
-  <Given>Stalowy element ma $E=200\,\text{GPa}$ i $\nu=0{,}30$. Stan naprężenia: $\sigma_x=80\,\text{MPa}$, $\sigma_y=40\,\text{MPa}$, $\sigma_z=-20\,\text{MPa}$ oraz $\tau_{xy}=30\,\text{MPa}$.</Given>
-  <Steps>
-    <Step>Moduł ścinania: $G=200\,000/[2(1+0{,}30)]=76\,923\,\text{MPa}$.</Step>
-    <Step>$\varepsilon_x=[80-0{,}30(40-20)]/200\,000=(80-6)/200\,000=0{,}00037$.</Step>
-    <Step>$\varepsilon_y=[40-0{,}30(-20+80)]/200\,000=(40-18)/200\,000=0{,}00011$.</Step>
-    <Step>$\varepsilon_z=[-20-0{,}30(80+40)]/200\,000=(-20-36)/200\,000=-0{,}00028$.</Step>
-    <Step>$\gamma_{xy}=30/76\,923=0{,}00039\,\text{rad}$.</Step>
-    <Step>Kontrola objętości: suma odkształceń liniowych wynosi $0{,}00037+0{,}00011-0{,}00028=0{,}00020$, czyli $0{,}02\,\%$.</Step>
-  </Steps>
-  <Result>$\varepsilon_x=370\,\mu\varepsilon$, $\varepsilon_y=110\,\mu\varepsilon$, $\varepsilon_z=-280\,\mu\varepsilon$ oraz $\gamma_{xy}=390\,\mu\text{rad}$. Objętość rośnie nieznacznie, mimo ujemnego naprężenia w kierunku $z$.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-strain-state-general-hooke" />
 
 ## Drugi przykład
 
-Rozważmy cienką blachę w płaskim stanie naprężenia: $\sigma_z=0$, $\sigma_x=120\,\text{MPa}$, $\sigma_y=0$, $E=200\,\text{GPa}$ i $\nu=0{,}30$. Obliczamy $\varepsilon_x$, $\varepsilon_y$ i $\varepsilon_z$.
-
-$\varepsilon_x=(120-0{,}30\cdot0)/200\,000=0{,}0006$, czyli $600\,\mu\varepsilon$. $\varepsilon_y=(0-0{,}30\cdot120)/200\,000=-0{,}00018$, czyli $-180\,\mu\varepsilon$. $\varepsilon_z$ również wynosi $-0{,}00018$, bo w płaskim stanie naprężenia $\sigma_z=0$ i $\varepsilon_z=-\nu(\sigma_x+\sigma_y)/E=-\nu\sigma_x/E$. Grubość blachy maleje o $0{,}018\,\%$.
-
-Gdyby ktoś błędnie przyjął, że w kierunku $z$ nie ma odkształcenia, popełniłby błąd rzędu $180\,\mu\varepsilon$. Przy pomiarze tensometrycznym to wartość całkowicie mierzalna, więc założenie płaskiego stanu odkształcenia zamiast płaskiego stanu naprężenia musi być świadome.
+<AnimatedSolution id="ex-strain-state-general-hooke-2" />
 
 ### Kiedy naprężenie poprzeczne naprawdę jest zerowe
 
@@ -197,11 +182,7 @@ Gdyby ktoś błędnie przyjął, że w kierunku $z$ nie ma odkształcenia, pope�
 
 ## Trzeci przykład: wariant odwrotny
 
-Z tensometrów wzdłuż osi $x$ i $y$ zmierzono $\varepsilon_x=500\,\mu\varepsilon$ i $\varepsilon_y=-150\,\mu\varepsilon$. Materiał ma $E=200\,\text{GPa}$ i $\nu=0{,}30$. Załóżmy, że to stan jednoosiowy i sprawdźmy, jakie naprężenie $\sigma_x$ daje takie odkształcenia.
-
-Dla jednoosiowego rozciągania $\varepsilon_x=\sigma_x/E$, więc $\sigma_x=E\varepsilon_x=200\,000\cdot0{,}0005=100\,\text{MPa}$. Przewidywane odkształcenie poprzeczne wynosi wtedy $-\nu\varepsilon_x=-0{,}30\cdot0{,}0005=-0{,}00015=-150\,\mu\varepsilon$. Zgadza się z pomiarem. To nie jest przypadek: właśnie w ten sposób sprawdza się, czy materiał rzeczywiście jest w stanie jednoosiowym, czy w pomiarze ukrywa się dodatkowe naprężenie.
-
-Gdyby zmierzone $\varepsilon_y$ było dodatnie, wniosek o czystym rozciąganiu byłby fałszywy. Trzeba by wrócić do pełnego układu równań i rozważyć naprężenie $\sigma_y$ lub odkształcenie termiczne.
+<AnimatedSolution id="ex-strain-state-general-hooke-3" />
 
 ### Co jeszcze można wywnioskować z pomiaru
 

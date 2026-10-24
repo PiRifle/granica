@@ -109,25 +109,7 @@ $$
   zero.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma długość 5 m. W odległości 2 m od lewej podpory A działa siła pionowa 30 kN w dół. Na
-    całej długości działa również równomierne obciążenie 4 kN/m. Pomiń ciężar własny belki. Wyznacz reakcje.
-  </Given>
-  <Steps>
-    <Step>Oblicz wypadkową obciążenia równomiernego: Q = qL = 4 kN/m · 5 m = 20 kN.</Step>
-    <Step>Wypadkowa Q działa w środku belki, 2,5 m od A.</Step>
-    <Step>Zapisz sumę momentów względem A: RB · 5 = 30 · 2 + 20 · 2,5.</Step>
-    <Step>Oblicz prawą stronę: 60 + 50 = 110 kN·m.</Step>
-    <Step>Wyznacz RB = 110 / 5 = 22 kN.</Step>
-    <Step>Z równowagi pionowej: RA + RB = 30 + 20 = 50 kN.</Step>
-    <Step>Oblicz RA = 50 − 22 = 28 kN.</Step>
-    <Step>Sprawdź moment względem B: RA · 5 = 28 · 5 = 140 kN·m oraz 30 · 3 + 20 · 2,5 = 90 + 50 = 140 kN·m.</Step>
-  </Steps>
-  <Result>
-    Reakcje wynoszą RA = 28 kN i RB = 22 kN, obie skierowane w górę. Suma reakcji 50 kN równoważy sumę obciążeń.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-foundations-supports-reactions" />
 
 Moment pod siłą można policzyć z lewej strony:
 
@@ -145,52 +127,11 @@ Oba wyniki są zgodne, co potwierdza poprawność reakcji. Zwróć uwagę, że m
 
 ## Drugi przykład
 
-Wspornik jest utwierdzony w ścianie w punkcie A i ma długość 2,5 m. Na swobodnym końcu działa siła 8 kN w dół, a na całej długości równomierne obciążenie 3 kN/m. Wyznacz reakcje w utwierdzeniu.
-
-Siła zastępcza od obciążenia równomiernego:
-
-$$
-Q=3\cdot 2{,}5=7{,}5\ \text{kN}
-$$
-
-Działa w odległości 1,25 m od A. Z równowagi pionowej:
-
-$$
-R_{Ay}=8+7{,}5=15{,}5\ \text{kN}
-$$
-
-Reakcja momentowa w utwierdzeniu równoważy moment od obu obciążeń względem A:
-
-$$
-M_A=8\cdot 2{,}5+7{,}5\cdot 1{,}25
-=20+9{,}375=29{,}375\ \text{kN}\cdot\text{m}
-$$
-
-Jeśli obciążenia działają zgodnie z ruchem wskazówek zegara, reakcja momentowa działa przeciwnie. Reakcja pozioma $A_x$ wynosi zero, bo nie ma obciążeń poziomych. Utwierdzenie nadal ma jednak zdolność przenoszenia siły poziomej — jej wartość w tym zadaniu jest po prostu zerowa.
+<AnimatedSolution id="ex-foundations-supports-reactions-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Belka swobodnie podparta ma długość 4 m. Wiadomo, że przy sile $P=20\ \text{kN}$ reakcja prawej podpory wynosi $R_B=15\ \text{kN}$. W jakiej odległości od lewej podpory działa siła?
-
-Korzystamy z $R_B=Pa/L$ i przekształcamy:
-
-$$
-a=\frac{R_B L}{P}=\frac{15\cdot 4}{20}=3\ \text{m}
-$$
-
-Lewa reakcja wynosi:
-
-$$
-R_A=P-R_B=20-15=5\ \text{kN}
-$$
-
-Moment pod siłą:
-
-$$
-M=R_A\cdot 3=5\cdot 3=15\ \text{kN}\cdot\text{m}
-$$
-
-Sprawdzenie z prawej strony: $R_B\cdot 1=15\cdot 1=15\ \text{kN}\cdot\text{m}$. Wynik jest spójny. Gdyby reakcja $R_B$ była większa od $P$, otrzymalibyśmy $a$ większe od $L$, co oznaczałoby, że dane są sprzeczne z modelem belki swobodnie podpartej.
+<AnimatedSolution id="ex-foundations-supports-reactions-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

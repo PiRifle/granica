@@ -118,54 +118,15 @@ Kluczowe jest zrozumienie, że σred zależy od hipotezy. Dla stanu σ = 90 MPa 
   wynik.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pełny pręt stalowy o średnicy d = 60 mm jest rozciągany siłą N = 30 kN, zginany momentem M = 1,2 kN·m i skręcany
-    momentem T = 800 N·m. Granica plastyczności wynosi Re = 235 MPa, a wymagany zapas n_wym = 2,0. Sprawdź włókno A, w
-    którym naprężenia od zginania i siły osiowej mają ten sam znak.
-  </Given>
-  <Steps>
-    <Step>Pole przekroju: A = πd²/4 = π·60²/4 = 2827,4 mm².</Step>
-    <Step>Siła osiowa: N = 30 kN = 30 000 N, więc σN = 30 000/2827,4 = 10,61 MPa.</Step>
-    <Step>
-      Wskaźnik na zginanie: W = πd³/32 = π·60³/32 = 21 205,8 mm³. Naprężenie od zginania: σM = 1,2·10⁶/21 205,8 = 56,59
-      MPa.
-    </Step>
-    <Step>Suma naprężeń normalnych w badanym włóknie: σx = 10,61 + 56,59 = 67,20 MPa.</Step>
-    <Step>Wskaźnik na skręcanie: Wo = 2W = 42 411,5 mm³. Naprężenie styczne: τ = 800·10³/42 411,5 = 18,86 MPa.</Step>
-    <Step>HMH: σred = √(67,20² + 3·18,86²) = √(4515,8 + 1067,1) = 74,72 MPa.</Step>
-    <Step>Tresca: σred = √(67,20² + 4·18,86²) = √(4515,8 + 1422,8) = 77,06 MPa.</Step>
-    <Step>
-      Zapasy: n_HMH = 235/74,72 = 3,14; n_T = 235/77,06 = 3,05. Wymagane naprężenie dopuszczalne wynosi kr = 235/2 =
-      117,5 MPa.
-    </Step>
-  </Steps>
-  <Result>
-    Obie hipotezy dają wynik poniżej kr = 117,5 MPa, więc warunek jest spełniony. Większe wytężenie daje Tresca: 77,1
-    MPa i zapas około 3,05. HMH daje 74,7 MPa i zapas około 3,14. Do oceny konstrukcji trzeba konsekwentnie używać
-    jednej hipotezy.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-criteria-reduced-stress" />
 
 ## Drugi przykład
 
-Rozważmy wał rozciągany naprężeniem σ = 90 MPa i skręcany naprężeniem τ = 40 MPa. Materiał ma Re = 280 MPa, a wymagany zapas wynosi 1,5. Sprawdzimy obie hipotezy plastyczne i porównamy je z hipotezą maksimum normalnego.
-
-Naprężenie dopuszczalne wynosi kr = 280/1,5 = 186,7 MPa. Dla HMH otrzymujemy σHMH = √(90² + 3·40²) = √(8100 + 4800) = 113,6 MPa. Dla Tresca σT = √(90² + 4·40²) = √(8100 + 6400) = 120,4 MPa. Oba wyniki są mniejsze od 186,7 MPa, więc element przechodzi warunek.
-
-Sprawdźmy jeszcze naprężenia główne. Środek koła Mohra wynosi C = 90/2 = 45 MPa, a promień R = √(45² + 40²) = 60,2 MPa. Zatem σ1 = 105,2 MPa, σ2 = −15,2 MPa, a σ3 = 0. Największy moduł naprężenia głównego to 105,2 MPa, więc hipoteza maksimum normalnego dałaby σred = 105,2 MPa. To mniej niż HMH i Tresca, co pokazuje, że różne hipotezy mogą różnie porządkować ten sam stan.
-
-Wniosek praktyczny jest taki: dla materiału plastycznego nie wystarczy powiedzieć „naprężenie wynosi 105 MPa”. Trzeba dodać, według jakiego kryterium. W tym przypadku Tresca jest najbardziej zachowawcza, a maksimum normalne najmniej. Kolejność może się zmienić przy innym stosunku σ do τ, dlatego nie można zapamiętać jednej stałej hierarchii dla wszystkich stanów.
+<AnimatedSolution id="ex-criteria-reduced-stress-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy wymagany zapas i szukamy dopuszczalnego momentu skręcającego. Pręt o średnicy d = 50 mm jest zginany momentem M = 0,8 kN·m. Materiał ma Re = 355 MPa, a wymagany zapas wynosi n_wym = 2,0. Przyjmujemy hipotezę HMH i pytamy, jaki maksymalny moment T można przyłożyć.
-
-Najpierw obliczamy geometrię i naprężenie od zginania. W = π·50³/32 = 12 271,8 mm³, więc σ = 0,8·10⁶/12 271,8 = 65,19 MPa. Naprężenie dopuszczalne wynosi kr = 355/2 = 177,5 MPa. Warunek HMH ma postać √(σ² + 3τ²) ≤ kr, czyli 3τ² ≤ kr² − σ².
-
-Podstawiamy liczby: kr² = 31 506,3, σ² = 4249,7, więc 3τ² ≤ 27 256,6. Stąd τ² ≤ 9085,5 i τ ≤ 95,3 MPa. Wskaźnik na skręcanie wynosi Wo = 2W = 24 543,7 mm³, więc T = τ·Wo = 95,3·24 543,7 = 2,34·10⁶ N·mm = 2,34 kN·m.
-
-Sprawdzenie: dla T = 2,34 kN·m otrzymujemy τ = 95,3 MPa i σHMH = √(65,19² + 3·95,3²) = 177,5 MPa, czyli dokładnie kr. Gdyby zastosować Tresca, dopuszczalny moment byłby mniejszy, bo przy tym samym τ daje większe wytężenie. To dobry przykład na to, że wybór hipotezy wpływa nie tylko na ocenę, ale też na dopuszczalne obciążenie.
+<AnimatedSolution id="ex-criteria-reduced-stress-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

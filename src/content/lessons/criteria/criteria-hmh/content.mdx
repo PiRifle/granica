@@ -115,48 +115,15 @@ Wyprowadzenie pokazuje, skąd bierze się ten wzór i dlaczego współczynnik pr
   kierunki.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Cienkościenny zbiornik ciśnieniowy jest wykonany ze stali o Re = 355 MPa. W pewnym punkcie ściany naprężenie
-    obwodowe wynosi σθ = 120 MPa, naprężenie wzdłużne σz = 60 MPa, a naprężenie promieniowe σr ≈ 0. Oblicz σHMH i
-    współczynnik bezpieczeństwa.
-  </Given>
-  <Steps>
-    <Step>Przyjmujemy naprężenia główne: σ1 = 120 MPa, σ2 = 60 MPa, σ3 = 0.</Step>
-    <Step>Podstawiamy do wzoru: σHMH² = 120² + 60² + 0² − 120·60 − 60·0 − 0·120.</Step>
-    <Step>Obliczamy składniki: 14 400 + 3600 − 7200 = 10 800 MPa².</Step>
-    <Step>Pierwiastek: σHMH = √10 800 = 103,92 MPa.</Step>
-    <Step>Współczynnik bezpieczeństwa: n = Re/σHMH = 355/103,92 = 3,42.</Step>
-    <Step>
-      Kontrola przez różnice: ½[(120 − 60)² + (60 − 0)² + (0 − 120)²] = ½(3600 + 3600 + 14 400) = 10 800, zgodnie z
-      poprzednim wynikiem.
-    </Step>
-  </Steps>
-  <Result>
-    Naprężenie zredukowane HMH wynosi 103,9 MPa, a zapas około 3,42. Dla porównania Tresca dałaby σT = 120 MPa i zapas
-    2,96, więc byłaby bardziej zachowawcza.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-criteria-hmh" />
 
 ## Drugi przykład
 
-Rozważmy punkt w wale, w którym naprężenie normalne od zginania wynosi σ = 150 MPa, a naprężenie styczne od skręcania τ = 80 MPa. Przyjmujemy σy = 0. Materiał ma Re = 355 MPa. Obliczymy HMH dwoma sposobami: bezpośrednio ze wzoru płaskiego i przez naprężenia główne.
-
-Bezpośrednio: σHMH = √(150² + 3·80²) = √(22 500 + 19 200) = √41 700 = 204,2 MPa. Współczynnik bezpieczeństwa n = 355/204,2 = 1,74. To już dość mały zapas, choć żadna pojedyncza składowa nie przekracza 150 MPa.
-
-Sprawdźmy przez naprężenia główne. Środek koła C = 150/2 = 75 MPa, promień R = √(75² + 80²) = √(5625 + 6400) = √12 025 = 109,7 MPa. Zatem σ1 = 184,7 MPa, σ2 = −34,7 MPa, σ3 = 0. Podstawiamy do pełnego wzoru: σHMH² = 184,7² + 34,7² − 184,7·(−34,7). Po obliczeniu otrzymujemy około 41 700 MPa², czyli ten sam wynik 204,2 MPa.
-
-Warto zwrócić uwagę, że największe naprężenie główne 184,7 MPa jest mniejsze od σHMH = 204,2 MPa, ale większe od σ = 150 MPa. To pokazuje, że HMH nie jest po prostu „największym naprężeniem”. Jest miarą energii, w której uczestniczą wszystkie trzy kierunki. Dla tego stanu Tresca dałaby σT = 184,7 − (−34,7) = 219,4 MPa, czyli jeszcze więcej.
+<AnimatedSolution id="ex-criteria-hmh-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Punkt elementu jest rozciągany naprężeniem σ = 60 MPa i ścinany naprężeniem τ. Materiał ma Re = 235 MPa, a wymagany zapas wynosi n = 2,0. Pytamy, jakie maksymalne τ dopuszcza hipoteza HMH.
-
-Naprężenie dopuszczalne wynosi kr = Re/n = 235/2 = 117,5 MPa. Warunek ma postać √(60² + 3τ²) ≤ 117,5. Po podniesieniu do kwadratu: 3600 + 3τ² ≤ 13 806,25. Zatem 3τ² ≤ 10 206,25, czyli τ² ≤ 3402,1 i τ ≤ 58,3 MPa.
-
-Sprawdzenie: przy τ = 58,3 MPa otrzymujemy σHMH = √(3600 + 3·3402,1) = √13 806,3 = 117,5 MPa, czyli dokładnie kr. Gdyby zastosować Tresca, warunek miałby postać √(60² + 4τ²) ≤ 117,5, co dałoby 4τ² ≤ 10 206,25, czyli τ ≤ 50,5 MPa. Tresca byłaby więc w tym przypadku znacznie bardziej restrykcyjna.
-
-Odpowiedź: według HMH dopuszczalne naprężenie styczne wynosi około 58,3 MPa. To przykład na to, że wariant odwrotny wymaga nie tylko przekształcenia wzoru, ale też świadomego wyboru hipotezy. Wynik 58,3 MPa nie jest „prawdziwym” naprężeniem granicznym materiału; jest granicą wynikającą z przyjętego modelu i wymaganego zapasu.
+<AnimatedSolution id="ex-criteria-hmh-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

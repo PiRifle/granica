@@ -115,47 +115,15 @@ Wyprowadzenie opiera się na geometrii kół Mohra i kalibracji do próby jednoo
   100 − 0 = 100 MPa, a nie 100 − 40 = 60 MPa.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    W ścianie cienkościennego zbiornika ciśnieniowego panują naprężenia główne: σθ = 120 MPa (obwodowe), σz = 60 MPa
-    (wzdłużne) i σr ≈ 0 (promieniowe). Materiał ma Re = 355 MPa. Oblicz σT, τmax i współczynnik bezpieczeństwa.
-  </Given>
-  <Steps>
-    <Step>Porządkujemy naprężenia: σ1 = 120 MPa, σ2 = 60 MPa, σ3 = 0.</Step>
-    <Step>Największe naprężenie główne: σmax = 120 MPa. Najmniejsze: σmin = 0.</Step>
-    <Step>Naprężenie zredukowane: σT = 120 − 0 = 120 MPa.</Step>
-    <Step>Maksymalne ścinanie: τmax = σT/2 = 60 MPa.</Step>
-    <Step>Współczynnik bezpieczeństwa: n = Re/σT = 355/120 = 2,96.</Step>
-    <Step>
-      Kontrola przez trzy różnice: |120 − 60| = 60, |60 − 0| = 60, |0 − 120| = 120. Największa wynosi 120 MPa, zgodnie z
-      wynikiem.
-    </Step>
-  </Steps>
-  <Result>
-    σT = 120 MPa, τmax = 60 MPa, a zapas wynosi około 2,96. HMH dałaby w tym punkcie 103,9 MPa i zapas 3,42, więc Tresca
-    jest tu bardziej zachowawcza.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-criteria-tresca" />
 
 ## Drugi przykład
 
-Rozważmy płaski stan naprężenia w blasze: σx = 90 MPa, σy = 30 MPa, τxy = 20 MPa. Oba naprężenia normalne są dodatnie, więc zero będzie najmniejszym naprężeniem głównym. Sprawdźmy, jak wpływa to na wynik.
-
-Środek koła wynosi C = (90 + 30)/2 = 60 MPa, a promień R = √[((90 − 30)/2)² + 20²] = √(30² + 20²) = √1300 = 36,06 MPa. Naprężenia główne to σ1 = 96,06 MPa i σ2 = 23,94 MPa, a σ3 = 0. Porządek: 96,06 ≥ 23,94 ≥ 0.
-
-Trzy różnice wynoszą: |96,06 − 23,94| = 72,12 MPa, |23,94 − 0| = 23,94 MPa oraz |0 − 96,06| = 96,06 MPa. Największa to 96,06 MPa, więc σT = 96,06 MPa. Gdyby ktoś błędnie wziął tylko różnicę σ1 − σ2, otrzymałby 72,12 MPa i zaniżył wytężenie o około 25%.
-
-Dla porównania, gdyby τxy = 0, to σ1 = 90 MPa, σ2 = 30 MPa i σ3 = 0, więc σT = 90 MPa. Różnica σ1 − σ2 = 60 MPa byłaby jeszcze bardziej myląca. Widać, że w stanie płaskim z naprężeniami tego samego znaku zero jest pełnoprawnym naprężeniem skrajnym i nie wolno go pomijać.
+<AnimatedSolution id="ex-criteria-tresca-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Punkt elementu jest rozciągany naprężeniem σ = 50 MPa i ścinany naprężeniem τ. Dopuszczalne naprężenie zredukowane według Tresca wynosi 140 MPa. Pytamy, jakie maksymalne τ można przyłożyć.
-
-Warunek ma postać σT = √(50² + 4τ²) ≤ 140. Po podniesieniu do kwadratu: 2500 + 4τ² ≤ 19 600. Zatem 4τ² ≤ 17 100, czyli τ² ≤ 4275 i τ ≤ 65,4 MPa.
-
-Sprawdzenie: przy τ = 65,4 MPa otrzymujemy σT = √(2500 + 4·4275) = √19 600 = 140 MPa, czyli dokładnie dopuszczalną wartość. Dla porównania HMH dopuściłaby większe ścinanie: z warunku √(50² + 3τ²) ≤ 140 otrzymujemy 3τ² ≤ 17 100, czyli τ ≤ 75,5 MPa. Tresca jest więc w tym przypadku około 1,15 razy bardziej restrykcyjna.
-
-Odpowiedź: według Tresca dopuszczalne naprężenie styczne wynosi około 65,4 MPa. To pokazuje, że wariant odwrotny trzeba rozwiązywać z tą samą hipotezą, którą przyjęto do oceny. Nie można policzyć granicy z HMH, a potem porównać jej z wynikiem Tresca.
+<AnimatedSolution id="ex-criteria-tresca-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

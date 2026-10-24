@@ -234,6 +234,20 @@ svg {
   min-width: 0;
 }
 
+.lab-pulse {
+  animation: lab-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes lab-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
 .recharts-wrapper {
   font-family: 'DM Sans', sans-serif;
 }

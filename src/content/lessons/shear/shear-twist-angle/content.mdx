@@ -113,50 +113,15 @@ Dla wału stopniowanego lub obciążonego momentami w kilku przekrojach sporząd
   jeśli różnią się średnicą. Podwojenie średnicy zmniejsza kąt szesnastokrotnie, bo $J_o$ rośnie z czwartą potęgą.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Wał stopniowany przenosi moment $T = 1{,}2\ \text{kN}\cdot\text{m}$. Pierwszy odcinek ma $d_1 = 50\ \text{mm}$ i $L_1 = 600\ \text{mm}$, drugi $d_2 = 40\ \text{mm}$ i $L_2 = 400\ \text{mm}$. Moduł ścinania wynosi $G = 80\ \text{GPa}$. Oblicz całkowity kąt skręcenia i wskaż miejsce największego naprężenia.
-  </Given>
-  <Steps>
-    <Step>Zamień moment: $T = 1{,}2\ \text{kN}\cdot\text{m} = 1\,200\,000\ \text{N}\cdot\text{mm}$.</Step>
-    <Step>Oblicz $J_{o1} = \pi \cdot 50^4/32 = 613\,592\ \text{mm}^4$.</Step>
-    <Step>Oblicz $J_{o2} = \pi \cdot 40^4/32 = 251\,327\ \text{mm}^4$.</Step>
-    <Step>Kąt pierwszego odcinka: $\varphi_1 = 1\,200\,000 \cdot 600/(80\,000 \cdot 613\,592) = 0{,}01467\ \text{rad}$.</Step>
-    <Step>Kąt drugiego odcinka: $\varphi_2 = 1\,200\,000 \cdot 400/(80\,000 \cdot 251\,327) = 0{,}02387\ \text{rad}$.</Step>
-    <Step>Kąt całkowity: $\varphi = 0{,}01467+0{,}02387 = 0{,}03854\ \text{rad}$.</Step>
-    <Step>Zamień na stopnie: $0{,}03854 \cdot 180/\pi = 2{,}21^\circ$.</Step>
-    <Step>Sprawdź naprężenia: $\tau_1 = 1\,200\,000 \cdot 25/613\,592 = 48{,}9\ \text{MPa}$, a $\tau_2 = 1\,200\,000 \cdot 20/251\,327 = 95{,}5\ \text{MPa}$.</Step>
-  </Steps>
-  <Result>
-    Całkowity kąt skręcenia wynosi około $0{,}0385\ \text{rad}$, czyli $2{,}21^\circ$. Największe naprężenie styczne, około $95{,}5\ \text{MPa}$, występuje w cieńszym odcinku. Krótszy odcinek daje większy przyrost kąta, ponieważ ma znacznie mniejszy $J_o$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-shear-twist-angle" />
 
 ## Drugi przykład
 
-Rozważmy wał napędowy przenoszący moc $P = 30\ \text{kW}$ przy prędkości obrotowej $n = 1470\ \text{obr/min}$. Średnica wału wynosi $d = 35\ \text{mm}$, długość $L = 1\ \text{m}$, a moduł ścinania $G = 80\ \text{GPa}$.
-
-Najpierw zamieniamy prędkość obrotową na prędkość kątową: $\omega = 2\pi n/60 = 2\pi \cdot 1470/60 = 153{,}94\ \text{rad/s}$. Moment wynosi $T = P/\omega = 30\,000/153{,}94 = 194{,}9\ \text{N}\cdot\text{m}$, czyli $194\,900\ \text{N}\cdot\text{mm}$.
-
-Biegunowy moment bezwładności to $J_o = \pi \cdot 35^4/32 = 147\,324\ \text{mm}^4$. Kąt skręcenia wynosi $\varphi = 194\,900 \cdot 1000/(80\,000 \cdot 147\,324) = 0{,}01654\ \text{rad}$, czyli około $0{,}947^\circ$. Maksymalne naprężenie to $\tau_{max} = 194\,900/8418 = 23{,}1\ \text{MPa}$.
-
-Naprężenie jest niewielkie, ale kąt bliski jednemu stopniowi na metr może już być zauważalny w precyzyjnym napędzie. Gdyby średnicę zwiększyć do $40\ \text{mm}$, $J_o$ wzrosłoby do $251\,327\ \text{mm}^4$, a kąt spadłby do około $0{,}555^\circ$. Naprężenie spadłoby do około $15{,}5\ \text{MPa}$.
-
-Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy moment, a więc większe naprężenie i większy kąt. Dlatego wały wolnoobrotowe muszą być grubsze od szybkoobrotowych przenoszących tę samą moc.
-
-W obliczeniach napędu trzeba też pamiętać o sprawności przekładni i o tym, że moment na wale nie jest stały w czasie rozruchu. Chwilowy moment rozruchowy może być kilkakrotnie większy od znamionowego, co zwiększa zarówno naprężenie, jak i kąt. Model statyczny opisuje pracę ustaloną, a nie udar ani gwałtowne przyspieszanie.
+<AnimatedSolution id="ex-shear-twist-angle-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Dobierzmy średnicę wału pełnego, jeśli moment wynosi $T = 800\ \text{N}\cdot\text{m}$, długość $L = 1{,}5\ \text{m}$, moduł $G = 80\ \text{GPa}$, a dopuszczalny kąt skręcenia $\varphi_{dop} = 1{,}5^\circ$. Najpierw przeliczamy kąt na radiany: $\varphi_{dop} = 1{,}5 \cdot \pi/180 = 0{,}02618\ \text{rad}$.
-
-Z warunku $\varphi = TL/(GJ_o) \le \varphi_{dop}$ otrzymujemy $J_o \ge TL/(G\varphi_{dop})$. Podstawiamy $T = 800\,000\ \text{N}\cdot\text{mm}$ i $L = 1500\ \text{mm}$: $J_o \ge 800\,000 \cdot 1500/(80\,000 \cdot 0{,}02618) = 572\,941\ \text{mm}^4$.
-
-Dla wału pełnego $J_o = \pi d^4/32$, więc $d \ge \sqrt[4]{32J_o/\pi} = \sqrt[4]{5\,836\,100} = 49{,}15\ \text{mm}$. Najbliższa większa średnica handlowa to $50\ \text{mm}$.
-
-Sprawdzamy: $J_o = \pi \cdot 50^4/32 = 613\,592\ \text{mm}^4$, więc $\varphi = 800\,000 \cdot 1500/(80\,000 \cdot 613\,592) = 0{,}02445\ \text{rad} = 1{,}40^\circ$. Warunek jest spełniony. Naprężenie wynosi $800\,000/24\,544 = 32{,}6\ \text{MPa}$ i również pozostaje w zakresie sprężystym.
-
-Wariant odwrotny pokazuje, że warunek sztywności można przekształcić w wymaganie na średnicę. W praktyce oblicza się średnicę z obu warunków, wytrzymałości i sztywności, a następnie przyjmuje większą wartość. W tej lekcji sprawdzamy tylko kąt; pełną procedurę doboru rozwinie kolejna lekcja.
+<AnimatedSolution id="ex-shear-twist-angle-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

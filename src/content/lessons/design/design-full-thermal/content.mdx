@@ -120,36 +120,13 @@ Dla pręta z luzem $g$ po kontakcie warunek ma postać $g=\alpha\Delta T L+NL/(E
   zerowym przemieszczeniu końców. Brak ruchu nie oznacza braku odkształcenia.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pręt $A$–$C$–$B$ jest utwierdzony na obu końcach. Odcinki mają długości $L_1=L_2=1000\ \text{mm}$ i pola $A_1=A_2=300\ \text{mm}^2$. Materiał ma $E=200\ \text{GPa}$ i $\alpha=12\cdot10^{-6}\ \text{1/K}$. Temperatura wzrasta o $\Delta T=50\ \text{K}$, a w punkcie $C$ działa siła $P=20\ \text{kN}$ w prawo. Przyjmij $k_c=160\ \text{MPa}$.
-  </Given>
-  <Steps>
-    <Step>Oznaczamy przemieszczenie punktu $C$ jako $u$ w prawo. Wydłużenie odcinka $AC$ wynosi $u$, a odcinka $CB$ wynosi $-u$.</Step>
-    <Step>Dla obu odcinków zapisujemy sumę odkształceń: $u=\alpha\Delta T L_1+N_1L_1/(EA)$ oraz $-u=\alpha\Delta T L_2+N_2L_2/(EA)$.</Step>
-    <Step>Odejmujemy równania, aby wyeliminować człon termiczny: $2u=(N_1-N_2)L/(EA)$, gdzie $L=1000\ \text{mm}$.</Step>
-    <Step>Z równowagi punktu $C$: $N_1-N_2=P=20\,000\ \text{N}$. Stąd $u=PL/(2EA)=20\,000\cdot1000/(2\cdot200\,000\cdot300)=0{,}1667\ \text{mm}$.</Step>
-    <Step>Wracamy do pierwszego równania: $N_1=EA(u/L-\alpha\Delta T)$.</Step>
-    <Step>Obliczamy $EA=200\,000\cdot300=60\,000\,000\ \text{N}$ oraz $\alpha\Delta T=12\cdot10^{-6}\cdot50=0{,}0006$.</Step>
-    <Step>$N_1=60\,000\,000\cdot(0{,}0001667-0{,}0006)=-26\,000\ \text{N}$.</Step>
-    <Step>$N_2=N_1-P=-26\,000-20\,000=-46\,000\ \text{N}$. Oba odcinki są ściskane.</Step>
-    <Step>Naprężenia: $\sigma_1=-26\,000/300\approx-86{,}7\ \text{MPa}$, $\sigma_2=-46\,000/300\approx-153{,}3\ \text{MPa}$.</Step>
-    <Step>Warunek wytrzymałości: $|\sigma_2|=153{,}3\ \text{MPa}\le160\ \text{MPa}$, więc pręt jest bezpieczny, ale zapas jest niewielki.</Step>
-  </Steps>
-  <Result>
-    W obu odcinkach powstaje ściskanie. Siły normalne wynoszą $N_1=-26\ \text{kN}$ i $N_2=-46\ \text{kN}$, a naprężenia $-86{,}7\ \text{MPa}$ i $-153{,}3\ \text{MPa}$. Punkt $C$ przesuwa się w prawo o około $0{,}167\ \text{mm}$, choć końce pręta pozostają nieruchome.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-design-full-thermal" />
 
 Warto zauważyć, że siła mechaniczna nie zwiększa naprężenia w obu odcinkach jednakowo. W odcinku $AC$ działa ona przeciwnie do ściskania termicznego i zmniejsza jego wartość bezwzględną, a w odcinku $CB$ działa w tę samą stronę i zwiększa ściskanie. To dlatego decyduje odcinek $CB$. Taki rozkład jest typowy dla obciążenia przyłożonego w punkcie wewnętrznym pręta zablokowanego.
 
 ## Drugi przykład
 
-Rozważmy pojedynczy pręt o długości $L=1500\ \text{mm}$ i polu $A=400\ \text{mm}^2$, utwierdzony na lewym końcu, z luzem $g=0{,}5\ \text{mm}$ do sztywnej ściany po prawej. Materiał: $E=200\ \text{GPa}$, $\alpha=12\cdot10^{-6}\ \text{1/K}$. Temperatura wzrasta o $\Delta T=60\ \text{K}$. Jaki jest naprężenie po zamknięciu luzu?
-
-Najpierw sprawdzamy, czy kontakt w ogóle nastąpi. Swobodne wydłużenie termiczne wynosi $\alpha\Delta T L=12\cdot10^{-6}\cdot60\cdot1500=1{,}08\ \text{mm}$, czyli więcej niż $g=0{,}5\ \text{mm}$. Kontakt nastąpi.
-
-Temperatura kontaktu: $\Delta T_c=g/(\alpha L)=0{,}5/(12\cdot10^{-6}\cdot1500)\approx27{,}8\ \text{K}$.
+<AnimatedSolution id="ex-design-full-thermal-2" />
 
 | Wielkość                                | Wartość                     |
 | --------------------------------------- | --------------------------- | ----------------------------------------------------------------------------- |
@@ -158,25 +135,9 @@ Temperatura kontaktu: $\Delta T_c=g/(\alpha L)=0{,}5/(12\cdot10^{-6}\cdot1500)\a
 | siła po kontakcie                       | około $-30{,}9\ \text{kN}$  |
 | naprężenie                              | około $-77{,}3\ \text{MPa}$ | Po przekroczeniu tej temperatury dalszy wzrost jest ograniczany przez ścianę. |
 
-Po kontakcie obowiązuje $g=\alpha\Delta T L+NL/(EA)$, więc $N=EA(g/L-\alpha\Delta T)$. Podstawiamy $EA=200\,000\cdot400=80\,000\,000\ \text{N}$, $g/L=0{,}5/1500=0{,}0003333$ i $\alpha\Delta T=0{,}00072$. Różnica wynosi $-0{,}00038667$, więc $N\approx-30\,933\ \text{N}$.
-
-Naprężenie: $\sigma=-30\,933/400\approx-77{,}3\ \text{MPa}$. Pręt jest ściskany, ale naprężenie jest znacznie mniejsze niż w przypadku idealnego zablokowania przy tej samej temperaturze, gdzie wyniosłoby $-E\alpha\Delta T=-144\ \text{MPa}$. Luz częściowo kompensuje rozszerzalność.
-
-Ten przykład pokazuje, że luz jest świadomym elementem projektu. Zbyt mały luz nie chroni przed naprężeniem, a zbyt duży może powodować uderzenia i drgania. W kolejnictwie i konstrukcjach mostowych dylatacje pełnią właśnie taką funkcję.
-
-Luz nie działa jednak jak „bezpiecznik” przy dowolnie dużej temperaturze. Po jego zamknięciu naprężenie rośnie już liniowo z dalszym przyrostem temperatury. Projektant musi więc znać zarówno maksymalną temperaturę pracy, jak i początkowy luz, a nie tylko jedną z tych wartości.
-
 ## Trzeci przykład: wariant odwrotny
 
-Dla pręta idealnie zablokowanego pytamy, jaka maksymalna zmiana temperatury jest dopuszczalna, jeśli naprężenie ściskające nie może przekroczyć $k_c=160\ \text{MPa}$. Dla stali $E=200\ \text{GPa}$ i $\alpha=12\cdot10^{-6}\ \text{1/K}$ mamy $|\sigma|=E\alpha\Delta T$, więc $\Delta T_{\max}=k_c/(E\alpha)=160/(200\,000\cdot12\cdot10^{-6})\approx66{,}7\ \text{K}$.
-
-Dla aluminium o $E=70\ \text{GPa}$ i $\alpha=23\cdot10^{-6}\ \text{1/K}$ iloczyn $E\alpha$ wynosi około $1{,}61\ \text{MPa/K}$, więc $\Delta T_{\max}\approx160/1{,}61\approx99{,}4\ \text{K}$. Aluminium znosi większą zmianę temperatury przy tym samym naprężeniu dopuszczalnym, ponieważ iloczyn $E\alpha$ jest mniejszy, mimo większego współczynnika rozszerzalności.
-
-Wariant odwrotny można też odwrócić inaczej: mając dopuszczalne naprężenie i znaną temperaturę, obliczyć wymagany luz. Dla $\Delta T=80\ \text{K}$ i $L=1500\ \text{mm}$ luz całkowicie usuwający naprężenie wynosi $g=\alpha\Delta T L=12\cdot10^{-6}\cdot80\cdot1500=1{,}44\ \text{mm}$. Taki luz jest rozwiązaniem alternatywnym do zwiększania przekroju, które w przypadku idealnego zablokowania i tak nie zmniejsza naprężenia.
-
-Porównanie stali i aluminium nie jest jednoznaczne. Aluminium ma większe $\alpha$, ale mniejsze $E$, więc iloczyn $E\alpha$ może być mniejszy. Trzeba jednak pamiętać, że aluminium ma również mniejszą granicę plastyczności, więc $k_c$ nie musi być takie samo. Porównanie naprężenia termicznego przy tej samej $\Delta T$ to dopiero jeden z elementów decyzji.
-
-Zadania termiczne najłatwiej pomylić przez pominięcie warunku zgodności lub przez złe ustalenie znaku. Poniższa lista porządkuje typowe pułapki.
+<AnimatedSolution id="ex-design-full-thermal-3" />
 
 <Callout kind="warning" title="Typowe błędy">
   1. **Twierdzenie, że temperatura zawsze wywołuje naprężenie.** Swobodny pręt wydłuża się bez naprężenia. Naprężenie

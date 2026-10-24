@@ -167,29 +167,11 @@ Warunek wytrzymałości nie zastępuje warunku sztywności. Nawet gdy $\sigma_{r
   brak plastyczności nie dowodzi, że element jest poprawnie zaprojektowany.
 </Insight>
 
-<WorkedExample>
-  <Given>Pomiar rozety dał odkształcenia główne $\varepsilon_1=600\,\mu\varepsilon$ i $\varepsilon_2=100\,\mu\varepsilon$. Materiał jest w płaskim stanie naprężenia, $E=70\,\text{GPa}$, $\nu=0{,}33$, a granica plastyczności wynosi $R_e=180\,\text{MPa}$.</Given>
-  <Steps>
-    <Step>Wspólny czynnik: $E/(1-\nu^2)=70\,000/(1-0{,}1089)=78\,554{,}6\,\text{MPa}$.</Step>
-    <Step>$\sigma_1=78\,554{,}6\cdot(0{,}0006+0{,}33\cdot0{,}0001)=78\,554{,}6\cdot0{,}000633\approx49{,}73\,\text{MPa}$.</Step>
-    <Step>$\sigma_2=78\,554{,}6\cdot(0{,}0001+0{,}33\cdot0{,}0006)=78\,554{,}6\cdot0{,}000298\approx23{,}41\,\text{MPa}$.</Step>
-    <Step>HMH: $\sigma_{red}=\sqrt{49{,}73^2-49{,}73\cdot23{,}41+23{,}41^2}\approx43{,}09\,\text{MPa}$.</Step>
-    <Step>Tresca: oba naprężenia są dodatnie, więc $\sigma_{red}=49{,}73\,\text{MPa}$.</Step>
-    <Step>Współczynniki: $n_{HMH}=180/43{,}09\approx4{,}18$ oraz $n_{Tresca}=180/49{,}73\approx3{,}62$.</Step>
-    <Step>Odkształcenie grubości: $\varepsilon_z=-[0{,}33/(1-0{,}33)]\cdot700\,\mu\varepsilon\approx-345\,\mu\varepsilon$.</Step>
-  </Steps>
-  <Result>$\sigma_1\approx49{,}7\,\text{MPa}$ i $\sigma_2\approx23{,}4\,\text{MPa}$. Zapas względem $R_e$ wynosi około $4{,}18$ według HMH i $3{,}62$ według Tresca. Oba są większe od jedności, ale ostateczna decyzja wymaga porównania z wymaganym $n$ oraz sprawdzenia sztywności.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-strain-state-stress-link" />
 
 ## Drugi przykład
 
-Rozważmy pręt kołowy o średnicy $d=60\,\text{mm}$, obciążony siłą osiową $N=30\,\text{kN}$, momentem gnącym $M=1{,}2\,\text{kN}\cdot\text{m}$ i momentem skręcającym $T=800\,\text{N}\cdot\text{m}$. Granica plastyczności wynosi $R_e=235\,\text{MPa}$. Badamy włókno na obwodzie, po stronie rozciąganej przez zginanie.
-
-Pole przekroju wynosi $A=\pi d^2/4=\pi\cdot3600/4\approx2827{,}4\,\text{mm}^2$. Wskaźnik wytrzymałości przy zginaniu to $W=\pi d^3/32\approx21\,205{,}8\,\text{mm}^3$, a wskaźnik biegunowy $W_p=2W\approx42\,411{,}5\,\text{mm}^3$. Naprężenie od siły osiowej: $\sigma_N=N/A=30\,000/2827{,}4\approx10{,}61\,\text{MPa}$. Naprężenie od zginania: $\sigma_M=M/W=1{,}2\cdot10^6/21\,205{,}8\approx56{,}59\,\text{MPa}$.
-
-Suma naprężeń normalnych w badanym włóknie wynosi $\sigma_x\approx67{,}20\,\text{MPa}$, a naprężenie styczne od skręcania $\tau=T/W_p=800\,000/42\,411{,}5\approx18{,}86\,\text{MPa}$. Dla HMH: $\sigma_{red}=\sqrt{67{,}20^2+3\cdot18{,}86^2}\approx74{,}72\,\text{MPa}$, więc $n=235/74{,}72\approx3{,}15$. Dla Tresca naprężenia główne wynoszą około $72{,}13\,\text{MPa}$ i $-4{,}93\,\text{MPa}$, a $\sigma_3=0$. Ponieważ znaki są przeciwne, $\sigma_{red}=|\sigma_1-\sigma_2|\approx77{,}06\,\text{MPa}$ i $n\approx3{,}05$.
-
-Wniosek: dla tego stanu Tresca jest bardziej konserwatywna niż HMH, bo różnica $\sigma_1-\sigma_2$ okazuje się większa od naprężenia równoważnego HMH. Gdyby moment gnący działał w przeciwną stronę lub siła osiowa była ściskająca, znak $\sigma_x$ mógłby się zmienić i trzeba by ponownie sprawdzić, które naprężenie główne jest największe. Nie wystarczy raz policzyć „sigmy” i uznać zadania za rozwiązane.
+<AnimatedSolution id="ex-strain-state-stress-link-2" />
 
 ### Co zmienia znak siły osiowej
 
@@ -197,11 +179,7 @@ Przy ściskaniu naprężenie od siły osiowej staje się ujemne i może części
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że z pomiaru otrzymano $\varepsilon_1=500\,\mu\varepsilon$ i $\varepsilon_2=-200\,\mu\varepsilon$ dla stali o $E=200\,\text{GPa}$ i $\nu=0{,}30$. Granica plastyczności wynosi $R_e=235\,\text{MPa}$, a wymagany współczynnik bezpieczeństwa to $n_{wym}=2{,}0$. Sprawdźmy, czy element spełnia warunek wytrzymałości.
-
-Czynnik $E/(1-\nu^2)$ wynosi $200\,000/0{,}91\approx219\,780\,\text{MPa}$. Stąd $\sigma_1\approx219\,780\cdot(0{,}0005-0{,}30\cdot0{,}0002)\approx96{,}70\,\text{MPa}$ oraz $\sigma_2\approx219\,780\cdot(-0{,}0002+0{,}30\cdot0{,}0005)\approx-10{,}99\,\text{MPa}$. HMH daje $\sigma_{red}\approx\sqrt{96{,}70^2-96{,}70\cdot(-10{,}99)+(-10{,}99)^2}\approx102{,}64\,\text{MPa}$, a Tresca $\sigma_{red}\approx96{,}70-(-10{,}99)=107{,}69\,\text{MPa}$.
-
-Współczynniki wynoszą $n_{HMH}\approx235/102{,}64\approx2{,}29$ oraz $n_{Tresca}\approx235/107{,}69\approx2{,}18$. Oba są większe od $2{,}0$, więc warunek wytrzymałości jest spełniony z niewielkim zapasem. Gdyby wymagane $n$ wynosiło $2{,}5$, element trzeba by przeprojektować albo wybrać materiał o wyższej $R_e$. Minimalna granica plastyczności dla $n=2{,}5$ wynosiłaby około $2{,}5\cdot107{,}69\approx269\,\text{MPa}$ według Tresca.
+<AnimatedSolution id="ex-strain-state-stress-link-3" />
 
 ### Co z płaskim stanem odkształcenia
 

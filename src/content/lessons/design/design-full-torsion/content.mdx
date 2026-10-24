@@ -135,56 +135,17 @@ Dla rury wygodnie jest rozwiązać nierówność względem $D$ przy zadanym stos
   sprawdzenie samego naprężenia.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Wał stalowy przenosi moment $T=1200\ \text{N}\cdot\text{m}$ na długości $L=1{,}2\ \text{m}$. Przyjmij $\tau_{\mathrm{dop}}=45\ \text{MPa}$, $\varphi_{\mathrm{dop}}=1{,}5^\circ$, $G=80\ \text{GPa}$. Dobierz wał pełny, a następnie rurę o stosunku średnic $\alpha=d/D=0{,}6$ i porównaj pola.
-  </Given>
-  <Steps>
-    <Step>Moment w jednostkach spójnych: $T=1200\ \text{N}\cdot\text{m}=1\,200\,000\ \text{N}\cdot\text{mm}$.</Step>
-    <Step>Kąt dopuszczalny: $\varphi_{\mathrm{dop}}=1{,}5\cdot\pi/180\approx0{,}02618\ \text{rad}$.</Step>
-    <Step>Wał pełny, wytrzymałość: $W_{o,\min}=T/\tau_{\mathrm{dop}}=1\,200\,000/45=26\,667\ \text{mm}^3$.</Step>
-    <Step>Średnica z wytrzymałości: $d\ge\sqrt[3]{16T/(\pi\tau_{\mathrm{dop}})}=\sqrt[3]{19\,200\,000/(\pi\cdot45)}\approx51{,}4\ \text{mm}$.</Step>
-    <Step>Wał pełny, sztywność: $J_{o,\min}=TL/(G\varphi_{\mathrm{dop}})=1\,200\,000\cdot1200/(80\,000\cdot0{,}02618)\approx687\,500\ \text{mm}^4$.</Step>
-    <Step>Średnica ze sztywności: $d\ge\sqrt[4]{32J_{o,\min}/\pi}=\sqrt[4]{32\cdot687\,500/\pi}\approx51{,}5\ \text{mm}$.</Step>
-    <Step>Przyjmujemy $d=55\ \text{mm}$. Wtedy $W_o=\pi\cdot55^3/16\approx32\,668\ \text{mm}^3$, $\tau_{\max}=1\,200\,000/32\,668\approx36{,}7\ \text{MPa}$, a $J_o\approx898\,360\ \text{mm}^4$.</Step>
-    <Step>Kąt wału pełnego: $\varphi=1\,200\,000\cdot1200/(80\,000\cdot898\,360)\approx0{,}02004\ \text{rad}\approx1{,}15^\circ\le1{,}5^\circ$.</Step>
-    <Step>Rura o $\alpha=0{,}6$: $1-\alpha^4=1-0{,}1296=0{,}8704$. Z wytrzymałości $D\ge\sqrt[3]{16T/[\pi\tau_{\mathrm{dop}}(1-\alpha^4)]}\approx53{,}8\ \text{mm}$.</Step>
-    <Step>Ze sztywności $D\ge\sqrt[4]{32TL/[\pi G\varphi_{\mathrm{dop}}(1-\alpha^4)]}\approx53{,}3\ \text{mm}$, więc decyduje wytrzymałość.</Step>
-    <Step>Przyjmujemy $D=56\ \text{mm}$ i $d=34\ \text{mm}$. Wtedy $J_o\approx834\,300\ \text{mm}^4$, $W_o=2J_o/D\approx29\,797\ \text{mm}^3$, $\tau_{\max}\approx40{,}3\ \text{MPa}$, a $\varphi\approx0{,}02158\ \text{rad}\approx1{,}24^\circ$.</Step>
-    <Step>Pola: wał pełny $A=\pi\cdot55^2/4\approx2376\ \text{mm}^2$, rura $A=\pi(56^2-34^2)/4\approx1555\ \text{mm}^2$, czyli oszczędność około $35$ procent.</Step>
-  </Steps>
-  <Result>
-    Wał pełny o $d=55\ \text{mm}$ spełnia oba warunki, a rura $D=56\ \text{mm}$, $d=34\ \text{mm}$ jest o około $35$ procent lżejsza przy nieco większym naprężeniu $40{,}3\ \text{MPa}$ i kącie $1{,}24^\circ$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-design-full-torsion" />
 
 W przykładzie oba warunki dla wału pełnego dały prawie identyczną średnicę. To nie jest przypadkiem: przy typowych wartościach $G$, $\tau_{\mathrm{dop}}$ i $\varphi_{\mathrm{dop}}$ wytrzymałość i sztywność często są blisko siebie. Nie wolno jednak zakładać, że tak będzie zawsze. Przy długim wale i małym dopuszczalnym kącie sztywność może zdecydować znacznie wcześniej, a przy krótkim wale i dużym momencie — wytrzymałość.
 
 ## Drugi przykład
 
-Porównajmy teraz wał pełny i rurę przy tej samej masie, a nie przy tej samej średnicy zewnętrznej. Wał pełny ma $d=55\ \text{mm}$ i pole około $2376\ \text{mm}^2$, a więc $J_o\approx898\,360\ \text{mm}^4$. Dobierzmy rurę o tej samej długości i masie, ale o większej średnicy zewnętrznej $D=70\ \text{mm}$.
-
-Z równości pól: $\pi(70^2-d^2)/4=2376$, czyli $d^2=70^2-4\cdot2376/\pi\approx1875$. Stąd $d\approx43{,}3\ \text{mm}$. Moment bezwładności rury wynosi $J_o=\pi(70^4-43{,}3^4)/32\approx2{,}01\cdot10^6\ \text{mm}^4$, czyli około $2{,}24$ razy więcej niż wału pełnego.
-
-Przy tym samym momencie $T=1200\ \text{N}\cdot\text{m}$ naprężenie w rurze wynosi około $20{,}9\ \text{MPa}$ zamiast $36{,}7\ \text{MPa}$, a kąt skręcenia około $0{,}512^\circ$ zamiast $1{,}15^\circ$. Rura jest więc jednocześnie lżejsza w przeliczeniu na jednostkę długości, sztywniejsza i mniej wytężona. To wyjaśnia, dlaczego wały napędowe i drążki skrętne często mają przekrój rurowy.
-
-Cena tego rozwiązania to większa średnica zewnętrzna, a więc większe wymagania gabarytowe i większa podatność cienkiej ścianki na uszkodzenia. Rura o małej grubości ścianki może też wymagać żeber, tulei lub ograniczenia obciążenia skupionego. W zadaniu projektowym trzeba więc porównać nie tylko masę i sztywność, ale też przestrzeń, sposób mocowania i koszt wykonania.
-
-Przy tej samej masie rura ma większy $J_o$, a w naszym przykładzie także większy $W_o$ niż wał pełny o średnicy $55\ \text{mm}$, ponieważ jej średnica zewnętrzna jest większa. Wskaźnik rury wynosi około $57\,500\ \text{mm}^3$, a wału pełnego $32\,668\ \text{mm}^3$. To pokazuje, że porównanie „na masę” jest zupełnie inne niż porównanie „na średnicę”.
+<AnimatedSolution id="ex-design-full-torsion-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Znamy geometrię i pytamy o dopuszczalny moment. Rura ma $D=80\ \text{mm}$, $d=50\ \text{mm}$ i długość $L=1{,}5\ \text{m}$. Przyjmij $\tau_{\mathrm{dop}}=40\ \text{MPa}$, $\varphi_{\mathrm{dop}}=2^\circ$ i $G=80\ \text{GPa}$.
-
-Najpierw geometria: $J_o=\pi(80^4-50^4)/32\approx3\,407\,625\ \text{mm}^4$, a $W_o=2J_o/D\approx85\,191\ \text{mm}^3$. Z wytrzymałości $T\le\tau_{\mathrm{dop}}W_o=40\cdot85\,191\approx3\,407\,640\ \text{N}\cdot\text{mm}\approx3{,}41\ \text{kN}\cdot\text{m}$.
-
-Kąt dopuszczalny w radianach wynosi $2\cdot\pi/180\approx0{,}03491$. Z warunku sztywności $T\le GJ_o\varphi_{\mathrm{dop}}/L=80\,000\cdot3\,407\,625\cdot0{,}03491/1500\approx6{,}34\ \text{kN}\cdot\text{m}$.
-
-Decyduje wytrzymałość, więc $T_{\max}\approx3{,}41\ \text{kN}\cdot\text{m}$. Przy tym momencie kąt wynosi $\varphi=3{,}41\cdot10^6\cdot1500/(80\,000\cdot3\,407\,625)\approx0{,}01875\ \text{rad}\approx1{,}07^\circ$, czyli znacznie mniej niż $2^\circ$. Zapas sztywności jest duży, ale zapas wytrzymałości został wykorzystany.
-
-Ciekawa jest zależność kąta od naprężenia przy $T=\tau W_o$. Dla rury $W_o=2J_o/D$, więc $\varphi=TL/(GJ_o)=\tau(2J_o/D)L/(GJ_o)=2\tau L/(GD)$. Przy stałym $\tau$ kąt zależy od $L/D$, a nie od grubości ścianki wprost. To pokazuje, że wydłużanie wału lub zmniejszanie średnicy zewnętrznej zwiększa kąt nawet wtedy, gdy naprężenie pozostaje takie samo.
-
-Wariant odwrotny jest dobrym testem zrozumienia, ponieważ wymaga przejścia od geometrii do $J_o$, potem do $W_o$, a następnie do $T$ z dwóch różnych warunków. Każdy krok ma inną jednostkę i inne znaczenie fizyczne. Zapisanie, który warunek decyduje, jest równie ważne jak sam wynik liczbowy.
+<AnimatedSolution id="ex-design-full-torsion-3" />
 
 <Callout kind="warning" title="Typowe błędy">
   1. **Odejmowanie średnic przed potęgowaniem.** $J_o$ rury to $\pi(D^4-d^4)/32$, a nie $\pi(D-d)^4/32$. Błąd jest ogromny i rośnie z różnicą średnic.

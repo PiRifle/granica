@@ -111,85 +111,15 @@ Wyprowadzenie opiera się na rozdzieleniu dwóch przyczynków. Każdy krok możn
   zmniejsza naprężenia — zwiększa tylko siłę reakcji.
 </Insight>
 
-<WorkedExample>
-  <Given>Stalowa szyna ma długość $L=8\ \text{m}$, $\alpha=12\cdot10^{-6}\ \text{1/K}$, $E=200\ \text{GPa}$ i luz $s=2\ \text{mm}$. Temperatura wzrasta o $\Delta T=35\ \text{K}$. Pole przekroju wynosi $A=600\ \text{mm}^2$.</Given>
-  <Steps>
-    <Step>Swobodne wydłużenie: $\Delta L_T=\alpha L\Delta T=12\cdot10^{-6}\cdot8000\cdot35=3{,}36\ \text{mm}$.</Step>
-    <Step>Luz $2\ \text{mm}$ jest mniejszy od $3{,}36\ \text{mm}$, więc szczelina zamyka się, a dalszy wzrost temperatury działa już na podporę.</Step>
-    <Step>Pozostaje zablokować $3{,}36-2=1{,}36\ \text{mm}$ wydłużenia.</Step>
-    <Step>Odkształcenie mechaniczne: $\varepsilon_m=-1{,}36/8000=-0{,}00017$.</Step>
-    <Step>Naprężenie: $\sigma=E\varepsilon_m=200\,000\cdot(-0{,}00017)=-34\ \text{MPa}$.</Step>
-    <Step>Reakcja przy założonym polu: $R=\sigma A=-34\cdot600=-20\,400\ \text{N}\approx-20{,}4\ \text{kN}$.</Step>
-    <Step>Kontrola: bez luzu naprężenie wynosiłoby $-E\alpha\Delta T=-84\ \text{MPa}$, więc szczelina zmniejszyła je ponad dwukrotnie.</Step>
-  </Steps>
-  <Result>
-    Szyna wydłużyłaby się swobodnie o $3{,}36\ \text{mm}$, ale luz pozwala na $2\ \text{mm}$. Po zamknięciu szczeliny w szynie powstaje ściskanie około $34\ \text{MPa}$, a podpora działa siłą około $20{,}4\ \text{kN}$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m3-thermal-free-restrained" />
 
 ## Drugi przykład
 
-Rozważmy pręt schodkowy utwierdzony na obu końcach. Górny odcinek ma $L_1=500\ \text{mm}$ i $A_1=400\ \text{mm}^2$, dolny $L_2=500\ \text{mm}$ i $A_2=250\ \text{mm}^2$. Materiał jest ten sam: $\alpha=12\cdot10^{-6}\ \text{1/K}$ i $E=200\ \text{GPa}$. Temperatura wzrasta o $\Delta T=50\ \text{K}$. Oba końce są nieruchome, więc całkowita długość nie może się zmienić.
-
-Swobodne wydłużenie całego pręta wynosi
-
-$$
-\Delta L_T=\alpha\Delta T(L_1+L_2)=12\cdot10^{-6}\cdot50\cdot1000=0{,}6\ \text{mm}.
-$$
-
-Podpory muszą wywołać skrócenie mechaniczne o tej samej wartości. Siła osiowa $N$ jest taka sama w obu odcinkach, ponieważ między podporami nie ma dodatkowego obciążenia. Warunek zgodności ma postać
-
-$$
-\alpha\Delta T(L_1+L_2)=\frac{N L_1}{E A_1}+\frac{N L_2}{E A_2}.
-$$
-
-Po podstawieniu danych otrzymujemy
-
-$$
-0{,}6=N\left(\frac{500}{200\,000\cdot400}+\frac{500}{200\,000\cdot250}\right)
-=N\cdot1{,}625\cdot10^{-5}\ \text{mm/N}.
-$$
-
-Stąd $N\approx36\,923\ \text{N}$, czyli około $36{,}9\ \text{kN}$ ściskania. Naprężenia wynoszą
-
-$$
-\sigma_1=\frac{-36\,923}{400}\approx-92{,}3\ \text{MPa},
-\qquad
-\sigma_2=\frac{-36\,923}{250}\approx-147{,}7\ \text{MPa}.
-$$
-
-Cieńszy odcinek jest więc bardziej wytężony, choć siła w obu odcinkach jest identyczna. To typowy wniosek dla prętów schodkowych: o naprężeniu decyduje iloraz $N/A$, a nie sama siła. Sprawdzenie zgodności: skrócenia wynoszą około $0{,}2308\ \text{mm}$ i $0{,}3692\ \text{mm}$, a ich suma to $0{,}6\ \text{mm}$. Swobodne wydłużenie zostało dokładnie zniesione.
-
-Gdyby jeden z końców miał luz, wynik zmieniłby się skokowo. Po zamknięciu luzu układ staje się niewyznaczalny, a przed zamknięciem jest swobodny. W zadaniach trzeba więc najpierw sprawdzić, czy luz został wykorzystany. Dopiero potem wolno pisać warunek zgodności z zablokowaniem.
+<AnimatedSolution id="ex-m3-thermal-free-restrained-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Przyjmijmy, że projektujemy szczelinę dla stalowej rury o długości $L=10\ \text{m}$, $\alpha=12\cdot10^{-6}\ \text{1/K}$ i $E=200\ \text{GPa}$. Dopuszczalne naprężenie ściskające wynosi $\sigma_{\mathrm{dop}}=80\ \text{MPa}$. Pytamy, jaka może być największa zmiana temperatury, jeśli luz ma $3\ \text{mm}$.
-
-Najpierw wyznaczamy temperaturę, przy której luz się zamyka:
-
-$$
-\Delta T_1=\frac{s}{\alpha L}=\frac{3}{12\cdot10^{-6}\cdot10\,000}=25\ \text{K}.
-$$
-
-Dopiero powyżej tej temperatury pojawia się naprężenie. Dodatkowy przyrost temperatury, który wywoła naprężenie $80\ \text{MPa}$, wynosi
-
-$$
-\Delta T_2=\frac{\sigma_{\mathrm{dop}}}{E\alpha}
-=\frac{80}{200\,000\cdot12\cdot10^{-6}}\approx33{,}3\ \text{K}.
-$$
-
-Łącznie dopuszczalny przyrost temperatury to około $25+33{,}3=58{,}3\ \text{K}$. Przy $\Delta T=70\ \text{K}$ naprężenie wyniosłoby
-
-$$
-\sigma=-E\left(\alpha\Delta T-\frac{s}{L}\right)
-=-200\,000\left(12\cdot10^{-6}\cdot70-\frac{3}{10\,000}\right)
-\approx-108\ \text{MPa},
-$$
-
-czyli przekroczyłoby przyjętą granicę. Projektując szczelinę, trzeba więc powiązać jej wymiar nie tylko z długością, ale także z przewidywanym zakresem temperatur i dopuszczalnym naprężeniem.
-
-W tym zadaniu jest jeszcze jedno ograniczenie. Rura jest ściskana, więc jeśli jest smukła, może wyboczyć się przed osiągnięciem $80\ \text{MPa}$. Wtedy o dopuszczalnej temperaturze decyduje stateczność, a nie wytrzymałość materiału. Warunek naprężeniowy jest konieczny, ale nie zawsze wystarczający.
+<AnimatedSolution id="ex-m3-thermal-free-restrained-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

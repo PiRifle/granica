@@ -133,48 +133,15 @@ Wyprowadzenie wzoru Cauchy'ego opiera się na równowadze czworościanu. Wyobra�
   wybrano bardzo szczególny przekrój albo pominięto resztę stanu.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    W punkcie płyty panuje płaski stan naprężenia: $\sigma_x=120\ \mathrm{MPa}$, $\sigma_y=40\ \mathrm{MPa}$, $\tau_{xy}=30\ \mathrm{MPa}$, a pozostałe składowe są zerowe. Oblicz trakcję, naprężenie normalne i styczne na płaszczyźnie o normalnej $\mathbf{n}=(\cos 30^\circ,\sin 30^\circ,0)$.
-  </Given>
-  <Steps>
-    <Step>Zapisz tensor: wiersz pierwszy $(120,30,0)$, drugi $(30,40,0)$, trzeci $(0,0,0)$ MPa.</Step>
-    <Step>Oblicz składowe normalnej: $\cos 30^\circ\approx0{,}8660$ oraz $\sin 30^\circ=0{,}5$.</Step>
-    <Step>Trakcja w kierunku $x$: $T_x=120\cdot0{,}8660+30\cdot0{,}5=103{,}92+15=118{,}92\ \mathrm{MPa}$.</Step>
-    <Step>Trakcja w kierunku $y$: $T_y=30\cdot0{,}8660+40\cdot0{,}5=25{,}98+20=45{,}98\ \mathrm{MPa}$.</Step>
-    <Step>Składowa $T_z$ jest zerowa, bo cały trzeci wiersz i trzecia kolumna tensora są zerowe.</Step>
-    <Step>Naprężenie normalne: $\sigma_n=T_x n_x+T_y n_y=118{,}92\cdot0{,}8660+45{,}98\cdot0{,}5\approx102{,}99+22{,}99=125{,}98\ \mathrm{MPa}$.</Step>
-    <Step>Kwadrat długości trakcji: $118{,}92^2+45{,}98^2\approx14142+2114=16256\ \mathrm{MPa^2}$.</Step>
-    <Step>Naprężenie styczne: $\tau=\sqrt{16256-125{,}98^2}\approx\sqrt{16256-15871}\approx19{,}6\ \mathrm{MPa}$.</Step>
-  </Steps>
-  <Result>
-    Trakcja wynosi około $(118{,}9;\ 46{,}0;\ 0)\ \mathrm{MPa}$, naprężenie normalne około $126{,}0\ \mathrm{MPa}$, a styczne około $19{,}6\ \mathrm{MPa}$. Jednostka MPa oznacza $1\ \mathrm{N/mm^2}$, więc wynik jest spójny z danymi. Kontrola $\sigma_n^2+\tau^2\approx|T|^2$ potwierdza rachunek.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-stress-state-tensor" />
 
 ## Drugi przykład
 
-Rozważmy stan hydrostatyczny: $\sigma_x=\sigma_y=\sigma_z=-50\ \mathrm{MPa}$, a wszystkie naprężenia styczne są zerowe. Macierz jest więc mnożeniem macierzy jednostkowej przez $-50\ \mathrm{MPa}$. Dla dowolnej normalnej $\mathbf{n}$ trakcja wynosi $\mathbf{T}=-50\mathbf{n}$. Oznacza to, że wektor trakcji jest zawsze prostopadły do płaszczyzny i skierowany do wnętrza materiału, niezależnie od tego, jak tę płaszczyznę poprowadzimy.
-
-Naprężenie normalne na każdej płaszczyźnie wynosi $-50\ \mathrm{MPa}$, a styczne jest zerowe. W tym stanie nie ma wyróżnionego kierunku: każda płaszczyzna jest płaszczyzną główną, a każde trzy wzajemnie prostopadłe kierunki można nazwać głównymi. To ważny przypadek graniczny, który później wyjaśnia, dlaczego w zadaniach o kierunkach głównych pojawia się niejednoznaczność, gdy $\sigma_x=\sigma_y$ i $\tau_{xy}=0$.
-
-Hydrostatyczne ściskanie zmienia objętość, ale nie powoduje ścinania. Dlatego materiały ciągliwe znoszą je zwykle znacznie lepiej niż rozciąganie. Wzrost ciśnienia hydrostatycznego może jednak zmieniać mechanizm zniszczenia i wpływać na granicę plastyczności w bardziej złożonych modelach. W tym module wystarczy zapamiętać, że tensor będący wielokrotnością macierzy jednostkowej nie ma kierunków wyróżnionych przez ścinanie.
-
-Sprawdźmy rachunkowo. Dla $\mathbf{n}=(0{,}6;0{,}8;0)$ trakcja to $(-30;-40;0)\ \mathrm{MPa}$. Rzut na normalną daje $-30\cdot0{,}6-40\cdot0{,}8=-18-32=-50\ \mathrm{MPa}$. Długość trakcji wynosi $50\ \mathrm{MPa}$, więc część styczna jest zerowa. Ten sam wynik otrzymamy dla każdej innej normalnej, co potwierdza, że stan jest izotropowy w sensie kierunku.
-
-Warto zauważyć, że w tym stanie naprężenia normalne są ujemne na każdej płaszczyźnie. Nie oznacza to, że materiał jest „ściskany tylko w jednym kierunku”. Ściskanie jest jednakowe we wszystkich kierunkach, więc każda ścianka jest ściskana tak samo. Taki stan odpowiada ciśnieniu hydrostatycznemu i jest dobrym testem konwencji znaków: jeśli w którymś rachunku pojawi się dodatnie naprężenie normalne, gdzieś zgubiono minus.
+<AnimatedSolution id="ex-stress-state-tensor-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że z pomiarów znamy trakcje na dwóch prostopadłych ściankach. Na ścianie prostopadłej do $x$ trakcja wynosi $(80,25,0)\ \mathrm{MPa}$, a na ścianie prostopadłej do $y$ — $(25,-20,0)\ \mathrm{MPa}$. Chcemy odtworzyć tensor i sprawdzić, jakie naprężenie wystąpi na płaszczyźnie o normalnej $\mathbf{n}=(0{,}6;0{,}8;0)$.
-
-Pierwsza kolumna tensora to trakcja na ścianie $x$, czyli $(80,25,0)$. Druga kolumna to trakcja na ścianie $y$, czyli $(25,-20,0)$. Trzecia kolumna jest zerowa. Symetria jest spełniona, bo w obu trakcjach składowa mieszana wynosi $25\ \mathrm{MPa}$. Tensor ma więc postać z $\sigma_x=80$, $\sigma_y=-20$ i $\tau_{xy}=25\ \mathrm{MPa}$.
-
-Obliczamy trakcję na wybranej płaszczyźnie: $T_x=80\cdot0{,}6+25\cdot0{,}8=48+20=68\ \mathrm{MPa}$ oraz $T_y=25\cdot0{,}6-20\cdot0{,}8=15-16=-1\ \mathrm{MPa}$. Naprężenie normalne wynosi $68\cdot0{,}6-1\cdot0{,}8=40{,}8-0{,}8=40\ \mathrm{MPa}$. Długość trakcji podniesiona do kwadratu to $68^2+1^2=4625$, więc $\tau=\sqrt{4625-1600}=\sqrt{3025}=55\ \mathrm{MPa}$.
-
-Wynik jest sensowny: na płaszczyźnie działa głównie rozciąganie $40\ \mathrm{MPa}$ i dość duże ścinanie $55\ \mathrm{MPa}$. Gdybyśmy znali tylko $\sigma_x=80\ \mathrm{MPa}$ z pierwszej trakcji, przeszacowalibyśmy naprężenie normalne na tej płaszczyźnie i pominęlibyśmy ścinanie. To dobrze pokazuje, dlaczego tensor, a nie jedna składowa, jest pełnym opisem stanu.
-
-Zauważ, że do odtworzenia tensora wystarczyły dwie trakcje, bo stan był płaski i trzecia kolumna była zerowa. W ogólnym przypadku potrzeba trzech trakcji na trzech niewspółpłaszczyznowych płaszczyznach. To odwrotność wzoru Cauchy'ego: zamiast mnożyć tensor przez normalną, składamy tensor z odpowiedzi materiału na trzy niezależne kierunki. W praktyce tak właśnie działają niektóre metody pomiarowe i identyfikacja modeli numerycznych.
+<AnimatedSolution id="ex-stress-state-tensor-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

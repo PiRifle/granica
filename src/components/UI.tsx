@@ -164,5 +164,13 @@ export function CourseProgress({ value }: { value: number }) {
   )
 }
 
-export const fmt = (value: number, digits = 1) =>
-  new Intl.NumberFormat('pl-PL', { maximumFractionDigits: digits }).format(value)
+const numberFormats = new Map<number, Intl.NumberFormat>()
+
+export const fmt = (value: number, digits = 1) => {
+  let formatter = numberFormats.get(digits)
+  if (formatter === undefined) {
+    formatter = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: digits })
+    numberFormats.set(digits, formatter)
+  }
+  return formatter.format(value)
+}

@@ -120,57 +120,15 @@ Wyprowadzenie opiera się na wzorach transformacyjnych z lekcji o obrocie przekr
   sprzyja przesunięciu średnicy i błędowi w znaku.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Narysuj koło Mohra dla $\sigma_x=90\ \mathrm{MPa}$, $\sigma_y=30\ \mathrm{MPa}$ i $\tau_{xy}=40\ \mathrm{MPa}$.
-    Odczytaj naprężenia główne, maksymalne ścinanie i kąt kierunku głównego.
-  </Given>
-  <Steps>
-    <Step>Zaznacz $X=(90,40)\ \mathrm{MPa}$ i $Y=(30,-40)\ \mathrm{MPa}$.</Step>
-    <Step>Środek: $C=((90+30)/2,0)=(60,0)\ \mathrm{MPa}$.</Step>
-    <Step>Promień: $R=\sqrt{(90-60)^2+40^2}=\sqrt{900+1600}=50\ \mathrm{MPa}$.</Step>
-    <Step>Zakreśl okrąg o środku $C$ i promieniu $R$; przechodzi on przez $X$ i $Y$.</Step>
-    <Step>Przecięcia z osią poziomą: $60-50=10\ \mathrm{MPa}$ oraz $60+50=110\ \mathrm{MPa}$.</Step>
-    <Step>Maksymalne ścinanie w płaszczyźnie: $R=50\ \mathrm{MPa}$, przy naprężeniu normalnym $60\ \mathrm{MPa}$.</Step>
-    <Step>
-      Kąt: $\tan2\theta_p=2\tau_{xy}/(\sigma_x-\sigma_y)=80/60=1{,}333$, więc $2\theta_p=53{,}13^\circ$ i
-      $\theta_p=26{,}57^\circ$ dla kierunku $\sigma_1$.
-    </Step>
-    <Step>
-      Sprawdź podstawieniem: $\cos53{,}13^\circ=0{,}6$ i $\sin53{,}13^\circ=0{,}8$, więc
-      $\sigma_n=60+30\cdot0{,}6+40\cdot0{,}8=110\ \mathrm{MPa}$.
-    </Step>
-  </Steps>
-  <Result>
-    Koło ma środek $(60,0)\ \mathrm{MPa}$ i promień $50\ \mathrm{MPa}$. Daje $\sigma_1=110\ \mathrm{MPa}$,
-    $\sigma_2=10\ \mathrm{MPa}$ oraz płaskie $\tau_{\max}=50\ \mathrm{MPa}$. Kierunek większego naprężenia głównego
-    jest obrócony o około $26{,}6^\circ$ od osi $x$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-stress-state-mohr-drawing" />
 
 ## Drugi przykład
 
-Rozważmy stan z ujemnym naprężeniem normalnym w kierunku $x$: $\sigma_x=-20\ \mathrm{MPa}$, $\sigma_y=60\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$. Zaznaczamy $X=(-20,30)$ i $Y=(60,-30)$. Środek ma odciętą $(-20+60)/2=20\ \mathrm{MPa}$, a promień $R=\sqrt{(-40)^2+30^2}=50\ \mathrm{MPa}$.
-
-Przecięcia z osią poziomą to $20-50=-30\ \mathrm{MPa}$ i $20+50=70\ \mathrm{MPa}$. Zatem $\sigma_1=70\ \mathrm{MPa}$, a $\sigma_2=-30\ \mathrm{MPa}$. Maksymalne ścinanie w płaszczyźnie wynosi 50 MPa i występuje przy naprężeniu normalnym 20 MPa, czyli w najwyższym punkcie koła.
-
-Kąt kierunku głównego obliczamy z $\tan2\theta_p=2\cdot30/(-20-60)=60/(-80)=-0{,}75$. Sam arcus tangens daje około $-36{,}87^\circ$, ale to odpowiada naprężeniu $\sigma_2=-30\ \mathrm{MPa}$. Dla $\sigma_1$ trzeba dodać $180^\circ$ do $2\theta_p$, otrzymując $143{,}13^\circ$, czyli $\theta_p=71{,}57^\circ$.
-
-Sprawdzenie: $\cos143{,}13^\circ=-0{,}8$ i $\sin143{,}13^\circ=0{,}6$. Wtedy $\sigma_n=20+(-40)(-0{,}8)+30\cdot0{,}6=20+32+18=70\ \mathrm{MPa}$. To potwierdza, że wybraliśmy właściwą gałąź. Drugi kierunek jest prostopadły i odpowiada $\sigma_2=-30\ \mathrm{MPa}$.
-
-Ten przykład pokazuje, dlaczego sam tangens nie wystarcza. Funkcja $\arctan$ zwraca kąt w przedziale od $-90^\circ$ do $90^\circ$, a równanie na $2\theta_p$ ma rozwiązania różniące się o $180^\circ$. Ćwiartkę trzeba ustalić z pary $\cos2\theta_p$ i $\sin2\theta_p$ albo przez podstawienie do wzoru na $\sigma_n$.
+<AnimatedSolution id="ex-stress-state-mohr-drawing-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że znamy naprężenia główne $\sigma_1=100\ \mathrm{MPa}$ i $\sigma_2=20\ \mathrm{MPa}$ oraz składową $\sigma_x=80\ \mathrm{MPa}$. Chcemy odtworzyć $\sigma_y$, $|\tau_{xy}|$ i położenie punktu $X$ na kole. To zadanie „od wyniku do danych”.
-
-Środek koła leży w średniej naprężeń głównych: $C=(100+20)/2=60\ \mathrm{MPa}$. Promień wynosi $(100-20)/2=40\ \mathrm{MPa}$. Z definicji średniej $(\sigma_x+\sigma_y)/2=60$, więc $\sigma_y=120-80=40\ \mathrm{MPa}$. Połowa różnicy to $a=(80-40)/2=20\ \mathrm{MPa}$.
-
-Z równania koła $40^2=20^2+\tau_{xy}^2$, więc $|\tau_{xy}|=\sqrt{1600-400}=\sqrt{1200}\approx34{,}64\ \mathrm{MPa}$. Punkt $X$ ma współrzędne $(80,34{,}64)$ lub $(80,-34{,}64)$, zależnie od znaku stycznej. Oba punkty leżą na tym samym okręgu i dają te same naprężenia główne, ale odpowiadają lustrzanym kierunkom.
-
-Kąt kierunku głównego wynika z $\cos2\theta_p=a/R=20/40=0{,}5$ oraz $\sin2\theta_p=\tau_{xy}/R$. Dla dodatniego $\tau_{xy}$ mamy $2\theta_p=60^\circ$, czyli $\theta_p=30^\circ$. Sprawdzenie: $\sigma_n=60+20\cdot0{,}5+34{,}64\cdot0{,}866\approx60+10+30=100\ \mathrm{MPa}$. Dla ujemnego $\tau_{xy}$ kąt zmienia znak, ale wartości główne pozostają takie same.
-
-To zadanie pokazuje, że koło opisuje wartości główne jednoznacznie, ale orientacja wymaga znaku stycznej. Sama para $\sigma_1$ i $\sigma_2$ nie mówi, po której stronie osi leży punkt $X$. W praktyce znak $\tau_{xy}$ bierzemy z konwencji zadania albo z pomiaru na określonym kierunku.
+<AnimatedSolution id="ex-stress-state-mohr-drawing-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

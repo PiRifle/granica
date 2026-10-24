@@ -125,79 +125,15 @@ $$
   być silna nawet wtedy, gdy siła jest przyłożona bardzo daleko.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Płaska taśma ma szerokość b = 80 mm i grubość t = 8 mm. W środku szerokości znajduje się otwór kołowy o średnicy d =
-    16 mm. Taśma jest rozciągana siłą P = 64 kN. Przyjmij do oszacowania Kt ≈ 3, jak dla małego otworu w szerokiej
-    płycie; rzeczywisty współczynnik dla skończonej szerokości jest zwykle mniejszy.
-  </Given>
-  <Steps>
-    <Step>Oblicz pole przekroju netto: Anet = (b − d) · t = (80 − 16) · 8 = 512 mm².</Step>
-    <Step>Przelicz siłę: P = 64 kN = 64 000 N.</Step>
-    <Step>Oblicz naprężenie nominalne na przekroju netto: σnom = 64 000 / 512 = 125 MPa.</Step>
-    <Step>Oszacuj naprężenie maksymalne przy otworze: σmax ≈ Kt · σnom = 3 · 125 = 375 MPa.</Step>
-    <Step>
-      Dla porównania naprężenie brutto wynosi 64 000 / (80 · 8) = 100 MPa. Różnica między 100 MPa i 125 MPa wynika z
-      mniejszego pola netto, a nie z koncentracji.
-    </Step>
-    <Step>
-      Typowa granica plastyczności stali konstrukcyjnej wynosi około 235 MPa, więc lokalne naprężenie 375 MPa przekracza
-      ją. Oznacza to możliwe lokalne uplastycznienie; sprężysty wzór z Kt jest wtedy tylko oszacowaniem górnym.
-    </Step>
-    <Step>
-      W odległości około trzech średnic otworu, czyli mniej więcej 48 mm, rozkład naprężeń wraca w przybliżeniu do
-      nominalnego. Tam można używać σ = N/A, ale nie przy samej krawędzi otworu.
-    </Step>
-  </Steps>
-  <Result>
-    σnom = 125 MPa na przekroju netto, a σmax ≈ 375 MPa jako górne oszacowanie przy Kt ≈ 3. Lokalne uplastycznienie jest
-    możliwe, więc wynik traktuj jako sygnał do dokładniejszej analizy, a nie jako dokładną wartość naprężenia w otworze.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-foundations-saint-venant" />
 
 ## Drugi przykład
 
-Okrągły pręt o średnicy 30 mm jest rozciągany siłą 50 kN przez sworzeń lub uchwyt. Oszacuj naprężenie nominalne z dala od uchwytu i zastanów się, gdzie prosty model przestaje być wiarygodny.
-
-Pole przekroju wynosi:
-
-$$
-A=\frac{\pi d^2}{4}=\frac{\pi\cdot 30^2}{4}\approx 706{,}9\ \text{mm}^2
-$$
-
-Naprężenie nominalne:
-
-$$
-\sigma_{\mathrm{nom}}=\frac{50\,000\ \text{N}}{706{,}9\ \text{mm}^2}\approx 70{,}7\ \text{MPa}
-$$
-
-Wymiar charakterystyczny to średnica 30 mm. Strefa zaburzeń ma zasięg rzędu tego wymiaru, więc dopiero po około 60–90 mm od uchwytu można spodziewać się rozkładu bliskiego równomiernemu. To oszacowanie, a nie norma: rzeczywisty zasięg zależy od sposobu mocowania, sztywności uchwytu i kontaktu. Przy samym sworzniu naprężenie jest trójosiowe i może być znacznie większe niż 70,7 MPa. Nie używaj tam $\sigma=N/A$ do oceny maksimum.
+<AnimatedSolution id="ex-foundations-saint-venant-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Taśma o szerokości 80 mm i grubości 6 mm ma otwór o średnicy 16 mm. Przyjmij $K_t\approx 3$ i wyznacz siłę $P$, przy której maksymalne naprężenie przy otworze osiągnie 360 MPa.
-
-Najpierw obliczamy pole netto:
-
-$$
-A_{\mathrm{net}}=(80-16)\cdot 6=384\ \text{mm}^2
-$$
-
-Naprężenie nominalne wynika z zależności $\sigma_{\max}=K_t\sigma_{\mathrm{nom}}$:
-
-$$
-\sigma_{\mathrm{nom}}=\frac{\sigma_{\max}}{K_t}=\frac{360}{3}=120\ \text{MPa}
-$$
-
-Siła wynosi:
-
-$$
-P=\sigma_{\mathrm{nom}}A_{\mathrm{net}}=120\cdot 384=46\,080\ \text{N}\approx 46{,}1\ \text{kN}
-$$
-
-Sprawdzenie: naprężenie brutto bez otworu wynosi $46\,080/(80\cdot 6)=96$ MPa, a naprężenie netto 120 MPa. Otwór zwiększa naprężenie nominalne przez zmniejszenie pola, a koncentracja podnosi maksimum do 360 MPa. Gdyby siła była większa, wzór sprężysty dawałby wartość powyżej granicy plastyczności i wymagałby korekty. Gdyby otwór był mniejszy, $K_t$ mógłby być zbliżony do 3, ale pole netto byłoby większe, więc dopuszczalna siła wzrosłaby.
-
-Wniosek projektowy jest taki, że o nośności decyduje nie tylko pole netto, ale i kształt detalu. Dwa otwory o tym samym polu mogą dawać różne maksima, jeśli różnią się kształtem lub położeniem względem krawędzi. Dlatego przy doborze przekroju trzeba najpierw ustalić, gdzie może powstać koncentracja, a dopiero potem liczyć średnie naprężenie.
+<AnimatedSolution id="ex-foundations-saint-venant-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

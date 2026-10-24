@@ -116,76 +116,15 @@ $$
   jednocześnie nie opisywać lokalnego maksimum naprężenia pod miejscem przyłożenia siły.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma długość 3,6 m. Działa na nią równomierne obciążenie q = 6 kN/m na całej długości. Pomiń
-    ciężar własny. Zastąp obciążenie wypadkową i wyznacz reakcje podpór.
-  </Given>
-  <Steps>
-    <Step>Oblicz wypadkową jako pole wykresu: P = qL = 6 kN/m · 3,6 m.</Step>
-    <Step>Otrzymujesz P = 21,6 kN; jednostka kN/m pomnożona przez m daje kN.</Step>
-    <Step>Dla obciążenia równomiernego wypadkowa działa w połowie długości: xP = 1,8 m od lewej podpory.</Step>
-    <Step>Zapisz równowagę momentów względem lewej podpory: RB · 3,6 = 21,6 · 1,8.</Step>
-    <Step>Wyznacz RB = 38,88 / 3,6 = 10,8 kN.</Step>
-    <Step>Z równowagi pionowej: RA + RB = 21,6 kN, więc RA = 10,8 kN.</Step>
-    <Step>Sprawdź symetrię: obciążenie i podpory są symetryczne, więc równe reakcje są oczekiwane.</Step>
-  </Steps>
-  <Result>Wypadkowa P = 21,6 kN działa w połowie rozpiętości; reakcje wynoszą RA = RB = 10,8 kN.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-ideal-1" />
 
 ## Drugi przykład
 
-Belka o długości 6 m jest obciążona trójkątnie: obciążenie rośnie od zera na lewym końcu do 12 kN/m na prawym końcu. Podpory znajdują się na obu końcach. Wyznacz wypadkową i reakcje.
-
-Pole trójkąta pod wykresem obciążenia wynosi:
-
-$$
-P=\frac{1}{2}\cdot 12\ \text{kN/m}\cdot 6\ \text{m}=36\ \text{kN}
-$$
-
-Środek ciężkości trójkąta leży w odległości dwóch trzecich długości od wierzchołka, czyli od końca, gdzie obciążenie jest zerowe:
-
-$$
-x_P=\frac{2}{3}\cdot 6\ \text{m}=4\ \text{m}
-$$
-
-Reakcję na prawym końcu wyznaczamy z momentów względem lewego końca:
-
-$$
-R_B\cdot 6=36\cdot 4
-\quad\Rightarrow\quad
-R_B=24\ \text{kN}
-$$
-
-Z równowagi pionowej:
-
-$$
-R_A=36-24=12\ \text{kN}
-$$
-
-Sprawdzenie: reakcja bliżej większego obciążenia jest większa, co jest zgodne z intuicją. Suma reakcji wynosi 36 kN, a moment wypadkowej względem lewego końca to $36\cdot 4=144\ \text{kN}\cdot\text{m}$. Moment reakcji $R_B$ względem tego samego punktu to $24\cdot 6=144\ \text{kN}\cdot\text{m}$ — bilans się zgadza.
+<AnimatedSolution id="ex-ideal-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem znamy wypadkową i jej położenie, a szukamy parametrów obciążenia trójkątnego. Belka ma długość 6 m. Wypadkowa obciążenia trójkątnego wynosi 27 kN i działa 4 m od końca, na którym obciążenie jest zerowe. Jaka jest maksymalna intensywność obciążenia?
-
-Dla trójkąta o maksimum $q_0$ na jednym końcu:
-
-$$
-P=\frac{1}{2}q_0L
-\quad\Rightarrow\quad
-q_0=\frac{2P}{L}=\frac{2\cdot 27}{6}=9\ \text{kN/m}
-$$
-
-Sprawdzamy położenie środka ciężkości:
-
-$$
-x_P=\frac{2L}{3}=\frac{2\cdot 6}{3}=4\ \text{m}
-$$
-
-Otrzymana wartość zgadza się z danymi, więc model jest spójny. Gdyby wypadkowa działała w innym miejscu niż $2L/3$, obciążenie nie byłoby prostym trójkątem o maksimum na końcu — trzeba by rozważyć inny rozkład, na przykład trapezowy.
-
-Ten wariant pokazuje, że modelowanie nie polega na dobieraniu wzoru „na wyczucie”. Kształt wykresu obciążenia determinuje zarówno wartość wypadkowej, jak i jej położenie. Znając dwa z tych elementów, można odtworzyć trzeci tylko wtedy, gdy założony kształt rozkładu jest poprawny.
+<AnimatedSolution id="ex-ideal-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

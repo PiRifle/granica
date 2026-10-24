@@ -111,70 +111,15 @@ Wyprowadzenie jest krótkie, ale każdy krok ma znaczenie. Zaczynamy od zapisu p
   ważne jako miara granicy, ale nie jako naprężenie robocze.
 </Insight>
 
-<WorkedExample>
-  <Given>Próbka stalowa ma pole $S_0=80\ \text{mm}^2$. Materiał ma $R_e=300\ \text{MPa}$ i $R_m=450\ \text{MPa}$.</Given>
-  <Steps>
-    <Step>Granica plastyczności odpowiada sile $F_e=R_eS_0$.</Step>
-    <Step>$F_e=300\ \text{N/mm}^2\cdot 80\ \text{mm}^2=24\,000\ \text{N}=24\ \text{kN}$.</Step>
-    <Step>Największa siła wynika z wytrzymałości: $F_m=R_mS_0=450\cdot 80=36\,000\ \text{N}=36\ \text{kN}$.</Step>
-    <Step>Stosunek $R_m/R_e=450/300=1{,}5$ opisuje umocnienie między początkiem płynięcia a maksimum.</Step>
-    <Step>
-      Różnica $36-24=12\ \text{kN}$ pokazuje przyrost siły między uplastycznieniem a największą siłą, ale nie jest zapasem przeznaczonym do swobodnego wykorzystania w projekcie.
-    </Step>
-    <Step>Kontrola jednostek: $\text{MPa}\cdot\text{mm}^2=\text{N}$, więc wynik w niutonach jest poprawny.</Step>
-  </Steps>
-  <Result>Uplastycznienie próbki zaczyna się przy około $24\ \text{kN}$, a wytrzymałości $R_m$ odpowiada siła $36\ \text{kN}$. Zerwanie nastąpi przy sile mniejszej od $36\ \text{kN}$, po przewężeniu.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m3-strength-elasticity-plasticity" />
 
 ## Drugi przykład
 
-Przyjmijmy teraz stal o $R_e=235\ \text{MPa}$ i $R_m=370\ \text{MPa}$, próbkę o polu $S_0=120\ \text{mm}^2$. Siły graniczne wynoszą
-
-$$
-F_e=235\cdot 120=28\,200\ \text{N}=28{,}2\ \text{kN},
-$$
-
-$$
-F_m=370\cdot 120=44\,400\ \text{N}=44{,}4\ \text{kN}.
-$$
-
-Załóżmy, że element pracuje pod siłą $N=18\ \text{kN}$. Naprężenie wynosi
-
-$$
-\sigma=\frac{18\,000}{120}=150\ \text{MPa}.
-$$
-
-Jest ono mniejsze od $R_e=235\ \text{MPa}$, więc element pozostaje w zakresie sprężystym, a odkształcenie po odciążeniu zniknie. Odległość do granicy plastyczności wynosi $235-150=85\ \text{MPa}$, czyli zapas naprężeniowy około $36\%$ względem $R_e$.
-
-Gdyby ta sama siła działała na próbkę o polu $60\ \text{mm}^2$, naprężenie wzrosłoby do $300\ \text{MPa}$. To już przekracza $R_e$, więc po odciążeniu pozostałoby odkształcenie trwałe. Element nie musiałby jeszcze pęknąć, ponieważ $300\ \text{MPa}$ jest mniejsze od $R_m=370\ \text{MPa}$, ale jego geometria uległaby zmianie. To klasyczny przykład stanu, w którym „jeszcze nie pękło” nie znaczy „jest bezpieczne”.
+<AnimatedSolution id="ex-m3-strength-elasticity-plasticity-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że z próby wiemy, iż siła $F_e=60\ \text{kN}$ odpowiada granicy plastyczności próbki o polu $S_0=250\ \text{mm}^2$. Jaką granicę plastyczności ma materiał? Korzystamy z definicji:
-
-$$
-R_e=\frac{60\,000}{250}=240\ \text{MPa}.
-$$
-
-Jeśli wymagany współczynnik bezpieczeństwa względem tej granicy wynosi $n=1{,}5$, to naprężenie dopuszczalne jest równe
-
-$$
-\sigma_{\mathrm{dop}}=\frac{240}{1{,}5}=160\ \text{MPa}.
-$$
-
-Maksymalna siła robocza dla tego samego przekroju wynosi więc
-
-$$
-N_{\mathrm{dop}}=\sigma_{\mathrm{dop}}S_0=160\cdot 250=40\,000\ \text{N}=40\ \text{kN}.
-$$
-
-Sprawdzenie: przy $40\ \text{kN}$ naprężenie wynosi $40\,000/250=160\ \text{MPa}$, czyli dokładnie $\sigma_{\mathrm{dop}}$. Zapas do granicy plastyczności wynosi $240/160=1{,}5$, zgodnie z założeniem.
-
-Zauważ, że wynik $R_e=240\ \text{MPa}$ jest typowy dla zwykłej stali konstrukcyjnej, ale nie jest uniwersalny. Inna stal może mieć $R_e=355\ \text{MPa}$, a stal o podwyższonej wytrzymałości jeszcze więcej. W zadaniu zawsze korzystaj z danych podanych w treści albo z wartości wyraźnie oznaczonej jako typowa.
-
-Warto zauważyć, że nie użyliśmy tutaj $R_m$. Gdyby materiał był kruchy i pękał bez uprzedniego płynięcia, właściwą granicą byłoby $R_m$, a nie $R_e$. Wybór granicy zależy od mechanizmu zniszczenia, nie od tego, która liczba jest większa.
-
-Ten sam rachunek można odwrócić inaczej: mając wymaganą siłę roboczą i przyjęty współczynnik bezpieczeństwa, można wyznaczyć minimalne pole przekroju. Dla $N=40\ \text{kN}$, $R_e=240\ \text{MPa}$ i $n=1{,}5$ otrzymujemy $S_{0,\min}=N n/R_e=40\,000\cdot 1{,}5/240=250\ \text{mm}^2$. To dokładnie pole użyte w przykładzie, co potwierdza spójność obliczeń.
+<AnimatedSolution id="ex-m3-strength-elasticity-plasticity-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

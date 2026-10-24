@@ -166,98 +166,15 @@ uzupełnia $bh^3/36$ do $bh^3/12$.
   $(h/b)^2$ i może zmienić sztywność belki czterokrotnie przy niezmienionym polu.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Rura o średnicy zewnętrznej $D=120$ mm i wewnętrznej $d=100$ mm jest zginana względem osi przechodzącej przez
-    środek. Porównujemy ją z pełnym prętem o tej samej średnicy zewnętrznej.
-  </Given>
-  <Steps>
-    <Step>
-      Pole rury: $A=\frac{\pi(120^2-100^2)}{4}=\frac{\pi\cdot 4400}{4}\approx 3455{,}75\ \text{mm}^2$. Pole pręta
-      pełnego wynosi $11\,309{,}73\ \text{mm}^2$, czyli rura ma około 30,6% pola.
-    </Step>
-    <Step>
-      Moment rury: $I=\frac{\pi(120^4-100^4)}{64}\approx 5{,}27\cdot 10^6\ \text{mm}^4$. Różnica czwartych potęg
-      $120^4-100^4=107\,360\,000\ \text{mm}^4$.
-    </Step>
-    <Step>
-      Moment pręta pełnego: $I_s=\frac{\pi\cdot 120^4}{64}\approx 10{,}179\cdot 10^6\ \text{mm}^4$. Rura zachowuje
-      około 51,8% momentu pełnego pręta.
-    </Step>
-    <Step>
-      Promień bezwładności rury: $i=\sqrt{I/A}=\sqrt{5{,}270\cdot 10^6/3455{,}75}\approx 39{,}05$ mm.
-    </Step>
-    <Step>
-      Dla pręta pełnego $i_s=d/4=30$ mm. Większy promień bezwładności rury potwierdza, że jej materiał jest
-      przeciętnie dalej od osi.
-    </Step>
-    <Step>
-      Kontrola jednostek: $\text{mm}^4/\text{mm}^2=\text{mm}^2$, a po pierwiastku otrzymujemy mm — zgodnie z
-      definicją promienia bezwładności.
-    </Step>
-  </Steps>
-  <Result>
-    Rura ma $I\approx 5{,}27\cdot 10^6\ \text{mm}^4\approx 527\ \text{cm}^4$ i $i\approx 39{,}05$ mm, podczas gdy pełny pręt ma
-    $I_s\approx 10{,}18\cdot 10^6\ \text{mm}^4$ i $i_s=30$ mm. Rura zużywa około 31% materiału i zachowuje około 52%
-    sztywności zginania.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m4-second-moments" />
 
 ## Drugi przykład
 
-Trójkąt o podstawie $b=120$ mm i wysokości $h=90$ mm jest zginany względem osi równoległej do podstawy. Jeżeli oś
-przechodzi przez podstawę, to
-
-$$
-I_{\text{podstawa}}=\frac{bh^3}{12}=\frac{120\cdot 90^3}{12}=7\,290\,000\ \text{mm}^4.
-$$
-
-Jeżeli oś przechodzi przez środek ciężkości, to $I_c=bh^3/36$:
-
-$$
-I_c=\frac{120\cdot 90^3}{36}=2\,430\,000\ \text{mm}^4.
-$$
-
-Sprawdźmy zgodność z twierdzeniem Steinera. Pole wynosi $A=\frac{1}{2}\cdot 120\cdot 90=5400\ \text{mm}^2$, a
-odległość środka od podstawy to $h/3=30$ mm. Składnik przesunięcia wynosi
-
-$$
-A\left(\frac{h}{3}\right)^2=5400\cdot 900=4\,860\,000\ \text{mm}^4.
-$$
-
-Rzeczywiście $2\,430\,000+4\,860\,000=7\,290\,000\ \text{mm}^4$. To pokazuje, że oba wzory są spójne, a różnica
-między nimi nie jest przypadkowa. W obliczeniach zginania używamy $I_c$, bo oś obojętna przechodzi przez środek
-ciężkości.
-
-Zwróć uwagę na kierunek. Jeżeli trójkąt zostanie obrócony tak, że podstawa będzie pionowa, to moment względem
-poziomej osi zmieni się na $hb^3/36$, czyli w tym przypadku $90\cdot 120^3/36=4\,320\,000\ \text{mm}^4$. Ten sam
-kształt, inne ustawienie, inna sztywność.
+<AnimatedSolution id="ex-m4-second-moments-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Projektant potrzebuje prostokątnego przekroju o $I_x=40\cdot 10^6\ \text{mm}^4$ względem osi poziomej przez środek.
-Szerokość jest ograniczona do $b=80$ mm. Jaka musi być wysokość? Z wzoru $I=bh^3/12$ wyznaczamy
-
-$$
-h^3=\frac{12I}{b}=\frac{12\cdot 40\cdot 10^6}{80}=6\cdot 10^6\ \text{mm}^3,
-$$
-
-czyli $h\approx 181{,}7$ mm. Pole wynosi wtedy około $14\,536\ \text{mm}^2$.
-
-Gdyby szerokość zwiększyć do 160 mm, wymagana wysokość spadłaby do
-
-$$
-h=\left(\frac{12\cdot 40\cdot 10^6}{160}\right)^{1/3}=(3\cdot 10^6)^{1/3}\approx 144{,}2\ \text{mm}.
-$$
-
-Pole wzrosłoby jednak do około $23\,075\ \text{mm}^2$, czyli przekrój zużyłby znacznie więcej materiału przy tym
-samym $I$. Wniosek jest ogólny: przy zginaniu w jednej płaszczyźnie opłaca się zwiększać wymiar prostopadły do osi
-obojętnej, a nie równoległy do niej. Oczywiście tylko do granicy wynikającej z miejsca, stateczności ścianek i
-technologii.
-
-Wariant odwrotny można też sformułować przez promień bezwładności. Jeżeli wymagane jest $i_x=60$ mm przy polu
-$A=5000\ \text{mm}^2$, to $I_x=i_x^2A=3600\cdot 5000=18\cdot 10^6\ \text{mm}^4$. Taki zapis bywa wygodniejszy w
-normach i katalogach kształtowników, gdzie podaje się promienie bezwładności zamiast momentów.
+<AnimatedSolution id="ex-m4-second-moments-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

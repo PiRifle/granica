@@ -117,98 +117,17 @@ Warto zauważyć, że wzory są liniowe względem obciążeń. Jeśli na belkę 
   względem innego punktu.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma rozpiętość L = 5,0 m. W odległości a = 3,0 m od lewej podpory A działa pionowa siła P =
-    12 kN w dół. Na całej długości działa równomierne obciążenie q = 6,0 kN/m. W punkcie B działa dodatkowo pozioma siła
-    H = 5,0 kN w lewo, wzdłuż osi belki. Pomiń ciężar własny.
-  </Given>
-  <Steps>
-    <Step>
-      Narysuj diagram: w A przyjmij Ax w prawo i Ay w górę, w B przyjmij RB w górę. Oś x jest w prawo, oś y w górę,
-      moment dodatni przeciwnie do ruchu wskazówek zegara.
-    </Step>
-    <Step>Z równowagi poziomej: Ax − H = 0, więc Ax = 5,0 kN w prawo.</Step>
-    <Step>
-      Zastąp obciążenie równomierne wypadkową Q = qL = 6,0 kN/m · 5,0 m = 30 kN. Działa w odległości 2,5 m od A.
-    </Step>
-    <Step>Zapisz momenty względem A: RB · 5,0 − 12 · 3,0 − 30 · 2,5 = 0.</Step>
-    <Step>Oblicz: RB · 5,0 = 36 + 75 = 111 kN·m, więc RB = 22,2 kN.</Step>
-    <Step>Z równowagi pionowej: Ay + RB = 12 + 30 = 42 kN, więc Ay = 42 − 22,2 = 19,8 kN.</Step>
-    <Step>
-      Sprawdź momentem względem B: 19,8 · 5,0 = 99 kN·m oraz 12 · 2,0 + 30 · 2,5 = 24 + 75 = 99 kN·m. Zgodność
-      potwierdza wynik.
-    </Step>
-    <Step>
-      Sprawdź sens: suma reakcji pionowych 19,8 + 22,2 = 42 kN równoważy sumę obciążeń pionowych 12 + 30 = 42 kN. Siła
-      pozioma H nie wnosi momentu, bo jej linia działania przechodzi przez oś belki i przez punkt B.
-    </Step>
-  </Steps>
-  <Result>
-    RA = 19,8 kN w górę, RB = 22,2 kN w górę oraz Ax = 5,0 kN w prawo. Suma reakcji pionowych równa się sumie obciążeń
-    pionowych, a kontrola momentów względem B daje zero.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-foundations-equilibrium" />
 
 Kontrola wyniku nie kończy się na zgodności arytmetycznej. Sprawdź, czy reakcja jest dodatnia, czy nie przewyższa sumy obciążeń i czy przypadkiem nie pominąłeś momentu skupionego. W tym zadaniu siła pozioma nie wpływa na momenty, ale w zadaniu z ramieniem poziomym już by wpłynęła. Zawsze pytaj, przez jaki punkt przechodzi linia działania każdej siły.
 
 ## Drugi przykład
 
-Wspornik jest utwierdzony w ścianie w punkcie A i ma długość 2,4 m. Na swobodnym końcu B działa siła $F=10$ kN, której składowa pozioma wynosi 6 kN w prawo, a pionowa 8 kN w dół. Siła pozioma działa w osi belki. Wyznacz reakcje w utwierdzeniu.
-
-W utwierdzeniu mogą wystąpić dwie składowe siły i moment: $A_x$, $A_y$ oraz $M_A$. Przyjmujemy $A_x$ w prawo, $A_y$ w górę i $M_A$ przeciwnie do ruchu wskazówek zegara.
-
-Równowaga pozioma:
-
-$$
-A_x+6=0 \quad\Rightarrow\quad A_x=-6\ \text{kN}
-$$
-
-Minus oznacza, że rzeczywista reakcja pozioma działa w lewo. Równowaga pionowa:
-
-$$
-A_y-8=0 \quad\Rightarrow\quad A_y=8\ \text{kN}
-$$
-
-Reakcja momentowa równoważy moment od siły pionowej. Siła 8 kN działa w odległości 2,4 m od A i obraca belkę zgodnie z ruchem wskazówek zegara, więc jej moment wynosi $-8\cdot 2{,}4=-19{,}2$ kN·m. Stąd:
-
-$$
-M_A-19{,}2=0 \quad\Rightarrow\quad M_A=19{,}2\ \text{kN·m}
-$$
-
-Kontrola momentów względem B daje $-M_A+A_y\cdot 2{,}4=-19{,}2+19{,}2=0$. Siła pozioma nie wnosi momentu względem B, bo działa wzdłuż osi belki. Wniosek: utwierdzenie przenosi zarówno siłę osiową, jak i moment, nawet jeśli w tym zadaniu siła osiowa nie wpływa na zginanie. Gdyby belka była wykonana z materiału o małej wytrzymałości na rozciąganie, sama siła osiowa mogłaby zdecydować o doborze przekroju. Reakcje trzeba więc raportować wszystkie, a nie tylko te, które są wygodne w równaniu momentów.
+<AnimatedSolution id="ex-foundations-equilibrium-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Belka swobodnie podparta ma długość 4,0 m. W odległości 1,5 m od lewej podpory działa siła skupiona $P=8$ kN w dół. Wiadomo, że reakcja prawej podpory wynosi $R_B=14$ kN, a na całej belce działa nieznane równomierne obciążenie $q$. Wyznacz $q$ oraz reakcję $R_A$.
-
-Korzystamy z równania momentów względem A:
-
-$$
-R_B L=P a+\frac{qL^2}{2}
-$$
-
-Podstawiamy dane:
-
-$$
-14\cdot 4=8\cdot 1{,}5+\frac{q\cdot 4^2}{2}
-$$
-
-Stąd:
-
-$$
-56=12+8q \quad\Rightarrow\quad q=5{,}5\ \text{kN/m}
-$$
-
-Gdyby w treści nie było wartości $P$, samo $R_B$ nie wystarczyłoby do wyznaczenia $q$. Równanie momentów zawierałoby dwie niewiadome, więc potrzebne byłoby dodatkowe dane albo drugi pomiar. To ważna lekcja: wynikowa reakcja nie zawsze jednoznacznie odtwarza obciążenie, które ją wywołało.
-
-Wtedy reakcja lewa wynosi:
-
-$$
-R_A=P+qL-R_B=8+5{,}5\cdot 4-14=16\ \text{kN}
-$$
-
-Sprawdzenie momentem względem B: $R_A\cdot 4=64$ kN·m oraz $P\cdot 2{,}5+q\cdot 4\cdot 2=20+44=64$ kN·m. Wynik jest spójny. Gdyby $R_B$ było mniejsze niż $Pa/L=3$ kN, otrzymalibyśmy ujemne $q$, czyli obciążenie skierowane do góry. To sygnał, że dane nie odpowiadają założonemu modelowi belki z obciążeniem w dół.
+<AnimatedSolution id="ex-foundations-equilibrium-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

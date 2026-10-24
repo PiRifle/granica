@@ -115,54 +115,15 @@ Wyprowadzenie zaczynamy od wzoru transformacyjnego na naprężenie styczne w pł
   liczby, zanim wybierzesz różnicę do wzoru.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    W punkcie panuje płaski stan naprężenia: $\sigma_x=90\ \mathrm{MPa}$, $\sigma_y=30\ \mathrm{MPa}$,
-    $\tau_{xy}=40\ \mathrm{MPa}$ i $\sigma_z=0$. Wyznacz płaskie oraz absolutne maksimum ścinania.
-  </Given>
-  <Steps>
-    <Step>Średnia: $\sigma_{avg}=(90+30)/2=60\ \mathrm{MPa}$.</Step>
-    <Step>Połowa różnicy: $a=(90-30)/2=30\ \mathrm{MPa}$.</Step>
-    <Step>Promień: $R=\sqrt{30^2+40^2}=50\ \mathrm{MPa}$.</Step>
-    <Step>Naprężenia główne w płaszczyźnie: $60+50=110\ \mathrm{MPa}$ oraz $60-50=10\ \mathrm{MPa}$.</Step>
-    <Step>Dodaj zero i uporządkuj: $\sigma_I=110$, $\sigma_{II}=10$, $\sigma_{III}=0\ \mathrm{MPa}$.</Step>
-    <Step>Płaskie maksimum: $\tau_{\max}^{(xy)}=R=50\ \mathrm{MPa}$.</Step>
-    <Step>Absolutne maksimum: $\tau_{\max}^{abs}=(110-0)/2=55\ \mathrm{MPa}$.</Step>
-    <Step>
-      Sprawdź średnią na płaszczyźnie absolutnego maksimum: $(110+0)/2=55\ \mathrm{MPa}$. Jest to zarazem wartość
-      naprężenia normalnego na tej płaszczyźnie.
-    </Step>
-  </Steps>
-  <Result>
-    Płaskie maksimum wynosi $50\ \mathrm{MPa}$, a absolutne $55\ \mathrm{MPa}$. Różnica $5\ \mathrm{MPa}$ jest
-    wynikiem tego, że zero jest mniejsze od obu naprężeń płaskich. Pominięcie trzeciej osi zaniżyłoby wynik o około
-    $9\%$, co w projekcie może być istotne.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-stress-state-tau-max" />
 
 ## Drugi przykład
 
-Rozważmy stan, w którym oba naprężenia normalne są ujemne: $\sigma_x=-40\ \mathrm{MPa}$, $\sigma_y=-100\ \mathrm{MPa}$ i $\tau_{xy}=30\ \mathrm{MPa}$. Średnia wynosi $(-40-100)/2=-70\ \mathrm{MPa}$, a połowa różnicy $a=(-40+100)/2=30\ \mathrm{MPa}$. Promień jest równy $R=\sqrt{30^2+30^2}=42{,}43\ \mathrm{MPa}$.
-
-Naprężenia główne w płaszczyźnie to $-70+42{,}43=-27{,}57\ \mathrm{MPa}$ oraz $-70-42{,}43=-112{,}43\ \mathrm{MPa}$. Po dodaniu zera i uporządkowaniu otrzymujemy $\sigma_I=0$, $\sigma_{II}=-27{,}57$ i $\sigma_{III}=-112{,}43\ \mathrm{MPa}$. Tym razem zero jest największym naprężeniem głównym, bo oba naprężenia płaskie są ściskające.
-
-Płaskie maksimum ścinania wynosi $R=42{,}43\ \mathrm{MPa}$, natomiast absolutne $(0-(-112{,}43))/2=56{,}21\ \mathrm{MPa}$. Na płaszczyźnie absolutnego maksimum naprężenie normalne jest równe $(0-112{,}43)/2=-56{,}21\ \mathrm{MPa}$, czyli jest ściskające. To pokazuje, że duże ścinanie może współistnieć z dużym ściskaniem.
-
-Warto zauważyć, że znak naprężeń normalnych nie przesądza o tym, które koło jest największe. Liczy się różnica wartości, a nie ich znak. Stan z dwoma ujemnymi naprężeniami płaskimi jest geometrycznie podobny do stanu z dwoma dodatnimi: zero leży na zewnątrz przedziału wyznaczonego przez naprężenia płaskie, więc powiększa maksymalną różnicę.
-
-Taki przypadek występuje na przykład w ściśniętym elemencie z dodatkowym ścinaniem, w strefie docisku lub w materiale pod wysokim ciśnieniem hydrostatycznym z odchyleniem. Samo ściskanie hydrostatyczne nie daje ścinania, ale różnica między naprężeniami już tak. Dlatego inżynier musi patrzeć na różnice, a nie tylko na wartości bezwzględne.
+<AnimatedSolution id="ex-stress-state-tau-max-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że z analizy koła wiadomo, iż płaski promień wynosi $R=40\ \mathrm{MPa}$, a absolutne maksimum ścinania $60\ \mathrm{MPa}$. Dodatkowo zmierzono $\sigma_x=104\ \mathrm{MPa}$. Chcemy odtworzyć $\sigma_y$ i $|\tau_{xy}|$. To zadanie „od wyniku do danych”.
-
-Ponieważ $\tau_{\max}^{abs}$ jest większe od $R$, zero musi być naprężeniem skrajnym. Przy dodatnim $\sigma_x$ i dodatniej średniej oznacza to, że oba naprężenia płaskie są dodatnie. Z wzoru na absolutne maksimum mamy $\sigma_I/2=60$, więc $\sigma_I=120\ \mathrm{MPa}$. Promień w płaszczyźnie jest połową różnicy naprężeń płaskich, więc $\sigma_I-\sigma_{II}=80\ \mathrm{MPa}$ i $\sigma_{II}=40\ \mathrm{MPa}$.
-
-Średnia wynosi $(120+40)/2=80\ \mathrm{MPa}$. Z definicji średniej $(\sigma_x+\sigma_y)/2=80$, więc $\sigma_y=160-104=56\ \mathrm{MPa}$. Połowa różnicy to $a=(104-56)/2=24\ \mathrm{MPa}$. Z wzoru na promień $40^2=24^2+\tau_{xy}^2$, skąd $|\tau_{xy}|=\sqrt{1600-576}=32\ \mathrm{MPa}$.
-
-Sprawdzenie: średnia $80\ \mathrm{MPa}$, promień $\sqrt{24^2+32^2}=40\ \mathrm{MPa}$, więc naprężenia główne to $120$ i $40\ \mathrm{MPa}$, a zero jest najmniejsze. Absolutne maksimum wynosi $(120-0)/2=60\ \mathrm{MPa}$. Wszystko się zgadza.
-
-Wariant ściskający dałby $\sigma_I=0$, $\sigma_{II}=-40$ i $\sigma_{III}=-120\ \mathrm{MPa}$ przy tej samej wartości $R=40$ i tym samym absolutnym maksimum $60\ \mathrm{MPa}$. Wtedy jednak średnia byłaby ujemna, a $\sigma_x=104\ \mathrm{MPa}$ leży poza przedziałem od $-120$ do $-40\ \mathrm{MPa}$, więc taki stan nie jest zgodny z pomiarem. To pokazuje, że znak jednej składowej może rozstrzygnąć, który z dwóch matematycznie możliwych stanów jest rzeczywisty.
+<AnimatedSolution id="ex-stress-state-tau-max-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

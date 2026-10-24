@@ -111,49 +111,15 @@ Wzór zakłada, że wszystkie łączniki i wszystkie płaszczyzny przenoszą jed
   przenosić obciążenie.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Dwucięty sworzeń o średnicy $d = 20\ \text{mm}$ przenosi siłę $F = 100\ \text{kN}$. Oblicz średnie naprężenie styczne i siłę przypadającą na jedną płaszczyznę.
-  </Given>
-  <Steps>
-    <Step>Pole jednego przekroju: $A = \pi \cdot 20^2/4 = 314{,}16\ \text{mm}^2$.</Step>
-    <Step>Liczba płaszczyzn dla jednego sworznia dwuciętego: $n = 2$, więc łączne pole wynosi $2A = 628{,}32\ \text{mm}^2$.</Step>
-    <Step>Siła na jedną płaszczyznę: $F_p = 100/2 = 50\ \text{kN} = 50\,000\ \text{N}$.</Step>
-    <Step>Średnie naprężenie: $\tau_{sr} = 100\,000/628{,}32 = 159{,}15\ \text{MPa}$.</Step>
-    <Step>Kontrola: ta sama siła na jednym cięciu dałaby $100\,000/314{,}16 = 318{,}3\ \text{MPa}$, czyli dwa razy więcej.</Step>
-  </Steps>
-  <Result>
-    $\tau_{sr} \approx 159\ \text{MPa}$, a każda płaszczyzna przenosi 50 kN. Wynik jest typowy dla stali konstrukcyjnej, ale wymaga porównania z naprężeniem dopuszczalnym i sprawdzenia docisku blach.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-shear-single-double" />
 
 ## Drugi przykład
 
-Rozważmy połączenie z czterema nitami, z których każdy jest dwucięty. Całkowita siła wynosi $F = 180\ \text{kN}$, a średnica nitu $d = 18\ \text{mm}$. Tym razem nie liczymy tylko jednego łącznika, bo siła rozkłada się na wszystkie cztery.
-
-Pole jednego przekroju wynosi $A = \pi \cdot 18^2/4 = 254{,}47\ \text{mm}^2$. Liczba łączników $m = 4$, liczba cięć na łącznik $n = 2$, więc łączne pole ścinania to $A_s = m n A = 4 \cdot 2 \cdot 254{,}47 = 2035{,}75\ \text{mm}^2$.
-
-Średnie naprężenie wynosi $\tau_{sr} = 180\,000/2035{,}75 = 88{,}42\ \text{MPa}$. Na jeden nit przypada $180/4 = 45\ \text{kN}$, a na jedną płaszczyznę $45/2 = 22{,}5\ \text{kN}$. Kontrola: $22\,500/254{,}47 = 88{,}42\ \text{MPa}$.
-
-Ten przykład pokazuje, że liczba łączników i liczba cięć działają mnożnikowo. Cztery nity dwucięte dają osiem płaszczyzn ścinania. Gdyby te same cztery nity były jednocięte, łączne pole byłoby dwa razy mniejsze, a naprężenie dwa razy większe, czyli około 176,8 MPa.
-
-W praktyce nie zakładaj automatycznie, że wszystkie nity przenoszą równy udział siły. W krótkim połączeniu z jednakowymi blachami jest to dobre przybliżenie. W długim szeregu pierwszy nit może przenosić nawet kilkadziesiąt procent więcej niż wynika to z podziału. Dlatego normy wprowadzają współczynniki redukcyjne albo wymagają sprawdzenia nośności na docisk i rozerwanie blachy.
-
-W krótkim połączeniu z dwoma lub trzema nitami w szeregu nierównomierność jest niewielka. W długim szeregu może być znacząca, szczególnie gdy blachy są cienkie i podatne. Wtedy obliczenie z równym podziałem daje naprężenie mniejsze od rzeczywistego w pierwszym rzędzie. Zapas bezpieczeństwa powinien to uwzględniać.
+<AnimatedSolution id="ex-shear-single-double-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Zaprojektujmy średnicę sworznia dwuciętego dla siły $F = 90\ \text{kN}$ i naprężenia dopuszczalnego $\tau_{dop} = 120\ \text{MPa}$. Tym razem szukamy wymiaru, a nie naprężenia.
-
-Wymagane łączne pole ścinania wynosi $A_s \ge F/\tau_{dop} = 90\,000/120 = 750\ \text{mm}^2$. Dla jednego sworznia dwuciętego $A_s = 2A$, więc pole jednego przekroju musi wynosić co najmniej $A \ge 375\ \text{mm}^2$.
-
-Z zależności $A = \pi d^2/4$ otrzymujemy $d \ge \sqrt{4A/\pi} = \sqrt{4 \cdot 375/\pi} = \sqrt{477{,}46} = 21{,}85\ \text{mm}$. Najmniejsza dopuszczalna średnica to około 21,9 mm.
-
-Wybieramy średnicę handlową 22 mm i sprawdzamy ponownie. Pole wynosi $A = \pi \cdot 22^2/4 = 380{,}13\ \text{mm}^2$, łączne pole $2A = 760{,}27\ \text{mm}^2$, a naprężenie $\tau_{sr} = 90\,000/760{,}27 = 118{,}38\ \text{MPa}$, czyli poniżej 120 MPa. Warunek jest spełniony.
-
-Zwróć uwagę, że zaokrąglenie średnicy w górę zwiększa pole, ale nie zmienia liczby płaszczyzn. Gdyby wynik był blisko granicy, moglibyśmy rozważyć zwiększenie liczby sworzni zamiast średnicy. To decyzja projektowa: większa średnica oznacza cięższy łącznik i większy otwór w blasze, a większa liczba łączników oznacza dłuższe połączenie i bardziej złożony montaż.
-
-W praktyce projektant często iteruje: dobiera średnicę, sprawdza rozstaw i odległości od krawędzi, a potem wraca do obliczeń. Nasz przykład pomija te szczegóły, ale pokazuje logikę. Najpierw warunek wytrzymałości, potem zaokrąglenie, na końcu kontrola. Dopiero po niej można przejść do rysunku wykonawczego.
+<AnimatedSolution id="ex-shear-single-double-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

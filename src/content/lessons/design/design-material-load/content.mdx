@@ -129,52 +129,17 @@ W zadaniach odwrotnych, gdy znamy obciążenie i przekrój, a pytamy o materiał
   stosunkowo mało sztywny albo odwrotnie. W projekcie trzeba sprawdzić obie własności, bo odpowiadają na różne pytania.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Pręt ma pole $A=300\ \text{mm}^2$, długość $L=1{,}5\ \text{m}$, moduł $E=200\ \text{GPa}$ i granicę plastyczności $R_e=235\ \text{MPa}$. Wymagany współczynnik bezpieczeństwa wynosi $n=1{,}8$, a dopuszczalne wydłużenie $\Delta L_{\mathrm{dop}}=1\ \text{mm}$.
-  </Given>
-  <Steps>
-    <Step>Naprężenie dopuszczalne: $k=R_e/n=235/1{,}8\approx 130{,}56\ \text{MPa}$.</Step>
-    <Step>Obciążenie dopuszczalne z wytrzymałości: $P_{\mathrm{dop},w}=kA=130{,}56\cdot 300=39\,167\ \text{N}\approx 39{,}2\ \text{kN}$.</Step>
-    <Step>Obciążenie dopuszczalne ze sztywności: $P_{\mathrm{dop},\Delta}=EA\Delta L_{\mathrm{dop}}/L$.</Step>
-    <Step>Podstawiamy w spójnych jednostkach: $E=200\,000\ \text{MPa}$, $A=300\ \text{mm}^2$, $\Delta L_{\mathrm{dop}}=1\ \text{mm}$, $L=1500\ \text{mm}$.</Step>
-    <Step>$P_{\mathrm{dop},\Delta}=200\,000\cdot 300\cdot 1/1500=40\,000\ \text{N}=40\ \text{kN}$.</Step>
-    <Step>Przyjmujemy mniejszą wartość: $P_{\mathrm{dop}}=\min(39{,}2;40)=39{,}2\ \text{kN}$.</Step>
-    <Step>Kontrola naprężenia: $\sigma=39\,167/300\approx 130{,}56\ \text{MPa}\le k$, więc warunek wytrzymałości jest spełniony.</Step>
-    <Step>Kontrola wydłużenia: $\Delta L=39\,167\cdot 1500/(200\,000\cdot 300)\approx 0{,}979\ \text{mm}\le 1\ \text{mm}$.</Step>
-  </Steps>
-  <Result>
-    Obciążenie dopuszczalne wynosi około $39{,}2\ \text{kN}$ i decyduje o nim wytrzymałość. Wydłużenie przy tej sile wynosi około $0{,}98\ \text{mm}$, czyli mieści się w dopuszczalnym $1\ \text{mm}$.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-design-material-load" />
 
 W tym przykładzie oba warunki dają zbliżone wartości: $39{,}2\ \text{kN}$ i $40\ \text{kN}$. To sytuacja graniczna, w której niewielka zmiana danych może zmienić warunek decydujący. Dlatego po zaokrągleniu wymiaru lub zmiany materiału trzeba przeliczyć oba warunki ponownie, zamiast zakładać, że nadal decyduje ten sam.
 
 ## Drugi przykład
 
-Rozważmy wybór między stalą a aluminium dla pręta o długości $L=1{,}2\ \text{m}$, obciążonego siłą $P=25\ \text{kN}$. Wymagany współczynnik bezpieczeństwa wynosi $n=1{,}5$, a dopuszczalne wydłużenie $1{,}2\ \text{mm}$. Dla stali przyjmujemy $R_e=235\ \text{MPa}$, $E=200\ \text{GPa}$, a dla aluminium $R_e=120\ \text{MPa}$, $E=70\ \text{GPa}$.
-
-Dla stali naprężenie dopuszczalne wynosi $k=235/1{,}5=156{,}7\ \text{MPa}$. Wymagane pole z wytrzymałości to $A\ge25\,000/156{,}7=159{,}6\ \text{mm}^2$. Wymagane pole ze sztywności to $A\ge PL/(E\Delta L_{\mathrm{dop}})=25\,000\cdot1200/(200\,000\cdot1{,}2)=125\ \text{mm}^2$. Decyduje wytrzymałość, więc przyjmujemy $A=160\ \text{mm}^2$.
-
-Dla aluminium $k=120/1{,}5=80\ \text{MPa}$, więc z wytrzymałości $A\ge25\,000/80=312{,}5\ \text{mm}^2$. Ze sztywności $A\ge25\,000\cdot1200/(70\,000\cdot1{,}2)=357{,}1\ \text{mm}^2$. Decyduje sztywność, więc przyjmujemy $A=360\ \text{mm}^2$.
-
-Mimo większego pola aluminium może być lżejsze. Masa stali to około $160\cdot1200\cdot7{,}85\cdot10^{-6}\approx1{,}51\ \text{kg}$, a aluminium $360\cdot1200\cdot2{,}70\cdot10^{-6}\approx1{,}17\ \text{kg}$. Różnica wynika z mniejszej gęstości aluminium, mimo że jego moduł Younga jest prawie trzykrotnie mniejszy. To dobry przykład tego, że dobór materiału nie sprowadza się do jednej liczby.
-
-W rzeczywistym projekcie dochodzi jeszcze koszt materiału i wykonania. Aluminium jest lżejsze, ale często droższe za kilogram i ma mniejszą sztywność, co wymaga większego przekroju. Stal jest tańsza i sztywniejsza, ale cięższa. Decyzja zależy od tego, które kryterium jest ważniejsze: masa, koszt, sztywność czy dostępność.
+<AnimatedSolution id="ex-design-material-load-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Pręt o polu $A=250\ \text{mm}^2$ jest wykonany ze stali o $R_e=235\ \text{MPa}$ i obciążony siłą $P=40\ \text{kN}$. Wymagany współczynnik bezpieczeństwa wynosi $n=2$. Czy materiał wystarcza?
-
-Naprężenie rzeczywiste: $\sigma=P/A=40\,000/250=160\ \text{MPa}$. Wymagana granica: $R_e\ge n\sigma=2\cdot160=320\ \text{MPa}$. Ponieważ dostępna stal ma $235\ \text{MPa}$, warunek nie jest spełniony.
-
-Rzeczywisty zapas względem dostępnej stali wynosi $n=235/160\approx1{,}47$, czyli mniej niż wymagane $2$. Rozwiązania są trzy: wybrać stal o wyższej granicy, zwiększyć pole przekroju albo zmniejszyć obciążenie. Nowe pole przy tej samej stali i $n=2$ musi wynieść $A\ge nP/R_e=2\cdot40\,000/235\approx341\ \text{mm}^2$.
-
-Wariant odwrotny pokazuje, że „materiał nie wystarcza” nie jest końcem zadania. Trzeba wskazać, jaki parametr trzeba zmienić i o ile. Taki wniosek jest bardziej użyteczny niż samo stwierdzenie, że warunek jest niespełniony.
-
-Można też zapytać, jaki materiał byłby potrzebny przy niezmienionym polu. Wymagana granica $320\ \text{MPa}$ jest typowa dla stali o podwyższonej wytrzymałości, ale trzeba sprawdzić, czy taki materiał jest dostępny i czy jego $E$ nie zmienia warunku sztywności. Sam wzrost $R_e$ nie musi rozwiązać problemu, jeśli element jest zbyt podatny.
-
-Błędy w doborze materiału wynikają najczęściej z pomylenia nośności ze sztywnością albo z niewłaściwego wyboru granicy. Poniższa lista pomaga ich uniknąć.
+<AnimatedSolution id="ex-design-material-load-3" />
 
 <Callout kind="warning" title="Typowe błędy">
   1. **Użycie $R_m$ zamiast $R_e$ dla stali plastycznej.** To zawyża nośność i pomija odkształcenie trwałe. Dla

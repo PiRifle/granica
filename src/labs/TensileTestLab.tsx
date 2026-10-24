@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   CartesianGrid,
   Line,
@@ -54,19 +54,32 @@ export function TensileTestLab() {
     : maximumCurveStress
   const forceKN = (curveStress * 100) / 1000
   const sigma = stressMPa(forceKN, 100)
-  const chartData: Array<TensilePoint & { unloadingStress?: number }> = Array.from({ length: 201 }, (_, index) => ({
-    strainPerMille: index,
-    stress: tensileStressMPa(index / 1000, Re, Rm),
-  }))
-  const unloadingData = chartData.map((point) => {
-    const strain = point.strainPerMille / 1000
-    const unloadingStress = maximumCurveStress - youngGPa * 1000 * (maximumStrain - strain)
-    return {
-      ...point,
-      unloadingStress:
-        unloading && !fullyUnloaded && strain >= permanentStrain && strain <= maximumStrain ? unloadingStress : null,
-    }
-  })
+  const chartData = useMemo<Array<TensilePoint & { unloadingStress?: number }>>(
+    () =>
+      Array.from({ length: 81 }, (_, index) => {
+        const strainPerMille = index * 2.5
+        return {
+          strainPerMille,
+          stress: tensileStressMPa(strainPerMille / 1000, Re, Rm),
+        }
+      }),
+    [Re, Rm],
+  )
+  const unloadingData = useMemo(
+    () =>
+      chartData.map((point) => {
+        const strain = point.strainPerMille / 1000
+        const unloadingStress = maximumCurveStress - youngGPa * 1000 * (maximumStrain - strain)
+        return {
+          ...point,
+          unloadingStress:
+            unloading && !fullyUnloaded && strain >= permanentStrain && strain <= maximumStrain
+              ? unloadingStress
+              : null,
+        }
+      }),
+    [chartData, maximumCurveStress, maximumStrain, permanentStrain, unloading, fullyUnloaded],
+  )
   const forceArrowLength = 16 + Math.min(maxArrowLength - 16, forceKN * 0.7)
   const phase = fullyUnloaded
     ? 'po odciążeniu — εp trwałe'
@@ -95,10 +108,8 @@ export function TensileTestLab() {
   ].join(' ')
 
   const changeStrain = (next: number) => {
-    const residualPerMille = Math.max(0, Math.floor(permanentStrain * 1000))
-    const clamped = next < maximumPerMille ? Math.max(next, residualPerMille) : next
-    setStrainPerMille(clamped)
-    if (clamped > maximumPerMille) setMaximumPerMille(clamped)
+    setStrainPerMille(next)
+    if (next > maximumPerMille) setMaximumPerMille(next)
   }
   const changeRe = (next: number) => {
     setRe(next)
@@ -246,18 +257,18 @@ export function TensileTestLab() {
                   markerEnd="url(#tensile-arrow)"
                 />
                 <text
-                  x={leftGripX - 8 - forceArrowLength}
-                  y={specimenCenterY - 13}
-                  textAnchor="start"
+                  x={leftGripX - 8 - forceArrowLength / 2}
+                  y={specimenCenterY - 14}
+                  textAnchor="middle"
                   fontSize="12"
                   fill="#ff6b45"
                 >
                   F = {fmt(forceKN)} kN
                 </text>
                 <text
-                  x={rightGripX + 8 + forceArrowLength}
-                  y={specimenCenterY - 13}
-                  textAnchor="end"
+                  x={rightGripX + 8 + forceArrowLength / 2}
+                  y={specimenCenterY - 14}
+                  textAnchor="middle"
                   fontSize="12"
                   fill="#ff6b45"
                 >

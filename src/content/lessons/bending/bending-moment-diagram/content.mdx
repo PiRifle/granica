@@ -165,61 +165,15 @@ wynik, jeśli znaki są spójne.
   oznacza, że moment jest równy zero. Maksimum momentu występuje tam, gdzie $T$ zmienia znak z dodatniego na ujemny.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma rozpiętość $L = 6$ m. Siła $P = 30$ kN działa w dół
-    w odległości $a = 2$ m od lewej podpory A. Obciążenie ciągłe jest pomijalne.
-  </Given>
-  <Steps>
-    <Step>Z sumy momentów względem A: $R_B \cdot 6 = 30 \cdot 2$, więc $R_B = 10$ kN.</Step>
-    <Step>Z sumy sił pionowych: $R_A = 30 - 10 = 20$ kN.</Step>
-    <Step>Dla $x$ od 0 do 2 m: $M(x) = R_A x = 20x$ kN·m.</Step>
-    <Step>Pod siłą: $M(2) = 20 \cdot 2 = 40$ kN·m.</Step>
-    <Step>Dla $x$ od 2 do 6 m: $M(x) = 20x - 30(x - 2)$ kN·m.</Step>
-    <Step>Na prawym końcu: $M(6) = 120 - 30 \cdot 4 = 0$, zgodnie z warunkiem podpory.</Step>
-    <Step>Kontrola z prawej strony: $M(2) = R_B \cdot 4 = 10 \cdot 4 = 40$ kN·m.</Step>
-  </Steps>
-  <Result>
-    Maksymalny moment wynosi $M_{\max} = 40$ kN·m pod siłą. Wykres $M$ rośnie liniowo od zera
-    do 40 kN·m, a następnie maleje liniowo do zera.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-bending-moment-diagram" />
 
 ## Drugi przykład
 
-Belka swobodnie podparta o rozpiętości $L = 6$ m jest obciążona równomiernie $q = 6$ kN/m
-na całej długości. Reakcje z symetrii wynoszą $R_A = R_B = qL/2 = 18$ kN. Moment w przekroju
-$x$ liczony od lewej podpory ma postać
-
-$$
-M(x) = R_A x - \frac{q x^2}{2} = 18x - 3x^2\ \text{kN·m}.
-$$
-
-Sprawdźmy wartości na granicach. Na lewej podporze $M(0) = 0$. W środku rozpiętości
-$M(3) = 54 - 27 = 27$ kN·m. Na prawej podporze $M(6) = 108 - 108 = 0$. Moment jest dodatni
-na całej długości, a jego maksimum wynosi $27$ kN·m.
-
-Ten wynik zgadza się ze wzorem $qL^2/8 = 6 \cdot 36 / 8 = 27$ kN·m. Warto zapamiętać ten
-przypadek jako punkt odniesienia: dla równomiernego obciążenia na całej rozpiętości maksimum
-momentu występuje w połowie i wynosi $qL^2/8$. Nachylenie wykresu $M$ jest równe $T = 18 - 6x$,
-więc w środku, gdzie $T = 0$, styczna do wykresu jest pozioma.
+<AnimatedSolution id="ex-bending-moment-diagram-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Znamy maksymalny moment, a szukamy obciążenia. Belka swobodnie podparta o $L = 6$ m jest
-obciążona siłą $P$ w połowie rozpiętości. Z obliczeń wynika, że $M_{\max} = 45$ kN·m. Jaka jest
-wartość siły $P$?
-
-Dla siły w środku belki obowiązuje $M_{\max} = PL/4$. Przekształcamy:
-
-$$
-P = \frac{4 M_{\max}}{L} = \frac{4 \cdot 45}{6} = 30\ \text{kN}.
-$$
-
-Reakcje wynoszą wtedy $R_A = R_B = 15$ kN. Kontrola: $M_{\max} = R_A \cdot L/2 = 15 \cdot 3 = 45$
-kN·m. Wynik jest spójny. Taki wariant pokazuje, że z wykresu momentu można odtworzyć obciążenie,
-podobnie jak z wykresu siły tnącej można odtworzyć siły skupione. W praktyce projektowej częściej
-idziesz w drugą stronę: od obciążenia do momentu, a potem do wymaganego przekroju.
+<AnimatedSolution id="ex-bending-moment-diagram-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

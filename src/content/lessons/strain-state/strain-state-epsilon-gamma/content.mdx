@@ -155,37 +155,15 @@ Ten szczególny przypadek jest dobrym punktem kontrolnym. Gdy $\varepsilon_y$ i 
   Najczęstszy błąd to wstawienie do wzoru odczytu „500 µε” jako liczby 500. Poprawna wartość to $500\cdot10^{-6}=0{,}0005$. Drugi błąd to utożsamienie $\gamma_{xy}$ z $\varepsilon_{xy}$; w tensorze występuje połowa odkształcenia inżynierskiego.
 </Insight>
 
-<WorkedExample>
-  <Given>Pręt pomiarowy o długości początkowej $L_0=250\,\text{mm}$ wydłużył się pod obciążeniem o $\Delta L=0{,}18\,\text{mm}$. W tym samym miejscu początkowo prosty kąt zmniejszył się o $0{,}0009$ rad.</Given>
-  <Steps>
-    <Step>Odkształcenie liniowe: $\varepsilon_x=0{,}18/250=0{,}00072$.</Step>
-    <Step>Zapis w mikrostrainach: $0{,}00072\cdot10^6=720\,\mu\varepsilon$.</Step>
-    <Step>Odkształcenie inżynierskie ścinania: $\gamma_{xy}=0{,}0009\,\text{rad}=900\,\mu\text{rad}$.</Step>
-    <Step>Składowa tensorowa: $\varepsilon_{xy}=0{,}0009/2=0{,}00045$.</Step>
-    <Step>Kontrola: $720\,\mu\varepsilon$ to $0{,}072\,\%$, czyli mniej niż typowa granica sprężystości stali.</Step>
-  </Steps>
-  <Result>$\varepsilon_x=720\,\mu\varepsilon$, $\gamma_{xy}=0{,}0009\,\text{rad}$, a $\varepsilon_{xy}=0{,}00045$. Wydłużenie i ścinanie są osobnymi miarami i mają różne wartości liczbowe.</Result>
-</WorkedExample>
+<AnimatedSolution id="ex-strain-state-epsilon-gamma" />
 
 ## Drugi przykład
 
-Dane jest pole przemieszczeń w płaskiej tarczy:
-
-$$
-u=0{,}0004x+0{,}0002y,\qquad v=0{,}0003x-0{,}0001y
-$$
-
-gdzie $u$ i $v$ podano w milimetrach, a $x$ i $y$ również w milimetrach. Obliczamy pochodne cząstkowe: $\frac{\partial u}{\partial x}=0{,}0004$, $\frac{\partial u}{\partial y}=0{,}0002$, $\frac{\partial v}{\partial x}=0{,}0003$ oraz $\frac{\partial v}{\partial y}=-0{,}0001$. Stąd $\varepsilon_x=400\,\mu\varepsilon$, $\varepsilon_y=-100\,\mu\varepsilon$ i $\gamma_{xy}=0{,}0002+0{,}0003=0{,}0005$ rad. Tensorowa składowa ścinania wynosi $0{,}00025$.
-
-Zwróć uwagę, że pole jest liniowe, więc odkształcenia są stałe w całej tarczy. To wygodne ćwiczenie rachunkowe, ale w rzeczywistej konstrukcji pochodne zmieniają się z położeniem. Gdyby pole zawierało składnik $x^2$, pochodna $\partial u/\partial x$ zależałaby od $x$ i odkształcenie nie byłoby jednorodne.
+<AnimatedSolution id="ex-strain-state-epsilon-gamma-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Przyjmijmy, że dopuszczalne odkształcenie liniowe wynosi $1200\,\mu\varepsilon$, a baza pomiarowa ma $80\,\text{mm}$. Jakie jest największe dopuszczalne wydłużenie i jakiemu kątowi odpowiada wtedy $\gamma_{xy}=0{,}0015$ rad?
-
-Najpierw zamieniamy $1200\,\mu\varepsilon$ na $0{,}0012$. Maksymalne wydłużenie to $\Delta L=\varepsilon L_0=0{,}0012\cdot80=0{,}096\,\text{mm}$. Kąt ścinania w stopniach wynosi $0{,}0015\cdot180^\circ/\pi\approx0{,}0859^\circ$. Otrzymujemy bardzo mały kąt — około pięciu minut kątowych. To pokazuje, dlaczego tensometry i czujniki kątowe muszą być czułe, a zwykłe linijki nie wystarczają.
-
-Gdyby wynik wyszedł rzędu kilku stopni, należałoby sprawdzić jednostki. Odkształcenie sprężyste stali rzadko przekracza kilka tysięcznych, więc kąt rzędu $0{,}1^\circ$ jest już duży jak na ten zakres.
+<AnimatedSolution id="ex-strain-state-epsilon-gamma-3" />
 
 ### Co zmienia niejednorodność pola
 

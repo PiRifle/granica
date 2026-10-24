@@ -153,63 +153,15 @@ się trzymać.
   każdego punktu.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Belka swobodnie podparta ma rozpiętość $L = 6$ m. Siła $P = 18$ kN działa w dół w odległości $a = 2$ m od lewej
-    podpory A. Obciążenie ciągłe jest pomijalne.
-  </Given>
-  <Steps>
-    <Step>Z sumy momentów względem A: $R_B \cdot 6 = 18 \cdot 2$, więc $R_B = 6$ kN.</Step>
-    <Step>Z sumy sił pionowych: $R_A = 18 - 6 = 12$ kN.</Step>
-    <Step>Na odcinku od $x = 0$ do $x = 2$ m nie ma obciążenia ciągłego, więc $T = +12$ kN.</Step>
-    <Step>Pod siłą wykres skacze w dół o 18 kN: $12 - 18 = -6$ kN.</Step>
-    <Step>Na odcinku od $x = 2$ m do $x = 6$ m siła tnąca pozostaje równa $-6$ kN.</Step>
-    <Step>Przy prawej podporze reakcja $R_B = 6$ kN w górę domyka wykres do zera.</Step>
-    <Step>Kontrola: całkowita zmiana $T$ wynosi $+12 - 18 + 6 = 0$.</Step>
-  </Steps>
-  <Result>
-    $T = +12$ kN na lewym odcinku i $T = -6$ kN na prawym. Pod siłą występuje skok 18 kN, a wykres zamyka się w podporze
-    B.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-bending-shear-force" />
 
 ## Drugi przykład
 
-Rozważmy belkę swobodnie podpartą o rozpiętości $L = 5$ m, obciążoną równomiernie na całej
-długości $q = 4$ kN/m. Z symetrii reakcje wynoszą $R_A = R_B = qL/2 = 10$ kN. Tym razem wykres
-siły tnącej nie składa się z poziomych odcinków, lecz z jednej linii prostej.
-
-Dla $x$ od 0 do 5 m mamy
-
-$$
-T(x) = R_A - qx = 10 - 4x\ \text{kN}.
-$$
-
-Na lewym końcu $T(0) = +10$ kN. W połowie rozpiętości $T(2{,}5) = 0$. Na prawym końcu, tuż przed
-podporą, $T(5) = -10$ kN. Reakcja $R_B = 10$ kN w górę domyka wykres do zera. Nachylenie wynosi
-$-4$ kN/m, czyli dokładnie $-q$, zgodnie z zależnością $dT/dx = -q$.
-
-Miejsce, w którym $T = 0$, jest ważne. Oznacza ono, że na lewo od tego punktu wypadkowa sił
-pionowych równoważy się z reakcją, a na prawo przeważa obciążenie. W następnej lekcji zobaczysz,
-że właśnie tam moment zginający osiąga ekstremum.
+<AnimatedSolution id="ex-bending-shear-force-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Tym razem z wykresu $T$ odtwarzamy obciążenie. Belka swobodnie podparta ma $L = 5$ m. Wykres
-siły tnącej jest stały i równy $+12$ kN od lewej podpory do $x = 2$ m, a następnie skacze do
-$-8$ kN i pozostaje taki do prawej podpory. Jaka siła skupiona działa na belkę i gdzie?
-
-Skok wykresu ma wartość $12 - (-8) = 20$ kN, więc siła skupiona wynosi $P = 20$ kN i działa
-w miejscu skoku, czyli w $x = 2$ m. Reakcje odczytujemy z poziomych odcinków: $R_A = 12$ kN
-oraz $R_B = 8$ kN. Kontrola momentów względem A:
-
-$$
-R_B L = 8 \cdot 5 = 40\ \text{kN·m}, \qquad P a = 20 \cdot 2 = 40\ \text{kN·m}.
-$$
-
-Obie strony są równe, więc odtworzone obciążenie jest poprawne. Ten wariant pokazuje, że wykres
-$T$ niesie pełną informację o siłach skupionych: wartość skoku to siła, a jego położenie to
-miejsce przyłożenia.
+<AnimatedSolution id="ex-bending-shear-force-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

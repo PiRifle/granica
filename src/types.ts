@@ -91,6 +91,7 @@ export interface FigureValue {
   label: string
   value: string
   focus?: string
+  reveal?: number
 }
 
 export interface BeamFigure {

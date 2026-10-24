@@ -141,46 +141,15 @@ Warto zapamiętać graniczną wartość stosunku $2/\sqrt{3}$. To około 1,155, 
   dokładniejszym. Wybór między hipotezami to wybór założenia o mechanizmie zniszczenia, nie korekta rachunku.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    W punkcie wału działają naprężenie normalne $\sigma=120\ \text{MPa}$ i styczne $\tau=40\ \text{MPa}$ w tej samej płaszczyźnie. Granica plastyczności wynosi $R_e=300\ \text{MPa}$. Porównaj obie hipotezy i zapasy.
-  </Given>
-  <Steps>
-    <Step>HMH: $\sigma_{HMH}=\sqrt{120^2+3\cdot40^2}=\sqrt{14\,400+4\,800}=\sqrt{19\,200}=138{,}56\ \text{MPa}$.</Step>
-    <Step>Tresca: $\sigma_T=\sqrt{120^2+4\cdot40^2}=\sqrt{14\,400+6\,400}=\sqrt{20\,800}=144{,}22\ \text{MPa}$.</Step>
-    <Step>Zapas HMH: $n_{HMH}=300/138{,}56=2{,}165$. Zapas Tresca: $n_T=300/144{,}22=2{,}080$.</Step>
-    <Step>Kontrola: $\sigma_T^2-\sigma_{HMH}^2=20\,800-19\,200=1\,600=\tau^2$, zgodnie z wyprowadzeniem.</Step>
-  </Steps>
-  <Result>
-    Tresca daje ostrzejszą ocenę: $\sigma_T=144{,}2\ \text{MPa}$ i $n_T=2{,}08$, podczas gdy HMH daje $138{,}6\ \text{MPa}$ i $n_{HMH}=2{,}17$. Obie hipotezy przewidują bezpieczeństwo, ale zapas różni się o około 4 procent.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-criteria-comparison" />
 
 ## Drugi przykład
 
-Rozważmy cienkościenny zbiornik cylindryczny z zamkniętymi dnami, promień $r=300\ \text{mm}$, grubość ścianki $t=6\ \text{mm}$, ciśnienie $p=5\ \text{MPa}$. Naprężenie obwodowe wynosi $\sigma_\theta=pr/t=5\cdot300/6=250\ \text{MPa}$, a naprężenie wzdłużne $\sigma_z=pr/(2t)=125\ \text{MPa}$. Naprężenie promieniowe na zewnętrznej powierzchni jest w przybliżeniu zerowe, więc mamy płaski stan naprężenia z $\sigma_1=250\ \text{MPa}$, $\sigma_2=125\ \text{MPa}$ i $\sigma_3=0$.
-
-HMH daje $\sigma_{HMH}=\sqrt{250^2+125^2-250\cdot125}=\sqrt{62\,500+15\,625-31\,250}=\sqrt{46\,875}=216{,}5\ \text{MPa}$. Tresca bierze różnicę największego i najmniejszego naprężenia, czyli $250-0=250\ \text{MPa}$. Dla $R_e=355\ \text{MPa}$ otrzymujemy $n_{HMH}=355/216{,}5=1{,}64$ oraz $n_T=355/250=1{,}42$.
-
-To klasyczny przykład, w którym pominięcie trzeciego kierunku zaniża wytężenie. Gdyby ktoś porównał tylko $\sigma_\theta$ i $\sigma_z$, mógłby uznać, że różnica wynosi 125 MPa i że materiał jest daleko od granicy. Tymczasem zero jest najmniejszym naprężeniem głównym, a różnica $250-0$ jest większa niż różnica między dwoma dodatnimi naprężeniami. Wniosek: w stanie płaskim z jednakowymi znakami naprężeń normalnych trzeba zawsze sprawdzić, czy zero nie jest skrajną wartością.
-
-Ten przykład pokazuje też, dlaczego porównanie hipotez ma sens tylko przy pełnym stanie naprężenia. HMH „widzi” trzy różnice i rozkłada wytężenie, natomiast Tresca koncentruje się na największej z nich. W zbiorniku ta największa różnica obejmuje zero, więc Tresca jest wyraźnie bardziej wymagająca. Różnica między hipotezami wynosi tutaj około 15 procent, czyli zbliża się do górnej granicy.
-
-Dla porównania, w zbiorniku otwartym naprężenie wzdłużne byłoby bliskie zeru, a stan naprężenia zbliżyłby się do jednoosiowego rozciągania obwodowego. Wtedy obie hipotezy dałyby prawie ten sam wynik. To pokazuje, że o różnicy między hipotezami decyduje nie sama geometria, lecz stosunek naprężeń głównych. Im bardziej stan odbiega od jednoosiowego, tym większa szansa na rozbieżność.
+<AnimatedSolution id="ex-criteria-comparison-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Załóżmy, że dla stali o $R_e=235\ \text{MPa}$ wymagamy zapasu $n_{wym}=2$ i pytamy, jakie maksymalne naprężenie styczne przy czystym ścinaniu dopuszcza każda hipoteza. To zadanie odwrotne: od wymaganego zapasu do dopuszczalnego obciążenia, a nie od obciążenia do zapasu.
-
-Dla HMH warunek ma postać $\sqrt{3}\tau\le R_e/n_{wym}$, więc $\tau_{dop,HMH}=R_e/(n_{wym}\sqrt{3})=235/(2\cdot1{,}732)=67{,}8\ \text{MPa}$. Dla Tresca warunek to $2\tau\le R_e/n_{wym}$, więc $\tau_{dop,T}=R_e/(2n_{wym})=235/4=58{,}75\ \text{MPa}$.
-
-Jeżeli w elemencie działa $\tau=60\ \text{MPa}$, to HMH uznaje element za bezpieczny, bo $60<67{,}8\ \text{MPa}$, a Tresca uznaje go za niezapewniający wymaganego zapasu, bo $60>58{,}75\ \text{MPa}$. Decyzja zmienia się więc nie dlatego, że zmienił się stan naprężenia, lecz dlatego, że zmienił się model i związana z nim granica przy ścinaniu. W praktyce trzeba wtedy albo zwiększyć przekrój, albo świadomie uzasadnić wybór hipotezy, albo podnieść wymagany zapas.
-
-Zauważ, że obie dopuszczalne wartości są znacznie mniejsze od $R_e$. To nie jest błąd: przy czystym ścinaniu naprężenie styczne musi być mniejsze od granicy rozciągania, bo materiał uplastycznia się przy ścinaniu znacznie wcześniej. Wartość $58{,}75\ \text{MPa}$ jest równa $R_e/4$, bo dodatkowo dzielimy przez wymagany zapas 2. To pokazuje, jak łatwo pomylić granicę materiału z naprężeniem dopuszczalnym.
-
-Warto sprawdzić wynik w drugą stronę. Dla $\tau=60\ \text{MPa}$ i $n_{wym}=2$ HMH wymaga granicy $R_{e,req}=\sqrt{3}\cdot60\cdot2=207{,}8\ \text{MPa}$. Tresca wymaga $R_{e,req}=2\cdot60\cdot2=240\ \text{MPa}$. Dla stali o granicy 235 MPa HMH ma więc zapas $235/(\sqrt{3}\cdot60)=2{,}26$, a Tresca $235/120=1{,}96$, czyli minimalnie mniej niż wymagane 2. To ten sam wniosek co poprzednio, ale otrzymany przez porównanie wymaganej granicy, a nie dopuszczalnego naprężenia.
-
-Taki sposób kontroli jest przydatny w projektowaniu, gdy granica materiału jest narzucona przez dostępny gatunek stali. Wtedy nie pytamy, jakie naprężenie jest dopuszczalne, lecz czy dany materiał w ogóle może spełnić wymaganie. Odpowiedź może brzmieć „tak według HMH, nie według Tresca”, i właśnie dlatego wybór hipotezy musi być świadomą decyzją, a nie przypadkiem.
+<AnimatedSolution id="ex-criteria-comparison-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 

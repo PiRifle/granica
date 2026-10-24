@@ -152,97 +152,15 @@ docelowej; nie można dla jednej części wybrać osi dolnej, a dla innej górne
   razem z jego momentem własnym i składnikiem przesunięcia.
 </Insight>
 
-<WorkedExample>
-  <Given>
-    Dwuteownik ma dwie półki 120 × 20 mm i środnik 20 × 160 mm. Wysokość całkowita wynosi 200 mm, szerokość 120 mm.
-    Przekrój jest symetryczny względem obu osi centralnych.
-  </Given>
-  <Steps>
-    <Step>
-      Z symetrii środek ciężkości leży w połowie wysokości, czyli 100 mm od dolnej krawędzi. Pola: półka
-      $A_p=120\cdot 20=2400\ \text{mm}^2$, środnik $A_s=20\cdot 160=3200\ \text{mm}^2$, razem
-      $A=8000\ \text{mm}^2$.
-    </Step>
-    <Step>
-      Półka: $I_{xc,p}=120\cdot 20^3/12=80\,000\ \text{mm}^4$. Jej środek leży 90 mm od osi centralnej, więc
-      $a_p=90$ mm.
-    </Step>
-    <Step>
-      Wkład jednej półki: $80\,000+2400\cdot 90^2=80\,000+19\,440\,000=19\,520\,000\ \text{mm}^4$. Dwie półki dają
-      $39\,040\,000\ \text{mm}^4$.
-    </Step>
-    <Step>
-      Środnik: $I_{xc,s}=20\cdot 160^3/12\approx 6\,826\,667\ \text{mm}^4$. Jego środek leży na osi centralnej, więc
-      $a_s=0$ i nie ma składnika przesunięcia.
-    </Step>
-    <Step>
-      Suma: $I_x=39\,040\,000+6\,826\,667=45\,866\,667\ \text{mm}^4\approx 45{,}87\cdot 10^6\ \text{mm}^4$.
-    </Step>
-    <Step>
-      Kontrola przez odejmowanie pustek: pełny prostokąt 120 × 200 ma $I=80\cdot 10^6\ \text{mm}^4$. Dwie pustki
-      50 × 160 mają razem $2\cdot 50\cdot 160^3/12\approx 34{,}13\cdot 10^6\ \text{mm}^4$. Różnica daje
-      $45{,}87\cdot 10^6\ \text{mm}^4$.
-    </Step>
-    <Step>
-      Porównanie z pełnym prostokątem: pole spadło z 24 000 do 8000 mm², czyli do jednej trzeciej, a moment pozostał
-      na poziomie około 57,3% wartości pełnej.
-    </Step>
-  </Steps>
-  <Result>
-    Moment bezwładności dwuteownika względem poziomej osi centralnej wynosi około
-    $45{,}87\cdot 10^6\ \text{mm}^4\approx 4587\ \text{cm}^4$. Przy jednej trzeciej materiału przekrój zachowuje ponad
-    połowę sztywności
-    pełnego prostokąta, co pokazuje skuteczność oddalania półek od osi.
-  </Result>
-</WorkedExample>
+<AnimatedSolution id="ex-m4-steiner-parallel-axis" />
 
 ## Drugi przykład
 
-Wróćmy do przekroju teowego z lekcji o momentach statycznych: środnik 20 × 100 mm, półka 120 × 20 mm, środek
-ciężkości 82,73 mm od dolnego końca środnika. Pole wynosi 4400 mm². Policzymy moment względem poziomej osi centralnej,
-korzystając z twierdzenia Steinera dla obu części.
-
-Dla środnika $I_{xc,1}=20\cdot 100^3/12=1\,666\,667\ \text{mm}^4$, a odległość jego środka od osi centralnej to
-$a_1=82{,}73-50=32{,}73$ mm. Wkład środnika:
-
-$$
-I_1=1\,666\,667+2000\cdot 32{,}73^2\approx 1\,666\,667+2\,142\,149=3\,808\,816\ \text{mm}^4.
-$$
-
-Dla półki $I_{xc,2}=120\cdot 20^3/12=80\,000\ \text{mm}^4$, a $a_2=110-82{,}73=27{,}27$ mm. Wkład półki:
-
-$$
-I_2=80\,000+2400\cdot 27{,}27^2\approx 80\,000+1\,785\,124=1\,865\,124\ \text{mm}^4.
-$$
-
-Suma daje $I_x\approx 5\,673\,940\ \text{mm}^4$, czyli około $5{,}67\cdot 10^6\ \text{mm}^4$. Kontrola przez moment
-względem podstawy: $I_{\text{podstawa}}\approx 35{,}79\cdot 10^6\ \text{mm}^4$, a po odjęciu $A\bar{y}^2$ otrzymujemy
-z powrotem około $5{,}67\cdot 10^6\ \text{mm}^4$.
-
-Zwróć uwagę, że wkład półki jest prawie tak duży jak wkład większego pola środnika, mimo że półka ma mniejsze pole.
-Decyduje odległość od osi. To wyjaśnia, dlaczego w przekrojach zginanych półki umieszcza się na zewnątrz, a nie przy
-środku.
+<AnimatedSolution id="ex-m4-steiner-parallel-axis-2" />
 
 ## Trzeci przykład: wariant odwrotny
 
-Prostokąt 120 × 40 mm ma $I_{xc}=120\cdot 40^3/12=640\,000\ \text{mm}^4$ i pole $A=4800\ \text{mm}^2$. Chcemy, aby
-jego moment względem pewnej osi równoległej wynosił $6{,}4\cdot 10^6\ \text{mm}^4$, czyli był dziesięć razy większy
-od momentu własnego. Jak daleko musi być ta oś?
-
-Korzystamy z $I_x=I_{xc}+Aa^2$ i rozwiązujemy względem $a$:
-
-$$
-a=\sqrt{\frac{I_x-I_{xc}}{A}}=\sqrt{\frac{6{,}4\cdot 10^6-0{,}64\cdot 10^6}{4800}}
-=\sqrt{\frac{5{,}76\cdot 10^6}{4800}}=\sqrt{1200}\approx 34{,}64\ \text{mm}.
-$$
-
-Odległość około 34,6 mm wystarcza, aby dziesięciokrotnie zwiększyć moment względem osi własnej. Warto zauważyć, że
-gdyby $a$ było równe promieniowi bezwładności $i_{xc}=\sqrt{640\,000/4800}\approx 11{,}55$ mm, moment wzrósłby
-dokładnie dwukrotnie. To ogólna zależność: $I=I_{xc}+A i_{xc}^2=2I_{xc}$ dla $a=i_{xc}$.
-
-Zadanie można też odwrócić w drugą stronę: mając zmierzony moment względem osi zewnętrznej i moment
-centralny, można wyznaczyć odległość osi, a stąd położenie środka ciężkości. To bywa użyteczne w pomiarach
-doświadczalnych, gdy nie znamy rozkładu masy, ale potrafimy zmierzyć sztywność względem dwóch osi.
+<AnimatedSolution id="ex-m4-steiner-parallel-axis-3" />
 
 <Callout kind="warning" title="Typowe błędy">
 
