@@ -1,109 +1,60 @@
 import type { SolutionData } from '../../model'
+import { SelfWeightExample3Animation } from './animation'
 
 export default {
   id: 'ex-m3-self-weight-3',
   title: 'Ciężar własny elementu — przykład 3',
   duration: 7,
-  given: ['R_e=235 MPa', 'rho=7850', 'g=9'],
+  given: ['R_e = 235 MPa', 'ρ = 7850 kg/m³', 'g = 9,81 m/s²', 'γ = 77 kN/m³'],
   result:
     'Wniosek projektowy jest prosty: jeżeli długość jest ograniczona wytrzymałością od ciężaru własnego, to zmiana przekroju nie pomoże. Trzeba wybrać materiał o większym stosunku R_e/ρ albo zmienić schemat konstrukcji, na przykład dodać podpory pośrednie. To jakościowo inna decyzja niż zwykłe „zwiększenie przekroju”, które działa przy sile skupionej.',
-  figure: {
-    kind: 'axial',
-    top: 'free',
-    bottom: 'free',
-    units: {
-      N: 'kN',
-      σ: 'MPa',
-      ε: '–',
-      ΔL: 'mm',
-      A: 'mm²',
-    },
-    segments: [
-      {
-        id: 'l300',
-        label: 'L = 300 m',
-        length: 300000,
-        sigma: 23.1,
-      },
-      {
-        id: 'lmax',
-        label: 'L_max = 3052 m',
-        length: 3052000,
-        sigma: 235,
-      },
-    ],
-    note: 'Schemat porównawczy długości; σ = γL, γ = 77 000 N/m³.',
-  },
+  animation: SelfWeightExample3Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Pytanie odwrotne brzmi: jak długi może być stalowy pręt wiszący, zanim naprężenie od ciężaru własnego osiągnie granicę plastyczności? Dla R_e=235 MPa, ρ=7850 kg/m^3 i g=9,81 m/s^2 otrzymujemy',
-      caption:
-        'Pytanie odwrotne brzmi: jak długi może być stalowy pręt wiszący, zanim naprężenie od ciężaru własnego osiągnie granicę…',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: 'R_{e} = 235 MPa, \\rho = 7850 kg/m^{3}',
+        'Rozważamy pionowy, jednorodny pręt wiszący obciążony tylko ciężarem własnym. Naprężenie przy zawieszeniu wynosi σmax = γL; pytamy, przy jakiej długości osiągnie granicę plastyczności Re = 235 MPa.',
+      caption: 'Dane materiałowe i schemat pręta; szukamy długości granicznej.',
+      visual: 'axial',
+      focus: { metric: 'model' },
+      formula: 'R_e=235\\ \\text{MPa},\\qquad \\rho=7850\\ \\text{kg/m}^3,\\qquad g=9{,}81\\ \\text{m/s}^2',
     },
     {
-      title: 'Krok 2',
-      narration: 'Zapis matematyczny.',
-      caption: 'L_max=(R_e)/(ρ g) =(235· 10^6)/(7850· 9,81)≈ 3052 m.',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: 'L_{\\max}=\\frac{R_e}{\\rho g}\n=\\frac{235\\cdot 10^6}{7850\\cdot 9{,}81}\\approx 3052\\ \\text{m}.',
-    },
-    {
-      title: 'Krok 3',
+      title: 'Naprężenie rośnie wzdłuż pręta',
       narration:
-        'Jeśli wymagamy współczynnika bezpieczeństwa n=2 względem granicy plastyczności, dopuszczalne naprężenie wynosi 117,5 MPa, a maksymalna długość maleje do',
-      caption:
-        'Jeśli wymagamy współczynnika bezpieczeństwa n=2 względem granicy plastyczności, dopuszczalne naprężenie wynosi 117,5 MPa, a…',
-      visual: 'thermal',
+        'Naprężenie od ciężaru własnego rośnie liniowo od zera na swobodnym końcu do σmax = γL przy zawieszeniu. Gdy długość osiąga Lmax, górny przekrój osiąga granicę Re.',
+      caption: 'σ(x) = γx; przy x = Lmax naprężenie osiąga Re = 235 MPa.',
+      visual: 'axial',
       focus: { metric: 'σ' },
-      formula: 'n = 2',
+      formula: '\\sigma(x)=\\gamma x,\\qquad \\sigma(L_{\\max})=R_e',
     },
     {
-      title: 'Krok 4',
-      narration: 'Zapis matematyczny.',
-      caption: 'L_max,n=(117,5· 10^6)/(77 000)≈ 1526 m.',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: 'L_{\\max,n}=\\frac{117{,}5\\cdot 10^6}{77\\,000}\\approx 1526\\ \\text{m}.',
-    },
-    {
-      title: 'Krok 5',
-      narration: 'Dla pręta o długości 300 m naprężenie od ciężaru własnego wynosi tylko',
-      caption: 'Dla pręta o długości 300 m naprężenie od ciężaru własnego wynosi tylko',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Zapis matematyczny.',
-      caption: 'σ=γ L=77 000· 300=23,1 MPa,',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: '\\sigma=\\gamma L=77\\,000\\cdot 300=23{,}1\\ \\text{MPa},',
-    },
-    {
-      title: 'Krok 7',
+      title: 'Granica długości',
       narration:
-        'więc obliczony zapas względem R_e jest równy 235/23,1≈ 10,2. To pokazuje, że w typowych konstrukcjach budowlanych ciężar własny stali często nie jest dominujący, ale w bardzo długich elementach lub w materiałach o dużej gęstości i małej wytrzymałości może stać się warunkiem decydującym.',
-      caption:
-        'więc obliczony zapas względem R_e jest równy 235/23,1≈ 10,2. To pokazuje, że w typowych konstrukcjach budowlanych ciężar własny…',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: '235/23{,}1 \\approx 10{,}2',
+        'Z warunku γLmax = Re otrzymujemy Lmax = Re/(ρg) = 235·10⁶/(7850·9,81) ≈ 3052 m. Wykres σmax(L) = γL przecina poziom Re właśnie przy tej długości.',
+      caption: 'Lmax = Re/(ρg) ≈ 3052 m; powyżej tej długości ciężar własny przekracza granicę materiału.',
+      visual: 'diagram',
+      focus: { metric: 'limit' },
+      formula: 'L_{\\max}=\\frac{R_e}{\\rho g}=\\frac{235\\cdot10^6}{7850\\cdot9{,}81}\\approx3052\\ \\text{m}',
     },
     {
-      title: 'Krok 8',
+      title: 'Współczynnik bezpieczeństwa',
       narration:
-        'Wniosek projektowy jest prosty: jeżeli długość jest ograniczona wytrzymałością od ciężaru własnego, to zmiana przekroju nie pomoże. Trzeba wybrać materiał o większym stosunku R_e/ρ albo zmienić schemat konstrukcji, na przykład dodać podpory pośrednie. To jakościowo inna decyzja niż zwykłe „zwiększenie przekroju”, które działa przy sile skupionej.',
-      caption:
-        'Wniosek projektowy jest prosty: jeżeli długość jest ograniczona wytrzymałością od ciężaru własnego, to zmiana przekroju nie…',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
+        'Jeśli wymagamy współczynnika bezpieczeństwa n = 2, dopuszczalne naprężenie wynosi Re/n = 117,5 MPa, a maksymalna długość maleje do Lmax,n ≈ 1526 m. Zmniejsza się ona proporcjonalnie do dopuszczalnego naprężenia.',
+      caption: 'Przy n = 2: σdop = 117,5 MPa i Lmax,n ≈ 1526 m.',
+      visual: 'diagram',
+      focus: { metric: 'safety' },
+      formula:
+        '\\sigma_{\\text{dop}}=\\frac{R_e}{n}=117{,}5\\ \\text{MPa},\\qquad L_{\\max,n}=\\frac{\\sigma_{\\text{dop}}}{\\gamma}\\approx1526\\ \\text{m}',
+    },
+    {
+      title: 'Krótki pręt',
+      narration:
+        'Dla pręta o długości 300 m naprężenie od ciężaru własnego wynosi σ = γL = 23,1 MPa, więc zapas względem Re jest równy 235/23,1 ≈ 10,2. W typowych konstrukcjach ciężar własny stali często nie decyduje, ale w bardzo długich elementach staje się warunkiem krytycznym.',
+      caption: 'L = 300 m: σ = 23,1 MPa, zapas ≈ 10,2.',
+      visual: 'diagram',
+      focus: { metric: 'check' },
+      formula: '\\sigma=\\gamma L=77\\,000\\cdot300=23{,}1\\ \\text{MPa},\\qquad \\frac{R_e}{\\sigma}\\approx10{,}2',
     },
   ],
 } satisfies SolutionData

@@ -1,12 +1,13 @@
 import type { SolutionData } from '../../model'
+import { AllowableSafetyFactor2Animation } from './animation'
 
 export default {
   id: 'ex-m3-allowable-safety-factor-2',
   title: 'Naprężenie dopuszczalne i współczynnik bezpieczeństwa — przykład 2',
   duration: 7,
-  given: ['R_f=120 MPa', 'n=2. N'],
+  given: ['R_f=120 MPa', 'n=2', 'N=120 kN'],
   result:
-    'Podobnie byłoby przy wyboczeniu. Gdyby ten sam pręt był ściskany i smukły, o dopuszczalnym obciążeniu decydowałoby naprężenie krytyczne, a nie R_e. Wtedy zwiększanie średnicy pomaga, ale zależność jest inna niż liniowa, a długość i warunki podparcia odgrywają większą rolę. Wzór A_min=N/σ_dop nadal obowiązuje, ale σ_dop trzeba wyznaczyć z innego warunku.',
+    'Przy granicy zmęczeniowej R_f = 120 MPa i n = 2 naprężenie dopuszczalne wynosi 60 MPa, więc potrzebne pole to 2000 mm². Po przyjęciu d = 52 mm otrzymujemy A ≈ 2124 mm², σ ≈ 56,5 MPa i n_rz ≈ 2,12.',
   figure: {
     kind: 'axial',
     top: 'fixed',
@@ -27,86 +28,64 @@ export default {
         n: 120,
         sigma: 56.5,
       },
-      {
-        id: '2',
-        label: '2',
-        length: 1000,
-        area: 2124,
-        n: 120,
-        sigma: 56.5,
-      },
     ],
     loads: [
       {
-        node: 2,
+        node: 1,
         value: 120,
         label: 'N = 120 kN',
       },
     ],
     note: 'Przyjęto d = 52 mm, A = 2124 mm²; długość schematyczna.',
   },
+  animation: AllowableSafetyFactor2Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Ten sam pręt może być projektowany względem innej granicy. Załóżmy, że cięgno pracuje w maszynie wykonującej milion cykli, a dla materiału i geometrii przyjęto umowną granicę zmęczeniową R_f=120 MPa. Wymagany współczynnik bezpieczeństwa wynosi teraz n=2. Naprężenie dopuszczalne jest równe',
-      caption:
-        'Ten sam pręt może być projektowany względem innej granicy. Załóżmy, że cięgno pracuje w maszynie wykonującej milion cykli, a dla…',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: 'R_{f} = 120 MPa',
+        'Ten sam pręt może być projektowany względem innej granicy. Cięgno pracuje w maszynie wykonującej milion cykli, więc miarodajna jest umowna granica zmęczeniowa R_f = 120 MPa. Wymagany współczynnik bezpieczeństwa wynosi n = 2, a siła pozostaje N = 120 kN.',
+      caption: 'Obciążenie zmienne: granica zmęczeniowa R_f = 120 MPa, n = 2, N = 120 kN.',
+      visual: 'axial',
+      focus: { metric: 'model' },
+      formula: 'R_f=120\\ \\text{MPa},\\quad n=2,\\quad N=120\\ \\text{kN}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Zapis matematyczny.',
-      caption: 'σ_dop=(120)/(2)=60 MPa.',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: '\\sigma_{\\mathrm{dop}}=\\frac{120}{2}=60\\ \\text{MPa}.',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Wymagane pole wynosi',
-      caption: 'Wymagane pole wynosi',
-      visual: 'thermal',
-      focus: { metric: 'N' },
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Zapis matematyczny.',
-      caption: 'A_min=(120 000)/(60)=2000 mm^2,',
-      visual: 'thermal',
-      focus: { metric: 'A' },
-      formula: 'A_{\\min}=\\frac{120\\,000}{60}=2000\\ \\text{mm}^2,',
-    },
-    {
-      title: 'Krok 5',
+      title: 'Naprężenie dopuszczalne',
       narration:
-        'czyli średnica około 50,5 mm. Po zaokrągleniu do 52 mm otrzymujemy A≈2124 mm^2, naprężenie σ≈56,5 MPa i n_rz=120/56,5≈2,12.',
-      caption:
-        'czyli średnica około 50,5 mm. Po zaokrągleniu do 52 mm otrzymujemy A≈2124 mm^2, naprężenie σ≈56,5 MPa i n_rz=120/56,5≈2,12.',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: '\\sigma \\approx 56{,}5 MPa',
+        'Naprężenie dopuszczalne wynosi σ_dop = R_f/n = 120/2 = 60 MPa. Jest ono znacznie niższe niż w przypadku projektowania względem R_e = 235 MPa, bo decyduje zmęczenie, a nie jednorazowe uplastycznienie.',
+      caption: 'σ_dop = 60 MPa leży daleko poniżej R_f = 120 MPa i R_e = 235 MPa.',
+      visual: 'axial',
+      focus: { metric: 'allowable' },
+      formula: '\\sigma_{\\mathrm{dop}}=\\frac{R_f}{n}=\\frac{120}{2}=60\\ \\text{MPa}',
     },
     {
-      title: 'Krok 6',
+      title: 'Wymagane pole',
       narration:
-        'Różnica względem poprzedniego wariantu jest ogromna: średnica rośnie z 32 do 52 mm, mimo że materiał się nie zmienił. Zmienił się mechanizm decydujący o bezpieczeństwie. To pokazuje, dlaczego w zadaniu trzeba najpierw ustalić, co ma nie wystąpić. Samo „dobranie współczynnika” bez wskazania granicy jest bez znaczenia.',
-      caption:
-        'Różnica względem poprzedniego wariantu jest ogromna: średnica rośnie z 32 do 52 mm, mimo że materiał się nie zmienił. Zmienił się…',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
+        'Z warunku σ ≤ σ_dop otrzymujemy A_min = N/σ_dop = 120 000/60 = 2000 mm², czyli d_min ≈ 50,5 mm. Po zaokrągleniu do 52 mm pole wynosi A ≈ 2124 mm². To znacznie więcej niż 804 mm² w wariancie statycznym, mimo że materiał się nie zmienił.',
+      caption: 'A_min = 2000 mm², przyjęto d = 52 mm i A ≈ 2124 mm².',
+      visual: 'axial',
+      focus: { metric: 'area' },
+      formula:
+        'A_{\\min}=\\frac{120\\,000}{60}=2000\\ \\text{mm}^2,\\qquad d=52\\ \\text{mm}\\Rightarrow A\\approx2124\\ \\text{mm}^2',
     },
     {
-      title: 'Krok 7',
+      title: 'Naprężenie rzeczywiste',
       narration:
-        'Podobnie byłoby przy wyboczeniu. Gdyby ten sam pręt był ściskany i smukły, o dopuszczalnym obciążeniu decydowałoby naprężenie krytyczne, a nie R_e. Wtedy zwiększanie średnicy pomaga, ale zależność jest inna niż liniowa, a długość i warunki podparcia odgrywają większą rolę. Wzór A_min=N/σ_dop nadal obowiązuje, ale σ_dop trzeba wyznaczyć z innego warunku.',
-      caption:
-        'Podobnie byłoby przy wyboczeniu. Gdyby ten sam pręt był ściskany i smukły, o dopuszczalnym obciążeniu decydowałoby naprężenie…',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
-      formula: 'A_{min} = N/\\sigma_{\\mathrm{dop}}',
+        'Dla przyjętego pola naprężenie robocze wynosi σ = 120 000/2124 ≈ 56,5 MPa. Jest mniejsze od σ_dop = 60 MPa, więc wykorzystanie przekroju wynosi około 94%.',
+      caption: 'σ = 56,5 MPa < σ_dop = 60 MPa; wykorzystanie około 94%.',
+      visual: 'axial',
+      focus: { metric: 'stress' },
+      formula:
+        '\\sigma=\\frac{120\\,000}{2124}\\approx56{,}5\\ \\text{MPa},\\qquad \\frac{\\sigma}{\\sigma_{\\mathrm{dop}}}\\approx0{,}94',
+    },
+    {
+      title: 'Sprawdzenie zapasu',
+      narration:
+        'Rzeczywisty współczynnik bezpieczeństwa wynosi n_rz = R_f/σ = 120/56,5 ≈ 2,12 i jest większy od wymaganego 2. Średnica rośnie z 32 do 52 mm, bo zmienił się mechanizm decydujący o bezpieczeństwie. Samo „dobranie współczynnika” bez wskazania granicy nie ma znaczenia.',
+      caption: 'n_rz = 2,12 ≥ n = 2; o doborze decyduje granica zmęczeniowa.',
+      visual: 'axial',
+      focus: { metric: 'check' },
+      formula: 'n_{\\mathrm{rz}}=\\frac{R_f}{\\sigma}=\\frac{120}{56{,}5}\\approx2{,}12\\ge2',
     },
   ],
 } satisfies SolutionData

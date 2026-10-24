@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { ThermalRailAnimation } from './animation'
 
 export default {
   id: 'ex-m3-thermal-free-restrained',
@@ -7,6 +8,7 @@ export default {
   given: ['L=8 m', 'alpha=12', 'E=200 GPa', 's=2 mm', 'T=35 K', 'A=600 mm²'],
   result:
     'Szyna wydłużyłaby się swobodnie o 3,36 mm, ale luz pozwala na 2 mm. Po zamknięciu szczeliny w szynie powstaje ściskanie około 34 MPa, a podpora działa siłą około 20,4 kN.',
+  animation: ThermalRailAnimation,
   figure: {
     kind: 'axial',
     top: 'fixed',
@@ -23,36 +25,36 @@ export default {
     segments: [
       {
         id: '1',
-        label: '1',
-        length: 4000,
+        label: '',
+        length: 8000,
         area: 600,
         n: -20.4,
         sigma: -34,
-        epsilon: -0.00017,
-        deltaL: -0.68,
+        epsilon: 0.00025,
+        deltaL: 2,
         thermalStrain: 0.00042,
-        freeDeltaL: 1.68,
-      },
-      {
-        id: '2',
-        label: '2',
-        length: 4000,
-        area: 600,
-        n: -20.4,
-        sigma: -34,
-        epsilon: -0.00017,
-        deltaL: -0.68,
-        thermalStrain: 0.00042,
-        freeDeltaL: 1.68,
+        freeDeltaL: 3.36,
       },
     ],
-    note: 'ΔT = 35 K, luz 2 mm; swobodne wydłużenie sumuje się do 3,36 mm.',
+    note: 'ΔT = 35 K, luz 2 mm; swobodne wydłużenie 3,36 mm, po zamknięciu luzu σ = −34 MPa.',
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Swobodne wydłużenie: Δ L_T=α LΔ T=12·10^-6·8000·35=3,36 mm.',
-      caption: 'Swobodne wydłużenie: Δ L_T=α LΔ T=12·10^-6·8000·35=3,36 mm.',
+      title: 'Model i dane',
+      narration:
+        'Stalowa szyna ma długość L = 8 m, pole A = 600 mm², E = 200 GPa i α = 12·10⁻⁶ 1/K. Prawy koniec dzieli od podpory luz s = 2 mm. Na razie temperatura się nie zmienia.',
+      caption: 'L = 8000 mm, A = 600 mm², s = 2 mm; podpora jest 2 mm od końca szyny.',
+      visual: 'thermal',
+      focus: {
+        metric: 'model',
+      },
+      formula: 'L=8000\\ \\text{mm},\\qquad A=600\\ \\text{mm}^2,\\qquad s=2\\ \\text{mm}',
+    },
+    {
+      title: 'Swobodne wydłużenie',
+      narration:
+        'Najpierw pytamy, jak szyna wydłużyłaby się bez ograniczeń. Przy ΔT = 35 K swobodne wydłużenie wynosi ΔL_T = αLΔT = 12·10⁻⁶·8000·35 = 3,36 mm. Naprężenie pozostaje zerowe.',
+      caption: 'Gdyby podpora nie ograniczała ruchu, szyna wydłużyłaby się o 3,36 mm bez naprężenia.',
       visual: 'thermal',
       focus: {
         metric: 'ΔL_T',
@@ -60,41 +62,32 @@ export default {
       formula: '\\Delta L_T=\\alpha L\\Delta T=12\\cdot10^{-6}\\cdot8000\\cdot35=3{,}36\\ \\text{mm}',
     },
     {
-      title: 'Krok 2',
+      title: 'Luz zostaje zamknięty',
       narration:
-        'Luz 2 mm jest mniejszy od 3,36 mm, więc szczelina zamyka się, a dalszy wzrost temperatury działa już na podporę.',
-      caption:
-        'Luz 2 mm jest mniejszy od 3,36 mm, więc szczelina zamyka się, a dalszy wzrost temperatury działa już na podporę.',
+        'Luz 2 mm jest mniejszy od 3,36 mm, więc szyna najpierw wydłuża się swobodnie o 2 mm, aż dotknie podpory. Do tego momentu naprężenie jest jeszcze zerowe.',
+      caption: 'Szczelina 2 mm zamyka się; dalsze wydłużenie jest już blokowane.',
       visual: 'thermal',
       focus: {
-        metric: 'ΔL_T',
+        metric: 'gap',
       },
-      formula: '2\\ \\text{mm}',
+      formula: '\\Delta L=s=2\\ \\text{mm},\\qquad \\sigma=0',
     },
     {
-      title: 'Krok 3',
-      narration: 'Pozostaje zablokować 3,36-2=1,36 mm wydłużenia.',
-      caption: 'Pozostaje zablokować 3,36-2=1,36 mm wydłużenia.',
-      visual: 'thermal',
-      focus: {
-        metric: 'ΔL_T',
-      },
-      formula: '3{,}36-2=1{,}36\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Odkształcenie mechaniczne: ε_m=-1,36/8000=-0,00017.',
-      caption: 'Odkształcenie mechaniczne: ε_m=-1,36/8000=-0,00017.',
+      title: 'Zablokowana reszta wydłużenia',
+      narration:
+        'Po zamknięciu luzu pozostaje 3,36 − 2 = 1,36 mm swobodnego wydłużenia, którego podpora nie pozwala zrealizować. Odkształcenie mechaniczne wynosi ε_m = −1,36/8000 = −0,00017.',
+      caption: 'Podpora blokuje 1,36 mm; to wymusza skrócenie mechaniczne ε_m = −0,00017.',
       visual: 'thermal',
       focus: {
         metric: 'ε',
       },
-      formula: '\\varepsilon_m=-1{,}36/8000=-0{,}00017',
+      formula: '\\varepsilon_m=-\\frac{1{,}36}{8000}=-0{,}00017',
     },
     {
-      title: 'Krok 5',
-      narration: 'Naprężenie: σ=Eε_m=200 000·(-0,00017)=-34 MPa.',
-      caption: 'Naprężenie: σ=Eε_m=200 000·(-0,00017)=-34 MPa.',
+      title: 'Naprężenie termiczne',
+      narration:
+        'Z prawa Hooke’a σ = Eε_m = 200 000·(−0,00017) = −34 MPa. Minus oznacza ściskanie: podpory ściskają szynę.',
+      caption: 'Naprężenie ściskające wynosi około −34 MPa.',
       visual: 'thermal',
       focus: {
         metric: 'σ',
@@ -102,26 +95,16 @@ export default {
       formula: '\\sigma=E\\varepsilon_m=200\\,000\\cdot(-0{,}00017)=-34\\ \\text{MPa}',
     },
     {
-      title: 'Krok 6',
-      narration: 'Reakcja przy założonym polu: R=σ A=-34·600=-20 400 N≈-20,4 kN.',
-      caption: 'Reakcja przy założonym polu: R=σ A=-34·600=-20 400 N≈-20,4 kN.',
-      visual: 'thermal',
-      focus: {
-        metric: 'N',
-      },
-      formula: 'R=\\sigma A=-34\\cdot600=-20\\,400\\ \\text{N}\\approx-20{,}4\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 7',
+      title: 'Reakcja i kontrola',
       narration:
-        'Kontrola: bez luzu naprężenie wynosiłoby -EαΔ T=-84 MPa, więc szczelina zmniejszyła je ponad dwukrotnie.',
-      caption:
-        'Kontrola: bez luzu naprężenie wynosiłoby -EαΔ T=-84 MPa, więc szczelina zmniejszyła je ponad dwukrotnie.',
+        'Przy polu A = 600 mm² reakcja wynosi R = σA = −20 400 N ≈ −20,4 kN. Bez luzu naprężenie byłoby równe −EαΔT = −84 MPa, więc szczelina zmniejszyła je ponad dwukrotnie.',
+      caption: 'Reakcja około 20,4 kN; bez luzu byłoby −84 MPa, z luzem tylko −34 MPa.',
       visual: 'thermal',
       focus: {
-        metric: 'σ',
+        metric: 'check',
       },
-      formula: '-E\\alpha\\Delta T=-84\\ \\text{MPa}',
+      formula:
+        'R=\\sigma A=-34\\cdot600=-20\\,400\\ \\text{N}\\approx-20{,}4\\ \\text{kN}\\qquad -E\\alpha\\Delta T=-84\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

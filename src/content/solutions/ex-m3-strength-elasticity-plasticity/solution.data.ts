@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { StrengthElasticityPlasticityAnimation } from './animation'
 
 export default {
   id: 'ex-m3-strength-elasticity-plasticity',
@@ -7,6 +8,7 @@ export default {
   given: ['S_0=80 mm²', 'R_e=300 MPa', 'R_m=450 MPa'],
   result:
     'Uplastycznienie próbki zaczyna się przy około 24 kN, a wytrzymałości R_m odpowiada siła 36 kN. Zerwanie nastąpi przy sile mniejszej od 36 kN, po przewężeniu.',
+  animation: StrengthElasticityPlasticityAnimation,
   figure: {
     kind: 'axial',
     top: 'free',
@@ -40,66 +42,49 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Granica plastyczności odpowiada sile F_e=R_eS_0.',
-      caption: 'Granica plastyczności odpowiada sile F_e=R_eS_0.',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: 'F_e=R_eS_0',
-    },
-    {
-      title: 'Krok 2',
-      narration: 'F_e=300 N/mm^2· 80 mm^2=24 000 N=24 kN.',
-      caption: 'F_e=300 N/mm^2· 80 mm^2=24 000 N=24 kN.',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: 'F_e=300\\ \\text{N/mm}^2\\cdot 80\\ \\text{mm}^2=24\\,000\\ \\text{N}=24\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Największa siła wynika z wytrzymałości: F_m=R_mS_0=450· 80=36 000 N=36 kN.',
-      caption: 'Największa siła wynika z wytrzymałości: F_m=R_mS_0=450· 80=36 000 N=36 kN.',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: 'F_m=R_mS_0=450\\cdot 80=36\\,000\\ \\text{N}=36\\ \\text{kN}',
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Stosunek R_m/R_e=450/300=1,5 opisuje umocnienie między początkiem płynięcia a maksimum.',
-      caption: 'Stosunek R_m/R_e=450/300=1,5 opisuje umocnienie między początkiem płynięcia a maksimum.',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: 'R_m/R_e=450/300=1{,}5',
-    },
-    {
-      title: 'Krok 5',
+      title: 'Model próbki i dane',
       narration:
-        'Różnica 36-24=12 kN pokazuje przyrost siły między uplastycznieniem a największą siłą, ale nie jest zapasem przeznaczonym do swobodnego wykorzystania w projekcie.',
-      caption:
-        'Różnica 36-24=12 kN pokazuje przyrost siły między uplastycznieniem a największą siłą, ale nie jest zapasem przeznaczonym do…',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: '36-24=12\\ \\text{kN}',
+        'Próbka stalowa ma pole S₀ = 80 mm². Materiał ma granicę plastyczności R_e = 300 MPa i wytrzymałość R_m = 450 MPa. Na wykresie σ–ε oba punkty mają różne znaczenie, a na próbce zobaczymy, co dzieje się po odciążeniu.',
+      caption: 'Na wykresie zaznaczymy obie granice, a na próbce pokażemy stan po odciążeniu.',
+      visual: 'axial',
+      focus: { metric: 'model' },
+      formula: 'S_0=80\\ \\text{mm}^2,\\qquad R_e=300\\ \\text{MPa},\\qquad R_m=450\\ \\text{MPa}',
     },
     {
-      title: 'Krok 6',
-      narration: 'Kontrola jednostek: MPa·mm^2=N, więc wynik w niutonach jest poprawny.',
-      caption: 'Kontrola jednostek: MPa·mm^2=N, więc wynik w niutonach jest poprawny.',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: '\\text{MPa}\\cdot\\text{mm}^2=\\text{N}',
+      title: 'Granica plastyczności R_e',
+      narration:
+        'Do naprężenia 300 MPa próbka pracuje sprężyście. Po przekroczeniu tej granicy odkształcenie staje się trwałe. Sile odpowiadającej granicy plastyczności przypisujemy oznaczenie F_e.',
+      caption: 'R_e to naprężenie, a F_e to siła — nie mieszaj jednostek.',
+      visual: 'axial',
+      focus: { metric: 'Re' },
+      formula: 'F_e=R_eS_0=300\\cdot80=24\\,000\\ \\text{N}=24\\ \\text{kN}',
+    },
+    {
+      title: 'Wytrzymałość na rozciąganie R_m',
+      narration:
+        'Po uplastycznieniu materiał się umacnia. Maksimum krzywej odpowiada największej sile z próby, a nie chwili zerwania. Dlatego R_m jest większe od R_e, choć nadal jest naprężeniem odniesionym do pola początkowego.',
+      caption: 'Po maksimum próbka się przewęża, a siła maleje.',
+      visual: 'axial',
+      focus: { metric: 'Rm' },
+      formula: 'F_m=R_mS_0=450\\cdot80=36\\,000\\ \\text{N}=36\\ \\text{kN}',
+    },
+    {
+      title: 'Sprężystość i plastyczność po odciążeniu',
+      narration:
+        'Odciążenie biegnie równolegle do początkowego odcinka sprężystego. Część ε_e znika, a część ε_p pozostaje jako trwałe wydłużenie próbki. To właśnie różnica między powrotem sprężystym a odkształceniem plastycznym.',
+      caption: 'Po przekroczeniu R_e próbka wraca tylko częściowo — to odkształcenie trwałe.',
+      visual: 'axial',
+      focus: { metric: 'unload' },
+      formula: '\\varepsilon=\\varepsilon_e+\\varepsilon_p,\\qquad \\varepsilon_p>0',
+    },
+    {
+      title: 'Znaczenie R_e i R_m w projekcie',
+      narration:
+        'Stosunek R_m/R_e = 1,5 opisuje umocnienie między początkiem płynięcia a maksimum. Różnica sił 36 − 24 = 12 kN nie jest zapasem do swobodnego wykorzystania: w typowej konstrukcji decyduje R_e, a R_m jest miarą maksymalnej nośności. Kontrola MPa·mm² = N potwierdza jednostki.',
+      caption: 'R_e jest podstawą projektu sprężystego, R_m opisuje maksimum, a nie naprężenie robocze.',
+      visual: 'axial',
+      focus: { metric: 'compare' },
+      formula: '\\frac{R_m}{R_e}=\\frac{450}{300}=1{,}5,\\qquad F_m-F_e=12\\ \\text{kN}',
     },
   ],
 } satisfies SolutionData

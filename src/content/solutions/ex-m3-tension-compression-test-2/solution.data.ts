@@ -1,130 +1,69 @@
 import type { SolutionData } from '../../model'
+import { TensileTestExample2Animation } from './animation'
 
 export default {
   id: 'ex-m3-tension-compression-test-2',
   title: 'Próba rozciągania i ściskania — przykład 2',
-  duration: 7,
-  given: ['b=12', 't=4 mm', 'A_0=50 mm²', 'L_0=50 mm', 'N=10 kN'],
+  duration: 9,
+  given: ['b = 12,5 mm', 't = 4 mm', 'A₀ = 50 mm²', 'L₀ = 50 mm', 'N = 10 kN'],
   result:
-    'Zauważ, że druga próbka ma identyczną długość pomiarową, więc różnica wydłużenia wynika wyłącznie z różnicy naprężenia. Gdyby dodatkowo zmienić długość, do porównania trzeba by użyć odkształcenia względnego, a nie samego wydłużenia. To właśnie dlatego krzywa materiału jest rysowana w układzie σ – ε, a nie siła–wydłużenie.',
-  figure: {
-    kind: 'axial',
-    top: 'fixed',
-    bottom: 'free',
-    units: {
-      N: 'kN',
-      σ: 'MPa',
-      ε: '–',
-      ΔL: 'mm',
-      A: 'mm²',
-    },
-    segments: [
-      {
-        id: '1',
-        label: '1',
-        length: 25,
-        area: 50,
-        n: 10,
-        sigma: 200,
-        epsilon: 0.001,
-        deltaL: 0.025,
-      },
-      {
-        id: '2',
-        label: '2',
-        length: 25,
-        area: 50,
-        n: 10,
-        sigma: 200,
-        epsilon: 0.001,
-        deltaL: 0.025,
-      },
-    ],
-    loads: [
-      {
-        node: 2,
-        value: 10,
-        label: 'N = 10 kN',
-      },
-    ],
-    note: 'A₀ = 50 mm², L₀ = 50 mm, E = 200 000 MPa.',
-  },
+    'Przy polu 50 mm² naprężenie wynosi 200 MPa i próbka pozostaje sprężysta. Ta sama siła na polu 25 mm² daje 400 MPa, czyli stan po przekroczeniu granicy plastyczności; liniowe ε = 0,002 nie opisuje już rzeczywistego odkształcenia. Krzywa σ–ε jest wspólna dla obu próbek, a wykres N–ΔL zależałby od pola.',
+  animation: TensileTestExample2Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Rozważmy płaską próbkę stalową o szerokości b=12,5 mm i grubości t=4 mm. Pole przekroju wynosi A_0=50 mm^2, długość pomiarowa L_0=50 mm, a siła rozciągająca N=10 kN. Naprężenie obliczamy jako',
-      caption:
-        'Rozważmy płaską próbkę stalową o szerokości b=12,5 mm i grubości t=4 mm. Pole przekroju wynosi A_0=50 mm^2, długość pomiarowa…',
-      visual: 'thermal',
-      focus: {
-        metric: 'A',
-      },
-      formula: 'b = 12{,}5 mm',
+        'Płaska próbka stalowa ma szerokość b = 12,5 mm i grubość t = 4 mm. Pole przekroju wynosi A₀ = b·t = 50 mm², a długość pomiarowa L₀ = 50 mm. Działamy siłą rozciągającą N = 10 kN.',
+      caption: 'Pole liczymy z wymiarów początkowych przekroju, przed obciążeniem.',
+      visual: 'axial',
+      focus: { metric: 'A' },
+      formula: 'A_0=b\\cdot t=12{,}5\\cdot 4=50\\ \\text{mm}^2',
     },
     {
-      title: 'Krok 2',
-      narration: 'Zapis matematyczny.',
-      caption: 'σ=(10 000)/(50)=200 MPa.',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: '\\sigma=\\frac{10\\,000}{50}=200\\ \\text{MPa}.',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Przy module E=200 GPa odkształcenie wynosi ε=200/200 000=0,001, a wydłużenie',
-      caption: 'Przy module E=200 GPa odkształcenie wynosi ε=200/200 000=0,001, a wydłużenie',
-      visual: 'thermal',
-      focus: {
-        metric: 'ε',
-      },
-      formula: 'E = 200 GPa',
-    },
-    {
-      title: 'Krok 4',
-      narration: 'Zapis matematyczny.',
-      caption: 'Δ L=ε L_0=0,001· 50=0,05 mm.',
-      visual: 'thermal',
-      focus: {
-        metric: 'ΔL',
-      },
-      formula: '\\Delta L=\\varepsilon L_0=0{,}001\\cdot 50=0{,}05\\ \\text{mm}.',
-    },
-    {
-      title: 'Krok 5',
+      title: 'Naprężenie w zakresie sprężystym',
       narration:
-        'Gdyby ta sama siła działała na próbkę o polu 25 mm^2, naprężenie wzrosłoby do 400 MPa. To już przekracza typową granicę plastyczności stali konstrukcyjnej, więc nie wolno by było twierdzić, że odkształcenie nadal wynosi 400/200 000=0,002. Prawo Hooke’a przestałoby obowiązywać, a rzeczywiste wydłużenie byłoby większe i częściowo trwałe.',
-      caption:
-        'Gdyby ta sama siła działała na próbkę o polu 25 mm^2, naprężenie wzrosłoby do 400 MPa. To już przekracza typową granicę…',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: '400/200\\,000 = 0{,}002',
+        'Naprężenie obliczamy jako σ = N/A₀ = 10 000/50 = 200 MPa. Punkt leży na prostym odcinku krzywej σ–ε, poniżej granicy plastyczności stali Re ≈ 235 MPa.',
+      caption: 'Siła 10 kN na polu 50 mm² daje 200 MPa — to jeszcze zakres sprężysty.',
+      visual: 'axial',
+      focus: { metric: 'σ' },
+      formula: '\\sigma=\\frac{10\\,000}{50}=200\\ \\text{MPa}',
     },
     {
-      title: 'Krok 6',
+      title: 'Odkształcenie i wydłużenie',
       narration:
-        'Ten przykład pokazuje, dlaczego w zadaniach trzeba sprawdzać nie tylko wynik arytmetyczny, ale także zakres modelu. Liczba 400 MPa jest poprawnym naprężeniem nominalnym, ale błędem byłoby użycie jej do liniowego wzoru na wydłużenie bez sprawdzenia granicy materiału.',
-      caption:
-        'Ten przykład pokazuje, dlaczego w zadaniach trzeba sprawdzać nie tylko wynik arytmetyczny, ale także zakres modelu. Liczba 400…',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
+        'Przy module E = 200 GPa odkształcenie wynosi ε = σ/E = 200/200 000 = 0,001. Wydłużenie bazy pomiarowej to ΔL = εL₀ = 0,001·50 = 0,05 mm.',
+      caption: 'ε jest bezwymiarowe; wydłużenie zależy dodatkowo od długości pomiarowej.',
+      visual: 'axial',
+      focus: { metric: 'ε' },
+      formula: '\\varepsilon=\\frac{200}{200\\,000}=0{,}001,\\qquad \\Delta L=0{,}001\\cdot 50=0{,}05\\ \\text{mm}',
     },
     {
-      title: 'Krok 7',
+      title: 'Przekroczenie granicy plastyczności',
       narration:
-        'Zauważ, że druga próbka ma identyczną długość pomiarową, więc różnica wydłużenia wynika wyłącznie z różnicy naprężenia. Gdyby dodatkowo zmienić długość, do porównania trzeba by użyć odkształcenia względnego, a nie samego wydłużenia. To właśnie dlatego krzywa materiału jest rysowana w układzie σ – ε, a nie siła–wydłużenie.',
+        'Gdyby ta sama siła działała na próbkę o polu 25 mm², naprężenie wzrosłoby do σ = 10 000/25 = 400 MPa. To przekracza Re ≈ 235 MPa, więc materiał płynie, a prawo Hooke’a przestaje obowiązywać.',
+      caption: '400 MPa leży powyżej Re; nie wolno już podstawiać tej wartości do liniowego wzoru ε = σ/E.',
+      visual: 'axial',
+      focus: { metric: 'σ' },
+      formula: '\\sigma=\\frac{10\\,000}{25}=400\\ \\text{MPa}',
+    },
+    {
+      title: 'Wytrzymałość i przewężenie',
+      narration:
+        'Przy 400 MPa materiał jest blisko wytrzymałości Rm i zaczyna się przewężać. Liniowe ε = 400/200 000 = 0,002 jest tylko pozornym wynikiem: rzeczywiste odkształcenie jest znacznie większe i częściowo trwałe.',
       caption:
-        'Zauważ, że druga próbka ma identyczną długość pomiarową, więc różnica wydłużenia wynika wyłącznie z różnicy naprężenia. Gdyby…',
-      visual: 'thermal',
-      focus: {
-        metric: 'ε',
-      },
+        'Czerwony punkt poza krzywą pokazuje błędne liniowe przewidywanie; fioletowy — rzeczywisty stan przy Rm.',
+      visual: 'axial',
+      focus: { metric: 'test' },
+      formula: '\\frac{400}{200\\,000}=0{,}002\\quad\\text{(poza zakresem liniowym)}',
+    },
+    {
+      title: 'Dlaczego σ–ε, a nie N–ΔL',
+      narration:
+        'Obie próbki wykonano z tej samej stali, więc mają tę samą krzywą σ–ε. Różnią się polem przekroju, więc przy tej samej sile pracują w różnych punktach tej krzywej. Wykres N–ΔL zależałby od wymiarów próbki, a σ–ε opisuje materiał.',
+      caption: 'Wspólna krzywa materiału pozwala porównywać próbki o różnych wymiarach.',
+      visual: 'axial',
+      focus: { metric: 'compare' },
+      formula: '\\sigma=\\frac{N}{A_0},\\qquad \\varepsilon=\\frac{\\Delta L}{L_0}',
     },
   ],
 } satisfies SolutionData

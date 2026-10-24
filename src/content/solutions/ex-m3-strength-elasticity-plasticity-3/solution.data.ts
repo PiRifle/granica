@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { StrengthElasticityPlasticity3Animation } from './animation'
 
 export default {
   id: 'ex-m3-strength-elasticity-plasticity-3',
@@ -7,6 +8,7 @@ export default {
   given: ['F_e=60 kN', 'S_0=250 mm²'],
   result:
     'Ten sam rachunek można odwrócić inaczej: mając wymaganą siłę roboczą i przyjęty współczynnik bezpieczeństwa, można wyznaczyć minimalne pole przekroju. Dla N=40 kN, R_e=240 MPa i n=1,5 otrzymujemy S_0,min=N n/R_e=40 000· 1,5/240=250 mm^2. To dokładnie pole użyte w przykładzie, co potwierdza spójność obliczeń.',
+  animation: StrengthElasticityPlasticity3Animation,
   figure: {
     kind: 'axial',
     top: 'fixed',
@@ -47,114 +49,49 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Dane z próby',
       narration:
-        'Załóżmy, że z próby wiemy, iż siła F_e=60 kN odpowiada granicy plastyczności próbki o polu S_0=250 mm^2. Jaką granicę plastyczności ma materiał? Korzystamy z definicji:',
-      caption:
-        'Załóżmy, że z próby wiemy, iż siła F_e=60 kN odpowiada granicy plastyczności próbki o polu S_0=250 mm^2. Jaką granicę…',
-      visual: 'thermal',
-      focus: {
-        metric: 'N',
-      },
-      formula: 'F_{e} = 60 kN',
+        'Z próby wiemy, że siła F_e = 60 kN odpowiada granicy plastyczności próbki o polu S₀ = 250 mm². Na krzywej nie znamy jeszcze położenia R_e. Szukamy naprężenia, które odpowiada tej sile.',
+      caption: 'Znamy siłę graniczną i pole początkowe, więc możemy wyznaczyć naprężenie.',
+      visual: 'axial',
+      focus: { metric: 'given' },
+      formula: 'F_e=60\\ \\text{kN},\\qquad S_0=250\\ \\text{mm}^2',
     },
     {
-      title: 'Krok 2',
-      narration: 'Zapis matematyczny.',
-      caption: 'R_e=(60 000)/(250)=240 MPa.',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: 'R_e=\\frac{60\\,000}{250}=240\\ \\text{MPa}.',
-    },
-    {
-      title: 'Krok 3',
+      title: 'Granica plastyczności R_e',
       narration:
-        'Jeśli wymagany współczynnik bezpieczeństwa względem tej granicy wynosi n=1,5, to naprężenie dopuszczalne jest równe',
-      caption:
-        'Jeśli wymagany współczynnik bezpieczeństwa względem tej granicy wynosi n=1,5, to naprężenie dopuszczalne jest równe',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: 'n = 1{,}5',
+        'Korzystamy z definicji R_e = F_e/S₀. Dzielimy 60 000 N przez 250 mm² i otrzymujemy 240 MPa. To typowa wartość dla zwykłej stali konstrukcyjnej, ale nie jest uniwersalna — inna stal może mieć R_e = 355 MPa lub więcej.',
+      caption: 'W zadaniu korzystaj z danych podanych w treści albo wyraźnie oznaczonych jako typowe.',
+      visual: 'axial',
+      focus: { metric: 'Re' },
+      formula: 'R_e=\\frac{60\\,000}{250}=240\\ \\text{MPa}',
     },
     {
-      title: 'Krok 4',
-      narration: 'Zapis matematyczny.',
-      caption: 'σ_dop=(240)/(1,5)=160 MPa.',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: '\\sigma_{\\mathrm{dop}}=\\frac{240}{1{,}5}=160\\ \\text{MPa}.',
-    },
-    {
-      title: 'Krok 5',
-      narration: 'Maksymalna siła robocza dla tego samego przekroju wynosi więc',
-      caption: 'Maksymalna siła robocza dla tego samego przekroju wynosi więc',
-      visual: 'thermal',
-      focus: {
-        metric: 'N',
-      },
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Zapis matematyczny.',
-      caption: 'N_dop=σ_dopS_0=160· 250=40 000 N=40 kN.',
-      visual: 'thermal',
-      focus: {
-        metric: 'N',
-      },
-      formula: 'N_{\\mathrm{dop}}=\\sigma_{\\mathrm{dop}}S_0=160\\cdot 250=40\\,000\\ \\text{N}=40\\ \\text{kN}.',
-    },
-    {
-      title: 'Krok 7',
+      title: 'Naprężenie dopuszczalne',
       narration:
-        'Sprawdzenie: przy 40 kN naprężenie wynosi 40 000/250=160 MPa, czyli dokładnie σ_dop. Zapas do granicy plastyczności wynosi 240/160=1,5, zgodnie z założeniem.',
-      caption:
-        'Sprawdzenie: przy 40 kN naprężenie wynosi 40 000/250=160 MPa, czyli dokładnie σ_dop. Zapas do granicy plastyczności wynosi…',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: '40\\,000/250 = 160 MPa',
+        'Jeśli wymagany współczynnik bezpieczeństwa względem granicy plastyczności wynosi n = 1,5, to naprężenie dopuszczalne jest równe σ_dop = 240/1,5 = 160 MPa. Punkt roboczy leży poniżej R_e, więc element pracuje sprężyście.',
+      caption: 'Zapas 80 MPa oznacza, że do granicy plastyczności pozostaje współczynnik 1,5.',
+      visual: 'axial',
+      focus: { metric: 'service' },
+      formula: '\\sigma_{\\mathrm{dop}}=\\frac{240}{1{,}5}=160\\ \\text{MPa}',
     },
     {
-      title: 'Krok 8',
+      title: 'Siła dopuszczalna i sprawdzenie',
       narration:
-        'Zauważ, że wynik R_e=240 MPa jest typowy dla zwykłej stali konstrukcyjnej, ale nie jest uniwersalny. Inna stal może mieć R_e=355 MPa, a stal o podwyższonej wytrzymałości jeszcze więcej. W zadaniu zawsze korzystaj z danych podanych w treści albo z wartości wyraźnie oznaczonej jako typowa.',
-      caption:
-        'Zauważ, że wynik R_e=240 MPa jest typowy dla zwykłej stali konstrukcyjnej, ale nie jest uniwersalny. Inna stal może mieć R_e=355…',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-      formula: 'R_{e} = 240 MPa',
+        'Maksymalna siła robocza dla tego przekroju to N_dop = 160·250 = 40 000 N = 40 kN. Przy tej sile naprężenie wynosi dokładnie 160 MPa, a po odciążeniu odkształcenie znika. Odwrotnie: S₀,min = N·n/R_e = 40 000·1,5/240 = 250 mm², czyli dokładnie pole z przykładu.',
+      caption: 'Zapas do granicy plastyczności wynosi 240/160 = 1,5, zgodnie z założeniem.',
+      visual: 'axial',
+      focus: { metric: 'check' },
+      formula: 'N_{\\mathrm{dop}}=\\sigma_{\\mathrm{dop}}S_0=160\\cdot250=40\\,000\\ \\text{N}=40\\ \\text{kN}',
     },
     {
-      title: 'Krok 9',
+      title: 'Gdy materiał jest kruchy',
       narration:
-        'Warto zauważyć, że nie użyliśmy tutaj R_m. Gdyby materiał był kruchy i pękał bez uprzedniego płynięcia, właściwą granicą byłoby R_m, a nie R_e. Wybór granicy zależy od mechanizmu zniszczenia, nie od tego, która liczba jest większa.',
-      caption:
-        'Warto zauważyć, że nie użyliśmy tutaj R_m. Gdyby materiał był kruchy i pękał bez uprzedniego płynięcia, właściwą granicą byłoby…',
-      visual: 'thermal',
-      focus: {
-        metric: 'σ',
-      },
-    },
-    {
-      title: 'Krok 10',
-      narration:
-        'Ten sam rachunek można odwrócić inaczej: mając wymaganą siłę roboczą i przyjęty współczynnik bezpieczeństwa, można wyznaczyć minimalne pole przekroju. Dla N=40 kN, R_e=240 MPa i n=1,5 otrzymujemy S_0,min=N n/R_e=40 000· 1,5/240=250 mm^2. To dokładnie pole użyte w przykładzie, co potwierdza spójność obliczeń.',
-      caption:
-        'Ten sam rachunek można odwrócić inaczej: mając wymaganą siłę roboczą i przyjęty współczynnik bezpieczeństwa, można wyznaczyć…',
-      visual: 'thermal',
-      focus: {
-        metric: 'A',
-      },
-      formula: 'N = 40 kN, R_{e} = 240 MPa',
+        'Nie użyliśmy tutaj R_m, bo materiał jest ciągliwy i projektujemy poniżej R_e. Gdyby materiał pękał bez uprzedniego płynięcia, właściwą granicą byłoby R_m, a nie R_e. Wybór granicy zależy od mechanizmu zniszczenia, nie od tego, która liczba jest większa.',
+      caption: 'Na schemacie poglądowym materiał kruchy nie ma plateau plastyczności; decyduje R_m.',
+      visual: 'axial',
+      focus: { metric: 'brittle' },
+      formula: '\\text{kruche: }R_m\\ \\text{zamiast}\\ R_e',
     },
   ],
 } satisfies SolutionData

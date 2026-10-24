@@ -1,12 +1,14 @@
 import type { SolutionData } from '../../model'
+import { ThermalGapDesignAnimation } from './animation'
 
 export default {
   id: 'ex-m3-thermal-free-restrained-3',
   title: 'Temperatura: swoboda i zablokowanie — przykład 3',
   duration: 7,
-  given: ['L=10 m', 'alpha=12', 'E=200 GPa', 'sigma_{dop}=80 MPa'],
+  given: ['L=10 m', 'alpha=12', 'E=200 GPa', 's=3 mm', 'sigma_dop=80 MPa'],
   result:
-    'W tym zadaniu jest jeszcze jedno ograniczenie. Rura jest ściskana, więc jeśli jest smukła, może wyboczyć się przed osiągnięciem 80 MPa. Wtedy o dopuszczalnej temperaturze decyduje stateczność, a nie wytrzymałość materiału. Warunek naprężeniowy jest konieczny, ale nie zawsze wystarczający.',
+    'Największy dopuszczalny przyrost temperatury wynosi około 58,3 K: 25 K zużywa luz, a 33,3 K odpowiada naprężeniu dopuszczalnemu 80 MPa. Przy ΔT = 70 K naprężenie osiąga −108 MPa, więc przekracza limit. Dodatkowo trzeba sprawdzić wyboczenie, które może wystąpić przed osiągnięciem σ_dop.',
+  animation: ThermalGapDesignAnimation,
   figure: {
     kind: 'axial',
     top: 'fixed',
@@ -23,106 +25,85 @@ export default {
     segments: [
       {
         id: '1',
-        label: '1',
-        length: 5000,
+        label: '',
+        length: 10000,
         sigma: -108,
-        epsilon: -0.00054,
-        deltaL: -2.7,
+        epsilon: 0.0003,
+        deltaL: 3,
         thermalStrain: 0.00084,
-        freeDeltaL: 4.2,
-      },
-      {
-        id: '2',
-        label: '2',
-        length: 5000,
-        sigma: -108,
-        epsilon: -0.00054,
-        deltaL: -2.7,
-        thermalStrain: 0.00084,
-        freeDeltaL: 4.2,
+        freeDeltaL: 8.4,
       },
     ],
     note: 'ΔT = 70 K, luz 3 mm; σ = −108 MPa przekracza σ_dop = 80 MPa. Pole A nie jest potrzebne.',
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Przyjmijmy, że projektujemy szczelinę dla stalowej rury o długości L=10 m, α=12·10^-6 1/K i E=200 GPa. Dopuszczalne naprężenie ściskające wynosi σ_dop=80 MPa. Pytamy, jaka może być największa zmiana temperatury, jeśli luz ma 3 mm.',
-      caption:
-        'Przyjmijmy, że projektujemy szczelinę dla stalowej rury o długości L=10 m, α=12·10^-6 1/K i E=200 GPa. Dopuszczalne naprężenie…',
+        'Projektujemy szczelinę dla stalowej rury o długości L = 10 m, α = 12·10⁻⁶ 1/K i E = 200 GPa. Luz do podpory wynosi s = 3 mm, a dopuszczalne naprężenie ściskające σ_dop = 80 MPa. Szukamy największego dopuszczalnego przyrostu temperatury.',
+      caption: 'Dane: L = 10 000 mm, s = 3 mm, σ_dop = 80 MPa; ΔT jest szukane.',
       visual: 'thermal',
-      focus: { metric: 'αΔT' },
-      formula: 'L = 10 m, \\alpha = 12\\cdot 10^{-6} 1/K',
+      focus: {
+        metric: 'model',
+      },
+      formula: 'L=10\\,000\\ \\text{mm},\\qquad s=3\\ \\text{mm},\\qquad \\sigma_{\\mathrm{dop}}=80\\ \\text{MPa}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Najpierw wyznaczamy temperaturę, przy której luz się zamyka:',
-      caption: 'Najpierw wyznaczamy temperaturę, przy której luz się zamyka:',
-      visual: 'thermal',
-      focus: { metric: 'ΔL_T' },
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Zapis matematyczny.',
-      caption: 'Δ T_1=(s)/(α L)=(3)/(12·10^-6·10 000)=25 K.',
-      visual: 'thermal',
-      focus: { metric: 'ΔL_T' },
-      formula: '\\Delta T_1=\\frac{s}{\\alpha L}=\\frac{3}{12\\cdot10^{-6}\\cdot10\\,000}=25\\ \\text{K}.',
-    },
-    {
-      title: 'Krok 4',
+      title: 'Swobodne wydłużenie przy ΔT = 70 K',
       narration:
-        'Dopiero powyżej tej temperatury pojawia się naprężenie. Dodatkowy przyrost temperatury, który wywoła naprężenie 80 MPa, wynosi',
-      caption:
-        'Dopiero powyżej tej temperatury pojawia się naprężenie. Dodatkowy przyrost temperatury, który wywoła naprężenie 80 MPa, wynosi',
+        'Najpierw sprawdzamy to samo ΔT = 70 K bez ograniczenia. Swobodne wydłużenie wynosi ΔL_T = αLΔT = 12·10⁻⁶·10 000·70 = 8,4 mm, a naprężenie jest zerowe. To znacznie więcej niż luz 3 mm.',
+      caption: 'Bez podpory rura wydłużyłaby się o 8,4 mm przy ΔT = 70 K.',
       visual: 'thermal',
-      focus: { metric: 'αΔT' },
+      focus: {
+        metric: 'ΔL_T',
+      },
+      formula: '\\Delta L_T=\\alpha L\\Delta T=12\\cdot10^{-6}\\cdot10\\,000\\cdot70=8{,}4\\ \\text{mm}',
     },
     {
-      title: 'Krok 5',
-      narration: 'Zapis matematyczny.',
-      caption: 'Δ T_2=(σ_dop)/(Eα) =(80)/(200 000·12·10^-6)≈33,3 K.',
+      title: 'Luz zostaje zamknięty',
+      narration:
+        'Luz zamyka się, gdy swobodne wydłużenie osiągnie 3 mm. Wtedy ΔT₁ = s/(αL) = 3/(12·10⁻⁶·10 000) = 25 K. Do tej chwili naprężenie pozostaje zerowe.',
+      caption: 'Przy ΔT₁ = 25 K rura dotyka podpory; σ = 0.',
       visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'gap',
+      },
+      formula: '\\Delta T_1=\\frac{s}{\\alpha L}=\\frac{3}{12\\cdot10^{-6}\\cdot10\\,000}=25\\ \\text{K}',
+    },
+    {
+      title: 'To samo ΔT po zamknięciu luzu',
+      narration:
+        'Przy tym samym ΔT = 70 K po zamknięciu luzu dalsze wydłużenie jest zablokowane. Naprężenie wynosi σ = −E(αΔT − s/L) = −200 000(12·10⁻⁶·70 − 3/10 000) ≈ −108 MPa, czyli przekracza σ_dop = 80 MPa.',
+      caption: 'Przy ΔT = 70 K naprężenie −108 MPa przekracza dopuszczalne 80 MPa.',
+      visual: 'thermal',
+      focus: {
+        metric: 'σ',
+      },
       formula:
-        '\\Delta T_2=\\frac{\\sigma_{\\mathrm{dop}}}{E\\alpha}\n=\\frac{80}{200\\,000\\cdot12\\cdot10^{-6}}\\approx33{,}3\\ \\text{K}.',
+        '\\sigma=-E\\left(\\alpha\\Delta T-\\frac{s}{L}\\right)=-200\\,000\\left(12\\cdot10^{-6}\\cdot70-\\frac{3}{10\\,000}\\right)\\approx-108\\ \\text{MPa}',
     },
     {
-      title: 'Krok 6',
+      title: 'Dopuszczalna temperatura',
       narration:
-        'Łącznie dopuszczalny przyrost temperatury to około 25+33,3=58,3 K. Przy Δ T=70 K naprężenie wyniosłoby',
-      caption: 'Łącznie dopuszczalny przyrost temperatury to około 25+33,3=58,3 K. Przy Δ T=70 K naprężenie wyniosłoby',
+        'Dopuszczalny dodatkowy przyrost po zamknięciu luzu wynosi ΔT₂ = σ_dop/(Eα) = 80/(200 000·12·10⁻⁶) ≈ 33,3 K. Łącznie ΔT_max = 25 + 33,3 = 58,3 K.',
+      caption: 'Największy dopuszczalny przyrost temperatury to około 58,3 K.',
       visual: 'thermal',
-      focus: { metric: 'αΔT' },
-      formula: '25+33{,}3 = 58{,}3 K',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Zapis matematyczny.',
-      caption: 'σ=-E(αΔ T-(s)/(L)) =-200 000(12·10^-6·70-(3)/(10 000)) ≈-108 MPa,',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'design',
+      },
       formula:
-        '\\sigma=-E\\left(\\alpha\\Delta T-\\frac{s}{L}\\right)\n=-200\\,000\\left(12\\cdot10^{-6}\\cdot70-\\frac{3}{10\\,000}\\right)\n\\approx-108\\ \\text{MPa},',
+        '\\Delta T_2=\\frac{\\sigma_{\\mathrm{dop}}}{E\\alpha}=\\frac{80}{200\\,000\\cdot12\\cdot10^{-6}}\\approx33{,}3\\ \\text{K}\\qquad \\Delta T_{\\max}=25+33{,}3=58{,}3\\ \\text{K}',
     },
     {
-      title: 'Krok 8',
+      title: 'Sprawdzenie stateczności',
       narration:
-        'czyli przekroczyłoby przyjętą granicę. Projektując szczelinę, trzeba więc powiązać jej wymiar nie tylko z długością, ale także z przewidywanym zakresem temperatur i dopuszczalnym naprężeniem.',
-      caption:
-        'czyli przekroczyłoby przyjętą granicę. Projektując szczelinę, trzeba więc powiązać jej wymiar nie tylko z długością, ale także z…',
+        'To jeszcze nie koniec sprawdzenia. Ściskana rura może wyboczyć się przed osiągnięciem 80 MPa, jeśli jest smukła. Wtedy o dopuszczalnej temperaturze decyduje stateczność, a nie sama wytrzymałość materiału.',
+      caption: 'Warunek naprężeniowy jest konieczny, ale nie zawsze wystarczający — sprawdź wyboczenie.',
       visual: 'thermal',
-      focus: { metric: 'αΔT' },
-    },
-    {
-      title: 'Krok 9',
-      narration:
-        'W tym zadaniu jest jeszcze jedno ograniczenie. Rura jest ściskana, więc jeśli jest smukła, może wyboczyć się przed osiągnięciem 80 MPa. Wtedy o dopuszczalnej temperaturze decyduje stateczność, a nie wytrzymałość materiału. Warunek naprężeniowy jest konieczny, ale nie zawsze wystarczający.',
-      caption:
-        'W tym zadaniu jest jeszcze jedno ograniczenie. Rura jest ściskana, więc jeśli jest smukła, może wyboczyć się przed osiągnięciem…',
-      visual: 'thermal',
-      focus: { metric: 'σ' },
+      focus: {
+        metric: 'buckling',
+      },
+      formula: '\\sigma_{\\mathrm{dop}}=80\\ \\text{MPa}\\quad\\Rightarrow\\quad \\text{sprawdź wyboczenie}',
     },
   ],
 } satisfies SolutionData
