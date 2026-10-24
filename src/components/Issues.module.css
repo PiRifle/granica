@@ -1,0 +1,233 @@
+.page {
+  min-height: 100vh;
+  max-width: 1060px;
+  margin: auto;
+  padding: 26px 24px 70px;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: #46515e;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.back:hover {
+  border-color: var(--accent);
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--surface-accent);
+  color: var(--accent-strong);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+}
+.main {
+  padding-top: 58px;
+}
+.hero {
+  max-width: 760px;
+}
+.kicker {
+  display: block;
+  color: var(--accent-strong);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  margin-bottom: 18px;
+}
+.hero p {
+  max-width: 680px;
+  color: #68727e;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 26px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 9px;
+  padding: 12px 15px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.primary:hover {
+  background: var(--accent-hover);
+}
+.secondary {
+  background: #fff;
+  border: 1px solid var(--line);
+  color: #46515e;
+}
+.secondary:hover {
+  border-color: var(--accent);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 54px;
+}
+.step {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+.stepNumber {
+  display: block;
+  color: #9aa3ad;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  margin-bottom: 20px;
+}
+.stepIcon {
+  color: var(--accent-strong);
+  margin-bottom: 14px;
+}
+.step h2 {
+  font-size: 16px;
+  letter-spacing: -0.03em;
+  margin-bottom: 7px;
+}
+.step p {
+  margin: 0;
+  color: #727c87;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.template {
+  margin-top: 42px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--course-tint);
+}
+.templateHead {
+  max-width: 560px;
+}
+.templateHead h2 {
+  font-size: 24px;
+  letter-spacing: -0.04em;
+  margin-bottom: 8px;
+}
+.templateHead p {
+  margin: 0;
+  color: #727c87;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.template pre {
+  overflow-x: auto;
+  margin: 20px 0 0;
+  padding: 18px;
+  border-radius: 10px;
+  background: #17202a;
+  color: #d8e0e8;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.templateFoot {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  color: #7b8590;
+  font-size: 10px;
+}
+.templateFoot svg {
+  color: var(--accent-strong);
+  flex: 0 0 auto;
+}
+.note {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+  margin-top: 42px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--accent-strong);
+}
+.note > svg {
+  width: 22px;
+}
+.note strong {
+  display: block;
+  color: #3b4652;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.note p {
+  margin: 0;
+  color: #7b8691;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 18px 15px 50px;
+  }
+  .main {
+    padding-top: 38px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    margin-top: 38px;
+  }
+  .template {
+    padding: 21px;
+  }
+  .topbar {
+    align-items: flex-start;
+  }
+  .badge {
+    display: none;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .primary,
+  .secondary {
+    justify-content: center;
+  }
+}

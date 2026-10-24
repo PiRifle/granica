@@ -1,6 +1,6 @@
-# Granica — wytrzymałość materiałów
+# Granica — interaktywne kursy mechaniki
 
-Interaktywny kurs wytrzymałości materiałów: 10 modułów, 70 lekcji, rozbudowane wprowadzenia modułów, animowane laboratoria, trening liczbowy, ściąga, biblioteka źródeł i kolokwium próbne. Aplikacja działa w przeglądarce, zapisuje postęp lokalnie i może być zainstalowana jako PWA.
+Platforma z dwoma kursami: **wytrzymałość materiałów** (10 modułów, 70 lekcji, laboratoria, animowane rozwiązania, trening i kolokwium próbne) oraz **statyka** (7 modułów w przygotowaniu, opartych na sylabusie). Aplikacja działa w przeglądarce, zapisuje postęp lokalnie i może być zainstalowana jako PWA.
 
 [![Deploy to GitHub Pages](https://github.com/PiRifle/granica/actions/workflows/deploy.yml/badge.svg)](https://github.com/PiRifle/granica/actions/workflows/deploy.yml)
 
@@ -9,7 +9,9 @@ Interaktywny kurs wytrzymałości materiałów: 10 modułów, 70 lekcji, rozbudo
 
 ## Co jest w środku
 
-- **10 modułów × 7 lekcji** — łącznie 70 lekcji z czasem wyliczanym z treści.
+- **Wytrzymałość materiałów: 10 modułów × 7 lekcji** — łącznie 70 lekcji z czasem wyliczanym z treści.
+- **Statyka: 7 modułów w planie** — aksjomaty, układy sił, tarcie, siły wewnętrzne, środki ciężkości i twierdzenie Guldina.
+- **Wspólna strona główna** — wybór kursu, osobne motywy kolorystyczne, postęp i wznowienie nauki per kurs.
 - **Wprowadzenie do każdego modułu** — co to jest, po co się uczyć, mapa lekcji i kluczowe wzory.
 - **Rozbudowana teoria** — definicje, założenia, wyprowadzenia, po trzy przykłady i typowe błędy w każdej lekcji.
 - **Biblioteka kursu** — pełna literatura z sylabusa i otwarte podręczniki, z których powstała treść.
@@ -21,10 +23,13 @@ Interaktywny kurs wytrzymałości materiałów: 10 modułów, 70 lekcji, rozbudo
 - **Trening liczbowy** z losowanymi zadaniami i podpowiedziami.
 - **Kolokwium próbne** — bank 210 pytań z wyjaśnieniami.
 - **Mapa sylabusa i ściąga** z najważniejszymi wzorami.
-- **Postęp w `localStorage`** — ukończone lekcje i najlepsze wyniki.
+- **Postęp w `localStorage`** — ukończone lekcje i najlepsze wyniki, osobno dla każdego kursu.
+- **Treści wspomagane AI** — materiały powstają z użyciem AI i mogą zawierać błędy; kluczowe wyniki sprawdzaj z literaturą.
 - **PWA** — instalacja na telefonie i działanie offline po pierwszym wczytaniu.
 
-Moduły kursu: fundamenty, rozciąganie i ściskanie, materiał pod obciążeniem, geometria przekrojów, ścinanie i skręcanie, zginanie belek, stan naprężenia, stan odkształcenia, hipotezy wytężeniowe oraz projektowanie elementów.
+Moduły wytrzymałości: fundamenty, rozciąganie i ściskanie, materiał pod obciążeniem, geometria przekrojów, ścinanie i skręcanie, zginanie belek, stan naprężenia, stan odkształcenia, hipotezy wytężeniowe oraz projektowanie elementów.
+
+Moduły statyki: aksjomaty i rachunek wektorowy, płaski zbieżny układ sił, płaski dowolny układ sił, przestrzenny układ sił, tarcie, siły wewnętrzne w belkach i ramach oraz środki ciężkości i twierdzenie Guldina.
 
 ## Stos technologiczny
 
@@ -78,12 +83,14 @@ Aplikacja będzie dostępna pod `http://localhost:5173/`.
 │   ├── App.tsx                    # routing SPA
 │   ├── components/                # widoki (lekcja, moduł, biblioteka), nawigacja, laboratoria
 │   ├── content/
+│   │   ├── courses.ts             # kolekcja kursów: moduły, motywy, sylabus, marketing
+│   │   ├── course.ts              # publiczny re-export modelu kursów
 │   │   ├── lessons/               # lekcje: <moduł>/<lekcja>/content.mdx
 │   │   ├── modules/               # dane i omówienie modułów
 │   │   ├── solutions/             # animowane rozwiązania zadań
 │   │   ├── exam/exam-bank.ts      # bank pytań egzaminacyjnych
 │   │   ├── literature.ts          # bibliografia i otwarte źródła
-│   │   ├── registry.ts            # składanie kursu z plików
+│   │   ├── registry.ts            # składanie kursów z plików
 │   │   └── course.test.ts         # testy integralności treści
 │   ├── labs/                      # interaktywne laboratoria
 │   ├── lib/                       # obliczenia inżynierskie i ich testy
@@ -98,16 +105,20 @@ Aplikacja będzie dostępna pod `http://localhost:5173/`.
 
 ## Routing
 
-| Ścieżka             | Widok                                                |
-| ------------------- | ---------------------------------------------------- |
-| `/`                 | Strona główna i plan kursu                           |
-| `/lesson/:lessonId` | Lekcja MDX z laboratorium, przykładami i quizem      |
-| `/module/:moduleId` | Wprowadzenie do modułu, efekty, mapa lekcji i postęp |
-| `/training`         | Trening liczbowy                                     |
-| `/exam`             | Kolokwium próbne                                     |
-| `/cheatsheet`       | Ściąga                                               |
-| `/syllabus`         | Mapa sylabusa                                        |
-| `/biblioteka`       | Literatura z sylabusa i otwarte podręczniki          |
+| Ścieżka                              | Widok                                                |
+| ------------------------------------ | ---------------------------------------------------- |
+| `/`                                  | Strona główna z wyborem kursu                        |
+| `/course/:courseId`                  | Strona kursu i plan modułów                          |
+| `/course/:courseId/lesson/:lessonId` | Lekcja MDX z laboratorium, przykładami i quizem      |
+| `/course/:courseId/module/:moduleId` | Wprowadzenie do modułu, efekty, mapa lekcji i postęp |
+| `/course/:courseId/training`         | Trening liczbowy                                     |
+| `/course/:courseId/exam`             | Kolokwium próbne                                     |
+| `/course/:courseId/cheatsheet`       | Ściąga                                               |
+| `/course/:courseId/syllabus`         | Mapa sylabusa                                        |
+| `/course/:courseId/library`          | Literatura z sylabusa i otwarte podręczniki          |
+| `/issues`                            | Jak zgłaszać błędy i problemy na GitHubie            |
+
+Stare adresy `/lesson/:lessonId`, `/module/:moduleId`, `/training`, `/exam`, `/cheatsheet`, `/syllabus` i `/biblioteka` przekierowują do odpowiedniego kursu. Strona `/issues` zawiera instrukcję zgłaszania błędów przez GitHub Issues; link do niej znajduje się w stopce.
 
 Router korzysta z `BrowserRouter`, a `basename` jest wyliczany z `import.meta.env.BASE_URL`. Dzięki temu te same pliki działają pod domeną główną i pod podścieżką GitHub Pages.
 
@@ -116,10 +127,11 @@ Router korzysta z `BrowserRouter`, a `basename` jest wyliczany z `import.meta.en
 Treść jest rozdzielona od kodu:
 
 1. `scripts/content-meta-plugin.ts` skanuje `src/content/lessons/**/content.mdx`, waliduje frontmatter i udostępnia go jako wirtualny moduł `virtual:lesson-meta`.
-2. `src/content/registry.ts` łączy metadane z leniwie ładowanymi plikami MDX oraz modułami i rozwiązaniami.
-3. `src/content/course.ts` udostępnia gotowy model kursu używany przez widoki i testy.
+2. `src/content/courses.ts` jest jedynym źródłem prawdy o kursach: zawiera identyfikatory modułów, motyw, sylabus, dostępne narzędzia i treści marketingowe strony głównej.
+3. `src/content/registry.ts` łączy metadane z leniwie ładowanymi plikami MDX, modułami, rozwiązaniami i buduje kolekcję `courses`.
+4. `src/content/course.ts` udostępnia gotowy model kursów używany przez widoki i testy.
 
-Dzięki temu lista lekcji i nawigacja nie wymagają ręcznej aktualizacji po dodaniu pliku.
+Dzięki temu lista kursów, modułów i lekcji nie wymaga ręcznej aktualizacji po dodaniu pliku — nowy moduł wystarczy dopisać do `moduleIds` w `courses.ts`.
 
 ### Frontmatter lekcji
 
@@ -146,7 +158,7 @@ Zasady egzekwowane przez walidację:
 - `id` musi być zgodne z nazwą katalogu, a `moduleId` z nazwą modułu.
 - `number` jest dodatnią liczbą całkowitą, a `outcomes` nie może być puste.
 - Identyfikatory lekcji są unikalne.
-- Każdy moduł ma dokładnie 7 lekcji.
+- Każdy moduł wytrzymałości ma dokładnie 7 lekcji. Moduły statyki są na razie oznaczone jako `planned` i nie mają lekcji.
 - Pola `duration`, `lab`, `formula`, `formulaNote`, `insight`, `questions`, `workedExample` nie mogą występować we frontmatterze. Czas jest wyliczany z treści, a pozostałe elementy umieszcza się w treści MDX.
 - Każda lekcja zawiera `<Lab id="…" />`, `<Formula>`, `<WorkedExample>` i `<Quiz>` z co najmniej jednym `<Question>`.
 - `lab` musi istnieć w `src/components/LabRegistry.tsx`.
@@ -179,7 +191,7 @@ Przykład quizu:
 
 ### Wprowadzenie modułu
 
-Każdy moduł ma `src/content/modules/<id>/overview.mdx`. To osobny dokument MDX renderowany na stronie `/module/<id>`: wyjaśnia, o czym jest moduł, po co go przechodzić, jak czytać mapę lekcji i jakie wzory są centralne. Wprowadzenie może używać `Formula`, `Caption`, `Insight`, `Callout`, `WorkedExample` i zwykłego markdownu, ale nie `Quiz` (brak kontekstu lekcji).
+Każdy moduł ma `src/content/modules/<id>/overview.mdx`. To osobny dokument MDX renderowany na stronie `/course/<courseId>/module/<id>`: wyjaśnia, o czym jest moduł, po co go przechodzić, jak czytać mapę lekcji i jakie wzory są centralne. Wprowadzenie może używać `Formula`, `Caption`, `Insight`, `Callout`, `WorkedExample` i zwykłego markdownu, ale nie `Quiz` (brak kontekstu lekcji).
 
 ### Czas czytania
 
@@ -201,7 +213,7 @@ Strona `/debug/labs` renderuje wszystkie laboratoria jednocześnie. **Nie trafia
 
 ### Biblioteka i źródła
 
-`src/content/literature.ts` zawiera osiem pozycji z karty przedmiotu (sześć podstawowych i dwie uzupełniające) oraz cztery otwarte podręczniki wykorzystane merytorycznie. Strona `/biblioteka` pokazuje dane bibliograficzne, zgodny z modułami zakres tematyczny, sposób korzystania i legalne linki do otwartych tekstów. Każda lekcja kończy się sekcją `## Źródła i dalsze czytanie`.
+`src/content/literature.ts` zawiera osiem pozycji z karty przedmiotu (sześć podstawowych i dwie uzupełniające) oraz cztery otwarte podręczniki wykorzystane merytorycznie. Strona `/course/:courseId/library` pokazuje dane bibliograficzne, zgodny z modułami zakres tematyczny, sposób korzystania i legalne linki do otwartych tekstów. Każda lekcja kończy się sekcją `## Źródła i dalsze czytanie`.
 
 Podręczniki z sylabusa są objęte prawem autorskim, więc repozytorium nie zawiera ich plików. Otwarte źródła (Roylance, Wierzbicki, Osgood i notatki MIT 3.11) są dostępne na licencjach CC BY-NC-SA.
 
@@ -215,7 +227,7 @@ Podręczniki z sylabusa są objęte prawem autorskim, więc repozytorium nie zaw
 ### Dodawanie lekcji, modułu lub rozwiązania
 
 - **Lekcja:** dodaj katalog w `src/content/lessons/<moduleId>/` z `content.mdx` i poprawnym frontmatterem. Limit modułu to 7 lekcji; czas wyliczy plugin.
-- **Moduł:** dodaj `src/content/modules/<id>/module.data.ts` oraz `overview.mdx`, a następnie uzupełnij numerację i mapę sylabusa.
+- **Moduł:** dodaj `src/content/modules/<id>/module.data.ts` oraz `overview.mdx`, a następnie dopisz `id` do `moduleIds` i `syllabus` wybranego kursu w `src/content/courses.ts`.
 - **Rozwiązanie:** dodaj `src/content/solutions/<id>/solution.data.ts` i `content.mdx`. Rozwiązanie podłącz do lekcji przez `solutionId`.
 - **Pytania egzaminacyjne:** dopisuj wpisy w `src/content/exam/exam-bank.ts`; każde pytanie musi mieć co najmniej 3 odpowiedzi, poprawny indeks, wyjaśnienie i podpowiedź.
 
@@ -223,7 +235,7 @@ Po zmianach uruchom `npm run validate:content` lub pełne `npm test`.
 
 ## Postęp użytkownika
 
-Postęp jest przechowywany wyłącznie w przeglądarce pod kluczem `wytrzymalosc-course-v2`. Aplikacja nie wysyła danych do żadnego backendu. Reset postępu jest dostępny w interfejsie i czyści ukończone lekcje, wyniki oraz ostatnią lekcję.
+Postęp jest przechowywany wyłącznie w przeglądarce pod kluczem `wytrzymalosc-course-v2` (wersja 3 schematu). Aplikacja nie wysyła danych do żadnego backendu. Postęp, wyniki i ostatnia lekcja są pamiętane osobno dla każdego kursu. Reset postępu jest dostępny w interfejsie i czyści ukończone lekcje, wyniki oraz ostatnią lekcję.
 
 ## PWA i tryb offline
 
@@ -278,7 +290,9 @@ npm run build
 
 Testy sprawdzają między innymi:
 
-- 10 modułów i 70 lekcji,
+- kolekcję dwóch kursów i przypisanie modułów do dokładnie jednego kursu,
+- 10 modułów i 70 lekcji pełnego kursu wytrzymałości,
+- 7 planowanych modułów statyki bez lekcji,
 - kompilację wprowadzeń modułów,
 - metadane wszystkich laboratoriów,
 - build-time’owe liczenie słów, wzorów i czasu eksperymentów,

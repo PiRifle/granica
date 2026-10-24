@@ -103,7 +103,14 @@ function expandChunk(chunk: string): string[] {
       steps.push(assignment.trim())
     }
   }
-  return steps.filter(Boolean)
+  return steps.map(normalizeStep).filter(Boolean)
+}
+
+function normalizeStep(step: string): string {
+  return step
+    .replace(/^\\\s+/, '')
+    .replace(/\\\s*$/, '')
+    .trim()
 }
 
 export function splitFormula(formula: string): string[] {

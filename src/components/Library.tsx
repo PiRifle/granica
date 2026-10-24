@@ -1,21 +1,30 @@
 import { useState } from 'react'
 import { ArrowLeft, BookOpen, ExternalLink, GraduationCap, Library as LibraryIcon } from 'lucide-react'
 import { literature, openSources, type LiteratureKind } from '../content/literature'
-import { modules } from '../content/course'
+import { courseThemeStyle } from '../lib/courseTheme'
+import type { Course } from '../types'
 import styles from './Library.module.css'
 
 const cx = (...values: Array<string | false | null | undefined>) => values.filter(Boolean).join(' ')
 
 type Filter = 'all' | LiteratureKind
 
-export function Library({ onBack, onModule }: { onBack: () => void; onModule: (id: string) => void }) {
+export function Library({
+  course,
+  onBack,
+  onModule,
+}: {
+  course: Course
+  onBack: () => void
+  onModule: (id: string) => void
+}) {
   const [filter, setFilter] = useState<Filter>('all')
   const list = literature.filter((entry) => filter === 'all' || entry.kind === filter)
   const basicCount = literature.filter((entry) => entry.kind === 'podstawowa').length
   const extraCount = literature.filter((entry) => entry.kind === 'uzupelniajaca').length
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} style={courseThemeStyle(course.theme)}>
       <header className={styles.topbar}>
         <button className={styles.back} onClick={onBack}>
           <ArrowLeft size={16} />
@@ -114,7 +123,7 @@ export function Library({ onBack, onModule }: { onBack: () => void; onModule: (i
                 </p>
                 <div className={styles.modules}>
                   {entry.modules.map((id) => {
-                    const module = modules.find((item) => item.id === id)
+                    const module = course.modules.find((item) => item.id === id)
                     if (!module) return null
                     return (
                       <button key={id} onClick={() => onModule(id)}>
