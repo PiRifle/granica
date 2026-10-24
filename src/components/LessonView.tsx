@@ -85,8 +85,8 @@ export function LessonView({
                     <span className={l('sidebar-number')}>
                       {completed.includes(item.id) ? <Check size={14} /> : item.number}
                     </span>
-                    <span>
-                      {item.shortTitle}
+                    <span className={l('sidebar-lesson-copy')}>
+                      <span className={l('sidebar-lesson-title')}>{item.shortTitle}</span>
                       <small>{item.totalMinutes} min</small>
                     </span>
                   </button>

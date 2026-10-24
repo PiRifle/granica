@@ -123,13 +123,21 @@
   border-color: #a8b6f2;
   background: #fff;
 }
-.sidebar-lesson > span:last-child {
+.sidebar-lesson-copy {
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
+}
+.sidebar-lesson-title {
+  flex: 1;
+  min-width: 0;
 }
 .sidebar-lesson small {
+  flex: 0 0 auto;
+  white-space: nowrap;
   font-size: 9px;
   color: #8d97a1;
   font-weight: 400;
