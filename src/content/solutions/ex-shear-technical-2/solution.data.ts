@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { ShearTechnicalExample2Animation } from './animation'
 
 export default {
   id: 'ex-shear-technical-2',
@@ -7,6 +8,7 @@ export default {
   given: ['F = 18 kN', 'l = 150 mm', 'b = 50 mm'],
   result:
     'Podobny efekt występuje w połączeniu nitowym z jedną nakładką. Sworzeń jest zginany, a nacisk na blachę nierównomierny. Im grubsza blacha i im większy mimośród, tym większe dodatkowe naprężenia. Ścinanie techniczne pozostaje pierwszym oszacowaniem, ale nie opisuje całego zjawiska.',
+  animation: ShearTechnicalExample2Animation,
   figure: {
     kind: 'section',
     width: 150,
@@ -24,60 +26,58 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model złącza',
       narration:
-        'Rozważmy złącze klejowe, w którym dwie deski są połączone zakładkowo. Siła rozciągająca wynosi F = 18 kN, a spoina ma długość l = 150 mm i szerokość b = 50 mm. Pole ścinane to cała powierzchnia spoiny, czyli A_s = l · b = 150 · 50 = 7500 mm^2.',
-      caption:
-        'Rozważmy złącze klejowe, w którym dwie deski są połączone zakładkowo. Siła rozciągająca wynosi F = 18 kN, a spoina ma długość l =…',
+        'Rozważmy złącze klejowe, w którym dwie deski są połączone zakładkowo. Siła rozciągająca wynosi F = 18 kN, a spoina ma długość l = 150 mm i szerokość b = 50 mm.',
+      caption: 'Dwie deski zakładkowe połączone spoiną; siła rozciągająca 18 kN.',
       visual: 'section',
-      focus: { metric: 'design' },
-      formula: 'F = 18\\ \\text{kN}',
+      focus: { metric: 'model' },
+      formula: 'F = 18\\ \\text{kN},\\qquad l = 150\\ \\text{mm},\\qquad b = 50\\ \\text{mm}',
     },
     {
-      title: 'Krok 2',
+      title: 'Płaszczyzna ścinania',
       narration:
-        'Siła w niutonach wynosi 18 000 N, więc średnie naprężenie styczne to τ_sr = 18 000/7500 = 2,4 MPa. Taki wynik jest typowy dla kleju konstrukcyjnego i pokazuje, że połączenie klejowe przenosi dużą siłę dzięki temu, że rozkłada ją na znaczną powierzchnię.',
-      caption:
-        'Siła w niutonach wynosi 18 000 N, więc średnie naprężenie styczne to τ_sr = 18 000/7500 = 2,4 MPa. Taki wynik jest typowy dla…',
+        'Ścinanie odbywa się w cienkiej warstwie kleju między deskami. Płaszczyzną ścinania jest cała powierzchnia spoiny, a nie przekrój deski. To jeden styk, więc n = 1.',
+      caption: 'Płaszczyzna ścinania pokrywa się z powierzchnią spoiny.',
       visual: 'section',
-      focus: { metric: 'stress' },
-      formula: '18\\,000\\ \\text{N}',
+      focus: { metric: 'plane' },
+      formula: 'n = 1,\\qquad A_s = l \\cdot b',
     },
     {
-      title: 'Krok 3',
+      title: 'Pole ścinane',
       narration:
-        'Zwróć uwagę, że grubość deski nie wchodzi do pola ścinanego. Grubość wpływa na wytrzymałość deski na rozciąganie i na docisk, ale samo ścinanie kleju odbywa się w płaszczyźnie spoiny. To częsty błąd: uczniowie mnożą długość przez grubość deski, a nie przez szerokość spoiny.',
-      caption:
-        'Zwróć uwagę, że grubość deski nie wchodzi do pola ścinanego. Grubość wpływa na wytrzymałość deski na rozciąganie i na docisk, ale…',
+        'Pole ścinane to iloczyn długości i szerokości spoiny: A_s = l · b = 150 · 50 = 7 500 mm^2. Grubość deski nie wchodzi do tego pola — wpływa na rozciąganie i docisk deski, ale nie na pole ścinania kleju.',
+      caption: 'Spoina 150 × 50 mm ma pole 7 500 mm²; grubość deski nie jest potrzebna.',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: { metric: 'area' },
+      formula: 'A_s = 150 \\cdot 50 = 7\\,500\\ \\text{mm}^2',
     },
     {
-      title: 'Krok 4',
+      title: 'Przenoszenie siły',
       narration:
-        'Wynik 2,4 MPa należy porównać z wytrzymałością kleju na ścinanie, a nie z granicą plastyczności stali. Dla klejów konstrukcyjnych wartości dopuszczalne często mieszczą się w zakresie kilku megapaskali, więc otrzymany wynik jest wiarygodny. Ostateczna ocena wymaga jednak uwzględnienia przygotowania powierzchni, temperatury i starzenia się kleju.',
-      caption:
-        'Wynik 2,4 MPa należy porównać z wytrzymałością kleju na ścinanie, a nie z granicą plastyczności stali. Dla klejów konstrukcyjnych…',
+        'Siła 18 000 N przechodzi z jednej deski do drugiej przez całą powierzchnię spoiny. Przy równomiernym rozkładzie średnie naprężenie styczne wynosi τ_sr = 18 000/7 500 = 2,4 MPa.',
+      caption: 'Siła jest przenoszona przez całą spoinę; τ_sr = 2,4 MPa.',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: { metric: 'transfer' },
+      formula: '\\tau_{sr} = \\frac{18\\,000}{7\\,500} = 2{,}4\\ \\text{MPa}',
     },
     {
-      title: 'Krok 5',
+      title: 'Mimośród obciążenia',
       narration:
-        'W rzeczywistym złączu zakładkowym obciążenie jest mimośrodowe. Linie działania sił w obu deskach nie pokrywają się, więc powstaje dodatkowy moment zginający. Powoduje on odrywanie końców spoiny, co jest szczególnie groźne dla klejów o małej wytrzymałości na rozciąganie. Model czystego ścinania tego nie pokazuje, dlatego w konstrukcjach klejowych stosuje się zakładki i dodatkowe dociski.',
-      caption:
-        'W rzeczywistym złączu zakładkowym obciążenie jest mimośrodowe. Linie działania sił w obu deskach nie pokrywają się, więc powstaje…',
+        'W rzeczywistym złączu zakładkowym linie działania sił w obu deskach nie pokrywają się. Powstaje dodatkowy moment M = F · e, który odrywa końce spoiny. Model czystego ścinania tego nie pokazuje, dlatego stosuje się zakładki i dodatkowe dociski. Podobny efekt występuje w połączeniu nitowym z jedną nakładką.',
+      caption: 'Osie desek są przesunięte o e; moment F · e odrywa końce spoiny.',
       visual: 'section',
-      focus: { metric: 'design' },
+      focus: { metric: 'eccentric' },
+      formula: 'M = F \\cdot e',
     },
     {
-      title: 'Krok 6',
+      title: 'Kontrola i odkształcenie',
       narration:
-        'Podobny efekt występuje w połączeniu nitowym z jedną nakładką. Sworzeń jest zginany, a nacisk na blachę nierównomierny. Im grubsza blacha i im większy mimośród, tym większe dodatkowe naprężenia. Ścinanie techniczne pozostaje pierwszym oszacowaniem, ale nie opisuje całego zjawiska.',
-      caption:
-        'Podobny efekt występuje w połączeniu nitowym z jedną nakładką. Sworzeń jest zginany, a nacisk na blachę nierównomierny. Im…',
+        'Klej odkształca się postaciowo, a wynik 2,4 MPa należy porównać z wytrzymałością kleju na ścinanie, a nie z granicą plastyczności stali. Dla klejów konstrukcyjnych wartości dopuszczalne często mieszczą się w zakresie kilku megapaskali, więc otrzymany wynik jest wiarygodny. Ostateczna ocena wymaga jednak uwzględnienia przygotowania powierzchni, temperatury i starzenia się kleju.',
+      caption: 'Odkształcenie postaciowe kleju; τ_sr = 2,4 MPa porównaj z wytrzymałością kleju.',
       visual: 'section',
-      focus: { metric: 'stress' },
+      focus: { metric: 'check' },
+      formula: '\\tau_{sr} = 2{,}4\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

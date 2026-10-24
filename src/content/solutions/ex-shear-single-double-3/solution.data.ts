@@ -1,150 +1,59 @@
 import type { SolutionData } from '../../model'
+import { ShearDesignAnimation } from './animation'
 
 export default {
   id: 'ex-shear-single-double-3',
   title: 'Połączenia jedno- i dwucięte — przykład 3',
   duration: 7,
-  given: ['F = 90 kN', 'tau_{dop} = 120 MPa'],
+  given: ['F = 90 kN', 'τ_dop = 120 MPa'],
   result:
     'W praktyce projektant często iteruje: dobiera średnicę, sprawdza rozstaw i odległości od krawędzi, a potem wraca do obliczeń. Nasz przykład pomija te szczegóły, ale pokazuje logikę. Najpierw warunek wytrzymałości, potem zaokrąglenie, na końcu kontrola. Dopiero po niej można przejść do rysunku wykonawczego.',
-  figure: {
-    kind: 'section',
-    width: 22,
-    height: 22,
-    parts: [
-      {
-        x: 0,
-        y: 0,
-        width: 22,
-        height: 22,
-        label: 'sworzeń ∅22',
-        tone: 'solid',
-      },
-    ],
-    centroid: {
-      x: 11,
-      y: 11,
-    },
-    values: [
-      {
-        label: 'F',
-        value: '90 kN',
-        focus: 'load',
-        reveal: 0,
-      },
-      {
-        label: 'τ_dop',
-        value: '120 MPa',
-        focus: 'stress',
-        reveal: 0,
-      },
-      {
-        label: 'A_s,min',
-        value: '750 mm²',
-        focus: 'design',
-      },
-      {
-        label: 'A_min',
-        value: '375 mm²',
-        focus: 'design',
-        reveal: 1,
-      },
-      {
-        label: 'd_min',
-        value: '21,85 mm',
-        focus: 'design',
-        reveal: 2,
-      },
-      {
-        label: 'd',
-        value: '22 mm',
-        focus: 'design',
-      },
-      {
-        label: 'A',
-        value: '380,13 mm²',
-        focus: 'design',
-      },
-      {
-        label: 'τ_sr',
-        value: '118,4 MPa',
-        focus: 'stress',
-        reveal: 3,
-      },
-    ],
-    note: 'Przyjęto średnicę handlową 22 mm; naprężenie 118,4 MPa jest poniżej 120 MPa.',
-    shape: 'circle',
-  },
+  animation: ShearDesignAnimation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Zaprojektujmy średnicę sworznia dwuciętego dla siły F = 90 kN i naprężenia dopuszczalnego τ_dop = 120 MPa. Tym razem szukamy wymiaru, a nie naprężenia.',
-      caption:
-        'Zaprojektujmy średnicę sworznia dwuciętego dla siły F = 90 kN i naprężenia dopuszczalnego τ_dop = 120 MPa. Tym razem szukamy…',
+        'Projektujemy średnicę sworznia dwuciętego dla siły F = 90 kN i naprężenia dopuszczalnego τ_dop = 120 MPa. Sworzeń przechodzi przez trzy blachy, więc ma dwie płaszczyzny ścinania. Tym razem szukamy wymiaru d, a nie naprężenia.',
+      caption: 'Dwie płaszczyzny ścinania i znane τ_dop wyznaczają wymaganą średnicę sworznia.',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'F = 90\\ \\text{kN}',
+      focus: { metric: 'model' },
+      formula: 'F=90\\ \\text{kN},\\quad \\tau_{dop}=120\\ \\text{MPa},\\quad n=2',
     },
     {
-      title: 'Krok 2',
+      title: 'Wymagane łączne pole',
       narration:
-        'Wymagane łączne pole ścinania wynosi A_s ≥ F/τ_dop = 90 000/120 = 750 mm^2. Dla jednego sworznia dwuciętego A_s = 2A, więc pole jednego przekroju musi wynosić co najmniej A ≥ 375 mm^2.',
-      caption:
-        'Wymagane łączne pole ścinania wynosi A_s ≥ F/τ_dop = 90 000/120 = 750 mm^2. Dla jednego sworznia dwuciętego A_s = 2A, więc pole…',
+        'Z warunku wytrzymałości τ_sr = F/A_s ≤ τ_dop otrzymujemy A_s ≥ F/τ_dop = 90 000/120 = 750 mm². To jest pole całkowite, potrzebne na wszystkich płaszczyznach ścinania.',
+      caption: 'Najpierw liczymy łączne pole ścinania, a dopiero potem dzielimy je między przekroje.',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'A_s \\ge F/\\tau_{dop} = 90\\,000/120 = 750\\ \\text{mm}^2',
+      focus: { metric: 'area' },
+      formula: 'A_s\\ge\\frac{F}{\\tau_{dop}}=\\frac{90\\,000}{120}=750\\ \\text{mm}^{2}',
     },
     {
-      title: 'Krok 3',
+      title: 'Dwie płaszczyzny, połowa pola',
       narration:
-        'Z zależności A = π d^2/4 otrzymujemy d ≥ √(4A/π) = √(4 · 375/π) = √(477,46) = 21,85 mm. Najmniejsza dopuszczalna średnica to około 21,9 mm.',
-      caption:
-        'Z zależności A = π d^2/4 otrzymujemy d ≥ √(4A/π) = √(4 · 375/π) = √(477,46) = 21,85 mm. Najmniejsza dopuszczalna średnica to…',
+        'Sworzeń jest dwucięty, więc A_s = 2A. Na jeden przekrój przypada A ≥ 750/2 = 375 mm². W połączeniu jednociętym całe 750 mm² musiałoby przypadać na jeden przekrój, co dałoby znacznie większą średnicę.',
+      caption: 'To samo pole A_s rozkłada się na dwie płaszczyzny; każda potrzebuje tylko 375 mm².',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'A = \\pi d^2/4',
+      focus: { metric: 'planes' },
+      formula: 'A\\ge\\frac{A_s}{2}=\\frac{750}{2}=375\\ \\text{mm}^{2}',
     },
     {
-      title: 'Krok 4',
+      title: 'Wymagana średnica',
       narration:
-        'Wybieramy średnicę handlową 22 mm i sprawdzamy ponownie. Pole wynosi A = π · 22^2/4 = 380,13 mm^2, łączne pole 2A = 760,27 mm^2, a naprężenie τ_sr = 90 000/760,27 = 118,38 MPa, czyli poniżej 120 MPa. Warunek jest spełniony.',
-      caption:
-        'Wybieramy średnicę handlową 22 mm i sprawdzamy ponownie. Pole wynosi A = π · 22^2/4 = 380,13 mm^2, łączne pole 2A = 760,27 mm^2,…',
+        'Z zależności A = πd²/4 otrzymujemy d ≥ √(4A/π) = √(4 · 375/π) = √477,46 = 21,85 mm. Najmniejsza dopuszczalna średnica wynosi około 21,9 mm.',
+      caption: 'Wymagane pole jednego przekroju zamieniamy na najmniejszą dopuszczalną średnicę.',
       visual: 'section',
-      focus: {
-        metric: 'stress',
-      },
-      formula: 'A = \\pi \\cdot 22^2/4 = 380{,}13\\ \\text{mm}^2',
+      focus: { metric: 'diameter' },
+      formula: 'd\\ge\\sqrt{\\frac{4A}{\\pi}}=\\sqrt{\\frac{4\\cdot375}{\\pi}}=21{,}85\\ \\text{mm}',
     },
     {
-      title: 'Krok 5',
+      title: 'Dobór i kontrola',
       narration:
-        'Zwróć uwagę, że zaokrąglenie średnicy w górę zwiększa pole, ale nie zmienia liczby płaszczyzn. Gdyby wynik był blisko granicy, moglibyśmy rozważyć zwiększenie liczby sworzni zamiast średnicy. To decyzja projektowa: większa średnica oznacza cięższy łącznik i większy otwór w blasze, a większa liczba łączników oznacza dłuższe połączenie i bardziej złożony montaż.',
-      caption:
-        'Zwróć uwagę, że zaokrąglenie średnicy w górę zwiększa pole, ale nie zmienia liczby płaszczyzn. Gdyby wynik był blisko granicy,…',
+        'Wybieramy średnicę handlową 22 mm. Pole wynosi A = π · 22²/4 = 380,13 mm², łączne pole 2A = 760,27 mm², a naprężenie τ_sr = 90 000/760,27 = 118,38 MPa. Jest ono mniejsze od 120 MPa, więc warunek jest spełniony. Zaokrąglenie zwiększyło pole, ale nie zmieniło liczby płaszczyzn.',
+      caption: 'Średnica 22 mm daje naprężenie 118,4 MPa, czyli poniżej dopuszczalnych 120 MPa.',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-    },
-    {
-      title: 'Krok 6',
-      narration:
-        'W praktyce projektant często iteruje: dobiera średnicę, sprawdza rozstaw i odległości od krawędzi, a potem wraca do obliczeń. Nasz przykład pomija te szczegóły, ale pokazuje logikę. Najpierw warunek wytrzymałości, potem zaokrąglenie, na końcu kontrola. Dopiero po niej można przejść do rysunku wykonawczego.',
-      caption:
-        'W praktyce projektant często iteruje: dobiera średnicę, sprawdza rozstaw i odległości od krawędzi, a potem wraca do obliczeń.…',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
+      focus: { metric: 'check' },
+      formula: '\\tau_{sr}=\\frac{90\\,000}{2\\cdot380{,}13}=118{,}38\\ \\text{MPa}\\le120\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

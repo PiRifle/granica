@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { ShaftDesignHollowAnimation } from './animation'
 
 export default {
   id: 'ex-shear-shaft-design-2',
@@ -7,6 +8,7 @@ export default {
   given: ['k = d/D = 0,8', 'T = 2,2 kN·m', 'L = 1800 mm', 'G = 80 GPa', 'tau_{dop} = 45 MPa', 'varphi_{dop} = 1,2°'],
   result:
     'Pole rury to π(80^2-64^2)/4 = 1810 mm^2, a pole wału pełnego o średnicy 75 mm to 4418 mm^2. Rura zużywa więc około 59% mniej materiału, ale ma większą średnicę zewnętrzną i cieńszą ściankę. W ciasnej obudowie lub przy dużym momencie skręcającym z udarami trzeba dodatkowo sprawdzić stateczność i naprężenia lokalne.',
+  animation: ShaftDesignHollowAnimation,
   figure: {
     kind: 'section',
     width: 80,
@@ -102,65 +104,67 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Rozważmy teraz wał rurowy o stosunku średnic k = d/D = 0,8, przenoszący ten sam moment T = 2,2 kN·m przy L = 1,8 m. Parametry materiałowe i dopuszczalne pozostają bez zmian: G = 80 GPa, τ_dop = 45 MPa, φ_dop = 1,2°.',
-      caption:
-        'Rozważmy teraz wał rurowy o stosunku średnic k = d/D = 0,8, przenoszący ten sam moment T = 2,2 kN·m przy L = 1,8 m. Parametry…',
+        'Rozważamy wał rurowy o stosunku średnic k = d/D = 0,8. Przenosi ten sam moment T = 2,2 kN·m przy L = 1,8 m. Parametry materiałowe i dopuszczalne pozostają bez zmian: G = 80 GPa, τ_dop = 45 MPa, φ_dop = 1,2°.',
+      caption: 'Model: rura o nieznanej średnicy zewnętrznej D i średnicy wewnętrznej d = 0,8D.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'model',
       },
-      formula: 'k = d/D = 0{,}8',
+      formula: 'k=d/D=0{,}8,\\quad d=0{,}8D,\\quad T=2\\,200\\,000\\ \\text{N}\\cdot\\text{mm}',
     },
     {
-      title: 'Krok 2',
+      title: 'Warunek wytrzymałości',
       narration:
-        'Dla k = 0,8 mamy 1-k^4 = 1-0,4096 = 0,5904. Warunek wytrzymałości daje D ≥ ∛(16 · 2 200 000/(π · 45 · 0,5904)) = ∛(421 700) = 75,0 mm. Warunek sztywności daje D ≥ √(24 080 000/0,5904) = 79,9 mm.',
+        'Dla k = 0,8 mamy 1 − k⁴ = 1 − 0,4096 = 0,5904. Warunek wytrzymałości daje D ≥ ∛(16 · 2 200 000/(π · 45 · 0,5904)) = ∛(421 700) = 75,0 mm.',
       caption:
-        'Dla k = 0,8 mamy 1-k^4 = 1-0,4096 = 0,5904. Warunek wytrzymałości daje D ≥ ∛(16 · 2 200 000/(π · 45 · 0,5904)) = ∛(421 700) =…',
+        'Pusta część przekroju nie przenosi naprężeń, więc ta sama nośność wymaga większej średnicy zewnętrznej niż w wale pełnym.',
       visual: 'section',
       focus: {
-        metric: 'design',
-      },
-      formula: 'k = 0{,}8',
-    },
-    {
-      title: 'Krok 3',
-      narration:
-        'Przyjmujemy D = 80 mm i d = 0,8 · 80 = 64 mm. Grubość ścianki wynosi 8 mm. Sprawdzamy: 80^4-64^4 = 40 960 000-16 777 216 = 24 182 784, więc J_o = π · 24 182 784/32 = 2 374 140 mm^4.',
-      caption:
-        'Przyjmujemy D = 80 mm i d = 0,8 · 80 = 64 mm. Grubość ścianki wynosi 8 mm. Sprawdzamy: 80^4-64^4 = 40 960 000-16 777…',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'D = 80\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 4',
-      narration:
-        'Wtedy φ = 3 960 000 000/(80 000 · 2 374 140) = 0,02085 rad = 1,195°, czyli tuż poniżej granicy. Naprężenie wynosi τ_max = 2 200 000 · 40/2 374 140 = 37,1 MPa, poniżej 45 MPa.',
-      caption:
-        'Wtedy φ = 3 960 000 000/(80 000 · 2 374 140) = 0,02085 rad = 1,195°, czyli tuż poniżej granicy. Naprężenie wynosi τ_max = 2…',
-      visual: 'section',
-      focus: {
-        metric: 'stress',
+        metric: 'strength',
       },
       formula:
-        '\\varphi = 3\\,960\\,000\\,000/(80\\,000 \\cdot 2\\,374\\,140) = 0{,}02085\\ \\text{rad} = 1{,}195^\\circ',
+        'D \\ge \\sqrt[3]{\\frac{16 \\cdot 2\\,200\\,000}{\\pi \\cdot 45 \\cdot (1-0{,}8^4)}} = \\sqrt[3]{421\\,700} = 75{,}0\\ \\text{mm}',
     },
     {
-      title: 'Krok 5',
+      title: 'Warunek sztywności',
       narration:
-        'Pole rury to π(80^2-64^2)/4 = 1810 mm^2, a pole wału pełnego o średnicy 75 mm to 4418 mm^2. Rura zużywa więc około 59% mniej materiału, ale ma większą średnicę zewnętrzną i cieńszą ściankę. W ciasnej obudowie lub przy dużym momencie skręcającym z udarami trzeba dodatkowo sprawdzić stateczność i naprężenia lokalne.',
+        'Warunek sztywności daje D ≥ ∜(32 · 2 200 000 · 1800/(π · 80 000 · 0,020944 · 0,5904)) = ∜(40 773 000) = 79,9 mm. To więcej niż 75,0 mm, więc decyduje sztywność.',
       caption:
-        'Pole rury to π(80^2-64^2)/4 = 1810 mm^2, a pole wału pełnego o średnicy 75 mm to 4418 mm^2. Rura zużywa więc około 59% mniej…',
+        'Sztywność wymaga D = 79,9 mm. Rura musi mieć większą średnicę zewnętrzną niż wynikałoby to z samej wytrzymałości.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'stiffness',
       },
-      formula: '\\pi(80^2-64^2)/4 = 1810\\ \\text{mm}^2',
+      formula:
+        'D \\ge \\sqrt[4]{\\frac{32 \\cdot 2\\,200\\,000 \\cdot 1800}{\\pi \\cdot 80\\,000 \\cdot 0{,}020944 \\cdot (1-0{,}8^4)}} = \\sqrt[4]{40\\,773\\,000} = 79{,}9\\ \\text{mm}',
+    },
+    {
+      title: 'Wybór i sprawdzenie',
+      narration:
+        'Przyjmujemy D = 80 mm i d = 0,8 · 80 = 64 mm, czyli ściankę 8 mm. Wtedy J_o = π · (80⁴ − 64⁴)/32 = 2 374 140 mm⁴, φ = 1,195° < 1,2°, a τ_max = 37,1 MPa < 45 MPa.',
+      caption:
+        'D = 80 mm spełnia oba warunki. Kąt jest jednak bardzo blisko granicy, dlatego zapas sztywności jest mały.',
+      visual: 'section',
+      focus: {
+        metric: 'check',
+      },
+      formula:
+        'D=80\\ \\text{mm},\\quad d=64\\ \\text{mm},\\quad \\varphi=1{,}195^\\circ<1{,}2^\\circ,\\quad \\tau_{max}=37{,}1\\ \\text{MPa}<45\\ \\text{MPa}',
+    },
+    {
+      title: 'Materiał i gabaryt',
+      narration:
+        'Pole rury to π(80² − 64²)/4 = 1810 mm², a pole wału pełnego o średnicy 75 mm to 4418 mm². Rura zużywa więc około 59% mniej materiału, ale ma większą średnicę zewnętrzną i cieńszą ściankę.',
+      caption:
+        'Mniej materiału nie znaczy mniejszy gabaryt. Trzeba jeszcze sprawdzić stateczność cienkiej ścianki i naprężenia lokalne.',
+      visual: 'section',
+      focus: {
+        metric: 'material',
+      },
+      formula:
+        'A_r=\\frac{\\pi(80^2-64^2)}{4}=1810\\ \\text{mm}^2,\\qquad A_s=\\frac{\\pi \\cdot 75^2}{4}=4418\\ \\text{mm}^2,\\qquad \\frac{A_r}{A_s}\\approx0{,}41',
     },
   ],
 } satisfies SolutionData

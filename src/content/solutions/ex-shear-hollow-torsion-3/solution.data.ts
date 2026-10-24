@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { HollowTorsionDesignAnimation } from './animation'
 
 export default {
   id: 'ex-shear-hollow-torsion-3',
@@ -7,162 +8,66 @@ export default {
   given: ['D = 100 mm', 'T = 4 kN·m', 'tau_{dop} = 40 MPa'],
   result:
     'Wariant odwrotny pokazuje, że dla zadanej średnicy zewnętrznej nośność rośnie wraz z grubością ścianki, ale nie liniowo. Początkowo wystarczy cienka ścianka, a przy dużych momentach potrzebna grubość rośnie szybko. Jednocześnie bardzo cienka ścianka może utracić stateczność miejscową, mimo że wzór na naprężenie nadal daje poprawny wynik sprężysty.',
-  figure: {
-    kind: 'section',
-    width: 100,
-    height: 100,
-    parts: [
-      {
-        x: 0,
-        y: 0,
-        width: 100,
-        height: 100,
-        label: 'rura ∅100',
-        tone: 'light',
-      },
-    ],
-    holes: [
-      {
-        cx: 50,
-        cy: 50,
-        r: 41.85,
-        label: '∅83,7',
-      },
-    ],
-    centroid: {
-      x: 50,
-      y: 50,
-    },
-    values: [
-      {
-        label: 'T',
-        value: '4,0 kN·m',
-        focus: 'load',
-        reveal: 0,
-      },
-      {
-        label: 'D',
-        value: '100 mm',
-        focus: 'design',
-        reveal: 0,
-      },
-      {
-        label: 'τ_dop',
-        value: '40 MPa',
-        focus: 'stress',
-        reveal: 0,
-      },
-      {
-        label: 'W_o,min',
-        value: '100 000 mm³',
-        focus: 'design',
-      },
-      {
-        label: 'd',
-        value: '83,70 mm',
-        focus: 'design',
-      },
-      {
-        label: 't',
-        value: '8,15 mm',
-        focus: 'design',
-        reveal: 3,
-      },
-      {
-        label: 'J_o',
-        value: '4 999 090 mm⁴',
-        focus: 'design',
-      },
-      {
-        label: 'W_o',
-        value: '99 982 mm³',
-        focus: 'design',
-        reveal: 4,
-      },
-      {
-        label: 'τ_max',
-        value: '40,0 MPa',
-        focus: 'stress',
-      },
-      {
-        label: 'oszczędność',
-        value: '70 %',
-        focus: 'design',
-        reveal: 3,
-      },
-    ],
-    note: 'Dla D = 100 mm i τ_dop = 40 MPa wymagana ścianka ma grubość około 8,15 mm.',
-    shape: 'circle',
-  },
+  animation: HollowTorsionDesignAnimation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i warunek',
       narration:
-        'Zaprojektujmy rurę o średnicy zewnętrznej D = 100 mm, która przy momencie T = 4 kN·m osiągnie naprężenie nie większe niż τ_dop = 40 MPa. Szukamy średnicy wewnętrznej d i grubości ścianki t.',
-      caption:
-        'Zaprojektujmy rurę o średnicy zewnętrznej D = 100 mm, która przy momencie T = 4 kN·m osiągnie naprężenie nie większe niż τ_dop =…',
+        'Projektujemy rurę o średnicy zewnętrznej D = 100 mm, która przy momencie T = 4 kN·m osiągnie naprężenie nie większe niż τ_dop = 40 MPa. Szukamy średnicy wewnętrznej d i grubości ścianki t. Moment zamieniamy na 4 000 000 N·mm.',
+      caption: 'Średnica zewnętrzna jest ustalona, a średnica wewnętrzna jest szukana.',
+      visual: 'section',
+      focus: {
+        metric: 'model',
+      },
+      formula:
+        'D=100\\ \\text{mm},\\quad T=4\\ \\text{kN}\\cdot\\text{m}=4\\,000\\,000\\ \\text{N}\\cdot\\text{mm},\\quad \\tau_{dop}=40\\ \\text{MPa}',
+    },
+    {
+      title: 'Wymagany wskaźnik wytrzymałości',
+      narration:
+        'Najpierw wyznaczamy wymagany wskaźnik wytrzymałości: W_o ≥ T/τ_dop = 4 000 000/40 = 100 000 mm³. Ten warunek mówi, ile nośności musi mieć przekrój, zanim jeszcze dobierzemy ściankę.',
+      caption: 'Warunek wytrzymałości wyznacza minimalny wskaźnik W_o.',
       visual: 'section',
       focus: {
         metric: 'design',
       },
-      formula: 'D = 100 mm',
+      formula: 'W_o\\ge\\frac{T}{\\tau_{dop}}=\\frac{4\\,000\\,000}{40}=100\\,000\\ \\text{mm}^3',
     },
     {
-      title: 'Krok 2',
+      title: 'Średnica wewnętrzna i ścianka',
       narration:
-        'Najpierw wyznaczamy wymagany wskaźnik wytrzymałości: W_o ≥ T/τ_dop = 4 000 000/40 = 100 000 mm^3. Następnie korzystamy ze wzoru W_o = π(D^4-d^4)/(16D) i przekształcamy go względem d:',
-      caption:
-        'Najpierw wyznaczamy wymagany wskaźnik wytrzymałości: W_o ≥ T/τ_dop = 4 000 000/40 = 100 000 mm^3. Następnie korzystamy ze wzoru…',
+        'Korzystamy ze wzoru W_o = π(D⁴ − d⁴)/(16D) i przekształcamy go względem d. Po podstawieniu D = 100 mm i W_o = 100 000 mm³ otrzymujemy d⁴ = 49 070 419 mm⁴, czyli d = 83,70 mm. Grubość ścianki wynosi t = (100 − 83,70)/2 = 8,15 mm.',
+      caption: 'Wydrążenie rdzenia zwiększa średnicę wewnętrzną, ale ścianka pozostaje stosunkowo cienka.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'geometry',
       },
-      formula: 'W_{o} \\ge T/\\tau_{\\mathrm{dop}} = 4\\,000\\,000/40 = 100\\,000 mm^{3}',
+      formula:
+        'd^4=D^4-\\frac{16DW_o}{\\pi}=100^4-\\frac{16\\cdot100\\cdot100\\,000}{\\pi}=49\\,070\\,419\\ \\text{mm}^4',
     },
     {
-      title: 'Krok 3',
-      narration: 'Przekształcenie wzoru na średnicę wewnętrzną.',
-      caption: 'd^4 = D^4 - (16DW_o)/(π).',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'd^4 = D^4 - \\frac{16DW_o}{\\pi}.',
-    },
-    {
-      title: 'Krok 4',
+      title: 'Sprawdzenie naprężeń',
       narration:
-        'Podstawiamy D = 100 mm i W_o = 100 000 mm^3: d^4 = 100 000 000 - 50 929 581 = 49 070 419 mm^4. Pierwiastek czwartego stopnia daje d = 83,70 mm. Grubość ścianki wynosi t = (100-83,70)/2 = 8,15 mm.',
-      caption:
-        'Podstawiamy D = 100 mm i W_o = 100 000 mm^3: d^4 = 100 000 000 - 50 929 581 = 49 070 419 mm^4. Pierwiastek czwartego stopnia daje…',
+        'Sprawdzamy: J_o = π(100⁴ − 83,70⁴)/32 = 4 999 090 mm⁴, a W_o = J_o/50 = 99 982 mm³. Naprężenie maksymalne wynosi 4 000 000/99 982 = 40,01 MPa, czyli praktycznie równa się wartości dopuszczalnej. Maksimum leży na zewnętrznej powierzchni rury.',
+      caption: 'Rozkład naprężeń jest liniowy, a maksimum sięga dopiero na zewnętrznym obwodzie.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'check',
       },
-      formula: 'd = 83{,}70\\ \\text{mm}',
+      formula:
+        'J_o=\\frac{\\pi(100^4-83{,}70^4)}{32}=4\\,999\\,090\\ \\text{mm}^4,\\qquad W_o=\\frac{J_o}{50}=99\\,982\\ \\text{mm}^3',
     },
     {
-      title: 'Krok 5',
+      title: 'Materiał i granice modelu',
       narration:
-        'Sprawdzenie: J_o = π(100^4-83,70^4)/32 = 4 999 090 mm^4, a W_o = J_o/50 = 99 982 mm^3. Naprężenie wynosi 4 000 000/99 982 = 40,01 MPa, czyli praktycznie równa się wartości dopuszczalnej. Pole rury to około 2 352 mm^2, a pole pełnego wału o średnicy 100 mm to 7 854 mm^2, więc oszczędność materiału sięga około 70%.',
-      caption:
-        'Sprawdzenie: J_o = π(100^4-83,70^4)/32 = 4 999 090 mm^4, a W_o = J_o/50 = 99 982 mm^3. Naprężenie wynosi 4 000 000/99 982 = 40,01…',
+        'Pole rury to około 2 352 mm², a pole pełnego wału o średnicy 100 mm to 7 854 mm². Oszczędność materiału sięga około 70%. Trzeba jednak pamiętać, że przy bardzo cienkiej ściance może wystąpić miejscowe wyboczenie albo owalizacja, których wzór sprężysty nie opisuje.',
+      caption: 'Duża oszczędność masy wymaga sprawdzenia stateczności cienkiej ścianki.',
       visual: 'section',
       focus: {
-        metric: 'stress',
+        metric: 'limits',
       },
-      formula: 'J_{o} = \\pi (100^{4}-83{,}70^{4})/32 = 4\\,999\\,090 mm^{4}',
-    },
-    {
-      title: 'Krok 6',
-      narration:
-        'Wariant odwrotny pokazuje, że dla zadanej średnicy zewnętrznej nośność rośnie wraz z grubością ścianki, ale nie liniowo. Początkowo wystarczy cienka ścianka, a przy dużych momentach potrzebna grubość rośnie szybko. Jednocześnie bardzo cienka ścianka może utracić stateczność miejscową, mimo że wzór na naprężenie nadal daje poprawny wynik sprężysty.',
-      caption:
-        'Wariant odwrotny pokazuje, że dla zadanej średnicy zewnętrznej nośność rośnie wraz z grubością ścianki, ale nie liniowo.…',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
+      formula:
+        'A=\\frac{\\pi(100^2-83{,}70^2)}{4}\\approx2\\,352\\ \\text{mm}^2,\\qquad \\frac{A_0-A}{A_0}\\approx70\\%',
     },
   ],
 } satisfies SolutionData

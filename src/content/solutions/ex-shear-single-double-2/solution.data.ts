@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { ShearMultiRivetAnimation } from './animation'
 
 export default {
   id: 'ex-shear-single-double-2',
@@ -7,90 +8,61 @@ export default {
   given: ['F = 180 kN', 'd = 18 mm', 'm = 4', 'n = 2'],
   result:
     'W krótkim połączeniu z dwoma lub trzema nitami w szeregu nierównomierność jest niewielka. W długim szeregu może być znacząca, szczególnie gdy blachy są cienkie i podatne. Wtedy obliczenie z równym podziałem daje naprężenie mniejsze od rzeczywistego w pierwszym rzędzie. Zapas bezpieczeństwa powinien to uwzględniać.',
-  figure: {
-    kind: 'section',
-    width: 180,
-    height: 60,
-    parts: [{ x: 0, y: 0, width: 180, height: 60, label: 'blacha z 4 nitami', tone: 'light' }],
-    holes: [
-      { cx: 30, cy: 30, r: 9, label: '∅18' },
-      { cx: 70, cy: 30, r: 9, label: '∅18' },
-      { cx: 110, cy: 30, r: 9, label: '∅18' },
-      { cx: 150, cy: 30, r: 9, label: '∅18' },
-    ],
-    centroid: { x: 90, y: 30 },
-    values: [
-      { label: 'F', value: '180 kN', focus: 'load', reveal: 0 },
-      { label: 'd', value: '18 mm', focus: 'design', reveal: 0 },
-      { label: 'm', value: '4', focus: 'design', reveal: 0 },
-      { label: 'n', value: '2', focus: 'design', reveal: 0 },
-      { label: 'A', value: '254,47 mm²', focus: 'design' },
-      { label: 'A_s', value: '2 035,75 mm²', focus: 'design' },
-      { label: 'τ_sr', value: '88,4 MPa', focus: 'stress', reveal: 2 },
-      { label: 'F na nit', value: '45 kN', focus: 'load', reveal: 2 },
-      { label: 'F na płaszczyznę', value: '22,5 kN', focus: 'load', reveal: 2 },
-      { label: 'τ jednocięte', value: '176,8 MPa', focus: 'stress' },
-    ],
-    note: 'Cztery nity dwucięte dają osiem płaszczyzn ścinania.',
-  },
+  animation: ShearMultiRivetAnimation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Rozważmy połączenie z czterema nitami, z których każdy jest dwucięty. Całkowita siła wynosi F = 180 kN, a średnica nitu d = 18 mm. Tym razem nie liczymy tylko jednego łącznika, bo siła rozkłada się na wszystkie cztery.',
-      caption:
-        'Rozważmy połączenie z czterema nitami, z których każdy jest dwucięty. Całkowita siła wynosi F = 180 kN, a średnica nitu d = 18…',
+        'Połączenie ma cztery nity, a każdy z nich jest dwucięty. Całkowita siła wynosi F = 180 kN, a średnica nitu d = 18 mm. Siła rozkłada się na wszystkie cztery nity, dlatego trzeba policzyć łączną liczbę płaszczyzn, a nie tylko jeden przekrój.',
+      caption: 'Cztery nity przechodzą przez trzy blachy; każdy nit ma dwa styki przenoszące siłę.',
+      visual: 'section',
+      focus: { metric: 'model' },
+      formula: 'F=180\\ \\text{kN},\\quad d=18\\ \\text{mm},\\quad m=4,\\quad n=2',
+    },
+    {
+      title: 'Dwa cięcia na nit',
+      narration:
+        'Każdy nit jest ścinany w dwóch miejscach: na styku z górną i dolną blachą zewnętrzną. Dla czterech nitów łączna liczba płaszczyzn wynosi mn = 4 · 2 = 8. Liczba blach nie jest równa liczbie płaszczyzn.',
+      caption: 'Osiem płaszczyzn ścinania to wynik mnożenia liczby nitów przez liczbę cięć na nit.',
+      visual: 'section',
+      focus: { metric: 'planes' },
+      formula: 'm n=4\\cdot2=8',
+    },
+    {
+      title: 'Łączne pole ścinania',
+      narration:
+        'Pole jednego przekroju nitu wynosi A = π · 18²/4 = 254,47 mm². Przy ośmiu płaszczyznach łączne pole ścinania to A_s = mnA = 8A = 2035,75 mm². To właśnie to pole trafia do mianownika wzoru.',
+      caption: 'Osiem pól A daje łączne pole A_s = 8A; nie liczymy tylko jednego nitu.',
+      visual: 'section',
+      focus: { metric: 'area' },
+      formula: 'A=\\frac{\\pi d^{2}}{4}=254{,}47\\ \\text{mm}^{2},\\quad A_s=m n A=8A=2035{,}75\\ \\text{mm}^{2}',
+    },
+    {
+      title: 'Siła na nit i płaszczyznę',
+      narration:
+        'Całkowita siła dzieli się najpierw na cztery nity: 180/4 = 45 kN na nit. Każdy nit ma dwa cięcia, więc na jedną płaszczyznę przypada 45/2 = 22,5 kN, czyli F/(mn) = 180/8 = 22,5 kN.',
+      caption: 'Siła spada stopniowo: 180 kN na połączenie, 45 kN na nit i 22,5 kN na płaszczyznę.',
       visual: 'section',
       focus: { metric: 'load' },
-      formula: 'F = 180\\ \\text{kN}',
+      formula: 'F_p=\\frac{F}{m n}=\\frac{180}{4\\cdot2}=22{,}5\\ \\text{kN}',
     },
     {
-      title: 'Krok 2',
+      title: 'Naprężenie średnie',
       narration:
-        'Pole jednego przekroju wynosi A = π · 18^2/4 = 254,47 mm^2. Liczba łączników m = 4, liczba cięć na łącznik n = 2, więc łączne pole ścinania to A_s = m n A = 4 · 2 · 254,47 = 2035,75 mm^2.',
-      caption:
-        'Pole jednego przekroju wynosi A = π · 18^2/4 = 254,47 mm^2. Liczba łączników m = 4, liczba cięć na łącznik n = 2, więc łączne…',
-      visual: 'section',
-      focus: { metric: 'design' },
-      formula: 'A = \\pi \\cdot 18^2/4 = 254{,}47\\ \\text{mm}^2',
-    },
-    {
-      title: 'Krok 3',
-      narration:
-        'Średnie naprężenie wynosi τ_sr = 180 000/2035,75 = 88,42 MPa. Na jeden nit przypada 180/4 = 45 kN, a na jedną płaszczyznę 45/2 = 22,5 kN. Kontrola: 22 500/254,47 = 88,42 MPa.',
-      caption:
-        'Średnie naprężenie wynosi τ_sr = 180 000/2035,75 = 88,42 MPa. Na jeden nit przypada 180/4 = 45 kN, a na jedną płaszczyznę 45/2 =…',
+        'Średnie naprężenie wynosi τ_sr = 180 000/2035,75 = 88,42 MPa. Gdyby te same cztery nity były jednocięte, łączne pole byłoby dwa razy mniejsze, a naprężenie dwa razy większe, czyli około 176,8 MPa.',
+      caption: 'Cztery nity dwucięte dają osiem płaszczyzn i naprężenie o połowę mniejsze niż w wariancie jednociętym.',
       visual: 'section',
       focus: { metric: 'stress' },
-      formula: '\\tau_{sr} = 180\\,000/2035{,}75 = 88{,}42\\ \\text{MPa}',
+      formula: '\\tau_{sr}=\\frac{180\\,000}{8\\cdot254{,}47}=88{,}42\\ \\text{MPa}',
     },
     {
-      title: 'Krok 4',
+      title: 'Kontrola założeń',
       narration:
-        'Ten przykład pokazuje, że liczba łączników i liczba cięć działają mnożnikowo. Cztery nity dwucięte dają osiem płaszczyzn ścinania. Gdyby te same cztery nity były jednocięte, łączne pole byłoby dwa razy mniejsze, a naprężenie dwa razy większe, czyli około 176,8 MPa.',
-      caption:
-        'Ten przykład pokazuje, że liczba łączników i liczba cięć działają mnożnikowo. Cztery nity dwucięte dają osiem płaszczyzn…',
+        'Obliczenie zakłada równy podział siły między nity i płaszczyzny. W krótkim połączeniu jest to dobre przybliżenie. W długim szeregu pierwszy nit może przenosić więcej, szczególnie przy cienkich i podatnych blachach. Dlatego normy wprowadzają współczynniki redukcyjne i dodatkowe sprawdzenia docisku oraz rozerwania blachy.',
+      caption: 'Rzeczywisty podział może być nierówny; równomierne F/(mn) to założenie projektowe, nie pomiar.',
       visual: 'section',
-      focus: { metric: 'stress' },
-      formula: '\\tau = 176{,}8\\ \\text{MPa}',
-    },
-    {
-      title: 'Krok 5',
-      narration:
-        'W praktyce nie zakładaj automatycznie, że wszystkie nity przenoszą równy udział siły. W krótkim połączeniu z jednakowymi blachami jest to dobre przybliżenie. W długim szeregu pierwszy nit może przenosić nawet kilkadziesiąt procent więcej niż wynika to z podziału. Dlatego normy wprowadzają współczynniki redukcyjne albo wymagają sprawdzenia nośności na docisk i rozerwanie blachy.',
-      caption:
-        'W praktyce nie zakładaj automatycznie, że wszystkie nity przenoszą równy udział siły. W krótkim połączeniu z jednakowymi blachami…',
-      visual: 'section',
-      focus: { metric: 'design' },
-    },
-    {
-      title: 'Krok 6',
-      narration:
-        'W krótkim połączeniu z dwoma lub trzema nitami w szeregu nierównomierność jest niewielka. W długim szeregu może być znacząca, szczególnie gdy blachy są cienkie i podatne. Wtedy obliczenie z równym podziałem daje naprężenie mniejsze od rzeczywistego w pierwszym rzędzie. Zapas bezpieczeństwa powinien to uwzględniać.',
-      caption:
-        'W krótkim połączeniu z dwoma lub trzema nitami w szeregu nierównomierność jest niewielka. W długim szeregu może być znacząca,…',
-      visual: 'section',
-      focus: { metric: 'stress' },
+      focus: { metric: 'distribution' },
+      formula: 'F_p\\approx\\frac{F}{m n}',
     },
   ],
 } satisfies SolutionData

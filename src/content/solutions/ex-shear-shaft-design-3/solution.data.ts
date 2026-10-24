@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { ShaftCapacityAnimation } from './animation'
 
 export default {
   id: 'ex-shear-shaft-design-3',
@@ -7,6 +8,7 @@ export default {
   given: ['D = 90 mm', 'd = 70 mm', 'G = 80 GPa', 'tau_{dop} = 40 MPa', 'L = 2,5 m'],
   result:
     'Wariant odwrotny pokazuje, że ten sam przekrój może mieć różne ograniczenia w zależności od długości i wymaganego kąta. Dla krótkiego wału częściej decyduje wytrzymałość, a dla długiego sztywność. Projektant powinien sprawdzić oba warunki i wiedzieć, który z nich jest aktywny.',
+  animation: ShaftCapacityAnimation,
   figure: {
     kind: 'section',
     width: 90,
@@ -102,63 +104,66 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model i dane',
       narration:
-        'Mamy istniejący wał rurowy o D = 90 mm i d = 70 mm, wykonany ze stali o G = 80 GPa. Dopuszczalne naprężenie wynosi τ_dop = 40 MPa, a dopuszczalny kąt to 1° na długości L = 2,5 m. Szukamy maksymalnego momentu, jaki można bezpiecznie przenieść.',
-      caption:
-        'Mamy istniejący wał rurowy o D = 90 mm i d = 70 mm, wykonany ze stali o G = 80 GPa. Dopuszczalne naprężenie wynosi τ_dop = 40…',
+        'Mamy istniejący wał rurowy o D = 90 mm i d = 70 mm, wykonany ze stali o G = 80 GPa. Dopuszczalne naprężenie wynosi 40 MPa, a dopuszczalny kąt to 1° na długości 2,5 m. Szukamy maksymalnego momentu, jaki można bezpiecznie przenieść.',
+      caption: 'Model: przekrój i długość są znane, a moment T jest niewiadomą.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'model',
       },
-      formula: 'D = 90\\ \\text{mm}',
+      formula:
+        'D=90\\ \\text{mm},\\quad d=70\\ \\text{mm},\\quad L=2500\\ \\text{mm},\\quad \\varphi_{dop}=1^\\circ=0{,}017453\\ \\text{rad}',
     },
     {
-      title: 'Krok 2',
+      title: 'Geometria przekroju',
       narration:
-        'Najpierw obliczamy geometrię: 90^4-70^4 = 65 610 000-24 010 000 = 41 600 000 mm^4, więc J_o = π · 41 600 000/32 = 4 084 070 mm^4. Wskaźnik wynosi W_o = J_o/45 = 90 757 mm^3.',
-      caption:
-        'Najpierw obliczamy geometrię: 90^4-70^4 = 65 610 000-24 010 000 = 41 600 000 mm^4, więc J_o = π · 41 600 000/32 = 4 084 070 mm^4.…',
+        'Najpierw obliczamy geometrię: 90⁴ − 70⁴ = 41 600 000 mm⁴, więc J_o = π · 41 600 000/32 = 4 084 070 mm⁴. Wskaźnik wytrzymałości wynosi W_o = J_o/45 = 90 757 mm³.',
+      caption: 'Pierścień ma ściankę 10 mm. J_o opisuje sztywność, a W_o nośność przekroju.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'geometry',
       },
-      formula: '90^4-70^4 = 65\\,610\\,000-24\\,010\\,000 = 41\\,600\\,000\\ \\text{mm}^4',
+      formula:
+        'J_o=\\frac{\\pi(90^4-70^4)}{32}=4\\,084\\,070\\ \\text{mm}^4,\\qquad W_o=\\frac{J_o}{45}=90\\,757\\ \\text{mm}^3',
     },
     {
-      title: 'Krok 3',
+      title: 'Nośność z wytrzymałości',
       narration:
-        'Z warunku wytrzymałości T ≤ τ_dopW_o = 40 · 90 757 = 3 630 280 N·mm, czyli około 3,63 kN·m. Z warunku sztywności, po zamianie 1° = 0,017453 rad, otrzymujemy T ≤ G J_o φ_dop/L = 80 000 · 4 084 070 · 0,017453/2500 = 2 281 000 N·mm, czyli około 2,28 kN·m.',
-      caption:
-        'Z warunku wytrzymałości T ≤ τ_dopW_o = 40 · 90 757 = 3 630 280 N·mm, czyli około 3,63 kN·m. Z warunku sztywności, po zamianie…',
+        'Z warunku wytrzymałości T ≤ τ_dop · W_o = 40 · 90 757 = 3 630 280 N·mm, czyli około 3,63 kN·m. To wartość dopuszczalna tylko ze względu na naprężenie.',
+      caption: 'Warunek wytrzymałości pozwala przenieść 3,63 kN·m, ale nie mówi jeszcze nic o kącie skręcenia.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'strength',
       },
-      formula: 'T \\le \\tau_{dop}W_o = 40 \\cdot 90\\,757 = 3\\,630\\,280\\ \\text{N}\\cdot\\text{mm}',
+      formula:
+        'T \\le \\tau_{dop}W_o = 40 \\cdot 90\\,757 = 3\\,630\\,280\\ \\text{N}\\cdot\\text{mm} = 3{,}63\\ \\text{kN}\\cdot\\text{m}',
     },
     {
-      title: 'Krok 4',
+      title: 'Nośność ze sztywności',
       narration:
-        'Decyduje sztywność. Bezpieczny moment wynosi około 2,28 kN·m. Przy tej wartości naprężenie wynosi 2 281 000 · 45/4 084 070 = 25,1 MPa, więc zapas wytrzymałości jest duży. Gdyby dopuszczalny kąt zwiększyć do 2°, warunek sztywności pozwoliłby na około 4,56 kN·m, ale wtedy decydowałby już warunek wytrzymałości z granicą 3,63 kN·m.',
+        'Po zamianie 1° = 0,017453 rad warunek sztywności daje T ≤ G · J_o · φ_dop/L = 80 000 · 4 084 070 · 0,017453/2500 = 2 281 000 N·mm, czyli około 2,28 kN·m.',
       caption:
-        'Decyduje sztywność. Bezpieczny moment wynosi około 2,28 kN·m. Przy tej wartości naprężenie wynosi 2 281 000 · 45/4 084 070 = 25,1…',
+        'Sztywność ogranicza moment do 2,28 kN·m. To mniej niż 3,63 kN·m, więc o bezpiecznym obciążeniu decyduje kąt skręcenia.',
       visual: 'section',
       focus: {
-        metric: 'stress',
+        metric: 'stiffness',
       },
-      formula: '2{,}28\\ \\text{kN}\\cdot\\text{m}',
+      formula:
+        'T \\le \\frac{GJ_o\\varphi_{dop}}{L} = \\frac{80\\,000 \\cdot 4\\,084\\,070 \\cdot 0{,}017453}{2500} = 2\\,281\\,000\\ \\text{N}\\cdot\\text{mm} = 2{,}28\\ \\text{kN}\\cdot\\text{m}',
     },
     {
-      title: 'Krok 5',
+      title: 'Decyzja i sprawdzenie',
       narration:
-        'Wariant odwrotny pokazuje, że ten sam przekrój może mieć różne ograniczenia w zależności od długości i wymaganego kąta. Dla krótkiego wału częściej decyduje wytrzymałość, a dla długiego sztywność. Projektant powinien sprawdzić oba warunki i wiedzieć, który z nich jest aktywny.',
+        'Bezpieczny moment to min(3,63; 2,28) = 2,28 kN·m. Przy tej wartości naprężenie wynosi 2 281 000 · 45/4 084 070 = 25,1 MPa < 40 MPa, a kąt osiąga dokładnie 1°.',
       caption:
-        'Wariant odwrotny pokazuje, że ten sam przekrój może mieć różne ograniczenia w zależności od długości i wymaganego kąta. Dla…',
+        'Decyduje sztywność. Zapas wytrzymałości jest duży, ale kąt jest już na granicy. Gdyby limit kąta zwiększyć do 2°, aktywny stałby się warunek wytrzymałości.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'check',
       },
+      formula:
+        'T_{max}=\\min(3{,}63;\\ 2{,}28)=2{,}28\\ \\text{kN}\\cdot\\text{m},\\qquad \\tau=\\frac{2\\,281\\,000 \\cdot 45}{4\\,084\\,070}=25{,}1\\ \\text{MPa}<40\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

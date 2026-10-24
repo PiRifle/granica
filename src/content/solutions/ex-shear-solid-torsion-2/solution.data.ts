@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SolidTorsionPowerAnimation } from './animation'
 
 export default {
   id: 'ex-shear-solid-torsion-2',
@@ -7,6 +8,7 @@ export default {
   given: ['P = 15 kW', 'n = 1450 obr/min', 'd = 25 mm', 'G = 80 GPa'],
   result:
     'Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy moment i większe naprężenie. Dlatego wały wolnoobrotowe muszą być grubsze od szybkoobrotowych przenoszących tę samą moc.',
+  animation: SolidTorsionPowerAnimation,
   figure: {
     kind: 'section',
     width: 25,
@@ -50,104 +52,66 @@ export default {
         focus: 'design',
         reveal: 0,
       },
-      {
-        label: 'ω',
-        value: '151,84 rad/s',
-        focus: 'load',
-      },
-      {
-        label: 'T',
-        value: '98,79 N·m',
-        focus: 'load',
-        reveal: 1,
-      },
-      {
-        label: 'W_o',
-        value: '3 068 mm³',
-        focus: 'design',
-        reveal: 2,
-      },
-      {
-        label: 'τ_max',
-        value: '32,2 MPa',
-        focus: 'stress',
-        reveal: 2,
-      },
-      {
-        label: 'J_o',
-        value: '38 350 mm⁴',
-        focus: 'design',
-        reveal: 3,
-      },
-      {
-        label: 'φ na 1 m',
-        value: '1,84°',
-        focus: 'design',
-        reveal: 3,
-      },
     ],
     note: 'Moc i prędkość obrotowa wyznaczają moment, a ten decyduje o naprężeniu i kącie skręcenia.',
     shape: 'circle',
   },
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Model wału napędowego',
       narration:
-        'Rozważmy wał napędowy przenoszący moc P = 15 kW przy prędkości obrotowej n = 1450 obr/min. Średnica wału wynosi d = 25 mm, a materiał ma G = 80 GPa. Chcemy obliczyć moment i maksymalne naprężenie.',
-      caption:
-        'Rozważmy wał napędowy przenoszący moc P = 15 kW przy prędkości obrotowej n = 1450 obr/min. Średnica wału wynosi d = 25 mm, a…',
+        'Wał napędowy przenosi moc P = 15 kW przy prędkości obrotowej n = 1450 obr/min. Średnica wału wynosi d = 25 mm, a materiał ma G = 80 GPa. Chcemy obliczyć moment i maksymalne naprężenie.',
+      caption: 'Moc i prędkość obrotowa są danymi wejściowymi; średnica określa przekrój.',
       visual: 'section',
       focus: {
-        metric: 'load',
+        metric: 'model',
       },
-      formula: 'P = 15\\ \\text{kW}',
+      formula: 'P = 15\\ \\text{kW}, \\qquad n = 1450\\ \\text{obr/min}',
     },
     {
-      title: 'Krok 2',
+      title: 'Moment z mocy i prędkości',
       narration:
-        'Najpierw zamieniamy prędkość obrotową na prędkość kątową: ω = 2π n/60 = 2π · 1450/60 = 151,84 rad/s. Moc w watach to 15 000 W, więc moment wynosi T = P/ω = 15 000/151,84 = 98,79 N·m.',
-      caption:
-        'Najpierw zamieniamy prędkość obrotową na prędkość kątową: ω = 2π n/60 = 2π · 1450/60 = 151,84 rad/s. Moc w watach to 15 000 W,…',
+        'Najpierw zamieniamy prędkość obrotową na prędkość kątową: ω = 2πn/60 = 151,84 rad/s. Moc w watach to 15 000 W, więc moment wynosi T = P/ω = 15 000/151,84 = 98,79 N·m.',
+      caption: 'Moment jest przyłożony do wału i przenoszony na odbiornik.',
       visual: 'section',
       focus: {
-        metric: 'load',
+        metric: 'torque',
       },
-      formula: '\\omega = 2\\pi n/60 = 2\\pi \\cdot 1450/60 = 151{,}84\\ \\text{rad/s}',
+      formula:
+        '\\omega = \\frac{2\\pi n}{60} = 151{,}84\\ \\text{rad/s}, \\qquad T = \\frac{P}{\\omega} = 98{,}79\\ \\text{N}\\cdot\\text{m}',
     },
     {
-      title: 'Krok 3',
+      title: 'Skręcenie wału',
       narration:
-        'Moment w N·mm to 98 790 N·mm. Wskaźnik wytrzymałości dla d = 25 mm wynosi W_o = π · 25^3/16 = 3067,96 mm^3. Maksymalne naprężenie to τ_max = 98 790/3067,96 = 32,2 MPa.',
-      caption:
-        'Moment w N·mm to 98 790 N·mm. Wskaźnik wytrzymałości dla d = 25 mm wynosi W_o = π · 25^3/16 = 3067,96 mm^3. Maksymalne naprężenie…',
+        'Wał skręca się o φ = TL/(GJ_o). Dla odcinka o długości 1 m otrzymujemy 0,0322 rad, czyli 1,84°. To już zauważalne skręcenie, które może być nieakceptowalne w precyzyjnym napędzie.',
+      caption: 'Kąt skręcenia rośnie z długością i momentem, a maleje ze sztywnością GJ_o.',
+      visual: 'section',
+      focus: {
+        metric: 'twist',
+      },
+      formula: '\\varphi = \\frac{T L}{G J_o} = 1{,}84^\\circ/\\text{m}',
+    },
+    {
+      title: 'Naprężenia w przekroju',
+      narration:
+        'Naprężenie styczne rośnie liniowo od zera w osi do maksimum na powierzchni. Dla d = 25 mm wskaźnik wytrzymałości wynosi W_o = 3067,96 mm³, więc τ_max = 32,2 MPa.',
+      caption: 'Maksimum występuje na obwodzie; w osi naprężenie jest zerowe.',
       visual: 'section',
       focus: {
         metric: 'stress',
       },
-      formula: '98\\,790\\ \\text{N}\\cdot\\text{mm}',
+      formula: '\\tau_{max} = \\frac{T}{W_o} = \\frac{98\\,790}{3067{,}96} = 32{,}2\\ \\text{MPa}',
     },
     {
-      title: 'Krok 4',
+      title: 'Wniosek projektowy',
       narration:
-        'Naprężenie 32,2 MPa jest znacznie poniżej typowej granicy plastyczności stali, ale nadal trzeba sprawdzić, czy wał nie skręca się zbyt mocno. Dla długości 1 m i modułu G = 80 GPa kąt wynosi φ = 98 790 · 1000/(80 000 · 38 349,5) = 0,0322 rad, czyli około 1,84°. To już zauważalne skręcenie, które może być nieakceptowalne w precyzyjnym napędzie.',
-      caption:
-        'Naprężenie 32,2 MPa jest znacznie poniżej typowej granicy plastyczności stali, ale nadal trzeba sprawdzić, czy wał nie skręca się…',
+        'Moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy moment i większe naprężenie. Dlatego wały wolnoobrotowe muszą być grubsze od szybkoobrotowych przenoszących tę samą moc.',
+      caption: 'Moment łączy dane napędowe z rozkładem naprężeń i kątem skręcenia.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'result',
       },
-      formula: 'G = 80\\ \\text{GPa}',
-    },
-    {
-      title: 'Krok 5',
-      narration:
-        'Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy moment i większe naprężenie. Dlatego wały wolnoobrotowe muszą być grubsze od szybkoobrotowych przenoszących tę samą moc.',
-      caption:
-        'Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy…',
-      visual: 'section',
-      focus: {
-        metric: 'stress',
-      },
+      formula: 'T = \\frac{P}{\\omega}, \\qquad \\tau_{max} = \\frac{T}{W_o}',
     },
   ],
 } satisfies SolutionData

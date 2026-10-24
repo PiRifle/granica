@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { ShearTechnicalExample1Animation } from './animation'
 
 export default {
   id: 'ex-shear-technical',
@@ -6,7 +7,8 @@ export default {
   duration: 7,
   given: ['d = 20 mm', 'F = 30 kN'],
   result:
-    'τ_sr ≈ 95,5 MPa. Wartość jest średnia po przekroju; w rzeczywistym sworzniu naprężenie może być lokalnie większe, szczególnie przy krawędzi blachy.',
+    'τ_sr ≈ 95,5 MPa. Wartość jest średnia po przekroju; w rzeczywistym sworzeniu naprężenie może być lokalnie większe, szczególnie przy krawędzi blachy.',
+  animation: ShearTechnicalExample1Animation,
   figure: {
     kind: 'section',
     width: 20,
@@ -55,45 +57,49 @@ export default {
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Pole przekroju sworznia: A = π d^2/4 = π · 20^2/4 = 314,16 mm^2.',
-      caption: 'Pole przekroju sworznia: A = π d^2/4 = π · 20^2/4 = 314,16 mm^2.',
+      title: 'Model i dane',
+      narration:
+        'Sworzeń o średnicy d = 20 mm pracuje w połączeniu jednociętym i przenosi siłę F = 30 kN. Dwie blachy naciskają na sworzeń z przeciwnych stron, a siła przechodzi przez jeden przekrój.',
+      caption: 'Dwie blachy i jeden sworzeń; siła 30 kN jest przenoszona przez styk blach.',
       visual: 'section',
-      focus: {
-        metric: 'design',
-      },
+      focus: { metric: 'model' },
+      formula: 'F = 30\\ \\text{kN},\\qquad d = 20\\ \\text{mm}',
+    },
+    {
+      title: 'Płaszczyzna ścinania',
+      narration:
+        'W styku blach powstaje jedna płaszczyzna ścinania. Sworzeń jest przecięty tylko raz, więc liczba płaszczyzn wynosi n = 1, a pole ścinane jest równe polu jednego przekroju: A_s = A.',
+      caption: 'Jedna płaszczyzna ścinania w styku blach; n = 1.',
+      visual: 'section',
+      focus: { metric: 'plane' },
+      formula: 'n = 1,\\qquad A_s = A',
+    },
+    {
+      title: 'Pole ścinane',
+      narration:
+        'Pole ścinane to przekrój poprzeczny sworznia, a nie powierzchnia boczna walca. Dla średnicy 20 mm otrzymujemy A = π d^2/4 = π · 20^2/4 = 314,16 mm^2.',
+      caption: 'Pole ścinane to pole koła o średnicy 20 mm.',
+      visual: 'section',
+      focus: { metric: 'area' },
       formula: 'A = \\pi d^2/4 = \\pi \\cdot 20^2/4 = 314{,}16\\ \\text{mm}^2',
     },
     {
-      title: 'Krok 2',
-      narration: 'Zamień siłę na niutony: F = 30 kN = 30 000 N.',
-      caption: 'Zamień siłę na niutony: F = 30 kN = 30 000 N.',
-      visual: 'section',
-      focus: {
-        metric: 'load',
-      },
-      formula: 'F = 30\\ \\text{kN} = 30\\,000\\ \\text{N}',
-    },
-    {
-      title: 'Krok 3',
-      narration: 'Podstaw do wzoru: τ_sr = 30 000/314,16 = 95,49 N/mm^2.',
-      caption: 'Podstaw do wzoru: τ_sr = 30 000/314,16 = 95,49 N/mm^2.',
-      visual: 'section',
-      focus: {
-        metric: 'stress',
-      },
-      formula: '\\tau_{sr} = 30\\,000/314{,}16 = 95{,}49\\ \\text{N/mm}^2',
-    },
-    {
-      title: 'Krok 4',
+      title: 'Siła i naprężenie',
       narration:
-        'Sprawdź rząd wielkości: wynik około 95 MPa jest typowy dla stali konstrukcyjnej i znacznie poniżej granicy plastyczności.',
-      caption:
-        'Sprawdź rząd wielkości: wynik około 95 MPa jest typowy dla stali konstrukcyjnej i znacznie poniżej granicy plastyczności.',
+        'Siła 30 kN = 30 000 N przechodzi przez cały przekrój. Przy równomiernym rozkładzie średnie naprężenie styczne wynosi τ_sr = 30 000/314,16 = 95,49 N/mm^2, czyli około 95,5 MPa.',
+      caption: 'Siła przechodzi przez pole 314,16 mm²; τ_sr ≈ 95,5 MPa.',
       visual: 'section',
-      focus: {
-        metric: 'stress',
-      },
+      focus: { metric: 'stress' },
+      formula: '\\tau_{sr} = \\frac{30\\,000}{314{,}16} = 95{,}49\\ \\text{MPa}',
+    },
+    {
+      title: 'Kontrola i interpretacja',
+      narration:
+        'Wynik około 95 MPa jest typowy dla stali konstrukcyjnej i znacznie poniżej granicy plastyczności. To wartość średnia: w rzeczywistym sworzeniu naprężenie jest większe przy krawędziach blach, dlatego model techniczny daje oszacowanie, a nie dokładny rozkład.',
+      caption: 'τ_sr ≈ 95,5 MPa; lokalne spiętrzenia przy krawędziach blach są większe od średniej.',
+      visual: 'section',
+      focus: { metric: 'check' },
+      formula: '\\tau_{sr} \\approx 95{,}5\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

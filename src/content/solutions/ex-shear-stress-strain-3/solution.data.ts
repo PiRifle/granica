@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { ShearStressStrainExample3Animation } from './animation'
 
 export default {
   id: 'ex-shear-stress-strain-3',
@@ -9,90 +10,60 @@ export default {
     'Uwaga na jednostki: E i G podaje się zwykle w GPa, a naprężenia w zadaniach często w MPa. Przy podstawianiu zamień 1 GPa = 1000 MPa. Jeśli tego nie zrobisz, odkształcenie wyjdzie tysiąc razy za małe, a wynik będzie wyglądał pozornie poprawnie.',
   figure: {
     kind: 'cube',
-    stresses: { x: 72, y: -72, z: 0 },
+    stresses: { x: 0, y: 0, z: 0 },
     values: [
       { label: 'τ', value: '72 MPa', focus: 'stress', reveal: 0 },
       { label: 'γ', value: '0,0009 rad', focus: 'stress', reveal: 0 },
       { label: 'ν', value: '0,3', focus: 'design', reveal: 0 },
-      { label: 'G', value: '80 GPa', focus: 'stress' },
-      { label: 'E', value: '208 GPa', focus: 'design' },
-      { label: 'G przy ν → 0,5', value: 'E/3', focus: 'design', reveal: 3 },
-      { label: 'G przy ν = 0', value: 'E/2', focus: 'design' },
-      { label: 'σ_1', value: '+72 MPa', focus: 'stress' },
-      { label: 'σ_2', value: '-72 MPa', focus: 'stress', reveal: 6 },
     ],
-    note: 'Z pomiaru τ i γ wynika G = 80 GPa, a stąd E = 208 GPa dla ν = 0,3.',
+    note: 'Z pomiaru τ i γ wyznaczamy moduł ścinania, a następnie moduł Younga.',
   },
+  animation: ShearStressStrainExample3Animation,
   scenes: [
     {
-      title: 'Krok 1',
+      title: 'Pomiar τ i γ',
       narration:
-        'Załóżmy, że z pomiaru znamy naprężenie styczne τ = 72 MPa i odkształcenie γ = 0,0009 rad. Chcemy wyznaczyć moduł ścinania, a następnie moduł Younga dla ν = 0,3.',
-      caption:
-        'Załóżmy, że z pomiaru znamy naprężenie styczne τ = 72 MPa i odkształcenie γ = 0,0009 rad. Chcemy wyznaczyć moduł ścinania, a…',
+        'Z pomiaru znamy naprężenie styczne τ = 72 MPa i odkształcenie γ = 0,0009 rad. Na tej podstawie wyznaczymy moduł ścinania, a następnie moduł Younga dla ν = 0,3.',
+      caption: 'Dwa zmierzone parametry stanu wyznaczają nachylenie τ(γ).',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\tau = 72\\ \\text{MPa}',
+      focus: { metric: 'model' },
+      formula: '\\tau = 72\\ \\text{MPa},\\quad \\gamma = 0{,}0009\\ \\text{rad}',
     },
     {
-      title: 'Krok 2',
+      title: 'Moduł ścinania z pomiaru',
       narration:
         'Moduł ścinania to iloraz naprężenia i odkształcenia: G = τ/γ = 72/0,0009 = 80 000 MPa = 80 GPa. Taka wartość jest typowa dla stali.',
-      caption:
-        'Moduł ścinania to iloraz naprężenia i odkształcenia: G = τ/γ = 72/0,0009 = 80 000 MPa = 80 GPa. Taka wartość jest typowa dla…',
+      caption: 'Nachylenie prostej τ(γ) daje G.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'G' },
       formula: 'G = \\tau/\\gamma = 72/0{,}0009 = 80\\,000\\ \\text{MPa} = 80\\ \\text{GPa}',
     },
     {
-      title: 'Krok 3',
+      title: 'Moduł Younga i granice ν',
       narration:
-        'Moduł Younga obliczamy z zależności E = 2G(1+ν) = 2 · 80 · 1,3 = 208 GPa. To nieco więcej niż typowe 200 GPa, ale mieści się w zakresie spotykanym dla stali stopowych. Gdyby wynik wyszedł 20 GPa albo 2000 GPa, oznaczałby błąd jednostek lub pomiaru.',
-      caption:
-        'Moduł Younga obliczamy z zależności E = 2G(1+ν) = 2 · 80 · 1,3 = 208 GPa. To nieco więcej niż typowe 200 GPa, ale mieści się w…',
+        'Moduł Younga obliczamy z zależności E = 2G(1+ν) = 2 · 80 · 1,3 = 208 GPa. To nieco więcej niż typowe 200 GPa, ale mieści się w zakresie stali stopowych. Dla ν → 0,5 byłoby G = E/3, a dla ν = 0 mamy G = E/2.',
+      caption: 'Stosunek G/E zależy tylko od liczby Poissona.',
       visual: 'cube',
-      focus: { metric: 'design' },
+      focus: { metric: 'E' },
       formula: 'E = 2G(1+\\nu) = 2 \\cdot 80 \\cdot 1{,}3 = 208\\ \\text{GPa}',
     },
     {
-      title: 'Krok 4',
+      title: 'Naprężenia główne',
       narration:
-        'Sprawdźmy jeszcze przypadek graniczny ν → 0,5. Wtedy G = E/[2(1+0,5)] = E/3. Materiał prawie nie zmienia objętości, więc cała energia odkształcenia idzie w zmianę kształtu. Dla gumy, której ν jest bliskie 0,5, moduł ścinania jest więc znacznie mniejszy od modułu Younga. To dlatego guma łatwo się ścina i skręca, choć przy rozciąganiu może być dość sztywna.',
-      caption:
-        'Sprawdźmy jeszcze przypadek graniczny ν → 0,5. Wtedy G = E/[2(1+0,5)] = E/3. Materiał prawie nie zmienia objętości, więc cała…',
+        'W czystym ścinaniu naprężenia główne wynoszą σ_1 = +72 MPa i σ_2 = -72 MPa. Działają na płaszczyznach obróconych o 45° względem płaszczyzn ścinania.',
+      caption: 'Koło Mohra ma środek w zerze i promień R = τ.',
       visual: 'cube',
-      focus: { metric: 'design' },
-      formula: '\\nu \\to 0{,}5',
+      focus: { metric: 'principal' },
+      formula: '\\sigma_{1,2} = \\pm 72\\ \\text{MPa}',
     },
     {
-      title: 'Krok 5',
+      title: 'Pomiar i sprawdzenie',
       narration:
-        'W drugą stronę, dla ν = 0 mielibyśmy G = E/2. Taki materiał zmienia objętość bez efektu Poissona. Rzeczywiste metale mają ν około 0,25–0,35, więc G jest zwykle około 2,5–2,7 razy mniejsze od E.',
-      caption:
-        'W drugą stronę, dla ν = 0 mielibyśmy G = E/2. Taki materiał zmienia objętość bez efektu Poissona. Rzeczywiste metale mają ν około…',
+        'Pomiar G wykonuje się na przykład w próbie skręcania cienkościennej rurki. Zamiast mierzyć G bezpośrednio, często wystarczy znać E i ν. Uwaga na jednostki: 1 GPa = 1000 MPa; przy podstawianiu zamień GPa na MPa, inaczej wynik wyjdzie tysiąc razy za mały.',
+      caption: 'Sprawdź jednostki i sens fizyczny: G = 80 GPa to typowa stal.',
       visual: 'cube',
-      focus: { metric: 'design' },
-      formula: '\\nu = 0',
-    },
-    {
-      title: 'Krok 6',
-      narration:
-        'Pomiar G wykonuje się na przykład w próbie skręcania cienkościennej rurki albo w teście ścinania. Zamiast mierzyć G bezpośrednio, często wystarczy znać E i ν, a potem zastosować wzór. To wygodne, ponieważ E i ν są standardowo wyznaczane w próbie rozciągania. Wartość G jest więc wielkością pochodną, a nie niezależnym parametrem.',
-      caption:
-        'Pomiar G wykonuje się na przykład w próbie skręcania cienkościennej rurki albo w teście ścinania. Zamiast mierzyć G bezpośrednio,…',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'G = 80\\ \\text{GPa}',
-    },
-    {
-      title: 'Krok 7',
-      narration:
-        'Uwaga na jednostki: E i G podaje się zwykle w GPa, a naprężenia w zadaniach często w MPa. Przy podstawianiu zamień 1 GPa = 1000 MPa. Jeśli tego nie zrobisz, odkształcenie wyjdzie tysiąc razy za małe, a wynik będzie wyglądał pozornie poprawnie.',
-      caption:
-        'Uwaga na jednostki: E i G podaje się zwykle w GPa, a naprężenia w zadaniach często w MPa. Przy podstawianiu zamień 1 GPa = 1000…',
-      visual: 'cube',
-      focus: { metric: 'design' },
-      formula: 'E = 208\\ \\text{GPa}',
+      focus: { metric: 'check' },
+      formula: 'G = 80\\ \\text{GPa} = 80\\,000\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

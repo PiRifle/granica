@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SolidTorsionAnimation } from './animation'
 
 export default {
   id: 'ex-shear-solid-torsion',
@@ -7,6 +8,7 @@ export default {
   given: ['d = 60 mm', 'L = 1,2 m', 'T = 1,5 kN·m', 'G = 80 GPa'],
   result:
     'τ_max ≈ 35,4 MPa na powierzchni wału, a kąt skręcenia wynosi około 0,0177 rad, czyli 1,01°. W osi naprężenie styczne jest równe zero.',
+  animation: SolidTorsionAnimation,
   figure: {
     kind: 'section',
     width: 60,
@@ -50,106 +52,65 @@ export default {
         focus: 'design',
         reveal: 0,
       },
-      {
-        label: 'W_o',
-        value: '42 412 mm³',
-        focus: 'design',
-      },
-      {
-        label: 'τ_max',
-        value: '35,4 MPa',
-        focus: 'stress',
-        reveal: 2,
-      },
-      {
-        label: 'J_o',
-        value: '1 272 345 mm⁴',
-        focus: 'design',
-      },
-      {
-        label: 'φ',
-        value: '0,01768 rad',
-        focus: 'design',
-      },
-      {
-        label: 'φ',
-        value: '1,013°',
-        focus: 'design',
-      },
     ],
     note: 'Naprężenie styczne rośnie liniowo od zera w osi do τ_max na powierzchni wału.',
     shape: 'circle',
   },
   scenes: [
     {
-      title: 'Krok 1',
-      narration: 'Zamień moment: T = 1,5 kN·m = 1 500 000 N·mm.',
-      caption: 'Zamień moment: T = 1,5 kN·m = 1 500 000 N·mm.',
+      title: 'Model wału',
+      narration:
+        'Pełny wał o średnicy d = 60 mm i długości L = 1,2 m jest utwierdzony lewym końcem, a prawy koniec obciąża moment T = 1,5 kN·m. Materiał ma G = 80 GPa. Moment zamieniamy na 1 500 000 N·mm.',
+      caption: 'Wałem skręcanym jest pełny pręt kołowy; moment przyłożono na swobodnym końcu.',
       visual: 'section',
       focus: {
-        metric: 'load',
+        metric: 'model',
       },
       formula: 'T = 1{,}5\\ \\text{kN}\\cdot\\text{m} = 1\\,500\\,000\\ \\text{N}\\cdot\\text{mm}',
     },
     {
-      title: 'Krok 2',
-      narration: 'Oblicz wskaźnik wytrzymałości: W_o = π · 60^3/16 = 42 411,5 mm^3.',
-      caption: 'Oblicz wskaźnik wytrzymałości: W_o = π · 60^3/16 = 42 411,5 mm^3.',
+      title: 'Biegunowy moment bezwładności',
+      narration:
+        'O rozkładzie naprężeń decyduje biegunowy moment bezwładności J_o = πd⁴/32 = 1 272 345 mm⁴. Materiał leżący dalej od osi wnosi większy udział r² dA, dlatego zewnętrzne pierścienie są coraz mocniej zaznaczone.',
+      caption: 'J_o opisuje rozkład pola względem osi; dla pełnego koła J_o = πd⁴/32.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'section',
       },
-      formula: 'W_o = \\pi \\cdot 60^3/16 = 42\\,411{,}5\\ \\text{mm}^3',
+      formula: 'J_o = \\frac{\\pi d^4}{32} = \\frac{\\pi \\cdot 60^4}{32} = 1\\,272\\,345\\ \\text{mm}^4',
     },
     {
-      title: 'Krok 3',
-      narration: 'Maksymalne naprężenie: τ_max = 1 500 000/42 411,5 = 35,37 MPa.',
-      caption: 'Maksymalne naprężenie: τ_max = 1 500 000/42 411,5 = 35,37 MPa.',
+      title: 'Skręcenie wału',
+      narration:
+        'Podczas skręcania każdy przekrój obraca się względem sąsiedniego. Punkt na powierzchni zakreśla łuk r·dθ, więc odkształcenie γ i naprężenie τ rosną proporcjonalnie do promienia. Kąt φ = TL/(GJ_o) wynosi 0,01768 rad.',
+      caption: 'Skręcenie jest widoczne na powierzchni; w osi wału przemieszczenie styczne jest zerowe.',
+      visual: 'section',
+      focus: {
+        metric: 'twist',
+      },
+      formula: '\\varphi = \\frac{T L}{G J_o} = 0{,}01768\\ \\text{rad}',
+    },
+    {
+      title: 'Naprężenia od osi do powierzchni',
+      narration:
+        'Naprężenie styczne τ(r) = Tr/J_o rośnie liniowo od zera w osi do τ_max = 35,4 MPa na powierzchni. Największą wartość otrzymujemy dla r = d/2 = 30 mm.',
+      caption: 'W osi τ = 0, a na obwodzie τ = τ_max; rozkład jest liniowy.',
       visual: 'section',
       focus: {
         metric: 'stress',
       },
-      formula: '\\tau_{max} = 1\\,500\\,000/42\\,411{,}5 = 35{,}37\\ \\text{MPa}',
+      formula: '\\tau_{max} = \\frac{T}{W_o} = \\frac{1\\,500\\,000}{42\\,411{,}5} = 35{,}37\\ \\text{MPa}',
     },
     {
-      title: 'Krok 4',
-      narration: 'Oblicz biegunowy moment bezwładności: J_o = π · 60^4/32 = 1 272 345 mm^4.',
-      caption: 'Oblicz biegunowy moment bezwładności: J_o = π · 60^4/32 = 1 272 345 mm^4.',
+      title: 'Wynik i kąt skręcenia',
+      narration:
+        'Na powierzchni wału panuje τ_max ≈ 35,4 MPa, a cały wał skręca się o φ = 0,01768 rad, czyli 1,013°. Naprężenie w osi pozostaje zerowe.',
+      caption: 'Jednoczesny obraz skręcenia i rozkładu naprężeń: maksimum na powierzchni, zero w osi.',
       visual: 'section',
       focus: {
-        metric: 'design',
+        metric: 'result',
       },
-      formula: 'J_o = \\pi \\cdot 60^4/32 = 1\\,272\\,345\\ \\text{mm}^4',
-    },
-    {
-      title: 'Krok 5',
-      narration: 'Zamień długość na mm: L = 1,2 m = 1200 mm.',
-      caption: 'Zamień długość na mm: L = 1,2 m = 1200 mm.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: 'L = 1{,}2\\ \\text{m} = 1200\\ \\text{mm}',
-    },
-    {
-      title: 'Krok 6',
-      narration: 'Kąt skręcenia: φ = 1 500 000 · 1200/(80 000 · 1 272 345) = 0,01768 rad.',
-      caption: 'Kąt skręcenia: φ = 1 500 000 · 1200/(80 000 · 1 272 345) = 0,01768 rad.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: '\\varphi = 1\\,500\\,000 \\cdot 1200/(80\\,000 \\cdot 1\\,272\\,345) = 0{,}01768\\ \\text{rad}',
-    },
-    {
-      title: 'Krok 7',
-      narration: 'Zamień na stopnie: 0,01768 · 180/π = 1,013°.',
-      caption: 'Zamień na stopnie: 0,01768 · 180/π = 1,013°.',
-      visual: 'section',
-      focus: {
-        metric: 'design',
-      },
-      formula: '0{,}01768 \\cdot 180/\\pi = 1{,}013^\\circ',
+      formula: '\\varphi = 0{,}01768\\ \\text{rad} = 1{,}013^\\circ',
     },
   ],
 } satisfies SolutionData
