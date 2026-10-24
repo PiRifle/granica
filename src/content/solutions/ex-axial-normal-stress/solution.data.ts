@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialNormalStressExampleAnimation } from './animation'
+import { NormalStressExample1Animation } from './animation'
 
 export default {
   id: 'ex-axial-normal-stress',
@@ -8,17 +8,52 @@ export default {
   given: ['A = 250 mm²', 'N = 50 kN'],
   result:
     'σ = +200 MPa, czyli naprężenie rozciągające. Pręt jest blisko granicy plastyczności typowej stali, więc zapas byłby niewielki.',
-  animation: AxialNormalStressExampleAnimation,
+  animation: NormalStressExample1Animation,
   scenes: [
     {
-      title: 'Model, dane i obliczenia',
+      title: 'Model i dane',
       narration:
-        'Przyjmij N = +50 kN, ponieważ pręt jest rozciągany. Przelicz siłę na niutony: N = 50 000 N. Zachowaj pole w milimetrach kwadratowych: A = 250 mm². Podstaw do wzoru: σ = 50 000/250 = 200 N/mm². Zapisz N/mm² jako MPa i pozostaw znak dodatni. Sprawdź rząd wielkości: 200 MPa to typowe naprężenie robocze stali konstrukcyjnej, poniżej granicy plastyczności około 235 MPa. Gdyby ta sama siła działała w drugą stronę, N byłoby ujemne, a naprężenie wyniosło −200 MPa. Wartość bezwzględna byłaby ta sama, ale interpretacja zmieniłaby się na ściskanie.',
-      caption:
-        'Gdyby ta sama siła działała w drugą stronę, N byłoby ujemne, a naprężenie wyniosło −200 MPa. Wartość bezwzględna byłaby ta…',
+        'Pręt o polu przekroju A = 250 mm² jest utwierdzony górnym końcem i rozciągany na dolnym końcu siłą N = 50 kN. Oś obciążenia pokrywa się z osią pręta, więc model pręta rozciąganego jest właściwy.',
+      caption: 'Jednorodny pręt A = 250 mm² obciążony osiowo siłą N = 50 kN.',
       visual: 'axial',
-      formula:
-        'N = +50\\ \\text{kN}\\qquad N = 50\\,000\\ \\text{N}\\qquad \\sigma = \\frac{50\\,000}{250} = 200\\ \\text{N/mm}^{2}',
+      focus: { metric: 'model' },
+      formula: 'A=250\\ \\text{mm}^2,\\qquad N=50\\ \\text{kN}',
+    },
+    {
+      title: 'Siła osiowa N',
+      narration:
+        'Przecinamy pręt prostopadle do osi. Z równowagi odciętej części otrzymujemy N = +50 kN. Znak dodatni oznacza rozciąganie, a wartość N jest stała na całej długości.',
+      caption: 'W każdym przekroju N = +50 kN; dodatni znak oznacza rozciąganie.',
+      visual: 'axial',
+      focus: { metric: 'N' },
+      formula: 'N=+50\\ \\text{kN}=50\\,000\\ \\text{N}',
+    },
+    {
+      title: 'Wydłużenie pręta',
+      narration:
+        'Rozciąganie wydłuża pręt: przekroje pozostają płaskie, a swobodny koniec przesuwa się o ΔL. Przy nieznanej długości i module E nie liczymy ΔL, ale wiemy, że jest ono proporcjonalne do N.',
+      caption: 'Przekroje pozostają płaskie; wydłużenie jest proporcjonalne do N.',
+      visual: 'axial',
+      focus: { metric: 'elongation' },
+      formula: '\\Delta L=\\frac{NL}{EA}',
+    },
+    {
+      title: 'Naprężenie normalne',
+      narration:
+        'Siła N rozkłada się równomiernie na polu A. Naprężenie σ = N/A jest jednakowe w całym przekroju, a jego znak dziedziczy znak siły osiowej.',
+      caption: 'σ = 50 000/250 = 200 MPa; rozkład równomierny w przekroju.',
+      visual: 'axial',
+      focus: { metric: 'sigma' },
+      formula: '\\sigma=\\frac{N}{A}=\\frac{50\\,000}{250}=200\\ \\text{MPa}',
+    },
+    {
+      title: 'Wynik i interpretacja',
+      narration:
+        'Naprężenie wynosi +200 MPa, czyli jest rozciągające. To wartość bliska granicy plastyczności typowej stali, około 235 MPa, więc zapas byłby niewielki. Gdyby siła działała przeciwnie, σ = −200 MPa oznaczałoby ściskanie.',
+      caption: '+200 MPa (rozciąganie) — blisko granicy plastyczności stali 235 MPa.',
+      visual: 'axial',
+      focus: { metric: 'result' },
+      formula: '\\sigma=+200\\ \\text{MPa}<235\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

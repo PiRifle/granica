@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialNormalStressExample2Animation } from './animation'
+import { NormalStressExample2Animation } from './animation'
 
 export default {
   id: 'ex-axial-normal-stress-2',
@@ -7,18 +7,53 @@ export default {
   duration: 7,
   given: ['N=30 kN', 'A_1=300 mm²', 'A_2=150 mm²'],
   result:
-    'Gdyby dopuszczalne naprężenie wynosiło 160 MPa, pierwszy pręt spełniałby warunek, a drugi nie. Aby go spełnić, drugi pręt musiałby mieć pole co najmniej A_2,min=30 000/160=187,5 mm^2. To pokazuje, że dobór przekroju nie polega na skopiowaniu sąsiedniego elementu, lecz na sprawdzeniu każdego elementu osobno.',
-  animation: AxialNormalStressExample2Animation,
+    'Przy σdop = 160 MPa pierwszy pręt spełnia warunek, a drugi nie. Aby go spełnić, drugi pręt musiałby mieć pole co najmniej A_2,min=30 000/160=187,5 mm². Dobór przekroju wymaga sprawdzenia każdego elementu osobno.',
+  animation: NormalStressExample2Animation,
   scenes: [
     {
-      title: 'Model, dane i obliczenia',
+      title: 'Model i dane',
       narration:
-        'Rozważmy dwa niezależne pręty, z których każdy przenosi tę samą siłę rozciągającą N=30 kN. Pierwszy ma pole A_1=300 mm^2, drugi A_2=150 mm^2. Chcemy sprawdzić, który z nich jest bardziej wytężony. Dla pierwszego pręta naprężenie wynosi σ_1=30 000/300=100 MPa. Dla drugiego σ_2=30 000/150=200 MPa. Oba pręty są rozciągane, więc oba naprężenia są dodatnie, ale drugi pręt jest obciążony dwa razy mocniej. Ten przykład pokazuje, że „równolegle” nie oznacza „po równo”. Jeśli pręty mają różne sztywności, to przy wspólnym przemieszczeniu podział sił może być inny, ale przy niezależnym obciążeniu każdym z nich tą samą siłą decyduje wyłącznie pole. W zadaniach z prętami połączonymi równolegle trzeba dodatkowo sprawdzić warunek zgodności przemieszczeń, którym zajmiemy się w późniejszych modułach. Warto zauważyć różnicę między połączeniem szeregowym a równoległym. W szeregowym pręcie schodkowym wszystkie odcinki przenoszą tę samą siłę, a różnią się naprężeniem. W równoległym układzie prętów końce mają wspólne przemieszczenie, więc siły rozkładają się zgodnie ze sztywnościami. Ten sam wzór σ=N/A obowiązuje w obu przypadkach, ale sposób wyznaczenia N jest inny. Gdyby dopuszczalne naprężenie wynosiło 160 MPa, pierwszy pręt spełniałby warunek, a drugi nie. Aby go spełnić, drugi pręt musiałby mieć pole co najmniej A_2,min=30 000/160=187,5 mm^2. To pokazuje, że dobór przekroju nie polega na skopiowaniu sąsiedniego elementu, lecz na sprawdzeniu każdego elementu osobno.',
-      caption:
-        'Gdyby dopuszczalne naprężenie wynosiło 160 MPa, pierwszy pręt spełniałby warunek, a drugi nie. Aby go spełnić, drugi pręt…',
+        'Dwa niezależne pręty przenoszą tę samą siłę rozciągającą N = 30 kN. Pierwszy ma pole A₁ = 300 mm², drugi A₂ = 150 mm². Są to osobne elementy, więc każdy analizujemy z osobna.',
+      caption: 'Dwa niezależne pręty o tej samej sile N i różnych polach.',
       visual: 'axial',
-      formula:
-        'N=30\\ \\text{kN}\\qquad \\sigma_1=30\\,000/300=100\\ \\text{MPa}\\qquad \\sigma=N/A\\qquad 160\\ \\text{MPa}',
+      focus: { metric: 'model' },
+      formula: 'N=30\\ \\text{kN},\\qquad A_1=300\\ \\text{mm}^2,\\qquad A_2=150\\ \\text{mm}^2',
+    },
+    {
+      title: 'Ta sama siła w obu prętach',
+      narration:
+        'Na oba pręty działa ta sama siła osiowa N = 30 kN. Przekrój każdego pręta przenosi więc identyczną wypadkową sił wewnętrznych. Różnica pojawi się dopiero po podzieleniu przez pole.',
+      caption: 'N₁ = N₂ = +30 kN; siła jest jednakowa, ale pola są różne.',
+      visual: 'axial',
+      focus: { metric: 'N' },
+      formula: 'N_1=N_2=30\\ \\text{kN}',
+    },
+    {
+      title: 'Pręt 1: σ₁ = 100 MPa',
+      narration:
+        'Dla pierwszego pręta σ₁ = 30 000/300 = 100 MPa. Naprężenie jest rozciągające, a strzałki na przekroju mają jednakową długość, bo rozkład jest równomierny.',
+      caption: 'σ₁ = 100 MPa — połowa naprężenia drugiego pręta.',
+      visual: 'axial',
+      focus: { metric: 'sigma1' },
+      formula: '\\sigma_1=\\frac{30\\,000}{300}=100\\ \\text{MPa}',
+    },
+    {
+      title: 'Pręt 2: σ₂ = 200 MPa',
+      narration:
+        'Dla drugiego pręta σ₂ = 30 000/150 = 200 MPa. Przy tej samej sile mniejsze pole daje dwa razy większe naprężenie. To nie siła, lecz iloraz N/A decyduje o wytężeniu.',
+      caption: 'σ₂ = 200 MPa — dwa razy większe naprężenie przy tej samej sile.',
+      visual: 'axial',
+      focus: { metric: 'sigma2' },
+      formula: '\\sigma_2=\\frac{30\\,000}{150}=200\\ \\text{MPa}',
+    },
+    {
+      title: 'Porównanie i warunek',
+      narration:
+        'Przy σdop = 160 MPa pierwszy pręt spełnia warunek, a drugi nie. Aby go spełnić, drugi pręt musiałby mieć pole co najmniej A₂,min = 30 000/160 = 187,5 mm². Każdy element sprawdzamy osobno — równoległe ustawienie nie oznacza równego podziału naprężeń.',
+      caption: '100 MPa ≤ 160 MPa < 200 MPa; potrzeba A₂,min = 187,5 mm².',
+      visual: 'axial',
+      focus: { metric: 'check' },
+      formula: 'A_{2,\\min}=\\frac{30\\,000}{160}=187{,}5\\ \\text{mm}^2',
     },
   ],
 } satisfies SolutionData
