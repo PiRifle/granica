@@ -155,6 +155,7 @@ export interface WorkedSolution {
   result: string
   scenes: SolutionScene[]
   figure?: SolutionFigure
+  animation?: ComponentType
 }
 
 export interface CourseSolution extends WorkedSolution {

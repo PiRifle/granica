@@ -70,7 +70,9 @@ export function SolutionDebug({ onBack }: { onBack: () => void }) {
                 <h2>{solution.title}</h2>
               </div>
               <div className={styles.tags}>
-                <span className={styles.tag}>{solution.figure?.kind ?? 'brak figury'}</span>
+                <span className={styles.tag}>
+                  {solution.animation ? 'animacja własna' : (solution.figure?.kind ?? 'brak figury')}
+                </span>
                 <span className={styles.tag}>{solution.scenes.length} scen</span>
               </div>
             </header>

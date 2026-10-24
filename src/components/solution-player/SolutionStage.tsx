@@ -38,6 +38,8 @@ export function SolutionStage({
   stageRef: RefObject<HTMLDivElement | null>
   stageFloor: number
 }) {
+  const Animation = solution.animation
+
   return (
     <div
       ref={stageRef}
@@ -53,7 +55,9 @@ export function SolutionStage({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
           >
-            {solution.figure ? (
+            {Animation ? (
+              <Animation />
+            ) : solution.figure ? (
               <SolutionFigureView
                 figure={solution.figure}
                 scene={scene}

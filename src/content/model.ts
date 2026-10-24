@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import type { LessonMeta, SolutionFigure, SolutionScene } from '../types'
 
 export type { LessonMeta }
@@ -19,4 +20,5 @@ export interface SolutionData {
   result: string
   scenes: SolutionScene[]
   figure?: SolutionFigure
+  animation?: ComponentType
 }
