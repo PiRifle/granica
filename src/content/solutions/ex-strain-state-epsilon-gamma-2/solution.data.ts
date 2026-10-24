@@ -1,12 +1,14 @@
 import type { SolutionData } from '../../model'
+import { StrainFieldAnimation } from './animation'
 
 export default {
   id: 'ex-strain-state-epsilon-gamma-2',
   title: 'Odkształcenia: długości i kąty — przykład 2',
   duration: 7,
-  given: [],
+  given: ['u=0,0004x+0,0002y', 'v=0,0003x−0,0001y'],
   result:
     'Zwróć uwagę, że pole jest liniowe, więc odkształcenia są stałe w całej tarczy. To wygodne ćwiczenie rachunkowe, ale w rzeczywistej konstrukcji pochodne zmieniają się z położeniem. Gdyby pole zawierało składnik x^2, pochodna ∂ u/∂ x zależałaby od x i odkształcenie nie byłoby jednorodne.',
+  animation: StrainFieldAnimation,
   figure: {
     kind: 'rosette',
     gauges: [
@@ -44,48 +46,47 @@ export default {
   },
   scenes: [
     {
-      title: 'Zapisz pole przemieszczeń',
+      title: 'Model: liniowe pole przemieszczeń',
       narration:
-        'Dane jest liniowe pole przemieszczeń w płaskiej tarczy. Składowa pozioma zależy od x i y, a pionowa również zawiera oba składniki, co zapowiada niezerowe odkształcenia normalne i postaciowe.',
-      caption: 'u = 0,0004x + 0,0002y, v = 0,0003x − 0,0001y (mm).',
+        'W płaskiej tarczy dane jest liniowe pole przemieszczeń u = 0,0004x + 0,0002y oraz v = 0,0003x − 0,0001y (w milimetrach). Ponieważ pole jest liniowe, pochodne cząstkowe są stałe, a więc cały tensor odkształcenia jest taki sam w każdym punkcie tarczy.',
+      caption: 'u = 0,0004x + 0,0002y, v = 0,0003x − 0,0001y.',
       visual: 'rosette',
-      focus: { metric: 'gauges' },
+      focus: { metric: 'model' },
       formula: 'u=0{,}0004x+0{,}0002y,\\qquad v=0{,}0003x-0{,}0001y',
     },
     {
-      title: 'Oblicz pochodne cząstkowe',
+      title: 'Odkształcenia normalne: długość i szerokość',
       narration:
-        'Różniczkujemy obie składowe po x i y. Pochodne są stałe, bo pole jest liniowe: ∂u/∂x = 0,0004, ∂u/∂y = 0,0002, ∂v/∂x = 0,0003 oraz ∂v/∂y = −0,0001.',
-      caption: 'Cztery pochodne cząstkowe wyznaczają tensor odkształcenia.',
-      visual: 'rosette',
-      focus: { metric: 'gauges' },
-      formula:
-        '\\frac{\\partial u}{\\partial x}=0{,}0004,\\qquad \\frac{\\partial u}{\\partial y}=0{,}0002,\\qquad \\frac{\\partial v}{\\partial x}=0{,}0003,\\qquad \\frac{\\partial v}{\\partial y}=-0{,}0001',
-    },
-    {
-      title: 'Odczytaj odkształcenia normalne',
-      narration:
-        'Odkształcenia normalne to pochodne wzdłuż osi: ε_x = ∂u/∂x = 400 με oraz ε_y = ∂v/∂y = −100 με. W kierunku y materiał się więc skraca.',
+        'Odkształcenia normalne to pochodne wzdłuż osi: ε_x = ∂u/∂x = 400 με oraz ε_y = ∂v/∂y = −100 με. Element wydłuża się w kierunku x, a w kierunku y się skraca. To czysto geometryczny efekt pola, niezależny od ścinania.',
       caption: 'ε_x = 400 με, ε_y = −100 με.',
       visual: 'rosette',
-      focus: { metric: 'gauges' },
+      focus: { metric: 'normal' },
       formula:
         '\\varepsilon_x=0{,}0004=400\\,\\mu\\varepsilon,\\qquad \\varepsilon_y=-0{,}0001=-100\\,\\mu\\varepsilon',
     },
     {
-      title: 'Wyznacz odkształcenie postaciowe',
+      title: 'Ścinanie: obrót obu boków',
       narration:
-        'Odkształcenie inżynierskie ścinania to suma pochodnych mieszanych: γ_xy = ∂u/∂y + ∂v/∂x = 0,0002 + 0,0003 = 0,0005. Tensorowa składowa ε_xy jest połową tej wartości.',
-      caption: 'γ_xy = 500 μrad, ε_xy = 250 μrad.',
+        'Pochodne mieszane opisują obrót boków. Dolna krawędź obraca się o ∂v/∂x = 300 με, a lewa krawędź o ∂u/∂y = 200 με. Suma tych obrotów daje inżynierskie odkształcenie postaciowe γ_xy = 0,0002 + 0,0003 = 0,0005 rad.',
+      caption: '∂u/∂y = 200 με, ∂v/∂x = 300 με, γ_xy = 500 μrad.',
       visual: 'rosette',
       focus: { metric: 'shear' },
       formula:
-        '\\gamma_{xy}=\\frac{\\partial u}{\\partial y}+\\frac{\\partial v}{\\partial x}=0{,}0002+0{,}0003=0{,}0005,\\qquad \\varepsilon_{xy}=250\\,\\mu\\text{rad}',
+        '\\frac{\\partial u}{\\partial y}=0{,}0002,\\qquad \\frac{\\partial v}{\\partial x}=0{,}0003,\\qquad \\gamma_{xy}=0{,}0005',
     },
     {
-      title: 'Oblicz środek i promień koła',
+      title: 'Pełna deformacja i składowa tensorowa',
       narration:
-        'Średnia odkształceń normalnych wynosi 150 με. Promień obejmuje połowę różnicy ε_x − ε_y oraz połowę γ_xy; po podstawieniu otrzymujemy 353,55 με.',
+        'Nakładamy teraz odkształcenia normalne i postaciowe. Element wydłuża się w kierunku x, skraca w kierunku y, a jego boki przestają być prostopadłe. Składowa tensorowa to połowa odkształcenia inżynierskiego: ε_xy = γ_xy/2 = 250 μrad.',
+      caption: 'ε_xy = γ_xy/2 = 250 μrad.',
+      visual: 'rosette',
+      focus: { metric: 'combined' },
+      formula: '\\varepsilon_{xy}=\\frac{\\gamma_{xy}}{2}=\\frac{0{,}0005}{2}=0{,}00025=250\\,\\mu\\text{rad}',
+    },
+    {
+      title: 'Koło Mohra: środek i promień',
+      narration:
+        'Średnia odkształceń normalnych wynosi ε_sr = (400 − 100)/2 = 150 με. Promień obejmuje połowę różnicy ε_x − ε_y oraz połowę γ_xy; po podstawieniu R_ε = √(250² + 250²) = 353,55 με.',
       caption: 'ε_sr = 150 με, R_ε = 353,55 με.',
       visual: 'rosette',
       focus: { metric: 'mohr' },
@@ -93,43 +94,14 @@ export default {
         '\\varepsilon_{sr}=\\frac{400+(-100)}{2}=150\\,\\mu\\varepsilon,\\qquad R_\\varepsilon=\\sqrt{250^2+250^2}=353{,}55\\,\\mu\\varepsilon',
     },
     {
-      title: 'Wyznacz odkształcenia główne',
+      title: 'Kierunki główne, naprężenia i kontrola',
       narration:
-        'Dodając i odejmując promień od średniej, otrzymujemy ε_I = 503,55 με i ε_II = −203,55 με. W kierunkach głównych odkształcenie postaciowe znika.',
-      caption: 'ε_I = 503,55 με, ε_II = −203,55 με.',
+        'Dodając i odejmując promień od średniej, otrzymujemy ε_I = 503,55 με i ε_II = −203,55 με. Kąt główny wynosi φ = 22,5°, bo tan 2φ = 500/500 = 1. Dla stali E = 200 GPa i ν = 0,30 otrzymujemy σ_I = 97,25 MPa oraz σ_II = −11,54 MPa. Pole jest liniowe, więc te wartości nie zależą od położenia punktu.',
+      caption: 'ε_I = 503,55 με, ε_II = −203,55 με, φ = 22,5°; σ_I = 97,25 MPa, σ_II = −11,54 MPa.',
       visual: 'rosette',
       focus: { metric: 'principal' },
       formula:
-        '\\varepsilon_I=150+353{,}55=503{,}55\\,\\mu\\varepsilon,\\qquad \\varepsilon_{II}=150-353{,}55=-203{,}55\\,\\mu\\varepsilon',
-    },
-    {
-      title: 'Wyznacz kierunki główne',
-      narration:
-        'Tangens podwójnego kąta to γ_xy/(ε_x − ε_y) = 500/500 = 1. Stąd 2φ = 45°, a φ = 22,5°. Kierunek główny leży więc dokładnie w połowie między osiami x i y.',
-      caption: 'φ_I = 22,5°.',
-      visual: 'rosette',
-      focus: { metric: 'angle' },
-      formula: '\\tan2\\varphi_I=\\frac{500}{400-(-100)}=\\frac{500}{500}=1,\\qquad \\varphi_I=22{,}5^\\circ',
-    },
-    {
-      title: 'Przyjmij materiał i oblicz naprężenia',
-      narration:
-        'Dla stali E = 200 GPa i ν = 0,30 czynnik materiałowy wynosi 219 780 MPa. Otrzymujemy σ_I = 97,25 MPa oraz σ_II = −11,54 MPa.',
-      caption: 'σ_I = 97,25 MPa, σ_II = −11,54 MPa.',
-      visual: 'rosette',
-      focus: { metric: 'stress' },
-      formula:
-        '\\sigma_I=219\\,780\\cdot(503{,}55+0{,}30\\cdot(-203{,}55))\\cdot10^{-6}=97{,}25\\,\\text{MPa},\\qquad \\sigma_{II}=219\\,780\\cdot(-203{,}55+0{,}30\\cdot503{,}55)\\cdot10^{-6}=-11{,}54\\,\\text{MPa}',
-    },
-    {
-      title: 'Sprawdź jednorodność pola',
-      narration:
-        'Ponieważ pole jest liniowe, pochodne nie zależą od położenia. Gdyby pojawił się składnik x², pochodna ∂u/∂x zależałaby od x i odkształcenia nie byłyby stałe. Kontrola modułów potwierdza zgodność znaków i rzędu wielkości.',
-      caption: 'Kontrola: |ε_y| = 100 με, |ε_II| = 203,55 με, |σ_II| = 11,54 MPa.',
-      visual: 'rosette',
-      focus: { metric: 'principal' },
-      formula:
-        '|\\varepsilon_y|=100\\,\\mu\\varepsilon,\\qquad |\\varepsilon_{II}|=203{,}55\\,\\mu\\varepsilon,\\qquad |\\sigma_{II}|=11{,}54\\,\\text{MPa}',
+        '\\varepsilon_{I,II}=150\\pm353{,}55\\,\\mu\\varepsilon,\\qquad \\tan2\\varphi_I=\\frac{500}{500}=1\\ \\Rightarrow\\ \\varphi_I=22{,}5^\\circ',
     },
   ],
 } satisfies SolutionData

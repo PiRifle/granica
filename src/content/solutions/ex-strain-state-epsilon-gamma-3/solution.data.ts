@@ -1,12 +1,14 @@
 import type { SolutionData } from '../../model'
+import { StrainAllowableAnimation } from './animation'
 
 export default {
   id: 'ex-strain-state-epsilon-gamma-3',
   title: 'Odkształcenia: długości i kąty — przykład 3',
   duration: 7,
-  given: ['gamma_{xy}=0'],
+  given: ['ε_dop=1200 με', 'L_0=80 mm', 'γ_xy=0,0015 rad'],
   result:
-    'Gdyby wynik wyszedł rzędu kilku stopni, należałoby sprawdzić jednostki. Odkształcenie sprężyste stali rzadko przekracza kilka tysięcznych, więc kąt rzędu 0,1^circ jest już duży jak na ten zakres.',
+    'Gdyby wynik wyszedł rzędu kilku stopni, należałoby sprawdzić jednostki. Odkształcenie sprężyste stali rzadko przekracza kilka tysięcznych, więc kąt rzędu 0,1° jest już duży jak na ten zakres.',
+  animation: StrainAllowableAnimation,
   figure: {
     kind: 'rosette',
     gauges: [
@@ -39,36 +41,47 @@ export default {
   },
   scenes: [
     {
-      title: 'Zamień mikrostrainy na wartość bezwymiarową',
+      title: 'Model: baza pomiarowa i warunek dopuszczalny',
       narration:
-        'Dopuszczalne odkształcenie liniowe wynosi 1200 με, czyli 0,0012. Tę wartość wykorzystamy do obliczenia wydłużenia na bazie pomiarowej.',
-      caption: '1200 με = 0,0012.',
+        'Baza pomiarowa ma L₀ = 80 mm, a dopuszczalne odkształcenie liniowe wynosi ε_dop = 1200 με = 0,0012. Szukamy największego dopuszczalnego wydłużenia oraz kąta odpowiadającego γ_xy = 0,0015 rad.',
+      caption: 'L₀ = 80 mm, ε_dop = 1200 με = 0,0012, γ_xy = 0,0015 rad.',
       visual: 'rosette',
-      focus: { metric: 'gauges' },
-      formula: '1200\\,\\mu\\varepsilon=0{,}0012',
+      focus: { metric: 'model' },
+      formula:
+        'L_0=80\\,\\text{mm},\\qquad \\varepsilon_{dop}=1200\\,\\mu\\varepsilon=0{,}0012,\\qquad \\gamma_{xy}=0{,}0015\\,\\text{rad}',
     },
     {
-      title: 'Oblicz dopuszczalne wydłużenie',
+      title: 'Dopuszczalne wydłużenie',
       narration:
-        'Baza pomiarowa ma 80 mm, więc maksymalne wydłużenie to ΔL = ε·L₀ = 0,0012 · 80 = 0,096 mm. To mniej niż dziesiąta część milimetra.',
+        'Maksymalne wydłużenie to ΔL = ε·L₀ = 0,0012 · 80 = 0,096 mm. To mniej niż dziesiąta część milimetra, dlatego potrzebny jest czujnik, a nie linijka.',
       caption: 'ΔL = 0,096 mm.',
       visual: 'rosette',
-      focus: { metric: 'gauges' },
+      focus: { metric: 'normal' },
       formula: '\\Delta L=\\varepsilon L_0=0{,}0012\\cdot80=0{,}096\\,\\text{mm}',
     },
     {
-      title: 'Przelicz ścinanie na kąt',
+      title: 'Ścinanie: kąt w radianach i stopniach',
       narration:
-        'Odkształcenie postaciowe γ_xy = 0,0015 rad odpowiada kątowi 0,0015 · 180°/π ≈ 0,0859°, czyli około pięciu minut kątowych. To pokazuje, dlaczego potrzebne są czułe czujniki, a nie zwykła linijka.',
-      caption: 'γ_xy = 1500 μrad ≈ 0,0859°.',
+        'Odkształcenie postaciowe γ_xy = 0,0015 rad odpowiada kątowi 0,0015·180°/π ≈ 0,0859°, czyli około 5,15 minuty kątowej. To pokazuje, jak małe są kąty w zakresie sprężystym.',
+      caption: 'γ_xy = 1500 μrad ≈ 0,0859° ≈ 5,15′.',
       visual: 'rosette',
       focus: { metric: 'shear' },
-      formula: '\\gamma_{xy}=0{,}0015\\,\\text{rad}=1500\\,\\mu\\text{rad}\\approx0{,}0859^\\circ',
+      formula:
+        '\\gamma_{xy}=0{,}0015\\,\\text{rad}=1500\\,\\mu\\text{rad}\\approx0{,}0859^\\circ\\approx5{,}15^{\\prime}',
     },
     {
-      title: 'Oblicz środek i promień koła',
+      title: 'Stan łączony i składowa tensorowa',
       narration:
-        'Przyjmując ε_y = 0 dla ilustracji, środek koła wynosi 600 με, a promień obejmuje połowę ε_x oraz połowę γ_xy. Otrzymujemy R_ε = 960,47 με.',
+        'Na rysunku łączymy dopuszczalne wydłużenie z tym samym ścinaniem. Dla ilustracji przyjmujemy ε_y = 0. Składowa tensorowa ścinania wynosi ε_xy = γ_xy/2 = 750 μrad, bo tensor jest symetryczny.',
+      caption: 'ε_xy = γ_xy/2 = 750 μrad.',
+      visual: 'rosette',
+      focus: { metric: 'combined' },
+      formula: '\\varepsilon_{xy}=\\frac{\\gamma_{xy}}{2}=\\frac{0{,}0015}{2}=0{,}00075=750\\,\\mu\\text{rad}',
+    },
+    {
+      title: 'Koło Mohra: środek i promień',
+      narration:
+        'Przyjmując ε_y = 0 dla ilustracji, środek koła wynosi ε_sr = 600 με, a promień R_ε = √(600² + 750²) = 960,47 με.',
       caption: 'ε_sr = 600 με, R_ε = 960,47 με.',
       visual: 'rosette',
       focus: { metric: 'mohr' },
@@ -76,42 +89,14 @@ export default {
         '\\varepsilon_{sr}=\\frac{1200+0}{2}=600\\,\\mu\\varepsilon,\\qquad R_\\varepsilon=\\sqrt{600^2+750^2}=960{,}47\\,\\mu\\varepsilon',
     },
     {
-      title: 'Wyznacz odkształcenia główne',
+      title: 'Wartości główne, kierunek i naprężenia',
       narration:
-        'Skrajne punkty koła dają ε_I = 1560,47 με i ε_II = −360,47 με. Największe rozciąganie jest większe od odkształcenia w kierunku x, bo dodaje się do niego efekt ścinania.',
-      caption: 'ε_I = 1560,47 με, ε_II = −360,47 με.',
+        'Skrajne punkty koła dają ε_I = 1560,47 με i ε_II = −360,47 με. Kierunek główny odchyla się o φ = 25,67°, bo tan 2φ = 1500/1200 = 1,25. Dla stali E = 200 GPa i ν = 0,30 otrzymujemy σ_I = 319,25 MPa oraz σ_II = 23,67 MPa. Kąt 0,0859° to około 5,15′, więc wynik jest spójny.',
+      caption: 'ε_I = 1560,47 με, ε_II = −360,47 με, φ = 25,67°; σ_I = 319,25 MPa, σ_II = 23,67 MPa.',
       visual: 'rosette',
       focus: { metric: 'principal' },
       formula:
-        '\\varepsilon_I=600+960{,}47=1560{,}47\\,\\mu\\varepsilon,\\qquad \\varepsilon_{II}=600-960{,}47=-360{,}47\\,\\mu\\varepsilon',
-    },
-    {
-      title: 'Wyznacz kierunek główny',
-      narration:
-        'Tangens podwójnego kąta to γ_xy/ε_x = 1500/1200 = 1,25. Stąd 2φ ≈ 51,34°, a φ ≈ 25,67°. Kierunek główny odchyla się od osi x w stronę działania ścinania.',
-      caption: 'φ_I = 25,67°.',
-      visual: 'rosette',
-      focus: { metric: 'angle' },
-      formula: '\\tan2\\varphi_I=\\frac{1500}{1200}=1{,}25,\\qquad \\varphi_I=25{,}67^\\circ',
-    },
-    {
-      title: 'Przyjmij materiał i oblicz naprężenia',
-      narration:
-        'Dla stali E = 200 GPa i ν = 0,30 czynnik E/(1 − ν²) = 219 780 MPa. Otrzymujemy σ_I = 319,25 MPa oraz σ_II = 23,67 MPa.',
-      caption: 'σ_I = 319,25 MPa, σ_II = 23,67 MPa.',
-      visual: 'rosette',
-      focus: { metric: 'stress' },
-      formula:
-        '\\sigma_I=219\\,780\\cdot(1560{,}47+0{,}30\\cdot(-360{,}47))\\cdot10^{-6}=319{,}25\\,\\text{MPa},\\qquad \\sigma_{II}=219\\,780\\cdot(-360{,}47+0{,}30\\cdot1560{,}47)\\cdot10^{-6}=23{,}67\\,\\text{MPa}',
-    },
-    {
-      title: 'Sprawdź jednostki i rząd wielkości',
-      narration:
-        'Kąt 0,0859° jest bardzo mały, a naprężenie 319 MPa odpowiada wysokiej, ale spotykanej stali konstrukcyjnej. Gdyby kąt wyszedł rzędu kilku stopni, trzeba by sprawdzić jednostki i założenia.',
-      caption: 'Kontrola: 0,0859° to około 5 minut kątowych.',
-      visual: 'rosette',
-      focus: { metric: 'principal' },
-      formula: '0{,}0859^\\circ\\approx5{,}15\\,\\text{min},\\qquad |\\varepsilon_{II}|=360{,}47\\,\\mu\\varepsilon',
+        '\\varepsilon_{I,II}=600\\pm960{,}47\\,\\mu\\varepsilon,\\qquad \\tan2\\varphi_I=\\frac{1500}{1200}=1{,}25\\ \\Rightarrow\\ \\varphi_I=25{,}67^\\circ',
     },
   ],
 } satisfies SolutionData
