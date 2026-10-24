@@ -1,10 +1,10 @@
 import type { SolutionData } from '../../model'
-import { MaxNormalExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-max-normal-3',
   title: 'Hipoteza największego naprężenia normalnego — przykład 3',
-  animation: MaxNormalExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MaxNormalExample3Animation }))),
   duration: 7,
   given: ['σy = −40 MPa', 'σx = 0', 'kr = 150 MPa', 'n = 2,0'],
   result:

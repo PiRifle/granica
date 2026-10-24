@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { TriangleSecondMomentAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-second-moments-2',
@@ -33,7 +33,7 @@ export default {
     ],
     note: 'Schemat: trójkąt równoramienny o podstawie 120 mm i wysokości 90 mm przybliżono pasami; wymiary są rzeczywiste.',
   },
-  animation: TriangleSecondMomentAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.TriangleSecondMomentAnimation }))),
   scenes: [
     {
       title: 'Model: trójkąt i osie',

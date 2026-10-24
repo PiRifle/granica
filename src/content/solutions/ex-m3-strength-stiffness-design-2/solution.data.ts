@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrengthStiffnessDesign2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-strength-stiffness-design-2',
@@ -8,7 +8,9 @@ export default {
   given: ['A₁ = 200 mm²', 'A₂ = 350 mm²', 'A₃ = 500 mm²', 'P = 18 kN', 'Q = 10 kN', 'R = 28 kN'],
   result:
     'Po zaokrągleniu do 250 mm^2 otrzymujemy σ_1=112 MPa oraz wydłużenie około 0,400 mm. Jeden odcinek wystarczył, aby naprawić oba warunki, ponieważ był jednocześnie najbardziej wytężony i miał największy udział w wydłużeniu. W innym układzie te dwa kryteria mogą wskazywać różne odcinki.',
-  animation: StrengthStiffnessDesign2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrengthStiffnessDesign2Animation })),
+  ),
   figure: {
     kind: 'axial',
     top: 'fixed',

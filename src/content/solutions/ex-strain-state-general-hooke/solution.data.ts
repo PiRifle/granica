@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { GeneralHookeExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-general-hooke',
@@ -8,7 +8,7 @@ export default {
   given: ['E=200 GPa', 'nu=0,30', 'sigma_x=80 MPa', 'sigma_y=40 MPa', 'sigma_z=-20 MPa', 'tau_{xy}=30 MPa'],
   result:
     'ε_x=370 με, ε_y=110 με, ε_z=-280 με oraz γ_xy=390 μrad. Objętość rośnie nieznacznie, mimo ujemnego naprężenia w kierunku z.',
-  animation: GeneralHookeExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.GeneralHookeExample1Animation }))),
   scenes: [
     {
       title: 'Model: przestrzenny stan naprężenia',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { DesignFullAxial3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-axial-3',
@@ -8,7 +8,7 @@ export default {
   given: ['L=400 mm', 'A_1=200 mm²', 'A_2=350 mm²', 'A_3=500 mm²', 'Q=10 kN', 'k=150 MPa'],
   result:
     'Decyduje odcinek 1: P_max = 20 kN. Przy tej sile σ₁ = 150 MPa, a całkowite wydłużenie wynosi 0,4943 mm i jest mniejsze od 0,5 mm.',
-  animation: DesignFullAxial3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.DesignFullAxial3Animation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

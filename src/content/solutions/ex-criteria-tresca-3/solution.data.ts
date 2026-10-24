@@ -1,10 +1,10 @@
 import type { SolutionData } from '../../model'
-import { TrescaExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-tresca-3',
   title: 'Hipoteza Tresca: największe ścinanie — przykład 3',
-  animation: TrescaExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.TrescaExample3Animation }))),
   duration: 7,
   given: ['σ = 50 MPa'],
   result:

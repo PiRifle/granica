@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrengthElasticityPlasticity3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-strength-elasticity-plasticity-3',
@@ -8,7 +8,9 @@ export default {
   given: ['F_e=60 kN', 'S_0=250 mm²'],
   result:
     'Ten sam rachunek można odwrócić inaczej: mając wymaganą siłę roboczą i przyjęty współczynnik bezpieczeństwa, można wyznaczyć minimalne pole przekroju. Dla N=40 kN, R_e=240 MPa i n=1,5 otrzymujemy S_0,min=N n/R_e=40 000· 1,5/240=250 mm^2. To dokładnie pole użyte w przykładzie, co potwierdza spójność obliczeń.',
-  animation: StrengthElasticityPlasticity3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrengthElasticityPlasticity3Animation })),
+  ),
   figure: {
     kind: 'axial',
     top: 'fixed',

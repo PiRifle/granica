@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { FullTorsion1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-torsion',
@@ -141,7 +141,7 @@ export default {
     note: 'Rura ∅56/∅34 jest o około 35% lżejsza od wału pełnego ∅55 przy zbliżonych warunkach pracy.',
     shape: 'circle',
   },
-  animation: FullTorsion1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullTorsion1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

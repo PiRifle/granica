@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { PureBendingExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-pure-3',
@@ -8,7 +8,7 @@ export default {
   given: ['b = 40 mm', 'h = 80 mm', 'E = 200 GPa', 'sigma_{dop} = 160 MPa'],
   result:
     'Kontrola stanu granicznego: I = 40 · 80^3/12 = 1,707 · 10^6 mm⁴, więc κ = 6,83 · 10^6/(200,000 · 1,707 · 10^6) = 2,0 · 10^-5 1/mm. Promień krzywizny to około 50 m, a odkształcenie skrajne ε = 160/200,000 = 8 · 10^-4. Naprężenie, odkształcenie i krzywizna są spójne i mieszczą się w zakresie sprężystym stali.',
-  animation: PureBendingExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.PureBendingExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

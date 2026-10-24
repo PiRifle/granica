@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SimpleCentroidInverseAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-simple-centroid-3',
@@ -8,7 +8,7 @@ export default {
   given: ['y_C = 40 mm', 'b = 90 mm'],
   result:
     'Wymagana wysokość trójkąta wynosi h=3y_C=120 mm, pole 5400 mm², a środek leży w (30; 40) mm. Podobny wariant odwrotny dla półkola: r=3πy/4, więc dla y=20 mm dostajemy r≈47,1 mm.',
-  animation: SimpleCentroidInverseAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SimpleCentroidInverseAnimation }))),
   scenes: [
     {
       title: 'Wymaganie i dane',

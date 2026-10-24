@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SolidTorsionAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-solid-torsion',
@@ -8,7 +8,7 @@ export default {
   given: ['d = 60 mm', 'L = 1,2 m', 'T = 1,5 kN·m', 'G = 80 GPa'],
   result:
     'τ_max ≈ 35,4 MPa na powierzchni wału, a kąt skręcenia wynosi około 0,0177 rad, czyli 1,01°. W osi naprężenie styczne jest równe zero.',
-  animation: SolidTorsionAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SolidTorsionAnimation }))),
   figure: {
     kind: 'section',
     width: 60,

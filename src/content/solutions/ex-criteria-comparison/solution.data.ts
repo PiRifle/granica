@@ -1,10 +1,10 @@
 import type { SolutionData } from '../../model'
-import { CriteriaComparison1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-comparison',
   title: 'HMH czy Tresca? Porównanie hipotez — przykład 1',
-  animation: CriteriaComparison1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.CriteriaComparison1Animation }))),
   duration: 7,
   given: ['sigma=120 MPa', 'tau=40 MPa', 'R_e=300 MPa'],
   result:

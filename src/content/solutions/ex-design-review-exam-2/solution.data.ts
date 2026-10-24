@@ -1,11 +1,11 @@
 import type { SolutionData } from '../../model'
-import { DesignReviewExam2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-review-exam-2',
   title: 'Powtórka mieszana i strategia kolokwium — przykład 2',
   duration: 7,
-  animation: DesignReviewExam2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.DesignReviewExam2Animation }))),
   given: ['D_1=60 mm', 'L_1=0,8 m', 'D_2=40 mm', 'L_2=0,6 m', 'T=500 N·m', 'G=80 GPa'],
   result:
     'W układzie schodkowym trzeba sprawdzić każdy odcinek osobno. Moment jest wspólny, ale najmniejsza średnica decyduje o naprężeniu. Dla D_2 = 40 mm τ_2 ≈ 39,8 MPa jest bliskie 40 MPa, a odcinek 2 dominuje w sumie kąta. Oba warunki są spełnione, a wytrzymałość jest wykorzystana niemal w całości.',

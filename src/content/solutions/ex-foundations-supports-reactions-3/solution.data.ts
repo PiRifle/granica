@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SupportsReactionsExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-supports-reactions-3',
@@ -8,7 +8,9 @@ export default {
   given: ['L = 4 m', 'P = 20 kN', 'R_B = 15 kN'],
   result:
     'Siła działa w odległości a = 3 m od lewej podpory, R_A = 5 kN, a moment pod siłą wynosi M = 15 kN·m. Sprawdzenie z prawej strony: R_B · 1 = 15 · 1 = 15 kN·m. Gdyby reakcja R_B była większa od P, otrzymalibyśmy a większe od L, co oznaczałoby, że dane są sprzeczne z modelem belki swobodnie podpartej.',
-  animation: SupportsReactionsExample3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.SupportsReactionsExample3Animation })),
+  ),
   scenes: [
     {
       title: 'Model i dane',

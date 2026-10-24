@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SaintVenantExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-saint-venant-3',
@@ -8,7 +8,7 @@ export default {
   given: ['b = 80 mm', 't = 6 mm', 'd = 16 mm', 'K_t ≈ 3', 'σ_max = 360 MPa'],
   result:
     'A_net = 384 mm², σ_nom = 120 MPa, a siła P ≈ 46,1 kN. Naprężenie brutto bez otworu wynosi 96 MPa. O nośności decyduje nie tylko pole netto, ale i kształt detalu — dwa otwory o tym samym polu mogą dawać różne maksima, jeśli różnią się kształtem lub położeniem względem krawędzi.',
-  animation: SaintVenantExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SaintVenantExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane — szukamy siły',

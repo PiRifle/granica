@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SafetyFactor1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-safety-factor',
@@ -8,7 +8,7 @@ export default {
   given: ['A=250 mm²', 'F=40 kN', 'R_e=235 MPa', 'n_{wym}=1'],
   result:
     'Element jest zbyt wytężony: σ=160 MPa przekracza k=156,7 MPa, a zapas 1,47 jest mniejszy od wymaganego 1,5. Potrzebne jest pole co najmniej 255,3 mm^2.',
-  animation: SafetyFactor1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SafetyFactor1Animation }))),
   figure: {
     kind: 'cube',
     stresses: {

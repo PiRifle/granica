@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrengthStiffnessDesign3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-strength-stiffness-design-3',
@@ -8,7 +8,9 @@ export default {
   given: ['A = 500 mm²', 'E = 200 GPa', 'σ_dop = 150 MPa', 'ΔL_dop = 2 mm'],
   result:
     'Ten wynik wyjaśnia, dlaczego długie elementy często wymagają większego przekroju, niż wynikałoby to z samej wytrzymałości. Wydłużenie rośnie liniowo z długością, a naprężenie nie. Wystarczy wydłużyć pręt, aby warunek sztywności stał się decydujący, nawet przy niezmienionym obciążeniu i materiale.',
-  animation: StrengthStiffnessDesign3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrengthStiffnessDesign3Animation })),
+  ),
   figure: {
     kind: 'axial',
     top: 'fixed',

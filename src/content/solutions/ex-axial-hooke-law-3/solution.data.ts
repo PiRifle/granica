@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HookeLawExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-hooke-law-3',
@@ -8,7 +8,7 @@ export default {
   given: ['L₀ = 2 m', 'A = 250 mm²', 'E = 200 GPa', 'ΔL_dop = 1,5 mm'],
   result:
     'Widzimy, że o dopuszczalnej sile może decydować sztywność, a nie wytrzymałość. Przy większym dopuszczalnym wydłużeniu limit siły wzrósłby proporcjonalnie. Przy większym polu również wzrósłby, bo większy przekrój jest sztywniejszy. Przy dłuższym pręcie limit siły zmalałby, bo ten sam przyrost długości rozkłada się na większą długość początkową.',
-  animation: HookeLawExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HookeLawExample3Animation }))),
   scenes: [
     {
       title: 'Dane i warunek sztywności',

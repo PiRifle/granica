@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearStressStrainExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-stress-strain-3',
@@ -18,7 +18,9 @@ export default {
     ],
     note: 'Z pomiaru τ i γ wyznaczamy moduł ścinania, a następnie moduł Younga.',
   },
-  animation: ShearStressStrainExample3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.ShearStressStrainExample3Animation })),
+  ),
   scenes: [
     {
       title: 'Pomiar τ i γ',

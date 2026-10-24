@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HookeLawExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-hooke-law-2',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 200 mm²', 'L₀ = 1,5 m', 'N = 20 kN', 'σ = 100 MPa'],
   result:
     'Przy tym samym naprężeniu aluminium wydłuża się około 2,86 razy bardziej niż stal, ponieważ ma około 2,86 razy mniejszy moduł Younga. Siła i naprężenie są identyczne, ale odpowiedź odkształceniowa jest inna. To pokazuje, dlaczego w konstrukcjach, w których ważna jest sztywność, sam dobór wytrzymałości materiału nie wystarcza.',
-  animation: HookeLawExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HookeLawExample2Animation }))),
   scenes: [
     {
       title: 'Wspólne obciążenie i naprężenie',

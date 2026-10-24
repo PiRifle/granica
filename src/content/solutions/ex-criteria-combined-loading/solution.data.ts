@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { CombinedLoadingExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-combined-loading',
@@ -8,7 +8,7 @@ export default {
   given: ['d = 60 mm', 'N = 30 kN', 'M = 1,2 kN·m', 'T = 800 N·m', 'R_e = 235 MPa'],
   result:
     'W rozważanym włóknie σ_x=67,2 MPa i τ=18,9 MPa, więc σ_HMH=74,7 MPa i σ_T=77,1 MPa. Oba zapasy przekraczają 3, więc element jest bezpieczny z dużym marginesem.',
-  animation: CombinedLoadingExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.CombinedLoadingExample1Animation }))),
   figure: {
     kind: 'cube',
     stresses: {

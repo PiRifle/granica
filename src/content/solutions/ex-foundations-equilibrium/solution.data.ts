@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { EquilibriumExampleAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-equilibrium',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 5,0 m', 'a = 3,0 m', 'P = 12 kN', 'q = 6,0 kN/m', 'H = 5,0 kN'],
   result:
     'RA = 19,8 kN w górę, RB = 22,2 kN w górę oraz Ax = 5,0 kN w prawo. Suma reakcji pionowych równa się sumie obciążeń pionowych, a kontrola momentów względem B daje zero.',
-  animation: EquilibriumExampleAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.EquilibriumExampleAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

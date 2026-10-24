@@ -1,11 +1,11 @@
 import type { SolutionData } from '../../model'
-import { DesignReviewExam3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-review-exam-3',
   title: 'Powtórka mieszana i strategia kolokwium — przykład 3',
   duration: 7,
-  animation: DesignReviewExam3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.DesignReviewExam3Animation }))),
   given: ['M = 3 kN·m', 'k = 150 MPa'],
   result:
     'Wariant odwrotny uczy, że kontrola rzędu wielkości jest częścią rozwiązania. Moment 3 kN·m to 3 000 000 N·mm, a nie 3. Poprawny wskaźnik wynosi 20 000 mm³, a średnica 60 mm jest realistyczna. Wynik 0,6 mm odrzucamy, bo powstał przez pominięcie zamiany jednostek.',

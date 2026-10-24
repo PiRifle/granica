@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SolidTorsionPowerAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-solid-torsion-2',
@@ -8,7 +8,7 @@ export default {
   given: ['P = 15 kW', 'n = 1450 obr/min', 'd = 25 mm', 'G = 80 GPa'],
   result:
     'Ten przykład pokazuje, że moc i prędkość obrotowa są równoważne momentowi. Przy tej samej mocy mniejsza prędkość oznacza większy moment i większe naprężenie. Dlatego wały wolnoobrotowe muszą być grubsze od szybkoobrotowych przenoszących tę samą moc.',
-  animation: SolidTorsionPowerAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SolidTorsionPowerAnimation }))),
   figure: {
     kind: 'section',
     width: 25,

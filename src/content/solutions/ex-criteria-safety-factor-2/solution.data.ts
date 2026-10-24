@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SafetyFactor2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-safety-factor-2',
@@ -8,7 +8,7 @@ export default {
   given: ['A=400 mm²', 'F=50 kN', 'R_e=235 MPa', 'E=200 GPa', 'sigma=50 000', 'n=235'],
   result:
     'Taka sytuacja jest częsta w długich cięgnach, sprężynach i elementach, w których liczy się przemieszczenie. Projektant nie może poprzestać na sprawdzeniu n≥ n_wym, bo element o wystarczającym zapasie wytrzymałości może nadal być nieużyteczny z powodu zbyt dużego wydłużenia. Dopiero porównanie obu wymagań daje pełny obraz.',
-  animation: SafetyFactor2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SafetyFactor2Animation }))),
   figure: {
     kind: 'cube',
     stresses: {

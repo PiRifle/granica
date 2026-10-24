@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainAllowableAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-epsilon-gamma-3',
@@ -8,7 +8,7 @@ export default {
   given: ['ε_dop=1200 με', 'L_0=80 mm', 'γ_xy=0,0015 rad'],
   result:
     'Gdyby wynik wyszedł rzędu kilku stopni, należałoby sprawdzić jednostki. Odkształcenie sprężyste stali rzadko przekracza kilka tysięcznych, więc kąt rzędu 0,1° jest już duży jak na ten zakres.',
-  animation: StrainAllowableAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StrainAllowableAnimation }))),
   figure: {
     kind: 'rosette',
     gauges: [

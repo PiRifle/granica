@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { FullBendingDesign3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-bending-3',
@@ -8,7 +8,7 @@ export default {
   given: ['L=4 m', 'd=100 mm', 'k=150 MPa', 'E=200 GPa', 'f_dop=13,33 mm'],
   result:
     'Decyduje sztywność: P_max ≈ 9,82 kN. Przy tej sile σ = 100 MPa < 150 MPa, a ugięcie 13,33 mm osiąga wartość dopuszczalną, więc wytrzymałość nie jest w pełni wykorzystana.',
-  animation: FullBendingDesign3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullBendingDesign3Animation }))),
   figure: {
     kind: 'beam',
     length: 4,

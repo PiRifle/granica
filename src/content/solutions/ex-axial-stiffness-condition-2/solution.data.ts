@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialStiffnessCondition2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-stiffness-condition-2',
@@ -17,7 +17,9 @@ export default {
   ],
   result:
     'Suma wydłużeń 1,357 mm przekracza limit 1,2 mm. Po powiększeniu odcinka aluminiowego do 650 mm² suma spada do 1,159 mm. Gdyby drugi odcinek był stalowy, wystarczyłoby około 214 mm², ale o doborze decyduje odcinek aluminiowy o mniejszym module, a nie najbardziej wytężony przekrój.',
-  animation: AxialStiffnessCondition2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.AxialStiffnessCondition2Animation })),
+  ),
   scenes: [
     {
       title: 'Model i dane',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SectionModulusExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-section-modulus-3',
@@ -21,7 +21,7 @@ export default {
     ],
     note: 'Prostokąt 80 × 120 mm dobrany do momentu 30 kN·m i naprężenia dopuszczalnego 160 MPa.',
   },
-  animation: SectionModulusExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionModulusExample3Animation }))),
   scenes: [
     {
       title: 'Dane i układ osi',

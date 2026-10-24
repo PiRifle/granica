@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialStrengthConditionAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-strength-condition',
@@ -8,7 +8,7 @@ export default {
   given: ['N = 90 kN', 'R_e = 235 MPa', 'n = 1,5', 'A = 600 mm²'],
   result:
     'Amin = 574,5 mm², a przekrój 600 mm² spełnia warunek: σ = 150 MPa, nrz = 1,567, czyli zapas jest większy od wymaganego 1,5.',
-  animation: AxialStrengthConditionAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialStrengthConditionAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SelfWeightExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-self-weight-3',
@@ -8,7 +8,7 @@ export default {
   given: ['R_e = 235 MPa', 'ρ = 7850 kg/m³', 'g = 9,81 m/s²', 'γ = 77 kN/m³'],
   result:
     'Wniosek projektowy jest prosty: jeżeli długość jest ograniczona wytrzymałością od ciężaru własnego, to zmiana przekroju nie pomoże. Trzeba wybrać materiał o większym stosunku R_e/ρ albo zmienić schemat konstrukcji, na przykład dodać podpory pośrednie. To jakościowo inna decyzja niż zwykłe „zwiększenie przekroju”, które działa przy sile skupionej.',
-  animation: SelfWeightExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SelfWeightExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

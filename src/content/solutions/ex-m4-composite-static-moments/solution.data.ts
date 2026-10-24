@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { CompositeStaticMomentsAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-composite-static-moments',
@@ -8,7 +8,7 @@ export default {
   given: ['środnik 20 × 100 mm', 'półka 120 × 20 mm'],
   result:
     'Pole przekroju wynosi 4400 mm^2, czyli 44 cm^2. Środek ciężkości leży 82,73 mm nad dolnym końcem środnika, a jego współrzędna pozioma to 60 mm. Momenty statyczne wynoszą S_x=364 000 mm^3 i S_y=264 000 mm^3.',
-  animation: CompositeStaticMomentsAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.CompositeStaticMomentsAnimation }))),
   scenes: [
     {
       title: 'Dane i układ osi',

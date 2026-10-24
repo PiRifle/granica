@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialSelfWeightAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-elongation-2',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 30 m', 'd = 20 mm', 'A ≈ 314 mm²', 'γ ≈ 7,7·10⁻⁵ N/mm³', 'E = 200 GPa'],
   result:
     'Warto zauważyć, że zwiększanie pola nie zmniejsza wydłużenia od ciężaru własnego. Większe pole zwiększa zarówno sztywność, jak i ciężar, a te efekty znoszą się dokładnie. To pokazuje, że dobór przekroju nie jest uniwersalnym lekarstwem na każde przemieszczenie. Przy obciążeniu zewnętrznym większe pole pomaga, przy ciężarze własnym nie zmienia wyniku.',
-  animation: AxialSelfWeightAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialSelfWeightAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { RationalSectionShapes3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-rational-section-shapes-3',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 2000 mm²', 'I/A = 2000 mm²'],
   result:
     'To zadanie pokazuje, że „od wyniku do danych” nie kończy się na jednym wzorze. Po dobraniu promienia i grubości trzeba wrócić do założeń: czy rura jest rzeczywiście cienkościenna, czy ścianka nie wyboczy się, czy średnica mieści się w dostępnej przestrzeni i czy połączenia da się wykonać.',
-  animation: RationalSectionShapes3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.RationalSectionShapes3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

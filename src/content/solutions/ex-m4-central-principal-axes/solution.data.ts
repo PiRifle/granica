@@ -1,10 +1,10 @@
 import type { SolutionData } from '../../model'
-import { CentralPrincipalAxesAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-central-principal-axes',
   title: 'Osie centralne i główne — przykład 1',
-  animation: CentralPrincipalAxesAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.CentralPrincipalAxesAnimation }))),
   duration: 7,
   given: ['a = 120 mm', 'b = 80 mm', 'A = 4800 mm²'],
   result:

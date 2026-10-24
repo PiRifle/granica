@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SafetyFactor3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-safety-factor-3',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 400 mm²', 'F = 60 kN', 'n_wym = 2,0'],
   result:
     'Ostatnia kontrola dotyczy jednostek i rzędu wielkości. Naprężenie 150 MPa przy polu 400 mm² odpowiada sile 60 kN, czyli około 6 ton. To sensowna wartość dla pręta o średnicy około 22,6 mm. Gdyby wynik wychodził w setkach kiloniutonów albo w ułamkach niutona, trzeba sprawdzić przeliczenia, zanim uzna się zadanie za rozwiązane.',
-  animation: SafetyFactor3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SafetyFactor3Animation }))),
   figure: {
     kind: 'cube',
     stresses: {

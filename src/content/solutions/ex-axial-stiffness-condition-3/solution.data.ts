@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialStiffnessCondition3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-stiffness-condition-3',
@@ -8,7 +8,9 @@ export default {
   given: ['N = 30 kN', 'L = 2,5 m', 'A = 250 mm²', 'ΔL_dop = 1,5 mm'],
   result:
     'Wymagany moduł wynosi 200 GPa, co odpowiada stali. Przy E = 70 GPa wydłużenie byłoby 4,29 mm, więc aluminium wymagałoby pola około 714 mm², mimo że warunek wytrzymałości wystarczyłby przy około 191 mm². „Wystarczająco mocny” nie znaczy „wystarczająco sztywny”.',
-  animation: AxialStiffnessCondition3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.AxialStiffnessCondition3Animation })),
+  ),
   scenes: [
     {
       title: 'Model i dane',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { RectangleSecondMomentAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-second-moments-3',
@@ -26,7 +26,7 @@ export default {
     ],
     note: 'Prostokąt o stałej szerokości 80 mm i wysokości dobranej do wymaganego I_x.',
   },
-  animation: RectangleSecondMomentAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.RectangleSecondMomentAnimation }))),
   scenes: [
     {
       title: 'Model: dana szerokość, szukana wysokość',

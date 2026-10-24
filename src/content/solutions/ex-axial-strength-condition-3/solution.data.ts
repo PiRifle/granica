@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialStrengthCondition3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-strength-condition-3',
@@ -8,7 +8,7 @@ export default {
   given: ['A=500 mm²', 'R_e=235 MPa', 'n=2,5'],
   result:
     'Dla A = 500 mm² i n = 2,5 naprężenie dopuszczalne wynosi 94 MPa, więc Nmax = 47 kN. Przy n = 1,5 ten sam przekrój przenosi 78,3 kN. W wariancie odwrotnym dla N = 60 kN i n = 2 przyjęto A = 550 mm², gdzie σ = 109,1 MPa i nrz = 2,15 ≥ 2.',
-  animation: AxialStrengthCondition3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialStrengthCondition3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

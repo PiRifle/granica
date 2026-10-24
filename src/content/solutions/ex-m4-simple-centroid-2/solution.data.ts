@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SimpleCentroidSemicircleAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-simple-centroid-2',
@@ -8,7 +8,9 @@ export default {
   given: ['r = 60 mm'],
   result:
     'Środek ciężkości półkola leży na osi symetrii w odległości 4r/(3π)≈25,46 mm od średnicy; nie jest to r/2=30 mm ani r/3=20 mm. Dla ćwiartki koła o promieniu 80 mm obie współrzędne wynoszą 4r/(3π)≈33,95 mm.',
-  animation: SimpleCentroidSemicircleAnimation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.SimpleCentroidSemicircleAnimation })),
+  ),
   scenes: [
     {
       title: 'Dane i układ osi',

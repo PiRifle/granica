@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ThermalMechanicalBarAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-thermal',
@@ -8,7 +8,7 @@ export default {
   given: ['L_1 = L_2 = 1000 mm', 'A_1 = A_2 = 300 mm²', 'E=200 GPa', 'alpha=12·10⁻⁶ 1/K', 'ΔT=50 K', 'P=20 kN'],
   result:
     'W obu odcinkach powstaje ściskanie. Siły normalne wynoszą N_1=-26 kN i N_2=-46 kN, a naprężenia -86,7 MPa i -153,3 MPa. Punkt C przesuwa się w prawo o około 0,167 mm, choć końce pręta pozostają nieruchome.',
-  animation: ThermalMechanicalBarAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ThermalMechanicalBarAnimation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

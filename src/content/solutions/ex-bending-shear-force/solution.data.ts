@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingShearForceExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-shear-force',
@@ -51,7 +51,9 @@ export default {
     ],
     note: 'Pod siłą wykres T skacze w dół o 18 kN, a reakcja R_B domyka go do zera.',
   },
-  animation: BendingShearForceExample1Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.BendingShearForceExample1Animation })),
+  ),
   scenes: [
     {
       title: 'Model i dane',

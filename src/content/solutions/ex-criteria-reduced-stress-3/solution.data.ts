@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ReducedStressExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-reduced-stress-3',
@@ -8,7 +8,7 @@ export default {
   given: ['d = 50 mm', 'M = 0,8 kN·m', 'Re = 355 MPa', 'n_wym = 2,0'],
   result:
     'Sprawdzenie: dla T = 2,34 kN·m otrzymujemy τ = 95,3 MPa i σHMH = √(65,19² + 3·95,3²) = 177,5 MPa, czyli dokładnie kr. Gdyby zastosować Tresca, dopuszczalny moment byłby mniejszy, bo przy tym samym τ daje większe wytężenie. To dobry przykład na to, że wybór hipotezy wpływa nie tylko na ocenę, ale też na dopuszczalne obciążenie.',
-  animation: ReducedStressExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ReducedStressExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane projektowe',

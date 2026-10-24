@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { FullTorsion2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-torsion-2',
@@ -116,7 +116,7 @@ export default {
     note: 'Przy równej masie rura ∅70/∅43,3 ma ponad dwukrotnie większy J_o od wału pełnego ∅55.',
     shape: 'circle',
   },
-  animation: FullTorsion2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullTorsion2Animation }))),
   scenes: [
     {
       title: 'Ta sama masa, ten sam moment',

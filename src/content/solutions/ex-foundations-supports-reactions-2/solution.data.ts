@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SupportsReactionsExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-supports-reactions-2',
@@ -8,7 +8,9 @@ export default {
   given: ['L = 2,5 m', 'P = 8 kN', 'q = 3 kN/m'],
   result:
     'R_Ay = 15,5 kN, a reakcja momentowa M_A = 29,375 kN·m działa przeciwnie do momentu obciążeń. Reakcja pozioma A_x wynosi zero, bo nie ma obciążeń poziomych. Utwierdzenie nadal ma jednak zdolność przenoszenia siły poziomej — jej wartość w tym zadaniu jest po prostu zerowa.',
-  animation: SupportsReactionsExample2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.SupportsReactionsExample2Animation })),
+  ),
   scenes: [
     {
       title: 'Model i dane',

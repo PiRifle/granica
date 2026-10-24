@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SteinerParallelAxis3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-steiner-parallel-axis-3',
@@ -8,7 +8,7 @@ export default {
   given: ['I_xc = 640 000 mm⁴', 'A = 4800 mm²', 'I_x = 6,4·10⁶ mm⁴'],
   result:
     'Zadanie można też odwrócić w drugą stronę: mając zmierzony moment względem osi zewnętrznej i moment centralny, można wyznaczyć odległość osi, a stąd położenie środka ciężkości. To bywa użyteczne w pomiarach doświadczalnych, gdy nie znamy rozkładu masy, ale potrafimy zmierzyć sztywność względem dwóch osi.',
-  animation: SteinerParallelAxis3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteinerParallelAxis3Animation }))),
   figure: {
     kind: 'section',
     width: 120,

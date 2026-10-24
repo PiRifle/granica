@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MaterialLoad3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-material-load-3',
@@ -8,7 +8,7 @@ export default {
   given: ['A=250 mm²', 'R_e=235 MPa', 'P=40 kN', 'n=2'],
   result:
     'Materiał nie wystarcza: σ = 160 MPa przekracza k = 117,5 MPa, a rzeczywisty zapas 1,47 jest mniejszy od wymaganego 2. Potrzebne jest A ≥ 340,4 mm²; po przyjęciu A = 341 mm² otrzymujemy σ ≈ 117,3 MPa ≤ k oraz n ≈ 2,00.',
-  animation: MaterialLoad3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MaterialLoad3Animation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BeamReactionsExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-beams-reactions-2',
@@ -43,7 +43,7 @@ export default {
     ],
     note: 'Utwierdzenie A przenosi reakcję pionową R = 16 kN oraz moment M_R = 27,5 kN·m; koniec B jest swobodny.',
   },
-  animation: BeamReactionsExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BeamReactionsExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

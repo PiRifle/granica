@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainStressLinkExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-stress-link-2',
@@ -50,7 +50,9 @@ export default {
     ],
     note: 'Pomiar tensometryczny daje najpierw stan odkształcenia; dopiero model materiału i hipoteza pozwalają ocenić bezpieczeństwo.',
   },
-  animation: StrainStressLinkExample2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrainStressLinkExample2Animation })),
+  ),
   scenes: [
     {
       title: 'Zapisz obciążenia i geometrię',

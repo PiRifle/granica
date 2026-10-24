@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MethodOfSectionsInverseAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-method-of-sections-3',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 5 m', 'a = 2 m', 'x = 1 m', 'M = 12 kN·m'],
   result:
     'P = 20 kN, R_A = 12 kN, R_B = 8 kN, a maksymalny moment wynosi 24 kN·m. Kontrola z prawej strony: R_B · 3 = 8 · 3 = 24 kN·m. Jeden zmierzony moment nie wystarczyłby do wyznaczenia zarówno P, jak i a — potrzebna była znajomość położenia siły.',
-  animation: MethodOfSectionsInverseAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MethodOfSectionsInverseAnimation }))),
   scenes: [
     {
       title: 'Model i pomiar',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrengthElasticityPlasticity2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-strength-elasticity-plasticity-2',
@@ -8,7 +8,9 @@ export default {
   given: ['R_e=235 MPa', 'R_m=370 MPa', 'S_0=120 mm²'],
   result:
     'Gdyby ta sama siła działała na próbkę o polu 60 mm^2, naprężenie wzrosłoby do 300 MPa. To już przekracza R_e, więc po odciążeniu pozostałoby odkształcenie trwałe. Element nie musiałby jeszcze pęknąć, ponieważ 300 MPa jest mniejsze od R_m=370 MPa, ale jego geometria uległaby zmianie. To klasyczny przykład stanu, w którym „jeszcze nie pękło” nie znaczy „jest bezpieczne”.',
-  animation: StrengthElasticityPlasticity2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrengthElasticityPlasticity2Animation })),
+  ),
   figure: {
     kind: 'axial',
     top: 'fixed',

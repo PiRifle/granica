@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearSingleDoubleAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-single-double',
@@ -8,7 +8,7 @@ export default {
   given: ['d = 20 mm', 'F = 100 kN'],
   result:
     'τ_sr ≈ 159 MPa, a każda płaszczyzna przenosi 50 kN. Wynik jest typowy dla stali konstrukcyjnej, ale wymaga porównania z naprężeniem dopuszczalnym i sprawdzenia docisku blach.',
-  animation: ShearSingleDoubleAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearSingleDoubleAnimation }))),
   scenes: [
     {
       title: 'Model połączenia',

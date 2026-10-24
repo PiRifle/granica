@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SteppedThermalRestraintAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-thermal-free-restrained-2',
@@ -8,7 +8,7 @@ export default {
   given: ['L_1=500 mm', 'A_1=400 mm²', 'L_2=500 mm', 'A_2=250 mm²', 'alpha=12', 'E=200 GPa', 'T=50 K'],
   result:
     'Swobodne wydłużenie wynosi 0,6 mm. Po pełnym utwierdzeniu podpory wymuszają wspólną siłę ściskającą N ≈ 36,9 kN, a naprężenia wynoszą σ₁ ≈ −92,3 MPa i σ₂ ≈ −147,7 MPa. Cieńszy dolny odcinek jest bardziej wytężony.',
-  animation: SteppedThermalRestraintAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteppedThermalRestraintAnimation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

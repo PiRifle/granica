@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressTensorExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-tensor',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_x = 120 MPa', 'σ_y = 40 MPa', 'τ_xy = 30 MPa'],
   result:
     'Trakcja wynosi około (118,9; 46,0; 0) MPa, naprężenie normalne około 126,0 MPa, a styczne około 19,6 MPa. Jednostka MPa oznacza 1 N/mm^2, więc wynik jest spójny z danymi. Kontrola σ_n^2+τ^2≈|T|^2 potwierdza rachunek.',
-  animation: StressTensorExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StressTensorExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

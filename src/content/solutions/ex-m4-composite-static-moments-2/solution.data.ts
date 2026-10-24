@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { CompositeStaticMoments2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-composite-static-moments-2',
@@ -8,7 +8,7 @@ export default {
   given: ['środnik 10 × 180 mm', 'półki 80 × 10 mm'],
   result:
     'Zatem x=73 000/3400≈ 21,47 mm. Wynik leży między 5 mm a 40 mm i jest bliżej środnika, który ma największe pole. Gdybyśmy przez pomyłkę policzyli środnik jako pełny prostokąt 10 × 200 mm, a półki jako 80 × 10 mm, pole wzrosłoby do 3600 mm² i pojawiłby się podwójnie policzony narożnik 10 × 10 mm.',
-  animation: CompositeStaticMoments2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.CompositeStaticMoments2Animation }))),
   scenes: [
     {
       title: 'Dane i układ osi',

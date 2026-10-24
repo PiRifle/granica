@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ThermalGapAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-thermal-2',
@@ -8,7 +8,7 @@ export default {
   given: ['L=1500 mm', 'A=400 mm²', 'g=0,5 mm', 'E=200 GPa', 'alpha=12·10⁻⁶ 1/K', 'ΔT=60 K'],
   result:
     'Swobodne wydłużenie 1,08 mm przekracza luz 0,5 mm, więc luz zamyka się przy ΔT≈27,8 K. Po kontakcie powstaje ściskanie N≈−30,9 kN i σ≈−77,3 MPa. To znacznie mniej niż −144 MPa przy idealnym zablokowaniu, ale po kontakcie naprężenie rośnie już liniowo z temperaturą.',
-  animation: ThermalGapAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ThermalGapAnimation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

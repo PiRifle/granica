@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { FullBendingDesign1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-bending',
@@ -8,7 +8,7 @@ export default {
   given: ['L=4 m', 'P=20 kN', 'a=1,4 m', 'k=160 MPa', 'E=200 GPa', 'f_dop=16 mm'],
   result:
     'Przyjęta średnica 110 mm spełnia oba warunki: σ_max = 139,3 MPa < 160 MPa oraz f = 15,4 mm < 16 mm. Ugięcie jest jednak bliskie granicy, więc o zapasie decyduje sztywność.',
-  animation: FullBendingDesign1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullBendingDesign1Animation }))),
   figure: {
     kind: 'beam',
     length: 4,

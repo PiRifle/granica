@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialForceDiagramAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-force-diagrams',
@@ -58,7 +58,7 @@ export default {
     ],
     note: 'Długości i pola nie są podane — odcinki są schematyczne.',
   },
-  animation: AxialForceDiagramAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialForceDiagramAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

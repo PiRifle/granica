@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SolidTorsionDesignAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-solid-torsion-3',
@@ -8,7 +8,7 @@ export default {
   given: ['T = 800 N·m', 'tau_{dop} = 40 MPa', 'G = 80 GPa', 'varphi_{dop} = 1°/m'],
   result:
     'To bardzo typowa sytuacja w projektowaniu wałów. Warunek wytrzymałości daje średnicę minimalną, ale dopiero warunek sztywności często wymusza wymiar większy. W lekcji o kącie skręcenia zobaczysz tę procedurę dokładniej, a w lekcji o doborze średnicy połączysz oba warunki w pełny algorytm.',
-  animation: SolidTorsionDesignAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SolidTorsionDesignAnimation }))),
   figure: {
     kind: 'section',
     width: 50,

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialElongationAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-elongation',
@@ -8,7 +8,7 @@ export default {
   given: ['N = 24 kN', 'L₁ = 1,2 m', 'A₁ = 240 mm²', 'L₂ = 0,8 m', 'A₂ = 120 mm²', 'E = 200 GPa'],
   result:
     'ΔL₁ = 0,60 mm, ΔL₂ = 0,80 mm, a całkowite wydłużenie pręta wynosi 1,40 mm. Odkształcenie drugiego odcinka jest dwa razy większe, mimo że jego wkład w wydłużenie jest tylko o jedną trzecią większy, bo odcinek jest krótszy.',
-  animation: AxialElongationAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialElongationAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

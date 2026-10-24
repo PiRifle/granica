@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressRotationExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-rotation',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_x = 120 MPa', 'σ_y = 40 MPa', 'τ_xy = 30 MPa', 'θ = 30°'],
   result:
     'Na obróconym przekroju σ_n≈126,0 MPa i τ_nt≈-19,6 MPa. Na przekroju prostopadłym σ_t≈34,0 MPa. Znak minus oznacza kierunek działania stycznej w przyjętym układzie, a nie „ujemne ścinanie” w sensie fizycznym. Suma naprężeń normalnych pozostaje równa 160 MPa.',
-  animation: StressRotationExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StressRotationExample1Animation }))),
   scenes: [
     {
       title: 'Stan wyjściowy',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { FullBendingDesign2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-bending-2',
@@ -8,7 +8,7 @@ export default {
   given: ['L=4 m', 'P=20 kN', 'a=1,4 m', 'h=2b', 'k=160 MPa', 'E=200 GPa', 'f_dop=16 mm'],
   result:
     'Przekrój 60 × 120 mm spełnia oba warunki: σ_max = 126,4 MPa < 160 MPa oraz f = 12,8 mm < 16 mm. Przy podobnej nośności jest lżejszy od koła ∅110 mm, ale wymaga poprawnego ustawienia względem osi zginania.',
-  animation: FullBendingDesign2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullBendingDesign2Animation }))),
   figure: {
     kind: 'beam',
     length: 4,

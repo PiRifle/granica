@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShaftCapacityAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-shaft-design-3',
@@ -8,7 +8,7 @@ export default {
   given: ['D = 90 mm', 'd = 70 mm', 'G = 80 GPa', 'tau_{dop} = 40 MPa', 'L = 2,5 m'],
   result:
     'Wariant odwrotny pokazuje, że ten sam przekrój może mieć różne ograniczenia w zależności od długości i wymaganego kąta. Dla krótkiego wału częściej decyduje wytrzymałość, a dla długiego sztywność. Projektant powinien sprawdzić oba warunki i wiedzieć, który z nich jest aktywny.',
-  animation: ShaftCapacityAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShaftCapacityAnimation }))),
   figure: {
     kind: 'section',
     width: 90,

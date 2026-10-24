@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShaftDesignHollowAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-shaft-design-2',
@@ -8,7 +8,7 @@ export default {
   given: ['k = d/D = 0,8', 'T = 2,2 kN·m', 'L = 1800 mm', 'G = 80 GPa', 'tau_{dop} = 45 MPa', 'varphi_{dop} = 1,2°'],
   result:
     'Pole rury to π(80^2-64^2)/4 = 1810 mm^2, a pole wału pełnego o średnicy 75 mm to 4418 mm^2. Rura zużywa więc około 59% mniej materiału, ale ma większą średnicę zewnętrzną i cieńszą ściankę. W ciasnej obudowie lub przy dużym momencie skręcającym z udarami trzeba dodatkowo sprawdzić stateczność i naprężenia lokalne.',
-  animation: ShaftDesignHollowAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShaftDesignHollowAnimation }))),
   figure: {
     kind: 'section',
     width: 80,

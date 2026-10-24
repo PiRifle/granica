@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressRotationExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-rotation-3',
@@ -8,7 +8,7 @@ export default {
   given: ['θ = 0: σ = 80 MPa, τ = 30 MPa', 'θ = 45°: σ = 70 MPa'],
   result:
     'Warto zauważyć, że z dwóch pomiarów odtworzyliśmy trzy niewiadome, bo jedna z nich, σ_x, była znana bezpośrednio z kąta 0. W ogólnym przypadku potrzeba trzech niezależnych pomiarów, na przykład w rozecie tensometrycznej.',
-  animation: StressRotationExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StressRotationExample3Animation }))),
   scenes: [
     {
       title: 'Dane z pomiarów',

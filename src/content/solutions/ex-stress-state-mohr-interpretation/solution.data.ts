@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MohrInterpretationExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-mohr-interpretation',
@@ -8,7 +8,9 @@ export default {
   given: ['d = 60 mm', 'N = 30 kN', 'M = 1,2 kN·m', 'T = 800 N·m', 'R_e = 235 MPa'],
   result:
     'Współczynnik bezpieczeństwa wynosi około 3,15 według HMH i 3,05 według Treski. Miarodajna jest mniejsza wartość, czyli około 3,05. Obie hipotezy dają podobny wynik, bo dominuje zginanie, a udział ścinania jest umiarkowany. Wynik nie zastępuje sprawdzenia ugięcia i kąta skręcenia.',
-  animation: MohrInterpretationExample1Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.MohrInterpretationExample1Animation })),
+  ),
   scenes: [
     {
       title: 'Model i dane',

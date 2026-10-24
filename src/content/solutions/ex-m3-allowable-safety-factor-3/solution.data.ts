@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AllowableSafetyFactor3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-allowable-safety-factor-3',
@@ -38,7 +38,7 @@ export default {
     ],
     note: 'Dla n = 2: σ_dop = 117,5 MPa i N_max = 58,75 kN.',
   },
-  animation: AllowableSafetyFactor3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AllowableSafetyFactor3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

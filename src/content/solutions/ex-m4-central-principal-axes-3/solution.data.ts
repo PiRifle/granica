@@ -1,10 +1,10 @@
 import type { SolutionData } from '../../model'
-import { InversePrincipalAxesAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-central-principal-axes-3',
   title: 'Osie centralne i główne — przykład 3',
-  animation: InversePrincipalAxesAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.InversePrincipalAxesAnimation }))),
   duration: 7,
   given: ['I_1 = 50·10⁶ mm⁴', 'I_2 = 10·10⁶ mm⁴', 'I_x = 35·10⁶ mm⁴'],
   result:

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { DesignFullAxial2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-axial-2',
@@ -8,7 +8,7 @@ export default {
   given: ['L_1=300 mm', 'A_1=400 mm²', 'L_2=500 mm', 'A_2=200 mm²', 'P=20 kN', 'Q=25 kN'],
   result:
     'Odcinek 1 jest ściskany (σ₁ = −12,5 MPa), a odcinek 2 rozciągany (σ₂ = 100 MPa). Wydłużenie netto wynosi około 0,231 mm, bo skrócenie odcinka 1 zmniejsza sumę.',
-  animation: DesignFullAxial2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.DesignFullAxial2Animation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

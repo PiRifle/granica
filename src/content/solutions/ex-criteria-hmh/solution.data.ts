@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HmhExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-hmh',
@@ -8,7 +8,7 @@ export default {
   given: ['Re = 355 MPa', 'σθ = 120 MPa', 'σz = 60 MPa'],
   result:
     'Naprężenie zredukowane HMH wynosi 103,9 MPa, a zapas około 3,42. Dla porównania Tresca dałaby σT = 120 MPa i zapas 2,96, więc byłaby bardziej zachowawcza.',
-  animation: HmhExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HmhExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

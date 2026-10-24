@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingQtmInverseAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-q-t-m-3',
@@ -53,7 +53,7 @@ export default {
     ],
     note: 'Z funkcji M(x) = 12x - 2x² otrzymujemy T(x) = 12 - 4x oraz stałe q = 4 kN/m.',
   },
-  animation: BendingQtmInverseAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BendingQtmInverseAnimation }))),
   scenes: [
     {
       title: 'Dany moment M(x)',

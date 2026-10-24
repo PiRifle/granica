@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressRotationExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-rotation-2',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_x = σ_y = 0', 'τ_xy = 50 MPa', 'θ = 45°'],
   result:
     'Zwróć uwagę na kolejność kątów. Maksymalne ścinanie w tym stanie występuje przy θ=0, a maksymalne rozciąganie przy θ=45°. Ten sam stan ma więc dwa różne „najgorsze” kierunki, zależnie od mechanizmu zniszczenia.',
-  animation: StressRotationExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StressRotationExample2Animation }))),
   scenes: [
     {
       title: 'Czyste ścinanie',

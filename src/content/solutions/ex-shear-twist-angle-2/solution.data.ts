@@ -1,11 +1,11 @@
 import type { SolutionData } from '../../model'
-import { ShearTwistAngle2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-twist-angle-2',
   title: 'Kąt skręcenia i sztywność wału — przykład 2',
   duration: 7,
-  animation: ShearTwistAngle2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearTwistAngle2Animation }))),
   given: ['P = 30 kW', 'n = 1470 obr/min', 'd = 35 mm', 'L = 1 m', 'G = 80 GPa'],
   result:
     'W obliczeniach napędu trzeba też pamiętać o sprawności przekładni i o tym, że moment na wale nie jest stały w czasie rozruchu. Chwilowy moment rozruchowy może być kilkakrotnie większy od znamionowego, co zwiększa zarówno naprężenie, jak i kąt. Model statyczny opisuje pracę ustaloną, a nie udar ani gwałtowne przyspieszanie.',

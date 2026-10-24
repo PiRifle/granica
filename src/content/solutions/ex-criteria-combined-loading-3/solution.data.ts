@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { CombinedLoadingExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-combined-loading-3',
@@ -8,7 +8,7 @@ export default {
   given: ['M = 1,2 kN·m', 'T = 0,8 kN·m', 'R_e = 235 MPa', 'n_wym = 2,0'],
   result:
     'Trzeba też pamiętać, że średnica dobrana ze względu na wytrzymałość może nie wystarczyć ze względu na sztywność. Kąt skręcenia wału rośnie jak 1/d^4, więc kryterium sztywności bywa ostrzejsze dla długich wałów. W zadaniu projektowym liczymy oba warunki i wybieramy większą średnicę. To typowy przykład tego, że warunek wytrzymałości nie jest jedynym warunkiem projektu.',
-  animation: CombinedLoadingExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.CombinedLoadingExample3Animation }))),
   figure: {
     kind: 'cube',
     stresses: {

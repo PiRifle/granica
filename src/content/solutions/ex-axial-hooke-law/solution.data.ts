@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HookeLawExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-hooke-law',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 2 m', 'E = 200 GPa', 'σ = 150 MPa'],
   result:
     'ε = 0,00075 = 0,075%, a wydłużenie sprężyste ΔL = 1,5 mm. Zapas względem typowej granicy plastyczności wynosi około 1,57.',
-  animation: HookeLawExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HookeLawExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

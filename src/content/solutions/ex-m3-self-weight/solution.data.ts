@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SelfWeightExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-self-weight',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 300 mm²', 'L = 4 m', 'ρ = 7850 kg/m³', 'γ = 77 kN/m³', 'E = 200 GPa'],
   result:
     'Pręt ma masę około 9,42 kg, jego ciężar wynosi 92,4 N, a największe naprężenie od ciężaru własnego to około 0,308 MPa. Wydłużenie własne jest rzędu tysięcznych części milimetra, więc w tym przypadku ciężar własny jest praktycznie nieistotny.',
-  animation: SelfWeightExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SelfWeightExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

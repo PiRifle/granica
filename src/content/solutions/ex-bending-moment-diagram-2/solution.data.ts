@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingMomentExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-moment-diagram-2',
@@ -46,7 +46,7 @@ export default {
     ],
     note: 'Siła tnąca zeruje się w środku rozpiętości, gdzie moment osiąga maksimum qL²/8 = 27 kN·m.',
   },
-  animation: BendingMomentExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BendingMomentExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

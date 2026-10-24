@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { FullTorsion3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-torsion-3',
@@ -108,7 +108,7 @@ export default {
     note: 'Decyduje wytrzymałość: T_max = 3,41 kN·m, a kąt 1,07° jest znacznie mniejszy od 2°.',
     shape: 'circle',
   },
-  animation: FullTorsion3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.FullTorsion3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

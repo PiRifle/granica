@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SiUnitsExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-si-units-2',
@@ -8,7 +8,7 @@ export default {
   given: ['b = 250 mm', 't = 12 mm', 'P = 150 kN', 'L = 2,5 m', 'E = 200 GPa'],
   result:
     'A = 3000 mm², σ = 50 MPa, ΔL = 0,625 mm. Sprawdzenie: 200 000 MPa to 200 000 N/mm². Iloczyn EA ma więc jednostkę N, a NL jednostkę N·mm. Iloraz daje mm, zgodnie z oczekiwaniem. Wydłużenie 0,625 mm na długości 2500 mm to około 0,025 procenta, co jest typowe dla stali w zakresie sprężystym.',
-  animation: SiUnitsExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SiUnitsExample2Animation }))),
   scenes: [
     {
       title: 'Model, dane i obliczenia',

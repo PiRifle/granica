@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MethodOfSectionsBeamAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-method-of-sections',
@@ -8,7 +8,7 @@ export default {
   given: ['L = 6 m', 'P = 24 kN', 'a = 2 m', 'x₁ = 1 m', 'x₂ = 4 m'],
   result:
     'W x = 1 m: N = 0, V = +16 kN, M = +16 kN·m. W x = 4 m: N = 0, V = −8 kN, M = +16 kN·m. Znak minus przy V oznacza zwrot przeciwny do założonego; moment dodatni wygina belkę wypukłością w dół.',
-  animation: MethodOfSectionsBeamAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MethodOfSectionsBeamAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

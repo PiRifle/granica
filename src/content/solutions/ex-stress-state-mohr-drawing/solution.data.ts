@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MohrDrawingExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-mohr-drawing',
@@ -8,7 +8,7 @@ export default {
   given: ['σ_x = 90 MPa', 'σ_y = 30 MPa', 'τ_xy = 40 MPa'],
   result:
     'Koło ma środek (60,0) MPa i promień 50 MPa. Daje σ_1=110 MPa, σ_2=10 MPa oraz płaskie τ_max=50 MPa. Kierunek większego naprężenia głównego jest obrócony o około 26,6° od osi x.',
-  animation: MohrDrawingExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MohrDrawingExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

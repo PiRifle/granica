@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HmhExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-hmh-2',
@@ -8,7 +8,7 @@ export default {
   given: ['σ = 150 MPa', 'τ = 80 MPa', 'σy = 0', 'Re = 355 MPa'],
   result:
     'Warto zwrócić uwagę, że największe naprężenie główne 184,7 MPa jest mniejsze od σHMH = 204,2 MPa, ale większe od σ = 150 MPa. To pokazuje, że HMH nie jest po prostu „największym naprężeniem”. Jest miarą energii, w której uczestniczą wszystkie trzy kierunki. Dla tego stanu Tresca dałaby σT = 184,7 − (−34,7) = 219,4 MPa, czyli jeszcze więcej.',
-  animation: HmhExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HmhExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainFieldAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-epsilon-gamma-2',
@@ -8,7 +8,7 @@ export default {
   given: ['u=0,0004x+0,0002y', 'v=0,0003x−0,0001y'],
   result:
     'Zwróć uwagę, że pole jest liniowe, więc odkształcenia są stałe w całej tarczy. To wygodne ćwiczenie rachunkowe, ale w rzeczywistej konstrukcji pochodne zmieniają się z położeniem. Gdyby pole zawierało składnik x^2, pochodna ∂ u/∂ x zależałaby od x i odkształcenie nie byłoby jednorodne.',
-  animation: StrainFieldAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StrainFieldAnimation }))),
   figure: {
     kind: 'rosette',
     gauges: [

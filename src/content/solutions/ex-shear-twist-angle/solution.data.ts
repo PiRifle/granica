@@ -1,11 +1,11 @@
 import type { SolutionData } from '../../model'
-import { ShearTwistAngleAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-twist-angle',
   title: 'Kąt skręcenia i sztywność wału — przykład 1',
   duration: 7,
-  animation: ShearTwistAngleAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearTwistAngleAnimation }))),
   given: ['T = 1,2 kN·m', 'd_1 = 50 mm', 'L_1 = 600 mm', 'd_2 = 40 mm', 'L_2 = 400 mm', 'G = 80 GPa'],
   result:
     'Całkowity kąt skręcenia wynosi około 0,0385 rad, czyli 2,21°. Największe naprężenie styczne, około 95,5 MPa, występuje w cieńszym odcinku. Krótszy odcinek daje większy przyrost kąta, ponieważ ma znacznie mniejszy J_o.',

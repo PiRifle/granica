@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ThermalCompensationAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-gauges-2',
@@ -8,7 +8,7 @@ export default {
   given: ['ΔT = 18 K', 'czułość pozorna 11 με/K', 'E = 200 GPa'],
   result:
     'W praktyce nie odejmujemy tej liczby „na oko”. Stosujemy czujnik kompensacyjny lub czujnik samokompensujący, dopasowany do współczynnika rozszerzalności podłoża. Ważne jest też, żeby temperatura czujnika czynnego i odniesienia była rzeczywiście podobna. Jeśli belka jest nagrzewana lokalnie, sam czujnik odniesienia umieszczony na końcu może nie wystarczyć.',
-  animation: ThermalCompensationAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ThermalCompensationAnimation }))),
   scenes: [
     {
       title: 'Warunki temperaturowe',

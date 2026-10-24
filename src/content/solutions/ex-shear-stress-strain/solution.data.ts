@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearStressStrainExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-stress-strain',
@@ -18,7 +18,9 @@ export default {
     ],
     note: 'Czyste ścinanie: na ściankach działa tylko naprężenie styczne τ, a element odkształca się postaciowo.',
   },
-  animation: ShearStressStrainExample1Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.ShearStressStrainExample1Animation })),
+  ),
   scenes: [
     {
       title: 'Element w czystym ścinaniu',

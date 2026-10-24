@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingStressNeutralAxisAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-stress-neutral-axis',
@@ -8,7 +8,9 @@ export default {
   given: ['b = 80 mm', 'h = 160 mm', 'M = 8 kN·m', 'E = 200 GPa'],
   result:
     'Naprężenia skrajne mają wartość bezwzględną 23,4 MPa: ściskanie u góry i rozciąganie u dołu. Na osi obojętnej naprężenie wynosi zero, a w połowie wysokości jest dwa razy mniejsze.',
-  animation: BendingStressNeutralAxisAnimation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.BendingStressNeutralAxisAnimation })),
+  ),
   figure: {
     kind: 'beam',
     length: 4,

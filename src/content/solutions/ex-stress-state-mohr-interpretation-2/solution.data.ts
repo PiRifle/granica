@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MohrInterpretationExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-mohr-interpretation-2',
@@ -8,7 +8,9 @@ export default {
   given: ['σ nominalne = 120 MPa', 'R_e = 235 MPa'],
   result:
     'Ten przykład pokazuje, że koło Mohra i kryterium wytężenia to dopiero część analizy. Trzeba jeszcze wiedzieć, gdzie przyłożone jest obciążenie i jaka jest geometria. W strefie karbu samo σ=N/A może zaniżać naprężenie nawet kilkukrotnie.',
-  animation: MohrInterpretationExample2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.MohrInterpretationExample2Animation })),
+  ),
   scenes: [
     {
       title: 'Model: blacha z otworem',

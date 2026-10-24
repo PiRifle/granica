@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AllowableSafetyFactor2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-allowable-safety-factor-2',
@@ -38,7 +38,7 @@ export default {
     ],
     note: 'Przyjęto d = 52 mm, A = 2124 mm²; długość schematyczna.',
   },
-  animation: AllowableSafetyFactor2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AllowableSafetyFactor2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

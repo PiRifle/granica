@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialForceDistributedAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-force-diagrams-2',
@@ -50,7 +50,7 @@ export default {
     ],
     note: 'Podano średnie N i σ w połówkach; skrajne σ: 88 MPa przy utwierdzeniu i 24 MPa na końcu. q = 8 kN/m.',
   },
-  animation: AxialForceDistributedAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialForceDistributedAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

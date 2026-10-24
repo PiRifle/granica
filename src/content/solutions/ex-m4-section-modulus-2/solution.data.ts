@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SectionModulusExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-section-modulus-2',
@@ -41,7 +41,7 @@ export default {
     note: 'Schemat: pręt pełny D = 120 mm i rura d = 100 mm o tej samej średnicy zewnętrznej.',
     shape: 'circle',
   },
-  animation: SectionModulusExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionModulusExample2Animation }))),
   scenes: [
     {
       title: 'Dane i układ osi',

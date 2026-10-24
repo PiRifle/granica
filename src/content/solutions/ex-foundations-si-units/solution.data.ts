@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SiUnitsExampleAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-si-units',
@@ -7,7 +7,7 @@ export default {
   duration: 7,
   given: ['P = 96 kN', 'A = 480 mm²'],
   result: 'Naprężenie wynosi 200 MPa, czyli 20 kN/cm². Dodatnia wartość odpowiada rozciąganiu.',
-  animation: SiUnitsExampleAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SiUnitsExampleAnimation }))),
   scenes: [
     {
       title: 'Model, dane i obliczenie',

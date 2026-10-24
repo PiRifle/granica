@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialStrengthCondition2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-strength-condition-2',
@@ -8,7 +8,7 @@ export default {
   given: ['N_1=60 kN', 'A_1=400 mm²', 'N_2=45 kN', 'A_2=250 mm²', 'R_e=235 MPa', 'n=1,5'],
   result:
     'Odcinek 2 jest krytyczny: σ₂ = 180 MPa przekracza σdop = 156,7 MPa. Po poszerzeniu A₂ do 300 mm² otrzymujemy σ₂ = 150 MPa, a rzeczywisty zapas nrz = 1,567 jest większy od wymaganego 1,5.',
-  animation: AxialStrengthCondition2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialStrengthCondition2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

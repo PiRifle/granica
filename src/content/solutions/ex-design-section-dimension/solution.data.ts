@@ -1,12 +1,12 @@
 import type { SolutionData } from '../../model'
-import { SectionDimension1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-section-dimension',
   title: 'Dobór wymiaru z warunku wytrzymałości — przykład 1',
   duration: 7,
   given: ['L=3 m', 'P=12 kN', 'k=140 MPa', 'E=200 GPa'],
-  animation: SectionDimension1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionDimension1Animation }))),
   result:
     'Wymagany wskaźnik wynosi około 64 286 mm^3, a najmniejsza przyjęta średnica to 90 mm. Naprężenie 125,8 MPa jest mniejsze od 140 MPa, a ugięcie 10,5 mm nie przekracza 12 mm.',
   figure: {

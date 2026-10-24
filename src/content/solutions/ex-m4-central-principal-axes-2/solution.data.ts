@@ -1,10 +1,10 @@
 import type { SolutionData } from '../../model'
-import { SymmetricSectionAxesAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-central-principal-axes-2',
   title: 'Osie centralne i główne — przykład 2',
-  animation: SymmetricSectionAxesAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SymmetricSectionAxesAnimation }))),
   duration: 7,
   given: ['środnik 20 × 100 mm', 'półka 120 × 20 mm'],
   result:

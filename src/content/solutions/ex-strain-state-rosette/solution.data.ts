@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainRosetteExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-rosette',
@@ -8,7 +8,7 @@ export default {
   given: ['varepsilon_0=800', 'varepsilon_45=500', 'varepsilon_90=200'],
   result:
     'ε_1=800 με, ε_2=200 με i γ_max=600 μrad. Zerowa wartość γ_xy oznacza, że w tym punkcie nie ma ścinania względem osi rozety, a kierunki główne pokrywają się z osiami czujników.',
-  animation: StrainRosetteExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StrainRosetteExample1Animation }))),
   scenes: [
     {
       title: 'Model rozety i trzy odczyty',

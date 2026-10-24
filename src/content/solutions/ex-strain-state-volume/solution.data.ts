@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainStateVolumeExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-volume',
@@ -8,7 +8,9 @@ export default {
   given: ['E=200 GPa', 'ν=0,30', 'σ_x=σ_y=σ_z=−120 MPa'],
   result:
     'Objętość zmniejsza się o 0,00072, czyli 0,072 %. Ślad tensora i droga przez moduł ściśliwości dają ten sam wynik, co potwierdza spójność wzorów.',
-  animation: StrainStateVolumeExample1Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrainStateVolumeExample1Animation })),
+  ),
   figure: {
     kind: 'cube',
     stresses: { x: -120, y: -120, z: -120 },

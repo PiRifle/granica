@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { TensileTestExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-tension-compression-test-2',
@@ -8,7 +8,7 @@ export default {
   given: ['b = 12,5 mm', 't = 4 mm', 'A₀ = 50 mm²', 'L₀ = 50 mm', 'N = 10 kN'],
   result:
     'Przy polu 50 mm² naprężenie wynosi 200 MPa i próbka pozostaje sprężysta. Ta sama siła na polu 25 mm² daje 400 MPa, czyli stan po przekroczeniu granicy plastyczności; liniowe ε = 0,002 nie opisuje już rzeczywistego odkształcenia. Krzywa σ–ε jest wspólna dla obu próbek, a wykres N–ΔL zależałby od pola.',
-  animation: TensileTestExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.TensileTestExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

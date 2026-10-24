@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialForceInverseAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-force-diagrams-3',
@@ -64,7 +64,7 @@ export default {
     ],
     note: 'Pola są minimalne z warunku σ_dop = 120 MPa.',
   },
-  animation: AxialForceInverseAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialForceInverseAnimation }))),
   scenes: [
     {
       title: 'Wolny koniec — N_3 i siła 4 kN',

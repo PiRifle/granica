@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MaterialLoad1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-material-load',
@@ -8,7 +8,7 @@ export default {
   given: ['A=300 mm²', 'L=1500 mm', 'E=200 GPa', 'R_e=235 MPa', 'n=1,8', 'ΔL_dop=1 mm'],
   result:
     'Obciążenie dopuszczalne wynosi około 39,2 kN i decyduje o nim wytrzymałość. Wydłużenie przy tej sile wynosi około 0,98 mm, czyli mieści się w dopuszczalnym 1 mm.',
-  animation: MaterialLoad1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MaterialLoad1Animation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

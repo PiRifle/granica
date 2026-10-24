@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { SteppedBarsExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-stepped-bars',
@@ -8,7 +8,7 @@ export default {
   given: ['N = 60 kN', 'A₁ = 300 mm²', 'A₂ = 150 mm²', 'A₃ = 250 mm²'],
   result:
     'σ₁ = 200 MPa, σ₂ = 400 MPa, σ₃ = 240 MPa. Przekrój krytyczny to odcinek drugi, a przy σdop = 160 MPa każde pole musi wynosić co najmniej 375 mm².',
-  animation: SteppedBarsExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteppedBarsExample1Animation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

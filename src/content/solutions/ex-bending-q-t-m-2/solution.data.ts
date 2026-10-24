@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { BendingQtmPointLoadAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-bending-q-t-m-2',
@@ -52,7 +52,7 @@ export default {
     ],
     note: 'Pod siłą T skacze z +6 kN do -6 kN, a moment osiąga maksimum 31,5 kN·m.',
   },
-  animation: BendingQtmPointLoadAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.BendingQtmPointLoadAnimation }))),
   scenes: [
     {
       title: 'Model: q oraz siła P',

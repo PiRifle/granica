@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ShearMultiRivetAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-single-double-2',
@@ -8,7 +8,7 @@ export default {
   given: ['F = 180 kN', 'd = 18 mm', 'm = 4', 'n = 2'],
   result:
     'W krótkim połączeniu z dwoma lub trzema nitami w szeregu nierównomierność jest niewielka. W długim szeregu może być znacząca, szczególnie gdy blachy są cienkie i podatne. Wtedy obliczenie z równym podziałem daje naprężenie mniejsze od rzeczywistego w pierwszym rzędzie. Zapas bezpieczeństwa powinien to uwzględniać.',
-  animation: ShearMultiRivetAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ShearMultiRivetAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

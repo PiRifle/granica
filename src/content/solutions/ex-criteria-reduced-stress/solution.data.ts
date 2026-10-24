@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ReducedStressExample1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-reduced-stress',
@@ -8,7 +8,7 @@ export default {
   given: ['d = 60 mm', 'N = 30 kN', 'M = 1,2 kN·m', 'T = 800 N·m', 'Re = 235 MPa', 'n_wym = 2,0'],
   result:
     'Obie hipotezy dają wynik poniżej kr = 117,5 MPa, więc warunek jest spełniony. Większe wytężenie daje Tresca: 77,1 MPa i zapas około 3,05. HMH daje 74,7 MPa i zapas około 3,14. Do oceny konstrukcji trzeba konsekwentnie używać jednej hipotezy.',
-  animation: ReducedStressExample1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ReducedStressExample1Animation }))),
   scenes: [
     {
       title: 'Model i dane',

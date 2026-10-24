@@ -1,12 +1,12 @@
 import type { SolutionData } from '../../model'
-import { DesignReviewExam1Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-review-exam',
   title: 'Powtórka mieszana i strategia kolokwium — przykład 1',
   duration: 7,
   given: ['M=800 N·m', 'T=600 N·m', 'R_e=235 MPa', 'n=2'],
-  animation: DesignReviewExam1Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.DesignReviewExam1Animation }))),
   result:
     'Przyjęto d=45 mm. Naprężenie zredukowane wynosi około 106,6 MPa i jest mniejsze od dopuszczalnego 117,5 MPa, a rzeczywisty zapas względem R_e wynosi około 2,20.',
   figure: {

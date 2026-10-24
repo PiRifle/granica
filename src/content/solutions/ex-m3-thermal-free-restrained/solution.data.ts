@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ThermalRailAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m3-thermal-free-restrained',
@@ -8,7 +8,7 @@ export default {
   given: ['L=8 m', 'alpha=12', 'E=200 GPa', 's=2 mm', 'T=35 K', 'A=600 mm²'],
   result:
     'Szyna wydłużyłaby się swobodnie o 3,36 mm, ale luz pozwala na 2 mm. Po zamknięciu szczeliny w szynie powstaje ściskanie około 34 MPa, a podpora działa siłą około 20,4 kN.',
-  animation: ThermalRailAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ThermalRailAnimation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

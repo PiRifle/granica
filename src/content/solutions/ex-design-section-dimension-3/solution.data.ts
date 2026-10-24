@@ -1,12 +1,12 @@
 import type { SolutionData } from '../../model'
-import { SectionDimension3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-section-dimension-3',
   title: 'Dobór wymiaru z warunku wytrzymałości — przykład 3',
   duration: 7,
   given: ['L=2,5 m', 'd=60 mm', 'k=150 MPa'],
-  animation: SectionDimension3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionDimension3Animation }))),
   result:
     'Dla d = 60 mm wskaźnik wynosi około 21 206 mm³, dopuszczalny moment 3,18 kN·m, a największa siła w środku rozpiętości P ≈ 5,09 kN. Wykorzystanie 100% oznacza, że jest to granica nośności bez zapasu.',
   figure: {

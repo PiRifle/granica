@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { MaterialLoad2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-material-load-2',
@@ -17,7 +17,7 @@ export default {
   ],
   result:
     'Stal wymaga A = 160 mm² i decyduje wytrzymałość, a aluminium A = 360 mm², bo decyduje sztywność. Mimo większego przekroju aluminium jest lżejsze (około 1,17 kg wobec 1,51 kg), ale jego wydłużenie 1,19 mm prawie wykorzystuje limit 1,2 mm.',
-  animation: MaterialLoad2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.MaterialLoad2Animation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

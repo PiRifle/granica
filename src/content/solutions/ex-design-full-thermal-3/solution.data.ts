@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ThermalLimitDesignAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-full-thermal-3',
@@ -8,7 +8,7 @@ export default {
   given: ['k_c=160 MPa', 'E=200 GPa', 'alpha=12·10⁻⁶ 1/K'],
   result:
     'Największa dopuszczalna zmiana temperatury dla stali wynosi około 66,7 K. Dla aluminium o E=70 GPa i α=23·10⁻⁶ 1/K limit wypada przy około 99,4 K, bo decyduje iloczyn Eα. Alternatywą dla większego przekroju jest luz: przy ΔT=80 K i L=1500 mm potrzeba g≈1,44 mm. Dla smukłego pręta trzeba jeszcze sprawdzić wyboczenie.',
-  animation: ThermalLimitDesignAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ThermalLimitDesignAnimation }))),
   figure: {
     kind: 'axial',
     top: 'fixed',

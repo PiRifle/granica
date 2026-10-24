@@ -1,12 +1,12 @@
 import type { SolutionData } from '../../model'
-import { SectionDimension2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-design-section-dimension-2',
   title: 'Dobór wymiaru z warunku wytrzymałości — przykład 2',
   duration: 7,
   given: ['h=2b', 'L=2 m', 'P=12 kN', 'k=160 MPa'],
-  animation: SectionDimension2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionDimension2Animation }))),
   result:
     'Warto porównać przekrój prostokątny z kołem o tym samym W. Dla koła W=42 667 daje d^3=32W/π≈ 434 500, czyli d≈ 75,7 mm. Pole koła wynosi około 4500 mm^2, a pole prostokąta 3200 mm^2. Prostokąt jest więc lżejszy przy podobnej nośności, ponieważ materiał jest odsunięty dalej od osi obojętnej. To pierwsza ilustracja tego, że kształt przekroju ma znaczenie.',
   figure: {

@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HmhExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-hmh-3',
@@ -8,7 +8,7 @@ export default {
   given: ['σ = 60 MPa', 'Re = 235 MPa', 'n = 2,0'],
   result:
     'Odpowiedź: według HMH dopuszczalne naprężenie styczne wynosi około 58,3 MPa. To przykład na to, że wariant odwrotny wymaga nie tylko przekształcenia wzoru, ale też świadomego wyboru hipotezy. Wynik 58,3 MPa nie jest „prawdziwym” naprężeniem granicznym materiału; jest granicą wynikającą z przyjętego modelu i wymaganego zapasu.',
-  animation: HmhExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HmhExample3Animation }))),
   scenes: [
     {
       title: 'Model i dane',

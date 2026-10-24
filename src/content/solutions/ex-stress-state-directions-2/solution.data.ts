@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressStateDirectionsExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-directions-2',
@@ -8,7 +8,9 @@ export default {
   given: ['σ_x = 80 MPa', 'σ_y = 0', 'τ_xy = 40 MPa'],
   result:
     'Płaszczyzny maksymalnego ścinania leżą pod kątem 45° od kierunków głównych. W tym przykładzie kierunki główne to 22,5° i 112,5°, więc maksymalne ścinanie występuje wokół 67,5°. To nie jest ten sam kierunek co największe rozciąganie.',
-  animation: StressStateDirectionsExample2Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StressStateDirectionsExample2Animation })),
+  ),
   figure: {
     kind: 'cube',
     stresses: { x: 80, y: 0, z: 0 },

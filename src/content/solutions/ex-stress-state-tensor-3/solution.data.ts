@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StressTensorExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-stress-state-tensor-3',
@@ -8,7 +8,7 @@ export default {
   given: ['T na ścianie x: (80, 25, 0) MPa', 'T na ścianie y: (25, -20, 0) MPa'],
   result:
     "Zauważ, że do odtworzenia tensora wystarczyły dwie trakcje, bo stan był płaski i trzecia kolumna była zerowa. W ogólnym przypadku potrzeba trzech trakcji na trzech niewspółpłaszczyznowych płaszczyznach. To odwrotność wzoru Cauchy'ego: zamiast mnożyć tensor przez normalną, składamy tensor z odpowiedzi materiału na trzy niezależne kierunki.",
-  animation: StressTensorExample3Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.StressTensorExample3Animation }))),
   scenes: [
     {
       title: 'Dane i trakcje',

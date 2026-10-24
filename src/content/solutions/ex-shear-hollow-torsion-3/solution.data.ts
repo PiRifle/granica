@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { HollowTorsionDesignAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-shear-hollow-torsion-3',
@@ -8,7 +8,7 @@ export default {
   given: ['D = 100 mm', 'T = 4 kN·m', 'tau_{dop} = 40 MPa'],
   result:
     'Wariant odwrotny pokazuje, że dla zadanej średnicy zewnętrznej nośność rośnie wraz z grubością ścianki, ale nie liniowo. Początkowo wystarczy cienka ścianka, a przy dużych momentach potrzebna grubość rośnie szybko. Jednocześnie bardzo cienka ścianka może utracić stateczność miejscową, mimo że wzór na naprężenie nadal daje poprawny wynik sprężysty.',
-  animation: HollowTorsionDesignAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.HollowTorsionDesignAnimation }))),
   scenes: [
     {
       title: 'Model i warunek',

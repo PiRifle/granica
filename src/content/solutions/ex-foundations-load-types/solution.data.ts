@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { LoadTypesExampleAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-load-types',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 500 mm²', 'L = 2,5 m', 'ρ = 7850 kg/m³', 'g = 9,81 m/s²'],
   result:
     'Ciężar pręta wynosi około 96,3 N, obciążenie liniowe około 38,5 N/m, a maksymalne naprężenie od ciężaru własnego około 0,193 MPa.',
-  animation: LoadTypesExampleAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.LoadTypesExampleAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

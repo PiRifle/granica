@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { PipeSecondMomentAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-m4-second-moments',
@@ -80,7 +80,7 @@ export default {
     note: 'Schemat: przekrój kołowy rurowy D = 120 mm i d = 100 mm narysowany jako kwadrat z otworem; wymiary są rzeczywiste.',
     shape: 'circle',
   },
-  animation: PipeSecondMomentAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.PipeSecondMomentAnimation }))),
   scenes: [
     {
       title: 'Model: pierścień i osie',

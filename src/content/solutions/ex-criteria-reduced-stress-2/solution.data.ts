@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { ReducedStressExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-reduced-stress-2',
@@ -8,7 +8,7 @@ export default {
   given: ['σ = 90 MPa', 'τ = 40 MPa', 'Re = 280 MPa', 'n_wym = 1,5'],
   result:
     'Wniosek praktyczny jest taki: dla materiału plastycznego nie wystarczy powiedzieć „naprężenie wynosi 105 MPa”. Trzeba dodać, według jakiego kryterium. W tym przypadku Tresca jest najbardziej zachowawcza, a maksimum normalne najmniej. Kolejność może się zmienić przy innym stosunku σ do τ, dlatego nie można zapamiętać jednej stałej hierarchii dla wszystkich stanów.',
-  animation: ReducedStressExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ReducedStressExample2Animation }))),
   scenes: [
     {
       title: 'Model i dane',

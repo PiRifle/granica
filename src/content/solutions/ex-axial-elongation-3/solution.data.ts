@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { AxialCompensationAnimation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-axial-elongation-3',
@@ -8,7 +8,7 @@ export default {
   given: ['A = 200 mm²', 'E = 200 GPa', 'P = 10 kN', 'Q = 30 kN', 'L₁ = 300 mm'],
   result:
     'Gdyby drugi odcinek miał 500 mm, skrócenie wyniosłoby -0,125 mm, a pręt jako całość wydłużyłby się o 0,025 mm. Przy 700 mm przeważyłoby skrócenie i wypadkowe wydłużenie byłoby ujemne. Taki dobór długości przypomina kompensację: jeden odcinek celowo pracuje w przeciwnym kierunku, aby znieść przemieszczenie drugiego. Trzeba jednak pamiętać, że odcinek ściskany o długości 600 mm i polu 200 mm² jest stosunkowo smukły, więc należy dodatkowo sprawdzić wyboczenie.',
-  animation: AxialCompensationAnimation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.AxialCompensationAnimation }))),
   scenes: [
     {
       title: 'Model i dane',

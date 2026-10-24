@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react'
+import type { ComponentType, LazyExoticComponent } from 'react'
 import type { LessonMeta, SolutionAnimationProps, SolutionFigure, SolutionScene } from '../types'
 
 export type { LessonMeta }
@@ -20,5 +20,5 @@ export interface SolutionData {
   result: string
   scenes: SolutionScene[]
   figure?: SolutionFigure
-  animation?: ComponentType<SolutionAnimationProps>
+  animation?: ComponentType<SolutionAnimationProps> | LazyExoticComponent<ComponentType<SolutionAnimationProps>>
 }

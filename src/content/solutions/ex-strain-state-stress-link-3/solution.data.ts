@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { StrainStressLinkExample3Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-strain-state-stress-link-3',
@@ -43,7 +43,9 @@ export default {
     ],
     note: 'Oba zapasy przekraczają wymagane 2,0, ale Tresca daje mniejszy margines niż HMH.',
   },
-  animation: StrainStressLinkExample3Animation,
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.StrainStressLinkExample3Animation })),
+  ),
   scenes: [
     {
       title: 'Zapisz odkształcenia główne',

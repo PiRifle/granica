@@ -1,5 +1,5 @@
 import type { SolutionData } from '../../model'
-import { CombinedLoadingExample2Animation } from './animation'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-criteria-combined-loading-2',
@@ -8,7 +8,7 @@ export default {
   given: ['N = -20 kN', 'M = 1,2 kN·m', 'T = 500 N·m'],
   result:
     'W zadaniach z mimośrodowym rozciąganiem lub ściskaniem warto więc narysować rozkład σ_x wzdłuż wysokości przekroju. Siła osiowa przesuwa cały wykres równolegle, a zginanie go obraca. Punkt decydujący to miejsce, w którym wypadkowa wartość jest najbardziej oddalona od zera. Dopiero po tym rysunku sensowne jest liczenie σ_red.',
-  animation: CombinedLoadingExample2Animation,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.CombinedLoadingExample2Animation }))),
   figure: {
     kind: 'cube',
     stresses: {
