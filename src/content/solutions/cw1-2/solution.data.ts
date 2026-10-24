@@ -1,9 +1,11 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'cw1-2',
   title: 'Pręt stopniowany z przekrojem kołowym i kwadratowym',
   duration: 9,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SteppedBarStressAnimation }))),
   given: [
     'P₂ = 50 kN na górnym końcu',
     'Dwie siły P₁ = 60 kN każda, przyłożone na poziomie stopnia',
@@ -35,6 +37,7 @@ export default {
       formula: 'P_2=50\\,\\mathrm{kN},\\qquad \\sum P_1=2\\cdot60=120\\,\\mathrm{kN}',
       caption: 'Na rysunku są dwie strzałki P₁ — nie wolno policzyć tylko jednej.',
       visual: 'axial',
+      focus: { metric: 'model' },
       emphasis: 'Całkowite obciążenie na stopniu to 120 kN, a nie 60 kN.',
     },
     {
@@ -44,6 +47,7 @@ export default {
       formula: 'R-P_2-2P_1=0\\quad\\Rightarrow\\quad R=50+2\\cdot60=170\\,\\mathrm{kN}',
       caption: 'Dolne utwierdzenie przejmuje 170 kN.',
       visual: 'axial',
+      focus: { metric: 'R' },
     },
     {
       title: 'Przekrój przez odcinek górny',
@@ -52,6 +56,7 @@ export default {
       formula: 'N_2=P_2=50\\,\\mathrm{kN}>0',
       caption: 'Powyżej stopnia siły P₁ nie wchodzą jeszcze do równowagi odciętej części.',
       visual: 'axial',
+      focus: { metric: 'N', segment: 'górny' },
     },
     {
       title: 'Przekrój przez odcinek dolny',
@@ -60,6 +65,7 @@ export default {
       formula: 'N_1=P_2+2P_1=50+120=170\\,\\mathrm{kN}>0',
       caption: 'Grubszy odcinek przenosi większą siłę, bo zbiera obciążenia z całej części górnej.',
       visual: 'axial',
+      focus: { metric: 'N', segment: 'dolny' },
     },
     {
       title: 'Wykres siły podłużnej',
@@ -69,6 +75,7 @@ export default {
         'N(x)=\\begin{cases}50\\,\\mathrm{kN}&0<x<500\\,\\mathrm{mm}\\\\170\\,\\mathrm{kN}&500<x<700\\,\\mathrm{mm}\\end{cases}',
       caption: 'Dwa poziomy N i jeden skok o 120 kN na stopniu.',
       visual: 'diagram',
+      focus: { metric: 'N' },
     },
     {
       title: 'Pola dwóch przekrojów',
@@ -78,24 +85,35 @@ export default {
         'A_2=\\frac{\\pi d^2}{4}=\\frac{\\pi\\cdot20^2}{4}=100\\pi=314,159\\,\\mathrm{mm^2},\\qquad A_1=a^2=40^2=1600\\,\\mathrm{mm^2}',
       caption: 'Pole kwadratu jest ponad pięć razy większe od pola koła.',
       visual: 'axial',
+      focus: { metric: 'A' },
     },
     {
-      title: 'Naprężenia i ich porównanie',
+      title: 'Naprężenie w górnym odcinku',
       narration:
-        'W górnym odcinku dzielimy 50 kN przez małe pole koła, a w dolnym 170 kN przez pole kwadratu. Mimo ponad trzykrotnie większej siły dolny odcinek ma mniejsze naprężenie, ponieważ jego przekrój jest odpowiednio duży.',
-      formula:
-        '\\sigma_2=\\frac{50\\,000}{314,159}=159,15\\,\\mathrm{MPa},\\qquad \\sigma_1=\\frac{170\\,000}{1600}=106,25\\,\\mathrm{MPa}',
-      caption: 'Oba naprężenia są dodatnie: rozciąganie w całym pręcie.',
+        'W górnym odcinku dzielimy 50 kN przez małe pole koła. Wynik 159,15 MPa jest największym naprężeniem w całym pręcie, mimo że działa tu mniejsza siła wewnętrzna.',
+      formula: '\\sigma_2=\\frac{50\\,000}{314{,}159}=159{,}15\\,\\mathrm{MPa}',
+      caption: 'Górny odcinek: σ₂ = 159,15 MPa — przekrój krytyczny.',
       visual: 'axial',
+      focus: { metric: 'σ', segment: 'górny' },
       emphasis: 'Większa siła N nie oznacza automatycznie większego naprężenia — decyduje iloraz N/A.',
+    },
+    {
+      title: 'Naprężenie w dolnym odcinku',
+      narration:
+        'W dolnym odcinku dzielimy 170 kN przez pole kwadratu. Mimo ponad trzykrotnie większej siły naprężenie jest mniejsze niż w górnym odcinku, ponieważ przekrój jest odpowiednio duży.',
+      formula: '\\sigma_1=\\frac{170\\,000}{1600}=106{,}25\\,\\mathrm{MPa}',
+      caption: 'Dolny odcinek: σ₁ = 106,25 MPa. Oba naprężenia są dodatnie, czyli rozciągające.',
+      visual: 'axial',
+      focus: { metric: 'σ', segment: 'dolny' },
     },
     {
       title: 'Wykres σ i kontrola równowagi',
       narration:
         'Na stopniu zmieniają się jednocześnie N i A, więc naprężenie spada ze 159,15 do 106,25 MPa. Na każdym odcinku jest stałe. Tuż nad dolnym utwierdzeniem N₁ = 170 kN zgadza się z reakcją, co zamyka kontrolę równowagi.',
-      formula: '\\sigma_{max}=\\sigma_2=159,15\\,\\mathrm{MPa},\\qquad N_1=R=170\\,\\mathrm{kN}',
+      formula: '\\sigma_{max}=\\sigma_2=159{,}15\\,\\mathrm{MPa},\\qquad N_1=R=170\\,\\mathrm{kN}',
       caption: 'Wykres naprężeń ma dwa dodatnie poziomy; większy jest w cieńszym odcinku.',
       visual: 'diagram',
+      focus: { metric: 'σmax' },
     },
   ],
 } satisfies SolutionData

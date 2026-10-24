@@ -1,9 +1,11 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'cw1-3',
   title: 'Trzy odcinki pręta o dwóch polach przekroju',
   duration: 9,
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.ThreeSegmentForceAnimation }))),
   given: [
     'P₁ = 30 kN na dolnym końcu, P₂ = 40 kN między odcinkami α i β',
     'A₁ = 2 cm² = 200 mm² dla odcinka α',
@@ -37,6 +39,7 @@ export default {
         'L_\\alpha=1,5\\,\\mathrm{m},\\quad L_\\beta=L_\\gamma=1\\,\\mathrm{m};\\qquad A_\\alpha=A_1,\\quad A_\\beta=A_\\gamma=A_2',
       caption: 'Zmiana N następuje przy P₂, a zmiana pola — na granicy α/β.',
       visual: 'axial',
+      focus: { metric: 'model' },
     },
     {
       title: 'Reakcja górnego utwierdzenia',
@@ -45,22 +48,43 @@ export default {
       formula: 'R-P_1-P_2=0\\quad\\Rightarrow\\quad R=30+40=70\\,\\mathrm{kN}',
       caption: 'Utwierdzenie przenosi sumę obu obciążeń.',
       visual: 'axial',
+      focus: { metric: 'R' },
     },
     {
-      title: 'Przekroje i siły wewnętrzne',
+      title: 'Odcinek α — siła 30 kN',
       narration:
-        'Dla przekroju w α wystarczy rozważyć dolną część z siłą P₁. Dla przekroju w β lub γ poniżej znajdują się już obie siły P₁ i P₂. Wszystkie wyniki są dodatnie, ponieważ odcinki są rozciągane.',
-      formula: 'N_\\alpha=P_1=30\\,\\mathrm{kN},\\qquad N_\\beta=N_\\gamma=P_1+P_2=70\\,\\mathrm{kN}',
-      caption: 'Metoda przekrojów: sumujemy obciążenia tylko z jednej, wybranej strony cięcia.',
+        'Budujemy wykres N od dolnego, swobodnego końca. Dla przekroju w α wystarczy rozważyć dolną część z siłą P₁ = 30 kN. Zatem Nα = +30 kN, a wykres w całym odcinku α jest stały.',
+      formula: 'N_\\alpha=P_1=30\\,\\mathrm{kN}>0',
+      caption: 'Dolny odcinek α jest rozciągany siłą +30 kN.',
       visual: 'axial',
+      focus: { metric: 'N', segment: 'α' },
     },
     {
-      title: 'Wykres N',
+      title: 'Odcinek β — skok o 40 kN',
       narration:
-        'Wykres jest stały na poziomie +30 kN w odcinku α. Przy sile P₂ skacze o 40 kN i dalej pozostaje na poziomie +70 kN przez β i γ. Na granicy β/γ nie ma skoku, bo nie ma tam siły skupionej.',
+        'Na granicy α i β działa dodatkowa siła P₂ = 40 kN. Po jej przekroczeniu po jednej stronie cięcia są już obie siły P₁ i P₂, więc Nβ = 30 + 40 = +70 kN. Wykres skacze o 40 kN.',
+      formula: 'N_\\beta=N_\\alpha+P_2=30+40=70\\,\\mathrm{kN}',
+      caption: 'Skok wykresu o 40 kN odpowiada sile P₂ przyłożonej na granicy α/β.',
+      visual: 'axial',
+      focus: { metric: 'N', segment: 'β' },
+    },
+    {
+      title: 'Odcinek γ — bez skoku',
+      narration:
+        'Między β i γ nie ma żadnej siły skupionej. Zestaw sił po jednej stronie przekroju się nie zmienia, więc Nγ = Nβ = +70 kN. Na granicy β/γ wykres nie skacze.',
+      formula: 'N_\\gamma=N_\\beta=70\\,\\mathrm{kN}',
+      caption: 'Brak siły na granicy β/γ oznacza brak skoku wykresu.',
+      visual: 'axial',
+      focus: { metric: 'N', segment: 'γ' },
+    },
+    {
+      title: 'Wykres N i kontrola reakcji',
+      narration:
+        'Gotowy wykres jest stały na poziomie +30 kN w odcinku α, przy sile P₂ skacze o 40 kN i dalej pozostaje na poziomie +70 kN przez β i γ. Na granicy β/γ nie ma skoku, bo nie ma tam siły skupionej. Reakcja górna R = 70 kN zgadza się z Nγ.',
       formula: 'N=\\begin{cases}30\\,\\mathrm{kN}&\\alpha\\\\70\\,\\mathrm{kN}&\\beta,\\gamma\\end{cases}',
-      caption: 'Jeden skok wykresu N odpowiada sile P₂ = 40 kN.',
+      caption: 'Jeden skok wykresu N odpowiada sile P₂ = 40 kN; Nγ = R.',
       visual: 'diagram',
+      focus: { metric: 'N' },
     },
     {
       title: 'Przeliczenie pól przekrojów',
@@ -69,6 +93,7 @@ export default {
       formula: 'A_1=2\\cdot100=200\\,\\mathrm{mm^2},\\qquad A_2=5\\cdot100=500\\,\\mathrm{mm^2}',
       caption: 'Stałe pole w β i γ oraz stałe N oznaczają też stałe naprężenie.',
       visual: 'axial',
+      focus: { metric: 'A' },
     },
     {
       title: 'Naprężenie w odcinku α',
@@ -77,6 +102,7 @@ export default {
       formula: '\\sigma_\\alpha=\\frac{N_\\alpha}{A_1}=\\frac{30\\,000}{200}=150\\,\\mathrm{MPa}',
       caption: 'Mała siła na małym polu daje największe naprężenie w zadaniu.',
       visual: 'axial',
+      focus: { metric: 'σ', segment: 'α' },
     },
     {
       title: 'Naprężenia w odcinkach β i γ',
@@ -85,6 +111,7 @@ export default {
       formula: '\\sigma_\\beta=\\sigma_\\gamma=\\frac{70\\,000}{500}=140\\,\\mathrm{MPa}',
       caption: 'β i γ mają ten sam poziom naprężenia rozciągającego.',
       visual: 'axial',
+      focus: { metric: 'σ', segment: 'β' },
     },
     {
       title: 'Wykres σ i kontrola końcowa',
@@ -94,6 +121,7 @@ export default {
         '|\\sigma|_{max}=150\\,\\mathrm{MPa}\\quad\\text{w odcinku }\\alpha,\\qquad N_\\gamma=R=70\\,\\mathrm{kN}',
       caption: 'Odpowiedź: α: 150 MPa; β i γ: 140 MPa, wszystko rozciąganie.',
       visual: 'diagram',
+      focus: { metric: 'σmax' },
     },
   ],
 } satisfies SolutionData

@@ -1,9 +1,10 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'cw5-1',
   title: 'Przekrój złożony z dwoma otworami',
-  duration: 10,
+  duration: 12,
   given: [
     'a = 300 mm — szerokość pasa górnego i dolnego',
     'b = 300 mm — wysokość pasa górnego; e = 50 mm — wysokość pasa dolnego',
@@ -13,6 +14,7 @@ export default {
   ],
   result:
     'y_C = 215,386 mm od dolnej krawędzi, x_C = 0; I_x = 1,35776 · 10⁹ mm⁴ = 135 776 cm⁴, I_y = 7,73396 · 10⁸ mm⁴ = 77 339,6 cm⁴.',
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.SectionCentroidMomentsAnimation }))),
   figure: {
     kind: 'section',
     width: 300,
@@ -32,38 +34,33 @@ export default {
       { label: 'x_C', value: '0 mm', focus: 'centroid' },
       { label: 'y_C', value: '215,386 mm', focus: 'centroid' },
       { label: 'I_x', value: '1,35776·10⁹ mm⁴', focus: 'Ix' },
-      { label: 'I_x', value: '135 776,1 cm⁴', focus: 'Ix' },
       { label: 'I_y', value: '7,73396·10⁸ mm⁴', focus: 'Iy' },
-      { label: 'I_y', value: '77 339,6 cm⁴', focus: 'Iy' },
     ],
     note: 'Osie centralne przechodzą przez C = (0; 215,386 mm); otwory są odejmowane jako pole ujemne.',
   },
   scenes: [
     {
-      title: 'Przyjmij osie i podziel przekrój',
+      title: 'Model, osie i dane',
       narration:
         'Oś y skierujmy w górę, z początkiem na dolnej krawędzi, a oś x umieśćmy w pionowej osi symetrii. Przekrój składa się z pasa górnego, środnika i pasa dolnego. Otwory traktujemy jako pole ujemne. Wysokość środnika to h − b − e = 50 mm.',
       formula: 'h_s = h-b-e = 400-300-50 = 50\\ \\text{mm}',
       caption:
         'Oś x pozioma przechodzi na razie przez dolną krawędź; po wyznaczeniu centroidu przeniesiemy ją do środka ciężkości.',
       visual: 'section',
+      focus: { metric: 'model' },
       emphasis: 'Symetria daje od razu x_C = 0.',
     },
     {
-      title: 'Zapisz pola i położenia centroidów',
+      title: 'Pola części, środki i pole netto',
       narration:
-        'Dla pasa górnego y_g = e + h_s + b/2 = 250 mm. Środnik ma środek na y_s = e + h_s/2 = 75 mm, a pas dolny na y_d = e/2 = 25 mm. Otwory mają środki na tej samej wysokości co pas górny. Ich współrzędne poziome względem osi symetrii wynoszą ±(a/2 − e) = ±100 mm.',
-      formula: 'A_g=300\\cdot300=90\\,000,\\quad A_s=30\\cdot50=1\\,500,\\quad A_d=300\\cdot50=15\\,000\\ \\text{mm}^2',
-      caption: 'Łączne pole otworów: A_o = 2π·15² = 1 413,72 mm²; w sumach odejmujemy A_o.',
+        'Dla pasa górnego A_g = 300·300 = 90 000 mm², a jego środek leży na y_g = e + h_s + b/2 = 250 mm. Środnik ma pole 30·50 = 1 500 mm² i środek na y_s = 75 mm, a pas dolny 300·50 = 15 000 mm² i środek na y_d = 25 mm. Otwory mają łącznie A_o = 2π·15² = 1 413,72 mm², środek na y_o = 250 mm i położenie poziome ±(a/2 − e) = ±100 mm. Pole netto A = A_g + A_s + A_d − A_o = 105 086,28 mm² jest potrzebne do średniej ważonej wyznaczającej środek ciężkości.',
+      formula:
+        'A_g=90\\,000,\\quad A_s=1\\,500,\\quad A_d=15\\,000,\\quad A_o=1\\,413,72\\ \\text{mm}^2,\\qquad A=105\\,086,28\\ \\text{mm}^2',
+      caption:
+        'A_o = 1 413,72 mm²; pole netto A = 105 086,28 mm². Środki części: y_g = 250, y_s = 75, y_d = 25 mm; otwory: y = 250 mm, x = ±100 mm.',
       visual: 'section',
-    },
-    {
-      title: 'Oblicz pole przekroju netto',
-      narration:
-        'Pole netto jest potrzebne do średniej ważonej wyznaczającej środek ciężkości. Otwory zmniejszają zarówno pole, jak i moment statyczny.',
-      formula: 'A=A_g+A_s+A_d-A_o=90\\,000+1\\,500+15\\,000-1\\,413,72=105\\,086,28\\ \\text{mm}^2',
-      caption: 'Pole przekroju netto uwzględnia rzeczywiste ubytki materiału.',
-      visual: 'section',
+      focus: { metric: 'section' },
+      emphasis: 'Otwory są polem ujemnym, więc ich pole i moment statyczny mają znak minus.',
     },
     {
       title: 'Wyznacz środek ciężkości',
@@ -72,6 +69,7 @@ export default {
       formula: 'y_C=\\frac{S}{A}=\\frac{22\\,634\\,070,83}{105\\,086,28}=215,386\\ \\text{mm}',
       caption: 'Centralna oś x jest pozioma i przechodzi 215,386 mm nad dolną krawędzią.',
       visual: 'section',
+      focus: { metric: 'centroid' },
       emphasis: 'Nie zakładamy centroidu w połowie wysokości: przekrój nie jest symetryczny względem poziomu.',
     },
     {
@@ -82,7 +80,8 @@ export default {
         'I_x=\\left[\\frac{300\\cdot300^3}{12}+90\\,000(250-y_C)^2\\right]+\\left[\\frac{30\\cdot50^3}{12}+1\\,500(75-y_C)^2\\right]+\\left[\\frac{300\\cdot50^3}{12}+15\\,000(25-y_C)^2\\right]-\\left[\\frac{2\\pi30^4}{64}+1\\,413,72(250-y_C)^2\\right]',
       caption:
         'Kolejne dodatnie składniki to 782 834 182; 29 874 670 i 546 825 077 mm⁴, a ubytek za otwory wynosi 1 773 377 mm⁴.',
-      visual: 'diagram',
+      visual: 'section',
+      focus: { metric: 'Ix' },
     },
     {
       title: 'Zsumuj moment względem osi x',
@@ -91,6 +90,7 @@ export default {
       formula: 'I_x=1\\,357\\,760\\,552\\ \\text{mm}^4=135\\,776,1\\ \\text{cm}^4',
       caption: 'Przeliczenie: 1 cm⁴ = 10⁴ mm⁴.',
       visual: 'diagram',
+      focus: { metric: 'Ix-sum' },
     },
     {
       title: 'Oblicz moment względem osi y',
@@ -100,24 +100,27 @@ export default {
         'I_y=\\frac{300\\cdot300^3}{12}+\\frac{50\\cdot30^3}{12}+\\frac{50\\cdot300^3}{12}-\\left(\\frac{2\\pi30^4}{64}+1\\,413,72\\cdot100^2\\right)',
       caption: 'Przy osi pionowej w trzeciej potędze występują szerokości elementów, nie ich wysokości.',
       visual: 'section',
+      focus: { metric: 'Iy' },
     },
     {
       title: 'Zsumuj moment względem osi y',
       narration:
-        'Suma momentów prostokątów wynosi 787 725 000 mm⁴. Łączny ujemny wkład otworów to 14 329 188,51 mm⁴, z czego największa część pochodzi z ich odległości od osi y.',
-      formula: 'I_y=787\\,725\\,000-14\\,329\\,188,51=773\\,395\\,811\\ \\text{mm}^4=77\\,339,6\\ \\text{cm}^4',
+        'Suma momentów prostokątów wynosi 787 612 500 mm⁴. Łączny ujemny wkład otworów to 14 216 688,51 mm⁴, z czego największa część pochodzi z ich odległości od osi y.',
+      formula: 'I_y=787\\,612\\,500-14\\,216\\,688,51=773\\,395\\,811\\ \\text{mm}^4=77\\,339,6\\ \\text{cm}^4',
       caption: 'Moment względem osi pionowej jest mniejszy niż względem osi poziomej.',
       visual: 'diagram',
+      focus: { metric: 'Iy-sum' },
     },
     {
-      title: 'Zinterpretuj wynik',
+      title: 'Co to oznacza dla belki',
       narration:
-        'Ostateczne osie centralne przechodzą przez punkt (0; 215,386 mm). Większe I_x oznacza, że przekrój jest sztywniejszy przy zginaniu względem osi poziomej. Otwory zmniejszają oba momenty, ale w obliczeniach I_y szczególnie istotne jest ich położenie boczne.',
+        'Ostateczne osie centralne przechodzą przez punkt (0; 215,386 mm). Większe I_x oznacza, że przekrój jest sztywniejszy przy zginaniu względem osi poziomej: przy tym samym momencie M naprężenie σ = My/I_x jest mniejsze, a ugięcie zależy od EI_x. Otwory zmniejszają oba momenty, ale w I_y szczególnie istotne jest ich położenie boczne.',
       formula:
         '\\boxed{y_C=215,386\\ \\text{mm},\\quad I_x=135\\,776,1\\ \\text{cm}^4,\\quad I_y=77\\,339,6\\ \\text{cm}^4}',
       caption: 'Wszystkie momenty odnoszą się do osi centralnych, nie do osi przez dolną krawędź.',
-      visual: 'section',
-      emphasis: 'Najpierw centroid, potem twierdzenie Steinera — odwrotna kolejność dałaby błędne odległości.',
+      visual: 'beam',
+      focus: { metric: 'interpret' },
+      emphasis: 'I_x > I_y, więc zginanie względem osi poziomej jest korzystniejsze.',
     },
   ],
 } satisfies SolutionData
