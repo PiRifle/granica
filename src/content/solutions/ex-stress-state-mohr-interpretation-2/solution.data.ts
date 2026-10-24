@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { MohrInterpretationExample2Animation } from './animation'
 
 export default {
   id: 'ex-stress-state-mohr-interpretation-2',
@@ -7,82 +8,52 @@ export default {
   given: ['σ nominalne = 120 MPa', 'R_e = 235 MPa'],
   result:
     'Ten przykład pokazuje, że koło Mohra i kryterium wytężenia to dopiero część analizy. Trzeba jeszcze wiedzieć, gdzie przyłożone jest obciążenie i jaka jest geometria. W strefie karbu samo σ=N/A może zaniżać naprężenie nawet kilkukrotnie.',
-  figure: {
-    kind: 'cube',
-    stresses: { x: 120, y: 0, z: 0 },
-    values: [
-      { label: 'σ nominalne', value: '120 MPa', focus: 'stress', reveal: 0 },
-      { label: 'σ lokalne', value: '360 MPa', focus: 'stress' },
-      { label: 'R_e', value: '235 MPa', focus: 'stress', reveal: 0 },
-      { label: 'n nominalny', value: '1,96', focus: 'stress' },
-      { label: 'k_t', value: '3', focus: 'stress' },
-    ],
-    note: 'Naprężenie nominalne 120 MPa; przy otworze naprężenie lokalne osiąga około 360 MPa.',
-  },
+  animation: MohrInterpretationExample2Animation,
   scenes: [
     {
-      title: 'Dane i naprężenie nominalne',
+      title: 'Model: blacha z otworem',
       narration:
-        'Rozważmy blachę z otworem kołowym, rozciąganą nominalnie naprężeniem σ=120 MPa. W pobliżu otworu naprężenie styczne do brzegu osiąga około trzykrotności wartości nominalnej, czyli 360 MPa.',
-      caption: 'Naprężenie nominalne i lokalna koncentracja przy otworze.',
+        'Rozważmy blachę z otworem kołowym, rozciąganą nominalnie naprężeniem σ=120 MPa. Z dala od otworu stan naprężenia jest jednoosiowy, a nominalny współczynnik bezpieczeństwa dla R_e=235 MPa wydaje się równy 1,96.',
+      caption: 'Z dala od otworu widzimy tylko naprężenie nominalne 120 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma=120\\ \\text{MPa},\\quad \\sigma_{\\max}\\approx3\\sigma=360\\ \\text{MPa}',
+      focus: { metric: 'model' },
+      formula: '\\sigma_{\\text{nom}}=120\\ \\text{MPa},\\quad R_e=235\\ \\text{MPa}',
     },
     {
-      title: 'Nominalny współczynnik bezpieczeństwa',
+      title: 'Koncentracja naprężeń przy otworze',
       narration:
-        'Dla stali o R_e=235 MPa nominalny współczynnik bezpieczeństwa wynosi 235/120≈1,96, ale lokalne naprężenie przekracza granicę plastyczności o 125 MPa.',
-      caption: 'Nominalny współczynnik nie opisuje sytuacji w strefie karbu.',
+        'Otwór zaburza pole naprężeń. Strumienie naprężeń zaginają się wokół niego, a na brzegu, prostopadle do kierunku rozciągania, naprężenie styczne do brzegu osiąga około trzykrotności wartości nominalnej, czyli 360 MPa.',
+      caption: 'Maksimum pojawia się na górze i dole otworu, a nie z dala od karbu.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'n_{\\text{nom}}=\\frac{235}{120}\\approx1{,}96,\\quad \\sigma_{\\max}-R_e=360-235=125\\ \\text{MPa}',
+      focus: { metric: 'field' },
+      formula: '\\sigma_{\\max}\\approx k_t\\sigma_{\\text{nom}}=3\\cdot120=360\\ \\text{MPa}',
     },
     {
-      title: 'Znaczenie koncentracji',
+      title: 'Koło Mohra w strefie karbu',
       narration:
-        'W materiale ciągliwym strefa plastyczna wokół otworu może się rozwinąć i częściowo wyrównać naprężenia, ale przy obciążeniu cyklicznym lokalne uplastycznienie sprzyja inicjacji pęknięcia zmęczeniowego.',
-      caption: 'Koncentracja naprężeń ma znaczenie nawet w materiale ciągliwym.',
+        'W strefie karbu lokalny stan naprężenia jest jednoosiowy: σ_1=360 MPa, a σ_2=σ_3=0. Koło Mohra ma środek w 180 MPa i promień 180 MPa. To koło jest znacznie większe od nominalnego, mimo że nominalnie materiał byłby bezpieczny.',
+      caption: 'Lokalne koło Mohra rośnie trzykrotnie względem stanu nominalnego.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_{\\max}=360\\ \\text{MPa}>R_e=235\\ \\text{MPa}',
+      focus: { metric: 'circle' },
+      formula: '\\sigma_1=360\\ \\text{MPa},\\quad \\sigma_2=\\sigma_3=0,\\quad R=\\tau_{\\max}=180\\ \\text{MPa}',
     },
     {
-      title: 'Współczynnik koncentracji',
+      title: 'Nominalnie bezpiecznie, lokalnie nie',
       narration:
-        'Współczynnik koncentracji naprężeń dla otworu kołowego w rozciąganej blasze jest równy około 3 i nie zależy od średnicy otworu. Efekt jest silny tylko w pobliżu otworu, w odległości rzędu kilku średnic.',
-      caption: 'Zasada de Saint-Venanta: zaburzenie pola naprężeń wygasa z odległością.',
+        'Nominalnie naprężenie 120 MPa jest mniejsze od R_e=235 MPa, więc n_nom≈1,96. Lokalnie 360 MPa przekracza granicę plastyczności, więc n_lok≈0,65. Nominalny zapas nie opisuje strefy karbu.',
+      caption: 'Ta sama blacha, dwa różne wnioski: nominalny i lokalny.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'k_t=\\frac{\\sigma_{\\max}}{\\sigma_{\\text{nom}}}\\approx3',
+      focus: { metric: 'compare' },
+      formula: 'n_{\\text{nom}}=\\frac{235}{120}\\approx1{,}96,\\quad n_{\\text{lok}}=\\frac{235}{360}\\approx0{,}65',
     },
     {
-      title: 'Naprężenia główne w strefie karbu',
+      title: 'Wniosek: geometria przed liczbami',
       narration:
-        'W stanie jednoosiowym naprężenia główne w strefie karbu wynoszą około 360, 0 i 0 MPa. To pokazuje, że lokalne naprężenie jest znacznie większe od nominalnego.',
-      caption: 'Stan naprężenia w strefie karbu jest jednoosiowy, ale o dużej wartości.',
+        'W materiale ciągliwym strefa plastyczna wokół otworu może się rozwinąć i częściowo wyrównać naprężenia, ale przy obciążeniu cyklicznym lokalne uplastycznienie sprzyja inicjacji pęknięcia zmęczeniowego. Dlatego inżynier najpierw szuka miejsc koncentracji, a dopiero potem wykonuje obliczenia szczegółowe.',
+      caption: 'Samo σ=N/A może zaniżać naprężenie nawet kilkukrotnie.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\sigma_1\\approx360\\ \\text{MPa},\\quad \\sigma_2=\\sigma_3=0',
-    },
-    {
-      title: 'Ograniczenia analizy nominalnej',
-      narration:
-        'Samo σ=N/A może zaniżać naprężenie nawet kilkukrotnie. Dlatego inżynier najpierw szuka miejsc, w których naprężenia mogą się koncentrować, a dopiero potem wykonuje obliczenia szczegółowe.',
-      caption: 'Najpierw geometria i miejsca koncentracji, potem obliczenia.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_{\\text{nom}}=120\\ \\text{MPa}\\ll\\sigma_{\\max}=360\\ \\text{MPa}',
-    },
-    {
-      title: 'Interpretacja inżynierska',
-      narration:
-        'Koło Mohra i kryterium wytężenia to dopiero część analizy. Trzeba jeszcze wiedzieć, gdzie przyłożone jest obciążenie i jaka jest geometria. W strefie karbu samo σ=N/A może zaniżać naprężenie nawet kilkukrotnie.',
-      caption: 'Nominalny współczynnik bezpieczeństwa nie wystarcza w strefie karbu.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula:
-        '\\boxed{\\sigma_{\\text{nom}}=120\\ \\text{MPa},\\quad k_t\\approx3,\\quad \\sigma_{\\max}\\approx360\\ \\text{MPa},\\quad n_{\\text{nom}}\\approx1{,}96}',
+      focus: { metric: 'decision' },
+      formula: '\\sigma_{\\text{nom}}=120\\ \\text{MPa}\\ll\\sigma_{\\max}=360\\ \\text{MPa}>R_e=235\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

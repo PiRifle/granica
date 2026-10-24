@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { StressStateDirectionsExample2Animation } from './animation'
 
 export default {
   id: 'ex-stress-state-directions-2',
@@ -7,6 +8,7 @@ export default {
   given: ['σ_x = 80 MPa', 'σ_y = 0', 'τ_xy = 40 MPa'],
   result:
     'Płaszczyzny maksymalnego ścinania leżą pod kątem 45° od kierunków głównych. W tym przykładzie kierunki główne to 22,5° i 112,5°, więc maksymalne ścinanie występuje wokół 67,5°. To nie jest ten sam kierunek co największe rozciąganie.',
+  animation: StressStateDirectionsExample2Animation,
   figure: {
     kind: 'cube',
     stresses: { x: 80, y: 0, z: 0 },
@@ -27,74 +29,58 @@ export default {
     {
       title: 'Dane i tensor',
       narration:
-        'Rozważmy σ_x=80 MPa, σ_y=0 i τ_xy=40 MPa. To stan z dużym udziałem ścinania, mimo że naprężenie normalne w kierunku y jest zerowe.',
-      caption: 'Płaski stan naprężenia z σ_y = 0.',
+        'Rozważamy σ_x=80 MPa, σ_y=0 i τ_xy=40 MPa. Mimo zerowego naprężenia normalnego w kierunku y stan zawiera duże ścinanie, które obraca kierunki główne względem osi x.',
+      caption: 'Płaski stan naprężenia z σ_y = 0; o orientacji decyduje ścinanie.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'given' },
       formula: '\\sigma_x=80\\ \\text{MPa},\\quad \\sigma_y=0,\\quad \\tau_{xy}=40\\ \\text{MPa}',
     },
     {
-      title: 'Kąt kierunku głównego',
-      narration: 'Wtedy tan2θ_p=2·40/(80-0)=80/80=1, więc 2θ_p=45° i θ_p=22,5°.',
-      caption: 'Kierunek główny odchyla się od osi x o 22,5°.',
+      title: 'Obrót do zera ścinania',
+      narration:
+        'Obracamy płaszczyznę i śledzimy τ_nt. Przy θ=0 działa pełne τ_xy=40 MPa; wraz z obrotem ścinanie maleje i znika przy 2θ=45°. Na kole punkt wędruje do osi σ.',
+      caption: 'τ_nt maleje od 40 MPa do zera, a punkt na kole Mohra dochodzi do osi σ.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\tan2\\theta_p=2\\cdot40/(80-0)=1\\quad\\Rightarrow\\quad\\theta_p=22{,}5^\\circ',
+      focus: { metric: 'search' },
+      formula: '\\tau_{nt}=-40\\sin2\\theta+40\\cos2\\theta',
+    },
+    {
+      title: 'Kąt kierunku głównego',
+      narration:
+        'Z warunku τ_nt=0 otrzymujemy tan2θ_p=2·40/(80−0)=1, więc 2θ_p=45° i θ_p=22,5°. Drugie rozwiązanie 2θ_p=225° daje θ_p=112,5°, czyli ten sam kierunek prostopadły.',
+      caption: '2θ_p=45° na kole odpowiada θ_p=22,5° na elemencie; drugi kierunek jest o 90° dalej.',
+      visual: 'cube',
+      focus: { metric: 'angle' },
+      formula: '\\tan2\\theta_p=\\frac{2\\cdot40}{80-0}=1\\quad\\Rightarrow\\quad\\theta_p=22{,}5^\\circ',
     },
     {
       title: 'Naprężenia główne',
       narration:
-        'Średnia wynosi 40 MPa, a promień R=√(40^2+40^2)≈56,57 MPa. Naprężenia główne to około 96,57 MPa i -16,57 MPa.',
-      caption: 'Wartości główne przy dużym ścinaniu.',
+        'Średnia wynosi 40 MPa, a promień R=√(40²+40²)≈56,57 MPa. Naprężenia główne to σ_1≈96,57 MPa i σ_2≈−16,57 MPa. Na kierunkach głównych nie ma ścinania.',
+      caption: 'Element obrócony o 22,5°: tylko naprężenia normalne σ_1 i σ_2.',
       visual: 'cube',
       focus: { metric: 'principal' },
-      formula: '\\sigma_{avg}=40\\ \\text{MPa},\\quad R=\\sqrt{40^2+40^2}\\approx56{,}57\\ \\text{MPa}',
+      formula:
+        '\\sigma_{avg}=40\\ \\text{MPa},\\quad R=\\sqrt{40^2+40^2}\\approx56{,}57\\ \\text{MPa},\\quad \\sigma_1\\approx96{,}57\\ \\text{MPa},\\quad \\sigma_2\\approx-16{,}57\\ \\text{MPa}',
     },
     {
-      title: 'Sprawdzenie pierwszego kierunku',
+      title: 'Sprawdzenie kierunku',
       narration:
-        'cos45°=sin45°≈0,7071. Stąd σ_n=40+40·0,7071+40·0,7071≈96,57 MPa, czyli σ_1. Drugi kierunek jest o 90° dalej i daje σ_2=-16,57 MPa.',
-      caption: 'Podstawienie potwierdza wartość σ_1.',
+        'Dla θ_p=22,5° mamy 2θ_p=45°, więc cos45°=sin45°≈0,7071. Stąd σ_n=40+40·0,7071+40·0,7071≈96,57 MPa, czyli σ_1. Drugi kierunek θ_p2=112,5° daje σ_2≈−16,57 MPa i również τ_nt=0.',
+      caption: 'Podstawienie potwierdza σ_1; na obu płaszczyznach głównych τ_nt=0.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\cos45^\\circ=\\sin45^\\circ\\approx0{,}7071,\\quad \\sigma_n\\approx96{,}57\\ \\text{MPa}',
-    },
-    {
-      title: 'Drugie rozwiązanie kąta',
-      narration:
-        'Drugie rozwiązanie równania na tangens to 2θ_p=225°, czyli θ_p=112,5°. Odejmując 90°, wracamy do kąta 22,5°; oba kąty opisują tę samą parę osi głównych.',
-      caption: 'Kąty różniące się o 90° opisują tę samą parę osi.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '2\\theta_p=225^\\circ\\quad\\Rightarrow\\quad\\theta_p=112{,}5^\\circ',
-    },
-    {
-      title: 'Zakres raportowania kąta',
-      narration:
-        'Gdyby zadanie wymagało podania kąta w przedziale od 0 do 90°, wybralibyśmy 22,5°, a nie 112,5°. To nie zmienia stanu, tylko sposób raportowania.',
-      caption: 'Warto podać oba kąty albo informację, że drugi jest prostopadły.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '0^\\circ<22{,}5^\\circ<90^\\circ',
+      focus: { metric: 'check' },
+      formula: '\\sigma_n=40+40\\cdot0{,}7071+40\\cdot0{,}7071\\approx96{,}57\\ \\text{MPa},\\qquad \\tau_{nt}=0',
     },
     {
       title: 'Maksymalne ścinanie',
       narration:
-        'Płaszczyzny maksymalnego ścinania leżą pod kątem 45° od kierunków głównych. Dla kierunków 22,5° i 112,5° maksymalne ścinanie występuje wokół 67,5°.',
+        'Płaszczyzny maksymalnego ścinania są obrócone o 45° od kierunków głównych: θ_τmax=22,5°+45°=67,5°. Wartość τ_max=R≈56,57 MPa, a naprężenie normalne na tej płaszczyźnie jest równe średniej 40 MPa.',
       caption: 'Kierunek maksymalnego ścinania nie pokrywa się z kierunkiem największego rozciągania.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\theta_{\\tau\\max}=22{,}5^\\circ+45^\\circ=67{,}5^\\circ',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'W materiale ciągliwym i kruchym inna płaszczyzna może być krytyczna, mimo że analizujemy ten sam stan naprężenia. Dlatego kierunki główne i kierunki maksymalnego ścinania trzeba rozróżniać.',
-      caption: 'Ten sam stan ma różne „najgorsze” kierunki zależnie od mechanizmu zniszczenia.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
+      focus: { metric: 'taumax' },
       formula:
-        '\\boxed{\\sigma_1\\approx96{,}57\\ \\text{MPa},\\quad \\sigma_2\\approx-16{,}57\\ \\text{MPa},\\quad \\theta_p=22{,}5^\\circ,\\quad \\theta_{\\tau\\max}=67{,}5^\\circ}',
+        '\\theta_{\\tau\\max}=22{,}5^\\circ+45^\\circ=67{,}5^\\circ,\\qquad \\tau_{\\max}=R\\approx56{,}57\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

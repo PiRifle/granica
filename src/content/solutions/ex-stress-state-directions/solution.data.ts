@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { StressStateDirectionsAnimation } from './animation'
 
 export default {
   id: 'ex-stress-state-directions',
@@ -7,6 +8,7 @@ export default {
   given: ['σ_x = 100 MPa', 'σ_y = 20 MPa', 'τ_xy = 30 MPa'],
   result:
     'Kierunek σ_1=110 MPa jest obrócony o około 18,44° od osi x; kierunek σ_2=10 MPa jest do niego prostopadły i leży pod kątem około 108,44°. Na obu płaszczyznach głównych τ=0. Kąt 18,44° jest najmniejszym dodatnim kątem kierunku głównego w tym zadaniu.',
+  animation: StressStateDirectionsAnimation,
   figure: {
     kind: 'cube',
     stresses: { x: 100, y: 20, z: 0 },
@@ -27,86 +29,58 @@ export default {
     {
       title: 'Dane i tensor',
       narration:
-        'Dany jest płaski stan naprężenia: σ_x=100 MPa, σ_y=20 MPa i τ_xy=30 MPa. Szukamy kierunków, na których znika ścinanie.',
-      caption: 'Tensor naprężenia i poszukiwanie kierunków głównych.',
+        'Dany jest płaski stan naprężenia: σ_x=100 MPa, σ_y=20 MPa i τ_xy=30 MPa. Na ściankach elementu widzimy naprężenia normalne i styczne; szukamy kierunku n, na którym τ_nt znika.',
+      caption: 'Element z danymi składowymi; osie x i y są układem odniesienia.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'given' },
       formula: '\\sigma_x=100\\ \\text{MPa},\\quad \\sigma_y=20\\ \\text{MPa},\\quad \\tau_{xy}=30\\ \\text{MPa}',
     },
     {
-      title: 'Średnia i połowa różnicy',
-      narration: 'Oblicz σ_avg=(100+20)/2=60 MPa oraz a=(100-20)/2=40 MPa.',
-      caption: 'Parametry koła Mohra.',
+      title: 'Obrót i zanik ścinania',
+      narration:
+        'Obracamy płaszczyznę o kąt θ i śledzimy τ_nt=-a\\sin2θ+τ_xy\\cos2θ. Przy θ=0 ścinanie wynosi 30 MPa; maleje do zera, gdy 2θ osiąga 36,87°.',
+      caption: 'Strzałka τ_nt kurczy się do zera, a punkt na kole Mohra dochodzi do osi σ.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_{avg}=(100+20)/2=60\\ \\text{MPa},\\quad a=(100-20)/2=40\\ \\text{MPa}',
-    },
-    {
-      title: 'Równanie na kąt',
-      narration: 'Równanie na kąt: tan2θ_p=2·30/(100-20)=60/80=0,75.',
-      caption: 'Tangens podwójnego kąta kierunku głównego.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\tan2\\theta_p=2\\cdot30/(100-20)=60/80=0{,}75',
+      focus: { metric: 'search' },
+      formula: '\\tau_{nt}=-40\\sin2\\theta+30\\cos2\\theta',
     },
     {
       title: 'Kąt kierunku głównego',
-      narration: 'Jedno rozwiązanie to 2θ_p≈36,87°, więc θ_p≈18,44°.',
-      caption: 'Najmniejszy dodatni kąt kierunku głównego.',
+      narration:
+        'Warunek τ_nt=0 daje tan2θ_p=60/80=0,75, więc 2θ_p≈36,87° i θ_p≈18,44°. Kąt na kole Mohra jest podwojony względem kąta w materiale.',
+      caption: '2θ_p≈36,87° na kole odpowiada θ_p≈18,44° na elemencie.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '2\\theta_p\\approx36{,}87^\\circ\\quad\\Rightarrow\\quad\\theta_p\\approx18{,}44^\\circ',
+      focus: { metric: 'angle' },
+      formula:
+        '\\tan2\\theta_p=\\frac{2\\cdot30}{100-20}=0{,}75\\quad\\Rightarrow\\quad\\theta_p\\approx18{,}44^\\circ',
     },
     {
       title: 'Naprężenia główne',
-      narration: 'Promień: R=√(40^2+30^2)=50 MPa, więc σ_1=60+50=110 MPa i σ_2=60-50=10 MPa.',
-      caption: 'Wartości naprężeń głównych.',
+      narration:
+        'Średnia wynosi 60 MPa, a promień R=√(40²+30²)=50 MPa. Na kierunkach głównych działają więc σ_1=60+50=110 MPa i σ_2=60−50=10 MPa, a ścinanie znika.',
+      caption: 'Element obrócony do kierunków głównych: tylko naprężenia normalne σ_1 i σ_2.',
       visual: 'cube',
       focus: { metric: 'principal' },
       formula:
-        'R=\\sqrt{40^2+30^2}=50\\ \\text{MPa},\\quad \\sigma_1=110\\ \\text{MPa},\\quad \\sigma_2=10\\ \\text{MPa}',
+        '\\sigma_{avg}=60\\ \\text{MPa},\\quad R=50\\ \\text{MPa},\\quad \\sigma_1=110\\ \\text{MPa},\\quad \\sigma_2=10\\ \\text{MPa}',
     },
     {
-      title: 'Sprawdzenie kąta',
-      narration: 'Sprawdzenie przez podstawienie: cos36,87°≈0,8 i sin36,87°≈0,6.',
-      caption: 'Funkcje trygonometryczne podwójnego kąta.',
+      title: 'Sprawdzenie naprężenia normalnego',
+      narration:
+        'Podstawiamy θ_p=18,44°: cos36,87°≈0,8 i sin36,87°≈0,6. Wtedy σ_n=60+40·0,8+30·0,6=110 MPa, czyli σ_1. To potwierdza wybór właściwej gałęzi kąta.',
+      caption: 'Na kierunku θ_p1 naprężenie normalne osiąga σ_1, a τ_nt=0.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\cos36{,}87^\\circ\\approx0{,}8,\\quad \\sin36{,}87^\\circ\\approx0{,}6',
-    },
-    {
-      title: 'Naprężenie normalne na kierunku głównym',
-      narration: 'σ_n=60+40·0,8+30·0,6=60+32+18=110 MPa. To potwierdza, że wybrany kąt daje większe naprężenie główne.',
-      caption: 'Naprężenie normalne osiąga σ_1.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\sigma_n=60+40\\cdot0{,}8+30\\cdot0{,}6=110\\ \\text{MPa}',
+      focus: { metric: 'check' },
+      formula: '\\sigma_n=60+40\\cdot0{,}8+30\\cdot0{,}6=110\\ \\text{MPa},\\qquad \\tau_{nt}=0',
     },
     {
       title: 'Drugi kierunek główny',
-      narration: 'Drugi kierunek: θ_p2=18,44°+90°=108,44°, z naprężeniem σ_2=10 MPa.',
-      caption: 'Kierunki główne są prostopadłe.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\theta_{p2}=18{,}44^\\circ+90^\\circ=108{,}44^\\circ',
-    },
-    {
-      title: 'Zanik ścinania',
-      narration: 'Sprawdź τ_nt dla θ_p1: -40·0,6+30·0,8=-24+24=0.',
-      caption: 'Na kierunku głównym naprężenie styczne znika.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\tau_{nt}=-40\\cdot0{,}6+30\\cdot0{,}8=0',
-    },
-    {
-      title: 'Interpretacja wyniku',
       narration:
-        'Kierunek σ_1 jest obrócony o 18,44° od osi x, a kierunek σ_2 jest do niego prostopadły. Na obu płaszczyznach głównych τ=0.',
-      caption: 'Kierunki główne wyznaczają płaszczyzny bez ścinania.',
+        'Drugi kierunek jest prostopadły: θ_p2=18,44°+90°=108,44°. Odpowiada mu σ_2=10 MPa, a na tej płaszczyźnie również τ=0.',
+      caption: 'Kierunki główne są prostopadłe; oba leżą na przecięciach koła Mohra z osią σ.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula:
-        '\\boxed{\\sigma_1=110\\ \\text{MPa},\\quad \\sigma_2=10\\ \\text{MPa},\\quad \\theta_{p1}\\approx18{,}44^\\circ,\\quad \\tau=0}',
+      focus: { metric: 'second' },
+      formula: '\\theta_{p2}=18{,}44^\\circ+90^\\circ=108{,}44^\\circ,\\qquad \\tau_{nt}=0',
     },
   ],
 } satisfies SolutionData

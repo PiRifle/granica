@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { PrincipalExample2Animation } from './animation'
 
 export default {
   id: 'ex-stress-state-principal-2',
   title: 'Naprężenia główne: skrajne wartości bez ścinania — przykład 2',
+  animation: PrincipalExample2Animation,
   duration: 7,
   given: ['σ_x = 90 MPa', 'σ_y = 30 MPa', 'τ_xy = 40 MPa', 'σ_z = 0'],
   result:
@@ -28,67 +30,48 @@ export default {
     {
       title: 'Dane i tensor',
       narration:
-        'Rozważmy stan, w którym oba naprężenia w płaszczyźnie są dodatnie: σ_x=90 MPa, σ_y=30 MPa, τ_xy=40 MPa i σ_z=0.',
+        'Rozważmy stan, w którym oba naprężenia w płaszczyźnie są dodatnie: σ_x=90 MPa, σ_y=30 MPa, τ_xy=40 MPa i σ_z=0. Mimo dodatnich naprężeń normalnych w płaszczyźnie trzeba pamiętać o trzecim kierunku.',
       caption: 'Płaski stan naprężenia z dodatnimi naprężeniami normalnymi.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'given' },
       formula:
         '\\sigma_x=90\\ \\text{MPa},\\quad \\sigma_y=30\\ \\text{MPa},\\quad \\tau_{xy}=40\\ \\text{MPa},\\quad \\sigma_z=0',
     },
     {
-      title: 'Średnia i promień',
+      title: 'Koło Mohra: środek i promień',
       narration:
-        'Średnia wynosi 60 MPa, połowa różnicy 30 MPa, a promień R=√(30^2+40^2)=50 MPa. Płaskie naprężenia główne to 110 MPa i 10 MPa.',
-      caption: 'Parametry koła Mohra w płaszczyźnie xy.',
+        'Średnia wynosi 60 MPa, połowa różnicy 30 MPa, a promień R=√(30^2+40^2)=50 MPa. Płaskie naprężenia główne to 110 MPa i 10 MPa, a punkt stanu (90; 40) leży na kole.',
+      caption: 'Koło Mohra w płaszczyźnie xy ma środek w 60 MPa i promień 50 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_{avg}=60\\ \\text{MPa},\\quad R=\\sqrt{30^2+40^2}=50\\ \\text{MPa}',
+      focus: { metric: 'mohr' },
+      formula: '\\sigma_{avg}=60\\ \\text{MPa},\\quad a=30\\ \\text{MPa},\\quad R=\\sqrt{30^2+40^2}=50\\ \\text{MPa}',
     },
     {
-      title: 'Naprężenia główne',
+      title: 'Obrót do kierunków głównych',
       narration:
-        'Po dodaniu zera i uporządkowaniu otrzymujemy σ_I=110, σ_II=10 i σ_III=0 MPa. Zero jest tutaj najmniejszym naprężeniem głównym, a nie wartością środkową.',
-      caption: 'Zero jest naprężeniem skrajnym.',
+        'Obracamy element o kąt główny θ_p=26,6°. Ścinanie znika, a naprężenia normalne osiągają 110 MPa i 10 MPa. To są dwa naprężenia główne w płaszczyźnie.',
+      caption: 'W kierunkach głównych τ = 0, a σ osiąga 110 i 10 MPa.',
       visual: 'cube',
-      focus: { metric: 'principal' },
+      focus: { metric: 'rotate' },
+      formula: '\\tan 2\\theta_p=\\frac{2\\tau_{xy}}{\\sigma_x-\\sigma_y},\\qquad \\theta_p=26{,}6^\\circ',
+    },
+    {
+      title: 'Trzy naprężenia główne',
+      narration:
+        'Po dodaniu zera i uporządkowaniu otrzymujemy σ_I=110, σ_II=10 i σ_III=0 MPa. Zero jest tutaj najmniejszym naprężeniem głównym, a nie wartością środkową, bo oba naprężenia płaskie są dodatnie.',
+      caption: 'Zero jest naprężeniem skrajnym, a nie pośrednim.',
+      visual: 'cube',
+      focus: { metric: 'order' },
       formula: '\\sigma_I=110\\ \\text{MPa},\\quad \\sigma_{II}=10\\ \\text{MPa},\\quad \\sigma_{III}=0',
     },
     {
       title: 'Maksymalne ścinanie',
       narration:
-        'Maksymalne ścinanie absolutne wynosi (110-0)/2=55 MPa, czyli więcej niż promień koła w płaszczyźnie R=50 MPa.',
+        'Maksymalne ścinanie absolutne wynosi (110-0)/2=55 MPa, czyli więcej niż promień koła w płaszczyźnie R=50 MPa. Największe koło Mohra łączy σ_III=0 z σ_I=110, a nie 10 z 110.',
       caption: 'Pominięcie osi z zaniża maksymalne ścinanie o 5 MPa.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\tau_{\\max}^{abs}=\\frac{110-0}{2}=55\\ \\text{MPa}',
-    },
-    {
-      title: 'Płaszczyzna maksymalnego ścinania',
-      narration:
-        'Płaszczyzna maksymalnego ścinania jest nachylona do osi z, bo skrajne naprężenia główne to 110 i 0, a nie 110 i 10.',
-      caption: 'Kierunek maksymalnego ścinania zależy od pełnego zestawu trzech naprężeń głównych.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\sigma_I-\\sigma_{III}=110-0=110\\ \\text{MPa}',
-    },
-    {
-      title: 'Znaki naprężeń',
-      narration:
-        'Znak naprężeń normalnych nie jest tym samym co znak naprężeń głównych. Oba płaskie naprężenia główne są dodatnie, ale zero w kierunku z jest mniejsze od obu.',
-      caption: 'Kolejność przestrzenna zależy od pełnego zestawu trzech liczb.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '110>10>0',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'W kryteriach wytężenia nie wystarcza różnica σ_1-σ_2. Dla materiału ciągliwego miarą może być różnica σ_I-σ_III, a ta zależy od tego, czy zero jest skrajne.',
-      caption: 'Maksymalne ścinanie absolutne wynosi 55 MPa.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula:
-        '\\boxed{\\sigma_I=110\\ \\text{MPa},\\quad \\sigma_{II}=10\\ \\text{MPa},\\quad \\sigma_{III}=0,\\quad \\tau_{\\max}^{abs}=55\\ \\text{MPa}}',
+      focus: { metric: 'shear' },
+      formula: '\\tau_{\\max}^{abs}=\\frac{110-0}{2}=55\\ \\text{MPa}>R=50\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

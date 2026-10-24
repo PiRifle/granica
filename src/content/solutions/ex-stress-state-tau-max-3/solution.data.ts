@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { TauMaxExample3Animation } from './animation'
 
 export default {
   id: 'ex-stress-state-tau-max-3',
   title: 'Maksymalne ścinanie: płaskie i absolutne — przykład 3',
+  animation: TauMaxExample3Animation,
   duration: 7,
   given: ['R = 40 MPa', 'τ_max abs = 60 MPa', 'σ_x = 104 MPa'],
   result:
@@ -24,18 +26,18 @@ export default {
   },
   scenes: [
     {
-      title: 'Dane i tensor',
+      title: 'Dane i model odwrotny',
       narration:
-        'Z analizy koła wiadomo, że płaski promień wynosi R=40 MPa, a absolutne maksimum ścinania 60 MPa. Dodatkowo zmierzono σ_x=104 MPa.',
+        'Z analizy koła wiadomo, że płaski promień wynosi R=40 MPa, a absolutne maksimum ścinania 60 MPa. Dodatkowo zmierzono σ_x=104 MPa. Skoro τ_abs jest większe od R, zero musi być naprężeniem skrajnym.',
       caption: 'Zadanie odwrotne: z parametrów koła i jednej składowej odtworzyć stan.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'data' },
       formula: 'R=40\\ \\text{MPa},\\quad \\tau_{\\max}^{abs}=60\\ \\text{MPa},\\quad \\sigma_x=104\\ \\text{MPa}',
     },
     {
       title: 'Naprężenia główne',
       narration:
-        'Ponieważ τ_max^abs jest większe od R, zero musi być naprężeniem skrajnym. Przy dodatnim σ_x i dodatniej średniej oba naprężenia płaskie są dodatnie. Z wzoru na absolutne maksimum mamy σ_I/2=60, więc σ_I=120 MPa. Promień w płaszczyźnie jest połową różnicy naprężeń płaskich, więc σ_I-σ_II=80 MPa i σ_II=40 MPa.',
+        'Przy dodatnim σ_x i dodatniej średniej oba naprężenia płaskie są dodatnie. Z wzoru na absolutne maksimum mamy σ_I/2=60, więc σ_I=120 MPa. Promień w płaszczyźnie jest połową różnicy naprężeń płaskich, więc σ_I-σ_II=80 MPa i σ_II=40 MPa.',
       caption: 'Zero jest najmniejszym naprężeniem głównym.',
       visual: 'cube',
       focus: { metric: 'principal' },
@@ -43,48 +45,39 @@ export default {
     },
     {
       title: 'Średnia i σ_y',
-      narration: 'Średnia wynosi (120+40)/2=80 MPa. Z definicji średniej (σ_x+σ_y)/2=80, więc σ_y=160-104=56 MPa.',
+      narration:
+        'Średnia wynosi (120+40)/2=80 MPa. Z definicji średniej (σ_x+σ_y)/2=80, więc σ_y=160-104=56 MPa. Punkty σ_x i σ_y leżą na kole, bo na tych ściankach działa także τ_xy.',
       caption: 'Ślad tensora pozwala wyznaczyć σ_y.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'average' },
       formula: '\\sigma_{avg}=80\\ \\text{MPa},\\quad \\sigma_y=160-104=56\\ \\text{MPa}',
     },
     {
       title: 'Połowa różnicy i τ_xy',
       narration:
-        'Połowa różnicy to a=(104-56)/2=24 MPa. Z wzoru na promień 40^2=24^2+τ_xy^2, skąd |τ_xy|=√(1600-576)=32 MPa.',
+        'Połowa różnicy to a=(104-56)/2=24 MPa. Z wzoru na promień 40²=24²+τ_xy², skąd |τ_xy|=√(1600-576)=32 MPa.',
       caption: 'Wartość bezwzględna τ_xy wynika z równania koła.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'triangle' },
       formula: '|\\tau_{xy}|=\\sqrt{40^2-24^2}=32\\ \\text{MPa}',
     },
     {
-      title: 'Sprawdzenie',
+      title: 'Sprawdzenie i kierunek',
       narration:
-        'Sprawdzenie: średnia 80 MPa, promień √(24^2+32^2)=40 MPa, więc naprężenia główne to 120 i 40 MPa, a zero jest najmniejsze. Absolutne maksimum wynosi (120-0)/2=60 MPa.',
-      caption: 'Wszystkie wartości są spójne.',
+        'Sprawdzenie: średnia 80 MPa, promień √(24²+32²)=40 MPa, więc naprężenia główne to 120 i 40 MPa, a zero jest najmniejsze. Absolutne maksimum wynosi (120-0)/2=60 MPa i działa na płaszczyźnie pod 45° do σ_I i σ_III.',
+      caption: 'Wszystkie wartości są spójne, a kierunek maksimum wynika z pary σ_I i σ_III.',
       visual: 'cube',
-      focus: { metric: 'principal' },
+      focus: { metric: 'check' },
       formula: '\\sqrt{24^2+32^2}=40\\ \\text{MPa},\\quad \\tau_{\\max}^{abs}=\\frac{120-0}{2}=60\\ \\text{MPa}',
     },
     {
       title: 'Odrzucenie wariantu ściskającego',
       narration:
-        'Wariant ściskający dałby σ_I=0, σ_II=-40 i σ_III=-120 MPa przy tej samej wartości R=40 i tym samym absolutnym maksimum 60 MPa. Wtedy średnia byłaby ujemna, a σ_x=104 MPa leży poza przedziałem od -120 do -40 MPa.',
+        'Wariant ściskający dałby σ_I=0, σ_II=-40 i σ_III=-120 MPa przy tej samej wartości R=40 i tym samym absolutnym maksimum 60 MPa. Wtedy średnia byłaby ujemna, a σ_x=104 MPa leży poza przedziałem od -120 do -40 MPa, więc taki stan nie jest zgodny z pomiarem.',
       caption: 'Znak jednej składowej rozstrzyga, który matematycznie możliwy stan jest rzeczywisty.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '-120<-40\\ \\text{MPa}\\quad\\text{nie zawiera}\\quad\\sigma_x=104\\ \\text{MPa}',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'Odtworzony stan jest dodatni: σ_I=120 MPa, σ_II=40 MPa, σ_III=0. Zero jest najmniejszym naprężeniem głównym, dlatego absolutne maksimum ścinania wynosi 60 MPa.',
-      caption: 'Dane są zgodne tylko z wariantem dodatnim.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula:
-        '\\boxed{\\sigma_I=120\\ \\text{MPa},\\quad \\sigma_{II}=40\\ \\text{MPa},\\quad \\sigma_{III}=0,\\quad \\sigma_y=56\\ \\text{MPa},\\quad |\\tau_{xy}|=32\\ \\text{MPa}}',
+      focus: { metric: 'reject' },
+      formula: '\\sigma_x=104\\ \\text{MPa}\\notin[-120,-40]\\ \\text{MPa}',
     },
   ],
 } satisfies SolutionData

@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { MohrDrawingExample1Animation } from './animation'
 
 export default {
   id: 'ex-stress-state-mohr-drawing',
@@ -7,95 +8,63 @@ export default {
   given: ['σ_x = 90 MPa', 'σ_y = 30 MPa', 'τ_xy = 40 MPa'],
   result:
     'Koło ma środek (60,0) MPa i promień 50 MPa. Daje σ_1=110 MPa, σ_2=10 MPa oraz płaskie τ_max=50 MPa. Kierunek większego naprężenia głównego jest obrócony o około 26,6° od osi x.',
-  figure: {
-    kind: 'cube',
-    stresses: { x: 90, y: 30, z: 0 },
-    values: [
-      { label: 'σ_x', value: '90 MPa', focus: 'stress', reveal: 0 },
-      { label: 'σ_y', value: '30 MPa', focus: 'stress', reveal: 0 },
-      { label: 'τ_xy', value: '40 MPa', focus: 'stress', reveal: 0 },
-      { label: 'C', value: '60 MPa', focus: 'stress' },
-      { label: 'R', value: '50 MPa', focus: 'stress' },
-      { label: 'σ_1', value: '110 MPa', focus: 'principal' },
-      { label: 'σ_2', value: '10 MPa', focus: 'principal' },
-      { label: 'τ_max płaskie', value: '50 MPa', focus: 'principal' },
-      { label: 'θ_p', value: '26,57°', focus: 'principal' },
-    ],
-    note: 'Punkty X=(90,40) i Y=(30,-40) MPa leżą na kole o środku (60,0) i promieniu 50 MPa.',
-  },
+  animation: MohrDrawingExample1Animation,
   scenes: [
     {
-      title: 'Dane i punkty X, Y',
-      narration: 'Zaznacz X=(90,40) MPa i Y=(30,-40) MPa. Punkty odpowiadają ścianom prostopadłym do osi x i y.',
-      caption: 'Dwa punkty na kole Mohra.',
+      title: 'Model i dane',
+      narration:
+        'Na ścianach elementu działają σ_x=90 MPa, σ_y=30 MPa i τ_xy=40 MPa. Zaczynamy od danych i pustego układu σ–τ; koła nie rysujemy „na oko”, bo wtedy łatwo przesunąć średnicę.',
+      caption: 'Dane zadania i element o ścianach prostopadłych do osi x i y.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'model' },
+      formula: '\\sigma_x=90\\ \\text{MPa},\\quad \\sigma_y=30\\ \\text{MPa},\\quad \\tau_{xy}=40\\ \\text{MPa}',
+    },
+    {
+      title: 'Punkty X i Y',
+      narration:
+        'Na wykresie zaznaczamy X=(90,40) MPa i Y=(30,-40) MPa. Rzędne mają przeciwne znaki, bo punkty reprezentują dwie prostopadłe ściany, a ich średnia rzędna musi wynosić zero.',
+      caption: 'Dwa punkty wyznaczają średnicę koła.',
+      visual: 'cube',
+      focus: { metric: 'points' },
       formula: 'X=(90,40)\\ \\text{MPa},\\quad Y=(30,-40)\\ \\text{MPa}',
     },
     {
-      title: 'Środek koła',
-      narration: 'Środek: C=((90+30)/2,0)=(60,0) MPa.',
-      caption: 'Środek leży na osi naprężeń normalnych.',
+      title: 'Środek i promień',
+      narration:
+        'Środek to środek odcinka XY: C=((90+30)/2,0)=(60,0) MPa. Promień liczymy z trójkąta o przyprostokątnych a=30 MPa i τ_xy=40 MPa: R=√(30²+40²)=50 MPa.',
+      caption: 'Środek leży na osi naprężeń normalnych, a promień wynika z trójkąta C–X.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'C=((90+30)/2,0)=(60,0)\\ \\text{MPa}',
-    },
-    {
-      title: 'Promień koła',
-      narration: 'Promień: R=√((90-60)^2+40^2)=√(900+1600)=50 MPa.',
-      caption: 'Promień wynika z odległości punktu X od środka.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'R=\\sqrt{(90-60)^2+40^2}=\\sqrt{900+1600}=50\\ \\text{MPa}',
+      focus: { metric: 'center' },
+      formula: 'C=(60,0)\\ \\text{MPa},\\quad R=\\sqrt{30^2+40^2}=50\\ \\text{MPa}',
     },
     {
       title: 'Zakreślenie koła',
-      narration: 'Zakreśl okrąg o środku C i promieniu R; przechodzi on przez X i Y.',
+      narration:
+        'Okrąg o środku C i promieniu R przechodzi przez X i Y. Rysujemy go dopiero po ustaleniu średnicy, dzięki czemu środek i promień nie przesuwają się w trakcie kreślenia.',
       caption: 'Koło Mohra przechodzi przez oba punkty pomiarowe.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'C=(60,0)\\ \\text{MPa},\\quad R=50\\ \\text{MPa}',
+      focus: { metric: 'circle' },
+      formula: '(\\sigma_n-60)^2+\\tau_{nt}^2=50^2',
     },
     {
       title: 'Przecięcia z osią',
-      narration: 'Przecięcia z osią poziomą: 60-50=10 MPa oraz 60+50=110 MPa.',
-      caption: 'Przecięcia z osią dają naprężenia główne.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '60-50=10\\ \\text{MPa},\\quad 60+50=110\\ \\text{MPa}',
-    },
-    {
-      title: 'Maksymalne ścinanie w płaszczyźnie',
-      narration: 'Maksymalne ścinanie w płaszczyźnie: R=50 MPa, przy naprężeniu normalnym 60 MPa.',
-      caption: 'Najwyższy punkt koła odpowiada maksymalnemu ścinaniu.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\tau_{\\max}^{(xy)}=R=50\\ \\text{MPa},\\quad \\sigma=60\\ \\text{MPa}',
-    },
-    {
-      title: 'Kąt kierunku głównego',
-      narration: 'Kąt: tan2θ_p=2τ_xy/(σ_x-σ_y)=80/60=1,333, więc 2θ_p=53,13° i θ_p=26,57° dla kierunku σ_1.',
-      caption: 'Kąt na kole jest podwojony względem kąta w rzeczywistości.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\tan2\\theta_p=2\\tau_{xy}/(\\sigma_x-\\sigma_y)=80/60=1{,}333',
-    },
-    {
-      title: 'Sprawdzenie podstawieniem',
-      narration: 'Sprawdź podstawieniem: cos53,13°=0,6 i sin53,13°=0,8, więc σ_n=60+30·0,6+40·0,8=110 MPa.',
-      caption: 'Podstawienie kąta potwierdza σ_1.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\sigma_n=60+30\\cdot0{,}6+40\\cdot0{,}8=110\\ \\text{MPa}',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration: 'Koło ma środek (60,0) MPa i promień 50 MPa. Daje σ_1=110 MPa, σ_2=10 MPa oraz płaskie τ_max=50 MPa.',
-      caption: 'Koło Mohra pozwala odczytać wartości główne i maksymalne ścinanie.',
+      narration:
+        'Na przecięciu z osią poziomą τ=0, więc σ=60±50 MPa. Otrzymujemy σ_2=10 MPa i σ_1=110 MPa. Najwyższy punkt koła ma rzędną R=50 MPa, ale jego odcięta to 60 MPa, a nie σ_1.',
+      caption: 'Przecięcia z osią dają naprężenia główne, a nie maksymalne ścinanie.',
       visual: 'cube',
       focus: { metric: 'principal' },
       formula:
-        '\\boxed{C=60\\ \\text{MPa},\\quad R=50\\ \\text{MPa},\\quad \\sigma_1=110\\ \\text{MPa},\\quad \\sigma_2=10\\ \\text{MPa},\\quad \\theta_p\\approx26{,}57^\\circ,\\quad \\tau_{\\max}^{(xy)}=50\\ \\text{MPa}}',
+        '\\sigma_{1,2}=60\\pm50\\ \\text{MPa}\\ \\Rightarrow\\ \\sigma_1=110\\ \\text{MPa},\\ \\sigma_2=10\\ \\text{MPa}',
+    },
+    {
+      title: 'Maksymalne ścinanie i kąt',
+      narration:
+        'Płaskie maksimum ścinania to promień koła: τ_max=50 MPa przy σ=60 MPa. Kąt od osi σ do promienia CX wynosi 2θ_p=53,13°, więc kierunek σ_1 jest obrócony o θ_p≈26,57°.',
+      caption: 'Kąt na kole jest podwojony względem kąta fizycznego.',
+      visual: 'cube',
+      focus: { metric: 'angle' },
+      formula:
+        '\\tau_{\\max}^{(xy)}=R=50\\ \\text{MPa},\\quad 2\\theta_p=53{,}13^\\circ\\ \\Rightarrow\\ \\theta_p\\approx26{,}57^\\circ',
     },
   ],
 } satisfies SolutionData

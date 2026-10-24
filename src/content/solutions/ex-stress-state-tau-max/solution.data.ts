@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { TauMaxExample1Animation } from './animation'
 
 export default {
   id: 'ex-stress-state-tau-max',
   title: 'Maksymalne ścinanie: płaskie i absolutne — przykład 1',
+  animation: TauMaxExample1Animation,
   duration: 7,
   given: ['σ_x = 90 MPa', 'σ_y = 30 MPa', 'τ_xy = 40 MPa', 'σ_z = 0'],
   result:
@@ -26,87 +28,58 @@ export default {
   },
   scenes: [
     {
-      title: 'Dane i tensor',
+      title: 'Dane i model',
       narration:
         'Dany jest płaski stan naprężenia: σ_x=90 MPa, σ_y=30 MPa, τ_xy=40 MPa i σ_z=0. Szukamy płaskiego i absolutnego maksimum ścinania.',
-      caption: 'Stan naprężenia w płaszczyźnie xy.',
+      caption: 'Stan naprężenia w płaszczyźnie xy; zero jest trzecim naprężeniem głównym.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'data' },
       formula:
         '\\sigma_x=90\\ \\text{MPa},\\quad \\sigma_y=30\\ \\text{MPa},\\quad \\tau_{xy}=40\\ \\text{MPa},\\quad \\sigma_z=0',
     },
     {
-      title: 'Średnia',
-      narration: 'Średnia: σ_avg=(90+30)/2=60 MPa.',
-      caption: 'Środek koła Mohra w płaszczyźnie.',
+      title: 'Koło Mohra w płaszczyźnie',
+      narration:
+        'Średnia wynosi (90+30)/2=60 MPa, a promień R=√(30²+40²)=50 MPa. Koło ma końce 110 i 10 MPa, więc zero leży poza przedziałem naprężeń płaskich.',
+      caption: 'Środek koła C=60 MPa i promień R=50 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_{avg}=(90+30)/2=60\\ \\text{MPa}',
-    },
-    {
-      title: 'Połowa różnicy',
-      narration: 'Połowa różnicy: a=(90-30)/2=30 MPa.',
-      caption: 'Połowa różnicy naprężeń normalnych.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'a=(90-30)/2=30\\ \\text{MPa}',
-    },
-    {
-      title: 'Promień',
-      narration: 'Promień: R=√(30^2+40^2)=50 MPa.',
-      caption: 'Promień koła w płaszczyźnie xy.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'R=\\sqrt{30^2+40^2}=50\\ \\text{MPa}',
-    },
-    {
-      title: 'Naprężenia główne',
-      narration: 'Naprężenia główne w płaszczyźnie: 60+50=110 MPa oraz 60-50=10 MPa.',
-      caption: 'Dwie płaskie wartości główne.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '60+50=110\\ \\text{MPa},\\quad 60-50=10\\ \\text{MPa}',
-    },
-    {
-      title: 'Trzecie naprężenie główne',
-      narration: 'Dodaj zero i uporządkuj: σ_I=110, σ_II=10, σ_III=0 MPa.',
-      caption: 'Zero jest najmniejszym naprężeniem głównym.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\sigma_I=110\\ \\text{MPa},\\quad \\sigma_{II}=10\\ \\text{MPa},\\quad \\sigma_{III}=0',
+      focus: { metric: 'circle' },
+      formula: '\\sigma_{avg}=\\frac{90+30}{2}=60\\ \\text{MPa},\\quad R=\\sqrt{30^2+40^2}=50\\ \\text{MPa}',
     },
     {
       title: 'Płaskie maksimum ścinania',
-      narration: 'Płaskie maksimum: τ_max^(xy)=R=50 MPa.',
+      narration:
+        'Płaskie maksimum to promień koła: τ_max^(xy)=R=50 MPa. Na kole odpowiada mu pionowy promień, a w materiale płaszczyzna obrócona o 45° od kierunku głównego.',
       caption: 'Maksimum wynikające tylko z koła w płaszczyźnie xy.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\tau_{\\max}^{(xy)}=R=50\\ \\text{MPa}',
+      focus: { metric: 'inplane' },
+      formula: '\\tau_{\\max}^{(xy)}=R=50\\ \\text{MPa},\\qquad \\theta_s=\\theta_p\\pm45^\\circ',
     },
     {
-      title: 'Absolutne maksimum ścinania',
-      narration: 'Absolutne maksimum: τ_max^abs=(110-0)/2=55 MPa.',
-      caption: 'Do absolutnego maksimum bierzemy różnicę skrajnych naprężeń głównych.',
+      title: 'Trzy koła i absolutne maksimum',
+      narration:
+        'Dodaj zero i uporządkuj: σ_I=110, σ_II=10, σ_III=0 MPa. Największe koło obejmuje σ_I i σ_III, więc τ_max^abs=(110-0)/2=55 MPa.',
+      caption: 'Zero jest najmniejszym naprężeniem głównym, dlatego powiększa maksymalne ścinanie.',
       visual: 'cube',
-      focus: { metric: 'principal' },
+      focus: { metric: 'absolute' },
       formula: '\\tau_{\\max}^{abs}=\\frac{110-0}{2}=55\\ \\text{MPa}',
     },
     {
-      title: 'Naprężenie normalne na płaszczyźnie maksimum',
+      title: 'Płaszczyzna i kierunek maksimum',
       narration:
-        'Sprawdź średnią na płaszczyźnie absolutnego maksimum: (110+0)/2=55 MPa. Jest to zarazem wartość naprężenia normalnego na tej płaszczyźnie.',
-      caption: 'Maksymalne ścinanie współistnieje z naprężeniem normalnym 55 MPa.',
+        'Absolutne maksimum występuje na płaszczyźnie nachylonej pod 45° do σ_I i σ_III. Naprężenie normalne na tej płaszczyźnie wynosi (110+0)/2=55 MPa.',
+      caption: 'Duże τ nie oznacza braku σ: na płaszczyźnie maksimum działa σ=55 MPa.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\sigma=\\frac{110+0}{2}=55\\ \\text{MPa}',
+      focus: { metric: 'directions' },
+      formula: '\\sigma=\\frac{110+0}{2}=55\\ \\text{MPa},\\qquad \\theta=45^\\circ',
     },
     {
-      title: 'Interpretacja wyniku',
+      title: 'Wniosek',
       narration:
         'Płaskie maksimum wynosi 50 MPa, a absolutne 55 MPa. Różnica 5 MPa jest wynikiem tego, że zero jest mniejsze od obu naprężeń płaskich.',
       caption: 'Pominięcie trzeciej osi zaniża maksymalne ścinanie o około 9%.',
       visual: 'cube',
-      focus: { metric: 'principal' },
+      focus: { metric: 'result' },
       formula:
         '\\boxed{\\tau_{\\max}^{(xy)}=50\\ \\text{MPa},\\quad \\tau_{\\max}^{abs}=55\\ \\text{MPa},\\quad \\sigma_I=110\\ \\text{MPa},\\quad \\sigma_{III}=0}',
     },

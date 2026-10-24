@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { PrincipalExample1Animation } from './animation'
 
 export default {
   id: 'ex-stress-state-principal',
   title: 'Naprężenia główne: skrajne wartości bez ścinania — przykład 1',
+  animation: PrincipalExample1Animation,
   duration: 7,
   given: ['σ_x = -20 MPa', 'σ_y = 60 MPa', 'τ_xy = 30 MPa', 'σ_z = 0'],
   result:
@@ -27,88 +29,49 @@ export default {
     {
       title: 'Dane i tensor',
       narration:
-        'Dany jest płaski stan naprężenia: σ_x=-20 MPa, σ_y=60 MPa, τ_xy=30 MPa i σ_z=0. Szukamy naprężeń głównych i maksymalnego ścinania.',
-      caption: 'Tensor naprężenia dla płaskiego stanu z ujemnym σ_x.',
+        'Dany jest płaski stan naprężenia: σ_x=-20 MPa, σ_y=60 MPa, τ_xy=30 MPa i σ_z=0. Ujemne σ_x oznacza ściskanie w kierunku x, a dodatnie σ_y rozciąganie w kierunku y. Szukamy kierunków, w których ścinanie znika.',
+      caption: 'Element z ścinaniem: σ_x jest ściskające, σ_y rozciągające.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'given' },
       formula:
         '\\sigma_x=-20\\ \\text{MPa},\\quad \\sigma_y=60\\ \\text{MPa},\\quad \\tau_{xy}=30\\ \\text{MPa},\\quad \\sigma_z=0',
     },
     {
-      title: 'Średnia naprężeń',
-      narration: 'Średnia płaska: σ_avg=(-20+60)/2=20 MPa.',
-      caption: 'Środek koła Mohra na osi naprężeń normalnych.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_{avg}=(-20+60)/2=20\\ \\text{MPa}',
-    },
-    {
-      title: 'Połowa różnicy',
+      title: 'Koło Mohra: środek i promień',
       narration:
-        'Połowa różnicy: a=(-20-60)/2=-40 MPa. W promieniu występuje jej kwadrat, więc znak a nie wpływa na R.',
-      caption: 'Połowa różnicy naprężeń normalnych.',
+        'Średnia wynosi σ_avg=(-20+60)/2=20 MPa, a połowa różnicy a=(-20-60)/2=-40 MPa. Promień R=√((-40)^2+30^2)=50 MPa. Punkt stanu (−20; 30) leży na kole o środku w σ_avg.',
+      caption: 'Punkt stanu krąży po kole Mohra; jego odległość od środka wynosi R = 50 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'a=(-20-60)/2=-40\\ \\text{MPa}',
+      focus: { metric: 'mohr' },
+      formula:
+        '\\sigma_{avg}=20\\ \\text{MPa},\\quad a=-40\\ \\text{MPa},\\quad R=\\sqrt{(-40)^2+30^2}=50\\ \\text{MPa}',
     },
     {
-      title: 'Promień koła',
-      narration: 'Promień: R=√((-40)^2+30^2)=√(1600+900)=50 MPa.',
-      caption: 'Promień koła Mohra.',
+      title: 'Obrót do kierunków głównych',
+      narration:
+        'Obracamy element o kąt główny θ_p=71,6°. W tym położeniu τ znika, a naprężenia normalne osiągają wartości skrajne: 70 MPa i -30 MPa. Na kole Mohra punkt stanu dochodzi do osi σ.',
+      caption: 'W kierunkach głównych τ = 0, a σ osiąga 70 i −30 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'R=\\sqrt{(-40)^{2}+30^{2}}=\\sqrt{1600+900}=50\\ \\text{MPa}',
+      focus: { metric: 'rotate' },
+      formula: '\\tan 2\\theta_p=\\frac{2\\tau_{xy}}{\\sigma_x-\\sigma_y},\\qquad \\theta_p=71{,}6^\\circ',
     },
     {
-      title: 'Naprężenia główne w płaszczyźnie',
-      narration: 'Płaskie wartości: 20+50=70 MPa oraz 20-50=-30 MPa.',
-      caption: 'Dwa skrajne naprężenia w płaszczyźnie xy.',
+      title: 'Trzy naprężenia główne',
+      narration:
+        'Do dwóch wartości płaskich dodajemy σ_z=0 i porządkujemy: σ_I=70 MPa, σ_II=0, σ_III=-30 MPa. Zero jest tutaj naprężeniem pośrednim, bo leży między -30 i 70 MPa.',
+      caption: 'Zero jest pełnoprawnym naprężeniem głównym i leży między wartościami skrajnymi.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '20+50=70\\ \\text{MPa},\\quad 20-50=-30\\ \\text{MPa}',
-    },
-    {
-      title: 'Trzecie naprężenie główne',
-      narration: 'Dodaj trzecie naprężenie główne σ_z=0 i uporządkuj: 70, 0, -30 MPa.',
-      caption: 'Zero jest naprężeniem pośrednim.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
+      focus: { metric: 'order' },
       formula: '\\sigma_I=70\\ \\text{MPa},\\quad \\sigma_{II}=0,\\quad \\sigma_{III}=-30\\ \\text{MPa}',
     },
     {
-      title: 'Kontrola śladu',
-      narration: 'Sprawdź ślad: 70+0-30=40 MPa, co zgadza się z -20+60+0.',
-      caption: 'Ślad tensora jest niezmiennikiem.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '70+0-30=40\\ \\text{MPa}=-20+60+0',
-    },
-    {
-      title: 'Kontrola iloczynu',
-      narration: 'Sprawdź iloczyn płaski: 70·(-30)=-2100, a σ_xσ_y-τ_xy^2=(-20)·60-30^2=-1200-900=-2100.',
-      caption: 'Iloczyn naprężeń głównych jest niezmiennikiem.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '70\\cdot(-30)=-2100=(-20)\\cdot60-30^2',
-    },
-    {
-      title: 'Maksymalne ścinanie',
+      title: 'Maksymalne ścinanie i kontrola',
       narration:
-        'Maksymalne ścinanie absolutne wynosi (σ_I-σ_III)/2=(70-(-30))/2=50 MPa. W tym przypadku zero nie zwiększa wyniku, bo leży między skrajnymi naprężeniami.',
-      caption: 'Maksymalne ścinanie zależy od różnicy skrajnych naprężeń głównych.',
+        'Maksymalne ścinanie absolutne wynosi (70-(-30))/2=50 MPa. Największe koło Mohra obejmuje σ_III i σ_I. Kontrola śladu: 70+0-30=40 MPa, czyli tyle samo co -20+60+0.',
+      caption: 'Największe koło łączy σ_III i σ_I; zero nie zwiększa maksymalnego ścinania.',
       visual: 'cube',
-      focus: { metric: 'principal' },
-      formula: '\\tau_{\\max}^{abs}=\\frac{70-(-30)}{2}=50\\ \\text{MPa}',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'Po uporządkowaniu σ_I=70 MPa, σ_II=0, σ_III=-30 MPa. Występuje zarówno rozciąganie, jak i ściskanie. Maksymalne ścinanie absolutne wynosi 50 MPa.',
-      caption: 'Naprężenia główne opisują skrajne wartości bez ścinania.',
-      visual: 'cube',
-      focus: { metric: 'principal' },
-      formula:
-        '\\boxed{\\sigma_I=70\\ \\text{MPa},\\quad \\sigma_{II}=0,\\quad \\sigma_{III}=-30\\ \\text{MPa},\\quad \\tau_{\\max}^{abs}=50\\ \\text{MPa}}',
+      focus: { metric: 'shear' },
+      formula: '\\tau_{\\max}^{abs}=\\frac{70-(-30)}{2}=50\\ \\text{MPa},\\qquad 70+0-30=40\\ \\text{MPa}=-20+60+0',
     },
   ],
 } satisfies SolutionData
