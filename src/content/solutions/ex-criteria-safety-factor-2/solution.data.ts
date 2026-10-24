@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SafetyFactor2Animation } from './animation'
 
 export default {
   id: 'ex-criteria-safety-factor-2',
@@ -7,6 +8,7 @@ export default {
   given: ['A=400 mm²', 'F=50 kN', 'R_e=235 MPa', 'E=200 GPa', 'sigma=50 000', 'n=235'],
   result:
     'Taka sytuacja jest częsta w długich cięgnach, sprężynach i elementach, w których liczy się przemieszczenie. Projektant nie może poprzestać na sprawdzeniu n≥ n_wym, bo element o wystarczającym zapasie wytrzymałości może nadal być nieużyteczny z powodu zbyt dużego wydłużenia. Dopiero porównanie obu wymagań daje pełny obraz.',
+  animation: SafetyFactor2Animation,
   figure: {
     kind: 'cube',
     stresses: {
@@ -90,94 +92,73 @@ export default {
   },
   scenes: [
     {
-      title: 'Zapisz dane pręta',
+      title: 'Model i dane',
       narration:
-        'Pręt ma pole A = 400 mm² i jest obciążony siłą F = 50 kN. Wykonano go ze stali o R_e = 235 MPa i E = 200 GPa.',
+        'Pręt ma pole A = 400 mm² i jest obciążony siłą F = 50 kN. Wykonano go ze stali o R_e = 235 MPa i E = 200 GPa, a projekt wymaga zapasu n_wym = 1,5.',
       caption: 'A = 400 mm², F = 50 kN, R_e = 235 MPa, E = 200 GPa.',
       visual: 'cube',
       focus: {
-        metric: 'stress',
+        metric: 'model',
       },
       formula:
         'A=400\\,\\text{mm}^2,\\qquad F=50\\,\\text{kN},\\qquad R_e=235\\,\\text{MPa},\\qquad E=200\\,\\text{GPa}',
     },
     {
-      title: 'Oblicz naprężenie i zapas',
+      title: 'Naprężenie robocze i wartość dopuszczalna',
       narration:
-        'Naprężenie wynosi σ = 50 000/400 = 125 MPa, więc zapas n = 235/125 = 1,88. Warunek wytrzymałości jest spełniony, jeśli wymagane jest np. n_wym = 1,5.',
-      caption: 'σ = 125 MPa, n = 1,88.',
+        'Naprężenie wynosi σ = 50 000/400 = 125 MPa. Naprężenie dopuszczalne to k = R_e/n_wym = 235/1,5 = 156,7 MPa, więc naprężenie robocze leży poniżej wartości dopuszczalnej.',
+      caption: 'σ = 125 MPa < k = 156,7 MPa.',
       visual: 'cube',
       focus: {
         metric: 'stress',
       },
-      formula: '\\sigma=\\frac{50\\,000}{400}=125\\,\\text{MPa},\\qquad n=\\frac{235}{125}=1{,}88',
+      formula: '\\sigma=\\frac{50\\,000}{400}=125\\,\\text{MPa},\\qquad k=\\frac{235}{1{,}5}=156{,}7\\,\\text{MPa}',
     },
     {
-      title: 'Oblicz wydłużenie dla L = 1 m',
-      narration: 'Wydłużenie wynosi ΔL = FL/(EA). Dla L = 1 000 mm otrzymujemy 50 000·1 000/(200 000·400) = 0,625 mm.',
-      caption: 'ΔL = 0,625 mm dla L = 1 m.',
-      visual: 'cube',
-      focus: {
-        metric: 'strain',
-      },
-      formula: '\\Delta L=\\frac{FL}{EA}=\\frac{50\\,000\\cdot1\\,000}{200\\,000\\cdot400}=0{,}625\\,\\text{mm}',
-    },
-    {
-      title: 'Oblicz wydłużenie dla L = 3 m',
+      title: 'Zapas jako stosunek granicy do naprężenia',
       narration:
-        'Dla L = 3 000 mm wydłużenie wynosi 1,875 mm, czyli trzykrotnie więcej. Naprężenie i zapas wytrzymałości pozostają takie same.',
-      caption: 'ΔL = 1,875 mm dla L = 3 m.',
+        'Zapas rzeczywisty wynosi n = R_e/σ = 235/125 = 1,88. Granica jest więc 1,88 razy większa od naprężenia roboczego, czyli element ma zapas większy od wymaganego 1,5.',
+      caption: 'R_e = 1,88·σ, czyli n = 1,88.',
       visual: 'cube',
       focus: {
-        metric: 'strain',
+        metric: 'factor',
       },
-      formula: '\\Delta L=\\frac{50\\,000\\cdot3\\,000}{200\\,000\\cdot400}=1{,}875\\,\\text{mm}',
+      formula: 'n=\\frac{R_e}{\\sigma}=\\frac{235}{125}=1{,}88',
     },
     {
-      title: 'Porównaj z limitem wydłużenia',
+      title: 'Sprawdzenie wytrzymałości',
       narration:
-        'Jeżeli dopuszczalne wydłużenie wynosi 1,5 mm, to krótszy pręt je spełnia, a dłuższy nie. Duży zapas wytrzymałości nie gwarantuje więc poprawnej pracy konstrukcji.',
-      caption: 'Limit 1,5 mm: L = 1 m spełnia, L = 3 m nie spełnia.',
+        'Warunek n ≥ n_wym jest spełniony, bo 1,88 ≥ 1,5. To rozstrzyga tylko wytrzymałość; o pracy elementu decyduje jeszcze sztywność, której ten zapas nie opisuje.',
+      caption: 'n = 1,88 ≥ 1,5 — warunek wytrzymałości spełniony.',
       visual: 'cube',
       focus: {
-        metric: 'strain',
+        metric: 'check',
       },
-      formula: '0{,}625<1{,}5\\,\\text{mm},\\qquad 1{,}875>1{,}5\\,\\text{mm}',
+      formula: 'n=1{,}88\\ge1{,}5,\\qquad \\sigma=125\\,\\text{MPa}<k=156{,}7\\,\\text{MPa}',
     },
     {
-      title: 'Oblicz wymagane pole',
+      title: 'Wydłużenie dla dwóch długości',
       narration:
-        'Przy ΔL_dop = 1,5 mm, L = 3 000 mm i F = 50 kN otrzymujemy A ≥ FL/(EΔL_dop) = 50 000·3 000/(200 000·1,5) = 500 mm².',
-      caption: 'A_min = 500 mm².',
+        'Wydłużenie wynosi ΔL = FL/(EA). Dla L = 1 m otrzymujemy 0,625 mm, a dla L = 3 m aż 1,875 mm. Przy limicie 1,5 mm krótszy pręt go spełnia, a dłuższy przekracza limit.',
+      caption: 'ΔL = 0,625 mm dla 1 m, ΔL = 1,875 mm dla 3 m; limit 1,5 mm.',
       visual: 'cube',
       focus: {
-        metric: 'stress',
+        metric: 'stiffness',
+      },
+      formula:
+        '\\Delta L_1=\\frac{50\\,000\\cdot1\\,000}{200\\,000\\cdot400}=0{,}625\\,\\text{mm},\\qquad \\Delta L_3=\\frac{50\\,000\\cdot3\\,000}{200\\,000\\cdot400}=1{,}875\\,\\text{mm}',
+    },
+    {
+      title: 'Pole wymagane przez sztywność',
+      narration:
+        'Przy ΔL_dop = 1,5 mm, L = 3 000 mm i F = 50 kN otrzymujemy A ≥ FL/(EΔL_dop) = 50 000·3 000/(200 000·1,5) = 500 mm². Sam warunek wytrzymałości wymagałby tylko 400 mm², więc decyduje sztywność.',
+      caption: 'A_min = 500 mm² > A = 400 mm²; decyduje sztywność.',
+      visual: 'cube',
+      focus: {
+        metric: 'area',
       },
       formula:
         'A\\ge\\frac{FL}{E\\Delta L_{dop}}=\\frac{50\\,000\\cdot3\\,000}{200\\,000\\cdot1{,}5}=500\\,\\text{mm}^2',
-    },
-    {
-      title: 'Przelicz stan na odkształcenia',
-      narration:
-        'Dla σ = 125 MPa i stali E = 200 GPa odkształcenie osiowe wynosi 625 με, a poprzeczne −187,5 με. Ślad 250 με opisuje niewielki wzrost objętości.',
-      caption: 'Kontrola: ε_x = 625 με, θ = 250 με.',
-      visual: 'cube',
-      focus: {
-        metric: 'strain',
-      },
-      formula:
-        '\\varepsilon_x=\\frac{125}{200\\,000}=625\\,\\mu\\varepsilon,\\qquad \\varepsilon_y=\\varepsilon_z=-187{,}5\\,\\mu\\varepsilon,\\qquad \\theta=250\\,\\mu\\varepsilon',
-    },
-    {
-      title: 'Sprawdź zmianę objętości',
-      narration:
-        'Ślad tensora odkształcenia jest dodatni, więc objętość elementu rośnie. Wartość śladu jest miarą względnej zmiany objętości.',
-      caption: 'Kontrola: θ = 250 με.',
-      visual: 'cube',
-      focus: {
-        metric: 'volume',
-      },
-      formula: '\\theta=250\\,\\mu\\varepsilon',
     },
   ],
 } satisfies SolutionData

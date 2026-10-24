@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { CriteriaComparison3Animation } from './animation'
 
 export default {
   id: 'ex-criteria-comparison-3',
   title: 'HMH czy Tresca? Porównanie hipotez — przykład 3',
+  animation: CriteriaComparison3Animation,
   duration: 7,
   given: ['R_e=235 MPa', 'n_{wym}=2'],
   result:
@@ -34,10 +36,10 @@ export default {
     {
       title: 'Zapisz warunek czystego ścinania',
       narration:
-        'Dla stali o R_e = 235 MPa wymagamy zapasu n_wym = 2 i pytamy, jakie maksymalne naprężenie styczne przy czystym ścinaniu dopuszcza każda hipoteza.',
-      caption: 'R_e = 235 MPa, n_wym = 2, czyste ścinanie.',
+        'Dla stali o R_e = 235 MPa wymagamy zapasu n_wym = 2 i pytamy, jakie maksymalne naprężenie styczne przy czystym ścinaniu dopuszcza każda hipoteza. To zadanie odwrotne: od wymaganego zapasu do dopuszczalnego obciążenia.',
+      caption: 'R_e = 235 MPa, n_wym = 2, czyste ścinanie; szukamy τ_dop.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'state' },
       formula: 'R_e=235\\,\\text{MPa},\\qquad n_{wym}=2{,}0,\\qquad \\sigma=0',
     },
     {
@@ -45,63 +47,37 @@ export default {
       narration: 'Dla HMH warunek ma postać √3·τ ≤ R_e/n_wym. Stąd τ_dop = 235/(2·1,732) = 67,8 MPa.',
       caption: 'τ_dop,HMH = 67,8 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'hmh' },
       formula:
         '\\sqrt{3}\\,\\tau\\le\\frac{R_e}{n_{wym}},\\qquad \\tau_{dop,HMH}=\\frac{235}{2\\cdot1{,}732}=67{,}8\\,\\text{MPa}',
     },
     {
       title: 'Oblicz dopuszczalne τ według Tresca',
       narration: 'Dla Tresca warunek to 2τ ≤ R_e/n_wym, więc τ_dop = R_e/(2n_wym) = 235/4 = 58,75 MPa.',
-      caption: 'τ_dop,T = 58,75 MPa.',
+      caption: 'τ_dop,T = 58,75 MPa; to próg bardziej zachowawczy.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'tresca' },
       formula: '2\\tau\\le\\frac{R_e}{n_{wym}},\\qquad \\tau_{dop,T}=\\frac{235}{2\\cdot2}=58{,}75\\,\\text{MPa}',
     },
     {
-      title: 'Porównaj decyzje dla τ = 60 MPa',
+      title: 'Porównaj naprężenia zredukowane i wskaż decydującą hipotezę',
       narration:
-        'Jeżeli w elemencie działa τ = 60 MPa, HMH uznaje element za bezpieczny, bo 60 < 67,8 MPa, a Tresca go odrzuca, bo 60 > 58,75 MPa. Decyzja zmienia się wraz z modelem, a nie ze stanem naprężenia.',
-      caption: 'τ = 60 MPa: HMH dopuszcza, Tresca nie dopuszcza.',
+        'Przy τ = 60 MPa naprężenie zredukowane według HMH wynosi √3·60 = 103,9 MPa, a według Tresca 2·60 = 120 MPa. Granica dopuszczalna przy n_wym = 2 to σ_dop = R_e/2 = 117,5 MPa. HMH mieści się poniżej granicy, a Tresca powyżej, więc decyduje Tresca.',
+      caption: 'σ_HMH = 103,9 < σ_dop = 117,5 < σ_T = 120 MPa → decyduje Tresca.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\tau=60\\,\\text{MPa},\\qquad 60<67{,}8,\\qquad 60>58{,}75',
-    },
-    {
-      title: 'Sprawdź przez wymaganą granicę',
-      narration:
-        'Dla τ = 60 MPa HMH wymaga R_e,req = √3·60·2 = 207,8 MPa, a Tresca 2·60·2 = 240 MPa. Dla stali 235 MPa HMH ma zapas 2,26, a Tresca 1,96, czyli mniej niż wymagane 2.',
-      caption: 'R_e,req = 207,8 MPa (HMH) lub 240 MPa (Tresca).',
-      visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'compare' },
       formula:
-        'R_{e,req,HMH}=\\sqrt{3}\\cdot60\\cdot2=207{,}8\\,\\text{MPa},\\qquad R_{e,req,T}=2\\cdot60\\cdot2=240\\,\\text{MPa}',
+        '\\sigma_{HMH}=\\sqrt{3}\\cdot60=103{,}9\\,\\text{MPa},\\qquad \\sigma_T=2\\cdot60=120\\,\\text{MPa},\\qquad \\sigma_{\\mathrm{dop}}=\\frac{235}{2}=117{,}5\\,\\text{MPa}',
     },
     {
-      title: 'Przelicz czyste ścinanie na odkształcenia',
+      title: 'Sprawdź wymagany zapas i wskaż decydującą hipotezę',
       narration:
-        'Przy czystym ścinaniu naprężenia główne wynoszą ±60 MPa. Dla stali E = 200 GPa i ν = 0,30 dają one ε_I = 390 με, ε_II = −390 με i zerową zmianę objętości.',
-      caption: 'ε_I = 390 με, ε_II = −390 με, θ = 0.',
+        'Dla τ = 60 MPa HMH wymaga R_e,req = √3·60·2 = 207,8 MPa, a Tresca 2·60·2 = 240 MPa. Dla stali 235 MPa HMH ma zapas 2,26, a Tresca 1,96, czyli mniej niż wymagane 2. O wyniku decyduje więc Tresca.',
+      caption: 'R_e,req = 207,8 MPa (HMH) lub 240 MPa (Tresca); n_HMH = 2,26, n_T = 1,96 < 2.',
       visual: 'cube',
-      focus: { metric: 'strain' },
+      focus: { metric: 'check' },
       formula:
-        '\\varepsilon_I=\\frac{60+0{,}30\\cdot60}{200\\,000}=390\\,\\mu\\varepsilon,\\qquad \\varepsilon_{II}=-390\\,\\mu\\varepsilon,\\qquad \\theta=0',
-    },
-    {
-      title: 'Zinterpretuj wynik projektowo',
-      narration:
-        'Odpowiedź „tak według HMH, nie według Tresca” pokazuje, że wybór hipotezy musi być świadomą decyzją. W praktyce trzeba albo zwiększyć przekrój, albo uzasadnić wybór modelu, albo podnieść wymagany zapas.',
-      caption: 'Kontrola: n_HMH = 2,26, n_T = 1,96.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: 'n_{HMH}=\\frac{235}{\\sqrt{3}\\cdot60}=2{,}26,\\qquad n_T=\\frac{235}{120}=1{,}96',
-    },
-    {
-      title: 'Sprawdź zmianę objętości',
-      narration: 'Ślad tensora odkształcenia jest zerowy, więc objętość elementu nie zmienia się w pierwszym rzędzie.',
-      caption: 'Kontrola: θ = 0 με.',
-      visual: 'cube',
-      focus: { metric: 'volume' },
-      formula: '\\theta=0',
+        'R_{e,req,HMH}=\\sqrt{3}\\cdot60\\cdot2=207{,}8\\,\\text{MPa},\\qquad R_{e,req,T}=2\\cdot60\\cdot2=240\\,\\text{MPa},\\qquad n_{HMH}=2{,}26,\\qquad n_T=1{,}96',
     },
   ],
 } satisfies SolutionData

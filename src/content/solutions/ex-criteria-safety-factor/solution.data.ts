@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SafetyFactor1Animation } from './animation'
 
 export default {
   id: 'ex-criteria-safety-factor',
@@ -7,6 +8,7 @@ export default {
   given: ['A=250 mm²', 'F=40 kN', 'R_e=235 MPa', 'n_{wym}=1'],
   result:
     'Element jest zbyt wytężony: σ=160 MPa przekracza k=156,7 MPa, a zapas 1,47 jest mniejszy od wymaganego 1,5. Potrzebne jest pole co najmniej 255,3 mm^2.',
+  animation: SafetyFactor1Animation,
   figure: {
     kind: 'cube',
     stresses: {
@@ -90,93 +92,60 @@ export default {
   },
   scenes: [
     {
-      title: 'Zapisz dane elementu',
+      title: 'Model i dane',
       narration:
-        'Pręt ma pole przekroju A = 250 mm² i przenosi siłę F = 40 kN. Materiał ma R_e = 235 MPa, a wymagany zapas n_wym = 1,5.',
+        'Pręt o polu A = 250 mm² jest rozciągany siłą F = 40 kN. Granica plastyczności wynosi R_e = 235 MPa, a projekt wymaga zapasu n_wym = 1,5.',
       caption: 'A = 250 mm², F = 40 kN, R_e = 235 MPa, n_wym = 1,5.',
       visual: 'cube',
       focus: {
-        metric: 'stress',
+        metric: 'model',
       },
       formula: 'A=250\\,\\text{mm}^2,\\qquad F=40\\,\\text{kN},\\qquad R_e=235\\,\\text{MPa},\\qquad n_{wym}=1{,}5',
     },
     {
-      title: 'Oblicz naprężenie',
-      narration: 'Naprężenie normalne wynosi σ = F/A = 40 000/250 = 160 MPa.',
-      caption: 'σ = 160 MPa.',
-      visual: 'cube',
-      focus: {
-        metric: 'stress',
-      },
-      formula: '\\sigma=\\frac{F}{A}=\\frac{40\\,000}{250}=160\\,\\text{MPa}',
-    },
-    {
-      title: 'Oblicz naprężenie dopuszczalne',
+      title: 'Granica i naprężenie robocze',
       narration:
-        'Naprężenie dopuszczalne to k = R_e/n_wym = 235/1,5 = 156,67 MPa. Jest ono mniejsze od naprężenia rzeczywistego 160 MPa.',
-      caption: 'k = 156,67 MPa.',
-      visual: 'cube',
-      focus: {
-        metric: 'stress',
-      },
-      formula: 'k=\\frac{R_e}{n_{wym}}=\\frac{235}{1{,}5}=156{,}67\\,\\text{MPa}',
-    },
-    {
-      title: 'Oblicz zapas rzeczywisty',
-      narration:
-        'Zapas rzeczywisty wynosi n_rz = R_e/σ = 235/160 = 1,469. Jest mniejszy od wymaganego 1,5, więc element jest zbyt wytężony.',
-      caption: 'n_rz = 1,469 < 1,5.',
-      visual: 'cube',
-      focus: {
-        metric: 'stress',
-      },
-      formula: 'n_{rz}=\\frac{235}{160}=1{,}469,\\qquad 1{,}469<1{,}5',
-    },
-    {
-      title: 'Sprawdź warunek',
-      narration:
-        'Warunek 160 > 156,67 MPa jest spełniony jako nierówność przeciwna do wymaganej, podobnie 1,469 < 1,5. Element nie spełnia wymagania wytrzymałościowego.',
-      caption: '160 MPa > 156,67 MPa, więc warunek nie jest spełniony.',
-      visual: 'cube',
-      focus: {
-        metric: 'stress',
-      },
-      formula: '160>156{,}67\\,\\text{MPa},\\qquad 1{,}469<1{,}5',
-    },
-    {
-      title: 'Oblicz minimalne pole',
-      narration:
-        'Wymagane pole wynosi A_min = F·n_wym/R_e = 40 000·1,5/235 = 255,3 mm². Brakuje 255,3 − 250 = 5,3 mm², czyli około 2% pola.',
-      caption: 'A_min = 255,3 mm², brakuje 5,3 mm².',
+        'Naprężenie robocze wynosi σ = F/A = 40 000/250 = 160 MPa. Naprężenie dopuszczalne to k = R_e/n_wym = 235/1,5 = 156,7 MPa. Granica materiału leży wyżej, ale wartość dopuszczalna jest już przekroczona.',
+      caption: 'σ = 160 MPa, k = 156,7 MPa, R_e = 235 MPa.',
       visual: 'cube',
       focus: {
         metric: 'stress',
       },
       formula:
-        'A_{min}=\\frac{40\\,000\\cdot1{,}5}{235}=255{,}3\\,\\text{mm}^2,\\qquad 255{,}3-250=5{,}3\\,\\text{mm}^2',
+        '\\sigma=\\frac{F}{A}=\\frac{40\\,000}{250}=160\\,\\text{MPa},\\qquad k=\\frac{R_e}{n_{wym}}=\\frac{235}{1{,}5}=156{,}7\\,\\text{MPa}',
     },
     {
-      title: 'Przelicz stan na odkształcenia',
+      title: 'Zapas jako stosunek granicy do naprężenia',
       narration:
-        'Dla stali E = 200 GPa i ν = 0,30 otrzymujemy ε_x = 800 με, ε_y = ε_z = −240 με i θ = 320 με. Odkształcenia są sprężyste, ale naprężenie przekracza wartość dopuszczalną.',
-      caption: 'ε_x = 800 με, ε_y = ε_z = −240 με, θ = 320 με.',
+        'Zapas rzeczywisty to iloraz granicy i naprężenia: n_rz = R_e/σ = 235/160 = 1,469. Inaczej mówiąc, granica jest 1,469 razy większa od naprężenia roboczego.',
+      caption: 'R_e = 1,469·σ, czyli n_rz = 1,469.',
       visual: 'cube',
       focus: {
-        metric: 'strain',
+        metric: 'factor',
       },
-      formula:
-        '\\varepsilon_x=\\frac{160}{200\\,000}=800\\,\\mu\\varepsilon,\\qquad \\varepsilon_y=\\varepsilon_z=-240\\,\\mu\\varepsilon,\\qquad \\theta=320\\,\\mu\\varepsilon',
+      formula: 'n_{rz}=\\frac{R_e}{\\sigma}=\\frac{235}{160}=1{,}469',
     },
     {
-      title: 'Sprawdź zmianę objętości',
+      title: 'Sprawdzenie warunku',
       narration:
-        'Ślad tensora odkształcenia jest dodatni, więc objętość elementu rośnie. Wartość śladu jest miarą względnej zmiany objętości.',
-      caption: 'Kontrola: θ = 320 με.',
+        'Wymagany zapas wynosi 1,5, a rzeczywisty tylko 1,469. Ponieważ n_rz < n_wym, warunek nie jest spełniony. To samo widać po stronie naprężeń: 160 MPa > 156,7 MPa.',
+      caption: 'n_rz = 1,469 < 1,5 — warunek nie jest spełniony.',
       visual: 'cube',
       focus: {
-        metric: 'volume',
+        metric: 'check',
       },
-      formula: '\\theta=320\\,\\mu\\varepsilon,\\qquad |\\varepsilon_y|=240\\,\\mu\\varepsilon',
+      formula: 'n_{rz}=1{,}469<1{,}5,\\qquad \\sigma=160\\,\\text{MPa}>k=156{,}7\\,\\text{MPa}',
+    },
+    {
+      title: 'Brakujące pole przekroju',
+      narration:
+        'Minimalne pole przy wymaganym zapasie to A_min = F·n_wym/R_e = 40 000·1,5/235 = 255,3 mm². Obecne pole 250 mm² jest o 5,3 mm² za małe, czyli o około 2%.',
+      caption: 'A = 250 mm² < A_min = 255,3 mm²; brakuje 5,3 mm².',
+      visual: 'cube',
+      focus: {
+        metric: 'area',
+      },
+      formula: 'A_{min}=\\frac{F\\,n_{wym}}{R_e}=\\frac{40\\,000\\cdot1{,}5}{235}=255{,}3\\,\\text{mm}^2',
     },
   ],
 } satisfies SolutionData

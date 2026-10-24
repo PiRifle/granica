@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { TrescaExample1Animation } from './animation'
 
 export default {
   id: 'ex-criteria-tresca',
   title: 'Hipoteza Tresca: największe ścinanie — przykład 1',
+  animation: TrescaExample1Animation,
   duration: 7,
   given: ['σθ = 120 MPa', 'σz = 60 MPa', 'Re = 355 MPa'],
   result:
@@ -32,73 +34,48 @@ export default {
   scenes: [
     {
       title: 'Uporządkuj naprężenia główne',
-      narration: 'Naprężenia główne wynoszą σ_1 = 120 MPa, σ_2 = 60 MPa i σ_3 = 0. Materiał ma R_e = 355 MPa.',
+      narration:
+        'Naprężenia główne wynoszą σ_1 = 120 MPa, σ_2 = 60 MPa i σ_3 = 0. Ustawiamy je malejąco, bo dopiero skrajne wartości wyznaczają maksymalne ścinanie.',
       caption: 'σ_1 = 120 MPa, σ_2 = 60 MPa, σ_3 = 0.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_1=120\\,\\text{MPa},\\qquad \\sigma_2=60\\,\\text{MPa},\\qquad \\sigma_3=0',
+      focus: { metric: 'state' },
+      formula: '\\sigma_1=120\\,\\text{MPa},\\quad \\sigma_2=60\\,\\text{MPa},\\quad \\sigma_3=0',
     },
     {
-      title: 'Wskaż naprężenia skrajne',
+      title: 'Zbuduj trzy koła Mohra',
       narration:
-        'Największe naprężenie główne to 120 MPa, a najmniejsze 0 MPa. To one wyznaczają maksymalną różnicę, czyli podwójne maksymalne ścinanie.',
-      caption: 'σ_max = 120 MPa, σ_min = 0.',
+        'Każda para naprężeń głównych tworzy własne koło. Promienie wynoszą 30, 30 i 60 MPa, a największe koło odpowiada parze (1,3), bo obejmuje cały przedział od 0 do 120 MPa.',
+      caption: 'Trzy koła: (1,2), (2,3) i (3,1); największe jest koło pary (1,3).',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_{max}=120\\,\\text{MPa},\\qquad \\sigma_{min}=0',
+      focus: { metric: 'circles' },
+      formula: 'R_{12}=30\\,\\text{MPa},\\quad R_{23}=30\\,\\text{MPa},\\quad R_{13}=60\\,\\text{MPa}',
     },
     {
-      title: 'Oblicz naprężenie zredukowane Tresca',
-      narration: 'Naprężenie zredukowane to różnica skrajnych naprężeń: σ_T = 120 − 0 = 120 MPa.',
-      caption: 'σ_T = 120 MPa.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_T=120-0=120\\,\\text{MPa}',
-    },
-    {
-      title: 'Oblicz maksymalne ścinanie',
-      narration: 'Maksymalne ścinanie jest połową naprężenia zredukowanego: τ_max = σ_T/2 = 60 MPa.',
-      caption: 'τ_max = 60 MPa.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\tau_{max}=\\frac{\\sigma_T}{2}=\\frac{120}{2}=60\\,\\text{MPa}',
-    },
-    {
-      title: 'Oblicz współczynnik bezpieczeństwa',
-      narration: 'Zapas wynosi n = R_e/σ_T = 355/120 = 2,96. Dla porównania HMH daje 103,9 MPa i zapas 3,42.',
-      caption: 'n = 2,96, n_HMH = 3,42.',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula:
-        'n=\\frac{355}{120}=2{,}96,\\qquad \\sigma_{HMH}=103{,}9\\,\\text{MPa},\\qquad n_{HMH}=\\frac{355}{103{,}9}=3{,}42',
-    },
-    {
-      title: 'Sprawdź przez trzy różnice',
+      title: 'Odczytaj maksymalne ścinanie',
       narration:
-        'Kontrola przez trzy różnice: |120 − 60| = 60, |60 − 0| = 60, |0 − 120| = 120. Największa wynosi 120 MPa, zgodnie z wynikiem.',
-      caption: 'Kontrola: największa różnica to 120 MPa.',
+        'Największe ścinanie to promień największego koła: τ_max = (120 − 0)/2 = 60 MPa. W materiale działa ono na płaszczyźnie nachylonej pod 45° do kierunków σ_1 i σ_3.',
+      caption: 'τ_max = 60 MPa na płaszczyźnie pod 45°.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '|120-60|=60,\\qquad |60-0|=60,\\qquad |0-120|=120',
+      focus: { metric: 'maxshear' },
+      formula: '\\tau_{max}=\\frac{\\sigma_1-\\sigma_3}{2}=\\frac{120-0}{2}=60\\,\\text{MPa}',
     },
     {
-      title: 'Przelicz stan na odkształcenia',
+      title: 'Wyznacz naprężenie zredukowane Tresca',
       narration:
-        'Dla stali E = 200 GPa i ν = 0,30 otrzymujemy ε_1 = 510 με, ε_2 = 120 με i ε_3 = −270 με. Ślad 360 με oznacza wzrost objętości.',
-      caption: 'ε_1 = 510 με, ε_2 = 120 με, ε_3 = −270 με, θ = 360 με.',
+        'Średnica największego koła jest równa σ_T. Dlatego σ_T = 120 − 0 = 120 MPa, czyli dwa razy τ_max. Zero jest pełnoprawnym naprężeniem skrajnym.',
+      caption: 'σ_T = 2τ_max = 120 MPa.',
       visual: 'cube',
-      focus: { metric: 'strain' },
-      formula:
-        '\\varepsilon_1=510\\,\\mu\\varepsilon,\\qquad \\varepsilon_2=120\\,\\mu\\varepsilon,\\qquad \\varepsilon_3=-270\\,\\mu\\varepsilon,\\qquad \\theta=360\\,\\mu\\varepsilon',
+      focus: { metric: 'tresca' },
+      formula: '\\sigma_T=\\sigma_{max}-\\sigma_{min}=120-0=120\\,\\text{MPa}',
     },
     {
-      title: 'Sprawdź zmianę objętości',
+      title: 'Sprawdź zapas bezpieczeństwa',
       narration:
-        'Ślad tensora odkształcenia jest dodatni, więc objętość elementu rośnie. Wartość śladu jest miarą względnej zmiany objętości.',
-      caption: 'Kontrola: θ = 360 με.',
+        'Materiał ma R_e = 355 MPa, więc zapas wynosi n = 355/120 = 2,96. HMH dałaby w tym punkcie 103,9 MPa i zapas 3,42, więc Tresca jest bardziej zachowawcza.',
+      caption: 'n = 2,96, a dla HMH n = 3,42.',
       visual: 'cube',
-      focus: { metric: 'volume' },
-      formula: '\\theta=360\\,\\mu\\varepsilon,\\qquad |\\varepsilon_3|=270\\,\\mu\\varepsilon',
+      focus: { metric: 'check' },
+      formula: 'n=\\frac{R_e}{\\sigma_T}=\\frac{355}{120}=2{,}96,\\quad n_{HMH}=\\frac{355}{103{,}9}=3{,}42',
     },
   ],
 } satisfies SolutionData

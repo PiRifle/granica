@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { CriteriaComparison1Animation } from './animation'
 
 export default {
   id: 'ex-criteria-comparison',
   title: 'HMH czy Tresca? Porównanie hipotez — przykład 1',
+  animation: CriteriaComparison1Animation,
   duration: 7,
   given: ['sigma=120 MPa', 'tau=40 MPa', 'R_e=300 MPa'],
   result:
@@ -30,11 +32,12 @@ export default {
     {
       title: 'Zapisz stan naprężenia',
       narration:
-        'Punkt jest rozciągany naprężeniem σ = 120 MPa i ścinany naprężeniem τ = 40 MPa. Materiał ma granicę plastyczności R_e = 300 MPa. Porównamy ocenę według HMH i Tresca.',
-      caption: 'σ = 120 MPa, τ = 40 MPa, R_e = 300 MPa.',
+        'Punkt jest rozciągany naprężeniem σ = 120 MPa i ścinany naprężeniem τ = 40 MPa. Materiał ma granicę plastyczności R_e = 300 MPa. Naprężenia główne wynoszą σI = 132,11 MPa, σII = 0 i σIII = −12,11 MPa, więc w porównaniu trzeba uwzględnić wszystkie trzy kierunki.',
+      caption: 'σ = 120 MPa, τ = 40 MPa, R_e = 300 MPa; σI = 132,11 MPa, σIII = −12,11 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma=120\\,\\text{MPa},\\qquad \\tau=40\\,\\text{MPa},\\qquad R_e=300\\,\\text{MPa}',
+      focus: { metric: 'state' },
+      formula:
+        '\\sigma=120\\,\\text{MPa},\\qquad \\tau=40\\,\\text{MPa},\\qquad R_e=300\\,\\text{MPa},\\qquad \\sigma_I=132{,}11\\,\\text{MPa},\\qquad \\sigma_{III}=-12{,}11\\,\\text{MPa}',
     },
     {
       title: 'Oblicz naprężenie HMH',
@@ -42,7 +45,7 @@ export default {
         'Dla płaskiego stanu naprężenia σ_HMH = √(σ² + 3τ²). Po podstawieniu otrzymujemy √(14 400 + 4 800) = √19 200 = 138,56 MPa.',
       caption: 'σ_HMH = 138,56 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'hmh' },
       formula:
         '\\sigma_{HMH}=\\sqrt{120^2+3\\cdot40^2}=\\sqrt{14\\,400+4\\,800}=\\sqrt{19\\,200}=138{,}56\\,\\text{MPa}',
     },
@@ -52,45 +55,26 @@ export default {
         'Dla Tresca σ_T = √(σ² + 4τ²). Otrzymujemy √(14 400 + 6 400) = √20 800 = 144,22 MPa, czyli więcej niż według HMH.',
       caption: 'σ_T = 144,22 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'tresca' },
       formula: '\\sigma_T=\\sqrt{120^2+4\\cdot40^2}=\\sqrt{14\\,400+6\\,400}=\\sqrt{20\\,800}=144{,}22\\,\\text{MPa}',
+    },
+    {
+      title: 'Porównaj wartości i wskaż decydującą hipotezę',
+      narration:
+        'Na wspólnej skali Tresca daje większe naprężenie zredukowane niż HMH. Różnica wynosi 144,22 − 138,56 = 5,66 MPa, czyli około 4 procent. Obie wartości są porównywane z tą samą granicą, więc o ocenie bezpieczeństwa decyduje Tresca. Kontrola σ_T² − σ_HMH² = 1 600 = τ² potwierdza, że różnica wynika z naprężenia stycznego.',
+      caption: 'Tresca jest większa i decyduje: Δ ≈ 5,7 MPa, czyli 4,1%.',
+      visual: 'cube',
+      focus: { metric: 'compare' },
+      formula: '\\sigma_T^2-\\sigma_{HMH}^2=20\\,800-19\\,200=1\\,600=\\tau^2,\\qquad \\sigma_T>\\sigma_{HMH}',
     },
     {
       title: 'Oblicz zapasy bezpieczeństwa',
       narration:
-        'Zapas według HMH wynosi 300/138,56 = 2,165, a według Tresca 300/144,22 = 2,080. Obie hipotezy przewidują bezpieczeństwo, ale Tresca daje mniejszy zapas.',
-      caption: 'n_HMH = 2,165, n_T = 2,080.',
+        'Zapas według HMH wynosi 300/138,56 = 2,165, a według Tresca 300/144,22 = 2,080. Obie hipotezy przewidują bezpieczeństwo, ale Tresca daje mniejszy zapas, więc to ona decyduje o ocenie elementu.',
+      caption: 'n_HMH = 2,165, n_T = 2,080; obie hipotezy dopuszczają, ale decyduje Tresca.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'check' },
       formula: 'n_{HMH}=\\frac{300}{138{,}56}=2{,}165,\\qquad n_T=\\frac{300}{144{,}22}=2{,}080',
-    },
-    {
-      title: 'Sprawdź związek między hipotezami',
-      narration:
-        'Kontrola: σ_T² − σ_HMH² = 20 800 − 19 200 = 1 600 = τ². Różnica między hipotezami wynika więc dokładnie z kwadratu naprężenia stycznego, a nie z błędu rachunku.',
-      caption: 'Kontrola: σ_T² − σ_HMH² = τ².',
-      visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_T^2-\\sigma_{HMH}^2=20\\,800-19\\,200=1\\,600=\\tau^2',
-    },
-    {
-      title: 'Przelicz stan na odkształcenia',
-      narration:
-        'Przyjmując stal E = 200 GPa i ν = 0,30, otrzymujemy ε_x = 600 με, ε_y = −180 με, γ_xy = 520 μrad i θ = 240 με. Odkształcenia potwierdzają mały, sprężysty zakres pracy.',
-      caption: 'ε_x = 600 με, γ_xy = 520 μrad, θ = 240 με.',
-      visual: 'cube',
-      focus: { metric: 'strain' },
-      formula:
-        '\\varepsilon_x=\\frac{120}{200\\,000}=600\\,\\mu\\varepsilon,\\qquad \\gamma_{xy}=\\frac{40}{76\\,923}=520\\,\\mu\\text{rad},\\qquad \\theta=600-180-180=240\\,\\mu\\varepsilon',
-    },
-    {
-      title: 'Sprawdź zmianę objętości',
-      narration:
-        'Ślad tensora odkształcenia jest dodatni, więc objętość elementu rośnie. Wartość śladu jest miarą względnej zmiany objętości.',
-      caption: 'Kontrola: θ = 240 με.',
-      visual: 'cube',
-      focus: { metric: 'volume' },
-      formula: '\\theta=240\\,\\mu\\varepsilon',
     },
   ],
 } satisfies SolutionData

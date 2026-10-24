@@ -1,8 +1,10 @@
 import type { SolutionData } from '../../model'
+import { MaxNormalExample2Animation } from './animation'
 
 export default {
   id: 'ex-criteria-max-normal-2',
   title: 'Hipoteza największego naprężenia normalnego — przykład 2',
+  animation: MaxNormalExample2Animation,
   duration: 7,
   given: ['σ1 = 25 MPa', 'σ2 = −10 MPa', 'σ3 = −160 MPa', 'kr = 150 MPa', 'kc = 600 MPa'],
   result:
@@ -34,11 +36,12 @@ export default {
     {
       title: 'Zapisz naprężenia główne',
       narration:
-        'Żeliwny element jest poddany naprężeniom głównym σ_1 = 25 MPa, σ_2 = −10 MPa i σ_3 = −160 MPa. Materiał ma k_r = 150 MPa i k_c = 600 MPa.',
+        'Żeliwny element jest poddany naprężeniom głównym σ_1 = 25 MPa, σ_2 = −10 MPa i σ_3 = −160 MPa. Materiał ma k_r = 150 MPa i k_c = 600 MPa. Na osi naprężeń widać, że zero nie jest skrajną wartością: dominuje ściskanie σ_3.',
       caption: 'σ_1 = 25 MPa, σ_2 = −10 MPa, σ_3 = −160 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
-      formula: '\\sigma_1=25\\,\\text{MPa},\\qquad \\sigma_2=-10\\,\\text{MPa},\\qquad \\sigma_3=-160\\,\\text{MPa}',
+      focus: { metric: 'state' },
+      formula:
+        '\\sigma_1=25\\,\\text{MPa},\\qquad \\sigma_2=-10\\,\\text{MPa},\\qquad \\sigma_3=-160\\,\\text{MPa},\\qquad k_r=150\\,\\text{MPa},\\qquad k_c=600\\,\\text{MPa}',
     },
     {
       title: 'Sprawdź warunek rozciągania',
@@ -46,7 +49,7 @@ export default {
         'Największe naprężenie dodatnie wynosi 25 MPa, więc 25 ≤ 150 MPa. Zapas na rozciąganie to n_t = 150/25 = 6,0.',
       caption: '25 MPa ≤ 150 MPa, n_t = 6,0.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'tension' },
       formula: '25\\le150\\,\\text{MPa},\\qquad n_t=\\frac{150}{25}=6{,}0',
     },
     {
@@ -55,7 +58,7 @@ export default {
         'Największe naprężenie ujemne co do modułu wynosi 160 MPa, więc 160 ≤ 600 MPa. Zapas n_c = 600/160 = 3,75, więc o wyniku decyduje ściskanie.',
       caption: '160 MPa ≤ 600 MPa, n_c = 3,75.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'compression' },
       formula: '160\\le600\\,\\text{MPa},\\qquad n_c=\\frac{600}{160}=3{,}75',
     },
     {
@@ -64,37 +67,18 @@ export default {
         'Gdyby zwiększać tylko σ_1, rozciąganie przejęłoby decydującą rolę przy 150/σ_1 = 600/160, czyli σ_1 = 150·160/600 = 40 MPa. Dla σ_1 powyżej 40 MPa zapas na rozciąganie byłby mniejszy niż 3,75.',
       caption: 'Próg: σ_1 = 40 MPa.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'threshold' },
       formula: '\\frac{150}{\\sigma_1}=\\frac{600}{160},\\qquad \\sigma_1=\\frac{150\\cdot160}{600}=40\\,\\text{MPa}',
     },
     {
       title: 'Porównaj z HMH',
       narration:
-        'HMH daje √(28 975) = 170,2 MPa. Przy R_e = 600 MPa zapas wynosi 3,53, czyli nieco mniej od zapasu na ściskanie według maksimum normalnego.',
+        'HMH daje √28 975 = 170,2 MPa. Przy R_e = 600 MPa zapas wynosi 3,53, czyli nieco mniej od zapasu na ściskanie według maksimum normalnego.',
       caption: 'σ_HMH = 170,2 MPa, n_HMH = 3,53.',
       visual: 'cube',
-      focus: { metric: 'stress' },
+      focus: { metric: 'compare' },
       formula:
-        '\\sigma_{HMH}=\\sqrt{25^2+10^2+160^2+25\\cdot10+10\\cdot160+160\\cdot25}=\\sqrt{28\\,975}=170{,}2\\,\\text{MPa},\\qquad n_{HMH}=\\frac{600}{170{,}2}=3{,}53',
-    },
-    {
-      title: 'Przelicz stan na odkształcenia',
-      narration:
-        'Dla stali E = 200 GPa i ν = 0,30 otrzymujemy ε_1 = 380 με, ε_2 = 152,5 με i ε_3 = −822,5 με. Ślad −290 με oznacza zmniejszenie objętości.',
-      caption: 'ε_1 = 380 με, ε_2 = 152,5 με, ε_3 = −822,5 με, θ = −290 με.',
-      visual: 'cube',
-      focus: { metric: 'strain' },
-      formula:
-        '\\varepsilon_1=380\\,\\mu\\varepsilon,\\qquad \\varepsilon_2=152{,}5\\,\\mu\\varepsilon,\\qquad \\varepsilon_3=-822{,}5\\,\\mu\\varepsilon,\\qquad \\theta=-290\\,\\mu\\varepsilon',
-    },
-    {
-      title: 'Sprawdź zmianę objętości',
-      narration:
-        'Ślad tensora odkształcenia jest ujemny, więc objętość elementu maleje. Wartość bezwzględna śladu jest miarą względnej zmiany objętości.',
-      caption: 'Kontrola: θ = −290 με.',
-      visual: 'cube',
-      focus: { metric: 'volume' },
-      formula: '|\\theta|=290\\,\\mu\\varepsilon',
+        '\\sigma_{HMH}=\\sqrt{25^2+10^2+160^2-25\\cdot(-10)-(-10)\\cdot(-160)-(-160)\\cdot25}=\\sqrt{28\\,975}=170{,}2\\,\\text{MPa},\\qquad n_{HMH}=\\frac{600}{170{,}2}=3{,}53',
     },
   ],
 } satisfies SolutionData
