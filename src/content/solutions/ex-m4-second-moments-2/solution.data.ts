@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { TriangleSecondMomentAnimation } from './animation'
 
 export default {
   id: 'ex-m4-second-moments-2',
@@ -32,85 +33,52 @@ export default {
     ],
     note: 'Schemat: trójkąt równoramienny o podstawie 120 mm i wysokości 90 mm przybliżono pasami; wymiary są rzeczywiste.',
   },
+  animation: TriangleSecondMomentAnimation,
   scenes: [
     {
-      title: 'Dane i układ osi',
+      title: 'Model: trójkąt i osie',
       narration:
-        'Trójkąt o podstawie b=120 mm i wysokości h=90 mm jest zginany względem osi równoległej do podstawy. Podstawa leży na osi x, a oś centralna jest od niej oddalona o h/3.',
-      caption: 'Trójkąt równoramienny z podstawą na osi x.',
+        'Trójkąt ma podstawę b=120 mm i wysokość h=90 mm. Podstawa leży na osi x, a oś centralna jest od niej oddalona o h/3=30 mm. Oś y jest osią symetrii.',
+      caption: 'Trójkąt równoramienny z podstawą na osi x i osią centralną w odległości h/3.',
       visual: 'section',
       focus: { metric: 'section' },
       formula: 'b=120\\ \\text{mm},\\quad h=90\\ \\text{mm},\\quad \\bar{y}=\\frac{h}{3}=30\\ \\text{mm}',
     },
     {
-      title: 'Moment względem podstawy',
-      narration: 'Jeżeli oś przechodzi przez podstawę, to I_podstawa=(bh^3)/(12)=(120· 90^3)/(12)=7 290 000 mm^4.',
-      caption: 'Moment względem osi przechodzącej przez podstawę.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: 'I_{\\text{podstawa}}=\\frac{bh^3}{12}=\\frac{120\\cdot90^3}{12}=7\\,290\\,000\\ \\text{mm}^4',
-    },
-    {
-      title: 'Moment względem centroidu',
-      narration: 'Jeżeli oś przechodzi przez środek ciężkości, to I_c=bh^3/36.',
-      caption: 'Oś centralna jest równoległa do podstawy.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: 'I_c=\\frac{bh^3}{36}=\\frac{120\\cdot90^3}{36}=2\\,430\\,000\\ \\text{mm}^4',
-    },
-    {
-      title: 'Pole i odległość centroidu',
+      title: 'Pasy poziome względem podstawy',
       narration:
-        'Sprawdźmy zgodność z twierdzeniem Steinera. Pole wynosi A=(1)/(2)· 120· 90=5400 mm^2, a odległość środka od podstawy to h/3=30 mm.',
-      caption: 'Pole trójkąta i odległość centroidu od podstawy.',
+        'Dzielimy trójkąt na poziome pasy. Szerokość pasa maleje liniowo, b(y)=b(1-y/h), a jego wkład zawiera kwadrat odległości y od podstawy.',
+      caption: 'Pasy poziome budują moment względem osi przechodzącej przez podstawę.',
       visual: 'section',
-      focus: { metric: 'section' },
-      formula: 'A=\\frac{1}{2}\\cdot120\\cdot90=5400\\ \\text{mm}^2,\\quad \\bar{y}=\\frac{h}{3}=30\\ \\text{mm}',
+      focus: { metric: 'Ix', segment: 'base' },
+      formula: 'I_{\\text{podstawa}}=\\int_0^h y^2\\,b\\left(1-\\frac{y}{h}\\right)dy=\\frac{bh^3}{12}',
     },
     {
-      title: 'Składnik Steinera',
-      narration: 'Składnik przesunięcia wynosi A((h)/(3))^2=5400· 900=4 860 000 mm^4.',
-      caption: 'Składnik przesunięcia między osią podstawy a osią centralną.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: 'A\\left(\\frac{h}{3}\\right)^2=5400\\cdot900=4\\,860\\,000\\ \\text{mm}^4',
-    },
-    {
-      title: 'Kontrola Steinera',
+      title: 'Oś centralna i mniejsze I',
       narration:
-        'Rzeczywiście 2 430 000+4 860 000=7 290 000 mm^4. To pokazuje, że oba wzory są spójne, a różnica między nimi nie jest przypadkowa.',
-      caption: 'Suma momentu centralnego i składnika Steinera daje moment względem podstawy.',
+        'Po przeniesieniu osi do środka ciężkości odległości y mierzymy od nowej osi. Materiał leży teraz bliżej osi, więc moment centralny jest mniejszy i wynosi bh^3/36.',
+      caption: 'Ta sama figura, inna oś: pasy liczone względem osi centralnej.',
       visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: '2\\,430\\,000+4\\,860\\,000=7\\,290\\,000\\ \\text{mm}^4',
+      focus: { metric: 'Ix', segment: 'centroid' },
+      formula: 'I_c=\\frac{bh^3}{36}',
     },
     {
-      title: 'Moment Iy',
+      title: 'Pasy pionowe budują I_y',
       narration:
-        'Względem pionowej osi symetrii moment trójkąta równoramiennego wynosi I_y=hb^3/48. Dla b=120 mm i h=90 mm otrzymujemy 3,24·10⁶ mm⁴.',
-      caption: 'Oś y jest osią symetrii trójkąta równoramiennego.',
+        'Teraz dzielimy trójkąt na pionowe pasy. Odległością od osi symetrii y jest x, więc każdy pas wnosi x^2 dA, a moment wynosi hb^3/48.',
+      caption: 'Pasy pionowe; oś y jest osią symetrii trójkąta.',
       visual: 'section',
       focus: { metric: 'Iy' },
       formula: 'I_y=\\frac{hb^3}{48}=\\frac{90\\cdot120^3}{48}=3{,}24\\cdot10^6\\ \\text{mm}^4',
     },
     {
-      title: 'Wpływ obrotu figury',
+      title: 'Obrót o 90°',
       narration:
-        'Jeżeli trójkąt zostanie obrócony tak, że podstawa będzie pionowa, to moment względem poziomej osi zmieni się na hb^3/36, czyli 90· 120^3/36=4 320 000 mm^4. Ten sam kształt, inne ustawienie, inna sztywność.',
+        'Gdy trójkąt obrócimy tak, że podstawa będzie pionowa, a pozioma oś pozostanie na miejscu, moment względem tej osi zmienia się na hb^3/36. Ten sam kształt, inne ustawienie, inna sztywność.',
       caption: 'Obrót figury zmienia moment względem ustalonej osi poziomej.',
       visual: 'section',
-      focus: { metric: 'Ix' },
+      focus: { metric: 'Ix', segment: 'rotate' },
       formula: 'I=\\frac{hb^3}{36}=\\frac{90\\cdot120^3}{36}=4\\,320\\,000\\ \\text{mm}^4',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'W obliczeniach zginania używamy I_c, bo oś obojętna przechodzi przez środek ciężkości. Wartość względem podstawy jest większa, ale nie opisuje bezpośrednio sztywności przekroju.',
-      caption: 'Do zginania decyduje moment względem osi centralnej.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula:
-        '\\boxed{I_c=2\\,430\\,000\\ \\text{mm}^4,\\quad I_{\\text{podstawa}}=7\\,290\\,000\\ \\text{mm}^4,\\quad I_y=3{,}24\\cdot10^6\\ \\text{mm}^4}',
     },
   ],
 } satisfies SolutionData

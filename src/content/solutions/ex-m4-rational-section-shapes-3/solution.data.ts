@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { RationalSectionShapes3Animation } from './animation'
 
 export default {
   id: 'ex-m4-rational-section-shapes-3',
@@ -7,169 +8,75 @@ export default {
   given: ['A = 2000 mm²', 'I/A = 2000 mm²'],
   result:
     'To zadanie pokazuje, że „od wyniku do danych” nie kończy się na jednym wzorze. Po dobraniu promienia i grubości trzeba wrócić do założeń: czy rura jest rzeczywiście cienkościenna, czy ścianka nie wyboczy się, czy średnica mieści się w dostępnej przestrzeni i czy połączenia da się wykonać.',
-  figure: {
-    kind: 'section',
-    width: 126.5,
-    height: 126.5,
-    parts: [
-      {
-        x: 0,
-        y: 0,
-        width: 126.5,
-        height: 126.5,
-        tone: 'light',
-      },
-    ],
-    holes: [
-      {
-        cx: 63.25,
-        cy: 63.25,
-        r: 58.22,
-        label: 'R = 63,25',
-      },
-    ],
-    centroid: {
-      x: 63.25,
-      y: 63.25,
-    },
-    values: [
-      {
-        label: 'A',
-        value: '2000 mm²',
-        focus: 'section',
-        reveal: 0,
-      },
-      {
-        label: 'I/A',
-        value: '2000 mm²',
-        focus: 'Ix',
-        reveal: 0,
-      },
-      {
-        label: 'R',
-        value: '63,25 mm',
-        focus: 'section',
-      },
-      {
-        label: 'D',
-        value: '126,5 mm',
-        focus: 'section',
-      },
-      {
-        label: 't',
-        value: '5,03 mm',
-        focus: 'section',
-      },
-      {
-        label: 'I',
-        value: '4,0·10⁶ mm⁴',
-        focus: 'Ix',
-      },
-      {
-        label: 'W',
-        value: '63,2·10³ mm³',
-        focus: 'Ix',
-      },
-      {
-        label: 'D/t',
-        value: '25',
-        focus: 'Ix',
-      },
-      {
-        label: 'I_y',
-        value: '4,0·10⁶ mm⁴',
-        focus: 'Iy',
-      },
-    ],
-    note: 'Schemat: cienkościenna rura o promieniu zewnętrznym 63,25 mm i grubości ścianki 5,03 mm.',
-    shape: 'circle',
-  },
+  animation: RationalSectionShapes3Animation,
   scenes: [
     {
-      title: 'Dane i układ osi',
+      title: 'Model i dane',
       narration:
-        'Dla przekroju o polu A=2000 mm² wymagamy I/A=2000 mm², czyli I=4· 10^6 mm^4. Szukamy promienia cienkościennej rury i grubości ścianki.',
-      caption: 'Rura cienkościenna o zadanym polu i wymaganym stosunku I/A.',
+        'Dla przekroju o polu A = 2000 mm² wymagamy I/A = 2000 mm², czyli I = 4·10⁶ mm⁴. Szukamy cienkościennej rury: jej średniego promienia R i grubości ścianki t.',
+      caption: 'Znamy pole i wymaganą efektywność, nie znamy jeszcze wymiarów.',
       visual: 'section',
       focus: {
-        metric: 'section',
+        metric: 'model',
       },
-      formula: 'A=2000\\ \\text{mm}^2,\\quad I/A=2000\\ \\text{mm}^2,\\quad I=4\\cdot10^6\\ \\text{mm}^4',
+      formula: 'A=2000\\ \\text{mm}^2,\\qquad I/A=2000\\ \\text{mm}^2,\\qquad I=4\\cdot10^6\\ \\text{mm}^4',
     },
     {
-      title: 'Związek I/A z promieniem',
-      narration: 'Dla rury cienkiej I/A≈R^2/2, więc promień wynika wprost z wymaganego stosunku.',
-      caption: 'Cienkościenna rura ma I/A ≈ R²/2.',
+      title: 'Dlaczego liczy się promień',
+      narration:
+        'Dla cienkiej rury I ≈ πR³t i A ≈ 2πRt, więc I/A ≈ R²/2. Materiał leży w odległości bliskiej R od osi, a wkład do I rośnie z kwadratem tej odległości. To dlatego promień jest najskuteczniejszym parametrem.',
+      caption: 'Przy stałym polu zwiększanie promienia przesuwa materiał dalej od osi.',
       visual: 'section',
       focus: {
-        metric: 'Ix',
+        metric: 'distribution',
       },
-      formula: 'I/A\\approx\\frac{R^2}{2}',
+      formula: 'I\\approx\\pi R^3t,\\qquad A\\approx2\\pi Rt,\\qquad \\frac{I}{A}\\approx\\frac{R^2}{2}',
     },
     {
       title: 'Promień rury',
-      narration: 'R≈√(2·(I)/(A))=√(2· 2000)=√(4000)≈63,25 mm.',
-      caption: 'Promień zewnętrzny rury wynosi około 63,25 mm.',
+      narration:
+        'Z zależności I/A ≈ R²/2 otrzymujemy R ≈ √(2I/A) = √(2·2000) = √4000 ≈ 63,25 mm. Średnica zewnętrzna wynosi D = 2R ≈ 126,5 mm.',
+      caption: 'Wymagana efektywność wyznacza promień, a nie grubość ścianki.',
       visual: 'section',
       focus: {
-        metric: 'section',
+        metric: 'radius',
       },
-      formula: 'R\\approx\\sqrt{2\\cdot\\frac{I}{A}}=\\sqrt{2\\cdot2000}=\\sqrt{4000}\\approx63{,}25\\ \\text{mm}',
-    },
-    {
-      title: 'Średnica zewnętrzna',
-      narration: 'czyli średnica zewnętrzna około 126,5 mm. Grubość ścianki wynika z pola.',
-      caption: 'Średnica zewnętrzna jest dwa razy większa od promienia.',
-      visual: 'section',
-      focus: {
-        metric: 'section',
-      },
-      formula: 'D=2R=2\\cdot63{,}25=126{,}5\\ \\text{mm}',
+      formula:
+        'R\\approx\\sqrt{2\\,\\frac{I}{A}}=\\sqrt{4000}\\approx63{,}25\\ \\text{mm},\\qquad D\\approx126{,}5\\ \\text{mm}',
     },
     {
       title: 'Grubość ścianki',
-      narration: 't≈(A)/(2π R)=(2000)/(2π· 63,25)≈5,03 mm.',
-      caption: 'Grubość ścianki wynika z pola powierzchni rury.',
+      narration:
+        'Pole rury to w przybliżeniu obwód środkowy razy grubość: A ≈ 2πRt. Stąd t ≈ A/(2πR) = 2000/(2π·63,25) ≈ 5,03 mm. Ścianka jest cienka, ale nie ekstremalnie.',
+      caption: 'Grubość ścianki wynika z pola i promienia; przy dużym R jest mała.',
       visual: 'section',
       focus: {
-        metric: 'section',
+        metric: 'wall',
       },
       formula: 't\\approx\\frac{A}{2\\pi R}=\\frac{2000}{2\\pi\\cdot63{,}25}\\approx5{,}03\\ \\text{mm}',
     },
     {
-      title: 'Sprawdzenie momentu i wskaźnika',
+      title: 'Sprawdzenie I, W i naprężeń',
       narration:
-        'Sprawdzenie: I≈π R^3t≈4,0· 10^6 mm^4, a W=I/R≈63,2· 10^3 mm^3. Stosunek D/t≈25, więc ścianka nie jest ekstremalnie cienka.',
-      caption: 'Moment i wskaźnik wynikają z promienia oraz grubości ścianki.',
+        'Sprawdzenie: I ≈ πR³t ≈ 4,0·10⁶ mm⁴, a W = I/R ≈ 63,2·10³ mm³. Przy zginaniu naprężenie rośnie liniowo od osi obojętnej do maksimum na zewnętrznej stronie ścianki.',
+      caption: 'Otrzymany promień i grubość odtwarzają wymagany moment bezwładności.',
       visual: 'section',
       focus: {
-        metric: 'Ix',
+        metric: 'stress',
       },
       formula:
-        'I\\approx\\pi R^3t\\approx4{,}0\\cdot10^6\\ \\text{mm}^4,\\quad W=\\frac{I}{R}\\approx63{,}2\\cdot10^3\\ \\text{mm}^3,\\quad \\frac{D}{t}\\approx25',
+        'I\\approx\\pi R^3t\\approx4{,}0\\cdot10^6\\ \\text{mm}^4,\\qquad W=\\frac{I}{R}\\approx63{,}2\\cdot10^3\\ \\text{mm}^3',
     },
     {
-      title: 'Moment Iy',
+      title: 'Kontrola założeń',
       narration:
-        'Rura jest kołowo symetryczna, więc I_y=I_x≈4,0·10⁶ mm⁴. Oba kierunki zginania mają tę samą sztywność.',
-      caption: 'Dla rury I_x = I_y.',
+        'Stosunek D/t ≈ 25 wymaga sprawdzenia lokalnego wyboczenia ścianki. Trzeba też potwierdzić, że średnica mieści się w dostępnej przestrzeni i że połączenia da się wykonać. Wynik geometryczny jest dopiero początkiem doboru.',
+      caption: 'Racjonalny kształt musi połączyć duże I/A ze statecznością, gabarytem i technologią.',
       visual: 'section',
       focus: {
-        metric: 'Iy',
+        metric: 'check',
       },
-      formula: 'I_y=I_x\\approx\\pi R^3t\\approx4{,}0\\cdot10^6\\ \\text{mm}^4',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'Po dobraniu promienia i grubości trzeba wrócić do założeń: czy rura jest rzeczywiście cienkościenna, czy ścianka nie wyboczy się, czy średnica mieści się w dostępnej przestrzeni i czy połączenia da się wykonać.',
-      caption: 'Wynik geometryczny wymaga jeszcze sprawdzenia stateczności i technologii.',
-      visual: 'section',
-      focus: {
-        metric: 'section',
-      },
-      formula:
-        '\\boxed{R\\approx63{,}25\\ \\text{mm},\\quad t\\approx5{,}03\\ \\text{mm},\\quad I\\approx4{,}0\\cdot10^6\\ \\text{mm}^4,\\quad W\\approx63{,}2\\cdot10^3\\ \\text{mm}^3}',
+      formula: '\\frac{D}{t}\\approx25,\\qquad I_y=I_x\\approx4{,}0\\cdot10^6\\ \\text{mm}^4',
     },
   ],
 } satisfies SolutionData

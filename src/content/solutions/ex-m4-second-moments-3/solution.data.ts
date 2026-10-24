@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { RectangleSecondMomentAnimation } from './animation'
 
 export default {
   id: 'ex-m4-second-moments-3',
@@ -25,79 +26,52 @@ export default {
     ],
     note: 'Prostokąt o stałej szerokości 80 mm i wysokości dobranej do wymaganego I_x.',
   },
+  animation: RectangleSecondMomentAnimation,
   scenes: [
     {
-      title: 'Dane i układ osi',
+      title: 'Model: dana szerokość, szukana wysokość',
       narration:
-        'Projektant potrzebuje prostokątnego przekroju o I_x=40· 10^6 mm^4 względem osi poziomej przez środek. Szerokość jest ograniczona do b=80 mm.',
-      caption: 'Prostokąt o szerokości 80 mm; oś x przechodzi przez środek wysokości.',
+        'Projektant potrzebuje prostokąta o I_x=40·10^6 mm^4 względem poziomej osi centralnej. Szerokość jest ograniczona do b=80 mm, a wysokość h trzeba dobrać.',
+      caption: 'Prostokąt o stałej szerokości 80 mm; oś x przechodzi przez środek wysokości.',
       visual: 'section',
       focus: { metric: 'section' },
       formula: 'I_x=40\\cdot10^6\\ \\text{mm}^4,\\quad b=80\\ \\text{mm}',
     },
     {
-      title: 'Odwrócenie wzoru na Ix',
-      narration: 'Z wzoru I=bh^3/12 wyznaczamy h^3=(12I)/(b)=(12· 40· 10^6)/(80)=6· 10^6 mm^3.',
-      caption: 'Przekształcenie wzoru na moment bezwładności prostokąta.',
+      title: 'Pasy poziome budują I_x',
+      narration:
+        'Dzielimy prostokąt na poziome pasy. Każdy pas ma pole b dy i wnosi y^2 dA, więc o wartości I_x decyduje przede wszystkim wysokość przekroju.',
+      caption: 'Pasy poziome; oś x wyznacza odległość y każdego pasa.',
       visual: 'section',
       focus: { metric: 'Ix' },
-      formula: 'h^3=\\frac{12I}{b}=\\frac{12\\cdot40\\cdot10^6}{80}=6\\cdot10^6\\ \\text{mm}^3',
+      formula: 'I_x=\\int_A y^2\\,dA=\\frac{bh^3}{12}',
     },
     {
-      title: 'Wymagana wysokość',
-      narration: 'Stąd h≈ 181,7 mm. Pole wynosi wtedy około 14 536 mm^2.',
-      caption: 'Wymagana wysokość i pole przekroju.',
-      visual: 'section',
-      focus: { metric: 'section' },
-      formula:
-        'h=\\sqrt[3]{6\\cdot10^6}\\approx181{,}7\\ \\text{mm},\\quad A=80\\cdot181{,}7\\approx14\\,536\\ \\text{mm}^2',
-    },
-    {
-      title: 'Wariant szerszego przekroju',
+      title: 'Dobór wymaganej wysokości',
       narration:
-        'Gdyby szerokość zwiększyć do 160 mm, wymagana wysokość spadłaby do h=((12· 40· 10^6)/(160))^(1/3)≈ 144,2 mm.',
-      caption: 'Zwiększenie szerokości zmniejsza wymaganą wysokość.',
+        'Zwiększamy wysokość, aż moment osiągnie wymagane 40·10^6 mm^4. Po przekształceniu wzoru otrzymujemy h≈181,7 mm.',
+      caption: 'Wysokość rośnie do wartości, przy której I_x osiąga wymaganie.',
       visual: 'section',
-      focus: { metric: 'section' },
-      formula:
-        'h=\\left(\\frac{12\\cdot40\\cdot10^6}{160}\\right)^{1/3}=(3\\cdot10^6)^{1/3}\\approx144{,}2\\ \\text{mm}',
+      focus: { metric: 'Ix' },
+      formula: 'h=\\sqrt[3]{\\frac{12I_x}{b}}\\approx181{,}7\\ \\text{mm}',
     },
     {
-      title: 'Koszt materiałowy wariantu',
+      title: 'Pasy pionowe budują I_y',
       narration:
-        'Pole wzrosłoby jednak do około 23 075 mm^2, czyli przekrój zużyłby znacznie więcej materiału przy tym samym I.',
-      caption: 'Szerszy przekrój ma większe pole przy tym samym momencie bezwładności.',
-      visual: 'section',
-      focus: { metric: 'section' },
-      formula: 'A=160\\cdot144{,}2\\approx23\\,075\\ \\text{mm}^2',
-    },
-    {
-      title: 'Moment Iy',
-      narration:
-        'Dla przyjętego przekroju 80 × 181,7 mm moment względem pionowej osi centralnej wynosi I_y=181,7·80³/12≈7,75·10⁶ mm⁴. Jest znacznie mniejszy od I_x, bo materiał leży blisko osi y.',
-      caption: 'Moment względem osi pionowej jest mały przy wąskim przekroju.',
+        'Dla osi pionowej odległością jest x. Ponieważ szerokość wynosi tylko 80 mm, materiał leży blisko osi y, więc I_y jest znacznie mniejsze od I_x.',
+      caption: 'Pasy pionowe; oś y wyznacza odległość x każdego pasa.',
       visual: 'section',
       focus: { metric: 'Iy' },
-      formula: 'I_y=\\frac{181{,}7\\cdot80^3}{12}\\approx7{,}75\\cdot10^6\\ \\text{mm}^4',
+      formula: 'I_y=\\frac{hb^3}{12}\\approx7{,}75\\cdot10^6\\ \\text{mm}^4',
     },
     {
-      title: 'Promień bezwładności',
+      title: 'Szerszy wariant przekroju',
       narration:
-        'Jeżeli wymagane jest i_x=60 mm przy polu A=5000 mm^2, to I_x=i_x^2A=3600· 5000=18· 10^6 mm^4. Taki zapis bywa wygodniejszy w normach i katalogach kształtowników.',
-      caption: 'Promień bezwładności wiąże moment i pole przekroju.',
+        'Po zwiększeniu szerokości do 160 mm wymagana wysokość spada do około 144,2 mm. Pole przekroju rośnie jednak z 14 536 do 23 075 mm^2, więc ten sam moment kosztuje więcej materiału.',
+      caption: 'Ten sam I_x można uzyskać różnymi proporcjami boków, ale nie przy tym samym polu.',
       visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: 'I_x=i_x^2A=60^2\\cdot5000=18\\cdot10^6\\ \\text{mm}^4',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'Wniosek jest ogólny: przy zginaniu w jednej płaszczyźnie opłaca się zwiększać wymiar prostopadły do osi obojętnej, a nie równoległy do niej.',
-      caption: 'Wysoki i wąski przekrój jest efektywniejszy przy zginaniu względem osi poziomej.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula:
-        '\\boxed{h\\approx181{,}7\\ \\text{mm},\\quad A\\approx14\\,536\\ \\text{mm}^2,\\quad I_y\\approx7{,}75\\cdot10^6\\ \\text{mm}^4}',
+      focus: { metric: 'section' },
+      formula: 'h=\\left(\\frac{12\\cdot40\\cdot10^6}{160}\\right)^{1/3}\\approx144{,}2\\ \\text{mm}',
     },
   ],
 } satisfies SolutionData

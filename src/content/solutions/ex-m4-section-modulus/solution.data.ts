@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SectionModulusExample1Animation } from './animation'
 
 export default {
   id: 'ex-m4-section-modulus',
@@ -20,79 +21,64 @@ export default {
       { label: 'I_x', value: '5,674·10⁶ mm⁴', focus: 'Ix', reveal: 0 },
       { label: 'c_d', value: '82,73 mm', focus: 'centroid', reveal: 0 },
       { label: 'c_g', value: '37,27 mm', focus: 'centroid' },
-      { label: 'W_d', value: '68,6·10³ mm³', focus: 'Ix' },
-      { label: 'W_g', value: '152,2·10³ mm³', focus: 'Ix' },
-      { label: 'M_x', value: '10·10⁶ N·mm', focus: 'Ix' },
-      { label: 'σ_d', value: '145,8 MPa', focus: 'Ix' },
-      { label: 'σ_g', value: '65,7 MPa', focus: 'Ix' },
     ],
     note: 'Teownik o różnych odległościach górnej i dolnej krawędzi od osi centralnej.',
   },
+  animation: SectionModulusExample1Animation,
   scenes: [
     {
       title: 'Dane i układ osi',
       narration:
-        'Przekrój jest teownikiem o wysokości 120 mm. Oś centralna leży 82,73 mm nad dolną krawędzią, więc odległości skrajnych włókien są różne.',
-      caption: 'Oś centralna nie leży w połowie wysokości przekroju.',
+        'Przekrój jest teownikiem o wysokości 120 mm. Oś obojętna przechodzi przez środek ciężkości, który leży 82,73 mm nad dolną krawędzią.',
+      caption: 'Oś obojętna nie leży w połowie wysokości przekroju.',
       visual: 'section',
-      focus: { metric: 'centroid' },
-      formula: 'c_d=82{,}73\\ \\text{mm},\\quad c_g=120-82{,}73=37{,}27\\ \\text{mm}',
+      focus: { metric: 'model' },
+      formula: 'I_x=5{,}674\\cdot10^6\\ \\text{mm}^4,\\quad c_d=82{,}73\\ \\text{mm}',
     },
     {
       title: 'Odległości skrajnych włókien',
-      narration: 'Odległość dolnej krawędzi od osi: c_d=82,73 mm. Odległość górnej krawędzi: c_g=120-82,73=37,27 mm.',
+      narration:
+        'Odległość dolnej krawędzi od osi wynosi c_d=82,73 mm. Odległość górnej krawędzi to c_g=120-82,73=37,27 mm.',
       caption: 'Dolna krawędź jest dalej od osi niż górna.',
       visual: 'section',
-      focus: { metric: 'centroid' },
-      formula: 'c_d=82{,}73\\ \\text{mm},\\quad c_g=37{,}27\\ \\text{mm}',
+      focus: { metric: 'c' },
+      formula: 'c_d=82{,}73\\ \\text{mm},\\quad c_g=120-82{,}73=37{,}27\\ \\text{mm}',
     },
     {
-      title: 'Wskaźnik dla dolnej krawędzi',
-      narration: 'Wskaźnik dla dolnej krawędzi: W_d=I_x/c_d=5,674· 10^6/82,73≈ 68,6· 10^3 mm^3.',
-      caption: 'Wskaźnik dla dolnej krawędzi.',
+      title: 'Rozkład naprężeń',
+      narration:
+        'Naprężenie rośnie liniowo od zera na osi obojętnej. Na skrajnym włóknie osiąga największą wartość, a dolna krawędź jako dalsza od osi ma większe naprężenie niż górna.',
+      caption: 'Zero na osi obojętnej, maksimum na krawędziach.',
       visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: 'W_d=I_x/c_d=5{,}674\\cdot10^6/82{,}73\\approx68{,}6\\cdot10^3\\ \\text{mm}^3',
+      focus: { metric: 'stress' },
+      formula: '|\\sigma|=\\frac{|M_x|\\,|y|}{I_x}',
     },
     {
-      title: 'Wskaźnik dla górnej krawędzi',
-      narration: 'Wskaźnik dla górnej krawędzi: W_g=I_x/c_g=5,674· 10^6/37,27≈ 152,2· 10^3 mm^3.',
-      caption: 'Wskaźnik dla górnej krawędzi jest większy.',
+      title: 'Wskaźniki obu krawędzi',
+      narration:
+        'Wskaźnik dla dolnej krawędzi to W_d=I_x/c_d≈68,6·10³ mm³, a dla górnej W_g=I_x/c_g≈152,2·10³ mm³. Mniejszy wskaźnik oznacza większe naprężenie przy tym samym momencie.',
+      caption: 'Większa odległość c daje mniejszy wskaźnik W.',
       visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: 'W_g=I_x/c_g=5{,}674\\cdot10^6/37{,}27\\approx152{,}2\\cdot10^3\\ \\text{mm}^3',
+      focus: { metric: 'W' },
+      formula:
+        'W_d=\\frac{I_x}{c_d}\\approx68{,}6\\cdot10^3\\ \\text{mm}^3,\\quad W_g=\\frac{I_x}{c_g}\\approx152{,}2\\cdot10^3\\ \\text{mm}^3',
     },
     {
-      title: 'Zamiana jednostek momentu',
-      narration: 'Moment zamieniamy na N·mm: 10 kN·m=10· 10^6 N·mm.',
-      caption: 'Do wzoru na naprężenie moment podstawiamy w N·mm.',
+      title: 'Moment i naprężenie dolnej krawędzi',
+      narration:
+        'Moment zamieniamy na N·mm: 10 kN·m=10·10^6 N·mm. Naprężenie na dolnej krawędzi wynosi σ_d=10·10^6/(68,6·10^3)≈145,8 MPa.',
+      caption: 'Dolna krawędź decyduje o wytężeniu.',
       visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: '10\\ \\text{kN}\\cdot\\text{m}=10\\cdot10^6\\ \\text{N}\\cdot\\text{mm}',
-    },
-    {
-      title: 'Naprężenie na dolnej krawędzi',
-      narration: 'Naprężenie na dolnej krawędzi: σ_d=10· 10^6/(68,6· 10^3)≈ 145,8 MPa.',
-      caption: 'Naprężenie na dolnej krawędzi.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: '\\sigma_d=10\\cdot10^6/(68{,}6\\cdot10^3)\\approx145{,}8\\ \\text{MPa}',
-    },
-    {
-      title: 'Naprężenie na górnej krawędzi',
-      narration: 'Naprężenie na górnej krawędzi: σ_g=10· 10^6/(152,2· 10^3)≈ 65,7 MPa.',
-      caption: 'Naprężenie na górnej krawędzi jest mniejsze.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: '\\sigma_g=10\\cdot10^6/(152{,}2\\cdot10^3)\\approx65{,}7\\ \\text{MPa}',
+      focus: { metric: 'check' },
+      formula: '\\sigma_d=\\frac{10\\cdot10^6}{68{,}6\\cdot10^3}\\approx145{,}8\\ \\text{MPa}',
     },
     {
       title: 'Interpretacja wyniku',
       narration:
-        'Strona krytyczna to dolna krawędź, bo ma mniejsze W i większe naprężenie. Dla typowej stali konstrukcyjnej o σ_dop=160 MPa przekrój spełnia warunek z niewielkim zapasem.',
+        'Naprężenie na górnej krawędzi wynosi około 65,7 MPa. Strona krytyczna to dolna krawędź, bo ma mniejsze W i większe naprężenie. Dla stali konstrukcyjnej o σ_dop=160 MPa przekrój spełnia warunek z niewielkim zapasem.',
       caption: 'O wytężeniu decyduje dolna krawędź.',
       visual: 'section',
-      focus: { metric: 'Ix' },
+      focus: { metric: 'result' },
       formula:
         '\\boxed{W_d\\approx68{,}6\\cdot10^3\\ \\text{mm}^3,\\quad W_g\\approx152{,}2\\cdot10^3\\ \\text{mm}^3,\\quad \\sigma_d\\approx145{,}8\\ \\text{MPa},\\quad \\sigma_g\\approx65{,}7\\ \\text{MPa}}',
     },

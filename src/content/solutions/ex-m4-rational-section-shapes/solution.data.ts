@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { RationalSectionShapesAnimation } from './animation'
 
 export default {
   id: 'ex-m4-rational-section-shapes',
@@ -7,189 +8,76 @@ export default {
   given: ['D = 100 mm', 'd = 90 mm', 'c = 50 mm'],
   result:
     'Rura ma około 19,0% masy przekroju pełnego, zachowując około 34,4% jego I i W. Na jednostkę pola jest około 1,81 razy efektywniejsza, ale przy tej samej średnicy zewnętrznej ma mniejszą nośność bezwzględną. Porównanie „rura jest lepsza” ma sens tylko po ustaleniu kryterium: masa, średnica czy nośność.',
-  figure: {
-    kind: 'section',
-    width: 100,
-    height: 100,
-    parts: [
-      {
-        x: 0,
-        y: 0,
-        width: 100,
-        height: 100,
-        tone: 'light',
-      },
-    ],
-    holes: [
-      {
-        cx: 50,
-        cy: 50,
-        r: 45,
-        label: '∅90',
-      },
-    ],
-    centroid: {
-      x: 50,
-      y: 50,
-    },
-    values: [
-      {
-        label: 'D',
-        value: '100 mm',
-        focus: 'section',
-        reveal: 0,
-      },
-      {
-        label: 'd',
-        value: '90 mm',
-        focus: 'section',
-        reveal: 0,
-      },
-      {
-        label: 'c',
-        value: '50 mm',
-        focus: 'section',
-        reveal: 0,
-      },
-      {
-        label: 'A pełnego',
-        value: '7854 mm²',
-        focus: 'section',
-      },
-      {
-        label: 'A rury',
-        value: '1492 mm²',
-        focus: 'section',
-      },
-      {
-        label: 'I pełnego',
-        value: '4,909·10⁶ mm⁴',
-        focus: 'Ix',
-      },
-      {
-        label: 'I rury',
-        value: '1,688·10⁶ mm⁴',
-        focus: 'Ix',
-      },
-      {
-        label: 'W pełnego',
-        value: '98,2·10³ mm³',
-        focus: 'Ix',
-      },
-      {
-        label: 'W rury',
-        value: '33,8·10³ mm³',
-        focus: 'Ix',
-      },
-      {
-        label: 'I/A rury',
-        value: '1131 mm²',
-        focus: 'Iy',
-      },
-    ],
-    note: 'Schemat: przekrój rurowy D = 100 mm i d = 90 mm narysowany jako kwadrat z otworem; wymiary są rzeczywiste.',
-    shape: 'circle',
-  },
+  animation: RationalSectionShapesAnimation,
   scenes: [
     {
-      title: 'Dane i układ osi',
+      title: 'Model: ta sama średnica zewnętrzna',
       narration:
-        'Porównujemy pełne koło o średnicy 100 mm z rurą o średnicy zewnętrznej 100 mm i wewnętrznej 90 mm. Obie figury mają wspólny środek i wspólną odległość skrajnego włókna c=50 mm.',
-      caption: 'Pełny przekrój i rura o tej samej średnicy zewnętrznej.',
+        'Porównujemy pełne koło o średnicy D = 100 mm z rurą o średnicy zewnętrznej D = 100 mm i wewnętrznej d = 90 mm. Obie figury mają wspólny środek, a odległość skrajnego włókna od osi obojętnej wynosi c = 50 mm.',
+      caption: 'Przy tej samej średnicy zewnętrznej rura ma znacznie mniej materiału.',
       visual: 'section',
       focus: {
-        metric: 'section',
+        metric: 'model',
       },
       formula: 'D=100\\ \\text{mm},\\quad d=90\\ \\text{mm},\\quad c=50\\ \\text{mm}',
     },
     {
-      title: 'Pole przekroju',
+      title: 'Materiał względem osi obojętnej',
       narration:
-        'Pole pełnego koła: A_p=π· 100^2/4=7854 mm^2. Pole rury: A_r=π(100^2-90^2)/4=1492 mm^2, czyli około 19,0% pola pełnego.',
-      caption: 'Pole rury stanowi około 19% pola przekroju pełnego.',
+        'Przy zginaniu naprężenie rośnie liniowo od zera na osi obojętnej do maksimum na obrzeżach. Wkład elementu pola do momentu bezwładności jest proporcjonalny do r², więc materiał blisko osi pracuje słabo, a materiał na obrzeżach decyduje o sztywności.',
+      caption: 'W pełnym kole materiał wypełnia też rdzeń; w rurze cały materiał leży daleko od osi.',
       visual: 'section',
       focus: {
-        metric: 'section',
+        metric: 'distribution',
+      },
+      formula: 'I=\\int_A r^2\\,dA,\\qquad \\Delta I\\propto r^2\\,\\Delta A',
+    },
+    {
+      title: 'Pole i masa',
+      narration:
+        'Pole pełnego koła wynosi 7854 mm², a pole rury 1492 mm². Rura zachowuje około 19,0% materiału, bo z pełnego przekroju usunięto rdzeń o średnicy 90 mm.',
+      caption: 'Rdzeń o średnicy 90 mm odpowiada około 81% pola przekroju pełnego.',
+      visual: 'section',
+      focus: {
+        metric: 'area',
       },
       formula:
-        'A_p=\\frac{\\pi\\cdot100^2}{4}=7854\\ \\text{mm}^2,\\quad A_r=\\frac{\\pi(100^2-90^2)}{4}=1492\\ \\text{mm}^2',
+        'A_p=\\frac{\\pi\\cdot100^2}{4}=7854\\ \\text{mm}^2,\\qquad A_r=\\frac{\\pi(100^2-90^2)}{4}=1492\\ \\text{mm}^2',
     },
     {
-      title: 'Moment pełnego koła',
-      narration: 'Moment pełnego koła: I_p=π· 100^4/64=4,909· 10^6 mm^4.',
-      caption: 'Moment bezwładności pełnego koła.',
-      visual: 'section',
-      focus: {
-        metric: 'Ix',
-      },
-      formula: 'I_p=\\pi\\cdot100^4/64=4{,}909\\cdot10^6\\ \\text{mm}^4',
-    },
-    {
-      title: 'Moment rury',
-      narration: 'Moment rury: I_r=π(100^4-90^4)/64=1,688· 10^6 mm^4, czyli około 34,4% momentu pełnego.',
-      caption: 'Moment rury jest mniejszy, ale jej masa jest znacznie mniejsza.',
-      visual: 'section',
-      focus: {
-        metric: 'Ix',
-      },
-      formula: 'I_r=\\pi(100^4-90^4)/64=1{,}688\\cdot10^6\\ \\text{mm}^4',
-    },
-    {
-      title: 'Wskaźniki wytrzymałości',
+      title: 'Moment bezwładności',
       narration:
-        'Wskaźniki: W_p=I_p/50=98,2· 10^3 mm^3 oraz W_r=I_r/50=33,8· 10^3 mm^3. Stosunek W jest równy stosunkowi I, bo c jest takie samo.',
-      caption: 'Wskaźniki wytrzymałości przy tej samej odległości skrajnego włókna.',
-      visual: 'section',
-      focus: {
-        metric: 'Ix',
-      },
-      formula: 'W_p=I_p/50=98{,}2\\cdot10^3\\ \\text{mm}^3,\\quad W_r=I_r/50=33{,}8\\cdot10^3\\ \\text{mm}^3',
-    },
-    {
-      title: 'Efektywność materiału',
-      narration:
-        'Efektywność: I_p/A_p=625 mm^2 i I_r/A_r≈1131 mm^2, czyli rura ma około 1,81 razy większe I/A. Podobnie W_r/A_r≈22,6 mm wobec W_p/A_p=12,5 mm.',
-      caption: 'Na jednostkę pola rura jest około 1,81 razy efektywniejsza.',
-      visual: 'section',
-      focus: {
-        metric: 'Iy',
-      },
-      formula: 'I_p/A_p=625\\ \\text{mm}^2,\\quad I_r/A_r\\approx1131\\ \\text{mm}^2',
-    },
-    {
-      title: 'Moment Iy',
-      narration:
-        'Przekrój jest kołowo symetryczny, więc moment względem osi pionowej jest taki sam jak względem poziomej: I_y=I_x=1,688·10⁶ mm⁴.',
-      caption: 'Dla przekroju kołowego I_x = I_y.',
-      visual: 'section',
-      focus: {
-        metric: 'Iy',
-      },
-      formula: 'I_y=I_x=\\pi(100^4-90^4)/64=1{,}688\\cdot10^6\\ \\text{mm}^4',
-    },
-    {
-      title: 'Naprężenia przy zginaniu',
-      narration:
-        'Przy momencie 5 kN·m naprężenie w pręcie pełnym wynosi około 50,9 MPa, a w rurze około 148,1 MPa. Rura ma mniejszą nośność bezwzględną przy tej samej średnicy, ale lepiej wykorzystuje materiał.',
-      caption: 'Mniejsza nośność bezwzględna nie oznacza gorszego wykorzystania materiału.',
+        'Mimo mniejszego pola rura zachowuje około 34,4% momentu bezwładności przekroju pełnego: 1,688·10⁶ mm⁴ wobec 4,909·10⁶ mm⁴. Decyduje o tym kwadrat odległości od osi.',
+      caption: 'Ubytek pola jest większy niż ubytek I, bo usunięty materiał leżał blisko osi.',
       visual: 'section',
       focus: {
         metric: 'Ix',
       },
       formula:
-        '\\sigma_p=\\frac{5\\cdot10^6}{98{,}2\\cdot10^3}\\approx50{,}9\\ \\text{MPa},\\quad \\sigma_r=\\frac{5\\cdot10^6}{33{,}8\\cdot10^3}\\approx148{,}1\\ \\text{MPa}',
+        'I_p=\\pi\\cdot100^4/64=4{,}909\\cdot10^6\\ \\text{mm}^4,\\qquad I_r=\\pi(100^4-90^4)/64=1{,}688\\cdot10^6\\ \\text{mm}^4',
     },
     {
-      title: 'Interpretacja wyniku',
+      title: 'Wskaźnik i naprężenia',
       narration:
-        'Rura ma około 19,0% masy przekroju pełnego, zachowując około 34,4% jego I i W. Porównanie „rura jest lepsza” ma sens tylko po ustaleniu kryterium: masa, średnica czy nośność.',
-      caption: 'Wybór przekroju zależy od przyjętego kryterium.',
+        'Przy tym samym c = 50 mm wskaźnik W jest proporcjonalny do I: W_p = 98,2·10³ mm³ i W_r = 33,8·10³ mm³. Przy momencie 5 kN·m naprężenie w rurze wynosi około 148 MPa, a w pręcie pełnym około 51 MPa.',
+      caption: 'Rura ma mniejszą nośność bezwzględną przy tej samej średnicy, ale lepiej wykorzystuje materiał.',
       visual: 'section',
       focus: {
-        metric: 'section',
+        metric: 'stress',
       },
       formula:
-        '\\boxed{A_r=1492\\ \\text{mm}^2,\\quad I_r=1{,}688\\cdot10^6\\ \\text{mm}^4,\\quad W_r=33{,}8\\cdot10^3\\ \\text{mm}^3}',
+        'W_p=\\frac{I_p}{50}=98{,}2\\cdot10^3\\ \\text{mm}^3,\\qquad W_r=\\frac{I_r}{50}=33{,}8\\cdot10^3\\ \\text{mm}^3',
+    },
+    {
+      title: 'Efektywność i wybór',
+      narration:
+        'Na jednostkę pola rura ma I/A ≈ 1131 mm² wobec 625 mm² dla pręta pełnego, czyli około 1,81 razy więcej. Promień bezwładności i = √(I/A) rośnie z 25 mm do około 33,6 mm. Wybór zależy od kryterium: przy tej samej średnicy pręt pełny ma większe W, a rura lepiej wykorzystuje masę.',
+      caption: 'Porównuj przekroje przy ustalonym kryterium: ta sama średnica, ta sama masa czy ta sama nośność.',
+      visual: 'section',
+      focus: {
+        metric: 'efficiency',
+      },
+      formula: '\\frac{I_r/A_r}{I_p/A_p}\\approx1{,}81,\\qquad i=\\sqrt{I/A},\\qquad \\frac{W_r}{W_p}\\approx0{,}344',
     },
   ],
 } satisfies SolutionData

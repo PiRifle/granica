@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { SteinerParallelAxisAnimation } from './animation'
 
 export default {
   id: 'ex-m4-steiner-parallel-axis',
@@ -7,6 +8,7 @@ export default {
   given: ['półki 120 × 20 mm', 'środnik 20 × 160 mm'],
   result:
     'Moment bezwładności dwuteownika względem poziomej osi centralnej wynosi około 45,87· 10^6 mm^4≈ 4587 cm^4. Przy jednej trzeciej materiału przekrój zachowuje ponad połowę sztywności pełnego prostokąta, co pokazuje skuteczność oddalania półek od osi.',
+  animation: SteinerParallelAxisAnimation,
   figure: {
     kind: 'section',
     width: 120,
@@ -31,84 +33,60 @@ export default {
   },
   scenes: [
     {
-      title: 'Dane i układ osi',
+      title: 'Model i dane',
       narration:
-        'Dwuteownik ma wysokość 200 mm i szerokość 120 mm. Półki mają 120 × 20 mm, a środnik 20 × 160 mm. Z symetrii środek ciężkości leży w połowie wysokości, czyli 100 mm od dolnej krawędzi.',
+        'Dwuteownik ma wysokość 200 mm i szerokość 120 mm. Półki mają 120 × 20 mm, a środnik 20 × 160 mm. Z symetrii środek ciężkości leży w połowie wysokości, czyli 100 mm od dolnej krawędzi. Pola: półka 2400 mm², środnik 3200 mm², razem 8000 mm².',
       caption: 'Dwuteownik symetryczny względem obu osi centralnych.',
       visual: 'section',
       focus: { metric: 'section' },
-      formula: 'A_p=120\\cdot20,\\quad A_s=20\\cdot160,\\quad \\bar{y}=100\\ \\text{mm}',
+      formula:
+        'A_p=120\\cdot20=2400\\ \\text{mm}^2,\\quad A_s=20\\cdot160=3200\\ \\text{mm}^2,\\quad \\bar{y}=100\\ \\text{mm}',
     },
     {
-      title: 'Pola części',
+      title: 'Osie centralne części',
       narration:
-        'Z symetrii środek ciężkości leży w połowie wysokości, czyli 100 mm od dolnej krawędzi. Pola: półka A_p=120· 20=2400 mm^2, środnik A_s=20· 160=3200 mm^2, razem A=8000 mm^2.',
-      caption: 'Z symetrii środek ciężkości leży w połowie wysokości. Pola: półka 2400 mm², środnik 3200 mm².',
-      visual: 'section',
-      focus: { metric: 'section' },
-      formula: 'A_p=120\\cdot 20=2400\\ \\text{mm}^2,\\quad A_s=20\\cdot160=3200\\ \\text{mm}^2',
-    },
-    {
-      title: 'Moment własny półki',
-      narration: 'Półka: I_xc,p=120· 20^3/12=80 000 mm^4. Jej środek leży 90 mm od osi centralnej, więc a_p=90 mm.',
-      caption: 'Półka: I_xc,p=120· 20^3/12=80 000 mm^4; a_p=90 mm.',
+        'Każda półka ma własną oś centralną 90 mm od wspólnej osi x_c, bo jej środek leży na wysokości 10 mm, a wspólny środek na 100 mm. Środnik leży na wspólnej osi, więc dla niego a_s=0. To odległości, które wejdą do składnika Steinera.',
+      caption: 'Dla obu półek a_p=90 mm; dla środnika a_s=0.',
       visual: 'section',
       focus: { metric: 'Ix' },
-      formula: 'I_{xc,p}=120\\cdot 20^3/12=80\\,000\\ \\text{mm}^4',
+      formula: 'a_p=100-10=90\\ \\text{mm},\\qquad a_s=100-100=0',
+    },
+    {
+      title: 'Przesunięcie półki o d',
+      narration:
+        'Przesuwamy oś półki równolegle o d=90 mm do wspólnej osi centralnej. Składnik przesunięcia rośnie z kwadratem odległości: A_p d²=2400·90²=19 440 000 mm⁴. Na wykresie słupek rośnie coraz szybciej, bo zależność jest kwadratowa.',
+      caption: 'Składnik A d² rośnie z kwadratem przesunięcia osi.',
+      visual: 'section',
+      focus: { metric: 'Ix' },
+      formula: 'A_p d^2=2400\\cdot90^2=19\\,440\\,000\\ \\text{mm}^4',
     },
     {
       title: 'Steiner dla półki',
       narration:
-        'Wkład jednej półki: 80 000+2400· 90^2=80 000+19 440 000=19 520 000 mm^4. Dwie półki dają 39 040 000 mm^4.',
-      caption: 'Wkład jednej półki: 80 000+2400· 90^2=19 520 000 mm^4.',
+        'Wkład jednej półki to moment własny plus składnik przesunięcia: 80 000+2400·90²=80 000+19 440 000=19 520 000 mm⁴. Dwie półki dają 39 040 000 mm⁴. Moment własny jest przy tym znikomy wobec A a².',
+      caption: 'Wkład jednej półki: 80 000+2400·90²=19 520 000 mm⁴.',
       visual: 'section',
       focus: { metric: 'Ix' },
-      formula: '80\\,000+2400\\cdot 90^2=80\\,000+19\\,440\\,000=19\\,520\\,000\\ \\text{mm}^4',
+      formula: '80\\,000+2400\\cdot90^2=80\\,000+19\\,440\\,000=19\\,520\\,000\\ \\text{mm}^4',
     },
     {
-      title: 'Moment środnika',
+      title: 'Moment środnika i suma',
       narration:
-        'Środnik: I_xc,s=20· 160^3/12≈ 6 826 667 mm^4. Jego środek leży na osi centralnej, więc a_s=0 i nie ma składnika przesunięcia.',
-      caption: 'Środnik: I_xc,s=20· 160^3/12≈ 6 826 667 mm^4; a_s=0.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: 'I_{xc,s}=20\\cdot 160^3/12\\approx 6\\,826\\,667\\ \\text{mm}^4',
-    },
-    {
-      title: 'Suma momentów Ix',
-      narration: 'Suma: I_x=39 040 000+6 826 667=45 866 667 mm^4≈ 45,87· 10^6 mm^4.',
-      caption: 'Suma: I_x=39 040 000+6 826 667=45 866 667 mm^4.',
+        'Środnik: I_xc,s=20·160³/12≈6 826 667 mm⁴. Jego środek leży na wspólnej osi, więc a_s=0 i nie ma składnika przesunięcia. Suma: 39 040 000+6 826 667=45 866 667 mm⁴≈45,87·10⁶ mm⁴.',
+      caption: 'Suma: I_x=39 040 000+6 826 667=45 866 667 mm⁴.',
       visual: 'section',
       focus: { metric: 'Ix' },
       formula: 'I_x=39\\,040\\,000+6\\,826\\,667=45\\,866\\,667\\ \\text{mm}^4\\approx45{,}87\\cdot10^6\\ \\text{mm}^4',
     },
     {
-      title: 'Kontrola przez pustki',
+      title: 'Kontrola i wniosek',
       narration:
-        'Kontrola przez odejmowanie pustek: pełny prostokąt 120 × 200 ma I=80· 10^6 mm^4. Dwie pustki 50 × 160 mają razem 2· 50· 160^3/12≈ 34,13· 10^6 mm^4. Różnica daje 45,87· 10^6 mm^4.',
-      caption: 'Kontrola przez odejmowanie pustek potwierdza wynik.',
-      visual: 'section',
-      focus: { metric: 'Ix' },
-      formula: 'I=80\\cdot10^6-2\\cdot\\frac{50\\cdot160^3}{12}\\approx45{,}87\\cdot10^6\\ \\text{mm}^4',
-    },
-    {
-      title: 'Moment Iy',
-      narration:
-        'Względem pionowej osi centralnej półki mają moment własny 20·120³/12, a środnik 160·20³/12. Wszystkie środki leżą na osi y, więc nie ma składników Steinera.',
-      caption: 'Przy osi pionowej w trzeciej potędze występują szerokości elementów.',
-      visual: 'section',
-      focus: { metric: 'Iy' },
-      formula: 'I_y=2\\cdot\\frac{20\\cdot120^3}{12}+\\frac{160\\cdot20^3}{12}\\approx5{,}867\\cdot10^6\\ \\text{mm}^4',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'Porównanie z pełnym prostokątem: pole spadło z 24 000 do 8000 mm², czyli do jednej trzeciej, a moment pozostał na poziomie około 57,3% wartości pełnej.',
+        'Kontrola przez pustki: pełny prostokąt 120 × 200 ma I=80·10⁶ mm⁴, a dwie pustki 50 × 160 mają razem 34,13·10⁶ mm⁴. Różnica daje 45,87·10⁶ mm⁴. Pole spadło z 24 000 do 8000 mm², czyli do jednej trzeciej, ale moment pozostał na poziomie około 57,3% wartości pełnej. Moment względem pionowej osi wynosi około 5,867·10⁶ mm⁴.',
       caption: 'Oddalenie półek od osi daje dużą sztywność przy małym polu.',
       visual: 'section',
       focus: { metric: 'Ix' },
       formula:
-        '\\boxed{A=8000\\ \\text{mm}^2,\\quad I_x\\approx45{,}87\\cdot10^6\\ \\text{mm}^4,\\quad I_y\\approx5{,}867\\cdot10^6\\ \\text{mm}^4}',
+        'I=80\\cdot10^6-2\\cdot\\frac{50\\cdot160^3}{12}\\approx45{,}87\\cdot10^6\\ \\text{mm}^4,\\quad I_y\\approx5{,}867\\cdot10^6\\ \\text{mm}^4',
     },
   ],
 } satisfies SolutionData

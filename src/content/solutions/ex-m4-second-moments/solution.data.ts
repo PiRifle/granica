@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { PipeSecondMomentAnimation } from './animation'
 
 export default {
   id: 'ex-m4-second-moments',
@@ -79,94 +80,52 @@ export default {
     note: 'Schemat: przekrój kołowy rurowy D = 120 mm i d = 100 mm narysowany jako kwadrat z otworem; wymiary są rzeczywiste.',
     shape: 'circle',
   },
+  animation: PipeSecondMomentAnimation,
   scenes: [
     {
-      title: 'Dane i układ osi',
+      title: 'Model: pierścień i osie',
       narration:
-        'Rura ma średnicę zewnętrzną D=120 mm i wewnętrzną d=100 mm. Osie x i y przechodzą przez środek koła, więc momenty względem obu osi są jednakowe.',
-      caption: 'Przekrój rurowy z osią centralną w środku koła.',
+        'Rura ma średnicę zewnętrzną D=120 mm i wewnętrzną d=100 mm. Osie x i y przechodzą przez środek koła, więc przekrój jest symetryczny, a oba momenty osiowe będą jednakowe.',
+      caption: 'Pierścień o średnicach D i d; oś x jest pozioma, a oś y pionowa.',
       visual: 'section',
-      focus: {
-        metric: 'section',
-      },
+      focus: { metric: 'section' },
       formula: 'D=120\\ \\text{mm},\\quad d=100\\ \\text{mm}',
     },
     {
-      title: 'Pole przekroju rury',
+      title: 'Pasy poziome budują I_x',
       narration:
-        'Pole rury: A=(π(120^2-100^2))/(4)=(π· 4400)/(4)≈ 3455,75 mm^2. Pole pręta pełnego wynosi 11 309,73 mm^2, czyli rura ma około 30,6% pola.',
-      caption: 'Pole rury w porównaniu z pełnym prętem.',
+        'Dzielimy pierścień na poziome pasy elementarne. Wkład pasa wynosi y^2 dA, więc pasy położone daleko od osi x znaczą znacznie więcej niż te przy otworze.',
+      caption: 'Pasy poziome; oś x wyznacza odległość y każdego pasa.',
       visual: 'section',
-      focus: {
-        metric: 'section',
-      },
-      formula: 'A=\\frac{\\pi(120^2-100^2)}{4}=\\frac{\\pi\\cdot4400}{4}\\approx3455{,}75\\ \\text{mm}^2',
+      focus: { metric: 'Ix' },
+      formula: 'I_x=\\int_A y^2\\,dA',
     },
     {
-      title: 'Moment bezwładności rury',
+      title: 'Odejmowanie otworu',
       narration:
-        'Moment rury: I=(π(120^4-100^4))/(64)≈ 5,27· 10^6 mm^4. Różnica czwartych potęg 120^4-100^4=107 360 000 mm^4.',
-      caption: 'Moment bezwładności względem osi centralnej.',
+        'Najpierw liczymy moment pełnego koła o średnicy D, a potem odejmujemy moment otworu o średnicy d. Odejmujemy czwarte potęgi średnic, a nie same średnice.',
+      caption: 'Materiał otworu jest wycinany z pełnego koła.',
       visual: 'section',
-      focus: {
-        metric: 'Ix',
-      },
-      formula: 'I=\\frac{\\pi(120^4-100^4)}{64}\\approx5{,}27\\cdot10^6\\ \\text{mm}^4',
+      focus: { metric: 'Ix' },
+      formula: 'I=\\frac{\\pi D^4}{64}-\\frac{\\pi d^4}{64}=\\frac{\\pi(D^4-d^4)}{64}',
     },
     {
-      title: 'Moment pełnego pręta',
+      title: 'Pasy pionowe budują I_y',
       narration:
-        'Moment pręta pełnego: I_s=(π· 120^4)/(64)≈ 10,179· 10^6 mm^4. Rura zachowuje około 51,8% momentu pełnego pręta.',
-      caption: 'Moment pełnego pręta o tej samej średnicy zewnętrznej.',
+        'Analogicznie dzielimy przekrój na pionowe pasy. Teraz odległością od osi y jest x, więc każdy pas wnosi x^2 dA i buduje moment I_y.',
+      caption: 'Pasy pionowe; oś y wyznacza odległość x każdego pasa.',
       visual: 'section',
-      focus: {
-        metric: 'Ix',
-      },
-      formula: 'I_s=\\frac{\\pi\\cdot120^4}{64}\\approx10{,}179\\cdot10^6\\ \\text{mm}^4',
+      focus: { metric: 'Iy' },
+      formula: 'I_y=\\int_A x^2\\,dA,\\qquad I_y=I_x',
     },
     {
-      title: 'Promień bezwładności rury',
-      narration: 'Promień bezwładności rury: i=√(I/A)=√(5,270· 10^6/3455,75)≈ 39,05 mm.',
-      caption: 'Promień bezwładności rury.',
-      visual: 'section',
-      focus: {
-        metric: 'Ix',
-      },
-      formula: 'i=\\sqrt{I/A}=\\sqrt{5{,}270\\cdot10^6/3455{,}75}\\approx39{,}05\\ \\text{mm}',
-    },
-    {
-      title: 'Promień bezwładności pręta',
+      title: 'Rura i pręt pełny',
       narration:
-        'Dla pręta pełnego i_s=d/4=30 mm. Większy promień bezwładności rury potwierdza, że jej materiał jest przeciętnie dalej od osi.',
-      caption: 'Dla pręta pełnego i_s=d/4=30 mm.',
+        'Przy tej samej średnicy zewnętrznej rura ma mniej materiału, ale jej materiał leży przeciętnie dalej od osi. Dlatego zachowuje znaczną część momentu pełnego pręta przy mniejszym polu.',
+      caption: 'Ten sam zarys zewnętrzny, inny rozkład materiału względem osi x.',
       visual: 'section',
-      focus: {
-        metric: 'Ix',
-      },
-      formula: 'i_s=\\frac{d}{4}=\\frac{120}{4}=30\\ \\text{mm}',
-    },
-    {
-      title: 'Moment Iy',
-      narration:
-        'Przekrój jest kołowo symetryczny, więc moment względem osi pionowej jest taki sam jak względem poziomej: I_y=I_x≈5,27·10⁶ mm⁴.',
-      caption: 'Dla przekroju kołowego I_x = I_y.',
-      visual: 'section',
-      focus: {
-        metric: 'Iy',
-      },
-      formula: 'I_y=I_x=\\frac{\\pi(120^4-100^4)}{64}\\approx5{,}27\\cdot10^6\\ \\text{mm}^4',
-    },
-    {
-      title: 'Interpretacja wyniku',
-      narration:
-        'Kontrola jednostek: mm^4/mm^2=mm^2, a po pierwiastku otrzymujemy mm — zgodnie z definicją promienia bezwładności.',
-      caption: 'Rura zużywa około 31% materiału i zachowuje około 52% sztywności zginania.',
-      visual: 'section',
-      focus: {
-        metric: 'Ix',
-      },
-      formula:
-        '\\boxed{A\\approx3455{,}75\\ \\text{mm}^2,\\quad I\\approx5{,}27\\cdot10^6\\ \\text{mm}^4,\\quad i\\approx39{,}05\\ \\text{mm}}',
+      focus: { metric: 'section' },
+      formula: 'I_s=\\frac{\\pi D^4}{64},\\qquad A=\\frac{\\pi(D^2-d^2)}{4}',
     },
   ],
 } satisfies SolutionData
