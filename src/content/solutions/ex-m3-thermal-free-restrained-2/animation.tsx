@@ -57,7 +57,7 @@ function Thermometer({ heat }: { heat: number }) {
         rx={4}
         fill={LOAD}
         initial={false}
-        animate={{ y: bottom - 4 - inner * heat, height: Math.max(1, inner * heat) }}
+        animate={{ height: Math.max(1, inner * heat) }}
         transition={{ duration: 0.2 }}
       />
       <circle cx={x + 6} cy={bottom + 2} r={7} fill={LOAD} opacity={0.25 + 0.75 * heat} />

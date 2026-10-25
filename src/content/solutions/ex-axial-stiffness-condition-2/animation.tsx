@@ -108,7 +108,7 @@ function SteppedBar({
         stroke={color2}
         strokeWidth={2}
         initial={false}
-        animate={{ x: centerX - half2, width: half2 * 2, y: boundaryY, height: bottomY - boundaryY }}
+        animate={{ width: half2 * 2, height: bottomY - boundaryY }}
         transition={{ duration: 0.12, ease: 'linear' }}
       />
 

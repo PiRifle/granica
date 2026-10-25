@@ -1,0 +1,193 @@
+---
+id: statyka-wezly-zlozone
+moduleId: statyka-kratownice
+number: 4
+title: 'Węzły złożone i przypadki szczególne'
+shortTitle: 'Węzły złożone'
+description: >-
+  Pręty współliniowe, obciążenie w węźle, symetria i węzły z nadmiarem
+  niewiadomych. Jak czytać geometrię węzła, zanim napiszesz równania.
+eyebrow: 'Więcej niż dwa pręty'
+outcomes:
+  - 'W1 — analizuje węzeł z prętami współliniowymi i obciążeniem zewnętrznym'
+  - 'W2 — rozpoznaje przypadki szczególne: obciążenie wzdłuż pręta i symetrię'
+  - 'U1 — rozwiązuje węzeł złożony bez pomijania znaków i składowych'
+  - 'U2 — decyduje, kiedy odłożyć węzeł i użyć innego narzędzia'
+---
+
+W prostych kratownicach węzeł ma dwa lub trzy pręty, a rachunek sprowadza się do jednego rzutu i jednego podstawienia. W rzeczywistych konstrukcjach węzły bywają bogatsze: spotykają się w nich cztery pręty, dwa z nich leżą na jednej prostej, dochodzi obciążenie zewnętrzne albo kilka prętów ma ten sam kierunek. Taki węzeł nie jest trudniejszy — jest tylko mniej oczywisty. Trzeba najpierw uporządkować geometrię, a dopiero potem pisać równania.
+
+Ta lekcja jest o czytaniu węzła. Nauczysz się zauważać pary prętów współliniowych, rozpoznawać, kiedy obciążenie „przejmuje" rolę trzeciego pręta, i odróżniać symetrię geometrii od symetrii obciążenia. Zobaczysz też, kiedy pozorna nadmiarowość prętów w węźle oznacza, że trzeba odłożyć go na później i sięgnąć po metodę Rittera.
+
+Przykładem będzie kratownica z zastrzałem środkowym, zwana często kratownicą królewską. W węźle dolnym spotykają się dwa współliniowe pasy dolne, pionowy zastrzał i obciążenie. To idealny przypadek, żeby zobaczyć, jak obciążenie zmienia rolę pręta, który bez obciążenia byłby zerowy.
+
+## Zanim zaczniesz
+
+- Umiej rozpoznać pręty zerowe w węźle nieobciążonym.
+- Pamiętaj, że dwa pręty współliniowe działają wzdłuż tej samej linii, ale mogą mieć różne znaki.
+- Rozróżniaj obciążenie zewnętrzne od siły wewnętrznej pręta — oba są siłami, ale mają inne źródło.
+- Umiej rzutować siłę na kierunek prostopadły do wybranej linii.
+- Bądź gotów odłożyć węzeł, jeśli liczba niewiadomych przekracza dwa.
+
+## Model i intuicja
+
+Wyobraź sobie węzeł, w którym dwa pręty tworzą jedną prostą, a trzeci odchodzi pod kątem. To najczęstsza sytuacja w pasach kratownic: pas górny lub dolny jest ciągły, a do węzła dochodzi ukośnica albo pion. Jeśli w węźle nie ma obciążenia, trzeci pręt jest zerowy — to druga reguła z lekcji o prętach zerowych. Ale wystarczy przyłożyć obciążenie, żeby ten sam trzeci pręt zaczął przenosić siłę. Reguła nie znika; znika jej założenie.
+
+Drugi przypadek szczególny to obciążenie działające wzdłuż jednego z prętów. W węźle z dwoma nierównoległymi prętami i siłą wzdłuż pierwszego z nich, rzut na kierunek prostopadły do pierwszego pręta eliminuje zarówno ten pręt, jak i obciążenie. Zostaje drugi pręt równy zeru. Pierwszy pręt przejmuje całe obciążenie. To bardzo praktyczna obserwacja: czasem „dziwna" siła w węźle jest po prostu obciążeniem przenoszonym przez jeden pręt.
+
+Trzeci przypadek to cztery pręty tworzące dwie pary współliniowe. W węźle nieobciążonym każde dwie przeciwległe siły muszą się równoważyć, więc siły w parach są równe co do wartości i przeciwne co do zwrotu. To nie znaczy, że są zerowe — mogą przenosić siłę przez węzeł. Taki węzeł sam nie wystarcza do wyznaczenia wartości; potrzebne są równania z sąsiednich węzłów.
+
+Symetria bywa pokusą. Jeśli konstrukcja i obciążenie są symetryczne, można wnioskować o równości sił w symetrycznych prętach. Ale symetria geometrii bez symetrii obciążenia nie daje takich wniosków. Zawsze sprawdź trzy rzeczy: geometrię, obciążenia i warunki podparcia. Dopiero ich zgodność pozwala użyć symetrii jako skrótu.
+
+## Laboratorium: co ustawić
+
+Zbuduj węzeł z dwoma prętami współliniowymi i trzecim pod kątem. Najpierw pozostaw węzeł nieobciążony i sprawdź, czy trzeci pręt ma zero. Potem przyłóż obciążenie prostopadłe do linii współliniowej i obserwuj, jak trzeci pręt przejmuje tę składową. Na koniec zmień kierunek obciążenia na wzdłużny i zobacz, jak zmieniają się siły w parze współliniowej.
+
+<Lab id="staticsTruss" />
+
+## Definicje i jednostki
+
+| Pojęcie              | Znaczenie                                                                  | Jednostka |
+| -------------------- | -------------------------------------------------------------------------- | --------- |
+| Węzeł złożony        | Węzeł, w którym spotykają się co najmniej trzy pręty lub działa obciążenie | —         |
+| Para współliniowa    | Dwa pręty leżące na jednej prostej po przeciwnych stronach węzła           | —         |
+| Obciążenie węzłowe   | Siła zewnętrzna przyłożona bezpośrednio w węźle                            | kN lub N  |
+| Składowa prostopadła | Rzut siły na kierunek prostopadły do wybranej linii                        | kN lub N  |
+| Symetria obciążenia  | Rozkład obciążeń niezmienniczy względem osi symetrii                       | —         |
+
+Jednostki: siły w kN, długości w m. Przy symetrii kąty po obu stronach osi muszą być takie same; inaczej równość sił nie wynika z geometrii.
+
+## Wzór i wyprowadzenie
+
+Dla węzła z parą współliniową o kierunku $\vec e$ i trzecim prętem o kierunku $\vec e_3$, obciążonego siłą $\vec P$:
+
+<Formula>
+$$
+N_1\vec e+N_2(-\vec e)+N_3\vec e_3+\vec P=\vec 0
+$$
+
+<Caption>Rzut na kierunek prostopadły do $\vec e$ daje $N_3\sin\varphi+P_\perp=0$. Bez obciążenia ($P_\perp=0$) trzeci pręt jest zerowy. Z obciążeniem przejmuje on składową prostopadłą, a para współliniowa dzieli między siebie składową wzdłużną.</Caption>
+</Formula>
+
+Szczególny przypadek: obciążenie działa wzdłuż pręta pierwszego, czyli $\vec P=P\vec e$. Wtedy rzut na kierunek prostopadły do $\vec e$ daje $N_3\sin\varphi=0$, więc $N_3=0$. Rzut wzdłuż $\vec e$ daje $N_1-N_2+P=0$. Drugi pręt znika, a pierwszy przenosi obciążenie pomniejszone o siłę w drugim pręcie.
+
+Dla czterech prętów w dwóch parach współliniowych, bez obciążenia:
+
+<Formula>
+$$
+N_1\vec e+N_2(-\vec e)+N_3\vec f+N_4(-\vec f)=\vec 0
+\quad\Rightarrow\quad
+N_1=N_2,\qquad N_3=N_4
+$$
+
+<Caption>Rzut na dwa niezależne kierunki daje równość sił w każdej parze. To warunek konieczny równowagi, ale nie wyznacza wartości — potrzebne są równania z innych węzłów.</Caption>
+</Formula>
+
+<AnimatedSolution id="ex-statyka-wezly-zlozone" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Automatyczne stosowanie reguły pręta zerowego do węzła, w którym działa obciążenie — obciążenie może „ożywić" trzeci pręt.
+- Zakładanie, że para współliniowa zawsze ma zero — para może przenosić równą siłę przez węzeł.
+- Mylenie symetrii geometrii z symetrią obciążenia — bez symetrii obciążeń nie ma podstaw do równości sił.
+- Rzutowanie siły wzdłuż pręta na kierunek prostopadły bez zmiany znaku — kąt i zwrot mają znaczenie.
+- Pomijanie obciążenia węzłowego w równaniu pionowym, bo „przecież jest przyłożone w węźle, a nie do pręta".
+- Rozwiązywanie węzła z trzema niewiadomymi za wszelką cenę — lepiej odłożyć go i wrócić po znalezieniu jednej siły.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj węzeł powiększony i wypisz wszystkie pręty oraz ich kierunki.
+2. Zaznacz pary prętów współliniowych; sprawdź, czy są dwa lub cztery.
+3. Sprawdź, czy w węźle działa obciążenie zewnętrzne i w jakim kierunku.
+4. Jeśli węzeł jest nieobciążony i ma parę współliniową plus trzeci pręt — trzeci pręt jest zerowy.
+5. Jeśli jest obciążony, rzutuj równanie na kierunek prostopadły do pary współliniowej; to najkrótsza droga do trzeciego pręta.
+6. Przy czterech prętach w dwóch parach wykorzystaj równość sił w parach, ale wartość wyznacz z sąsiedniego węzła.
+7. Gdy niewiadomych jest więcej niż dwa, odłóż węzeł i sprawdź, czy inny węzeł lub przekrój Rittera daje brakującą informację.
+
+## Połącz z resztą kursu
+
+- **Pręty zerowe** — węzły złożone są naturalnym miejscem, gdzie reguły zer działają lub przestają działać.
+- **Metoda węzłów** — kolejność wycinania zależy od tego, czy węzeł ma dwa, czy więcej nieznanych prętów.
+- **Metoda Rittera** — gdy węzeł jest zbyt „bogaty" w niewiadome, przekrój przez trzy pręty często rozwiązuje problem szybciej.
+- **Równowaga trzech sił** — węzeł z dwoma prętami i obciążeniem można rozwiązać trójkątem sił, jeśli kąty są wygodne.
+- **Symetria konstrukcji** — w kursie wytrzymałości wraca przy doborze przekrojów i interpretacji wykresów; tu uczysz się jej warunków.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>W węźle $B$ z przykładu dwa pasy są współliniowe, a pionowy pręt $BD$ jest obciążony siłą $6\ \text{kN}$ w dół. Siła w $BD$ wynosi:</Prompt>
+    <Answer>$0\ \text{kN}$, bo dwa pozostałe pręty są współliniowe</Answer>
+    <Answer correct>$+6\ \text{kN}$ — rozciąganie</Answer>
+    <Answer>$-3\ \text{kN}$ — ściskanie</Answer>
+    <Hint>Pasy są poziome, więc nie mają składowej pionowej. Kto równoważy obciążenie pionowe?</Hint>
+    <Explanation>
+      Równowaga pionowa węzła $B$ obejmuje tylko $BD$ i obciążenie. Stąd $N_{BD}=6\ \text{kN}$. Pręt jest rozciągany,
+      bo ciągnie węzeł $B$ w górę, przeciwdziałając ciężarowi.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie siła w pręcie $AD$ wynosi:</Prompt>
+    <Answer>$+5\ \text{kN}$ — rozciąganie</Answer>
+    <Answer correct>$-5\ \text{kN}$ — ściskanie</Answer>
+    <Answer>$-6\ \text{kN}$ — ściskanie</Answer>
+    <Hint>W węźle $A$ reakcja $3\ \text{kN}$ równoważy pionową składową $AD$; $\sin\theta=0{,}6$.</Hint>
+    <Explanation>
+      Z pionu: $3+0{,}6N_{AD}=0$, więc $N_{AD}=-5\ \text{kN}$. Wartość $6\ \text{kN}$ to siła w pionowym pręcie $BD$,
+      a nie w ukośnym zastrzale.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>W nieobciążonym węźle działają cztery pręty tworzące dwie pary współliniowe. Co można o nich powiedzieć?</Prompt>
+    <Answer>Wszystkie cztery mają siłę zerową</Answer>
+    <Answer correct>Siły w prętach każdej pary są równe co do wartości, ale nie muszą być zerowe</Answer>
+    <Answer>Każdy pręt ma inną siłę, bo kierunki są różne</Answer>
+    <Hint>Rzutuj równanie równowagi na kierunki obu par.</Hint>
+    <Explanation>
+      Rzut na kierunek pierwszej pary daje równość sił w tej parze; rzut na kierunek drugiej pary daje równość w drugiej.
+      To warunki równowagi, ale wartości zależą od reszty konstrukcji. Węzeł może przenosić siłę z jednej strony na drugą.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy można użyć symetrii do wnioskowania o równości sił w prętach?</Prompt>
+    <Answer>Zawsze, gdy kratownica wygląda symetrycznie</Answer>
+    <Answer correct>Gdy symetryczne są geometria, obciążenia i warunki podparcia</Answer>
+    <Answer>Tylko w kratownicach przestrzennych</Answer>
+    <Hint>Symetria geometrii bez symetrii obciążenia daje różne siły po dwóch stronach.</Hint>
+    <Explanation>
+      Równość sił wynika z niezmienniczości całego zadania: kształtu, obciążeń i podpór. Jeśli obciążenie działa tylko po
+      jednej stronie, symetryczne pręty mogą mieć zupełnie różne siły.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W węźle z dwoma nierównoległymi prętami obciążenie działa wzdłuż pierwszego pręta. Co dzieje się z drugim prętem?</Prompt>
+    <Answer>Przenosi połowę obciążenia</Answer>
+    <Answer correct>Jest zerowy, a pierwszy pręt przenosi obciążenie</Answer>
+    <Answer>Jest ściskany siłą równą obciążeniu</Answer>
+    <Hint>Rzutuj równanie na kierunek prostopadły do pierwszego pręta — obciążenie też zniknie z tego rzutu.</Hint>
+    <Explanation>
+      Rzut prostopadły do pierwszego pręta eliminuje zarówno jego siłę, jak i obciążenie działające wzdłuż niego. Zostaje
+      tylko składowa drugiego pręta, więc drugi pręt musi być zerowy. Pierwszy pręt równoważy całe obciążenie.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W węźle są trzy nieznane siły w prętach i żadna nie wynika z sąsiedztwa. Najlepszy krok to:</Prompt>
+    <Answer>Dopisać równanie momentów względem węzła</Answer>
+    <Answer correct>Odłożyć węzeł i poszukać innego węzła lub przekroju Rittera</Answer>
+    <Answer>Przyjąć, że najdłuższy pręt jest zerowy</Answer>
+    <Hint>Dwa równania rzutów nie wystarczą na trzy niewiadome, a moment względem węzła jest tożsamością.</Hint>
+    <Explanation>
+      Potrzebna jest dodatkowa informacja spoza tego węzła. Może ją dać sąsiedni węzeł z mniejszą liczbą niewiadomych albo
+      przekrój Rittera przez trzy pręty. Zgadywanie zera jest błędem metodycznym.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Kratownica — rozwiązany przykład", str. 4–8: węzły z parą współliniową i obciążeniem w węźle.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 6.3–6.4: węzły złożone, pręty zerowe i kolejność metody węzłów.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 5.1–5.2: geometria węzłów i warunki równowagi.
+- _University Physics_ (OpenStax), rozdz. 5.6: równowaga sił zbieżnych i przypadki szczególne.

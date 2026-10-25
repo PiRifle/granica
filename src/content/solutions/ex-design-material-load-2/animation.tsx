@@ -180,7 +180,7 @@ export function MaterialLoad2Animation({ scene, playing, sceneProgress }: Soluti
                 stroke={barColor}
                 strokeWidth={2}
                 initial={false}
-                animate={{ width: half * 2, x: BAR.cx - half }}
+                animate={{ width: half * 2 }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
 

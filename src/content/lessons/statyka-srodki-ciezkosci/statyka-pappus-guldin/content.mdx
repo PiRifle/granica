@@ -1,0 +1,184 @@
+---
+id: statyka-pappus-guldin
+moduleId: statyka-srodki-ciezkosci
+number: 6
+title: 'Twierdzenia Pappusa-Guldina'
+shortTitle: 'Pappus-Guldin'
+description: >-
+  Powierzchnia i objętość bryły obrotowej z centroidu: dwa twierdzenia, warunki
+  stosowalności i przykłady kuli oraz torusa.
+eyebrow: 'Obrót wokół osi'
+outcomes:
+  - W1 — formułuje oba twierdzenia Pappusa-Guldina i rozróżnia powierzchnię od objętości
+  - W2 — rozpoznaje warunki stosowalności: oś w płaszczyźnie figury i brak przecięcia
+  - U1 — oblicza powierzchnię i objętość bryły obrotowej z centroidu linii lub figury
+  - U2 — wykorzystuje twierdzenie odwrotnie: z objętości lub powierzchni wyznacza centroid
+---
+
+Twierdzenia Pappusa-Guldina to jeden z tych wyników, które potrafią zamienić trudną całkę w jedno mnożenie. Mówią, że przy obrocie linii lub figury płaskiej wokół osi leżącej w jej płaszczyźnie, pole powierzchni i objętość bryły zależą tylko od długości lub pola oraz od odległości centroidu od osi obrotu. Zamiast całkować po powierzchni bryły, wystarczy znać centroid przekroju. To ta sama idea, którą wykorzystujemy w lekcji o środkach ciężkości, tylko odwrócona: centroid staje się narzędziem do liczenia objętości.
+
+Wyobraź sobie półkole obracające się wokół swojej średnicy. Powstaje kula. Objętość kuli można policzyć całką, ale można też zauważyć, że półkole ma pole $\pi r^2/2$, a jego centroid leży w odległości $4r/(3\pi)$ od średnicy. Iloczyn $2\pi\cdot4r/(3\pi)\cdot\pi r^2/2$ daje $4\pi r^3/3$ — dokładnie objętość kuli. To nie magia, lecz twierdzenie o objętości bryły obrotowej. Podobnie łuk półkolisty obracany wokół średnicy daje powierzchnię kuli, a jego centroid leży w $2r/\pi$.
+
+W tej lekcji rozdzielimy dwa twierdzenia, bo najczęstszy błąd polega na użyciu wzoru na objętość do powierzchni albo na wzięciu centroidu łuku zamiast centroidu figury. Potem sprawdzimy oba na kuli i torusie, a na końcu użyjemy twierdzenia odwrotnie: z objętości bryły obrotowej wyznaczymy centroid figury. To umiejętność szczególnie przydatna, gdy całka po polu jest niewygodna, a objętość bryły jest znana z geometrii.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć centroid linii i figury płaskiej, w szczególności półkola i półokręgu.
+- Przypomnij sobie obwód okręgu $2\pi r$ i pole koła $\pi r^2$.
+- Wiedz, że półkole ma centroid w $4r/(3\pi)$ od średnicy, a półokrąg w $2r/\pi$ od środka.
+- Rozumiesz, że oś obrotu musi leżeć w płaszczyźnie figury i nie może jej przecinać.
+- Pamiętaj, że kąt w radianach jest potrzebny tylko wtedy, gdy liczymy długość łuku, a nie w samym twierdzeniu.
+
+## Model i intuicja
+
+Pierwsze twierdzenie dotyczy obrotu linii. Weźmy płaską krzywą o długości $L$ i obróćmy ją wokół osi leżącej w jej płaszczyźnie, ale nieprzecinającej krzywej. Każdy element $dL$ zakreśla podczas pełnego obrotu pasek powierzchni o polu $dS=2\pi r\,dL$, gdzie $r$ jest odległością elementu od osi. Całkując, otrzymujemy $S=2\pi\int r\,dL=2\pi\bar r L$, gdzie $\bar r$ jest odległością centroidu linii od osi. To pierwsze twierdzenie Pappusa-Guldina.
+
+Drugie twierdzenie dotyczy obrotu figury płaskiej. Element pola $dA$ zakreśla objętość $dV=2\pi r\,dA$, więc po scałkowaniu $V=2\pi\int r\,dA=2\pi\bar r A$. Tu $\bar r$ jest odległością centroidu figury od osi. Oba twierdzenia mają tę samą strukturę: „miara obiektu razy długość okręgu zatoczona przez centroid”. Różnica jest tylko w tym, co obracamy: linię czy pole.
+
+Warunki stosowalności są równie ważne jak wzory. Oś musi leżeć w płaszczyźnie figury. Jeśli oś przecina figurę, różne jej części zakreślają objętości o przeciwnych znakach albo bryła sama się przecina; wzór w prostej postaci przestaje obowiązywać. Dla osi stycznej do figury twierdzenie działa, ale trzeba uważać na punkty, w których odległość od osi jest zerowa. Dla obrotu o kąt mniejszy niż pełny, zamiast $2\pi$ pojawia się kąt $\varphi$ w radianach; wtedy $V=\varphi\bar r A$.
+
+## Laboratorium: co ustawić
+
+Obróć półkole wokół średnicy i sprawdź, że powstaje kula. Zmień położenie osi obrotu — najpierw przez środek, potem stycznie do łuku — i obserwuj, jak zmienia się objętość. Następnie obróć półokrąg (sam łuk) i porównaj powierzchnię z objętością: to dwa różne twierdzenia i dwie różne miary. Na końcu ustaw pełne koło oddalone od osi i sprawdź, że powstaje torus.
+
+<Lab id="staticsPappus" />
+
+## Definicje i jednostki
+
+| Pojęcie                      | Symbol    | Znaczenie                                     | Jednostka |
+| ---------------------------- | --------- | --------------------------------------------- | --------- |
+| Linia obracana               | $L$       | Długość krzywej w płaszczyźnie obrotu         | m, mm     |
+| Figura obracana              | $A$       | Pole figury w płaszczyźnie obrotu             | m², mm²   |
+| Odległość centroidu od osi   | $\bar r$  | Prostopadła odległość centroidu od osi obrotu | m, mm     |
+| Powierzchnia bryły obrotowej | $S$       | Pole powierzchni zakreślonej przez linię      | m², mm²   |
+| Objętość bryły obrotowej     | $V$       | Objętość zakreślona przez figurę              | m³, mm³   |
+| Kąt obrotu                   | $\varphi$ | Kąt pełny $2\pi$ lub jego część               | rad       |
+
+Odległość $\bar r$ musi być mierzona prostopadle do osi, a nie wzdłuż dowolnego kierunku. Dla osi poziomej jest to po prostu $|y_C|$, dla osi pionowej $|x_C|$. Wartość bezwzględna jest ważna, bo odległość nie może być ujemna; znak współrzędnej mówi tylko, po której stronie osi leży centroid. Jednostki: długość razy długość daje powierzchnię, pole razy długość daje objętość.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+S=2\pi\bar r\,L,\qquad V=2\pi\bar r\,A
+$$
+
+<Caption>Twierdzenia Pappusa-Guldina dla pełnego obrotu. Pierwszy wzór daje pole powierzchni bryły zakreślonej przez linię o długości $L$, drugi objętość bryły zakreślonej przez figurę o polu $A$. $\bar r$ to odległość centroidu od osi obrotu. Oś musi leżeć w płaszczyźnie obiektu i nie może go przecinać.</Caption>
+</Formula>
+
+Wyprowadzenie drugiego twierdzenia jest najkrótsze. Podziel figurę na elementy pola $dA$. Przy pełnym obrocie wokół osi element odległy o $r$ zakreśla cienki pierścień o objętości $dV=2\pi r\,dA$. Całkując po całej figurze:
+
+$$
+V=\int 2\pi r\,dA=2\pi\int r\,dA=2\pi\bar r A,
+$$
+
+bo z definicji centroidu $\int r\,dA=\bar r A$. Pierwsze twierdzenie wyprowadza się identycznie, zastępując $dA$ przez $dL$ i objętość przez powierzchnię. Dla obrotu o kąt $\varphi$ zamiast $2\pi$ pojawia się $\varphi$, bo element zakreśla wycinek pierścienia o kącie $\varphi$.
+
+<AnimatedSolution id="ex-statyka-pappus-guldin" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Użycie centroidu łuku do objętości albo centroidu figury do powierzchni. $2r/\pi$ dotyczy łuku, a $4r/(3\pi)$ — półkola.
+- Pominięcie czynnika $2\pi$ albo zastąpienie go przez $\pi$. Pełny obrót to okrąg o długości $2\pi\bar r$.
+- Użycie średnicy zamiast promienia w $\bar r$ lub w polu. Średnica jest dwa razy większa.
+- Obracanie figury wokół osi, która ją przecina. Wtedy wzór w prostej postaci nie obowiązuje, a bryła może się nakładać.
+- Mylenie powierzchni bryły z polem przekroju. Pierwsze twierdzenie daje powierzchnię, drugie objętość.
+- Stosowanie twierdzenia do figury, której centroid leży na osi. Wtedy $\bar r=0$ i bryła degeneruje się do zera objętości lub powierzchni.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, co obracamy: linię czy figurę płaską. To decyduje, czy użyjesz $L$, czy $A$.
+2. Sprawdź, czy oś leży w płaszczyźnie obiektu i czy go nie przecina. Jeśli przecina, zatrzymaj się i przeanalizuj znaki.
+3. Wyznacz odległość centroidu od osi. Dla osi poziomej to $|y_C|$, dla pionowej $|x_C|$.
+4. Policz $S=2\pi\bar r L$ lub $V=2\pi\bar r A$, pamiętając o jednostkach.
+5. Sprawdź wynik znanym wzorem, jeśli bryła jest kulą, walcem, stożkiem lub torusem.
+6. W zadaniu odwrotnym podziel $V$ lub $S$ przez $2\pi$ i przez $A$ lub $L$, żeby dostać $\bar r$.
+7. Upewnij się, że wynik ma sens: centroid nie może leżeć dalej od osi niż najdalszy punkt figury.
+
+## Połącz z resztą kursu
+
+- **Centroidy linii** — pierwsze twierdzenie korzysta wprost z centroidu łuku; to dlatego warto odróżniać łuk od półkola.
+- **Centroidy figur** — drugie twierdzenie korzysta z centroidu pola; ten sam rachunek wraca przy bryłach obrotowych.
+- **Środki ciężkości brył** — twierdzenie pozwala wyznaczyć objętość bez całkowania po bryle, jeśli znany jest centroid przekroju.
+- **Geometria przekrojów** — objętość i powierzchnia bryły obrotowej pojawią się przy obliczaniu masy i ciężaru własnego elementów osiowo-symetrycznych.
+- **Wytrzymałość materiałów** — wały, zbiorniki i tuleje są bryłami obrotowymi; twierdzenie ułatwia szacowanie ich objętości i masy.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Pierwsze twierdzenie Pappusa-Guldina pozwala wyznaczyć:</Prompt>
+    <Answer>objętość bryły obrotowej</Answer>
+    <Answer correct>pole powierzchni bryły obrotowej</Answer>
+    <Answer>masę bryły bez znajomości gęstości</Answer>
+    <Hint>Pierwsze twierdzenie dotyczy obrotu linii, drugie — figury płaskiej.</Hint>
+    <Explanation>
+      Pierwsze twierdzenie: $S=2\pi\bar r L$ — powierzchnia zakreślona przez linię. Drugie: $V=2\pi\bar r A$ — objętość
+      zakreślona przez figurę. Masa wymaga jeszcze gęstości.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Półkole o promieniu $r=10$ mm obracamy wokół średnicy. Objętość powstałej kuli wynosi:</Prompt>
+    <Answer>$2\,094$ mm³</Answer>
+    <Answer correct>$4\,189$ mm³</Answer>
+    <Answer>$3\,142$ mm³</Answer>
+    <Hint>Półkole daje kulę. Użyj $V=4\pi r^3/3$ albo twierdzenia z $\bar r=4r/(3\pi)$.</Hint>
+    <Explanation>
+      $V=4\pi\cdot1000/3=4\,188{,}79$ mm³. Wartość $2\,094$ to połowa kuli (stożek albo błędny współczynnik),
+      a $3\,142$ to $\pi r^3$, czyli wynik bez czynnika $4/3$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Półokrąg o promieniu $r=10$ mm obracamy wokół średnicy. Pole powierzchni kuli wynosi:</Prompt>
+    <Answer>$628{,}3$ mm²</Answer>
+    <Answer correct>$1\,256{,}6$ mm²</Answer>
+    <Answer>$314{,}2$ mm²</Answer>
+    <Hint>Półokrąg daje powierzchnię kuli $S=4\pi r^2$.</Hint>
+    <Explanation>
+      $S=4\pi\cdot100=1\,256{,}64$ mm². Wartość $628{,}3$ to $2\pi r^2$ (połowa), a $314{,}2$ to $\pi r^2$ —
+      pole koła, nie powierzchnia kuli.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Który warunek jest konieczny, aby zastosować twierdzenie Pappusa-Guldina w prostej postaci?</Prompt>
+    <Answer>oś obrotu musi przechodzić przez centroid figury</Answer>
+    <Answer correct>oś obrotu leży w płaszczyźnie figury i jej nie przecina</Answer>
+    <Answer>figura musi być symetryczna względem osi obrotu</Answer>
+    <Hint>Pomyśl, co się dzieje, gdy oś przecina figurę: część objętości nakłada się na siebie.</Hint>
+    <Explanation>
+      Oś musi leżeć w płaszczyźnie obiektu i nie przecinać go. Gdy przechodzi przez centroid, $\bar r=0$ i bryła
+      degeneruje się. Symetria nie jest wymagana, choć często ułatwia wyznaczenie centroidu.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Torus powstaje przez obrót koła o promieniu $r=10$ mm wokół osi odległej o $R=50$ mm od środka koła. Objętość torusa wynosi:</Prompt>
+    <Answer>$49\,348$ mm³</Answer>
+    <Answer correct>$98\,696$ mm³</Answer>
+    <Answer>$197\,392$ mm³</Answer>
+    <Hint>$V=2\pi R\cdot\pi r^2=2\pi^2Rr^2$.</Hint>
+    <Explanation>
+      $V=2\pi\cdot50\cdot\pi\cdot100=2\pi^2\cdot50\cdot100=98\,696$ mm³. Wartość $49\,348$ to wynik bez czynnika $2$,
+      a $197\,392$ to wynik z podwojonym promieniem.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Bryła obrotowa ma objętość $V=1000$ cm³, a obracana figura ma pole $A=100$ cm². Odległość centroidu od osi wynosi:</Prompt>
+    <Answer>$3{,}18$ cm</Answer>
+    <Answer correct>$1{,}59$ cm</Answer>
+    <Answer>$0{,}80$ cm</Answer>
+    <Hint>Przekształć $V=2\pi\bar r A$: $\bar r=V/(2\pi A)$.</Hint>
+    <Explanation>
+      $\bar r=1000/(2\pi\cdot100)=1000/628{,}32=1{,}59$ cm. Wartość $3{,}18$ to wynik z $\pi$ zamiast $2\pi$,
+      a $0{,}80$ to wynik z $4\pi$.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Środek ciężkości i środek masy", str. 13–14: pierwsze i drugie twierdzenie Pappusa-Guldina oraz warunek osi nieprzecinającej figury.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 7.7: całkowanie objętości i powierzchni oraz związek centroidu z bryłą obrotową.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 7.1–7.2: centroidy i całki objętościowe wykorzystywane w wyprowadzeniu twierdzeń.
+- _University Physics_ (OpenStax), rozdz. 9.6: środek masy rozkładu ciągłego i związek z objętością bryły.

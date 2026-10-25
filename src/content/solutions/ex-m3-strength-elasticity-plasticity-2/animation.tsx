@@ -155,13 +155,7 @@ export function StrengthElasticityPlasticity2Animation({ scene, playing, scenePr
             stroke={stateColor}
             strokeWidth={2}
             initial={false}
-            animate={{
-              x: SAMPLE_CX - half,
-              width: half * 2,
-              height: sampleBottom - SAMPLE_TOP,
-              fill: stateColor,
-              stroke: stateColor,
-            }}
+            animate={{ width: half * 2, height: sampleBottom - SAMPLE_TOP, fill: stateColor, stroke: stateColor }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
 

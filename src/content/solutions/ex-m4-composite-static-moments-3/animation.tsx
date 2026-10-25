@@ -305,7 +305,7 @@ export function CompositeStaticMoments3Animation({ scene, index, playing, sceneP
                     rx={2}
                     fill={HOLE}
                     initial={false}
-                    animate={{ x: GAUGE_ZERO - holeBar, width: holeBar }}
+                    animate={{ width: holeBar }}
                     transition={{ duration: 0.15, ease: 'linear' }}
                   />
                   <text x={GAUGE_ZERO + 4} y={258} fontSize={8} fontWeight={600} fill={HOLE}>

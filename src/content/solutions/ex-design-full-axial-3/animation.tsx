@@ -519,7 +519,7 @@ export function DesignFullAxial3Animation({ scene, index, playing, sceneProgress
                     stroke={color}
                     strokeWidth={1.7}
                     initial={false}
-                    animate={{ y: start, height: end - start }}
+                    animate={{ height: end - start }}
                     transition={{ duration: 0.1, ease: 'linear' }}
                   />
                 )

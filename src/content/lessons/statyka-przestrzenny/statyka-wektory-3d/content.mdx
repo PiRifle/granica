@@ -1,0 +1,211 @@
+---
+id: statyka-wektory-3d
+moduleId: statyka-przestrzenny
+number: 1
+title: 'Siła w przestrzeni: składowe i kierunki'
+shortTitle: Wektory 3D
+description: >-
+  Zapisz siłę przestrzenną przez trzy składowe, kąty kierunkowe lub dwa punkty
+  jej linii działania i sprawdź spójność wyniku.
+eyebrow: 'Jeden kąt nie wystarczy'
+outcomes:
+  - W1 — wyjaśnia, dlaczego kierunek siły w przestrzeni wymaga trzech składowych
+  - W2 — interpretuje kąty kierunkowe i znak składowej
+  - U1 — rozkłada siłę zadaną kątami lub dwoma punktami prostej działania
+  - U2 — sprawdza spójność składowych przez moduł i sumę cosinusów kierunkowych
+---
+
+Na płaszczyźnie siłę opisuje się jednym kątem i wartością. W przestrzeni taki opis zawodzi: ta sama wartość i ten sam kąt w płaszczyźnie rzutu mogą opisywać zupełnie różne siły, bo każda z nich może być dodatkowo uniesiona lub opuszczona w trzecim wymiarze. Pełny opis siły przestrzennej wymaga zawsze trzech liczb — trzech składowych prostokątnych albo równoważnego zestawu kątów.
+
+W praktyce składowe otrzymujesz na dwa sposoby. Albo znasz kąty, jakie siła tworzy z osiami układu, albo znasz dwa punkty linii działania siły, na przykład dwa końce cięgna. Oba sposoby prowadzą do tego samego zapisu wektorowego, a dopiero ten zapis jest wygodny do dalszego rachunku: sumowania sił, liczenia momentów i zapisywania warunków równowagi.
+
+W tej lekcji utrwalisz język, którym posługujemy się przez cały moduł. Nauczysz się zapisywać siłę w postaci trzech składowych, wyznaczać ją z geometrii dwóch punktów, stosować kąty kierunkowe i kontrolować wynik dwoma niezależnymi sposobami. Te umiejętności są warunkiem dalszej pracy: błąd w składowej siły przenosi się przez wszystkie równania równowagi i zwykle ujawnia się dopiero na końcu zadania jako „dziwny” wynik.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie rozkład siły na składowe w płaszczyźnie: rzut prostokątny i twierdzenie Pitagorasa dla modułu.
+- Wiedz, czym jest układ prawoskrętny: obracając dłoń od osi x ku osi y, kciuk wskazuje dodatnią oś z.
+- Umiej zapisać wektor za pomocą wersorów osi: $\mathbf F=F_x\,\mathbf i+F_y\,\mathbf j+F_z\,\mathbf k$.
+- Pamiętaj, że cosinus kąta rozwartego jest ujemny — składowa „przeciwna do osi” wchodzi ze znakiem minus.
+- Miej opanowane jednostki: siła w N lub kN, współrzędne w m lub cm, ale konsekwentnie w całym zadaniu.
+
+## Model i intuicja
+
+Siła w przestrzeni jest wektorem zaczepionym: ma wartość, kierunek, zwrot i punkt przyłożenia. W przeciweństwie do wektora swobodnego nie wolno jej przesuwać dowolnie — ale o tym w następnych lekcjach. Na razie wystarczy umiejętność zapisu.
+
+Kierunek siły opisuje się najczęściej kątami kierunkowymi $\theta_x$, $\theta_y$, $\theta_z$, mierzonymi od dodatnich półosi układu do wektora siły. Każdy z tych kątów leży między $0^\circ$ a $180^\circ$, więc sam znak cosinusa mówi, czy składowa jest zgodna z osią. Kąt większy niż $90^\circ$ oznacza składową przeciwną do osi — to prosta kontrola zwrotu.
+
+Drugi, bardzo praktyczny sposób to siła o znanej prostej działania. Jeśli siła działa wzdłuż cięgna, pręta czy linki, wystarczą współrzędne dwóch punktów tej prostej. Wektor łączący punkty, podzielony przez swoją długość, daje wersor kierunku, a pomnożenie wersora przez wartość siły daje szukane składowe. Metoda jest mechaniczna, co zmniejsza ryzyko błędu wynikającego z wyobraźni przestrzennej.
+
+Model ma ograniczenia. Zakładamy sztywny punkt przyłożenia i dokładnie prostą linię działania; pomijamy ciężar własny cięgna, jego wychylenie pod wpływem obciążenia oraz wszelkie odkształcenia. W zadaniach statyki jest to zwykle uzasadnione, ale w projektowaniu układów podnosnych odkształcenie cięgna bywa istotne i wtedy potrzebna jest analiza bardziej zaawansowana.
+
+## Laboratorium: co ustawić
+
+Zmieniaj kierunek siły przestrzennej i obserwuj, jak każda składowa reaguje na obrót: jedna rośnie, druga maleje, a moduł całości pozostaje stały. Sprawdź, kiedy któraś składowa przechodzi przez zero i zmienia znak — to moment, w którym siła „wychodzi z płaszczyzny” danej osi.
+
+<Lab id="staticsVector" />
+
+## Definicje i jednostki
+
+| Pojęcie             | Zapis                                        | Opis                            | Jednostka |
+| ------------------- | -------------------------------------------- | ------------------------------- | --------- |
+| Składowa siły       | $F_x,\ F_y,\ F_z$                            | Rzuty siły na osie układu       | N, kN     |
+| Moduł siły          | $F=\lvert\mathbf F\rvert$                    | Wartość siły                    | N, kN     |
+| Wersor              | $\mathbf u$                                  | Wektor jednostkowy o długości 1 | —         |
+| Kąty kierunkowe     | $\theta_x,\ \theta_y,\ \theta_z$             | Kąty od dodatnich osi do siły   | °         |
+| Wektor wodzący      | $\mathbf r_{AB}$                             | Wektor od punktu A do punktu B  | m, cm     |
+| Cosinusy kierunkowe | $\cos\theta_x,\ \cos\theta_y,\ \cos\theta_z$ | Składowe wersora kierunku siły  | —         |
+
+Symbole: $\mathbf i,\mathbf j,\mathbf k$ — wersorów osi; $\mathbf F$ — siła; $\lambda$ — długość prostej działania. Jednostki: wszystkie składowe i moduł w jednostkach siły; współrzędne punktów w jednostkach długości. Warunek poprawności: suma kwadratów cosinusów kierunkowych jest równa 1.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\mathbf F=F\,\mathbf u=F\left(\frac{\mathbf r_{AB}}{\lvert\mathbf r_{AB}\rvert}\right),\qquad
+F_x=F\cos\theta_x,\quad F_y=F\cos\theta_y,\quad F_z=F\cos\theta_z
+$$
+
+<Caption>Pierwszy zapis to siła o znanej prostej działania AB: wersor otrzymujemy z wektora wodzącego. Drugi to siła zadana kątami kierunkowymi. Oba opisy są równoważne i dają te same trzy składowe.</Caption>
+</Formula>
+
+Wyprowadzenie zacznij od spójności kierunku. Jeśli wersor $\mathbf u$ ma składowe równe cosinusom kierunkowym, to z definicji rzutu prostokątnego każda składowa siły to $F_n=F\cos\theta_n$. Ponieważ wersor ma długość 1:
+
+$$
+\cos^2\theta_x+\cos^2\theta_y+\cos^2\theta_z=1
+$$
+
+To jest pierwsza kontrola: cosinusy kierunkowe traktowane jak składowe muszą „pasować” na wektor jednostkowy. Druga kontrola dotyczy dwóch punktów: wektor $\mathbf r_{AB}=(x_B-x_A)\,\mathbf i+(y_B-y_A)\,\mathbf j+(z_B-z_A)\,\mathbf k$ ma długość $\lambda=\sqrt{(\Delta x)^2+(\Delta y)^2+(\Delta z)^2}$, więc wersor $\mathbf u=\mathbf r_{AB}/\lambda$, a składowe siły wynoszą $F_n=F\,\Delta n/\lambda$. Znak każdej składowy bierze się z różnicy współrzędnych — odwrócenie kolejności punktów odwraca wszystkie znaki, czyli zmienia zwrot siły o $180^\circ$.
+
+<Formula>
+$$
+F=\sqrt{F_x^2+F_y^2+F_z^2},\qquad
+\cos\theta_n=\frac{F_n}{F},\qquad
+\sum_{n=x,y,z}\cos^2\theta_n=1
+$$
+
+<Caption>Trzy równoważne kontrole jednego opisu: moduł ze składowych, cosinusy kierunkowe ze składowych i warunek unormowania wersora. Jeśli któraś kontrola nie wychodzi, błąd jest jeszcze na etapie geometrii, a nie równań równowagi.</Caption>
+</Formula>
+
+<Insight>
+  Dobry nawyk: każdą siłę przestrzenną zapisuj najpierw symbolicznie przez składowe, a dopiero potem podstawiaj liczby.
+  Wtedy błąd znaku widzisz raz, a nie sześć razy w sześciu równaniach równowagi.
+</Insight>
+
+## Przykład prowadzony: siła wzdłuż cięgna
+
+<AnimatedSolution id="ex-statyka-wektory-3d" />
+
+Zwróć uwagę na kolejność kroków: najpierw geometria (wektor, długość), potem kierunek (wersor), na końcu wartość i kontrole. Odwrotna kolejność — podstawianie liczb przed zapisaniem wersora — to najczęstsze źródło błędów znaków.
+
+## Drugi przykład: siła zadana kątami
+
+<AnimatedSolution id="ex-statyka-wektory-3d-2" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Odwrocenie kolejności punktów przy wektorze wodzącym — wszystkie składowe zmieniają znak, a siła „ciągnie” w przeciwną stronę.
+- Mylenie kąta kierunkowego z kątem względem płaszczyzny poziomej; kąty kierunkowe liczymy zawsze od dodatnich osi.
+- Podstawianie wartości siły przed wyznaczeniem wersora — wersor musi pochodzić wyłącznie z geometrii.
+- Pominięcie minusa przy składowej przeciwnej do osi; kąt rozwarty to jawny sygnał.
+- Sprawdzanie wyniku tylko jednym sposobem; moduł i warunek cosinusów to dwie niezależne kontrole.
+- Mieszanie jednostek w różnicach współrzędnych, na przykład x w metrach i z w centymetrach.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zidentyfikuj, jak zadano kierunek siły: kątami, prostą przez dwa punkty, czy „równolegle do osi / prostopadle do płaszczyzny”.
+2. Przy dwóch punktach narysuj najpierw różnice współrzędnych ze znakami — to one, nie współrzędne, budują wersor.
+3. Zapisz siłę symbolicznie jako $\mathbf F=F_x\,\mathbf i+F_y\,\mathbf j+F_z\,\mathbf k$ i dopiero potem wstawiaj liczby.
+4. Policz moduł ze składowych i porównaj z danymi, jeśli wartość siły była znana.
+5. Sprawdź znak każdej składowej względem rysunku: zgodny lub przeciwny do osi.
+6. Dopiero poprawnie zapisane siły przenieś do sum sił i momentów w kolejnych lekcjach.
+
+## Połącz z resztą kursu
+
+- **Aksjomaty i zasady statyki** — siła przestrzenna to ta sama wielkość co w zadaniach płaskich, tylko z trzema składowymi zamiast dwóch.
+- **Płaski zbieżny układ sił** — tam rzutowanie na dwie osie; tutaj naturalne rozszerzenie o trzecią oś.
+- **Moment siły 3D** — w następnej lekcji składowe siły posłużą do iloczynu wektorowego $\mathbf r\times\mathbf F$.
+- **Redukcja i równowaga 3D** — sumy sił w równaniach równowagi to sumy właśnie tych składowych.
+- **Rozciąganie i zginanie** — składowa osiowa siły daje naprężenie normalne, a składowe poprzeczne prowadzą do zginania i ścinania.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Dlaczego jeden kąt nie wystarcza do opisania kierunku siły w przestrzeni?</Prompt>
+    <Answer>Bo siła w przestrzeni zawsze działa pionowo</Answer>
+    <Answer correct>Ponieważ trzeba określić jej położenie względem trzech osi, nie jednej płaszczyzny</Answer>
+    <Answer>Bo w przestrzeni nie ma kątów prostych</Answer>
+    <Hint>Pomyśl, ile płaszczyzn zawiera prostą przechodzącą przez punkt.</Hint>
+    <Explanation>
+      Kierunek w przestrzeni wymaga trzech niezależnych liczb, na przykład trzech składowych lub trzech kątów
+      kierunkowych. Jeden kąt opisuje położenie względem jednej osi i zostawia swobodę obrotu wokół niej.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Siła ma kąt kierunkowy θy = 135°. Co to oznacza?</Prompt>
+    <Answer>Składowa Fy jest dodatnia i równa F·sin135°</Answer>
+    <Answer correct>Składowa Fy jest ujemna, bo cosinus kąta rozwartego jest ujemny</Answer>
+    <Answer>Siła jest prostopadła do osi y</Answer>
+    <Hint>Kąty kierunkowe mierzymy od dodatnich półosi, a składowa to F·cosθ.</Hint>
+    <Explanation>
+      Składowa wynosi Fy = F·cos 135° = −F·√2/2, czyli jest skierowana przeciwnie do osi y. Kąt większy niż 90° to
+      jednoznaczny znak ujemnej składowej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła 13 kN działa wzdłuż prostej od A(0,0,0) do B(3,4,12). Ile wynosi składowa Fz?</Prompt>
+    <Answer>3 kN</Answer>
+    <Answer>4 kN</Answer>
+    <Answer correct>12 kN</Answer>
+    <Hint>Wersor to rAB/|rAB|, a składowa to F razy trzecia składowa wersora.</Hint>
+    <Explanation>
+      |rAB| = √(9+16+144) = 13 m, więc uz = 12/13 i Fz = 13·12/13 = 12 kN. Składowa odpowiada różnicy współrzędnych
+      wzdłuż osi z.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Odwrócono zwrot siły z poprzedniego zadania: teraz ciągnie od B ku A. Jak zmieniły się składowe?</Prompt>
+    <Answer>Nie zmieniły się, bo prosta działania jest ta sama</Answer>
+    <Answer correct>Zmieniły znak: (−3, −4, −12) kN</Answer>
+    <Answer>Zmienił znak tylko moduł</Answer>
+    <Hint>Odwrotny wektor wodzący to przeciwny wersor.</Hint>
+    <Explanation>
+      Przy zmianie zwrotu wektor wodzący to rBA = −rAB, więc wersor zmienia znak i każda składowa siły również. Prosta
+      działania pozostaje ta sama, ale zwrot siły — nie.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Cosinusy kierunkowe siły wynoszą cosθx = 0,6 i cosθy = 0,48. Ile wynosi |cosθz|, jeśli zapis jest poprawny?
+    </Prompt>
+    <Answer>0,12</Answer>
+    <Answer correct>0,64</Answer>
+    <Answer>0,8</Answer>
+    <Hint>Suma kwadratów cosinusów kierunkowych musi wynosić 1.</Hint>
+    <Explanation>
+      cos²θz = 1 − 0,6² − 0,48² = 1 − 0,36 − 0,2304 = 0,4096, więc |cosθz| = 0,64. Znak zależy od zwrotu siły względem
+      osi z.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Który zestaw składowych odpowiada sile o wartości 5 kN?</Prompt>
+    <Answer>Fx = 3 kN, Fy = 4 kN, Fz = 5 kN</Answer>
+    <Answer correct>Fx = 3 kN, Fy = −4 kN, Fz = 0</Answer>
+    <Answer>Fx = 1 kN, Fy = 2 kN, Fz = 3 kN</Answer>
+    <Hint>Policz √(Fx² + Fy² + Fz²) dla każdego zestawu.</Hint>
+    <Explanation>
+      Dla drugiego zestawu √ (9+16+0) = 5 kN. Pierwszy daje √50 ≈ 7,07 kN, trzeci √14 ≈ 3,74 kN. Kontrola modułu odrzuca
+      natychmiast błędne zestawy.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Statyka 1 i 2” (rachunek wektorowy) — działy o kątach kierunkowych, rzutowaniu na osie i iloczynach wektorów; to kanon polskiej terminologii tej lekcji.
+- D. Baker, B. Haynes, _Engineering Statics_ — rozdz. 2.4 (układy 3D i kąty kierunkowe) oraz 2.5 (wersory): spójny zapis siły przez dwa punkty i kontrola znaku składowych.
+- OpenStax, _University Physics_ vol. 1 — rozdz. 2.2 (składowe wektora) i 2.3 (algebra wektorów): rachunek składowych w układzie prostokątnym z przykładami.
+- Jacob Moore i in., _Engineering Mechanics: Statics_ (UPEI) — rozdz. 1.2.2 i 1.3: rama XYZ, wektory wodzące i składowe; dobry zestaw przykładów rachunkowych.

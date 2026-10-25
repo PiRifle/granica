@@ -336,13 +336,13 @@ export function BeamView({
                       const points = line.map(([position, value]) => `${x(position)},${y(value)}`).join(' ')
                       return (
                         <motion.polyline
-                          key={`${band.key}-${lineIndex}-${animationKey}`}
+                          key={`${band.key}-${lineIndex}`}
                           points={points}
                           fill="none"
                           stroke={band.color}
                           initial={{ pathLength: 0, opacity: 0.3 }}
-                          animate={{ pathLength: active ? progress : 1, opacity: 1 }}
-                          transition={{ pathLength: { duration: 0.12, ease: 'linear' }, opacity: { duration: 0.3 } }}
+                          animate={{ pathLength: 1, opacity: 1 }}
+                          transition={{ pathLength: { duration: 0.6, ease: 'easeOut' }, opacity: { duration: 0.3 } }}
                           strokeWidth={active ? 3 : 2}
                           strokeLinejoin="round"
                         />
@@ -352,7 +352,7 @@ export function BeamView({
                       .filter((marker) => marker.diagram === band.key)
                       .map((marker, markerIndex) => (
                         <motion.g
-                          key={`${band.key}-${markerIndex}-${animationKey}`}
+                          key={`${band.key}-${markerIndex}`}
                           initial={{ opacity: 0, scale: 0.6 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.45, duration: 0.3 }}

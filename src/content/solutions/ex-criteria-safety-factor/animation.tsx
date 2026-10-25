@@ -234,7 +234,7 @@ export function SafetyFactor1Animation({ scene, playing, sceneProgress }: Soluti
                   fill={fillColor}
                   fillOpacity={0.24}
                   initial={false}
-                  animate={{ y: fillTop, height: G.bottom - fillTop }}
+                  animate={{ height: G.bottom - fillTop }}
                   transition={{ duration: 0.12, ease: 'linear' }}
                 />
               )}

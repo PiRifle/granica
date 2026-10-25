@@ -1,0 +1,85 @@
+## Co to jest ten moduł
+
+Reakcje mówią, jak konstrukcja jest obciążona z zewnątrz. Siły wewnętrzne mówią, co dzieje się w jej wnętrzu. Ten moduł uczy metody przekrojów: myślowego przecięcia elementu i zapisania równowagi jednej z odciętych części. W miejscu cięcia pojawiają się trzy wielkości — siła normalna $N$, siła tnąca $T$ i moment zginający $M$ — i to one są punktem wyjścia całej wytrzymałości materiałów.
+
+Moduł jest bezpośrednim rozwinięciem tematu z ćwiczeń ze sylabusa: „wyznaczanie sił wewnętrznych w belkach i ramach". Przechodzimy w nim od pojedynczego przekroju, przez konwencję znaków i obciążenia ciągłe, do pełnych wykresów $T$ i $M$ oraz ram utworzonych z belek i kolumn.
+
+## Dlaczego to ważne
+
+Wytrzymałość materiałów zaczyna się dokładnie tam, gdzie kończy się statyka. Naprężenie normalne w zginanej belce liczysz ze wzoru $\sigma = My/I$, ale zanim to zrobisz, musisz znać $M$ w danym przekroju. Siła tnąca prowadzi do naprężeń ścinających, siła normalna do osiowego stanu naprężenia. Bez poprawnych sił wewnętrznych każdy dalszy wzór jest pustym rachunkiem.
+
+Wykresy $T$ i $M$ są też codziennym narzędziem inżyniera. Mówią, gdzie belka jest najbardziej narażona: maksimum momentu wskazuje przekrój do wymiarowania na zginanie, duża siła tnąca alarmuje o konieczności sprawdzenia ścinania, a zmiana znaku momentu pokazuje miejsca przecięcia osi obojętnej. Kto umie czytać te wykresy, ten projektuje świadomie; kto nie umie, zgaduje.
+
+## Czego się nauczysz
+
+Po ukończeniu modułu będziesz:
+
+- **W1 — rozumieć**, czym jest siła wewnętrzna w przekroju i dlaczego jest wyznaczana z równowagi odciętej części, a nie z wyobraźni;
+- **W2 — stosować** konwencję znaków $N$, $T$, $M$ konsekwentnie po obu stronach przekroju;
+- **W3 — wiązać** kształt wykresów z rozkładem obciążenia: nachylenie $T$ to $-q$, nachylenie $M$ to $T$;
+- **U1 — wyznaczać** siły wewnętrzne w dowolnym przekroju belki lub prostej ramy;
+- **U2 — rysować** wykresy $T$ i $M$ dla belek z siłami skupionymi, momentami i obciążeniem ciągłym;
+- **U3 — kontrolować** wyniki warunkami brzegowymi i polami pod wykresami.
+
+## Od czego zacząć
+
+Moduł zakłada, że opanowałeś poprzednie moduły kursu:
+
+- równania równowagi płaskiego ciała sztywnego ($\sum F_x = 0$, $\sum F_y = 0$, $\sum M = 0$);
+- wyznaczanie reakcji podpór dla belki swobodnie podpartej, wspornika i belki z przewieszeniem;
+- moment siły względem punktu i twierdzenie Varignona;
+- obciążenia ciągłe i zamiana ich na siłę wypadkową przechodzącą przez środek ciężkości.
+
+Jeśli któryś z tych tematów jest słaby, wróć do odpowiedniej lekcji wcześniejszych modułów. W siłach wewnętrznych te narzędzia pracują na każdym kroku: reakcje są potrzebne przed każdym cięciem, a momenty ramion sił budują sam moment zginający.
+
+## Mapa lekcji
+
+Siedem lekcji prowadzi od pojedynczego przekroju do pełnych diagramów sił wynikowych.
+
+**1. Metoda przekrojów: co kryje się w środku.** Wprowadzenie $N$, $T$ i $M$ oraz czterokrokowej procedury: reakcje, cięcie, rysunek odciętej części, równania równowagi. To fundament wszystkich dalszych lekcji.
+
+**2. Znaki N, T i M: jedna konwencja dla wszystkich.** Jedna umówiona orientacja sił wewnętrznych na lewej i prawej ścianie przekroju. Bez niej dwa poprawne rozwiązania wyglądałyby na sprzeczne.
+
+**3. Przekroje przy obciążeniach ciągłych.** Jak obcinać rozkładane obciążenie razem z belką i dlaczego wypadkowa zastępuje tylko część leżącą po wyznaczonej stronie przekroju.
+
+**4. Zależności między q, T i M.** Równania różniczkowe łączące obciążenie, siłę tnącą i moment: nachylenie wykresu $T$ to $-q$, nachylenie $M$ to $T$, a zmiana momentu to pole pod $T$.
+
+**5. Wykresy N, T i M przy obciążeniach ciągłych.** Metoda odcinków: funkcje $N(x)$, $T(x)$ i $M(x)$ na przedziałach między punktami zmiany obciążenia, łączone w ciągłe diagramy.
+
+**6. Siły wewnętrzne w ramach.** Rama to nie kratownica: jej elementy przenoszą nie tylko $N$, ale też $T$ i $M$. Jak ciąć kolumny i belki oraz jak pilnować równowagi węzłów.
+
+**7. Wykresy w zadaniach: belki i ramy od A do Z.** Pełne zadania: od schematu, przez reakcje, po gotowe wykresy i kontrolę wyników.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+\frac{dT}{dx} = -q(x), \qquad \frac{dM}{dx} = T(x)
+$$
+
+<Caption>Związki różniczkowe przy konwencji, w której obciążenie $q$ jest dodatnie skierowane w dół. Nachylenie wykresu siły tnącej wynosi $-q$, a nachylenie wykresu momentu jest równe sile tnącej.</Caption>
+</Formula>
+
+<Formula>
+$$
+\Delta T = -\int_{x_1}^{x_2} q(x)\,dx, \qquad \Delta M = \int_{x_1}^{x_2} T(x)\,dx
+$$
+
+<Caption>Zmiana siły tnącej między dwoma przekrojami jest równa polu pod wykresem obciążenia ze znakiem minus, a zmiana momentu zginającego — polu pod wykresem siły tnącej.</Caption>
+</Formula>
+
+## Jak się uczyć
+
+Pracuj po kolei: każda lekcja korzysta z poprzedniej. Po lekturze wykonaj laboratorium, potem przykład prowadzony krok po kroku, a na końcu quiz. Przy wykresach zasłaniaj rozwiązanie i rysuj własny diagram, zanim zobaczysz wynik. Kontroluj jednostki i znaki — to one, a nie skomplikowana matematyka, są najczęstszym źródłem błędów.
+
+## Po tym module
+
+Opanowanie sił wewnętrznych otwiera drzwi do wytrzymałości materiałów: naprężeń zginających, ścinania w belkach, stanów złożonych i wymiarowania przekrojów. Wszystkie te tematy zaczynają się od wykresów $T$ i $M$, które narysujesz w tym module.
+
+## Źródła
+
+- Z. Osiński, _Mechanika ogólna_, PWN — rozdziały o równowadze i siłach wewnętrznych w prętach.
+- J. Leyko, _Mechanika ogólna_, t. I — statyka belek i ram oraz konwencje znaków.
+- J. Misiak, _Mechanika techniczna_, t. I — pomost między statyką a wytrzymałością, rozdział o siłach wewnętrznych.
+- Baker, Haynes, _Engineering Statics_ — rozdział 8 (Internal Forces) w całości.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdział 6 (Internal Forces).

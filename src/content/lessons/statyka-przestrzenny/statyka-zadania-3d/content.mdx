@@ -1,0 +1,194 @@
+---
+id: statyka-zadania-3d
+moduleId: statyka-przestrzenny
+number: 7
+title: 'Pełne zadanie przestrzenne: od schematu do weryfikacji'
+shortTitle: 'Zadania 3D'
+description: >-
+  Rozwiąż kompletne zadanie równowagi przestrzennej z kilkoma więzami i obciążeniami,
+  a następnie sprawdź wynik momentami względem innego punktu i warunkami geometrycznymi.
+eyebrow: 'Policz, sprawdź, uzasadnij'
+outcomes:
+  - W1 — planuje kolejność rozwiązania przestrzennego zadania równowagi
+  - W2 — rozumie rolę niezależnej weryfikacji i warunków geometrycznych
+  - U1 — rozwiązuje pełne zadanie 3D z wieloma siłami i więzami
+  - U2 — sprawdza wynik momentem względem innego punktu oraz sumami sił
+---
+
+To jest lekcja podsumowująca moduł. Nie wprowadza nowego wzoru — pokazuje, jak złożyć w całość wszystkie narzędzia: zapis sił w przestrzeni, moment względem punktu, redukcję, sześć równań równowagi i rozpoznawanie więzów. W prawdziwym zadaniu nie wystarczy „jakoś wyliczyć” reakcje. Trzeba jeszcze umieć uzasadnić, że wynik jest poprawny.
+
+Weryfikacja geometryczna ma dwa poziomy. Pierwszy to niezależna kontrola rachunku: sumujemy momenty względem punktu, którego nie użyliśmy w rozwiązaniu, i sprawdzamy, że wychodzi zero. Drugi to kontrola sensu fizycznego: czy znaki reakcji odpowiadają temu, co robi obciążenie, czy wypadkowa sił pionowych równa się obciążeniom pionowym, czy kierunek reakcji nie przeczy charakterowi więzu. Dopiero oba poziomy dają pewność, że zadanie jest rozwiązane, a nie tylko „przeliczone”.
+
+Na przykładzie płyty z przegubem kulistym, przegubem walcowym i cięgnem przejdziemy przez pełny schemat: współrzędne, wektory sił, momenty, rozwiązanie układu i kontrolę względem drugiego punktu. Ten sam schemat zastosujesz do zadań z wałami, ramami i podestami.
+
+## Zanim zaczniesz
+
+- Miej opanowane zapisywanie siły z geometrii dwóch punktów oraz momentu jako $\mathbf r\times\mathbf F$.
+- Rozpoznawaj reakcje przegubu kulistego (3), walcowego (2) i cięgna (1).
+- Umiej rozwiązać układ liniowy metodą podstawiania lub eliminacji; nie podstawiaj liczb zbyt wcześnie.
+- Pamiętaj, że w równowadze moment względem dowolnego punktu jest zerowy, bo wektor główny znika.
+- Zapisuj jednostki przy każdym wyniku i nie mieszaj metrów z centymetrami.
+
+## Model i intuicja
+
+Pełne zadanie przestrzenne rozwiązujesz w stałej kolejności. Najpierw geometria: współrzędne punktów, wektory, długości, wersory. Potem więzy: ile i jakich składowych reakcji. Następnie schemat ciała wolnego i zapis wszystkich sił w postaci wektorowej. Dopiero na końcu równania i rachunek. Odwrócenie tej kolejności — najpierw liczenie, potem rysunek — prawie zawsze kończy się błędem znaku albo pominiętą reakcją.
+
+Drugi element to wybór równań. Moment względem punktu, w którym przecina się wiele niewiadomych, eliminuje je jednym ruchem. Jeśli w zadaniu występuje kilka sił w jednej płaszczyźnie, warto najpierw wykorzystać równania momentów względem osi leżących w tej płaszczyźnie. Nie ma jednego uniwersalnego zestawu „najlepszych” osi — jest zestaw najlepszy dla konkretnej geometrii.
+
+Weryfikacja jest częścią modelu, nie dodatkiem. Po rozwiązaniu masz do dyspozycji kilka niezależnych testów: suma sił w każdym kierunku, moment względem innego punktu, moment względem dowolnej osi, a dla ciał trójsiłowych — warunek współpłaszczyznowości i zbieżności linii działania. Jeśli którykolwiek test nie wychodzi, błąd jest w danych, znaku, ramieniu albo w schemacie więzów.
+
+## Laboratorium: co ustawić
+
+Zbuduj płytę z trzema podporami i obciąż ją w dwóch kierunkach. Rozwiąż zadanie raz, a potem zmień punkt, względem którego sumujesz momenty. Sprawdź, czy wynik pozostaje ten sam. Następnie zmień jeden znak obciążenia i zobacz, która reakcja zmienia zwrot — to pomaga wyrobić intuicję znaków przed rachunkiem.
+
+<Lab id="staticsSpatial" />
+
+## Definicje i jednostki
+
+| Pojęcie               | Zapis                        | Znaczenie                                         | Jednostka |
+| --------------------- | ---------------------------- | ------------------------------------------------- | --------- |
+| Schemat ciała wolnego | —                            | Ciało z wszystkimi siłami i reakcjami             | —         |
+| Równanie momentów     | $\sum\mathbf M_P=\mathbf 0$  | Momenty względem dowolnego punktu $P$             | kN·m      |
+| Weryfikacja           | $\sum\mathbf M_B=\mathbf 0$  | Kontrola względem punktu nieużytego w rozwiązaniu | kN·m      |
+| Wypadkowa reakcja     | $R=\sqrt{R_x^2+R_y^2+R_z^2}$ | Moduł reakcji przestrzennej                       | kN        |
+| Warunek trójsiłowy    | linie działania zbieżne      | Dla trzech sił w równowadze                       | —         |
+
+Symbole: $\mathbf r_i$ — wektor wodzący punktu przyłożenia siły względem początku układu, $\mathbf r_P$ — wektor wodzący punktu $P$; różnica $\mathbf r_i-\mathbf r_P$ prowadzi od $P$ do siły. $\mathbf M_j$ — przyłożone pary. Jednostki: siły w kN, ramiona w m, momenty w kN·m. W zadaniu nie mieszaj jednostek — reakcję podawaj w kN, a moment w kN·m, nawet jeśli liczbowo wychodzą podobne wartości.
+
+## Wzór i wyprowadzenie
+
+Dla dowolnego punktu $P$ warunek równowagi momentów ma postać:
+
+<Formula>
+$$
+\sum_{i=1}^{n}(\mathbf r_i-\mathbf r_P)\times\mathbf F_i+\sum_{j}\mathbf M_j=\mathbf 0,
+\qquad
+\sum_{i=1}^{n}\mathbf F_i=\mathbf 0
+$$
+
+<Caption>Momenty liczone względem punktu $P$ i suma sił. W równowadze ten sam warunek zachodzi dla każdego $P$, więc do rozwiązania wybierasz punkt najwygodniejszy, a do kontroli — inny. To właśnie umożliwia niezależną weryfikację.</Caption>
+</Formula>
+
+Po rozpisaniu na osie otrzymujesz sześć równań z lekcji 4. Weryfikacja polega na powtórzeniu sumy momentów względem innego punktu $B$:
+
+<Formula>
+$$
+\sum_{i=1}^{n}(\mathbf r_i-\mathbf r_B)\times\mathbf F_i+\sum_{j}\mathbf M_j=\mathbf 0
+\quad\text{oraz}\quad
+\sum F_x=\sum F_y=\sum F_z=0
+$$
+
+<Caption>Kontrola po rozwiązaniu. Jeśli równania względem $A$ dały reakcje, to równania względem $B$ nie mogą być spełnione „z definicji” — niosą nową informację o poprawności znaków i ramion.</Caption>
+</Formula>
+
+Dla ciała trójsiłowego dochodzi geometryczny warunek: trzy nierównoległe siły w równowadze muszą leżeć w jednej płaszczyźnie i mieć zbieżne linie działania. To twierdzenie jest przestrzennym uogólnieniem zbieżności z modułu płaskiego. W zadaniu z większą liczbą sił zamiast zbieżności sprawdzasz moment względem osi i sens znaków reakcji.
+
+## Przykład prowadzony: płyta z obciążeniem dwukierunkowym
+
+<AnimatedSolution id="ex-statyka-zadania-3d" />
+
+Warto zwrócić uwagę na dwie rzeczy. Po pierwsze, moment względem $A$ dał od razu trzy niewiadome: $S$, $B_z$ i $B_y$. Po drugie, kontrola względem $B$ nie jest powtórzeniem tego samego rachunku — użyliśmy innego punktu i innych ramion, więc każda pomyłka w znaku lub odległości ujawniłaby się jako niezerowa suma. To najskuteczniejszy test w zadaniach przestrzennych.
+
+## Typowe błędy
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zaczynanie od liczb przed zapisaniem współrzędnych i wektorów sił; wtedy znaki i ramiona są zgadywane.
+- Pomijanie jednej składowej obciążenia, zwłaszcza poziomej, bo „płyta jest głównie pionowa”.
+- Używanie tego samego punktu do rozwiązania i do kontroli — to nie jest niezależna weryfikacja.
+- Błędne ramię siły pionowej w $C$: liczenie tylko $x$ albo tylko $y$, zamiast pełnego iloczynu wektorowego.
+- Traktowanie ujemnej reakcji jako błędu; znak mówi o zwrocie, a nie o nieistnieniu reakcji.
+- Mieszanie jednostek: centymetry w geometrii i metry w ramionach momentów.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Przeczytaj geometrię i zapisz współrzędne wszystkich punktów przyłożenia sił i podpór.
+2. Zidentyfikuj więzy i policz niewiadome; sprawdź, czy nie brakuje łożyska wzdłużnego albo czy nie ma nadmiaru reakcji.
+3. Narysuj schemat ciała wolnego i zapisz każdą siłę jako wektor.
+4. Wybierz punkt momentów eliminujący najwięcej niewiadomych i zapisz równania momentów.
+5. Rozwiąż najpierw te równania, które dają pojedyncze niewiadome; dopiero potem użyj sum sił.
+6. Oblicz moduły i kierunki reakcji, sprawdź jednostki i sens znaków.
+7. Wykonaj niezależną kontrolę: moment względem innego punktu, moment względem wybranej osi oraz sumy sił.
+
+## Połącz z resztą kursu
+
+- **Równowaga 3D** — pełne zadanie to zastosowanie sześciu równań z lekcji 4 w konkretnej geometrii.
+- **Więzy 3D** — liczba i rodzaj reakcji z lekcji 5 decyduje o tym, czy układ jest wyznaczalny.
+- **Wały i łożyska** — zadania wałowe to szczególny przypadek pełnego zadania 3D z osią wyróżnioną.
+- **Kratownice przestrzenne** — w węźle spotykają się pręty; warunki równowagi węzła to te same równania, tylko z siłami osiowymi.
+- **Wytrzymałość: stany złożone** — reakcje i momenty wyznaczone tutaj są obciążeniami zewnętrznymi dla analizy naprężeń.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Od czego zaczynasz pełne zadanie równowagi przestrzennej?</Prompt>
+    <Answer>Od podstawienia danych do wzorów na reakcje</Answer>
+    <Answer correct>Od zapisania współrzędnych punktów i wektorów wszystkich sił</Answer>
+    <Answer>Od zgadnięcia kierunków reakcji na podstawie rysunku</Answer>
+    <Hint>Bez geometrii nie znasz ramion ani znaków składowych.</Hint>
+    <Explanation>
+      Kolejność jest stała: geometria, więzy, schemat ciała wolnego, wektory sił, równania, rachunek. Dopiero kompletny
+      zapis pozwala uniknąć błędów znaku i pominiętych reakcji.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z płytą siła w cięgnie wynosi:</Prompt>
+    <Answer>$8\ \text{kN}$</Answer>
+    <Answer correct>$14\ \text{kN}$</Answer>
+    <Answer>$20\ \text{kN}$</Answer>
+    <Hint>$\sum M_x=0$: $-18-24+3S=0$.</Hint>
+    <Explanation>
+      $3S=42$, więc $S=14\ \text{kN}$. Wartość $20$ kN to suma obciążeń pionowych, a $8$ kN to sama siła $P$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W tym samym przykładzie reakcja $B_y$ wynosi:</Prompt>
+    <Answer>$-9\ \text{kN}$</Answer>
+    <Answer correct>$9\ \text{kN}$</Answer>
+    <Answer>$18\ \text{kN}$</Answer>
+    <Hint>$\sum M_z=0$: $-18+2B_y=0$.</Hint>
+    <Explanation>$2B_y=18$, więc $B_y=9\ \text{kN}$. Znak dodatni oznacza zwrot zgodny z osią $y$.</Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z płytą składowa $A_z$ wynosi:</Prompt>
+    <Answer>$-8\ \text{kN}$</Answer>
+    <Answer correct>$14\ \text{kN}$</Answer>
+    <Answer>$20\ \text{kN}$</Answer>
+    <Hint>$\sum F_z=A_z+B_z-12-8+S=0$, gdzie $B_z=-8$ i $S=14$.</Hint>
+    <Explanation>
+      $A_z-8-20+14=0$, więc $A_z=14\ \text{kN}$. Wartość $-8$ kN to reakcja $B_z$, a $20$ kN to suma ciężaru i siły $P$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Która kontrola jest niezależna od rozwiązania momentów względem $A$?</Prompt>
+    <Answer>Ponowne sumowanie momentów względem $A$</Answer>
+    <Answer correct>Sumowanie momentów względem innego punktu, np. $B$</Answer>
+    <Answer>Przepisanie wyników bez zmian</Answer>
+    <Hint>Niezależność wymaga innego punktu odniesienia lub innej osi.</Hint>
+    <Explanation>
+      Momenty względem $A$ zostały już użyte do wyznaczenia reakcji. Kontrola względem $B$ wnosi nowe ramiona i nowe
+      równania, więc może wykryć błąd, którego równania względem $A$ nie widzą.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Trzy nierównoległe siły w równowadze przestrzennej muszą być:</Prompt>
+    <Answer>zawsze równoległe do jednej osi</Answer>
+    <Answer correct>współpłaszczyznowe i mieć zbieżne linie działania</Answer>
+    <Answer>przyłożone w środku ciężkości ciała</Answer>
+    <Hint>Wypadkowa dwóch sił leży w ich płaszczyźnie; trzecia musi ją znieść.</Hint>
+    <Explanation>
+      Wypadkowa dwóch sił przechodzi przez ich punkt przecięcia i leży w płaszczyźnie wyznaczonej przez te siły. Trzecia
+      siła musi być do niej równa i przeciwna, więc leży w tej samej płaszczyźnie i na tej samej prostej.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Przestrzenny układ sił”, str. 9–15: pełne przykłady płyty i wału, układy równań oraz ręczne rozwiązania z wykładu.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 5.5: przykłady równowagi 3D (m.in. zginany pręt) i strategia rozwiązywania układów sześciu równań.
+- J. Moore i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 4.3: równania równowagi ciała sztywnego i weryfikacja wyników w zadaniach przestrzennych.
+- _University Physics_ (OpenStax), rozdz. 12.1–12.2: warunki równowagi, przykłady z dźwigniami i konstrukcjami oraz interpretacja momentów względem osi.

@@ -181,39 +181,48 @@ export function AxialDesignThreeForcesAnimation({ scene, index, playing, scenePr
         >
           {support()}
 
-          <text x={8} y={18} fontSize={8.5} fill={INK}>
-            P = 20 kN, 2P = 40 kN
+          <text x={8} y={12} fontSize={8.5} fill={INK}>
+            P = 20 kN, 2P = 40 kN · A = 1000 mm²
           </text>
-          <text x={8} y={32} fontSize={8.5} fill={MUTED}>
-            A = 1000 mm², E = 200 GPa
-          </text>
-          <text x={8} y={46} fontSize={8.5} fill={MUTED}>
-            k = 100 MPa, ΔL_dop = 0,12 mm
+          <text x={8} y={25} fontSize={8.5} fill={MUTED}>
+            E = 200 GPa · k = 100 MPa · ΔL_dop = 0,12 mm
           </text>
 
+          {!isElongation &&
+            !isCheck &&
+            SEGMENTS.map((segment, segmentIndex) => (
+              <g key={segment.id}>
+                <rect
+                  x={CX - HALF}
+                  y={NODES[segmentIndex]}
+                  width={HALF * 2}
+                  height={NODES[segmentIndex + 1] - NODES[segmentIndex]}
+                  rx={3}
+                  fill={TENSION}
+                  fillOpacity={isNormal && segmentIndex === cutIndex ? 0.24 : 0.11}
+                  stroke={TENSION}
+                  strokeWidth={isNormal && segmentIndex === cutIndex ? 2.2 : 1.4}
+                />
+                <text
+                  x={CX}
+                  y={mid(segmentIndex) + 4}
+                  textAnchor="middle"
+                  fontSize={12}
+                  fontWeight={700}
+                  fill={TENSION}
+                >
+                  {segment.id}
+                </text>
+              </g>
+            ))}
           {SEGMENTS.map((segment, segmentIndex) => (
-            <g key={segment.id}>
-              <rect
-                x={CX - HALF}
-                y={NODES[segmentIndex]}
-                width={HALF * 2}
-                height={NODES[segmentIndex + 1] - NODES[segmentIndex]}
-                rx={3}
-                fill={TENSION}
-                fillOpacity={isNormal && segmentIndex === cutIndex ? 0.24 : 0.11}
-                stroke={TENSION}
-                strokeWidth={isNormal && segmentIndex === cutIndex ? 2.2 : 1.4}
-              />
-              <text x={CX} y={mid(segmentIndex) + 4} textAnchor="middle" fontSize={12} fontWeight={700} fill={TENSION}>
-                {segment.id}
-              </text>
-              <Dimension
-                x={84}
-                from={NODES[segmentIndex]}
-                to={NODES[segmentIndex + 1]}
-                label={`${segment.length} mm`}
-              />
-            </g>
+            <Dimension
+              key={`dim-${segment.id}`}
+              x={84}
+              from={NODES[segmentIndex]}
+              to={NODES[segmentIndex + 1]}
+              label={`${segment.length} mm`}
+            />
           ))}
 
           <LoadArrow x={CX + 36} y={NODES[1]} label="2P = 40 kN" opacity={loadReveal} />
@@ -419,27 +428,31 @@ export function AxialDesignThreeForcesAnimation({ scene, index, playing, scenePr
           {(isElongation || isCheck) && (
             <g>
               <path d={barPath(NODES)} fill="none" stroke={MUTED} strokeWidth={1.2} strokeDasharray="5 4" />
-              {SEGMENTS.map((segment, segmentIndex) => {
-                const start = deformed[segmentIndex]
-                const end = deformed[segmentIndex + 1]
-                return (
-                  <motion.rect
-                    key={`d-${segment.id}`}
-                    x={CX - HALF}
-                    y={start}
-                    width={HALF * 2}
-                    height={end - start}
-                    rx={3}
-                    fill={TENSION}
-                    fillOpacity={0.18}
-                    stroke={TENSION}
-                    strokeWidth={1.6}
-                    initial={false}
-                    animate={{ y: start, height: end - start }}
-                    transition={{ duration: 0.1, ease: 'linear' }}
-                  />
-                )
-              })}
+              <motion.rect
+                x={CX - HALF}
+                width={HALF * 2}
+                rx={3}
+                fill={TENSION}
+                fillOpacity={0.18}
+                stroke={TENSION}
+                strokeWidth={1.6}
+                initial={false}
+                animate={{ y: TOP, height: deformed[3] - TOP }}
+                transition={{ duration: 0.1, ease: 'linear' }}
+              />
+              {SEGMENTS.map((segment, segmentIndex) => (
+                <text
+                  key={`deformed-label-${segment.id}`}
+                  x={CX}
+                  y={(deformed[segmentIndex] + deformed[segmentIndex + 1]) / 2 + 4}
+                  textAnchor="middle"
+                  fontSize={12}
+                  fontWeight={700}
+                  fill={TENSION}
+                >
+                  {segment.id}
+                </text>
+              ))}
 
               {isElongation && (
                 <>

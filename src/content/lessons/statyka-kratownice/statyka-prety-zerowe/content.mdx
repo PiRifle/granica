@@ -1,0 +1,196 @@
+---
+id: statyka-prety-zerowe
+moduleId: statyka-kratownice
+number: 2
+title: 'Pręty zerowe: darmowe informacje przed rachunkiem'
+shortTitle: 'Pręty zerowe'
+description: >-
+  Dwie reguły rozpoznawania prętów zerowych, ich uzasadnienie oraz przypadki,
+  w których obciążenie w węźle całkowicie zmienia obraz.
+eyebrow: 'Zobacz zero, zanim policzysz'
+outcomes:
+  - 'W1 — formułuje dwie reguły rozpoznawania prętów zerowych'
+  - 'W2 — wyjaśnia, dlaczego obciążenie w węźle może znieść regułę'
+  - 'U1 — wskazuje pręty zerowe w schemacie kratownicy'
+  - 'U2 — wykorzystuje pręty zerowe do uproszczenia dalszego rachunku'
+---
+
+W kratownicy złożonej z kilkunastu prętów część z nich może nie przenosić żadnej siły. Nie są to pręty zepsute ani zbędne w sensie geometrycznym — po prostu w danym stanie obciążenia ich siła osiowa wynosi zero. Rozpoznanie takich prętów przed rozpoczęciem obliczeń oszczędza czas i zmniejsza liczbę równań. Co więcej, pręt zerowy w jednym węźle często pociąga za sobą kolejne zera w sąsiednich węzłach.
+
+Informacja „ten pręt ma zero" jest pełnoprawnym wynikiem, ale trzeba umieć ją uzasadnić. Nie wystarczy spojrzeć na rysunek i stwierdzić, że pręt „wygląda na nieobciążony". Reguły prętów zerowych wynikają wprost z równań równowagi węzła. W tej lekcji wyprowadzimy dwie podstawowe reguły, pokażemy ich ograniczenia i przejdziemy przez przykład, w którym jedna reguła od razu upraszcza całą kratownicę.
+
+Najważniejsze ostrzeżenie brzmi: pręt zerowy w modelu obliczeniowym nie zawsze jest zbędny w rzeczywistej konstrukcji. Bywa potrzebny do zachowania kształtu, do skrócenia długości wyboczeniowej innego pręta albo do przenoszenia obciążeń w innym stanie pracy. My liczymy siły dla konkretnego obciążenia — i tylko w tym stanie pręt może mieć zero.
+
+## Zanim zaczniesz
+
+- Umiej zapisać równania rzutów dla węzła z dwoma lub trzema prętami.
+- Pamiętaj, że siła w pręcie działa wzdłuż jego osi, a znak dodatni oznacza rozciąganie.
+- Odróżniaj węzeł obciążony od nieobciążonego: to klucz do obu reguł.
+- Rozpoznaj pręty współliniowe — leżące na tej samej prostej, choć po przeciwnych stronach węzła.
+- Przygotuj schemat z numeracją prętów, żeby wynik nie gubił się w opisie słownym.
+
+## Model i intuicja
+
+Wyobraź sobie węzeł, w którym spotykają się dwa pręty pod kątem prostym, a żadna siła zewnętrzna nie działa. Każdy pręt może wywierać siłę tylko wzdłuż siebie. Gdyby jeden z nich miał niezerową siłę, w węźle powstałaby składowa w jego kierunku, której drugi pręt — prostopadły — nie może zrównoważyć. Jedynym rozwiązaniem jest zero w obu prętach. To pierwsza reguła.
+
+Druga reguła dotyczy trzech prętów, z których dwa leżą na jednej prostej. Ich siły rozkładają się wzdłuż tej samej linii, więc trzeci pręt, nachylony pod kątem, nie ma partnera do zrównoważenia składowej prostopadłej. Jeśli węzeł nie jest obciążony, siła w trzecim pręcie musi być zerowa. Pręty współliniowe mogą wtedy przenosić równe co do wartości siły rozciągające lub ściskające, ale trzeciego to nie dotyczy.
+
+Obie reguły są lokalne: patrzysz tylko na jeden węzeł. Dlatego rozpoznawanie zer warto prowadzić iteracyjnie. Po stwierdzeniu, że pręt jest zerowy, „usuwamy" go myślowo i patrzymy na sąsiedni węzeł. Czasem dopiero wtedy ujawnia się kolejna reguła. To przypomina rozwiązywanie łamigłówki: każde zero upraszcza obraz następnego węzła.
+
+Granica stosowalności jest jedna, ale zasadnicza: **węzeł musi być nieobciążony**. Obciążenie zewnętrzne w węźle może zrównoważyć składową, która w przeciwnym razie wymusiłaby zero. Na przykład w węźle z dwoma prętami i siłą wzdłuż jednego z nich drugi pręt może być zerowy, ale nie musi — wszystko zależy od kierunku obciążenia. Dlatego reguły stosujemy tylko po sprawdzeniu, że w danym węźle nie ma siły zewnętrznej.
+
+## Laboratorium: co ustawić
+
+Zbuduj kratownicę z kilkoma węzłami i najpierw nie przykładaj żadnego obciążenia. Zaznacz węzły, w których spotykają się dwa pręty lub trzy z parą współliniową, i sprawdź, czy laboratorium pokazuje tam zero. Potem przyłóż siłę w jednym z tych węzłów i obserwuj, które „zera" znikają. Spróbuj znaleźć obciążenie działające wzdłuż pręta, przy którym inny pręt staje się zerowy.
+
+<Lab id="staticsTruss" />
+
+## Definicje i jednostki
+
+| Pojęcie              | Znaczenie                                                            | Jednostka |
+| -------------------- | -------------------------------------------------------------------- | --------- |
+| Pręt zerowy          | Pręt, w którym siła osiowa wynosi zero w danym stanie obciążenia     | —         |
+| Węzeł nieobciążony   | Węzeł, w którym nie działa żadna siła zewnętrzna                     | —         |
+| Pręty współliniowe   | Pręty leżące na jednej prostej po przeciwnych stronach węzła         | —         |
+| Reguła dwóch prętów  | Dwa niewspółliniowe pręty w nieobciążonym węźle mają siły zerowe     | —         |
+| Reguła trzech prętów | Trzeci pręt w nieobciążonym węźle z parą współliniową ma siłę zerową | —         |
+
+Jednostki: siły w kN lub N. Zero jest zerem niezależnie od jednostki, ale pozostałe siły w tabeli wyników muszą mieć spójne jednostki.
+
+## Wzór i wyprowadzenie
+
+Dla nieobciążonego węzła z dwoma prętami nierównoległymi o kierunkach $\vec e_1$ i $\vec e_2$:
+
+<Formula>
+$$
+N_1\vec e_1+N_2\vec e_2=\vec 0
+\quad\Rightarrow\quad
+N_1=N_2=0
+$$
+
+<Caption>Dwa nierównoległe wektory są liniowo niezależne. Ich kombinacja może dać zero tylko wtedy, gdy oba współczynniki są zerowe. To cała treść pierwszej reguły.</Caption>
+</Formula>
+
+Dla nieobciążonego węzła z trzema prętami, z których pierwszy i drugi są współliniowe, a trzeci ma kierunek $\vec e_3$ poza tą linią:
+
+<Formula>
+$$
+N_1\vec e+N_2(-\vec e)+N_3\vec e_3=\vec 0
+\quad\Rightarrow\quad
+N_3=0
+$$
+
+<Caption>Rzut na kierunek prostopadły do prętów współliniowych eliminuje $N_1$ i $N_2$. Zostaje $N_3\sin\varphi=0$, gdzie $\varphi$ jest kątem pręta trzeciego do linii współliniowej. Dla $\varphi\neq0$ dostajemy $N_3=0$.</Caption>
+</Formula>
+
+Po ustaleniu $N_3=0$ równanie wzdłuż linii współliniowej daje $N_1=N_2$. To nie znaczy, że oba są zerowe — mogą przenosić równą siłę. Dlatego druga reguła mówi tylko o trzecim pręcie, a nie o całej trójce.
+
+<AnimatedSolution id="ex-statyka-prety-zerowe" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Stosowanie reguły pręta zerowego do węzła obciążonego — obciążenie może zrównoważyć składową i pręt wcale nie musi być zerowy.
+- Uznanie, że w węźle z parą współliniową wszystkie trzy pręty są zerowe — zerowy jest tylko trzeci, a para może przenosić równą siłę.
+- Pomijanie prętów zerowych w tabeli wyników — zero to wynik i trzeba je zapisać, bo inaczej tabela jest niepełna.
+- Usuwanie pręta zerowego z rzeczywistej konstrukcji bez analizy stateczności — w modelu dla danego obciążenia ma zero, ale może być potrzebny konstrukcyjnie.
+- Zła geometria: dwa pręty ukośne o różnych kątach nie tworzą symetrii, więc nie można zakładać równych sił.
+- Zapominanie o iteracji — po stwierdzeniu jednego zera warto sprawdzić sąsiednie węzły, bo często pojawiają się kolejne.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zaznacz wszystkie węzły i sprawdź, które z nich nie mają obciążenia zewnętrznego.
+2. W każdym takim węźle policz pręty i sprawdź, czy są wśród nich dwa współliniowe.
+3. Jeśli w węźle są dokładnie dwa pręty nierównoległe — oba mają zero.
+4. Jeśli są trzy pręty i dwa są współliniowe — trzeci ma zero.
+5. Zaznacz rozpoznane zera na schemacie i myślowo usuń te pręty.
+6. Powtórz kroki 2–5 dla sąsiednich węzłów, aż przestaną pojawiać się nowe zera.
+7. Pozostałe siły licz metodą węzłów lub Rittera, a w tabeli wyników wpisz także zera.
+
+## Połącz z resztą kursu
+
+- **Równowaga zbieżna** — reguły prętów zerowych to wnioski z równań rzutów dla węzła, nie osobne twierdzenia.
+- **Metoda węzłów** — rozpoznanie zer przed rachunkiem zmniejsza liczbę niewiadomych i porządkuje kolejność węzłów.
+- **Metoda Rittera** — czasem przekrój przechodzi przez pręt zerowy; wtedy jedna niewiadoma znika z równania momentów.
+- **Geometria kratownicy** — pręt zerowy nadal jest częścią schematu i wpływa na sztywność oraz stateczność konstrukcji.
+- **Wytrzymałość: wyboczenie** — pręt ściskany o małej sile może być krytyczny, jeśli jest długi i smukły; zero nie oznacza, że można go bezkarnie usunąć.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>W nieobciążonym węźle spotykają się dwa pręty nierównoległe. Siły w tych prętach są:</Prompt>
+    <Answer>zawsze równe co do wartości i znaku</Answer>
+    <Answer correct>obie równe zeru</Answer>
+    <Answer>zawsze równe zeru tylko wtedy, gdy pręty są prostopadłe</Answer>
+    <Hint>Dwa nierównoległe kierunki są liniowo niezależne — czy ich kombinacja może dać zero przy niezerowych współczynnikach?</Hint>
+    <Explanation>
+      Tylko kombinacja liniowo niezależna ze wszystkimi współczynnikami zerowymi daje wektor zerowy. Każdy niezerowy
+      współczynnik wprowadziłby składową, której drugi, nierównoległy pręt nie może zrównoważyć.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>W nieobciążonym węźle działają trzy pręty, z których dwa są współliniowe. Co można powiedzieć o trzecim pręcie?</Prompt>
+    <Answer>Jest rozciągany, jeśli para współliniowa jest ściskana</Answer>
+    <Answer correct>Jego siła wynosi zero</Answer>
+    <Answer>Jego siła jest równa sumie sił w prętach współliniowych</Answer>
+    <Hint>Rzutuj równanie równowagi na kierunek prostopadły do prętów współliniowych.</Hint>
+    <Explanation>
+      Rzut na kierunek prostopadły eliminuje oba pręty współliniowe. Zostaje tylko składowa trzeciego pręta, która musi być
+      zerowa, bo węzeł nie jest obciążony. Para współliniowa może przenosić równe siły, ale trzeci pręt ma zero.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z lekcji pręt $BD$ jest zerowy. Ile wynosi siła w pręcie $AB$?</Prompt>
+    <Answer>$0\ \text{kN}$</Answer>
+    <Answer correct>$+6\ \text{kN}$ — rozciąganie</Answer>
+    <Answer>$-8{,}49\ \text{kN}$ — ściskanie</Answer>
+    <Hint>W węźle $A$ pionową równowagę daje reakcja $6\ \text{kN}$, a poziomą — pręt $AB$ i składowa pręta $AD$.</Hint>
+    <Explanation>
+      Siła w $AD$ wynosi $-8{,}49\ \text{kN}$, więc jej składowa pozioma to $-6\ \text{kN}$ (w lewo). Pręt $AB$ musi ciągnąć
+      węzeł w prawo z siłą $+6\ \text{kN}$. Wartość $8{,}49\ \text{kN}$ to siła w pręcie ukośnym, nie w dolnym pasie.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy druga reguła pręta zerowego przestaje być prawdziwa?</Prompt>
+    <Answer>Gdy pręty współliniowe mają różne długości</Answer>
+    <Answer correct>Gdy w węźle działa obciążenie zewnętrzne</Answer>
+    <Answer>Gdy trzeci pręt jest dłuższy od pozostałych</Answer>
+    <Hint>Reguła zakłada, że jedynymi siłami w węźle są siły od prętów.</Hint>
+    <Explanation>
+      Obciążenie zewnętrzne może mieć składową prostopadłą do prętów współliniowych i wtedy trzeci pręt musi ją przenieść.
+      Długości prętów nie mają znaczenia dla samej reguły — liczy się geometria kierunków i brak obciążenia.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Po rozpoznaniu pręta zerowego w kratownicy najlepszy następny krok to:</Prompt>
+    <Answer>usunięcie pręta z konstrukcji i ponowne obliczenie reakcji</Answer>
+    <Answer correct>myślowe usunięcie pręta ze schematu i sprawdzenie sąsiednich węzłów</Answer>
+    <Answer>założenie, że wszystkie pozostałe pręty też są zerowe</Answer>
+    <Hint>Zera często występują łańcuchowo, ale każdy węzeł trzeba sprawdzić osobno.</Hint>
+    <Explanation>
+      Pręt zerowy opuszczamy w analizie danego stanu obciążenia, ale reakcje podpór liczymy dla całej konstrukcji. Po usunięciu
+      pręta warto sprawdzić sąsiednie węzły, bo mogą ujawnić kolejne zera — nie wolno jednak rozciągać reguły na całą kratownicę.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Czy pręt zerowy można zawsze usunąć z rzeczywistej konstrukcji?</Prompt>
+    <Answer>Tak, bo nie przenosi żadnej siły</Answer>
+    <Answer correct>Nie, bo może być potrzebny do zachowania kształtu lub stateczności</Answer>
+    <Answer>Tak, ale tylko w kratownicach przestrzennych</Answer>
+    <Hint>Pomyśl o pręcie, który w jednym stanie obciążenia ma zero, a w innym może przenosić siłę.</Hint>
+    <Explanation>
+      Zero dotyczy konkretnego obciążenia i modelu. W rzeczywistej konstrukcji pręt może ograniczać przemieszczenia, skracać
+      długość wyboczeniową pasa ściskanego albo przejmować obciążenia w innym stanie pracy. Decyzję o usunięciu podejmuje się
+      po analizie wszystkich przypadków, nie tylko jednego.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Kratownice — wyznaczanie sił wewnętrznych", str. 3–4: założenia modelu i kryteria sztywności.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 6.3: pręty zerowe i ich rozpoznawanie w kratownicach prostych.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 5.2: metoda węzłów i praktyczne uproszczenia przed rachunkiem.
+- _University Physics_ (OpenStax), rozdz. 5.6: równowaga węzłów i warunki zerowania się sił.

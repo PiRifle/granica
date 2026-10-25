@@ -1,0 +1,166 @@
+---
+id: statyka-dodawanie-rzutowanie
+moduleId: statyka-aksjomaty
+number: 2
+title: 'Dodawanie sił i rzutowanie na osie'
+shortTitle: Dodawanie i rzuty
+description: >-
+  Suma geometryczna i analityczna wektorów, twierdzenie o rzucie sumy oraz
+  wypadkowa układu sił w płaszczyźnie.
+eyebrow: 'Wiele sił — jedna wypadkowa'
+outcomes:
+  - W1 — rozumie regułę równoległoboku i metodę wieloboku
+  - W2 — formułuje twierdzenie o rzucie sumy wektorów na oś
+  - W3 — odróżnia sumę geometryczną od sumy algebraicznej rzutów
+  - U1 — dodaje siły analitycznie i wyznacza wypadkową
+  - U2 — sprawdza wynik drugą metodą (geometryczną lub z twierdzenia cosinusów)
+---
+
+Pojedyncza siła to rzadkość. Hak dźwigu ciągną dwie liny, płytę fundamentową dociskają ciężar własny i nacisk gruntu, a na oczko wciągarki działają trzy liny pod różnymi kątami. Zanim zaczniesz liczyć reakcje, musisz umieć zamienić kilka sił w jedną równoważną — wypadkową. To właśnie dodawanie wektorów, i to w dwóch językach naraz: geometrycznym (rysunek) oraz analitycznym (algebra).
+
+Geometrycznie wypadkowa to przekątna równoległoboku zbudowanego na dwóch siłach, albo — dla większej liczby sił — odcinek łączący początek pierwszego z końcem ostatniego wektora wieloboku. Analitycznie jest jeszcze prościej: rzut sumy wektorów na oś równa się sumie algebraicznej rzutów składowych. Ta druga reguła to fundament wszystkich równań równowagi, które zapiszesz w kolejnych lekcjach.
+
+## Zanim zaczniesz
+
+- Upewnij się, że potrafisz zapisać siłę w postaci analitycznej (lekcja 1).
+- Przypomnij sobie znak rzutu: siła wskazująca w stronę dodatnią osi ma rzut dodatni, przeciwnie — ujemny.
+- Pamiętaj, że kąt kierunkowy mierzymy od dodatniej osi $x$, przeciwnie do ruchu wskazówek zegara.
+- Miej pod ręką kalkulator trygonometryczny i sprawdzaj, czy pracuje w stopniach.
+
+## Model i intuicja
+
+Dodawanie geometryczne odzwierciedla doświadczenie: dwie siły o równoległych prostych działania i tym samym zwrocie „ciągną razem” i ich wypadkowa ma wartość równą sumie; przy zwrotach przeciwnych — różnicy. Gdy proste działania się przecinają, efekt wypadkowej zależy od kąta między siłami i opisuje go twierdzenie cosinusów: $R^2 = F_1^2 + F_2^2 + 2F_1F_2\cos\theta$, gdzie $\theta$ to kąt między wektorami przyłożonymi wspólnym początkiem.
+
+Metoda analityczna zamienia geometrię w rachunek. Każdą siłę rozbijasz na rzuty, rzuty dodajesz algebraicznie po osiach, a z sum rzutów składasz wypadkową z powrotem przez wzór na moduł i funkcję arcus tangens. To podejście skaluje się do dowolnej liczby sił — rysunek wieloboku dla ośmiu sił byłby nieczytelny, a suma rzutów to nadal dwie kolumny liczb.
+
+Są granice tego modelu. Wynik analityczny nie mówi, gdzie przechodzi prosta działania wypadkowej — a w przypadku ciała sztywnego ma to znaczenie (ta sama wypadkowa przyłożona w innym punkcie wywoła inny moment). Lokalizację wypadkowej sił równoległych ustalisz w module o płaskim dowolnym układzie sił.
+
+## Laboratorium: co ustawić
+
+Zbuduj układ dwóch lub trzech sił o różnych kątach. Porównaj wypadkową z rysunku z wypadkową z sumy rzutów — zmieniaj kąty tak, aby wypadkowa była raz większa od obu sił, raz mniejsza od każdej z nich. Zwróć uwagę na przypadek kąta prostego między siłami.
+
+<Lab id="staticsVector" />
+
+## Definicje i jednostki
+
+| Pojęcie          | Zapis                            | Znaczenie                    |
+| ---------------- | -------------------------------- | ---------------------------- |
+| Wypadkowa        | $\mathbf{R} = \sum \mathbf{F}_i$ | siła równoważna układowi     |
+| Rzut siły na oś  | $F_x = F\cos\alpha$              | miara rzutu prostokątnego    |
+| Suma rzutów      | $R_x = \sum F_{ix}$              | algebraiczna suma po osi $x$ |
+| Moduł wypadkowej | $R = \sqrt{R_x^2 + R_y^2}$       | długość wektora wypadkowej   |
+| Kąt wypadkowej   | $\tan\alpha_R = R_y / R_x$       | kąt kierunkowy z ćwiartki    |
+
+Twierdzenie o rzucie sumy: rzut sumy wektorów na dowolną oś równa się sumie algebraicznej rzutów wektorów składowych na tę oś, $R_x = \sum F_{ix}$, $R_y = \sum F_{iy}$. Wprost z niego wynika, że równowaga zbieżnego układu sił to $R_x = 0$ i $R_y = 0$ — pierwszy kontakt z równaniami równowagi.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+R_x=\sum_{i=1}^{n} F_{ix},\qquad
+R_y=\sum_{i=1}^{n} F_{iy},\qquad
+R=\sqrt{R_x^2+R_y^2},\qquad
+\alpha_R=\operatorname{atan2}(R_y, R_x)
+$$
+
+<Caption>Suma analityczna: rzut sumy na oś to suma rzutów. Wzór na $R$ to Pitagoras w płaszczyźnie, a $\operatorname{atan2}$ poprawnie wybiera ćwiartkę kąta kierunkowego — sam arcus tangens dwuznaczny nie wystarcza.</Caption>
+</Formula>
+
+Dlaczego rzut sumy równa się sumie rzutów? Rzut prostokątny to rzutowanie równoległe do osi drugiej współrzędnej, a rzutowanie jest przekształceniem liniowym: zachowuje sumę i mnożenie przez liczbę. Inaczej: przekątna równoległoboku ma składowe będące sumami składowych boków — to wystarczy dla dwóch sił, a przez indukcję dla dowolnej liczby. Geometrycznie widać to też na wieloboku: każdy bok wieloboku „współrzędna po osi” dokłada się do odpowiedniej składowej odcinka zamykającego.
+
+<AnimatedSolution id="ex-statyka-dodawanie-rzutowanie" />
+
+<Callout kind="info" title="Uwaga do rozpoznania układu">
+  Analityczna struktura układu bywa czytelniejsza niż rysunek: tu wersory obu sił okazały się przeciwne ($\mathbf{u}_2 =
+  -\mathbf{u}_1$), więc wypadkowa jest różnicą modułów i leży po stronie siły większej. Zanim zaczniesz sumować rzuty,
+  warto sprawdzić, czy któreś kierunki się nie pokrywają — oszczędza to zbędnego rachunku.
+</Callout>
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dodawanie modułów sił ($R = F_1 + F_2$) zamiast wektorów — poprawne tylko dla sił współliniowych o tym samym zwrocie.
+- Zły znak rzutu siły skierowanej w stronę ujemną osi.
+- Użycie zwykłego arcus tangens bez uwzględnienia ćwiartki — kąt $143{,}13^\circ$ i $36{,}87^\circ$ mają ten sam tangens.
+- Mieszanie kąta „do poziomu” z kątem kierunkowym przy rozbiciu na rzuty.
+- Zaokrąglanie rzutów pośrednich zbyt wcześnie — błąd narasta w sumie; trzymaj pełną precyzję do końca.
+- Rysowanie wieloboku bez zachowania skali i zwrotów, a potem „sprawdzanie” wyniku na nieprecyzyjnym rysunku.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zobacz „wyznaczyć wypadkową” — to zawsze dodawanie wektorów, niezależnie od sformułowania „zastąpić jedną siłą”.
+2. Wybierz osie: zwykle poziom–pion; przy kierunku „wzdłuż $AB$” pomocna jest oś wzdłuż $AB$.
+3. Rozbij każdą siłę na rzuty, pilnując znaków i ćwiartek.
+4. Sumuj rzuty osobno po osiach, potem składaj $R$ i $\alpha_R$.
+5. Oceń wynik: wypadkowa dwóch sił leży między ich kierunkami, a jej moduł jest mniejszy niż suma modułów.
+6. Sprawdź jednym niezależnym rachunkiem — drugą parą osi albo twierdzeniem cosinusów dla dwóch sił.
+
+## Połącz z resztą kursu
+
+- **Lekcja 1 (wektor i składowe)** — tam nabyłeś zapis analityczny, który tu stosujesz.
+- **Moduł 2: płaski zbieżny układ sił** — gdy wypadkowa ma być zerowa, dostajesz warunki równowagi.
+- **Moduł 3: płaski dowolny układ sił** — tam do sumy sił dołączysz sumę momentów.
+- **Moduł wytrzymałości: reakcje belek** — wypadkowa obciążeń jest punktem wyjścia do liczenia reakcji.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Geometrycznie wypadkowa dwóch sił o niejednakowych prostych działania to:</Prompt>
+    <Answer>suma modułów obu sił</Answer>
+    <Answer correct>przekątna równoległoboku zbudowanego na obu siłach</Answer>
+    <Answer>odcinek łączący końce obu sił</Answer>
+    <Hint>Przyłóż obie siły w jednym punkcie i zbuduj na nich równoległobok.</Hint>
+    <Explanation>
+      Reguła równoległoboku: wypadkowa przechodzi przez punkt zbiegu i jest przekątną równoległoboku. Suma modułów obowiązuje tylko dla sił współliniowych o zgodnych zwrotach.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Rzut sumy wektorów na oś $x$ równa się:</Prompt>
+    <Answer>rzutowi wypadkowej na oś $y$</Answer>
+    <Answer correct>sumie algebraicznej rzutów składowych na oś $x$</Answer>
+    <Answer>iloczynowi rzutów składowych</Answer>
+    <Hint>To twierdzenie o rzucie sumy — reguła liniowości rzutowania.</Hint>
+    <Explanation>
+      $R_x = \sum F_{ix}$ — rzuty dodajemy algebraiczną, znakami. Z tego twierdzenia wyprowadza się analityczne warunki równowagi.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła $F_1 = 10\ \text{kN}$ działa pod kątem $0^\circ$, a $F_2 = 10\ \text{kN}$ pod kątem $90^\circ$. Moduł wypadkowej wynosi:</Prompt>
+    <Answer>20 kN</Answer>
+    <Answer correct>14,1 kN</Answer>
+    <Answer>10 kN</Answer>
+    <Hint>Rzuty: $(10, 0)$ i $(0, 10)$.</Hint>
+    <Explanation>
+      $R_x = 10$, $R_y = 10$, $R = \sqrt{200} = 10\sqrt{2} \approx 14{,}1$ kN pod kątem $45^\circ$. Siły prostopadłe łączą się jak przyprostokątne.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Trzy siły mają rzuty: $F_1(4, 3)$, $F_2(-2, 5)$, $F_3(1, -8)$ (kN). Kąt kierunkowy wypadkowej to w przybliżeniu:</Prompt>
+    <Answer>$45^\circ$</Answer>
+    <Answer>$0^\circ$</Answer>
+    <Answer correct>$90^\circ$</Answer>
+    <Hint>Najpierw sumy rzutów, potem kąt — zwróć uwagę na ćwiartkę.</Hint>
+    <Explanation>
+      $R_x = 4 - 2 + 1 = 3$ kN, $R_y = 3 + 5 - 8 = 0$, więc wypadkowa to $3$ kN wzdłuż osi $x$ i kąt kierunkowy wynosi $0^\circ$ (lub $360^\circ$).
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Dlaczego wypadkowej nie wolno wyznaczać sumując moduły sił przy kącie ostrym między nimi?</Prompt>
+    <Answer>Bo moduły są zawsze ujemne</Answer>
+    <Answer correct>Bo część składowych się wycofuje i $R < F_1 + F_2$</Answer>
+    <Answer>Bo suma modułów działa tylko w przestrzeni</Answer>
+    <Hint>Przyłóż dwa wektory pod kątem $60^\circ$ i porównaj długość przekątnej z sumą długości.</Hint>
+    <Explanation>
+      Składowe prostopadłe do wypadkowej znoszą się. Suma modułów to górne ograniczenie wypadkowej, osiągane tylko przy zgodnych zwrotach współliniowych.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład 1 i 2, slajdy 8–16: dodawanie geometryczne, różnica wektorów, dodawanie analityczne, twierdzenie o rzucie sumy i przykład sumowania rzutów czterech sił.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 2.6 „Vector Addition” — tip-to-tail, wielobok i suma analityczna z interaktywnymi wykresami.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_, rozdz. 1.3 „Vectors” — algebra wektorów i wypadkowa z przykładami.
+- _University Physics_ vol. 1 (OpenStax), rozdz. 2.3 „Algebra of Vectors” — dodawanie i odejmowanie składowych.

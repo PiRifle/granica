@@ -1,0 +1,53 @@
+## Co to jest ten moduł
+
+W przestrzeni dochodzi trzeci wymiar, a wraz z nim moment względem osi i więcej równań równowagi. Siła nie jest już opisywana dwiema składowymi, a moment nie jest jedną liczbą ze znakiem. Pojawiają się wektory o trzech składowych, iloczyn wektorowy, redukcja układu do bieguna oraz sześć warunków równowagi.
+
+Ten moduł porządkuje rachunek wektorowy w układzie $XYZ$. Zaczyna od zapisu siły w przestrzeni, przez moment względem punktu i osi, dochodzi do redukcji dowolnego układu sił, a kończy pełnymi zadaniami z podporami, przegubami, cięgnami i łożyskami. Każda lekcja buduje na poprzedniej, więc warto przejść je po kolei.
+
+## Mapa lekcji
+
+1. **Siła w przestrzeni: składowe i kierunki** — zapis siły przez trzy składowe, kąty kierunkowe i dwa punkty linii działania; kontrola modułu oraz sumy cosinusów kierunkowych.
+2. **Moment siły w przestrzeni: punkt, oś i iloczyn wektorowy** — moment względem bieguna jako $\mathbf r\times\mathbf F$, moment względem osi jako rzut na wersor osi oraz przypadki zerowe.
+3. **Redukcja układu sił do bieguna** — wektor główny i moment główny, zmiana bieguna, klasyfikacja układu: wypadkowa, para, wiązka śrubowa, równowaga.
+4. **Równowaga przestrzenna: sześć równań i dobór osi** — trzy równania sił i trzy równania momentów, wybór punktu momentów, pełne rozwiązanie płyty podpartej w trzech punktach.
+5. **Więzy i reakcje w przestrzeni: przeguby, łożyska, zawieszenia** — tabela więzów, liczba składowych reakcji, wyznaczalność oraz schemat ciała wolnego dla podpory stałej, przegubu i cięgna.
+6. **Wały i łożyska: reakcje w dwóch płaszczyznach** — łożysko poprzeczne i wzdłużne, rozkład obciążeń na płaszczyzny $x$–$y$ i $x$–$z$, moment skręcający i reakcje promieniowe.
+7. **Pełne zadanie przestrzenne: od schematu do weryfikacji** — kompletne zadanie z kilkoma więzami i obciążeniami, kontrola momentem względem innego punktu oraz geometryczna ocena znaków i kierunków.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+\mathbf M_F=\mathbf r\times\mathbf F,
+\qquad
+M_l=\mathbf M_F\cdot\mathbf e_l,
+\qquad
+\mathbf R=\sum\mathbf F_i,
+\qquad
+\mathbf M_O=\sum(\mathbf r_i\times\mathbf F_i)+\sum\mathbf M_j
+$$
+
+<Caption>Moment względem punktu i osi oraz dwa wektory redukcji: wektor główny $\mathbf R$ i moment główny $\mathbf M_O$. Redukcja zastępuje cały układ sił siłą w biegunie i parą o momencie $\mathbf M_O$.</Caption>
+</Formula>
+
+<Formula>
+$$
+\sum F_x=\sum F_y=\sum F_z=0,
+\qquad
+\sum M_x=\sum M_y=\sum M_z=0
+$$
+
+<Caption>Sześć analitycznych warunków równowagi przestrzennego dowolnego układu sił. Trzy równania sił opisują brak przesunięcia, trzy równania momentów — brak obrotu. Równania momentów można zapisać względem dowolnego punktu.</Caption>
+</Formula>
+
+## Jak pracować z tym modułem
+
+- Zaczynaj każdą lekcję od laboratorium `staticsSpatial`: zmieniaj położenie siły i obserwuj znaki składowych, zanim wejdziesz w rachunek.
+- W lekcjach 1–3 licz wszystko w zapisie wektorowym, a dopiero na końcu podstawiaj liczby. To najskuteczniejsza ochrona przed błędem znaku.
+- W lekcjach 4–5 zawsze rysuj schemat ciała wolnego i licz niewiadome. Sześć równań nie rozwiąże zadania, w którym pominięto jedną reakcję.
+- W lekcjach 6–7 rozdzielaj płaszczyzny zginania i kontroluj wynik momentem względem drugiego łożyska lub innego punktu.
+- Po każdym przykładzie sprawdź jednostki, znaki i sens fizyczny reakcji; ujemna wartość to informacja o zwrocie, nie automatyczny błąd.
+
+## Dlaczego to ważne
+
+Większość rzeczywistych konstrukcji nie jest płaska. Wały, ramy przestrzenne, podesty i zawieszenia wymagają trzech wymiarów. Ten moduł uczy kontrolować wymiary i znaki, zanim zadania przestrzenne staną się rutyną, oraz przygotowuje do analizy wałów w wytrzymałości materiałów, gdzie reakcje łożysk i moment skręcający są danymi wejściowymi do obliczeń naprężeń.

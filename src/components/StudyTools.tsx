@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { BookOpen, CheckCircle2, Circle, ClipboardList } from 'lucide-react'
-import { lessons, modules, syllabus } from '../content/course'
 import { useCourseStore } from '../store'
+import type { Course } from '../types'
+import { courseThemeStyle } from '../lib/courseTheme'
 import { mdxComponents } from '../mdx/components'
 import contentStyles from '../mdx/Content.module.css'
 import tools from './Tools.module.css'
@@ -17,9 +18,9 @@ const local = (names: string) =>
 
 const CheatSheetBody = lazy(() => import('../content/cheatsheet.mdx'))
 
-export function CheatSheet({ onBack }: { onBack: () => void }) {
+export function CheatSheet({ course, onBack }: { course: Course; onBack: () => void }) {
   return (
-    <div className={local('tool-page')}>
+    <div className={local('tool-page')} style={courseThemeStyle(course.theme)}>
       <header className={local('tool-header')}>
         <button className={local('button button-quiet button-small')} onClick={onBack}>
           ← Wróć do kursu
@@ -30,7 +31,7 @@ export function CheatSheet({ onBack }: { onBack: () => void }) {
           <p>Wzór, jednostki i jedna myśl, która wyjaśnia sens. Treść ściągi jest osobnym dokumentem MDX.</p>
         </div>
         <span className={local('tool-score')}>
-          <BookOpen size={17} /> {lessons.length} lekcji
+          <BookOpen size={17} /> {course.lessons.length} lekcji
         </span>
       </header>
       <div className={contentStyles.content}>
@@ -42,11 +43,12 @@ export function CheatSheet({ onBack }: { onBack: () => void }) {
   )
 }
 
-export function SyllabusMap({ onBack }: { onBack: () => void }) {
+export function SyllabusMap({ course, onBack }: { course: Course; onBack: () => void }) {
   const { completed, scores } = useCourseStore()
-  const totalCompleted = completed.length
+  const courseLessonIds = new Set(course.lessons.map((lesson) => lesson.id))
+  const totalCompleted = completed.filter((id) => courseLessonIds.has(id)).length
   return (
-    <div className={local('tool-page')}>
+    <div className={local('tool-page')} style={courseThemeStyle(course.theme)}>
       <header className={local('tool-header')}>
         <button className={local('button button-quiet button-small')} onClick={onBack}>
           ← Wróć do kursu
@@ -60,16 +62,23 @@ export function SyllabusMap({ onBack }: { onBack: () => void }) {
           </p>
         </div>
         <span className={local('tool-score')}>
-          <ClipboardList size={17} /> {totalCompleted} / {lessons.length} lekcji
+          <ClipboardList size={17} /> {totalCompleted} / {course.lessons.length} lekcji
         </span>
       </header>
       <div className={local('syllabus-list')}>
-        {syllabus.map((item) => {
-          const module = modules.find((entry) => entry.id === item.moduleId)
+        {course.syllabus.map((item) => {
+          const module = course.modules.find((entry) => entry.id === item.moduleId)
           if (!module) return null
+          const planned = module.status === 'planned' || module.lessons.length === 0
           const done = module.lessons.filter((lesson) => completed.includes(lesson.id)).length
-          const percent = Math.round((done / module.lessons.length) * 100)
-          const status = done === 0 ? 'not-started' : done === module.lessons.length ? 'complete' : 'in-progress'
+          const percent = module.lessons.length ? Math.round((done / module.lessons.length) * 100) : 0
+          const status = planned
+            ? 'not-started'
+            : done === 0
+              ? 'not-started'
+              : done === module.lessons.length
+                ? 'complete'
+                : 'in-progress'
           return (
             <article key={item.moduleId} className={local(`syllabus-card ${status}`)}>
               <div className={local('syllabus-card-head')}>
@@ -77,15 +86,15 @@ export function SyllabusMap({ onBack }: { onBack: () => void }) {
                   {status === 'complete' ? <CheckCircle2 /> : <Circle />}
                 </span>
                 <div>
-                  <span className={local('section-kicker')}>MODUŁ {String(module.number).padStart(2, '0')}</span>
+                  <span className={local('section-kicker')}>
+                    MODUŁ {String(module.number).padStart(2, '0')}
+                    {planned ? ' · W PRZYGOTOWANIU' : ''}
+                  </span>
                   <h2>{module.title}</h2>
                   <p>{item.label}</p>
                 </div>
                 <span className={local('syllabus-percent')}>
-                  {percent}%
-                  <small>
-                    {done} / {module.lessons.length} lekcji
-                  </small>
+                  {percent}%<small>{planned ? 'w planie' : `${done} / ${module.lessons.length} lekcji`}</small>
                 </span>
               </div>
               <div className={local('progress-root')}>
@@ -97,7 +106,7 @@ export function SyllabusMap({ onBack }: { onBack: () => void }) {
                   const covered = module.lessons.some(
                     (lesson) =>
                       completed.includes(lesson.id) &&
-                      lesson.outcomes.some((outcome) => outcome.trim().split(' ')[0] === code),
+                      lesson.outcomes.some((lessonOutcome) => lessonOutcome.trim().split(' ')[0] === code),
                   )
                   return (
                     <span key={outcome} className={covered ? local('covered') : undefined}>
@@ -107,19 +116,21 @@ export function SyllabusMap({ onBack }: { onBack: () => void }) {
                   )
                 })}
               </div>
-              <div className={local('syllabus-lessons')}>
-                {module.lessons.map((lesson) => {
-                  const isDone = completed.includes(lesson.id)
-                  const score = scores[lesson.id]
-                  return (
-                    <span key={lesson.id} className={isDone ? local('done') : undefined}>
-                      {isDone ? <CheckCircle2 size={13} /> : <Circle size={13} />}
-                      {lesson.shortTitle}
-                      {isDone && score !== undefined ? ` · ${score}%` : ''}
-                    </span>
-                  )
-                })}
-              </div>
+              {module.lessons.length > 0 && (
+                <div className={local('syllabus-lessons')}>
+                  {module.lessons.map((lesson) => {
+                    const isDone = completed.includes(lesson.id)
+                    const score = scores[lesson.id]
+                    return (
+                      <span key={lesson.id} className={isDone ? local('done') : undefined}>
+                        {isDone ? <CheckCircle2 size={13} /> : <Circle size={13} />}
+                        {lesson.shortTitle}
+                        {isDone && score !== undefined ? ` · ${score}%` : ''}
+                      </span>
+                    )
+                  })}
+                </div>
+              )}
             </article>
           )
         })}

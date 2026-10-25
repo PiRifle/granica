@@ -1,0 +1,190 @@
+---
+id: statyka-hamulce-tarcie
+moduleId: statyka-tarcie
+number: 7
+title: 'Hamulce i bębny: zadanie C'
+shortTitle: 'Hamulce'
+description: >-
+  Bęben z liną, klocek hamulcowy i dźwignia. Równowaga momentów łączy siłę
+  w linie z naciskiem klocka i siłą na dźwigni.
+eyebrow: 'Hamowanie to bilans momentów'
+outcomes:
+  - 'W1 — wyjaśnia, jak siła tarcia klocka tworzy moment hamujący bębna'
+  - 'W2 — rozpoznaje samowzmocnienie i osłabienie działania dźwigni przez tarcie'
+  - 'U1 — wyznacza nacisk klocka i siłę na dźwigni potrzebną do równowagi bębna'
+  - 'U2 — sprawdza wpływ zmiany kierunku obrotu bębna na wymaganą siłę'
+---
+
+Hamulec klockowy wygląda prosto: klocek dociska obracający się bęben, a tarcie zatrzymuje ruch. W praktyce trzeba połączyć trzy elementy: moment od obciążenia działającego na bęben, siłę tarcia na powierzchni klocka oraz równowagę dźwigni, która ten klocek dociska. Każdy z tych elementów ma własne ramię, a geometria decyduje o tym, czy tarcie pomaga dźwigni, czy jej przeszkadza.
+
+W zadaniu typu C na bęben działa znane obciążenie $Q$ (na przykład ciężar zawieszony na linie), a pytamy o minimalną siłę $P$ na dźwigni, która utrzyma układ w równowadze. Trzeba wtedy dwukrotnie zastosować zasadę momentów: raz do bębna, raz do dźwigni. Wartość tarcia wynika z granicy $T=\mu N$, ale kierunek tarcia zależy od zamierzonego obrotu bębna.
+
+W tej lekcji przejdziemy przez kompletny przykład hamulca z bębnem linowym. Zobaczysz też, dlaczego ten sam hamulec wymaga różnej siły przy przeciwnych kierunkach obrotu i kiedy może stać się niebezpiecznie „samowzmacniający”.
+
+## Zanim zaczniesz
+
+- Umiej zapisać moment siły względem punktu i sumować momenty z przeciwnymi znakami.
+- Przypomnij, że siła tarcia na bębnie działa stycznie do jego obwodu.
+- Pamiętaj, że w stanie granicznym $T=\mu_sN$, a w spoczynku tylko $T\le\mu_sN$.
+- Odróżnij promień bębna linowego $R$ od promienia powierzchni hamującej $R_b$.
+- Na rysunku zaznacz kierunek obrotu bębna i kierunek tarcia na klocku; bez tego łatwo pomylić znak momentu.
+
+## Model i intuicja
+
+Wyobraź sobie bęben, na który działa moment od siły $Q$ na lince. Aby bęben stał w miejscu, klocek musi wytworzyć moment przeciwny. Siła tarcia $T$ działa na obwodzie bębna w odległości $R_b$ od osi, więc moment hamujący wynosi $M_h=T R_b$. W stanie granicznym nacisk klocka jest tak dobrany, że $T=\mu_sN$.
+
+Dźwignia jest osobnym ciałem. Działa na nią siła $P$, reakcja w przegubie, nacisk klocka $N$ oraz tarcie $T$. Tarcie jest przyłożone nieco poniżej osi dźwigni — o odległość $e$ — więc też daje moment. Jeśli ten moment działa w tę samą stronę co siła $P$, dźwignia „sama się dociąga” i potrzebna siła $P$ maleje. Mówimy wtedy o samowzmocnieniu. Jeśli działa przeciwnie, trzeba przyłożyć większą siłę.
+
+Kierunek tarcia zależy od kierunku obrotu bębna. Przy jednym kierunku tarcie na klocku pomaga dociskać klocek, przy drugim — odpycha go. Dlatego ten sam hamulec może mieć różną skuteczność w obu kierunkach. W skrajnym przypadku zbyt duże samowzmocnienie prowadzi do zablokowania i utraty kontroli nad hamowaniem.
+
+Model zakłada sztywny bęben, sztywną dźwignię i punktowy kontakt klocka. Pomija odkształcenia okładziny, nagrzewanie i zmianę współczynnika tarcia wraz z temperaturą. W statyce interesuje nas tylko równowaga graniczna, a nie przebieg hamowania w czasie.
+
+## Laboratorium: co ustawić
+
+Zbuduj hamulec z bębnem i dźwignią. Ustaw promień bębna, ramiona dźwigni i współczynnik tarcia, a następnie zmieniaj siłę $P$ aż do uzyskania równowagi. Sprawdź, jak zmienia się wymagana siła, gdy zmienisz kierunek obrotu bębna. Zaobserwuj, czy tarcie pomaga, czy przeszkadza dźwigni.
+
+<Lab id="staticsFriction" />
+
+## Definicje i jednostki
+
+| Pojęcie         | Znaczenie                                                | Jednostka |
+| --------------- | -------------------------------------------------------- | --------- |
+| Moment hamujący | Moment tarcia klocka względem osi bębna, $M_h=TR_b$      | N·m, kN·m |
+| Nacisk klocka   | Siła normalna między klockiem a bębnem                   | N, kN     |
+| Siła tarcia     | Siła styczna na powierzchni bębna, $T=\mu_sN$ w granicy  | N, kN     |
+| Ramię dźwigni   | Odległości $a$ i $b$ od przegubu do klocka i do siły $P$ | m         |
+| Mimośród tarcia | Odległość $e$ linii tarcia od osi dźwigni                | m         |
+| Samowzmocnienie | Przypadek, gdy moment tarcia pomaga dociskać klocek      | —         |
+
+Jednostki: momenty w N·m lub kN·m, siły w N lub kN, długości w m. Współczynnik tarcia jest bezwymiarowy. Wszystkie ramiona muszą być w tych samych jednostkach.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+M_h=TR_b=QR,\qquad T=\mu_sN,\qquad
+P=\frac{Na-Te}{a+b}\quad\text{lub}\quad P=\frac{Na+Te}{a+b}
+$$
+
+<Caption>Równowaga bębna i dźwigni. Pierwsza postać $P$ dotyczy przypadku, gdy moment tarcia pomaga dociskać klocek (tarcie „przed” przegubem), druga — gdy przeciwdziała. Znak zależy od kierunku obrotu bębna i położenia punktu styku względem przegubu.</Caption>
+</Formula>
+
+Wyprowadzenie dla bębna:
+
+1. Obciążenie $Q$ działa na ramieniu $R$ i daje moment $QR$ względem osi bębna.
+2. Tarcie klocka działa na ramieniu $R_b$ i daje moment $TR_b$ w przeciwną stronę.
+3. W równowadze $TR_b=QR$, skąd $T=QR/R_b$.
+4. W stanie granicznym $T=\mu_sN$, więc $N=T/\mu_s$.
+
+Dla dźwigni sumujemy momenty względem przegubu A:
+
+1. Nacisk $N$ działa w odległości $a$ i daje moment $Na$.
+2. Siła $P$ działa w odległości $a+b$ i daje moment $P(a+b)$ w przeciwną stronę.
+3. Tarcie $T$ działa w odległości $e$ od osi dźwigni; jego moment wynosi $Te$ i może dodawać się do $Na$ albo do $P(a+b)$.
+4. W pierwszym przypadku $Na=P(a+b)+Te$, skąd $P=(Na-Te)/(a+b)$.
+5. W drugim przypadku $Na+Te=P(a+b)$, skąd $P=(Na+Te)/(a+b)$.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-hamulce-tarcie" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Używanie promienia bębna linowego $R$ zamiast promienia tarczy hamulcowej $R_b$ przy obliczaniu momentu tarcia.
+- Zakładanie $T=Q$ zamiast $T=QR/R_b$, gdy lina i klocek działają na różnych promieniach.
+- Pomijanie mimośrodu $e$ — wtedy oba kierunki obrotu dają tę samą siłę $P$, co jest sprzeczne z geometrią.
+- Zły znak momentu tarcia na dźwigni; zawsze sprawdzaj, czy tarcie pomaga, czy przeciwdziała sile $P$.
+- Używanie $T=\mu_sN$ poza stanem granicznym; w zwykłym spoczynku tarcie może być mniejsze.
+- Ignorowanie nagrzewania i zmiany $\mu$ w rzeczywistym hamulcu; model statyczny tego nie opisuje.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zidentyfikuj bęben, linę, klocek i dźwignię; zapisz promienie $R$ i $R_b$.
+2. Ustal kierunek obrotu bębna i wynikający z niego kierunek tarcia na klocku.
+3. Zapisz równowagę momentów bębna i wyznacz siłę tarcia $T$.
+4. W stanie granicznym oblicz nacisk $N=T/\mu_s$.
+5. Narysuj dźwignię z siłami $P$, $N$, $T$ i reakcją przegubu; sumuj momenty względem przegubu.
+6. Sprawdź, czy tarcie pomaga, czy przeciwdziała sile $P$, i czy hamulec nie jest zbyt silnie samowzmacniający.
+
+## Połącz z resztą kursu
+
+- **Tarcie suche** — hamulec wykorzystuje granicę $T=\mu_sN$; bez tego warunku nie da się wyznaczyć nacisku.
+- **Równowaga z tarciem** — kierunek tarcia na klocku zależy od zamierzonego ruchu, tak jak w każdym zadaniu z tarciem.
+- **Moment siły** — całe zadanie to dwa równania momentów: dla bębna i dla dźwigni.
+- **Tarcie cięgien** — hamulec taśmowy można opisać wzorem Eulera; różnica napięć taśmy daje moment hamujący.
+- **Wytrzymałość i ciepło** — rzeczywisty hamulec musi odprowadzić energię kinetyczną; nadmierne nagrzewanie zmienia $\mu$ i może doprowadzić do fadingu.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>Bęben z przykładu: $Q=12\ \mathrm{kN}$, $R=0{,}25\ \mathrm{m}$. Moment od obciążenia wynosi:</Prompt>
+    <Answer>$1{,}5\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$3\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$12\ \mathrm{kN\cdot m}$</Answer>
+    <Hint>$M_Q=QR$.</Hint>
+    <Explanation>
+      $M_Q=12\cdot0{,}25=3\ \mathrm{kN\cdot m}$. Wartość $1{,}5$ powstałaby z podzielenia przez $2$ bez powodu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Jaka siła tarcia działa na tarczy hamulcowej o promieniu $R_b=0{,}50\ \mathrm{m}$?</Prompt>
+    <Answer>$3\ \mathrm{kN}$</Answer>
+    <Answer correct>$6\ \mathrm{kN}$</Answer>
+    <Answer>$12\ \mathrm{kN}$</Answer>
+    <Hint>$TR_b=QR$.</Hint>
+    <Explanation>
+      $T=QR/R_b=3/0{,}50=6\ \mathrm{kN}$. Na mniejszym promieniu liny działa większa siła $Q$, a na większym promieniu tarczy mniejsza siła tarcia.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Przy $\mu_s=0{,}25$ nacisk klocka wynosi:</Prompt>
+    <Answer>$6\ \mathrm{kN}$</Answer>
+    <Answer correct>$24\ \mathrm{kN}$</Answer>
+    <Answer>$48\ \mathrm{kN}$</Answer>
+    <Hint>$T=\mu_sN$.</Hint>
+    <Explanation>
+      $N=T/\mu_s=6/0{,}25=24\ \mathrm{kN}$. Wartość $6$ kN to siła tarcia, nie nacisk.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła $P$ przy obrocie wspomagającym dźwignię ($a=0{,}25$, $b=0{,}75$, $e=0{,}04$) wynosi:</Prompt>
+    <Answer>$6{,}00\ \mathrm{kN}$</Answer>
+    <Answer correct>$5{,}76\ \mathrm{kN}$</Answer>
+    <Answer>$6{,}24\ \mathrm{kN}$</Answer>
+    <Hint>$P=(Na-Te)/(a+b)$.</Hint>
+    <Explanation>
+      $P=(24\cdot0{,}25-6\cdot0{,}04)/1=5{,}76\ \mathrm{kN}$. Wartość $6{,}24$ kN odpowiada przeciwnemu kierunkowi obrotu.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Bęben obraca się w przeciwną stronę, więc tarcie przeciwdziała dźwigni. Siła $P$ wynosi wtedy:</Prompt>
+    <Answer>$5{,}76\ \mathrm{kN}$</Answer>
+    <Answer correct>$6{,}24\ \mathrm{kN}$</Answer>
+    <Answer>$12\ \mathrm{kN}$</Answer>
+    <Hint>$P=(Na+Te)/(a+b)$.</Hint>
+    <Explanation>
+      $P=(6+0{,}24)/1=6{,}24\ \mathrm{kN}$. Tarcie działa teraz przeciwnie do docisku, więc trzeba przyłożyć większą siłę.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Na czym polega samowzmocnienie hamulca?</Prompt>
+    <Answer>Na wzroście współczynnika tarcia wraz z prędkością</Answer>
+    <Answer correct>Na tym, że moment tarcia pomaga dociskać klocek, zmniejszając potrzebną siłę $P$</Answer>
+    <Answer>Na zmniejszeniu nacisku klocka przy wzroście obciążenia</Answer>
+    <Hint>Popatrz na znak momentu $Te$ w równaniu dźwigni.</Hint>
+    <Explanation>
+      Gdy moment tarcia działa w tę samą stronę co moment siły $P$, część docisku „opłaca się sama”. Zbyt silne samowzmocnienie może jednak doprowadzić do zablokowania hamulca.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Tarcie” (materiały wykładowe), str. 5–7: przykład bębna linowego z hamulcem klockowym oraz zadanie z reakcjami w punktach podparcia.
+- Zestaw „Zadania tarcie”, zadanie C: schematy bębna, dźwigni i liny, tabela danych oraz metoda wyznaczania siły $P$ i reakcji.
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 9.1.4 (przykład 9.1.9): moment przyłożony do koła utrzymywanego przez dźwignię hamulca; rozdz. 9.7.5: tarcie w hamulcach tarczowych.
+- L. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_, rozdz. 4.4: równowaga układów z tarciem i dobór kierunku siły tarcia.
+- _University Physics_ (OpenStax), rozdz. 6.2: tarcie statyczne i kinetyczne w układach mechanicznych.

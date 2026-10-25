@@ -1,0 +1,204 @@
+---
+id: statyka-waly-lozyska
+moduleId: statyka-przestrzenny
+number: 6
+title: 'Wały i łożyska: reakcje w dwóch płaszczyznach'
+shortTitle: 'Wały i łożyska'
+description: >-
+  Rozłóż obciążenie wału na dwie prostopadłe płaszczyzny, wyznacz reakcje
+  łożyska poprzecznego i wzdłużnego oraz sprawdź, kto przenosi moment skręcający.
+eyebrow: 'Oś wału dzieli zadanie'
+outcomes:
+  - W1 — rozumie rolę łożysk poprzecznych i wzdłużnych w przenoszeniu obciążeń wału
+  - W2 — wyjaśnia, dlaczego łożysko poprzeczne nie równoważy momentu skręcającego
+  - U1 — wyznacza reakcje łożysk dla sił działających w dwóch prostopadłych płaszczyznach
+  - U2 — kontroluje wynik momentem względem drugiego łożyska i sumą sił
+---
+
+Wał to belka, której osią jest linia środkowa. Obciążenia — od kół zębatych, pasów, wirników — działają w płaszczyznach prostopadłych do tej osi. Łożyska podtrzymują wał i przejmują siły promieniowe, a łożysko wzdłużne dodatkowo siłę osiową. Pozornie jest to zwykłe zadanie belkowe, ale w przestrzeni dochodzi trzeci wymiar: dwie płaszczyzny zginania i moment skręcający.
+
+Najważniejsza intuicja tej lekcji brzmi: oś wału dzieli zadanie na dwa niezależne zginania. Siły pionowe rozwiązujesz w płaszczyźnie $x$–$z$, siły poziome w płaszczyźnie $x$–$y$. Każda płaszczyzna daje dwa równania i dwie składowe reakcji. Łożysko poprzeczne nie przenosi momentu wokół osi wału, więc moment skręcający musi równoważyć moment napędowy lub opór — nie reakcje łożysk.
+
+To rozdzielenie jest nie tylko wygodne, ale i diagnostyczne. Jeśli po rozwiązaniu reakcje w jednej płaszczyźnie „nie chcą” spełnić równania momentów, błąd prawie zawsze siedzi w ramieniu albo w znaku siły z tej właśnie płaszczyzny. Dlatego warto liczyć płaszczyzny osobno i kontrolować każdą z nich niezależnie.
+
+## Zanim zaczniesz
+
+- Umiej rozwiązać belkę swobodnie podpartą: reakcje z sumy momentów i sumy sił.
+- Rozróżniaj łożysko poprzeczne (dwie reakcje prostopadłe do osi) od wzdłużnego (dodatkowa reakcja osiowa).
+- Pamiętaj, że moment siły względem osi wału powstaje tylko wtedy, gdy siła ma ramię prostopadłe do tej osi.
+- Zapisuj położenie sił wzdłuż osi wału jako współrzędną $x$; pomyłka w odległości psuje cały wykres momentów.
+- Ustal, które siły działają w płaszczyźnie pionowej, a które w poziomej, i nie mieszaj ich składowych.
+
+## Model i intuicja
+
+Przyjmijmy, że oś wału pokrywa się z osią $x$, a łożyska znajdują się w punktach $A$ i $B$. Łożysko poprzeczne w punkcie $A$ daje reakcje $A_y$ i $A_z$; łożysko wzdłużne daje dodatkowo $A_x$. Jeżeli oba łożyska są poprzeczne, siła osiowa nie ma jak być przeniesiona i wał przesunąłby się wzdłuż osi — to znak, że w modelu brakuje łożyska wzdłużnego albo że siła osiowa jest zrównoważona inaczej.
+
+Obciążenia promieniowe rozkładasz na składowe $F_y$ i $F_z$. Siły w kierunku $y$ zginają wał w płaszczyźnie $x$–$y$ i dają momenty względem osi $z$. Siły w kierunku $z$ zginają wał w płaszczyźnie $x$–$z$ i dają momenty względem osi $y$. Dzięki temu zadanie sześciu równań rozpada się na dwa układy po dwa równania plus jedno równanie osiowe i jedno równanie momentu skręcającego.
+
+Model pomija szerokość łożysk, tarcie w łożyskach, ciężar własny wału i odkształcenia. W typowym zadaniu statyki są to założenia dopuszczalne. W projektowaniu rzeczywistym szerokość łożyska może przesuwać punkt przyłożenia reakcji, a tarcie wprowadza niewielki moment — wtedy potrzebny jest model bardziej szczegółowy.
+
+## Laboratorium: co ustawić
+
+Zbuduj wał z dwoma łożyskami i jedną siłą promieniową. Przesuń siłę wzdłuż osi i obserwuj, jak zmieniają się reakcje: im bliżej łożyska, tym większą część obciążenia ono przejmuje. Dodaj drugą siłę w prostopadłej płaszczyźnie i sprawdź, czy potrafisz przewidzieć znak każdej składowej, zanim policzysz.
+
+<Lab id="staticsSpatial" />
+
+## Definicje i jednostki
+
+| Pojęcie              | Zapis                  | Znaczenie                            | Jednostka |
+| -------------------- | ---------------------- | ------------------------------------ | --------- |
+| Oś wału              | $x$                    | Linia środkowa wału                  | —         |
+| Łożysko poprzeczne   | $A_y,A_z$              | Przenosi siły prostopadłe do osi     | kN        |
+| Łożysko wzdłużne     | $A_x,A_y,A_z$          | Przenosi dodatkowo siłę osiową       | kN        |
+| Reakcja promieniowa  | $R=\sqrt{R_y^2+R_z^2}$ | Wypadkowa składowych prostopadłych   | kN        |
+| Moment skręcający    | $M_x$                  | Moment wokół osi wału                | kN·m      |
+| Płaszczyzna zginania | $x$–$y$ lub $x$–$z$    | Płaszczyzna, w której wał się wygina | —         |
+
+Symbole: $A_y,A_z$ — składowe reakcji w łożysku $A$; $F_y,F_z$ — składowe siły zewnętrznej. Jednostki: siły w kN, odległości w m, momenty w kN·m. Reakcję promieniową podawaj jako moduł i kierunek, ale do równań używaj składowych — dopiero na końcu składaj je w wypadkową.
+
+## Wzór i wyprowadzenie
+
+Dla wału wzdłuż osi $x$ z łożyskami $A$ i $B$ równania równowagi przyjmują postać:
+
+<Formula>
+$$
+\sum F_x=0,\qquad
+\sum F_y=0,\qquad
+\sum F_z=0,\qquad
+\sum M_y=0,\qquad
+\sum M_z=0,\qquad
+\sum M_x=0
+$$
+
+<Caption>Pięć równań dotyczy sił promieniowych i zginania; szóste — momentu skręcającego. Łożyska poprzeczne wnoszą do równań tylko $A_y,A_z,B_y,B_z$; nie wnoszą $M_x$, bo ich reakcje przechodzą przez oś wału.</Caption>
+</Formula>
+
+Dlaczego łożysko poprzeczne nie daje momentu względem osi wału? Weź reakcję w punkcie $(x_A,0,0)$ o składowych $(0,R_y,R_z)$. Iloczyn wektorowy $\mathbf r\times\mathbf R$ ma składową $x$ równą $yR_z-zR_y=0$, bo $y=z=0$. Ramię względem osi wału jest zerowe. Ten sam rachunek pokazuje, że moment względem osi $x$ może pochodzić wyłącznie od sił stycznych przyłożonych poza osią — na przykład od siły stycznej na wieńcu koła zębatego — oraz od przyłożonych par.
+
+Dla zginania rozdzielasz siły na dwie płaszczyzny. W płaszczyźnie $x$–$z$ równania to $\sum F_z=0$ i $\sum M_y=0$. W płaszczyźnie $x$–$y$ — $\sum F_y=0$ i $\sum M_z=0$. Jeżeli łożysko $A$ jest wzdłużne, dochodzi $\sum F_x=0$ z reakcją $A_x$. Moment skręcający bilansujesz osobno: $\sum M_x=M_{\text{napęd}}+M_{\text{opór}}=0$.
+
+<Formula>
+$$
+A_y+B_y+\sum F_y=0,\qquad
+A_z+B_z+\sum F_z=0,\qquad
+\sum M_y=0,\qquad
+\sum M_z=0
+$$
+
+<Caption>Praktyczny zapis dla wału z dwoma łożyskami poprzecznymi. Cztery niewiadome $A_y,A_z,B_y,B_z$ wyznaczasz z czterech równań; siła osiowa i moment skręcający są osobnymi, niezależnymi warunkami.</Caption>
+</Formula>
+
+## Przykład prowadzony: wał z dwoma obciążeniami
+
+<AnimatedSolution id="ex-statyka-waly-lozyska" />
+
+Zwróć uwagę, że $B_y$ wyszło ujemne, choć siła $Q$ działa w $+y$. To normalne: łożysko $B$ „ciągnie” wał w stronę przeciwną, aby zrównoważyć moment od $Q$ względem $A$. Znak jest informacją o kierunku reakcji, a nie błędem. Dopiero moduł reakcji promieniowej jest zawsze dodatni.
+
+## Typowe błędy
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dodawanie reakcji osiowej w obu łożyskach, mimo że tylko jedno jest łożyskiem wzdłużnym.
+- Próba zrównoważenia momentu skręcającego reakcjami łożysk poprzecznych — ich ramię względem osi wału jest zerowe.
+- Mieszanie płaszczyzn: użycie siły poziomej w równaniu momentów względem osi $y$ albo pionowej względem osi $z$.
+- Pomijanie momentu skręcającego od siły stycznej na wieńcu koła, bo „siła działa na wale”.
+- Traktowanie reakcji łożyska jako jednej niewiadomej o nieznanym kierunku zamiast dwóch składowych.
+- Brak kontroli momentów względem drugiego łożyska; błąd odległości $x$ ujawnia się właśnie tam.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustaw oś $x$ wzdłuż wału i zaznacz położenia łożysk oraz kół.
+2. Sklasyfikuj łożyska: poprzeczne daje dwie reakcje, wzdłużne — trzy.
+3. Rozłóż każdą siłę na składowe $x,y,z$; zapisz, w której płaszczyźnie działa.
+4. Sprawdź bilans momentu skręcającego względem osi $x$; nie oczekuj, że zrobią to łożyska.
+5. Rozwiąż płaszczyznę $x$–$z$: $\sum F_z=0$ i $\sum M_y=0$.
+6. Rozwiąż płaszczyznę $x$–$y$: $\sum F_y=0$ i $\sum M_z=0$.
+7. Złóż składowe w reakcje promieniowe, podaj kierunki i sprawdź momentem względem drugiego łożyska.
+
+## Połącz z resztą kursu
+
+- **Równowaga 3D** — wał to szczególny przypadek ciała przestrzennego, w którym wybór osi $x$ wzdłuż wału upraszcza równania.
+- **Więzy 3D** — łożysko poprzeczne i wzdłużne to konkretne realizacje tabeli więzów z poprzedniej lekcji.
+- **Moment 3D** — moment względem osi wału wyjaśnia, dlaczego łożysko nie przenosi skręcania.
+- **Skręcanie w wytrzymałości** — moment $M_x$ wyznaczony tutaj staje się momentem skręcającym $T$ w wzorach na naprężenia i kąt skręcenia.
+- **Zginanie w wytrzymałości** — reakcje promieniowe i wykresy momentów w dwóch płaszczyznach prowadzą do zginania złożonego wału.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Ile składowych reakcji daje łożysko poprzeczne na wale?</Prompt>
+    <Answer>Jedną — wzdłuż osi wału</Answer>
+    <Answer correct>Dwie — prostopadłe do osi wału</Answer>
+    <Answer>Trzy — dwie prostopadłe i jedną osiową</Answer>
+    <Hint>Łożysko poprzeczne pozwala na obrót i przesuw wzdłuż osi, ale blokuje ruch poprzeczny.</Hint>
+    <Explanation>
+      Łożysko poprzeczne przenosi siły promieniowe w dwóch kierunkach prostopadłych do osi, więc daje dwie
+      reakcje. Trzecia, osiowa, pojawia się dopiero w łożysku wzdłużnym.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego łożysko poprzeczne nie równoważy momentu skręcającego wału?</Prompt>
+    <Answer>Bo ma zbyt małą nośność</Answer>
+    <Answer correct>Bo jego reakcja przechodzi przez oś wału, więc ramię względem tej osi wynosi zero</Answer>
+    <Answer>Bo łożysko zawsze obraca się razem z wałem</Answer>
+    <Hint>Policz moment reakcji $(0,R_y,R_z)$ przyłożonej w punkcie $(x_A,0,0)$ względem osi $x$.</Hint>
+    <Explanation>
+      Moment względem osi $x$ to $yR_z-zR_y$. Dla punktu na osi $y=z=0$, więc moment znika niezależnie od
+      wartości reakcji. Moment skręcający musi zrównoważyć moment napędowy lub opór.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z wałem reakcja $B_z$ wynosi:</Prompt>
+    <Answer>$-4\ \text{kN}$</Answer>
+    <Answer correct>$4\ \text{kN}$</Answer>
+    <Answer>$10\ \text{kN}$</Answer>
+    <Hint>$\sum M_y=0$: moment od $P$ względem $A$ to $0{,}4\cdot10=4\ \text{kN}\cdot\text{m}$.</Hint>
+    <Explanation>
+      $4-B_z=0$, więc $B_z=4\ \text{kN}$. Wartość $10$ kN to cała siła $P$; wartość $-4$ kN powstałaby
+      z odwrócenia znaku momentu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W tym samym przykładzie składowa $A_y$ wynosi:</Prompt>
+    <Answer>$1{,}8\ \text{kN}$</Answer>
+    <Answer correct>$-1{,}8\ \text{kN}$</Answer>
+    <Answer>$6\ \text{kN}$</Answer>
+    <Hint>$\sum F_y=A_y+B_y+6=0$ oraz $B_y=-4{,}2\ \text{kN}$.</Hint>
+    <Explanation>
+      $A_y-4{,}2+6=0$, więc $A_y=-1{,}8\ \text{kN}$. Reakcja działa przeciwnie do osi $y$, równoważąc
+      nadwyżkę siły $Q$ nad reakcją $B_y$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Reakcja promieniowa w łożysku $A$ w przykładzie wynosi około:</Prompt>
+    <Answer>$4{,}0\ \text{kN}$</Answer>
+    <Answer correct>$6{,}26\ \text{kN}$</Answer>
+    <Answer>$7{,}21\ \text{kN}$</Answer>
+    <Hint>$R_A=\sqrt{A_y^2+A_z^2}=\sqrt{1{,}8^2+6^2}$.</Hint>
+    <Explanation>
+      $R_A=\sqrt{3{,}24+36}=\sqrt{39{,}24}=6{,}26\ \text{kN}$. Wartość $4{,}0$ to tylko składowa $A_x$,
+      a $7{,}21$ to moduł wektora zawierającego także siłę osiową, czego nie dolicza się do reakcji promieniowej.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Wał przenosi siłę osiową $4\ \text{kN}$. Które łożysko ją przejmie?</Prompt>
+    <Answer>Łożysko poprzeczne $B$</Answer>
+    <Answer correct>Łożysko wzdłużne $A$</Answer>
+    <Answer>Oba łożyska po $2\ \text{kN}$</Answer>
+    <Hint>Siłę wzdłuż osi może przenieść tylko łożysko, które blokuje przesunięcie osiowe.</Hint>
+    <Explanation>
+      Łożysko poprzeczne nie ma reakcji osiowej, więc całą siłę $4\ \text{kN}$ przejmuje łożysko wzdłużne $A$.
+      Podział „po połowie” byłby możliwy tylko w układzie statycznie niewyznaczalnym z dwoma łożyskami wzdłużnymi.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Przestrzenny układ sił”, str. 11–15: wał w łożyskach $A$ i $B$, siły $P$ i $F$ w płaszczyznach prostopadłych do osi wału oraz przykład z siłą równoważącą.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 5.2: łożyska poprzeczne, wzdłużne i swobodne oraz ich reakcje; rozdz. 5.5: przestrzenna równowaga ciała sztywnego.
+- J. Moore i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 4.3: równania równowagi 3D i rozkład sił na składowe.
+- _University Physics_ (OpenStax), rozdz. 10.7 i 12.1: moment siły względem osi oraz warunki równowagi w zadaniach z wałami.

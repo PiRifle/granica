@@ -1,0 +1,194 @@
+---
+id: statyka-geometryczna-niezmiennosc
+moduleId: statyka-kratownice
+number: 6
+title: 'Geometryczna niezmienność: p=2w−3 i p=3w−6'
+shortTitle: 'Niezmienność'
+description: >-
+  Policz węzły i pręty, sprawdź, czy kratownica jest sztywna, przesztywniona
+  czy nierigid, i poznaj ograniczenia samego kryterium liczbowego.
+eyebrow: 'Czy konstrukcja się nie złoży?'
+outcomes:
+  - 'W1 — wyprowadza kryteria p=2w−3 i p=3w−6'
+  - 'W2 — rozróżnia kratownicę sztywną, przesztywnioną i nierigid'
+  - 'U1 — oblicza liczbę prętów wymaganą dla danej liczby węzłów'
+  - 'U2 — wskazuje ograniczenia kryterium i potrzebę kontroli geometrii oraz podpór'
+---
+
+Kratownica może mieć piękny kształt i poprawnie policzone siły, a mimo to być mechanizmem, który złoży się pod obciążeniem. Dlatego przed obliczeniami warto sprawdzić, czy konstrukcja ma wystarczającą liczbę prętów i czy są one rozmieszczone we właściwy sposób. Pierwszy krok to proste liczenie: węzły, pręty, równania. Drugi — spojrzenie na geometrię, bo sama arytmetyka nie gwarantuje sztywności.
+
+Dla kratownicy płaskiej liczba prętów potrzebna do wewnętrznej sztywności wynosi $p=2w-3$, gdzie $w$ jest liczbą węzłów. Dla kratownicy przestrzennej analogiczny warunek to $p=3w-6$. Te wzory wynikają z prostego rozumowania: każdy węzeł płaski ma dwa stopnie swobody, a każdy pręt odbiera jeden stopień swobody. Odejmujemy jeszcze trzy stopnie swobody ciała sztywnego jako całości.
+
+W tej lekcji wyprowadzimy oba kryteria, nauczymy się klasyfikować kratownice jako sztywne, przesztywnione i nierigid, a potem przyjrzymy się temu, czego wzory **nie** mówią. To ważne, bo w zadaniach egzaminacyjnych często pojawia się kratownica, która „zgadza się z wzorem", ale jest mechanizmem z powodu złej geometrii.
+
+## Zanim zaczniesz
+
+- Umiej policzyć węzły i pręty na schemacie, nie pomijając prętów ukośnych.
+- Przypomnij sobie, że ciało sztywne w płaszczyźnie ma trzy stopnie swobody.
+- Rozróżniaj pręty wewnętrzne od reakcji podpór — to inne kategorie niewiadomych.
+- Pamiętaj, że kratownica płaska leży w jednej płaszczyźnie, a przestrzenna nie.
+- Bądź gotów sprawdzić geometrię, a nie tylko podstawić liczby do wzoru.
+
+## Model i intuicja
+
+Najprostsza sztywna kratownica płaska to trójkąt: trzy węzły i trzy pręty. Każdy kolejny węzeł trzeba dołączyć do istniejącej konstrukcji dwoma prętami, żeby nie mógł się poruszyć względem reszty. Stąd $p=3+2(w-3)=2w-3$. W przestrzeni punkt wyjścia to czworościan: cztery węzły i sześć prętów. Każdy nowy węzeł wymaga trzech prętów, więc $p=6+3(w-4)=3w-6$.
+
+Liczba $p-(2w-3)$ nazywana jest nadmiarem prętów. Jeśli wynosi zero, kratownica jest wewnętrznie sztywna i statycznie wyznaczalna. Jeśli jest dodatnia, mamy pręty nadmiarowe — konstrukcja jest przesztywniona, a siły w prętach zależą także od odkształceń i montażu. Jeśli jest ujemna, brakuje prętów i konstrukcja jest nierigid, czyli mechanizmem.
+
+Ale to tylko warunek konieczny. Wyobraź sobie dwa sztywne trójkąty połączone trzema prętami, których linie działania przecinają się w jednym punkcie. Liczba prętów się zgadza, a jednak trójkąty mogą obrócić się względem siebie wokół tego punktu. Podobnie kratownica z węzłami leżącymi na jednej prostej albo z prętami przecinającymi się bez węzła może mieć poprawny bilans, a mimo to nie być sztywna.
+
+Do tego dochodzi kwestia podpór. Wzór $p=2w-3$ zakłada, że kratownica jest podparta w sposób odbierający trzy stopnie swobody: na przykład przegub i podpora przesuwna. Jeśli reakcji jest więcej, konstrukcja może być zewnętrznie statycznie niewyznaczalna, nawet gdy liczba prętów jest „właściwa". Jeśli reakcje są równoległe lub przecinają się w jednym punkcie, podparcie nie odbiera wszystkich stopni swobody i konstrukcja może się poruszyć jako całość.
+
+## Laboratorium: co ustawić
+
+Zbuduj kratownicę trójkątną, a potem dodawaj kolejne węzły i pręty. Obserwuj, przy jakiej liczbie prętów konstrukcja przestaje się „składać". Spróbuj dodać węzeł tylko z jednym prętem i sprawdź, czy staje się mechanizmem. Następnie dodaj pręt nadmiarowy i zobacz, czy siły w pozostałych prętach się zmieniają. Na koniec sprawdź kratownicę przestrzenną i porównaj liczbę potrzebnych prętów z przypadkiem płaskim.
+
+<Lab id="staticsTruss" />
+
+## Definicje i jednostki
+
+| Pojęcie                   | Znaczenie                                                            | Jednostka |
+| ------------------------- | -------------------------------------------------------------------- | --------- |
+| $w$                       | liczba węzłów kratownicy                                             | —         |
+| $p$                       | liczba prętów kratownicy                                             | —         |
+| $r$                       | liczba składowych reakcji podpór                                     | —         |
+| $n$                       | nadmiar prętów, $n=p-(2w-3)$ lub $n=p-(3w-6)$                        | —         |
+| Kratownica sztywna        | Konstrukcja, której węzły nie mogą się przemieszczać względem siebie | —         |
+| Kratownica przesztywniona | Ma pręty nadmiarowe, wewnętrznie statycznie niewyznaczalna           | —         |
+| Kratownica nierigid       | Mechanizm, brakuje prętów lub są źle rozmieszczone                   | —         |
+
+Jednostki: liczby $w$, $p$, $r$ i $n$ są bezwymiarowe. Nie myl liczby prętów z liczbą niewiadomych sił — każdy pręt to jedna niewiadoma, ale reakcje podpór to osobne niewiadome.
+
+## Wzór i wyprowadzenie
+
+Dla kratownicy płaskiej:
+
+<Formula>
+$$
+p=2w-3,\qquad n=p-(2w-3)
+$$
+
+<Caption>Warunek wewnętrznej sztywności i statycznej wyznaczalności kratownicy płaskiej. $n=0$ oznacza sztywność wyznaczalną, $n>0$ pręty nadmiarowe, $n<0$ brak prętów. Wzór zakłada trzy reakcje podpór i poprawną geometrię.</Caption>
+</Formula>
+
+Dla kratownicy przestrzennej:
+
+<Formula>
+$$
+p=3w-6,\qquad n=p-(3w-6)
+$$
+
+<Caption>Analogiczny warunek w przestrzeni. Punktem wyjścia jest czworościan o czterech węzłach i sześciu prętach; każdy nowy węzeł wymaga trzech prętów. Podparcie musi odbierać sześć stopni swobody.</Caption>
+</Formula>
+
+Ogólny bilans niewiadomych i równań dla kratownicy płaskiej to $p+r=2w$. Przy $r=3$ dostajemy $p=2w-3$. Dla kratownicy przestrzennej $p+r=3w$; przy $r=6$ dostajemy $p=3w-6$. To pokazuje, że wzory nie są „magiczne" — wynikają z porównania liczby niewiadomych z liczbą równań równowagi.
+
+<AnimatedSolution id="ex-statyka-geometryczna-niezmiennosc" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Stosowanie wzoru płaskiego do kratownicy przestrzennej — w przestrzeni obowiązuje $p=3w-6$.
+- Uznanie $p=2w-3$ za warunek wystarczający — liczby mogą się zgadzać, a geometria nadal tworzyć mechanizm.
+- Pomijanie reakcji podpór w bilansie — $p=2w-3$ zakłada trzy reakcje dla kratownicy płaskiej.
+- Liczenie węzłów tylko na obwodzie — węzły wewnętrzne też się liczą.
+- Mylenie prętów nadmiarowych z prętami zbędnymi — nadmiarowe przenoszą siły i zmieniają stateczność.
+- Ignorowanie podparcia: trzy reakcje równoległe lub zbieżne nie odbierają wszystkich stopni swobody.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Policz wszystkie węzły $w$, także wewnętrzne i podporowe.
+2. Policz wszystkie pręty $p$, łącznie z ukośnymi i tymi, które wydają się „oczywiste".
+3. Ustal, czy kratownica jest płaska, czy przestrzenna, i wybierz wzór $2w-3$ albo $3w-6$.
+4. Oblicz nadmiar $n=p-(2w-3)$ lub $n=p-(3w-6)$.
+5. Sprawdź podpory: czy reakcje odbierają trzy (płaska) lub sześć (przestrzenna) stopni swobody.
+6. Sprawdź geometrię: czy nie ma węzłów współliniowych, prętów przecinających się bez węzła lub części połączonych współbieżnymi prętami.
+7. Zapisz wniosek: sztywna i wyznaczalna, przesztywniona albo mechanizm — z uzasadnieniem, nie tylko liczbą.
+
+## Połącz z resztą kursu
+
+- **Model kratownicy** — kryterium sztywności uzupełnia założenia modelu: pręty dwuosiowe muszą tworzyć sztywną całość.
+- **Metoda węzłów** — liczba równań i niewiadomych decyduje o tym, czy układ jest wyznaczalny.
+- **Metoda Rittera** — przekrój przez trzy pręty działa dlatego, że część płaska ma trzy równania równowagi.
+- **Statyka ciała sztywnego** — warunki podparcia i zbieżność reakcji to ten sam rachunek stopni swobody.
+- **Wytrzymałość: stateczność** — sztywność geometryczna nie gwarantuje, że smukły pręt ściskany nie wyboczy się; to osobny warunek.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>Ile prętów wymaga sztywna kratownica płaska o $w=6$ węzłach?</Prompt>
+    <Answer>$6$</Answer>
+    <Answer correct>$9$</Answer>
+    <Answer>$12$</Answer>
+    <Hint>Podstaw do $p=2w-3$.</Hint>
+    <Explanation>
+      $p=2\cdot6-3=9$. Wartość $12$ odpowiadałaby wzorowi przestrzennemu $3w-6$, a $6$ to sama liczba węzłów, nie
+      prętów.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kratownica płaska ma $w=6$ i $p=10$. Jaki jest jej nadmiar prętów?</Prompt>
+    <Answer>$n=-1$ — mechanizm</Answer>
+    <Answer>$n=0$ — sztywna wyznaczalna</Answer>
+    <Answer correct>$n=+1$ — jeden pręt nadmiarowy</Answer>
+    <Hint>Oblicz $2w-3$, a potem $n=p-(2w-3)$.</Hint>
+    <Explanation>
+      $2w-3=9$, więc $n=10-9=+1$. Kratownica ma jeden pręt nadmiarowy i jest wewnętrznie statycznie niewyznaczalna.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Ile prętów wymaga sztywna kratownica przestrzenna o $w=5$ węzłach?</Prompt>
+    <Answer>$6$</Answer>
+    <Answer correct>$9$</Answer>
+    <Answer>$15$</Answer>
+    <Hint>W przestrzeni obowiązuje $p=3w-6$.</Hint>
+    <Explanation>
+      $p=3\cdot5-6=9$. Wartość $6$ to liczba prętów czworościanu, a $15$ to $3w$ bez odjęcia stopni swobody bryły.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Warunek $p=2w-3$ dla kratownicy płaskiej jest:</Prompt>
+    <Answer>warunkiem wystarczającym sztywności</Answer>
+    <Answer correct>warunkiem koniecznym, ale nie wystarczającym</Answer>
+    <Answer>warunkiem dotyczącym tylko reakcji podpór</Answer>
+    <Hint>Pomyśl o dwóch trójkątach połączonych współbieżnymi prętami.</Hint>
+    <Explanation>
+      Zgodność liczby prętów nie gwarantuje sztywności. Potrzebna jest jeszcze właściwa geometria: brak mechanizmów,
+      odpowiednie połączenia części i poprawne podparcie. Dlatego warunek jest konieczny, ale nie wystarczający.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kratownica płaska jest podparta w sposób dający cztery niezależne reakcje. Co to oznacza?</Prompt>
+    <Answer>Jest zawsze mechanizmem</Answer>
+    <Answer correct>Może być zewnętrznie statycznie niewyznaczalna</Answer>
+    <Answer>Liczba prętów nie ma znaczenia</Answer>
+    <Hint>Porównaj liczbę niewiadomych $p+r$ z liczbą równań $2w$.</Hint>
+    <Explanation>
+      Cztery reakcje oznaczają więcej niewiadomych zewnętrznych niż trzy potrzebne do odebrania stopni swobody.
+      Konstrukcja może być zewnętrznie statycznie niewyznaczalna, choć jej wewnętrzna geometria może być poprawna.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Dwa sztywne trójkąty połączono trzema prętami, których linie działania przecinają się w jednym punkcie. Liczba
+      prętów zgadza się z $p=2w-3$. Co można powiedzieć?
+    </Prompt>
+    <Answer>Układ jest na pewno sztywny, bo wzór się zgadza</Answer>
+    <Answer correct>Układ jest mechanizmem, bo możliwy jest względny obrót części wokół punktu zbiegu</Answer>
+    <Answer>Układ jest przesztywniony o trzy pręty</Answer>
+    <Hint>Liczba prętów to warunek konieczny; sprawdź, czy nie pozwalają one na względny ruch części.</Hint>
+    <Explanation>
+      Współbieżne pręty nie odbierają względnego obrotu wokół punktu zbiegu. Mimo poprawnego bilansu $p=2w-3$
+      konstrukcja jest mechanizmem. To klasyczny przykład ograniczenia kryterium liczbowego.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Kratownice — wyznaczanie sił wewnętrznych", str. 4: kryteria $p=2w-3$ i $p=3w-6$ oraz pojęcia kratownicy niesztywnej i przesztywnionej.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 6.3: kratownice proste, wyznaczalność i pręty nadmiarowe.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 5.1: sztywność, wyznaczalność i mechanizmy w kratownicach.
+- _University Physics_ (OpenStax), rozdz. 5.6: równowaga i stopnie swobody układów mechanicznych.

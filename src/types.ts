@@ -36,6 +36,8 @@ export interface CourseLesson extends LessonMeta {
   loadBody: MdxBody
 }
 
+export type ModuleStatus = 'ready' | 'planned'
+
 export interface CourseModule {
   id: string
   number: number
@@ -43,8 +45,63 @@ export interface CourseModule {
   shortTitle: string
   description: string
   outcomes: string[]
+  status?: ModuleStatus
   lessons: CourseLesson[]
   loadOverview?: MdxBody
+}
+
+export interface CourseTheme {
+  accent: string
+  accentHover: string
+  accentStrong: string
+  accentSoft: string
+  highlight: string
+  highlightSoft: string
+  tint: string
+}
+
+export interface SyllabusItem {
+  moduleId: string
+  label: string
+}
+
+export type CourseStatus = 'ready' | 'planned'
+
+export type CourseTool = 'training' | 'exam' | 'cheatsheet' | 'syllabus' | 'library'
+
+export type CourseTools = Record<CourseTool, boolean>
+
+export interface CourseMarketing {
+  tagline: string
+  headlineLead: string
+  headlineAccent: string
+  promise: string
+  audience: string
+  highlights: string[]
+  statusLabel: string
+  visual: 'beam' | 'truss'
+  ctaLabel: string
+  crossSell?: string
+}
+
+export interface CourseDefinition {
+  id: string
+  title: string
+  shortTitle: string
+  description: string
+  eyebrow: string
+  status: CourseStatus
+  theme: CourseTheme
+  moduleIds: string[]
+  syllabus: SyllabusItem[]
+  tools: CourseTools
+  marketing: CourseMarketing
+}
+
+export interface Course extends CourseDefinition {
+  modules: CourseModule[]
+  lessons: CourseLesson[]
+  totalDuration: number
 }
 
 export interface SolutionScene {

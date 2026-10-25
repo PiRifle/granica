@@ -1,0 +1,179 @@
+---
+id: statyka-rownowaga-tarcie
+moduleId: statyka-tarcie
+number: 2
+title: 'Równowaga z tarciem: nierówność, kąt i granica'
+shortTitle: Równowaga z tarciem
+description: >-
+  Zamień nierówność T ≤ μN na warunek geometryczny: wypadkowa reakcji musi mieścić
+  się w kącie tarcia. Naucz się wyznaczać siły graniczne i kąt graniczny równi.
+eyebrow: 'Granica, którą widać na schemacie'
+outcomes:
+  - W1 — interpretuje kąt tarcia jako geometryczny warunek równowagi
+  - W2 — rozróżnia spoczynek wewnątrz granicy i spoczynek graniczny
+  - U1 — wyznacza siły graniczne utrzymujące ciało w równowadze
+  - U2 — mierzy współczynnik tarcia kątem granicznym równi
+---
+
+Lekcja 1 dała ci nierówność $T\le\mu N$. Nierówności są niewygodne: nie wiadomo, czy tarcie jest „właśnie wystarczające”, czy ma jeszcze zapas. Inżynierzy od dawna zapisują ten sam warunek inaczej — geometrycznie, za pomocą kąta tarcia. Ta zmiana języka nie jest kosmetyczna: pozwala zobaczyć granicę równowagi na rysunku i oszacować ją linijką oraz kątomierzem, zanim jeszcze postawisz pierwsze równanie.
+
+Wyobraź sobie reakcję chropowatego podłoża jako jedną wypadkową $R$ — sumę siły normalnej $N$ i siły tarcia $T$. Gdy nic nie zagraża równowadze, wypadkowa jest pionowa i $T=0$. Gdy zaczynasz pchać, wypadkowa przechyla się o kąt $\varphi$ od normalnej, bo dochodzi składowa styczna. Kąt ten rośnie wraz z naciskiem, ale tylko do pewnej granicy $\varphi_s$. Gdy przechylenie przekroczy $\varphi_s$, poślizg jest nieunikniony. Granica równowagi ma więc prosty obraz: linia działania wypadkowej reakcji nie może wychodzić poza „kąt tarcia” wyznaczony przez $\varphi_s$.
+
+## Zanim zaczniesz
+
+- Potrafisz zapisać równowagę ciała na równi pochyłej: składowe ciężaru $G\sin\alpha$ (wzdłuż równi) i $G\cos\alpha$ (prostopadle).
+- Znasz definicję tangensa i funkcję odwrotną $\operatorname{arctg}$; kąt $\operatorname{arctg} x$ dla $x<1$ jest mniejszy niż $45^\circ$.
+- Pamiętasz z lekcji 1, że $T$ w spoczynku wyznacza się z równań równowagi, a $\mu N$ to jego sufit.
+- Umiesz rozłożyć siłę na kierunki: wzdłuż równi i prostopadle do niej — na tych osiach równowaga jest najprostsza.
+- Wiesz, że wypadkowa dwóch prostopadłych sił $N$ i $T$ ma wartość $R=\sqrt{N^2+T^2}$ i nachylenie $\operatorname{tg}\varphi=T/N$.
+
+## Model i intuicja
+
+Model kąta tarcia bierze się wprost z geometrii trójkąta prostokątnego utworzonego przez składowe reakcji. Ponieważ $\operatorname{tg}\varphi=T/N$, a warunek równowagi mówi $T/N\le\mu$, granica kątowa wynosi
+
+$$
+\operatorname{tg}\varphi_s=\mu_s,\qquad \varphi_s=\operatorname{arctg}\mu_s .
+$$
+
+Dla współczynnika $\mu_s=0{,}4$ kąt graniczny to około $21{,}8^\circ$. Zauważ, że nie potrzebujesz do tego ani masy ciała, ani siły napędowej — kąt tarcia jest własnością pary materiałów.
+
+Najważniejsza konsekwencja: ciało na równi pochyłej o kącie $\alpha$ spoczywa samoistnie wtedy, gdy $\alpha\le\varphi_s$, czyli gdy $\operatorname{tg}\alpha\le\mu_s$. Wynika to z równowagi: potrzebna siła tarcia to $T=G\sin\alpha$, dostępna to $\mu_s N=\mu_s G\cos\alpha$, a warunek $G\sin\alpha\le\mu_s G\cos\alpha$ upraszcza się dzieleniem przez $G\cos\alpha$. Ciężar skraca się — dlatego kąt, pod którym ciało zaczyna zsuwać się po równi, nazywamy kątem granicznym i służy on do pomiaru współczynnika tarcia: $\mu_s=\operatorname{tg}\alpha_{\mathrm{gr}}$. W laboratorium i w przemyśle (testy poślizgu klinowego) to podstawowa metoda doświadczalna.
+
+Model ma ograniczenia: kąt tarcia zakłada, że para $(N,T)$ leży w jednej płaszczyźnie i że $\mu$ nie zależy od nacisku. Przy bardzo dużych dociskach rzeczywisty kontakt lokalnie się plastycznie zniekształca i prosty wykres $\varphi$ od $N$ może się lekko zmieniać — dla zadań tego kursu pomijamy ten efekt.
+
+## Laboratorium: co ustawić
+
+Ustaw kąt nachylenia równi i włącz tarciе. Zwiększaj kąt aż do momentu zsunnięcia i odczytaj kąt graniczny. Porównaj jego tangens z zadanym współczynnikiem tarcia — powinny zgadzać się w granicach dokładności odczytu. Powtórz doświadczenie dla dwóch różnych współczynników i zauważ, że wynik nie zależy od masy klocka.
+
+<Lab id="staticsFriction" />
+
+## Definicje i jednostki
+
+| Wielkość                | Symbol                 | Jednostka       | Znaczenie                                                                  |
+| ----------------------- | ---------------------- | --------------- | -------------------------------------------------------------------------- |
+| Kąt tarcia              | $\varphi$              | stopień, radian | Nachylenie wypadkowej reakcji od normalnej, $\operatorname{tg}\varphi=T/N$ |
+| Kąt graniczny tarcia    | $\varphi_s$            | stopień, radian | $\operatorname{tg}\varphi_s=\mu_s$; powyżej niego poślizg nieuchronny      |
+| Wypadkowa reakcji styku | $R$                    | N, kN           | $R=\sqrt{N^2+T^2}$, nachylona o $\varphi$ do normalnej                     |
+| Kąt graniczny równi     | $\alpha_{\mathrm{gr}}$ | stopień         | Kąt zsunnięcia; $\mu_s=\operatorname{tg}\alpha_{\mathrm{gr}}$              |
+
+Uwaga na jednostki: współczynnik $\mu$ pozostaje bezwymiarowy, a kąty w zadaniach zwykle podaje się w stopniach; we wzorze na tangens kąt może być w dowolnej jednostce, byle spójnie.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\operatorname{tg}\varphi=\frac{T}{N}\le\mu_s,\qquad \varphi_s=\operatorname{arctg}\mu_s,\qquad \operatorname{tg}\alpha_{\mathrm{gr}}=\mu_s
+$$
+
+<Caption>Warunek równowagi z tarciem w zapisie kątowym. Równość zachodzi tylko przy ruchu granicznym. Ostatnia równość opisuje doświadczalne wyznaczanie współczynnika tarcia kątem zsunnięcia ciała z równi.</Caption>
+</Formula>
+
+Wyprowadzenie warunku samoistnego spoczynku na równi:
+
+1. Rysujemy ciało na równi $\alpha$; siły: ciężar $G$, reakcja normalna $N$, tarcie $T$ skierowane w górę równi.
+2. Oś wzdłuż równi: równowaga daje $T=G\sin\alpha$.
+3. Oś prostopadła: $N=G\cos\alpha$.
+4. Warunek tarcia: $T\le\mu_s N$, czyli $G\sin\alpha\le\mu_s G\cos\alpha$.
+5. Dzieląc obie strony przez $G\cos\alpha>0$ otrzymujemy $\operatorname{tg}\alpha\le\mu_s$.
+6. Granica: $\operatorname{tg}\alpha_{\mathrm{gr}}=\mu_s$ — ciało każdej masy zsunie się z równi o kącie większym niż $\alpha_{\mathrm{gr}}$.
+
+<AnimatedSolution id="ex-statyka-rownowaga-tarcie" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Stosowanie $T=\mu_s N$ w środku zakresu równowagi — tam tarcie wynika z równoważenia i jest mniejsze od granicy.
+- Pomijanie wpływu siły $P$ na normalną, gdy $P$ ma składową prostopadłą do styku — wtedy $N\ne G\cos\alpha$ i granica tarcia się zmienia.
+- Ustalanie zwrotu tarcia „przeciwnie do siły $P$” zamiast przeciwnie do zamierzonego ruchu — przy dwóch granicach zwrot się odwraca.
+- Mylenie $\sin$ i $\cos$ na równi: wzdłuż równi zawsze $\sin\alpha$, prostopadle $\cos\alpha$.
+- Liczenie $\varphi_s$ ze stopni i radianów na zmianę — ustal jedną jednostkę i trzymaj się jej.
+- Wyznaczanie $\mu$ z kąta zsunnięcia w stopniach, ale podstawianie go do wzoru jako liczby stopni bez tangensa.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zobacz, czy pytanie dotyczy całego zakresu równowagi („jakie siły mogą działać”, „w jakich granicach”) — wtedy szukasz dwóch granic z przeciwnymi zwrotami tarcia.
+2. Gdy w treści jest kąt zsunnięcia lub pochylenia równi i pytanie o współczynnik, zapisz $\mu_s=\operatorname{tg}\alpha_{\mathrm{gr}}$.
+3. Narysuj wypadkową $R$ i kąt $\varphi$ — jeśli kierunek ruchu granicznego jest nieoczywisty, porównaj geometrycznie $\varphi$ z $\varphi_s$.
+4. Dla siły pod dowolnym kątem rozłóż ją na składowe, przelicz $N$ na nowo i dopiero wtedy pisz warunek graniczny.
+5. Zawsze sprawdź, czy rozwiązane $T$ spełnia $T\le\mu_s N$; naruszenie nierówności oznacza zły reżim.
+
+## Połącz z resztą kursu
+
+- **Tarcie suche: prawa Coulomba–Morena** — ta lekcja to ten sam model w zapisie kątowym; kąt tarcia nie wprowadza nowej fizyki, tylko nowego języka.
+- **Poślizg i wywrot** — granica równowagi bryły to nie tylko poślizg; w lekcji 3 wypadkowa reakcji przesunie się aż do krawędzi podstawy.
+- **Równie i kliny** — kąt graniczny równi to pierwsze zastosowanie samohamowności: pochyłość mniejsza niż $\varphi_s$ sama z siebie nie puści ciała.
+- **Tarcie cięgien** — wzór Eulera w lekcji 5 ma tę samą strukturę graniczną: nierówność po stronie sił, równość tylko w stanie granicznym.
+- **Wytrzymałość: połączenia śrubowe** — współczynnik tarcia w gwincie decyduje o samohamowności połączenia; kąt tarcia wraca tam jako kąt zwoju gwintu.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U2">
+    <Prompt>Ciało zaczyna zsuwać się z równi pochyłonej pod kątem $24^\circ$. Ile wynosi współczynnik tarcia statycznego?</Prompt>
+    <Answer>$0{,}41$</Answer>
+    <Answer correct>$0{,}45$</Answer>
+    <Answer>$0{,}91$</Answer>
+    <Hint>Przy zsunnięciu $\mu_s=\operatorname{tg}\alpha_{\mathrm{gr}}$.</Hint>
+    <Explanation>
+      $\mu_s=\operatorname{tg}24^\circ\approx0{,}445\approx0{,}45$. To klasyczny pomiar: kąt równi zastępuje wagę sił, bo ciężar skraca się z równania.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Współczynnik tarcia $\mu_s=0{,}40$. Kąt graniczny tarcia wynosi w przybliżeniu:</Prompt>
+    <Answer>$4{,}0^\circ$</Answer>
+    <Answer correct>$21{,}8^\circ$</Answer>
+    <Answer>$68{,}2^\circ$</Answer>
+    <Hint>$\operatorname{tg}\varphi_s=\mu_s$.</Hint>
+    <Explanation>
+      $\varphi_s=\operatorname{arctg}0{,}40\approx21{,}8^\circ$. Kąt tarcia rośnie z współczynnikiem, ale wolniej — tangens dla małych kątów jest bliski samej miary kąta w radianach.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Ciało spoczywa na równi $\alpha=20^\circ$, $\mu_s=0{,}35$. Co się stanie po lekkim pchnięciu w dół?</Prompt>
+    <Answer>Pozostanie w spoczynku, bo $20^\circ<35^\circ$</Answer>
+    <Answer correct>Zacznie się zsuwać, bo $\operatorname{tg}20^\circ\approx0{,}364>0{,}35$</Answer>
+    <Answer>Ruszymy je tylko siłą równą $\mu_s G$</Answer>
+    <Hint>Porównuj tangens kąta z $\mu$, nie same kąty.</Hint>
+    <Explanation>
+      Warunek spoczynku to $\operatorname{tg}\alpha\le\mu_s$. Ponieważ $\operatorname{tg}20^\circ\approx0{,}364>0{,}35$, potrzebne tarcie przekracza dostępne i ciało zjeżdża.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Ciało spoczywa na gładkiej równi $\alpha$ (bez tarciа). Jaką siłą równoległą do równi trzeba je docisnąć, by nie zjechało?</Prompt>
+    <Answer>$G\operatorname{tg}\alpha$</Answer>
+    <Answer correct>$G\sin\alpha$</Answer>
+    <Answer>$G\cos\alpha$</Answer>
+    <Hint>Na gładkiej równi nie ma tarcia — równowadzy podlega tylko składowa ciężaru wzdłuż równi.</Hint>
+    <Explanation>
+      Bez tarcia jedyna siła wzdłuż równi to $G\sin\alpha$, więc dokładnie tyle musi dać siła dociskowa. Tę wartość tarcie może „dopłacić” samo, jeśli $\operatorname{tg}\alpha\le\mu_s$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>W którym stanie wypadkowa reakcji $R$ osiąga maksymalne odchylenie $\varphi_s$ od normalnej?</Prompt>
+    <Answer>W każdym spoczynku</Answer>
+    <Answer correct>W stanie ruchu granicznego</Answer>
+    <Answer>W trwającym poślizgu kinetycznym</Answer>
+    <Hint>Pomyśl, kiedy $T/N$ jest największe.</Hint>
+    <Explanation>
+      $T/N$ rośnie do $\mu_s$ wyłącznie na progu poślizgu — wtedy $\varphi=\varphi_s$. W zwykłym spoczynku kąt jest mniejszy, a w poślizgu mamy do czynienia z $\mu_k<\mu_s$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Skrzynię ciężar $G$ ciśnie siłą skośną, której składowa pionowa dodatkowo dociska skrzynię do podłoża. Co dzieje się z granicą tarcia $T_{\max}$?</Prompt>
+    <Answer>Nie zmienia się, bo zależy tylko od $\mu$</Answer>
+    <Answer correct>Rosnie, bo rośnie siła normalna $N$</Answer>
+    <Answer>Maleje, bo część siły „ucieka” w pionie</Answer>
+    <Hint>$T_{\max}=\mu_s N$ — sprawdź, jak zmienia się $N$ z równowagi pionowej.</Hint>
+    <Explanation>
+      Dodatkowy docisk zwiększa $N$, a więc i $\mu_s N$. Dlatego dociskanie pod kątem w dół (jak w przykładzie UPEI z pchaniem pod $30^\circ$) podnosi próg poślizgu, choć część siły marnuje się na docisk.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Tarcie” (materiały wykładowe), str. 2–3 — siła tarcia statycznego jako styczna składowa reakcji i prawa graniczne Coulomba–Morena.
+- Baker, Haynes i in., _Engineering Statics_, rozdz. 9.1.2 „Friction Angle and Friction Resultant” — wypadkowa reakcji, kąt graniczny $\varphi_s=\operatorname{arctg}\mu_s$ i jego zastosowania.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_, rozdz. 4.4, przykład 4 — wyznaczanie współczynnika tarcia z kąta, przy którym ciało zsuwa się z podnoszonej belki.
+- OpenStax, _University Physics_ t. 1, rozdz. 6.2 — empiryczny charakter praw tarcia i metody pomiaru współczynnika.

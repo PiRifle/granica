@@ -1,5 +1,5 @@
 import type { ComponentType, LazyExoticComponent } from 'react'
-import type { LessonMeta, SolutionAnimationProps, SolutionFigure, SolutionScene } from '../types'
+import type { LessonMeta, ModuleStatus, SolutionAnimationProps, SolutionFigure, SolutionScene } from '../types'
 
 export type { LessonMeta }
 
@@ -10,6 +10,7 @@ export interface ModuleData {
   shortTitle: string
   description: string
   outcomes: string[]
+  status?: ModuleStatus
 }
 
 export interface SolutionData {

@@ -265,7 +265,7 @@ export function HookeStiffness2Animation({ scene, index, playing, sceneProgress 
                 stroke={ALU}
                 strokeWidth={2}
                 initial={false}
-                animate={{ x: 305 - thickHalf, width: thickHalf * 2, height: thickBottom - TOP }}
+                animate={{ width: thickHalf * 2, height: thickBottom - TOP }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
 

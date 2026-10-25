@@ -1,0 +1,175 @@
+---
+id: statyka-para-sil
+moduleId: statyka-plaskie-dowolne
+number: 2
+title: 'Para sił: moment, który nie ma siły'
+shortTitle: Para sił
+description: >-
+  Zdefiniuj parę sił, policz jej moment i przekonaj się, że nie zależy on od
+  punktu, względem którego go liczysz.
+eyebrow: 'Czysty moment'
+outcomes:
+  - W1 — definiuje parę sił i odróżnia ją od pojedynczej siły
+  - W2 — wyjaśnia niezależność momentu pary od bieguna i jej charakter wektora swobodnego
+  - U1 — oblicza moment pary i łączy kilka par w jeden moment wypadkowy
+  - U2 — dobrze parę sił równoważącą zadany moment
+---
+
+Kierownicę samochodu obracasz dwiema rękami: jedna ciągnie w górę, druga w dół. Żadna z rąk nie przesuwa kierownicy — obie siły znoszą się, a mimo to koło się kręci. To para sił: dwa równoległe wektory o równych wartościach i przeciwnych zwrotach, przyłożone w różnych punktach. Para sił nie ma wypadkowej siły, więc nie nadaje ciału żadnego przyspieszenia postępowego; ma natomiast moment, który wyłącznie obraca.
+
+W tej lekcji policzysz moment pary sił i odkryjesz jego najdziwniejszą właściwość: nie zależy od wyboru punktu, względem którego liczysz momenty. Dla pojedynczej siły zmiana bieguna zmienia moment — dla pary nie. To sprawia, że moment pary jest wektorem swobodnym: możesz go „przykleić” gdziekolwiek na ciele, a zewnętrzny efekt będzie ten sam. Umiejętność ta jest codziennym narzędziem w zadaniach z momentami skupionymi w belkach i w równoważeniu układów obrotowych.
+
+## Zanim zaczniesz
+
+- Umiej liczyć moment siły względem punktu: $M_O = P\cdot a$ z ramieniem $a$ mierzonym prostopadle do prostej działania.
+- Znaj zasadę znaków: moment przeciwny do ruchu wskazówek zegara przyjmujemy za dodatni.
+- Przypomnij sobie równoległe przesunięcie siły z poprzedniej lekcji — para sił pojawi się tam jako „produkt uboczny”.
+- Wiedz, że suma algebraiczna sił to rzut na kierunek wspólny: dla pary zawsze wychodzi zero.
+
+## Model i intuicja
+
+Parą sił nazywamy układ dwóch sił równoległych o równych wartościach i przeciwnych zwrotach, których proste działania są różne. Płaszczyzna wyznaczona przez obie siły to płaszczyzna pary, a odległość między prostymi działania to ramię pary $d$. Siły tworzące parę nie mają wypadkowej — i to jest sedno: para jest „czystym momentem”.
+
+Moment pary liczymy jak zwykły moment siły, tylko sumujemy dwa składniki. Weźmy dowolny punkt $O$ w odległości $x$ od pierwszej siły i $x+d$ od drugiej (obie o wartości $F$, przeciwne zwroty). Momenty względem $O$: $F(x+d) - Fx = Fd$. Zmienna $x$ znika — wynik nie zależy od położenia $O$. Moment pary to zawsze $M = F\cdot d$, gdzie $d$ to prostopadła odległość między prostymi działania, niezależnie od tego, skąd patrzysz na układ.
+
+Skoro wynik jest ten sam w każdym punkcie, wektor momentu pary nie jest „przywiązany” do żadnej pozycji — jest wektorem swobodnym. W zadaniach płaskich rysujemy go jako łuk z podpisem $M = Fd$ gdziekolwiek na ciele. Warto pamiętać ograniczenie: równoważność dotyczy działań zewnętrznych. Wewnątrz ciała para przyłożona blisko krawędzi i para rozłożona na dużym ramieniu dają różne naprężenia — mimo identycznego momentu.
+
+## Laboratorium: co ustawić
+
+Zbuduj w laboratorium parę sił o zadanej wartości i zmieniaj punkt, względem którego sumujesz momenty. Moment wypadkowy nie zmienia się — to nie przypadek, tylko definicja pary. Następnie zwiększaj odległość między siłami przy tej samej wartości $F$ i obserwuj liniowy wzrost momentu. Spróbuj wreszcie zastąpić parę jednym momentem skupionym i sprawdź, że reakcje podpór nie zmieniają się.
+
+<Lab id="staticsMoment" />
+
+## Definicje i jednostki
+
+| Wielkość        | Symbol | Jednostka | Znaczenie                                   |
+| --------------- | ------ | --------- | ------------------------------------------- |
+| Siła pary       | $F$    | N, kN     | wartość każdej z dwóch sił                  |
+| Ramię pary      | $d$    | m         | odległość między prostymi działania         |
+| Moment pary     | $M$    | N·m, kN·m | $M = F\cdot d$, zwrot zgodny z regułą śruby |
+| Moment skupiony | $M_0$  | N·m, kN·m | zadany moment zewnętrzny (np. z silnika)    |
+
+Moment pary jest dodatni, gdy para obraca ciało przeciwnie do ruchu wskazówek zegara. Wektor momentu pary jest prostopadły do płaszczyzny pary; w zadaniach płaskich rysujemy łuk i podpis. Wypadkowa sił pary zawsze wynosi zero, więc para nie wpływa na sumy rzutów — wpływa wyłącznie na sumę momentów.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+M=F\cdot d,\qquad
+\sum M_O=\sum (\pm F_i d_i)+\sum M_{0j}
+$$
+
+<Caption>Moment pary to iloczyn wartości jednej siły i ramienia pary. Przy sumowaniu kilku par i momentów skupionych każdy składnik wchodzi ze znakiem zgodnym z konwencją. Niezależność od bieguna wynika z redukcji: dla dowolnego punktu $O$ mamy $F(x+d)-Fx=Fd$.</Caption>
+</Formula>
+
+Wyprowadzenie niezależności od bieguna: niech pierwsza siła $F$ przechodzi przez punkt $A$, druga, równa $-F$, przez punkt $B$, przy czym $AB$ jest prostopadłe do sił i $|AB| = d$. Dla dowolnego bieguna $O$ momenty to $\mathbf r_A\times\mathbf F$ oraz $\mathbf r_B\times(-\mathbf F)$. Sumując: $(\mathbf r_A-\mathbf r_B)\times\mathbf F = \mathbf{BA}\times\mathbf F$. Moduł iloczynu to $|BA|\cdot F$, bo kąt między $\mathbf{BA}$ a $\mathbf F$ wynosi $90°$, a znak zależy wyłącznie od kolejności sił — nie od $O$. Dlatego moment pary jest taki sam w każdym punkcie płaszczyzny.
+
+<Insight>
+  Para sił to jedyny układ, który daje moment bez siły. Jeśli w zadaniu siły znoszą się, a ciało nadal chce się obracać
+  — szukaj pary i licz tylko $F\cdot d$.
+</Insight>
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-para-sil" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie momentu pary z momentem siły względem punktu: moment pary nie potrzebuje bieguna, $M = Fd$ zawsze.
+- Używanie odległości między punktami przyłożenia zamiast prostopadłej odległości między prostymi działania — gdy siły nie są prostopadłe do odcinka łączącego punkty, to błąd.
+- Odwrotny zwrot jednej z sił pary — wtedy para przestaje być parą i pojawia się wypadkowa $2F$.
+- Zapominanie, że moment pary jest wektorem swobodnym i można go przenosić; błędne jest natomiast przenoszenie samej siły bez momentu dokrętnego.
+- Pomijanie momentów skupionych $M_0$ przy sumowaniu — para i moment skupiony wchodzą do tej samej sumy momentów.
+- Przy równoważeniu: zadawanie siły pojedynczej zamiast pary — pojedyncza siła dałaby wypadkową i zepsułaby równowagę postępową.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy są dwie siły o równych wartościach, przeciwnych zwrotach i równoległych prostych działania.
+2. Policz wypadkową sił: jeśli zero, masz parę lub układ równoważny parze.
+3. Moment pary licz jako $F\cdot d$ — ramię to prostopadła odległość między prostymi, nie między punktami przyłożenia.
+4. Przy kilku parach i momentach skupionych sumuj wszystko algebraicznie ze znakami.
+5. W zadaniu równoważenia dobierz parę przeciwną o momencie $-\sum M$ i zwrocie przeciwnym do wypadkowego.
+6. Pamiętaj, że para nie zmienia sumy rzutów — nie wstawiaj jej do $\sum F_x = 0$.
+
+## Połącz z resztą kursu
+
+- **Siły równoległe** — para to graniczny przypadek układu równoległego, w którym wypadkowa sił znika, a zostaje moment.
+- **Redukcja do bieguna** — równoległe przesunięcie siły produkuje parę; moment dokrętny to nic innego jak moment pary.
+- **Obciążenia rozłożone** — wypadkowa obciążenia ciągłego i moment pary to dwa narzędzia tej samej redukcji.
+- **Równowaga płaska** — w równaniu $\sum M_O = 0$ momenty pary wchodzą bez zmiany wartości, niezależnie od wybranego bieguna.
+- **Reakcje konstrukcji** — moment utwierdzenia w wsporniku to reakcja na parę obciążeń; dowiesz się, dlaczego musi być uwzględniony.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Który układ jest parą sił?</Prompt>
+    <Answer>Dwie siły o równych wartościach i zgodnych zwrotach</Answer>
+    <Answer correct>Dwie siły równoległe o równych wartościach i przeciwnych zwrotach, o różnych prostych działania</Answer>
+    <Answer>Dwie siły zbieżne o równych wartościach i przeciwnych zwrotach</Answer>
+    <Hint>Para nie ma wypadkowej, ale musi mieć ramie.</Hint>
+    <Explanation>
+      Para sił to dwa równoległe wektory o równych modułach i przeciwnych zwrotach przyłożone na różnych prostych działania. Siły zbieżne o przeciwnych zwrotach mają wypadkową zero tylko gdy leżą na jednej prostej — wtedy nie tworzą pary.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Para sił 100 N, odległość między prostymi działania 0,4 m. Moment pary wynosi:</Prompt>
+    <Answer>25 N·m</Answer>
+    <Answer correct>40 N·m</Answer>
+    <Answer>80 N·m</Answer>
+    <Hint>Moment pary to iloczyn wartości jednej siły i ramienia pary.</Hint>
+    <Explanation>
+      $M = F\cdot d = 100\cdot 0{,}4 = 40\ \text{N·m}$. Do iloczynu wchodzi wartość jednej siły, nie suma obu — obie siły już „współpracują” w ramieniu.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Moment pary sił liczony względem punktu A wynosi 12 N·m. Jaki będzie względem punktu B, o 2 m dalej?</Prompt>
+    <Answer>12 N·m plus moment od przesunięcia</Answer>
+    <Answer correct>12 N·m — ten sam, bo moment pary nie zależy od bieguna</Answer>
+    <Answer>24 N·m, bo ramię się podwoiło</Answer>
+    <Hint>Przy wyprowadzeniu x znikało z równania.</Hint>
+    <Explanation>
+      Dla pary $F(x+d)-Fx = Fd$ — zmienna $x$ opisująca położenie bieguna redukuje się. Moment pary jest identyczny względem każdego punktu, dlatego jest wektorem swobodnym.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Trzeba zastąpić moment 30 N·m parą sił o wartości 200 N. Jakie ramię musi mieć ta para?</Prompt>
+    <Answer>0,1 m</Answer>
+    <Answer>0,3 m</Answer>
+    <Answer correct>0,15 m</Answer>
+    <Hint>Ramię to $d = M/F$.</Hint>
+    <Explanation>
+      $d = M/F = 30/200 = 0{,}15\ \text{m}$. Przy tej samej wartości momentu większa siła wymaga mniejszego ramienia — moment pary jest iloczynem, więc $F$ i $d$ są wzajemnie odwrotne.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Na tarczy działają: moment skupiony 15 N·m przeciwnie do wskazówek, para sił 30 N·0,5 m przeciwnie do wskazówek i moment skupiony 25 N·m zgodnie z ruchem wskazówek. Moment wypadkowy to:</Prompt>
+    <Answer>55 N·m przeciwnie do wskazówek</Answer>
+    <Answer correct>5 N·m przeciwnie do wskazówek</Answer>
+    <Answer>0 N·m — tarcza jest w równowadze</Answer>
+    <Hint>Para 30 N·0,5 m daje moment 15 N·m.</Hint>
+    <Explanation>
+      Sumujemy: $+15 + (30\cdot 0{,}5) - 25 = 15 + 15 - 25 = +5\ \text{N·m}$, czyli $5\ \text{N·m}$ przeciwnie do ruchu wskazówek zegara. Moment pary i momenty skupione wchodzą do jednej sumy ze znakami.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Ciało sztywne ma zerową sumę sił, ale niezerową sumę momentów. Co to oznacza?</Prompt>
+    <Answer>Ciało jest w równowadze, bo siły się znoszą</Answer>
+    <Answer correct>Ciało nie jest w równowadze — obróci się, choć nie przesunie</Answer>
+    <Answer>Trzeba zmienić biegun, a moment zniknie</Answer>
+    <Hint>Równowaga wymaga dwóch warunków naraz.</Hint>
+    <Explanation>
+      Zerowa suma sił oznacza brak przyspieszenia postępowego, ale niezerowy moment oznacza przyspieszenie kątowe. Ciało zacznie się obracać. Dla pary sił to typowa sytuacja: $\sum F = 0$, $\sum M = Fd \neq 0$.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład _„Moment siły, siły równoległe, płaski dowolny układ sił”_, str. 9–12: definicja pary sił, niezależność momentu od bieguna, przykład równoważenia krążka parami sił na obwodzie.
+- Baker, Haynes, _Engineering Statics_, rozdz. 4.5 (Couples): moment pary $M = Fd_\perp$, wektor swobodny i „czysty moment” bez składowej przesuwającej.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ (Engineering LibreTexts), rozdz. 3.2: pary sił jako moment niezależny od punktu, przykład koła zaworowego.
+- Moore i in., _Engineering Mechanics: Statics_ (wersja rozbudowana UPEI), rozdz. 3.2: dowód niezależności momentu pary od bieguna i sumowanie kilku par.
+- Misiak, _Mechanika techniczna_, t. 1: para sił i moment zginający jako czysta para w przekroju.

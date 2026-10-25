@@ -331,10 +331,7 @@ export function DesignReviewExam2Animation({ scene, playing, sceneProgress }: So
                 stroke={BLUE}
                 strokeWidth={1.2}
                 initial={false}
-                animate={{
-                  y: 238 - (TAU1 / TAU_DOP) * 110 * p,
-                  height: (TAU1 / TAU_DOP) * 110 * p,
-                }}
+                animate={{ height: (TAU1 / TAU_DOP) * 110 * p }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
               <motion.rect
@@ -347,10 +344,7 @@ export function DesignReviewExam2Animation({ scene, playing, sceneProgress }: So
                 stroke={ORANGE}
                 strokeWidth={1.2}
                 initial={false}
-                animate={{
-                  y: 238 - (TAU2 / TAU_DOP) * 110 * p,
-                  height: (TAU2 / TAU_DOP) * 110 * p,
-                }}
+                animate={{ height: (TAU2 / TAU_DOP) * 110 * p }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
               <line x1={344} y1={128} x2={440} y2={128} stroke={RED} strokeWidth={1.2} strokeDasharray="5 4" />

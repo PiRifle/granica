@@ -1,0 +1,172 @@
+---
+id: statyka-znaki-ntm
+moduleId: statyka-sily-wewnetrzne
+number: 2
+title: 'Znaki N, T i M: jedna konwencja dla wszystkich'
+shortTitle: Znaki N, T, M
+description: >-
+  Przyjmij jedną konwencję znaków sił wewnętrznych i stosuj ją konsekwentnie
+  po obu stronach przekroju, a minus zawsze będzie znaczył to samo.
+eyebrow: Dodatnie rozciąga, dodatnie wygina w dół
+outcomes:
+  - 'W1 — stosuje konwencję znaków dla N, T i M po obu stronach przekroju'
+  - 'W2 — interpretuje znak siły wewnętrznej jako zwrot lub rodzaj odkształcenia'
+  - 'U1 — rysuje siły wewnętrzne w kierunkach dodatnich na schemacie cięcia'
+  - 'U2 — wyjaśnia ujemne reakcje i ujemne momenty w belce z przewieszeniem'
+---
+
+Dwie osoby mogą poprawnie rozwiązać to samo zadanie i otrzymać przeciwne znaki — każda przyjmie inny kierunek dodatni. Dlatego inżynierowie umówili się na wspólną konwencję znaków: gdy każdy jej przestrzega, wynik $T = -4$ kN oznacza u każdego to samo, niezależnie od tego, po której stronie belki ciął. Konwencja nie wynika z fizyki — jest umową, ale umową konieczną do porozumiewania się i kontroli wyników.
+
+W tej lekcji przyjmiesz konwencję, która obowiązuje w polskich podręcznikach i w całym tym kursie: dodatnia siła normalna rozciąga, dodatnia siła tnąca obraca odcięty odcinek zgodnie z ruchem wskazówek zegara, a dodatni moment zginający wygina belkę wypukłością w dół. Zobaczysz, jak ją stosować po obu stronach cięcia i jak czytać znaki wyników — w tym ujemne reakcje, które pojawiają się w belkach z przewieszeniem.
+
+## Zanim zaczniesz
+
+- Opanuj metodę przekrojów z poprzedniej lekcji: reakcje, cięcie, równowaga odciętej części.
+- Przypomnij sobie moment siły względem punktu — znak momentu będzie częścią każdego równania.
+- Pamiętaj: konwencja znaków sił wewnętrznych jest niezależna od konwencji równań równowagi; te ostatnie zapisujesz zawsze tak samo.
+- Przyjmij kierunki dodatnie osi: $x$ w prawo, $y$ w górę, moment dodatni przeciwnie do ruchu wskazówek zegara — ale tylko do zapisu równań, nie do rysowania $N$, $T$, $M$.
+
+## Model i intuicja
+
+Konwencję najłatwiej zapamiętać przez ruch. Wyobraź sobie odcięty odcinek belki. Dodatnia siła tnąca działa na nim tak, aby obrócić go zgodnie z ruchem wskazówek zegara: na lewej części belki rysujemy ją więc w dół na ścianie cięcia, na prawej — w górę. Ujemna siła tnąca daje obrót przeciwny.
+
+Dodatni moment zginający wygina belkę jak uśmiech: wypukłość w dół, rozciąganie dolnych włókien, ściskanie górnych. Na lewej części rysujemy go przeciwnie do ruchu wskazówek zegara, na prawej — zgodnie. Ujemny moment wykrzywia belkę odwrotnie: wypukłość w górę, jak smutna mina.
+
+Dodatnia siła normalna rozciąga odcięty odcinek: na lewej części rysujemy ją w prawo, wzdłuż osi, na prawej — w lewo. Ujemna oznacza ściskanie.
+
+Kluczowa zasada: siły wewnętrzne na obu ścianach cięcia muszą być równe co do wartości i przeciwne co do zwrotu — to para akcja–reakcja. Gdy na lewej części rysujesz $T$ w dół, na prawej musi być w górę. Naruszenie tej zasady to najczęstszy błąd początkujących: schemat wygląda poprawnie, a równania dają zdublowane wartości.
+
+## Laboratorium: co ustawić
+
+W laboratorium przygotuj belkę z przewieszeniem i obserwuj, gdzie moment zmienia znak. Zwróć uwagę, że nad podporą pośrednią moment bywa ujemny, mimo że obciążenie działa w dół. Sprawdź, jak reakcja po lewej stronie zmienia się wraz z długością przewieszenia — kiedy staje się ujemna?
+
+<Lab id="staticsInternal" />
+
+## Definicje i jednostki
+
+**Konwencja znaków** to umowa przypisująca znak wielkości wewnętrznej na podstawie jej zwrotu i efektu. W tym kursie:
+
+| Wielkość | Dodatnia                               | Na lewej części                      | Na prawej części                  |
+| -------- | -------------------------------------- | ------------------------------------ | --------------------------------- |
+| $N$      | rozciąganie                            | w prawo                              | w lewo                            |
+| $T$      | obrót zgodny z ruchem wskazówek zegara | w dół                                | w górę                            |
+| $M$      | wypukłość w dół („uśmiech")            | przeciwnie do ruchu wskazówek zegara | zgodnie z ruchem wskazówek zegara |
+
+Skróty rachunkowe dla lewej części belki: $T$ jest algebraiczną sumą rzutów sił pionowych na lewo od przekroju (w górę dodatnie), a $M$ — sumą momentów tych sił względem przekroju (siła w górę na lewo od przekroju daje dodatni moment).
+
+| Symbol | Jednostka | Znak dodatni                           |
+| ------ | --------- | -------------------------------------- |
+| $N$    | kN        | rozciąganie                            |
+| $T$    | kN        | obrót zgodny z ruchem wskazówek zegara |
+| $M$    | kN·m      | dolne włókna rozciągane                |
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+T = \sum F_y^{\text{lewa}}, \qquad M = \sum M^{\text{lewa}}_{\text{przekrój}}
+$$
+
+<Caption>Skróty rachunkowe: siła tnąca i moment zginający w przekroju są równe odpowiednio sumie rzutów pionowych i sumie momentów sił leżących na lewo od przekroju, zgodnie z konwencją znaków.</Caption>
+</Formula>
+
+Wyprowadzenie: równowaga lewej części wymaga, aby siła wewnętrzna w przekroju równoważyła wszystkie siły zewnętrzne tej części. Ponieważ rysujemy dodatnią $T$ w dół na lewej ścianie, równowaga pionowa daje $T = \sum F_y^{\text{lewa}}$. Podobnie rysunek dodatniego $M$ przeciwnie do ruchu wskazówek zegara prowadzi do $M = \sum M^{\text{lewa}}_{\text{przekrój}}$. Analogiczne wzory dla prawej części różnią się znakiem: $T = -\sum F_y^{\text{prawa}}$, $M = -\sum M^{\text{prawa}}_{\text{przekrój}}$.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-znaki-ntm" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Rysowanie $T$ i $M$ w tym samym kierunku na obu ścianach cięcia — to narusza zasadę akcji i reakcji.
+- Mylenie konwencji rysunkowej z konwencją równań: równania zapisujesz zawsze w tym samym układzie, niezależnie od tego, jak narysujesz siły wewnętrzne.
+- Traktowanie ujemnej reakcji jako błędu — minus mówi, że zwrot jest przeciwny, a dla podpory przesuwnej oznacza utratę kontaktu bez zakotwienia.
+- Zmiana konwencji w połowie zadania — znak momentu „na chłopski rozum" zamiast z tabeli.
+- Pomijanie znaku minus przy kontroli z drugiej strony cięcia — błąd znaku ukryje się, jeśli kontrolujesz tylko wartości bezwzględne.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zadanie prosi o wykresy lub wartości $N$, $T$, $M$ — od razu zapisz konwencję znaków na rysunku.
+2. Zaznacz kierunki dodatnie na obu ścianach cięcia, zanim napiszesz jakiekolwiek równanie.
+3. Wyznacz reakcje i pilnuj ich znaków — ujemna reakcja jest informacją, nie błędem.
+4. Rysując wykresy, pamiętaj: dodatnie $M$ to „uśmiech", ujemne to „smutek".
+5. Każdy wynik kontroluj drugą stroną cięcia lub warunkiem brzegowym.
+
+## Połącz z resztą kursu
+
+- **Metoda przekrojów** — konwencja znaków jest jej niezbędnym uzupełnieniem; bez niej wyniki nie byłyby porównywalne.
+- **Równowaga płaskiego układu sił** — znaki reakcji wyznaczysz tymi samymi regułami co znaki sił wewnętrznych.
+- **Wykresy T i M** — w kolejnych lekcjach konwencja pozwoli Ci rysować diagramy, które każdy inżynier odczyta tak samo.
+- **Zginanie belek w wytrzymałości** — dodatni moment rozciąga dolne włókna; to od tego zaczyna się wzór na naprężenia.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Co oznacza dodatni moment zginający w przyjętej konwencji?</Prompt>
+    <Answer>Belka wygina się wypukłością w górę</Answer>
+    <Answer correct>Belka wygina się wypukłością w dół i dolne włókna są rozciągane</Answer>
+    <Answer>Belka jest ściskana wzdłuż osi</Answer>
+    <Hint>Pomyśl o kształcie litery U.</Hint>
+    <Explanation>
+      Dodatni moment wygina belkę jak uśmiech: wypukłość w dół. Dolne włókna się wydłużają, górne skracają.
+      Taki moment nazywany jest też „sagging".
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Belka z przykładu: przekrój tuż na prawo od B ($x = 6^+$). Ile wynosi siła tnąca?</Prompt>
+    <Answer>-3,33 kN</Answer>
+    <Answer correct>10 kN</Answer>
+    <Answer>13,33 kN</Answer>
+    <Answer>23,33 kN</Answer>
+    <Hint>$T = A_y + R_B$ dla sił na lewo od przekroju.</Hint>
+    <Explanation>
+      $T = -3{,}33 + 13{,}33 = 10$ kN. Na wykresie siła tnąca skacze o wartość reakcji $R_B$: od $-3{,}33$ kN
+      po lewej do $+10$ kN po prawej stronie podpory.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Jaki jest moment zginający nad podporą B w tej belce?</Prompt>
+    <Answer>0</Answer>
+    <Answer correct>-20 kN·m</Answer>
+    <Answer>+20 kN·m</Answer>
+    <Answer>-10 kN·m</Answer>
+    <Hint>Kontrola z prawej: $M = -P \cdot (8 - 6)$.</Hint>
+    <Explanation>
+      $M_B = -10 \cdot 2 = -20$ kN·m. Moment nad podporą jest ujemny, bo przewieszenie wykrzywia belkę
+      wypukłością w górę.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Reakcja $A_y$ wyszła ujemna przy założeniu zwrotu w górę. Co to oznacza w praktyce?</Prompt>
+    <Answer>Obliczenia są błędne</Answer>
+    <Answer correct>Podpora A musi dociskać belkę w dół; bez zakotwienia podpora przesuwna straciłaby kontakt</Answer>
+    <Answer>Belka jest zbyt sztywna</Answer>
+    <Hint>Minus określa zwrot siły.</Hint>
+    <Explanation>
+      Ujemny znak mówi, że rzeczywisty zwrot reakcji jest przeciwny do założonego. Gdyby A było podporą
+      przesuwną, belka oderwałaby się od podłoża — potrzebne jest zakotwienie lub ciężar własny.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Skok siły tnącej na podporze B wynosi:</Prompt>
+    <Answer>$P = 10$ kN</Answer>
+    <Answer correct>$R_B = 13{,}33$ kN</Answer>
+    <Answer>$A_y = 3{,}33$ kN</Answer>
+    <Answer>$0$ kN</Answer>
+    <Hint>Siła skupiona powoduje skok wykresu T o swoją wartość.</Hint>
+    <Explanation>
+      Reakcja jest siłą skupioną, więc na wykresie $T$ pojawia się skok o $13{,}33$ kN: od $-3{,}33$ kN do
+      $+10$ kN.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład: „Moment siły, siły równoległe, płaski dowolny układ sił" — znak momentu i ramię siły jako fundament konwencji znaków $M$.
+- Baker, Haynes, _Engineering Statics_ — rozdział 8.2: konwencja znaków dla $N$, $T$ i $M$ oraz jej uzasadnienie.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdział 6.1.2: konwencja znaków sił wewnętrznych, porównanie obu stron cięcia.
+- J. Leyko, _Mechanika ogólna_, t. I — statyka belek; polska konwencja znaków sił tnącej i momentu zginającego.

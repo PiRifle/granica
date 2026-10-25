@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { ArrowRight, Check, Lightbulb, RefreshCw, Target, X } from 'lucide-react'
 import { generateTasks, isAnswerClose, type NumericTask } from '../lib/training'
+import { courseThemeStyle } from '../lib/courseTheme'
+import type { Course } from '../types'
 import { InlineMath } from 'react-katex'
 import tools from './Tools.module.css'
 import styles from './Training.module.css'
@@ -14,7 +16,7 @@ const local = (names: string) =>
     .map((name) => tools[name] ?? styles[name] ?? name)
     .join(' ')
 
-export function Training({ onBack }: { onBack: () => void }) {
+export function Training({ course, onBack }: { course: Course; onBack: () => void }) {
   const [round, setRound] = useState(0)
   const tasks = useMemo(() => generateTasks(6), [round])
   const [answers, setAnswers] = useState<Record<string, string>>({})
@@ -37,7 +39,7 @@ export function Training({ onBack }: { onBack: () => void }) {
   }
 
   return (
-    <div className={local('tool-page')}>
+    <div className={local('tool-page')} style={courseThemeStyle(course.theme)}>
       <header className={local('tool-header')}>
         <button className={local('button button-quiet button-small')} onClick={onBack}>
           ← Wróć do kursu

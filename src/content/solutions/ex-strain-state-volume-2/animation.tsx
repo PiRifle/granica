@@ -314,7 +314,7 @@ function VolumeGauge({ draw }: { draw: number }) {
         stroke={BLUE}
         strokeWidth={2}
         initial={false}
-        animate={{ x: cx - side / 2, y: cy - side / 2, width: side, height: side }}
+        animate={{ width: side, height: side }}
         transition={{ duration: 0.12, ease: 'linear' }}
       />
       <text x={cx - base / 2 - 6} y={cy - base / 2 - 5} textAnchor="end" fontSize={8.5} fill={MUTED}>

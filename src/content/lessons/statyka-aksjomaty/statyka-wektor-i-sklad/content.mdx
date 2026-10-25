@@ -1,0 +1,160 @@
+---
+id: statyka-wektor-i-sklad
+moduleId: statyka-aksjomaty
+number: 1
+title: 'Wektor siły: moduł, wersor i kąty kierunkowe'
+shortTitle: Wektor i składowe
+description: >-
+  Zapisz siłę jako wektor: moduł, wersor, rzuty na osie oraz kąty kierunkowe
+  w płaszczyźnie i w przestrzeni.
+eyebrow: 'Język, którym opisujemy siły'
+outcomes:
+  - W1 — rozumie, kiedy wielkość fizyczną opisuje się wektorem, a kiedy skalarem
+  - W2 — odróżnia moduł, rzut i składową wektora
+  - W3 — wyjaśnia rolę wersora i kątów kierunkowych
+  - U1 — zapisuje wektor w postaci analitycznej i oblicza jego moduł
+  - U2 — wyznacza cosinusy kierunkowe i sprawdza je tożsamością
+---
+
+Siła nie jest „liczbą z podpisem kN”. Pełny opis siły wymaga trzech niezależnych informacji: wartości (modułu), kierunku i zwrotu. Dlatego siłę opisujemy wektorem — tak jak prędkość czy przyspieszenie, bo każda z tych wielkości składa się z tych samych trzech cech i dodaje się zgodnie z regułą równoległoboku. Wielkości opisane samą liczbą, jak czas czy masa, nazywamy skalarami.
+
+W tej lekcji budujesz warsztat, bez którego statyka się nie otworzy: zapis analityczny wektora. Zamiast rysować strzałkę i mierzyć kątomierzem, zapiszesz siłę jako trzy liczby przy wersorach osi. To pozwala dodawać siły algebraicznie, przekazywać je komputerowi i sprawdzać wyniki bez ryzyka błędu odczytu ze szkicu. Opanowanie tego języka to różnica między liczeniem a zgadywaniem.
+
+## Zanim zaczniesz
+
+- Przypomnij definicję sinusa, cosinusa i tangensa w trójkącie prostokątnym oraz twierdzenie Pitagorasa.
+- Pamiętaj, że kąt mierzymy od osi dodatniej, zwykle przeciwnie do ruchu wskazówek zegara.
+- Wiedz, jak zamieniać stopnie na radiany — nie jest to potrzebne do obliczeń, ale przydaje się przy czytaniu innych podręczników.
+- Upewnij się, że rozróżniasz wielkość bezwzględną liczby od długości odcinka.
+
+## Model i intuicja
+
+Wektor można przedstawić na trzy równoważne sposoby. Po pierwsze: graficznie, jako strzałkę o długości proporcjonalnej do modułu. Po drugie: analitycznie, jako zestaw rzutów prostokątnych na osie układu współrzędnych. Po trzecie: jako iloczyn modułu i wersora — wektora jednostkowego, który wskazuje tylko kierunek i zwrot, a ma długość równą jedności. Zapis $\mathbf{a} = a\,\mathbf{a}_0$ oddziela to, co „ile” (moduł $a$), od tego, „w którą stronę” (wersor $\mathbf{a}_0$).
+
+Kierunek wektora w przestrzeni opisujemy trzema kątami kierunkowymi: $\alpha$, $\beta$, $\gamma$, to jest kątami, jakie wektor tworzy z osiami $x$, $y$, $z$. Kąt kierunkowy definiujemy jako obrót osi od jej zwrotu dodatniego do zgodnego co do zwrotu pokrycia z wektorem. Ponieważ cosinusy tych kątów to właśnie składowe wersora, zawsze zachodzi tożsamość $\cos^2\alpha+\cos^2\beta+\cos^2\gamma=1$. To wygodny test poprawności: jeśli suma kwadratów nie wynosi jeden, gdzieś zgubiłeś znak albo zły kąt.
+
+Istnieją ograniczenia tego opisu. Wektor zaczepiony (np. siła przyłożona do konkretnego punktu ciała) wymaga podania nie tylko składowych, ale i punktu przyłożenia — dwa wektory o równych składowych, przyłożone w różnych miejscach, działają na ciało sztywne inaczej. Z tego powodu w dalszych lekcjach będziemy zawsze rysować punkt przyłożenia obok zapisu analitycznego.
+
+## Laboratorium: co ustawić
+
+Wpisz współrzędne końca wektora siły i obserwuj, jak zmieniają się moduł, wersor i kąty kierunkowe. Zacznij od wektora $(3, 4, 0)$, a potem spróbuj $(2, 3, 6)$ — zauważ, że suma kwadratów cosinusów kierunkowych pozostaje równa jeden niezależnie od wektora.
+
+<Lab id="staticsVector" />
+
+## Definicje i jednostki
+
+| Pojęcie         | Symbol                               | Definicja                                     | Jednostka    |
+| --------------- | ------------------------------------ | --------------------------------------------- | ------------ |
+| Moduł wektora   | $a = \lvert\mathbf{a}\rvert$         | długość wektora                               | N, kN        |
+| Rzut na oś      | $a_x, a_y, a_z$                      | miara rzutu prostokątnego na oś               | N, kN        |
+| Wersor          | $\mathbf{a}_0$                       | wektor o module 1, równoległy do $\mathbf{a}$ | bezwymiarowy |
+| Wersory osi     | $\mathbf{i}, \mathbf{j}, \mathbf{k}$ | wersory osi $x, y, z$                         | bezwymiarowy |
+| Kąty kierunkowe | $\alpha, \beta, \gamma$              | kąty wektora z osiami                         | °, rad       |
+
+Zapis analityczny: $\mathbf{a} = a_x\,\mathbf{i} + a_y\,\mathbf{j} + a_z\,\mathbf{k}$. Moduł obliczamy jak przekątną prostopadłościanu zbudowanego na składowych. Wersor to $\mathbf{a}_0 = \mathbf{a}/a$, a cosinusy kierunkowe to $\cos\alpha = a_x/a$, $\cos\beta = a_y/a$, $\cos\gamma = a_z/a$.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+|\mathbf{a}|=\sqrt{a_x^2+a_y^2+a_z^2},\qquad
+\cos^2\alpha+\cos^2\beta+\cos^2\gamma=1
+$$
+
+<Caption>Pierwszy wzór to twierdzenie Pitagorasa zastosowane dwukrotnie: w płaszczyźnie $xy$ daje $a_{xy}^2=a_x^2+a_y^2$, a potem z osią $z$ daje $a^2=a_{xy}^2+a_z^2$. Druga tożsamość wynika natychmiast z definicji wersora: skoro $|\mathbf{a}_0|=1$, to suma kwadratów jego składowych musi wynosić jeden.</Caption>
+</Formula>
+
+Wyprowadzenie tożsamości cosinusów jest jednym z najprostszych w statyce, a warto je przejść raz, aby zapamiętać: $\cos^2\alpha+\cos^2\beta+\cos^2\gamma = (a_x/a)^2 + (a_y/a)^2 + (a_z/a)^2 = (a_x^2+a_y^2+a_z^2)/a^2 = a^2/a^2 = 1$. Każdy krok to albo definicja cosinusa kierunkowego, albo wzór na moduł. To sprawdza też praktyczną konsekwencję: w przestrzeni tylko dwa kąty kierunkowe są niezależne — trzeci wynika z tożsamości.
+
+<AnimatedSolution id="ex-statyka-wektor-i-sklad" />
+
+<Insight>
+  Wersor to „kierunek bez wielkości”. Gdy znasz wersor, zastąpienie siły $7\ \text{kN}$ siłą $12\ \text{kN}$ zmienia
+  tylko moduł — składowe rosną proporcjonalnie, kąty kierunkowe zostają.
+</Insight>
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie modułu z rzutem: rzut $a_x$ bywa mniejszy od modułu nawet o rząd wielkości; nigdy nie zapisuj $a = a_x + a_y$.
+- Brak znaku minus przy składowej wskazującej w stronę ujemną osi — wersor ma składowe ujemne, gdy zwrot jest przeciwny do zwrotu osi.
+- Mylenie kąta kierunkowego z kątem nachylenia do poziomu: $\alpha$ mierzymy od osi, nie od horyzontu.
+- Zakładanie, że trzy kąty kierunkowe są niezależne — trzeci zawsze wynika z tożsamości, a podanie trzech dowolnych kątów zwykle prowadzi do sprzeczności.
+- Pomijanie punktu przyłożenia siły zaczepionej; sam zapis $\mathbf{S} = 2\mathbf{i} + 3\mathbf{j} + 6\mathbf{k}$ nie mówi jeszcze, gdzie siła działa.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Szukaj danych „siła o wartości… skierowana wzdłuż odcinka $AB$” — to sygnał, by najpierw zbudować wektor położenia, potem wersor.
+2. Jeśli podano kąt w płaszczyźnie, rozdziel go na rzuty: składowa „przy kącie” to cosinus, „przy prostokątnym” to sinus.
+3. Gdy podano dwa kąty kierunkowe, policz trzeci z tożsamości cosinusów, zanim zaczniesz liczyć składowe.
+4. Zawsze sprawdź wymiar i rząd wielkości: składowa nie może przekroczyć modułu.
+5. Zapisz punkt przyłożenia obok zapisu analitycznego — przyda się w lekcji o momencie siły.
+
+## Połącz z resztą kursu
+
+- **Lekcja 2 (dodawanie i rzutowanie)** — zapis analityczny z tej lekcji jest narzędziem, którym dodajesz siły.
+- **Moduł 2: płaski zbieżny układ sił** — tam zapis wektorowy zamieni się w równania równowagi.
+- **Moduł wytrzymałości: fundamenty, jednostki SI** — ta sama dyscyplina zapisu i sprawdzania wymiaru wyniku.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Które wielkości są wektorami w sensie mechanicznym?</Prompt>
+    <Answer>Masa, czas i temperatura</Answer>
+    <Answer correct>Siła, prędkość i przyspieszenie</Answer>
+    <Answer>Energia, moc i praca</Answer>
+    <Hint>Wektorem jest wielkość opisana modułem, kierunkiem i zwrotem, dodawana regułą równoległoboku.</Hint>
+    <Explanation>
+      Siła, prędkość i przyspieszenie mają kierunek i zwrot oraz dodają się jak wektory. Masa, czas i energia to skalary — wystarczy podać liczbę i jednostkę.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Co to jest wersor wektora $\mathbf{a}$?</Prompt>
+    <Answer>Wektor o module równym modułowi $\mathbf{a}$</Answer>
+    <Answer correct>Wektor o module 1, o kierunku i zwrocie $\mathbf{a}$</Answer>
+    <Answer>Rzut wektora $\mathbf{a}$ na oś $x$</Answer>
+    <Hint>Wersor wskazuje tylko „w którą stronę”, bez „ile”.</Hint>
+    <Explanation>
+      Wersor $\mathbf{a}_0 = \mathbf{a}/a$ ma moduł równy jedności i tę samą orientację co $\mathbf{a}$. Dzięki temu $\mathbf{a} = a\,\mathbf{a}_0$ rozdziela wielkość od kierunku.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Jaki jest moduł wektora $\mathbf{a} = 3\mathbf{i} + 4\mathbf{j} + 12\mathbf{k}$ (kN)?</Prompt>
+    <Answer>19 kN</Answer>
+    <Answer correct>13 kN</Answer>
+    <Answer>7 kN</Answer>
+    <Hint>Użyj wzoru na przekątną prostopadłościanu.</Hint>
+    <Explanation>
+      $|\mathbf{a}| = \sqrt{3^2 + 4^2 + 12^2} = \sqrt{9 + 16 + 144} = \sqrt{169} = 13$ kN.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Wektor ma cosinusy kierunkowe $\cos\alpha = 0{,}6$ i $\cos\beta = 0{,}8$. Ile wynosi $\cos\gamma$?</Prompt>
+    <Answer>1,0</Answer>
+    <Answer>0,5</Answer>
+    <Answer correct>0</Answer>
+    <Hint>Skorzystaj z tożsamości $\cos^2\alpha+\cos^2\beta+\cos^2\gamma=1$.</Hint>
+    <Explanation>
+      $\cos^2\gamma = 1 - 0{,}36 - 0{,}64 = 0$, więc $\cos\gamma = 0$ i wektor leży w płaszczyźnie $xy$ — kąt $\gamma = 90^\circ$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Linka o długości 3 m ciągnie punkt $A(0,0,0)$ w stronę $B(2, 2, 1)$ siłą 9 kN. Jakie są składowe siły?</Prompt>
+    <Answer>$(2, 2, 1)$ kN</Answer>
+    <Answer>$(6, 6, 3)$ kN</Answer>
+    <Answer correct>$(6, 6, 3)$ kN przy wersorze $(2/3, 2/3, 1/3)$</Answer>
+    <Hint>Najpierw moduł wektora $AB$, potem wersor, potem skalowanie do 9 kN.</Hint>
+    <Explanation>
+      $|\mathbf{r}_{AB}| = \sqrt{4 + 4 + 1} = 3$ m, wersor $(2/3, 2/3, 1/3)$, siła $9\cdot(2/3, 2/3, 1/3) = (6, 6, 3)$ kN. Sprawdzenie: $\sqrt{36+36+9} = 9$ kN.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład 1 i 2, slajdy 3–13: definicja wektora, moduł, wersor, kąt kierunkowy, rzut na oś, zapis analityczny i cosinusy kierunkowe.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_, rozdz. 1.3 „Vectors” — składowe, moduł, wersor i zapis kartezjański z przykładami.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 2.1–2.5 — wektory, układy współrzędnych i wersory z interaktywnymi ilustracjami.
+- _University Physics_ vol. 1 (OpenStax), rozdz. 2.1–2.2 — skalary i wektory, składowe wektora w układzie kartezjańskim.

@@ -1,0 +1,193 @@
+---
+id: statyka-reakcje-konstrukcji
+moduleId: statyka-plaskie-dowolne
+number: 6
+title: 'Reakcje konstrukcji: belki, ramy i podpory'
+shortTitle: 'Reakcje konstrukcji'
+description: >-
+  Jak czytać schemat podpór, zapisać reakcje belki lub ramy i sprawdzić wynik.
+  Wspornik z obciążeniem ciągłym, momentem i linką oraz rama z rolką.
+eyebrow: 'Podpory mówią, czego szukać'
+outcomes:
+  - W1 — rozpoznaje rodzaje podpór i liczbę niewiadomych reakcji
+  - W2 — wyjaśnia rolę momentu utwierdzenia i obciążenia ciągłego w równaniach
+  - U1 — wyznacza reakcje belki wspornikowej z obciążeniem ciągłym, momentem i linką
+  - U2 — wyznacza reakcje ramy z przegubem i podporą przesuwną oraz sprawdza wynik
+---
+
+Reakcje podpór to siły, którymi więzy „odpowiadają” na obciążenie konstrukcji. Zanim policzysz siły wewnętrzne, naprężenia czy ugięcia, musisz wiedzieć, jak podpory trzymają belkę lub ramę. Schemat podpór jest więc pierwszym i najważniejszym elementem każdego zadania konstrukcyjnego: jeśli źle go odczytasz, wszystkie dalsze równania będą opisywać inną konstrukcję niż ta z rysunku.
+
+W tym module znasz już trzy równania równowagi płaskiej. Teraz uczysz się ich praktycznego zastosowania do belek i ram. Belka wspornikowa ma utwierdzenie, które wnosi trzy niewiadome: dwie składowe siły i moment. Rama z przegubem i rolką ma trzy niewiadome: dwie składowe w przegubie i jedną reakcję pionową w rolce. W obu przypadkach liczba równań i niewiadomych się zgadza, ale kolejność obliczeń zależy od schematu.
+
+Druga ważna umiejętność to interpretacja znaków. Ujemna reakcja nie oznacza błędu — oznacza, że rzeczywisty zwrot jest przeciwny do założonego. W ramie z poziomym obciążeniem może się na przykład okazać, że przegub musi „ciągnąć” konstrukcję w dół, żeby zapobiec jej obrotowi. Taki wynik jest poprawny, o ile podpora rzeczywiście może przenosić siłę w obu zwrotach.
+
+## Zanim zaczniesz
+
+- Umiej zapisać trzy równania równowagi i wybrać biegun momentów eliminujący niewiadome.
+- Rozpoznaj podstawowe podpory: przegub nieruchomy, rolkę, utwierdzenie i podporę prętową.
+- Przypomnij sobie, jak zastąpić obciążenie ciągłe wypadkową $Q=qL$ w środku ciężkości diagramu.
+- Wiedz, że moment skupiony wchodzi do równania momentów bez zmiany wartości, niezależnie od bieguna.
+- Pamiętaj, że linka przez idealny krążek przenosi tę samą siłę co ciężar zawieszony na jej końcu.
+
+## Model i intuicja
+
+Belkę lub ramę traktujemy jako jedno ciało sztywne. Na schemacie ciała wolnego zastępujemy podpory reakcjami zgodnymi z ich konstrukcją. Przegub nieruchomy daje dwie składowe, rolka na poziomym podłożu — jedną reakcję pionową, utwierdzenie — dwie składowe i moment utwierdzenia. Podpora prętowa daje jedną siłę wzdłuż pręta, podobnie jak pręt dwusiłowy.
+
+Obciążenie ciągłe zastępujemy wypadkową o wartości równej polu diagramu i przyłożoną w jego środku ciężkości. Dla prostokąta $Q=qL$ w połowie długości; dla trójkąta $Q=\tfrac12 qL$ w jednej trzeciej od podstawy. Moment skupiony przenosimy bez zmian. Linka przez idealny krążek ma na obu końcach tę samą wartość siły, więc jeśli na końcu wisi ciężar $P$, to linka działa na belkę siłą $P$ wzdłuż swojej osi.
+
+Model zakłada ciało sztywne, idealne więzy i pomijalne tarcie w przegubach oraz krążku. W rzeczywistej konstrukcji dochodzą odkształcenia, luz i tarcie, ale dla reakcji podpór te uproszczenia są zwykle wystarczające. Granicą modelu jest sytuacja, gdy podpora nie może przenosić siły w otrzymanym zwrocie — wtedy trzeba sprawdzić, czy konstrukcja nie podniesie się z podpory.
+
+## Laboratorium: co ustawić
+
+Zbuduj wspornik z obciążeniem ciągłym i momentem, a następnie dodaj linkę przechodzącą przez krążek. Zmieniaj kąt linki i wartość momentu, obserwując, jak zmieniają się składowe reakcji oraz moment utwierdzenia. Potem przełącz się na ramę z przegubem i rolką: sprawdź, kiedy reakcja w przegubie zmienia zwrot na przeciwny, i porównaj wynik z kontrolą momentem względem drugiej podpory.
+
+<Lab id="staticsPlanar" />
+
+## Definicje i jednostki
+
+| Podpora                     | Reakcje                        | Liczba niewiadomych |
+| --------------------------- | ------------------------------ | ------------------- |
+| Przegub nieruchomy          | $A_x$, $A_y$                   | 2                   |
+| Rolka lub podpora przesuwna | reakcja prostopadła do podłoża | 1                   |
+| Utwierdzenie                | $A_x$, $A_y$, $M_A$            | 3                   |
+| Podpora prętowa             | siła wzdłuż osi pręta          | 1                   |
+
+Jednostki: siły w N lub kN, momenty w N·m lub kN·m, długości w m. Moment utwierdzenia ma wymiar siła razy długość; nie myl go z momentem skupionym przyłożonym w innym punkcie belki.
+
+## Wzór i wyprowadzenie
+
+Dla belki lub ramy w płaszczyźnie zapisujemy trzy równania równowagi:
+
+<Formula>
+$$
+\sum F_x=0,
+\qquad
+\sum F_y=0,
+\qquad
+\sum M_A=0
+$$
+
+<Caption>Biegun $A$ wybieramy dowolnie, ale najwygodniej w podporze, w której przecina się najwięcej niewiadomych. Dla utwierdzenia moment $M_A$ jest dodatkową niewiadomą i wchodzi do równania momentów jako reakcja więzu. Dla rolki przyjmujemy tylko składową prostopadłą do podłoża.</Caption>
+</Formula>
+
+Dla wspornika z utwierdzeniem w $A$ reakcje wyznaczamy kolejno: rzut poziomy daje $A_x$, rzut pionowy daje $A_y$, a moment względem $A$ daje $M_A$. Jeśli do belki przyłożono moment skupiony $M$ oraz obciążenie ciągłe $q$ na długości $L$, równanie momentów ma postać:
+
+<Formula>
+$$
+M_A+\sum_i F_i\,a_i-\sum_j M_j=0
+$$
+
+<Caption>$F_i$ to siły skupione i wypadkowe obciążeń ciągłych, $a_i$ — ich ramiona względem $A$, a $M_j$ — momenty skupione z odpowiednim znakiem. Znak $M_A$ zależy od przyjętej konwencji; w przykładzie przyjmujemy moment przeciwny do ruchu wskazówek zegara za dodatni.</Caption>
+</Formula>
+
+<AnimatedSolution id="ex-statyka-reakcje-konstrukcji" />
+
+<AnimatedSolution id="ex-statyka-reakcje-konstrukcji-2" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Pominięcie momentu utwierdzenia — wspornik ma trzy niewiadome, a nie dwie.
+- Potraktowanie rolki jak przegubu i dodanie reakcji poziomej, której rolka nie przenosi.
+- Błędne ramię siły poziomej: liczy się odległość pionowa od bieguna do prostej działania, a nie długość belki.
+- Uznanie ujemnej reakcji za błąd i „poprawianie” jej na plus bez zmiany równań.
+- Zapomnienie o wypadkowej obciążenia ciągłego albo przyłożenie jej na końcu belki zamiast w środku ciężkości.
+- Brak kontroli momentem względem drugiej podpory; to najprostszy test wykrywający błąd znaku.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Odczytaj schemat podpór i wypisz reakcje: przegub — dwie składowe, rolka — jedna, utwierdzenie — dwie składowe i moment.
+2. Zastąp obciążenia ciągłe wypadkowymi we właściwych środkach ciężkości.
+3. Przenieś linki i momenty skupione bez zmiany wartości; rozłóż siły ukośne na składowe.
+4. Policz niewiadome i sprawdź, czy jest ich trzy; jeśli więcej, zadanie może wymagać dodatkowych warunków.
+5. Wybierz biegun momentów w podporze, która wnosi najwięcej niewiadomych.
+6. Rozwiąż równania w kolejności: moment, rzut poziomy, rzut pionowy albo według wygody.
+7. Sprawdź wynik momentem względem innego punktu i bilansem sił.
+
+## Połącz z resztą kursu
+
+- **Równowaga płaska** — reakcje konstrukcji to bezpośrednie zastosowanie trzech równań równowagi.
+- **Obciążenia rozłożone** — każda belka z ciężarem własnym lub obciążeniem powierzchniowym wymaga zastąpienia $q$ wypadkową.
+- **Para sił** — moment skupiony w belce lub ramie to najczęściej para sił; w równaniach wchodzi jako wartość momentu.
+- **Pręty dwusiłowe** — podpora prętowa i linka to elementy, których kierunek reakcji jest znany z geometrii.
+- **Wytrzymałość materiałów** — reakcje podpór są danymi wejściowymi do wykresów sił tnących i momentów zginających.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Ile niewiadomych reakcji wnosi utwierdzenie płaskie?</Prompt>
+    <Answer>$1$</Answer>
+    <Answer>$2$</Answer>
+    <Answer correct>$3$</Answer>
+    <Hint>Utwierdzenie blokuje dwa przesunięcia i obrót.</Hint>
+    <Explanation>
+      Utwierdzenie przenosi dwie składowe siły oraz moment, więc wnosi trzy niewiadome: $A_x$, $A_y$ i $M_A$. To
+      dokładnie tyle, ile równań daje płaski układ sił.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Jaką reakcję daje rolka na poziomym podłożu?</Prompt>
+    <Answer>Dwie składowe: poziomą i pionową</Answer>
+    <Answer correct>Jedną siłę prostopadłą do podłoża</Answer>
+    <Answer>Moment i siłę pionową</Answer>
+    <Hint>Rolka może się swobodnie przesuwać wzdłuż podłoża.</Hint>
+    <Explanation>
+      Rolka blokuje tylko ruch prostopadły do podłoża, więc daje jedną reakcję prostopadłą. Nie przenosi siły wzdłuż
+      podłoża ani momentu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie wspornika reakcja pionowa $A_y$ wynosi:</Prompt>
+    <Answer>$1\ \text{kN}$</Answer>
+    <Answer correct>$3\ \text{kN}$</Answer>
+    <Answer>$5\ \text{kN}$</Answer>
+    <Hint>Bilans pionowy: $A_y-8+5=0$.</Hint>
+    <Explanation>
+      Wypadkowa obciążenia ciągłego to $8\ \text{kN}$ w dół, a pionowa składowa linki to $5\ \text{kN}$ w górę. Stąd
+      $A_y=8-5=3\ \text{kN}$ w górę.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie wspornika moment utwierdzenia $M_A$ wynosi:</Prompt>
+    <Answer>$0\ \text{kN·m}$</Answer>
+    <Answer correct>$4\ \text{kN·m}$ przeciwnie do ruchu wskazówek zegara</Answer>
+    <Answer>$12\ \text{kN·m}$ zgodnie z ruchem wskazówek zegara</Answer>
+    <Hint>Równanie momentów: $M_A-8\cdot2+5\cdot4-8=0$.</Hint>
+    <Explanation>
+      $M_A-16+20-8=0$, więc $M_A=4\ \text{kN·m}$. Dodatni wynik przy przyjętej konwencji oznacza moment przeciwny do
+      ruchu wskazówek zegara.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W przykładzie ramy reakcja rolki $D_y$ wynosi:</Prompt>
+    <Answer>$12\ \text{kN}$</Answer>
+    <Answer correct>$14\ \text{kN}$</Answer>
+    <Answer>$16\ \text{kN}$</Answer>
+    <Hint>Momenty względem $A$: $6D_y-12\cdot4-12\cdot3=0$.</Hint>
+    <Explanation>
+      Siła pozioma $12\ \text{kN}$ na wysokości $4\ \text{m}$ daje moment $48\ \text{kN·m}$, a wypadkowa obciążenia $12\
+      \text{kN}$ z ramieniem $3\ \text{m}$ daje $36\ \text{kN·m}$. Stąd $6D_y=84$ i $D_y=14\ \text{kN}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>W ramie otrzymano $A_y=-2\ \text{kN}$. Co to oznacza?</Prompt>
+    <Answer>Rama jest statycznie niewyznaczalna</Answer>
+    <Answer correct>Reakcja przegubu działa w dół, przeciwnie do założonego zwrotu</Answer>
+    <Answer>Należy zmienić znak obciążenia, bo wynik jest błędny</Answer>
+    <Hint>Znak reakcji informuje o zwrocie względem założonego kierunku.</Hint>
+    <Explanation>
+      Minus oznacza, że rzeczywisty zwrot reakcji jest przeciwny do strzałki przyjętej na schemacie. Przegub działa na
+      ramę w dół, co jest sensowne przy poziomym obciążeniu powodującym obrót. Nie jest to błąd ani dowód
+      niewyznaczalności.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Moment siły, siły równoległe, płaski dowolny układ sił”, str. 21–22: belka utwierdzona z ciężarem, momentem, obciążeniem ciągłym i linką przez krążek.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 5.4 (2D Rigid Body Equilibrium), 5.7 (Equilibrium Examples) i 7.8 (Distributed Loads): reakcje podpór, utwierdzenie i zastępowanie obciążenia ciągłego.
+- L. Osgood, G. Cameron, H. Christensen, _Engineering Mechanics: Statics_, rozdz. 3.4 (Reactions and Supports) i 4.3 (Rigid Body Equilibrium Equations): rodzaje podpór i równania równowagi.
+- _University Physics_ (OpenStax), rozdz. 5.6–5.7: siły napięcia, siły normalne i schemat ciała wolnego.

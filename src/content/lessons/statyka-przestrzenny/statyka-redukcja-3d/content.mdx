@@ -1,0 +1,208 @@
+---
+id: statyka-redukcja-3d
+moduleId: statyka-przestrzenny
+number: 3
+title: 'Redukcja układu sił do bieguna: wektor główny i moment główny'
+shortTitle: Redukcja 3D
+description: >-
+  Zastąp dowolny przestrzenny układ sił jedną siłą i jedną parą względem
+  wybranego bieguna i rozpoznaj, kiedy układ ma wypadkową, a kiedy wiązkę śrubową.
+eyebrow: 'Jeden biegun, dwa wektory'
+outcomes:
+  - W1 — rozumie, co jest niezmiennicze przy zmianie bieguna redukcji
+  - W2 — klasyfikuje układ sił: wypadkowa, para, wiązka śrubowa, równowaga
+  - U1 — liczy wektor główny i moment główny dla układu sił i par
+  - U2 — stosuje wzór na zmianę bieguna i sprawdza geometrycznie wypadkową
+---
+
+Dowolny przestrzenny układ sił działających na ciało sztywne można zastąpić układem prostszym: jedną siłą przyłożoną w dowolnie wybranym punkcie i jedną parą sił. Tak brzmi twierdzenie o redukcji — siła jest sumą geometryczną wszystkich sił (wektor główny), a para ma moment równy sumie momentów wszystkich sił względem wybranego bieguna (moment główny). To narzędzie porządkuje rachunek: zamiast śledzić dziesiątki sił, śledzisz dwa wektory.
+
+Redukcja odpowiada też na pytanie, jak „działa” cały układ obciążeń na podstawę lub podpory. Wektor główny mówi, jaki przesuw całego ciała układ próbuje wywołać; moment główny — jaki obrót. Przy zmianie bieguna wektor główny się nie zmienia, ale moment główny się przelicza; z tej niezmienniczości i zmienności wynikają wszystkie klasyfikacje układów, które poznasz w tej lekcji.
+
+## Zanim zaczniesz
+
+- Umiej liczyć moment siły względem punktu jako $\mathbf r\times\mathbf F$ (poprzednia lekcja).
+- Wiedz, czym jest para sił: dwa równe, przeciwne, nierównoległe wektory; moment pary jest taki sam względem każdego punktu.
+- Zapisuj siły i punkty przyłożenia konsekwentnie we współrzędnych prostokątnych.
+- Pamiętaj, że sumowanie wektorów to sumowanie odpowiednich składowych.
+- Miej opanowane jednostki: siły w kN, ramiona w m, momenty w kN·m.
+
+## Model i intuicja
+
+Wybierz biegun $O$. Wektor główny $\mathbf R=\sum\mathbf F_i$ przenosisz do $O$ — to siła, która daje ten sam efekt przesuwowy co cały układ. Moment główny $\mathbf M_O=\sum(\mathbf r_i\times\mathbf F_i)+\sum\mathbf M_j$ składasz z momentów wszystkich sił i z przyłożonych par — to para o momencie równym całkowitej tendencji obrotowej względem $O$. Oba wektory razem opisują układ dokładnie.
+
+Przy zmianie bieguna z $O$ na $O'$ sytuacja jest prosta: $\mathbf R$ nie zmienia się, natomiast $\mathbf M_{O'}=\mathbf M_O-\mathbf a\times\mathbf R$, gdzie $\mathbf a=\vec{OO'}$. Intuicyjnie: przenosząc punkt, na którym „trzymamy” układ, zmieniamy ramię siły wypadkowej, więc zmienia się moment od niej; same siły ani ich linie działania się nie zmieniają. Z tego wzoru widać, że jeśli $\mathbf R=\mathbf 0$, moment główny jest taki sam dla każdego bieguna — dlatego moment pary jest wektorem swobodnym.
+
+Na tej podstawie klasyfikujemy układy. Jeżeli $\mathbf R\neq\mathbf 0$ i $\mathbf M_O\cdot\mathbf R=0$ (moment prostopadły do wypadkowej), układ można sprowadzić do jednej siły — wypadkowej. Jeżeli $\mathbf R\cdot\mathbf M_O\neq0$, część momentu leży wzdłuż linii działania wypadkowej i nie da się jej zlikwidować przesunięciem siły: powstaje wiązka śrubowa — siła plus moment wokół jej własnej osi, jak śruba wkręcana w drewno. Jeżeli $\mathbf R=\mathbf 0$ i $\mathbf M\neq\mathbf 0$, układ jest równoważny jednej parze; jeżeli oba zerują się, mamy równowagę.
+
+Model redukcji jest ściśle związany z ciałem sztywnym: równoważność dotyczy tylko ruchu zewnętrznego. Wewnątrz materiału dwa równoważne zewnętrznie układy mogą dawać zupełnie różne naprężenia — ale to temat wytrzymałości, nie statyki.
+
+## Laboratorium: co ustawić
+
+Ustaw kilka sił o różnych punktach przyłożenia. Obserwuj, jak zmienia się moment główny przy przesuwaniu bieguna, podczas gdy wektor główny pozostaje stały. Spróbuj dobrać siły tak, aby powstała wiązka śrubowa: wektor główny i moment główny niezerowe i nierozłączne.
+
+<Lab id="staticsSpatial" />
+
+## Definicje i jednostki
+
+| Pojęcie         | Zapis                                                          | Opis                                   | Jednostka |
+| --------------- | -------------------------------------------------------------- | -------------------------------------- | --------- |
+| Biegun redukcji | $O$                                                            | Dowolnie wybrany punkt odniesienia     | —         |
+| Wektor główny   | $\mathbf R=\sum\mathbf F_i$                                    | Suma geometryczna wszystkich sił       | kN        |
+| Moment główny   | $\mathbf M_O=\sum\mathbf r_i\times\mathbf F_i+\sum\mathbf M_j$ | Suma momentów względem $O$             | kN·m      |
+| Zmiana bieguna  | $\mathbf M_{O'}=\mathbf M_O-\mathbf a\times\mathbf R$          | $\mathbf a=\vec{OO'}$                  | kN·m      |
+| Para sił        | $\mathbf M$                                                    | Dwa przeciwne wektory; moment swobodny | kN·m      |
+| Wiązka śrubowa  | $\mathbf R$ z $\mathbf M\parallel\mathbf R$                    | Siła plus moment wokół jej osi         | kN, kN·m  |
+
+Symbole: $\mathbf r_i$ — wektor od bieguna do punktu przyłożenia $i$-tej siły; $\mathbf M_j$ — momenty przyłożonych par. Warunek wypadkowej: $\mathbf R\neq\mathbf 0$, $\mathbf R\cdot\mathbf M_O=0$; warunek wiązki śrubowej: $\mathbf R\cdot\mathbf M_O\neq0$.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\mathbf R=\sum_{i=1}^{n}\mathbf F_i,\qquad
+\mathbf M_O=\sum_{i=1}^{n}\mathbf r_i\times\mathbf F_i+\sum_{j}\mathbf M_j,\qquad
+\mathbf M_{O'}=\mathbf M_O-\mathbf a\times\mathbf R
+$$
+
+<Caption>Redukcja do bieguna: siła R w O i para o momencie M_O. Przy przeniesieniu bieguna o a = OO' moment główny zmienia się o a × R, a wektor główny pozostaje niezmieniony. Test iloczynu R · M_O rozstrzyga, czy układ ma wypadkową (iloczyn zerowy), czy wiązkę śrubową (niezerowy).</Caption>
+</Formula>
+
+Wyprowadzenie wzoru na zmianę bieguna jest jednolinijkowe, ale ważne. Niech $\mathbf r_i$ prowadzi od $O$ do punktu przyłożenia, a $\mathbf a=\vec{OO'}$. Wtedy wektor od $O'$ do punktu przyłożenia wynosi $\mathbf r_i-\mathbf a$, więc:
+
+$$
+\mathbf M_{O'}=\sum(\mathbf r_i-\mathbf a)\times\mathbf F_i=\sum\mathbf r_i\times\mathbf F_i-\mathbf a\times\sum\mathbf F_i=\mathbf M_O-\mathbf a\times\mathbf R
+$$
+
+Z tego wynikają dwa wnioski o niezmiennikach. Po pierwsze, $\mathbf R$ jest taki sam dla każdego bieguna. Po drugie, iloczyn $\mathbf R\cdot\mathbf M_O$ nie zmienia się przy zmianie bieguna, bo $\mathbf R\cdot(\mathbf a\times\mathbf R)=0$ — dlatego właśnie test $\mathbf R\cdot\mathbf M_O$ klasyfikuje układ niezależnie od wyboru $O$.
+
+<Formula>
+$$
+\mathbf R\cdot\mathbf M_O=0,\ \mathbf R\neq0 \Rightarrow \text{wypadkowa};\qquad
+\mathbf R\cdot\mathbf M_O\neq0 \Rightarrow \text{wiązka śrubowa};\qquad
+\mathbf R=0,\ \mathbf M\neq0 \Rightarrow \text{para sił}
+$$
+
+<Caption>Klasyfikacja przestrzennego układu sił. Wypadkowa istnieje tylko wtedy, gdy moment główny jest prostopadły do wektora głównego; wówczas prostą działania wypadkowej znajdujesz z warunku r × R = M_O.</Caption>
+</Formula>
+
+<Insight>
+  Redukcja to sposób patrzenia, nie fizyczna operacja. Nie „przesuwasz” sił w ciele — liczysz, jak cały układ działa z
+  punktu widzenia jednego punktu. Równoważność zewnętrzna nie oznacza równoważności naprężeń w środku materiału.
+</Insight>
+
+## Przykład prowadzony: czy układ ma wypadkową?
+
+<AnimatedSolution id="ex-statyka-redukcja-3d" />
+
+Zwróć uwagę na rolę testu skalarnego: bez liczenia $\mathbf R\cdot\mathbf M_O$ nie wiedzielibyśmy, czy szukać prostej działania, czy osi wiązki śrubowej. Jedna liczba rozstrzyga o typie układu.
+
+## Drugi przykład: para sił
+
+<AnimatedSolution id="ex-statyka-redukcja-3d-2" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zmiana znaku we wzorze na zmianę bieguna: poprawnie $\mathbf M_{O'}=\mathbf M_O-\mathbf a\times\mathbf R$, a nie $+\,\mathbf a\times\mathbf R$ ani $\mathbf R\times\mathbf a$ bez kontroli.
+- Pomijanie przyłożonych par przy liczeniu momentu głównego — para dodaje się bezpośrednio do $\mathbf M_O$.
+- Próba sprowadzenia wiązki śrubowej do jednej siły — gdy $\mathbf R\cdot\mathbf M_O\neq0$, część momentu zawsze zostaje wzdłuż osi siły.
+- Twierdzenie „para ma moment zerowy, bo siły się znoszą” — siły znoszą się w sumie, ale moment zwykle nie.
+- Sumowanie momentów z różnych biegunów — wszystkie $\mathbf r_i$ muszą startować z tego samego punktu $O$.
+- Mylenie redukcji z przesuwaniem sił po ciele — redukcja to rachunek zewnętrzny, nie operacja fizyczna.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Spisz wszystkie siły i ich punkty przyłożenia oraz wszystkie przyłożone momenty (pary).
+2. Policz $\mathbf R=\sum\mathbf F_i$ — bez względu na to, co dalej, ta wartość jest potrzebna.
+3. Wybierz biegun $O$ i policz $\mathbf M_O=\sum\mathbf r_i\times\mathbf F_i+\sum\mathbf M_j$.
+4. Oceń $\mathbf R\cdot\mathbf M_O$: zero — szukaj wypadkowej i jej prostej działania z $\mathbf r\times\mathbf R=\mathbf M_O$; niezero — wiązka śrubowa.
+5. Jeśli $\mathbf R=0$ i $\mathbf M\neq0$, układ jest parą; jeśli oba zerują się, zaczyna się lekcja o równowadze.
+6. Kontroluj wynik zmianą bieguna: $\mathbf M_{O'}=\mathbf M_O-\mathbf a\times\mathbf R$ musi się zgadzać.
+
+## Połącz z resztą kursy
+
+- **Moment siły 3D** — redukcja to momentowa suma układu; wyznacznik $\mathbf r\times\mathbf F$ pracuje tu hurtem.
+- **Równowaga 3D** — równowaga to szczególny wynik redukcji: $\mathbf R=0$ i $\mathbf M_O=0$; znasz już więc oba składniki tych równań.
+- **Wały i łożyska** — moment skręcający wału to moment główny sił w płaszczyznach prostopadłych do osi.
+- **Płaski dowolny układ sił** — tam redukcja daje wypadkową i moment w jednej płaszczyźnie; tutaj pełny wersja 3D.
+- **Skręcanie i zginanie złożone** — koncept „siła + moment wzdłuż niej” wraca przy analizie przekrojów, gdzie N, V i M redukują się do jednego punktu środka ciężkości.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Co pozostaje niezmienne przy zmianie bieguna redukcji?</Prompt>
+    <Answer>Moment główny</Answer>
+    <Answer correct>Wektor główny R oraz iloczyn skalarny R · M_O</Answer>
+    <Answer>Ramiona wszystkich sił</Answer>
+    <Hint>Prześledź, skąd bierze się poprawka −a × R.</Hint>
+    <Explanation>
+      Wektor główny sumuje same siły, więc nie zależy od punktu odniesienia. Moment główny się zmienia, ale tak, że
+      składowa R · M_O zostaje nietknięta — to z niej korzysta test wypadkowej.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Układ ma R = 0 i M_O ≠ 0. Co to za układ?</Prompt>
+    <Answer>Wypadkowa przechodząca przez O</Answer>
+    <Answer correct>Para sił o momencie niezależnym od bieguna</Answer>
+    <Answer>Wiązka śrubowa</Answer>
+    <Hint>Sprawdź wzór na zmianę bieguna przy R = 0.</Hint>
+    <Explanation>
+      Gdy wektor główny znika, poprawka a × R znika i moment główny jest taki sam dla każdego bieguna. Układ działa jak
+      jedna para sił; nie istnieje żaden pojedynczy punkt, z którego redukcja dałaby samą siłę.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy przestrzenny układ sił daje się zastąpić jedną siłą?</Prompt>
+    <Answer>Zawsze, gdy R ≠ 0</Answer>
+    <Answer correct>Gdy R ≠ 0 i moment główny jest prostopadły do R, czyli R · M_O = 0</Answer>
+    <Answer>Tylko gdy wszystkie siły są równoległe</Answer>
+    <Hint>Przesuwając wypadkową, możesz likwidować tylko moment prostopadły do niej.</Hint>
+    <Explanation>
+      Przesuwając siłę wzdłuż jej linii działania, zmieniasz moment o składniki prostopadłe do R. Składowa równoległa do
+      R jest nie do zlikwidowania — gdy jest niezerowa, powstaje wiązka śrubowa.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Trzy siły o składowych (1, 0, 0), (0, 2, 0) i (−1, −2, 3) kN. Ile wynosi wektor główny?</Prompt>
+    <Answer>(0, 0, 3) kN</Answer>
+    <Answer correct>(0, 0, 3) kN — składowe x i y się znoszą, zostaje tylko składowa z</Answer>
+    <Answer>(2, 4, 3) kN</Answer>
+    <Hint>Sumuj składowe osobno: x, potem y, potem z.</Hint>
+    <Explanation>
+      Rx = 1 + 0 − 1 = 0, Ry = 0 + 2 − 2 = 0, Rz = 0 + 0 + 3 = 3 kN. Suma wektorów to suma składowych; punkty
+      przyłożenia nie mają tu znaczenia.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>R = (0, 4, 0) kN, M_O = (−6, 0, 5) kN·m. Przeniesiono biegun do O' = (1, 0, 0). Ile wynosi M_O'?</Prompt>
+    <Answer>(−6, 0, 5) kN·m</Answer>
+    <Answer correct>(−6, 0, 1) kN·m</Answer>
+    <Answer>(−6, 0, 9) kN·m</Answer>
+    <Hint>M_O' = M_O − a × R, gdzie a = OO' = (1, 0, 0).</Hint>
+    <Explanation>
+      a × R = (1,0,0) × (0,4,0) = (0·0 − 0·4, 0·0 − 1·0, 1·4 − 0·0) = (0, 0, 4), więc M_O' = (−6, 0, 5) − (0, 0, 4) =
+      (−6, 0, 1) kN·m. Przesunięcie bieguna wzdłuż osi x zmieniło tylko składową z momentu.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Wiązka śrubowa to układ, w którym:</Prompt>
+    <Answer>R = 0, a moment główny jest dowolny</Answer>
+    <Answer correct>wektor główny i moment główny mają wspólną oś działania i nie dają się rozdzielić</Answer>
+    <Answer>wszystkie siły przecinają jeden punkt</Answer>
+    <Hint>Pomyśl o śrubie: co się dzieje jednocześnie przy wkręcaniu?</Hint>
+    <Explanation>
+      Wkręcając śrubę, zadajesz siłę wzdłuż osi i moment wokół tej samej osi. W wiązce śrubowej część momentu głównego
+      jest równoległa do R i nie można jej zlikwidować przesuwaniem siły.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Przestrzenny układ sił”, str. 5–6 — sformułowanie redukcji do bieguna: siła równa sumie geometrycznej sił oraz para o momencie równym sumie geometrycznej momentów.
+- D. Baker, B. Haynes, _Engineering Statics_ — rozdz. 4.5 (pary sił) i 4.7 (układy równoważne statycznie); dobre ćwiczenie rozumienia równoważności zewnętrznej.
+- Jacob Moore i in., _Engineering Mechanics: Statics_ (UPEI) — rozdz. 3.2 (pary sił) i 4.3 (równania równowagi ciała sztywnego), gdzie redukcja jest mostem do warunków równowagi.
+- Osgood i in., _Engineering Mechanics: Statics_ (LibreTexts) — rozdz. 3.2 i 4.3: krótkie, liczne przykłady rachunku momentów i sum sił.

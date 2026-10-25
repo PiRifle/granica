@@ -396,9 +396,11 @@ export function StressTensorExample2Animation({ scene, playing, sceneProgress, i
           role="img"
           aria-label="Stan hydrostatyczny: jednakowe ściskanie 50 megapaskali w trzech prostopadłych kierunkach, tensor diagonalny oraz trakcja zawsze prostopadła do płaszczyzny i skierowana do wnętrza materiału."
         >
-          <text x={16} y={24} fontSize={9} fill={MUTED}>
-            σx = σy = σz = −50 MPa · τxy = τyz = τzx = 0
-          </text>
+          {(isModel || isTensor) && (
+            <text x={16} y={24} fontSize={9} fill={MUTED}>
+              σx = σy = σz = −50 MPa · τxy = τyz = τzx = 0
+            </text>
+          )}
 
           {isModel && (
             <g>

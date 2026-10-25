@@ -1,0 +1,181 @@
+---
+id: statyka-iloczyn-skalarny
+moduleId: statyka-aksjomaty
+number: 3
+title: 'Iloczyn skalarny: rzut wektora i kąt między siłami'
+shortTitle: Iloczyn skalarny
+description: >-
+  Iloczyn skalarny jako narzędzie do rzutowania siły na kierunek, pomiaru kąta
+  między wektorami i sprawdzania prostopadłości.
+eyebrow: 'Ile siły idzie w wybranym kierunku'
+outcomes:
+  - W1 — interpretuje iloczyn skalarny jako rzut razy moduł
+  - W2 — wyjaśnia znaczenie znaku iloczynu skalarnego
+  - W3 — wskazuje, kiedy iloczyn skalarny znika i dlaczego
+  - U1 — oblicza rzut siły na dany kierunek przez iloczyn z wersorem
+  - U2 — wyznacza kąt między dwoma siłami z iloczynu skalarnego składowych
+---
+
+W lekcji o rzutach nauczyłeś się rozbijać siłę na osie. Ale często potrzebujesz czegoś bardziej ogólnego: „ile z tej siły działa wzdłuż linki $AB$?”, „pod jakim kątem ciągną te dwie liny?” albo „czy te dwa kierunki są prostopadłe?”. Na wszystkie trzy pytania odpowiada jedno narzędzie — iloczyn skalarny. Mnoży on dwa wektory i zwraca liczbę, która mówi, jak bardzo dwa kierunki „współpracują”.
+
+Intuicja jest prosta: iloczyn skalarny to rzut jednego wektora na drugi, pomnożony przez długość drugiego. Gdy wektory są równoległe, rzut jest pełny i iloczyn jest maksymalny; gdy prostopadłe, rzut znika; gdy tworzą kąt rozwarty, iloczyn jest ujemny. Jedna liczba koduje więc i „wielkość współdziałania”, i informację o kącie.
+
+## Zanim zaczniesz
+
+- Upewnij się, że umiesz zapisać wektor w postaci analitycznej (lekcja 1).
+- Przypomnij sobie własności cosinusa: $\cos 0^\circ = 1$, $\cos 90^\circ = 0$, $\cos 180^\circ = -1$.
+- Pamiętaj, że wersor ma moduł równy jeden — to upraszcza rzutowanie.
+- Wiedz, że praca mechaniczna to $W = F\,s\cos\alpha$ — będzie naszym fizycznym przykładem.
+
+## Model i intuicja
+
+Geometrycznie $\mathbf{a}\cdot\mathbf{b} = |\mathbf{a}|\,|\mathbf{b}|\cos\varphi$ to pole prostokąta zbudowanego na rzucie $\mathbf{a}$ na kierunek $\mathbf{b}$ i na całym $|\mathbf{b}|$. Wynik jest skalarem — liczbą z jednostką, ale bez kierunku. Możesz go czytać na trzy sposoby: jako miarę równoległości (iloczyn maksymalny dla kierunków zgodnych), jako miarę kąta (po podzieleniu przez moduły) oraz jako uniwersalną maszynę do rzutowania (rzut to iloczyn z wersorem).
+
+W zapisie analitycznym iloczyn skalarny to po prostu suma iloczynów odpowiadających sobie składowych: $a_xb_x + a_yb_y + a_zb_z$. Ta postać jest szczególnie wygodna, gdy kąt między wektorami nie jest dany wprost — na przykład gdy kierunek odcinka wyznaczają współrzędne jego końców. Wystarczy zbudować wersor z różnicy współrzędnych i pomnożyć.
+
+Model ma granice. Iloczyn skalarny nie widzi „obrotu” — dwa wektory o tym samym kącie $\varphi$ dają tę samą wartość niezależnie od tego, czy skręcają się „w lewo” czy „w prawo”. Do opisu rotacji potrzebny będzie iloczyn wektorowy z następnej lekcji.
+
+## Laboratorium: co ustawić
+
+Ustaw dwie siły i badaj ich iloczyn skalarny przy zmieniającym się kącie. Znajdź konfigurację, w której iloczyn jest zerowy, ujemny i maksymalny. Sprawdź, że iloczyn siły z samą sobą równa się kwadratowi jej modułu — to szybki test poprawności zapisu składowych.
+
+<Lab id="staticsVector" />
+
+## Definicje i jednostki
+
+| Pojęcie              | Zapis                                                                                             | Jednostka    |
+| -------------------- | ------------------------------------------------------------------------------------------------- | ------------ |
+| Iloczyn skalarny     | $\mathbf{a}\cdot\mathbf{b} = \lvert\mathbf{a}\rvert\,\lvert\mathbf{b}\rvert\cos\varphi$           | np. kN², N·m |
+| Rzut na kierunek     | $a_b = \mathbf{a}\cdot\mathbf{u}_b$                                                               | jak moduł    |
+| Kąt między wektorami | $\cos\varphi = \dfrac{\mathbf{a}\cdot\mathbf{b}}{\lvert\mathbf{a}\rvert\,\lvert\mathbf{b}\rvert}$ | °, rad       |
+| Praca                | $W = \mathbf{F}\cdot\mathbf{s}$                                                                   | J = N·m      |
+
+Prawa działań: przemienność $\mathbf{a}\cdot\mathbf{b} = \mathbf{b}\cdot\mathbf{a}$, rozdzielność $(\mathbf{a}+\mathbf{b})\cdot\mathbf{c} = \mathbf{a}\cdot\mathbf{c} + \mathbf{b}\cdot\mathbf{c}$, łączność z mnożeniem przez liczbę $m(\mathbf{a}\cdot\mathbf{b}) = (m\mathbf{a})\cdot\mathbf{b}$.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\mathbf{a}\cdot\mathbf{b}=a_xb_x+a_yb_y+a_zb_z
+=|\mathbf{a}||\mathbf{b}|\cos\varphi
+$$
+
+<Caption>Po lewej postać analityczna — suma iloczynów odpowiadających sobie składowych; po prawej postać geometryczna z kątem $\varphi$. Przyrównując obie, dostajemy kąt między wektorami bez rysowania: $\cos\varphi = \mathbf{a}\cdot\mathbf{b}/(|\mathbf{a}||\mathbf{b}|)$.</Caption>
+</Formula>
+
+Skąd bierze się postać analityczna? Rozpisujemy oba wektory po wersorach i korzystamy z rozdzielności. Iloczyny różnych wersorów znikają ($\mathbf{i}\cdot\mathbf{j} = 0$, bo osie są prostopadłe), a kwadraty wersorów dają jeden ($\mathbf{i}\cdot\mathbf{i} = 1$). Z dziewięciu iloczynów zostają więc dokładnie trzy: $a_xb_x + a_yb_y + a_zb_z$. To samo rozumowanie pokazuje, że składowa wektora na osi to jego iloczyn skalarny z wersorem tej osi — $a_x = \mathbf{a}\cdot\mathbf{i}$.
+
+<AnimatedSolution id="ex-statyka-iloczyn-skalarny" />
+
+<Insight>
+  Zerowy iloczyn skalarny to pełnoprawna informacja: wektory są prostopadłe. Test „czy $\mathbf{a}\cdot\mathbf{b} = 0$”
+  jest najszybszym sposobem sprawdzenia prostopadłości, gdy oba wektory są zapisane składowymi.
+</Insight>
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie rzutu z modułem: rzut $a_b$ bywa znacznie mniejszy niż $|\mathbf{a}|$, a dla kąta rozwartego jest ujemny.
+- Użycie iloczynu skalarnego tam, gdzie potrzebny jest wektor — iloczyn skalarny zawsze daje liczbę, nigdy kierunek.
+- Podstawianie kąta większego niż $180^\circ$ do cosinusa — kąt między wektorami zawsze należy do $[0^\circ, 180^\circ]$.
+- Zapominanie, że wersor ma moduł 1: rzut to iloczyn z wersorem, nie z samym wektorem kierunku.
+- Mylenie jednostek: iloczyn siły i przemieszczenia to praca (J), iloczyn dwóch sił ma jednostkę kN² — wymiar wyniku zdradza sens.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. „Wyznaczyć składową siły wzdłuż kierunku $AB$” — budujesz wersor $\mathbf{u}_{AB}$ i liczysz $\mathbf{F}\cdot\mathbf{u}_{AB}$.
+2. „Znaleźć kąt między siłami (linami, odcinkami)” — iloczyn skalarny przez iloczyn modułów.
+3. „Czy kierunki są prostopadłe?” — wystarczy sprawdzić, czy iloczyn skalarny wynosi zero.
+4. „Jaką pracę wykonuje siła?” — iloczyn siły z wektorem przemieszczenia.
+5. Przy danych współrzędnych końców odcinka zawsze najpierw buduj wektor i wersz kierunku, dopiero potem rzutuj.
+
+## Połącz z resztą kursu
+
+- **Lekcja 2 (dodawanie i rzuty)** — iloczyn skalarny upraszcza sumowanie rzutów na osie ukosne.
+- **Lekcja 7 (moment względem osi)** — moment względem osi to rzut wektora momentu, czyli znowu iloczyn skalarny z wersorem.
+- **Moduł 2: płaski zbieżny układ sił** — kąty między siłami wyznaczasz właśnie tą metodą.
+- **Moduł wytrzymałości: praca i energia** — ta sama operacja wróci przy energii odkształcenia.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>
+      Iloczyn skalarny $\mathbf{a}\cdot\mathbf{b}$ to geometrycznie:
+    </Prompt>
+    <Answer>pole równoległoboku zbudowanego na obu wektorach</Answer>
+    <Answer correct>
+      rzut $\mathbf{a}$ na $\mathbf{b}$, pomnożony przez $|\mathbf{b}|$
+    </Answer>
+    <Answer>wektor prostopadły do obu</Answer>
+    <Hint>
+      Rozłóż $\mathbf{a}$ na część równoległą i prostopadłą do $\mathbf{b}$.
+    </Hint>
+    <Explanation>
+      $\mathbf{a}\cdot\mathbf{b} = (|\mathbf{a}|\cos\varphi)|\mathbf{b}|$ — bierzemy tylko składową równoległą. Pole
+      równoległoboku daje iloczyn wektorowy, a wektor prostopadły też otrzymujemy z iloczynu wektorowego.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Kiedy iloczyn skalarny dwóch niezerowych wektorów jest równy zeru?</Prompt>
+    <Answer>Gdy mają równe moduły</Answer>
+    <Answer>Gdy zwroty są przeciwne</Answer>
+    <Answer correct>Gdy wektory są prostopadłe</Answer>
+    <Hint>$\cos\varphi = 0$ dla jednego konkretnego kąta.</Hint>
+    <Explanation>
+      $\mathbf{a}\cdot\mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\varphi = 0$ wymaga $\cos\varphi = 0$, czyli $\varphi =
+      90^\circ$. Przeciwne zwroty dają iloczyn ujemny, a nie zerowy.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Siła $\mathbf{F} = (6, 8)$ kN. Jaki jest jej rzut na oś $x$ (czyli $\mathbf{F}\cdot\mathbf{i}$)?
+    </Prompt>
+    <Answer>10 kN</Answer>
+    <Answer correct>6 kN</Answer>
+    <Answer>8 kN</Answer>
+    <Hint>Rzut to iloczyn z wersorem osi, nie moduł całej siły.</Hint>
+    <Explanation>
+      $\mathbf{F}\cdot\mathbf{i} = 6\cdot1 + 8\cdot0 = 6$ kN. Moduł siły to $10$ kN, ale na oś $x$ przypada tylko $6$
+      kN.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Dla $\mathbf{a} = (1, 2, 2)$ i $\mathbf{b} = (2, 1, -2)$ iloczyn skalarny $\mathbf{a}\cdot\mathbf{b}$ wynosi:
+    </Prompt>
+    <Answer>4</Answer>
+    <Answer correct>0</Answer>
+    <Answer>9</Answer>
+    <Hint>Mnożymy odpowiadające sobie składowe i sumujemy.</Hint>
+    <Explanation>
+      $1\cdot2 + 2\cdot1 + 2\cdot(-2) = 2 + 2 - 4 = 0$. Wektory są prostopadłe — to test, który działa bez rysowania i
+      bez kąta.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Wózek przemieszcza się o $\mathbf{s} = (3, 0)$ m. Siła $\mathbf{F} = (4, 3)$ kN działa przez cały czas
+      równomiernie. Praca wynosi:
+    </Prompt>
+    <Answer>21 kJ</Answer>
+    <Answer>7 kJ</Answer>
+    <Answer correct>12 kJ</Answer>
+    <Hint>
+      $W = \mathbf{F}\cdot\mathbf{s}$ — mnożysz odpowiadające sobie składowe.
+    </Hint>
+    <Explanation>
+      $W = 4\cdot3 + 3\cdot0 = 12$ kJ. Składowa pionowa siły nie pracuje, bo ruch jest poziomy. Wartość $7$ kJ to
+      algebraiczna suma składowych siły, a $21$ kJ — suma modułów pomnożona przez drogę; obie błędne, bo praca to
+      iloczyn skalarny, nie suma „na krzyż”.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład 1 i 2, slajdy 17–18: definicja iloczynu skalarnego, prawa działań i zapis analityczny.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 2.7 „Dot Products” — rzutowanie, kąty między wektorami i zastosowania z przykładami.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_, rozdz. 1.4 „Dot Product” — definicja i interpretacja rzutu.
+- _University Physics_ vol. 1 (OpenStax), rozdz. 2.4 „Products of Vectors” — iloczyn skalarny w fizyce, praca jako motywujący przykład.

@@ -264,7 +264,7 @@ function ReverseElement({ draw }: { draw: number }) {
         fill={MOHR}
         fillOpacity={0.8}
         initial={{ height: 0 }}
-        animate={{ height: 80 * draw, y: 246 - 80 * draw }}
+        animate={{ height: 80 * draw }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       />
       <motion.rect
@@ -275,7 +275,7 @@ function ReverseElement({ draw }: { draw: number }) {
         fill={SHEAR}
         fillOpacity={0.85}
         initial={{ height: 0 }}
-        animate={{ height: 120 * draw, y: 246 - 120 * draw }}
+        animate={{ height: 120 * draw }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       />
       <text x={327} y={160} textAnchor="middle" fontSize={9} fontWeight={700} fill={MOHR}>

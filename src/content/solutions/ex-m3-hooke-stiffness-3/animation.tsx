@@ -161,7 +161,6 @@ export function HookeStiffness3Animation({ scene, index, playing, sceneProgress 
             fill={color}
             initial={false}
             animate={{
-              x: leftEdge,
               width: halfWidth * 2,
               height: bottom - TOP,
               fill: color,

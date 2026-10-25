@@ -1,0 +1,194 @@
+---
+id: statyka-metoda-rittera
+moduleId: statyka-kratownice
+number: 5
+title: 'Metoda Rittera: przekrój przez trzy pręty'
+shortTitle: 'Metoda Rittera'
+description: >-
+  Przetnij kratownicę w wybranym miejscu, wybierz dogodną część i wyznacz
+  wybrane siły momentem względem punktu zbiegu dwóch niewiadomych.
+eyebrow: 'Jedno cięcie, trzy pręty'
+outcomes:
+  - 'W1 — opisuje metodę przekroju i warunek trzech przeciętych prętów'
+  - 'W2 — dobiera punkt momentów do eliminacji dwóch niewiadomych'
+  - 'U1 — wyznacza siły w wybranych prętach metodą Rittera'
+  - 'U2 — kontroluje wynik równaniem rzutów lub równowagą węzła'
+---
+
+Metoda równoważenia węzłów jest wygodna, gdy potrzebujesz wszystkich sił. Ale co, jeśli pytanie dotyczy tylko jednego pręta w środku kratownicy? Przechodzenie przez wszystkie węzły od podpory do tego miejsca jest stratą czasu. Właśnie dla takich pytań powstała metoda Rittera, zwana też metodą przekroju. Jednym cięciem przez trzy pręty odsłaniasz wnętrze kratownicy i liczysz tylko to, co potrzebne.
+
+Idea jest podobna do metody przekrojów w belkach. Przecinasz myślowo kratownicę na dwie części. Na przeciętych prętach pojawiają się nieznane siły osiowe. Wybierasz jedną część jako ciało swobodne i zapisujesz dla niej trzy równania równowagi. Trzy równania, trzy przecięte pręty — układ jest rozwiązalny. Jeśli przetniesz cztery pręty, niewiadomych będzie więcej niż równań i metoda zawiedzie.
+
+Kluczowa umiejętność to dobór punktu, względem którego sumujesz momenty. Jeśli dwie z trzech nieznanych sił przecinają się w pewnym punkcie, moment względem tego punktu je eliminuje. Zostaje jedno równanie z jedną niewiadomą. To ta sama strategia, którą znasz z równowagi trzech sił, tylko zastosowana do odciętej części kratownicy.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje całej kratownicy — bez nich część odcięta nie jest kompletna.
+- Przypomnij sobie metodę przekrojów w belkach: cięcie, ciało swobodne, trzy równania.
+- Potrafisz obliczyć moment siły względem punktu, także gdy punkt leży poza rozpatrywaną częścią.
+- Rozpoznaj, gdzie przecinają się proste działania dwóch prętów; to kandydat na punkt momentów.
+- Pamiętaj, że siła w pręcie działa wzdłuż jego osi, a nie wzdłuż cięcia.
+
+## Model i intuicja
+
+Wyobraź sobie, że kratownica jest zrobiona z patyczków, a ty przecinasz trzy z nich nożem. Po przecięciu powstały dwie części. Każda z nich musi być w równowadze pod działaniem sił zewnętrznych i sił w przeciętych patyczkach. Siły w przeciętych prętach działają wzdłuż ich osi — nie wzdłuż linii cięcia. To ważne, bo moment tych sił liczymy względem punktów na ich prostych działania, a nie względem miejsca przecięcia.
+
+Dobór części jest dowolny. Możesz wziąć lewą albo prawą stronę. Wybierz tę, która ma mniej sił i prostsze ramiona. Jeśli po jednej stronie są dwie reakcje i dwa obciążenia, a po drugiej tylko jedno obciążenie, rachunek po drugiej stronie będzie krótszy. Wynik musi być ten sam, bo siły wewnętrzne w przeciętych prętach są jednakowe co do wartości i przeciwne co do zwrotu na obu ścianach cięcia.
+
+Punkt momentów wybieramy na przecięciu prostych działania dwóch nieznanych sił. Wtedy ich momenty znikają, a równanie zawiera tylko trzecią niewiadomą i znane obciążenia. Jeśli dwie przecięte siły są równoległe, ich punkt przecięcia ucieka w nieskończoność — wtedy zamiast momentu używamy rzutu sił na kierunek prostopadły do tych prętów. To wyjątek, który trzeba rozpoznać, bo ślepe szukanie „punktu przecięcia" prowadzi donikąd.
+
+Metoda Rittera nie służy do znalezienia wszystkich sił naraz. Po jednym przekroju dostajesz trzy siły. Jeśli potrzebujesz więcej, wykonujesz kolejne przekroje albo łączysz metodę Rittera z metodą węzłów. W praktyce często najpierw liczysz reakcje i kilka sił metodą węzłów, a potem jednym przekrojem sprawdzasz lub wyznaczasz pręt w środku.
+
+## Laboratorium: co ustawić
+
+Ustaw kratownicę dwupanelową z obciążeniami w górnych węzłach. Przesuń myślowy przekrój przez środkowy panel i obserwuj trzy przecięte pręty. Zmieniaj obciążenie po jednej stronie przekroju i sprawdzaj, jak zmienia się siła w górnym pasie. Spróbuj przewidzieć, który punkt momentów wyeliminuje dwie niewiadome, zanim odczytasz wynik.
+
+<Lab id="staticsTruss" />
+
+## Definicje i jednostki
+
+| Pojęcie          | Znaczenie                                                    | Jednostka |
+| ---------------- | ------------------------------------------------------------ | --------- |
+| Przekrój Rittera | Myślowe cięcie kratownicy przez co najwyżej trzy pręty       | —         |
+| Część odcięta    | Jedna z dwóch części kratownicy po przecięciu                | —         |
+| Siła przekrojowa | Siła osiowa w przeciętym pręcie, działająca na odciętą część | kN lub N  |
+| Punkt momentów   | Punkt przecięcia prostych działania dwóch niewiadomych sił   | —         |
+| Ramię momentu    | Odległość punktu od prostej działania siły                   | m         |
+
+Jednostki: siły w kN, długości w m, momenty w kN·m. Przy sumowaniu momentów wszystkie ramiona muszą być w tych samych jednostkach.
+
+## Wzór i wyprowadzenie
+
+Dla odciętej części kratownicy z trzema przeciętymi prętami:
+
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0,\qquad \sum M_P=0
+$$
+
+<Caption>Trzy równania równowagi dla części odciętej. Punkt $P$ wybieramy na przecięciu prostych działania dwóch nieznanych sił; wtedy ich momenty znikają, a równanie momentów zawiera tylko trzecią niewiadomą.</Caption>
+</Formula>
+
+Jeśli siły $N_1$ i $N_2$ przecinają się w punkcie $P$, a siła $N_3$ ma ramię $h_3$ względem $P$:
+
+<Formula>
+$$
+\sum M_P=0
+\quad\Rightarrow\quad
+N_3\,h_3+\sum M_P(\text{siły znane})=0
+$$
+
+<Caption>Po wyznaczeniu $N_3$ równania rzutów dają pozostałe dwie siły. Znaki ustalaj konsekwentnie: dodatnia siła to rozciąganie, więc na odciętej części działa w kierunku od cięcia do drugiego końca pręta.</Caption>
+</Formula>
+
+Gdy dwa przecięte pręty są równoległe, punkt $P$ nie istnieje w skończoności. Wtedy rzutujemy równanie równowagi na kierunek prostopadły do tych prętów — ich składowe w tym kierunku znikają, a zostaje tylko trzecia siła.
+
+<AnimatedSolution id="ex-statyka-metoda-rittera" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Cięcie przez cztery lub więcej prętów — trzy równania nie wystarczą, a metoda przestaje być bezpośrednia.
+- Pomijanie reakcji podpór po wybranej stronie cięcia — część odcięta musi być kompletna.
+- Sumowanie momentów względem punktu, w którym nie przecinają się dwie niewiadome — równanie zawiera wtedy więcej niż jedną niewiadomą.
+- Złe ramię momentu: odległość od punktu do prostej działania siły, a nie do miejsca przecięcia pręta.
+- Zapominanie o obciążeniach przyłożonych do odciętej części — one też dają moment.
+- Mylenie zwrotu siły przekrojowej na dwóch ścianach cięcia — na drugiej części działa siła przeciwna.
+- Brak kontroli rzutami lub węzłem — Ritter daje trzy liczby, które muszą spełniać pozostałe równania.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wyznacz reakcje całej kratownicy.
+2. Zidentyfikuj pręty, których siły potrzebujesz; znajdź przekrój przecinający je i najwyżej jeden dodatkowy pręt.
+3. Sprawdź, czy przekrój nie przecina więcej niż trzech prętów; jeśli tak, poszukaj innego miejsca cięcia.
+4. Wybierz część odciętą z prostszym układem sił zewnętrznych.
+5. Znajdź punkt przecięcia prostych działania dwóch nieznanych sił i sumuj względem niego momenty.
+6. Wyznacz trzecią siłę, a potem dopełnij równaniami rzutów.
+7. Sprawdź wynik momentem względem innego punktu, rzutem lub równowagą sąsiedniego węzła.
+
+## Połącz z resztą kursu
+
+- **Metoda przekrojów w belkach** — Ritter to ta sama idea: cięcie, ciało swobodne i trzy równania równowagi.
+- **Metoda węzłów** — obie metody uzupełniają się; węzły dają wszystkie siły, Ritter szybko wybrane.
+- **Równowaga trzech sił** — punkt zbiegu dwóch niewiadomych to ten sam trik, który eliminuje dwie siły jednym momentem.
+- **Pręty zerowe** — jeśli przekrój przecina pręt zerowy, jedna niewiadoma znika i rachunek się skraca.
+- **Wytrzymałość: siły osiowe** — wynik Rittera dla pojedynczego pręta wystarcza, by sprawdzić jego naprężenie i dobór przekroju.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Metoda Rittera wymaga przekroju przez:</Prompt>
+    <Answer>dokładnie dwa pręty</Answer>
+    <Answer correct>co najwyżej trzy pręty</Answer>
+    <Answer>dowolną liczbę prętów, byleby przekrój był prosty</Answer>
+    <Hint>Policz równania równowagi płaskiej części i porównaj z liczbą niewiadomych sił.</Hint>
+    <Explanation>
+      Część płaska ma trzy równania równowagi. Każdy przecięty pręt wnosi jedną niewiadomą, więc maksymalnie trzy pręty
+      dają układ rozwiązalny. Przy czterech prętach potrzebne są dodatkowe informacje.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z lekcji siła w pręcie $DE$ wynosi:</Prompt>
+    <Answer>$+6\ \text{kN}$ — rozciąganie</Answer>
+    <Answer correct>$-6\ \text{kN}$ — ściskanie</Answer>
+    <Answer>$-7\ \text{kN}$ — ściskanie</Answer>
+    <Hint>Sumuj momenty względem $B$, gdzie przecinają się proste $AB$ i $DB$.</Hint>
+    <Explanation>
+      Równanie momentów względem $B$: $-4\cdot7+2\cdot8-2N_{DE}=0$, skąd $N_{DE}=-6\ \text{kN}$. Górny pas jest ściskany,
+      co jest typowe dla kratownicy z obciążeniem w górnych węzłach.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Aby wyznaczyć $N_{AB}$ bez układu równań, momenty należy sumować względem:</Prompt>
+    <Answer>punktu $A$</Answer>
+    <Answer correct>punktu $D$, gdzie przecinają się proste $DB$ i $DE$</Answer>
+    <Answer>punktu przecięcia $AB$ z osią poziomą</Answer>
+    <Hint>Szukaj punktu, przez który przechodzą proste działania dwóch nieznanych sił.</Hint>
+    <Explanation>
+      Proste $DB$ i $DE$ przecinają się w $D$, więc momenty tych sił względem $D$ są zerowe. Zostaje $N_{AB}$ i znana reakcja
+      $A_y$, co daje jedno równanie z jedną niewiadomą.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie siła $N_{DB}=-1{,}414\ \text{kN}$. Jaki jest jej charakter?</Prompt>
+    <Answer>Rozciąganie $1{,}414\ \text{kN}$</Answer>
+    <Answer correct>Ściskanie $1{,}414\ \text{kN}$</Answer>
+    <Answer>Pręt zerowy, bo wartość jest mała</Answer>
+    <Hint>Znak minus przy założeniu rozciągania oznacza przeciwny zwrot siły działającej na odciętą część.</Hint>
+    <Explanation>
+      Ujemna siła oznacza ściskanie. Wartość $1{,}414\ \text{kN}$ nie jest zerem — pręt naprawdę przenosi siłę. Mała wartość
+      wynika z geometrii i rozkładu obciążeń, a nie z zaokrąglenia do zera.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Dlaczego przekrój przez cztery pręty jest niewygodny w metodzie Rittera?</Prompt>
+    <Answer>Bo czwarty pręt zawsze jest zerowy</Answer>
+    <Answer correct>Bo mamy trzy równania i cztery niewiadome, więc układ nie jest bezpośrednio rozwiązalny</Answer>
+    <Answer>Bo przekrój przez cztery pręty przestaje dzielić kratownicę na dwie części</Answer>
+    <Hint>Policz niewiadome i równania dla odciętej części płaskiej.</Hint>
+    <Explanation>
+      Każdy przecięty pręt to jedna niewiadoma. Cztery pręty dają cztery niewiadome przy trzech równaniach równowagi. Potrzebne
+      byłyby dodatkowe równania z innego przekroju lub z metody węzłów.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Co zrobić, gdy dwa przecięte pręty są równoległe i nie mają skończonego punktu przecięcia?</Prompt>
+    <Answer>Przyjąć, że ich siły są zerowe</Answer>
+    <Answer correct>Użyć rzutu sił na kierunek prostopadły do tych prętów</Answer>
+    <Answer>Przeciąć kratownicę poziomo zamiast pionowo</Answer>
+    <Hint>Rzut na kierunek prostopadły eliminuje siły równoległe, tak jak moment względem punktu zbiegu eliminował siły przecinające się.</Hint>
+    <Explanation>
+      Dla prętów równoległych punkt zbiegu ucieka w nieskończoność. Rzut na kierunek prostopadły do ich linii zeruje ich
+      składowe i zostawia równanie z trzecią siłą. To standardowy wariant metody Rittera.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Kratownica — rozwiązany przykład", str. 10–11: metoda Rittera dla przekroju przez pręty 1, 2 i 3.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 6.5: metoda przekroju, dobór punktu momentów i przykłady.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 5.3: metoda przekroju i wybór części odciętej.
+- _University Physics_ (OpenStax), rozdz. 5.6: równowaga bryły sztywnej i momenty sił w układach płaskich.

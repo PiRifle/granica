@@ -603,7 +603,7 @@ function VolumetricScene({ p }: { p: number }) {
         rx={3}
         fill={VIOLET}
         initial={false}
-        animate={{ x: zeroX - width, width }}
+        animate={{ width }}
         transition={{ duration: 0.12, ease: 'linear' }}
         opacity={0.9}
       />

@@ -1,0 +1,174 @@
+---
+id: statyka-model-kratownicy
+moduleId: statyka-kratownice
+number: 1
+title: 'Model kratownicy: pręty, węzły i założenia'
+shortTitle: 'Model kratownicy'
+description: >-
+  Od rzeczywistej konstrukcji do schematu obliczeniowego: przeguby idealne,
+  obciążenia w węzłach i pręty przenoszące wyłącznie siłę osiową.
+eyebrow: 'Od konstrukcji do schematu'
+outcomes:
+  - 'W1 — wyjaśnia, czym jest kratownica płaska i przestrzenna'
+  - 'W2 — wymienia założenia modelu idealnej kratownicy i ich skutki'
+  - 'U1 — buduje schemat obliczeniowy i wyznacza reakcje prostej kratownicy'
+  - 'U2 — interpretuje znak siły w pręcie jako rozciąganie lub ściskanie'
+---
+
+Kratownica jest konstrukcją nośną złożoną z prętów połączonych w węzłach. Spotykasz ją w dachach hal, mostach, żurawiach i wieżach przekaźnikowych. Z pozoru to skomplikowana siatka, ale jej siła tkwi w prostocie: jeśli pręty są połączone przegubowo i obciążenia działają w węzłach, każdy pręt przenosi tylko siłę wzdłuż własnej osi. Nie ma w nim momentu zginającego ani siły tnącej w rozumieniu belki.
+
+Ta obserwacja jest podstawą całego modułu. Zamiast analizować wytrzymałość każdego pręta z osobna, najpierw wyznaczamy siły osiowe z samej statyki. Dopiero potem, w kursie wytrzymałości, sprawdzamy, czy pręt o danym przekroju wytrzyma obliczoną siłę. Kratownica jest więc dobrym miejscem, żeby zobaczyć, jak model obliczeniowy oddziela geometrię i równowagę od materiału.
+
+W tej lekcji przyjrzymy się założeniom modelu i nauczymy się starannie rysować schemat. Rozwiążemy też najprostszą kratownicę trójkątną, żeby od początku oswoić znaki: rozciąganie dodatnie, ściskanie ujemne.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje belki lub dowolnego płaskiego układu sił z trzech równań równowagi.
+- Rozróżniaj przegub od utwierdzenia: przegub nie przenosi momentu, utwierdzenie tak.
+- Przypomnij sobie, że siła może działać tylko wzdłuż osi pręta, jeśli pręt jest dwuosiowy.
+- Pamiętaj o jednostkach: siły w kN, długości w m, kąty w stopniach.
+- Przygotuj się na konsekwentne oznaczanie węzłów literami i prętów numerami.
+
+## Model i intuicja
+
+Wyobraź sobie drabinę złożoną z patyczków połączonych pinezkami. Kiedy naciskasz na pinezkę, patyczki nie zginają się jak belka — raczej ciągną lub odpychają sąsiednie pinezki. Podobnie działa kratownica. Jej pręty są długie i smukłe, a połączenia w węzłach są w modelu idealnymi przegubami. Dzięki temu każdy pręt jest **prętem dwuosiowym**: działa na niego tylko siła zaczepiona na końcach, skierowana wzdłuż osi pręta.
+
+Model idealnej kratownicy przyjmuje cztery założenia. Po pierwsze, siły zewnętrzne są przyłożone wyłącznie w węzłach. Po drugie, pręty są połączone przegubami idealnymi. Po trzecie, pręty są proste i obciążone tylko na końcach. Po czwarte, kratownica jest sztywna, a odkształcenia są na tyle małe, że nie zmieniają geometrii układu. W praktyce ciężar własny prętów rozkładamy na węzły albo pomijamy, jeśli jest mały w porównaniu z obciążeniem użytkowym.
+
+Konsekwencje są bardzo praktyczne. W węźle spotykają się siły zbieżne, więc moment względem węzła jest tożsamościowo zerowy i zostają dwa równania rzutów. Każdy pręt ma jedną niewiadomą — wartość siły osiowej. Znak dodatni oznacza rozciąganie: pręt ciągnie węzły do siebie. Znak ujemny oznacza ściskanie: pręt odpycha węzły.
+
+Model ma granice. Rzeczywiste węzły mają sztywność, pręty mają ciężar, a obciążenia mogą działać między węzłami. Wtedy pojawiają się momenty zginające i model prętów dwuosiowych trzeba uzupełnić. Na poziomie podstawowym przyjmujemy jednak, że te efekty są drugorzędne, a główny mechanizm przenoszenia obciążenia jest osiowy. To założenie trzeba świadomie wypowiedzieć, bo od niego zależy cały rachunek.
+
+## Laboratorium: co ustawić
+
+Zbuduj prostą kratownicę trójkątną i zmieniaj położenie obciążenia oraz kąt nachylenia prętów. Obserwuj, kiedy pręty są rozciągane, a kiedy ściskane. Spróbuj znaleźć położenie obciążenia, przy którym jeden z prętów ma siłę bliską zeru. Zwróć uwagę na to, że reakcje zależą od położenia obciążenia, ale schemat prętów pozostaje ten sam.
+
+<Lab id="staticsTruss" />
+
+## Definicje i jednostki
+
+| Pojęcie                 | Znaczenie                                                  | Jednostka |
+| ----------------------- | ---------------------------------------------------------- | --------- |
+| Węzeł                   | Punkt połączenia prętów, w którym przyłożone są obciążenia | —         |
+| Pręt                    | Prosty element łączący dwa węzły                           | —         |
+| Pręt dwuosiowy          | Pręt obciążony tylko siłami na końcach, wzdłuż osi         | —         |
+| Siła osiowa             | Siła w pręcie skierowana wzdłuż jego osi                   | kN lub N  |
+| Rozciąganie             | Dodatnia siła osiowa, pręt ciągnie węzły                   | kN lub N  |
+| Ściskanie               | Ujemna siła osiowa, pręt odpycha węzły                     | kN lub N  |
+| Kratownica płaska       | Wszystkie pręty leżą w jednej płaszczyźnie                 | —         |
+| Kratownica przestrzenna | Pręty nie leżą w jednej płaszczyźnie                       | —         |
+
+Jednostki: siły w kN lub N, długości w m, kąty w stopniach. W obliczeniach konsekwentnie używaj jednego układu jednostek; mieszanie kN i N w jednym równaniu to najczęstsze źródło błędów rachunkowych.
+
+## Wzór i wyprowadzenie
+
+Dla pręta dwuosiowego siła wewnętrzna ma kierunek osi pręta, a jej wartość wynika z równowagi węzła:
+
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0,\qquad \vec F_{\text{pręt}}=N\,\vec e_{\text{pręt}}
+$$
+
+<Caption>W węźle kratownicy moment nie wchodzi do równań, bo wszystkie siły są zbieżne w tym węźle. Zostają dwa równania rzutów, a w każdym pręcie jedna niewiadoma $N$. Dodatnie $N$ oznacza rozciąganie, ujemne ściskanie.</Caption>
+</Formula>
+
+Wyprowadzenie jest krótkie. Weź pręt o końcach $A$ i $B$, połączony z resztą konstrukcji przegubami. Na pręt działają tylko siły od węzłów w $A$ i $B$. Równowaga momentów względem $A$ wymaga, aby siła w $B$ miała moment zerowy, czyli działała wzdłuż prostej $AB$. Równowaga sił wymaga, aby siły w $A$ i $B$ były równe co do wartości i przeciwnie skierowane. Zatem pręt przenosi wyłącznie siłę osiową. W węźle działa siła reakcji od pręta, skierowana wzdłuż pręta; jej zwrot zależy od znaku $N$.
+
+Warto zapamiętać zapis wektorowy: jeśli wektor jednostkowy od węzła do drugiego końca pręta oznaczymy $\vec e$, to siła wywierana przez pręt na węzeł wynosi $N\vec e$ przy założeniu rozciągania. Dla $N<0$ zwrot automatycznie się odwraca, więc nie trzeba ręcznie „poprawiać" strzałek w trakcie rachunku.
+
+<AnimatedSolution id="ex-statyka-model-kratownicy" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Traktowanie pręta jak belki i dopisywanie mu momentu zginającego — w modelu kratownicy pręt przenosi tylko siłę osiową.
+- Przyłożenie obciążenia między węzłami bez zmiany modelu — wtedy pręt pracuje także na zginanie i proste równania węzłów przestają wystarczać.
+- Rysowanie sił w prętach na obu końcach w tym samym kierunku — dla tego samego pręta strzałki na dwóch końcach muszą być przeciwne.
+- Mylenie reakcji podpory z siłą w pręcie: reakcja działa z zewnątrz, siła w pręcie jest wewnętrzna.
+- Pomijanie geometrii przy rzutowaniu sił ukośnych — kąt liczony od złej osi zmienia znak i wartość składowej.
+- Brak kontroli ostatniego węzła — to najtańszy sposób wykrycia błędu znaku.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy wszystkie obciążenia są przyłożone w węzłach i czy połączenia można uznać za przeguby.
+2. Narysuj schemat, oznacz węzły literami, a pręty numerami; zapisz wymiary i kąty.
+3. Zaznacz podpory i ich reakcje: przegub daje dwie składowe, podpora przesuwna jedną, podpora z prętem podporowym jedną wzdłuż pręta.
+4. Wyznacz reakcje z równowagi całej kratownicy, zanim zaczniesz liczyć siły w prętach.
+5. Wybierz węzeł z co najwyżej dwiema niewiadomymi i zapisz dla niego dwa równania rzutów.
+6. Rozwiązuj kolejne węzły, aż do wyczerpania niewiadomych; na końcu sprawdź równowagę węzła, którego jeszcze nie użyłeś.
+7. Zinterpretuj znaki: dodatnie siły to rozciąganie, ujemne to ściskanie; zapisz to w tabeli wyników.
+
+## Połącz z resztą kursu
+
+- **Płaski zbieżny układ sił** — każdy węzeł kratownicy jest właśnie takim układem; metoda węzłów to jego bezpośrednie zastosowanie.
+- **Równowaga trzech sił** — w węźle z dwoma prętami i obciążeniem często wystarcza trójkąt sił albo twierdzenie o zbieżności.
+- **Moment siły** — w metodzie Rittera moment względem punktu zbiegu dwóch prętów eliminuje ich siły; bez sprawnego liczenia momentów ta metoda nie działa.
+- **Siły wewnętrzne w belkach** — porównaj pręt kratownicy z belką: w pręcie dominuje siła normalna, w belce dochodzą siła tnąca i moment zginający.
+- **Wytrzymałość: rozciąganie i ściskanie** — obliczone siły osiowe staną się obciążeniem przekroju i podstawą doboru pola powierzchni.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W2">
+    <Prompt>Które założenie NIE należy do modelu idealnej kratownicy?</Prompt>
+    <Answer>Obciążenia są przyłożone w węzłach</Answer>
+    <Answer correct>Pręty przenoszą moment zginający</Answer>
+    <Answer>Połączenia są idealnymi przegubami</Answer>
+    <Hint>Przypomnij sobie, czym jest pręt dwuosiowy i jakie siły mogą działać na jego końcach.</Hint>
+    <Explanation>
+      W modelu kratownicy pręty są dwuosiowe, więc przenoszą tylko siłę osiową. Moment zginający pojawia się dopiero
+      w bardziej złożonym modelu, gdy obciążenie działa między węzłami albo połączenia nie są przegubowe.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W kratownicy z przykładu ($P=10\ \text{kN}$, podstawa $6\ \text{m}$, wysokość $4\ \text{m}$) siła w pręcie $AC$ wynosi:</Prompt>
+    <Answer>$+6{,}25\ \text{kN}$ — rozciąganie</Answer>
+    <Answer correct>$-6{,}25\ \text{kN}$ — ściskanie</Answer>
+    <Answer>$-5{,}00\ \text{kN}$ — ściskanie</Answer>
+    <Hint>W węźle $C$ pionową równowagę daje $2N\sin\theta+P=0$, a $\sin\theta=4/5$.</Hint>
+    <Explanation>
+      $N=-P/(2\sin\theta)=-10/(2\cdot0{,}8)=-6{,}25\ \text{kN}$. Wartość $5\ \text{kN}$ to reakcja podpory, nie siła w pręcie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Pręt dwuosiowy w kratownicy przenosi:</Prompt>
+    <Answer>siłę osiową i moment zginający</Answer>
+    <Answer correct>tylko siłę osiową wzdłuż własnej osi</Answer>
+    <Answer>tylko siłę tnącą prostopadłą do osi</Answer>
+    <Hint>Równowaga momentów względem jednego końca pręta wymusza kierunek siły na drugim końcu.</Hint>
+    <Explanation>
+      Siła na końcu pręta musi mieć zerowy moment względem drugiego końca, więc jej linia działania przechodzi przez oba końce.
+      To oznacza działanie wzdłuż osi pręta i brak momentu zginającego w modelu.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W przykładzie siła w dolnym pasie $AB$ wynosi $+3{,}75\ \text{kN}$. Co to znaczy?</Prompt>
+    <Answer>Pręt jest ściskany i odpycha węzły $A$ oraz $B$</Answer>
+    <Answer correct>Pręt jest rozciągany i ciągnie węzły $A$ oraz $B$ do siebie</Answer>
+    <Answer>Pręt nie przenosi żadnej siły, bo jest poziomy</Answer>
+    <Hint>Znak dodatni przy założeniu rozciągania oznacza, że zwrot siły jest zgodny z założeniem.</Hint>
+    <Explanation>
+      Dodatnia siła osiowa oznacza rozciąganie. Pręt ciągnie oba węzły wzdłuż swojej osi, przeciwdziałając poziomym
+      składowym prętów ukośnych, które odpychają podpory na zewnątrz.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego w węźle kratownicy nie piszemy równania momentów?</Prompt>
+    <Answer>Bo momenty w kratownicy zawsze się zerują</Answer>
+    <Answer correct>Bo wszystkie siły w węźle są zbieżne w jednym punkcie, więc ich moment względem węzła jest zerowy</Answer>
+    <Answer>Bo przeguby nie przenoszą sił poziomych</Answer>
+    <Hint>Moment siły względem punktu na jej linii działania wynosi zero.</Hint>
+    <Explanation>
+      W węźle wszystkie siły działają w jednym punkcie. Ramię każdej z nich względem tego punktu jest zerowe, więc równanie
+      momentów jest spełnione tożsamościowo i nie wnosi nowej informacji. Zostają dwa równania rzutów.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Kratownice — wyznaczanie sił wewnętrznych", str. 2–3: definicja kratownicy płaskiej i przestrzennej oraz założenia modelu.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 6.2–6.3: pręty dwuosiowe, kratownice proste i warunki równowagi.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 5.1: wprowadzenie do kratownic i prętów dwuosiowych.
+- _University Physics_ (OpenStax), rozdz. 5.6: równowaga układów z siłami naciągu i reakcjami podpór.

@@ -1,0 +1,180 @@
+---
+id: statyka-tarcie-suche
+moduleId: statyka-tarcie
+number: 1
+title: 'Tarcie suche: prawa Coulomba–Morena'
+shortTitle: Tarcie suche
+description: >-
+  Poznaj model suchego tarcia: siła tarcia dopasowuje się do siły napędowej, ale
+  tylko do granicy T_max = μN, a po jej przekroczeniu spada do wartości kinetycznej.
+eyebrow: 'Siła, która trzyma do ostatniej granicy'
+outcomes:
+  - W1 — wyjaśnia mikroskopowy mechanizm suchego tarcia i rolę chropowatości
+  - W2 — rozróżnia tarcie statyczne, kinetyczne i stan graniczny
+  - U1 — oblicza siłę tarcia i jej wartość graniczną T_max = μN
+---
+
+Pchasz ciężką skrzynię po betonie. Na początku nic się nie dzieje — podłoga „trzyma” skrzynię, mimo że dociskasz ją coraz mocniej. Nagle skrzynia rusza, a potem okazuje się, że utrzymanie ruchu wymaga od ciebie mniejszej siły niż jego rozpoczęcie. To codzienne doświadczenie zawiera całą mechanikę suchego tarcia: siła tarcia nie jest stała, lecz „reaguje” na to, co robisz, aż do swojej granicznej wartości.
+
+Tarciem zewnętrznym nazywamy całokształt zjawisk zachodzących między stykającymi się ciałami stałymi, spowodowanych siłą normalną $N$ dociskającą te ciała oraz siłą styczną, która usiłuje je przemieścić względem siebie lub faktycznie je przesuwa. Siła tarcia statycznego $T$ jest styczną składową reakcji styku — przeciwstawia się zamierzonemu poślizgowi. Dopiero gdy poślizg następuje, mówimy o tarciu kinetycznym. Rozróżnienie tych dwóch reżimów jest najważniejszą umiejętnością tego modułu, bo wzór $T=\mu N$ obowiązuje tylko w jednym z nich.
+
+W tej lekcji poznasz trzy doświadczalne prawa tarcia Coulomba–Morena, nauczysz się odczytywać siłę tarcia z wykresu zależności siły tarcia od siły napędowej i zrozumiesz, dlaczego współczynnik tarcia jest bezwymiarowy, a mimo to decyduje o bezpieczeństwie połączeń, hamulców i podpór.
+
+## Zanim zaczniesz
+
+- Przypomnij dwa równania równowagi ciała sztywnego w płaszczyźnie: $\sum F_x=0$ oraz $\sum F_y=0$ — to one wyznaczą siłę tarcia w spoczynku.
+- Upewnij się, że rozróżniasz siłę normalną $N$ (prostopadłą do powierzchni styku) od siły stycznej $T$ (równoległej do styku).
+- Wiedz, że współczynnik proporcjonalności łączący dwie wielkości jest bezwymiarowy, gdy obie wielkości mają tę samą jednostkę.
+- Miej świadomość, że reakcja podpory może mieć dwie składowe: normalną i styczną — razem tworzą reakcję wypadkową.
+- Odróżniaj wartość siły od jej granicznej wartości — to rozróżnienie będzie wracać przez cały moduł.
+
+## Model i intuicja
+
+Nawet „gładka” powierzchnia pod mikroskopem przypomina grzędę górską: pełna jest występów i wgłębień. Gdy dwa ciała się dociskają, wypukłości jednego wbijają się w drugie i zaczepiają. Przesunięcie wymaga albo wspięcia się wypukłości na sąsiednie wzniesienia, albo ich ukruszenia. Dlatego siła tarcia zależy od rodzaju materiałów i od docisku, a nie od wielkości powierzchni styku — przy większym polu styku docisk rozkłada się na więcej wypukłości, ale sumaryczne zaczepienie pozostaje takie samo. Część tarcia pochodzi też z przylegania (adhezji) molekuł przy samej powierzchni; nawet idealnie gładkie powierzchnie nie byłyby pozbawione tarcia.
+
+Model Coulomba–Morena opisuje to doświadczalnie trzema prawami: siła tarcia jest niezależna od wielkości powierzchni styku i zależy jedynie od rodzaju ciał; w spoczynku może zmieniać się od zera do wartości granicznej proporcjonalnej do nacisku normalnego; przy ślizganiu jest skierowana przeciwnie do ruchu i mniejsza od wartości granicznej. Proporcjonalność wyraża nierówność $T\le\mu N$, gdzie $\mu$ to współczynnik tarcia. Warto zapamiętać obraz z wykładu: siła tarcia to reakcja „dostępna” w każdej chwili, ale „zaangażowana” dopiero wtedy, gdy coś próbuje ciało przesunąć.
+
+Model ma granice stosowalności. Opisuje dobrze suche, czyste powierzchnie przy umiarkowanych prędkościach. Nie opisuje smarowanych łożysk (tam tarcie zależy od prędkości i lepkości), bardzo wysokich prędkości ani sytuacji, gdy powierzchnie się kleją — wtedy współczynnik tarcia może przekroczyć jeden, jak u gumy silikonowej czy „stóp” gekona. Współczynniki z tabel są wartościami przybliżonymi, podawanymi zwykle na jedno–dwie cyfry znaczące.
+
+## Laboratorium: co ustawić
+
+Ustaw ciężar ciała i współczynnik tarcia, a następnie zwiększaj siłę napędową od zera. Zauważ, że przed progiem ruchu siła tarcia dokładnie równoważy siłę napędową, a po przekroczeniu progu nagle spada i stabilizuje się na niższym poziomie. Spróbuj odczytać z symulacji wartość graniczną i porównaj ją z iloczynem $\mu N$.
+
+<Lab id="staticsFriction" />
+
+## Definicje i jednostki
+
+| Wielkość                         | Symbol  | Jednostka        | Znaczenie                                           |
+| -------------------------------- | ------- | ---------------- | --------------------------------------------------- |
+| Siła normalna                    | $N$     | N, kN            | Docisk prostopadły do powierzchni styku             |
+| Siła tarcia statycznego          | $T$     | N, kN            | Składowa styczna reakcji w spoczynku, $T\le\mu_s N$ |
+| Siła tarcia kinetycznego         | $T_k$   | N, kN            | Siła tarcia przy poślizgu, $T_k=\mu_k N$            |
+| Współczynnik tarcia statycznego  | $\mu_s$ | — (bezwymiarowy) | $T_{\max}=\mu_s N$                                  |
+| Współczynnik tarcia kinetycznego | $\mu_k$ | — (bezwymiarowy) | $T_k=\mu_k N$, zwykle $\mu_k<\mu_s$                 |
+
+Przykładowe wartości współczynników (zbliżone do tabeli z OpenStax): guma po suchym betonie $1{,}0/0{,}7$; drewno po drewnie $0{,}5/0{,}3$; stal po stali suchej $0{,}6/0{,}3$; stal po stali olejowanej $0{,}05/0{,}03$; lód po lodzie $0{,}1/0{,}03$. Pierwsza liczba to $\mu_s$, druga to $\mu_k$.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+T\le\mu N,\qquad T_{\max}=\mu_s N,\qquad T_k=\mu_k N
+$$
+
+<Caption>Prawa tarcia Coulomba–Morena. Nierówność obowiązuje zawsze; równość $T=\mu_s N$ tylko w stanie ruchu granicznego, a $T=\mu_k N$ podczas trwającego poślizgu. Jeśli siła jest w niutonach, tarcie też jest w niutonach — współczynnik $\mu$ jest bezwymiarowy.</Caption>
+</Formula>
+
+Rozważ ciało o ciężarze $G$ na poziomym podłożu, pchnięte poziomą siłą $P$ rosnącą od zera.
+
+1. Gdy $P=0$, siła tarcia nie jest zaangażowana: $T=0$.
+2. Gdy $0<P<\mu_s N$, ciało spoczywa, a równowaga pozioma daje $T=P$ — tarcie „nadąża” za siłą napędową.
+3. W punkcie ruchu granicznego tarcie osiąga maksimum: $T_{\max}=\mu_s N=P_{\min}$ — to najmniejsza siła rozpoczynająca ruch.
+4. Po rozpoczęciu poślizgu siła tarcia spada do $T_k=\mu_k N$; ruch jednostajny utrzymuje już tylko $P=T_k$.
+5. Ponieważ $\mu_k<\mu_s$, utrzymanie ruchu jest łatwiejsze niż jego rozpoczęcie — stąd „kopniak” przy ruszaniu meblami.
+
+<Insight>
+  Nierówność $T\le\mu N$ jest warunkiem równowagi; równość $T=\mu N$ to jej granica. Wszystko, co statyka mówi o tarciu,
+  stoi na tym rozróżnieniu.
+</Insight>
+
+<AnimatedSolution id="ex-statyka-tarcie-suche" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Podstawianie $T=\mu N$ zawsze, także gdy ciało spoczywa bez granicy ruchu. W spoczynku $T$ wynika z równań równowagi.
+- Zamykanie nierówności w równość „bo tak wygodniej” — to zawyża siłę tarcia i zafałszowuje reakcje.
+- Przyjmowanie $\mu$ zależnego od pola powierzchni styku — prawo pierwsze mówi, że pole nie ma znaczenia.
+- Mylenie współczynnika bezwymiarowego $\mu$ z jakąkolwiek jednostką; jednostki mają tylko $N$ i $T$.
+- Zapominanie, że po rozpoczęciu ruchu tarcie spada do $\mu_k N$ — siła hamująca poślizg jest mniejsza niż siła go zapobiegająca.
+- Rysowanie siły tarcia „zgodnie z ruchem” — tarcie zawsze przeciwdziała względnemu ruchowi lub jego zamierowi.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Znajdź w treści sformułowania: „spoczywa”, „znajduje się w równowadze”, „nie rusza się” — tarcie jest statyczne i nieznane; wyznacz je z równoważenia sił.
+2. Słowa „minimalna siła”, „maksymalne obciążenie”, „zaczyna się ślizgać”, „w stanie granicznym” — przyjmij $T=\mu_s N$ i rozwiąż zadanie od nowa.
+3. Sformułowanie „ślizga się ruchem jednostajnym”, „przesuwa się ze stałą prędkością” — przyjmij $T=\mu_k N$.
+4. Narysuj schemat zastępczy: rozłóż reakcję styku na $N$ i $T$, zapisz równania równowagi, a dopiero potem dołóż warunek graniczny.
+5. Sprawdź wynik nierównością: obliczone $T$ musi spełniać $T\le\mu_s N$; jeśli nie — przyjęty reżim tarcia był błędny.
+6. Pamiętaj o kierunku: siła tarcia zawsze przeciwnie do zamierzonego ruchu, niekoniecznie przeciwnie do przyłożonej siły.
+
+## Połącz z resztą kursu
+
+- **Płaski zbieżny układ sił: równowaga na styku** — siły $N$ i $T$ to dwie składowe jednej reakcji styku; równowaga zbieżna wyznacza je w spoczynku.
+- **Płaski dowolny układ sił i momenty** — przesunięcie wypadkowej normalnej pod wpływem momentu to klucz do wywrotu w lekcji 3.
+- **Kąt tarcia i równowaga graniczna** — w lekcji 2 zamienimy nierówność $T\le\mu N$ na warunek geometryczny $T/N\le\operatorname{tg}\varphi$.
+- **Ścinanie w połączeniach** — tarcie na styku jest siłą styczną, tak jak naprężenia ścinające w nitach i spoinach w kursie wytrzymałości.
+- **Podpory i reakcje** — podpora „chropowata” przenosi dwie składowe; podpora „gładka” tylko normalną, co zmienia statyczną wyznaczalność.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W2">
+    <Prompt>Skrzynia z lekcji ($G=100\ \mathrm{N}$, $\mu_s=0{,}30$) jest pchana siłą $P=20\ \mathrm{N}$ i stoi. Ile wynosi siła tarcia?</Prompt>
+    <Answer>$30\ \mathrm{N}$</Answer>
+    <Answer correct>$20\ \mathrm{N}$</Answer>
+    <Answer>$25\ \mathrm{N}$</Answer>
+    <Hint>Skrzynia spoczywa bez granicy ruchu — użyj równowagi poziomej, nie wzoru na granicę.</Hint>
+    <Explanation>
+      W stanie nieruchu $T=P$, czyli $20\ \mathrm{N}$. Wartość $30\ \mathrm{N}$ to dopiero granica $T_{\max}=\mu_s N$; jesteśmy poniżej niej, więc tarcie nie zostało w pełni zaangażowane.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy wolno zapisać równość $T=\mu_s N$?</Prompt>
+    <Answer>Zawsze, gdy ciało spoczywa</Answer>
+    <Answer correct>Gdy poślizg jest ruchem granicznym (zaczyna się właśnie ślizgać)</Answer>
+    <Answer>Tylko gdy ciało już się ślizga</Answer>
+    <Hint>Równość dotyczy progu między spoczynkiem a ruchem.</Hint>
+    <Explanation>
+      Równość $T=\mu_s N$ obowiązuje wyłącznie w stanie granicznym. W trwającym poślizgu używamy $\mu_k$, a w zwykłym spoczynku $T$ wyznacza się z równowagi i spełnia tylko nierówność.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Ciało o ciężarze $100\ \mathrm{N}$ leży na podłożu o $\mu_s=0{,}30$, $\mu_k=0{,}25$. Jaką siłą trzeba je popchnąć, aby zaczęło się ślizgać?</Prompt>
+    <Answer>$25\ \mathrm{N}$</Answer>
+    <Answer correct>$30\ \mathrm{N}$</Answer>
+    <Answer>$55\ \mathrm{N}$</Answer>
+    <Hint>Chodzi o próg ruchu, więc liczysz z $\mu_s$.</Hint>
+    <Explanation>
+      $P_{\min}=T_{\max}=\mu_s N=0{,}30\cdot100=30\ \mathrm{N}$. Dopiero po rozpoczęciu poślizgu wystarczy $25\ \mathrm{N}$, by utrzymać ruch jednostajny.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Zgodnie z prawami Coulomba–Morena siła tarcia zależy od:</Prompt>
+    <Answer>pola powierzchni styku i prędkości</Answer>
+    <Answer correct>rodzaju stykających się ciał oraz siły normalnej</Answer>
+    <Answer>wyłącznie od ciężaru ciała</Answer>
+    <Hint>Pierwsze prawo mówi, czego tarcie NIE zależy.</Hint>
+    <Explanation>
+      Prawa tarcia: niezależność od pola styku, proporcjonalność do nacisku normalnego, kierunek przeciwny do ruchu. Rodzaj materiałów wchodzi przez wartość współczynnika $\mu$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dlaczego po rozpoczęciu ruchu wystarcza mniejsza siła napędowa niż przy starcie?</Prompt>
+    <Answer>bo ciężar ciała maleje w ruchu</Answer>
+    <Answer correct>bo współczynnik tarcia kinetycznego jest mniejszy od statycznego</Answer>
+    <Answer>bo siła normalna znika podczas poślizgu</Answer>
+    <Hint>Porównaj $\mu_s$ i $\mu_k$ w definiowanych siłach.</Hint>
+    <Explanation>
+      $T_k=\mu_k N<\mu_s N=T_{\max}$, bo $\mu_k<\mu_s$ dla typowych par materiałów. Normalna nie zmienia się — zmienia się model tarcia.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Skrzynia stoi na pochyłym dachu i nie ma zamiaru się zsuwać. Kierunek siły tarcia statycznego to:</Prompt>
+    <Answer>zawsze przeciwnie do ciężaru</Answer>
+    <Answer correct>przeciwnie do tendencji ruchu — tu w górę równi</Answer>
+    <Answer>zgodnie z kierunkiem, w którym chcemy ją popchnąć</Answer>
+    <Hint>Zastanów się, w którą stronę skrzynia miałaby zjechać, gdyby nie było tarcia.</Hint>
+    <Explanation>
+      Składowa ciężaru równoległa do równi ciągnie skrzynię w dół, więc tarcie statyczne działa w górę równi. Tarcie zawsze przeciwdziała względnemu ruchowi lub jego zamierowi.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Tarcie” (materiały wykładowe), str. 2–3 — definicja tarciа zewnętrznego, trzy prawa Coulomba–Morena oraz interpretacja siły tarcia statycznego jako stycznej składowej reakcji.
+- OpenStax, _University Physics_ t. 1, rozdz. 6.2 „Friction” — fizyczny obraz chropowatości i adhezji, prawa $f_s\le\mu_s N$, $f_k=\mu_k N$ oraz tabela współczynników dla typowych par materiałów.
+- Baker, Haynes i in., _Engineering Statics_, rozdz. 9.1 „Dry Friction” — fazy Coulomba na wykresie siły tarcia, punkt ruchu granicznego i przykłady dobrego doboru reżimu tarcia do treści zadania.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_, rozdz. 4.4 „Friction and Impending Motion” — model tarcia suchego, przykład 2 z progiem ruchu i ruchem jednostajnym.

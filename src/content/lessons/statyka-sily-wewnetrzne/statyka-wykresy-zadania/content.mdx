@@ -1,0 +1,184 @@
+---
+id: statyka-wykresy-zadania
+moduleId: statyka-sily-wewnetrzne
+number: 7
+title: 'Wykresy w zadaniach: belki i ramy od A do Z'
+shortTitle: 'Wykresy w zadaniach'
+description: >-
+  Pełne zadanie: schemat, reakcje, siły wewnętrzne i wykresy N, T, M dla ramy
+  z obciążeniem ciągłym, siłą skupioną i siłą poziomą.
+eyebrow: 'Cała droga od schematu do wykresu'
+outcomes:
+  - 'W1 — planuje pełne zadanie: reakcje, przekroje, funkcje, wykresy, kontrola'
+  - 'W2 — łączy obciążenie ciągłe i siły skupione w jednym układzie'
+  - 'U1 — wyznacza reakcje i funkcje N, T, M dla belki oraz kolumny ramy'
+  - 'U2 — kontroluje wykresy warunkami brzegowymi i równowagą węzła'
+---
+
+To jest lekcja syntetyczna. Znasz już metodę przekrojów, konwencję znaków, obciążenia ciągłe, związki różniczkowe i ramy. Teraz trzeba to wszystko złożyć w jedno zadanie: od schematu, przez reakcje, po komplet wykresów. W praktyce takie zadania są najczęściej spotykane na kolokwium, bo sprawdzają nie pojedynczą umiejętność, lecz cały łańcuch decyzji.
+
+Wybieramy ramę L złożoną z kolumny i belki. Na belce działa obciążenie ciągłe, na końcu belki — siła pionowa i pozioma. Taki układ wymaga zarówno równań równowagi globalnej, jak i lokalnych przekrojów w obu prętach. Dodatkowo pojawia się kontrola węzła, która wykrywa większość błędów znaku.
+
+Najważniejsza rada: nie zaczynaj od wykresów. Najpierw policz reakcje i zapisz funkcje na przedziałach. Wykresy są tylko obrazem tych funkcji. Jeśli funkcje są poprawne, wykresy „rysują się same”; jeśli nie, żadna grafika tego nie naprawi.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje utwierdzenia i belki swobodnie podpartej.
+- Opanuj funkcje $T(x)$ i $M(x)$ dla obciążenia ciągłego, w tym trójkątnego.
+- Przypomnij sobie lokalne osie i konwencję znaków w ramie.
+- Pamiętaj o warunkach brzegowych: $M=0$ na przegubie i na swobodnym końcu, $T$ skacze o siłę skupioną.
+- Ustal jednostki: kN, m, kN/m, kN·m.
+
+## Model i intuicja
+
+W pełnym zadaniu wyróżniamy pięć etapów. Pierwszy to schemat: wszystkie siły zewnętrzne, podpory i wymiary. Drugi to reakcje: równania równowagi całej konstrukcji. Trzeci to przekroje: dla każdego pręta wybieramy lokalną oś i zapisujemy $N$, $T$, $M$ na przedziałach. Czwarty to wykresy: odkładamy funkcje i zaznaczamy skoki oraz ekstrema. Piąty to kontrola: warunki brzegowe, równowaga węzłów i zgodność związków różniczkowych.
+
+W ramie L obciążenie belki przenosi się na kolumnę w węźle. Siła pionowa z belki staje się siłą normalną kolumny, siła pozioma — siłą tnącą, a moment — momentem zginającym. To tłumaczy, dlaczego w kolumnie mogą pojawić się jednocześnie duże $N$ i duże $M$. Właśnie takie przekroje są najbardziej wytężone i wymagają sprawdzenia w wytrzymałości materiałów.
+
+Model jest statyczny i sztywny. Nie analizujemy przemieszczeń ani redystrybucji sił wywołanej odkształceniami. Dla ramy statycznie wyznaczalnej (jak utwierdzona kolumna z wolną belką) reakcje wynika ją wyłącznie z równowagi. W ramie statycznie niewyznaczalnej potrzebne byłyby dodatkowe warunki zgodności przemieszczeń, których w tym kursie nie używamy.
+
+## Laboratorium: co ustawić
+
+Najpierw zbuduj samą belkę z obciążeniem ciągłym i siłą skupioną. Sprawdź reakcje i wykresy, zanim dołożysz kolumnę. Potem przejdź do ramy: obserwuj, jak moment z belki przechodzi na kolumnę i jak zmienia się on liniowo pod wpływem poziomej siły w kolumnie.
+
+<Lab id="staticsPlanar" />
+
+<Lab id="staticsInternal" />
+
+## Definicje i jednostki
+
+| Pojęcie        | Znaczenie                                               | Jednostka |
+| -------------- | ------------------------------------------------------- | --------- |
+| Reakcja        | Siła lub moment zastępujący działanie podpory           | kN, kN·m  |
+| Przedział      | Odcinek między punktami zmiany obciążenia lub geometrii | m         |
+| Funkcja $N(x)$ | Siła normalna w przekroju                               | kN        |
+| Funkcja $T(x)$ | Siła tnąca w przekroju                                  | kN        |
+| Funkcja $M(x)$ | Moment zginający w przekroju                            | kN·m      |
+| Węzeł sztywny  | Połączenie przenoszące siły i moment                    | —         |
+
+Wykresy odkładamy prostopadle do osi pręta. Na belce poziomej oś wykresu biegnie wzdłuż belki, a wartości $T$ i $M$ odkładamy w pionie. Na kolumnie oś wykresu biegnie wzdłuż wysokości, a wartości odkładamy poziomo. Zawsze podpisujemy osie i jednostki.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\sum F_x=0,\quad \sum F_y=0,\quad \sum M=0;
+\qquad
+\frac{dT}{dx}=-q,\quad \frac{dM}{dx}=T
+$$
+
+<Caption>Dwa filary pełnego zadania: równowaga globalna do wyznaczenia reakcji oraz związki różniczkowe do budowy i kontroli wykresów. W ramie te same równania stosujemy osobno do każdego pręta w jego lokalnym układzie.</Caption>
+</Formula>
+
+Szkic wyprowadzenia dla ramy z przykładu:
+
+1. Obciążenie belki zastępujemy wypadkową $W=qL$ w połowie długości.
+2. Równowaga globalna daje reakcje w utwierdzeniu, w tym moment $M_A$.
+3. Cięcie belki od wolnego końca daje $N=-H$, $T=q(L-x)+P$ i $M=-q(L-x)^2/2-P(L-x)$.
+4. Cięcie kolumny od podstawy daje $N=-P-qL$, $T=H$ i $M=M_A-Hy$.
+5. Na końcu sprawdzamy węzeł: siły i momenty z belki i kolumny muszą się znosić.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-wykresy-zadania" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Rysowanie wykresów przed wyznaczeniem reakcji — funkcje bez reakcji są niekompletne.
+- Pomijanie poziomych sił w momencie utwierdzenia; siła $H$ działa na ramieniu $h$, więc daje $Hh$.
+- Mylenie promienia działania obciążenia ciągłego: wypadkowa $qL$ działa w połowie długości belki, nie w miejscu przyłożenia siły $P$.
+- Zły znak momentu belki przy obciążeniu działającym w dół — dla wspornika moment jest ujemny (rozciąganie górnych włókien).
+- Traktowanie kolumny jak belki poziomej; jej oś jest pionowa, więc $N$ i $T$ zamieniają się rolami.
+- Brak kontroli węzła — to najszybszy sposób wykrycia błędu w znakach lub ramionach.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj schemat z wymiarami i wszystkimi obciążeniami; oznacz podpory i węzły.
+2. Wyznacz reakcje z trzech równań równowagi całej konstrukcji.
+3. Podziel każdy pręt na przedziały między punktami przyłożenia obciążeń i zmian geometrii.
+4. Dla każdego przedziału zapisz $N$, $T$, $M$ z lokalnego przekroju, zaczynając od strony o mniejszej liczbie sił.
+5. Narysuj wykresy, zaznaczając skoki pod siłami skupionymi i ekstrema tam, gdzie $T=0$.
+6. Skontroluj warunki brzegowe, związki $dM/dx=T$ oraz równowagę węzłów.
+
+## Połącz z resztą kursu
+
+- **Metoda przekrojów** — pełne zadanie to wiele przekrojów po kolei; procedura pozostaje ta sama.
+- **Zależności q–T–M** — kształty wykresów i ekstrema wynikają wprost z tych związków.
+- **Siły w ramach** — węzeł sztywny przekazuje moment i zamienia siły między belką a kolumną.
+- **Zginanie w wytrzymałości** — z wykresu $M$ odczytujesz przekrój najbardziej wytężony i liczysz naprężenia.
+- **Projektowanie konstrukcji** — reakcje i wykresy są danymi wejściowymi do doboru przekroju i sprawdzenia stanów granicznych.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>W ramie z przykładu reakcja pionowa $A_y$ wynosi:</Prompt>
+    <Answer>$24\ \mathrm{kN}$</Answer>
+    <Answer correct>$36\ \mathrm{kN}$</Answer>
+    <Answer>$48\ \mathrm{kN}$</Answer>
+    <Hint>Dodaj wypadkową obciążenia ciągłego i siłę $P$.</Hint>
+    <Explanation>
+      $A_y=qL+P=24+12=36\ \mathrm{kN}$. Siła pozioma $H$ nie ma składowej pionowej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Moment utwierdzenia w A wynosi:</Prompt>
+    <Answer>$144\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$184\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$224\ \mathrm{kN\cdot m}$</Answer>
+    <Hint>Dodaj $W\cdot3$, $P\cdot6$ i $H\cdot4$.</Hint>
+    <Explanation>
+      $M_A=24\cdot3+12\cdot6+10\cdot4=72+72+40=184\ \mathrm{kN\cdot m}$. Wartość $144$ to moment samego obciążenia ciągłego i siły $P$ bez wpływu $H$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła tnąca w belce w odległości $x=3\ \mathrm{m}$ od B wynosi:</Prompt>
+    <Answer>$12\ \mathrm{kN}$</Answer>
+    <Answer correct>$24\ \mathrm{kN}$</Answer>
+    <Answer>$36\ \mathrm{kN}$</Answer>
+    <Hint>$T(x)=36-4x$.</Hint>
+    <Explanation>
+      $T(3)=36-12=24\ \mathrm{kN}$. Na końcu C siła tnąca wynosi $12\ \mathrm{kN}$, bo pozostała tam tylko siła $P$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Moment w belce w środku, $x=3\ \mathrm{m}$ od B, wynosi:</Prompt>
+    <Answer>$-144\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$-54\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$0$</Answer>
+    <Hint>$M=-[2(6-x)^2+12(6-x)]$.</Hint>
+    <Explanation>
+      $M(3)=-[2\cdot9+12\cdot3]=-[18+36]=-54\ \mathrm{kN\cdot m}$. Znak minus oznacza rozciąganie górnych włókien.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Siła normalna w kolumnie na wysokości $y=2\ \mathrm{m}$ wynosi:</Prompt>
+    <Answer>$10\ \mathrm{kN}$ rozciągania</Answer>
+    <Answer correct>$36\ \mathrm{kN}$ ściskania</Answer>
+    <Answer>$46\ \mathrm{kN}$ ściskania</Answer>
+    <Hint>Kolumna przenosi całe obciążenie pionowe belki.</Hint>
+    <Explanation>
+      $N=-(W+P)=-36\ \mathrm{kN}$, czyli ściskanie. Siła $H$ daje w kolumnie siłę tnącą $10\ \mathrm{kN}$, a nie normalną.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Moment w kolumnie na wysokości $y=2\ \mathrm{m}$ wynosi:</Prompt>
+    <Answer>$144\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$164\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$184\ \mathrm{kN\cdot m}$</Answer>
+    <Hint>$M(y)=184-10y$.</Hint>
+    <Explanation>
+      $M(2)=184-20=164\ \mathrm{kN\cdot m}$. Moment maleje liniowo od $184$ w podstawie do $144$ w węźle B.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 8.3–8.8: pełna procedura wyznaczania sił wewnętrznych, wykresy oraz związki między obciążeniem, siłą tnącą i momentem.
+- L. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_, rozdz. 6.1–6.2: siły wewnętrzne w belkach i ramach, konwencja znaków i wykresy.
+- Osgood i in. (UPEI), _Engineering Mechanics: Statics_, rozdz. 6.2–6.3: przykłady wykresów dla belek z obciążeniem ciągłym i ram.
+- Wykład „Moment siły, siły równoległe, płaski dowolny układ sił”: momenty sił rozłożonych i reakcje podpór.
+- Z. Osiński, _Mechanika ogólna_, PWN: statyka belek i ram oraz polska konwencja znaków sił wewnętrznych.

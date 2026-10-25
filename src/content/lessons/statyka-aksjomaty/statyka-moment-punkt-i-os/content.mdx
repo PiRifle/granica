@@ -1,0 +1,221 @@
+---
+id: statyka-moment-punkt-i-os
+moduleId: statyka-aksjomaty
+number: 7
+title: 'Moment siły względem punktu i osi'
+shortTitle: Moment punkt i oś
+description: >-
+  Ramię siły, moment jako r×F, twierdzenie Varignona oraz rzut momentu
+  na dowolną oś. Od płaskiego momentu do przestrzennego skręcania.
+eyebrow: 'Obrót wokół punktu i wokół osi'
+outcomes:
+  - W1 — definiuje moment siły względem punktu jako wektor r×F
+  - W2 — stosuje twierdzenie Varignona i interpretuje ramię siły
+  - W3 — odróżnia moment względem punktu od momentu względem osi
+  - U1 — oblicza moment względem punktu z iloczynu wektorowego
+  - U2 — wyznacza rzut momentu na dowolną oś i sprawdza warunki zerowania
+---
+
+Siła może przesuwać ciało i obracać je wokół punktu lub osi. Skłonność do obrotu nazywamy momentem. W płaszczyźnie liczymy go jako $M=Fa$, gdzie $a$ jest ramieniem; w przestrzeni potrzebny jest wektor $\mathbf{M}_K=\mathbf{r}\times\mathbf{F}$, gdzie $\mathbf{r}$ biegnie od bieguna $K$ do dowolnego punktu prostej działania siły.
+
+Moment względem punktu jest wektorem, a moment względem osi — jego rzutem na tę oś. Przy drzwiach tylko składowa wzdłuż zawiasu próbuje otworzyć skrzydło; pozostałe obciążają zawias. W lekcji przechodzimy od definicji przez twierdzenie Varignona do rzutu momentu na dowolną oś, a przykład prowadzony jest trójwymiarowy.
+
+## Zanim zaczniesz
+
+- Umiej obliczyć iloczyn wektorowy i wyznacznik ze składowymi (lekcja 4).
+- Przypomnij sobie iloczyn skalarny jako rzut wektora na kierunek (lekcja 3).
+- Wiedz, że moment względem punktu znika, gdy prosta działania siły przechodzi przez ten punkt.
+- Odróżniaj odległość wzdłuż belki od ramienia, czyli odległości prostopadłej do prostej działania.
+- Pamiętaj o regule śruby: dodatni moment w płaszczyźnie $xy$ wskazuje w stronę $+\mathbf{k}$.
+
+## Model i intuicja
+
+W płaszczyźnie $M_K=P\cdot a$, gdzie $a$ jest najkrótszą odległością od $K$ do prostej działania siły. Moment przeciwny do ruchu wskazówek zegara jest dodatni, zgodny z ruchem — ujemny. Umowa odpowiada zwrotowi wektora wzdłuż osi $z$: dodatni moment „wychodzi” z płaszczyzny. Przesuwanie siły wzdłuż prostej działania nie zmienia ani wartości, ani ramienia.
+
+W przestrzeni $\mathbf{M}_K=\mathbf{r}\times\mathbf{F}$ jest prostopadły do płaszczyzny wyznaczonej przez $\mathbf{r}$ i $\mathbf{F}$. Jego moduł wynosi $|\mathbf{r}||\mathbf{F}|\sin\theta=|\mathbf{F}|\,a$, gdzie $a=|\mathbf{r}|\sin\theta$ jest ramieniem. Zwrot wyznacza reguła śruby; kolejność ma znaczenie, bo $\mathbf{F}\times\mathbf{r}$ daje moment przeciwny.
+
+Twierdzenie Varignona mówi, że moment wypadkowej równa się sumie momentów sił składowych względem tego samego punktu. W praktyce rozkłada się siłę na składowe i sumuje ich momenty; składowa przechodząca przez biegun daje zero. Wektorowo wynika to z rozdzielności: $\mathbf{r}\times(\mathbf{F}_1+\mathbf{F}_2)=\mathbf{r}\times\mathbf{F}_1+\mathbf{r}\times\mathbf{F}_2$.
+
+Moment względem osi $L$ to rzut momentu na kierunek osi: $M_L=\mathbf{u}\cdot(\mathbf{r}\times\mathbf{F})$, gdzie $\mathbf{u}$ jest wersorem osi, a $\mathbf{r}$ biegnie od dowolnego punktu osi do prostej działania siły. Wynik jest skalarem ze znakiem. Rzut nie zależy od wyboru punktu osi, bo różnica wektorów $\mathbf{r}$ jest równoległa do osi i znika w iloczynie mieszanym. Moment zeruje się, gdy siła przecina oś lub jest do niej równoległa.
+
+Model opisuje tendencję do obrotu, a nie rzeczywisty ruch; zakłada sztywne ciało i idealne więzy. Jednostką momentu jest $\text{N}\cdot\text{m}$ lub $\text{kN}\cdot\text{m}$ — nie dżul, bo moment nie jest energią. Odwrócenie wersora osi zmienia znak $M_L$, ale nie sens obrotu.
+
+## Laboratorium: co ustawić
+
+Ustaw siłę i zmieniaj punkt jej przyłożenia. Obserwuj ramię i moment. Przesuń punkt wzdłuż prostej działania siły — moment powinien pozostać taki sam. Rozłóż siłę na składowe i sprawdź sumę ich momentów. Na końcu porównaj moment względem punktu z jego rzutem na wybraną oś.
+
+<Lab id="staticsMoment" />
+
+## Definicje i jednostki
+
+| Pojęcie                | Znaczenie                                                                 | Jednostka    |
+| ---------------------- | ------------------------------------------------------------------------- | ------------ |
+| Biegun momentu         | Punkt, względem którego liczymy moment                                    | —            |
+| Ramię siły             | Odległość prostej działania siły od bieguna                               | m            |
+| Moment względem punktu | Wektor $\mathbf{r}\times\mathbf{F}$                                       | N·m, kN·m    |
+| Moment względem osi    | Rzut momentu na kierunek osi                                              | N·m, kN·m    |
+| Wersor osi             | Wektor jednostkowy wyznaczający kierunek i zwrot osi                      | bezwymiarowy |
+| Twierdzenie Varignona  | Moment wypadkowej równa się sumie momentów składowych                     | —            |
+| Para sił               | Dwie równe, przeciwne i równoległe siły; jej moment nie zależy od bieguna | N·m, kN·m    |
+
+W płaszczyźnie, dla bieguna w początku układu, $M_z=r_xF_y-r_yF_x$; dla bieguna $K(x_K,y_K)$ używamy $r_x=x-x_K$ i $r_y=y-y_K$. W przestrzeni moduł momentu liczymy jak długość wektora: $M=\sqrt{M_x^2+M_y^2+M_z^2}$.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\mathbf{M}_K=\mathbf{r}\times\mathbf{F},\qquad
+M_L=\mathbf{u}\cdot(\mathbf{r}\times\mathbf{F})
+$$
+
+<Caption>Pierwszy wzór definiuje moment względem punktu $K$; $\mathbf{r}$ prowadzi od $K$ do dowolnego punktu prostej działania siły. Drugi wzór daje moment względem osi o wersorze $\mathbf{u}$: to rzut momentu wektorowego na tę oś. W płaszczyźnie $M_K$ ma tylko składową $z$, a moment względem osi $z$ jest równy tej składowej.</Caption>
+</Formula>
+
+W zapisie składowym moment względem punktu obliczamy wyznacznikiem:
+
+<Formula>
+$$
+\mathbf{M}_K=
+\begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k}\\
+r_x & r_y & r_z\\
+F_x & F_y & F_z
+\end{vmatrix}
+=(r_yF_z-r_zF_y)\,\mathbf{i}-(r_xF_z-r_zF_x)\,\mathbf{j}+(r_xF_y-r_yF_x)\,\mathbf{k}
+$$
+
+<Caption>Rozwinięcie wyznacznika daje trzy składowe momentu. Znak minus przy składowej $\mathbf{j}$ wynika z kolejności wersorów i jest najczęstszym źródłem błędu. Dla siły w płaszczyźnie $xy$ zostaje tylko składowa $z$.</Caption>
+</Formula>
+
+Moment względem osi można też zapisać jako iloczyn mieszany, czyli wyznacznik z wersorem osi w pierwszym wierszu, wektorem $\mathbf{r}$ w drugim i siłą $\mathbf{F}$ w trzecim:
+
+<Formula>
+$$
+M_L=
+\begin{vmatrix}
+u_x & u_y & u_z\\
+r_x & r_y & r_z\\
+F_x & F_y & F_z
+\end{vmatrix}
+$$
+
+<Caption>Iloczyn mieszany $\mathbf{u}\cdot(\mathbf{r}\times\mathbf{F})$ jest skalarem. Jego znak zależy od zwrotu wersora osi; wartość bezwzględna to ta część momentu, która rzeczywiście działa wokół osi.</Caption>
+</Formula>
+
+Moduł wynika wprost z definicji: $|\mathbf{M}_K|=|\mathbf{r}||\mathbf{F}|\sin\theta=|\mathbf{F}|a$, gdzie $a=|\mathbf{r}|\sin\theta$ jest ramieniem. Kierunek jest prostopadły do $\mathbf{r}$ i $\mathbf{F}$, a zwrot wyznacza reguła śruby. Dla osi rzut nie zależy od wyboru punktu, bo różnica wektorów $\mathbf{r}$ jest równoległa do osi i znika w iloczynie mieszanym.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-moment-punkt-i-os" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zła kolejność w iloczynie wektorowym: $\mathbf{F}\times\mathbf{r}$ daje moment o przeciwnym znaku niż $\mathbf{r}\times\mathbf{F}$. Zawsze pisz moment jako $\mathbf{r}\times\mathbf{F}$.
+- Wektor $\mathbf{r}$ prowadzony od siły do bieguna zamiast od bieguna do prostej działania siły. To odwraca znak i często psuje całe równanie momentów.
+- Używanie odległości wzdłuż belki jako ramienia. Ramię jest odległością prostopadłą do prostej działania siły, a nie odległością między punktami zaczepienia.
+- Dodawanie wartości momentów bez znaków lub bez składowych. Momenty są wektorami; w płaszczyźnie dodajemy je algebraicznie ze znakiem, a w przestrzeni — składowymi.
+- Mylenie momentu względem punktu z momentem względem osi. Moment względem osi to rzut momentu na tę oś, a nie moment siły względem dowolnego punktu osi.
+- Wybór punktu spoza osi przy liczeniu $M_L$. Wzór $M_L=\mathbf{u}\cdot(\mathbf{r}\times\mathbf{F})$ wymaga $\mathbf{r}$ od punktu leżącego na osi; inaczej rzut nie jest momentem względem tej osi.
+- Zapominanie, że siła równoległa do osi lub przecinająca oś daje moment względem niej równy zero.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, czy pytanie dotyczy momentu względem punktu, czy względem osi. To decyduje o tym, czy szukasz wektora, czy skalaru.
+2. Wybierz biegun lub punkt na osi i zapisz wektor $\mathbf{r}$ od tego punktu do dowolnego punktu prostej działania siły.
+3. Zapisz siłę w składowych. Jeśli zadanie podaje kąt i wartość, rozłóż siłę funkcjami trygonometrycznymi.
+4. W płaszczyźnie użyj $M=Fa$ z poprawnym ramieniem i znakiem albo $M_z=r_xF_y-r_yF_x$.
+5. W przestrzeni licz wyznacznik $\mathbf{r}\times\mathbf{F}$; pilnuj znaku przy składowej $\mathbf{j}$.
+6. Dla osi wyznacz wersor $\mathbf{u}$ i policz rzut $M_L=\mathbf{u}\cdot(\mathbf{r}\times\mathbf{F})$. Sprawdź, czy siła nie jest przypadkiem równoległa do osi lub czy jej prosta nie przecina osi.
+7. Sprawdź wynik drugą metodą: Varignonem, rzutem na inną oś albo oceną znaku i rzędu wielkości.
+
+## Połącz z resztą kursu
+
+- **Lekcja 4** — moment jest fizyczną interpretacją iloczynu wektorowego; wracają reguła śruby i wyznacznik.
+- **Lekcja 5** — równanie $\sum M_O=0$ jest sumą momentów liczonych tą metodą.
+- **Lekcja 6** — moment utwierdzenia i równania momentów względem podpór to zastosowanie tej lekcji.
+- **Moduły 3–4** — pary sił, redukcja do bieguna i momenty względem osi rozwijają te pojęcia.
+- **Wytrzymałość materiałów** — moment zginający i skręcający opisuje się tym samym językiem.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Moment siły $\mathbf{F}$ względem punktu $K$ definiujemy jako:</Prompt>
+    <Answer>$\mathbf{F}\times\mathbf{r}$, gdzie $\mathbf{r}$ prowadzi od siły do punktu $K$</Answer>
+    <Answer correct>$\mathbf{r}\times\mathbf{F}$, gdzie $\mathbf{r}$ prowadzi od punktu $K$ do prostej działania siły</Answer>
+    <Answer>iloczyn skalarny $\mathbf{r}\cdot\mathbf{F}$</Answer>
+    <Hint>Kolejność czynników w iloczynie wektorowym decyduje o znaku, a wektor $\mathbf{r}$ zaczyna się w biegunie.</Hint>
+    <Explanation>
+      Definicja to $\mathbf{M}_K=\mathbf{r}\times\mathbf{F}$, gdzie $\mathbf{r}$ jest wektorem od bieguna $K$ do dowolnego punktu prostej działania siły. Zamiana kolejności daje moment przeciwny, a iloczyn skalarny jest liczbą, nie momentem.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Moment siły względem osi to:</Prompt>
+    <Answer>moduł momentu względem dowolnego punktu osi</Answer>
+    <Answer correct>rzut momentu względem punktu na kierunek osi</Answer>
+    <Answer>siła pomnożona przez odległość wzdłuż osi</Answer>
+    <Hint>Interesuje cię tylko ta część momentu, która rzeczywiście obraca ciało wokół osi.</Hint>
+    <Explanation>
+      $M_L=\mathbf{u}\cdot(\mathbf{r}\times\mathbf{F})$ jest rzutem wektora momentu na wersor osi. Moduł momentu względem punktu obejmuje także składowe prostopadłe do osi, które nie powodują obrotu wokół niej.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Twierdzenie Varignona mówi, że:</Prompt>
+    <Answer>moment pary sił zależy od wyboru bieguna</Answer>
+    <Answer correct>moment wypadkowej względem punktu równa się sumie momentów sił składowych względem tego punktu</Answer>
+    <Answer>moment siły jest zawsze równy iloczynowi wartości siły i długości belki</Answer>
+    <Hint>Rozdzielność iloczynu wektorowego względem dodawania.</Hint>
+    <Explanation>
+      $\mathbf{r}\times(\mathbf{F}_1+\mathbf{F}_2)=\mathbf{r}\times\mathbf{F}_1+\mathbf{r}\times\mathbf{F}_2$, więc moment wypadkowej jest sumą momentów składowych. Dzięki temu można rozkładać siłę na wygodne kierunki i sumować momenty składowych.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie $\mathbf{M}_O=(18,-12,-16)\ \text{kN}\cdot\text{m}$. Składowa $M_z$ wynosi:</Prompt>
+    <Answer>$+16\ \text{kN}\cdot\text{m}$</Answer>
+    <Answer correct>$-16\ \text{kN}\cdot\text{m}$</Answer>
+    <Answer>$0$</Answer>
+    <Hint>Trzecia składowa wektora momentu to $r_xF_y-r_yF_x$.</Hint>
+    <Explanation>
+      $M_z=2\cdot(-2)-3\cdot4=-4-12=-16\ \text{kN}\cdot\text{m}$. Znak minus oznacza obrót zgodny z ruchem wskazówek zegara przy patrzeniu z dodatniej osi $z$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie moduł momentu względem $O$ wynosi około:</Prompt>
+    <Answer>$24{,}0\ \text{kN}\cdot\text{m}$</Answer>
+    <Answer correct>$26{,}9\ \text{kN}\cdot\text{m}$</Answer>
+    <Answer>$30{,}6\ \text{kN}\cdot\text{m}$</Answer>
+    <Hint>Moduł to pierwiastek z sumy kwadratów składowych: $\sqrt{18^2+12^2+16^2}$.</Hint>
+    <Explanation>
+      $M_O=\sqrt{324+144+256}=\sqrt{724}\approx26{,}9\ \text{kN}\cdot\text{m}$. Wartość $24$ to suma modułów składowych, a $30{,}6$ wynikałaby z innego (błędnego) zestawu składowych.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W przykładzie moment względem osi $OB$ wynosi około:</Prompt>
+    <Answer>$0$</Answer>
+    <Answer correct>$4{,}24\ \text{kN}\cdot\text{m}$</Answer>
+    <Answer>$16{,}0\ \text{kN}\cdot\text{m}$</Answer>
+    <Hint>$\mathbf{u}=(1,1,0)/\sqrt2$, a $M_{OB}=\mathbf{u}\cdot\mathbf{M}_O$.</Hint>
+    <Explanation>
+      $M_{OB}=(18-12)/\sqrt2=6/\sqrt2=3\sqrt2\approx4{,}24\ \text{kN}\cdot\text{m}$. To rzut całego momentu na kierunek $O\to B$, a nie odrębna składowa $z$.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Siła działa równolegle do osi obrotu. Moment względem tej osi wynosi:</Prompt>
+    <Answer>maksimum, bo siła jest duża</Answer>
+    <Answer correct>zero</Answer>
+    <Answer>zawsze $F\cdot d$, gdzie $d$ to odległość od osi</Answer>
+    <Hint>Iloczyn wektorowy $\mathbf{r}\times\mathbf{F}$ jest wtedy prostopadły do osi.</Hint>
+    <Explanation>
+      Gdy $\mathbf{F}$ jest równoległe do osi, wektor $\mathbf{r}\times\mathbf{F}$ jest prostopadły do tej osi, więc jego rzut na oś jest zerowy. Siła równoległa do zawiasu nie obraca drzwi wokół zawiasu.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Moment siły, siły równoległe, płaski dowolny układ sił”, s. 1–5: definicja momentu, ramię, $\mathbf{M}_K=\mathbf{r}\times\mathbf{P}$ i Varignon; s. 13–20: redukcja do bieguna.
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 4.1–4.2 (moment i znaki), 4.3 (Varignon) i 4.4 (momenty 3D, oś).
+- L. Osgood i in., _Engineering Mechanics: Statics_, rozdz. 1.5–1.6 (iloczyn wektorowy, moment) i 3.1 (reguła prawej dłoni).
+- _University Physics_ vol. 1 (OpenStax), rozdz. 2.4 (iloczyn wektorowy) i 10.6 (moment siły).

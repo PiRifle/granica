@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Atom,
   Award,
@@ -21,77 +22,133 @@ import {
   Thermometer,
   Zap,
 } from 'lucide-react'
-import { getModuleForLesson, lessons, modules, totalDuration } from '../content/course'
+import { CoursePreview } from './CoursePreview'
 import { useCourseStore } from '../store'
-import type { LessonId } from '../types'
-import type { View } from '../lib/navigation'
+import type { Course, CourseTool, LessonId } from '../types'
 import { CourseProgress } from './UI'
 import { Logo } from './Logo'
 import { SiteHeader } from './SiteHeader'
-import { HeroGraphic } from './HeroGraphic'
+import { courseThemeStyle } from '../lib/courseTheme'
+import { courses } from '../content/course'
 import home from './Home.module.css'
 import { classNames, cx } from '../lib/css'
 
 const h = classNames(home)
 const moduleIcons = [Layers3, Zap, Thermometer, Atom, RotateCw, BookOpen, Sparkles, Gauge, ShieldCheck, Award]
 
+const toolCards: Array<{ view: CourseTool; icon: typeof Target; title: string; description: string }> = [
+  {
+    view: 'training',
+    icon: Target,
+    title: 'Trening liczbowy',
+    description: 'Losowe dane, 9 typów zadań, tolerancja i pełne rozwiązania.',
+  },
+  {
+    view: 'exam',
+    icon: Clock,
+    title: 'Kolokwium próbne',
+    description: '20 pytań, 20 minut, wynik według modułów i efektów.',
+  },
+  {
+    view: 'cheatsheet',
+    icon: BookOpen,
+    title: 'Ściąga',
+    description: 'Wszystkie wzory, jednostki i najważniejsze wnioski.',
+  },
+  {
+    view: 'syllabus',
+    icon: ClipboardList,
+    title: 'Mapa sylabusa',
+    description: 'Pokrycie karty przedmiotu i efekty kształcenia.',
+  },
+  {
+    view: 'library',
+    icon: Library,
+    title: 'Biblioteka',
+    description: 'Książki z sylabusa, otwarte podręczniki i mapa źródeł.',
+  },
+]
+
 export function Home({
+  course,
   onStart,
   onModule,
   onTool,
+  onCourses,
+  onCourse,
 }: {
+  course: Course
   onStart: (id: LessonId) => void
   onModule: (id: string) => void
-  onTool: (view: View) => void
+  onTool: (view: CourseTool) => void
+  onCourses: () => void
+  onCourse: (id: string) => void
 }) {
-  const { completed, lastLesson, scores } = useCourseStore()
+  const { completed, lastLessonByCourse, scores } = useCourseStore()
   const [query, setQuery] = useState('')
-  const percent = (completed.length / lessons.length) * 100
+  const courseLessonIds = useMemo(() => new Set(course.lessons.map((lesson) => lesson.id)), [course])
+  const courseCompleted = completed.filter((id) => courseLessonIds.has(id))
+  const percent = course.lessons.length ? (courseCompleted.length / course.lessons.length) * 100 : 0
   const normalized = query.trim().toLowerCase()
   const results = useMemo(
     () =>
       normalized.length < 2
         ? []
-        : lessons
+        : course.lessons
             .filter((lesson) =>
               [lesson.title, lesson.shortTitle, lesson.description].some((value) =>
                 value.toLowerCase().includes(normalized),
               ),
             )
             .slice(0, 8),
-    [normalized],
+    [course, normalized],
   )
-  const resume = lastLesson && lessons.some((lesson) => lesson.id === lastLesson) ? lastLesson : lessons[0].id
+  const storedLastLesson = lastLessonByCourse[course.id]
+  const resume =
+    storedLastLesson && course.lessons.some((lesson) => lesson.id === storedLastLesson)
+      ? storedLastLesson
+      : course.lessons[0]?.id
+  const started = courseCompleted.length > 0
+  const scrollToModules = () => document.getElementById('moduly')?.scrollIntoView({ behavior: 'smooth' })
+  const start = () => (resume ? onStart(resume) : scrollToModules())
 
   return (
-    <div className={h('home')}>
+    <div className={h('home')} style={courseThemeStyle(course.theme)}>
       <SiteHeader
-        onHome={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        onStart={() => onStart(resume)}
+        courses={courses}
+        activeCourse={course}
+        mode="course"
+        startLabel={resume ? undefined : 'Zobacz plan'}
+        onHome={onCourses}
+        onStart={start}
         onTool={onTool}
+        onCourse={onCourse}
       />
       <main>
         <section className={h('hero')}>
           <div className={h('hero-copy')}>
             <div className={h('eyebrow')}>
-              <span /> INTERAKTYWNY KURS WYTRZYMAŁOŚCI MATERIAŁÓW
+              <span /> {course.eyebrow.toUpperCase()}
             </div>
             <h1>
-              Zrozum, zanim
+              {course.marketing.headlineLead}
               <br />
-              <em>się złamie.</em>
+              <em>{course.marketing.headlineAccent}</em>
             </h1>
-            <p>
-              Nie zgaduj, jak zadziała konstrukcja. Zmieniaj siły, obserwuj odkształcenia i przechodź przez zadania krok
-              po kroku — od pierwszej reakcji po pełny obraz naprężeń.
-            </p>
+            <p>{course.marketing.promise}</p>
             <div className={h('hero-actions')}>
-              <button className={h('button button-primary')} onClick={() => onStart(resume)}>
+              <button className={h('button button-primary')} onClick={start}>
                 <Play size={17} fill="currentColor" />
-                {completed.length ? 'Wróć do laboratorium' : 'Wejdź do laboratorium'}
+                {resume ? (started ? 'Wróć do laboratorium' : 'Wejdź do laboratorium') : 'Zobacz plan modułów'}
               </button>
               <span>
-                {modules.length} modułów <i /> {lessons.length} lekcji <i /> {Math.round(totalDuration / 60)} godzin
+                {course.modules.length} modułów <i />{' '}
+                {course.lessons.length ? `${course.lessons.length} lekcji` : 'lekcje w przygotowaniu'}{' '}
+                {course.totalDuration > 0 && (
+                  <>
+                    <i /> {Math.round(course.totalDuration / 60)} godzin
+                  </>
+                )}
               </span>
             </div>
             <div className={h('hero-trust')}>
@@ -106,7 +163,7 @@ export function Home({
               </span>
             </div>
           </div>
-          <HeroGraphic />
+          <CoursePreview courses={[course]} activeCourseId={course.id} showTabs={false} />
         </section>
         <section className={h('method')} id="metoda">
           <div className={h('section-heading')}>
@@ -144,30 +201,40 @@ export function Home({
         <section className={h('chapters')} id="moduly">
           <div className={h('chapters-heading')}>
             <div>
-              <span className={h('section-kicker')}>TWOJA ŚCIEŻKA</span>
-              <h2>Od pierwszej siły do pełnego obrazu.</h2>
-            </div>
-            <div className={h('overall-progress')}>
-              <span>
-                {completed.length} z {lessons.length} ukończone · {Math.round(percent)}%
+              <span className={h('section-kicker')}>
+                {course.status === 'planned' ? 'PLAN KURSU' : 'TWOJA ŚCIEŻKA'}
               </span>
-              <CourseProgress value={percent} />
+              <h2>
+                {course.status === 'planned'
+                  ? 'Moduły, które dołączą wkrótce.'
+                  : 'Od pierwszej siły do pełnego obrazu.'}
+              </h2>
             </div>
+            {course.lessons.length > 0 && (
+              <div className={h('overall-progress')}>
+                <span>
+                  {courseCompleted.length} z {course.lessons.length} ukończone · {Math.round(percent)}%
+                </span>
+                <CourseProgress value={percent} />
+              </div>
+            )}
           </div>
-          <label className={h('search-field home-search')}>
-            <Search size={17} />
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Szukaj lekcji, wzoru lub pojęcia…"
-              aria-label="Szukaj w kursie"
-            />
-          </label>
+          {course.lessons.length > 0 && (
+            <label className={h('search-field home-search')}>
+              <Search size={17} />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Szukaj lekcji, wzoru lub pojęcia…"
+                aria-label="Szukaj w kursie"
+              />
+            </label>
+          )}
           {results.length > 0 && (
             <div className={h('search-results')}>
               {results.map((lesson) => (
                 <button key={lesson.id} onClick={() => onStart(lesson.id)}>
-                  <span>{getModuleForLesson(lesson).shortTitle}</span>
+                  <span>{course.modules.find((module) => module.id === lesson.moduleId)?.shortTitle}</span>
                   <strong>{lesson.title}</strong>
                   <small>{lesson.totalMinutes} min</small>
                   <ChevronRight size={15} />
@@ -176,52 +243,68 @@ export function Home({
             </div>
           )}
           <div className={h('module-grid')}>
-            {modules.map((module, index) => {
+            {course.modules.map((module, index) => {
               const Icon = moduleIcons[index % moduleIcons.length]
               const done = module.lessons.filter((lesson) => completed.includes(lesson.id)).length
-              const modulePercent = (done / module.lessons.length) * 100
-              const bestScore = Math.max(...module.lessons.map((lesson) => scores[lesson.id] ?? 0))
+              const planned = module.status === 'planned' || module.lessons.length === 0
+              const modulePercent = module.lessons.length ? (done / module.lessons.length) * 100 : 0
+              const bestScore = Math.max(0, ...module.lessons.map((lesson) => scores[lesson.id] ?? 0))
               return (
-                <article className={h('module-card')} key={module.id}>
+                <article className={cx(h('module-card'), planned && h('planned'))} key={module.id}>
                   <button className={h('module-card-main')} onClick={() => onModule(module.id)}>
-                    <span className={cx(h('chapter-icon'), done === module.lessons.length && h('done'))}>
-                      {done === module.lessons.length ? <Check /> : <Icon />}
+                    <span
+                      className={cx(
+                        h('chapter-icon'),
+                        module.lessons.length > 0 && done === module.lessons.length && h('done'),
+                      )}
+                    >
+                      {done === module.lessons.length && module.lessons.length > 0 ? <Check /> : <Icon />}
                     </span>
                     <span className={h('module-copy')}>
                       <small>
-                        MODUŁ {String(module.number).padStart(2, '0')} · {module.lessons.length} LEKCJI ·{' '}
-                        {module.lessons.reduce((sum, lesson) => sum + lesson.totalMinutes, 0)} MIN
+                        MODUŁ {String(module.number).padStart(2, '0')} ·{' '}
+                        {planned
+                          ? 'W PRZYGOTOWANIU'
+                          : `${module.lessons.length} LEKCJI · ${module.lessons.reduce((sum, lesson) => sum + lesson.totalMinutes, 0)} MIN`}
                       </small>
                       <strong>{module.title}</strong>
                       <span>{module.description}</span>
                     </span>
                     <span className={h('chapter-action')}>
-                      {done ? `${done}/${module.lessons.length}` : 'Otwórz'}
+                      {planned ? 'Plan' : done ? `${done}/${module.lessons.length}` : 'Otwórz'}
                       <ChevronRight />
                     </span>
                   </button>
                   <div className={h('module-progress')}>
                     <CourseProgress value={modulePercent} />
                     <span>
-                      {done === 0
-                        ? 'Nie rozpoczęty'
-                        : done === module.lessons.length
-                          ? `Ukończony${bestScore ? ` · najlepszy wynik ${bestScore}%` : ''}`
-                          : `${done} z ${module.lessons.length} lekcji`}
+                      {planned
+                        ? 'Lekcje w przygotowaniu'
+                        : done === 0
+                          ? 'Nie rozpoczęty'
+                          : done === module.lessons.length
+                            ? `Ukończony${bestScore ? ` · najlepszy wynik ${bestScore}%` : ''}`
+                            : `${done} z ${module.lessons.length} lekcji`}
                     </span>
                   </div>
-                  <div className={h('module-lessons')}>
-                    {module.lessons.map((lesson) => (
-                      <button
-                        key={lesson.id}
-                        className={completed.includes(lesson.id) ? h('done') : undefined}
-                        onClick={() => onStart(lesson.id)}
-                      >
-                        {completed.includes(lesson.id) ? <Check size={12} /> : <span>{lesson.number}</span>}
-                        {lesson.shortTitle}
-                      </button>
-                    ))}
-                  </div>
+                  {module.lessons.length > 0 ? (
+                    <div className={h('module-lessons')}>
+                      {module.lessons.map((lesson) => (
+                        <button
+                          key={lesson.id}
+                          className={completed.includes(lesson.id) ? h('done') : undefined}
+                          onClick={() => onStart(lesson.id)}
+                        >
+                          {completed.includes(lesson.id) ? <Check size={12} /> : <span>{lesson.number}</span>}
+                          {lesson.shortTitle}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={h('module-lessons')}>
+                      <span className={h('module-planned')}>Lekcje pojawią się wraz z publikacją modułu.</span>
+                    </div>
+                  )}
                 </article>
               )
             })}
@@ -231,34 +314,22 @@ export function Home({
           <div className={h('section-heading')}>
             <span className={h('section-kicker')}>NARZĘDZIA</span>
             <h2>Ucz się, licz i sprawdzaj.</h2>
-            <p>Pięć trybów wspierających kurs: od luźnego treningu po warunki kolokwium i bibliotekę źródeł.</p>
+            <p>Tryby wspierające ten kurs: od luźnego treningu po warunki kolokwium i bibliotekę źródeł.</p>
           </div>
           <div className={h('tool-grid')}>
-            <button onClick={() => onTool('training')}>
-              <Target />
-              <strong>Trening liczbowy</strong>
-              <span>Losowe dane, 9 typów zadań, tolerancja i pełne rozwiązania.</span>
-            </button>
-            <button onClick={() => onTool('exam')}>
-              <Clock />
-              <strong>Kolokwium próbne</strong>
-              <span>20 pytań, 20 minut, wynik według modułów i efektów.</span>
-            </button>
-            <button onClick={() => onTool('cheatsheet')}>
-              <BookOpen />
-              <strong>Ściąga</strong>
-              <span>Wszystkie wzory, jednostki i najważniejsze wnioski.</span>
-            </button>
-            <button onClick={() => onTool('syllabus')}>
-              <ClipboardList />
-              <strong>Mapa sylabusa</strong>
-              <span>Pokrycie karty przedmiotu i efekty W1–W3, U1–U3.</span>
-            </button>
-            <button onClick={() => onTool('library')}>
-              <Library />
-              <strong>Biblioteka</strong>
-              <span>Książki z sylabusa, otwarte podręczniki i mapa źródeł.</span>
-            </button>
+            {toolCards.map(({ view, icon: Icon, title, description }) => {
+              const available = course.tools[view]
+              return (
+                <button key={view} onClick={() => available && onTool(view)} disabled={!available}>
+                  <Icon />
+                  <strong>
+                    {title}
+                    {!available && <small className={h('tool-soon')}>wkrótce</small>}
+                  </strong>
+                  <span>{description}</span>
+                </button>
+              )
+            })}
           </div>
         </section>
         <section className={h('research-note')}>
@@ -276,13 +347,21 @@ export function Home({
         </section>
       </main>
       <footer className={h('footer')}>
-        <Logo onClick={() => window.scrollTo({ top: 0 })} />
-        {import.meta.env.DEV && (
-          <a className={h('debug-link')} href={`${import.meta.env.BASE_URL}debug/labs`}>
-            Debug laboratoriów
-          </a>
-        )}
-        <span>Mniej zapamiętywania. Więcej rozumienia.</span>
+        <Logo onClick={onCourses} subtitle={course.shortTitle} />
+        <div className={h('footer-meta')}>
+          <Link className={h('footer-link')} to="/issues">
+            Zgłoś problem na GitHubie
+          </Link>
+          {import.meta.env.DEV && (
+            <a className={h('debug-link')} href={`${import.meta.env.BASE_URL}debug/labs`}>
+              Debug laboratoriów
+            </a>
+          )}
+        </div>
+        <div className={h('footer-note')}>
+          <span>Treści wspomagane AI — mogą zawierać błędy.</span>
+          <span>Mniej zapamiętywania. Więcej rozumienia.</span>
+        </div>
       </footer>
     </div>
   )

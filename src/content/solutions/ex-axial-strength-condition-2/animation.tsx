@@ -176,7 +176,7 @@ export function AxialStrengthCondition2Animation({ scene, playing, sceneProgress
             stroke={SECOND}
             strokeWidth={2}
             initial={false}
-            animate={{ x: BAR.cx - half2, width: half2 * 2 }}
+            animate={{ width: half2 * 2 }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
 

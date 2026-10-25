@@ -1,0 +1,175 @@
+---
+id: statyka-ciegna-kontakt
+moduleId: statyka-plaskie-zbiezne
+number: 5
+title: 'Cięgna i kontakty gładkie: kierunki reakcji'
+shortTitle: Cięgna i kontakt
+description: >-
+  Napięcie idealnego cięgna zawsze wzdłuż osi, reakcja gładkiej powierzchni
+  zawsze prostopadle. Dwa kierunki, które porządkują połowę zadań.
+eyebrow: 'Linka nie pcha, ściana tylko odpycha'
+outcomes:
+  - W1 — uzasadnia kierunek reakcji cięgna i gładkiej powierzchni z własności więzów
+  - W2 — rozpoznaje, kiedy model gładkiego kontaktu jest wystarczający
+  - U1 — stosuje kierunki reakcji w zadaniu o równowadze zbieżnej z dwiema niewiadomymi
+---
+
+Połowa schematów w zadaniach zbieżnych składa się z dwóch elementów: czegoś, co ciągnie (linka, lina, łańcuch) i czegoś, co opiera (powierzchnia gładka albo rolka). W tej lekcji zamykamy temat kierunków reakcji, które do tej pory przyjmowaliśmy na wiarę. Dwie reguły wystarczą: idealne cięgno przenosi siłę wyłącznie wzdłuż swojej osi, a gładka powierzchnia reaguje wyłącznie prostopadle do siebie.
+
+Obie reguły wynikają z natury więzu, nie z umowy. Cięgno wiotkie nie przenosi sił poprzecznych — każda próba popchnięcia linki powoduje jej zgięcie, a nie siłę. Dlatego siła, jaką linka działa na ciało, jest zawsze skierowana od ciała wzdłuż osi cięgna. Osgood formułuje to zwięźle: siła wytwarzana przez napięty cięgno jest skierowana od ciała, wzdłuż cięgna; nie ma wzoru na jej wartość — trzeba ją wyznaczyć z warunków równowagi. Gładka powierzchnia nie przenosi sił stycznych (to zadanie tarcia, osobny moduł), więc zostaje składowa normalna: prostopadła do powierzchni styku. OpenStax dodaje ważną uwagę: „normalna" oznacza prostopadłą do powierzchni, a jej wartość nie musi być równa ciężarowi — na pochylni jest mniejsza niż $G$, bo część ciężaru działa wzdłuż powierzchni.
+
+## Zanim zaczniesz
+
+- Umiej narysować schemat izolowanego punktu i zapisać dwa równania równowagi (lekcje 1 i 3).
+- Wiedz, że kierunek reakcji to jedna informacja, a zwrot — druga: kierunek daje więz, zwrot przyjmujemy i sprawdzamy znakiem wyniku.
+- Przypomnij sobie rzutowanie na osie pochylone: rozkład ciężaru na składową prostopadłą i równoległą do równi.
+- Odróżniaj cięgno (wiąże tylko wzdłuż osi) od pręta (może ciągnąć i pchać) — pręty omawiamy osobno.
+
+## Model i intuicja
+
+Model idealnego cięgna ma trzy cechy: jest nieważkie, nierozciągliwe i całkowicie wiotkie. Nieważkość oznacza, że nie ma ciężaru własnego do uwzględnienia na schemacie; nierozciągliwość, że napięcie jest w przybliżeniu stałe wzdłuż całej długości (dla idealnego cięgna przechodzącego przez gładkie kółko napięcie po obu stronach jest równe); wiotkość, że nie przenosi momentu ani siły poprzecznej. Z tych założeń wynika kierunek reakcji: zawsze wzdłuż osi, od punktu zaczepienia.
+
+Model gładkiego kontaktu jest równie idealny: pomijamy tarcie, więc reakcja nie ma składowej stycznej. Dla powierzchni poziomej reakcja jest pionowa, dla pionowej — pozioma, dla równi o kącie $\alpha$ — nachylona o $\alpha$ od pionu. To, czego model nie mówi, to wartość reakcji — tę zawsze dają równania równowagi. I słusznie Baker w przykładzie bloku na gładkiej równi zaznacza: kierunek siły normalnej daje geometria, a wartości szukamy z równań.
+
+Granice modelu warto znać od razu. Realna lina ma ciężar, rozciągliwość i tarcie w przelotkach; realna powierzchnia ma współczynnik tarcia i może się odkształcać. Gdy któryś z tych efektów staje się istotny — długi wciągany kabel, opór poślizgu — model gładkiego więzu przestaje wystarczać i przechodzimy do analizy z tarciem albo z podatnością cięgna. W typowych zadaniach statyki przyjmujemy jednak więzy idealne, bo pozwalają wyizolować geometryczną istotę zadania.
+
+## Laboratorium: co ustawić
+
+Zbuduj równowagę punktu: obciążenie, pozioma linka i gładkie oparcie pochyłe. Zmieniaj kąt równi i obserwuj obie reakcje: gdy równia zbliża się do poziomu, napięcie linki maleje do zera, a reakcja równi rośnie do wartości ciężaru. Sprawdź, że dla równi pionowej napięcie rośnie nieogranzenie — dlatego linki nie mocujemy „pod kątem prostym do ściany" bez namysłu.
+
+<Lab id="staticsConcurrent" />
+
+## Definicje i jednostki
+
+| Więz                         | Kierunek reakcji                            | Zwrot                   | Uwagi                                     |
+| ---------------------------- | ------------------------------------------- | ----------------------- | ----------------------------------------- |
+| Cięgno, linka, lina, łańcuch | Wzdłuż osi cięgna                           | Od punktu zaczepienia   | Nie przenosi siły poprzecznej ani momentu |
+| Powierzchnia gładka          | Prostopadle do powierzchni                  | Od powierzchni na ciało | Bez tarcia; wartość z równań              |
+| Równia pochyła $\alpha$      | Odstająca o $\alpha$ od pionu               | Od równi                | $N$ zwykle mniejsze niż $G$               |
+| Kółko gładkie                | Zmienia kierunek cięgna bez zmiany napięcia | —                       | Napięcia po obu stronach równe            |
+
+Jednostki: napięcie i reakcja w N lub kN. Symbol $T$ lub $S$ dla napięcia cięgna, $N$ lub $R$ dla reakcji normalnej.
+
+## Wzór i wyprowadzenie
+
+Dla ciała na równi pochyłej o kącie $\alpha$ wygodnie rozłożyć ciężar na składową prostopadłą do równi ($G\cos\alpha$) i równoległą ($G\sin\alpha$). Z równowagi wzdłuż prostopadłej do równi dostajemy reakcję normalną; z równowagi poziomej — napięcie poziomej linki.
+
+<Formula>
+$$
+N=\frac{G}{\cos\alpha},\qquad T=G\tan\alpha
+$$
+
+<Caption>Walec (lub kula) o ciężarze $G$ na gładkiej równi $\alpha$, utrzymywany poziomą linką przyłożoną w środku. Pierwsza wersja wymaga poziomej linki; dla innego kąta linki wzory zmieniają się — kierunek reakcji cięgna wchodzi do równań przez kąt.</Caption>
+</Formula>
+
+Wyprowadzenie: rzutując na oś prostopadłą do równi mamy $N-G\cos\alpha=0$... uwaga — to prostszy zapis dla osi „po równi". Wyprowadźmy rygorystycznie w osiach $x$ poziomej i $y$ pionowej: $N$ ma kąt $\alpha$ od pionu, więc $N_x=-N\sin\alpha$, $N_y=N\cos\alpha$; linka pozioma: $T_x=+T$, $T_y=0$; ciężar: $G_y=-G$. Z równowagi pionowej $N\cos\alpha=G$, stąd $N=G/\cos\alpha$; z poziomej $T=N\sin\alpha=G\tan\alpha$. To samo wyprowadzenie znajdziesz u OpenStax w przykładzie ciała na pochylni: $N=G\cos\alpha$ pojawia się tam dla osi z osią prostopadłą do równi — różnica zapisu, nie fizyki.
+
+<AnimatedSolution id="ex-statyka-ciegna-kontakt" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Rysowanie napięcia linki „w stronę mocowania" na zewnątrz ciała — poprawnie: od ciała, wzdłuż osi linki; „w stronę mocowania" to inaczej to samo, ale zwrot przeciwny bywa błędem.
+- Przyjmowanie $N=G$ na równi pochyłej — reakcja normalna równoważy tylko składową prostopadłą ciężaru i dla $\alpha>0$ jest mniejsza od $G$ przy braku innych sił; tu dodatkowo linka ją zwiększa.
+- Rysowanie reakcji gładkiej powierzchni pod kątem innym niż prostopadły „bo tak wyszło w rachunku" — kierunek wynika z więzu, nie z rachunku.
+- Pomijanie faktu, że linka może działać tylko na naciąg: wynik ujemny oznacza, że cięgno musiałoby pchać — realnie się zegnie i zadanie traci sens.
+- Mylenie kąta linki z kątem równi przy rzutowaniu — każda siła ma swój własny kąt odniesienia.
+- Stosowanie $T_1=T_2$ dla linki przez kółko z tarciem — równość napięć wymaga gładkiej przelotki.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wypisz wszystkie więzy punktu: cięgna (kierunek = oś) i powierzchnie (kierunek = normalna).
+2. Narysuj schemat izolowanego punktu z reakcjami w tych kierunkach; zwroty przyjmij umownie.
+3. Policz niewiadome: dwie niewiadome wartości przy zbieżności to zadanie na dwa równania rzutów.
+4. Rzutuj wszystkie siły, pilnując, czy kąty mierzysz od poziomu czy od pionu.
+5. Rozwiąż równania i sprawdź znaki oraz sens: czy cięgno jest naciągnięte, czy reakcja „odpycha".
+6. Jeśli wynik wymaga cięgna na ściskanie — model się wyczerpał; zadanie wymaga pręta lub innego więzu.
+
+## Połącz z resztą kursu
+
+- **Równowaga zbieżna** — ta lekcja to trening kierunków reakcji dla dwóch równań z lekcji 3; nic nowego w algebrze, wszystko w schemacie.
+- **Trzy siły** — zadania z linką i oparciem to typowe ciała trzysiłowe; punkt zbiegu pozwala sprawdzić kierunek reakcji przegubu.
+- **Pręty dwuosiowe** — pręt różni się od cięgna tym, że może pchać; tam wartość ujemna nie unieważnia modelu, leko zmienia słowo z „napięcie" na „ściskanie".
+- **Tarcie** — moduł o tarciu dokłada do reakcji powierzchni składową styczną; kierunek normalny zostaje, dochodzi druga niewiadoma.
+- **Kratownice** — w węzłach kratownicy pręty i cięgna dają reakcje o kierunkach znanych z tej lekcji.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Jaki kierunek ma reakcja idealnego cięgna działająca na ciało?</Prompt>
+    <Answer>Dowolny — wychodzi z rachunku</Answer>
+    <Answer correct>Wzdłuż osi cięgna, od punktu zaczepienia</Answer>
+    <Answer>Prostopadle do cięgna</Answer>
+    <Hint>Cięgno wiotkie nie przenosi sił poprzecznych — co zostaje?</Hint>
+    <Explanation>
+      Idealne cięgno przenosi wyłącznie naciąg wzdłuż swojej osi, skierowany od ciała. Nie ma wzoru na jego wartość —
+      wyznacza ją dopiero równowaga, co podkreślają Osgood i OpenStax.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Reakcja gładkiej powierzchni nachylonej o $\alpha$ do poziomu ma kierunek:</Prompt>
+    <Answer>prostopadle do poziomu</Answer>
+    <Answer correct>prostopadle do powierzchni, czyli odchylony o $\alpha$ od pionu</Answer>
+    <Answer>pod kątem $\alpha$ do pionu… czyli pod $\alpha$ do poziomu — oba dobre</Answer>
+    <Hint>„Normalna" znaczy prostopadła — do czego?</Hint>
+    <Explanation>
+      Gładka powierzchnia reaguje wzdłuż normalnej, czyli prostopadle do siebie. Dla równi $\alpha$ normalna odchyla się
+      o $\alpha$ od pionu. Wartość reakcji nie jest z góry równa ciężarowi — wynika z równań równowagi.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Kula $G=100\ \text{N}$ na gładkiej równi $\alpha=30^\circ$, utrzymywana poziomą linką. Napięcie linki to:</Prompt>
+    <Answer>$86{,}6\ \text{N}$</Answer>
+    <Answer correct>$57{,}7\ \text{N}$</Answer>
+    <Answer>$115{,}5\ \text{N}$</Answer>
+    <Hint>$T=G\tan\alpha$ dla poziomej linki — ale sprawdź, co liczy $\tan$.</Hint>
+    <Explanation>
+      $T=100\cdot\tan30^\circ=57{,}7\ \text{N}$. Wartość $86{,}6\ \text{N}$ to $G\cos30^\circ$ — składowa ciężaru, a $115{,}5\ \text{N}$
+      to reakcja równi $G/\cos30^\circ$. Linka musi równoważyć poziomą składową reakcji: $N\sin30^\circ=57{,}7\ \text{N}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Linka może działać na ciało tylko na naciąg. Co oznacza wynik $T<0$?</Prompt>
+    <Answer>Błąd rachunku — napięcie nie może być ujemne</Answer>
+    <Answer correct>Model cięgna się wyczerpał: zadanie wymaga pręta lub innego więzu zdolnego do ściskania</Answer>
+    <Answer>Linka jest za krótka</Answer>
+    <Hint>Porównaj z prętem — dlaczego tam ujemny wynik jest akceptowalny?</Hint>
+    <Explanation>
+      Ujemne napięcie oznaczałoby, że cięgno musiałoby pchać. Realna linka się wtedy zegnie i przestaje być więzem
+      jednokierunkowym. Dlatego w zadaniach z cięgnami wynik ujemny sygnalizuje złą geometrię albo konieczność
+      zastąpienia cięgna prętem.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Linka przechodzi przez gładkie kółko. Jak zmienia się napięcie po drugiej stronie?</Prompt>
+    <Answer>Rośnie, bo kółko dodaje siłę</Answer>
+    <Answer correct>Nie zmienia się — gładka przelotka zmienia tylko kierunek cięgna</Answer>
+    <Answer>Maleje o połowę</Answer>
+    <Hint>Co mówi model idealnego cięgna o napięciu wzdłuż jego długości?</Hint>
+    <Explanation>
+      Dla nieważkiego, idealnego cięgna przechodzącego przez gładkie kółko napięcie po obu stronach jest równe —
+      kółko zmienia kierunek siły, nie jej wartość. Z tarcia w przelotce rezygnujemy świadomie, podobnie jak z ciężaru linki.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy model gładkiego kontaktu przestaje wystarczać?</Prompt>
+    <Answer>Gdy powierzchnia jest duża</Answer>
+    <Answer correct>Gdy poślizg jest możliwy i istotny — wtedy potrzebna składowa styczna, czyli tarcie</Answer>
+    <Answer>Gdy ciało jest lekkie</Answer>
+    <Hint>Zastanów się, co więcej przenosi realna powierzchnia oprócz nacisku.</Hint>
+    <Explanation>
+      Gładki kontakt przenosi tylko normalną. Gdy w zadaniu pojawia się poślizg, stateczność na pochylni czy docisk
+      wymagający oporu stycznego, model trzeba rozszerzyć o tarcie — to temat osobnego modułu.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Statyka — wykład 1 i 2", str. 46 i 48: zawieszenie na wiotkich cięgnach (reakcje wzdłuż cięgien) oraz oparcie o gładką powierzchnię (reakcje prostopadłe do powierzchni styku).
+- Wykład „Płaskie układy sił zbieżnych", str. 7: przykład kuli między płaszczyznami — zastosowanie obu reguł w jednym zadaniu.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 2.2: siła naciągu cięgna skierowana wzdłuż cięgna, od ciała; brak gotowego wzoru na napięcie.
+- _University Physics_ (OpenStax), rozdz. 5.6: siła normalna i napięcie, w tym przykład ciała na pochylni i rozkład ciężaru na składowe.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 3.4.3, przykład „Frictionless Incline": kierunek siły normalnej z geometrii, wartości z równań.

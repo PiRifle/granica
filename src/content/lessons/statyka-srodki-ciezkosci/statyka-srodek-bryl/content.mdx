@@ -1,0 +1,185 @@
+---
+id: statyka-srodek-bryl
+moduleId: statyka-srodki-ciezkosci
+number: 5
+title: 'Środki ciężkości brył'
+shortTitle: 'Bryły'
+description: >-
+  Objętość jako waga, centroidy prostopadłościanów, walców, stożków i półkuli
+  oraz metoda części składowych z wycięciem na przykładzie z wykładu.
+eyebrow: 'Objętość jest wagą'
+outcomes:
+  - W1 — definiuje centroid bryły jednorodnej jako średnią ważoną położeń z wagą objętości
+  - W2 — zna centroidy podstawowych brył i wykorzystuje płaszczyzny symetrii
+  - U1 — wyznacza centroid bryły złożonej metodą tabeli z objętościami dodatnimi i ujemnymi
+  - U2 — kontroluje wynik przestrzennie i jednostkowo na przykładzie z wykładu
+---
+
+Po figurach płaskich przychodzi trzeci wymiar. Bryła ma objętość, a nie pole, więc w średniej ważonej pojawia się nowa waga: $V$. Dla jednorodnego materiału masa elementu jest proporcjonalna do objętości, a gęstość skraca się w liczniku i mianowniku. Zostaje czysta geometria: środek ciężkości bryły jednorodnej zależy tylko od jej kształtu. To ten sam punkt, który w wytrzymałości materiałów nazywamy środkiem masy, a w geometrii — centroidem objętości.
+
+W praktyce najczęściej mamy do czynienia z bryłami złożonymi z prostopadłościanów, walców i stożków. Ich centroidy są znane: prostopadłościan ma środek w przecięciu przekątnych, walec w połowie wysokości, stożek w jednej czwartej wysokości od podstawy, a półkula w trzech ósmych promienia od podstawy. Jeśli bryła ma wycięcie, postępujemy tak jak przy figurach płaskich: wycięcie wprowadzamy jako objętość ujemną.
+
+W tej lekcji rozwiążemy bryłę z wykładu złożoną z dwóch prostopadłościanów i jednego wycięcia. Wynik $x_C=32{,}66$ cm, $y_C=17{,}80$ cm, $z_C=11{,}94$ cm jest dobrym testem porządku w tabeli: każda współrzędna ma własną sumę momentów, a pomylenie kolumn od razu psuje wynik. To również przygotowanie do twierdzenia Pappusa-Guldina, gdzie objętość bryły obrotowej wyznaczymy z centroidu figury płaskiej.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie objętości: prostopadłościan $abc$, walec $\pi r^2h$, stożek $\pi r^2h/3$, kula $4\pi r^3/3$, półkula $2\pi r^3/3$.
+- Wiedz, że centroid prostopadłościanu leży w przecięciu jego przekątnych, a walca w połowie wysokości na osi.
+- Pamiętaj, że stożek i ostrosłup mają centroid w $h/4$ od podstawy, a półkula w $3r/8$ od płaszczyzny podstawy.
+- Umiej prowadzić trójwymiarowy układ współrzędnych i zapisywać trzy współrzędne każdej części.
+- Rozumiesz, że wycięcie to objętość ujemna, a nie „ujemna objętość” w sensie fizycznym.
+
+## Model i intuicja
+
+Bryła jednorodna to ciało, w którym masa jest rozłożona równomiernie w całej objętości. Gęstość $\rho$ jest stała, więc ciężar elementu $dG=\rho g\,dV$. Po podstawieniu do wzorów na środek ciężkości współczynniki $\rho g$ skracają się i zostaje średnia ważona położeń z wagą $dV$. Dla bryły złożonej z części o znanych objętościach sumy są skończone, a dla bryły o gładkim kształcie przechodzą w całki objętościowe.
+
+Każda współrzędna ma swój moment statyczny objętości. Moment względem płaszczyzny $yz$ to $\int x\,dV$, względem $zx$ — $\int y\,dV$, a względem $xy$ — $\int z\,dV$. Dzieląc je przez objętość całkowitą, otrzymujemy $x_C$, $y_C$ i $z_C$. Nazwy płaszczyzn mogą się wydawać abstrakcyjne, ale reguła jest prosta: współrzędna $x$ jest ważona odległością od płaszczyzny $yz$, czyli „jak daleko w prawo”.
+
+Symetria daje darmowe równania. Jeśli bryła ma płaszczyznę symetrii, centroid leży na tej płaszczyźnie. Jeśli ma dwie lub trzy płaszczyzny symetrii, przecięcie tych płaszczyzn wyznacza centroid bez całkowania. Dla prostopadłościanu są to trzy płaszczyzny symetrii, dla walca — nieskończenie wiele płaszczyzn przechodzących przez oś, dla półkuli — płaszczyzna podstawy nie jest płaszczyzną symetrii, więc centroid nie leży na niej, lecz w odległości $3r/8$ od niej.
+
+Ograniczenia modelu: bryła musi być jednorodna, a wycięcia muszą być w całości zawarte w materiale. Przy zmiennej gęstości trzeba ważyć masą, nie objętością. Przy bardzo złożonym kształcie metoda części składowych może wymagać wielu kawałków, ale nadal jest poprawna, o ile podział jest rozłączny.
+
+## Laboratorium: co ustawić
+
+Zbuduj prostopadłościan i sprawdź, że centroid wypada w jego środku. Dodaj drugi prostopadłościan obok i obserwuj przesunięcie centroidu w stronę większej objętości. Następnie wytnij z bryły mniejszy prostopadłościan i sprawdź, czy centroid przesuwa się w stronę przeciwną do wycięcia. Na końcu ustaw wycięcie symetrycznie względem środka i sprawdź, czy odpowiednia współrzędna wraca do wartości wyjściowej.
+
+<Lab id="staticsCentroid" />
+
+## Definicje i jednostki
+
+| Pojęcie                        | Symbol        | Znaczenie                                                          | Jednostka    |
+| ------------------------------ | ------------- | ------------------------------------------------------------------ | ------------ |
+| Objętość części                | $V_i$         | Objętość i-tej części; dodatnia dla materiału, ujemna dla wycięcia | m³, cm³, mm³ |
+| Objętość netto                 | $V$           | Suma objętości części: $V=\sum V_i$                                | m³, cm³, mm³ |
+| Moment statyczny względem $yz$ | $Q_{yz}$      | $\sum x_iV_i$                                                      | m⁴, cm⁴, mm⁴ |
+| Moment statyczny względem $zx$ | $Q_{zx}$      | $\sum y_iV_i$                                                      | m⁴, cm⁴, mm⁴ |
+| Moment statyczny względem $xy$ | $Q_{xy}$      | $\sum z_iV_i$                                                      | m⁴, cm⁴, mm⁴ |
+| Współrzędne centroidu          | $x_C,y_C,z_C$ | $Q_{yz}/V$, $Q_{zx}/V$, $Q_{xy}/V$                                 | m, cm, mm    |
+| Gęstość                        | $\rho$        | Masa na jednostkę objętości                                        | kg/m³        |
+
+Momenty statyczne objętości mają jednostkę długości do czwartej, bo objętość razy długość daje m⁴. Po podzieleniu przez objętość w m³ otrzymujemy metr. W zadaniach z bryłami często wygodnie jest liczyć w centymetrach: objętość w cm³, momenty w cm⁴, centroid w cm. Spójność jednostek jest tu jeszcze ważniejsza niż przy figurach płaskich, bo mamy trzy kolumny momentów.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+x_C=\frac{\sum_i x_iV_i}{\sum_i V_i}=\frac{Q_{yz}}{V},\qquad
+y_C=\frac{\sum_i y_iV_i}{\sum_i V_i}=\frac{Q_{zx}}{V},\qquad
+z_C=\frac{\sum_i z_iV_i}{\sum_i V_i}=\frac{Q_{xy}}{V}
+$$
+
+<Caption>Centroid bryły złożonej. Objętości wycięć podstawiamy ze znakiem ujemnym, a ich współrzędne są współrzędnymi środka wycięcia. Wzory dotyczą bryły jednorodnej; przy zmiennej gęstości wagą jest masa, a nie objętość.</Caption>
+</Formula>
+
+Wyprowadzenie jest identyczne jak dla figur płaskich, tylko całka biegnie po objętości. Dzielimy bryłę na elementy $dV$, każdy o środku $(x,y,z)$. Moment względem płaszczyzny $yz$ wynosi $x\,dV$. Sumując i przechodząc do granicy, otrzymujemy $Q_{yz}=\int x\,dV$. Dla bryły złożonej całka zamienia się na sumę po częściach, a dla wycięcia podstawiamy $V_i<0$. Po podzieleniu przez objętość netto każda współrzędna jest gotowa.
+
+Dla bryły jednorodnej gęstość się skraca, więc centroid objętości pokrywa się ze środkiem masy. To wygodne: nie trzeba znać materiału, żeby wyznaczyć położenie środka ciężkości. Wystarczy geometria. Wyjątkiem jest bryła o zmiennej gęstości, np. żeliwny odlew z pustkami lub kompozyt z włóknami — wtedy trzeba wrócić do masy.
+
+<AnimatedSolution id="ex-statyka-srodek-bryl" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dodawanie objętości wycięcia zamiast odejmowania. Wycięcie to brak materiału, więc $V_i<0$.
+- Używanie wzorów na centroid figury płaskiej do bryły. Bryła ma trzy współrzędne i wagę $V$, nie $A$.
+- Branie $h/2$ dla stożka lub ostrosłupa. Ich centroid leży w $h/4$ od podstawy.
+- Branie $r/2$ dla półkuli. Centroid półkuli leży w $3r/8$ od płaszczyzny podstawy.
+- Pomylenie kolumn momentów: $x_iV_i$ daje $x_C$, ale $z_iV_i$ daje $z_C$, a nie $y_C$.
+- Mieszanie jednostek: objętość w cm³, moment w mm⁴, centroid w cm — wynik nie ma sensu.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy bryła jest jednorodna i czy można ją podzielić na prostopadłościany, walce, stożki lub półkule.
+2. Przyjmij układ współrzędnych i zapisz trzy współrzędne środka każdej części.
+3. Zbuduj tabelę: $V_i$, $x_i$, $y_i$, $z_i$, $x_iV_i$, $y_iV_i$, $z_iV_i$. Wycięcia wpisz jako objętości ujemne.
+4. Zsumuj objętości i trzy kolumny momentów. Sprawdź, czy objętość netto jest dodatnia.
+5. Podziel każdy moment przez objętość netto.
+6. Skorzystaj z symetrii: płaszczyzna symetrii od razu daje jedną współrzędną.
+7. Sprawdź, czy centroid leży w obrysie bryły i czy przesuwa się w stronę największej części.
+
+## Połącz z resztą kursu
+
+- **Figury płaskie** — metoda części składowych jest ta sama, tylko wagą staje się objętość, a nie pole.
+- **Twierdzenia Pappusa-Guldina** — objętość bryły obrotowej wyznacza się z centroidu figury płaskiej; to bezpośrednie zastosowanie tej lekcji.
+- **Środek masy** — dla bryły jednorodnej centroid objętości pokrywa się ze środkiem masy, więc gęstość nie jest potrzebna.
+- **Geometria przekrojów** — moment bezwładności bryły względem osi liczy się względem centroidu; jego położenie trzeba znać najpierw.
+- **Ciężar własny konstrukcji** — wypadkową ciężaru bryły zaczepia się w jej centroidzie; bez tego nie da się poprawnie zredukować obciążenia.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Przy wyznaczaniu centroidu jednorodnej bryły wagą każdej części jest:</Prompt>
+    <Answer>jej pole powierzchni</Answer>
+    <Answer correct>jej objętość</Answer>
+    <Answer>jej największy wymiar</Answer>
+    <Hint>Masa jednorodnej bryły jest proporcjonalna do czego?</Hint>
+    <Explanation>
+      Przy stałej gęstości masa fragmentu jest proporcjonalna do objętości. Gęstość skraca się w liczniku i mianowniku,
+      więc centroid zależy tylko od kształtu bryły.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Stożek ma wysokość $h=30$ cm. Odległość jego centroidu od podstawy wynosi:</Prompt>
+    <Answer>$15$ cm</Answer>
+    <Answer correct>$7{,}5$ cm</Answer>
+    <Answer>$10$ cm</Answer>
+    <Hint>Centroid stożka leży w jednej czwartej wysokości od podstawy.</Hint>
+    <Explanation>
+      $z_C=h/4=30/4=7{,}5$ cm. Wartość $15$ cm to połowa wysokości, a $10$ cm to $h/3$ — typowa pomyłka z polem trójkąta.
+      Dla stożka i ostrosłupa obowiązuje $h/4$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Półkula o promieniu $r=12$ cm. Odległość centroidu od płaszczyzny podstawy wynosi:</Prompt>
+    <Answer>$6$ cm</Answer>
+    <Answer correct>$4{,}5$ cm</Answer>
+    <Answer>$12$ cm</Answer>
+    <Hint>Dla półkuli użyj $3r/8$.</Hint>
+    <Explanation>
+      $3r/8=3\cdot12/8=4{,}5$ cm. Wartość $6$ cm to połowa promienia, a $12$ cm to promień. Centroid półkuli
+      leży na osi symetrii, bliżej podstawy niż środka kuli.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W przykładzie z wykładu współrzędna $x_C$ bryły wynosi:</Prompt>
+    <Answer>$17{,}80$ cm</Answer>
+    <Answer correct>$32{,}66$ cm</Answer>
+    <Answer>$35{,}00$ cm</Answer>
+    <Hint>$x_C=1\,747\,500/53\,500$. Wartość $17{,}80$ to $y_C$, a $35$ to środek dużej bryły bez wycięcia.</Hint>
+    <Explanation>
+      $x_C=1\,747\,500/53\,500=32{,}66$ cm. Wycięcie i mniejsza bryła przesuwają wynik względem środka dużej części,
+      który leży w $x=35$ cm. Wartość $17{,}80$ cm to współrzędna $y_C$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Bryła ma płaszczyznę symetrii $x=0$. Co można powiedzieć o jej centroidzie?</Prompt>
+    <Answer>leży w środku największej części</Answer>
+    <Answer correct>leży na płaszczyźnie $x=0$, czyli $x_C=0$</Answer>
+    <Answer>ma wszystkie współrzędne równe zeru</Answer>
+    <Hint>Symetria względem płaszczyzny znosi moment względem tej płaszczyzny.</Hint>
+    <Explanation>
+      Dla każdej części po stronie $x>0$ istnieje symetryczna część po stronie $x<0$, więc suma $x_iV_i$ znika.
+      Stąd $x_C=0$. Współrzędne $y_C$ i $z_C$ mogą być różne od zera.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dwa jednakowe prostopadłościany $10\times10\times10$ mają środki w $(5;\,5;\,5)$ i $(15;\,5;\,5)$. Gdzie leży centroid układu?</Prompt>
+    <Answer>$(5;\,5;\,5)$</Answer>
+    <Answer correct>$(10;\,5;\,5)$</Answer>
+    <Answer>$(15;\,5;\,5)$</Answer>
+    <Hint>Przy równych objętościach centroid to średnia arytmetyczna środków.</Hint>
+    <Explanation>
+      $x_C=(5+15)/2=10$ cm, a $y_C=z_C=5$ cm. Centroid leży w połowie odległości między środkami, czyli
+      na wspólnej ścianie obu brył.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Środek ciężkości i środek masy", str. 5–9: przejście od bryły do całki objętościowej i wzory na centroid bryły jednorodnej; przykład 4 z prostopadłościanami i wycięciem.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 7.2–7.5: środek ciężkości, centroidy i metoda części składowych w trzech wymiarach.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 7.1–7.2: środek masy bryły i rozkład ciągły.
+- _University Physics_ (OpenStax), rozdz. 9.6: środek masy układu cząstek i rozkładu ciągłego w trzech wymiarach.

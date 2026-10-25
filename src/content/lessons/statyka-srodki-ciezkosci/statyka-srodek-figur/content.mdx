@@ -1,0 +1,197 @@
+---
+id: statyka-srodek-figur
+moduleId: statyka-srodki-ciezkosci
+number: 3
+title: 'Środki ciężkości figur płaskich: figury proste i całkowanie'
+shortTitle: 'Figury proste'
+description: >-
+  Pole jako waga, centroidy prostokąta, trójkąta, koła i półkola oraz
+  całkowanie po paskach na przykładzie paraboli.
+eyebrow: 'Pole zamiast długości'
+outcomes:
+  - W1 — definiuje centroid figury płaskiej jako średnią ważoną położeń z wagą pola
+  - W2 — rozpoznaje centroidy figur prostych i korzysta z symetrii
+  - U1 — wyznacza centroid figury prostej z gotowego wzoru lub przez całkowanie po paskach
+  - U2 — kontroluje wynik, porównując go z tabelą i obrysem figury
+---
+
+Po liniach przychodzi naturalny następny krok: figura płaska. Zamiast drutu mamy teraz cienką blachę, tarczę albo przekrój, którego ciężar rozkłada się na powierzchni. Dla jednorodnej blachy o stałej grubości masa każdego fragmentu jest proporcjonalna do jego pola. Wagą w średniej ważonej staje się więc pole, a nie długość. To jedna z tych zmian, które wyglądają na kosmetyczne, ale całkowicie zmieniają wynik: centroid łuku półkolistego i centroid wypełnionego półkola to dwa różne punkty.
+
+Większość figur w zadaniach dzieli się na kilka kształtów, których centroidy są znane z tabeli: prostokąt, trójkąt, koło, półkole, ćwiartka koła. Wystarczy wtedy podstawić pole i współrzędne środka każdej części. Dopiero gdy brzeg jest krzywą opisaną równaniem — parabola, łuk kosinusowy, dowolna funkcja — trzeba całkować. Całkowanie po paskach jest jednak tylko systematycznym sposobem dodawania nieskończenie cienkich prostokątów, a nie osobną teorią.
+
+Ta lekcja porządkuje oba podejścia. Najpierw przypominamy wzory dla figur prostych, potem wyprowadzamy centroid trójkąta przez całkę, a na końcu liczymy figurę ograniczoną parabolą. Przykład z parabolą jest o tyle ważny, że pokazuje, jak wybrać element całkowania i gdzie leży centroid paska. Ten sam schemat wróci w figurach złożonych i w bryłach.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie pola: prostokąt $bh$, trójkąt $bh/2$, koło $\pi r^2$, półkole $\pi r^2/2$, ćwiartka koła $\pi r^2/4$.
+- Umiej zapisać równanie prostej i paraboli oraz policzyć prostą całkę wielomianu.
+- Pamiętaj, że centroid figury płaskiej to średnia ważona położeń, a wagą jest pole.
+- Wiedz, że oś symetrii figury przechodzi przez jej centroid.
+- Odróżniaj centroid łuku (waga długości) od centroidu wypełnionej figury (waga pola).
+
+## Model i intuicja
+
+Figura płaska w tym module to jednorodna, cienka płytka o stałej grubości. Jej ciężar jest proporcjonalny do pola, więc po podstawieniu $dG=\rho g t\,dA$ współczynniki $\rho$, $g$ i grubość $t$ skracają się. Zostaje czysta geometria: środek ciężkości pokrywa się z centroidem pola. To założenie jest spełnione dla blachy stalowej, szyby, tarczy o stałej grubości i dla większości przekrojów analizowanych w geometrii.
+
+Dzielimy figurę na nieskończenie małe elementy pola $dA$. Każdy element ma własny środek $(x,y)$ i własne pole. Moment względem osi $y$ to $x\,dA$, a względem osi $x$ to $y\,dA$. Po zsumowaniu i podzieleniu przez pole całkowite otrzymujemy współrzędne centroidu. To dokładnie ten sam schemat co dla linii, tylko zamiast $dL$ występuje $dA$.
+
+W praktyce najwygodniejszy jest podział na pionowe paski. Pasek o szerokości $dx$ i wysokości $y(x)$ ma pole $dA=y\,dx$, a jego własny środek leży w połowie wysokości, czyli w punkcie $(x;\,y/2)$. Dlatego do współrzędnej $x_C$ wystarczy całka $x\,y\,dx$, a do $y_C$ — całka $\tfrac12 y^2\,dx$. Ten sam wynik można uzyskać paskami poziomymi, ale wtedy role osi się zamieniają i łatwo o pomyłkę.
+
+Ograniczenia modelu są takie same jak poprzednio. Przy zmiennej grubości lub niejednorodnym materiale pole przestaje być wagą. Przy figurze z otworem nie trzeba osobno całkować — otwór potraktujemy jako ujemne pole w następnej lekcji. Tutaj zakładamy, że figura jest jednolita i nie ma wycięć.
+
+## Laboratorium: co ustawić
+
+Ustaw prostokąt, trójkąt i półkole. Porównaj położenie centroidu z tabelą: dla prostokąta powinien wypaść w przecięciu przekątnych, dla trójkąta w jednej trzeciej wysokości od podstawy, a dla półkola w odległości $4r/(3\pi)$ od średnicy. Następnie zmień wysokość trójkąta i sprawdź, czy centroid nadal dzieli wysokość w stosunku $1:2$.
+
+<Lab id="staticsCentroid" />
+
+## Definicje i jednostki
+
+| Pojęcie                | Symbol    | Znaczenie                                         | Jednostka |
+| ---------------------- | --------- | ------------------------------------------------- | --------- |
+| Figura płaska          | $A$       | Obszar o polu $A$, jednorodny i o stałej grubości | m², mm²   |
+| Element pola           | $dA$      | Nieskończenie mały fragment figury                | m², mm²   |
+| Moment statyczny pola  | $Q_y,Q_x$ | $\int x\,dA$ oraz $\int y\,dA$                    | m³, mm³   |
+| Współrzędne centroidu  | $x_C,y_C$ | Średnie ważone położeń, wagą pole                 | m, mm     |
+| Pasek pionowy          | —         | Element o szerokości $dx$ i wysokości $y(x)$      | —         |
+| Gęstość powierzchniowa | $\rho_A$  | Masa na jednostkę pola                            | kg/m²     |
+
+Moment statyczny pola ma jednostkę długości do trzeciej, bo pole razy długość daje m³. Po podzieleniu przez pole w m² otrzymujemy metr. W zadaniach z blachą często podajemy pola w cm², a współrzędne w cm; wtedy momenty są w cm³. Mieszanie cm i mm w jednej tabeli jest najczęstszą przyczyną błędów rachunkowych.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+x_C=\frac{\int_A x\,dA}{\int_A dA}=\frac{Q_y}{A},\qquad
+y_C=\frac{\int_A y\,dA}{\int_A dA}=\frac{Q_x}{A}
+$$
+
+<Caption>Definicja centroidu figury płaskiej. Dla figury złożonej z części o znanych polach całki zastępujemy sumami: $x_C=\sum x_iA_i/\sum A_i$ oraz $y_C=\sum y_iA_i/\sum A_i$. Wzory dotyczą jednorodnej płytki o stałej grubości.</Caption>
+</Formula>
+
+Dla figury ograniczonej od dołu osią $x$, od góry krzywą $y=f(x)$, a po bokach prostymi $x=a$ i $x=b$, pionowy pasek ma pole $dA=f(x)\,dx$, a jego środek leży w $(x;\,f(x)/2)$. Wtedy
+
+<Formula>
+$$
+A=\int_a^b f(x)\,dx,\qquad
+Q_y=\int_a^b x f(x)\,dx,\qquad
+Q_x=\frac12\int_a^b \bigl[f(x)\bigr]^2\,dx
+$$
+
+<Caption>Praktyczna postać całkowania po pionowych paskach. Pierwsza całka daje pole, druga moment względem osi $y$, trzecia moment względem osi $x$. Współczynnik $1/2$ pochodzi z tego, że środek paska leży w połowie jego wysokości.</Caption>
+</Formula>
+
+Sprawdźmy to na trójkącie prostokątnym o podstawie $b$ i wysokości $h$, którego przeciwprostokątna ma równanie $y=h(1-x/b)$. Pole wynosi $A=bh/2$. Moment względem osi $y$:
+
+$$
+Q_y=\int_0^b x\,h\left(1-\frac{x}{b}\right)dx
+=h\left(\frac{b^2}{2}-\frac{b^2}{3}\right)=\frac{hb^2}{6}.
+$$
+
+Stąd $x_C=Q_y/A=(hb^2/6)/(bh/2)=b/3$. Analogicznie $Q_x=\tfrac12\int_0^b h^2(1-x/b)^2dx=h^2b/6$, więc $y_C=h/3$. Centroid trójkąta leży w jednej trzeciej długości od przyprostokątnej i w jednej trzeciej wysokości od podstawy — w przecięciu środkowych.
+
+<AnimatedSolution id="ex-statyka-srodek-figur" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Używanie wzoru na centroid linii do figury płaskiej. Łuk półkolisty ma $2r/\pi$, ale wypełnione półkole $4r/(3\pi)$.
+- Branie połowy wysokości jako centroidu trójkąta. Trójkąt ma centroid w $h/3$ od podstawy, nie w $h/2$.
+- Zły środek paska: dla pionowego paska to $(x;\,y/2)$, a nie $(x;\,y)$.
+- Pominięcie współczynnika $1/2$ w całce na $Q_x$. To on odpowiada za położenie środka paska w połowie wysokości.
+- Całkowanie po niewłaściwych granicach lub odwrócenie funkcji. Naszkicuj figurę i zaznacz, który pasek jest nad osią $x$.
+- Mieszanie jednostek: pole w cm², a moment w mm³ daje współrzędną w niewłaściwej skali.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy figura jest jednorodna i ma stałą grubość. Jeśli tak, licz na polach.
+2. Podziel figurę na kształty z tabeli: prostokąty, trójkąty, koła, półkola, ćwiartki.
+3. Dla każdej części zapisz pole i współrzędne jej centroidu; przy symetrii od razu ustal jedną współrzędną.
+4. Jeśli brzeg jest krzywą, wybierz pasek pionowy lub poziomy i zapisz $dA$ oraz środek paska.
+5. Policz całki na pole i momenty, a następnie podziel momenty przez pole.
+6. Sprawdź wynik z tabelą dla znanego kształtu albo z obrysem figury: centroid musi leżeć wewnątrz wypukłej otoczki.
+
+## Połącz z resztą kursu
+
+- **Centroidy linii** — ta sama idea średniej ważonej, ale wagą jest pole; porównanie łuku i półkola pokazuje różnicę.
+- **Figury złożone** — następna lekcja dodaje pola i odejmuje otwory; metoda tabeli jest bezpośrednim rozszerzeniem tej lekcji.
+- **Środki ciężkości brył** — po polu przyjdzie objętość; wzory i procedura pozostaną takie same.
+- **Geometria przekrojów** — centroid przekroju jest początkiem układu, względem którego liczy się momenty bezwładności i wskaźnik wytrzymałości.
+- **Zginanie** — oś obojętna przechodzi przez centroid przekroju; błąd w centroidzie przesuwa cały rozkład naprężeń.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Przy wyznaczaniu centroidu jednorodnej figury płaskiej o stałej grubości wagą każdej części jest:</Prompt>
+    <Answer>jej obwód</Answer>
+    <Answer correct>jej pole</Answer>
+    <Answer>kwadrat odległości od początku układu</Answer>
+    <Hint>Masa jednorodnej płytki o stałej grubości jest proporcjonalna do czego?</Hint>
+    <Explanation>
+      Przy stałej grubości i gęstości masa fragmentu jest proporcjonalna do pola. Grubość i gęstość skracają się
+      w liczniku i mianowniku, więc centroid zależy tylko od geometrii figury.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Trójkąt prostokątny ma podstawę $60$ mm i wysokość $90$ mm. Odległość centroidu od podstawy wynosi:</Prompt>
+    <Answer>$45$ mm</Answer>
+    <Answer correct>$30$ mm</Answer>
+    <Answer>$20$ mm</Answer>
+    <Hint>Centroid trójkąta leży w jednej trzeciej wysokości od podstawy.</Hint>
+    <Explanation>
+      $y_C=h/3=90/3=30$ mm. Wartość $45$ mm to połowa wysokości, a $20$ mm to odległość od pionowej przyprostokątnej
+      ($b/3=60/3$). To dwie różne współrzędne.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Półkole o promieniu $r=20$ mm. Odległość centroidu od średnicy wynosi:</Prompt>
+    <Answer>$12{,}73$ mm</Answer>
+    <Answer correct>$8{,}49$ mm</Answer>
+    <Answer>$10{,}00$ mm</Answer>
+    <Hint>Dla półkola (figury wypełnionej) użyj $4r/(3\pi)$; $2r/\pi$ dotyczy łuku.</Hint>
+    <Explanation>
+      $4r/(3\pi)=80/(3\pi)=8{,}49$ mm. Wartość $12{,}73$ mm to $2r/\pi$ dla łuku półkolistego, a $10$ mm to połowa promienia.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Ćwiartka koła o promieniu $r=20$ mm leży w pierwszej ćwiartce, ograniczona osiami. Współrzędne jej centroidu wynoszą:</Prompt>
+    <Answer>$x_C=y_C=12{,}73$ mm</Answer>
+    <Answer correct>$x_C=y_C=8{,}49$ mm</Answer>
+    <Answer>$x_C=y_C=10{,}00$ mm</Answer>
+    <Hint>Dla ćwiartki koła $x_C=y_C=4r/(3\pi)$.</Hint>
+    <Explanation>
+      $4r/(3\pi)=80/(3\pi)=8{,}49$ mm. Wartość $12{,}73$ mm to $2r/\pi$ dla ćwiartki łuku, a $10$ mm to połowa promienia.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Centroid trójkąta dowolnego leży:</Prompt>
+    <Answer>w połowie wysokości, na osi symetrii</Answer>
+    <Answer correct>w przecięciu środkowych, w jednej trzeciej wysokości od podstawy</Answer>
+    <Answer>w środku okręgu opisanego</Answer>
+    <Hint>Przypomnij sobie, jak dzielą się środkowe trójkąta.</Hint>
+    <Explanation>
+      Środkowe przecinają się w stosunku $2:1$ od wierzchołka, więc centroid leży w $1/3$ wysokości od podstawy.
+      Nie jest to środek okręgu opisanego ani połowa wysokości.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Spandrel paraboliczny $y=0{,}025x^2$ dla $x$ od $0$ do $60$ mm ma $x_C$ i $y_C$ równe:</Prompt>
+    <Answer>$x_C=30$ mm, $y_C=45$ mm</Answer>
+    <Answer correct>$x_C=45$ mm, $y_C=27$ mm</Answer>
+    <Answer>$x_C=45$ mm, $y_C=30$ mm</Answer>
+    <Hint>Dla $y=kx^2$: $x_C=3a/4$, $y_C=3h/10$, gdzie $h$ to wysokość przy $x=a$.</Hint>
+    <Explanation>
+      $x_C=3\cdot60/4=45$ mm, $y_C=3\cdot90/10=27$ mm. Wartości $30$ i $45$ odpowiadają połowie szerokości
+      i połowie wysokości, a nie centroidowi spandrela.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Środek ciężkości i środek masy", str. 9–10 i 16: wzory na centroid powierzchni, tabela figur prostych, w tym półkola, ćwiartki koła i spandrela parabolicznego.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 7.7: całkowanie po paskach, pole pod krzywą i centroid spandrela.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 7.2: centroidy figur złożonych i tablice kształtów.
+- _University Physics_ (OpenStax), rozdz. 9.6: środek masy rozkładu ciągłego jako granica sum po elementach.

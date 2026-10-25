@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowLeft, Search, Shapes } from 'lucide-react'
 import { workedSolutions } from '../content/course'
 import { SolutionPlayer } from './SolutionPlayer'
@@ -7,6 +7,7 @@ import styles from './SolutionDebug.module.css'
 export function SolutionDebug({ onBack }: { onBack: () => void }) {
   const [query, setQuery] = useState('')
   const [limit, setLimit] = useState(12)
+  const loadMoreRef = useRef<HTMLDivElement | null>(null)
   const normalized = query.trim().toLowerCase()
 
   const visible = useMemo(
@@ -26,6 +27,27 @@ export function SolutionDebug({ onBack }: { onBack: () => void }) {
   const totalScenes = workedSolutions.reduce((sum, solution) => sum + solution.scenes.length, 0)
   const visibleScenes = visible.reduce((sum, solution) => sum + solution.scenes.length, 0)
   const shown = visible.slice(0, limit)
+  const hasMore = visible.length > limit
+
+  useEffect(() => {
+    if (!hasMore || typeof IntersectionObserver === 'undefined') {
+      return
+    }
+    const node = loadMoreRef.current
+    if (!node) {
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setLimit((value) => Math.min(value + 12, visible.length))
+        }
+      },
+      { rootMargin: '200px 0px' },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [hasMore, limit, visible.length])
 
   return (
     <div className={styles.page}>
@@ -81,10 +103,10 @@ export function SolutionDebug({ onBack }: { onBack: () => void }) {
         ))}
 
         {visible.length === 0 && <p className={styles.empty}>Brak odtwarzaczy pasujących do „{query}”.</p>}
-        {visible.length > limit && (
-          <button className={styles.more} type="button" onClick={() => setLimit((value) => value + 12)}>
-            Pokaż więcej ({visible.length - limit})
-          </button>
+        {hasMore && (
+          <p ref={loadMoreRef} className={styles.empty} role="status">
+            Wczytywanie kolejnych rozwiązań…
+          </p>
         )}
       </main>
     </div>

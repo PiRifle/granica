@@ -164,7 +164,7 @@ svg {
   display: block;
 }
 .logo-dot {
-  color: var(--orange);
+  color: var(--accent);
 }
 .logo small {
   display: block;

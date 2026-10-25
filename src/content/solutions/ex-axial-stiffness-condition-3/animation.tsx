@@ -114,7 +114,7 @@ export function AxialStiffnessCondition3Animation({ scene, index, playing, scene
             stroke={color}
             strokeWidth={2}
             initial={false}
-            animate={{ x: leftEdge, width: halfWidth * 2, height: bottomY - top, fill: color, stroke: color }}
+            animate={{ width: halfWidth * 2, height: bottomY - top, fill: color, stroke: color }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
 

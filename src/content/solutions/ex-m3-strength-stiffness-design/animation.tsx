@@ -143,7 +143,7 @@ export function StrengthStiffnessDesignAnimation({ scene, playing, sceneProgress
             stroke={color}
             strokeWidth={2}
             initial={false}
-            animate={{ x: leftEdge, width: halfWidth * 2, height: bottomY - TOP, fill: color, stroke: color }}
+            animate={{ width: halfWidth * 2, height: bottomY - TOP, fill: color, stroke: color }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
 

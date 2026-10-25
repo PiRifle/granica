@@ -26,6 +26,25 @@ const loaders: Record<string, () => Promise<{ default: ComponentType }>> = {
     import('../labs/StressTransformLab').then((module) => ({ default: module.StressTransformLab })),
   rosette: () => import('../labs/RosetteLab').then((module) => ({ default: module.RosetteLab })),
   combined: () => import('../labs/CombinedLab').then((module) => ({ default: module.CombinedLab })),
+  staticsVector: () => import('../labs/StaticsVectorLab').then((module) => ({ default: module.StaticsVectorLab })),
+  staticsSupports: () =>
+    import('../labs/StaticsSupportsLab').then((module) => ({ default: module.StaticsSupportsLab })),
+  staticsMoment: () => import('../labs/StaticsMomentLab').then((module) => ({ default: module.StaticsMomentLab })),
+  staticsConcurrent: () =>
+    import('../labs/StaticsConcurrentLab').then((module) => ({ default: module.StaticsConcurrentLab })),
+  staticsPlanar: () => import('../labs/StaticsPlanarLab').then((module) => ({ default: module.StaticsPlanarLab })),
+  staticsSpatial: () => import('../labs/StaticsSpatialLab').then((module) => ({ default: module.StaticsSpatialLab })),
+  staticsTruss: () => import('../labs/StaticsTrussLab').then((module) => ({ default: module.StaticsTrussLab })),
+  staticsTrussExtended: () =>
+    import('../labs/StaticsTrussExtendedLab').then((module) => ({ default: module.StaticsTrussExtendedLab })),
+  staticsFriction: () =>
+    import('../labs/StaticsFrictionLab').then((module) => ({ default: module.StaticsFrictionLab })),
+  staticsBelt: () => import('../labs/StaticsBeltLab').then((module) => ({ default: module.StaticsBeltLab })),
+  staticsInternal: () =>
+    import('../labs/StaticsInternalLab').then((module) => ({ default: module.StaticsInternalLab })),
+  staticsCentroid: () =>
+    import('../labs/StaticsCentroidLab').then((module) => ({ default: module.StaticsCentroidLab })),
+  staticsPappus: () => import('../labs/StaticsPappusLab').then((module) => ({ default: module.StaticsPappusLab })),
 }
 
 export const labRegistry: Record<string, ComponentType> = Object.fromEntries(

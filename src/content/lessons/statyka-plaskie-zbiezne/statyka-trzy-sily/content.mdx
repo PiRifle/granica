@@ -1,0 +1,176 @@
+---
+id: statyka-trzy-sily
+moduleId: statyka-plaskie-zbiezne
+number: 4
+title: 'Równowaga trzech sił nierównoległych'
+shortTitle: Trzy siły
+description: >-
+  Twierdzenie o zbieżności linii działania, trójkąt sił i ciała trzysiłowe.
+  Jak trzeci warunek ratuje zadanie z trzema niewiadomymi.
+eyebrow: 'Trzy siły, jeden punkt'
+outcomes:
+  - W1 — formułuje i uzasadnia twierdzenie o zbieżności trzech sił w równowadze
+  - W2 — rozpoznaje ciała trzysiłowe i dobiera punkt przecięcia linii działania
+  - U1 — rozwiązuje zadanie o trzech siłach trójkątem sił lub równaniami rzutów z wykorzystaniem zbieżności
+---
+
+W lekcji 3 mieliśmy dwie niewiadome i dwa równania. A gdy niewiadomych jest trzy? Typowa sytuacja: przegub (dwie składowe reakcji) plus linka lub oparcie (trzecia niewiadoma). Tu ratuje cię twierdzenie, które wprost podaje wykład: trzy nierównoległe siły leżące w jednej płaszczyźnie mogą być w równowadze tylko wtedy, gdy ich proste działania przecinają się w jednym punkcie. Ta zbieżność jest dodatkowym, geometrycznym równaniem — i często pozwala rozwiązać zadanie bez układania trzech równań.
+
+Twierdzenie ma piękny, krótki dowód. Weźmy dwie z trzech sił — niech to będą siła w linie $S$ i obciążenie $P$. Ich proste działania przecinają się w pewnym punkcie $E$. Wypadkowa $S$ i $P$ przechodzi przez $E$. W równowadze trzecia siła, reakcja przegubu $R_A$, musi być tej wypadkowej równa co do wartości i przeciwie, czyli leżeć na tej samej prostej — a ta prosta przechodzi przez $E$ i punkt $A$. Znając kierunek $R_A$, redukujemy liczbę niewiadomych do dwóch: wartości $R_A$ i $S$. Geometrycznie całość opisuje trójkąt sił: trzy wektory ułożone końcówka do początku muszą tworzyć zamknięty trójkąt.
+
+W tej lekcji rozwiązujemy zadanie prosto z wykładu — belka zawieszona na linie i przegubie — najpierw równaniami równowagi, a potem sprawdzamy, że wszystkie trzy siły faktycznie przecinają się w jednym punkcie. To drugie jest dobrym testem poprawności całego rachunku.
+
+## Zanim zaczniesz
+
+- Umiej zapisać dwa równania równowagi i policzyć moment siły względem punktu (ramię razy siła, ze znakiem).
+- Wiedz, że reakcja cięgna działa wzdłuż osi cięgna, a reakcja przegubu ma dowolny kierunek — zapisujemy ją jako dwie składowe lub jedną siłę o nieznanym kierunku.
+- Przypomnij sobie metodę trójkąta sił z lekcji o wypadkowej: w równowadze trójkąt musi być zamknięty.
+- Upewnij się, że rozumiesz, czym jest prosta działania siły: prosta zawierająca wektor siły, przedłużona bez limitu.
+
+## Model i intuicja
+
+Ciało, na które działają dokładnie trzy siły, nazywamy ciałem trzysiłowym. Baker zaleca rozpoznawać takie ciała świadomie: zamiast od razu rozbijać wszystkie siły na składowe, warto narysować trzy pełne wektory i skorzystać z twierdzenia o zbieżności, a dopiero potem — jeśli trzeba — przejść do rachunku. Trójkąt sił daje drugi, geometryczny obraz tego samego: skalując boki trójkąta, mierzysz niewiadome wartości, a znając wszystkie kąty trójkąta, liczysz je trygonometrycznie (prawem sinusów).
+
+Są dwie granice stosowalności. Po pierwsze, twierdzenie dotyczy trzech sił nierównoległych; dla sił równoległych punkty przecięcia odsyłają do nieskończoności i zadanie trzeba rozwiązywać momentami. Po drugie, trójkąt sił wymaga co najwyżej dwóch niewiadomych — nie może być ich trzy, bo trójkąt ma tylko trzy boki i znając wszystkie kąty oraz jeden bok, wyznaczamy pozostałe dwa.
+
+Najważniejsza umiejętność praktyczna: dobór punktu przecięcia. Gdy zadanie podaje geometrię położenia sił (odległości, kąty), punkt $E$ konstruujesz z rysunku, a równanie momentów względem $E$ eliminuje dwie niewiadome naraz. To wariant strategii „sumuj momenty tam, gdzie przechodzi niewiadoma" — tutaj niewiadome przecinają się w jednym punkcie, więc jedno równanie momentów rozwiązuje zadanie.
+
+## Laboratorium: co ustawić
+
+Zbuduj układ trzech sił: dwie o znanych kierunkach i jedna o znanej wartości. Zmieniaj położenie punktu przyłożenia jednej siły i obserwuj, jak przemieszcza się punkt przecięcia linii działania — a z nim kierunek trzeciej siły. Spróbuj skonstruować układ, w którym trójkąt sił jest prostokątny: wtedy rachunek trygonometryczny staje się trywialny.
+
+<Lab id="staticsConcurrent" />
+
+## Definicje i jednostki
+
+| Pojęcie          | Znaczenie                                                   | Jednostka |
+| ---------------- | ----------------------------------------------------------- | --------- |
+| Ciało trzysiłowe | Ciało, na które działają dokładnie trzy siły                | —         |
+| Prosta działania | Prosta zawierająca wektor siły                              | —         |
+| Punkt zbiegu $E$ | Punkt przecięcia prostych działania trzech sił w równowadze | —         |
+| Trójkąt sił      | Zamknięty wielobok trzech sił w równowadze                  | —         |
+| Prawo sinusów    | $a/\sin\alpha=b/\sin\beta=c/\sin\gamma$ w trójkącie sił     | —         |
+
+Jednostki: siły w N lub kN, kąty w stopniach, długości w m. W trójkącie sił boki proporcjonalne są do wartości sił — ta sama skala dla wszystkich trzech boków.
+
+## Wzór i wyprowadzenie
+
+Twierdzenie o trzech siłach: trzy nierównoległe siły płaskie są w równowadze tylko wtedy, gdy ich proste działania są zbieżne. Dowód, jak wyżej: wypadkowa dwóch sił przechodzi przez ich punkt przecięcia; trzecia siła musi być z nią współliniowa, więc też przechodzi przez ten punkt.
+
+<Formula>
+$$
+\sum M_E=0\ \Rightarrow\ S\,h_S=P\,h_P,\qquad E\ \text{— punkt przecięcia prostych działania niewiadomych}
+$$
+
+<Caption>Praktyczna postać twierdzenia: sumując momenty względem punktu zbiegu niewiadomych sił, eliminujemy je obie naraz i dostajemy jedno równanie z jedną niewiadomą. Warunek działa dla sił nierównoległych; dla równoległych punkt zbiegu ucieka w nieskończoność.</Caption>
+</Formula>
+
+Wyprowadzenie jest jednozdaniowe: moment siły względem punktu, przez który przechodzi jej prosta działania, jest zerowy. Punkt $E$ leży na prostych obu niewiadomych, więc ich momenty znikają, a w równowadze suma momentów względem dowolnego punktu musi być zerowa — zostaje tylko moment siły znanej.
+
+<AnimatedSolution id="ex-statyka-trzy-sily" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Stosowanie twierdzenia o zbieżności do sił równoległych — dla nich punkt przecięcia nie istnieje i jedynym narzędziem są momenty.
+- Rysowanie reakcji przegubu jako siły o założonym kierunku „pod kątem $45^\circ$" — kierunek $R_A$ wyznacza geometria punktu zbiegu, nie zgadywanie.
+- Zapominanie, że trójkąt sił wymaga co najwyżej dwóch niewiadomych; przy trzech trzeba szukać dodatkowego warunku.
+- Błędne ramiona momentów: odległość punktu od prostej działania, nie od punktu przyłożenia siły.
+- Mylenie kąta linii z kątem jej prostej działania wykorzystywanej przy konstrukcji punktu zbiegu — prosta ma ten sam kąt, ale biegnie w obie strony.
+- Pomijanie kontroli zbieżności po rozwiązaniu — to najtańszy test wykrywający błąd znaku lub ramienia.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Policz siły działające na ciało: jeśli są dokładnie trzy i nie są równoległe, masz ciało trzysiłowe.
+2. Wypisz niewiadome: przegub daje dwie składowe, cięgno lub oparcie jedną — trzy niewiadome, dwa równania rzutów, brakuje jednego warunku.
+3. Skonstruuj punkt zbiegu $E$: przecięcie prostych działania dwóch sił o znanych kierunkach.
+4. Sumuj momenty względem $E$ (lub względem punktu przegubu, jak w przykładzie) i wyznacz pierwszą niewiadomą.
+5. Dopełnij równaniami rzutów, sprawdź znak i wartość każdej siły.
+6. Zweryfikuj zbieżność wszystkich trzech prostych działania — to test poprawności całości.
+
+## Połącz z resztą kursu
+
+- **Równowaga zbieżna** — trzy siły w równowadze to układ zbieżny z dodatkową wiedzą o punkcie zbiegu; równania rzutów pozostają w mocy.
+- **Cięgna i kontakty** — kierunek siły w linie i reakcji gładkiego oparcia są tu używane wprost; lekcja 5 uzasadnia je dokładniej.
+- **Moment siły** — cała strategia punktu zbiegu jest aplikacją definicji momentu; moduł o dowolnym układzie sił rozwinie to do pełnych trzech równań.
+- **Kratownice** — w węźle kratownicy spotykają się siły prętów i obciążenie; trójkąt sił stanie się tam codziennym narzędziem.
+- **Wytrzymałość: zginanie** — belka z przykładu wróci w kursie wytrzymałości: te same reakcje posłużą do wykresów siły tnącej i momentu zginającego.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Trzy nierównoległe siły płaskie są w równowadze. Ich proste działania:</Prompt>
+    <Answer>muszą być równoległe</Answer>
+    <Answer correct>przecinają się w jednym punkcie</Answer>
+    <Answer>tworzą trójkąt o bokach równych siłom</Answer>
+    <Hint>Wypadkowa dwóch sił przechodzi przez ich punkt przecięcia; co mówi o trzeciej sił równowaga?</Hint>
+    <Explanation>
+      Wypadkowa dwóch pierwszych sił przechodzi przez punkt ich przecięcia. Trzecia siła musi ją równoważyć,
+      więc leży na tej samej prostej — także przechodzi przez ten punkt. To warunek konieczny równowagi.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Belka z przykładu ($l=3$ m, $P=6$ kN w $a=1$ m, linka pod $60^\circ$). Siła w linie wynosi:</Prompt>
+    <Answer>3,46 kN</Answer>
+    <Answer correct>2,31 kN</Answer>
+    <Answer>1,15 kN</Answer>
+    <Hint>$S\sin60^\circ\cdot l=P\cdot a$ — policz ramiona, nie siły „na oko".</Hint>
+    <Explanation>
+      $S=Pa/(l\sin60^\circ)=6/(3\cdot0{,}866)=2{,}31\ \text{kN}$. Wartość 3,46 kN to $P/\sin60^\circ$
+      — błąd polegający na pominięciu ramienia $a/l=1/3$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy twierdzenie o zbieżności trzech sił NIE działa?</Prompt>
+    <Answer>Gdy jedna z sił jest zerowa</Answer>
+    <Answer correct>Gdy wszystkie trzy siły są równoległe</Answer>
+    <Answer>Gdy siły działają na różne ciała</Answer>
+    <Hint>Punkt przecięcia prostych równoległych to…?</Hint>
+    <Explanation>
+      Dla sił równoległych proste działania nie przecinają się w skończonym punkcie — punkt zbiegu ucieka w nieskończoność.
+      Takie zadania rozwiązuje się wyłącznie równaniami momentów i rzutów.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Trójkąt sił w równowadze ma boki proporcjonalne do $10$, $12$ i $13\ \text{kN}$. Jedna siła wynosi $10\ \text{kN}$. Pozostałe to:</Prompt>
+    <Answer>10 i 10 kN</Answer>
+    <Answer correct>12 i 13 kN</Answer>
+    <Answer>5 i 6 kN</Answer>
+    <Hint>Trójkąt sił jest zamknięty — boki mają długości równe wartościom sił w tej samej skali.</Hint>
+    <Explanation>
+      W zamkniętym trójkącie sił każdy bok odpowiada jednej siłze w tej samej skali graficznej. Skoro boki to 10, 12, 13,
+      to siły mają dokładnie te wartości. Odpowiedzi „10 i 10" albo „5 i 6" naruszają skalę trójkąta.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Belka AB z przykładu: w punkcie zbiegu E prostych $S$ i $P$ nachylenie prostej reakcji $R_A$ wynosi $-3{,}46$. Co to oznacza?</Prompt>
+    <Answer>$R_A$ działa pod kątem $-73{,}9^\circ$ od poziomu, zgodnie z wynikiem równań</Answer>
+    <Answer correct>Kierunek $R_A$ z równań rzutów jest zgodny z geometrią punktu zbiegu — rachunek poprawny</Answer>
+    <Answer>Linka jest zbyt krótka i belka nie może być w równowadze</Answer>
+    <Hint>Porównaj $A_y/A_x$ z nachyleniem prostej AE.</Hint>
+    <Explanation>
+      $A_y/A_x=4{,}00/(-1{,}15)=-3{,}46$ — dokładnie nachylenie prostej przez A i E. Zgodność kierunku z twierdzeniem
+      o zbieżności potwierdza poprawność obu składowych reakcji; brak zgodności zdradziłby błąd w znakach.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Praktyczna zaleta trójkąta sił nad układem dwóch równań rzutów to:</Prompt>
+    <Answer>zawsze większa dokładność</Answer>
+    <Answer correct>geometryczny obraz proporcji między siłami i możliwość użycia prawa sinusów</Answer>
+    <Answer>brak konieczności rysowania schematu</Answer>
+    <Hint>Pomyśl, jak prawo sinusów wiąże boki i kąty trójkąta.</Hint>
+    <Explanation>
+      Trójkąt sił pokazuje wzajemne proporcje trzech sił i pozwala je policzyć z prawa sinusów, znając kąty.
+      Nie jest dokładniejszy od rachunku, ale często szybszy — zwłaszcza gdy kąty są „wygodne" ($30^\circ$, $60^\circ$, $90^\circ$).
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Płaskie układy sił zbieżnych", str. 8–9: twierdzenie o równowadze trzech sił nierównoległych oraz przykład belki zawieszonej na linie pod kątem $\alpha=60^\circ$.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 3.4.3: trójkąt sił jako graficzna postać równowagi; rozdz. 6.6: wskazówki dotyczące ciał trzysiłowych i dwuosiowych.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 1.6: moment siły w płaszczyźnie, potrzebny do punktu zbiegu.
+- _University Physics_ (OpenStax), rozdz. 5.6: siły naciągu i normalne — kierunki reakcji używane w ciałach trzysiłowych.

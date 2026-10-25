@@ -1,0 +1,215 @@
+---
+id: statyka-wyznaczalnosc
+moduleId: statyka-plaskie-dowolne
+number: 7
+title: 'Wyznaczalność i alternatywne równania momentów'
+shortTitle: 'Wyznaczalność'
+description: >-
+  Kiedy trzy równania równowagi wystarczają, jak zapisać je jako dwa lub trzy
+  momenty i jak rozpoznać układ niewyznaczalny oraz chwilowo niestateczny.
+eyebrow: 'Czy równań wystarczy?'
+outcomes:
+  - W1 — rozpoznaje układ statycznie wyznaczalny, niewyznaczalny i mechanizm
+  - W2 — wyjaśnia, dlaczego alternatywne zestawy równań równowagi są równoważne
+  - W3 — odróżnia niewyznaczalność od chwilowej niestateczności geometrycznej
+  - U1 — stosuje dwa lub trzy równania momentów do wyznaczenia reakcji
+  - U2 — rozwiązuje pełny wariant belki z obciążeniem ciągłym, momentem i siłami skupionymi
+---
+
+Trzy równania równowagi płaskiej można zapisać na kilka sposobów. Zamiast dwóch rzutów i momentu można użyć dwóch momentów i jednego rzutu albo nawet trzech momentów względem trzech punktów nieleżących na jednej prostej. To nie są nowe prawa fizyki — to te same warunki równowagi zapisane w innej, czasem wygodniejszej postaci. Wybór zestawu zależy od geometrii zadania i od tego, które niewiadome chcemy wyeliminować.
+
+Równania są jednak użyteczne tylko wtedy, gdy jest ich tyle, ile potrzeba. Liczba niezależnych równań dla płaskiego ciała sztywnego wynosi trzy. Jeśli niewiadomych reakcji jest dokładnie trzy, układ jest statycznie wyznaczalny. Jeśli jest ich więcej, mówimy o układzie niewyznaczalnym: sama statyka nie wystarcza, potrzebne są warunki odkształceń. Jeśli równań jest mniej niż niewiadomych, konstrukcja jest mechanizmem i nie może przenosić dowolnego obciążenia.
+
+Jest jeszcze trzecia, często pomijana pułapka: układ może mieć trzy niewiadome, a mimo to nie być stateczny. Dzieje się tak, gdy proste działania reakcji są równoległe albo przecinają się w jednym punkcie. Wtedy równania momentów przestają być niezależne, a konstrukcja okazuje się chwilowo niestateczna. W tej lekcji nauczysz się odróżniać wszystkie trzy przypadki i rozwiążesz pełny wariant belki, w którym wygodnie jest użyć dwóch równań momentów.
+
+## Zanim zaczniesz
+
+- Umiej zapisać klasyczny zestaw $\sum F_x=0$, $\sum F_y=0$, $\sum M_A=0$.
+- Rozpoznaj podpory i liczbę ich reakcji: przegub — dwie, rolka — jedna, utwierdzenie — trzy.
+- Przypomnij sobie, że moment siły względem punktu na jej prostej działania jest zerowy.
+- Wiedz, że moment pary sił jest niezależny od bieguna i wchodzi do równania jako wartość stała.
+- Odróżniaj brak rozwiązań od nieskończenie wielu rozwiązań — w statyce oba przypadki mają swoją interpretację.
+
+## Model i intuicja
+
+Dla płaskiego ciała sztywnego liczba niezależnych równań równowagi wynosi $3$, a liczbę niewiadomych reakcji oznaczmy przez $r$. Stopień statycznej niewyznaczalności definiujemy jako $n=r-3$. Gdy $n=0$, układ jest wyznaczalny. Gdy $n>0$, jest niewyznaczalny i do rozwiązania potrzebne są dodatkowe warunki zgodności odkształceń. Gdy $r<3$, konstrukcja nie ma wystarczającej liczby więzów, aby zapewnić równowagę — jest mechanizmem.
+
+Sama arytmetyka niewiadomych nie wystarcza. Trzy reakcje mogą być równoległe, na przykład trzy pionowe rolki pod belką. Wtedy równanie rzutów na kierunek poziomy jest automatycznie spełnione, a równanie momentów i rzut pionowy nie wystarczają do wyznaczenia trzech sił. Podobnie trzy reakcje mogą przecinać się w jednym punkcie: moment względem tego punktu znika tożsamościowo, więc nie kontroluje obrotu. Takie układy nazywamy chwilowo niestatecznymi albo geometrycznie zmiennymi, mimo że liczba niewiadomych wynosi trzy.
+
+Alternatywne zestawy równań wynikają z tego samego warunku: wypadkowa i moment główny muszą być zerowe. Dwa równania momentów względem $A$ i $B$ wymuszają, że prosta działania wypadkowej przechodzi przez $A$ i $B$, czyli leży wzdłuż $AB$. Rzut na oś nieprostopadłą do $AB$ eliminuje ewentualną siłę wzdłuż $AB$. Trzy momenty względem trzech punktów nieleżących na jednej prostej są jeszcze silniejsze: wypadkowa musiałaby przechodzić przez wszystkie trzy punkty, co jest możliwe tylko wtedy, gdy jest zerowa.
+
+## Laboratorium: co ustawić
+
+Zbuduj belkę z przegubem i rolką i rozwiąż ją najpierw klasycznym zestawem równań, a potem dwoma równaniami momentów. Sprawdź, że reakcje wychodzą identyczne. Zmieniaj położenie punktów $A$ i $B$ oraz kierunek osi rzutów, obserwując, kiedy równania przestają być niezależne.
+
+<Lab id="staticsPlanar" />
+
+W drugim laboratorium skup się na samych momentach: zmieniaj biegun i sprawdzaj, że dla ciała w równowadze suma momentów jest zerowa względem każdego punktu. Spróbuj dobrać biegun tak, aby jedno równanie zawierało tylko jedną niewiadomą — to najlepszy sposób na szybkie rozwiązanie zadania.
+
+<Lab id="staticsMoment" />
+
+## Definicje i jednostki
+
+| Pojęcie                   | Znaczenie                                                                    | Jednostka |
+| ------------------------- | ---------------------------------------------------------------------------- | --------- |
+| Układ wyznaczalny         | Liczba niewiadomych reakcji równa liczbie niezależnych równań                | —         |
+| Układ niewyznaczalny      | Więcej niewiadomych niż równań; potrzebne warunki odkształceń                | —         |
+| Mechanizm                 | Mniej więzów niż stopni swobody; brak równowagi dla dowolnego obciążenia     | —         |
+| Stopień niewyznaczalności | $n=r-3$                                                                      | —         |
+| Przegub wewnętrzny        | Połączenie dwóch części konstrukcji; daje dodatkowy warunek zerowego momentu | —         |
+| Chwilowa niestateczność   | Trzy niewiadome, ale reakcje równoległe lub zbieżne w jednym punkcie         | —         |
+
+Jednostki: siły w N lub kN, momenty w N·m lub kN·m, długości w m. Stopień niewyznaczalności jest liczbą niemianowaną.
+
+## Wzór i wyprowadzenie
+
+Klasyczny zestaw równań równowagi oraz dwa zestawy alternatywne:
+
+<Formula>
+$$
+\begin{aligned}
+\text{I: }&\ \sum F_x=0,\quad \sum F_y=0,\quad \sum M_A=0,\\
+\text{II: }&\ \sum M_A=0,\quad \sum M_B=0,\quad \sum F_x=0,\\
+\text{III: }&\ \sum M_A=0,\quad \sum M_B=0,\quad \sum M_C=0.
+\end{aligned}
+$$
+
+<Caption>Zestaw I wymaga dwóch nierównoległych osi. Zestaw II wymaga $A\neq B$ oraz osi $x$ nieprostopadłej do $AB$. Zestaw III wymaga, aby punkty $A$, $B$ i $C$ nie leżały na jednej prostej. Wszystkie trzy zestawy są równoważne dla płaskiego ciała sztywnego.</Caption>
+</Formula>
+
+Warunek wyznaczalności:
+
+<Formula>
+$$
+n=r-3,
+\qquad
+\begin{cases}
+n=0 & \text{wyznaczalny},\\
+n>0 & \text{niewyznaczalny},\\
+r<3 & \text{mechanizm}.
+\end{cases}
+$$
+
+<Caption>$r$ oznacza liczbę niezależnych niewiadomych reakcji. Przy przegubach wewnętrznych każdy przegub daje dodatkowy warunek $M=0$, więc zmniejsza stopień niewyznaczalności o jeden. Warunek $n=0$ jest konieczny, ale nie wystarcza — trzeba jeszcze sprawdzić, czy reakcje nie są równoległe lub zbieżne w jednym punkcie.</Caption>
+</Formula>
+
+Wyprowadzenie zestawu II: dwa równania momentów względem $A$ i $B$ mówią, że wypadkowa ma zerowy moment względem obu punktów. Jeśli $A\neq B$, prosta działania wypadkowej musi być prostą $AB$ (albo wypadkowa jest zerowa). Rzut na oś $x$ nieprostopadłą do $AB$ daje wtedy zerową składową wzdłuż $AB$, więc wypadkowa musi być zerowa. Gdyby oś była prostopadła do $AB$, siła wzdłuż $AB$ nie dałaby rzutu i równanie nie wykluczyłoby jej — dlatego ten warunek jest istotny.
+
+## Wariant A: pełne rozwiązanie
+
+<AnimatedSolution id="ex-statyka-wyznaczalnosc" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Liczenie tylko niewiadomych bez sprawdzenia geometrii: trzy reakcje równoległe nie tworzą układu wyznaczalnego.
+- Użycie zestawu II z osią prostopadłą do $AB$ — wtedy równanie rzutów nie eliminuje siły wzdłuż $AB$.
+- Użycie trzech równań momentów względem punktów współliniowych — takie równania nie są niezależne.
+- Pominięcie dodatkowego warunku od przegubu wewnętrznego przy liczeniu stopnia niewyznaczalności.
+- Uznanie, że każdy układ o trzech niewiadomych jest automatycznie stateczny.
+- Błąd w znaku momentu skupionego przy zmianie bieguna — moment pary jest swobodny, ale jego zwrot pozostaje ten sam.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wypisz wszystkie niewiadome reakcji i policz ich liczbę $r$.
+2. Sprawdź, czy podpory rzeczywiście blokują oba przesunięcia i obrót; narysuj proste działania reakcji.
+3. Oblicz $n=r-3$ i ustal, czy układ jest wyznaczalny, niewyznaczalny, czy jest mechanizmem.
+4. Sprawdź, czy reakcje nie są równoległe lub zbieżne w jednym punkcie — to groźba chwilowej niestateczności.
+5. Wybierz zestaw równań: klasyczny, dwa momenty plus rzut albo trzy momenty.
+6. Dobierz punkty momentów tak, aby kolejne równania eliminowały niewiadome.
+7. Rozwiąż układ i sprawdź wynik innym zestawem równań lub bilansem sił.
+
+## Połącz z resztą kursu
+
+- **Równowaga płaska** — alternatywne zestawy to tylko inny zapis tych samych trzech warunków.
+- **Reakcje konstrukcji** — liczba reakcji podpór decyduje o tym, czy belkę lub ramę można rozwiązać metodami statyki.
+- **Kratownice** — kratownica jest wyznaczalna, gdy liczba prętów i reakcji odpowiada liczbie równań w węzłach; nadmiar prętów daje układ niewyznaczalny.
+- **Przeguby wewnętrzne** — każdy przegub dodaje warunek zerowego momentu i może „naprawić” pozornie niewyznaczalną ramę.
+- **Wytrzymałość materiałów** — w układach niewyznaczalnych nie da się wyznaczyć wszystkich reakcji bez analizy odkształceń; to temat późniejszych rozdziałów.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>
+      Belka ma przegub nieruchomy w $A$ i rolkę w $B$. Ile wynosi stopień statycznej niewyznaczalności $n$?
+    </Prompt>
+    <Answer>$1$</Answer>
+    <Answer correct>$0$</Answer>
+    <Answer>$-1$</Answer>
+    <Hint>Policz reakcje: przegub daje dwie, rolka jedną.</Hint>
+    <Explanation>
+      $r=2+1=3$, więc $n=r-3=0$. Belka jest statycznie wyznaczalna, o ile reakcje nie są równoległe ani zbieżne w jednym
+      punkcie.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Który zestaw równań jest poprawny dla płaskiego ciała sztywnego?</Prompt>
+    <Answer>$\sum F_x=0$, $\sum F_y=0$, $\sum F_z=0$</Answer>
+    <Answer correct>
+      $\sum M_A=0$, $\sum M_B=0$, $\sum F_x=0$, gdzie $A\neq B$, a oś $x$ nie jest prostopadła do $AB$
+    </Answer>
+    <Answer>$\sum M_A=0$, $\sum M_B=0$, $\sum F_y=0$, gdzie $A$, $B$ leżą na osi $x$</Answer>
+    <Hint>Sprawdź, czy równania są niezależne i czy eliminują siłę wzdłuż $AB$.</Hint>
+    <Explanation>
+      Dwa momenty względem $A$ i $B$ wymuszają, że wypadkowa leży wzdłuż $AB$. Rzut na oś nieprostopadłą do $AB$
+      eliminuje ewentualną siłę wzdłuż tej prostej. Oś prostopadła do $AB$ nie wystarcza, bo taka siła nie dałaby rzutu.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Belka jest podparta trzema pionowymi rolkami. Jaki to układ?</Prompt>
+    <Answer>Statycznie wyznaczalny, bo są trzy niewiadome</Answer>
+    <Answer correct>Chwilowo niestateczny, bo reakcje są równoległe i nie kontrolują przesunięcia poziomego</Answer>
+    <Answer>Mechanizm, bo równań jest za mało</Answer>
+    <Hint>Policz, czy trzy równoległe reakcje mogą zrównoważyć siłę poziomą.</Hint>
+    <Explanation>
+      Trzy pionowe reakcje są równoległe. Równanie rzutów na kierunek poziomy nie zawiera żadnej niewiadomej, więc siła
+      pozioma nie może być zrównoważona. Mimo trzech niewiadomych równania nie są niezależne — układ jest chwilowo
+      niestateczny. Przy obciążeniu pionowym jest jednocześnie niewyznaczalny, bo równania pionowe nie wystarczają do
+      wyznaczenia trzech reakcji.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W wariancie A reakcja $B_y$ wynosi:</Prompt>
+    <Answer>$10\ \text{kN}$</Answer>
+    <Answer correct>$20\ \text{kN}$</Answer>
+    <Answer>$30\ \text{kN}$</Answer>
+    <Hint>Momenty względem $A$: $10B_y-20\cdot5-20-10\cdot8=0$.</Hint>
+    <Explanation>
+      $10B_y=100+20+80=200$, więc $B_y=20\ \text{kN}$. Wartość $10\ \text{kN}$ to reakcja $A_y$, a $30\ \text{kN}$ to
+      suma obciążeń pionowych.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W wariancie A reakcja $A_y$ wynosi:</Prompt>
+    <Answer>$20\ \text{kN}$</Answer>
+    <Answer correct>$10\ \text{kN}$</Answer>
+    <Answer>$16\ \text{kN}$</Answer>
+    <Hint>Momenty względem $B$: $-10A_y+100-20+20=0$.</Hint>
+    <Explanation>
+      $-10A_y+100=0$, więc $A_y=10\ \text{kN}$. Suma obciążeń pionowych wynosi $30\ \text{kN}$; reakcje $10+20=30\ \text
+      {kN}$ dają bilans.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>
+      Rama ma dwa przeguby nieruchome i żadnego przegubu wewnętrznego. Ile wynosi stopień niewyznaczalności $n$?
+    </Prompt>
+    <Answer>$0$</Answer>
+    <Answer correct>$1$</Answer>
+    <Answer>$2$</Answer>
+    <Hint>Dwa przeguby dają cztery niewiadome, a równań jest trzy.</Hint>
+    <Explanation>
+      $r=4$, więc $n=4-3=1$. Rama jest jednokrotnie statycznie niewyznaczalna. Dopiero dodatkowy przegub wewnętrzny
+      dodałby warunek $M=0$ i zmniejszył stopień niewyznaczalności do zera.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Moment siły, siły równoległe, płaski dowolny układ sił”, str. 17–20: trzy analityczne równania równowagi oraz alternatywne zestawy z dwoma i trzema momentami.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 5.6 (Stability and Determinacy) i 5.7 (Equilibrium Examples): rozpoznawanie układów wyznaczalnych i niestatecznych.
+- L. Osgood, G. Cameron, H. Christensen, _Engineering Mechanics: Statics_, rozdz. 3.5 (Indeterminate Loads) i 4.3 (Rigid Body Equilibrium Equations): niewyznaczalność i równania równowagi ciała sztywnego.
+- _University Physics_ (OpenStax), rozdz. 5.7: schemat ciała wolnego i warunki równowagi.

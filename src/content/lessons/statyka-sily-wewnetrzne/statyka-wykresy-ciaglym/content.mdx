@@ -1,0 +1,191 @@
+---
+id: statyka-wykresy-ciaglym
+moduleId: statyka-sily-wewnetrzne
+number: 5
+title: 'Wykresy N, T i M przy obciążeniach ciągłych'
+shortTitle: 'Wykresy przy q(x)'
+description: >-
+  Zbuduj pełne wykresy siły normalnej, tnącej i momentu dla obciążenia
+  zmieniającego się wzdłuż belki. Kształt wykresu wynika z q(x).
+eyebrow: 'Od funkcji obciążenia do wykresów'
+outcomes:
+  - 'W1 — stosuje związki różniczkowe do przewidywania kształtu wykresów N, T i M'
+  - 'W2 — rozpoznaje stopień funkcji wykresu na podstawie rozkładu obciążenia'
+  - 'U1 — wyznacza funkcje T(x) i M(x) dla obciążenia trójkątnego i trapezowego'
+  - 'U2 — lokalizuje ekstremum momentu i kontroluje wykres warunkami brzegowymi'
+---
+
+W poprzednich lekcjach nauczyłeś się ciąć belkę w jednym przekroju i liczyć $N$, $T$, $M$ dla obciążenia ciągłego. Teraz robimy krok dalej: budujemy wykresy dla całej belki, na której obciążenie zmienia się wzdłuż długości — liniowo, trójkątnie lub trapezowo. To najczęstsza sytuacja w praktyce: ciężar własny, śnieg na dachu, parcie wody na ścianę czy obciążenie wiatrem nie są stałe na całej rozpiętości.
+
+Kluczem jest funkcja $q(x)$, a nie jedna liczba. Gdy $q$ jest stałe, siła tnąca zmienia się liniowo, a moment jest parabolą. Gdy $q$ zmienia się liniowo, siła tnąca staje się kwadratowa, a moment — sześcienny. Te kształty nie są przypadkowe: wynikają z całkowania związków $dT/dx=-q$ i $dM/dx=T$. Dlatego zanim zaczniesz liczyć, możesz naszkicować wykres „na wyczucie” i sprawdzić, czy rachunek jest spójny.
+
+W tej lekcji przejdziemy przez belkę z obciążeniem trójkątnym. Zobaczysz, jak wyznaczyć reakcje, zapisać funkcje na całej długości, znaleźć ekstremum momentu i sprawdzić wynik warunkami brzegowymi. Ten sam schemat zastosujesz do każdego obciążenia ciągłego.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje belki z obciążeniem ciągłym, zastępując cały rozkład wypadkową w środku ciężkości.
+- Przypomnij sobie znaki: dodatnie $q$ działa w dół, dodatnia $T$ według konwencji kursu, dodatni $M$ wygina belkę wypukłością w dół.
+- Potrafisz całkować wielomiany: $\int x\,dx=x^2/2$ oraz $\int x^2\,dx=x^3/3$.
+- Pamiętaj, że warunki brzegowe na podporach przegubowych dają $M=0$.
+- Odróżniaj obciążenie osiowe $q_x$ od poprzecznego $q_y$; w zadaniach z belką zwykle działa tylko to drugie.
+
+## Model i intuicja
+
+Wyobraź sobie belkę, na której leży stos książek — gruby z jednej strony, cienki z drugiej. Nacisk na metr bieżący rośnie wzdłuż belki. Jeśli przetniesz belkę blisko cienkiego końca, po lewej stronie zostanie mało książek, więc siła tnąca będzie mała. Bliżej grubego końca po lewej stronie będzie już prawie cały stos, więc siła tnąca wzrośnie lub zmieni znak. Moment zginający jest „sumą” tych przyrostów, dlatego jego wykres jest jeszcze bardziej zakrzywiony.
+
+Związki różniczkowe opisują to lokalnie. Na małym odcinku $\Delta x$ obciążenie $q(x)$ można traktować jako stałe. Równowaga pionowa daje przyrost siły tnącej $\Delta T=-q\Delta x$, a równowaga momentów daje $\Delta M=T\Delta x$. Po przejściu do granicy otrzymujemy $dT/dx=-q$ oraz $dM/dx=T$. Dla obciążenia osiowego analogicznie $dN/dx=-q_x$.
+
+Z tych związków wynika praktyczna reguła kształtów. Jeśli $q$ jest wielomianem stopnia $n$, to $T$ jest stopnia $n+1$, a $M$ stopnia $n+2$. Dla $q$ stałego: $T$ liniowe, $M$ paraboliczne. Dla $q$ liniowego: $T$ kwadratowe, $M$ sześcienne. Miejsca, w których $T=0$, są kandydatami na ekstrema $M$; tam nachylenie wykresu momentu się zeruje.
+
+Model zakłada, że obciążenie jest rozłożone w sposób ciągły i że belka jest sztywna. W punktach przyłożenia sił skupionych wykres $T$ ma skok, a $M$ — załamanie; pochodne w tych punktach nie istnieją. Dlatego analizę prowadzimy przedziałami między punktami charakterystycznymi.
+
+## Laboratorium: co ustawić
+
+Wybierz belkę z obciążeniem trójkątnym lub trapezowym. Zmieniaj maksymalne natężenie $q_0$ i obserwuj, jak zmieniają się reakcje oraz położenie ekstremum momentu. Sprawdź, czy wykres $T$ jest parabolą, a $M$ — krzywą trzeciego stopnia. Zasłoń rozwiązanie i najpierw naszkicuj przewidywany kształt.
+
+<Lab id="staticsInternal" />
+
+## Definicje i jednostki
+
+| Wielkość                          | Symbol   | Jednostka | Znaczenie                                  |
+| --------------------------------- | -------- | --------- | ------------------------------------------ |
+| Natężenie obciążenia poprzecznego | $q(x)$   | kN/m      | Siła na jednostkę długości, dodatnia w dół |
+| Natężenie obciążenia osiowego     | $q_x(x)$ | kN/m      | Siła na jednostkę długości wzdłuż osi      |
+| Siła normalna                     | $N(x)$   | kN        | Dodatnia przy rozciąganiu                  |
+| Siła tnąca                        | $T(x)$   | kN        | Zgodnie z konwencją kursu                  |
+| Moment zginający                  | $M(x)$   | kN·m      | Dodatni przy wypukłości w dół              |
+| Współrzędna przekroju             | $x$      | m         | Od lewej podpory                           |
+
+Jednostki są spójne: $q$ w kN/m całkowane po metrach daje kN, a $T$ w kN całkowane po metrach daje kN·m. Kąt nachylenia wykresu $T$ ma jednostkę kN/m, czyli taką jak $q$.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\frac{dN}{dx}=-q_x(x),\qquad \frac{dT}{dx}=-q(x),\qquad \frac{dM}{dx}=T(x)
+$$
+
+<Caption>Związki różniczkowe dla belki obciążonej w sposób ciągły. Obciążenie poprzeczne $q$ jest dodatnie w dół, obciążenie osiowe $q_x$ — w kierunku dodatniej osi $x$. $N$ jest dodatnia przy rozciąganiu, $M$ przy wypukłości w dół.</Caption>
+</Formula>
+
+<Formula>
+$$
+T(x)=T(0)-\int_0^x q(s)\,ds,\qquad
+M(x)=M(0)+\int_0^x T(s)\,ds
+$$
+
+<Caption>Postać całkowa: przyrost siły tnącej to pole pod wykresem obciążenia ze znakiem minus, a przyrost momentu to pole pod wykresem siły tnącej. Warunki początkowe $T(0)$ i $M(0)$ wynikają z reakcji i podparcia.</Caption>
+</Formula>
+
+Wyprowadzenie z równowagi odcinka $\Delta x$:
+
+1. Obciążenie na odcinku zastępujemy siłą $q\Delta x$ w środku odcinka.
+2. Równowaga pionowa: $T-q\Delta x=T+\Delta T$, więc $\Delta T/\Delta x=-q$.
+3. Przejście do granicy daje $dT/dx=-q(x)$.
+4. Równowaga momentów względem prawego końca: $\Delta M\approx T\Delta x$, więc $dM/dx=T$.
+5. Zestawienie obu równań daje $d^2M/dx^2=-q(x)$.
+6. Dla pręta z obciążeniem osiowym analogiczne rozumowanie daje $dN/dx=-q_x$.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-wykresy-ciaglym" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zastępowanie obciążenia trójkątnego jedną stałą wartością $q_0$ — wtedy $T$ wychodzi liniowe, a $M$ paraboliczne, co jest błędne.
+- Używanie $q_0$ zamiast $q(x)$ w równaniu różniczkowym; do całkowania wchodzi funkcja, nie wartość maksymalna.
+- Błędne położenie wypadkowej trójkąta: działa w $1/3$ długości od podstawy, czyli $2L/3$ od wierzchołka.
+- Pomijanie reakcji w funkcji $T(x)$; sam wykres obciążenia nie wystarcza.
+- Brak kontroli warunków brzegowych $M=0$ na podporach — najprostszy test wykrywający błąd całkowania.
+- Szukanie ekstremum $M$ tam, gdzie $q=0$, zamiast tam, gdzie $T=0$.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zapisz funkcję obciążenia $q(x)$ na każdym przedziale; dla trójkąta liniowo, dla trapezu liniowo z różnymi wartościami końcowymi.
+2. Wyznacz reakcje, zastępując cały rozkład wypadkową w środku ciężkości.
+3. Zbuduj $T(x)$ przez całkowanie $-q(x)$ i dopasuj stałą do reakcji w $x=0$.
+4. Zbuduj $M(x)$ przez całkowanie $T(x)$ i dopasuj stałą do warunku $M(0)$.
+5. Znajdź miejsca $T=0$ i policz tam $M$; sprawdź, czy to maksimum, patrząc na znak $T$ po obu stronach.
+6. Skontroluj $M$ na podporach i skoki $T$ pod siłami skupionymi.
+
+## Połącz z resztą kursu
+
+- **Przekroje przy obciążeniach ciągłych** — ta lekcja rozwija tamtą metodę z jednego przekroju na całą belkę.
+- **Zależności q–T–M** — związki różniczkowe są tu używane do przewidywania kształtów, a nie tylko do kontroli.
+- **Wykresy w zadaniach** — w lekcji 7 połączysz obciążenia ciągłe, siły skupione i ramy w pełnym zadaniu.
+- **Zginanie w wytrzymałości** — maksimum $M$ z wykresu wyznacza przekrój, w którym liczymy naprężenia normalne.
+- **Ciężar własny** — najczęstsze obciążenie ciągłe w konstrukcjach; jego natężenie $q=\gamma A$ może się zmieniać wraz z przekrojem.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>Belka z przykładu ($L=6$ m, $q_0=6$ kN/m). Reakcja $R_A$ wynosi:</Prompt>
+    <Answer>$12\ \mathrm{kN}$</Answer>
+    <Answer correct>$6\ \mathrm{kN}$</Answer>
+    <Answer>$18\ \mathrm{kN}$</Answer>
+    <Hint>Wypadkowa $18$ kN działa w $4$ m od A; sumuj momenty względem B.</Hint>
+    <Explanation>
+      Moment względem B: $R_A\cdot6=18\cdot2$, więc $R_A=6\ \mathrm{kN}$. Większa część obciążenia leży bliżej B, dlatego $R_B=12\ \mathrm{kN}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła tnąca w przekroju $x=3\ \mathrm{m}$ wynosi:</Prompt>
+    <Answer>$6\ \mathrm{kN}$</Answer>
+    <Answer correct>$1{,}5\ \mathrm{kN}$</Answer>
+    <Answer>$-1{,}5\ \mathrm{kN}$</Answer>
+    <Hint>$T(x)=6-x^2/2$.</Hint>
+    <Explanation>
+      $T(3)=6-9/2=1{,}5\ \mathrm{kN}$. Siła tnąca maleje coraz szybciej, bo obciążenie rośnie wraz z $x$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Moment zginający w $x=3\ \mathrm{m}$ wynosi:</Prompt>
+    <Answer>$9\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$13{,}5\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$18\ \mathrm{kN\cdot m}$</Answer>
+    <Hint>$M(x)=6x-x^3/6$.</Hint>
+    <Explanation>
+      $M(3)=18-27/6=18-4{,}5=13{,}5\ \mathrm{kN\cdot m}$. To jeszcze nie maksimum, bo $T(3)>0$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W którym przekroju moment osiąga ekstremum?</Prompt>
+    <Answer>$x=3{,}00\ \mathrm{m}$</Answer>
+    <Answer correct>$x=3{,}46\ \mathrm{m}$</Answer>
+    <Answer>$x=4{,}00\ \mathrm{m}$</Answer>
+    <Hint>Rozwiąż $T(x)=0$.</Hint>
+    <Explanation>
+      $6-x^2/2=0$ daje $x=\sqrt{12}=3{,}46\ \mathrm{m}$. Tam nachylenie momentu się zeruje, więc moment osiąga maksimum.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Maksymalny moment w tej belce wynosi około:</Prompt>
+    <Answer>$13{,}5\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$13{,}86\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$18{,}0\ \mathrm{kN\cdot m}$</Answer>
+    <Hint>$M_{\max}=M(3{,}464)$.</Hint>
+    <Explanation>
+      $M_{\max}=6\cdot3{,}464-3{,}464^3/6\approx20{,}785-6{,}928=13{,}86\ \mathrm{kN\cdot m}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Przy obciążeniu liniowo zmieniającym się wykres momentu jest:</Prompt>
+    <Answer>liniowy</Answer>
+    <Answer>paraboliczny</Answer>
+    <Answer correct>sześcienny (trzeciego stopnia)</Answer>
+    <Hint>Całkuj dwukrotnie funkcję liniową.</Hint>
+    <Explanation>
+      $q$ jest stopnia pierwszego, $T$ stopnia drugiego, a $M$ stopnia trzeciego. Dlatego wykres momentu jest krzywą sześcienną, a nie parabolą.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 8.5–8.8: związki między obciążeniem, siłą tnącą i momentem oraz metody przekrojów, wykresów i całkowania.
+- L. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_, rozdz. 6.2: wykresy sił tnących i momentów, obciążenia rozłożone i interpretacja pól.
+- Osgood i in. (UPEI), _Engineering Mechanics: Statics_, rozdz. 6.2.2–6.2.4: obciążenia ciągłe, kształty wykresów i praktyczne wskazówki.
+- Wykład „Moment siły, siły równoległe, płaski dowolny układ sił”: wypadkowa obciążenia rozłożonego i jej położenie.

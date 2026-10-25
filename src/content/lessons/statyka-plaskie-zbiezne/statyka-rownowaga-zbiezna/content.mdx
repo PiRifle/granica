@@ -1,0 +1,176 @@
+---
+id: statyka-rownowaga-zbiezna
+moduleId: statyka-plaskie-zbiezne
+number: 3
+title: 'Równowaga zbieżnego układu: dwa równania'
+shortTitle: Równowaga zbieżna
+description: >-
+  Analityczne warunki równowagi: suma rzutów na każdą oś musi być zerowa.
+  Izolacja punktu, znaki i pierwsze pełne zadanie o reakcjach.
+eyebrow: 'Gdy wypadkowa znika'
+outcomes:
+  - W1 — formułuje analityczne warunki równowagi płaskiego układu zbieżnego
+  - W2 — rozumie, dlaczego w układzie zbieżnym momenty nie wchodzą do równań
+  - U1 — wyznacza dwie niewiadome reakcje z układu dwóch równań rzutów
+---
+
+Ciało poddane działaniu płaskiego układu sił zbieżnych znajduje się w równowadze wtedy, gdy jego wypadkowa jest równa zeru — tak definiuje równowagę wykład. Po rozłożeniu tego warunku na osie dostajemy dwa równania: $\sum F_x=0$ i $\sum F_y=0$. To najważniejsze dwa równania całego modułu, bo pozwalają wyznaczyć dwie niewiadome — typowo dwie reakcje więzów albo napięcia dwóch cięgien.
+
+W tej lekcji wykonujesz pierwszy pełny cykl obliczeniowy statyki: od rysunku sytuacji, przez schemat izolowanego punktu, po dwa równania i dwa wyniki. Kluczowe okażą się dwie rzeczy, które warto wyrobić sobie od razu: dyscyplina znaków przy rzutowaniu oraz nawyk sprawdzania wyniku po jego otrzymaniu. Większość błędów w zadaniach zbieżnych to nie błędy algebry, lecz błędy schematu i znaków.
+
+Pracujemy na klasycznym przykładzie: gładka kula wciśnięta między równię pochyłą a pionową ścianę. Oba więzy są gładkie, więc każdy daje po jednej reakcji o znanym kierunku — idealny trening dwóch niewiadomych i dwóch równań.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć wypadkową z rzutów (poprzednia lekcja) — warunek równowagi to $W=0$ zapisany współrzędnymi.
+- Znajdź kierunki reakcji podstawowych więzów: cięgno wzdłuż osi, gładka powierzchnia prostopadle do niej.
+- Przypomnij sobie zasadę oswobodzenia od więzów: schemat rysujesz dopiero po zastąpieniu każdego więzu siłą.
+- Ustal konwencję znaków: $x$ w prawo, $y$ w górę, i trzymaj się jej do końca zadania.
+
+## Model i intuicja
+
+Warunek równowagi punktu materialnego, $\sum\mathbf F=0$, to wektorowa wersja pierwszego prawa Newtona: jeśli ciało pozostaje w spoczynku, siły muszą się znieść. Dla sił w jednej płaszczyźnie jeden wektorowy warunek rozpada się na dwa skalarne, bo wektor jest zerowy wtedy i tylko wtedy, gdy zerują się obie jego współrzędne. Stąd para równań, która w układzie zbieżnym wyczerpuje całą równowagę: momenty tu nie występują, bo wszystkie siły przechodzą przez punkt izolacji.
+
+Geometrycznie to samo widzisz w wieloboku sił: układ jest w równowadze wtedy, gdy wielobok jest zamknięty — koniec ostatniego wektora wraca do początku pierwszego. Trójkąt zamknięty to szczególny przypadek, któremu poświęcimy osobną lekcję. Analitycznie zamkniętość wieloboku odpowiada zerowym sumom rzutów.
+
+Praktyczna konsekwencja jest prosta i ważna: płaski układ zbieżny ma dokładnie dwa równania równowagi. Jeśli po narysowaniu schematu widzisz trzy niewiadome, to albo zadanie nie jest zbieżne, albo brakuje ci informacji — zanim zaczniesz liczyć, poszukaj dodatkowego warunku (często będzie nim właśnie zbieżność trzech sił, temat lekcji 4).
+
+## Laboratorium: co ustawić
+
+Zbuduj zbieżny układ dwóch sił podporowych i obciążenia, np. kulę między dwiema powierzchniami. Zmieniaj kąt jednej powierzchni i obserwuj obie reakcje: gdy powierzchnia zbliża się do pionu, jej reakcja rośnie, a druga maleje. Sprawdź, czy dla każdej konfiguracji wielobok trzech sił zamyka się — to geometryczny test równowagi, któremu odpowiadają dwa równania rzutów.
+
+<Lab id="staticsConcurrent" />
+
+## Definicje i jednostki
+
+| Pojęcie                      | Znaczenie                                           | Jednostka |
+| ---------------------------- | --------------------------------------------------- | --------- |
+| Równowaga                    | Stan spoczynku; wypadkowa sił równa zeru            | —         |
+| Równanie rzutów              | $\sum F_x=0$, $\sum F_y=0$ — dwa niezależne warunki | N         |
+| Reakcja gładkiej powierzchni | Siła prostopadła do powierzchni styku               | N         |
+| Reakcja cięgna               | Siła wzdłuż osi cięgna, zwrot od punktu zaczepu     | N         |
+| Liczba niewiadomych          | W układzie zbieżnym maksymalnie 2 do wyznaczenia    | —         |
+
+Jednostki: siły w N lub kN; kąty w stopniach. Równania rzutów mają wymiar siły — jeśli po podstawieniu zostaje ci kąt lub metr, gdzieś zgubiłeś mnożnik trygonometryczny.
+
+## Wzór i wyprowadzenie
+
+Wypadkowa układu zbieżnego, $W_x=\sum F_{ix}$, $W_y=\sum F_{iy}$, musi zniknąć w każdym kierunku. To daje dwa równania równowagi.
+
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0
+$$
+
+<Caption>Analityczne warunki równowagi płaskiego zbieżnego układu sił. Dla niewiadomej siły przyjmujemy zwrot; wynik ujemny oznacza zwrot przeciwny do założonego, nie błąd rachunku.</Caption>
+</Formula>
+
+Wyprowadzenie: $\mathbf W=\sum\mathbf F_i=\mathbf 0$. Współrzędne wektora zerowego są zerowe, więc $W_x=\sum F_{ix}=0$ i $W_y=\sum F_{iy}=0$. Odwrotnie, jeśli obie sumy rzutów znikają, wypadkowa nie ma modułu — układ jest w równowadze. Geometrycznie: rzuty zerowe oznaczają, że wielobok sił nie ma odcinka zamykającego.
+
+<AnimatedSolution id="ex-statyka-rownowaga-zbiezna" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Stosowanie trzech równań z momentami do układu zbieżnego z dwiema niewiadomymi — niepotrzebne i mylące; momenty znikają, bo wszystkie siły przechodzą przez punkt izolacji.
+- Rysowanie reakcji gładkiej równi pionowo w górę „jak podpory" — reakcja jest prostopadła do powierzchni, a na równi to oznacza kąt od pionu, nie od poziomu.
+- Pomijanie znaku przy rzutach: jeden zły znak psuje oba równania, bo siła z błędnym znakiem pojawia się w każdej sumie.
+- Zgadywanie, która reakcja jest większa, zamiast rozwiązać równania — po wyniku porównaj z intuicją, nie przed.
+- Mylenie „układ zamknięty" z „układ zerowy": wielobok sił w równowadze jest zamknięty, ale poszczególne siły nie są zerowe.
+- Zapominanie, że kula ma trzy siły: dwie reakcje i ciężar; schemat z dwiema siłami daje zawsze $N=G$, co jest błędne dla równi.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź zbieżność: wszystkie siły (obciążenia i reakcje) muszą przechodzić przez jeden punkt. Jeśli tak — dwa równania rzutów wyczerpują równowagę.
+2. Policz niewiadome: dwie niewiadome to idealny przypadek; trzy oznaczają brakujący warunek, którego szukasz w geometrii zadania.
+3. Zastąp więzy reakcjami o znanych kierunkach: cięgno wzdłuż osi, gładka powierzchnia prostopadle, przegub jako dwie składowe.
+4. Przyjmij zwroty reakcji; nie muszą być prawdziwe — znak wyniku je skoryguje.
+5. Rzutuj wszystkie siły na obie osie z jednej konwencji kątów i zapisz oba równania.
+6. Rozwiąż, sprawdź rzuty i oceń sens fizyczny: reakcje dodatnie i wielkości rzędu obciążenia.
+
+## Połącz z resztą kursu
+
+- **Wypadkowa** — równowaga to przypadek szczególny: wypadkowa równa zeru; wielobok zamknięty to geometryczny odpowiednik dwóch równań.
+- **Równowaga trzech sił** — gdy niewiadomych jest trzy, ratuje cię twierdzenie o zbieżności linii działania.
+- **Cięgna i kontakty** — kierunki reakcji użyte tu bez dyskusji stają się głównym tematem lekcji 5.
+- **Przestrzenny układ zbieżny** — ta sama idea w trzech osiach: trzy równania rzutów.
+- **Wytrzymałość: rozciąganie** — napięcie cięgna z tej lekcji to siła osiowa $N$ w pręcie; podzielona przez pole da naprężenie.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Ile niezależnych równań równowagi ma płaski zbieżny układ sił?</Prompt>
+    <Answer>Jedno: suma sił równa zero</Answer>
+    <Answer correct>Dwa: suma rzutów na oś $x$ i suma rzutów na oś $y$</Answer>
+    <Answer>Trzy, z momentem względem dowolnego punktu</Answer>
+    <Hint>Rozłóż warunek $\sum\mathbf F=\mathbf 0$ na współrzędne.</Hint>
+    <Explanation>
+      Wektor zerowy ma zerowe obie współrzędne, więc równowaga zbieżnego układu to $\sum F_x=0$ i $\sum F_y=0$.
+      Momentów nie dopisujemy, bo wszystkie siły przechodzą przez punkt izolacji i nie wywołują obrotu.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego w zadaniu zbieżnym nie sumuje się momentów względem punktu izolacji?</Prompt>
+    <Answer>Bo momenty są za małe, by je liczyć</Answer>
+    <Answer correct>Bo ramię każdej siły względem tego punktu jest zerowe</Answer>
+    <Answer>Bo momenty sumują się tylko dla ciał sztywnych</Answer>
+    <Hint>Ramię momentu to odległość prostej działania siły od punktu — jaka jest dla sił zbieżnych?</Hint>
+    <Explanation>
+      Wszystkie proste działania przechodzą przez punkt izolacji, więc ramiona są zerowe i momenty znikają.
+      Dlatego równania momentów niczego nie wnoszą — ani niewiadomej, ani sprawdzenia.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Kula $G=200\ \text{N}$ spoczywa na gładkiej równi $\alpha=30^\circ$ przy gładkiej pionowej ścianie. Reakcja ściany wynosi:</Prompt>
+    <Answer>$200\ \text{N}$</Answer>
+    <Answer correct>$115{,}5\ \text{N}$</Answer>
+    <Answer>$230{,}9\ \text{N}$</Answer>
+    <Hint>Najpierw równowaga pionowa daje reakcję równi $N_1=G/\cos30^\circ$, potem równowaga pozioma.</Hint>
+    <Explanation>
+      Z osi pionowej: $N_1=200/\cos30^\circ=230{,}9\ \text{N}$. Z osi poziomej: $N_2=N_1\sin30^\circ=115{,}5\ \text{N}$.
+      Odpowiedź $230{,}9\ \text{N}$ to reakcja równi, a nie ściany — warto czytać pytanie do końca.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W zadaniu o kulę na równi ($\alpha=30^\circ$) reakcja $N_1$ wyszła ujemna. Co to oznacza?</Prompt>
+    <Answer>Błąd rachunku, reakcja nie może być ujemna</Answer>
+    <Answer correct>Rzeczywisty zwrot $N_1$ jest przeciwny do założonego na schemacie</Answer>
+    <Answer>Równia jest zbyt stroma, by kula mogła spoczywać</Answer>
+    <Hint>Znak wyniku odnosi się do zwrotu przyjętego na rysunku.</Hint>
+    <Explanation>
+      Zakładamy zwrot reakcji dowolnie; wynik ujemny mówi tylko, że rzeczywisty zwrot jest odwrotny.
+      Wartość bezwzględna pozostaje wynikiem. To standardowa sytuacja, nie błąd.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Na punkt działają: siła $10\ \text{N}$ w prawo, $10\ \text{N}$ w lewo i $10\ \text{N}$ w górę. Układ jest:</Prompt>
+    <Answer>w równowadze, bo siły się znoszą</Answer>
+    <Answer correct>nierównoważony, bo $\sum F_y=10\ \text{N}\neq0$</Answer>
+    <Answer>w równowadze, bo wielobok jest trójkątem</Answer>
+    <Hint>Sprawdź obie sumy rzutów, nie samą liczbę sił.</Hint>
+    <Explanation>
+      $\sum F_x=10-10=0$, ale $\sum F_y=10\ \text{N}\neq0$. Wypadkowa to $10\ \text{N}$ w górę — punkt nie byłby w spoczynku.
+      Równowaga wymaga zerowania się obu sum rzutów jednocześnie.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Wielobok sił w równowadze musi być:</Prompt>
+    <Answer>prostokątny</Answer>
+    <Answer correct>zamknięty — koniec ostatniej siły wraca do początku pierwszej</Answer>
+    <Answer>równoległobokiem</Answer>
+    <Hint>Wielobok sił to geometryczna suma wektorów; kiedy suma jest zerowa?</Hint>
+    <Explanation>
+      Wypadkowa to odcinek od początku pierwszego wektora do końca ostatniego. Gdy jest zerowa, odcinek ma długość zero —
+      wielobok zamyka się. Zamknięty wielobok to geometryczny odpowiednik warunków $\sum F_x=0$, $\sum F_y=0$.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Płaskie układy sił zbieżnych", str. 5–7: definicja równowagi, dwa równania równowagi oraz przykład kuli między płaszczyznami nachylonymi pod kątami $30^\circ$ i $60^\circ$.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 3.1–3.2: równowaga jako $\sum\mathbf F=0$ i wniosek, że dla punktu w płaszczyźnie są co najwyżej dwie niewiadome.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 2.3: równania równowagi punktu, wybór osi i procedura rozwiązywania.
+- _University Physics_ (OpenStax), rozdz. 5.2: pierwsze prawo Newtona i pojęcie równowagi statycznej.

@@ -1,0 +1,184 @@
+---
+id: statyka-metoda-wezlow
+moduleId: statyka-kratownice
+number: 3
+title: 'Metoda równoważenia węzłów: kolejność i kontrola'
+shortTitle: 'Metoda węzłów'
+description: >-
+  Wycinaj węzły po kolei, zamieniaj pręty na siły osiowe i rozwiązuj dwa
+  równania rzutów. Naucz się wybierać kolejność i sprawdzać wynik.
+eyebrow: 'Węzeł po węźle'
+outcomes:
+  - 'W1 — opisuje zasadę metody równoważenia węzłów'
+  - 'W2 — wyjaśnia, dlaczego moment względem węzła nie wnosi równania'
+  - 'U1 — wyznacza siły w prętach, zaczynając od węzła z dwiema niewiadomymi'
+  - 'U2 — kontroluje wynik równowagą ostatniego węzła lub przekrojem'
+---
+
+Metoda równoważenia węzłów jest najnaturalniejszym sposobem rozwiązania kratownicy. Skoro cała konstrukcja jest w równowadze, to każdy jej węzeł też jest w równowadze. Wystarczy więc myślowo wyciąć pojedynczy węzeł, zastąpić przecięte pręty siłami osiowymi i zapisać dla niego równania równowagi. Potem przechodzimy do sąsiedniego węzła, wykorzystując siły już obliczone.
+
+Siła metody tkwi w systematyczności. W węźle spotykają się tylko siły zbieżne, więc równanie momentów jest spełnione tożsamościowo. Zostają dwa równania rzutów — a to oznacza, że w jednym kroku możemy rozwiązać co najwyżej dwie niewiadome. Jeśli w węźle są trzy nieznane siły, trzeba go odłożyć na później albo wybrać inne narzędzie, na przykład metodę Rittera.
+
+W tej lekcji przejdziemy przez pełny rachunek dla dwupanelowej kratownicy. Najpierw wyznaczymy reakcje, potem rozpoznamy pręty zerowe, a następnie będziemy wycinać węzły w takiej kolejności, żeby nigdy nie mieć więcej niż dwóch niewiadomych. Na końcu sprawdzimy całość węzłem, którego jeszcze nie użyliśmy do rozwiązania.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje podpór z równowagi całej kratownicy.
+- Rozpoznawaj pręty zerowe z poprzedniej lekcji — to często pierwszy krok porządkowania rachunku.
+- Pamiętaj, że siła w pręcie działa wzdłuż osi, a jej znak dodatni oznacza rozciąganie.
+- Przygotuj tabelę prętów, żeby nie zgubić żadnej siły i móc zapisać zera.
+- Ustal układ współrzędnych: poziom $x$ w prawo, pion $y$ w górę.
+
+## Model i intuicja
+
+Wyobraź sobie, że kratownica jest zbudowana z patyczków i pinezek, a ty chwytasz jeden węzeł i odrywasz go od reszty. Na odciętym węźle widzisz końce prętów. Każdy pręt działa na węzeł siłą wzdłuż siebie — ciągnie go, jeśli jest rozciągany, albo odpycha, jeśli jest ściskany. Węzeł musi być w równowadze pod działaniem tych sił oraz ewentualnego obciążenia zewnętrznego.
+
+Dwa równania rzutów są wystarczające, gdy w węźle są najwyżej dwie nieznane siły. Dlatego kolejność ma znaczenie. Zaczynamy od węzła podporowego lub takiego, w którym pręty zerowe redukują liczbę niewiadomych. Potem przesuwamy się po kratownicy tak, aby każdy kolejny węzeł miał dokładnie dwie nowe niewiadome. To nie jest sztywna reguła, ale dobra strategia: pozwala uniknąć rozwiązywania układu równań z kilkoma niewiadomymi naraz.
+
+Metoda ma też naturalną kontrolę. Ostatni węzeł, którego nie użyliśmy do wyznaczenia żadnej siły, powinien być w równowadze automatycznie. Jeśli nie jest, gdzieś popełniliśmy błąd — najczęściej w znaku, w rzucie siły ukośnej albo w pominiętym obciążeniu. Kontrola jest tania, bo wystarczy podstawić gotowe wartości do dwóch równań.
+
+Ograniczeniem metody jest liczba niewiadomych w węźle. Trzy pręty bez znanych sił to za dużo dla dwóch równań. Można wtedy wykorzystać równanie momentów względem innego punktu? Nie dla samego węzła — wszystkie siły przechodzą przez węzeł, więc moment znika. Trzeba albo znaleźć inne równanie z sąsiedniego węzła, albo przeciąć kratownicę metodą Rittera. Metoda węzłów jest świetna, gdy potrzebujemy **wszystkich** sił, ale mniej wygodna, gdy pytanie dotyczy jednego pręta w środku konstrukcji.
+
+## Laboratorium: co ustawić
+
+Włącz kratownicę dwupanelową i ustaw obciążenie w środkowym węźle górnego pasa. Obserwuj, jak zmieniają się siły w pasach i ukośnicach przy przesuwaniu obciążenia. Spróbuj rozwiązać węzeł narożny „na papierze" przed odczytem wyniku, a potem sprawdź, czy znak się zgadza. Na koniec zmień obciążenie na działające poziomo i zobacz, które pręty zmieniają znak.
+
+<Lab id="staticsTruss" />
+
+## Definicje i jednostki
+
+| Pojęcie         | Znaczenie                                                         | Jednostka |
+| --------------- | ----------------------------------------------------------------- | --------- |
+| Węzeł swobodny  | Węzeł wycięty myślowo z konstrukcji, z zaznaczonymi siłami prętów | —         |
+| Siła osiowa     | Siła w pręcie skierowana wzdłuż jego osi                          | kN lub N  |
+| Równanie rzutów | Suma składowych sił w wybranym kierunku równa zero                | —         |
+| Węzeł podporowy | Węzeł, w którym działa znana reakcja podpory                      | —         |
+| Kontrola        | Sprawdzenie równowagi węzła nieużytego w rachunku                 | —         |
+
+Jednostki: siły w kN, długości w m. Kąty ukośnic wyznaczaj z geometrii, a nie z rysunku „na oko". Jeśli ramię lub długość są podane w centymetrach, przelicz je na metry przed podstawieniem.
+
+## Wzór i wyprowadzenie
+
+Dla wyciętego węzła $k$ z prętami o kierunkach jednostkowych $\vec e_i$:
+
+<Formula>
+$$
+\sum_i N_i\,e_{ix}+F_{kx}=0,\qquad
+\sum_i N_i\,e_{iy}+F_{ky}=0
+$$
+
+<Caption>Dwa równania rzutów dla węzła. $F_{kx}$ i $F_{ky}$ oznaczają składowe obciążenia zewnętrznego i reakcji podpory przyłożonych w tym węźle. Dla każdego pręta $N_i>0$ oznacza rozciąganie, $N_i<0$ ściskanie.</Caption>
+</Formula>
+
+Wyprowadzenie wynika wprost z definicji równowagi. Węzeł jest ciałem, na które działa układ sił zbieżnych. Warunkiem równowagi jest zerowanie się wypadkowej, czyli suma wektorowa wszystkich sił musi być zerem. Rzutując to równanie na dwie nierównoległe osie, dostajemy dwa równania skalarne. Równanie momentów względem węzła jest automatycznie spełnione, bo wszystkie siły mają w nim ramię zerowe.
+
+Liczba równań musi odpowiadać liczbie niewiadomych. W węźle z dwoma nieznanymi prętami mamy dokładnie dwa równania i dwa nieznane $N_i$ — układ jest rozwiązalny. W węźle z trzema nieznanymi prętami równania są dwa, więc potrzebujemy dodatkowej informacji z innego węzła lub przekroju. To nie znaczy, że kratownica jest niewyznaczalna — znaczy tylko, że ten konkretny węzeł nie jest dobrym punktem startu.
+
+<AnimatedSolution id="ex-statyka-metoda-wezlow" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zaczynanie od węzła z trzema lub więcej niewiadomymi — dwa równania nie wystarczą i pojawia się pozorny problem nierozwiązywalności.
+- Pomijanie reakcji podpory w węźle podporowym — reakcja jest zwykłą siłą zewnętrzną i wchodzi do równań.
+- Złe rzutowanie pręta ukośnego: kąt liczony od pionu zamiast od poziomu zamienia $\sin$ z $\cos$.
+- Zmiana znaku siły w połowie rachunku — przyjmij rozciąganie jako dodatnie i konsekwentnie tego trzymaj się we wszystkich węzłach.
+- Zapominanie o prętach zerowych — to nie błąd merytoryczny, ale tracenie czasu i większe ryzyko pomyłki.
+- Brak kontroli ostatniego węzła — bez niej nie wiadomo, czy błąd nie wkradł się w środku obliczeń.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wyznacz reakcje podpór z równowagi całej kratownicy.
+2. Zaznacz pręty zerowe i usuń je myślowo ze schematu.
+3. Znajdź węzeł z co najwyżej dwiema niewiadomymi; najczęściej jest to węzeł podporowy lub narożny.
+4. Narysuj odcięty węzeł i zaznacz wszystkie działające na niego siły, przyjmując rozciąganie jako dodatnie.
+5. Zapisz dwa równania rzutów i rozwiąż je; wynik wpisz do tabeli prętów.
+6. Przejdź do sąsiedniego węzła, wykorzystując znane już siły, i powtarzaj aż do wyczerpania niewiadomych.
+7. Sprawdź równowagę węzła, którego nie użyłeś do rozwiązania — to końcowy test poprawności.
+
+## Połącz z resztą kursu
+
+- **Pręty zerowe** — rozpoznanie zer przed metodą węzłów redukuje liczbę równań i porządkuje kolejność.
+- **Metoda Rittera** — gdy potrzebujesz tylko jednej siły w środku kratownicy, przekrój bywa szybszy niż przechodzenie przez wszystkie węzły.
+- **Płaski zbieżny układ sił** — metoda węzłów to dokładnie ten sam rachunek, zastosowany do każdego węzła osobno.
+- **Równowaga trzech sił** — w węźle z dwoma prętami i obciążeniem możesz użyć trójkąta sił jako alternatywy dla rzutów.
+- **Wytrzymałość: siły osiowe** — tabela sił z tej lekcji jest danymi wejściowymi do sprawdzenia naprężeń i doboru przekrojów.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>W metodzie równoważenia węzłów dla jednego węzła zapisujemy:</Prompt>
+    <Answer>trzy równania: dwa rzuty i moment</Answer>
+    <Answer correct>dwa równania rzutów, bo moment względem węzła jest zerowy</Answer>
+    <Answer>tylko równanie momentów, bo siły są zbieżne</Answer>
+    <Hint>Wszystkie siły w węźle mają punkt przyłożenia w tym samym miejscu. Jakie ramię ma każda z nich?</Hint>
+    <Explanation>
+      Siły w węźle są zbieżne, więc moment każdej z nich względem węzła wynosi zero. Równanie momentów jest spełnione
+      tożsamościowo i nie dostarcza informacji. Zostają dwa niezależne równania rzutów.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W przykładzie z lekcji siła w pręcie $AE$ wynosi:</Prompt>
+    <Answer>$+5{,}657\ \text{kN}$ — rozciąganie</Answer>
+    <Answer correct>$-5{,}657\ \text{kN}$ — ściskanie</Answer>
+    <Answer>$-4{,}000\ \text{kN}$ — ściskanie</Answer>
+    <Hint>W węźle $E$ znasz $N_{EF}=-4\ \text{kN}$; ukośnica $AE$ jest pod $45^\circ$.</Hint>
+    <Explanation>
+      Pozioma równowaga węzła $E$ daje $N_{EF}-N_{AE}\cos45^\circ=0$, skąd $N_{AE}=-4/0{,}707=-5{,}657\ \text{kN}$.
+      Wartość $4\ \text{kN}$ to siła w prętach pionowych, nie w ukośnicy.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Od którego węzła najlepiej zacząć metodę węzłów?</Prompt>
+    <Answer>Od węzła z największą liczbą prętów</Answer>
+    <Answer correct>Od węzła z co najwyżej dwiema niewiadomymi siłami</Answer>
+    <Answer>Od węzła, w którym działa największe obciążenie</Answer>
+    <Hint>Policz, ile nowych niewiadomych wprowadza każdy węzeł, i porównaj z liczbą równań.</Hint>
+    <Explanation>
+      Każdy węzeł daje dwa równania. Jeśli ma więcej niż dwie nieznane siły, nie da się go rozwiązać od razu. Start od
+      węzła z dwiema niewiadomymi pozwala wyznaczyć je bez układu równań i stopniowo odsłaniać kolejne węzły.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie siła w pręcie $BE$ wynosi $-4\ \text{kN}$. Co to oznacza dla pręta?</Prompt>
+    <Answer>Pręt jest rozciągany i ciągnie węzły $B$ oraz $E$</Answer>
+    <Answer correct>Pręt jest ściskany i odpycha węzły $B$ oraz $E$</Answer>
+    <Answer>Pręt jest zerowy, bo wartość jest mała</Answer>
+    <Hint>Znak ujemny przy założeniu rozciągania oznacza przeciwny zwrot siły na węźle.</Hint>
+    <Explanation>
+      Ujemna siła osiowa oznacza ściskanie. Pręt $BE$ jest pionowy, więc odpycha węzeł $B$ w dół, a węzeł $E$ w górę.
+      Wartość $4\ \text{kN}$ nie jest zerem — pręt naprawdę przenosi siłę.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Po obliczeniu wszystkich sił metodą węzłów najlepsza kontrola to:</Prompt>
+    <Answer>ponowne obliczenie reakcji z innych równań</Answer>
+    <Answer correct>sprawdzenie równowagi węzła nieużytego w rachunku</Answer>
+    <Answer>porównanie z rysunkiem i ocena „na oko"</Answer>
+    <Hint>W metodzie węzłów jeden węzeł często zostaje niewykorzystany — właśnie on jest darmowym testem.</Hint>
+    <Explanation>
+      Jeśli wszystkie siły są znane, równowaga nieużytego węzła powinna wyjść automatycznie. To niezależny test, który
+      wychwytuje błędy znaków i rzutów. Ponowne liczenie tych samych reakcji nie sprawdza sił w prętach.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Co zrobić, gdy w węźle są trzy nieznane siły w prętach?</Prompt>
+    <Answer>Dopisać trzecie równanie momentów względem tego węzła</Answer>
+    <Answer correct>Odłożyć węzeł i wykorzystać inny węzeł lub metodę Rittera</Answer>
+    <Answer>Założyć, że jedna z sił jest zerowa</Answer>
+    <Hint>Dwa równania rzutów nie wystarczą na trzy niewiadome; potrzebna jest dodatkowa informacja spoza tego węzła.</Hint>
+    <Explanation>
+      Równanie momentów względem węzła jest tożsamością, więc nie pomoże. Trzeba znaleźć węzeł z mniejszą liczbą niewiadomych
+      albo przeciąć kratownicę metodą Rittera. Założenie zera bez uzasadnienia jest zgadywaniem, nie obliczeniem.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Kratownica — rozwiązany przykład", str. 3–8: metoda równoważenia węzłów krok po kroku dla kratownicy z trzema panelami.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 6.4: metoda węzłów, kolejność wycinania i kontrola.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 5.2: metoda węzłów i przykłady z kratownic płaskich.
+- _University Physics_ (OpenStax), rozdz. 5.6: równowaga układów z wieloma siłami zbieżnymi.

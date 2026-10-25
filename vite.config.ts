@@ -46,10 +46,10 @@ export default defineConfig({
         'icons/apple-touch-icon.png',
       ],
       manifest: {
-        name: 'Granica — wytrzymałość materiałów',
+        name: 'Granica — interaktywne kursy mechaniki',
         short_name: 'Granica',
         description:
-          'Zrozum, zanim się złamie. Interaktywny kurs wytrzymałości materiałów: laboratoria, animowane rozwiązania, trening i kolokwium próbne.',
+          'Statyka i wytrzymałość materiałów w krótkich, interaktywnych lekcjach. Przesuń suwak, zobacz skutek i zrozum wzór.',
         lang: 'pl',
         start_url: base,
         scope: base,
@@ -67,18 +67,19 @@ export default defineConfig({
           {
             name: 'Trening liczbowy',
             short_name: 'Trening',
-            url: `${base}training`,
+            url: `${base}course/wytrzymalosc/training`,
             icons: [{ src: `${base}icons/icon-192.png`, sizes: '192x192' }],
           },
           {
             name: 'Kolokwium próbne',
             short_name: 'Kolokwium',
-            url: `${base}exam`,
+            url: `${base}course/wytrzymalosc/exam`,
             icons: [{ src: `${base}icons/icon-192.png`, sizes: '192x192' }],
           },
         ],
       },
       workbox: {
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         navigateFallback: 'index.html',
         globPatterns: ['**/*.{js,css,html,svg,png,woff,woff2,ttf}'],
         cleanupOutdatedCaches: true,
@@ -88,5 +89,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
+    setupFiles: ['./src/test/setup.ts'],
   },
 })
