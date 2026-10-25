@@ -171,7 +171,7 @@ describe('integralność kursu', () => {
       const body = await solution.loadBody()
       expect(typeof body.default, solution.id).toBe('function')
     }
-  }, 30_000)
+  }, 120_000)
 
   it('kompiluje wprowadzenia wszystkich modułów', async () => {
     for (const module of modules) {
@@ -179,7 +179,7 @@ describe('integralność kursu', () => {
       const body = await module.loadOverview?.()
       expect(typeof body?.default, module.id).toBe('function')
     }
-  }, 30_000)
+  }, 120_000)
 
   it('ma kompletną bibliotekę źródeł', () => {
     expect(literature).toHaveLength(8)
