@@ -108,3 +108,37 @@
   margin: 0;
   text-align: center;
 }
+
+.figure-canvas svg :where(path, line, rect, circle, ellipse, polygon, polyline) {
+  transition: opacity 140ms ease;
+}
+
+.figure-canvas svg text {
+  scale: 1;
+  transform-box: fill-box;
+  transform-origin: left bottom;
+  transition:
+    opacity 140ms ease,
+    scale 140ms ease;
+}
+
+.figure-canvas svg text[text-anchor='middle'] {
+  transform-origin: center bottom;
+}
+
+.figure-canvas svg text[text-anchor='end'] {
+  transform-origin: right bottom;
+}
+
+.figure-canvas svg:has(text:hover) :where(path, line, rect, circle, ellipse, polygon, polyline) {
+  opacity: 0.4 !important;
+}
+
+.figure-canvas svg:has(text:hover) text {
+  opacity: 0.4 !important;
+}
+
+.figure-canvas svg:has(text:hover) text:hover {
+  opacity: 1 !important;
+  scale: 1.12;
+}
