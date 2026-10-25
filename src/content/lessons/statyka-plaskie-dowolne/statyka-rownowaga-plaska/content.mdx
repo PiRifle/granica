@@ -1,0 +1,180 @@
+---
+id: statyka-rownowaga-plaska
+moduleId: statyka-plaskie-dowolne
+number: 5
+title: 'Równowaga płaska: trzy równania dla dowolnego układu sił'
+shortTitle: 'Równowaga płaska'
+description: >-
+  Warunek konieczny i wystarczający równowagi płaskiego dowolnego układu sił:
+  dwa rzuty i moment. Jak dobrać biegun i kolejność równań.
+eyebrow: 'Dwa rzuty i jeden moment'
+outcomes:
+  - W1 — formułuje trzy analityczne warunki równowagi płaskiego układu dowolnego
+  - W2 — wyjaśnia, dlaczego suma momentów musi być zerowa względem dowolnego bieguna
+  - U1 — dobiera biegun i kolejność równań, aby uprościć rozwiązanie
+  - U2 — wyznacza reakcje belki z obciążeniem ukośnym i momentem skupionym
+---
+
+W poprzednich lekcjach redukowaliśmy układ sił do wektora głównego i momentu głównego. Równowaga to szczególny przypadek tej redukcji: wektor główny musi być zerowy i moment główny musi być zerowy względem dowolnego bieguna. Dla płaskiego dowolnego układu sił daje to trzy równania skalarne: dwa rzuty na nierównoległe osie i jedno równanie momentów. To najważniejszy zestaw równań w całej statyce płaskiej.
+
+Dlaczego właśnie trzy? Płaskie ciało sztywne ma trzy stopnie swobody: dwa przesunięcia i jeden obrót. Każdy stopień swobody trzeba „zablokować” jednym niezależnym warunkiem. Rzuty na dwie osie kontrolują przesunięcia, a moment względem wybranego punktu kontroluje obrót. Gdy wszystkie trzy sumy są zerowe, ciało nie może się przesunąć ani obrócić — jest w równowadze.
+
+Kluczowa umiejętność praktyczna nie polega na samym zapisaniu równań, ale na ich dobraniu. Biegun momentów można wybrać dowolnie, podobnie osie rzutów. Dobry wybór sprawia, że w równaniu zostaje jedna niewiadoma; zły prowadzi do układu trzech równań z trzema niewiadomymi, który jest poprawny, ale znacznie dłuższy. W tej lekcji przećwiczysz oba podejścia i zobaczysz, że wynik nie zależy od wyboru bieguna.
+
+## Zanim zaczniesz
+
+- Umiej zredukować siłę do składowych $F_x=F\cos\theta$ i $F_y=F\sin\theta$ z poprawnym znakiem.
+- Przypomnij sobie definicję momentu siły względem punktu: $M=F\cdot a$, gdzie $a$ jest ramieniem, a nie odległością do punktu przyłożenia.
+- Wiedz, że moment pary sił jest wektorem swobodnym i wchodzi do równania momentów bez zmiany wartości.
+- Odróżniaj siły czynne od reakcji podpór; reakcje zależą od rodzaju więzów.
+- Ustal jedną konwencję znaków i nie zmieniaj jej w trakcie zadania.
+
+## Model i intuicja
+
+Płaski dowolny układ sił to układ, w którym proste działania sił leżą w jednej płaszczyźnie, ale nie muszą się przecinać w jednym punkcie. W takim układzie siły mogą przesuwać ciało i jednocześnie je obracać. Redukcja do bieguna $O$ zamienia cały układ na wektor główny $\mathbf R=\sum\mathbf F_i$ przyłożony w $O$ oraz moment główny $M_O=\sum M_{Oi}$. Równowaga wymaga, aby oba te obiekty były zerowe.
+
+Z warunku $\mathbf R=0$ dostajemy dwa równania rzutów. Z warunku $M_O=0$ dostajemy trzecie równanie. Moment główny zależy od wyboru bieguna; dopiero gdy $\mathbf R=0$, staje się od niego niezależny i można go liczyć względem dowolnego punktu. W zadaniach wykorzystujemy to praktycznie: wybieramy biegun tam, gdzie przecina się najwięcej niewiadomych.
+
+Model dotyczy ciała sztywnego i sił przyłożonych w jego płaszczyźnie. Nie obejmuje odkształceń, tarcia w przegubach ani sił przestrzennych. Reakcje podpór muszą być zgodne z ich rzeczywistą konstrukcją: przegub daje dwie składowe, rolka jedną prostopadłą do podłoża, utwierdzenie — dwie składowe i moment. Jeśli schemat podpór jest błędny, trzy równania będą poprawne formalnie, ale odpowiedź nie będzie opisywać rzeczywistej konstrukcji.
+
+## Laboratorium: co ustawić
+
+Zbuduj belkę z przegubem i rolką, a następnie dodaj obciążenie ukośne oraz moment skupiony. Zmieniaj położenie bieguna momentów i sprawdzaj, że suma momentów w równowadze wychodzi zerowa dla każdego wyboru. Potem celowo zmień znak jednego obciążenia i obserwuj, które reakcje zmieniają zwrot. Na końcu sprawdź, co się stanie, gdy rolka zostanie zastąpiona drugim przegubem — pojawi się czwarta niewiadoma i układ przestanie być wyznaczalny.
+
+<Lab id="staticsPlanar" />
+
+## Definicje i jednostki
+
+| Pojęcie           | Znaczenie                                                                 | Jednostka |
+| ----------------- | ------------------------------------------------------------------------- | --------- |
+| Wektor główny     | Suma wektorowa wszystkich sił układu                                      | N, kN     |
+| Moment główny     | Suma momentów wszystkich sił względem bieguna                             | N·m, kN·m |
+| Biegun momentów   | Punkt, względem którego liczymy momenty                                   | —         |
+| Równanie rzutów   | Suma składowych sił na daną oś równa zeru                                 | N, kN     |
+| Reakcja podpory   | Siła (lub moment), jaką więz działa na ciało                              | N, kN     |
+| Układ wyznaczalny | Układ, w którym liczba niewiadomych równa się liczbie niezależnych równań | —         |
+
+Jednostki: siły w N lub kN, momenty w N·m lub kN·m, długości w m, kąty w stopniach. W równaniach momentów każdy składnik musi mieć ten sam wymiar — jeśli siła jest w kN, a ramię w m, moment wychodzi w kN·m.
+
+## Wzór i wyprowadzenie
+
+Analityczne warunki równowagi płaskiego dowolnego układu sił:
+
+<Formula>
+$$
+\sum F_x=0,
+\qquad
+\sum F_y=0,
+\qquad
+\sum M_O=0
+$$
+
+<Caption>Osie $x$ i $y$ są wzajemnie nierównoległe, a biegun $O$ można wybrać dowolnie. Warunki są konieczne i wystarczające dla ciała sztywnego w płaszczyźnie. Pierwsze dwa eliminują przesunięcie, trzecie — obrót.</Caption>
+</Formula>
+
+Wyprowadzenie wynika wprost z redukcji. Dowolny płaski układ sił jest równoważny wektorowi głównemu $\mathbf R$ przyłożonemu w biegunie $O$ i momentowi głównemu $M_O$. Ciało pozostaje w równowadze tylko wtedy, gdy $\mathbf R=0$ i $M_O=0$. Po rozłożeniu $\mathbf R$ na osie dostajemy dwa równania rzutów, a $M_O=0$ daje trzecie równanie. Jeśli $\mathbf R=0$, to moment główny nie zależy od wyboru $O$ — dlatego zamiast $M_O$ możemy napisać $M_A$ dla dowolnego punktu $A$.
+
+W praktyce często wygodniej jest użyć zestawu alternatywnego: dwóch równań momentów i jednego rzutu albo trzech równań momentów. Omówimy je dokładniej w lekcji 7. Tutaj wystarczy zapamiętać, że klasyczny zestaw „dwa rzuty + moment” jest poprawny zawsze, gdy osie rzutów są nierównoległe. Kolejność rozwiązywania powinna być taka, aby każde równanie zawierało możliwie najmniej niewiadomych.
+
+<AnimatedSolution id="ex-statyka-rownowaga-plaska" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zapisanie tylko dwóch równań rzutów i pominięcie momentu — w układzie dowolnym to za mało, bo nie kontroluje obrotu.
+- Wybór bieguna „na początku układu” bez sprawdzenia, czy upraszcza równanie; lepszy jest punkt przecięcia niewiadomych.
+- Błędne ramię siły: odległość od bieguna do prostej działania, a nie do punktu przyłożenia.
+- Pominięcie momentu skupionego albo zmiana jego znaku przy zmianie bieguna — moment pary jest swobodny i nie zależy od bieguna.
+- Rozłożenie siły ukośnej bez sprawdzenia, w którą stronę działają składowe; znak wynika z rysunku, nie z przyzwyczajenia.
+- Traktowanie reakcji pionowej rolki jako ukośnej — rolka na poziomym podłożu daje reakcję prostopadłą do podłoża.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj schemat ciała wolnego i zaznacz wszystkie siły zewnętrzne oraz reakcje podpór.
+2. Policz niewiadome i sprawdź, czy jest ich trzy; jeśli więcej, zadanie może być niewyznaczalne.
+3. Wybierz osie rzutów możliwie prostopadłe do nieznanych reakcji.
+4. Wybierz biegun momentów w punkcie, przez który przechodzi najwięcej niewiadomych.
+5. Zapisz równanie momentów i rozwiąż je względem pierwszej niewiadomej.
+6. Uzupełnij równaniami rzutów i wyznacz pozostałe reakcje.
+7. Sprawdź wynik momentem względem innego punktu oraz bilansem sił.
+
+## Połącz z resztą kursu
+
+- **Redukcja do bieguna** — trzy równania równowagi to bezpośrednia konsekwencja zerowania wektora głównego i momentu głównego.
+- **Siły równoległe i para sił** — równanie momentów jest jedynym, które „widzi” parę sił; siły równoległe często rozwiązuje się jednym momentem i jednym rzutem.
+- **Obciążenia rozłożone** — przed zapisaniem równań zastępujesz obciążenie ciągłe wypadkową w środku ciężkości diagramu.
+- **Reakcje konstrukcji** — belki i ramy to praktyczne zastosowanie tych samych trzech równań, tylko z bardziej rozbudowanym schematem podpór.
+- **Wyznaczalność** — liczba niewiadomych w równaniach decyduje o tym, czy układ da się rozwiązać metodami statyki.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Ile niezależnych równań skalarnych daje równowaga płaskiego dowolnego układu sił?</Prompt>
+    <Answer>$2$</Answer>
+    <Answer correct>$3$</Answer>
+    <Answer>$6$</Answer>
+    <Hint>Policz stopnie swobody płaskiego ciała sztywnego.</Hint>
+    <Explanation>
+      Płaskie ciało sztywne ma trzy stopnie swobody: dwa przesunięcia i jeden obrót. Dlatego potrzebne są trzy niezależne równania: dwa rzuty i moment. Sześć równań dotyczy układu przestrzennego.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego biegun momentów można wybrać dowolnie?</Prompt>
+    <Answer>Bo moment każdej siły jest niezależny od bieguna</Answer>
+    <Answer correct>Bo w równowadze wektor główny jest zerowy, więc moment główny nie zależy od bieguna</Answer>
+    <Answer>Bo moment siły zawsze wynosi zero w równowadze</Answer>
+    <Hint>Pomyśl o zależności momentu głównego od bieguna, gdy $\mathbf R=0$.</Hint>
+    <Explanation>
+      Moment pojedynczej siły zależy od bieguna. Dopiero gdy wektor główny jest zerowy, moment główny przestaje zależeć od wyboru punktu. Dlatego w równowadze warunek $M_O=0$ można zapisać względem dowolnego bieguna.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z belką $L=4\ \text{m}$ reakcja rolki $B_y$ wynosi:</Prompt>
+    <Answer>$1\ \text{kN}$</Answer>
+    <Answer correct>$4\ \text{kN}$</Answer>
+    <Answer>$5\ \text{kN}$</Answer>
+    <Hint>Momenty względem $A$: $4B_y-5\cdot2-6=0$.</Hint>
+    <Explanation>
+      $4B_y=10+6=16$, więc $B_y=4\ \text{kN}$. Wartość $5\ \text{kN}$ to pionowa składowa obciążenia, a $1\ \text{kN}$ — reakcja $A_y$ po odjęciu $B_y$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W tym samym przykładzie składowa pozioma reakcji przegubu $A_x$ wynosi:</Prompt>
+    <Answer>$8{,}66\ \text{kN}$ w prawo</Answer>
+    <Answer correct>$8{,}66\ \text{kN}$ w lewo</Answer>
+    <Answer>$5{,}0\ \text{kN}$ w lewo</Answer>
+    <Hint>$P_x=10\cos30^\circ$ działa w prawo; przegub musi ją zrównoważyć.</Hint>
+    <Explanation>
+      $P_x=10\cos30^\circ=8{,}66\ \text{kN}$ w prawo. Z $\sum F_x=0$ dostajemy $A_x=-8{,}66\ \text{kN}$, czyli reakcja działa w lewo. Wartość $5\ \text{kN}$ to składowa pionowa siły $P$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Gdyby moment skupiony $M$ zmienił zwrot na przeciwny do ruchu wskazówek zegara, to $B_y$ wyniosłoby:</Prompt>
+    <Answer>$4\ \text{kN}$</Answer>
+    <Answer correct>$1\ \text{kN}$</Answer>
+    <Answer>$2{,}5\ \text{kN}$</Answer>
+    <Hint>Zmień znak momentu w równaniu $4B_y-10-6=0$ na $+6$.</Hint>
+    <Explanation>
+      Po zmianie znaku równanie ma postać $4B_y-10+6=0$, więc $4B_y=4$ i $B_y=1\ \text{kN}$. Reakcja $A_y$ wzrośnie wtedy do $4\ \text{kN}$, bo suma pionowa musi pozostać równa $5\ \text{kN}$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Które stwierdzenie o wyborze osi rzutów jest poprawne?</Prompt>
+    <Answer>Osie muszą być pozioma i pionowa</Answer>
+    <Answer correct>Osie muszą być wzajemnie nierównoległe; warto wybrać je tak, by eliminować niewiadome</Answer>
+    <Answer>Wystarczy jedna oś, jeśli suma momentów jest zerowa</Answer>
+    <Hint>Warunek dotyczy niezależności równań, nie konkretnego kierunku.</Hint>
+    <Explanation>
+      Można przyjąć dowolne dwie nierównoległe osie. Często wybiera się je wzdłuż lub prostopadle do prętów i podpór, żeby jedna składowa wypadała z równania. Jedna oś nie wystarcza, bo nie kontroluje drugiego kierunku przesunięcia.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Moment siły, siły równoległe, płaski dowolny układ sił”, str. 17–20: analityczne równania równowagi, dowolność bieguna i alternatywne zestawy równań.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 5.3–5.4: równania równowagi i równowaga płaskiego ciała sztywnego.
+- L. Osgood, G. Cameron, H. Christensen, _Engineering Mechanics: Statics_, rozdz. 4.2–4.3: schemat ciała wolnego i równania równowagi ciała sztywnego.
+- _University Physics_ (OpenStax), rozdz. 5.1 i 5.7: siły, ich składowe oraz rysowanie schematu ciała wolnego.

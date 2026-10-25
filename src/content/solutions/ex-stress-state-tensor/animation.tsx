@@ -381,9 +381,11 @@ export function StressTensorExample1Animation({ scene, playing, sceneProgress, i
           role="img"
           aria-label="Kostka naprężeń w punkcie: składowe sigma x, sigma y i tau xy, ich zapis w tensorze oraz trakcja na płaszczyźnie nachylonej pod kątem 30 stopni."
         >
-          <text x={16} y={24} fontSize={9} fill={MUTED}>
-            σx = 120 MPa · σy = 40 MPa · τxy = 30 MPa
-          </text>
+          {(isModel || isTensor) && (
+            <text x={16} y={24} fontSize={9} fill={MUTED}>
+              σx = 120 MPa · σy = 40 MPa · τxy = 30 MPa
+            </text>
+          )}
 
           {isModel && (
             <g>

@@ -1,0 +1,173 @@
+---
+id: statyka-zaleznosci-qtm
+moduleId: statyka-sily-wewnetrzne
+number: 4
+title: 'Zależności między q, T i M'
+shortTitle: Zależności q–T–M
+description: >-
+  Nachylenie wykresu T to minus q, nachylenie wykresu M to T, a zmiana momentu
+  to pole pod wykresem siły tnącej.
+eyebrow: Pochodna i pole łączą wykresy
+outcomes:
+  - 'W1 — wyjaśnia związki różniczkowe między obciążeniem, siłą tnącą i momentem'
+  - 'W2 — przewiduje kształt wykresów T i M z rozkładu obciążenia'
+  - 'U1 — lokalizuje ekstrema momentu z warunku T = 0'
+  - 'U2 — oblicza przyrosty T i M z pól pod wykresami'
+---
+
+Wykresy obciążenia, siły tnącej i momentu zginającego nie są trzema niezależnymi rysunkami. Łączą je dokładne związki matematyczne, które wyprowadza się z równowagi małego odcinka belki. Dzięki nim możesz sprawdzić każdy wykres, przewidzieć jego kształt i znaleźć miejsce największego momentu bez rysowania całego diagramu.
+
+W tej lekcji wyprowadzisz trzy związki: nachylenie wykresu $T$ wynosi $-q$, nachylenie wykresu $M$ jest równe $T$, a zmiana momentu między dwoma przekrojami to pole pod wykresem $T$. Są one sercem rysowania wykresów metodą odcinków, którą ćwiczyć będziesz w następnej lekcji.
+
+## Zanim zaczniesz
+
+- Opanuj wyznaczanie sił wewnętrznych dla obciążenia ciągłego — to punkt wyjścia.
+- Przypomnij sobie z matematyki: pochodna funkcji liniowej to stała, pochodna kwadratowej to funkcja liniowa.
+- Pamiętaj o konwencji znaków: $q$ dodatnie w dół, $T$ dodatnia zgodnie z konwencją, $M$ dodatni „uśmiech".
+- Jednostki: $q$ w kN/m, $T$ w kN, $M$ w kN·m — różniczkowanie i całkowanie zachowuje spójność.
+
+## Model i intuicja
+
+Wyobraź sobie wykresy ułożone jeden pod drugim: na górze obciążenie $q(x)$, pod nim siła tnąca $T(x)$, na dole moment $M(x)$. Związek $dT/dx = -q$ mówi: nachylenie wykresu $T$ w każdym punkcie to ujemne natężenie obciążenia nad tym punktem. Gdzie obciążenie jest równomierne, $T$ opada liniowo; gdzie obciążenia brak, $T$ jest poziomy.
+
+Związek $dM/dx = T$ mówi podobnie: nachylenie wykresu $M$ to wartość siły tnącej. Gdy $T$ jest dodatnie, $M$ rośnie; gdy ujemne, maleje. W miejscu, gdzie $T$ przecina zero, wykres $M$ ma poziomą styczną — tam jest ekstremum momentu.
+
+Całkowe odpowiedniki są jeszcze praktyczniejsze: zmiana $T$ między dwoma punktami to pole pod wykresem $q$ (ze znakiem minus), a zmiana $M$ to pole pod wykresem $T$. Fizycznie: każdy metr belki z obciążeniem dokłada lub zabiera trochę siły tnącej, a każdy metr z siłą tnącą dokłada lub zabiera trochę momentu.
+
+## Laboratorium: co ustawić
+
+W laboratorium obserwuj jednocześnie wykresy $q$, $T$ i $M$. Znajdź miejsce, gdzie $T$ przecina zero, i sprawdź, czy tam właśnie leży maksimum $M$. Zmień natężenie obciążenia i zaobserwuj, jak zmienia się nachylenie obu wykresów.
+
+<Lab id="staticsInternal" />
+
+## Definicje i jednostki
+
+**Związki różniczkowe** wiążą pochodne funkcji $T(x)$ i $M(x)$ z obciążeniem $q(x)$ oraz z samą $T(x)$.
+
+**Związki całkowe** dają zmiany funkcji między punktami jako pola pod wykresami.
+
+**Ekstremum momentu** występuje tam, gdzie $dM/dx = T = 0$ i $T$ zmienia znak.
+
+| Symbol     | Wielkość             | Jednostka | Związek                 |
+| ---------- | -------------------- | --------- | ----------------------- |
+| $q(x)$     | natężenie obciążenia | kN/m      | $dT/dx = -q$            |
+| $T(x)$     | siła tnąca           | kN        | $dM/dx = T$             |
+| $M(x)$     | moment zginający     | kN·m      | $\Delta M = \int T\,dx$ |
+| $\Delta T$ | zmiana siły tnącej   | kN        | $-\int q\,dx$           |
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\frac{dT}{dx} = -q(x), \qquad \frac{dM}{dx} = T(x), \qquad \frac{d^2M}{dx^2} = -q(x)
+$$
+
+<Caption>Związki różniczkowe przy konwencji, w której $q$ jest dodatnie skierowane w dół. Pochodna momentu jest równa sile tnącej, a druga pochodna momentu to minus natężenie obciążenia.</Caption>
+</Formula>
+
+Wyprowadzenie z równowagi odcinka belki o długości $\Delta x$:
+
+1. Obciążenie na odcinku: $q \cdot \Delta x$ w przybliżeniu stałe.
+2. Równowaga pionowa: $T - q\Delta x = T + \Delta T$, skąd $\Delta T / \Delta x = -q$.
+3. Przejście do granicy $\Delta x \to 0$ daje $dT/dx = -q(x)$.
+4. Równowaga momentów względem przekroju $x + \Delta x$: $\Delta M \approx T \Delta x$, skąd $dM/dx = T$.
+5. Zestawienie obu związków daje $d^2M/dx^2 = -q(x)$.
+
+Całkowe odpowiedniki: $\Delta T = -\int_{x_1}^{x_2} q(x)\,dx$ oraz $\Delta M = \int_{x_1}^{x_2} T(x)\,dx$.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-zaleznosci-qtm" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zapominanie znaku minus w $dT/dx = -q$ — prowadzi do odwrotnego nachylenia wykresu $T$.
+- Szukanie ekstremum momentu tam, gdzie $q = 0$ — ekstremum wyznacza $T = 0$, nie $q = 0$.
+- Sumowanie pól pod wykresem $T$ ze złym znakiem — poniżej osi pole jest ujemne.
+- Stosowanie związków w punktach skoków sił skupionych — tam pochodna nie istnieje, trzeba sumować skoki osobno.
+- Mylenie jednostek: $q$ w kN/m całkowane po metrach daje kN; $T$ w kN całkowane po metrach daje kN·m.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zadanie prosi o wykresy lub ekstrema — od razu narysuj schemat $q(x)$ i oznacz przedziały.
+2. Wyznacz reakcje i funkcję $T(x)$ na każdym przedziale, sprawdzając $dT/dx = -q$.
+3. Całkuj $T(x)$ do $M(x)$, pilnując warunków brzegowych na podporach.
+4. Ekstrema znajdź z $T = 0$, a wartości z pól pod wykresem $T$.
+5. Całość skontroluj: $M$ musi znikać na przegubach i rolkach, $T$ — skakać o siły skupione.
+
+## Połącz z resztą kursu
+
+- **Przekroje przy obciążeniach ciągłych** — związki różniczkowe wyjaśniają, skąd biorą się liniowe i paraboliczne odcinki wykresów.
+- **Wykresy T i M** — w następnej lekcji związki te staną się procedurą rysowania diagramów.
+- **Zginanie w wytrzymałości** — z wykresu $M$ odczytasz niebezpieczny przekrój, a z niego naprężenia.
+- **Ciężar własny** — obciążenie ciągłe $q = \gamma A$ jest najczęstszym źródłem parabolicznych wykresów $M$.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Co mówi związek $dT/dx = -q(x)$?</Prompt>
+    <Answer>Moment jest całką z obciążenia</Answer>
+    <Answer correct>Nachylenie wykresu siły tnącej wynosi minus natężenie obciążenia</Answer>
+    <Answer>Siła tnąca jest stała pod obciążeniem ciągłym</Answer>
+    <Hint>Pomyśl o pochodnej jako nachyleniu.</Hint>
+    <Explanation>
+      Pochodna $T$ po $x$ to nachylenie wykresu siły tnącej. Znak minus wynika z konwencji, w której $q$ jest
+      dodatnie w dół.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Belka z przykładu: gdzie siła tnąca przyjmuje wartość zero?</Prompt>
+    <Answer>$x = 2$ m</Answer>
+    <Answer correct>$x = 2{,}25$ m</Answer>
+    <Answer>$x = 3$ m</Answer>
+    <Answer>$x = 4{,}5$ m</Answer>
+    <Hint>Rozwiąż $9 - 4x = 0$.</Hint>
+    <Explanation>
+      $x = 9/4 = 2{,}25$ m. Tam wykres $M$ ma poziomą styczną i osiąga maksimum.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Wartość maksymalnego momentu w tej belce wynosi:</Prompt>
+    <Answer>9 kN·m</Answer>
+    <Answer>10 kN·m</Answer>
+    <Answer correct>10,125 kN·m</Answer>
+    <Answer>12 kN·m</Answer>
+    <Hint>$M_{\max} = M(2{,}25)$.</Hint>
+    <Explanation>
+      $M = 9 \cdot 2{,}25 - 2 \cdot 2{,}25^2 = 20{,}25 - 10{,}125 = 10{,}125$ kN·m.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Zmiana momentu między przekrojami $x = 3$ m i $x = 6$ m wynosi:</Prompt>
+    <Answer>9 kN·m</Answer>
+    <Answer correct>-9 kN·m</Answer>
+    <Answer>0</Answer>
+    <Answer>-3 kN·m</Answer>
+    <Hint>Pole pod wykresem $T$ na $[3,6]$ to prostokąt $3 \times (-3)$.</Hint>
+    <Explanation>
+      $\Delta M = \int_3^6 (-3)\,dx = -9$ kN·m, więc $M$ spada z $9$ kN·m do zera na podporze B.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Na odcinku belki bez obciążenia ($q = 0$) wykresy mają kształt:</Prompt>
+    <Answer>$T$ liniowy, $M$ parabola</Answer>
+    <Answer correct>$T$ stały, $M$ liniowy</Answer>
+    <Answer>oba liniowe</Answer>
+    <Answer>oba stałe</Answer>
+    <Hint>Skorzystaj z $dT/dx = -q$ i $dM/dx = T$.</Hint>
+    <Explanation>
+      Gdy $q = 0$, siła tnąca ma zerową pochodną, więc jest stała. Moment ma wtedy stałe nachylenie równe $T$,
+      więc jest liniowy.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład: „Moment siły, siły równoległe, płaski dowolny układ sił" — twierdzenie Varignona jako podstawa sumowania momentów w wyprowadzeniu.
+- Baker, Haynes, _Engineering Statics_ — rozdział 8.5: pełne wyprowadzenie związków między obciążeniem, siłą tnącą i momentem, wraz z uwagami o konwencji znaków.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdział 6.2: związki różniczkowe i całkowe, interpretacja pól pod wykresami.
+- Osgood i in. (UPEI), _Engineering Mechanics: Statics_ — rozdział 6.2.4: praktyczne reguły kształtów wykresów.

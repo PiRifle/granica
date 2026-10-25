@@ -1,0 +1,190 @@
+---
+id: statyka-metoda-przekrojow
+moduleId: statyka-sily-wewnetrzne
+number: 1
+title: 'Metoda przekrojów: co kryje się w środku'
+shortTitle: Metoda przekrojów
+description: >-
+  Przetnij belkę myślowo w wybranym przekroju i wyznacz siłę normalną, tnącą
+  oraz moment zginający z równowagi odciętej części.
+eyebrow: Zajrzyj do środka
+outcomes:
+  - 'W1 — wyjaśnia pojęcie siły wewnętrznej w przekroju'
+  - 'W2 — opisuje składowe N, T i M działające na ścianie przekroju'
+  - 'U1 — wyznacza siły wewnętrzne w zadanym przekroju belki'
+  - 'U2 — wybiera dogodniejszą stronę cięcia i sprawdza wynik z drugiej strony'
+---
+
+Belka podparta w dwóch punktach i obciążona w środku nie „wie", że jest obliczana. Jej materiał przenosi obciążenie stopniowo, przekrój po przekroju, od miejsca przyłożenia siły do podpory. Aby opisać ten mechanizm, potrzebujemy sposobu na zajrzenie do wnętrza elementu. Właśnie to daje metoda przekrojów: przecinamy belkę myślowo w wybranym miejscu i zastępujemy działanie odciętej części siłami, które utrzymują pozostałą część w równowadze.
+
+Siły te nazywamy wewnętrznymi, bo opisują wzajemne oddziaływanie sąsiednich części ciała sztywnego. W zadaniu płaskim są trzy: siła normalna $N$ (prostopadła do przekroju, wzdłuż osi), siła tnąca $T$ (równoległa do przekroju) i moment zginający $M$. Znajomość ich wartości w każdym przekroju to cel nie tylko statyki, ale przede wszystkim wytrzymałości materiałów — z nich wynikają naprężenia i odkształcenia.
+
+W tej lekcji poznasz czterokrokową procedurę metody przekrojów. Zaczniesz od reakcji podpór, narysujesz schemat odciętej części belki, a z równań równowagi wyznaczysz $N$, $T$ i $M$. Zobaczysz też, dlaczego wynik z lewej i prawej strony cięcia musi być identyczny — i jak to wykorzystać do kontroli.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie trzy równania równowagi płaskiego ciała sztywnego.
+- Upewnij się, że potrafisz wyznaczyć reakcje belki swobodnie podpartej — bez nich metoda przekrojów się nie rozpocznie.
+- Odróżniaj reakcję podpory (działa z zewnątrz, w punkcie podparcia) od siły wewnętrznej (działa w przekroju, wewnątrz elementu).
+- Pamiętaj o jednostkach: siła w kN, długość w m, moment w kN·m.
+- Zaakceptuj myślowy charakter cięcia: belka fizycznie nie jest przecinana, ale model pozwala nam tak ją traktować.
+
+## Model i intuicja
+
+Wyobraź sobie dwa klocki ułożone jeden na drugim. Górny naciska dolny ciężarem, dolny podpiera górny siłą o tej samej wartości. Przekrój wzdłuż styku ukazuje te siły jako wewnętrzne: nie widać ich na zewnątrz układu, ale każda z części ich potrzebuje do równowagi. W belce sytuacja jest analogiczna, tylko „styk" przebiega przez przekrój prostopadły do osi.
+
+Metoda przekrojów ma cztery kroki. Po pierwsze, wyznacz reakcje z równowagi całej belki. Po drugie, wybierz przekrój i oddziel jedną część belki od drugiej. Po trzecie, na ścianie cięcia narysuj nieznane siły wewnętrzne $N$, $T$, $M$ w przyjętych kierunkach dodatnich. Po czwarte, zapisz równania równowagi dla odciętej części i rozwiąż je względem niewiadomych.
+
+Kluczowa jest wolność wyboru: możesz rozpatrzyć lewą lub prawą część. Obydwie muszą dać ten sam wynik, bo oddziaływanie wewnętrzne jest jedno — różni się tylko punkt widzenia. W praktyce wybieramy stronę z mniejszą liczbą sił i prostszymi ramięmi, a drugą stronę zostawiamy do kontroli.
+
+Model ma granice stosowalności. Zakładamy, że przekrój pozostaje płaski, a materiał przenosi obciążenie w sposób ciągły. W pobliżu podpór, przyłożenia sił skupionych i w miejscach nagłych zmian przekroju rozkład naprężeń jest bardziej złożony, ale wypadkowe $N$, $T$, $M$ nadal opisują globalną równowagę — zgodnie z zasadą Saint-Venanta, której poświęcona jest osobna lekcja kursu wytrzymałości.
+
+## Laboratorium: co ustawić
+
+Ustaw położenie przekroju i obserwuj, jak zmieniają się $N$, $T$ i $M$ wraz z jego odległością od podpory. Spróbuj przewidzieć wynik przed odczytaniem: gdzie siła tnąca zmienia znak, a gdzie moment osiąga maksimum? Sprawdź, czy wartości z lewej i prawej strony cięcia są zgodne.
+
+<Lab id="staticsInternal" />
+
+## Definicje i jednostki
+
+**Siła normalna** $N$ to składowa wewnętrzna prostopadła do przekroju (wzdłuż osi belki). Dodatnia oznacza rozciąganie, ujemna ściskanie.
+
+**Siła tnąca** $T$ to składowa równoległa do przekroju. Miara tendencji sąsiednich przekrojów do przesuwania się względem siebie.
+
+**Moment zginający** $M$ to wypadkowy moment naprężeń normalnych w przekroju. Miara tendencji przekrojów do obrotu względem siebie.
+
+| Symbol       | Wielkość              | Jednostka | Uwaga                             |
+| ------------ | --------------------- | --------- | --------------------------------- |
+| $N$          | siła normalna         | kN lub N  | $N>0$ rozciąganie                 |
+| $T$          | siła tnąca            | kN lub N  | zmienia się pod siłami skupionymi |
+| $M$          | moment zginający      | kN·m      | dodatni rozciąga dolne włókna     |
+| $x$          | współrzędna przekroju | m         | od lewej podpory                  |
+| $R_A$, $R_B$ | reakcje               | kN        | dodatnie w górę                   |
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\sum F_x = 0, \qquad \sum F_y = 0, \qquad \sum M_{\text{przekrój}} = 0
+$$
+
+<Caption>Trzy równania równowagi zastosowane do odciętej części belki pozwalają wyznaczyć trzy niewiadome sił wewnętrznych: $N$, $T$ i $M$.</Caption>
+</Formula>
+
+Wyprowadzenie dla belki swobodnie podpartej o rozpiętości $L$, obciążonej siłą $P$ w odległości $a$ od podpory A. Reakcje wynoszą $R_A = P(L-a)/L$ i $R_B = Pa/L$. Przekrój w odległości $x$ od A, na lewo od siły ($x < a$):
+
+1. Równowaga pozioma: $N = 0$ — brak obciążeń osiowych.
+2. Równowaga pionowa: $R_A - T = 0$, skąd $T = R_A$.
+3. Moment względem przekroju: $M - R_A x = 0$, skąd $M = R_A x$.
+
+Dla przekroju na prawo od siły ($x > a$) dochodzi siła $P$:
+
+<Formula>
+$$
+T(x) = R_A - P = -R_B, \qquad M(x) = R_A x - P(x - a) = R_B (L - x)
+$$
+
+<Caption>Funkcje sił wewnętrznych dla belki z jedną siłą skupioną. Siła tnąca ma stałą wartość między obciążeniami, a moment zmienia się liniowo. Przy $x = a$ obie strony dają ten sam wynik: $M = R_A a = R_B(L-a)$.</Caption>
+</Formula>
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-metoda-przekrojow" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Cięcie belki przed wyznaczeniem reakcji — siły wewnętrzne liczymy zawsze na bazie znanego układu zewnętrznego.
+- Rysowanie sił wewnętrznych na obu ścianach cięcia w tym samym kierunku — muszą być przeciwne (akcja i reakcja).
+- Mylenie strony cięcia z kierunkiem osi — lewa część belki to ta, która zawiera początek układu współrzędnych.
+- Pomijanie sił leżących po wybranej stronie przekroju — do równowagi wchodzą wszystkie siły zewnętrzne tej części.
+- Zły znak momentu — pamiętaj, że moment siły względem punktu zależy od ramienia i zwrotu.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zidentyfikuj belkę i jej podpory — to sygnał, że pracujesz z układem płaskim ciała sztywnego.
+2. Sprawdź, czy podano położenie przekroju lub pytanie o siły w konkretnym miejscu.
+3. Wyznacz reakcje z równowagi całości, zanim cokolwiek przecięjesz.
+4. Wybierz stronę cięcia: tę z mniejszą liczbą sił lub prostszymi ramięnami.
+5. Na ścianie cięcia narysuj $N$, $T$, $M$ w kierunkach dodatnich i zapisz trzy równania równowagi.
+6. Rozwiąż układ i sprawdź wynik z drugiej strony cięcia — to najszybsza kontrola.
+
+## Połącz z resztą kursu
+
+- **Równowaga płaskiego układu sił** — metoda przekrojów to jej bezpośrednie zastosowanie do odciętej części.
+- **Podpory i reakcje** — reakcje są danymi wejściowymi do każdego cięcia.
+- **Zasada Saint-Venanta** — siły wewnętrzne opisują globalną równowagę, nawet gdy lokalny rozkład naprężeń jest złożony.
+- **Wykresy T i M** — w kolejnych lekcjach policzysz siły wewnętrzne nie w jednym, lecz w każdym przekroju.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Co pojawia się na ścianie przekroju w płaskim zadaniu statyki?</Prompt>
+    <Answer>Tylko siła normalna</Answer>
+    <Answer correct>Trzy wielkości: siła normalna, siła tnąca i moment zginający</Answer>
+    <Answer>Tylko moment zginający</Answer>
+    <Answer>Siła normalna i moment, ale nigdy siła tnąca</Answer>
+    <Hint>Płaskie ciało sztywne ma trzy stopnie swobody.</Hint>
+    <Explanation>
+      Przekrój musi zastąpić wszystkie możliwe oddziaływania: przesunięcie wzdłuż osi ($N$), przesunięcie prostopadłe
+      ($T$) i obrót ($M$). Dlatego w zadaniu płaskim zawsze występują trzy wielkości.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Belka z przykładu ($L = 6$ m, $P = 12$ kN w $a = 2$ m). Ile wynosi siła tnąca w przekroju $x = 1$ m?
+    </Prompt>
+    <Answer>-4 kN</Answer>
+    <Answer>4 kN</Answer>
+    <Answer correct>8 kN</Answer>
+    <Answer>12 kN</Answer>
+    <Hint>Na lewo od przekroju działa tylko $R_A$.</Hint>
+    <Explanation>
+      W przekroju $x = 1$ m siła $P$ leży na prawo od cięcia, więc $T = R_A = 8$ kN. Siła tnąca zmienia wartość dopiero
+      pod siłą skupioną.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Jaki jest moment zginający w przekroju $x = 1$ m tej samej belki?</Prompt>
+    <Answer>4 kN·m</Answer>
+    <Answer correct>8 kN·m</Answer>
+    <Answer>12 kN·m</Answer>
+    <Answer>16 kN·m</Answer>
+    <Hint>$M = R_A \cdot x$ dla przekroju na lewo od siły.</Hint>
+    <Explanation>
+      $M = 8 \cdot 1 = 8$ kN·m. Moment rośnie liniowo od zera na podporze A do wartości $12$ kN·m pod siłą.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dlaczego warto obliczać siły wewnętrzne z dwóch stron cięcia?</Prompt>
+    <Answer>Bo wyniki zawsze się różnią o wartość reakcji</Answer>
+    <Answer correct>Bo zgodność wyników jest najszybszą kontrolą poprawności</Answer>
+    <Answer>Bo tylko prawa strona daje poprawny znak</Answer>
+    <Hint>Pomyśl o akcji i reakcji.</Hint>
+    <Explanation>
+      Lewa i prawa część belki opisują to samo oddziaływanie wewnętrzne z dwóch perspektyw. Jeśli wyniki się różnią,
+      gdzieś wkradł się błąd w reakcjach, rysunku lub znakach.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Co oznacza ujemna wartość siły tnącej otrzymana z równań równowagi?</Prompt>
+    <Answer>Błąd w obliczeniach</Answer>
+    <Answer correct>Rzeczywisty zwrot siły jest przeciwny do przyjętego na rysunku</Answer>
+    <Answer>Belka pęka w tym miejscu</Answer>
+    <Hint>Znak odnosi się do przyjętego kierunku dodatniego.</Hint>
+    <Explanation>
+      Znak minus to informacja o zwrocie, nie o błędzie. Wartość bezwzględna siły tnącej jest poprawna, ale działa w
+      przeciwną stronę niż narysowano na schemacie odciętej części.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład: „Moment siły, siły równoległe, płaski dowolny układ sił" — rozdziały o momencie siły względem punktu i twierdzeniu Varignona; to one budują $M$ w przekroju.
+- Wykład: „Środek ciężkości i środek masy" — wypadkowa obciążenia ciągłego przechodzi przez środek ciężkości obszaru obciążenia.
+- Baker, Haynes, _Engineering Statics_ — rozdział 8.1 i 8.3: definicje sił wewnętrznych i procedura ich wyznaczania w punkcie, z przykładami belek.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdział 6.1: typy sił wewnętrznych i czterokrokowa metoda obliczania.
+- J. Misiak, _Mechanika techniczna_, t. I — rozdział o siłach wewnętrznych w prętach, z polską konwencją znaków.

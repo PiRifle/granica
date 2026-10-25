@@ -1,0 +1,201 @@
+---
+id: statyka-wiezy-i-reakcje
+moduleId: statyka-aksjomaty
+number: 6
+title: 'Więzy, podpory i reakcje'
+shortTitle: Więzy i reakcje
+description: >-
+  Oswobodzenie od więzów, typy podpór, liczba niewiadomych reakcji
+  i budowa poprawnego schematu sił (FBD).
+eyebrow: 'Co podpora może, a czego nie może'
+outcomes:
+  - W1 — wyjaśnia zasadę oswobodzenia od więzów i pojęcie reakcji
+  - W2 — rozpoznaje typy podpór i przypisuje im reakcje
+  - W3 — odróżnia więzy idealne od rzeczywistych z tarciem
+  - U1 — rysuje schemat sił i wyznacza niewiadome reakcje
+  - U2 — wyznacza reakcje belki z podporą stałą i przesuwną
+---
+
+Każda konstrukcja jest podtrzymywana przez otoczenie: belka leży na ścianie, rama stoi na fundamencie, wieszak wisi na cięgnach. Miejsce styku ogranicza ruch i nazywa się więzem. W więzie pojawia się reakcja — siła lub moment, którą podpora działa na ciało. Reakcja jest siłą bierną: jej wartość wynika z równowagi, a nie z niezależnego obciążenia.
+
+Typowy błąd to narysowanie podpory zamiast reakcji albo dopisanie reakcji bez usunięcia więzu. Schemat sił (FBD) pokazuje tylko ciało i siły zewnętrzne; podpory znikają, a ich miejsce zajmują reakcje. Błąd w schemacie przenosi się na każde równanie.
+
+W tej lekcji zestawiamy typowe podpory z liczbą niewiadomych i rozwiązujemy belkę na pochyłym torze, gdzie reakcja nie jest pionowa.
+
+## Zanim zaczniesz
+
+- Umiej zapisać siłę w składowych i złożyć kilka sił w wypadkową (lekcje 1–2).
+- Przypomnij sobie trzy równania równowagi płaskiego ciała sztywnego (lekcja 5).
+- Wiedz, że moment zależy od ramienia, a nie od samej wartości siły (lekcja 7).
+- Odróżniaj siły czynne od reakcji i pamiętaj, że normalna jest prostopadła do toru.
+
+## Model i intuicja
+
+Więz odbiera stopnie swobody i tyle samo niezależnych składowych reakcji wnosi do zadania. Podpora przesuwna daje jedną reakcję normalną do toru, przegub stały — dwie składowe, utwierdzenie płaskie — dwie składowe i moment. W przestrzeni przegub kulisty daje trzy siły, a utwierdzenie — trzy siły i trzy momenty.
+
+Cięgno idealne przenosi tylko rozciąganie wzdłuż osi. Pręt dwusiłowy może być rozciągany lub ściskany, a jego reakcja działa wzdłuż osi. Gładka powierzchnia daje reakcję normalną, chropowata — normalną i tarcie $T\le\mu N$. Więzy rzeczywiste mają luzy i podatność, ale w podstawowych zadaniach modelujemy je jako idealne.
+
+Zasada oswobodzenia od więzów pozwala myślowo uwolnić ciało i zastąpić każde ograniczenie reakcją. Na schemacie nie rysujemy ściany ani rolki — tylko ciało i siły. Reakcję oznaczamy w założonym kierunku; wartość ujemna oznacza zwrot przeciwny, nie błąd zadania.
+
+Dla płaskiego ciała sztywnego mamy trzy niezależne równania. Trzy reakcje jako niewiadome dają z reguły układ wyznaczalny; więcej — statycznie niewyznaczalny, wymagający analizy odkształceń; zbyt mało więzów — mechanizm.
+
+## Laboratorium: co ustawić
+
+Zbuduj belkę z podporą stałą w $A$ i przesuwną w $B$. Zmieniaj obciążenie i sprawdzaj sumy rzutów oraz momentów. Przechyl tor podpory — reakcja obróci się razem z nim, pozostając prostopadła. Usuń podporę, aby zobaczyć mechanizm, i dodaj utwierdzenie, aby porównać liczbę niewiadomych.
+
+<Lab id="staticsSupports" />
+
+## Definicje i jednostki
+
+| Więz                        | Ograniczany ruch                | Reakcja                                    | Liczba niewiadomych |
+| --------------------------- | ------------------------------- | ------------------------------------------ | ------------------- |
+| Podpora przesuwna (rolkowa) | przesuw prostopadły do toru     | siła normalna do toru                      | 1                   |
+| Podpora stała (przegub)     | oba przesuwy w płaszczyźnie     | dwie składowe siły                         | 2                   |
+| Utwierdzenie płaskie        | oba przesuwy i obrót            | dwie składowe i moment                     | 3                   |
+| Przegub kulisty             | trzy przesuwy                   | trzy składowe siły                         | 3                   |
+| Cięgno idealne              | oddalanie wzdłuż osi cięgna     | siła wzdłuż cięgna, tylko rozciąganie      | 1                   |
+| Pręt przegubowy dwusiłowy   | przesuw wzdłuż osi pręta        | siła wzdłuż osi, rozciąganie lub ściskanie | 1                   |
+| Gładka powierzchnia         | przesuw normalny do powierzchni | siła normalna                              | 1                   |
+| Chropowata powierzchnia     | przesuw normalny i styczny      | siła normalna i tarcie                     | 2                   |
+
+Jednostki reakcji to $\text{N}$ lub $\text{kN}$, a momentu utwierdzenia — $\text{N}\cdot\text{m}$ lub $\text{kN}\cdot\text{m}$. Normalna do toru nachylonego pod kątem $\alpha$ tworzy z poziomem kąt $90^\circ+\alpha$, a nie $\alpha$.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\mathbf{R}_B=R_B\,\mathbf{n},\qquad
+\mathbf{R}_A=A_x\,\mathbf{i}+A_y\,\mathbf{j},\qquad
+\mathbf{M}_A=M_A\,\mathbf{k}
+$$
+
+<Caption>Przykłady zestawów reakcji: podpora przesuwna daje siłę wzdłuż normalnej $\mathbf{n}$ do toru, przegub stały — dwie składowe w płaszczyźnie, a utwierdzenie — dodatkowo moment. Każda składowa odpowiada odebranemu stopniowi swobody, a jej wartość wyznaczają równania równowagi.</Caption>
+</Formula>
+
+Po zastąpieniu więzów reakcjami rozwiązujemy zwykły układ równań równowagi:
+
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0,\qquad \sum M_A=0
+$$
+
+<Caption>Równania zapisujemy dla ciała po oswobodzeniu. Biegun $A$ wybieramy najczęściej w przegubie lub w punkcie przecięcia się reakcji, aby uprościć równanie momentów. Liczba niezależnych równań musi być co najmniej równa liczbie niewiadomych reakcji, inaczej układ jest statycznie niewyznaczalny.</Caption>
+</Formula>
+
+Wynik wynika z definicji więzu: idealny tor bez tarcia daje tylko nacisk normalny, przegub — dwie składowe, utwierdzenie — dodatkowo moment. Znak wyniku mówi o zwrocie: dodatni jest zgodny z założeniem, ujemny przeciwny. Dla cięgna wynik ujemny oznacza błąd schematu, bo cięgno nie może ściskać; dla pręta oznacza ściskanie, które jest dopuszczalne.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-wiezy-i-reakcje" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Rysowanie reakcji podpory przesuwnej zawsze pionowo. Reakcja jest prostopadła do toru, nie do poziomu.
+- Pomijanie momentu utwierdzenia. Utwierdzenie odbiera obrót, więc wnosi trzecią niewiadomą.
+- Zostawianie symbolu podpory obok reakcji. Po oswobodzeniu na rysunku nie ma ściany ani rolki.
+- Traktowanie reakcji jak obciążenia o znanym zwrocie. Reakcja jest niewiadomą z równań.
+- Pomijanie ciężaru własnego lub przykładanie go poza środkiem ciężkości.
+- Rysowanie sił wewnętrznych na schemacie całego ciała; ujawniają się dopiero po przecięciu.
+- Założenie, że cięgno przenosi ściskanie. Wynik ujemny oznacza błąd schematu.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Ustal, które ciało analizujesz i co odcinasz od otoczenia.
+2. Rozpoznaj każdy styk: podpora, przegub, utwierdzenie, cięgno, pręt, powierzchnia gładka lub chropowata.
+3. Zastąp każdy więz reakcjami i policz niewiadome.
+4. Nanosz siły czynne: ciężar, siły skupione, wypadkową obciążenia ciągłego; ustal ramiona.
+5. Przyjmij osie i znak momentu, a biegun wybierz tam, gdzie przechodzi najwięcej niewiadomych.
+6. Porównaj liczbę niewiadomych z równaniami — nadmiar oznacza układ statycznie niewyznaczalny.
+7. Rozwiąż równania, sprawdź alternatywnym momentem i zinterpretuj znaki; dla cięgna sprawdź rozciąganie.
+
+## Połącz z resztą kursu
+
+- **Lekcja 5** — równania równowagi służą do wyznaczenia reakcji po oswobodzeniu ciała.
+- **Lekcja 7** — moment względem punktu buduje równanie momentów, a moment utwierdzenia jest momentem reakcji.
+- **Moduł 2** — cięgna i pręty dwusiłowe w węzłach to te same więzy w innym kontekście.
+- **Moduły 3–4** — belki, ramy i podpory przestrzenne to rozwinięcie tej lekcji.
+- **Wytrzymałość materiałów** — reakcje są warunkami brzegowymi dla sił wewnętrznych i ugięć.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Oswobodzenie ciała od więzów polega na:</Prompt>
+    <Answer>usunięciu podpór bez zastąpienia ich żadnymi siłami</Answer>
+    <Answer correct>zastąpieniu więzów reakcjami i rozpatrywaniu ciała jako swobodnego</Answer>
+    <Answer>zesztywnieniu ciała odkształcalnego bez zmiany sił</Answer>
+    <Hint>Zasada mówi o myślowym uwolnieniu ciała i zastąpieniu działania więzów odpowiednimi reakcjami.</Hint>
+    <Explanation>
+      Po oswobodzeniu ciało jest traktowane jak swobodne, ale pod działaniem zarówno sił czynnych, jak i reakcji. Samo usunięcie podpór bez reakcji zmieniłoby układ sił i doprowadziło do błędnego schematu.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Podpora przesuwna na torze nachylonym pod kątem do poziomu daje reakcję:</Prompt>
+    <Answer>pionową, niezależnie od nachylenia toru</Answer>
+    <Answer correct>prostopadłą do toru</Answer>
+    <Answer>dwie składowe i moment utwierdzenia</Answer>
+    <Hint>Idealna podpora rolkowa nie przenosi siły stycznej do toru.</Hint>
+    <Explanation>
+      Brak tarcia w kierunku stycznym oznacza, że podpora działa tylko normalnie do toru. Na torze pochyłym reakcja też jest pochyła — nie jest pionowa. Moment utwierdzenia pojawia się dopiero przy utwierdzeniu.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Utwierdzenie płaskie wnosi do zadania:</Prompt>
+    <Answer>jedną niewiadomą reakcję</Answer>
+    <Answer>dwie niewiadome reakcje</Answer>
+    <Answer correct>dwie składowe siły i moment utwierdzenia</Answer>
+    <Hint>Utwierdzenie odbiera oba przesuwy i obrót.</Hint>
+    <Explanation>
+      Utwierdzenie blokuje przesuw poziomy, przesuw pionowy i obrót w płaszczyźnie. Dlatego w miejscu utwierdzenia działają dwie składowe reakcji oraz moment utwierdzenia — razem trzy niewiadome.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>Idealne cięgno przenosi:</Prompt>
+    <Answer>tylko ściskanie</Answer>
+    <Answer correct>tylko rozciąganie, wzdłuż swojej osi</Answer>
+    <Answer>dowolną siłę, także poprzeczną</Answer>
+    <Hint>Cięgno jest wiotkie — nie może odpychać ciała ani przenosić siły poprzecznej.</Hint>
+    <Explanation>
+      Cięgno może tylko ciągnąć, więc jego reakcja jest skierowana wzdłuż osi i ma zwrot rozciągający. Wynik ujemny z równań oznacza, że przyjęty kierunek był zły lub że schemat wymaga korekty — cięgno nie może ściskać.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z belką na pochyłym torze reakcja $R_B$ wynosi:</Prompt>
+    <Answer>$6\ \text{kN}$</Answer>
+    <Answer correct>$10{,}39\ \text{kN}$</Answer>
+    <Answer>$12\ \text{kN}$</Answer>
+    <Hint>Suma momentów względem $A$: $(R_B\sqrt3/2)\cdot4=12\cdot3$.</Hint>
+    <Explanation>
+      $2\sqrt3\,R_B=36$, więc $R_B=18/\sqrt3=6\sqrt3\approx10{,}39\ \text{kN}$. Wartość $6\ \text{kN}$ to wypadkowa reakcja w $A$, a $12\ \text{kN}$ to obciążenie $P$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z belką składowa $A_y$ wynosi:</Prompt>
+    <Answer>$12\ \text{kN}$</Answer>
+    <Answer>$9\ \text{kN}$</Answer>
+    <Answer correct>$3\ \text{kN}$</Answer>
+    <Hint>$R_{By}=(6\sqrt3)(\sqrt3/2)=9\ \text{kN}$, a $A_y+R_{By}=12\ \text{kN}$.</Hint>
+    <Explanation>
+      $A_y=12-9=3\ \text{kN}$. Wartość $9\ \text{kN}$ to pionowa składowa reakcji $R_B$, a $12\ \text{kN}$ to całe obciążenie — nie można przypisać go jednej podporze bez równania momentów.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Z równań równowagi wyszła ujemna wartość reakcji. Co to oznacza?</Prompt>
+    <Answer>błąd rachunkowy, bo reakcje są zawsze dodatnie</Answer>
+    <Answer correct>faktyczny zwrot reakcji jest przeciwny do założonego</Answer>
+    <Answer>podpora nie istnieje i należy ją usunąć</Answer>
+    <Hint>Wartość ujemna przy ustalonym kierunku osi to informacja o zwrocie, nie o błędzie.</Hint>
+    <Explanation>
+      Równania zapisujemy dla założonych zwrotów. Znak minus oznacza, że rzeczywisty zwrot jest przeciwny. Dla cięgna trzeba dodatkowo sprawdzić, czy wynik nie oznacza ściskania, które jest niedopuszczalne.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Statyka — wykład 1 i 2”, s. 37–49: oswobodzenie od więzów i reakcje przegubów, podpór, utwierdzenia, cięgien, prętów oraz powierzchni gładkich i chropowatych.
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 1.3 (rodzaje sił), 3.1–3.4 (równowaga cząstki, cięgna, pręty) i 4.1–4.2 (momenty reakcji).
+- L. Osgood i in., _Engineering Mechanics: Statics_, rozdz. 3.4 „Reactions and Supports”: podpory przegubowe, rolkowe, linki i utwierdzenie.
+- _University Physics_ vol. 1 (OpenStax), rozdz. 5.6–5.7 (siły normalne, naciąg, FBD) i 10.6 (moment siły).

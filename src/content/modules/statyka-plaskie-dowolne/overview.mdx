@@ -1,16 +1,28 @@
 ## Co to jest ten moduł
 
-Płaski dowolny układ sił to już pełna statyka płaska: siły mogą być przyłożone w różnych punktach, a o równowadze decydują zarówno sumy sił, jak i suma momentów.
+Płaski zbieżny układ sił znałeś z poprzedniego modułu: wszystkie proste działania przechodziły przez jeden punkt i wystarczały dwa rzuty, by opisać równowagę. Ten moduł otwiera pełną statykę płaską — układ dowolny, w którym siły są przyłożone w różnych punktach ciała i mają różne kierunki. O równowadze decydują wtedy nie tylko sumy rzutów, ale i momenty względem wybranego bieguna.
 
-Ten moduł pokazuje redukcję układu do wypadkowej i momentu, przypadki sił równoległych oraz pełne warunki równowagi belek i ram.
+Najpierw uporządkujemy dwa przypadki szczególne, które poznasz też w ćwiczeniach: układy sił równoległych (belki obciążone pionowo) oraz pary sił, czyli „czysty moment” bez wypadkowej siły. Potem zbudujemy ogólne narzędzie — redukcję dowolnego układu do bieguna, czyli zastąpienie wielu sił jednym wektorem głównym i jednym momentem głównym. To narzędzie tłumaczy, dlaczego obciążenie ciągłe można zastąpić wypadkową przechodzącą przez środek ciężkości diagramu obciążenia, i dlaczego przesunięcie siły wymaga dodania momentu dokręcnego.
 
-## W planie
+Na tym fundamencie stoi druga połowa modułu: trzy analityczne warunki równowagi płaskiej, reakcje podpór w belkach i ramach oraz rozróżnienie układów wyznaczalnych, niewyznaczalnych i chwilowo niestatecznych. To właśnie tutaj statyka spotyka się z konstrukcją — reakcje obliczone w tym module będą danymi wejściowymi do metody przekrojów i całej wytrzymałości materiałów.
 
-- redukcja dowolnego płaskiego układu sił,
-- siły równoległe i ich wypadkowa,
-- trzy warunki równowagi płaskiej,
-- reakcje podpór w belkach i ramach.
+## Mapa lekcji
+
+1. **Siły równoległe** — wypadkowa sił o równoległych prostych działania, jej wartość i położenie; dlaczego wypadkowa sił przeciwnie skierowanych może leżeć poza odcinkiem między siłami.
+2. **Para sił** — czysty moment: definicja pary, moment niezależny od bieguna, równoważenie pary siłą lub drugą parą.
+3. **Redukcja do bieguna** — wektor główny i moment główny; równoległe przesunięcie siły i moment dokrętny; przypadki szczególne redukcji.
+4. **Obciążenia rozłożone** — intensywność q, wypadkowa obciążenia prostokątnego i trójkątnego, obciążenia złożone.
+5. **Równowaga płaska** — trzy analityczne warunki równowagi jako warunek konieczny i wystarczający; dobór bieguna i kolejności równań.
+6. **Reakcje konstrukcji** — belki i ramy: wspornik z obciążeniem ciągłym, momentem i linką przez krążek; rama z przegubem i podporą przesuwną.
+7. **Wyznaczalność** — alternatywne zestawy równań równowagi, reguły rozpoznawania układów wyznaczalnych i chwilowo niestatecznych, pełne rozwiązanie wariantu A.
+
+## Jak pracować z tym modułem
+
+- Zacznij od lekcji 1 i 2, nawet jeśli wydają się proste — para sił i równoległe przesunięcie to mechanizm, który wraca w każdej dalszej lekcji.
+- W lekcjach 3 i 4 licz wszystko dwa razy: raz od strony sił, raz od strony momentów. Równowartościowość układów to główny temat tych lekcji.
+- W lekcjach 5–7 nie pomijaj rysunku ciała wolnego. Błąd w schemacie podpór to błąd we wszystkich trzech równaniach naraz.
+- Laboratoria `staticsMoment` i `staticsPlanar` pozwalają sprawdzać znak momentu, położenie wypadkowej i wpływ zmiany bieguna — eksperymentuj zanim zajmiesz stanowisko na ćwiczeniach.
 
 ## Dlaczego to ważne
 
-To tutaj statyka spotyka się z konstrukcjami. Umiejętność wyznaczenia reakcji jest warunkiem wejścia do metody przekrojów i do całej wytrzymałości materiałów.
+Równania równowagi z tego modułu to najczęściej używane równania w całej wytrzymałości materiałów. Nie policzysz siły tnącej ani momentu zginającego w belce bez reakcji podpór, nie zweryfikujesz schematu konstrukcyjnego bez wyznaczalności, a nie zrozumiesz obliczeń środków ciężkości bez wypadkowej obciążenia ciągłego. Ten moduł to most między „rachunkiem sił” a „obliczaniem konstrukcji”.

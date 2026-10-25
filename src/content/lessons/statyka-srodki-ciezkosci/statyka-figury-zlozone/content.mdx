@@ -1,0 +1,188 @@
+---
+id: statyka-figury-zlozone
+moduleId: statyka-srodki-ciezkosci
+number: 4
+title: 'Figury złożone, pola ujemne i momenty statyczne'
+shortTitle: 'Figury złożone'
+description: >-
+  Metoda części składowych: dodawanie pól, odejmowanie otworów, znaki momentów
+  statycznych i pełny przykład figury z wykładu.
+eyebrow: 'Dodaj części, odejmij otwory'
+outcomes:
+  - W1 — rozumie moment statyczny pola jako sumę momentów części względem osi
+  - W2 — rozpoznaje, kiedy otwór lub wycięcie wprowadza się jako pole ujemne
+  - U1 — wyznacza centroid figury złożonej metodą tabeli z polami dodatnimi i ujemnymi
+  - U2 — kontroluje znaki i położenie centroidu na przykładzie figury z wykładu
+---
+
+Rzadko spotykamy figurę, która jest jednym prostokątem albo jednym trójkątem. Typowy przekrój to prostokąt z wycięciem, koło z otworem, teownik, dwuteownik albo blacha o skomplikowanym obrysie. Na szczęście nie trzeba za każdym razem całkować od zera. Wystarczy podzielić figurę na części, których centroidy znamy, a potem dodać ich momenty statyczne. Ta metoda nazywa się metodą części składowych.
+
+Kluczowa idea jest arytmetyczna, nie geometryczna. Moment statyczny całej figury względem osi $y$ to suma momentów wszystkich części: $Q_y=\sum x_iA_i$. Jeżeli jakiejś części brakuje — bo jest to otwór albo wycięcie — traktujemy ją jako pole ujemne. Wtedy jej moment także wchodzi do sumy ze znakiem ujemnym. Nie trzeba osobno „odejmować figury”; wystarczy konsekwentnie prowadzić znaki w jednej tabeli.
+
+W tej lekcji rozwiążemy figurę z wykładu, złożoną z pięciu prostokątów. Tabela z wykładu daje $x_C=4{,}87$ cm i $y_C=4{,}47$ cm. Naszym zadaniem jest nie tylko odtworzyć te liczby, ale też zrozumieć, dlaczego każdy wiersz tabeli wygląda właśnie tak i jak sprawdzić wynik bez znajomości odpowiedzi. To przygotowanie do figur z otworami, które pojawią się w zadaniach z zestawu E.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć pole i centroid prostokąta, trójkąta, koła i półkola.
+- Rozumiesz, że moment statyczny pola względem osi to pole razy odległość centroidu od tej osi.
+- Wiesz, że pole ujemne oznacza otwór lub wycięcie, a nie „ujemną powierzchnię” w sensie fizycznym.
+- Umiesz prowadzić wspólny układ współrzędnych dla wszystkich części figury.
+- Pamiętasz, że znak momentu zależy od położenia części względem osi, a nie od tego, czy część jest dodatnia, czy ujemna.
+
+## Model i intuicja
+
+Figura złożona to figura, którą można podzielić na skończoną liczbę figur prostych o znanych centroidach. Zakładamy, że wszystkie części są wykonane z tego samego materiału i mają tę samą grubość, więc wagą pozostaje pole. Części mogą być dodatnie (materiał) albo ujemne (otwór, wycięcie, kanał). Podział musi być rozłączny: żadna część nie może być liczona dwa razy, a otwór musi być w całości zawarty w materiale.
+
+Moment statyczny $Q_y=\int x\,dA$ mierzy „rozłożenie pola” względem osi $y$. Jeśli figura leży po prawej stronie osi, $Q_y$ jest dodatni; jeśli po lewej — ujemny. Podobnie $Q_x$ względem osi $x$. Nie jest to moment siły, choć rachunek wygląda podobnie: zamiast siły ważymy polem. Właśnie dlatego jednostką $Q$ jest m³, a nie N·m.
+
+Po zsumowaniu momentów dzielimy przez pole netto. Pole netto to suma pól dodatnich minus pola otworów. Jeśli otwór jest duży, pole netto może być małe, a centroid może przesunąć się daleko — to nie błąd, tylko konsekwencja tego, że usuwamy dużą część materiału po jednej stronie. W skrajnym przypadku, gdy otwór zajmuje prawie całą figurę, wynik staje się bardzo czuły na dane; w zadaniach projektowych trzeba wtedy zachować szczególną ostrożność.
+
+Ograniczeniem metody jest konieczność znajomości centroidów części. Dla prostokąta, koła i trójkąta to łatwe. Dla wycinka koła, elipsy albo nietypowego wielokąta trzeba najpierw wyznaczyć centroid części — z tabeli albo całką. Metoda części składowych nie zastępuje więc lekcji o figurach prostych, lecz ją wykorzystuje.
+
+## Laboratorium: co ustawić
+
+Zbuduj prostokąt i wytnij z niego mniejszy prostokąt lub koło. Obserwuj, jak centroid przesuwa się w stronę przeciwną do otworu. Następnie przesuń otwór bliżej krawędzi i sprawdź, czy zmiana położenia centroidu jest większa czy mniejsza niż przy otworze centralnym. Na końcu ustaw dwa otwory symetryczne i sprawdź, czy centroid wraca na oś symetrii.
+
+<Lab id="staticsCentroid" />
+
+## Definicje i jednostki
+
+| Pojęcie                           | Symbol    | Znaczenie                                                    | Jednostka    |
+| --------------------------------- | --------- | ------------------------------------------------------------ | ------------ |
+| Pole części                       | $A_i$     | Pole i-tej części; dodatnie dla materiału, ujemne dla otworu | m², cm², mm² |
+| Pole netto                        | $A$       | Suma pól części: $A=\sum A_i$                                | m², cm², mm² |
+| Moment statyczny względem osi $y$ | $Q_y$     | $\sum x_iA_i$                                                | m³, cm³, mm³ |
+| Moment statyczny względem osi $x$ | $Q_x$     | $\sum y_iA_i$                                                | m³, cm³, mm³ |
+| Współrzędne centroidu             | $x_C,y_C$ | $Q_y/A$ oraz $Q_x/A$                                         | m, cm, mm    |
+| Otwór                             | —         | Część materialna usunięta z figury; pole ujemne              | —            |
+
+Jednostki muszą być spójne w całej tabeli. Jeśli wymiary są w centymetrach, pola są w cm², momenty w cm³, a centroid w cm. Przeliczanie jednego wiersza na milimetry, a pozostałych nie, prowadzi do wyniku bez sensu. Warto od razu zapisać jednostkę w nagłówku kolumny i nie zmieniać jej w trakcie rachunku.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+x_C=\frac{\sum_i x_iA_i}{\sum_i A_i}=\frac{Q_y}{A},\qquad
+y_C=\frac{\sum_i y_iA_i}{\sum_i A_i}=\frac{Q_x}{A}
+$$
+
+<Caption>Metoda części składowych. Pola otworów podstawiamy ze znakiem ujemnym, a ich współrzędne są współrzędnymi środka otworu. Wzory są ważne, gdy części nie zachodzą na siebie, a otwory są w całości zawarte w materiale.</Caption>
+</Formula>
+
+Wyprowadzenie wynika wprost z addytywności całki. Całka po całej figurze równa się sumie całek po rozłącznych częściach:
+
+$$
+\int_A x\,dA=\sum_i\int_{A_i}x\,dA=\sum_i x_iA_i.
+$$
+
+Dla części dodatniej $x_iA_i$ jest momentem materiału. Dla otworu wyobrażamy sobie, że najpierw liczymy pełną figurę bez otworu, a potem odejmujemy moment otworu. To dokładnie odpowiada podstawieniu $A_i<0$ przy zachowaniu dodatniej współrzędnej $x_i$. Znak momentu otworu zależy więc od jego położenia, a nie od tego, że jest otworem: otwór po prawej stronie osi ma ujemny wkład do $Q_y$, a otwór po lewej — dodatni.
+
+<AnimatedSolution id="ex-statyka-figury-zlozone" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dodawanie pola otworu zamiast odejmowania. Otwór to brak materiału, więc jego pole i moment wchodzą ze znakiem ujemnym.
+- Zmiana znaku współrzędnej otworu „na siłę”. Współrzędna otworu ma taki sam znak jak jego położenie względem osi; ujemne jest pole, nie położenie.
+- Liczenie części, które zachodzą na siebie. Podział musi być rozłączny, inaczej część materiału liczy się dwa razy.
+- Pominięcie jednego wiersza w tabeli lub przepisanie złej jednostki. Tabela jest tak dobra, jak jej najsłabszy wiersz.
+- Używanie wzoru na centroid linii do figury z polem. Dla figury złożonej wagą jest pole, nie obwód.
+- Brak kontroli położenia: centroid poza obrysem figury prawie zawsze oznacza błąd znaku lub pominięty otwór.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Naszkicuj figurę i zaznacz układ współrzędnych. Wybierz początek tak, aby współrzędne części były proste, najlepiej w narożniku lub na osi symetrii.
+2. Podziel figurę na prostokąty, trójkąty, koła i półkola. Zaznacz, które części są materiałem, a które otworami.
+3. Zbuduj tabelę z kolumnami: $A_i$, $x_i$, $y_i$, $x_iA_i$, $y_iA_i$. Wpisz pola otworów jako ujemne.
+4. Zsumuj osobno pola, $Q_y$ i $Q_x$. Sprawdź, czy pole netto jest dodatnie.
+5. Podziel momenty przez pole netto i zaokrąglij wynik do sensownej liczby cyfr.
+6. Sprawdź, czy centroid leży w obrysie figury i po tej stronie, po której spodziewasz się większej masy.
+7. Jeśli figura ma oś symetrii, sprawdź, czy odpowiednia współrzędna wypada dokładnie na tej osi.
+
+## Połącz z resztą kursu
+
+- **Figury proste** — metoda części składowych korzysta z tabeli centroidów i wzorów całkowych z poprzedniej lekcji.
+- **Momenty statyczne** — $Q_x$ i $Q_y$ to pierwsze momenty pola; w geometrii przekrojów pojawią się ponownie jako składniki momentów bezwładności.
+- **Środki ciężkości brył** — ta sama metoda działa dla objętości, tylko zamiast pól podstawiamy $V_i$.
+- **Zginanie** — centroid przekroju wyznacza oś obojętną; błąd w $x_C$ lub $y_C$ przesuwa rozkład naprężeń.
+- **Projektowanie przekrojów** — dobór dwuteownika lub teownika zaczyna się od policzenia centroidu i momentu bezwładności względem niego.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Moment statyczny figury względem osi $y$ definiujemy jako:</Prompt>
+    <Answer>sumę pól części podzieloną przez ich odległości</Answer>
+    <Answer correct>całkę $x\,dA$, czyli sumę $x_iA_i$ dla części</Answer>
+    <Answer>iloczyn pola całkowitego i największej współrzędnej</Answer>
+    <Hint>Moment to pole razy odległość od osi, a nie pole podzielone przez odległość.</Hint>
+    <Explanation>
+      $Q_y=\int x\,dA=\sum x_iA_i$. Dla części po prawej stronie osi $y$ moment jest dodatni, dla części po lewej — ujemny.
+      Dzieląc $Q_y$ przez pole netto, otrzymujemy $x_C$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Prostokąt $120\times80$ mm ma wycięty otwór $40\times40$ mm, którego środek leży w $(40;\,40)$ mm. Środek dużego prostokąta to $(60;\,40)$ mm. Gdzie leży centroid figury?</Prompt>
+    <Answer>$(60;\,40)$ mm</Answer>
+    <Answer correct>$(64;\,40)$ mm</Answer>
+    <Answer>$(56;\,40)$ mm</Answer>
+    <Hint>Pole otworu jest ujemne. Policz $Q_y=9600\cdot60-1600\cdot40$ i podziel przez $8000$ mm².</Hint>
+    <Explanation>
+      $A=9600-1600=8000$ mm². $Q_y=576\,000-64\,000=512\,000$ mm³, więc $x_C=64$ mm.
+      $Q_x=384\,000-64\,000=320\,000$ mm³, więc $y_C=40$ mm. Otwór leży po lewej stronie środka, więc centroid przesuwa się w prawo.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Otwór kołowy leży po lewej stronie osi $y$. Jaki znak ma jego wkład do momentu $Q_y$?</Prompt>
+    <Answer correct>dodatni, bo $x_i<0$ i $A_i<0$, więc iloczyn $x_iA_i$ jest dodatni</Answer>
+    <Answer>ujemny, bo każdy otwór zawsze wnosi ujemny moment</Answer>
+    <Answer>zero, bo otwór nie ma masy</Answer>
+    <Hint>Pole otworu podstawiamy jako $A_i<0$, ale współrzędna $x_i$ ma znak swojego położenia.</Hint>
+    <Explanation>
+      Dla otworu po lewej $x_i<0$ i $A_i<0$, więc $x_iA_i>0$. Usuwamy materiał po lewej stronie, więc wypadkowy
+      moment względem osi $y$ rośnie, a centroid przesuwa się w prawo. Otwór nie ma masy, ale w tabeli ma pole
+      ujemne i właśnie ono wchodzi do rachunku.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W przykładzie z wykładu $x_C$ wynosi:</Prompt>
+    <Answer>$4{,}47$ cm</Answer>
+    <Answer correct>$4{,}87$ cm</Answer>
+    <Answer>$5{,}33$ cm</Answer>
+    <Hint>$x_C=292/60$, a $y_C=268/60$. Nie zamień współrzędnych miejscami.</Hint>
+    <Explanation>
+      $x_C=292/60=4{,}87$ cm, a $y_C=268/60=4{,}47$ cm. Wartość $4{,}47$ to współrzędna $y_C$, a $5{,}33$ to $320/60$,
+      czyli wynik dla innych danych.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Jeśli centroid figury leży dokładnie na osi $y$, to który moment statyczny jest zerowy?</Prompt>
+    <Answer>$Q_x$, bo centroid leży na osi $x$</Answer>
+    <Answer correct>$Q_y$, bo $x_C=0$</Answer>
+    <Answer>oba momenty są zerowe</Answer>
+    <Hint>$Q_y=A\,x_C$. Co wynika z $x_C=0$?</Hint>
+    <Explanation>
+      $Q_y=A\,x_C$. Jeśli centroid leży na osi $y$, to $x_C=0$, więc $Q_y=0$. Moment $Q_x$ może być różny od zera,
+      bo figura może być niesymetryczna względem osi $x$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Figura składa się z dwóch jednakowych pól: jedno ma środek w $x=2$ m, drugie w $x=8$ m. Oba są dodatnie. $x_C$ wynosi:</Prompt>
+    <Answer>$2$ m</Answer>
+    <Answer correct>$5$ m</Answer>
+    <Answer>$8$ m</Answer>
+    <Hint>Przy równych polach centroid to średnia arytmetyczna współrzędnych.</Hint>
+    <Explanation>
+      $x_C=(A\cdot2+A\cdot8)/(2A)=10/2=5$ m. Centroid leży dokładnie pośrodku, bo oba pola są równe.
+      Gdyby jedno pole było otworem, wynik przesunąłby się poza przedział $[2,8]$.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Środek ciężkości i środek masy", str. 12: figury złożone i metoda podziału na figury proste; przykład 1 z pięcioma prostokątami.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 7.5: centroidy metodą części składowych, w tym części ujemne i otwory.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 7.2: tablice centroidów i przykłady figur złożonych.
+- _University Physics_ (OpenStax), rozdz. 9.6: średnia ważona położeń jako podstawa metody części składowych.

@@ -39,6 +39,7 @@ export function SolutionStage({
   stageFloor: number
 }) {
   const Animation = solution.animation
+  const visualKey = Animation || !solution.figure ? `${solution.id}-${index}` : solution.id
 
   return (
     <div
@@ -49,7 +50,7 @@ export function SolutionStage({
       <div className={local('solution-visual')}>
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${solution.id}-${index}`}
+            key={visualKey}
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}

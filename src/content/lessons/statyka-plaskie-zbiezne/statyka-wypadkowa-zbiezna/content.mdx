@@ -1,0 +1,177 @@
+---
+id: statyka-wypadkowa-zbiezna
+moduleId: statyka-plaskie-zbiezne
+number: 2
+title: 'Wypadkowa zbieżnego układu sił'
+shortTitle: Wypadkowa
+description: >-
+  Jak zamienić kilka sił zbieżnych na jedną wypadkową: wielobok sił w ujęciu
+  geometrycznym i twierdzenie o rzucie sumy wektorów w metodzie analitycznej.
+eyebrow: 'Wiele sił, jeden odpowiednik'
+outcomes:
+  - W1 — rozumie sens wypadkowej jako siły zastępczej układu zbieżnego
+  - W2 — odróżnia metodę geometryczną od analitycznej i wie, kiedy każda jest wygodna
+  - U1 — wyznacza wypadkową z rzutów na osie, z modułem i kierunkiem
+---
+
+Jeśli kilka osób ciągnie sanie w różnych kierunkach, sanie „czują" dokładnie jedną, wypadkową siłę. Wypadkowa to siła zastępcza: taka, która działa na ciało tak samo jak cały rozpatrywany układ sił. Umiejętność jej znajdowania jest pierwszym wielkim narzędziem statyki — zarówno sama w sobie, jak i jako krok pośredni: równowaga układu zbieżnego to nic innego niż sytuacja, w której wypadkowa jest równa zeru.
+
+W tej lekcji nauczysz się wyznaczać wypadkową na dwa sposoby. Sposób geometryczny opiera się na wieloboku sił: rysujesz wektory jeden za drugim, od końca do końca, a odcinek zamykający figurę od początku pierwszego wektora do końca ostatniego jest wypadkową. Sposób analityczny zastępuje rysunek rachunkiem: rzutujesz każdą siłę na osie, sumujesz rzuty osobno i z dwóch sum składasz z powrotem moduł i kierunek. Na wykładzie metoda analityczna wynika wprost z twierdzenia o rzucie sumy wektorów: rzut sumy na oś równa się sumie rzutów składników.
+
+## Zanim zaczniesz
+
+- Umiej rzutować siłę na osie: $F_x=F\cos\alpha$, $F_y=F\sin\alpha$, z uwagą na znaki w poszczególnych ćwiartkach.
+- Pamiętaj, że suma wektorów jest przemienna: kolejność składania nie zmienia wypadkowej.
+- Wiedz, że wypadkową sił zbieżnych należy przyłożyć w punkcie przecięcia ich prostych działania — tylko wtedy zastąpienie jest równoważne (moment względem tego punktu jest zerowy przed i po).
+- Oświcz dodawanie wektorów metodą trójkąta: wypadkowa dwóch sił jest przekątną równoległoboku zbudowanego na tych siłach (zasada równoległoboku z wykładu).
+
+## Model i intuicja
+
+W układzie zbieżnym każdą siłę można przesunąć wzdłuż prostej działania do wspólnego punktu. Po takim przesunięciu mamy kilka wektorów o wspólnym początku, a ich sumę geometryczną znajdujemy dokładnie tak, jak na wykładzie z rachunku wektorowego: budujemy wielobok sił, czyli układamy strzałki końcówka do początku. Odcinek od początku pierwszej do końca ostatniej strzałki to wektor wypadkowej.
+
+Metoda geometryczna buduje intuicję i nadaje się do szybkich szacunków, ale jej dokładność zależy od rysunku. Z linijką i kątomierzem realnie uzyskasz dwie cyfry znaczące. Metoda analityczna jest dokładna i skalowalna: niezależnie od tego, czy masz trzy siły, czy trzynaście, wykonujesz te same dwa sumowania. Stąd praktyczna reguła: geometrycznie szacuj i kontroluj, analitycznie licz.
+
+Kluczowe jest też rozróżnienie dwóch pytań. Pytanie „jaka jest wypadkowa?" prowadzi do jednej siły o zadanym module i kierunku. Pytanie „czy układ jest w równowadze?" prowadzi do warunku $W=0$, czyli $W_x=0$ i $W_y=0$ — to drugie pytanie obsłużymy w kolejnej lekcji. Warto od razu zauważyć, że wielobok sił w równowadze musi być zamknięty: końcowy wierzchołek wieloboku pokrywa się z początkiem, bo wypadkowa ma długość zero.
+
+## Laboratorium: co ustawić
+
+Zbuduj układ trzech sił zbieżnych o różnych kątach i wartościach. Obserwuj wypadkową: gdy jedna siła jest dużo większa od pozostałych, wypadkowa prawie pokrywa się z jej kierunkiem. Spróbuj dobrać kąt jednej siły tak, aby wypadkowa była pozioma — wtedy suma rzutów pionowych znika, mimo że żadna siła nie jest pionowa.
+
+<Lab id="staticsConcurrent" />
+
+## Definicje i jednostki
+
+| Pojęcie                 | Znaczenie                                                | Jednostka |
+| ----------------------- | -------------------------------------------------------- | --------- |
+| Wypadkowa $\mathbf W$   | Siła zastępcza całego układu zbieżnego                   | N, kN     |
+| Składowa $W_x$, $W_y$   | Rzut wypadkowej na oś; $W_x=\sum F_{ix}$                 | N         |
+| Kąt kierunkowy $\theta$ | Kąt wypadkowej mierzony od osi $x$                       | °, rad    |
+| Wielobok sił            | Figura złożona z wektorów ułożonych końcówka do początku | —         |
+| Układ zamknięty         | Wielobok, którego koniec pokrywa się z początkiem: $W=0$ | —         |
+
+Wypadkowa w układzie zbieżnym jest zawsze przyłożona w punkcie zbiegu prostych działania. Jednostki: siły w N lub kN; kąty w stopniach; wynik końcowy w tej samej jednostce co składniki.
+
+## Wzór i wyprowadzenie
+
+Twierdzenie o rzucie sumy wektorów mówi, że rzut sumy na daną oś równa się sumie rzutów wszystkich składników na tę oś. Stosując je do układu sił zbieżnych otrzymujemy dwa skalary $W_x$ i $W_y$, które składamy z powrotem w jeden wektor.
+
+<Formula>
+$$
+W_x=\sum_{i=1}^{n} F_{ix},\qquad W_y=\sum_{i=1}^{n} F_{iy},\qquad W=\sqrt{W_x^2+W_y^2},\qquad \tan\theta=\frac{W_y}{W_x}
+$$
+
+<Caption>Wypadkowa płaskiego układu zbieżnego. Kąt $\theta$ określa się z dwóch argumentów $(W_x, W_y)$, bo sam tangens nie rozstrzyga ćwiartki. Wypadkową przykładamy w punkcie przecięcia prostych działania sił.</Caption>
+</Formula>
+
+Wyprowadzenie ma dwa kroki. Po pierwsze, suma geometryczna $\mathbf W=\sum\mathbf F_i$ rozpada się na współrzędne: $W_x=\sum F_{ix}$, $W_y=\sum F_{iy}$, bo dodawanie wektorów to dodawanie ich odpowiednich współrzędnych. Po drugie, para liczb $(W_x,W_y)$ jest zapisem prostokątnym jednego wektora, więc moduł i kierunek odtwarzamy twierdzeniem Pitagorasa i funkcją $\arctan$ z dwoma argumentami. To samo wyprowadzenie znajdziesz u Bakera w rozdziale o równoważności statycznej: zastąpienie układu sił wypadkową jest przekształceniem równoważnym, o ile wypadkowa przechodzi przez punkt zbiegu.
+
+Dla dwóch sił wzór ma postać twierdzenia cosinusów z zasady równoległoboku: $W=\sqrt{F_1^2+F_2^2+2F_1F_2\cos\gamma}$, gdzie $\gamma$ jest kątem między wektorami skierowanymi od wspólnego punktu. Dla kilku sił rachunek rzutów jest prostszy niż wielokrotne stosowanie twierdzenia cosinusów.
+
+<AnimatedSolution id="ex-statyka-wypadkowa-zbiezna" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Kompensowanie błędnych rzutów „korektą kąta": jeśli wypadkowa wychodzi z dziwnej strony, najpierw sprawdź znaki rzutów, nie wartości sił.
+- Mierzenie wszystkich kątów od poziomu, gdy zadanie podaje kąty od pionu — przelicz je, zanim zaczniesz rzutować.
+- Używanie $\operatorname{arctg}(W_y/W_x)$ bez sprawdzenia ćwiartki: tangens nie rozstrzyga między $17^\circ$ a $197^\circ$.
+- Kładzenie wypadkowej „gdzieś obok" punktu zbiegu; dla sił zbieżnych tylko przyłożenie w punkcie przecięcia jest przekształceniem równoważnym.
+- Mylenie kąta między siłami z kątem w trójkącie sił: przy metodzie równoległoboku w trójkącie występuje kąt $180^\circ-\gamma$.
+- Sumowanie modułów zamiast rzutów — poprawne tylko dla sił o tym samym kierunku.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy wszystkie siły przechodzą przez jeden punkt — jeśli tak, zadanie o wypadkową jest zadaniem zbieżnym.
+2. Zdecyduj o metodzie: szybki szacunek geometryczny, wynik liczbowy analityczny.
+3. Ustal jeden układ osi i mierz wszystkie kąty od tej samej osi; zapisz znaki rzutów.
+4. Policz $W_x$ i $W_y$ jako sumy rzutów, nie sumy modułów.
+5. Odtwórz moduł i kierunek, sprawdź ćwiartkę i połóż wypadkową w punkcie zbiegu.
+6. Oczywiścieść wyniku: wypadkowa nie może przekroczyć sumy modułów ani być mniejsza od ich różnicy w najgorszym układzie kierunków.
+
+## Połącz z resztą kursu
+
+- **Punkt materialny** — wypadkową liczysz dla punktu zbiegu; to bezpośrednie rozszerzenie rzutowania z lekcji 1.
+- **Analityczne warunki równowagi** — wypadkowa równa zeru to dokładnie warunek równowagi; wielobok zamknięty i $W=0$ to dwa opisy tego samego.
+- **Równowaga trzech sił** — dla trzech sił wygodny jest trójkąt sił, czyli wielobok o jednym boku mniej.
+- **Dowolny układ sił** — tam wypadkowa nie wystarcza, bo dochodzi moment od przesunięcia prostych działania.
+- **Zbieżność w kratownicach** — w węźle kratownicy siły prętów są zbieżne i sumują się dokładnie tak, jak tutaj.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Co to jest wypadkowa układu zbieżnego?</Prompt>
+    <Answer>Suma modułów wszystkich sił</Answer>
+    <Answer correct>Siła zastępcza przyłożona w punkcie zbiegu, która działa na ciało tak samo jak cały układ</Answer>
+    <Answer>Największa siła w układzie</Answer>
+    <Hint>Pomyśl o sanach ciągniętych przez kilka osób: jaką jedną siłę „czują" sanie?</Hint>
+    <Explanation>
+      Wypadkowa zastępuje cały układ działaniem zewnętrznym. Musi mieć moduł i kierunek sumy wektorowej
+      oraz być przyłożona w punkcie przecięcia prostych działania — inaczej zmieniłby się moment.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego wypadkową sił zbieżnych przykłada się w punkcie ich zbiegu?</Prompt>
+    <Answer>Bo tam jest środek ciężkości ciała</Answer>
+    <Answer correct>Bo tylko wtedy moment względem punktu zbiegu jest zerowy przed i po zastąpieniu</Answer>
+    <Answer>To tylko umowa rysunkowa, fizycznie nie ma znaczenia</Answer>
+    <Hint>Przekształcenie równoważne musi zachować moment względem dowolnego punktu.</Hint>
+    <Explanation>
+      Każda siła zbieżna ma zerowy moment względem punktu przecięcia. Jeśli wypadkowa przechodzi przez ten punkt,
+      też ma tam zerowy moment i zastąpienie jest równoważne; przesunięcie wypadkowej złamałoby tę równość.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dwie siły: $F_1=3\ \text{kN}$ w prawo i $F_2=4\ \text{kN}$ w górę. Wypadkowa wynosi:</Prompt>
+    <Answer>7 kN pod kątem $53^\circ$</Answer>
+    <Answer correct>5 kN pod kątem $53{,}1^\circ$ nad poziomem</Answer>
+    <Answer>5 kN pod kątem $36{,}9^\circ$</Answer>
+    <Hint>Ułóż trójkąt prostokątny o przyprostokątnych 3 i 4.</Hint>
+    <Explanation>
+      $W=\sqrt{3^2+4^2}=5\ \text{kN}$; kąt od poziomu: $\operatorname{arctg}(4/3)=53{,}1^\circ$.
+      Kąt $36{,}9^\circ$ to kąt od pionu — klasyczna pomyłka w mierzeniu kąta.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Trzy siły o modułach 10 kN działają wzdłuż boków trójkąta równobocznego, zwroty „dookoła". Wypadkowa wynosi:</Prompt>
+    <Answer>30 kN</Answer>
+    <Answer>10 kN</Answer>
+    <Answer correct>0, bo wielobok sił jest zamknięty</Answer>
+    <Hint>Narysuj wielobok: kolejne wektory o kątach $60^\circ$ do siebie.</Hint>
+    <Explanation>
+      Trzy wektory o równych modułach i kątach $120^\circ$ między kolejnymi sumują się do zera — wielobok jest trójkątem
+      równobocznym zamkniętym. To szczególny przypadek, ale ważny: zamknięty wielobok oznacza równowagę.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Metoda geometryczna (wielobok sił) w porównaniu z analityczną:</Prompt>
+    <Answer>jest zawsze dokładniejsza</Answer>
+    <Answer correct>buduje intuicję i służy do szacunków; dokładny wynik liczy się z rzutów</Answer>
+    <Answer>działa tylko dla dwóch sił</Answer>
+    <Hint>Pomyśl o dokładności linijki i kątomierza wobec kalkulatora.</Hint>
+    <Explanation>
+      Z rysunku ręcznego uzyskasz co najwyżej dwie cyfry znaczące, ale szybko ocenisz, czy wynik analityczny
+      jest wiarygodny. Dla wielu sił rachunek rzutów jest prostszy niż rysowanie wieloboku.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Suma rzutów wyszła $W_x=-6\ \text{kN}$, $W_y=8\ \text{kN}$. Wypadkowa to:</Prompt>
+    <Answer>$10\ \text{kN}$ pod kątem $53{,}1^\circ$ nad poziomem</Answer>
+    <Answer correct>$10\ \text{kN}$, skierowana w lewo i w górę, kąt $126{,}9^\circ$ od dodatniej osi $x$</Answer>
+    <Answer>$14\ \text{kN}$ pod kątem $-53{,}1^\circ$</Answer>
+    <Hint>Ujemny $W_x$ oznacza drugą ćwiartkę — tangens sam jej nie wyznaczy.</Hint>
+    <Explanation>
+      $W=\sqrt{36+64}=10\ \text{kN}$. Znak $W_x<0$ i $W_y>0$ to ćwiartka II: $\theta=180^\circ-\operatorname{arctg}(8/6)=126{,}9^\circ$.
+      Sam tangens dalby $53{,}1^\circ$ — kierunek do pierwszej ćwiartki, czyli zły.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Płaskie układy sił zbieżnych", str. 2–4: definicja układu zbieżnego, wielobok sił i wypadkowa jako suma geometryczna z twierdzeniem o rzucie sumy wektorów.
+- Wykład „Statyka — wykład 1 i 2", str. 31: zasada równoległoboku i twierdzenie cosinusów dla dwóch sił.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 2.6 (sumowanie wektorów) oraz 4.6–4.7 (przekształcenia równoważne i wypadkowa sił zbieżnych).
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 1.3–1.4: składowe wektora i rachunek wektorowy potrzebny do sumowania rzutów.
+- _University Physics_ (OpenStax), rozdz. 5.1: siła jako wektor i wypadkowa sił zewnętrznych.

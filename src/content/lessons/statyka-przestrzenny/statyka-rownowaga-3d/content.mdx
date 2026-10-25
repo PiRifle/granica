@@ -1,0 +1,210 @@
+---
+id: statyka-rownowaga-3d
+moduleId: statyka-przestrzenny
+number: 4
+title: 'Równowaga przestrzenna: sześć równań i dobór osi'
+shortTitle: 'Równowaga 3D'
+description: >-
+  Zapisujesz wektorowy i analityczny warunek równowagi przestrzennej jako trzy
+  równania sił i trzy równania momentów, a potem wykorzystujesz go w zadaniu
+  z płytą podpartą w trzech punktach.
+eyebrow: 'Sześć warunków, jedna równowaga'
+outcomes:
+  - W1 — formułuje wektorowe i analityczne warunki równowagi przestrzennej
+  - W2 — wyjaśnia, dlaczego wystarcza sześć niezależnych równań skalarnych
+  - U1 — zapisuje i rozwiązuje układ sześciu równań równowagi ciała przestrzennego
+  - U2 — dobiera punkt i osie momentów tak, aby uprościć rachunek i sprawdzić wynik
+---
+
+Poprzednia lekcja zakończyła się wnioskiem, że równowaga to szczególny wynik redukcji: wektor główny i moment główny muszą jednocześnie zniknąć. W przestrzeni ten warunek ma sześć składowych — trzy siły i trzy momenty. To nie jest „sześć razy to samo”, lecz sześć niezależnych informacji o tym, że ciało nie przesuwa się wzdłuż żadnej osi i nie obraca się wokół żadnej osi.
+
+W płaskiej statyce wystarczały trzy równania: dwa rzuty sił i jeden moment. W przestrzeni dochodzi trzeci rzut siły oraz dwa dodatkowe równania momentów. Dlatego zadanie, które na rysunku wygląda podobnie do płaskiego, może mieć sześć niewiadomych i wymagać sześciu równań. Kluczem jest nie samo ich zapisanie, ale dobranie punktu i osi momentów tak, by kolejne równania eliminowały niewiadome jedna po drugiej.
+
+Na tej lekcji przejdziemy przez pełne rozwiązanie płyty podpartej w trzech punktach: przegubem kulistym, przegubem walcowym i cięgnem. Zobaczysz, jak z geometrii powstaje szósty warunek, którego nie widać w rzutach, i dlaczego kontrola momentów względem innego punktu jest najtańszym testem poprawności.
+
+## Zanim zaczniesz
+
+- Umiej zapisać siłę przestrzenną przez trzy składowe i policzyć jej moment względem punktu jako $\mathbf r\times\mathbf F$.
+- Wiedz, że w równowadze moment względem dowolnego punktu jest taki sam tylko wtedy, gdy wektor główny jest zerowy.
+- Rozpoznawaj podstawowe więzy: przegub kulisty daje trzy składowe reakcji, przegub walcowy dwie, cięgno jedną wzdłuż swojej osi.
+- Pamiętaj o prawoskrętnym układzie osi: $x$ w prawo, $y$ w głąb, $z$ w górę albo innym, ale konsekwentnym w całym zadaniu.
+- Miej nawyk liczenia momentów względem punktu, przez który przechodzi jak najwięcej niewiadomych.
+
+## Model i intuicja
+
+Ciało sztywne w przestrzeni ma sześć stopni swobody: trzy przesunięcia i trzy obroty. Równowaga oznacza, że żaden z tych ruchów nie jest wywoływany przez obciążenie. Wektor główny $\mathbf R=\sum\mathbf F_i$ odpowiada za przesunięcia, a moment główny $\mathbf M_O=\sum(\mathbf r_i\times\mathbf F_i)+\sum\mathbf M_j$ za obroty względem wybranego bieguna $O$. Oba muszą być zerowe.
+
+Zero wektora w trójwymiarowej przestrzeni to zero wszystkich jego składowych w dowolnej bazie. Dlatego $\mathbf R=\mathbf 0$ daje trzy równania rzutów, a $\mathbf M_O=\mathbf 0$ trzy równania momentów. Łącznie sześć równań skalarnych. Są one konieczne i wystarczające, o ile są niezależne i dotyczą tego samego ciała sztywnego.
+
+Wybór bieguna momentów jest dowolny, ale nie obojętny rachunkowo. Gdy suma sił jest zerowa, moment główny nie zależy od bieguna: $\mathbf M_{O'}=\mathbf M_O-\mathbf a\times\mathbf R=\mathbf M_O$. W równowadze możesz więc sumować momenty względem najwygodniejszego punktu — na przykład takiego, w którym przecina się kilka niewiadomych reakcji. To właśnie ten wybór decyduje o tym, czy układ równań rozwiązuje się w trzech krokach, czy w dziesięciu.
+
+Model zakłada ciało sztywne i idealne więzy. Pomijamy tarcie w przegubach, luz oraz odkształcenia podpór. W rzeczywistej konstrukcji przegub może przenosić niewielki moment tarcia, a podpora może osiadać — wtedy model trzeba rozszerzyć. Na poziomie statyki sztywnej te uproszczenia są standardem i zwykle dobrze opisują konstrukcję.
+
+## Laboratorium: co ustawić
+
+Zbuduj płytę podpartą w trzech punktach i zmieniaj położenie obciążenia. Obserwuj, jak reakcje przesuwają się między podporami i w którym położeniu któraś z nich zmienia znak. Spróbuj znaleźć układ, w którym jedna reakcja jest zerowa — to znak, że obciążenie przechodzi przez linię tej podpory albo że pozostałe podpory przejmują cały moment.
+
+<Lab id="staticsSpatial" />
+
+## Definicje i jednostki
+
+| Pojęcie           | Zapis                                                          | Znaczenie                                       | Jednostka |
+| ----------------- | -------------------------------------------------------------- | ----------------------------------------------- | --------- |
+| Wektor główny     | $\mathbf R=\sum\mathbf F_i$                                    | Suma geometryczna sił                           | kN        |
+| Moment główny     | $\mathbf M_O=\sum\mathbf r_i\times\mathbf F_i+\sum\mathbf M_j$ | Suma momentów względem bieguna $O$              | kN·m      |
+| Równania sił      | $\sum F_x=\sum F_y=\sum F_z=0$                                 | Brak wypadkowej siły                            | kN        |
+| Równania momentów | $\sum M_x=\sum M_y=\sum M_z=0$                                 | Brak wypadkowego obrotu                         | kN·m      |
+| Stopnie swobody   | $6$                                                            | Trzy przesunięcia i trzy obroty ciała sztywnego | —         |
+| Układ wyznaczalny | $n_u=6$                                                        | Sześć niewiadomych i sześć niezależnych równań  | —         |
+
+Symbole: $\mathbf r_i$ — wektor od bieguna do punktu przyłożenia siły; $\mathbf M_j$ — momenty przyłożonych par. Jednostki muszą być spójne: jeśli siły są w kN, a ramiona w m, momenty wychodzą w kN·m. Nie mieszaj centymetrów z metrami w różnych współrzędnych tego samego zadania.
+
+## Wzór i wyprowadzenie
+
+Wektorowy warunek równowagi przestrzennej to jednoczesne zniknięcie wektora głównego i momentu głównego:
+
+<Formula>
+$$
+\mathbf R=\sum_{i=1}^{n}\mathbf F_i=\mathbf 0,
+\qquad
+\mathbf M_O=\sum_{i=1}^{n}\mathbf r_i\times\mathbf F_i+\sum_{j}\mathbf M_j=\mathbf 0
+$$
+
+<Caption>Dwa wektory, sześć składowych. Pierwsze równanie mówi, że wypadkowa sił jest zerowa; drugie, że wypadkowy moment względem dowolnego bieguna jest zerowy. W równowadze oba warunki muszą zachodzić równocześnie.</Caption>
+</Formula>
+
+Po rozpisaniu na osie otrzymujesz układ sześciu równań:
+
+<Formula>
+$$
+\sum F_x=0,\quad \sum F_y=0,\quad \sum F_z=0,
+\qquad
+\sum M_x=0,\quad \sum M_y=0,\quad \sum M_z=0
+$$
+
+<Caption>Analityczne warunki równowagi przestrzennego dowolnego układu sił. Równania momentów można zapisać względem dowolnego punktu, byle wszystkie momenty były liczone względem tego samego bieguna; osie momentów nie muszą pokrywać się z osiami sił.</Caption>
+</Formula>
+
+Wyprowadzenie jest krótkie. Równowaga wyklucza zarówno wypadkową siłę, jak i wypadkowy moment. Jeśli $\mathbf R=\mathbf 0$, to w dowolnej bazie ortogonalnej wszystkie trzy rzuty są zerowe. Jeśli $\mathbf M_O=\mathbf 0$, to również wszystkie trzy rzuty na osie są zerowe. Odwrotnie: sześć zerowych składowych oznacza zerowy wektor sił i zerowy wektor momentu, czyli równowagę. Sześć równań jest niezależnych, dopóki nie wynikają jedno z drugiego przez geometrię układu — na przykład gdy wszystkie siły są równoległe albo przecinają jedną prostą.
+
+<Insight>
+  W równowadze moment względem każdego punktu jest zerowy, więc do kontroli możesz wybrać punkt, którego nie użyłeś w
+  rozwiązaniu. Zgodność wszystkich sześciu równań w nowym punkcie jest niezależnym testem znaków i ramion.
+</Insight>
+
+## Przykład prowadzony: płyta na trzech podporach
+
+<AnimatedSolution id="ex-statyka-rownowaga-3d" />
+
+Warto zauważyć, co dał wybór punktu $A$: zniknęły trzy niewiadome reakcje przegubu kulistego, a z momentów względem osi $x$ i $z$ od razu wyznaczyliśmy $S$ i $B_y$. Dopiero potem wróciliśmy do rzutów. To typowa, oszczędna kolejność: najpierw momenty względem punktu z największą liczbą niewiadomych, potem siły.
+
+## Typowe błędy
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zapisywanie dziewięciu równań „na wszelki wypadek” i traktowanie ich jak niezależnych — w 3D są tylko sześć niezależnych warunków równowagi.
+- Dodawanie reakcji momentowej w przegubie kulistym albo walcowym, który z założenia nie przenosi momentu.
+- Pomijanie reakcji wzdłuż osi wału lub dodawanie jej w łożysku poprzecznym, które jej nie przenosi.
+- Liczenie momentów względem różnych punktów w jednym układzie równań bez przeliczenia momentu głównego.
+- Traktowanie ujemnej reakcji jako dowodu błędu — znak mówi tylko o zwrocie względem przyjętej osi.
+- Brak kontroli momentów względem drugiego punktu; błąd ramienia często znika w rzutach i ujawnia się dopiero w weryfikacji.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj schemat ciała wolnego i zastąp każdą podporę liczbą składowych reakcji wynikającą z jej więzów.
+2. Policz niewiadome. Sześć dla jednego ciała sztywnego to granica wyznaczalności; więcej wymaga dodatkowych warunków, mniej oznacza mechanizm lub szczególną geometrię.
+3. Przyjmij układ współrzędnych i zapisz wszystkie siły oraz momenty parami składowych.
+4. Wybierz biegun momentów w punkcie przecięcia możliwie wielu niewiadomych.
+5. Zapisz równania momentów względem osi, które eliminują najwięcej niewiadomych, a potem równania rzutów.
+6. Rozwiąż układ symbolicznie, dopiero na końcu podstaw liczby; zachowaj znaki i jednostki.
+7. Sprawdź wynik momentami względem innego punktu oraz sumami sił; dodatkowo oceń, czy znaki reakcji są fizycznie sensowne.
+
+## Połącz z resztą kursu
+
+- **Wektory 3D** — składowe sił z lekcji 1 są danymi wejściowymi każdego równania rzutów.
+- **Moment 3D** — równania $\sum M_x=\sum M_y=\sum M_z=0$ to suma momentów liczonych iloczynem wektorowym.
+- **Redukcja 3D** — równowaga to przypadek $\mathbf R=\mathbf 0$ i $\mathbf M_O=\mathbf 0$; znasz już oba te wektory.
+- **Więzy 3D** — następna lekcja usystematyzuje, ile składowych daje przegub, łożysko i cięgno.
+- **Wytrzymałość: zginanie i skręcanie** — reakcje wyznaczone tutaj stają się obciążeniem wałów i belek w dalszych modułach.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Ile niezależnych skalarnych równań równowagi ma ciało sztywne w przestrzeni?</Prompt>
+    <Answer>3 — po jednym na każdą osi</Answer>
+    <Answer correct>6 — trzy rzuty sił i trzy momenty</Answer>
+    <Answer>9 — trzy siły i sześć momentów</Answer>
+    <Hint>Policz stopnie swobody ciała sztywnego: trzy przesunięcia i trzy obroty.</Hint>
+    <Explanation>
+      Ciało sztywne w 3D ma sześć stopni swobody, więc równowagę opisuje sześć niezależnych równań:
+      $\sum F_x=\sum F_y=\sum F_z=0$ oraz $\sum M_x=\sum M_y=\sum M_z=0$. Dziewięć równań byłoby
+      nadmiarowe i nie wszystkie byłyby niezależne.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego w równowadze moment względem każdego punktu jest zerowy?</Prompt>
+    <Answer>Bo moment siły jest zawsze wektorem swobodnym</Answer>
+    <Answer correct>Bo wektor główny jest zerowy, a poprawka przy zmianie bieguna wynosi $\mathbf a\times\mathbf R=\mathbf 0$</Answer>
+    <Answer>Bo wszystkie siły muszą być równoległe</Answer>
+    <Hint>Przypomnij wzór $\mathbf M_{O'}=\mathbf M_O-\mathbf a\times\mathbf R$.</Hint>
+    <Explanation>
+      Przy zmianie bieguna moment zmienia się o $\mathbf a\times\mathbf R$. W równowadze $\mathbf R=\mathbf 0$,
+      więc poprawka znika i moment główny jest taki sam dla każdego punktu. To dlatego kontrola względem
+      innego punktu jest poprawnym testem.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z płytą cięgno ma wersor $(1,-1,1)/\sqrt3$, a $\sum M_x=0$ daje $2S/\sqrt3=22$. Ile wynosi $S$?</Prompt>
+    <Answer>$11\ \text{kN}$</Answer>
+    <Answer correct>$11\sqrt3\approx19{,}05\ \text{kN}$</Answer>
+    <Answer>$22\sqrt3\approx38{,}1\ \text{kN}$</Answer>
+    <Hint>Podziel obie strony przez $2/\sqrt3$, czyli pomnóż przez $\sqrt3/2$.</Hint>
+    <Explanation>
+      $S=22\sqrt3/2=11\sqrt3\approx19{,}05\ \text{kN}$. Wartość $11$ kN to wynik dzielenia przez $2$
+      bez uwzględnienia $\sqrt3$; wartość $22\sqrt3$ to pominięcie dzielenia przez $2$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W tym samym przykładzie reakcja $B_y$ wynosi:</Prompt>
+    <Answer>$0$</Answer>
+    <Answer correct>$11\ \text{kN}$</Answer>
+    <Answer>$-11\ \text{kN}$</Answer>
+    <Hint>Skorzystaj z $\sum M_z=0$: $-2S/\sqrt3+2B_y=0$.</Hint>
+    <Explanation>
+      Po podstawieniu $S/\sqrt3=11$ otrzymujemy $-22+2B_y=0$, więc $B_y=11\ \text{kN}$. Znak dodatni
+      oznacza zwrot zgodny z osią $y$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W przykładzie $A_z=-6\ \text{kN}$. Co to oznacza?</Prompt>
+    <Answer>Płyta nie może być w równowadze, bo reakcja jest ujemna</Answer>
+    <Answer correct>Reakcja w $A$ działa w dół, przeciwnie do przyjętej osi $z$</Answer>
+    <Answer>Pomyliłeś jednostki, reakcja powinna być w kN·m</Answer>
+    <Hint>Znak reakcji mówi o zwrocie względem osi, a nie o błędzie.</Hint>
+    <Explanation>
+      Ujemna wartość oznacza, że przegub musi działać na płytę w dół, aby zapobiec jej podniesieniu przy $A$.
+      To fizycznie możliwe dla przegubu mechanicznego; dla podpory jednostronnej oznaczałoby utratę kontaktu.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Ciało ma siedem niezależnych składowych reakcji podpór, a równania równowagi są sześć. Układ jest:</Prompt>
+    <Answer>mechanizmem</Answer>
+    <Answer correct>statycznie niewyznaczalny</Answer>
+    <Answer>zawsze w równowadze</Answer>
+    <Hint>Porównaj liczbę niewiadomych z liczbą niezależnych równań.</Hint>
+    <Explanation>
+      Siedem niewiadomych i sześć niezależnych równań to układ statycznie niewyznaczalny — do rozwiązania
+      potrzebne są warunki odkształceń lub dodatkowe informacje o konstrukcji.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Przestrzenny układ sił”, str. 7–10: wektorowy i analityczny warunek równowagi oraz przykład prostokątnej płyty podpartej przegubem, przegubem walcowym i cięgnem.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 5.3 i 5.5: równania równowagi ciała sztywnego w 3D oraz przykłady pełnych układów przestrzennych.
+- J. Moore i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 4.3: równania równowagi ciała sztywnego i ich związek z redukcją układu sił.
+- _University Physics_ (OpenStax), rozdz. 12.1: warunki równowagi $\sum\mathbf F=\mathbf 0$ i $\sum\boldsymbol{\tau}=\mathbf 0$ wraz z przykładami przestrzennymi.

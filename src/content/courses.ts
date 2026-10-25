@@ -102,7 +102,7 @@ export const courseCollection: CourseDefinition[] = [
     description:
       'Aksjomaty, układy sił, tarcie i środki ciężkości. Fundament, który procentuje w wytrzymałości materiałów.',
     eyebrow: 'Interaktywny kurs statyki',
-    status: 'planned',
+    status: 'ready',
     theme: {
       accent: '#b4552d',
       accentHover: '#9a4423',
@@ -117,6 +117,7 @@ export const courseCollection: CourseDefinition[] = [
       'statyka-plaskie-zbiezne',
       'statyka-plaskie-dowolne',
       'statyka-przestrzenny',
+      'statyka-kratownice',
       'statyka-tarcie',
       'statyka-sily-wewnetrzne',
       'statyka-srodki-ciezkosci',
@@ -139,6 +140,10 @@ export const courseCollection: CourseDefinition[] = [
         label: 'Redukcja i równowaga przestrzennego dowolnego układu sił',
       },
       {
+        moduleId: 'statyka-kratownice',
+        label: 'Modele kratownic, pręty zerowe, metoda węzłów i Rittera oraz sztywność geometryczna',
+      },
+      {
         moduleId: 'statyka-tarcie',
         label: 'Tarcie i prawa tarcia w układach mechanicznych',
       },
@@ -152,11 +157,11 @@ export const courseCollection: CourseDefinition[] = [
       },
     ],
     tools: {
-      training: false,
-      exam: false,
-      cheatsheet: false,
+      training: true,
+      exam: true,
+      cheatsheet: true,
       syllabus: true,
-      library: false,
+      library: true,
     },
     marketing: {
       tagline: 'Najpierw równowaga. Potem wszystko inne.',
@@ -165,8 +170,8 @@ export const courseCollection: CourseDefinition[] = [
       promise:
         'Zobacz, jak siły się równoważą, jak powstają reakcje i kiedy pojawia się tarcie. Fundament, bez którego wytrzymałość materiałów jest tylko zbiorem wzorów.',
       audience: 'Zaczynasz od zera? To dobry fundament.',
-      highlights: ['7 modułów w planie'],
-      statusLabel: 'W przygotowaniu',
+      highlights: ['8 modułów', '56 lekcji', '12 laboratoriów'],
+      statusLabel: 'Pełny kurs',
       visual: 'truss',
       ctaLabel: 'Zobacz plan statyki',
       crossSell: 'Dobry fundament przed wytrzymałością.',

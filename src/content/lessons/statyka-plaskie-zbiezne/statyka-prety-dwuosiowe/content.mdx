@@ -1,0 +1,188 @@
+---
+id: statyka-prety-dwuosiowe
+moduleId: statyka-plaskie-zbiezne
+number: 6
+title: 'Pręty dwuosiowe (dwusiłowe): znak siły i zastosowania'
+shortTitle: 'Pręty dwusiłowe'
+description: >-
+  Jak rozpoznać pręt obciążony tylko na końcach, dlaczego jego siła działa
+  wzdłuż osi i co oznacza znak dodatni lub ujemny w wyniku.
+eyebrow: 'Pręt, który tylko ciągnie albo tylko pcha'
+outcomes:
+  - W1 — definiuje pręt dwusiłowy i rozpoznaje warunki, w których model jest dopuszczalny
+  - W2 — odróżnia rozciąganie od ściskania i wyjaśnia rolę założonego zwrotu siły
+  - U1 — wyznacza siły w prętach z równowagi węzła, wraz z poprawnym znakiem
+  - U2 — stosuje pręty dwusiłowe do interpretacji kratownic i podpór prętowych
+---
+
+Wyobraź sobie tablicę zawieszoną na dwóch cienkich prętach albo wspornik, w którym poziomy pręt podtrzymuje półkę, a ukośny łączy ją ze ścianą. Każdy z tych prętów jest połączony przegubowo tylko na dwóch końcach, a jego ciężar jest tak mały, że można go pominąć. W takim elemencie nie ma żadnego dodatkowego obciążenia ani momentu przyłożonego w środku długości. To właśnie pręt dwuosiowy, nazywany też prętem dwusiłowym: ciało, na które działają dokładnie dwie siły, przyłożone w dwóch punktach.
+
+Z równowagi takich dwóch sił wynika coś bardzo mocnego. Jeśli pręt ma pozostać w spoczynku, siły muszą być równe co do wartości, przeciwne co do zwrotu i mieć wspólną prostą działania. Ta prosta przechodzi przez oba przeguby, więc kierunek siły w pręcie jest z góry znany — leży wzdłuż osi łączącej końce. Zamiast dwóch niewiadomych składowych w każdym pręcie mamy tylko jedną niewiadomą: wartość siły osiowej. To dlatego pręty dwusiłowe są tak wygodne w kratownicach, ramionach dźwigni, zastrzałach i podporach prętowych.
+
+Pozostaje znak. Siłę w pręcie liczymy jako jedną liczbę ze znakiem: dodatnia oznacza rozciąganie, ujemna — ściskanie. Żeby nie pogubić się w znakach, przyjmujemy na początku, że wszystkie pręty są rozciągane, i rysujemy ich siły jako strzałki skierowane od węzła na zewnątrz. Jeśli wynik wyjdzie ujemny, pręt w rzeczywistości jest ściskany, a strzałka na schemacie powinna być odwrócona. Ten jeden nawyk rozwiązuje większość typowych błędów.
+
+## Zanim zaczniesz
+
+- Umiej zapisać dwa równania równowagi płaskiego układu zbieżnego: $\sum F_x=0$ i $\sum F_y=0$.
+- Wiedz, że reakcja przegubu ma nieznany kierunek, ale reakcja pręta dwusiłowego działa wzdłuż jego osi.
+- Przypomnij sobie, jak rozkłada się siłę na składowe za pomocą cosinusa i sinusa kąta.
+- Odróżniaj rozciąganie (siły rozciągają pręt, działają „na zewnątrz”) od ściskania (siły ściskają pręt, działają „do środka”).
+- Pamiętaj, że dodatni kierunek osi $x$ i $y$ wybierasz sam — ważne, by trzymać się go konsekwentnie do końca zadania.
+
+## Model i intuicja
+
+Ciało dwusiłowe to ciało obciążone tylko dwiema siłami. W równowadze ich suma musi być zerowa, a suma momentów względem dowolnego punktu również musi się zerować. To wymusza, że siły są równe, przeciwne i mają wspólną prostą działania. W pręcie z przegubami na końcach oznacza to, że siła działa wzdłuż linii łączącej przeguby — niezależnie od tego, jak pręt jest wygięty czy nachylony. Ważne są tylko położenia dwóch punktów przyłożenia, nie kształt pręta między nimi.
+
+Model jest dobrym przybliżeniem, gdy spełnione są trzy warunki: pręt jest połączony przegubowo na obu końcach, nie działają na niego obciążenia pośrednie ani momenty skupione, a ciężar własny jest pomijalny w porównaniu z siłami osiowymi. Wtedy mówimy o pręcie dwusiłowym. Jeśli do pręta przyłożysz siłę w środku długości albo uwzględnisz jego ciężar, staje się on ciałem trójsiłowym lub belką — i trzeba użyć pełnych równań równowagi z momentami.
+
+Rozciąganie i ściskanie to dwa możliwe stany pręta. W rozciąganiu siły działające na pręt są skierowane na zewnątrz, a pręt „chce się wydłużyć”. W ściskaniu siły działają do wewnątrz, a pręt „chce się skrócić”. W zadaniach statyki znak wynika z przyjętego założenia, a nie z natury pręta: ten sam pręt może być rozciągany w jednym obciążeniu i ściskany w innym. Dopiero wynik liczbowy mówi, który stan występuje.
+
+## Laboratorium: co ustawić
+
+Zbuduj węzeł połączony z dwoma prętami i obciąż go pionową siłą. Zmieniaj kąty nachylenia prętów i obserwuj, jak zmieniają się wartości sił oraz który pręt jest rozciągany, a który ściskany. Spróbuj doprowadzić jeden pręt do położenia poziomego — wtedy jego składowa pionowa znika i całe obciążenie pionowe musi przejąć drugi pręt. Sprawdź też, co się dzieje, gdy oba pręty leżą na jednej prostej: układ przestaje być geometrycznie wyznaczalny.
+
+<Lab id="staticsConcurrent" />
+
+## Definicje i jednostki
+
+| Pojęcie        | Znaczenie                                                | Jednostka |
+| -------------- | -------------------------------------------------------- | --------- |
+| Pręt dwusiłowy | Element obciążony tylko dwiema siłami na końcach         | —         |
+| Węzeł          | Punkt, w którym spotykają się pręty i obciążenie         | —         |
+| Siła osiowa    | Siła w pręcie, działająca wzdłuż linii łączącej przeguby | N, kN     |
+| Rozciąganie    | Stan, w którym siły działają na zewnątrz pręta; $N>0$    | N, kN     |
+| Ściskanie      | Stan, w którym siły działają do wnętrza pręta; $N<0$     | N, kN     |
+| Kąt nachylenia | Kąt między osią pręta a przyjętą osią odniesienia        | $^\circ$  |
+
+Jednostki: siły w niutonach lub kiloniutonach, długości w metrach, kąty w stopniach. W obliczeniach używamy wartości bezwzględnej siły i kąta, a znak przechowujemy osobno — jako informację o rozciąganiu lub ściskaniu.
+
+## Wzór i wyprowadzenie
+
+Dla pręta łączącego punkty $A$ i $B$ jednostkowy wektor osi skierowany od $A$ do $B$ wynosi:
+
+<Formula>
+$$
+\mathbf e_{AB}=\frac{\mathbf r_B-\mathbf r_A}{\lvert \mathbf r_B-\mathbf r_A\rvert},
+\qquad
+\mathbf F_{AB}=N_{AB}\,\mathbf e_{AB}
+$$
+
+<Caption>Siła, jaką pręt działa na węzeł, ma kierunek osi pręta. $N_{AB}>0$ oznacza rozciąganie (siła działa od węzła w stronę drugiego końca), a $N_{AB}<0$ — ściskanie (siła działa w stronę węzła). Wartość $N_{AB}$ jest jedyną niewiadomą opisującą pręt.</Caption>
+</Formula>
+
+Wyprowadzenie jest krótkie. Na pręt działają tylko dwie siły: od przegubu $A$ i od przegubu $B$. W równowadze $\mathbf F_A+\mathbf F_B=0$, więc $\mathbf F_B=-\mathbf F_A$. Dodatkowo suma momentów względem dowolnego punktu musi być zerowa, więc proste działania obu sił nie mogą być równoległe i różne — muszą się pokrywać. Ta wspólna prosta przechodzi przez oba punkty przyłożenia. Gdy pręt jest rozciągany, siły działające na pręt są skierowane na zewnątrz; gdy ściskany — do środka. Na węzeł działa siła przeciwna (zasada akcji i reakcji), dlatego przy założeniu rozciągania rysujemy ją od węzła wzdłuż pręta.
+
+W zadaniu z węzłem zapisujemy dwa równania rzutów. Każdy pręt wnosi jedną niewiadomą $N_i$ i znany kierunek $\mathbf e_i$:
+
+<Formula>
+$$
+\sum_i N_i\,\mathbf e_{i,x}+P_x=0,
+\qquad
+\sum_i N_i\,\mathbf e_{i,y}+P_y=0
+$$
+
+<Caption>Równania równowagi węzła, do którego przyłożone są pręty dwusiłowe i obciążenie zewnętrzne $P$. Przy założeniu rozciągania wektory $\mathbf e_i$ są skierowane od węzła do drugiego końca pręta. Ujemne $N_i$ oznacza ściskanie.</Caption>
+</Formula>
+
+<AnimatedSolution id="ex-statyka-prety-dwuosiowe" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Traktowanie jako pręta dwusiłowego elementu z ciężarem własnym lub obciążeniem przyłożonym w środku długości — wtedy potrzebne są momenty i pełne równania równowagi.
+- Rysowanie siły w pręcie prostopadle do jego osi „bo tak wygląda podpora” — w pręcie dwusiłowym siła zawsze działa wzdłuż linii łączącej przeguby.
+- Przyjęcie, że wszystkie pręty są rozciągane, a potem zignorowanie minusa przy wyniku — minus jest informacją, nie błędem rachunku.
+- Odwracanie strzałki na schemacie w trakcie obliczeń bez zmiany znaku w równaniach.
+- Mylenie siły, jaką pręt działa na węzeł, z siłą, jaką węzeł działa na pręt — to dwie siły o przeciwnych zwrotach.
+- Pomijanie sprawdzenia, czy pręt ściskany nie ulegnie wyboczeniu — statyka podaje siłę, ale stateczność pręta to osobne zagadnienie wytrzymałościowe.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy element jest połączony przegubowo tylko na dwóch końcach i nie ma obciążeń pośrednich ani momentów.
+2. Upewnij się, że ciężar własny jest pomijalny; jeśli nie, model dwusiłowy nie obowiązuje.
+3. Poprowadź linię przez oba przeguby — to jest prosta działania siły w pręcie.
+4. Przyjmij rozciąganie za dodatnie i narysuj siły od węzła wzdłuż prętów.
+5. Rozłóż każdą siłę na składowe za pomocą kąta nachylenia pręta.
+6. Zapisz $\sum F_x=0$ i $\sum F_y=0$, rozwiąż układ i ustal znak każdej siły.
+7. Zinterpretuj wynik: plus to rozciąganie, minus to ściskanie; sprawdź bilans na drugim węźle lub w trójkącie sił.
+
+## Połącz z resztą kursu
+
+- **Równowaga zbieżna** — pręty dwusiłowe to szczególny przypadek sił zbieżnych: kierunki są znane, zostają tylko wartości.
+- **Trzy siły** — ciało obciążone dwoma prętami i ciężarem jest ciałem trójsiłowym; punkt zbiegu pozwala sprawdzić kierunki reakcji.
+- **Kratownice** — cała metoda węzłów opiera się na założeniu, że pręty są dwusiłowe; każdy węzeł rozwiązujesz dwoma równaniami.
+- **Reakcje konstrukcji** — podpora prętowa w belce lub ramie wnosi jedną niewiadomą i znany kierunek, podobnie jak pręt dwusiłowy.
+- **Wytrzymałość materiałów** — rozciąganie i ściskanie to pierwsze stany naprężenia; dla prętów ściskanych dochodzi jeszcze utrata stateczności.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Który warunek najlepiej opisuje pręt dwusiłowy?</Prompt>
+    <Answer>Jest obciążony siłami w dowolnych punktach, byleby się równoważyły</Answer>
+    <Answer correct>Jest obciążony tylko w dwóch punktach, bez momentów i obciążeń pośrednich</Answer>
+    <Answer>Jest zawsze wykonany z materiału sprężystego i prostego</Answer>
+    <Hint>Liczba sił i miejsce ich przyłożenia decydują o tym, czy siła musi działać wzdłuż osi.</Hint>
+    <Explanation>
+      Ciało dwusiłowe ma dokładnie dwie siły przyłożone w dwóch punktach. W równowadze muszą być one współliniowe, więc siła działa wzdłuż linii łączącej te punkty. Kształt ani materiał pręta nie są tu istotne.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Przy założeniu rozciągania otrzymujesz siłę w pręcie $N=-8\ \text{kN}$. Co to oznacza?</Prompt>
+    <Answer>Pręt jest rozciągany siłą $8\ \text{kN}$</Answer>
+    <Answer correct>Pręt jest ściskany siłą $8\ \text{kN}$</Answer>
+    <Answer>Wynik jest błędny, bo siła w pręcie nie może być ujemna</Answer>
+    <Hint>Znak informuje o zwrocie siły względem założonego kierunku rozciągania.</Hint>
+    <Explanation>
+      Minus oznacza, że rzeczywisty zwrot jest przeciwny do założonego. Założyliśmy rozciąganie, więc pręt jest w rzeczywistości ściskany, a wartość siły wynosi $8\ \text{kN}$. Znak jest częścią wyniku, nie błędem.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie z węzłem $C$ siła w poziomym pręcie $AC$ wynosi:</Prompt>
+    <Answer>$10\ \text{kN}$ rozciągania</Answer>
+    <Answer correct>$10\ \text{kN}$ ściskania</Answer>
+    <Answer>$14{,}14\ \text{kN}$ rozciągania</Answer>
+    <Hint>Pozioma składowa pręta $BC$ wynosi $10\ \text{kN}$ w lewo; pręt $AC$ musi ją zrównoważyć.</Hint>
+    <Explanation>
+      Z równania $\sum F_x=0$ dostajemy $-N_{AC}-N_{BC}\cos45^\circ=0$, a $N_{BC}\cos45^\circ=10\ \text{kN}$. Stąd $N_{AC}=-10\ \text{kN}$, czyli pręt $AC$ jest ściskany.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Pręt dwusiłowy jest nachylony pod kątem $30^\circ$ do poziomu i jest rozciągany siłą $10\ \text{kN}$. Jaką pionową składową siły działa on na węzeł?</Prompt>
+    <Answer>$10\ \text{kN}$</Answer>
+    <Answer correct>$5\ \text{kN}$</Answer>
+    <Answer>$8{,}66\ \text{kN}$</Answer>
+    <Hint>Składowa pionowa to $N\sin30^\circ$.</Hint>
+    <Explanation>
+      $N_y=N\sin30^\circ=10\cdot0{,}5=5\ \text{kN}$. Wartość $8{,}66\ \text{kN}$ odpowiada składowej poziomej $N\cos30^\circ$.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Którego elementu NIE można modelować jako pręta dwusiłowego?</Prompt>
+    <Answer>Cięgna o pomijalnym ciężarze, rozpiętego między dwoma przegubami</Answer>
+    <Answer correct>Belki obciążonej w środku długości siłą skupioną i ciężarem własnym</Answer>
+    <Answer>Zastrzału łączącego dwa przeguby, bez obciążeń pośrednich</Answer>
+    <Hint>Przeczytaj uważnie, gdzie przyłożone są obciążenia.</Hint>
+    <Explanation>
+      Belka z obciążeniem w środku i ciężarem własnym ma więcej niż dwie siły oraz momenty zginające. Nie spełnia definicji ciała dwusiłowego, choć jej końce mogą być przegubowo połączone. Cięgno i zastrzał bez obciążeń pośrednich spełniają warunki modelu.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Dlaczego w kratownicy pręty dwusiłowe upraszczają obliczenia?</Prompt>
+    <Answer>Bo można pominąć wszystkie reakcje podpór</Answer>
+    <Answer correct>Bo każdy pręt wnosi jedną niewiadomą o znanym kierunku, a nie dwie składowe</Answer>
+    <Answer>Bo siły w prętach są zawsze jednakowe</Answer>
+    <Hint>Policz niewiadome: dwie składowe czy jedna wartość na pręt?</Hint>
+    <Explanation>
+      W kratownicy kierunek każdego pręta jest znany z geometrii, więc wystarczy wyznaczyć jedną wartość $N$ na pręt. Dzięki temu dwa równania na węzeł rozwiązują zwykle dwie niewiadome. Siły w różnych prętach nie muszą być równe, a reakcje podpór nadal trzeba wyznaczyć.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Płaskie układy sił zbieżnych”, str. 2–3 i 7–9: definicja układu zbieżnego, przykłady kuli i belki oraz sposób traktowania sił wzdłuż cięgien i prętów.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 3.3.3 (Two-force Bodies) i 3.4 (2D Particle Equilibrium): definicja ciała dwusiłowego, współliniowość sił oraz rozciąganie i ściskanie.
+- L. Osgood, G. Cameron, H. Christensen, _Engineering Mechanics: Statics_, rozdz. 2.3: równania równowagi cząstki i rozkładanie sił na składowe.
+- _University Physics_ (OpenStax), rozdz. 5.6–5.7: siły napięcia, siły normalne i rysowanie schematu ciała wolnego.

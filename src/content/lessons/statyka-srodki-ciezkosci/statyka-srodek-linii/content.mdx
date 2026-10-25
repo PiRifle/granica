@@ -1,0 +1,200 @@
+---
+id: statyka-srodek-linii
+moduleId: statyka-srodki-ciezkosci
+number: 2
+title: 'Środki ciężkości linii i łuków'
+shortTitle: 'Linie i łuki'
+description: >-
+  Przejście od punktów materialnych do linii: długość jako waga, centroidy
+  łamanych i łuków kołowych oraz przykład kratownicy z wykładu.
+eyebrow: 'Długość jest wagą'
+outcomes:
+  - W1 — definiuje środek ciężkości linii jako średnią ważoną położeń z wagą długości
+  - W2 — rozpoznaje przypadki, w których symetria wyznacza jedną lub dwie współrzędne
+  - U1 — oblicza centroidy łamanych i łuków kołowych z wykorzystaniem długości i momentów statycznych
+  - U2 — kontroluje wynik na przykładzie kratownicy z jednorodnych prętów
+---
+
+W lekcji pierwszej każda część układu była punktem materialnym o znanej masie. Teraz robimy krok w stronę ciał ciągłych: rozpatrujemy cienki pręt, drut albo pojedynczy pręt kratownicy, czyli obiekt, którego długość jest duża, a pozostałe wymiary można pominąć. Taki obiekt nazywamy linią materialną. Jego ciężar rozkłada się wzdłuż krzywej, a nie w izolowanych punktach.
+
+Intuicja jest ta sama co poprzednio, zmienia się tylko waga. Przy punktach materialnych ważyliśmy położenia masami. Przy linii jednorodnej masa każdego kawałka jest proporcjonalna do jego długości, więc wagą staje się długość. Dwa odcinki tej samej długości wnoszą taki sam wkład do środka ciężkości, niezależnie od tego, czy są proste, czy zakrzywione. Odcinek dłuższy wnosi wkład większy — dokładnie tak, jak cięższy punkt w poprzedniej lekcji.
+
+Ten krok ma bezpośrednie zastosowanie w kratownicach. Pręty kratownicy są zwykle jednorodne i mają taki sam przekrój, więc środek ciężkości całej kratownicy wyznaczamy z długości prętów, a nie z ich pól ani objętości. Właśnie taki przykład rozwiążemy na końcu: sześć prętów, znane węzły, znane długości i dwa równania momentów. To również dobry trening przed figurami płaskimi, gdzie wagą będzie już pole.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie wzór na długość odcinka: $L=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$.
+- Umiej policzyć długość łuku okręgu: $L=r\varphi$, gdzie kąt $\varphi$ jest w radianach.
+- Pamiętaj, że kąt pełny to $2\pi$ rad, półpełny $\pi$, a prosty $\pi/2$.
+- Wiedz, że środek ciężkości układu punktów to średnia ważona położeń, a wagą jest ciężar lub masa.
+- Odróżniaj długość łuku od długości cięciwy — tylko pierwsza jest wagą w centroidzie linii.
+
+## Model i intuicja
+
+Linię materialną dzielimy myślowo na $n$ krótkich elementów o długościach $\Delta L_k$. Każdy element traktujemy jak punkt materialny zaczepiony w jego własnym środku. Ciężar elementu wynosi $\Delta G_k=\lambda g\,\Delta L_k$, gdzie $\lambda$ jest masą na jednostkę długości. Dla linii jednorodnej $\lambda$ jest stałe, więc po podstawieniu do wzorów z lekcji pierwszej współczynnik $\lambda g$ skraca się w liczniku i mianowniku. Zostaje czysta geometria: położenie elementu ważone jego długością.
+
+Przejście graniczne $\Delta L_k\to 0$ zamienia sumy na całki. Dla łamanej nie ma jednak potrzeby całkować: każdy prosty odcinek ma swój środek w połowie długości, więc wystarczy suma skończona. Całkowanie pojawia się dopiero przy krzywej gładkiej, na przykład przy łuku okręgu. Wtedy pomagają współrzędne biegunowe: $x=r\cos\varphi$, $y=r\sin\varphi$, $dL=r\,d\varphi$.
+
+Symetria jest najtańszym narzędziem kontroli. Jeśli linia ma oś symetrii, środek ciężkości leży na tej osi. Dla łuku półkolistego osią symetrii jest prostopadła do cięciwy przechodząca przez środek okręgu, więc wystarczy wyznaczyć jedną współrzędną. Dla łuku ćwiartkowego symetria względem dwusiecznej kąta pozwala od razu stwierdzić, że $x_C=y_C$.
+
+Granica modelu jest równie ważna jak wzór. Linia materialna musi być cienka i jednorodna. Jeśli pręt ma zmienny przekrój albo zmienną gęstość, długość przestaje być dobrą wagą — trzeba wrócić do masy lub objętości. Podobnie łuk o zmiennym promieniu nie jest łukiem okręgu i wymaga całki z jawną postacią krzywej. W typowych zadaniach z wykładu te założenia są spełnione, ale trzeba je świadomie sprawdzić.
+
+## Laboratorium: co ustawić
+
+Zbuduj łamaną z dwóch lub trzech odcinków i sprawdź, że jej centroid przesuwa się w stronę najdłuższego z nich. Następnie zmień jeden odcinek na łuk okręgu i obserwuj, jak zmienia się położenie środka. Na koniec ustaw łuk półkolisty i porównaj wynik z wartością $2r/\pi$; potem zmień kąt łuku i zobacz, jak daleko od środka okręgu wędruje centroid.
+
+<Lab id="staticsCentroid" />
+
+## Definicje i jednostki
+
+| Pojęcie                | Symbol    | Znaczenie                                                    | Jednostka |
+| ---------------------- | --------- | ------------------------------------------------------------ | --------- |
+| Linia materialna       | —         | Cienki pręt, drut lub pręt kratownicy o pomijalnym przekroju | —         |
+| Długość linii          | $L$       | Suma długości odcinków lub długość łuku                      | m, mm     |
+| Gęstość liniowa        | $\lambda$ | Masa na jednostkę długości                                   | kg/m      |
+| Element długości       | $dL$      | Nieskończenie krótki fragment linii                          | m         |
+| Moment statyczny linii | $Q_y,Q_x$ | $\int x\,dL$ oraz $\int y\,dL$                               | m², mm²   |
+| Współrzędne centroidu  | $x_C,y_C$ | Średnie ważone położeń, wagą długość                         | m, mm     |
+| Kąt połowy łuku        | $\alpha$  | Połowa kąta środkowego łuku                                  | rad       |
+
+Jednostki momentów statycznych linii są dziwne tylko na pierwszy rzut oka: długość razy długość daje m². To nie jest pole powierzchni, lecz moment długości względem osi. W mianowniku stoi długość, więc współrzędna wychodzi w metrach. Przy łukach kąt zawsze podstawiamy w radianach; stopnie trzeba przeliczyć przez $\pi/180$.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+x_C=\frac{\int x\,dL}{\int dL}=\frac{Q_y}{L},\qquad
+y_C=\frac{\int y\,dL}{\int dL}=\frac{Q_x}{L}
+$$
+
+<Caption>Definicja centroidu linii. Dla łamanej całki zastępujemy sumami: $x_C=\sum x_iL_i/\sum L_i$ oraz $y_C=\sum y_iL_i/\sum L_i$. Wzory dotyczą linii jednorodnej; przy zmiennej gęstości wagą jest $dm$, a nie $dL$.</Caption>
+</Formula>
+
+Dla łuku okręgu o promieniu $r$ i kącie środkowym $2\alpha$ połóżmy początek układu w środku okręgu, a oś $x$ wzdłuż osi symetrii łuku. Wtedy $x=r\cos\varphi$, $y=r\sin\varphi$, $dL=r\,d\varphi$, a kąt $\varphi$ przebiega od $-\alpha$ do $\alpha$. Długość łuku wynosi $L=2r\alpha$. Moment względem osi $y$ to
+
+$$
+Q_y=\int_{-\alpha}^{\alpha} r\cos\varphi\cdot r\,d\varphi
+=r^2\bigl[\sin\varphi\bigr]_{-\alpha}^{\alpha}
+=2r^2\sin\alpha.
+$$
+
+Po podzieleniu przez $L$ otrzymujemy odległość centroidu od środka okręgu:
+
+<Formula>
+$$
+\bar x=\frac{2r^2\sin\alpha}{2r\alpha}=r\,\frac{\sin\alpha}{\alpha}
+$$
+
+<Caption>Położenie centroidu łuku kołowego mierzone od środka okręgu, wzdłuż osi symetrii. Kąt $\alpha$ jest połową kąta środkowego i musi być w radianach. Dla półokręgu $\alpha=\pi/2$ daje $2r/\pi$; dla ćwiartki okręgu $\alpha=\pi/4$ daje $2\sqrt{2}r/\pi$ wzdłuż dwusiecznej.</Caption>
+</Formula>
+
+Współrzędna $y_C$ znika, bo łuk jest symetryczny względem osi $x$. Dla ćwiartki łuku wygodniej przyjąć osie wzdłuż promieni ograniczających: wtedy $x_C=y_C=2r/\pi$. To ta sama liczba, tylko mierzona w innym układzie. Nie mieszaj jej z odległością od środka okręgu wzdłuż dwusiecznej, która wynosi $2\sqrt{2}r/\pi\approx0{,}900r$.
+
+<AnimatedSolution id="ex-statyka-srodek-linii" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Używanie pola przekroju zamiast długości jako wagi. Dla jednorodnego pręta o stałym przekroju pole się skraca, ale przy prętach o różnych przekrojach trzeba ważyć objętością lub masą.
+- Podstawianie kąta w stopniach do wzoru $L=r\varphi$ albo do $\sin\alpha/\alpha$. Wzory łukowe wymagają radianów.
+- Mylenie centroidu łuku z centroidem półkola lub ćwiartki koła. Łuk półkolisty ma $2r/\pi$, a półkole $4r/(3\pi)$ — to różne punkty.
+- Branie odległości od środka okręgu wzdłuż dwusiecznej za współrzędną $x_C$. Dla ćwiartki łuku współrzędne wynoszą $2r/\pi$, a odległość wzdłuż dwusiecznej $2\sqrt{2}r/\pi$.
+- Pomijanie odcinków o zerowym momencie w jednej osi. To nie błąd, ale trzeba je nadal wliczyć do mianownika $L$.
+- Zakładanie, że centroid linii musi leżeć na linii. Dla łuku półkolistego leży on w pustce między łukiem a cięciwą.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy obiekt jest cienki i jednorodny: pręt, drut, linka, kratownica z prętów. Jeśli tak, wagą jest długość.
+2. Podziel obiekt na proste odcinki i łuki. Dla każdego odcinka wyznacz długość i współrzędne jego środka.
+3. Dla łuku okręgu użyj wzoru $r\sin\alpha/\alpha$; dla półkola i ćwiartki podstaw odpowiednio $\alpha=\pi/2$ i $\alpha=\pi/4$.
+4. Ustal wspólny układ współrzędnych i zapisz tabelę: $L_i$, $x_i$, $y_i$, $x_iL_i$, $y_iL_i$.
+5. Zsumuj długości i momenty, a następnie podziel momenty przez długość całkowitą.
+6. Skorzystaj z symetrii, jeśli jest: oś symetrii od razu daje jedną współrzędną.
+7. Sprawdź, czy wynik leży w obrysie obiektu i czy przesuwa się w stronę najdłuższych odcinków.
+
+## Połącz z resztą kursu
+
+- **Środek ciężkości układu punktów** — linia to granica układu punktów, w której wagą staje się długość; rachunek momentów pozostaje ten sam.
+- **Figury płaskie** — następna lekcja zamienia długość na pole; porównanie obu wzorów pokaże, dlaczego centroid łuku i półkola to różne punkty.
+- **Kratownice** — środek ciężkości kratownicy z jednorodnych prętów liczy się właśnie z długości; ten wynik przydaje się przy ciężarze własnym konstrukcji.
+- **Momenty bezwładności** — w geometrii przekrojów pojawi się całka z kwadratem odległości; tam również wagą będzie pole, a nie długość.
+- **Ciężar własny** — wypadkową ciężaru prętów zaczepia się w ich centroidzie; bez tego kroku nie da się poprawnie zredukować obciążenia własnego.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Przy wyznaczaniu środka ciężkości jednorodnej linii wagą każdego fragmentu jest:</Prompt>
+    <Answer>jego pole przekroju</Answer>
+    <Answer correct>jego długość</Answer>
+    <Answer>kwadrat jego odległości od początku układu</Answer>
+    <Hint>Masa fragmentu jednorodnego drutu jest proporcjonalna do czego?</Hint>
+    <Explanation>
+      Dla linii jednorodnej masa fragmentu jest proporcjonalna do długości, a nie do pola przekroju.
+      Pole przekroju jest jednakowe na całej długości i skraca się w liczniku i mianowniku.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Drut zegnięto w literę L: odcinek poziomy o długości $2$ m od $(0,0)$ do $(2,0)$ i odcinek pionowy o długości $2$ m od $(2,0)$ do $(2,2)$. Gdzie leży centroid?</Prompt>
+    <Answer>$(1{,}0;\,1{,}0)$</Answer>
+    <Answer correct>$(1{,}5;\,0{,}5)$</Answer>
+    <Answer>$(1{,}5;\,1{,}0)$</Answer>
+    <Hint>Oba odcinki mają tę samą długość, więc każdy waży tyle samo. Policz średnią współrzędnych ich środków.</Hint>
+    <Explanation>
+      Środek odcinka poziomego to $(1,0)$, pionowego $(2,1)$. Przy równych długościach
+      $x_C=(1+2)/2=1{,}5$ m, $y_C=(0+1)/2=0{,}5$ m. Wynik leży bliżej narożnika niż środek geometryczny obrysu.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Łuk półkolisty o promieniu $r=10$ cm. Odległość jego centroidu od środka okręgu wynosi:</Prompt>
+    <Answer>$4{,}24$ cm</Answer>
+    <Answer correct>$6{,}37$ cm</Answer>
+    <Answer>$5{,}00$ cm</Answer>
+    <Hint>Dla łuku półkolistego użyj $2r/\pi$. Wartość $4r/(3\pi)$ dotyczy półkola jako figury, nie łuku.</Hint>
+    <Explanation>
+      $2r/\pi=20/\pi=6{,}37$ cm. Wartość $4r/(3\pi)=4{,}24$ cm to centroid półkola (wypełnionej figury),
+      a $5$ cm to połowa promienia. Łuk i półkole mają różne centroidy.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Łuk ćwiartki okręgu o promieniu $r=10$ cm leży w pierwszej ćwiartce, od osi $x$ do osi $y$. Jego współrzędne centroidu wynoszą:</Prompt>
+    <Answer>$x_C=y_C=4{,}24$ cm</Answer>
+    <Answer correct>$x_C=y_C=6{,}37$ cm</Answer>
+    <Answer>$x_C=y_C=9{,}00$ cm</Answer>
+    <Hint>Dla ćwiartki łuku $x_C=y_C=2r/\pi$; wartość $9{,}00$ cm to odległość wzdłuż dwusiecznej, nie współrzędna.</Hint>
+    <Explanation>
+      $x_C=y_C=2r/\pi=20/\pi=6{,}37$ cm. Odległość od środka okręgu wzdłuż dwusiecznej wynosi
+      $2\sqrt{2}r/\pi=9{,}00$ cm, ale to nie są współrzędne $x$ i $y$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Które stwierdzenie o centroidzie łuku półkolistego jest prawdziwe?</Prompt>
+    <Answer>Leży w środku okręgu, bo łuk jest symetryczny</Answer>
+    <Answer correct>Leży na osi symetrii w odległości $2r/\pi$ od środka okręgu, poza materiałem łuku</Answer>
+    <Answer>Leży w połowie promienia, dokładnie na łuku</Answer>
+    <Hint>Symetria daje kierunek, ale nie odległość. Odległość wyznacza stosunek momentu do długości.</Hint>
+    <Explanation>
+      Symetria względem osi prostopadłej do cięciwy wyznacza linię, na której leży centroid.
+      Rachunek momentów daje odległość $2r/\pi$. Punkt leży w pustce między łukiem a cięciwą, co jest normalne.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W kratownicy z przykładu największy wkład do momentu względem osi $x$ wnosi pręt:</Prompt>
+    <Answer>$AC$, bo leży najniżej</Answer>
+    <Answer correct>$DE$, bo ma dużą długość i najwyższy środek</Answer>
+    <Answer>$CE$, bo jest poziomy i najdłuższy</Answer>
+    <Hint>Moment to iloczyn $y_iL_i$. Porównaj iloczyny, nie same długości ani same wysokości.</Hint>
+    <Explanation>
+      $DE$ ma $L=4{,}72$ m i $y=3{,}75$ m, więc $yL=17{,}7$ m². To największy pojedynczy składnik sumy $49{,}225$ m².
+      $AC$ ma małe $y$, a $CE$ ma większą długość, ale niższy środek.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Środek ciężkości i środek masy", str. 5–8: przejście od układu punktów do linii i całki po długości; str. 13–14: przykłady łuków i związek z twierdzeniami Pappusa-Guldina.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 7.4 i 7.7: centroidy jednowymiarowe oraz całkowanie po długości łuku.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 7.1–7.2: środek masy pręta cienkiego i przejście do rozkładu ciągłego.
+- _University Physics_ (OpenStax), rozdz. 9.6: środek masy układu cząstek jako punkt odniesienia dla granicy ciągłej.

@@ -41,7 +41,7 @@ export function SolutionPlayer({ solution }: { solution: CourseSolution }) {
         scene={active.scene}
         index={active.index}
         stepIndex={active.stepIndex}
-        playing={playback.playing}
+        playing={playback.playing || playback.engaged}
         stepProgress={active.stepProgress}
         sceneProgress={active.sceneProgress}
         figureFocus={figureFocus}

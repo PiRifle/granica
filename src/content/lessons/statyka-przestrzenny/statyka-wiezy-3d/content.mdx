@@ -1,0 +1,210 @@
+---
+id: statyka-wiezy-3d
+moduleId: statyka-przestrzenny
+number: 5
+title: 'Więzy i reakcje w przestrzeni: przeguby, łożyska, zawieszenia'
+shortTitle: 'Więzy 3D'
+description: >-
+  Przyporządkuj przegubom, łożyskom i zawieszeniom właściwą liczbę składowych
+  reakcji, policz niewiadome i zbuduj poprawny schemat ciała wolnego w 3D.
+eyebrow: 'Każdy więz odbiera stopień swobody'
+outcomes:
+  - W1 — klasyfikuje więzy przestrzenne i przypisuje im reakcje siłowe oraz momentowe
+  - W2 — rozumie różnicę między więzem jedno- i dwustronnym oraz reakcją czynną i bierną
+  - U1 — liczy liczbę niewiadomych i ocenia wyznaczalność układu przestrzennego
+  - U2 — buduje schemat ciała wolnego dla przegubów, łożysk i zawieszeń
+---
+
+W płaskiej statyce podpora była najczęściej „trójkącikiem” oznaczającym dwie składowe albo „wózeczkiem” oznaczającym jedną. W przestrzeni ten skrót myślowy przestaje wystarczać. Ten sam rysunek może oznaczać przegub kulisty, przegub walcowy, łożysko poprzeczne albo podporę stałą — a każde z nich odbiera inną liczbę stopni swobody i daje inną liczbę niewiadomych.
+
+Reakcja podpory nie jest „siłą, którą ktoś przykłada”, lecz siłą, którą więz wywiera na ciało, aby uniemożliwić mu niedozwolony ruch. Jeśli podpora pozwala na przesunięcie wzdłuż pewnej osi, nie może wytworzyć reakcji w tej osi. Jeśli pozwala na obrót wokół osi, nie może wytworzyć momentu względem tej osi. Ta prosta zasada pozwala odtworzyć tabelę reakcji bez pamięciowego wkuwania.
+
+W tej lekcji najpierw uporządkujemy więzy przestrzenne, potem policzymy niewiadome na przykładzie płyty, a na końcu rozwiążemy wspornik zamocowany w podporze stałej. Zobaczysz, że podpora stała daje aż sześć reakcji, ale nie znaczy to, że zadanie jest trudniejsze — po prostu schemat ciała wolnego musi być kompletny.
+
+## Zanim zaczniesz
+
+- Wiedz, że ciało sztywne w przestrzeni ma sześć stopni swobody: trzy przesunięcia i trzy obroty.
+- Rozróżniaj reakcję siłową od reakcji momentowej; moment w podporze pojawia się tylko wtedy, gdy więz blokuje obrót.
+- Pamiętaj, że cięgno przenosi tylko rozciąganie wzdłuż swojej osi, a gładka powierzchnia tylko nacisk prostopadły.
+- Umiej zapisać reakcję w układzie współrzędnych jako wektor o trzech składowych.
+- Miej nawyk rysowania schematu ciała wolnego przed jakimkolwiek równaniem.
+
+## Model i intuicja
+
+Więz to ograniczenie ruchu. Każde odebranie jednego stopnia swobody wiąże się z jedną składową reakcji. Cięgno odbiera przesunięcie wzdłuż swojej osi, więc daje jedną siłę osiową. Gładka powierzchnia odbiera przesunięcie prostopadłe do płaszczyzny styku, więc daje jedną siłę normalną. Przegub kulisty odbiera trzy przesunięcia, ale pozwala na wszystkie obroty, więc daje trzy siły i zero momentów. Podpora stała odbiera wszystkie sześć stopni swobody i daje trzy siły oraz trzy momenty.
+
+W praktyce spotkasz też więzy pośrednie. Przegub walcowy (łożysko poprzeczne) blokuje przesunięcia prostopadłe do osi, a pozwala na obrót wokół niej i często na przesunięcie wzdłuż osi — daje dwie siły prostopadłe do osi. Łożysko wzdłużne (thrust) dodatkowo blokuje przesunięcie wzdłuż osi, więc daje trzecią siłę osiową. Łożysko swobodne może przenosić jeszcze dwa momenty prostopadłe do osi, co daje cztery reakcje. Łożysko ustalające blokuje dodatkowo przesunięcie wzdłuż osi, a nadal przenosi dwie siły poprzeczne i dwa momenty prostopadłe do osi — daje pięć reakcji. Te warianty warto znać, bo właśnie one odróżniają zadania wałowe od zwykłych belek.
+
+Drugie rozróżnienie dotyczy charakteru więzu. Cięgno i podpora jednostronna działają tylko w jednym zwrocie: cięgno może tylko ciągnąć, kontakt może tylko naciskać. Reakcja o przeciwnym znaku nie jest wtedy „ujemną siłą”, lecz sygnałem, że więz przestał działać — lina zwiotczała albo ciało odrywa się od podpory. Przegub i podpora stała są zwykle dwustronne: mogą przenosić siłę w obu zwrotach.
+
+## Laboratorium: co ustawić
+
+Zbuduj prosty układ przestrzenny i po kolei zmieniaj typ podpory: przegub kulisty, przegub walcowy, łożysko wzdłużne, podpora stała. Przy każdym wariancie policz, ile składowych reakcji widzisz na schemacie i ile stopni swobody pozostaje ciału. Sprawdź, kiedy układ staje się mechanizmem, a kiedy zaczyna być statycznie niewyznaczalny.
+
+<Lab id="staticsSpatial" />
+
+## Definicje i jednostki
+
+| Więz                           | Odebrane stopnie swobody | Reakcje                              | Typowy przykład               |
+| ------------------------------ | ------------------------ | ------------------------------------ | ----------------------------- |
+| Cięgno lub pręt dwusiłowy      | 1                        | Jedna siła wzdłuż osi                | Lina, ścięgno, zastrzał       |
+| Gładka powierzchnia lub krążek | 1                        | Jedna siła normalna                  | Podpora ślizgowa, kontakt     |
+| Przegub kulisty                | 3                        | Trzy siły                            | Kulisty koniec pręta          |
+| Przegub walcowy                | 2                        | Dwie siły prostopadłe do osi         | Zawias drzwi                  |
+| Łożysko poprzeczne             | 2                        | Dwie siły prostopadłe do osi         | Wał w łożysku ślizgowym       |
+| Łożysko wzdłużne               | 3                        | Dwie siły prostopadłe i jedna osiowa | Łożysko oporowe               |
+| Podpora stała                  | 6                        | Trzy siły i trzy momenty             | Wspornik zamocowany w ścianie |
+
+Symbole: $A_x,A_y,A_z$ — składowe siły reakcji; $M_x,M_y,M_z$ — składowe momentu reakcji. Jednostki: siły w N lub kN, momenty w N·m lub kN·m. Reakcję momentową zapisuj tylko wtedy, gdy więz rzeczywiście blokuje obrót. Dla przegubu walcowego o osi $x$ reakcje to $R_y$ i $R_z$; składowa $R_x$ nie istnieje, bo przesunięcie wzdłuż osi jest dozwolone.
+
+## Wzór i wyprowadzenie
+
+Liczbę niewiadomych porównujesz z liczbą niezależnych równań równowagi:
+
+<Formula>
+$$
+n_u=\sum_{k} n_k,\qquad
+\begin{cases}
+n_u<6 & \text{mechanizm lub układ chwilowo niestateczny},\\
+n_u=6 & \text{układ statycznie wyznaczalny (przy niezależnych równaniach)},\\
+n_u>6 & \text{układ statycznie niewyznaczalny}.
+\end{cases}
+$$
+
+<Caption>Suma $n_k$ to liczba składowych reakcji wszystkich więzów. Sama równość $n_u=6$ nie gwarantuje wyznaczalności — więzy mogą być redundantne lub źle rozmieszczone. Trzeba jeszcze sprawdzić, czy równania są niezależne i czy układ nie jest mechanizmem.</Caption>
+</Formula>
+
+Bardziej precyzyjnie: sześć stopni swobody ciała sztywnego opisuje sześć współrzędnych uogólnionych. Więzy odbierają pewną liczbę stopni, ale ich skutek zależy od geometrii. Jeżeli rząd macierzy więzów wynosi $r<6$, ciału pozostaje $6-r$ stopni swobody i układ jest mechanizmem. Jeżeli $r=6$, równowaga jest możliwa; gdy liczba niewiadomych reakcji jest większa niż sześć, potrzebne są dodatkowe równania odkształceń.
+
+<Formula>
+$$
+\mathbf R_A=\sum_{k} R_{Ak}\,\mathbf e_k
+\quad\text{oraz}\quad
+\mathbf M_A=\sum_{k} M_{Ak}\,\mathbf e_k
+$$
+
+<Caption>Reakcja podpory jest wektorem. Zapisujemy ją w składowych zgodnych z osiami, a nie jako „jedną siłę o nieznanym kierunku”. Dopiero znak wyniku powie, w którą stronę naprawdę działa więz.</Caption>
+</Formula>
+
+## Przykład prowadzony: wspornik w podporze stałej
+
+<AnimatedSolution id="ex-statyka-wiezy-3d" />
+
+Ten przykład pokazuje różnicę między „podporą” a „przegubem”. Gdyby w $O$ był przegub kulisty, mielibyśmy tylko trzy niewiadome siłowe i trzy równania momentów musiałyby być spełnione przez samo obciążenie — co na ogół nie zachodzi. Właśnie dlatego konstruktorzy stosują zamocowanie, gdy element musi przenosić moment, a przegub, gdy chcą uwolnić element od momentu.
+
+## Typowe błędy
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dodawanie momentów reakcji w przegubie kulistym albo walcowym, który z definicji nie przenosi momentu.
+- Pomijanie reakcji osiowej w łożysku wzdłużnym albo dodawanie jej w łożysku poprzecznym.
+- Traktowanie cięgna jako pręta dwustronnego: lina nie może przenosić ściskania, więc ujemna siła oznacza utratę napięcia.
+- Liczenie symboli podpór zamiast składowych reakcji — jeden rysunek trójkącika może oznaczać trzy niewiadome.
+- Zakładanie, że sześć równań zawsze rozwiązuje zadanie; przy redundantnych więzach potrzebne są warunki odkształceń.
+- Rysowanie reakcji „na oko” pod kątem zamiast rozłożenia jej na składowe zgodne z osiami.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Obejrzyj każdy styk ciała z otoczeniem i ustal, jakie ruchy są dozwolone, a jakie zablokowane.
+2. Przyporządkuj każdemu więzowi składowe reakcji: siły prostopadłe do dozwolonego ruchu, momenty wokół zablokowanych obrotów.
+3. Zsumuj niewiadome i porównaj z sześcioma równaniami; sprawdź, czy więzy nie są redundantne.
+4. Narysuj schemat ciała wolnego z reakcjami w dodatnich kierunkach osi; znak wyniku zweryfikuje założenie.
+5. Zaznacz więzy jednostronne (cięgno, kontakt) i pamiętaj, że ich reakcja nie może zmienić znaku.
+6. Wykorzystaj symetrię i pręty dwusiłowe, aby zredukować liczbę niewiadomych przed układaniem równań.
+7. Dopiero po kompletnym schemacie przejdź do równań równowagi z poprzedniej lekcji.
+
+## Połącz z resztą kursu
+
+- **Równowaga 3D** — liczba reakcji z tej lekcji decyduje o liczbie równań i o wyznaczalności.
+- **Moment 3D** — reakcje momentowe podpory stałej to momenty względem osi, liczone tak samo jak momenty obciążeń.
+- **Redukcja 3D** — więz równoważy część wektora głównego i momentu głównego; brak reakcji momentowej oznacza, że ta część musi zniknąć sama.
+- **Wały i łożyska** — łożysko poprzeczne i wzdłużne to praktyczne zastosowanie tabeli więzów.
+- **Wytrzymałość: projektowanie połączeń** — dobór przegubu, śruby lub spoiny zaczyna się od świadomego wyboru więzów i przenoszonych obciążeń.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Ile składowych reakcji daje przegub kulisty?</Prompt>
+    <Answer>Jedną — wzdłuż pręta</Answer>
+    <Answer correct>Trzy siły, bez momentów</Answer>
+    <Answer>Sześć — trzy siły i trzy momenty</Answer>
+    <Hint>Przegub kulisty blokuje przesunięcia, ale pozwala na obrót w każdą stronę.</Hint>
+    <Explanation>
+      Kulisty przegub odbiera trzy przesunięcia i nie odbiera żadnego obrotu, więc daje trzy składowe siły i zero
+      momentów. Sześć reakcji ma dopiero podpora stała.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Przegub walcowy ma oś obrotu równoległą do $y$. Które składowe reakcji mogą wystąpić?</Prompt>
+    <Answer>$R_x,R_y,R_z$</Answer>
+    <Answer correct>$R_x$ i $R_z$</Answer>
+    <Answer>tylko $R_y$</Answer>
+    <Hint>Reakcja działa prostopadle do osi obrotu; wzdłuż osi obrót i przesuw są swobodne.</Hint>
+    <Explanation>
+      Oś obrotu $y$ oznacza, że więz nie działa w kierunku $y$. Reakcje są prostopadłe do osi, czyli w kierunkach $x$ i
+      $z$: $R_x$ oraz $R_z$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Jak może działać reakcja idealnego cięgna?</Prompt>
+    <Answer>W dowolnym kierunku, zależnie od obciążenia</Answer>
+    <Answer correct>Tylko wzdłuż cięgna, wyłącznie jako rozciąganie</Answer>
+    <Answer>Tylko prostopadle do cięgna, jako nacisk</Answer>
+    <Hint>Cięgno jest wiotkie i nie przenosi ściskania.</Hint>
+    <Explanation>
+      Idealne cięgno przenosi wyłącznie siłę osiową rozciągającą. Gdy obliczona siła wychodzi ujemna, lina zwiotczałaby
+      — w rzeczywistości przestaje być więzem i układ zmienia się.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Płyta jest podparta przegubem kulistym, przegubem walcowym i jednym cięgnem. Ile ma niewiadomych reakcji?
+    </Prompt>
+    <Answer>5</Answer>
+    <Answer correct>6</Answer>
+    <Answer>7</Answer>
+    <Hint>Policz: przegub kulisty $3$, przegub walcowy $2$, cięgno $1$.</Hint>
+    <Explanation>
+      $3+2+1=6$ niewiadomych. Przy sześciu niezależnych równaniach równowagi układ jest statycznie wyznaczalny, o ile
+      więzy są prawidłowo rozmieszczone.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W przykładzie ze wspornikiem moment reakcji względem osi $x$ wynosi:</Prompt>
+    <Answer>
+      $-18\ \text{kN}\cdot\text{m}$
+    </Answer>
+    <Answer correct>
+      $18\ \text{kN}\cdot\text{m}$
+    </Answer>
+    <Answer>
+      $12\ \text{kN}\cdot\text{m}$
+    </Answer>
+    <Hint>$\mathbf M=-\mathbf r_B\times\mathbf F$, a moment obciążenia względem $x$ to $-18$.</Hint>
+    <Explanation>
+      Moment obciążenia względem $O$ ma składową $M_x=-18\ \text{kN}\cdot\text{m}$. Reakcja musi ją znieść, więc
+      $M_x=+18\ \text{kN}\cdot\text{m}$. Znak dodatni oznacza obrót zgodny z osią $x$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Które stwierdzenie o podporze stałej jest poprawne?</Prompt>
+    <Answer>Daje trzy reakcje siłowe i nie przenosi momentu</Answer>
+    <Answer correct>Odbiera sześć stopni swobody i daje trzy siły oraz trzy momenty</Answer>
+    <Answer>Daje tylko jedną reakcję, bo jest „jedną podporą”</Answer>
+    <Hint>Podpora stała blokuje zarówno przesunięcia, jak i obroty.</Hint>
+    <Explanation>
+      Zamocowanie stałe odbiera wszystkie sześć stopni swobody: trzy przesunięcia i trzy obroty. W schemacie ciała
+      wolnego zastępujemy je trzema siłami reakcji i trzema momentami reakcji.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Przestrzenny układ sił”, str. 9–14: podpory przestrzenne, przegub walcowy i przykład płyty z cięgnem; omówienie liczby reakcji w zadaniach.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 5.2: tabela przestrzennych podpór i ich reakcji (przegub kulisty, łożyska, podpora stała); rozdz. 5.5: przykłady równowagi 3D.
+- J. Moore i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 3.3 i 4.3: więzy ciała sztywnego oraz równania równowagi z reakcjami podpór.
+- _University Physics_ (OpenStax), rozdz. 12.1: warunki równowagi i interpretacja reakcji podpór w zadaniach przestrzennych.

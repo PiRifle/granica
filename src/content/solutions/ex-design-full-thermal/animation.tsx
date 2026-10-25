@@ -342,7 +342,7 @@ export function ThermalMechanicalBarAnimation({ scene, index, playing, sceneProg
             height={BAR_H}
             rx={4}
             initial={false}
-            animate={{ x: c, width: Math.max(1, rightWidth) }}
+            animate={{ width: Math.max(1, rightWidth) }}
             transition={{ duration: 0.12, ease: 'linear' }}
             fill={rightColor}
             fillOpacity={isCombined ? 0.22 : compressed ? 0.16 : 0.16}

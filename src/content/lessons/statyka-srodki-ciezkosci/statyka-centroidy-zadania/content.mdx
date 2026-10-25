@@ -1,0 +1,194 @@
+---
+id: statyka-centroidy-zadania
+moduleId: statyka-srodki-ciezkosci
+number: 7
+title: 'Pełne przykłady: wykład i zestaw E'
+shortTitle: 'Zadania pełne'
+description: >-
+  Dwa kompletne rozwiązania centroidów: koło z wycięciami z wykładu oraz
+  szczelina w kole z zestawu E, z kontrolą geometrii, znaków i twierdzeniem Pappusa.
+eyebrow: 'Od rysunku do wyniku'
+outcomes:
+  - W1 — czyta geometrię figury z rysunku i rozpoznaje materiał, otwory i wymiary
+  - W2 — dobiera metodę: pole dodatnie, pole ujemne, część półkolista lub sprawdzenie Pappusa
+  - U1 — rozwiązuje pełne zadanie centroidu z tabelą pól, momentów i kontrolą wyniku
+  - U2 — sprawdza centroid twierdzeniem Pappusa i wykrywa błędy znaków oraz jednostek
+---
+
+Ostatnia lekcja modułu jest próbą generalną. Nie wprowadzamy w niej nowego wzoru, tylko składamy w całość to, co było w lekcjach od drugiej do szóstej: podział na części, pola dodatnie i ujemne, centroidy półkoli, momenty statyczne i twierdzenie Pappusa-Guldina. Zadania z wykładu i zestawu E są o tyle trudniejsze od prostych przykładów, że geometrię trzeba najpierw odczytać z rysunku. Wymiary bywają podane w różnych miejscach, a opis słowny w materiałach nie zawsze zgadza się z obrazem.
+
+Dlatego zaczynamy od zasady nadrzędnej: rysunek jest źródłem geometrii, a nie podpis pod nim. Jeśli opis mówi „otwór kołowy”, a na rysunku widać szczelinę z prostokątnym prawym końcem i półkolistym lewym, liczy się kształt narysowany i opisany wymiarami. W tej lekcji pokazujemy dwa pełne rozwiązania: jedno z wykładu (koło z prostokątnym wycięciem i półkolem) oraz jedno z zestawu E (koło ze szczeliną). Oba mają kontrolę znaków, jednostek i sprawdzenie Pappusa tam, gdzie jest ono naturalne.
+
+Pierwszy przykład jest ważny, bo zawiera półkole jako **część wycięcia**. Drugi jest ważny, bo wymaga uważnego odczytania, gdzie kończy się prostokąt, a gdzie zaczyna półkole. W obu przypadkach tabela jest krótka, ale jeden błąd znaku potrafi przesunąć wynik o milimetry. Dlatego po każdym rachunku wykonujemy kontrolę: czy centroid leży w obrysie, czy znak odpowiada stronie, po której usunięto materiał, i czy suma momentów zgadza się z iloczynem $A\,x_C$.
+
+## Zanim zaczniesz
+
+- Umiej rozłożyć figurę na prostokąty, koła i półkola oraz zapisać pole i centroid każdej części.
+- Pamiętaj, że półkole ma centroid w $4r/(3\pi)$ od średnicy, a półokrąg w $2r/\pi$ od środka.
+- Wiedz, że wycięcie ma pole ujemne, ale jego współrzędne mają znak swojego położenia.
+- Znasz twierdzenie Pappusa-Guldina w obu postaciach: $S=2\pi\bar rL$ i $V=2\pi\bar rA$.
+- Umiesz sprawdzić, czy centroid leży w obrysie figury i czy nie pomylono osi $x$ z $y$.
+
+## Model i intuicja
+
+Pełne zadanie centroidu ma zawsze tę samą strukturę. Najpierw odczytujemy geometrię: które linie są krawędzią materiału, które są krawędzią otworu, gdzie leży początek układu i jak mierzone są wymiary. Potem dzielimy figurę na części o znanych centroidach. Następnie wypełniamy tabelę i sumujemy. Na końcu kontrolujemy wynik. Kolejność jest ważniejsza niż szybkość, bo błąd w pierwszym kroku psuje wszystkie następne.
+
+Przy odczycie rysunku warto zadać trzy pytania. Po pierwsze, czy otwór jest w całości zawarty w materiale? Po drugie, czy jego kształt to koło, prostokąt, półkole, czy złożenie kilku części? Po trzecie, gdzie leży jego centroid względem przyjętego początku? Dopiero po odpowiedzi na te pytania można wpisać wiersz do tabeli. W zadaniach z wykładu i zestawu E właśnie te pytania decydują o poprawności.
+
+Kontrola Pappusa jest szczególnie elegancka, gdy jedna z części jest półkolem. Obrót półkola wokół jego średnicy daje kulę, więc objętość można policzyć dwoma sposobami: z twierdzenia i ze wzoru na kulę. Zgodność obu wyników potwierdza, że centroid półkola został użyty poprawnie. To nie zastępuje kontroli całej figury, ale wykrywa najczęstszy błąd: zamianę $4r/(3\pi)$ na $2r/\pi$ albo na $r/2$.
+
+Ograniczenia są te same co w całym module: figura musi być jednorodna i mieć stałą grubość, a otwory nie mogą wychodzić poza materiał. Przy figurze z rysunku technicznego trzeba też uważać na zaokrąglenia i tolerancje; wynik obliczony z wymiarów nominalnych jest wartością teoretyczną, a nie pomiarem. W zadaniach egzaminacyjnych wystarczy jednak rachunek na wymiarach podanych.
+
+## Laboratorium: co ustawić
+
+Zbuduj koło i wytnij z niego prostokąt oraz półkole. Sprawdź, jak zmienia się centroid, gdy półkole jest po lewej, a prostokąt po prawej. Następnie włącz drugie laboratorium i obróć półkole wokół średnicy: objętość powinna odpowiadać kuli. Porównaj wynik z twierdzenia Pappusa ze wzorem $4\pi r^3/3$. Na koniec zmień promień półkola i sprawdź, czy oba wyniki nadal się zgadzają.
+
+<Lab id="staticsCentroid" />
+
+<Lab id="staticsPappus" />
+
+## Definicje i jednostki
+
+| Pojęcie                 | Symbol    | Znaczenie                                | Jednostka |
+| ----------------------- | --------- | ---------------------------------------- | --------- |
+| Pole materiału          | $A_i>0$   | Część figury, która pozostaje            | mm², cm²  |
+| Pole wycięcia           | $A_i<0$   | Otwór lub szczelina usunięta z materiału | mm², cm²  |
+| Pole netto              | $A$       | Suma pól części                          | mm², cm²  |
+| Moment statyczny        | $Q_y,Q_x$ | $\sum x_iA_i$ oraz $\sum y_iA_i$         | mm³, cm³  |
+| Centroid                | $x_C,y_C$ | $Q_y/A$ oraz $Q_x/A$                     | mm, cm    |
+| Odległość od osi obrotu | $\bar r$  | Prostopadła odległość centroidu od osi   | mm, cm    |
+| Objętość z Pappusa      | $V$       | $2\pi\bar rA$                            | mm³, cm³  |
+
+W zadaniach z wykładu wymiary są w centymetrach, a w zestawie E w milimetrach. Nie mieszaj ich w jednej tabeli. Najprościej jest wybrać jednostkę dominującą i przeliczyć wszystkie wymiary przed pierwszym wierszem. Wynik podawaj z jednostką i z sensownym zaokrągleniem: dla wymiarów w milimetrach zwykle dwa lub trzy miejsca po przecinku są wystarczające.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+x_C=\frac{\sum_i x_iA_i}{\sum_i A_i},\qquad
+y_C=\frac{\sum_i y_iA_i}{\sum_i A_i},\qquad
+V=2\pi\bar rA
+$$
+
+<Caption>Zestaw narzędzi do pełnego zadania: metoda części składowych z polami ujemnymi oraz twierdzenie Pappusa-Guldina dla kontroli lub obliczenia objętości bryły obrotowej. Przy kontroli Pappusa pamiętaj, że $\bar r$ jest odległością od osi obrotu, a nie współrzędną względem początku układu.</Caption>
+</Formula>
+
+Metoda części składowych jest addytywna: moment całej figury to suma momentów części, a pole netto to suma pól ze znakami. Dlatego jeden wiersz tabeli opisuje zarówno materiał, jak i otwór — różni się tylko znakiem pola. Twierdzenie Pappusa jest natomiast niezależnym sprawdzeniem: dla części półkolistej o promieniu $r$ obrót wokół średnicy daje kulę, więc
+
+$$
+V=2\pi\cdot\frac{4r}{3\pi}\cdot\frac{\pi r^2}{2}=\frac{4\pi r^3}{3}.
+$$
+
+Zgodność tego wyniku ze wzorem na kulę jest dowodem, że użyto właściwego centroidu półkola. Gdyby ktoś podstawił centroid łuku $2r/\pi$, otrzymałby inną liczbę i natychmiast zobaczyłby błąd.
+
+<AnimatedSolution id="ex-statyka-centroidy-zadania" />
+
+<AnimatedSolution id="ex-statyka-centroidy-zadania-2" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Branie opisu słownego zamiast rysunku. W zestawie E figura 4 bywa opisywana jako „otwór kołowy”, a na rysunku jest szczelina z prostokątnym prawym końcem i półkolistym lewym.
+- Mylenie średnicy z promieniem przy półkolu. $R10$ oznacza promień $10$ mm, więc wysokość półkola to $20$ mm, a nie $10$ mm.
+- Dodawanie wycięć zamiast odejmowania albo zapominanie o znaku momentu. Pole wycięcia jest ujemne, ale jego współrzędna ma znak położenia.
+- Pomijanie półkola w wycięciu i liczenie tylko prostokąta. To zmienia zarówno pole, jak i moment, szczególnie gdy półkole leży po przeciwnej stronie osi.
+- Mieszanie centymetrów i milimetrów między przykładami. Przykład z wykładu jest w cm, a zestaw E w mm.
+- Brak kontroli Pappusa lub kontroli położenia. Zgodność z kulą albo z obrysem figury wykrywa większość błędów znaku i promienia.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Przejrzyj rysunek i wypisz, które fragmenty są materiałem, a które otworami. Nie ufaj opisowi, jeśli przeczy rysunkowi.
+2. Ustal wymiary każdej części i przelicz je na jedną jednostkę.
+3. Wybierz początek układu i zapisz centroid każdej części. Dla półkola użyj $4r/(3\pi)$, dla łuku $2r/\pi$.
+4. Zbuduj tabelę z polami ze znakami i momentami $x_iA_i$, $y_iA_i$.
+5. Zsumuj pola i momenty, a następnie podziel momenty przez pole netto.
+6. Sprawdź znaki: centroid przesuwa się w stronę przeciwną do wycięcia.
+7. Sprawdź Pappusem część półkolistą, jeśli występuje, albo porównaj wynik z obrysem i osią symetrii.
+
+## Połącz z resztą kursu
+
+- **Figury złożone** — pełne zadania to ta sama metoda tabeli, tylko z trudniejszą geometrią i kontrolą.
+- **Pappus-Guldin** — twierdzenie służy tu jako niezależny test poprawności centroidu półkola.
+- **Środki ciężkości brył** — po figurach płaskich można przejść do objętości; metoda znaków działa identycznie.
+- **Geometria przekrojów** — centroid przekroju jest punktem odniesienia dla momentów bezwładności i osi obojętnej.
+- **Zadania egzaminacyjne** — umiejętność odczytu rysunku i kontroli wyniku jest równie ważna jak sam rachunek.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>W przykładzie 2 z wykładu współrzędna $x_C$ wynosi:</Prompt>
+    <Answer>$+0{,}277$ mm</Answer>
+    <Answer correct>$-0{,}277$ mm</Answer>
+    <Answer>$-0{,}453$ mm</Answer>
+    <Hint>$Q_y=-458{,}98$ mm³, $A=1656{,}42$ mm². Znak wynika z tego, że prostokątne wycięcie leży po prawej stronie osi $y$.</Hint>
+    <Explanation>
+      $x_C=-458{,}98/1656{,}42=-0{,}277$ mm. Wartość $-0{,}453$ to $y_C$, a $+0{,}277$ to ten sam wynik z błędnym znakiem.
+      Centroid przesuwa się w lewo, bo po prawej stronie usunięto materiał.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W przykładzie 2 z wykładu współrzędna $y_C$ wynosi:</Prompt>
+    <Answer>$-0{,}045$ mm</Answer>
+    <Answer correct>$-0{,}453$ mm</Answer>
+    <Answer>$+0{,}453$ mm</Answer>
+    <Hint>$Q_x=-750$ mm³, $A=1656{,}42$ mm². Prostokątne wycięcie leży powyżej osi $x$; półkole jest symetryczne względem tej osi.</Hint>
+    <Explanation>
+      $y_C=-750/1656{,}42=-0{,}453$ mm. Wartość $-0{,}045$ powstaje z pominięcia zera w $-750$ i jest błędem
+      przepisania z materiałów. Znak ujemny jest poprawny, bo prostokątne wycięcie usunęło materiał nad osią $x$, a półkole nie wnosi momentu pionowego.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>W zestawie E, figura 4, dla $a=10$ mm współrzędna $x_C$ wynosi około:</Prompt>
+    <Answer>$+0{,}208$ mm</Answer>
+    <Answer correct>$-0{,}208$ mm</Answer>
+    <Answer>$-1{,}051$ mm</Answer>
+    <Hint>Szczelina jest prawie symetryczna względem osi $y$, ale prostokątna część przeważa po prawej. Wartość $-1{,}051$ mm odpowiada wariantowi $a=15$ mm.</Hint>
+    <Explanation>
+      $x_C=-0{,}208$ mm. Szczelina ma półkole po lewej i prostokąt po prawej; ich momenty prawie się znoszą,
+      dlatego $x_C$ jest małe. Współrzędna $y_C=0$, bo szczelina jest symetryczna względem osi $x$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>W zestawie E, figura 4, zwiększamy $a$ z $10$ do $15$ mm, pozostawiając promień półkola bez zmian. Co dzieje się z $x_C$?</Prompt>
+    <Answer>rośnie do wartości dodatniej, bo szczelina wydłuża się w prawo</Answer>
+    <Answer correct>staje się bardziej ujemne, bo usuwamy coraz więcej materiału po prawej stronie</Answer>
+    <Answer>nie zmienia się, bo półkole pozostaje takie samo</Answer>
+    <Hint>Zwiększenie $a$ wydłuża prostokątną część szczeliny w prawo, więc jej centroid przesuwa się w prawo, a usuwany moment rośnie.</Hint>
+    <Explanation>
+      Dla $a=10$ mm mamy $x_C=-0{,}208$ mm, dla $a=12$ mm $-0{,}494$ mm, a dla $a=15$ mm $-1{,}051$ mm.
+      Usuwanie materiału po prawej stronie przesuwa centroid figury w lewo, więc $x_C$ staje się bardziej ujemne.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Kontrola Pappusa dla półkola $R10$ z przykładu 2: obrót wokół średnicy daje kulę. Objętość wynosi:</Prompt>
+    <Answer>$2\,094$ mm³</Answer>
+    <Answer correct>$4\,189$ mm³</Answer>
+    <Answer>$1\,571$ mm³</Answer>
+    <Hint>Półkole obracane wokół średnicy daje pełną kulę $V=4\pi r^3/3$, a nie półkulę.</Hint>
+    <Explanation>
+      $V=4\pi\cdot1000/3=4\,188{,}8$ mm³. Wartość $2\,094$ to połowa kuli (np. obrót ćwiartki koła),
+      a $1\,571$ to $\pi r^3/2$ — wynik z błędnym współczynnikiem.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Przy odczycie rysunku figury z otworem najpierw trzeba ustalić:</Prompt>
+    <Answer>wartość $x_C$ z tabeli podręcznika</Answer>
+    <Answer correct>które fragmenty są materiałem, a które otworami, oraz gdzie leży początek układu</Answer>
+    <Answer>które zaokrąglenie wyniku jest najwygodniejsze</Answer>
+    <Hint>Bez poprawnego podziału na materiał i otwory tabela będzie miała złe znaki i złe pola.</Hint>
+    <Explanation>
+      Kolejność jest następująca: geometria, podział, znaki, tabela, suma, kontrola. Odczyt rysunku jest pierwszy,
+      bo od niego zależą pola i znaki wszystkich wierszy. Zaokrąglenie wyniku jest ostatnim krokiem.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Środek ciężkości i środek masy", str. 12–14: figury złożone, przykład 2 z kołem i wycięciami oraz twierdzenia Pappusa-Guldina.
+- Zestaw E „Środki ciężkości figur płaskich", tabela 1 (figura 4) i tabela 2 (warianty $a=10,12,15$ mm): figura z kołem i szczeliną; geometrię sprawdzono na obrazie strony.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 7.5 i 7.7: części składowe, pola ujemne i całkowanie kontrolne.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 7.2: centroidy figur złożonych i tablice kształtów.
+- _University Physics_ (OpenStax), rozdz. 9.6: środek masy rozkładu ciągłego jako podstawa rachunku centroidów.

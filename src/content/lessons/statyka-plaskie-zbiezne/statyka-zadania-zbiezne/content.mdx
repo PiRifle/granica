@@ -1,0 +1,193 @@
+---
+id: statyka-zadania-zbiezne
+moduleId: statyka-plaskie-zbiezne
+number: 7
+title: 'Pełne zadanie zbieżne: reakcje i siły w prętach'
+shortTitle: 'Zadanie zbieżne'
+description: >-
+  Kompletne rozwiązanie zadania inspirowanego Listą 01: schemat, trzy warunki
+  równowagi, reakcja przegubu i siła w pręcie oraz kontrola punktem zbiegu.
+eyebrow: 'Od treści zadania do sprawdzonego wyniku'
+outcomes:
+  - W1 — planuje rozwiązanie zadania zbieżnego: izolacja ciała, więzy, niewiadome
+  - W2 — rozpoznaje ciało trójsiłowe i dobiera biegun momentów
+  - U1 — wyznacza reakcję przegubu i siłę w pręcie z równań równowagi
+  - U2 — sprawdza wynik punktem zbiegu i bilansem sił
+---
+
+To zadanie jest wzorowane na piątym zadaniu z Listy 01, ale geometria i dane są opisane jednoznacznie, bez odwoływania się do rysunku. Pozioma belka $AB$ jest przegubowo połączona ze ścianą w punkcie $A$ i podtrzymywana w punkcie $B$ przez pręt dwusiłowy $BD$. W połowie długości belki działa pionowa siła $P$. Trzeba wyznaczyć reakcję w przegubie $A$ oraz siłę w pręcie $BD$.
+
+To klasyczny układ trójsiłowy: na belkę działają siła $P$, siła od pręta $S$ i reakcja przegubu $R_A$. Reakcja przegubu ma dwie składowe, więc niewiadomych jest trzy, ale mamy trzy równania równowagi ciała sztywnego. Zadanie jest statycznie wyznaczalne. Dodatkowo, ponieważ sił są dokładnie trzy i nie są równoległe, ich proste działania muszą przecinać się w jednym punkcie — ten warunek posłuży nam do niezależnej kontroli wyniku.
+
+W tej lekcji przechodzimy całą procedurę: od schematu ciała wolnego, przez równania rzutów i momentów, do interpretacji znaków i sprawdzenia geometrią. To okazja, żeby zobaczyć, jak w jednym zadaniu spotykają się wszystkie narzędzia modułu: kierunki reakcji, rzutowanie sił, moment względem bieguna i twierdzenie o trzech siłach.
+
+## Zanim zaczniesz
+
+- Umiej narysować schemat ciała wolnego belki: przegub $A$, pręt $B$, obciążenie $P$ i wymiary.
+- Wiedz, że pręt dwusiłowy działa wzdłuż linii łączącej jego przeguby, a przegub wnosi dwie składowe reakcji.
+- Przypomnij sobie, jak liczyć moment siły względem punktu i kiedy ramię momentu jest zerowe.
+- Ustal konwencję znaków: na przykład $x$ w prawo, $y$ w górę, moment przeciwny do ruchu wskazówek zegara dodatni.
+- Pamiętaj, że w równowadze trzech sił nierównoległych ich proste działania przecinają się w jednym punkcie.
+
+## Model i intuicja
+
+Belkę traktujemy jako ciało sztywne. Przegub $A$ może przenosić siłę w dowolnym kierunku, więc zastępujemy go składowymi $A_x$ i $A_y$. Pręt $BD$ jest dwusiłowy: jego siła działa wzdłuż osi $BD$, a na belkę w punkcie $B$ działa pod kątem $\alpha$ do poziomu. Zakładamy rozciąganie pręta, więc siła $S$ na belkę jest skierowana od $B$ w stronę $D$ — ukośnie w górę i w prawo. Obciążenie $P$ działa pionowo w dół w połowie belki.
+
+Mamy więc trzy niewiadome: $A_x$, $A_y$ i $S$. Trzy równania równowagi wystarczą. Najwygodniej zacząć od momentów względem $A$, bo w tym równaniu znikają obie składowe reakcji przegubu i zostaje tylko $S$ oraz $P$. Potem rzuty na osie dają pozostałe składowe. Taka kolejność jest typowa: najpierw równanie, które eliminuje najwięcej niewiadomych, potem uzupełnienie.
+
+Model ma granice. Pręt $BD$ musi być naprawdę dwusiłowy: bez ciężaru własnego i bez obciążeń pośrednich. Przeguby zakładamy jako idealne, bez tarcia. Belka jest sztywna i nieważka — jeśli jej ciężar jest istotny, trzeba dodać kolejną siłę w środku ciężkości i zadanie przestaje być trójsiłowe. Kąt $\alpha$ musi być znany; bez niego kierunek $S$ jest nieokreślony.
+
+## Laboratorium: co ustawić
+
+Ustaw belkę podpartą przegubem w $A$ i prętem w $B$. Zmieniaj kąt nachylenia pręta $\alpha$ i położenie siły $P$ względem $A$. Obserwuj, jak zmienia się wartość $S$ i kierunek reakcji $R_A$. Sprawdź szczególnie przypadek, w którym $P$ działa dokładnie w połowie długości: przy symetrycznym obciążeniu i pręcie pod $45^\circ$ reakcja $R_A$ powinna wyjść pod tym samym kątem co pręt, ale po przeciwnej stronie pionu.
+
+<Lab id="staticsConcurrent" />
+
+## Definicje i jednostki
+
+| Pojęcie          | Znaczenie                                             | Jednostka |
+| ---------------- | ----------------------------------------------------- | --------- |
+| Reakcja przegubu | Siła, jaką podpora działa na belkę; ma dwie składowe  | N, kN     |
+| Pręt dwusiłowy   | Element przenoszący siłę wzdłuż osi łączącej przeguby | —         |
+| Siła w pręcie    | Wartość osiowa $S$; dodatnia przy rozciąganiu         | N, kN     |
+| Punkt zbiegu     | Przecięcie prostych działania trzech sił w równowadze | —         |
+| Ramię siły       | Prostopadła odległość prostej działania od bieguna    | m         |
+| Kąt nachylenia   | Kąt pręta względem poziomu                            | $^\circ$  |
+
+Jednostki: siły w kN, długości w m, momenty w kN·m, kąty w stopniach. W równaniach używamy spójnego układu jednostek — jeśli $P$ jest w kN, a $L$ w m, to momenty wychodzą w kN·m, a siły w kN.
+
+## Wzór i wyprowadzenie
+
+Dla belki poziomej o długości $L$, obciążonej pionową siłą $P$ w odległości $a$ od przegubu $A$ i podtrzymywanej prętem pod kątem $\alpha$ w punkcie $B$, równania równowagi mają postać:
+
+<Formula>
+$$
+\sum M_A=0:\quad S\sin\alpha\cdot L-P\cdot a=0,
+\qquad
+\sum F_x=0:\quad A_x+S\cos\alpha=0,
+\qquad
+\sum F_y=0:\quad A_y+S\sin\alpha-P=0
+$$
+
+<Caption>Przyjęto $x$ w prawo, $y$ w górę i dodatni moment przeciwny do ruchu wskazówek zegara. Siła $S$ jest skierowana od $B$ wzdłuż pręta, zgodnie z założeniem rozciągania. Pierwsze równanie daje $S$, dwa pozostałe — składowe reakcji przegubu.</Caption>
+</Formula>
+
+Rozwiązanie ogólne:
+
+<Formula>
+$$
+S=\frac{P\,a}{L\sin\alpha},
+\qquad
+A_x=-S\cos\alpha,
+\qquad
+A_y=P-S\sin\alpha
+$$
+
+<Caption>Wzory obowiązują dla $0<\alpha<90^\circ$ i $0<a<L$. Ujemna wartość $A_x$ oznacza, że reakcja pozioma ma zwrot w lewo. Ujemna wartość $S$ oznaczałaby, że pręt jest ściskany, a nie rozciągany — dla liny taki wynik byłby niedopuszczalny.</Caption>
+</Formula>
+
+Wyprowadzenie pierwszego równania to czysty bilans momentów względem $A$. Siła $S$ ma składową pionową $S\sin\alpha$ przyłożoną w odległości $L$, więc daje moment $S\sin\alpha\cdot L$ (przeciwny do ruchu wskazówek zegara). Siła $P$ działa w dół w odległości $a$, więc daje moment $-P\,a$. W równowadze suma momentów jest zerowa. Składowa pozioma $S\cos\alpha$ ma linię działania przechodzącą przez $A$, więc nie wnosi momentu. Rzuty na osie dają pozostałe dwa równania.
+
+<AnimatedSolution id="ex-statyka-zadania-zbiezne" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Użycie kąta pręta względem pionu zamiast względem belki — wtedy sinus i cosinus zamieniają się miejscami.
+- Pominięcie, że siła w pręcie działa wzdłuż osi $BD$, i rozłożenie jej na dowolne składowe „na oko”.
+- Błędne ramię siły $P$: odległość mierzy się od bieguna do prostej działania, a nie od końca belki.
+- Zgubienie znaku momentu przy sile $P$ działającej w dół po prawej stronie bieguna.
+- Uznanie ujemnej składowej $A_x$ za błąd — minus oznacza po prostu zwrot w lewo.
+- Brak kontroli zbieżności lub momentem względem drugiego punktu; to najtańszy sposób wykrycia błędu w znaku.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Przeczytaj treść i wypisz wszystkie siły działające na wybrane ciało: obciążenia, reakcje podpór i siły prętów.
+2. Zastąp przegub dwiema składowymi, a pręt dwusiłowy — jedną siłą wzdłuż jego osi.
+3. Policz niewiadome i porównaj z liczbą równań; dla płaskiego ciała sztywnego są trzy równania.
+4. Wybierz biegun momentów w punkcie, przez który przechodzi najwięcej niewiadomych — zwykle jest to przegub.
+5. Zapisz równanie momentów i wyznacz siłę w pręcie; dopiero potem użyj rzutów na osie.
+6. Ustal znaki i zinterpretuj każdy wynik: minus przy sile poziomej to przeciwny zwrot, minus przy sile pręta to ściskanie.
+7. Sprawdź wynik drugim równaniem momentów lub punktem zbiegu trzech sił.
+
+## Połącz z resztą kursu
+
+- **Równowaga zbieżna** — reakcja przegubu i siła pręta to siły zbieżne w punkcie, ale belka jako całość wymaga też momentów.
+- **Trzy siły** — całe zadanie jest naturalnym ciałem trójsiłowym; punkt zbiegu daje geometryczną kontrolę wyniku.
+- **Pręty dwusiłowe** — pręt $BD$ to dokładnie ten model: jedna niewiadoma i znany kierunek.
+- **Reakcje konstrukcji** — w kolejnym module zobaczysz belki z wieloma obciążeniami, gdzie potrzebne będą pełne trzy równania i sprawdzenie bilansu.
+- **Wytrzymałość materiałów** — wyznaczona siła w pręcie posłuży później do obliczenia naprężeń i sprawdzenia, czy pręt nie ulegnie zerwaniu lub wyboczeniu.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>W zadaniu z belką $AB$, przegubem $A$ i prętem $BD$ liczba niewiadomych reakcji wynosi:</Prompt>
+    <Answer>$2$</Answer>
+    <Answer correct>$3$</Answer>
+    <Answer>$4$</Answer>
+    <Hint>Przegub daje dwie składowe, pręt dwusiłowy jedną.</Hint>
+    <Explanation>
+      Przegub $A$ wnosi $A_x$ i $A_y$, a pręt $BD$ jedną siłę $S$ wzdłuż osi. Razem trzy niewiadome, dokładnie tyle, ile daje płaski układ równań równowagi ciała sztywnego.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Aby najszybciej wyznaczyć siłę w pręcie $BD$, sumujemy momenty względem:</Prompt>
+    <Answer>punktu $B$</Answer>
+    <Answer correct>punktu $A$</Answer>
+    <Answer>środka belki</Answer>
+    <Hint>Wybierz biegun, przez który przechodzą obie niewiadome reakcje przegubu.</Hint>
+    <Explanation>
+      Względem $A$ znikają $A_x$ i $A_y$, więc w równaniu zostają tylko $S$ i $P$. Momenty względem $B$ eliminują $S$, ale zostawiają reakcję przegubu, co nie prowadzi od razu do siły w pręcie.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla $P=24\ \text{kN}$, $L=2\ \text{m}$, $a=1\ \text{m}$ i $\alpha=45^\circ$ siła w pręcie wynosi:</Prompt>
+    <Answer>$12{,}0\ \text{kN}$</Answer>
+    <Answer correct>$16{,}97\ \text{kN}$</Answer>
+    <Answer>$24{,}0\ \text{kN}$</Answer>
+    <Hint>$S=P\,a/(L\sin\alpha)$.</Hint>
+    <Explanation>
+      $S=24\cdot1/(2\cdot0{,}7071)=16{,}97\ \text{kN}$. Wartość $12\ \text{kN}$ to składowa pozioma lub pionowa siły $S$, a nie jej pełna wartość.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>W tym samym zadaniu składowa pozioma reakcji przegubu $A_x$ wynosi:</Prompt>
+    <Answer>$12{,}0\ \text{kN}$ w prawo</Answer>
+    <Answer correct>$12{,}0\ \text{kN}$ w lewo</Answer>
+    <Answer>$16{,}97\ \text{kN}$ w lewo</Answer>
+    <Hint>$A_x=-S\cos45^\circ$, a $S=16{,}97\ \text{kN}$.</Hint>
+    <Explanation>
+      $A_x=-16{,}97\cdot0{,}7071=-12{,}0\ \text{kN}$. Minus przy założonym zwrocie w prawo oznacza, że reakcja działa w lewo. Wartość $16{,}97\ \text{kN}$ to moduł całej reakcji, nie jej składowej poziomej.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Gdyby kąt pręta zmniejszyć do $\alpha=30^\circ$, przy pozostałych danych siła $S$ wyniosłaby:</Prompt>
+    <Answer>$12{,}0\ \text{kN}$</Answer>
+    <Answer correct>$24{,}0\ \text{kN}$</Answer>
+    <Answer>$48{,}0\ \text{kN}$</Answer>
+    <Hint>$\sin30^\circ=0{,}5$; wstaw do $S=P\,a/(L\sin\alpha)$.</Hint>
+    <Explanation>
+      $S=24/(2\cdot0{,}5)=24\ \text{kN}$. Im mniejszy kąt pręta do poziomu, tym większa siła potrzebna do przeniesienia tego samego momentu — ramię pionowe $L\sin\alpha$ maleje.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Po co sprawdzać, czy proste działania trzech sił przecinają się w jednym punkcie?</Prompt>
+    <Answer>Żeby obliczyć siłę w pręcie bez równań równowagi</Answer>
+    <Answer correct>Bo w równowadze trzech sił nierównoległych jest to warunek konieczny; niezgodność oznacza błąd</Answer>
+    <Answer>Bo dopiero wtedy belka jest statycznie wyznaczalna</Answer>
+    <Hint>To twierdzenie z lekcji o trzech siłach, nie dodatkowy warunek równowagi.</Hint>
+    <Explanation>
+      Trzy nierównoległe siły w równowadze muszą mieć wspólny punkt przecięcia prostych działania. Jeśli po obliczeniach proste nie są zbieżne, w rachunku jest błąd znaku, ramienia lub kąta. Zbieżność nie zastępuje równań, ale jest szybką kontrolą.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Płaskie układy sił zbieżnych”, str. 8–10: twierdzenie o równowadze trzech sił nierównoległych i przykład belki zawieszonej na linie.
+- _Lista 01 — płaski zbieżny układ sił_, zadanie 5: belka z przegubem, obciążeniem w połowie długości i ukośnym cięgnem; zadanie posłużyło jako inspiracja dla geometrii i danych.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 3.4 (2D Particle Equilibrium) i 4.3 (Varignon’s Theorem): równania równowagi i moment siły względem bieguna.
+- L. Osgood, G. Cameron, H. Christensen, _Engineering Mechanics: Statics_, rozdz. 2.3 i 4.3: równowaga cząstki oraz równania równowagi ciała sztywnego.
+- _University Physics_ (OpenStax), rozdz. 5.7: rysowanie schematu ciała wolnego i rozkładanie sił na składowe.

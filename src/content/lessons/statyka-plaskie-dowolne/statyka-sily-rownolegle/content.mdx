@@ -1,0 +1,200 @@
+---
+id: statyka-sily-rownolegle
+moduleId: statyka-plaskie-dowolne
+number: 1
+title: 'Siły równoległe: wypadkowa i jej położenie'
+shortTitle: Siły równoległe
+description: >-
+  Zastąp układ sił równoległych jedną wypadkową o poprawnej wartości i znajdź
+  prostą jej działania z warunku na momenty.
+eyebrow: 'Jedna siła zamiast wielu'
+outcomes:
+  - W1 — rozumie, czym różni się wypadkowa sił równoległych od zwykłej sumy sił
+  - W2 — wyjaśnia, dlaczego położenie wypadkowej wyznacza się z momentów, a nie z geometrii
+  - U1 — oblicza wartość i prostą działania wypadkowej dowolnego układu sił równoległych
+  - U2 — przewiduje, jak zmieni się położenie wypadkowej przy zmianie zwrotu jednej z sił
+---
+
+Belka podparta w dwóch punktach i obciążona pionowymi siłami, półka z książkami, dźwigar dachowy z obciążeniem śniegiem — to wszystko układy sił równoległych. Siły nazywamy równoległymi, gdy ich proste działania są do siebie równoległe. Taki układ jest formalnie „dowolny” (niezbieżny), ale jego szczególna budowa pozwala sprowadzić go do jednej siły bez skomplikowanej geometrii: wypadkowa ma wartość równą sumie algebraicznej sił, a jej prostą działania znajdujemy z jednego równania momentów.
+
+Intuicja jest prosta: jeśli dwie osoby stoją na desce, to deska „czuje” ich łączny ciężar, ale czuje go w jednym konkretnym punkcie — w miejscu, w którym należałoby podłożyć podpórkę, żeby deska była w równowadze. Ten punkt to nic innego jak środek redukcji sił równoległych, czyli średnia ważona położeń sił, w której wagami są ich wartości.
+
+W tej lekcji nauczysz się liczyć wartość i położenie wypadkowej dwóch i więcej sił równoległych. Zrozumiesz też, dlaczego przy siłach o przeciwnych zwrotach prostą wypadkowej może leżeć poza odcinkiem między punktami przyłożenia — i dlaczego to nie jest błąd, tylko konsekwencja równań.
+
+## Zanim zaczniesz
+
+- Przypomnij definicję momentu siły względem punktu: $M_O = P\cdot a$, gdzie $a$ to prostopadła odległość prostej działania siły od punktu $O$.
+- Znaj twierdzenie Varignona: moment wypadkowej względem dowolnego bieguna równa się sumie momentów sił składowych względem tego samego bieguna.
+- Umiej rysować i podpisywać prostą działania siły oraz zaznaczać jej ramię.
+- Pamiętaj o konwencji znaków: przyjmujemy dodatni moment przeciwny do ruchu wskazówek zegara.
+- Odróżniaj wartość siły od jej rzutu: przy siłach równoległych rzuty na oś wzdłuż sił to po prostu wartości ze znakami.
+
+## Model i intuicja
+
+Dwie siły równoległe $P_1$ i $P_2$, skierowane w tę samą stronę, zastępujemy wypadkową $W = P_1 + P_2$ o tej samej orientacji. Żeby zastąpienie było równoważne, wypadkowa musi dawać ten sam moment względem każdego punktu, co cały układ. Wybieramy punkt $A$ — punkt przyłożenia pierwszej siły. Moment siły $P_1$ względem $A$ jest zerowy (jej prosta działania przechodzi przez $A$), więc z Varignona dostajemy od razu położenie: jeśli $D$ jest punktem przecięcia prostej wypadkowej z osią układu, to $W\cdot AD = P_2\cdot AB$, czyli $AD = \frac{P_2}{P_1+P_2}\,AB$. Punkt $D$ dzieli odcinek $AB$ w stosunku odwrotnie proporcjonalnym do wartości sił — silniejsza siła „przyciąga” wypadkową bliżej siebie.
+
+Ten wynik uogólnia się na $n$ sił: wypadkowa przechodzi przez środek redukcji $x_W$ dany średnią ważoną. Model działa idealnie dla ciał sztywnych i sił o dokładnie równoległych prostych działania. Gdy siły są tylko prawie równoległe (np. naciągi kilku lin lekko zbieżnych), najpierw rozkładasz je na składowe; wypadkowa może wtedy mieć także składową poprzeczną. Gdy jedna z sił zmienia zwrot, wypadkowa nadal istnieje, ale punkt $D$ przestaje leżeć między siłami — przechodzi na przedłużenie osi, po stronie silniejszej siły. To kluczowa obserwacja do zadań z przewieszeniami i siłami przeciwnie skierowanymi.
+
+## Laboratorium: co ustawić
+
+Ustaw w laboratorium dwie siły równoległe o różnych wartościach i zmieniaj odległość między nimi. Sprawdź, że położenie wypadkowej zależy wyłącznie od stosunku momentów, a nie od wybranego bieguna: przesuń punkt, względem którego liczysz momenty, i przekonaj się, że $x_W$ wychodzi zawsze takie samo. Następnie odwrót zwrot jednej siły i zaobserwuj, jak wypadkowa „wychodzi” poza odcinek między punktami przyłożenia.
+
+<Lab id="staticsMoment" />
+
+## Definicje i jednostki
+
+| Wielkość                | Symbol        | Jednostka | Znaczenie                              |
+| ----------------------- | ------------- | --------- | -------------------------------------- |
+| Siła składowa           | $P_i$         | N, kN     | i-ta siła równoległa                   |
+| Wypadkowa               | $W$ (lub $R$) | N, kN     | suma algebraiczna sił                  |
+| Ramie siły              | $a$           | m         | odległość prostej działania od bieguna |
+| Odległość między siłami | $d$           | m         | baza do średniej ważonej               |
+| Środek redukcji         | $x_W$         | m         | współrzędna prostej wypadkowej         |
+
+Konwencja znaków: siła skierowana w przyjęty dodatni kierunek ma rzut dodatni; moment przeciwny do ruchu wskazówek zegara jest dodatni. Wypadkowa sił w tę samą stronę jest co do wartości większa od każdej z sił; sił w przeciwne strony — mniejsza od większej z nich i o jej zwrocie.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+W=\sum_{i=1}^{n} P_i,\qquad
+x_W=\frac{\sum_{i=1}^{n} P_i\,x_i}{W}
+$$
+
+<Caption>Dowolna liczba sił równoległych. Wartość wypadkowej to suma algebraiczna rzutów; położenie $x_W$ wyznacza warunek równowagi momentów względem dowolnego bieguna — zwykle najwygodniej względem punktu przyłożenia jednej z sił. Wzór obowiązuje dla sił o wspólnej prostej orientacji; przy zwrotach przeciwnych odpowiednie $P_i$ są ujemne.</Caption>
+</Formula>
+
+Wyprowadzenie dla dwóch sił o tym samym zwrocie: zapisz warunek równowagi momentów względem punktu $A$, w którym przyłożono $P_1$. Siła $P_1$ nie daje momentu, $P_2$ daje moment $P_2\cdot d$, a wypadkowa $W = P_1+P_2$ przyłożona w odległości $x$ daje moment $W\cdot x$. Z warunku $W\,x = P_2\,d$ dostajemy $x = \frac{P_2}{W}d$ — punkt $D$ dzieli odcinek między siłami odwrotnie proporcjonalnie do ich wartości. Dla $n$ sił sumujesz momenty wszystkich sił po lewej stronie i przyrównujesz do momentu wypadkowej — stąd średnia ważona.
+
+<Insight>
+  Wypadkowa sił równoległych to nie tylko wartość — to przede wszystkim prostą działania. Dwie różne pary sił o tej
+  samej sumie mogą mieć wypadkową w zupełnie innym miejscu i dać zupełnie inne reakcje podpór.
+</Insight>
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-sily-rownolegle" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dzielenie odległości proporcjonalnie do sił zamiast odwrotnie proporcjonalnie. Silniejsza siła przyciąga wypadkową bliżej siebie.
+- Używanie wartości bezwzględnych przy siłach o przeciwnych zwrotach — wtedy wypadkowa może leżeć poza odcinkiem, a minus wyznacza stronę.
+- Liczenie położenia wypadkowej „na oko” przez podział odcinka bez równania momentów.
+- Mylenie wypadkowej sił równoległych z wypadkową zbieżną: tu nie ma kąta ani rzutów na dwie osie poziome.
+- Zapominanie, że wypadkowa zastępuje układ tylko zewnętrznie — wewnątrz belki siły działają w swoich punktach i to one wywołują naprężenia.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy wszystkie proste działania sił są równoległe (rysunek lub opis „pionowe”, „poziome”, „równoległe do…”).
+2. Przyjmij jeden dodatni zwrot wzdłuż wspólnej orientacji i zapisz każdą siłę ze znakiem.
+3. Policz wartość wypadkowej jako sumę algebraiczną i porównają ją z największą siłą — to szybka kontrola znaku.
+4. Wybierz biegun na prostej jednej z sił (najlepiej skrajnej) i zapisz równanie momentów.
+5. Rozwiąż je względem niewiadomej odległości i zaznacz wynik na rysunku z podpisem.
+6. Sprawdź wynik drugim biegunem albo regułą odwrotnych proporcjonalności dla dwóch sił.
+
+## Połącz z resztą kursu
+
+- **Płaski zbieżny układ sił** — tam wypadkową liczyło się z rzutów na dwie osie; tu jedna oś wzdłuż sił wystarczy, bo kierunek jest wspólny.
+- **Para sił** — dwie siły równoległe o przeciwnych zwrotach i równych wartościach nie mają wypadkowej w ogóle; to następna lekcja.
+- **Obciążenia rozłożone** — ciągłe obciążenie belki to nieskończenie wiele sił równoległych; jego wypadkowa to pole diagramu obciążenia.
+- **Reakcje konstrukcji** — reakcje podpór to siły równoległe równoważące wypadkową obciążenia; tu uczysz się szukać punktu jej działania.
+- **Środki ciężkości** — średnia ważona z tej lekcji to ta sama matematyka, która definiuje środek ciężkości figury.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>
+      Dwie siły równoległe o zwrotach zgodnych, P1 = 200 N i P2 = 300 N, działają w punktach odległych o 5 m. W jakiej
+      odległości od P1 działa wypadkowa?
+    </Prompt>
+    <Answer>2 m</Answer>
+    <Answer correct>3 m</Answer>
+    <Answer>2,5 m</Answer>
+    <Hint>W = 500 N; moment względem punktu przyłożenia P1: 500·x = 300·5.</Hint>
+    <Explanation>
+      Wypadkowa W = 200 + 300 = 500 N. Z równania momentów 500·x = 300·5 otrzymujemy x = 3 m od P1. Punkt leży bliżej
+      silniejszej siły — stosunek odległości 3:2 jest odwrotny do stosunku sił 200:300.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Dlaczego położenie wypadkowej sił równoległych wyznacza się z równania momentów, a nie „po środku” odcinka między
+      siłami?
+    </Prompt>
+    <Answer>Bo środek odcinka działa tylko dla sił równych</Answer>
+    <Answer correct>
+      Bo równoważność wymaga równości momentów względem każdego bieguna, a to prowadzi do średniej ważonej
+    </Answer>
+    <Answer>Bo moment zależy od kierunku siły, a nie od jej położenia</Answer>
+    <Hint>Przez jaki warunek definiuje się prostą działania wypadkowej?</Hint>
+    <Explanation>
+      Zastąpienie układu wypadkową jest równoważne tylko wtedy, gdy wypadkowa daje ten sam moment względem dowolnego
+      punktu. Dla sił nierównych średnia arytmetyczna położeń nie spełnia tego warunku — potrzebna jest średnia ważona
+      wartościami sił.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      P1 = 500 N w dół w punkcie x = 0, P2 = 200 N w górę w punkcie x = 4 m. Wartość i położenie wypadkowej?
+    </Prompt>
+    <Answer>700 N w dół w x = 4 m</Answer>
+    <Answer>300 N w dół w x = 4 m</Answer>
+    <Answer correct>300 N w dół w x = −2,7 m</Answer>
+    <Hint>Przyjmij zwrot w dół jako dodatni: W = 500 − 200.</Hint>
+    <Explanation>
+      W = 500 − 200 = 300 N (w dół). Z momentów względem x = 0: 300·x = 500·0 − 200·4 = −800, więc x = −2,67 m.
+      Wypadkowa leży poza odcinkiem między siłami, po stronie silniejszej siły — typowy wynik dla sił przeciwnie
+      skierowanych.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Przesuwasz silniejszą siłę P2 w stronę P1, nie zmieniając wartości obu sił. Co dzieje się z wypadkową?
+    </Prompt>
+    <Answer>Nie zmienia się ani wartość, ani położenie</Answer>
+    <Answer>Zmienia się wartość, położenie bez zmian</Answer>
+    <Answer correct>Wartość W nie zmienia się, a prostą działania zbliża się do P1</Answer>
+    <Hint>Rozpisz średnią ważoną xW dla malejącego x2.</Hint>
+    <Explanation>
+      W = P1 + P2 zależy tylko od wartości sił. Położenie x_W = (P1x1 + P2x2)/W jest liniową funkcją x2, więc gdy P2
+      zbliża się do P1, wypadkowa przemieszcza się wraz z nią, zachowując stosunek odległości odwrotnie proporcjonalny
+      do sił.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Trzy siły pionowe w dół: 100 N w x = 1 m, 200 N w x = 3 m i 300 N w x = 6 m. Położenie wypadkowej?</Prompt>
+    <Answer>x = 3,5 m</Answer>
+    <Answer>x = 3 m</Answer>
+    <Answer correct>x ≈ 4,17 m</Answer>
+    <Hint>W = 600 N; policz momenty względem x = 0: 100·1 + 200·3 + 300·6.</Hint>
+    <Explanation>
+      Suma momentów względem początku: 100·1 + 200·3 + 300·6 = 100 + 600 + 1800 = 2500 N·m. Wypadkowa W = 600 N, więc
+      x_W = 2500/600 ≈ 4,17 m. Najsilniejsza siła (300 N) „ciągnie” wypadkową najdalej, w stronę x = 6 m.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Co możesz powiedzieć o wypadkowej dwóch sił równoległych o równych wartościach i przeciwnych zwrotach?
+    </Prompt>
+    <Answer>Ma wartość 2P i leży w połowie między siłami</Answer>
+    <Answer correct>Nie istnieje jako siła — układ redukuje się do pary sił o momencie P·d</Answer>
+    <Answer>Jest równa zero, więc układ jest w równowadze</Answer>
+    <Hint>Wartość wypadkowej to 0, ale co z momentem?</Hint>
+    <Explanation>
+      Suma algebraiczna wynosi zero, więc nie ma siły, która mogłaby zastąpić układ zewnętrznie. Pozostaje jednak moment
+      P·d niezależny od bieguna — taki układ to para sił, omówiona w kolejnej lekcji, i na pewno nie jest równoważny
+      zeru.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład _„Moment siły, siły równoległe, płaski dowolny układ sił”_, str. 7–8: definicja sił równoległych, wypadkowa dwóch sił i reguła podziału odcinka w stosunku odwrotnie proporcjonalnym do wartości sił.
+- Baker, Haynes, _Engineering Statics_, rozdz. 4.7 (Statically Equivalent Systems): siły równoległe jako przypadek szczególny redukcji — wartość wypadkowej i momenty względem dwóch osi.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ (Engineering LibreTexts), rozdz. 3.3: łączenie obciążeń w jedną siłę zastępczą i ważone uśrednianie położenia.
+- Moore i in., _Engineering Mechanics: Statics_ (wersja rozbudowana UPEI), rozdz. 3.2–3.3: pary sił i obciążenia rozłożone jako układy równoległe.
+- Leyko, _Mechanika ogólna_, t. I: Statyka i kinematyka, PWN — redukcja płaskiego układu sił równoległych.

@@ -449,9 +449,11 @@ export function StressTensorExample3Animation({ scene, playing, sceneProgress, i
           role="img"
           aria-label="Odtwarzanie tensora naprężenia z trakcji na dwóch prostopadłych ściankach. Animacja pokazuje trakcje, składanie macierzy, normalną płaszczyzny oraz rozkład trakcji na naprężenie normalne 40 megapaskali i styczne 55 megapaskali."
         >
-          <text x={16} y={24} fontSize={9} fill={MUTED}>
-            T(x) = (80; 25; 0) MPa · T(y) = (25; −20; 0) MPa
-          </text>
+          {(isModel || isTensor) && (
+            <text x={16} y={24} fontSize={9} fill={MUTED}>
+              T(x) = (80; 25; 0) MPa · T(y) = (25; −20; 0) MPa
+            </text>
+          )}
 
           {isModel && (
             <g>

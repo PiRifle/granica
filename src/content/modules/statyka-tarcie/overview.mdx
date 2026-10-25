@@ -1,16 +1,87 @@
 ## Co to jest ten moduł
 
-Tarcie wprowadza do statyki granicę: układ może być w równowadze nie dlatego, że siły idealnie się znoszą, ale dlatego, że tarcie jeszcze utrzymuje ruch.
+Tarcie wprowadza do statyki granicę. Dotąd pytaliśmy, czy siły się równoważą; teraz dochodzi pytanie, czy styk powierzchni potrafi wytworzyć wystarczającą siłę styczną, by utrzymać równowagę. Odpowiedź nie jest jednoznaczna: tarcie statyczne „dopasowuje się” do obciążenia aż do pewnej granicy, a po jej przekroczeniu ciało zaczyna się ślizgać lub toczyć.
 
-Ten moduł pokazuje prawa tarcia suchego, kąt tarcia, zachowanie klinów i prostych mechanizmów oraz sposób zapisywania warunków równowagi z tarciem.
-
-## W planie
-
-- prawo Coulomba i współczynnik tarcia,
-- kąt tarcia i stożek tarcia,
-- równowaga z tarciem statycznym,
-- kliny i proste mechanizmy.
+W module przechodzimy od praw Coulomba–Morena, przez kąt tarcia i równię, do drabin, klinów, cięgien, oporu toczenia i hamulców. Każdy z tych układów jest innym zastosowaniem tej samej myśli: w każdym kontakcie reakcję rozkładamy na normalną i styczną, a styczna działa przeciwnie do zamierzonego ruchu. Zmienia się geometria, nie zasada.
 
 ## Dlaczego to ważne
 
-Tarcie jest wszędzie: w podporach, połączeniach, hamulcach i maszynach. Bez niego wiele zadań daje wynik, który nie ma nic wspólnego z rzeczywistością.
+Tarcie jest wszędzie: w podporach, połączeniach śrubowych, hamulcach, sprzęgłach, oponach i maszynach. Bez niego wiele zadań daje wynik, który nie ma nic wspólnego z rzeczywistością — ciało na równi zjeżdża przy każdym kącie, koło nie stawia oporu, a hamulec nie zatrzymuje bębna. Z drugiej strony zbyt duże tarcie może powodować zablokowanie mechanizmu, nadmierne nagrzewanie i zużycie.
+
+Dla inżyniera tarcie jest więc wielkością do świadomego kształtowania, a nie tylko poprawką. Samohamowność klina decyduje o tym, czy zamocowanie się nie poluzuje; współczynnik tarcia w gwincie — o tym, czy śruba sama się nie odkręci; opór toczenia — o sprawności wózka; tarcie klocka — o skuteczności hamulca.
+
+## Czego się nauczysz
+
+Po ukończeniu modułu będziesz:
+
+- **W1 — rozumieć** mechanizm tarcia suchego, pojęcie kąta tarcia i warunek graniczny $T\le\mu_sN$;
+- **W2 — rozpoznawać** kierunek siły tarcia w każdym kontakcie, także na równi, drabinie i klinie;
+- **W3 — wyjaśniać** wzór Eulera dla cięgien oraz moment oporu toczenia;
+- **U1 — rozwiązywać** zadania równowagi z tarciem, wyznaczać siły graniczne i sprawdzać, czy tarcie wystarcza;
+- **U2 — analizować** kliny, drabiny i proste mechanizmy, w tym warunek samohamowności;
+- **U3 — obliczać** napięcia w cięgnach wzorem Eulera, moment oporu toczenia i siłę potrzebną do zahamowania bębna.
+
+## Od czego zacząć
+
+Moduł zakłada, że opanowałeś wcześniejsze lekcje statyki:
+
+- równania równowagi płaskiego ciała sztywnego;
+- rozkład sił na kierunki i moment siły względem punktu;
+- równię pochyłą i wypadkową obciążenia rozłożonego;
+- podstawy trygonometrii: $\sin$, $\cos$, $\operatorname{tg}$ i funkcje odwrotne.
+
+Jeśli któryś z tych tematów jest słaby, wróć do odpowiedniej lekcji. W tarciu te narzędzia pracują na każdym kroku: bez poprawnego rozkładu sił i momentów nie da się nawet ustalić, w którą stronę działa tarcie.
+
+## Mapa lekcji
+
+Siedem lekcji prowadzi od modelu tarcia do pełnych zadań mechanicznych.
+
+**1. Tarcie suche: prawa Coulomba–Morena.** Trzy doświadczalne prawa, rozróżnienie tarcia statycznego i kinetycznego oraz warunek $T\le\mu_sN$. Fundament całego modułu.
+
+**2. Równowaga z tarciem: nierówność, kąt i granica.** Ten sam warunek w języku kąta tarcia: $\operatorname{tg}\varphi_s=\mu_s$. Dwie granice równowagi na równi i pomiar współczynnika kątem zsunięcia.
+
+**3. Poślizg czy wywrot: dwa progi równowagi.** Bryła może zacząć się ślizgać albo przewrócić. Porównanie progów i przesunięcie wypadkowej normalnej do krawędzi podstawy.
+
+**4. Równia, drabina i kliny: tarciowa geometria.** Dwa kontakty drabiny, kierunki tarcia w podłodze i na ścianie oraz samohamowność klina o dwóch chropowatych powierzchniach.
+
+**5. Tarcie cięgien: wzór Eulera.** Lina owinięta wokół walca przenosi różne napięcia: $T_2=T_1e^{\mu_s\theta}$. Kąt opasania w radianach i wpływ liczby zwojów.
+
+**6. Opór toczenia: moment i współczynnik.** Odkształcenie podłoża przesuwa wypadkową nacisku. Moment oporu $M_t=fN$, siła progowa $P=Nf/r$ i graniczny kąt równi $\operatorname{tg}\alpha=f/r$.
+
+**7. Hamulce i bębny: zadanie C.** Bęben, klocek i dźwignia. Równowaga momentów łączy obciążenie $Q$, nacisk klocka i siłę $P$; kierunek obrotu decyduje o samowzmocnieniu.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+T\le\mu_sN,\qquad T_{\max}=\mu_sN,\qquad \operatorname{tg}\varphi_s=\mu_s
+$$
+
+<Caption>Warunek równowagi z tarciem suchym i jego zapis kątowy. Równość obowiązuje tylko w stanie ruchu granicznego; w zwykłym spoczynku tarcie wynika z równań równowagi.</Caption>
+</Formula>
+
+<Formula>
+$$
+T_2=T_1e^{\mu_s\theta},\qquad M_t=fN,\qquad P=\frac{Nf}{r},\qquad \operatorname{tg}\alpha_{\max}=\frac{f}{r}
+$$
+
+<Caption>Wzór Eulera dla cięgna (kąt $\theta$ w radianach) oraz opór toczenia: moment oporu, siła progowa na poziomym podłożu i graniczny kąt równi. Współczynnik $f$ ma wymiar długości, w odróżnieniu od bezwymiarowego $\mu_s$.</Caption>
+</Formula>
+
+## Jak się uczyć
+
+Pracuj po kolei: każda lekcja korzysta z poprzedniej. Po lekturze wykonaj laboratorium, potem przykład prowadzony, a na końcu quiz. W każdym zadaniu najpierw narysuj schemat i ustal kierunek zamierzonego ruchu, dopiero potem pisz równania. Kontroluj jednostki i znaki — to one, a nie skomplikowana matematyka, są najczęstszym źródłem błędów.
+
+Przy zadaniach z tarciem warto stosować trzy pytania: gdzie są kontakty, w którą stronę ciało chce się ruszyć i czy tarcie jest już na granicy. Odpowiedzi na te pytania wyznaczają całą strategię.
+
+## Po tym module
+
+Opanowanie tarcia zamyka podstawowy kurs statyki i otwiera drogę do zadań konstrukcyjnych: połączeń, hamulców, sprzęgieł i mechanizmów. W wytrzymałości materiałów wrócą do ciebie momenty tarcia i oporu, a także problem nagrzewania i zużycia powierzchni.
+
+## Źródła
+
+- Wykład „Tarcie” (materiały wykładowe): prawa Coulomba–Morena, kąt tarcia, wzór Eulera, opór toczenia i przykłady bębna hamulcowego.
+- Zestaw „Zadania tarcie”, zadanie C: schematy bębna, dźwigni i liny oraz tabela danych do wyznaczania siły $P$ i reakcji.
+- D. W. Baker, W. Haynes, _Engineering Statics_: rozdz. 9.1–9.3 (tarcie suche, poślizg i wywrot, kliny), 9.5 (cięgna) oraz 9.6–9.7 (łożyska i hamulce).
+- L. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_: rozdz. 4.4 — zadania z tarciem, równią i wyborem kierunku tarcia.
+- _University Physics_ (OpenStax), rozdz. 6.2: tarcie statyczne, kinetyczne i toczne oraz przykłady równi.

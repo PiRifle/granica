@@ -85,17 +85,22 @@ describe('kolekcja kursów', () => {
     })
   })
 
-  it('ma statykę jako planowany kurs z siedmioma modułami', () => {
-    expect(statics.modules).toHaveLength(7)
-    expect(statics.lessons).toHaveLength(0)
-    expect(statics.status).toBe('planned')
-    expect(statics.modules.map((module) => module.number)).toEqual([1, 2, 3, 4, 5, 6, 7])
+  it('ma statykę jako pełny kurs z ośmioma modułami i 56 lekcjami', () => {
+    expect(statics.modules).toHaveLength(8)
+    expect(statics.lessons).toHaveLength(56)
+    expect(statics.status).toBe('ready')
+    expect(statics.modules.map((module) => module.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8])
     for (const module of statics.modules) {
-      expect(module.status, module.id).toBe('planned')
-      expect(module.lessons, module.id).toHaveLength(0)
+      expect(module.status ?? 'ready', module.id).toBe('ready')
+      expect(module.lessons, module.id).toHaveLength(7)
     }
-    expect(statics.tools.training).toBe(false)
-    expect(statics.tools.syllabus).toBe(true)
+    expect(statics.tools).toEqual({
+      training: true,
+      exam: true,
+      cheatsheet: true,
+      syllabus: true,
+      library: true,
+    })
   })
 })
 
@@ -149,7 +154,7 @@ describe('integralność kursu', () => {
       const body = fs.readFileSync(file, 'utf8')
       expect(body, file).toContain('<Lab id="')
       expect(body, file).toContain('<Formula>')
-      expect(body.includes('<WorkedExample>') || body.includes('<AnimatedSolution'), file).toBe(true)
+      expect(body, file).toContain('<AnimatedSolution')
       expect(body, file).toContain('<Quiz>')
       expect(body, file).toContain('<Question')
       const labId = body.match(/<Lab id="([^"]+)"/)?.[1]

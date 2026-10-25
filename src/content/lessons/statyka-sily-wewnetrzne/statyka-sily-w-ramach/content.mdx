@@ -1,0 +1,187 @@
+---
+id: statyka-sily-w-ramach
+moduleId: statyka-sily-wewnetrzne
+number: 6
+title: 'Siły wewnętrzne w ramach'
+shortTitle: 'Siły w ramach'
+description: >-
+  Rama to nie kratownica: jej pręty przenoszą nie tylko siłę normalną, ale też
+  tnącą i moment. Cięcie kolumny wymaga lokalnego układu i kontroli węzła.
+eyebrow: 'Zgięty pręt, trzy siły wewnętrzne'
+outcomes:
+  - 'W1 — wyjaśnia różnicę między prętami kratownicy a elementami ramy'
+  - 'W2 — stosuje lokalny układ współrzędnych i konwencję znaków w kolumnie oraz belce'
+  - 'U1 — wyznacza N, T i M w wybranym przekroju ramy'
+  - 'U2 — kontroluje równowagę węzła połączenia belki i kolumny'
+---
+
+Kratownica przenosi obciążenia tylko siłami osiowymi, bo jej pręty są połączone przegubami i nie mają momentów na końcach. Rama jest inna: węzły są sztywne, więc elementy mogą przenosić moment zginający, siłę tnącą i siłę normalną jednocześnie. To właśnie dlatego rama potrafi utrzymać wspornikową belkę bez dodatkowych podpór, a kratownica w tej samej sytuacji obróciłaby się w przegubie.
+
+Metoda przekrojów nadal działa, ale trzeba ją dostosować. W belce poziomej mieliśmy jeden „górny” i „dolny” kierunek. W ramie każdy pręt ma własną oś, a „dół” pręta zależy od tego, jak go obrócimy. Zamiast zgadywać znaki, przyjmujemy lokalny układ współrzędnych: oś $x$ biegnie wzdłuż pręta, a $N$, $T$ i $M$ określamy w tym układzie tak samo jak dla belki. Potem składamy siły w węźle i sprawdzamy, czy akcja i reakcja się znoszą.
+
+W tej lekcji przejdziemy przez ramę w kształcie litery L, utwierdzoną w podstawie kolumny. Obciążenie działa na końcu poziomej belki, a my wyznaczymy reakcje, siły wewnętrzne w kolumnie i belce oraz sprawdzimy równowagę węzła. To zadanie pokazuje, jak ważne jest konsekwentne trzymanie się jednej konwencji.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje utwierdzenia: dwie składowe siły i moment.
+- Opanuj metodę przekrojów dla belki poziomej: reakcje, cięcie, równowaga odciętej części.
+- Przypomnij konwencję znaków $N$, $T$, $M$; w ramie będzie ona obracana razem z prętem.
+- Rozróżniaj oś podłużną pręta od kierunku prostopadłego; $N$ działa wzdłuż osi, $T$ prostopadle.
+- Pamiętaj, że węzeł sztywny przenosi moment, a przegubowy nie.
+
+## Model i intuicja
+
+Wyobraź sobie kawałek drutu zgięty w literę L i zamocowany jednym końcem w imadle. Naciskasz drugi koniec. Drut nie tylko się rozciąga — wygina się na całej długości, a w zgięciu moment jest największy. Właśnie to wygibanie opisują $T$ i $M$. Siła normalna $N$ odpowiada za rozciąganie lub ściskanie osi, siła tnąca $T$ za ścinanie poprzeczne, a moment $M$ za zginanie.
+
+W ramie wygodnie jest rozpatrywać każdy pręt osobno. Cięcie w kolumnie odsłania $N$ pionową, $T$ poziomą i $M$ działający w płaszczyźnie ramy. Cięcie w belce odsłania $N$ poziomą, $T$ pionową i $M$ zginający belkę. Znaki zależą od tego, którą część odcinamy i jak zorientujemy lokalną oś. Dlatego zamiast uczyć się na pamięć „plusów i minusów”, trzeba za każdym razem narysować odciętą część i strzałki dodatnie.
+
+Węzeł sztywny jest testem poprawności. Siły, które belka wywiera na kolumnę, muszą być równe co do wartości i przeciwne do sił, które kolumna wywiera na belkę. Moment przekazywany przez belkę musi być zrównoważony momentem w kolumnie. Jeśli suma momentów w węźle nie znika, gdzieś zgubiono ramię albo zmieniono znak.
+
+Model zakłada sztywny węzeł i pomija odkształcenia. W rzeczywistej ramie węzeł może się obracać, a siły wewnętrzne zależą od sztywności elementów; w statyce ciała sztywnego tego nie analizujemy. Interesuje nas równowaga globalna i siły wewnętrzne w przekrojach.
+
+## Laboratorium: co ustawić
+
+Zbuduj ramę L z kolumną i belką. Zmieniaj obciążenie pionowe i poziome na końcu belki i obserwuj, jak zmieniają się reakcje w utwierdzeniu. Włącz podgląd sił wewnętrznych w kolumnie i belce; sprawdź, czy moment w węźle ma po obu stronach tę samą wartość co do modułu. Porównaj wynik z ręcznym przekrojem.
+
+<Lab id="staticsInternal" />
+
+## Definicje i jednostki
+
+| Pojęcie          | Znaczenie                                                              | Jednostka |
+| ---------------- | ---------------------------------------------------------------------- | --------- |
+| Rama             | Układ prętów połączonych sztywnymi węzłami, przenoszący $N$, $T$ i $M$ | —         |
+| Węzeł sztywny    | Połączenie przenoszące siły i moment                                   | —         |
+| Oś lokalna pręta | Oś $x$ biegnąca wzdłuż pręta, od początku do końca                     | —         |
+| Siła normalna    | Składowa wzdłuż osi pręta, dodatnia przy rozciąganiu                   | kN        |
+| Siła tnąca       | Składowa prostopadła do osi pręta                                      | kN        |
+| Moment zginający | Moment wyginający pręt w płaszczyźnie ramy                             | kN·m      |
+
+W ramie nie ma jednego globalnego „dołu”. Przyjmujemy, że dodatni moment wygina pręt wypukłością w stronę ujemną lokalnej osi $y$, analogicznie do belki. Przy zmianie orientacji pręta zmienia się też strona „rozciągana”, dlatego w wynikach warto podawać nie tylko znak, ale i stronę włókien rozciąganych.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0,\qquad \sum M=0
+$$
+
+<Caption>Trzy równania równowagi dla odciętej części dowolnego pręta ramy. Stosujemy je w lokalnym układzie pręta, po narysowaniu $N$, $T$ i $M$ w kierunkach dodatnich. W węźle sztywnym dodatkowo suma sił i momentów od wszystkich prętów musi być zerowa.</Caption>
+</Formula>
+
+Dla przykładu z kolumną AB i belką BC (oś $x$ belki od B do C, oś $y$ kolumny od A do B) równania odciętych części dają:
+
+<Formula>
+$$
+\text{belka: } N=-H,\quad T=P,\quad M=-P(L-x);
+\qquad
+\text{kolumna: } N=-P,\quad T=H,\quad M=M_A-Hy
+$$
+
+<Caption>Siły wewnętrzne w ramie L obciążonej siłą pionową $P$ i poziomą $H$ na końcu belki. Znaki są zapisane w lokalnych układach prętów; $M_A$ jest momentem utwierdzenia w A. W kolumnie moment maleje liniowo od podstawy do węzła, bo działa w niej stała siła tnąca $H$.</Caption>
+</Formula>
+
+Wyprowadzenie dla belki: prawa część od przekroju do końca C ma siłę $P$ w dół i $H$ w prawo. Równowaga pozioma daje $N=-H$ (ściskanie), pionowa $T=P$, a moment względem przekroju $M=-P(L-x)$ (włókna górne rozciągane). Dla kolumny dolna część ma reakcje $A_x=-H$, $A_y=P$ i moment $M_A$. Równowaga daje $N=-P$ (ściskanie), $T=H$ oraz moment malejący liniowo od $M_A$ w podstawie do $M_A-Hh$ w węźle.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-sily-w-ramach" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Traktowanie ramy jak kratownicy i pomijanie momentów w węzłach — wtedy nie da się spełnić równowagi.
+- Zmiana orientacji lokalnej osi w połowie zadania; wybierz ją raz dla każdego pręta i trzymaj się jej.
+- Mylenie siły normalnej z siłą tnącą w kolumnie: w kolumnie oś jest pionowa, więc pionowa siła to $N$, a pozioma to $T$.
+- Pomijanie momentu utwierdzenia w reakcjach; dla ramy utwierdzonej to trzecia niewiadoma.
+- Sumowanie momentów w węźle bez uwzględnienia znaków wynikających z różnych lokalnych układów.
+- Kontrola tylko wartości bezwzględnych momentów w węźle — znaki i strony rozciągania też muszą się zgadzać.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Rozpoznaj ramę: co najmniej jeden węzeł jest sztywny, a elementy mogą przenosić moment.
+2. Narysuj całą ramę i wyznacz reakcje z równowagi globalnej.
+3. Dla każdego pręta ustal lokalną oś i kierunki dodatnie $N$, $T$, $M$.
+4. Wybierz przekrój i stronę cięcia; dla ramy często wygodniej ciąć belkę od wolnego końca, a kolumnę od podstawy.
+5. Zapisz trzy równania równowagi odciętej części i rozwiąż względem $N$, $T$, $M$.
+6. Sprawdź węzeł: siły i momenty przekazywane przez połączone pręty muszą się znosić.
+
+## Połącz z resztą kursu
+
+- **Metoda przekrojów** — ta sama procedura, ale z lokalnymi osiami i dodatkową kontrolą węzła.
+- **Znaki N, T, M** — konwencja belki przenosi się na każdy pręt po obrocie układu; nie wolno mieszać orientacji.
+- **Kratownice** — kratownica to szczególny przypadek, w którym w węzłach nie ma momentów, a pręty przenoszą tylko $N$.
+- **Wykresy w zadaniach** — w następnej lekcji połączysz ramę z obciążeniem ciągłym i narysujesz pełne wykresy.
+- **Zginanie w wytrzymałości** — moment w kolumnie i belce decyduje o naprężeniach normalnych; w ramie trzeba śledzić stronę rozciągania.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>W ramie z przykładu reakcja pionowa $A_y$ wynosi:</Prompt>
+    <Answer>$6\ \mathrm{kN}$</Answer>
+    <Answer correct>$8\ \mathrm{kN}$</Answer>
+    <Answer>$14\ \mathrm{kN}$</Answer>
+    <Hint>Suma sił pionowych w całej ramie.</Hint>
+    <Explanation>
+      Jedyną siłą pionową zewnętrzną jest $P=8\ \mathrm{kN}$ w dół, więc $A_y=8\ \mathrm{kN}$ w górę. Siła $H$ jest pozioma i nie wpływa na $A_y$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Moment utwierdzenia w A wynosi:</Prompt>
+    <Answer>$32\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$50\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$18\ \mathrm{kN\cdot m}$</Answer>
+    <Hint>Dodaj momenty obu sił względem A: $P\cdot4$ i $H\cdot3$.</Hint>
+    <Explanation>
+      $M_A=8\cdot4+6\cdot3=32+18=50\ \mathrm{kN\cdot m}$. Wartość $32$ to moment samej siły pionowej, a $18$ — samej poziomej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Moment w połowie belki ($x=2$ m od B) wynosi:</Prompt>
+    <Answer>$16\ \mathrm{kN\cdot m}$ z rozciąganiem dolnym</Answer>
+    <Answer correct>$-16\ \mathrm{kN\cdot m}$, czyli rozciąganie górnych włókien</Answer>
+    <Answer>$32\ \mathrm{kN\cdot m}$ z rozciąganiem górnym</Answer>
+    <Hint>Prawa część belki ma tylko $P=8$ kN na ramieniu $2$ m.</Hint>
+    <Explanation>
+      $M=-8\cdot2=-16\ \mathrm{kN\cdot m}$. Znak minus oznacza wypukłość w górę, więc rozciągane są górne włókna — tak jak w belce wspornikowej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła normalna w połowie wysokości kolumny wynosi:</Prompt>
+    <Answer>$6\ \mathrm{kN}$ rozciągania</Answer>
+    <Answer correct>$8\ \mathrm{kN}$ ściskania</Answer>
+    <Answer>$10\ \mathrm{kN}$ ściskania</Answer>
+    <Hint>W kolumnie oś jest pionowa; jaka siła pionowa działa na dolną część?</Hint>
+    <Explanation>
+      Kolumna przenosi ciężar belki i obciążenia $P=8\ \mathrm{kN}$, więc jest ściskana siłą $8\ \mathrm{kN}$. Siła $H$ daje w kolumnie siłę tnącą, nie normalną.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Moment w kolumnie na wysokości $y=1{,}5$ m wynosi:</Prompt>
+    <Answer>$32\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$41\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$50\ \mathrm{kN\cdot m}$</Answer>
+    <Hint>$M(y)=M_A-Hy$.</Hint>
+    <Explanation>
+      $M=50-6\cdot1{,}5=50-9=41\ \mathrm{kN\cdot m}$. Moment maleje liniowo od $50$ w podstawie do $32$ w węźle.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Jaki moment przekazuje węzeł B między belką a kolumną?</Prompt>
+    <Answer>$16\ \mathrm{kN\cdot m}$</Answer>
+    <Answer correct>$32\ \mathrm{kN\cdot m}$</Answer>
+    <Answer>$50\ \mathrm{kN\cdot m}$</Answer>
+    <Hint>Policz moment belki na końcu B albo kolumny na górze.</Hint>
+    <Explanation>
+      Belka ma w B $M=-8\cdot4=-32\ \mathrm{kN\cdot m}$, a kolumna $M=50-6\cdot3=32\ \mathrm{kN\cdot m}$. Wartości są równe co do modułu, a znaki przeciwne — to warunek równowagi węzła.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 8.3 „Internal Forces at a Point”: przykład ramy z prętami dwusiłowymi i wielosiłowymi oraz zasada wyboru dogodniejszej strony cięcia.
+- L. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_, rozdz. 6.1: typy sił wewnętrznych, konwencja znaków i obliczanie sił w przekroju.
+- Osgood i in. (UPEI), _Engineering Mechanics: Statics_, rozdz. 6.1.2–6.1.3: konwencja znaków i procedura wyznaczania sił wewnętrznych w belkach i ramach.
+- Wykład „Moment siły, siły równoległe, płaski dowolny układ sił”: moment względem punktu i twierdzenie Varignona, potrzebne do sumowania momentów w węźle.

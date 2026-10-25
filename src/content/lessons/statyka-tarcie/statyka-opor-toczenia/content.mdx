@@ -1,0 +1,188 @@
+---
+id: statyka-opor-toczenia
+moduleId: statyka-tarcie
+number: 6
+title: 'Opór toczenia: moment i współczynnik'
+shortTitle: 'Opór toczenia'
+description: >-
+  Walec toczy się opornie nie tylko z powodu tarcia ślizgowego. Odkształcenie
+  podłoża przesuwa wypadkową nacisku i tworzy moment oporu M_t = fN.
+eyebrow: 'Dlaczego walec sam nie rusza'
+outcomes:
+  - 'W1 — wyjaśnia pochodzenie oporu toczenia i przesunięcie wypadkowej nacisku'
+  - 'W2 — odróżnia współczynnik oporu toczenia f od współczynnika tarcia μ'
+  - 'U1 — oblicza moment oporu toczenia i siłę potrzebną do rozpoczęcia toczenia'
+  - 'U2 — wyznacza graniczny kąt równi, przy którym walec jeszcze stoi'
+---
+
+Idealnie sztywny walec na idealnie sztywnym podłożu dotykałby podłoża w jednym punkcie. Wtedy dowolnie mała pozioma siła przyłożona do osi wprawiłaby go w ruch — nie byłoby żadnego oporu poza tarciem ślizgowym. Rzeczywiste walce i podłoża odkształcają się jednak pod naciskiem. Guma opony ugina się, stalowa szyna nieznacznie się wgniata, a piasek pod kołem przesuwa się. Wypadkowa nacisku przesuwa się wtedy przed linię pionową przechodzącą przez oś walca i pojawia się moment przeciwdziałający toczeniu.
+
+Ten moment nazywamy momentem oporu toczenia, a jego miarą jest współczynnik oporu toczenia $f$. W odróżnieniu od współczynnika tarcia $\mu$ jest to wielkość z jednostką długości — najczęściej podawana w milimetrach lub centymetrach. Mówimy też o „ramieniu oporu toczenia”, bo $f$ jest właśnie ramieniem, na którym wypadkowa normalna działa względem punktu styku.
+
+W tej lekcji policzymy, jakiej siły trzeba, by ruszyć walec po poziomej drodze, i pod jakim kątem równi walec zaczyna się toczyć. Zobaczysz też, dlaczego opór toczenia jest zwykle znacznie mniejszy od tarcia ślizgowego — i dlaczego koło jest jednym z najważniejszych wynalazków mechaniki.
+
+## Zanim zaczniesz
+
+- Umiej zapisać równowagę momentów względem punktu styku i względem środka walca.
+- Przypomnij rozkład ciężaru na równi: $G\sin\alpha$ wzdłuż i $G\cos\alpha$ prostopadle.
+- Pamiętaj, że w spoczynku tarcie statyczne nie musi osiągać granicy $\mu_sN$.
+- Odróżniaj jednostki: siła w N, moment w N·m, współczynnik oporu $f$ w m (lub mm, cm).
+- Zaakceptuj, że model sztywny nie wyjaśnia oporu toczenia — potrzebne jest odkształcenie.
+
+## Model i intuicja
+
+Postaw walec na miękkim podłożu i dociśnij go. Podłoże ugina się bardziej z przodu niż z tyłu, bo walec „wspina się” na własne zagłębienie. Wypadkowa sił normalnych nie przechodzi już przez środek walca, lecz jest przesunięta do przodu o pewną odległość $f$. Ta odległość jest właśnie współczynnikiem oporu toczenia. Im twardsze podłoże i mniejsze odkształcenie, tym mniejsze $f$.
+
+Gdy do osi walca przyłożysz poziomą siłę $P$, równowaga sił daje $T=P$ oraz $N=G$, gdzie $T$ jest tarciem w punkcie styku. Moment względem punktu styku równoważy się w stanie granicznym: moment siły $P$ wynosi $P r$, a moment oporu $N f$. Walec ruszy, gdy $P r$ przekroczy $N f$, czyli gdy $P>Nf/r$. Zauważ, że $f/r$ jest bezwymiarowe — pojawia się jako tangens granicznego kąta równi.
+
+Na równi pochyłej składowa ciężaru wzdłuż równi pełni rolę siły napędowej. Równowaga momentów względem środka walca daje $T r=N f$, a równowaga wzdłuż równi $T=G\sin\alpha$. Po podstawieniu $N=G\cos\alpha$ otrzymujemy $\operatorname{tg}\alpha=f/r$. To graniczny kąt, przy którym walec jeszcze stoi; powyżej niego zaczyna się toczyć.
+
+Model zakłada, że walec nie ślizga się, a opór jest proporcjonalny do nacisku. Nie opisuje zależności od prędkości ani odkształceń plastycznych. W rzeczywistych oponach opór toczenia zależy też od ciśnienia, temperatury i prędkości, ale w zadaniach statyki traktujemy $f$ jako stałą dla danej pary materiałów.
+
+## Laboratorium: co ustawić
+
+Ustaw promień walca, ciężar i współczynnik oporu toczenia. Zwiększaj poziomą siłę powoli i sprawdź, przy jakiej wartości walec rusza. Następnie zmień promień, pozostawiając $f$ i ciężar bez zmian — zobacz, że większy walec potrzebuje mniejszej siły. Na koniec przełącz na równię i znajdź kąt graniczny.
+
+<Lab id="staticsFriction" />
+
+## Definicje i jednostki
+
+| Wielkość                    | Symbol          | Jednostka       | Znaczenie                                   |
+| --------------------------- | --------------- | --------------- | ------------------------------------------- |
+| Moment oporu toczenia       | $M_t$           | N·m             | Moment przeciwdziałający toczeniu, $M_t=fN$ |
+| Współczynnik oporu toczenia | $f$             | m, mm, cm       | Ramię przesunięcia wypadkowej nacisku       |
+| Siła normalna               | $N$             | N, kN           | Nacisk walca na podłoże                     |
+| Promień walca               | $r$             | m, mm           | Odległość osi od punktu styku               |
+| Graniczny kąt równi         | $\alpha_{\max}$ | stopień, radian | $\operatorname{tg}\alpha_{\max}=f/r$        |
+
+Uwaga na jednostki: $f$ ma wymiar długości, więc nie wolno podstawiać go do wzoru razem z $r$ w innych jednostkach. Jeśli $f=0{,}5\ \mathrm{cm}$, a $r=30\ \mathrm{cm}$, to stosunek $f/r$ jest bezwymiarowy i wynosi $0{,}0167$. Współczynnik tarcia $\mu$ jest bezwymiarowy — to inna wielkość.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+M_t=fN,\qquad P=\frac{Nf}{r},\qquad \operatorname{tg}\alpha_{\max}=\frac{f}{r}
+$$
+
+<Caption>Moment oporu toczenia, siła potrzebna do rozpoczęcia toczenia po poziomym podłożu oraz graniczny kąt równi. Wzory dotyczą walca bez poślizgu; $f$ jest długością, a nie bezwymiarowym współczynnikiem tarcia.</Caption>
+</Formula>
+
+Wyprowadzenie dla walca na poziomym podłożu:
+
+1. Równowaga sił: $T=P$ (poziomo) oraz $N=G$ (pionowo).
+2. Wypadkowa nacisku jest przesunięta do przodu o $f$; jej moment względem punktu styku wynosi $Nf$.
+3. Moment siły $P$ względem punktu styku wynosi $Pr$.
+4. W stanie granicznym $Pr=Nf$, skąd $P=Nf/r$.
+5. Dla $P<Nf/r$ walec stoi; dla większego $P$ zaczyna się toczyć.
+
+Dla równi:
+
+1. Wzdłuż równi: $T=G\sin\alpha$.
+2. Prostopadle: $N=G\cos\alpha$.
+3. Moment względem środka walca: $Tr=Nf$.
+4. Po podstawieniu: $G\sin\alpha\cdot r=G\cos\alpha\cdot f$, czyli $\operatorname{tg}\alpha=f/r$.
+5. Ciężar się skraca — graniczny kąt nie zależy od masy walca, tylko od $f$ i $r$.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-opor-toczenia" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mylenie $f$ z $\mu$: $f$ ma jednostkę długości, a $\mu$ jest bezwymiarowy.
+- Podstawianie $f$ w centymetrach, a $r$ w metrach bez przeliczenia jednostek.
+- Pomijanie momentu oporu w równaniu momentów — wtedy walec „toczy się” bez żadnego oporu, co przeczy doświadczeniu.
+- Zakładanie $T=\mu_sN$ w stanie spoczynku; tarcie jest wtedy mniejsze, a granicę wyznacza moment oporu.
+- Używanie wzoru $P=Nf/r$ dla siły przyłożonej na innej wysokości niż oś walca — ramię siły wtedy się zmienia.
+- Sądzenie, że opór toczenia zależy od prędkości w modelu statycznym; tutaj $f$ jest stałe, a efekty dynamiczne pomijamy.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Sprawdź, czy w zadaniu występuje walec, koło, opona lub bęben toczący się po podłożu.
+2. Odróżnij „toczy się” od „ślizga się”; opór toczenia dotyczy przypadku bez poślizgu.
+3. Znajdź $f$ i $r$; upewnij się, że mają te same jednostki długości.
+4. Dla podłoża poziomego porównaj moment siły napędowej z momentem $Nf$; dla równi użyj $\operatorname{tg}\alpha=f/r$.
+5. Sprawdź, czy tarcie statyczne wystarcza do zapobieżenia poślizgowi: $T\le\mu_sN$.
+6. Pamiętaj, że zwiększanie promienia przy stałym $f$ zmniejsza opór względny $f/r$.
+
+## Połącz z resztą kursu
+
+- **Tarcie suche** — opór toczenia to odrębne zjawisko; nie zastępuje tarcia ślizgowego, lecz mu towarzyszy.
+- **Równowaga z tarciem** — warunek $T\le\mu_sN$ nadal obowiązuje i decyduje, czy walec nie zacznie się ślizgać.
+- **Moment siły** — cały model opiera się na przesunięciu wypadkowej nacisku i równowadze momentów.
+- **Hamulce i bębny** — moment tarcia w hamulcu ma podobną strukturę $M=TR$, ale nie wynika z oporu toczenia.
+- **Łożyska i koła** — w budowie maszyn opór toczenia decyduje o sprawności wózków, przekładni i pojazdów.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>Walec z przykładu ($N=2000\ \mathrm{N}$, $f=0{,}005\ \mathrm{m}$) ma moment oporu toczenia:</Prompt>
+    <Answer>$1\ \mathrm{N\cdot m}$</Answer>
+    <Answer correct>$10\ \mathrm{N\cdot m}$</Answer>
+    <Answer>$100\ \mathrm{N\cdot m}$</Answer>
+    <Hint>$M_t=fN$.</Hint>
+    <Explanation>
+      $M_t=0{,}005\cdot2000=10\ \mathrm{N\cdot m}$. Wynik $100$ powstałby z pomylenia milimetrów z centymetrami.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Jaka siła pozioma przyłożona do osi ruszy ten walec ($r=0{,}25\ \mathrm{m}$)?</Prompt>
+    <Answer>$10\ \mathrm{N}$</Answer>
+    <Answer correct>$40\ \mathrm{N}$</Answer>
+    <Answer>$400\ \mathrm{N}$</Answer>
+    <Hint>$P=Nf/r$.</Hint>
+    <Explanation>
+      $P=2000\cdot0{,}005/0{,}25=40\ \mathrm{N}$. Wartość $400$ N to granica tarcia ślizgowego $\mu_sN$, a nie próg toczenia.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Graniczny kąt równi dla tego walca wynosi około:</Prompt>
+    <Answer>$0{,}57^\circ$</Answer>
+    <Answer correct>$1{,}15^\circ$</Answer>
+    <Answer>$11{,}5^\circ$</Answer>
+    <Hint>$\operatorname{tg}\alpha_{\max}=f/r=0{,}02$.</Hint>
+    <Explanation>
+      $\operatorname{arctg}0{,}02\approx1{,}15^\circ$. Kąt jest mały, bo opór toczenia jest niewielki w porównaniu z promieniem.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Współczynnik oporu toczenia $f$ ma jednostkę:</Prompt>
+    <Answer>bezwymiarową, jak $\mu$</Answer>
+    <Answer correct>długości (m, mm, cm)</Answer>
+    <Answer>momentu (N·m)</Answer>
+    <Hint>Pomyśl o $f$ jako o ramieniu przesunięcia wypadkowej nacisku.</Hint>
+    <Explanation>
+      $f$ jest odległością, na jaką przesuwa się wypadkowa normalna, więc ma wymiar długości. Moment oporu $M_t=fN$ ma wtedy wymiar $N\cdot m$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Promień walca wzrasta dwukrotnie, a $f$ i $N$ pozostają bez zmian. Siła potrzebna do rozpoczęcia toczenia:</Prompt>
+    <Answer>rośnie dwukrotnie</Answer>
+    <Answer correct>maleje dwukrotnie</Answer>
+    <Answer>nie zmienia się</Answer>
+    <Hint>$P=Nf/r$ — sprawdź, w mianowniku czy w liczniku jest $r$.</Hint>
+    <Explanation>
+      $P=Nf/r$, więc dwukrotny wzrost $r$ daje połowę siły. Większe koło łatwiej pokonuje przeszkody i ma mniejszy względny opór toczenia.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego model idealnie sztywnego walca nie wyjaśnia oporu toczenia?</Prompt>
+    <Answer>Bo w modelu sztywnym tarcie znika</Answer>
+    <Answer correct>Bo kontakt jest wtedy punktowy i wypadkowa nacisku nie może się przesunąć</Answer>
+    <Answer>Bo sztywny walec ma zbyt duży moment bezwładności</Answer>
+    <Hint>Zastanów się, gdzie działa normalna w modelu idealnym.</Hint>
+    <Explanation>
+      W modelu idealnie sztywnym nacisk jest skupiony w jednym punkcie pod osią, więc nie powstaje ramię $f$. Opór toczenia wynika właśnie z odkształcenia i przesunięcia wypadkowej nacisku.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Tarcie” (materiały wykładowe), str. 8–14: opór toczenia, moment $M_t=fN$, tabela współczynników i przykład walca na równi.
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 9.1: tarcie toczne jako odrębny mechanizm oraz omówienie siły normalnej i jej przesunięcia.
+- L. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_, rozdz. 4.4: równowaga ciał toczących się i warunki braku poślizgu.
+- _University Physics_ (OpenStax), rozdz. 6.2: jakościowy opis tarcia tocznego i różnica względem tarcia ślizgowego.

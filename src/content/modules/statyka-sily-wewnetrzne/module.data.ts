@@ -2,15 +2,18 @@ import type { ModuleData } from '../../model'
 
 export default {
   id: 'statyka-sily-wewnetrzne',
-  number: 6,
+  number: 7,
   title: 'Siły wewnętrzne w belkach i ramach',
   shortTitle: 'Siły wewnętrzne',
-  description: 'Reakcje i siły wewnętrzne w belkach oraz ramach, z wprowadzeniem do analizy kratownic.',
+  description:
+    'Metoda przekrojów, konwencja znaków N, T, M oraz wykresy sił tnących i momentów zginających w belkach i ramach.',
   outcomes: [
-    'W1 — rozumie pojęcie siły wewnętrznej w przekroju',
-    'W2 — rozpoznaje belki, ramy i kratownice',
-    'U1 — wyznacza siły normalne, tnące i momenty zginające',
-    'U2 — analizuje proste kratownice metodą węzłów',
+    'W1 — rozumie pojęcie siły wewnętrznej w przekroju i jej związek z równowagą odciętej części',
+    'W2 — stosuje konwencję znaków dla siły normalnej, tnącej i momentu zginającego',
+    'W3 — wiąże kształt wykresów z rozkładem obciążenia za pomocą zależności różniczkowych',
+    'U1 — wyznacza reakcje i siły wewnętrzne w wybranym przekroju belki lub ramy',
+    'U2 — rysuje wykresy T i M dla belek z siłami skupionymi i obciążeniem ciągłym',
+    'U3 — kontroluje wyniki za pomocą warunków brzegowych i pól pod wykresami',
   ],
-  status: 'planned',
+  status: 'ready',
 } satisfies ModuleData

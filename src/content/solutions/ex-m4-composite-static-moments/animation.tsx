@@ -370,8 +370,6 @@ export function CompositeStaticMomentsAnimation({ scene, index, playing, scenePr
                 fontWeight={700}
                 fill={CENTROID}
                 initial={false}
-                animate={{ y: py(markerY) - 6 }}
-                transition={{ type: 'spring', stiffness: 90, damping: 18 }}
               >
                 {final ? 'yC = 82,73 mm' : 'Σ Aᵢ yᵢ'}
               </motion.text>
@@ -408,8 +406,6 @@ export function CompositeStaticMomentsAnimation({ scene, index, playing, scenePr
                 fontWeight={700}
                 fill={CENTROID}
                 initial={false}
-                animate={{ x: px(markerX) + 7 }}
-                transition={{ type: 'spring', stiffness: 90, damping: 18 }}
               >
                 {final ? 'xC = 60 mm' : 'Σ Aᵢ xᵢ'}
               </motion.text>

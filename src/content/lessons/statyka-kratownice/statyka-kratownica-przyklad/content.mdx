@@ -1,0 +1,211 @@
+---
+id: statyka-kratownica-przyklad
+moduleId: statyka-kratownice
+number: 7
+title: 'Kratownica z wykładu: pełne rozwiązanie'
+shortTitle: 'Pełny przykład'
+description: >-
+  Reakcje, metoda węzłów, metoda Rittera i tabela sił dla kratownicy
+  trójpanelowej z wykładu. Jeden schemat, dwie metody, jedna kontrola.
+eyebrow: 'Od schematu do tabeli sił'
+outcomes:
+  - 'W1 — odczytuje geometrię kratownicy i ustala położenie węzłów oraz prętów'
+  - 'W2 — planuje kolejność rozwiązania łącząc pręty zerowe, metodę węzłów i Rittera'
+  - 'U1 — wyznacza reakcje podporowe kratownicy trójpanelowej'
+  - 'U2 — oblicza siły we wszystkich prętach i weryfikuje je metodą Rittera'
+---
+
+To jest lekcja podsumowująca moduł. Rozwiążemy kratownicę z wykładu: trzy panele, dwa pasy, trzy ukośnice i trzy słupki. Na schemacie działają trzy obciążenia, a podpory dają trzy reakcje. Najpierw odczytamy geometrię, potem wyznaczymy reakcje, przejdziemy przez węzły i sprawdzimy trzy siły metodą Rittera. Wynik zapiszemy w tabeli, którą można porównać z rozwiązaniem wykładowym.
+
+Schemat wygląda na gęsty, ale ma regularną budowę. Każdy panel ma szerokość $a=2\ \text{m}$, a wysokość kratownicy wynosi $h=a\tan60^\circ=3{,}464\ \text{m}$. Ukośnice są nachylone pod $60^\circ$ do poziomu. Dzięki temu wszystkie funkcje trygonometryczne są znane dokładnie: $\sin60^\circ=\sqrt3/2\approx0{,}866$ i $\cos60^\circ=1/2$.
+
+Najważniejsze w tym przykładzie jest nie samo liczenie, lecz **kontrola**. Metoda węzłów daje komplet sił, ale łatwo w niej o błąd znaku. Metoda Rittera dla trzech prętów daje niezależne sprawdzenie. Jeśli oba wyniki się zgadzają, można z dużą pewnością przyjąć tabelę sił jako poprawną.
+
+## Zanim zaczniesz
+
+- Umiej wyznaczyć reakcje belki lub kratownicy z równań równowagi całej konstrukcji.
+- Rozpoznawaj pręty zerowe w węzłach nieobciążonych.
+- Pamiętaj o konwencji: rozciąganie dodatnie, ściskanie ujemne.
+- Umiej policzyć moment siły względem punktu, także gdy punkt leży poza rozpatrywaną częścią.
+- Przygotuj tabelę na 12 prętów; bez niej łatwo pominąć któryś wynik.
+
+## Model i intuicja
+
+Kratownica ma osiem węzłów. Górny pas tworzą węzły $A$, $C$, $E$, $G$, a dolny $B$, $D$, $F$, $H$. Węzły $A$ i $B$ leżą na lewej krawędzi, $C$ i $D$ na pierwszej linii pionowej, $E$ i $F$ na drugiej, a $G$ i $H$ na prawej. Współrzędne przyjmujemy następująco:
+
+| Węzeł | $x$ [m] | $y$ [m]   |
+| ----- | ------- | --------- |
+| $A$   | $0$     | $3{,}464$ |
+| $B$   | $0$     | $0$       |
+| $C$   | $2$     | $3{,}464$ |
+| $D$   | $2$     | $0$       |
+| $E$   | $4$     | $3{,}464$ |
+| $F$   | $4$     | $0$       |
+| $G$   | $6$     | $3{,}464$ |
+| $H$   | $6$     | $0$       |
+
+Pręty numerujemy tak jak w wykładzie: $1=A-C$, $2=A-D$, $3=B-D$, $4=C-D$, $5=C-E$, $6=C-F$, $7=D-F$, $8=E-F$, $9=E-G$, $10=E-H$, $11=F-H$, $12=G-H$. Obciążenia: $P_1=8\ \text{kN}$ w $C$ w dół, $P_2=4\ \text{kN}$ w $E$ w dół oraz $P_3=2\ \text{kN}$ w $H$ w prawo. Podpora w $A$ jest przegubem i daje reakcje $R_{Ax}$ oraz $R_{Ay}$. Podpora w $B$ jest więzem poziomym i daje tylko reakcję $R_B$ w kierunku poziomym.
+
+Dlaczego w $B$ nie ma reakcji pionowej? Bo schemat z wykładu przedstawia podparcie w $B$ jako pręt przegubowy, który może przenosić tylko siłę wzdłuż swojej osi — tutaj poziomą. To ważne założenie: reakcja pionowa w $B$ nie istnieje, więc całe obciążenie pionowe przenosi przegub $A$. Model ma trzy reakcje, czyli jest zewnętrznie statycznie wyznaczalny.
+
+Pręty zerowe widać od razu w prawym górnym narożniku. Węzeł $G$ ma tylko dwa pręty, $EG$ i $GH$, i nie jest obciążony, więc oba są zerowe. Węzeł $H$ jest obciążony siłą poziomą, ale pionowy pręt $GH$ już wiemy, że jest zerowy; z pionowej równowagi $H$ wynika wtedy, że ukośnica $EH$ też jest zerowa. To upraszcza dalszy rachunek.
+
+## Laboratorium: co ustawić
+
+Odtwórz kratownicę trójpanelową i ustaw obciążenia $8$, $4$ i $2\ \text{kN}$ w węzłach $C$, $E$ i $H$. Najpierw sprawdź reakcje, potem kolejno wycinaj węzły $G$, $H$, $E$, $F$, $C$ i $D$. Na końcu wykonaj przekrój przez pręty $1$, $2$ i $3$ i porównaj wynik z tabelą. Zmień znak $P_3$ i zobacz, które siły zmieniają znak, a które pozostają bez zmian.
+
+<Lab id="staticsTrussExtended" />
+
+## Definicje i jednostki
+
+| Pojęcie   | Znaczenie                                                    | Jednostka |
+| --------- | ------------------------------------------------------------ | --------- |
+| Panel     | Powtarzalna część kratownicy między dwiema liniami pionowymi | —         |
+| Pas górny | Pręty $AC$, $CE$, $EG$                                       | —         |
+| Pas dolny | Pręty $BD$, $DF$, $FH$                                       | —         |
+| Ukośnica  | Pręt łączący górny i dolny pas pod kątem                     | —         |
+| Słup      | Pręt pionowy łączący pasy                                    | —         |
+| Reakcja   | Siła od podpory działająca na kratownicę                     | kN        |
+
+Jednostki: siły w kN, długości w m, momenty w kN·m. Kąt $60^\circ$ dotyczy ukośnic względem poziomu; nie myl go z kątem względem pionu, bo wtedy zamienią się $\sin$ i $\cos$.
+
+## Wzór i wyprowadzenie
+
+Równowaga całej kratownicy daje trzy równania i trzy reakcje:
+
+<Formula>
+$$
+\sum F_x=0,\qquad \sum F_y=0,\qquad \sum M_B=0
+$$
+
+<Caption>Przyjmujemy $x$ w prawo, $y$ w górę. $R_{Ax}$ zakładamy w lewo, $R_B$ w prawo. Moment względem $B$ eliminuje $R_B$ i $R_{Ay}$, a obciążenie $P_3$ leży na linii poziomej przez $B$, więc jego moment też znika.</Caption>
+</Formula>
+
+Z równowagi momentów względem $B$:
+
+<Formula>
+$$
+R_{Ax}\,h=P_1\,a+P_2\,2a
+\quad\Rightarrow\quad
+R_{Ax}=\frac{8\cdot2+4\cdot4}{3{,}464}=9{,}238\ \text{kN}
+$$
+
+<Caption>Reakcja $R_{Ax}$ działa w lewo. Z sumy sił poziomych $R_B=R_{Ax}-P_3=7{,}238\ \text{kN}$ w prawo. Z sumy sił pionowych $R_{Ay}=P_1+P_2=12\ \text{kN}$ w górę.</Caption>
+</Formula>
+
+Dla każdego węzła zapisujemy dwa równania rzutów. Dla przekroju Rittera przez pręty $1$, $2$, $3$ wybieramy prawą część i sumujemy momenty względem $D$, gdzie przecinają się proste prętów $2$ i $3$:
+
+<Formula>
+$$
+\sum M_D=0:\quad N_1\,h-P_2\,a=0
+\quad\Rightarrow\quad
+N_1=\frac{4\cdot2}{3{,}464}=2{,}309\ \text{kN}
+$$
+
+<Caption>Siła $N_1$ wychodzi dodatnia, czyli pręt $AC$ jest rozciągany. Po wyznaczeniu $N_2$ z rzutu pionowego i $N_1$ z momentu, rzut poziomy daje $N_3=P_3-N_1-N_2\cos60^\circ$.</Caption>
+</Formula>
+
+<AnimatedSolution id="ex-statyka-kratownica-przyklad" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Pominięcie faktu, że podpora w $B$ daje tylko reakcję poziomą — dopisanie $R_{By}$ zmienia bilans i prowadzi do błędnych reakcji.
+- Zła geometria: $h=a\tan60^\circ$, a nie $h=a/\tan60^\circ$; pomyłka zamienia miejscami $\sin$ i $\cos$.
+- Mylenie numerów prętów przy przechodzeniu między węzłami — szczególnie $5$ i $9$ oraz $6$ i $10$.
+- Traktowanie pręta $7$ jako zerowego, bo wartość $-0{,}31\ \text{kN}$ jest mała; to nie zero, tylko ściskanie.
+- Zły znak $P_3$: obciążenie w $H$ działa w prawo, więc w równaniu poziomym węzła $H$ ma znak dodatni.
+- Brak kontroli Ritterem — metoda węzłów bez kontroli nie wykryje błędu w środku rachunku.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Odczytaj z rysunku liczbę paneli, wymiar $a$, wysokość lub kąt i zapisz współrzędne węzłów.
+2. Ponumeruj pręty i zanotuj, które są pasami, ukośnicami i słupkami.
+3. Zidentyfikuj podpory i ich reakcje; sprawdź, czy podpora nie jest więzem jednokierunkowym.
+4. Wyznacz reakcje z trzech równań równowagi całej kratownicy.
+5. Rozpoznaj pręty zerowe w węzłach narożnych i nieobciążonych.
+6. Prowadź metodę węzłów w kolejności od węzłów z dwiema niewiadomymi; zapisuj wyniki w tabeli.
+7. Sprawdź co najmniej trzy pręty metodą Rittera, wybierając przekrój i punkt momentów, które dają proste ramiona.
+
+## Połącz z resztą kursu
+
+- **Model kratownicy** — cały przykład opiera się na prętach dwuosiowych i obciążeniach w węzłach.
+- **Pręty zerowe** — cztery zera ($5$, $9$, $10$, $12$) wynikają wprost z reguł rozpoznawania.
+- **Metoda węzłów** — daje komplet 12 sił i naturalną kontrolę w węźle $A$.
+- **Metoda Rittera** — niezależnie potwierdza trzy siły i pokazuje, że przekrój przez trzy pręty wystarcza do kontroli.
+- **Wytrzymałość: siły osiowe** — tabela sił jest gotowym obciążeniem do sprawdzenia naprężeń, doboru przekroju i analizy wyboczenia prętów ściskanych.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>W przykładzie reakcja pionowa w $A$ wynosi:</Prompt>
+    <Answer>$8\ \text{kN}$</Answer>
+    <Answer correct>$12\ \text{kN}$</Answer>
+    <Answer>$14\ \text{kN}$</Answer>
+    <Hint>Podpora w $B$ nie ma reakcji pionowej, więc całe obciążenie pionowe przejmuje $A$.</Hint>
+    <Explanation>
+      $R_{Ay}=P_1+P_2=8+4=12\ \text{kN}$. Wartość $14$ powstałaby z błędnego dodania $P_3$, choć $P_3$ działa poziomo.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Reakcja $R_{Ax}$ w przykładzie wynosi około:</Prompt>
+    <Answer>$7{,}24\ \text{kN}$ w prawo</Answer>
+    <Answer correct>$9{,}24\ \text{kN}$ w lewo</Answer>
+    <Answer>$12{,}00\ \text{kN}$ w lewo</Answer>
+    <Hint>Moment względem $B$: $R_{Ax}\cdot h=P_1a+P_2\cdot2a$.</Hint>
+    <Explanation>
+      $R_{Ax}=(16+16)/3{,}464=9{,}24\ \text{kN}$ w lewo. Wartość $7{,}24\ \text{kN}$ to reakcja $R_B$ w prawo, a $12\ \text{kN}$ to reakcja pionowa.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Siła w pręcie $1$ ($AC$) wynosi:</Prompt>
+    <Answer>$-2{,}31\ \text{kN}$ — ściskanie</Answer>
+    <Answer correct>$+2{,}31\ \text{kN}$ — rozciąganie</Answer>
+    <Answer>$+4{,}00\ \text{kN}$ — rozciąganie</Answer>
+    <Hint>Użyj Rittera: moment względem $D$ dla prawej części daje $N_1h=P_2a$.</Hint>
+    <Explanation>
+      $N_1=P_2a/h=4\cdot2/3{,}464=2{,}31\ \text{kN}$. Znak dodatni oznacza rozciąganie. Wartość $4\ \text{kN}$ to obciążenie $P_2$, a nie siła w pręcie.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Siła w pręcie $2$ ($AD$) wynosi:</Prompt>
+    <Answer>$+12{,}00\ \text{kN}$</Answer>
+    <Answer correct>$+13{,}86\ \text{kN}$</Answer>
+    <Answer>$-13{,}86\ \text{kN}$</Answer>
+    <Hint>Pionowa równowaga prawej części przekroju: $N_2\sin60^\circ=P_1+P_2$.</Hint>
+    <Explanation>
+      $N_2=12/0{,}866=13{,}86\ \text{kN}$. Pręt jest rozciągany, bo siła działa zgodnie z założeniem. Wartość $12\ \text{kN}$ to suma obciążeń pionowych, którą trzeba jeszcze podzielić przez $\sin60^\circ$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Siła w pręcie $4$ ($CD$) wynosi:</Prompt>
+    <Answer>$+12\ \text{kN}$ — rozciąganie</Answer>
+    <Answer correct>$-12\ \text{kN}$ — ściskanie</Answer>
+    <Answer>$0\ \text{kN}$ — pręt zerowy</Answer>
+    <Hint>W węźle $C$ pionowo działa $P_1=8\ \text{kN}$ oraz składowa pionowa pręta $CF$ równa $4\ \text{kN}$.</Hint>
+    <Explanation>
+      Z pionu węzła $C$: $-P_1-N_6\sin60^\circ-N_4=0$, czyli $N_4=-8-4=-12\ \text{kN}$. Pręt jest ściskany; nie jest zerowy, mimo że sąsiedni słupek $EF$ ma inną siłę.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Które pręty w przykładzie są zerowe?</Prompt>
+    <Answer>tylko $5$ i $9$</Answer>
+    <Answer correct>$5$, $9$, $10$ i $12$</Answer>
+    <Answer>$3$, $5$, $9$ i $12$</Answer>
+    <Hint>Zacznij od węzła $G$ (dwa pręty, brak obciążenia), potem przejdź do $H$ i $E$.</Hint>
+    <Explanation>
+      W $G$ zerowe są $9$ i $12$. W $H$ zerowy jest $10$ (bo $12$ już ma zero), a w $E$ zerowy jest $5$ (bo $9$ ma zero).
+      Pręt $3$ ma $-7{,}24\ \text{kN}$, więc nie jest zerowy.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Kratownice — wyznaczanie sił wewnętrznych", str. 5: dane przykładu ($P_1=8\ \text{kN}$, $P_2=4\ \text{kN}$, $P_3=2\ \text{kN}$, $a=2\ \text{m}$, $\alpha=60^\circ$).
+- Wykład „Kratownica — rozwiązany przykład", str. 1–11: reakcje, metoda węzłów, metoda Rittera i tabela wyników.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 6.3–6.5: model kratownicy, metoda węzłów i metoda przekroju.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 5.1–5.3: kratownice, węzły i przekroje.
+- _University Physics_ (OpenStax), rozdz. 5.6: równowaga i momenty sił w układach płaskich.

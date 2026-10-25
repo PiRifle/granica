@@ -1,0 +1,193 @@
+---
+id: statyka-srodek-masy
+moduleId: statyka-srodki-ciezkosci
+number: 1
+title: 'Środek ciężkości i środek masy: punkt równowagi ciężaru'
+shortTitle: Środek masy
+description: >-
+  Zdefiniuj środek ciężkości jako punkt zaczepienia wypadkowej sił ciężkości,
+  wyprowadź jego współrzędne z równowagi momentów i odróżnij go od środka masy.
+eyebrow: Wypadkowa ciężaru w jednym punkcie
+outcomes:
+  - W1 — rozumie definicję środka ciężkości jako punktu działania wypadkowej sił równoległych
+  - W2 — wyjaśnia, kiedy środek ciężkości pokrywa się ze środkiem masy i kiedy się rozjeżdżają
+  - U1 — oblicza współrzędne środka ciężkości układu punktów materialnych
+  - U2 — sprawdza wynik kontrolą momentów i oszacowaniem położenia
+---
+
+Ciężar ciała nie jest jedną siłą skupioną — to zbiór równoległych sił ciężkości działających na każdy atom, każdy element składowy, każdą śrubę i każdy pręt konstrukcji. Tym prostszym obrazem jest jednak punkt, w którym można zaczepić wypadkową tych sił tak, aby zewnętrzny efekt na ciało się nie zmienił. Ten punkt nazywamy środkiem ciężkości.
+
+Intuicję masz z codziennego życia: ołówek balansujący na palcu znajduje się w równowadze, gdy podparcie trafia właśnie w punkt, w którym momenty ciężaru obu połówek się zniosą. Przesuń podparcie, a ołówek się przewróci. Wyznaczanie środka ciężkości jest matematycznym odpowiednikiem szukania tego miejsca równowagi dla dowolnego układu części.
+
+W tej lekcji zaczynamy od układu punktów materialnych o znanych masach i położeniach. Wyprowadzimy współrzędne środka ciężkości z warunku równoważności momentów, pokażemy graniczne przejście od sum do całek dla ciał ciągłych i wprowadzimy środek masy — punkt, który pokrywa się ze środkiem ciężkości tylko wtedy, gdy przyspieszenie ziemskie jest stałe w całym układzie. To rozróżnienie brzmi akademicko, ale decyduje o tym, czy w zadaniu wolno skracać wzory przez $g$.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie pojęcie momentu siły względem punktu: iloczyn wartości siły i ramienia, czyli prostopadłej odległości linii działania od punktu.
+- Pamiętaj, że siły ciężkości wszystkich części układu są równoległe i skierowane pionowo w dół.
+- Wiedz, że wypadkowa układu sił równoległych ma wartość równą sumie sił i działa w punkcie wyznaczonym z równości momentów.
+- Umiej dodawać ułamki i przeliczać jednostki: masa w kg, ciężar w N, odległość w m.
+- Odróżniaj masę (miara bezwładności, kg) od ciężaru (siła, N): $G=mg$.
+
+## Model i intuicja
+
+Środek ciężkości definiujemy przez równoważność układów sił. Układ n punktów materialnych o ciężarach $G_k$ działających w punktach o współrzędnych $(x_k, y_k, z_k)$ zastępujemy jedną siłą $G=\sum G_k$ zaczepioną w punkcie $C$. Punkt $C$ dobieramy tak, aby moment wypadkowej względem dowolnego bieguna był równy sumie momentów wszystkich ciężarów składowych. To warunek identyczności zewnętrznego działania: taka sama siła i taki sam moment oznaczają, że podpora „czuje” dokładnie to samo.
+
+Kluczowa obserwacja Baker'a i Osgooda: współrzędna środka ciężkości jest średnią ważoną współrzędnych części, a wagą jest ciężar części. Średnia ważona — ta sama konstrukcja co średnia ocen z wagą punktową — wystarczy, by zrozumieć całą mechanikę środków ciężkości. Jeśli jedna część jest cięższa, środek przesuwa się w jej stronę. Jeśli wszystkie wagi są równe, średnia ważona staje się zwykłą średnią arytmetyczną i punkt ląduje dokładnie pośrodku.
+
+Dla ciał o ciągłym rozmieszczeniu masy sumy przechodzą w całki: dzielimy ciało myślowo na nieskończenie małe elementy o ciężarach $dG$ i bierzemy granicę. Wynikowe całki rozciągamy na całą bryłę. To formalizm, ale ma konkretną konsekwencję praktyczną: dla bryły jednorodnej ciężar elementu $dG=\gamma\,dV$ jest proporcjonalny do objętości, więc współczynnik $\gamma$ skraca się i pozostaje czysta geometria.
+
+Ograniczenie modelu tkwi w założeniu o równoległości sił. Na dużych obiektach — kontynentach, drapaczach chmur, satelitach — linie działania ciężaru schodzą się w środku Ziemi i przestają być równoległe. Środek ciężkości nadal istnieje jako punkt wypadkowej, ale przestaje pokrywać się ze środkiem masy. W typowych zadaniach inżynierskich obiekty są małe w porównaniu z Ziemią i różnica $g$ jest pomijalna — wtedy oba punkty są w praktyce tym samym punktem.
+
+## Laboratorium: co ustawić
+
+Ustaw masy i położenia trzech punktów. Najpierw ustaw wszystkie masy równe i sprawdź, że środek ląduje w średniej arytmetycznej położeń. Potem zwiększaj masę jednego punktu i obserwuj, jak środek ciężkości przemieszcza się po prostej w stronę tego punktu — dokładnie tak, jak przewiduje średnia ważona.
+
+<Lab id="staticsCentroid" />
+
+## Definicje i jednostki
+
+| Pojęcie                      | Symbol          | Definicja                                  | Jednostka |
+| ---------------------------- | --------------- | ------------------------------------------ | --------- |
+| Ciężar części                | $G_k$           | Siła ciężkości części: $G_k=m_k g$         | N, kN     |
+| Ciężar całkowity             | $G$             | Suma ciężarów: $G=\sum G_k$                | N, kN     |
+| Współrzędna środka ciężkości | $x_C, y_C, z_C$ | Średnia ważona współrzędnych, wagą ciężar  | m, mm     |
+| Środek masy                  | $C_m$           | Średnia ważona współrzędnych, wagą masa    | —         |
+| Moment statyczny ciężaru     | $M_O$           | Suma momentów ciężarów względem punktu $O$ | N·m, kN·m |
+
+Symbole: $m_k$ — masa części, $g$ — przyspieszenie ziemskie, $r_C$ — wektor wodzący punktu $C$. Jednostki: współrzędne w m lub mm, momenty ciężaru w N·m; w statyce budowlanej często kN i m, co daje kN·m.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+x_C=\frac{\sum_{k=1}^{n} x_k G_k}{\sum_{k=1}^{n} G_k},\qquad
+y_C=\frac{\sum_{k=1}^{n} y_k G_k}{\sum_{k=1}^{n} G_k},\qquad
+z_C=\frac{\sum_{k=1}^{n} z_k G_k}{\sum_{k=1}^{n} G_k}
+$$
+
+<Caption>Środek ciężkości układu punktów materialnych. Licznik każdego ze wzorów to suma momentów ciężaru względem odpowiedniej płaszczyzny, mianownik to ciężar całkowity. Wzory wymagają równoległego, jednokierunkowego pola ciężkości.</Caption>
+</Formula>
+
+Wyprowadzenie dla jednej osi przebiega w czterech krokach. Po pierwsze, siły ciężkości tworzą układ równoległy, więc ich wypadkowa ma wartość $G=\sum G_k$ i prostopadły zwrot w dół. Po drugie, momenty wszystkich sił względem punktu $O$ na osi $x$ sumują się do $\sum G_k x_k$ — każdy ciężar dociąża układ proporcjonalnie do swojej odległości. Po trzecie, wypadkowa zaczepiona w $C$ daje moment $G\,x_C$. Po czwarte, z warunku równoważności $G\,x_C=\sum G_k x_k$ po podziale przez $G$ otrzymujemy szukany wzór. Tożsamy rachunek dla osi $y$ i $z$ daje pozostałe współrzędne.
+
+Jeżeli pole grawitacyjne jest jednorodne, $g$ jest stałe i wolno podstawić $G_k=m_k g$. Współczynnik $g$ skraca się w liczniku i mianowniku, dając wzory na środek masy z masami jako wagami. Dla ciał ciągłych sumy przechodzą w całki $\int x\,dG / \int dG$ — tej wersji używemy od następnej lekcji dla linii, figur i brył.
+
+<AnimatedSolution id="ex-statyka-srodek-masy" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Sumowanie współrzędnych bez wag: środek ciężkości to średnia ważona, nie zwykła średnia; pominięcie wag daje punkt pośrodku nawet dla bardzo nierównomiernego rozkładu masy.
+- Mieszanie ciężaru i masy w jednej tabeli: wagami mogą być albo same ciężary, albo same masy, nigdy oba naraz.
+- Zgubienie minusa przy współrzędnej ujemnej: część leżąca po lewej stronie osi wnosi ujemny moment i przesuwa środek w przeciwną stronę.
+- Zakładanie, że środek ciężkości musi leżeć „w materiale”: w pierścieniu czy w kształcie litery C punkt $C$ leży w pustce, a mimo to jest poprawny — w środku masy nie musi być żadna masa.
+- Skracanie przez $g$ przy niejednorodnym polu grawitacyjnym: dla satelitów i bardzo wysokich konstrukcji środek ciężkości i środek masy się rozjeżdżają.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Szukaj słów: „wyznaczyć położenie środka ciężkości (masy) układu”, „ciężary punktów”, „system cząstek”.
+2. Sprawdź, czy dane opisują odizolowane masy lub ciężary o znanych położeniach — wtedy wystarczą sumy, bez całek.
+3. Ustal wspólny początek układu współrzędnych i dla każdej części zapisz trójkę: waga, współrzędna $x$, współrzędna $y$.
+4. Policz ciężar całkowity i sumy momentów względem obu osi; podziel je przez ciężar całkowity.
+5. Sprawdź wynik: punkt powinien leżeć w obrębie wypukłej otoczki układu i przesuwać się w stronę cięższych części.
+6. Jeśli w treści pojawia się $g=$ const lub wszystkie części są z tego samego materiału, możesz liczyć na masach — wynik będzie identyczny.
+
+## Połącz z resztą kursu
+
+- **Płaski zbieżny układ sił** — siły ciężkości punktów są układem równoległym; środek ciężkości to zastosowanie teorii wypadkowej takiego układu.
+- **Moment siły i moment zginający** — cała konstrukcja tej lekcji to jedno wielkie równanie momentów; bez sprawnego liczenia momentów nie ruszysz dalej.
+- **Środki ciężkości linii, figur i brył** — następne lekcje zamieniają sumy na całki, ale idea średniej ważonej pozostaje ta sama.
+- **Geometria przekrojów** — w wytrzymałości materiałów te same wzory wyznaczą oś obojętną belki, od której liczy się zginanie.
+- **Ciężar własny konstrukcji** — wypadkowa ciężaru własnego zaczepia się w środku ciężkości i tam trafia na schemat obliczeniowy.
+
+## Sprawdź się
+
+Pytania sprawdzają definicję środka ciężkości, rozróżnienie środek ciężkości–środek masy i rachunek momentów.
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Co to jest środek ciężkości układu punktów materialnych?</Prompt>
+    <Answer>Geometrzyczny środek układu, zawsze położony w najcięższym punkcie</Answer>
+    <Answer correct>
+      Punkt, w którym można zaczepić wypadkową sił ciężkości, nie zmieniając sumy sił ani momentów
+    </Answer>
+    <Answer>Punkt, w którym masa układu jest skoncentrowana</Answer>
+    <Hint>Pomyśl o równoważności: wypadkowa musi dawać ten sam moment co wszystkie siły razem.</Hint>
+    <Explanation>
+      Środek ciężkości definiuje się przez równoważność układów sił: wypadkowa o wartości sumy ciężarów zaczepiona w C
+      daje identyczną sumę momentów jak wszystkie siły składowe. Nie musi to być punkt o największej masie ani punkt
+      zawierający materiał.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy środek ciężkości pokrywa się ze środkiem masy?</Prompt>
+    <Answer>Zawsze, bo ciężar i masa są proporcjonalne</Answer>
+    <Answer correct>Gdy przyspieszenie ziemskie jest stałe we wszystkich punktach układu</Answer>
+    <Answer>Tylko gdy wszystkie masy są równe</Answer>
+    <Hint>Rozważ, co się dzieje ze współczynnikiem g we wzorze na środek ciężkości.</Hint>
+    <Explanation>
+      Przy g = const podstawiamy Gk = mk·g i skracamy g, otrzymując środek masy. Przy zmiennym g (np. bardzo rozległe
+      lub wysokie konstrukcje) skrócenie jest niemożliwe i punkty się rozjeżdżają.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dwie masy: 2 kg w x = 1 m i 6 kg w x = 5 m. Wyznacz xC.</Prompt>
+    <Answer>3 m</Answer>
+    <Answer correct>4 m</Answer>
+    <Answer>4,5 m</Answer>
+    <Hint>xC = (2·1 + 6·5) / (2 + 6).</Hint>
+    <Explanation>
+      xC = (2 + 30)/8 = 32/8 = 4 m. Środek leży bliżej cięższej masy, ale nie w jej położeniu — średnia ważona nigdy nie
+      wychodzi poza zakres współrzędnych.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Obliczono xC = −0,3 m przy przyjętym początku osi. Co oznacza ujemna wartość?</Prompt>
+    <Answer>Środek ciężkości nie istnieje dla ujemnych mas</Answer>
+    <Answer correct>Środek leży po lewej stronie przyjętego początku osi</Answer>
+    <Answer>Wynik jest błędny, współrzędne środków są zawsze dodatnie</Answer>
+    <Hint>Znak współrzędnej zależy od umowy o początku układu, nie od własności ciała.</Hint>
+    <Explanation>
+      Znak współrzędnej mówi tylko, po której stronie przyjętego początku leży punkt C. Zmiana początku osi przesuwa
+      współrzędne wszystkich punktów, w tym środka ciężkości, ale nie przesuwa samego C względem ciała.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Odważnik jednorodny ma środek masy w swoim geometrycznym środku, lecz w środku tym nie ma żadnego materiału (jest
+      tam otwór). Co z tego wynika?
+    </Prompt>
+    <Answer>Obliczenia są sprzeczne, bo środek masy musi zawierać masę</Answer>
+    <Answer correct>Nic nadzwyczajnego — środek masy to średnia położeń i nie musi w nim być materiału</Answer>
+    <Answer>Trzeba wyznaczyć środek ciężkości inna metodą, bo centroida nie istnieje</Answer>
+    <Hint>Przywołaj przykład pączka lub obręczy ze słowami „nie musi być masy tam, gdzie środek masy".</Hint>
+    <Explanation>
+      Środek masy jest średnią ważoną położeń, a średnia nie musi odpowiadać żadnemu rzeczywistemu fragmentowi
+      materiału. Dla obręczy jednorodnej środek masy leży w środku otworu i jest w pełni poprawnym punktem zaczepienia
+      wypadkowej ciężaru.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Układ dwóch ciężarów: 100 N w x = 2 m i 300 N w x = 6 m. Jaki moment względem początku osi daje wypadkowa
+      zaczepiona w środku ciężkości?
+    </Prompt>
+    <Answer>1200 N·m</Answer>
+    <Answer correct>2000 N·m</Answer>
+    <Answer>2400 N·m</Answer>
+    <Hint>Najpierw xC, potem moment wypadkowej; porównaj z sumą momentów składowych.</Hint>
+    <Explanation>
+      xC = (100·2 + 300·6)/400 = 2000/400 = 5 m. Moment wypadkowej: 400·5 = 2000 N·m. Bezpośrednia suma momentów: 100·2
+      + 300·6 = 200 + 1800 = 2000 N·m — zgodność potwierdza rachunek.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Środek ciężkości i środek masy", str. 2–8 — definicja środka ciężkości, wzory sumacyjne, przejście graniczne do całek i wprowadzenie środka masy przy g = const.
+- D. Baker, W. Haynes, _Engineering Statics_, rozdz. 7.1–7.3 — średnia ważona jako uniwersalna idea; wyprowadzenie współrzędnych ze zrównania momentów i przykład z ołówkiem.
+- OpenStax, _University Physics_, vol. 1, rozdz. 9.6 — środek masy układu cząstek, dyskusja sił wewnętrznych i spostrzeżenie, że w środku masy nie musi być masy.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_, rozdz. 7.1 — środek masy dwóch cząstek i układów dyskretnych z przykładami liczbowymi.

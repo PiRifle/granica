@@ -1,0 +1,177 @@
+---
+id: statyka-obciazenia-rozlozone
+moduleId: statyka-plaskie-dowolne
+number: 4
+title: 'Obciążenia rozłożone: wypadkowa i jej środek'
+shortTitle: Obciążenia ciągłe
+description: >-
+  Zastąp obciążenie ciągłe wypadkową o wartości równej polu diagramu i znajdź
+  jej prostą działania przez środek ciężkości obciążenia.
+eyebrow: 'Nieskończenie wiele sił → jedna'
+outcomes:
+  - W1 — rozumie intensywność obciążenia i jej jednostki
+  - W2 — wyjaśnia, dlaczego wypadkowa przechodzi przez środek ciężkości diagramu obciążenia
+  - U1 — oblicza wypadkową obciążenia prostokątnego, trójkątnego i trapezowego
+  - U2 — stosuje zastępstwo obciążenia ciągłego do wyznaczania reakcji podpór
+---
+
+Śnieg na dachu, woda na tamie, wiatr na ścianie, a przede wszystkim ciężar własny belki — żadne z tych obciążeń nie jest siłą skupioną. Wszystkie są rozłożone na długości lub powierzchni i opisuje się je intensywnością $q$ — siłą przypadającą na metr bieżący. Praca z nieskończoną liczbą nieskończenie małych sił byłaby uciążliwa, ale redukcja z poprzedniej lekcji daje natychmiastowy skrót: obciążenie ciągłe jest równoważne jednej wypadkowej o wartości równej polu pod wykresem $q(x)$, przyłożonej w środku ciężkości tego pola.
+
+To spostrzeżenie ma ogromną praktyczną wartość. Reakcje podpór belki obciążonej ciężarem własnym liczysz tak, jakby cały ciężar był skupiony w jednym punkcie — i otrzymujesz dokładnie ten sam wynik, co przy sumowaniu wszystkich elementarnych sił. Jednocześnie zastępstwo ma granice: działa tylko na efekty zewnętrzne. Gdy później będziesz szukać sił wewnętrznych w przekroju, musisz wrócić do rozkładu ciągłego.
+
+W tej lekcji nauczysz się redukować obciążenia prostokątne, trójkątne i trapezowe, a następnie wyznaczać reakcje podpór belki z obciążeniem ciągłym. To bezpośrednie przygotowanie do lekcji o reakcjach konstrukcji.
+
+## Zanim zaczniesz
+
+- Umiej liczyć pole prostokąta i trójkąta oraz położenie środka ciężkości obu figur.
+- Znaj redukcję układu sił do bieguna: wektor główny i moment główny.
+- Przypomnij sobie średnią ważoną z lekcji o siłach równoległych — obciążenie ciągłe to jej graniczny przypadek.
+- Pamiętaj o jednostkach: jeśli $q$ jest w kN/m, a długość w m, wypadkowa wychodzi w kN.
+
+## Model i intuicja
+
+Obciążenie rozłożone na osi $x$ opisujemy funkcją intensywności $q(x)$ — siły przypadającej na jednostkę długości. Elementarna siła działająca na odcinek $dx$ wynosi $dQ = q(x)\,dx$; wszystkie elementarne siły są równoległe, więc układ redukuje się jak układ sił równoległych. Wypadkowa to suma (całka) elementarnych sił, czyli pole pod wykresem: $Q = \int_0^L q(x)\,dx$. Położenie wypadkowej to średnia ważona z granicznymi wagami: $x_Q = \frac{1}{Q}\int_0^L x\,q(x)\,dx$ — czyli odcięta środka ciężkości figury pod wykresem.
+
+Dla obciążenia prostokątnego ($q = \text{const}$): $Q = qL$, działająca w środku, $x_Q = L/2$. Dla trójkątnego narastającego od zera do $q_{max}$ na długości $L$: $Q = \frac{1}{2}q_{max}L$, działająca w punkcie oddalonym o $\frac{2}{3}L$ od końca zerowego (czyli o $\frac{1}{3}L$ od końca z maksimum). Obciążenie trapezowe wygodnie dzieli się na prostokątny i trójkątny składnik i sumuje jako dwa układy równoległe.
+
+Model ma dwa ograniczenia. Po pierwsze, zastępstwo jest równoważne tylko zewnętrznie — wewnątrz elementu rozkład $q(x)$ decyduje o siłach wewnętrznych, więc zanim użyjesz wypadkowej do rysowania wykresów momentów, wróć do obciążenia ciągłego. Po drugie, funkcja $q(x)$ musi być statyczna; obciążenia dynamiczne (uderzenia, wibracje) wymagają innych narzędzi.
+
+## Laboratorium: co ustawić
+
+Ustaw w laboratorium belkę z obciążeniem trójkątnym i porównaj reakcje podpór z dwoma podejściami: sumując obciążenie jako pole trójkąta oraz dzieląc je na kilka sił skupionych. Wyniki muszą się zgadzać. Następnie przesuń wierzchołek trójkąta i zaobserwuj, jak szybko reakcja bliższej podpory rośnie, gdy „ciężar” diagramu zbliża się do niej.
+
+<Lab id="staticsPlanar" />
+
+## Definicje i jednostki
+
+| Wielkość                | Symbol | Jednostka | Znaczenie                          |
+| ----------------------- | ------ | --------- | ---------------------------------- |
+| Intensywność obciążenia | $q$    | N/m, kN/m | siła przypadająca na metr bieżący  |
+| Wypadkowa obciążenia    | $Q$    | N, kN     | pole pod wykresem $q(x)$           |
+| Długość obciążenia      | $L$    | m         | zakres działania $q(x)$            |
+| Odcięta wypadkowej      | $x_Q$  | m         | środek ciężkości figury obciążenia |
+
+Jednostki intensywności: kN/m w układzie SI; w zadaniach starszych spotkasz też N/cm. Uwaga na pułapkę: q razy długość daje siłę, więc argumenty funkcji $q(x)$ i położenia muszą być w spójnych jednostkach. Środek ciężkości prostokąta to środek odcinka; trójkąta — punkt na wysokości $\frac{1}{3}h$ od podstawy, czyli $\frac{2}{3}L$ od wierzchołka zerowego przy obciążeniu liniowym.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+Q=\int_0^L q(x)\,dx,\qquad
+x_Q=\frac{1}{Q}\int_0^L x\,q(x)\,dx
+$$
+
+<Caption>Wypadkowa obciążenia ciągłego i położenie jej prostej działania. Dla prostokąta: $Q = qL$ w $L/2$; dla trójkąta: $Q = \frac{1}{2}q_{max}L$ w $\frac{2}{3}L$ od końca zerowego. Wypadkowa zastępuje obciążenie ciągłe wyłącznie dla efektów zewnętrznych — reakcji podpór i równowagi całej konstrukcji.</Caption>
+</Formula>
+
+Wyprowadzenie pochodzi z redukcji układu równoległego w granicy. Dzielimy oś na odcinki $dx$, każdy z siłą $dQ = q\,dx$ przyłożoną w $x$. Wypadkowa: $Q = \sum q\,dx \to \int q\,dx$ — pole figury. Położenie: $x_Q = \frac{\sum x\,q\,dx}{Q} \to \frac{\int xq\,dx}{Q}$, co jest definicją odciętej środka ciężkości. To samo daje twierdzenie Varignona zastosowane do pary „obciążenie — wypadkowa”: momenty względem dowolnego bieguna muszą być równe, a ponieważ biegun jest dowolny, jedynym punktem spełniającym ten warunek jest środek ciężkości.
+
+<Insight>
+  Wypadkowa obciążenia ciągłego to pole diagramu; jej prostą działania wyznacza środek ciężkości tego pola. Dwie reguły
+  wystarczą do większości zadań: prostokąt działa w połowie, trójkąt w dwóch trzecich od końca zerowego.
+</Insight>
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-obciazenia-rozlozone" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Ustawianie wypadkowej trójkątnego obciążenia w połowie zamiast w $\frac{2}{3}$ długości od końca zerowego.
+- Mnożenie $q_{max}$ przez długość bez czynnika $\frac{1}{2}$ przy obciążeniu trójkątnym.
+- Mieszanie jednostek: $q$ w kN/m i długości w cm dają wypadkową w kN·cm — trzeba przeliczyć.
+- Używanie wypadkowej do obliczeń sił wewnętrznych w przekroju — zastępstwo działa tylko na całą konstrukcję.
+- Rysowanie na rysunku ciała wolnego jednocześnie $q(x)$ i $Q$ — to podwójne uwzględnienie tego samego obciążenia.
+- Zapominanie, że obciążenie trapezowe można podzielić na prostokąt i trójkąt — próby stosowania wzoru na trapez z pamięci kończą się błędami.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zidentyfikuj obszar działania obciążenia i narysuj wykres $q(x)$ z wymiarami.
+2. Rozbij wykres na figury o znanych polach i środkach ciężkości (prostokąt, trójkąt).
+3. Policz każdą wypadkową $Q_i$ jako pole i zaznacz jej położenie $x_i$ na osi.
+4. Zsumuj siły i momenty — całkowita wypadkowa i jej odcięta to średnia ważona.
+5. Przy reakcjach: narysuj ciało wolne z $Q_i$ (albo z samym $q(x)$, ale nigdy z oboma) i zapisz równania równowagi.
+6. Sprawdź wynik drugim biegunem momentów, zanim przejdziesz do sił wewnętrznych.
+
+## Połącz z resztą kursu
+
+- **Siły równoległe** — obciążenie ciągłe to układ nieskończenie wielu sił równoległych; wypadkowa i średnia ważona to te same wzory w granicy.
+- **Redukcja do bieguna** — wypadkowa $Q$ i moment $Q\cdot x_Q$ to po prostu wektor główny i moment główny obciążenia.
+- **Równowaga płaska** — reakcje belki z obciążeniem ciągłym to pierwsze pełne zastosowanie trzech równań równowagi.
+- **Reakcje konstrukcji** — w zadaniach z belek i ram obciążenie ciągłe pojawia się niemal zawsze; ta lekcja to jego słownik.
+- **Środki ciężkości** — ta sama matematyka definiuje środek ciężkości przekroju; wrócisz do niej w module o geometrii przekrojów.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Jednostką intensywności obciążenia liniowego $q$ jest:</Prompt>
+    <Answer>kN</Answer>
+    <Answer>kN·m</Answer>
+    <Answer correct>kN/m</Answer>
+    <Hint>Intensywność to siła przypadająca na jednostkę długości.</Hint>
+    <Explanation>
+      $q$ to siła na metr bieżący, więc jednostką jest kN/m (lub N/m). Pomnożona przez długość daje siłę w kN — dlatego pole pod wykresem $q(x)$ ma wymiar siły.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Obciążenie równomierne q = 6 kN/m na długości 4 m. Wypadkowa i jej położenie?</Prompt>
+    <Answer>10 kN w 2 m od początku</Answer>
+    <Answer correct>24 kN w połowie, czyli 2 m od początku</Answer>
+    <Answer>24 kN w 4 m od początku</Answer>
+    <Hint>Wypadkowa prostokąta to pole, położenie to środek.</Hint>
+    <Explanation>
+      $Q = qL = 6\cdot 4 = 24\ \text{kN}$. Przy obciążeniu stałym środek ciężkości leży na środku odcinka, więc $x_Q = 2\ \text{m}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Obciążenie trójkątne narasta od 0 do qmax = 8 kN/m na długości 3 m. Wypadkowa działa w odległości:</Prompt>
+    <Answer>1,5 m od końca zerowego</Answer>
+    <Answer>2,5 m od końca zerowego</Answer>
+    <Answer correct>2 m od końca zerowego</Answer>
+    <Hint>Trójkąt: $\frac{2}{3}L$ od końca zerowego, $\frac{1}{3}L$ od maksimum.</Hint>
+    <Explanation>
+      Wypadkowa $Q = \frac{1}{2}\cdot 8\cdot 3 = 12\ \text{kN}$ działa w $\frac{2}{3}\cdot 3 = 2\ \text{m}$ od końca, gdzie $q = 0$, czyli 1 m od końca z maksimum. To wynik prosto ze środka ciężkości trójkąta.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Kiedy wolno zastąpić obciążenie ciągłe wypadkową $Q$?</Prompt>
+    <Answer>Zawsze, w każdym obliczeniu belki</Answer>
+    <Answer correct>Tylko przy analizie efektów zewnętrznych: reakcji i równowagi całej konstrukcji</Answer>
+    <Answer>Nigdy — wypadkowa jest jedynie skrótem rachunkowym bez sensu fizycznego</Answer>
+    <Hint>Pomyśl o siłach wewnętrznych w przekroju pod końcem diagramu obciążenia.</Hint>
+    <Explanation>
+      Zastępstwo zachowuje sumy sił i momenty zewnętrzne, więc reakcje i równowaga globalna są identyczne. Rozkład sił wewnętrznych zależy jednak od lokalnego $q(x)$ — w przekrojach trzeba wrócić do obciążenia ciągłego.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Trapezowe obciążenie: 3 kN/m na całej długości 5 m plus trójkąt narastający do 2 kN/m. Jak poprawnie policzyć wypadkową?</Prompt>
+    <Answer>$Q = (3+2)\cdot 5 = 25$ kN w połowie</Answer>
+    <Answer correct>$Q_1 = 15$ kN w 2,5 m oraz $Q_2 = 5$ kN w $\frac{10}{3}$ m, suma 20 kN</Answer>
+    <Answer>$Q = \frac{1}{2}(3+5)\cdot 5 = 20$ kN w 2,5 m</Answer>
+    <Hint>Rozbij trapez na prostokątny i trójkątny składnik.</Hint>
+    <Explanation>
+      Prostokąt: $Q_1 = 3\cdot 5 = 15\ \text{kN}$ w $2{,}5\ \text{m}$. Trójkąt: $Q_2 = \frac{1}{2}\cdot 2\cdot 5 = 5\ \text{kN}$ w $\frac{2}{3}\cdot 5 = 3{,}33\ \text{m}$. Razem $20\ \text{kN}$. Uśrednianie intensywności na końcach ($q_{śr} = 4$) daje tę samą wartość, ale położenie trzeba i tak liczyć ze składowych.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Czym różni się ciśnienie od intensywności obciążenia liniowego?</Prompt>
+    <Answer>To synonimy w zadaniach płaskich</Answer>
+    <Answer correct>Ciśnienie to siła na powierzchnię (np. kPa = kN/m²), intensywność to siła na długość (kN/m)</Answer>
+    <Answer>Intensywność dotyczy tylko ciężaru własnego</Answer>
+    <Hint>Porównaj wymiary: kN/m² a kN/m.</Hint>
+    <Explanation>
+      Ciśnienie działa na powierzchnię i ma jednostkę kN/m²; żeby dostać z niego obciążenie liniowe belki, trzeba je jeszcze przemnożyć przez szerokość, na której działa. Intensywność $q$ opisuje już siłę przypadającą na metr bieżący elementu.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład _„Moment siły, siły równoległe, płaski dowolny układ sił”_, str. 21–22: belka utwierdzona z obciążeniem ciągłym $Q = q\cdot b$ przyłożonym w środku odcinka obciążonego; równania reakcji z momentem obciążenia ciągłego.
+- Baker, Haynes, _Engineering Statics_, rozdz. 7.8 (Distributed Loads): wypadkowa jako pole diagramu, położenie w środku ciężkości, przykłady wspornika i belki swobodnie podpartej.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ (Engineering LibreTexts), rozdz. 3.3: intensywność, siła zastępcza i jej punkt działania, obciążenia złożone.
+- Moore i in., _Engineering Mechanics: Statics_ (wersja rozbudowana UPEI), rozdz. 3.3: równoważenie obciążeń rozłożonych całką i figurami geometrycznymi.
+- Leyko, _Mechanika ogólna_, t. I: obciążenia ciągłe i ich wypadkowe w zadaniach belkowych.

@@ -1,0 +1,174 @@
+---
+id: statyka-przekroje-obciazenia
+moduleId: statyka-sily-wewnetrzne
+number: 3
+title: 'Przekroje przy obciążeniach ciągłych'
+shortTitle: Obciążenia ciągłe
+description: >-
+  Obcinaj rozkładane obciążenie razem z belką i zastępuj wypadkową tylko tę
+  część, która leży po wybranej stronie przekroju.
+eyebrow: Wypadkowa tylko po jednej stronie
+outcomes:
+  - 'W1 — wyjaśnia, dlaczego wypadkowa zastępuje tylko część obciążenia po stronie przekroju'
+  - 'W2 — wiąże natężenie obciążenia z jednostką i wypadkową'
+  - 'U1 — wyznacza siły wewnętrzne w przekrojach belki z obciążeniem częściowym'
+  - 'U2 — stosuje wypadkową trójkątnego rozkładu obciążenia'
+---
+
+Obciążenie ciągłe to siła rozłożona na odcinku belki: ciężar własny, śnieg na dachu, woda w rurze, półka z książkami. W zadaniu opisujemy je natężeniem $q$ w kN/m. Do równań równowagi całej belki zamienialiśmy je na jedną siłę wypadkową przechodzącą przez środek ciężkości obszaru obciążenia. Teraz zrobimy krok dalej: pokażemy, jak postępować, gdy przekrój przecina samo obciążenie.
+
+Zasada jest prosta i bezwzględna: belkę przecinamy razem z obciążeniem, a wypadkową zastępujemy tylko tę część rozkładu, która leży po wybranej stronie przekroju. Dla przekroju w odległości $x$ od lewej podpory i obciążenia na całym odcinku $[0, x]$ wypadkowa wynosi $qx$ i działa w środku ciężkości tego odcinka, czyli w odległości $x/2$ od podpory. Ta wypadkowa rośnie liniowo wraz z $x$ — i właśnie dlatego wykres siły tnącej pod obciążeniem ciągłym będzie linią prostą, a nie poziomym odcinkiem.
+
+W tej lekcji nauczysz się prowadzić cięcie przez rozkładane obciążenie, liczyć wypadkową częściową i stosować ją w równaniach równowagi. Zobaczysz też, jak ten sam przekrój liczyć z drugiej strony belki, gdzie obciążenie nie występuje wcale.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie wyznaczanie reakcji z obciążeniem ciągłym: wypadkowa $W = qL$ dla równomiernego rozkładu na całej długości.
+- Upewnij się, że znasz położenie środka ciężkości prostokąta i trójkąta.
+- Opanuj konwencję znaków z poprzedniej lekcji — będzie pracować na każdym kroku.
+- Pamiętaj o jednostkach: $q$ w kN/m razy metry daje kN; moment w kN·m.
+
+## Model i intuicja
+
+Wyobraź sobie deskę opartą na dwóch kozłach, na której leży długi worek z piaskiem rozłożony równomiernie. Gdy przecinasz deskę myślowo w jakimś punkcie, na lewej części leży tylko fragment worka — nie cały worek. Siła, jaką ten fragment wywiera na deskę, jest proporcjonalna do jego długości. Dokładnie tak działa wypadkowa częściowa: $W(x) = qx$.
+
+Intuicja środka ciężkości też jest prosta: równomierny rozkład na odcinku $[0, x]$ ma środek ciężkości w połowie, więc wypadkowa działa w odległości $x/2$ od podpory A, czyli $x/2$ od lewego końca obciążonego odcinka. Dla trójkątnego rozkładu, rosnącego od zera, wypadkowa wynosi $qx/2$ i działa w odległości $x/3$ od końca, w którym natężenie jest największe.
+
+Granica modelu jest taka sama jak wcześniej: zamiana rozkładu na wypadkową jest dozwolona tylko do równań równowagi całej części, nie do opisu naprężeń wewnątrz samego przekroju. Lokalnie, tuż przy cięciu, rozkład sił może być złożony — ale wypadkowa prawidłowo oddaje globalny efekt.
+
+## Laboratorium: co ustawić
+
+Przygotuj belkę z obciążeniem ciągłym na części rozpiętości. Ustaw przekrój najpierw w obrębie obciążenia, potem poza nim. Porównaj, jak zmienia się siła tnąca: wewnątrz obciążenia maleje liniowo, poza nim jest stała. Sprawdź, czy moment w przekroju zgadza się z polem pod wykresem $T$.
+
+<Lab id="staticsInternal" />
+
+## Definicje i jednostki
+
+**Natężenie obciążenia** $q$ to siła przypadająca na jednostkę długości, w kN/m. Dla równomiernego rozkładu jest stałe.
+
+**Wypadkowa częściowa** to siła zastępująca rozkład tylko na wyznaczonym odcinku: $W = qx$ dla odcinka długości $x$ przy rozkładzie równomiernym.
+
+**Środek ciężkości obciążenia** to punkt działania wypadkowej: $x/2$ od końca dla prostokąta, $x/3$ od strony maksymalnego natężenia dla trójkąta.
+
+| Symbol   | Wielkość                    | Jednostka | Uwaga                      |
+| -------- | --------------------------- | --------- | -------------------------- |
+| $q$      | natężenie obciążenia        | kN/m      | $W = qx$ na odcinku $x$    |
+| $W$      | wypadkowa częściowa         | kN        | działa w środku ciężkości  |
+| $x$      | długość obciążonego odcinka | m         | po lewej stronie przekroju |
+| $T$, $M$ | siła tnąca, moment          | kN, kN·m  | jak w konwencji znaków     |
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+T(x) = R_A - qx, \qquad M(x) = R_A x - \frac{qx^2}{2}
+$$
+
+<Caption>Funkcje sił wewnętrznych dla belki z równomiernym obciążeniem ciągłym na całej długości, przy $R_A = qL/2$. Siła tnąca maleje liniowo, moment jest parabolą. Wynik dla $x$ wymaga znajomości reakcji.</Caption>
+</Formula>
+
+Wyprowadzenie dla przekroju w odległości $x$ od lewej podpory, z równomiernym obciążeniem na odcinku $[0, x]$:
+
+1. Wypadkowa częściowa: $W(x) = qx$.
+2. Równowaga pionowa lewej części: $R_A - qx - T = 0$, skąd $T(x) = R_A - qx$.
+3. Moment wypadkowej względem przekroju: $qx \cdot x/2 = qx^2/2$.
+4. Równowaga momentów lewej części: $M(x) - R_A x + qx^2/2 = 0$, skąd $M(x) = R_A x - qx^2/2$.
+
+Dla obciążenia trójkątnego o maksymalnym natężeniu $q$ na długości $x$ wypadkowa wynosi $W = qx/2$ i działa w odległości $x/3$ od strony maksimum.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-przekroje-obciazenia" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zastępowanie całego obciążenia wypadkową przy cięciu wewnątrz rozkładu — do równowagi wchodzi tylko część po lewej stronie przekroju.
+- Przesuwanie wypadkowej częściowej na środek całego obciążenia zamiast na środek obciążonego odcinka.
+- Zapominanie, że wypadkowa częściowa rośnie z $x$ i wprowadza $x$ do równań.
+- Mylenie położenia środka ciężkości trójkąta: $x/3$ od podstawy, nie od wierzchołka.
+- Pomijanie reakcji w równaniach — obciążenie ciągłe nie zastępuje reakcji, tylko dołącza się do nich.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zadanie podaje $q$ w kN/m — od razu zaznacz na schemacie zakres działania obciążenia.
+2. Wyznacz reakcje, zamieniając całe obciążenie na wypadkową w środku ciężkości.
+3. Dla każdego przekroju sprawdź, czy leży w obrębie obciążenia.
+4. W obrębie: wypadkowa częściowa $qx$ w połowie odcinka. Poza: całe obciążenie jak siła skupiona.
+5. Zapisz równania równowagi i kontroluj drugą stroną cięcia.
+
+## Połącz z resztą kursu
+
+- **Środki ciężkości** — wypadkowa obciążenia ciągłego przechodzi przez środek ciężkości obszaru pod wykresem $q$.
+- **Zależności q–T–M** — w następnej lekcji zobaczysz, dlaczego liniowy spadek $T$ pod obciążeniem ciągłym prowadzi do paraboli $M$.
+- **Wykresy T i M** — belki z obciążeniem ciągłym dają najczęstsze diagramy w praktyce.
+- **Ciężar własny w wytrzymałości** — to typowe obciążenie ciągłe $q = \gamma A$ na całej długości elementu.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Przekrój w $x = 2$ m przecina równomierne obciążenie $q = 4$ kN/m. Jaka wypadkowa zastępuje obciążenie po lewej stronie?</Prompt>
+    <Answer>4 kN w odległości 1 m od A</Answer>
+    <Answer correct>8 kN w odległości 1 m od A</Answer>
+    <Answer>8 kN w odległości 2 m od A</Answer>
+    <Answer>12 kN w odległości 1,5 m od A</Answer>
+    <Hint>Wypadkowa częściowa to $qx$.</Hint>
+    <Explanation>
+      $W = 4 \cdot 2 = 8$ kN, działająca w środku odcinka $[0, 2]$, czyli 1 m od podpory A. Całe obciążenie
+      (12 kN) leżałoby na lewo dopiero dla przekroju $x \geq 3$ m.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Dla belki z przykładu: siła tnąca w przekroju $x = 2$ m wynosi:</Prompt>
+    <Answer>9 kN</Answer>
+    <Answer correct>1 kN</Answer>
+    <Answer>-1 kN</Answer>
+    <Answer>-3 kN</Answer>
+    <Hint>$T = R_A - qx$.</Hint>
+    <Explanation>
+      $T = 9 - 4 \cdot 2 = 1$ kN. Siła tnąca maleje liniowo od $9$ kN na podporze A w stronę przekroju.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Moment zginający w przekroju $x = 2$ m wynosi:</Prompt>
+    <Answer>8 kN·m</Answer>
+    <Answer>12 kN·m</Answer>
+    <Answer correct>10 kN·m</Answer>
+    <Answer>18 kN·m</Answer>
+    <Hint>$M = R_A x - qx \cdot x/2$.</Hint>
+    <Explanation>
+      $M = 9 \cdot 2 - 8 \cdot 1 = 10$ kN·m. Moment rośnie, ale coraz wolniej, bo siła tnąca maleje.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła tnąca w przekroju $x = 4{,}5$ m wynosi:</Prompt>
+    <Answer>9 kN</Answer>
+    <Answer correct>-3 kN</Answer>
+    <Answer>-12 kN</Answer>
+    <Answer>3 kN</Answer>
+    <Hint>Po prawej stronie przekroju nie ma już obciążenia.</Hint>
+    <Explanation>
+      $T = R_A - W = 9 - 12 = -3$ kN, równa co do wartości $-R_B$ — wynik zgodny z lewej i prawej strony cięcia.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dlaczego przy cięciu w $x = 2$ m nie wolno zastąpić całego obciążenia wypadkową 12 kN?</Prompt>
+    <Answer>Bo wypadkowa musi działać w środku ciężkości</Answer>
+    <Answer correct>Bo do równowagi odciętej części wchodzi tylko obciążenie leżące na lewo od przekroju</Answer>
+    <Answer>Bo 12 kN jest zbyt dużą siłą</Answer>
+    <Hint>Pomyśl, co fizycznie leży na lewej części belki.</Hint>
+    <Explanation>
+      Odcięta część belki obejmuje tylko odcinek $[0, 2]$, więc tylko ten fragment obciążenia ją obciąża.
+      Zastąpienie całości 12 kN zaburzyłoby równowagę i dałoby błędne $T$ oraz $M$.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład: „Moment siły, siły równoległe, płaski dowolny układ sił" — rozdział o siłach równoległych i wypadkowej; to on tłumaczy działanie wypadkowej częściowej.
+- Baker, Haynes, _Engineering Statics_ — rozdział 7.8: obciążenia ciągłe, wypadkowa jako pole pod wykresem i jej położenie.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ — rozdział 3.3: obciążenia rozłożone i ich zamiana na siłę zastępczą.
+- Osgood i in., _Engineering Mechanics: Statics_ (UPEI) — rozdział 6, przykłady 6.3: belki z obciążeniem ciągłym w zadaniach inżynierskich.

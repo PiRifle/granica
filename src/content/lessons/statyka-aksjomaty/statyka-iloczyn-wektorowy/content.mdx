@@ -1,0 +1,186 @@
+---
+id: statyka-iloczyn-wektorowy
+moduleId: statyka-aksjomaty
+number: 4
+title: 'Iloczyn wektorowy: reguła śruby i pole równoległoboku'
+shortTitle: Iloczyn wektorowy
+description: >-
+  Iloczyn wektorowy dwóch wektorów: moduł jako pole powierzchni, kierunek
+  prostopadły do płaszczyzny, zapis wyznacznikowy i reguła prawej dłoni.
+eyebrow: 'Wektory, które obracają'
+outcomes:
+  - W1 — interpretuje moduł iloczynu wektorowego jako pole równoległoboku
+  - W2 — określa zwrot iloczynu regułą śruby prawoskrętnej
+  - W3 — wyjaśnia, dlaczego iloczyn wektorowy nie jest przemienny
+  - U1 — oblicza iloczyn wektorowy z zapisu składowych
+  - U2 — wyznacza moduł i kierunek iloczynu oraz wiąże go z momentem siły
+---
+
+Iloczyn skalarny odpowiadał na pytanie „ile jeden wektor idzie w drugi”. Iloczyn wektorowy odpowiada na pytanie postawione inaczej: „jaka jest płaszczyzna i obrót, które te dwa wektory wyznaczają?”. Wynik jest wektorem prostopadłym do obu czynników, o module równym polu równoległoboku zbudowanego na nich i o zwrocie wyznaczonym regułą śruby prawoskrętnej. To właśnie ta operacja stoi za pojęciem momentu siły — i dlatego lekcja ta jest mostem do rozdziału o momentach.
+
+Reguła śruby jest prosta: obracaj śrubę prawoskrętną od pierwszego wektora do drugiego (przez mniejszy kąt) — kierunek, w którym posuwa się śruba, to zwrot iloczynu. Alternatywnie prawo prawej dłoni: palce od $\mathbf{a}$ do $\mathbf{b}$, kciuk wskazuje zwrot $\mathbf{a}\times\mathbf{b}$. Jedno i drugie daje ten sam wynik, ale śruba lepiej „trzyma się” w pamięci przy dłuższych obliczeniach.
+
+## Zanim zaczniesz
+
+- Upewnij się, że znasz iloczyn skalarny (lekcja 3) — porównanie obu operacji ułatwi zapamiętanie własności.
+- Przypomnij sobie pole równoległoboku: podstawa razy wysokość, czyli $|\mathbf{a}||\mathbf{b}|\sin\varphi$.
+- Pamiętaj wersory osi: $\mathbf{i}, \mathbf{j}, \mathbf{k}$ w kolejności prawoskrętnej.
+- Wiedz, że sinus kąta rośnie od $0$ do $1$ dla kątów $0^\circ$–$90^\circ$, a potem maleje.
+
+## Model i intuicja
+
+Geometryczna definicja mówi: $|\mathbf{a}\times\mathbf{b}| = |\mathbf{a}||\mathbf{b}|\sin\varphi$ to pole równoległoboku zbudowanego na $\mathbf{a}$ i $\mathbf{b}$. Skoro sinus znika dla kąta zerowego, iloczyn wektorowy wektora z samym sobą jest zerowy — a w ogóle każdej pary równoległych wektorów. Skoro sinus osiąga jeden dla kąta prostego, maksimalny „obrotowy potencjał” pary występuje przy prostopadłości.
+
+Kluczowa różnica wobec iloczynu skalarnego: kolejność czynników ma znaczenie. Zamiana miejscami odwraca zwrot wyniku: $\mathbf{a}\times\mathbf{b} = -(\mathbf{b}\times\mathbf{a})$. Wynika to wprost z reguły śruby — śruba posuwająca się do przodu przy obrocie od $\mathbf{a}$ do $\mathbf{b}$, przy odwrotnym obrocie wysuwa się do tyłu. Iloczyn wektorowy nie jest więc przemienny, choć zachowuje rozdzielność i łączność z mnożeniem przez liczbę.
+
+W zapisie analitycznym iloczyn wygodnie liczy się jako wyznacznik macierzy z wersorami w pierwszym wierszu i składowymi obu wektorów w wierszach drugim i trzecim. Rozwinięcie daje trzy składowe znakowane „krzyżowo”. To ten sam schemat, który w lekcji o momencie da ci $M_z = xF_y - yF_x$ wprost z współrzędnych punktu przyłożenia i składowych siły.
+
+## Laboratorium: co ustawić
+
+Zbuduj dwie siły w płaszczyźnie i obserwuj, jak kierunek i zwrot ich iloczynu wektorowego reagują na zamianę kolejności. Ustaw siły równoległe i zobacz, że iloczyn znika. To samo ćwiczenie wykonasz w lekcji o momencie — tam iloczyn dostanie interpretację fizyczną.
+
+<Lab id="staticsMoment" />
+
+## Definicje i jednostki
+
+| Pojęcie           | Zapis                                                                                                | Uwaga                                     |
+| ----------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Iloczyn wektorowy | $\mathbf{a}\times\mathbf{b}$                                                                         | wektor, nie skalar                        |
+| Moduł             | $\lvert\mathbf{a}\times\mathbf{b}\rvert = \lvert\mathbf{a}\rvert\,\lvert\mathbf{b}\rvert\sin\varphi$ | pole równoległoboku                       |
+| Kierunek          | prostopadły do płaszczyzny $(\mathbf{a}, \mathbf{b})$                                                | oś obrotu                                 |
+| Zwrot             | reguła śruby prawoskrętnej                                                                           | $\mathbf{i}\times\mathbf{j} = \mathbf{k}$ |
+| Antyprzemienność  | $\mathbf{a}\times\mathbf{b} = -(\mathbf{b}\times\mathbf{a})$                                         | kolejność czynników                       |
+
+Prawa działań: rozdzielność $(\mathbf{a}+\mathbf{b})\times\mathbf{c} = \mathbf{a}\times\mathbf{c} + \mathbf{b}\times\mathbf{c}$, łączność z mnożeniem przez liczbę $m(\mathbf{a}\times\mathbf{b}) = (m\mathbf{a})\times\mathbf{b}$, brak przemienności.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\mathbf{a}\times\mathbf{b}=(a_yb_z-a_zb_y)\,\mathbf{i}+(a_zb_x-a_xb_z)\,\mathbf{j}+(a_xb_y-a_yb_x)\,\mathbf{k}
+=\begin{vmatrix}\mathbf{i}&\mathbf{j}&\mathbf{k}\\ a_x&a_y&a_z\\ b_x&b_y&b_z\end{vmatrix}
+$$
+
+<Caption>Pierwszy zapis to rozwinięcie wyznacznika po pierwszym wierszu; składowe to „iloczyny krzyżowe” sąsiednich współrzędnych. Moduł wyniku to $|\mathbf{a}||\mathbf{b}|\sin\varphi$ — pole równoległoboku. Wartość bezwzględna wyznacznika macierzy ze składowymi (bez wersorów) daje to samo pole.</Caption>
+</Formula>
+
+Po co nam dwie operacje mnożenia wektorów? Odpowiedź daje porównanie: iloczyn skalarny „wybiera” składową równoległą i mówi o kącie i pracy; iloczyn wektorowy „wybiera” składową prostopadłą i mówi o płaszczyźnie obrotu. W statyce pierwszy posłuży do rzutów i kątów, drugi — do momentów. Warto pamiętać schemat: sinusa używamy tam, gdzie liczy się odległość od osi (składowa prostopadła), cosinusa — tam, gdzie liczy się postęp wzdłuż kierunku.
+
+<AnimatedSolution id="ex-statyka-iloczyn-wektorowy" />
+
+<Insight>
+  Para wektorów wyznacza nie tylko wielkość, ale i orientację: zamiana kolejności w iloczynie odwraca zwrot wyniku. W
+  lekcji o momencie zamiana $\mathbf{r}\times\mathbf{F}$ na $\mathbf{F}\times\mathbf{r}$ odwróci znak momentu — dlatego
+  kolejność zapisu jest częścią definicji.
+</Insight>
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Zamiana kolejności czynników: $\mathbf{F}\times\mathbf{r}$ daje moment o przeciwnym zwrocie niż $\mathbf{r}\times\mathbf{F}$.
+- Zły znak składowych w rozwinięciu wyznacznika — najbezpieczniej rozpisywać metodą Sarrusa lub liczyć wyznacznik wprost.
+- Użycie cosinusa zamiast sinusa: moduł iloczynu wektorowego znika dla wektorów równoległych, nie prostopadłych.
+- Zapominanie, że wynik jest wektorem: samo policzenie modułu nie wystarczy, gdy pytanie dotyczy zwrotu.
+- Mylenie jednostek: iloczyn dwóch sił ma jednostkę kN²; dopiero pomnożenie przez długość (moment) da kN·m.
+- Próba dzielenia przez wektor — w algebrze wektorów dzielenie nie istnieje; zamiast niej stosuje się mnożenie przez odwrotność liczbową lub rozkład na składowe.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. „Wyznaczyć moment siły względem punktu” — iloczyn wektorowy $\mathbf{r}\times\mathbf{F}$ z promieniem wodzącym od punktu do linii działania.
+2. „Znaleźć kierunek prostopadły do płaszczyzny” — iloczyn dwóch wektorów leżących w tej płaszczyźnie.
+3. „Pole równoległoboku / trójkąta” — moduł iloczynu; pole trójkąta to połowa modułu.
+4. „Czy wektory są równoległe?” — iloczyn wektorowy równy zerowi.
+5. Zawsze sprawdzaj zwytężenie wersora wyniku — zwrot musi zgadzać się z regułą śruby, a nie tylko z modułem.
+
+## Połącz z resztą kursu
+
+- **Lekcja 3 (iloczyn skalarny)** — kontrast obu mnożeń: cosinus/równoległość kontra sinus/prostopadłość.
+- **Lekcja 7 (moment względem punktu i osi)** — tam iloczyn wektorowy dostanie fizyczną interpretację jako moment.
+- **Moduł 4: przestrzenny układ sił** — w 3D momenty liczy się niemal wyłącznie iloczynem wektorowym.
+- **Moduł wytrzymałości: skręcanie** — wektor momentu skupionego to ten sam obiekt co moment siły.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>
+      Moduł iloczynu wektorowego $|\mathbf{a}\times\mathbf{b}|$ to geometrycznie:
+    </Prompt>
+    <Answer>
+      rzut $\mathbf{a}$ na $\mathbf{b}$
+    </Answer>
+    <Answer correct>
+      pole równoległoboku zbudowanego na $\mathbf{a}$ i $\mathbf{b}$
+    </Answer>
+    <Answer>długość przekątnej równoległoboku</Answer>
+    <Hint>Pole to podstawa razy wysokość — a wysokość to $|\mathbf{b}|\sin\varphi$.</Hint>
+    <Explanation>
+      $|\mathbf{a}\times\mathbf{b}| = |\mathbf{a}||\mathbf{b}|\sin\varphi$ — podstawa $|\mathbf{a}|$ razy wysokość
+      $|\mathbf{b}|\sin\varphi$. Rzut i przekątna to pojęcia z iloczynu skalarnego i dodawania.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>
+      Zwrot iloczynu $\mathbf{a}\times\mathbf{b}$ wyznacza:
+    </Prompt>
+    <Answer>reguła równoległoboku</Answer>
+    <Answer correct>reguła śruby prawoskrętnej (prawej dłoni)</Answer>
+    <Answer>zwrot większego z czynników</Answer>
+    <Hint>
+      Śruba prawoskrętna obracana od $\mathbf{a}$ do $\mathbf{b}$ posuwa się wzdłuż wyniku.
+    </Hint>
+    <Explanation>
+      Wynik jest prostopadły do płaszczyzny $(\mathbf{a}, \mathbf{b})$, a zwrost jego zwrotu wybiera reguła
+      prawoskrętności — np. $\mathbf{i}\times\mathbf{j} = \mathbf{k}$, czyli od osi $x$ do osi $y$ „wychodzi” oś $z$.
+    </Explanation>
+  </Question>
+  <Question outcome="W3">
+    <Prompt>
+      Dlaczego $\mathbf{a}\times\mathbf{b} = -(\mathbf{b}\times\mathbf{a})$?
+    </Prompt>
+    <Answer>Bo sinus jest funkcją nieparzystą</Answer>
+    <Answer correct>Bo zamiana kolejności odwraca kierunek obrotu śruby</Answer>
+    <Answer>Bo iloczyn wektorowy jest przemienny co do znaku</Answer>
+    <Hint>Moduł pozostaje ten sam — zmienia się tylko zwrot.</Hint>
+    <Explanation>
+      Sinus kąta między wektorami nie zmienia się przy zamianie kolejności, więc moduł jest ten sam; zmienia się
+      natomiast zwrot, bo śruba obracana od drugiego do pierwszego posuwa się przeciwnie.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Iloczyn $(2\mathbf{i})\times(3\mathbf{j})$ wynosi:
+    </Prompt>
+    <Answer>$6\mathbf{i}$</Answer>
+    <Answer>$-6\mathbf{k}$</Answer>
+    <Answer correct>$6\mathbf{k}$</Answer>
+    <Hint>
+      $\mathbf{i}\times\mathbf{j} = \mathbf{k}$ — od osi $x$ do osi $y$ wychodzi oś $z$.
+    </Hint>
+    <Explanation>
+      $(2\mathbf{i})\times(3\mathbf{j}) = 6(\mathbf{i}\times\mathbf{j}) = 6\mathbf{k}$. Mnożenie przez liczby przechodzi
+      przed znak iloczynu.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>
+      Dla $\mathbf{a} = (1, 0, 0)$ i $\mathbf{b} = (0, 1, 0)$ moduł $|\mathbf{a}\times\mathbf{b}|$ wynosi:
+    </Prompt>
+    <Answer>0</Answer>
+    <Answer>2</Answer>
+    <Answer correct>1</Answer>
+    <Hint>Wektory są prostopadłe — sinus kąta między nimi to jeden.</Hint>
+    <Explanation>
+      $|\mathbf{a}\times\mathbf{b}| = 1\cdot1\cdot\sin 90^\circ = 1$ — jednostkowy wektor $\mathbf{k}$. Dla porównania
+      iloczyn skalarny tych wektorów wynosi $0$.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład 1 i 2, slajdy 19–20: definicja iloczynu wektorowego, prawa działań i zapis analityczny.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 2.8 „Cross Products” — reguła prawej dłoni, wyznacznik i związek z momentem.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_, rozdz. 1.5 „Cross Products” — wersory osi i rozwinięcie wyznacznikowe.
+- _University Physics_ vol. 1 (OpenStax), rozdz. 2.4 „Products of Vectors” — iloczyn wektorowy w fizyce, moment pędu jako motywacja.

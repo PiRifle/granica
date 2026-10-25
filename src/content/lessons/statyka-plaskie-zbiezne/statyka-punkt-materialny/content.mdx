@@ -1,0 +1,191 @@
+---
+id: statyka-punkt-materialny
+moduleId: statyka-plaskie-zbiezne
+number: 1
+title: 'Punkt materialny: najprostszy model układu zbieżnego'
+shortTitle: Punkt materialny
+description: >-
+  Kiedy ciało można zastąpić punktem, jak izolować punkt od więzów i dlaczego
+  w układzie zbieżnym nie ma momentów sił.
+eyebrow: 'Zacznij od modelu, nie od wzorów'
+outcomes:
+  - W1 — rozumie model punktu materialnego i jego związek z układem zbieżnym
+  - W2 — odróżnia siły czynne od reakcji więzów na schemacie izolowanego punktu
+  - U1 — rysuje schemat izolowanego punktu i zapisuje równowagę prostego układu
+---
+
+Wyobraź sobie klucze wiszące na smyczy. Ciężar kluczy ciągnie w dół, smycz w górę, a całość pozostaje nieruchoma. To trywialny obraz, ale zawiera całą mechanikę tego modułu: mamy ciało, na które działają siły o wspólnym punkcie przyłożenia, i stan, w którym te siły się równoważą.
+
+Statyka zaczyna się nie od wzorów, lecz od umiejętności zobaczenia sił. Zanim policzysz jakąkolwiek reakcję, musisz zdecydować, co w ogóle rozpatrujesz: jakie ciało, jakie siły na nie działają i w jakich punktach. Dopiero wtedy równania równowagi mają o czym mówić. W tej lekcji budujemy ten pierwszy krok — model punktu materialnego — i używamy go do opisania najprostszego układu zbieżnego.
+
+Punkt materialny to celowe uproszczenie: zastępujemy ciało punktem, w którym skupiamy całą jego masę. Wydaje się to sztuczne, ale dla układu zbieżnego jest to uproszczenie dokładne, a nie przybliżone. Jeśli wszystkie siły przecinają się w jednym punkcie, to nawet fizycznie duże ciało — kula podwieszona na dwóch linach, płytka zawieszona na cięgnach — zachowuje się jak punkt, bo żadna siła nie próbuje go obrócić. O tym, kiedy ten model działa, a kiedy zawodzi, jest ta lekcja.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie pojęcie wektora: wartość (moduł), kierunek, zwrot i punkt przyłożenia. Siła jest wektorem.
+- Znajdź prawa Newtona: pierwsze mówi o stanie równowagi, drugie wiąże siłę z przyspieszeniem ($ma=F$), trzecie mówi o akcji i reakcji między ciałami.
+- Odróżniaj masę od ciężaru. Masa $m$ jest w kilogramach, ciężar $G=mg$ jest w niutonach; $g\approx9{,}81\ \text{m/s}^2$.
+- Wiedz, że jednostką siły jest niuton: $1\ \text{N}=1\ \text{kg}\cdot\text{m/s}^2$, a $1\ \text{kN}=1000\ \text{N}$.
+- Umiej rzutować wektor na oś: rzut to współrzędna siły wzdłuż osi, nie moduł siły.
+
+## Model i intuicja
+
+Model punktu materialnego ma dwie strony. Z jednej strony traktujemy ciało jako punkt, bo jego wymiary są małe w porównaniu z odległościami w zadaniu — spadający kamień, wagon na torze, karetka holownicza. Z drugiej strony, i to jest ważniejsze dla tego modułu, model punktu jest właściwy zawsze wtedy, gdy na ciało działa układ sił zbieżny. Baker podkreśla, że punkt definiuje nie rozmiar, lecz własność sił: wszystkie siły działające na punkt są współliniowe lub zbieżne, więc żadna z nich nie wywołuje obrotu. Osgood i Cameron formułują to samo inaczej: jeśli układ sił jest zbieżny, nie ma momentu działającego na ciało, więc analiza sprowadza się do analizy punktu.
+
+To ma bezpośrednią konsekwencję praktyczną. W układzie zbieżnym nie pojawiają się momenty ani równania momentów — wystarczą sumy rzutów sił na osie. Wszystkie siły można przesunąć wzdłuż ich prostych działania do punktu przecięcia (zasada przesuwania siły z wykładu) i potraktować jako przyłożone do jednego punktu. Stąd też ograniczenie: jeśli siły nie są zbieżne, jak w przypadku dźwigni, wahadła czy belki obciążonej między podporami, model punktu nie wystarczy — siły zaczynają obracać ciało i potrzebne są momenty.
+
+Drugim filarem tej lekcji jest izolacja punktu. Zasada oswobodzenia od więzów mówi, że ciało nieswobodne można myślowo uwolnić od ograniczeń, zastępując każdy więz odpowiednią reakcją. W praktyce: odcinasz liny, podpory i powierzchnie styku, a na ich miejscu rysujesz siły. Schemat takiego wyzwolonego ciała nazywamy schematem izolowanego punktu (diagramem swobodnego ciała, FBD). Dopiero na takim schemacie wolno pisać równania.
+
+## Laboratorium: co ustawić
+
+Ustaw wartość siły i jej kąt względem poziomu. Obserwuj, jak składowa pozioma maleje, gdy kąt rośnie od $0^\circ$ do $90^\circ$, a składowa pionowa rośnie. Sprawdź na kilku kątach, że $\sqrt{F_x^2+F_y^2}$ zawsze wraca do modułu siły — to test poprawnego rzutowania.
+
+<Lab id="staticsVector" />
+
+## Definicje i jednostki
+
+| Pojęcie                       | Znaczenie                                                  | Jednostka |
+| ----------------------------- | ---------------------------------------------------------- | --------- |
+| Siła $\mathbf F$              | Wektor: moduł, kierunek, zwrot, punkt przyłożenia          | N, kN     |
+| Moduł $\lvert\mathbf F\rvert$ | Wielkość siły, zawsze nieujemna                            | N         |
+| Rzut $F_x$, $F_y$             | Składowa siły na osi; może być ujemna                      | N         |
+| Punkt materialny              | Model ciała o masie skupionej w jednym punkcie             | —         |
+| Więz                          | Ograniczenie ruchu (lina, podpora, powierzchnia)           | —         |
+| Reakcja $R$, $S$, $T$         | Siła bierna zastępująca działanie więzu                    | N, kN     |
+| Ciężar $G=mg$                 | Siła przyciągania ziemskiego działająca w środku ciężkości | N         |
+
+Konwencja znaków: oś $x$ w prawo, oś $y$ w górę. Rzut siły jest dodatni, gdy jej zwrot zgadza się ze zwrotem osi. Reakcję rysujemy w wybranym zwrocie; znak wyniku mówi, tylko czy trafiliśmy z założeniem.
+
+## Wzór i wyprowadzenie
+
+Siłę o module $F$ i kącie $\alpha$ od poziomu zapisujemy przez rzuty. Rzutowanie to rzut prostokątny: równoległy do osi bierzemy z cosinusem, prostopadły z sinusem.
+
+<Formula>
+$$
+F_x=F\cos\alpha,\qquad F_y=F\sin\alpha,\qquad F=\sqrt{F_x^2+F_y^2},\qquad \tan\alpha=\frac{F_y}{F_x}
+$$
+
+<Caption>Rzuty siły na osie układu prostokątnego. Kąt $\alpha$ mierzymy od osi $x$. Wzory obowiązują dla kątów od $0^\circ$ do $360^\circ$ przy zachowaniu konwencji znaków; współrzędne mogą być ujemne, moduł nigdy.</Caption>
+</Formula>
+
+Wyprowadzenie jest geometryczne: siła jest przekątną prostokątnego trójkąta o przyprostokątnych $F_x$ i $F_y$, więc z twierdzenia Pitagorasa $F^2=F_x^2+F_y^2$, a z definicji funkcji trygonometrycznych w trójkącie prostokątnym $F_x=F\cos\alpha$, $F_y=F\sin\alpha$.
+
+Dla punktu materialnego w równowadze prawo Newtona daje warunek wektorowy $\sum\mathbf F=0$, a po rzutowaniu na osie: suma rzutów na każdą oś z osobna musi być zerowa. W zadaniu prostym, jednowymiarowym — jak kulka na lince — pozostaje jedno równanie.
+
+<Formula>
+$$
+\sum F_y=0\ \Rightarrow\ T-G=0\ \Rightarrow\ T=mg
+$$
+
+<Caption>Równowaga punktu materialnego w układzie jednoosiowym. Napięcie liny równa ciężarowi zawieszonego ciała; wynik w niutonach, gdy masa podana jest w kilogramach.</Caption>
+</Formula>
+
+<AnimatedSolution id="ex-statyka-punkt-materialny" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Dodawanie do schematu „siły ruchu" lub „siły spoczynku". Ciało w równowadze nie potrzebuje żadnej siły, żeby zostać w spoczynku — to pierwsze prawo Newtona.
+- Mylenie masy z ciężarem. Masa $5\ \text{kg}$ to nie siła; dopiero iloczyn $mg$ jest siłą w niutonach.
+- Pomijanie ciężaru własnego elementu, gdy zadanie mówi o pręcie lub płycie „jednorodnej". Jednorodność to sygnał, że trzeba uwzględnić $G$ działający w środku ciężkości.
+- Mylenie modułu wektora z jego rzutem: rzut na oś jest zawsze nie większy od modułu, a dla kątów rozwartych bywa ujemny.
+- Rysowanie reakcji bez zastąpienia więzu siłą — schemat bez wszystkich sił daje równania bez wszystkich składników.
+- Zgadywanie zwrotu reakcji i poprawianie go „na oko" po drodze; minus w wyniku wystarczy, by wskazać przeciwny zwrot.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Znajdź ciało, którego równowagę badasz, i sprawdź, czy wszystkie siły przecinają się w jednym punkcie. Jeśli tak — masz układ zbieżny i wystarczą rzuty.
+2. Zastąp każdy więz reakcją: lina i cięgno działają wzdłuż osi, gładka powierzchnia prostopadle do siebie, przegub dowolnym kierunkiem (dwie składowe).
+3. Narysuj schemat izolowanego punktu z układem osi i wszystkimi siłami.
+4. Rzutuj każdą siłę na osie, pilnując znaków i kątów mierzonych od poziomu.
+5. Zapisz $\sum F_x=0$ i $\sum F_y=0$, rozwiąż i sprawdź wymiar oraz sens wyniku.
+6. Jeśli siły nie są zbieżne — nie wymuszaj modelu punktu; to zadanie z momentami, jak w module o dowolnym układzie sił.
+
+## Połącz z resztą kursu
+
+- **Aksjomaty statyki** — zasada oswobodzenia od więzów i zasada przesuwania siły są tu używane codziennie: to one uzasadniają izolację punktu i przesuwanie sił do wspólnego punktu.
+- **Wypadkowa zbieżnego układu sił** — następna lekcja: zamiast równoważenia nauczysz się zastępować siły jedną wypadkową.
+- **Cięgna i kontakty gładkie** — tam wracamy do kierunków reakcji więzów użytych tu bez wyjaśnienia.
+- **Siły w prętach** — punkt przecięcia prętów stanie się węzłem, a każdy pręt dwuosiowy da reakcję o znanym kierunku.
+- **Rozciąganie i ściskanie** — napięcie liny z przykładu to pierwsza siła osiowa, którą przeliczy się na naprężenie $\sigma=N/A$ w kursie wytrzymałości.
+
+## Sprawdź się
+
+Pytania sprawdzają rozumienie modelu punktu i poprawność schematu sił.
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Które zdanie najlepiej opisuje punkt materialny w statyce?</Prompt>
+    <Answer>Ciało o bardzo małych wymiarach, np. ziarnko piasku</Answer>
+    <Answer correct>Ciało, na które działa układ sił współliniowych lub zbieżnych, więc żadna siła nie wywołuje obrotu</Answer>
+    <Answer>Ciało pozbawione masy</Answer>
+    <Hint>Definicja punktu dotyczy własności sił, nie rozmiaru — porównaj definicję u Bakera i Osgooda.</Hint>
+    <Explanation>
+      Punkt materialny definiuje sposób działania sił: wszystkie siły są zbieżne lub współliniowe, więc nie ma momentu.
+      Dlatego nawet duże ciało (kula na linach) można traktować jak punkt, a małe ciało (klucz w zawiasie) — nie.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Kiedy model punktu materialnego jest niewystarczający?</Prompt>
+    <Answer>Gdy ciało jest cięższe niż 100 kg</Answer>
+    <Answer>Gdy siły działają w jednej płaszczyźnie</Answer>
+    <Answer correct>Gdy linie działania sił nie przecinają się w jednym punkcie i pojawiają się momenty</Answer>
+    <Hint>Pomyśl o dźwigni: co próbuje zrobić siła przyłożona z boku?</Hint>
+    <Explanation>
+      Gdy siły nie są zbieżne, mogą obracać ciało; wtedy potrzebne są momenty i trzy równania równowagi ciała sztywnego.
+      W układzie zbieżnym wystarczą dwie sumy rzutów.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Na schemacie izolowanego punktu zawieszonego na lince należy narysować:</Prompt>
+    <Answer>tylko siły czynne, bo reakcje liczy się później</Answer>
+    <Answer correct>wszystkie siły działające na punkt: ciężar i napięcie liny</Answer>
+    <Answer>ciężar, napięcie i dodatkowo „siłę równowagi"</Answer>
+    <Hint>Schemat ma zawierać siły rzeczywiście działające na izolowany punkt.</Hint>
+    <Explanation>
+      Na kulę działają dokładnie dwie siły: ciężar (Ziemia) i napięcie (lina). „Siła równowagi" to wynik, nie siła —
+      dodanie jej do schematu podwoiłoby liczbę sił.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siła $F=100\ \text{N}$ tworzy z poziomem kąt $60^\circ$. Ile wynosi jej rzut poziomy?</Prompt>
+    <Answer>86,6 N</Answer>
+    <Answer correct>50 N</Answer>
+    <Answer>100 N</Answer>
+    <Hint>Rzut poziomy to przyprostokątna przy kącie $60^\circ$: cosinus czy sinus?</Hint>
+    <Explanation>
+      $F_x=F\cos 60^\circ=100\cdot0{,}5=50\ \text{N}$, a $F_y=100\sin 60^\circ\approx86{,}6\ \text{N}$.
+      Rzut to współrzędna, nie moduł — tu największa jest składowa pionowa.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Kulka o masie $2\ \text{kg}$ zawieszona na lince jest w równowadze. Napięcie liny wynosi w przybliżeniu:</Prompt>
+    <Answer>2 N</Answer>
+    <Answer correct>19,6 N</Answer>
+    <Answer>9,81 N</Answer>
+    <Hint>Napięcie równa się ciężarowi, a ciężar to $mg$.</Hint>
+    <Explanation>
+      $T=G=mg=2\cdot9{,}81=19{,}62\ \text{N}$. Odpowiedź 2 N to błąd jednostkowy (pomylenie masy z ciężarem),
+      a 9,81 N to ciężar jednego kilograma, nie dwóch.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Reakcję gładkiej pionowej ściany na oparty o nią pręt należy narysować:</Prompt>
+    <Answer>pionowo w górę, bo ściana „trzyma"</Answer>
+    <Answer>pod dowolnym kątem, bo zwrot wyjdzie z rachunku</Answer>
+    <Answer correct>prostopadle do ściany, czyli poziomo, o zwrocie od ściany</Answer>
+    <Hint>Gładka powierzchnia nie przenosi sił stycznych — jaki kierunek zostaje?</Hint>
+    <Explanation>
+      Bez tarcia pozostaje tylko składowa normalna: reakcja jest prostopadła do powierzchni styku.
+      Zwrot przyjmujemy od ściany na ciało; znak wyniku zweryfikuje założenie.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Statyka — wykład 1 i 2", str. 22–30 i 37: pojęcia podstawowe mechaniki, prawa Newtona, pojęcie więzu oraz zasada oswobodzenia od więzów.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 3.1–3.2: definicja równowagi i kluczowa obserwacja, że punkt to ciało, na które działają siły zbieżne.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 2.1–2.2: rozróżnienie punktu i ciała sztywnego oraz zasady rysowania schematów izolowanych punktów, w tym siła naciągu cięgna.
+- _University Physics_ (OpenStax), rozdz. 5.1–5.2 i 5.4: siła jako wektor, pierwsze prawo Newtona i równowaga, różnica masy i ciężaru.

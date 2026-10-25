@@ -70,6 +70,9 @@
   font-size: 8px;
   color: #647181;
 }
+.solution-player {
+  container-type: inline-size;
+}
 .solution-stage {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -87,9 +90,13 @@
   color: #556273;
   min-width: 0;
 }
+.solution-visual > * {
+  width: 100%;
+  min-width: 0;
+}
 .solution-visual svg {
   width: 100%;
-  max-height: 260px;
+  height: auto;
 }
 .solution-scene-count {
   position: absolute;
@@ -265,6 +272,15 @@
   font-size: 8px;
   letter-spacing: 0.07em;
   text-transform: uppercase;
+}
+
+@container (max-width: 820px) {
+  .solution-stage {
+    grid-template-columns: 1fr;
+  }
+  .solution-visual {
+    min-height: 250px;
+  }
 }
 
 @media (max-width: 1000px) {

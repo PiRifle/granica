@@ -160,7 +160,7 @@ Zasady egzekwowane przez walidację:
 - Identyfikatory lekcji są unikalne.
 - Każdy moduł wytrzymałości ma dokładnie 7 lekcji. Moduły statyki są na razie oznaczone jako `planned` i nie mają lekcji.
 - Pola `duration`, `lab`, `formula`, `formulaNote`, `insight`, `questions`, `workedExample` nie mogą występować we frontmatterze. Czas jest wyliczany z treści, a pozostałe elementy umieszcza się w treści MDX.
-- Każda lekcja zawiera `<Lab id="…" />`, `<Formula>`, `<WorkedExample>` i `<Quiz>` z co najmniej jednym `<Question>`.
+- Każda lekcja zawiera `<Lab id="…" />`, `<Formula>`, `<AnimatedSolution>` i `<Quiz>` z co najmniej jednym `<Question>`.
 - `lab` musi istnieć w `src/components/LabRegistry.tsx`.
 
 ### Komponenty MDX
@@ -171,7 +171,7 @@ Zasady egzekwowane przez walidację:
 | `<Formula>` + `<Caption>`                                                 | Wzór KaTeX i opis pod nim                   |
 | `<Insight>`                                                               | Kluczowa obserwacja lub typowy błąd         |
 | `<Callout>`                                                               | Dodatkowa uwaga lub ostrzeżenie             |
-| `<WorkedExample>`                                                         | Rozwiązanie krok po kroku                   |
+| `<AnimatedSolution>`                                                      | Animowane rozwiązanie krok po kroku         |
 | `<Given>`, `<Steps>`, `<Step>`, `<Result>`                                | Części przykładu                            |
 | `<Quiz>`, `<Question>`, `<Prompt>`, `<Answer>`, `<Hint>`, `<Explanation>` | Sprawdzian w lekcji                         |
 
@@ -191,7 +191,7 @@ Przykład quizu:
 
 ### Wprowadzenie modułu
 
-Każdy moduł ma `src/content/modules/<id>/overview.mdx`. To osobny dokument MDX renderowany na stronie `/course/<courseId>/module/<id>`: wyjaśnia, o czym jest moduł, po co go przechodzić, jak czytać mapę lekcji i jakie wzory są centralne. Wprowadzenie może używać `Formula`, `Caption`, `Insight`, `Callout`, `WorkedExample` i zwykłego markdownu, ale nie `Quiz` (brak kontekstu lekcji).
+Każdy moduł ma `src/content/modules/<id>/overview.mdx`. To osobny dokument MDX renderowany na stronie `/course/<courseId>/module/<id>`: wyjaśnia, o czym jest moduł, po co go przechodzić, jak czytać mapę lekcji i jakie wzory są centralne. Wprowadzenie może używać `Formula`, `Caption`, `Insight`, `Callout` i zwykłego markdownu, ale nie `Quiz` (brak kontekstu lekcji).
 
 ### Czas czytania
 

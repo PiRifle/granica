@@ -266,7 +266,7 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
             stroke={LATERAL}
             strokeWidth={2}
             initial={false}
-            animate={{ y: ZOOM_CY - thickness / 2, height: thickness }}
+            animate={{ height: thickness }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
           <line

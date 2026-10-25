@@ -10,7 +10,9 @@ import {
   torsionShearMPa,
 } from './engineering'
 
-const topics = taskTopics.map((topic) => topic.id)
+const strengthTopics = taskTopics.filter((topic) => topic.course === 'wytrzymalosc').map((topic) => topic.id)
+const staticsTopics = taskTopics.filter((topic) => topic.course === 'statyka').map((topic) => topic.id)
+const topics = [...strengthTopics, ...staticsTopics]
 
 function taskFor(topic: TaskTopic, seed: number) {
   return createTask(topic, seededRandom(seed), `test-${topic}`)
@@ -18,7 +20,8 @@ function taskFor(topic: TaskTopic, seed: number) {
 
 describe('generator treningu liczbowego', () => {
   it('obsługuje wszystkie zadeklarowane tematy', () => {
-    expect(topics.length).toBe(9)
+    expect(strengthTopics).toHaveLength(9)
+    expect(staticsTopics).toHaveLength(12)
     for (const topic of topics) {
       const task = taskFor(topic, 42)
       expect(task.answer).toBeGreaterThan(0)
@@ -26,6 +29,18 @@ describe('generator treningu liczbowego', () => {
       expect(task.prompt.length).toBeGreaterThan(20)
       expect(task.solution.length).toBeGreaterThan(10)
       expect(task.tolerance).toBeGreaterThan(0)
+    }
+  })
+
+  it('rozdziela generator według kursu', () => {
+    const statics = generateTasks(6, seededRandom(99), 'statyka')
+    expect(statics).toHaveLength(6)
+    for (const task of statics) {
+      expect(taskTopics.find((topic) => topic.id === task.topic)?.course, task.topic).toBe('statyka')
+    }
+    const strength = generateTasks(6, seededRandom(99), 'wytrzymalosc')
+    for (const task of strength) {
+      expect(taskTopics.find((topic) => topic.id === task.topic)?.course, task.topic).toBe('wytrzymalosc')
     }
   })
 

@@ -1,16 +1,107 @@
 ## Co to jest ten moduł
 
-Środek ciężkości to punkt, w którym można zaczepić wypadkową ciężaru. Dla linii, figur płaskich i brył wyznacza się go podobnie: przez momenty statyczne.
+Środek ciężkości to punkt, w którym można zaczepić wypadkową ciężaru, nie zmieniając ani sumy sił, ani sumy momentów. Dla układu punktów materialnych wyznaczamy go jako średnią ważoną położeń. Dla linii, figury płaskiej i bryły ten sam pomysł przechodzi w całkę, a wagą staje się długość, pole albo objętość. Moduł prowadzi od tego prostego uogólnienia do pełnych zadań z figurami złożonymi i otworami.
 
-Ten moduł pokazuje metodę obliczania środków ciężkości oraz twierdzenie Guldina, które łączy środek ciężkości z objętością i powierzchnią bryły obrotowej.
+Druga połowa modułu pokazuje, że centroid nie jest tylko punktem do zaznaczenia na rysunku. Twierdzenia Pappusa-Guldina łączą go z polem powierzchni i objętością bryły obrotowej. Dzięki nim objętość kuli, stożka albo torusa można policzyć bez całkowania po bryle, a znając objętość — wyznaczyć centroid przekroju. To narzędzie wraca potem w geometrii przekrojów i przy ciężarze własnym konstrukcji.
 
-## W planie
-
-- środki ciężkości linii i figur płaskich,
-- środki ciężkości brył,
-- metoda momentów statycznych,
-- twierdzenie Guldina.
+Trzecia część jest próbą generalną: dwa pełne przykłady z wykładu i zestawu E, w których geometrię trzeba odczytać z rysunku, rozpoznać materiał i wycięcia, a następnie sprawdzić znaki, jednostki i wynik. To umiejętność, która na kolokwium decyduje częściej niż sama znajomość wzoru.
 
 ## Dlaczego to ważne
 
-Ten sam rachunek wróci w geometrii przekrojów przy momentach bezwładności. Dobrze opanowany teraz oszczędzi Ci błędów w wytrzymałości materiałów.
+Centroid jest punktem odniesienia dla całej dalszej analizy przekroju. Oś obojętna przy zginaniu przechodzi przez centroid, momenty bezwładności liczy się względem osi centroidalnych, a wskaźnik wytrzymałości zależy od odległości włókien od tej osi. Błąd w centroidzie przesuwa cały rozkład naprężeń, nawet jeśli moment bezwładności został policzony poprawnie.
+
+W projektowaniu centroid wyznacza miejsce zaczepienia wypadkowej ciężaru własnego. Belka, kratownica, zbiornik i wał mają ciężar rozłożony, a nie skupiony; bez redukcji do jednego punktu nie da się poprawnie zbudować schematu obliczeniowego. Ten sam rachunek pojawia się przy stateczności, gdzie położenie środka ciężkości decyduje o momencie wywracającym.
+
+Moduł uczy też dyscypliny rachunkowej. Figury złożone są krótkie, ale mają wiele miejsc na błąd: znak pola, znak współrzędnej, pominięty otwór, zamiana osi, mieszanie jednostek. Tabela z kolumnami $A_i$, $x_i$, $y_i$ i momentami jest prostym narzędziem, które te błędy wychwytuje — pod warunkiem że prowadzi się ją konsekwentnie.
+
+## Czego się nauczysz
+
+- **W1 — rozróżnisz środek ciężkości, środek masy i centroid.** Zobaczysz, kiedy te pojęcia się pokrywają, a kiedy trzeba wracać do masy lub gęstości.
+- **W2 — zrozumiesz moment statyczny.** Nauczysz się czytać $Q_x$ i $Q_y$ jako sumy momentów części i wykorzystywać je do kontroli wyniku.
+- **U1 — wyznaczysz centroidy linii, łuków, figur i brył.** Opanujesz metodę części składowych, pola i objętości ujemne oraz całkowanie po paskach.
+- **U2 — zastosujesz twierdzenia Pappusa-Guldina.** Obliczysz powierzchnię i objętość bryły obrotowej, a także użyjesz twierdzenia odwrotnie do wyznaczenia centroidu.
+- **U3 — rozwiążesz pełne zadania.** Odczytasz geometrię z rysunku, rozpoznasz otwory, sprawdzisz znaki i jednostki oraz zweryfikujesz wynik niezależną kontrolą.
+
+## Od czego zacząć
+
+Moduł zakłada, że umiesz liczyć moment siły względem punktu, znasz pojęcie wypadkowej układu równoległego i potrafisz wyznaczyć pole oraz objętość podstawowych figur. Przyda się też umiejętność całkowania wielomianów i zapisania równania prostej lub paraboli. Bez tego lekcje o liniach i figurach prostych będą tylko przepisem na podstawienie.
+
+Warto znać na pamięć kilka centroidów: prostokąt ma środek w przecięciu przekątnych, trójkąt w jednej trzeciej wysokości od podstawy, półkole w $4r/(3\pi)$ od średnicy, półokrąg w $2r/\pi$ od środka, stożek w $h/4$ od podstawy, a półkula w $3r/8$ od płaszczyzny podstawy. Te liczby wracają w każdym zadaniu i w każdym quizie.
+
+Kolejność pracy jest naturalna: od punktów, przez linie i figury, do brył, potem Pappus i pełne zadania. Nie pomijaj lekcji o liniach, nawet jeśli interesują cię tylko figury płaskie. Różnica między centroidem łuku i półkola jest jednym z najczęstszych błędów, a widać ją dopiero przy porównaniu obu lekcji.
+
+## Mapa lekcji
+
+**1. Środek ciężkości i środek masy.** Pierwsza lekcja buduje definicję przez równoważność momentów, wyprowadza wzory sumacyjne i pokazuje, kiedy wolno skrócić $g$. To fundament całego modułu.
+
+**2. Środki ciężkości linii i łuków.** Wagą staje się długość. Uczysz się centroidów łamanych, łuku półkolistego i ćwiartki okręgu oraz rozwiązujesz przykład kratownicy z sześciu prętów.
+
+**3. Figury proste i całkowanie.** Wagą staje się pole. Przypominasz sobie centroidy prostokąta, trójkąta, koła i półkola, a następnie wyprowadzasz centroid trójkąta i spandrela parabolicznego przez całkę po paskach.
+
+**4. Figury złożone, pola ujemne i momenty statyczne.** Uczysz się metody części składowych, wprowadzania otworów jako pól ujemnych i prowadzenia tabeli momentów. Przykład z wykładu daje $x_C=4{,}87$ cm i $y_C=4{,}47$ cm.
+
+**5. Środki ciężkości brył.** Wagą staje się objętość. Poznajesz centroidy prostopadłościanu, walca, stożka i półkuli, a w przykładzie z wykładu liczysz bryłę z wycięciem w trzech współrzędnych.
+
+**6. Twierdzenia Pappusa-Guldina.** Dwa twierdzenia łączą centroid z powierzchnią i objętością bryły obrotowej. Sprawdzasz je na kuli i torusie oraz używasz odwrotnie do wyznaczenia centroidu.
+
+**7. Pełne przykłady: wykład i zestaw E.** Dwa kompletne zadania z wycięciami, kontrola geometrii na rysunku, znaki momentów, jednostki i sprawdzenie Pappusa. To lekcja, w której wszystkie narzędzia modułu pracują razem.
+
+## Kluczowe wzory
+
+<Formula>
+$$
+x_C=\frac{\sum_i x_iA_i}{\sum_i A_i},\qquad
+y_C=\frac{\sum_i y_iA_i}{\sum_i A_i},\qquad
+x_C=\frac{\int x\,dA}{\int dA}
+$$
+
+<Caption>Centroid figury płaskiej w wersji sumacyjnej i całkowej. Dla linii zamiast $A_i$ podstawiamy długości $L_i$, a dla bryły objętości $V_i$. Pola i objętości otworów są ujemne, a współrzędne mają znak swojego położenia.</Caption>
+</Formula>
+
+<Formula>
+$$
+S=2\pi\bar r\,L,\qquad V=2\pi\bar r\,A
+$$
+
+<Caption>Twierdzenia Pappusa-Guldina. Pierwszy wzór daje pole powierzchni bryły zakreślonej przez linię o długości $L$, drugi objętość bryły zakreślonej przez figurę o polu $A$. $\bar r$ jest odległością centroidu od osi obrotu; oś musi leżeć w płaszczyźnie obiektu i nie może go przecinać.</Caption>
+</Formula>
+
+<Formula>
+$$
+V_{\text{kuli}}=\frac{4\pi r^3}{3},\qquad
+V_{\text{stożka}}=\frac{\pi r^2h}{3},\qquad
+V_{\text{półkuli}}=\frac{2\pi r^3}{3}
+$$
+
+<Caption>Objętości, które najczęściej służą do kontroli wyniku. Półkole obracane wokół średnicy daje pełną kulę, a ćwiartka koła obracana wokół przyprostokątnej — półkulę. Zgodność wyniku z Pappusa z jednym z tych wzorów jest szybkim testem poprawności centroidu.</Caption>
+</Formula>
+
+<Callout kind="info" title="Jak korzystać z laboratoriów">
+  Laboratorium centroidów pokazuje, jak zmiana pola lub położenia części przesuwa wynik. Laboratorium Pappusa pokazuje,
+  jak ten sam centroid przekłada się na objętość bryły obrotowej. Ustaw najpierw wartości skrajne, potem pośrednie i
+  spróbuj przewidzieć wynik przed odczytaniem go z ekranu.
+</Callout>
+
+## Jak się uczyć
+
+1. **Zaczynaj od rysunku i układu współrzędnych.** Zaznacz początek, osie i wszystkie wymiary. Dopiero potem dziel figurę na części.
+2. **Prowadź tabelę od pierwszego wiersza.** Kolumny $A_i$, $x_i$, $y_i$, $x_iA_i$, $y_iA_i$ porządkują rachunek i pozwalają wrócić do każdego kroku.
+3. **Ustal znaki przed sumowaniem.** Otwór ma pole ujemne, ale jego współrzędna ma znak położenia. Zapisz to jawnie, żeby nie zgubić minusa.
+4. **Kontroluj wynik geometrycznie.** Centroid musi leżeć w obrysie figury i przesuwać się w stronę większego pola lub w stronę przeciwną do wycięcia.
+5. **Sprawdzaj Pappusem, gdy pojawia się półkole.** Obrót półkola wokół średnicy daje kulę; zgodność objętości potwierdza centroid $4r/(3\pi)$.
+6. **Nie mieszaj jednostek.** Przelicz wszystkie wymiary na jedną jednostkę przed pierwszym wierszem tabeli. Wynik podawaj z jednostką i sensownym zaokrągleniem.
+
+## Po tym module
+
+Po module środków ciężkości powinieneś umieć spojrzeć na rysunek figury lub bryły i zaplanować rachunek: podział, znaki, tabela, suma, kontrola. Ta umiejętność wraca w geometrii przekrojów, gdzie centroid wyznacza początek układu dla momentów bezwładności i wskaźnika wytrzymałości. W zginaniu od niego zależy położenie osi obojętnej, a w stateczności — moment wywracający.
+
+Twierdzenia Pappusa-Guldina przydadzą się przy elementach osiowo-symetrycznych: wałach, tulejach, zbiornikach i kołach pasowych. Pozwalają szybko oszacować objętość i masę bez całkowania po bryle. W projektowaniu przekrojów warto wracać do tabeli centroidów, bo większość kształtów to prostokąty, trójkąty i półkola.
+
+Nie traktuj tego modułu jako zamkniętego rozdziału. To narzędzie, które będzie używane w każdym następnym dziale. Dobrze opanowana metoda części składowych oszczędza czas i chroni przed błędami, których nie widać w samym wyniku.
+
+## Źródła
+
+- Wykład „Środek ciężkości i środek masy", str. 2–16: definicja, wzory sumacyjne i całkowe, środki ciężkości linii, figur i brył, figury złożone oraz twierdzenia Pappusa-Guldina.
+- D. W. Baker, W. Haynes, _Engineering Statics: Open and Interactive_, rozdz. 7.1–7.7: średnia ważona, centroidy, metoda części składowych i całkowanie.
+- L. Osgood i in., _Engineering Mechanics: Statics_ (UPEI), rozdz. 7.1–7.2: środek masy, centroidy i figury złożone.
+- _University Physics_ (OpenStax), rozdz. 9.6: środek masy układu cząstek i rozkładu ciągłego.

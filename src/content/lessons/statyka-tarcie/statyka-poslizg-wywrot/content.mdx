@@ -1,0 +1,173 @@
+---
+id: statyka-poslizg-wywrot
+moduleId: statyka-tarcie
+number: 3
+title: 'Poślizg czy wywrot: dwa progi równowagi'
+shortTitle: Poślizg i wywrot
+description: >-
+  Bryła może stracić równowagę na dwa sposoby: zacząć się ślizgać albo przewrócić
+  przez krawędź podstawy. Policz oba progi i porównaj — mniejszy wygrywa.
+eyebrow: 'Dwa sposoby upadku — policz oba'
+outcomes:
+  - W1 — wyjaśnia przesunięcie wypadkowej siły normalnej pod wpływem momentu
+  - W2 — rozpoznaje, kiedy decydujący jest poślizg, a kiedy wywrot
+  - U1 — oblicza siłę graniczną poślizgu i siłę graniczną wywrotu
+  - U2 — dobiera geometrię obciążenia, by wybrać kontrolowany tryb utraty równowagi
+---
+
+Dotąd traktowaliśmy ciało jak punkt i pytaliśmy tylko, czy siły się zrównoważą. Bryła — skrzynia, szafa, mur — ma jednak rozmiary, a to otwiera drugą drogę utraty równowagi: nawet gdy tarcie wystarcza do zatrzymania poślizgu, siła może przewrócić bryłę przez przednią krawędź podstawy. Wybór scenariusza nie zależy od intuicji, lecz od porównania dwóch progów: siły wywołującej poślizg i siły wywołującej wywrot. Mniejszy próg następuje pierwszy.
+
+Klucz do zrozumienia wywrotu jest ukryty w naturze siły normalnej. Nacisk bryły na podłoże to rozkład ciśnień, a jego wypadkowa $N$ nie musi przechodzić przez środek ciężkości. Gdy pchasz szafę na wysokości uchwytu, para sił $P$ i $T$ tworzy moment, który „przepycha” wypadkową normalną w kierunku przedniej krawędzi. Podłoże odpowiada coraz mocniejszym naciskiem pod tą krawędzią. W pewnym momencie wypadkowa dochodzi do samej krawędzi — dalej już nie ma się o czym oprzeć i bryła się wywraca. Dlatego wysokość przyłożenia siły i szerokość podstawy wchodzą do zadania na równi z współczynnikiem tarcia.
+
+## Zanim zaczniesz
+
+- Umiesz zapisać sumę momentów względem dowolnego punktu i wiesz, że punkt warto wybierać tak, by niewiadome przez niego przechodziły.
+- Rozumiesz wypadkową rozkładu ciśnienia: wiele małych sił zastępujemy jedną równoważną, której położenie dobieramy z warunku równoważności momentów.
+- Z lekcji 1 i 2 wiesz, że próg poślizgu to $T=\mu_s N$ i że tarcie działa przeciwnie do zamierzonego ruchu.
+- Potrafisz narysować schemat bryły z zaznaczonym środkiem ciężkości i krawędziami podstawy.
+- Pamiętaj: przy wywrocie bryła obraca się wokół krawędzi, więc to ona jest naturalnym punktem sumowania momentów.
+
+## Model i intuicja
+
+Rozważ bryłę o ciężarze $W$ i szerokości podstawy $d$, pchaną poziomą siłą $P$ przyłożoną na wysokości $h$ nad podłożem. W stanie spoczynku działają: ciężar $W$ w środku, reakcja $N$ przesunięta od środka o $x$, tarcie $T$ przy podstawie i siła $P$. Równowaga sił daje $N=W$ oraz $T=P$; równowaga momentów względem środka podstawy wiąże przesunięcie $x$ z wysokością $h$: im wyżej pchniemy, tym dalej wypadkowa normalna ucieka do przodu.
+
+Są dwa niezależne progi. Próg poślizgu: gdy $P$ przekroczy $\mu_s N$, bryła zacznie sunąć — liczymy go z równań sił. Próg wywrotu: gdy moment $P h$ przewyższy moment ciężaru $W\,d/2$, wypadkowa normalna wyjdzie poza krawędź — liczymy go z momentów względem krawędzi, przyjmując $N$ działającą właśnie w krawędzi. To, co nastąpi, to tryb o mniejszym progu. Warto dodać, że w stanie granicznym wywrotu poślizg jeszcze nie musi zachodzić — tarcie może być daleko poniżej granicy $\mu_s N$ (Baker nazywa to stanem statycznym bez granicy poślizgu). Odwrócenie siły $P$ (ciągnięcie zamiast pchania) zmienia kierunek przesunięcia normalnej i wyklucza wywrot — dlatego wózki ciągnięte z dołu są tak stabilne.
+
+Model zakłada sztywną bryłę i podłoże oraz spoczynek przed progiem. Po wywrocie lub poślizgu ciało przyspiesza i statyka przestaje wystarczać — wyznaczamy wyłącznie progi.
+
+## Laboratorium: co ustawić
+
+Ustaw wysokość, na której działa pozioma siła, oraz „rozstaw” podstawy bryły. Zwiększaj siłę i obserwuj, który próg — poślizgu czy wywrotu — osiągasz najpierw. Zmień wysokość z niskiej na wysoką i sprawdź, jak przechodzisz z trybu poślizgu w tryb wywrotu. Porównaj oba progi z wartościami policzonymi ze wzorów.
+
+<Lab id="staticsFriction" />
+
+## Definicje i jednostki
+
+| Wielkość                          | Symbol             | Jednostka | Znaczenie                                                  |
+| --------------------------------- | ------------------ | --------- | ---------------------------------------------------------- |
+| Siła graniczna poślizgu           | $P_{\mathrm{poś}}$ | N, kN     | $P_{\mathrm{poś}}=\mu_s N$ przy braku innych sił poziomych |
+| Siła graniczna wywrotu            | $P_{\mathrm{wyw}}$ | N, kN     | Siła przy $N$ osadzonej w krawędzi podstawy                |
+| Przesunięcie wypadkowej normalnej | $x$                | m         | Odległość $N$ od osi środka ciężkości                      |
+| Krawędź obrotu                    | —                  | —         | Przednia krawędź podstawy, wokół której następuje wywrot   |
+
+Geometryczne parametry decydujące: wysokość przyłożenia $h$ [m], szerokość podstawy $d$ [m], położenie środka ciężkości.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+P_{\mathrm{poś}}=\mu_s N=\mu_s W,\qquad P_{\mathrm{wyw}}=\frac{W\,d/2}{h},\qquad P_{\mathrm{gr}}=\min(P_{\mathrm{poś}},P_{\mathrm{wyw}})
+$$
+
+<Caption>Progi utraty równowagi bryły pchanej poziomą siłą na wysokości $h$, o szerokości podstawy $d$ i ciężarze $W$ działającym w połowie szerokości. Decyduje mniejszy próg. Przy wywrocie tarcie nie musi osiągać granicy $\mu_s N$.</Caption>
+</Formula>
+
+Wyprowadzenie drugiego progu:
+
+1. W stanie granicznym wywrotu wypadkowa normalna osiada w przedniej krawędzi; bryła jest na wypadku obrotu wokół tej krawędzi.
+2. Moment siły $P$ względem krawędzi: $P h$ (napędza wywrot).
+3. Moment ciężaru względem tej samej krawędzi: $W\,d/2$ (opiera się wywrotowi); tarcie i normalna przechodzą przez krawędź, więc nie dają momentu.
+4. Równość progowa: $P_{\mathrm{wyw}}h=W\,d/2$, skąd $P_{\mathrm{wyw}}=W\,d/(2h)$.
+5. Wniosek praktyczny: niski punkt ciśnięcia (małe $h$) i szeroka podstawa (duże $d$) podnoszą próg wywrotu.
+
+<AnimatedSolution id="ex-statyka-poslizg-wywrot" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Sprawdzanie tylko jednego trybu — zwykle poślizgu — i ignorowanie wywrotu przy siłach przyłożonych wysoko.
+- Zakładanie, że $N$ zawsze przechodzi przez środek podstawy; przy sile poza osią $N$ musi się przesunąć, by zachować równowagę momentów.
+- Sumowanie momentów wywrotu względem środka ciężkości zamiast względem krawędzi — wtedy $N$ i $T$ nie znikają i rachunek się komplikuje.
+- Używanie warunku $T=\mu_s N$ w stanie granicznym wywrotu — tam tarcie jest statyczne i zwykle poniżej granicy.
+- Wybieranie niewłaściwej krawędzi (np. tylnej przy pchaniu w przód).
+- Wnioskowanie „ściężej się przewróci, bo ciężka” — ciężar podnosi oba progi, a decyduje geometria $d/h$ i $\mu_s$.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Jeśli pytanie brzmi „co nastąpi najpierw” albo „czy ciało się przewróci” — od razu planuj dwa rachunki: siłowy (poślizg) i momentowy (wywrot).
+2. Narysuj bryłę z wymiarami: wysokość siły $h$, szerokość podstawy $d$, położenie ciężaru. Bez tego wywrotu nie policzysz.
+3. Próg poślizgu licz z równań sił przy $T=\mu_s N$; próg wywrotu z momentów względem krawędzi przy $N$ w krawędzi.
+4. Porównaj progi: mniejszy wygrywa. Sprawdź spójność zwycięskiego trybu (np. przy wywrocie $T<\mu_s N$).
+5. Jeśli siła działa na wysokości osadzenia lub pod nią, wywrot w kierunku siły jest niemożliwy — normalna nie musi uciekać za krawędź.
+6. Dla obciążenia skośnego rozłóż je na poziomą i pionową składową; pionowa zmienia $N$ i oba progi.
+
+## Połącz z resztą kursu
+
+- **Równowaga z tarciem: kąt graniczny** — próg poślizgu to dokładnie granica z lekcji 2; tu dochodzi drugi, momentowy warunek równowagi bryły.
+- **Płaski dowolny układ sił** — suma momentów względem krawędzi to bezpośrednie zastosowanie równań momentowych z wcześniejszych modułów.
+- **Równie i kliny** — kliny przenoszą obciążenia pochyłymi płaszczyznami; poślizg po powierzchni klinowej to tryb, który tu analizujemy.
+- **Hamulce tarcia** — klocek hamulcowy musi się oprzeć wywrotowi i poślizgowi na dźwigni; oba progi wracają przy projektowaniu.
+- **Wytrzymałość: stateczność i fundamenty** — przewrócenie to pierwszy wariant stateczności konstrukcji; szerokość podstawy i położenie ciężaru to parametry projektowe.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>Szafa z przykładu ($W=400\ \mathrm{N}$, $\mu_s=0{,}40$) stoi na podłodze. Ile wynosi próg poślizgu?</Prompt>
+    <Answer>$100\ \mathrm{N}$</Answer>
+    <Answer correct>$160\ \mathrm{N}$</Answer>
+    <Answer>$240\ \mathrm{N}$</Answer>
+    <Hint>Próg poślizgu to $\mu_s N$; normalna równa jest ciężarowi.</Hint>
+    <Explanation>
+      $N=W=400\ \mathrm{N}$, więc $P_{\mathrm{poś}}=0{,}40\cdot400=160\ \mathrm{N}$. Wartość $100\ \mathrm{N}$ to próg wywrotu z przykładu — inny tryb.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Ta sama szafa jest pchana na wysokości $h=1{,}20\ \mathrm{m}$, podstawa $d=0{,}60\ \mathrm{m}$. Który tryb nastąpi pierwszy?</Prompt>
+    <Answer>Poślizg, bo $160\ \mathrm{N}>100\ \mathrm{N}$</Answer>
+    <Answer correct>Wywrot, bo $100\ \mathrm{N}<160\ \mathrm{N}$</Answer>
+    <Answer>Obie naraz, zawsze</Answer>
+    <Hint>Następuje tryb o mniejszym progu.</Hint>
+    <Explanation>
+      $P_{\mathrm{wyw}}=W\,d/(2h)=400\cdot0{,}30/1{,}20=100\ \mathrm{N}<P_{\mathrm{poś}}=160\ \mathrm{N}$. Szafa przewróci się, zanim tarcie osiągnie granicę.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Przeniesiesz punkt ciśnięcia z $1{,}2\ \mathrm{m}$ na $1{,}8\ \mathrm{m}$. Co się dzieje z progiem wywrotu?</Prompt>
+    <Answer>Rośnie do $240\ \mathrm{N}$</Answer>
+    <Answer correct>Maleje do około $67\ \mathrm{N}$</Answer>
+    <Answer>Nie zmienia się</Answer>
+    <Hint>$P_{\mathrm{wyw}}=W\,d/(2h)$ — sprawdź, jak wchodzi $h$.</Hint>
+    <Explanation>
+      $P_{\mathrm{wyw}}=120/1{,}8\approx66{,}7\ \mathrm{N}$. Wyższe przyłożenie siły zwiększa jej moment, więc wywrot robi się łatwiejszy, aż próg poślizgu stanie się decydujący.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Dlaczego w stanie granicznym wywrotu nie zakładamy $T=\mu_s N$?</Prompt>
+    <Answer>Bo tarcie znika przy krawędzi</Answer>
+    <Answer correct>Bo poślizg jeszcze nie zagraża — tarcie jest statyczne, zwykle poniżej granicy</Answer>
+    <Answer>Bo normalna w krawędzi unieważnia tarcie</Answer>
+    <Hint>Warunek $T=\mu_s N$ dotyczy progu poślizgu, a nie obrotu.</Hint>
+    <Explanation>
+      Wywrot i poślizg to niezależne tryby. W progu wywrotu $T=P=100\ \mathrm{N}<\mu_s N=160\ \mathrm{N}$ — tarcie nadal jest tylko „rezerwą”, która nie została w pełni zaangażowana.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Ta sama szafa, ale podłoga śliska: $\mu_s=0{,}20$. Co nastąpi przy $P=80\ \mathrm{N}$?</Prompt>
+    <Answer>Nic — szafa stoi</Answer>
+    <Answer correct>Poślizg, bo próg poślizgu $80\ \mathrm{N}$ jest niższy niż próg wywrotu $100\ \mathrm{N}$</Answer>
+    <Answer>Wywrot, bo geometria się nie zmieniła</Answer>
+    <Hint>Geometria nie zmieniła się, ale zmienił się współczynnik.</Hint>
+    <Explanation>
+      $P_{\mathrm{poś}}=0{,}20\cdot400=80\ \mathrm{N}<P_{\mathrm{wyw}}=100\ \mathrm{N}$. Mniejsza przyczepność przenosi decyzję na poślizg — dokładnie odwrotnie niż w przykładzie.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Projektujesz regał, który ma być odporny na wywrot przy przewróceniu. Który zabieg jest nieskuteczny?</Prompt>
+    <Answer>Poszerzenie podstawy $d$</Answer>
+    <Answer>Obniżenie środka ciężkości</Answer>
+    <Answer correct>Zwiększenie wysokości, na której działa siła pozioma</Answer>
+    <Hint>Poszukaj działania, które podnosi próg wywrotu.</Hint>
+    <Explanation>
+      Szeroka podstawa i niski ciężar podnoszą moment oporu $W\,d/2$. Zwiększanie $h$ robi przeciwnie — ułatwia wywrot, co pokazuje wzór $P_{\mathrm{wyw}}=W\,d/(2h)$.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Baker, Haynes i in., _Engineering Statics_, rozdz. 9.2 „Slipping vs. Tipping” — trzy kroki decyzji: sprawdź poślizg, sprawdź wywrot, porównaj; rysunki przesuwającej się wypadkowej normalnej.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_, rozdz. 4.4, część „Slipping vs. Tipping” i przykład 5 — interpretacja wywrotu jako ucieczki wypadkowej normalnej poza krawędź.
+- Wykład „Tarcie” (materiały wykładowe), str. 2–3 — prawa tarcia, na których stoi próg poślizgu.
+- OpenStax, _University Physics_ t. 1, rozdz. 6.2 — rola przylegania i chropowatości przy przekraczaniu granicy ruchu.

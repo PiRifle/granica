@@ -1,0 +1,181 @@
+---
+id: statyka-tarcie-ciegna
+moduleId: statyka-tarcie
+number: 5
+title: 'Tarcie cięgien: wzór Eulera'
+shortTitle: 'Tarcie cięgien'
+description: >-
+  Lina opasująca wałek przenosi różne napięcia po obu stronach. Wzór Eulera
+  T2 = T1·e^(μθ) wiąże te napięcia z kątem opasania w radianach.
+eyebrow: 'Im większy opas, tym większa różnica napięć'
+outcomes:
+  - 'W1 — wyjaśnia, dlaczego napięcie liny rośnie wykładniczo wraz z kątem opasania'
+  - 'W2 — rozróżnia stronę napiętą i luźną oraz kierunek zamierzonego poślizgu'
+  - 'U1 — oblicza napięcia w linie lub pasie za pomocą wzoru Eulera'
+  - 'U2 — przelicza kąt opasania na radiany i ocenia wpływ liczby zwojów'
+---
+
+Owin linę wokół słupka lub wałka i pociągnij za jeden koniec. Drugi koniec może utrzymać ciężar znacznie większy od siły, którą działasz. To nie jest sztuczka: tarcie rozkłada się na całym łuku styku, a każdy mały wycinek liny dokłada odrobinę tarcia. Efekt sumuje się wykładniczo, dlatego nawet kilka zwojów potrafi zmienić stosunek napięć z kilku do kilkudziesięciu.
+
+Ten mechanizm opisuje wzór Eulera, znany też jako wzór na tarcie cięgna lub wzór capstana. Występuje w nim kąt opasania $\theta$ — nie kąt między końcami liny, lecz pełny kąt, pod jakim lina dotyka walca. Jeśli lina owija się półtora raza, kąt wynosi $1{,}5\cdot2\pi$, a nie $180^\circ$. To najczęstsze źródło pomyłek w zadaniach.
+
+W tej lekcji wyprowadzisz wzór z równowagi małego wycinka liny, a potem użyjesz go do obliczenia siły trzymającej ciężar na kołowrocie. Zobaczysz też, dlaczego inżynierowie podają kąt zawsze w radianach i jak liczba zwojów wpływa na przenoszone napięcie.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie, że siła tarcia jest styczna do powierzchni styku, a siła normalna prostopadła.
+- Opanuj podstawy funkcji wykładniczej: $e^0=1$, a $e^{x}$ rośnie szybciej niż liniowo.
+- Przeliczaj stopnie na radiany: $180^\circ=\pi$, $360^\circ=2\pi$.
+- Pamiętaj, że napięcie liny działa wzdłuż jej osi i że lina jest modelowana jako idealnie wiotka.
+- Ustal, po której stronie lina jest napięta bardziej — to strona, w którą „chce” przesunąć się lina względem walca.
+
+## Model i intuicja
+
+Wyobraź sobie mały wycinek liny opasujący walec na kącie $\Delta\theta$. Po jednej stronie działa napięcie $T$, po drugiej $T+\Delta T$. Różnica napięć jest równoważona tarciem rozłożonym na łuku. Docisk do walca pochodzi od samego napięcia: im mocniej lina jest napięta, tym większa siła normalna, a więc i większe dostępne tarcie. To sprzężenie zwrotne prowadzi do wzrostu wykładniczego.
+
+W stanie granicznym, gdy lina ma się właśnie ślizgać, tarcie osiąga maksimum $\mu_sN$. Wtedy napięcie po stronie „ciągniętej” jest największe w stosunku do strony luźnej. Wzór Eulera podaje ten maksymalny stosunek. Jeśli lina nie ślizga się, rzeczywisty stosunek napięć może być mniejszy — wzór wyznacza granicę, nie wartość w każdym stanie.
+
+Model zakłada, że lina jest nieważka i idealnie wiotka, walec jest sztywny, a współczynnik tarcia jest stały na całym łuku. Nie uwzględnia sztywności zginania liny ani zmian nacisku wywołanych jej ciężarem. Dla pasa klinowego wzór modyfikuje się, dzieląc współczynnik tarcia przez $\sin(\alpha/2)$, gdzie $\alpha$ jest kątem rowka; w tej lekcji pozostajemy przy pasie płaskim i linie.
+
+## Laboratorium: co ustawić
+
+Owiń linę wokół walca i ustaw kąt opasania oraz współczynnik tarcia. Zmieniaj kąt od pół obrotu do dwóch obrotów i obserwuj, jak rośnie stosunek napięć. Sprawdź, czy podwojenie kąta podnosi stosunek do kwadratu, a nie dwa razy. Porównaj wynik z ręcznym obliczeniem $e^{\mu\theta}$.
+
+<Lab id="staticsBelt" />
+
+## Definicje i jednostki
+
+| Wielkość                       | Symbol   | Jednostka | Znaczenie                                        |
+| ------------------------------ | -------- | --------- | ------------------------------------------------ |
+| Napięcie strony luźnej         | $T_1$    | N, kN     | Mniejsze napięcie, strona bez zamierzonego ruchu |
+| Napięcie strony napiętej       | $T_2$    | N, kN     | Większe napięcie, strona ciągnięta               |
+| Kąt opasania                   | $\theta$ | radian    | Pełny kąt styku liny z walcem                    |
+| Współczynnik tarcia            | $\mu_s$  | —         | Bezwymiarowy, dla pary lina–walec                |
+| Podstawa logarytmu naturalnego | $e$      | —         | $e\approx2{,}718$                                |
+
+Kąt opasania liczymy w radianach, bo wzór powstaje z całkowania po kącie. Jeden pełny obrót to $2\pi\approx6{,}283$ rad, pół obrotu to $\pi\approx3{,}142$ rad. Napięcia mają jednostki siły, a wykładnik $\mu_s\theta$ jest bezwymiarowy.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+T_2=T_1\,e^{\mu_s\theta}
+$$
+
+<Caption>Wzór Eulera dla liny lub płaskiego pasa w stanie granicznym. $T_2$ jest większym napięciem po stronie zamierzonego ruchu, $T_1$ mniejszym napięciem strony luźnej, $\mu_s$ współczynnikiem tarcia, a $\theta$ kątem opasania w radianach. Dla ruchu ciągłego używamy $\mu_k$.</Caption>
+</Formula>
+
+Wyprowadzenie z równowagi wycinka liny:
+
+1. Wycinek obejmuje kąt $\Delta\theta$; napięcia na końcach różnią się o $\Delta T$.
+2. Równowaga styczna: $\Delta T=\mu_s\,\Delta N$ w stanie granicznym.
+3. Równowaga promieniowa: $\Delta N\approx T\,\Delta\theta$ dla małego kąta.
+4. Po podstawieniu: $\Delta T=\mu_sT\,\Delta\theta$, czyli $\Delta T/T=\mu_s\Delta\theta$.
+5. Przejście do granicy i całkowanie od $0$ do $\theta$ daje $\ln(T_2/T_1)=\mu_s\theta$.
+6. Po przekształceniu: $T_2=T_1e^{\mu_s\theta}$.
+
+Z wzoru wynika ważna własność: stosunek napięć zależy od iloczynu $\mu_s\theta$, a nie od promienia walca ani od długości liny. Podwojenie kąta opasania podnosi stosunek do kwadratu, bo $e^{2\mu_s\theta}=(e^{\mu_s\theta})^2$.
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-tarcie-ciegna" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Podstawianie kąta w stopniach do wykładnika — wtedy $\mu\theta$ przestaje być bezwymiarowe, a wynik jest absurdalnie duży.
+- Branie kąta między końcami liny zamiast kąta opasania; dla półtora zwoju to nie $180^\circ$, lecz $3\pi$.
+- Odwracanie stosunku: $T_2=T_1e^{\mu\theta}$ dotyczy strony napiętej, a nie dowolnej strony.
+- Używanie wzoru w zwykłym spoczynku bez sprawdzenia, czy poślizg jest graniczny; wzór daje maksymalny stosunek, nie rzeczywisty.
+- Mylenie tarcia liny z tarciem klocka: tutaj nacisk zmienia się wzdłuż łuku, więc nie można zastąpić całego kontaktu jednym $N$.
+- Pomijanie kierunku zamierzonego ruchu przy wyborze $T_2$ i $T_1$ — od tego zależy, która strona jest napięta.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Znajdź linę, pas lub taśmę stykającą się z walcem, bębnem albo słupkiem.
+2. Ustal, która strona jest napięta, czyli w którą stronę lina miałaby się przesunąć przy poślizgu.
+3. Policz kąt opasania w radianach; dla $n$ pełnych zwojów $\theta=2\pi n$.
+4. Sprawdź, czy zadanie dotyczy stanu granicznego („największe”, „minimalne”, „zaczyna się ślizgać”); wtedy równość $T_2=T_1e^{\mu_s\theta}$.
+5. Jeśli lina porusza się ruchem jednostajnym, użyj $\mu_k$; jeśli pytanie dotyczy zapasu, sprawdź nierówność $T_2/T_1\le e^{\mu_s\theta}$.
+6. Oceń, czy promień walca jest potrzebny — we wzorze Eulera nie występuje, ale może być potrzebny do momentu tarcia lub mocy.
+
+## Połącz z resztą kursu
+
+- **Tarcie suche** — wzór Eulera to tarcie suche rozłożone na łuku; każdy wycinek liny ma własne $N$ i $T$.
+- **Równowaga z tarciem** — kąt tarcia $\varphi_s$ wraca w analizie pasa klinowego i w konstrukcji wzoru.
+- **Hamulce i bębny** — taśma hamulcowa działa jak lina owinięta wokół bębna; różnica napięć daje moment hamujący.
+- **Przekładnie pasowe** — stosunek napięć ogranicza maksymalny moment przenoszony przez pas.
+- **Maszyny dźwignicowe** — kołowroty i wciągarki wykorzystują wzrost tarcia wraz z liczbą zwojów liny.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Który wzór opisuje graniczny stosunek napięć liny owiniętej wokół walca?</Prompt>
+    <Answer>$T_2=T_1+\mu_s\theta$</Answer>
+    <Answer correct>$T_2=T_1e^{\mu_s\theta}$</Answer>
+    <Answer>$T_2=T_1\cos(\mu_s\theta)$</Answer>
+    <Hint>Tarcie narasta proporcjonalnie do napięcia, co prowadzi do równania różniczkowego.</Hint>
+    <Explanation>
+      Równanie $\Delta T/T=\mu_s\Delta\theta$ po scałkowaniu daje logarytm, a więc zależność wykładniczą $T_2=T_1e^{\mu_s\theta}$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Lina opasuje walec pół obrotu, a $\mu_s=0{,}25$. Stosunek napięć $T_2/T_1$ wynosi około:</Prompt>
+    <Answer>$1{,}25$</Answer>
+    <Answer correct>$2{,}19$</Answer>
+    <Answer>$4{,}81$</Answer>
+    <Hint>Pół obrotu to $\theta=\pi$; policz $e^{0{,}25\pi}$.</Hint>
+    <Explanation>
+      $\mu_s\theta=0{,}25\pi=0{,}785$, więc $e^{0{,}785}\approx2{,}19$. Wartość $4{,}81$ odpowiada pełnemu obrotowi.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Na luźnym końcu liny działa $100\ \mathrm{N}$, $\mu_s=0{,}20$, a kąt opasania wynosi $\pi$. Największe napięcie po drugiej stronie to około:</Prompt>
+    <Answer>$120\ \mathrm{N}$</Answer>
+    <Answer correct>$187\ \mathrm{N}$</Answer>
+    <Answer>$628\ \mathrm{N}$</Answer>
+    <Hint>$e^{0{,}20\pi}\approx1{,}87$.</Hint>
+    <Explanation>
+      $T_2=100e^{0{,}20\pi}=100\cdot1{,}874\approx187\ \mathrm{N}$. Wartość $628$ N powstałaby z pomylenia $\mu\theta$ z samym $\theta$.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Przy tym samym $\mu_s=0{,}30$ zwiększasz opasanie z jednego do dwóch pełnych zwojów. Maksymalny stosunek napięć rośnie około:</Prompt>
+    <Answer>2 razy</Answer>
+    <Answer correct>6,6 razy</Answer>
+    <Answer>18 razy</Answer>
+    <Hint>Stosunek dla dwóch zwojów to $e^{4\pi\mu_s}$, a dla jednego $e^{2\pi\mu_s}$.</Hint>
+    <Explanation>
+      Iloraz wynosi $e^{2\pi\mu_s}=e^{1{,}885}\approx6{,}6$. Wzrost jest wykładniczy, a nie liniowy — dlatego dodatkowy zwój tak mocno zwiększa opór.
+    </Explanation>
+  </Question>
+  <Question outcome="W1">
+    <Prompt>Dlaczego kąt opasania trzeba podawać w radianach?</Prompt>
+    <Answer>Bo w radianach kąt jest zawsze mniejszy od $2\pi$</Answer>
+    <Answer correct>Bo wzór powstaje z całkowania $\Delta T/T=\mu\,\Delta\theta$, a różniczka kąta jest w radianach</Answer>
+    <Answer>Bo tylko wtedy współczynnik tarcia jest bezwymiarowy</Answer>
+    <Hint>Sprawdź, jak w wyprowadzeniu pojawia się $\Delta N\approx T\Delta\theta$.</Hint>
+    <Explanation>
+      W przybliżeniu małego kąta $\Delta N\approx T\Delta\theta$ kąt musi być mierzony w radianach, aby długość łuku i siła normalna były spójne. Wstawienie stopni łamie to wyprowadzenie.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Po której stronie liny napięcie jest większe w stanie granicznym?</Prompt>
+    <Answer>Po stronie luźnej, bo tam lina się wydłuża</Answer>
+    <Answer correct>Po stronie, w którą lina miałaby się przesunąć względem walca</Answer>
+    <Answer>Zawsze po stronie bliższej podłoża</Answer>
+    <Hint>Tarcie przeciwdziała zamierzonemu poślizgowi, więc po stronie napiętej trzeba je pokonać.</Hint>
+    <Explanation>
+      Strona napięta to ta, która „ciągnie” linę w kierunku poślizgu. Tarcie działa przeciwnie, dlatego właśnie tam napięcie musi być większe.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Tarcie” (materiały wykładowe), str. 4–7: wzór Eulera $S_1=S_2e^{\mu\alpha}$ oraz przykłady z bębnem i liną.
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 9.5 „Flexible Belts”: wyprowadzenie $T_2/T_1=e^{\mu\beta}$, kąt opasania i zastosowania do przenoszenia momentu.
+- L. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_, rozdz. 4.4: tarcie na powierzchniach zakrzywionych i kierunek reakcji stycznej.
+- _University Physics_ (OpenStax), rozdz. 6.2: jakościowy opis tarcia liny i zależności od kąta kontaktu.

@@ -35,7 +35,14 @@ export function useSolutionHeight(solutionId: string, index: number, seeking: bo
     const measure = () => {
       if (timer) window.clearTimeout(timer)
       timer = window.setTimeout(() => {
-        setStageFloor((current) => Math.max(current, element.scrollHeight))
+        const natural = Array.from(element.children).reduce((height, child) => {
+          const inner = child.firstElementChild
+          if (!inner) return height
+          const styles = window.getComputedStyle(child)
+          const padding = (Number.parseFloat(styles.paddingTop) || 0) + (Number.parseFloat(styles.paddingBottom) || 0)
+          return Math.max(height, inner.getBoundingClientRect().height + padding)
+        }, 0)
+        setStageFloor(natural)
       }, 400)
     }
     measure()

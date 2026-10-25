@@ -1,0 +1,193 @@
+---
+id: statyka-rownie-kliny
+moduleId: statyka-tarcie
+number: 4
+title: 'Równia, drabina i kliny: tarciowa geometria'
+shortTitle: 'Równia, drabina, kliny'
+description: >-
+  Równia pochyła, drabina oparta o ścianę i klin o dwóch chropowatych
+  powierzchniach. Geometria i kierunki tarcia decydują o tym, czy układ stoi.
+eyebrow: 'Geometria, która decyduje o równowadze'
+outcomes:
+  - 'W1 — rozkłada siły na równi i wyznacza graniczny kąt samohamowności'
+  - 'W2 — rozpoznaje kierunki tarcia na dwóch kontaktach drabiny oraz na powierzchniach klina'
+  - 'U1 — rozwiązuje zadanie równowagi drabiny z tarciem w podłożu'
+  - 'U2 — sprawdza, czy klin jest samohamowny, i dobiera jego kąt do współczynnika tarcia'
+---
+
+W lekcji 2 poznałeś równię pochyłą i kąt graniczny. To był przypadek jednego kontaktu: ciało dotykało podłoża tylko jedną powierzchnią i tarcie miało jeden kierunek. Drabina oparta o ścianę ma dwa kontakty — podłogę i ścianę — a w każdym z nich tarcie może działać inaczej. Klin ma jeszcze więcej: dwa chropowate styki, po których jednocześnie ślizga się przy podnoszeniu ładunku. Właśnie dlatego te układy są dobrym testem na to, czy naprawdę rozumiesz kierunek tarcia, a nie tylko znasz wzór $T\le\mu N$.
+
+Wspólna myśl jest zawsze ta sama: w każdym kontakcie rozkładamy reakcję na składową normalną i styczną, a styczna działa przeciwnie do zamierzonego ruchu. Na równi klocek „chce” zjechać w dół, więc tarcie wskazuje w górę równi. W drabinie stopa „chce” odjechać od ściany, więc tarcie w podłodze ciągnie ją do ściany. W klinie przy podnoszeniu ładunku klin wciska się pod blok, a tarcie na obu powierzchniach przeciwdziała temu wciskaniu. Zmienia się geometria, nie zasada.
+
+W tej lekcji rozwiązujemy zadanie z drabiną, a następnie pokazujemy, dlaczego klin o małym kącie potrafi trzymać obciążenie nawet po usunięciu siły napędowej. To zjawisko — samohamowność — jest podstawą działania klinów, kołków rozporowych i wielu zamocowań.
+
+## Zanim zaczniesz
+
+- Przypomnij rozkład ciężaru na równi: $G\sin\alpha$ wzdłuż równi i $G\cos\alpha$ prostopadle do niej.
+- Umiej zapisać sumę momentów względem wygodnego punktu; w drabinie najlepszy jest punkt podparcia.
+- Pamiętaj, że w spoczynku tarcie wynika z równowagi i tylko w stanie granicznym przyjmuje wartość $\mu_s N$.
+- Odróżniaj kąt nachylenia drabiny od kąta tarcia; oba są kątami, ale opisują różne rzeczy.
+- Na rysunku zaznacz kierunek zamierzonego ruchu w każdym kontakcie, zanim narysujesz strzałki tarcia.
+
+## Model i intuicja
+
+Drabina jednorodna o długości $L$ i ciężarze $W$ opiera się o gładką ścianę pod kątem $\alpha$ do podłogi. Ściana jest gładka, więc daje tylko reakcję poziomą $N_B$. Podłoga jest chropowata: daje reakcję normalną $N_A$ i tarcie $T_A$ skierowane do ściany. Ciężar działa w połowie długości drabiny. Mamy trzy niewiadome i trzy równania równowagi, więc zadanie jest statycznie wyznaczalne.
+
+Najważniejsza zależność powstaje z momentów względem stopy drabiny. Reakcje $N_A$ i $T_A$ przechodzą przez ten punkt, więc znikają. Zostaje moment ciężaru i moment reakcji ściany. Im mniejszy kąt $\alpha$, tym większa pozioma reakcja ściany i tym większe tarcie potrzebne w podłodze. Drabina stoi więc nie dlatego, że „tak wygląda”, lecz dlatego, że kąt nachylenia jest wystarczająco duży w stosunku do współczynnika tarcia.
+
+Klin działa na podobnej zasadzie, ale z dwóch stron. Przy podnoszeniu bloku klin wsuwa się pod niego, a siły normalne są nachylone do pionu o kąt klina. Tarcie na obu powierzchniach „składa się” z tym naciskiem. Gdy kąt klina jest mały, siła potrzebna do wsunięcia klina jest niewielka, ale po puszczeniu klin nie wysuwa się sam — jest samohamowny. Granica tego zachowania zależy od kąta tarcia, nie od ciężaru ładunku.
+
+Model zakłada sztywne ciała, punktowe kontakty i stały współczynnik tarcia. Dla drabiny pomijamy tarcie o ścianę; gdy ściana jest chropowata, dochodzi czwarta siła styczna i wynik się zmienia. Dla klina zakładamy, że tarcie jest takie samo na obu powierzchniach i że ruch jest quasi-statyczny.
+
+## Laboratorium: co ustawić
+
+Zbuduj drabinę opartą o ścianę i zmieniaj kąt nachylenia. Przy dużym kącie zapas tarcia jest duży; zmniejszaj kąt aż stopa zacznie się ślizgać. Odczytaj kąt graniczny i porównaj go z wartością wynikającą ze wzoru $\operatorname{tg}\alpha_{\mathrm{gr}}=1/(2\mu_s)$. Powtórz próbę dla innego współczynnika tarcia i sprawdź, czy wniosek nie zależy od ciężaru drabiny.
+
+<Lab id="staticsFriction" />
+
+## Definicje i jednostki
+
+| Pojęcie            | Znaczenie                                                                      | Jednostka       |
+| ------------------ | ------------------------------------------------------------------------------ | --------------- |
+| Równia pochyła     | Płaszczyzna nachylona do poziomu pod kątem $\alpha$                            | stopień, radian |
+| Drabina jednorodna | Pręt o ciężarze skupionym w połowie długości                                   | —               |
+| Klin               | Cienki element o zbieżnych powierzchniach, zamieniający siłę poziomą na nacisk | —               |
+| Samohamowność      | Zdolność klina do pozostania w miejscu po usunięciu siły napędowej             | —               |
+| Kąt tarcia         | $\varphi_s=\operatorname{arctg}\mu_s$                                          | stopień, radian |
+
+Jednostki: siły w N lub kN, długości w m, momenty w N·m lub kN·m. Współczynnik tarcia $\mu_s$ jest bezwymiarowy, a kąt tarcia podajemy w stopniach lub radianach — byle konsekwentnie.
+
+## Wzór i wyprowadzenie
+
+Dla drabiny jednorodnej opartej o gładką ścianę granica poślizgu w podłodze ma prostą postać:
+
+<Formula>
+$$
+\mu_{\min}=\frac{1}{2\operatorname{tg}\alpha},\qquad
+\operatorname{tg}\alpha_{\mathrm{gr}}=\frac{1}{2\mu_s}
+$$
+
+<Caption>Minimalny współczynnik tarcia w podłodze, przy którym jednorodna drabina o kącie $\alpha$ nie ślizga się, oraz graniczny kąt nachylenia dla danego $\mu_s$. Wzór nie zawiera ciężaru ani długości drabiny — te wielkości skracają się w równaniu momentów.</Caption>
+</Formula>
+
+Wyprowadzenie dla drabiny:
+
+1. Równowaga pionowa: $N_A=W$.
+2. Moment względem stopy A: $N_B\,L\sin\alpha-W\,(L/2)\cos\alpha=0$.
+3. Stąd $N_B=W\cos\alpha/(2\sin\alpha)=W/(2\operatorname{tg}\alpha)$.
+4. Równowaga pozioma: $T_A=N_B$.
+5. Warunek równowagi $T_A\le\mu_s N_A$ daje $W/(2\operatorname{tg}\alpha)\le\mu_s W$, czyli $\mu_s\ge1/(2\operatorname{tg}\alpha)$.
+
+Dla klina o kącie $\alpha$ i tarciu na obu powierzchniach wygodnie jest użyć kąta tarcia $\varphi_s$. W stanie granicznym reakcje odchylają się od normalnych o $\varphi_s$. Z równowagi klina wynika, że przy małym kącie klin pozostaje zaklinowany po usunięciu siły napędowej; do jego wysunięcia trzeba użyć dodatkowej siły. Granicę opisuje warunek
+
+<Formula>
+$$
+\alpha<2\varphi_s,\qquad \varphi_s=\operatorname{arctg}\mu_s
+$$
+
+<Caption>Warunek samohamowności klina z tarciem na obu powierzchniach. Klin o mniejszym kącie pozostaje zaklinowany po usunięciu siły; klin o większym kącie może się wysunąć. Dla $\mu_s=0{,}30$ granica wynosi około $33{,}4^\circ$.</Caption>
+</Formula>
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-rownie-kliny" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Rysowanie tarcia w podłodze „przeciwnie do ściany” bez zastanowienia: stopa chce odjechać od ściany, więc tarcie ciągnie ją do ściany.
+- Pomijanie reakcji ściany w równaniu momentów albo przyjmowanie, że działa ona pionowo — gładka ściana daje tylko reakcję poziomą.
+- Używanie $\mu_s N$ jako wartości tarcia w zwykłym spoczynku; w przykładzie tarcie wynika z równowagi i tylko sprawdzamy nierówność.
+- Mylenie kąta nachylenia drabiny z kątem tarcia; granica wynika z $\operatorname{tg}\alpha$, a nie z samego $\alpha$.
+- Zakładanie, że cięższa drabina zawsze się przewróci — ciężar skraca się w warunku poślizgu, decyduje geometria i $\mu_s$.
+- Stosowanie warunku samohamowności klina $\alpha<2\varphi_s$ do klina z tarciem tylko na jednej powierzchni; wtedy granica jest inna.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Narysuj układ i zaznacz wszystkie kontakty; każdy kontakt daje normalną, a kontakt chropowaty dodatkowo tarcie.
+2. Ustal zamierzony ruch w każdym kontakcie i skieruj tarcie przeciwnie do niego.
+3. Policz niewiadome; jeśli jest ich tyle, ile równań, zadanie jest wyznaczalne.
+4. W zadaniach z drabiną sumuj momenty względem stopy — eliminujesz dwie reakcje podłogi.
+5. W zadaniach z klinem porównaj kąt klina z $2\varphi_s$; dopiero potem licz siłę potrzebną do wsunięcia lub wysunięcia.
+6. Sprawdź każdy wynik nierównością $T\le\mu_s N$; jej naruszenie oznacza, że przyjęty stan równowagi nie jest możliwy.
+
+## Połącz z resztą kursu
+
+- **Równowaga z tarciem: kąt graniczny** — drabina i klin to dwa zastosowania tego samego warunku $T\le\mu_sN$ w różnych geometriach.
+- **Poślizg i wywrot** — drabina może nie tylko się ślizgnąć, ale też odchylić; oba progi liczy się z momentów względem stopy.
+- **Płaski dowolny układ sił** — równania momentów i rzutów są tu używane bez zmian; zmienia się tylko liczba kontaktów.
+- **Tarcie cięgien** — w następnej lekcji zobaczysz, że i tam decyduje geometria kontaktu, choć wzór jest wykładniczy.
+- **Połączenia klinowe w budowie maszyn** — samohamowność klina to ta sama zasada, która trzyma kołki i zamocowania pod obciążeniem.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="U1">
+    <Prompt>Drabina z przykładu ($L=4$ m, $W=300$ N, $\alpha=60^\circ$) opiera się o gładką ścianę. Reakcja ściany wynosi:</Prompt>
+    <Answer>$150\ \mathrm{N}$</Answer>
+    <Answer correct>$86{,}6\ \mathrm{N}$</Answer>
+    <Answer>$300\ \mathrm{N}$</Answer>
+    <Hint>Sumuj momenty względem stopy drabiny.</Hint>
+    <Explanation>
+      $N_B=W\cos\alpha/(2\sin\alpha)=300\cdot0{,}5/(2\cdot0{,}866)=86{,}6\ \mathrm{N}$. Wartość $150$ N powstałaby z pominięcia czynnika $2$ przy połowie długości.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Minimalny współczynnik tarcia w podłodze dla tej drabiny wynosi około:</Prompt>
+    <Answer>$0{,}250$</Answer>
+    <Answer correct>$0{,}289$</Answer>
+    <Answer>$0{,}577$</Answer>
+    <Hint>$\mu_{\min}=1/(2\operatorname{tg}\alpha)$.</Hint>
+    <Explanation>
+      $\mu_{\min}=1/(2\operatorname{tg}60^\circ)=1/(2\cdot1{,}732)=0{,}289$. Wartość $0{,}577$ to $\operatorname{ctg}60^\circ$, czyli wynik bez czynnika $2$.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Ta sama drabina stoi na podłodze o $\mu_s=0{,}25$. Co się stanie?</Prompt>
+    <Answer>Drabina stoi, bo $0{,}25<0{,}289$</Answer>
+    <Answer correct>Stopa zacznie się ślizgać, bo potrzebne tarcie $86{,}6\ \mathrm{N}$ przekracza dostępne $75\ \mathrm{N}$</Answer>
+    <Answer>Drabina przewróci się przez ścianę</Answer>
+    <Hint>Porównaj potrzebne tarcie z $\mu_sN_A$.</Hint>
+    <Explanation>
+      Dostępne tarcie to $0{,}25\cdot300=75\ \mathrm{N}$, a potrzebne $86{,}6\ \mathrm{N}$. Brakuje około $11{,}6\ \mathrm{N}$, więc stopa się ślizga.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Klin z tarciem na obu powierzchniach jest samohamowny, gdy jego kąt $\alpha$ spełnia:</Prompt>
+    <Answer>$\alpha<\varphi_s$</Answer>
+    <Answer correct>$\alpha<2\varphi_s$</Answer>
+    <Answer>$\alpha>2\varphi_s$</Answer>
+    <Hint>W stanie granicznym obie reakcje odchylają się od normalnych o kąt tarcia.</Hint>
+    <Explanation>
+      Przy tarciu na obu powierzchniach wkład klina wchodzi do równowagi z dwoma odchyleniami po $\varphi_s$, co daje granicę $\alpha=2\varphi_s$. Dla mniejszego kąta klin pozostaje zaklinowany.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Współczynnik tarcia klina wynosi $\mu_s=0{,}30$. Największy kąt, przy którym klin jest jeszcze samohamowny, to około:</Prompt>
+    <Answer>$16{,}7^\circ$</Answer>
+    <Answer correct>$33{,}4^\circ$</Answer>
+    <Answer>$45{,}0^\circ$</Answer>
+    <Hint>Najpierw policz $\varphi_s=\operatorname{arctg}\mu_s$, potem podwój.</Hint>
+    <Explanation>
+      $\varphi_s=\operatorname{arctg}0{,}30=16{,}7^\circ$, więc $2\varphi_s=33{,}4^\circ$. Klin o kącie mniejszym niż około $33{,}4^\circ$ pozostaje w miejscu po usunięciu siły.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>W drabinie z przykładu tarcie w podłodze działa:</Prompt>
+    <Answer>od ściany, bo stopa chce się do niej zbliżyć</Answer>
+    <Answer correct>do ściany, bo stopa chce się od niej odjechać</Answer>
+    <Answer>pionowo w górę, jak reakcja normalna</Answer>
+    <Hint>Wyobraź sobie, w którą stronę przesunęłaby się stopa, gdyby podłoga była idealnie gładka.</Hint>
+    <Explanation>
+      Bez tarcia stopa odjechałaby od ściany, a drabina opadłaby. Tarcie przeciwdziała temu ruchowi, więc działa poziomo w stronę ściany.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Tarcie” (materiały wykładowe), str. 2–3: prawa tarcia i granica $T\le\mu_sN$, na których opiera się cały rachunek.
+- D. W. Baker, W. Haynes, _Engineering Statics_, rozdz. 9.3 „Wedges”: analiza klina z tarciem na obu powierzchniach, kierunki reakcji i przykłady samohamowności.
+- L. Osgood, C. Cameron, C. Christensen, _Engineering Mechanics: Statics_, rozdz. 4.4: zadania z równią i tarciem, w tym dobór kierunku tarcia przy zamierzonym ruchu.
+- _University Physics_ (OpenStax), rozdz. 6.2: tarcie statyczne i kinetyczne oraz przykłady równi pochyłej.

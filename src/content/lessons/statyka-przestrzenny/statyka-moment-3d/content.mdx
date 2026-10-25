@@ -1,0 +1,216 @@
+---
+id: statyka-moment-3d
+moduleId: statyka-przestrzenny
+number: 2
+title: 'Moment siły w przestrzeni: punkt, oś i iloczyn wektorowy'
+shortTitle: Moment 3D
+description: >-
+  Policz moment siły względem punktu jako iloczyn wektorowy i wyciągnij z niego
+  moment względem dowolnej osi przez rzut na wersor.
+eyebrow: 'Obrót wokół osi ma znak'
+outcomes:
+  - W1 — rozumie moment siły jako wektor prostopadły do płaszczyzny r i F
+  - W2 — odróżnia moment względem punktu od momentu względem osi
+  - U1 — liczy M = r × F z wyznacznika i poprawnie stosuje regułę prawej dłoni
+  - U2 — wyznacza moment względem osi jako rzut M na wersor osi
+---
+
+Na płaszczyźnie moment siły był jedną liczbą: siła razy ramię, ze znakiem plus lub minus. W przestrzeni takie pojęcie nie wystarcza, bo obrót ma kierunek. Siła przyłożona do klamki może jednocześnie „przekręcać” klamkę wokół osi zawiasu, „ściągać” zawiasy ze ściany i „podważać” futrynę — trzy różne składowe obrotu. Dlatego moment siły względem punktu jest wektorem o trzech składowych, a moment względem osi jest dopiero pojedynczą liczbą: rzutem tego wektora na kierunek osi.
+
+Ta lekcja wprowadza dwa narzędzia, które będą pracować przez cały moduł: iloczyn wektorowy $\mathbf M=\mathbf r\times\mathbf F$ dla momentu względem bieguna oraz rzut tego momentu na wersor osi dla momentu względem osi. Te dwa kroki odpowiadają dokładnie definicji z wykładu: moment statyczny siły względem osi jest równy momentowi rzutu tej siły na płaszczyznę prostopadłą do osi, względem punktu przecięcia osi z tą płaszczyzną.
+
+Umiejętność liczenia momentu względem osi jest kluczowa dla wszystkiego, co się potem wydarzy: moment względem osi wału otwiera równania łożysk, a momenty względem osi układu — pełne warunki równowagi przestrzennej.
+
+## Zanim zaczniesz
+
+- Przypomnij sobie płaski moment siły: $M=F\,d$, gdzie $d$ to prostopadła odległość linii działania od punktu.
+- Wiedz, że iloczyn wektorowy $\mathbf a\times\mathbf b$ jest wektorem prostopadłym do obu czynników, o zwrocie z reguły prawej dłoni.
+- Pamiętaj, że iloczyn wektorowy nie jest przemienny: $\mathbf a\times\mathbf b=-(\mathbf b\times\mathbf a)$.
+- Z lekcji pierwszej: umiej zapisać siłę przez trzy składowe i wyznaczyć wersor z dwóch punktów.
+- Uważaj na jednostki: ramię w metrach i siła w kN dają kN·m; ramię w milimetrach da kN·mm.
+
+## Model i intuicja
+
+Moment siły względem punktu $O$ to wektor $\mathbf M_O=\mathbf r\times\mathbf F$, gdzie $\mathbf r$ prowadzi od bieguna $O$ do dowolnego punktu linii działania siły. Wybór punktu na linii działania nie zmienia wyniku — to własność iloczynu wektorowego i intuicyjnie „to samo obracanie”. Jego moduł to $|\mathbf M_O|=F\,d$: pole równoległoboku zbudowanego z $\mathbf r$ i $\mathbf F$, a więc siła razy odległość.
+
+Każda składowa wektora $\mathbf M_O$ opisuje tendencję obrotu wokół jednej z osi przechodzących przez $O$. Składowa $M_x$ to moment względem osi $x$, $M_y$ względem osi $y$, $M_z$ względem osi $z$. Wektor momentu wskazuje osią obrotu, a reguła prawej dłoni przekłada zwrot wektora na zwrot obrotu.
+
+Gdy interesuje cię obrót wokół konkretnej osi $l$, bierzesz rzut: $M_l=\mathbf M_O\cdot\mathbf e_l$, gdzie $\mathbf e_l$ to wersor osi, a $O$ to dowolny punkt na osi. Wynik jest skalarem — dodatnim, gdy obrot jest zgodny z wersorem osi, uemnym w przeciwnym razie. Jeśli linia działania siły przecina oś $l$ albo jest jej równoległa, moment względem tej osi jest zerowy; to dokładnie sytuacja, gdy pchanie drzwi „w osi zawiasu” niczego nie otwiera.
+
+Model zakłada ciało sztywne i niezmienny punkt przyłożenia. W rzeczywistości moment zależy od tego, jak siła jest przenoszona przez materiał (ślizg, docisk), ale w ramach statyki ciała sztywnego pytamy tylko o równoważność zewnętrzną.
+
+## Laboratorium: co ustawić
+
+Ustaw położenie punktu przyłożenia siły i jej kierunek. Obserwuj, jak zmieniają się trzy składowe momentu względem punktu, a potem pojedynczy moment względem wybranej osi. Znajdź położenie, w którym moment względem osi znika mimo niezerowego momentu względem punktu — to sytuacja „obrotu bez składowej wokół danej osi”.
+
+<Lab id="staticsSpatial" />
+
+## Definicje i jednostki
+
+| Pojęcie                | Zapis                                        | Opis                                 | Jednostka |
+| ---------------------- | -------------------------------------------- | ------------------------------------ | --------- |
+| Moment względem punktu | $\mathbf M_O=\mathbf r\times\mathbf F$       | Wektor; oś obrotu przez $O$          | N·m, kN·m |
+| Składowe momentu       | $M_x,\ M_y,\ M_z$                            | Rzuty $\mathbf M_O$ na osie          | N·m, kN·m |
+| Moment względem osi    | $M_l=\mathbf M_O\cdot\mathbf e_l$            | Skalar; obrót wokół osi $l$          | N·m, kN·m |
+| Wersor osi             | $\mathbf e_l$                                | Wektor jednostkowy wzdłuż osi        | —         |
+| Iloczyn mieszany       | $\mathbf e_l\cdot(\mathbf r\times\mathbf F)$ | Moment względem osi jako wyznacznik  | N·m, kN·m |
+| Ramię momentu          | $d$                                          | Odległość linii działania od bieguna | m, mm     |
+
+Symbole: $\mathbf r$ — wektor od bieguna do punktu przyłożenia siły; $F$ — wartość siły; $\theta$ — kąt między $\mathbf r$ a $\mathbf F$. Jednostka momentu w układzie SI to niutonometr; w praktyce kN·m dla konstrukcji i N·mm lub kN·mm w wytrzymałości. Nie mieszaj ramienia w metrach z siłą w kN i zapisuj wynik konsekwentnie.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+\mathbf M_O=\mathbf r\times\mathbf F=
+\begin{vmatrix}
+\mathbf i & \mathbf j & \mathbf k\\
+r_x & r_y & r_z\\
+F_x & F_y & F_z
+\end{vmatrix}
+$$
+
+<Caption>Rozwinięcie po pierwszym wierszu daje Mx = ryFz − rzFy, My = rzFx − rxFz, Mz = rxFy − ryFx. Kolejność razy F jest obowiązkowa; zamiana miejsc zmienia znak wszystkich składowych.</Caption>
+</Formula>
+
+Wyprowadzenie składowych wynika bezpośrednio z definicji iloczynu wektorowego. Weźmy składową $x$: $\mathbf i\cdot(\mathbf r\times\mathbf F)=r_yF_z-r_zF_y$. Interpretacja: $r_yF_z$ to moment względem osi $x$ składowej $F_z$ przy ramieniu $r_y$ (znak z reguły prawej dłoni), a $-r_zF_y$ koryguje go o wkład składowej $F_y$ przy ramieniu $r_z$. Pozostałe składowe dostajesz cykliczną zamianą indeksów $x\to y\to z\to x$, z czego wynika zapis z wykładu: $M_x=yF_z-zF_y$, $M_y=zF_x-xF_z$, $M_z=xF_y-yF_x$.
+
+<Formula>
+$$
+M_l=\mathbf M_O\cdot\mathbf e_l=
+\begin{vmatrix}
+e_x & e_y & e_z\\
+r_x & r_y & r_z\\
+F_x & F_y & F_z
+\end{vmatrix},\qquad
+M_l=0\ \text{gdy linia działania siły przecina lub jest równoległa do osi } l
+$$
+
+<Caption>Moment względem osi l jako iloczyn mieszany: wersor osi w pierwszym wierszu, wektor r od osi do siły w środku, siła na dole. Wystarczy, że linia działania przecina oś albo biegnie równolegle do niej, by moment względem tej osi zniknął — mimo niezerowego momentu względem punktu.</Caption>
+</Formula>
+
+<Insight>
+  Moment względem osi jest pojedynczą liczbą ze znakiem, nie wektorem. Znak mówi, czy obrót następuje zgodnie z
+  przyjętym wersorem osi. Ta umowa uniezależnia wynik od tego, który punkt osi wybrałeś na biegun.
+</Insight>
+
+## Przykład prowadzony: moment względem punktu i względem osi
+
+<AnimatedSolution id="ex-statyka-moment-3d" />
+
+## Drugi przykład: moment względem osi jako moment rzutu
+
+<AnimatedSolution id="ex-statyka-moment-3d-2" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Mnożenie w złej kolejności: $\mathbf F\times\mathbf r$ daje wektor przeciwny do $\mathbf r\times\mathbf F$; kolejność $\mathbf r$ od bieguna do siły jest obowiązkowa.
+- Brak minusa przy składowej $M_y$ we wzorze na wyznacznik — rozwijaj wyznacznik symbolicznie, a nie „na pamięć”.
+- Mylenie momentu względem punktu (wektor, trzy składowe) z momentem względem osi (skalar, jedna liczba ze znakiem).
+- Zakładanie, że zerowy moment względem punktu oznacza zerowy moment względem każdej osi — bywa odwrotnie: cały moment może leżeć poza daną osią.
+- Pomijanie składowych $r_z$ i $F_z$, bo „zadanie jest płaskie” — w przestrzeni musisz zapisać wszystkie trzy składowe, choćby niektóre były zerowe.
+- Jednostki: ramię w mm z siłą w kN daje kN·mm; zapisanie wyniku jako kN·m bez dzielenia przez 1000 to błąd rzędu trzech.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Zidentyfikuj pytanie: „moment względem punktu” czy „moment względem osi / moment skręcający wał”.
+2. Przy punkcie: wybierz biegun i zapisz $\mathbf r$ od bieguna do dowolnego punktu linii działania.
+3. Zapisz $\mathbf F$ w składowych i policz wyznacznik; zachowaj kolejność wierszy: osie, r, F.
+4. Przy osi: wyznacz wersor osi z dwóch jej punktów i policz iloczyn mieszany lub rzut $\mathbf M_O$ na $\mathbf e_l$.
+5. Sprawdź przypadki zerowe: linia działania przecina oś albo jej jest równoległa — moment względem osi wynosi zero.
+6. Kontroluj znak przez regułę prawej dłoni i zapisz jednostkę momentu.
+
+## Połącz z resztą kursu
+
+- **Wektory 3D** — składowe siły z poprzedniej lekcji są danymi wejściowymi do iloczynu wektorowego.
+- **Redukcja układu sił** — moment główny układu to suma momentów, które liczysz właśnie tą metodą.
+- **Równowaga 3D** — trzy równania momentowe to równania właśnie tych rzutów na osie układu.
+- **Wały i łożyska** — moment względem osi wału „wydziela” moment skręcający z reszty układu.
+- **Skręcanie w wytrzymałości** — $M_x$ z równań statyki staje się momentem zewnętrznym T w wzorach na naprężenia skręcające.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Co wskazuje kierunek wektora momentu M = r × F?</Prompt>
+    <Answer>Kierunek siły przyłożonej do ciała</Answer>
+    <Answer correct>Oś obrotu, wokół której siła „przekręca” ciało, ze zwrotem z reguły prawej dłoni</Answer>
+    <Answer>Prostą, wzdłuż której ciało się przesuwa</Answer>
+    <Hint>Porównaj z klamką drzwi: co się obraca i wokół czego?</Hint>
+    <Explanation>
+      Wektor momentu jest prostopadły do płaszczyzny wyznaczonej przez r i F; jego kierunek to oś obrotu, a zwrot
+      odpowiada kierunkowi kręcenia zgodnie z prawą dłonią.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Czym różni się moment względem punktu od momentu względem osi?</Prompt>
+    <Answer>To są dwa różne obliczenia, które nie mają ze sobą nic wspólnego</Answer>
+    <Answer correct>
+      Moment względem punktu jest wektorem; moment względem osi jest jego rzutem — skalarem ze znakiem
+    </Answer>
+    <Answer>Moment względem osi jest zawsze większy od momentu względem punktu</Answer>
+    <Hint>Jedno opisuje obrót „wszystkimi osiami naraz”, drugie — wokół jednej wybranej.</Hint>
+    <Explanation>
+      Moment względem punktu opisuje całkowitą tendencję obrotową przez trzy składowe. Moment względem osi to rzut tego
+      wektora na wersor osi — jedna liczba mówiąca, ile z tego obrotu działa wokół wybranej osi.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>r = (1, 0, 0) m, F = (0, 5, 0) kN. Ile wynosi M = r × F?</Prompt>
+    <Answer correct>(0, 0, 5) kN·m</Answer>
+    <Answer>(0, 0, −5) kN·m</Answer>
+    <Answer>(5, 0, 0) kN·m</Answer>
+    <Hint>Mz = rxFy − ryFx.</Hint>
+    <Explanation>
+      Mz = 1·5 − 0·0 = 5, a pozostałe składowe zerują się, więc M = (0, 0, 5) kN·m. Wersja z minusem odpowiadałaby
+      iloczynowi w złej kolejności, F × r; trzecia odpowiedź pomija zasady iloczynu wektorowego.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Siła działa wzdłuż prostej, która przecina oś z. Jaki jest moment tej siły względem osi z?</Prompt>
+    <Answer>Równy modułowi siły razy odległość od początku układu</Answer>
+    <Answer correct>Zerowy, niezależnie od wartości i zwrotu siły</Answer>
+    <Answer>Zależy wyłącznie od kąta nachylenia prostej do osi</Answer>
+    <Hint>Rozważ rzut siły na płaszczyznę prostopadłą do osi i jego ramię.</Hint>
+    <Explanation>
+      Skoro linia działania przecina oś, jej rzut na płaszczyznę prostopadłą do osi przechodzi przez punkt przecięcia,
+      więc ramię wynosi zero. Moment względem osi znika — dokładnie dlatego siły przechodzące przez oś wału nie skręcają
+      go.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>M_O = (10, 0, −10) kN·m, oś l ma wersor e_l = (0, 1, 0). Ile wynosi M_l?</Prompt>
+    <Answer>10 kN·m</Answer>
+    <Answer correct>0</Answer>
+    <Answer>−10 kN·m</Answer>
+    <Hint>Ml to iloczyn skalarny M_O i e_l.</Hint>
+    <Explanation>
+      M_l = 10·0 + 0·1 + (−10)·0 = 0. Cały moment leży w płaszczyźnie xz i jest prostopadły do osi y, więc nie ma
+      składowej obrotu wokół niej. To częsta sytuacja w zadaniach z wałami.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>
+      Składowa My momentu względem punktu wynosi zF_x − xF_z. Siła F = (2, 0, 4) kN działa w punkcie (1, 5, 3) m. Ile
+      wynosi My?
+    </Prompt>
+    <Answer>−10 kN·m</Answer>
+    <Answer correct>−2 kN·m</Answer>
+    <Answer>2 kN·m</Answer>
+    <Hint>Podstaw z = 3, Fx = 2, x = 1, Fz = 4 do wzoru My = zFx − xFz.</Hint>
+    <Explanation>
+      My = 3·2 − 1·4 = 6 − 4 = 2 kN·m. Wartość dodatnia — kręcenie wokół osi y zgodne z dodatnim zwrotem osi. Składowa y
+      nie zależy od współrzędnej y punktu przyłożenia, bo siła „przesunięta wzdłuż osi y” ma ten sam moment względem
+      niej.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład „Przestrzenny układ sił”, str. 2–4 — definicja momentu względem osi jako momentu rzutu siły na płaszczyznę prostopadłą oraz zależności Mx = yFz − zFy i cykliczne; kanon notacji tej lekcji.
+- D. Baker, B. Haynes, _Engineering Statics_ — rozdz. 4.4 (momenty 3D): wyznacznik, moment względem punktu i moment względem prostej przez iloczyn mieszany, z liczonymi przykładami.
+- OpenStax, _University Physics_ vol. 1 — rozdz. 2.4 (iloczyny wektorowe) i 12.1 (warunek momentowy równowagi); dobre ćwiczenie reguły prawej dłoni.
+- Jacob Moore i in., _Engineering Mechanics: Statics_ (UPEI) — rozdz. 1.6.3 (metoda wektorowa w 3D): dlaczego r może kończyć się w dowolnym punkcie linii działania.

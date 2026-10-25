@@ -1,0 +1,178 @@
+---
+id: statyka-redukcja-plaska
+moduleId: statyka-plaskie-dowolne
+number: 3
+title: 'Redukcja do bieguna: wektor główny i moment główny'
+shortTitle: Redukcja do bieguna
+description: >-
+  Zastąp dowolny płaski układ sił jedną siłą i jednym momentem względem
+  wybranego bieguna, a gdy się da — jedną siłą o znalezionej prostej działania.
+eyebrow: 'Wiele sił → dwa wektory'
+outcomes:
+  - W1 — rozumie różnicę między wektorem głównym a momentem głównym i ich zależność od bieguna
+  - W2 — wyjaśnia, kiedy układ można sprowadzić do jednej siły i jak znaleźć jej prostą działania
+  - U1 — wykonuje redukcję układu sił do bieguna, wyznaczając składowe wektora głównego i moment główny
+  - U2 — znajduje prostą działania wypadkowej z warunku $d = M_O/R$ i równania prostej
+---
+
+Koło pasowe, na które działają dwa naprężone pasy i moment z silnika; dźwigar, na który pracują siły od różnych maszyn; nawet klamka, na którą naciskają dwie dłonie — zanim policzysz reakcje podpór, warto wiedzieć, „ile” układ sił w sumie „ciągnie” i „kręci”. Na to pytanie odpowiada redukcja: zastępujemy cały dowolny układ sił najprostszym układem równoważnym — jedną siłą przyłożoną w wybranym punkcie (biegunie) i jednym momentem.
+
+Redukcja do bieguna działa w dwóch krokach, które pochodzą wprost od równoległego przesunięcia siły. Każdą siłę przesuwamy równolegle do bieguna $O$, a skutek przesunięcia nadrabiamy momentem dokrętnym. Na końcu siły składamy w wektor główny, a momenty dokrętne i ewentualne momenty skupione — w moment główny. Zostają dwa wektory zamiast dziesiątek.
+
+W tej lekcji wykonasz pełną redukcję na liczbach: policzysz składowe wektora głównego, moment główny względem wybranego bieguna, a potem spróbujesz pójść o krok dalej — sprowadzić układ do jednej siły o konkretnej prostej działania. To ćwiczenie zbuduje intuicję, która w kolejnych lekcjach pozwoli ci natychmiast widzieć, czy belka „pracuje” głównie na zginanie, czy na ścinanie.
+
+## Zanim zaczniesz
+
+- Umiej rozkładać siłę na składowe w prostokątnym układzie osi i sumować wektory składowe.
+- Znaj moment siły względem punktu i twierdzenie Varignona.
+- Przypomnij sobie parę sił i moment dokrętny z poprzednich lekcji.
+- Wiedz, że równoległe przesunięcie siły zmienia moment względem punktów, których nie przekroczyła jej pierwotna prosta działania — i że różnicę należy dodać jako moment.
+
+## Model i intuicja
+
+Dowolny płaski układ sił można zastąpić układem równoważnym złożonym z dwóch wektorów przyłożonych do dowolnego punktu $O$: wektora głównego $\mathbf R$ (sumy geometrycznej wszystkich sił) oraz momentu głównego $\mathbf M_O$ (sumy momentów wszystkich sił względem $O$ plus momenty skupione). Wykład prowadzi to przez równoległe przesunięcie każdej siły do punktu $O$: przesunięta siła i para dokrętna dają razem ten sam efekt zewnętrzny co pierwotna.
+
+Kluczowa właściwość: wektor główny nie zależy od wyboru bieguna — to zwykła suma wektorowa. Moment główny zależy — zmiana bieguna o wektor $\mathbf r$ zmienia moment o $\mathbf r\times\mathbf R$. Wyjątek: gdy $\mathbf R = \mathbf 0$, moment główny jest ten sam we wszystkich punktach i układ redukuje się do pary (poprzednia lekcja). Gdy dodatkowo $\mathbf M_O = \mathbf 0$, układ jest równoważny zeru — a więc ciało może być w równowadze.
+
+Redukcja daje też prostą decyzję o dalszym uproszczeniu. Jeżeli $\mathbf R \neq \mathbf 0$ i $\mathbf R \perp \mathbf M_O$ (w płaszczyźnie zawsze tak jest), można przesunąć wektor główny o $d = M_O/R$ prostopadle do niego i moment znika — układ sprowadza się do jednej siły, wypadkowej. Jej prostą działania znajdujemy z równania $M_O = xR_y - yR_x$.
+
+## Laboratorium: co ustawić
+
+W laboratorium zbuduj układ trzech sił o różnych kierunkach i punktach przyłożenia. Redukuj go do dwóch różnych biegunów i porównaj wektory główne — są identyczne — oraz momenty główne — różnią się o moment wektora głównego. Następnie włącz moment skupiony i sprawdź, że zmienia moment główny w każdym biegunie o tę samą wartość.
+
+<Lab id="staticsPlanar" />
+
+## Definicje i jednostki
+
+| Wielkość             | Symbol        | Jednostka | Znaczenie                                             |
+| -------------------- | ------------- | --------- | ----------------------------------------------------- |
+| Wektor główny        | $\mathbf R$   | kN        | suma geometryczna sił układu                          |
+| Moment główny        | $\mathbf M_O$ | kN·m      | suma momentów względem bieguna $O$                    |
+| Moment dokrętny      | $M_d$         | kN·m      | moment pary przy przesunięciu siły                    |
+| Odległość wypadkowej | $d$           | m         | $d = M_O/R$ prostopadle do $\mathbf R$                |
+| Równoważność         | —             | —         | ta sama $R$ i ten sam $M_O$ względem dowolnego punktu |
+
+Składowe wektora głównego: $R_x = \sum F_{ix}$, $R_y = \sum F_{iy}$; wartość $R = \sqrt{R_x^2 + R_y^2}$; kąt kierunkowy $\alpha = \operatorname{arctg}(R_y/R_x)$ z ćwiartką. Moment główny: $M_O = \sum (x_i F_{iy} - y_i F_{ix}) + \sum M_{0j}$. Przy zmianie bieguna: $M_{O'} = M_O - (x_{O'}R_y - y_{O'}R_x)$ ze znakiem zależnym od orientacji.
+
+## Wzór i wyprowadzenie
+
+<Formula>
+$$
+R_x=\sum F_{ix},\quad R_y=\sum F_{iy},\qquad
+M_O=\sum (x_iF_{iy}-y_iF_{ix})+\sum M_{0j}
+$$
+
+<Caption>Redukcja dowolnego płaskiego układu sił do bieguna $O$. Wzór na $M_O$ to suma momentów składowych $xF_y - yF_x$ wszystkich sił plus momenty skupione. Zmiana bieguna przesuwa moment główny o moment wektora głównego względem nowego punktu — stąd przy $\mathbf R=\mathbf 0$ moment główny jest stały w całej płaszczyźnie.</Caption>
+</Formula>
+
+Wyprowadzenie przebiega w trzech krokach. Po pierwsze, każdą siłę $\mathbf F_i$ rozkładamy na składowe i przesuwamy równolegle do $O$, dodając moment dokrętny $M_{di} = x_iF_{iy} - y_iF_{ix}$ równy momentowi siły względem $O$. Po drugie, wszystkie przesunięte siły sumujemy w punkcie $O$ do wektora głównego — ich wspólny punkt przyłożenia nie zmienia sumy. Po trzecie, momenty dokrętne i skupione sumujemy do momentu głównego. Warunek równoważności: $\mathbf R$ i $\mathbf M_O$ muszą być takie same przed i po — i rzeczywiście są, bo każdy krok był przekształceniem równoważnym.
+
+<Insight>
+  Wektor główny mówi, jak układ „przesuwa”; moment główny mówi, jak „kręci”. Dopiero para $(\mathbf R, \mathbf M_O)$
+  opisuje układ w pełni — jedno bez drugiego zawsze gubi informację.
+</Insight>
+
+## Przykład prowadzony
+
+<AnimatedSolution id="ex-statyka-redukcja-plaska" />
+
+<Callout kind="warning" title="Typowe błędy">
+
+- Uśrednianie momentu głównego po biegunach — moment główny zawsze dotyczy konkretnego punktu i trzeba go oznaczać indeksem.
+- Zapominanie momentów skupionych przy liczeniu $M_O$ — one nie zmieniają $\mathbf R$, ale zmieniają każde $M_O$ o tę samą wartość.
+- Zły znak w $xF_y - yF_x$: najprościej policzyć każdy moment jako „siła razy ramię” i dopisać znak według obrotu.
+- Przy przesuwaniu wypadkowej — przesuwanie jej wzdłuż własnej prostej (to nic nie zmienia) zamiast prostopadle o $d = M_O/R$.
+- Przyjmowanie, że układ z $R = 0$ i $M_O \neq 0$ jest w równowadze — to para sił, która ciało obraca.
+- Mylenie redukcji ze zrównaniem sił w pojedynczym punkcie kontaktu — redukcja opisuje cały układ, nie jedno połączenie.
+
+</Callout>
+
+## Jak to rozpoznać w zadaniu
+
+1. Wypisz wszystkie siły i momenty skupione z ich punktami przyłożenia — tabela oszczędza pomyłek.
+2. Zsumuj składowe: $R_x$, $R_y$ — to wektor główny; oblicz jego wartość i kąt.
+3. Dla wybranego bieguna $O$ policz moment każdej siły jako „siła × ramię” i dodaj momenty skupione — to moment główny.
+4. Jeśli $R \neq 0$, zapisz równanie prostej działania $xR_y - yR_x = M_O$ i zweryfikuj punkt przecięcia z osiami.
+5. Jeśli $R = 0$ i $M_O \neq 0$, układ to para sił; jeśli oba zero — układ równoważny zeru.
+6. Sprawdź zmianą bieguna: $M_{O'} = M_O$ plus poprawka od $\mathbf R$ — musi się zgadzać.
+
+## Połącz z resztą kursu
+
+- **Para sił** — przypadek redukcji z $\mathbf R = \mathbf 0$; teraz widać, dlaczego moment pary jest wszędzie taki sam.
+- **Obciążenia rozłożone** — wypadkowa obciążenia ciągłego to redukcja nieskończenie wielu sił równoległych; środek ciężkości diagramu daje prostą działania.
+- **Równowaga płaska** — warunek równowagi to po prostu $R = 0$ i $M_O = 0$; równania $\sum F_x = 0$, $\sum F_y = 0$, $\sum M_O = 0$ to te same warunki zapisane skalarnie.
+- **Reakcje konstrukcji** — reakcje podpór muszą dać wektor główny i moment główny przeciwne do obciążenia; stąd trzy niewiadome i trzy równania.
+- **Wyznaczalność** — nadmiar podpór to nadmiar niewiadomych wobec trzech równań redukcji; to temat ostatniej lekcji modułu.
+
+## Sprawdź się
+
+<Quiz>
+  <Question outcome="W1">
+    <Prompt>Który element redukcji nie zależy od wyboru bieguna?</Prompt>
+    <Answer>Moment główny</Answer>
+    <Answer correct>Wektor główny</Answer>
+    <Answer>Oba zależą od bieguna</Answer>
+    <Hint>Zmiana bieguna dodaje moment $\mathbf r \times \mathbf R$.</Hint>
+    <Explanation>
+      Wektor główny to zwykła suma wektorowa sił — nie zmienia się przy przenoszeniu punktu przyłożenia. Moment główny zmienia się o $\mathbf r \times \mathbf R$; wyjątek to $\mathbf R = \mathbf 0$, wtedy moment jest stały w całej płaszczyźnie.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Siły F1 = 3 kN w prawo i F2 = 4 kN w górę działają na płytę. Wartość i kierunek wektora głównego?</Prompt>
+    <Answer>7 kN pod kątem 53°</Answer>
+    <Answer correct>5 kN pod kątem około 53° nad osią x</Answer>
+    <Answer>5 kN pod kątem 37° nad osią x</Answer>
+    <Hint>$R = \sqrt{R_x^2 + R_y^2}$, kąt z tg α = Ry/Rx.</Hint>
+    <Explanation>
+      $R_x = 3$, $R_y = 4$, więc $R = \sqrt{9+16} = 5\ \text{kN}$. Kąt: $\operatorname{arctg}(4/3) \approx 53{,}1°$. Nie sumujemy wartości, tylko składowe — to klasyczny trójkąt 3-4-5.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Redukcja układu do bieguna dała R ≠ 0 i MO = 0. Co to oznacza?</Prompt>
+    <Answer>Układ jest równoważny parze sił</Answer>
+    <Answer correct>Układ ma wypadkową — prostą działania przechodzi przez biegun</Answer>
+    <Answer>Układ jest w równowadze</Answer>
+    <Hint>Sprawdź, co znika, gdy prosta działania wypadkowej przechodzi przez biegun.</Hint>
+    <Explanation>
+      Gdy prosta działania wypadkowej przechodzi przez biegun, jej moment względem niego jest zerowy. Zanik momentu głównego przy niezerowym wektorze głównym oznacza więc, że układ sprowadza się do jednej siły przechodzącej przez $O$ — i przez każdy inny punkt tej samej prostej.
+    </Explanation>
+  </Question>
+  <Question outcome="U1">
+    <Prompt>Po redukcji otrzymano R = 6 kN i MO = 12 kN·m. W jakiej odległości od bieguna leży prostą działania wypadkowej?</Prompt>
+    <Answer>0,5 m</Answer>
+    <Answer>3 m</Answer>
+    <Answer correct>2 m</Answer>
+    <Hint>Przesunięcie prostopadłe: $d = M_O/R$.</Hint>
+    <Explanation>
+      $d = M_O/R = 12/6 = 2\ \text{m}$. Wypadkową przesuwamy o 2 m prostopadle do jej kierunku, w stronę zgodną z obrotem momentu głównego; wtedy moment względem bieguna nie zmienia się.
+    </Explanation>
+  </Question>
+  <Question outcome="U2">
+    <Prompt>Siłę P = 10 kN przesuwasz równolegle o 0,5 m. Jaki moment dokrętny musisz dodać, by zachować równoważność?</Prompt>
+    <Answer>20 kN·m</Answer>
+    <Answer>5 kN·m, z dowolnym zwrotem</Answer>
+    <Answer correct>5 kN·m, o zwrocie określonym przez kierunek przesunięcia</Answer>
+    <Hint>Moment dokrętny to moment pary (P, −P) o ramieniu 0,5 m.</Hint>
+    <Explanation>
+      $M_d = P\cdot d = 10\cdot 0{,}5 = 5\ \text{kN·m}$. Zwrot zależy od tego, w którą stronę przesuwamy siłę: para dokrętna musi „nadrabiać” zmianę momentu względem punktów, których nowa prosta nie przechodzi przez pierwotną.
+    </Explanation>
+  </Question>
+  <Question outcome="W2">
+    <Prompt>Dwa układy sił mają identyczny wektor główny i identyczny moment główny względem jednego wybranego punktu. Czy są równoważne?</Prompt>
+    <Answer>Tylko jeśli punktem tym jest początek układu współrzędnych</Answer>
+    <Answer correct>Tak — tożsamość R i MO w jednym punkcie gwarantuje równoważność</Answer>
+    <Answer>Nie — trzeba sprawdzać MO w co najmniej dwóch punktach</Answer>
+    <Hint>Przy zadanym R moment MO wystarcza do odtworzenia układu równoważnego.</Hint>
+    <Explanation>
+      Dla ustalonego $\mathbf R$ moment główny w jednym punkcie wyznacza prostą działania (lub parę, gdy $R = 0$). Skoro oba układy redukują się do tej samej pary $(\mathbf R, \mathbf M_O)$, dają identyczne efekty zewnętrzne — są równoważne.
+    </Explanation>
+  </Question>
+</Quiz>
+
+## Źródła i dalsze czytanie
+
+- Wykład _„Moment siły, siły równoległe, płaski dowolny układ sił”_, str. 11–16: równoległe przesunięcie siły, sprowadzenie układu niezbieżnego do bieguna, wzory na wektor główny i moment główny, przykład ze schodkowym kołem pasowym.
+- Baker, Haynes, _Engineering Statics_, rozdz. 4.6–4.7 (Equivalent Transformations; Statically Equivalent Systems): przekształcenia równoważne, system siła–para, sprowadzanie do jednej siły przez $d = M/R$.
+- Osgood, Cameron, Christensen, _Engineering Mechanics: Statics_ (Engineering LibreTexts), rozdz. 3.1–3.2: moment siły i para jako elementarne klocki redukcji.
+- Moore i in., _Engineering Mechanics: Statics_ (wersja rozbudowana UPEI), rozdz. 3.2–3.3: równoważenie układów sił i momentów.
+- Leyko, _Mechanika ogólna_, t. I: wektor główny i moment główny płaskiego układu sił.

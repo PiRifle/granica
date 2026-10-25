@@ -5,12 +5,14 @@ export default {
   number: 4,
   title: 'Przestrzenny układ sił',
   shortTitle: 'Przestrzenny',
-  description: 'Redukcja i równowaga przestrzennego dowolnego układu sił, moment względem osi i warunki podporowe.',
+  description:
+    'Siły i momenty w przestrzeni, redukcja do bieguna, sześć warunków równowagi, więzy 3D oraz reakcje wałów i łożysk.',
   outcomes: [
-    'W1 — opisuje siły i momenty w przestrzeni',
-    'W2 — rozumie redukcję przestrzennego układu sił',
-    'U1 — zapisuje warunki równowagi przestrzennej',
-    'U2 — wyznacza reakcje podpór przestrzennych',
+    'W1 — opisuje siły i momenty w przestrzeni oraz redukcję układu do bieguna',
+    'W2 — formułuje sześć warunków równowagi i klasyfikuje więzy przestrzenne',
+    'W3 — rozumie rolę łożysk i momentu skręcającego w analizie wałów',
+    'U1 — wyznacza reakcje podpór przestrzennych i siły w cięgnach',
+    'U2 — rozwiązuje pełne zadania 3D i weryfikuje wynik geometrycznie',
   ],
-  status: 'planned',
+  status: 'ready',
 } satisfies ModuleData
