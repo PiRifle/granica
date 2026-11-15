@@ -35,6 +35,7 @@ const px = (sigma: number) => PLOT_LEFT + (sigma - S_MIN) * SCALE
 const py = (tau: number) => PLOT_Y - tau * SCALE
 
 type Pt = { x: number; y: number }
+type Part = 'all' | 'shapes' | 'texts'
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 const smooth = (value: number) => {
@@ -92,10 +93,12 @@ function DataElement({
   shear = 0,
   unknown = false,
   showDirection = false,
+  part = 'all',
 }: {
   shear?: number
   unknown?: boolean
   showDirection?: boolean
+  part?: Part
 }) {
   const right = E.x + HALF
   const left = E.x - HALF
@@ -106,8 +109,8 @@ function DataElement({
   const nEnd = { x: E.x + 96 * n.x, y: E.y + 96 * n.y }
   const arcLabel = pointAt(E, THETA / 2, 50)
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <rect x={left} y={top} width={2 * HALF} height={2 * HALF} rx={2} fill={FILL} stroke={EDGE} strokeWidth={1.7} />
       <line
         x1={left - 10}
@@ -129,12 +132,6 @@ function DataElement({
         strokeDasharray="4 3"
         opacity={0.55}
       />
-      <text x={right + 12} y={E.y + 3} fontSize={8.5} fill={AXIS}>
-        x
-      </text>
-      <text x={E.x + 3} y={top - 13} fontSize={8.5} fill={AXIS}>
-        y
-      </text>
 
       <Arrow from={{ x: right + 2, y: E.y - 20 }} to={{ x: right + 32, y: E.y - 20 }} color={BLUE} />
       <Arrow from={{ x: left - 2, y: E.y + 20 }} to={{ x: left - 32, y: E.y + 20 }} color={BLUE} />
@@ -174,6 +171,23 @@ function DataElement({
         </>
       )}
 
+      {showDirection && (
+        <>
+          <line x1={E.x} y1={E.y} x2={nEnd.x} y2={nEnd.y} stroke={VIOLET} strokeWidth={1.6} strokeDasharray="7 4" />
+          <path d={arcPath(E.x, E.y, 36, 0, THETA)} fill="none" stroke={VIOLET} strokeWidth={1.5} />
+        </>
+      )}
+    </>
+  )
+
+  const texts = (
+    <>
+      <text x={right + 12} y={E.y + 3} fontSize={8.5} fill={AXIS}>
+        x
+      </text>
+      <text x={E.x + 3} y={top - 13} fontSize={8.5} fill={AXIS}>
+        y
+      </text>
       <text x={right + 2} y={E.y - 26} fontSize={9} fill={BLUE}>
         σx = 100
       </text>
@@ -185,17 +199,24 @@ function DataElement({
       </text>
 
       {showDirection && (
-        <g>
-          <line x1={E.x} y1={E.y} x2={nEnd.x} y2={nEnd.y} stroke={VIOLET} strokeWidth={1.6} strokeDasharray="7 4" />
+        <>
           <text x={nEnd.x + 4} y={nEnd.y - 4} fontSize={9.5} fontWeight={600} fill={VIOLET}>
             n1 (σ1)
           </text>
-          <path d={arcPath(E.x, E.y, 36, 0, THETA)} fill="none" stroke={VIOLET} strokeWidth={1.5} />
           <text x={arcLabel.x} y={arcLabel.y} textAnchor="middle" fontSize={9} fill={VIOLET}>
             θp = 30°
           </text>
-        </g>
+        </>
       )}
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -207,7 +228,15 @@ function normalArrow(face: Pt, normal: Pt, value: number, max: number, color: st
   const tip = { x: base.x + sign * length * normal.x, y: base.y + sign * length * normal.y }
   return <Arrow from={base} to={tip} color={color} width={2.1} />
 }
-function PrincipalElement({ angle, highlight }: { angle: number; highlight: 'principal' | 'check' | 'second' }) {
+function PrincipalElement({
+  angle,
+  highlight,
+  part = 'all',
+}: {
+  angle: number
+  highlight: 'principal' | 'check' | 'second'
+  part?: Part
+}) {
   const n = pointAt({ x: 0, y: 0 }, angle, 1)
   const p = { x: -n.y, y: n.x }
   const corners = [
@@ -224,8 +253,8 @@ function PrincipalElement({ angle, highlight }: { angle: number; highlight: 'pri
   const label1 = { x: E.x + 84 * n.x + 12, y: E.y + 84 * n.y - 10 }
   const label2 = { x: E.x + 84 * p.x + 8, y: E.y + 84 * p.y - 6 }
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <line
         x1={E.x - HALF - 8}
         y1={E.y}
@@ -273,6 +302,18 @@ function PrincipalElement({ angle, highlight }: { angle: number; highlight: 'pri
       {normalArrow({ x: E.x + HALF * p.x, y: E.y + HALF * p.y }, p, S2, S1, VIOLET)}
       {normalArrow({ x: E.x - HALF * p.x, y: E.y - HALF * p.y }, { x: -p.x, y: -p.y }, S2, S1, VIOLET)}
 
+      {highlight === 'check' && (
+        <path d={arcPath(E.x, E.y, 38, 0, angle)} fill="none" stroke={BLUE} strokeWidth={1.5} />
+      )}
+
+      {highlight === 'second' && (
+        <path d={arcPath(E.x, E.y, 42, THETA, THETA + 90)} fill="none" stroke={VIOLET} strokeWidth={1.6} />
+      )}
+    </>
+  )
+
+  const texts = (
+    <>
       <text x={label1.x} y={label1.y} fontSize={9.5} fontWeight={600} fill={BLUE}>
         σ1 = 140
       </text>
@@ -284,51 +325,40 @@ function PrincipalElement({ angle, highlight }: { angle: number; highlight: 'pri
       </text>
 
       {highlight === 'check' && (
-        <g>
-          <path d={arcPath(E.x, E.y, 38, 0, angle)} fill="none" stroke={BLUE} strokeWidth={1.5} />
-          <text x={E.x + 50} y={E.y - 10} fontSize={9} fill={BLUE}>
-            θp = 30°
-          </text>
-        </g>
+        <text x={E.x + 50} y={E.y - 10} fontSize={9} fill={BLUE}>
+          θp = 30°
+        </text>
       )}
 
       {highlight === 'second' && (
-        <g>
-          <path d={arcPath(E.x, E.y, 42, THETA, THETA + 90)} fill="none" stroke={VIOLET} strokeWidth={1.6} />
-          <text x={E.x - 8} y={E.y - 54} fontSize={9} fill={VIOLET}>
-            θp2 = 120°
-          </text>
-        </g>
+        <text x={E.x - 8} y={E.y - 54} fontSize={9} fill={VIOLET}>
+          θp2 = 120°
+        </text>
       )}
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function KnownMohr() {
+function KnownMohr({ part = 'all' }: { part?: Part }) {
   const sigmaLine = px(SX)
-  return (
-    <g>
+
+  const shapes = (
+    <>
       <line x1={PLOT_LEFT - 8} y1={PLOT_Y} x2={PLOT_RIGHT + 4} y2={PLOT_Y} stroke={AXIS} strokeWidth={1.1} />
       <line x1={PLOT_LEFT - 8} y1={PLOT_Y - 82} x2={PLOT_LEFT - 8} y2={PLOT_Y + 82} stroke={AXIS} strokeWidth={1.1} />
-      <text x={PLOT_RIGHT + 7} y={PLOT_Y + 3} fontSize={8.5} fill={MUTED}>
-        σ
-      </text>
-      <text x={PLOT_LEFT - 4} y={PLOT_Y - 88} fontSize={8.5} fill={MUTED}>
-        τ
-      </text>
 
       <circle cx={px(SY)} cy={PLOT_Y} r={3.6} fill={GREEN} />
-      <text x={px(SY)} y={PLOT_Y + 17} textAnchor="middle" fontSize={8.5} fill={GREEN}>
-        σy = 20
-      </text>
       <circle cx={px(SX)} cy={PLOT_Y} r={3.6} fill={BLUE} />
-      <text x={px(SX)} y={PLOT_Y + 17} textAnchor="middle" fontSize={8.5} fill={BLUE}>
-        σx = 100
-      </text>
       <line x1={px(AVG)} y1={PLOT_Y - 4} x2={px(AVG)} y2={PLOT_Y + 4} stroke={MUTED} strokeWidth={1} />
-      <text x={px(AVG)} y={PLOT_Y - 9} textAnchor="middle" fontSize={8} fill={MUTED}>
-        σavg = 60
-      </text>
 
       <line
         x1={sigmaLine}
@@ -339,17 +369,48 @@ function KnownMohr() {
         strokeWidth={1.3}
         strokeDasharray="5 4"
       />
+    </>
+  )
+
+  const texts = (
+    <>
+      <text x={PLOT_RIGHT + 7} y={PLOT_Y + 3} fontSize={8.5} fill={MUTED}>
+        σ
+      </text>
+      <text x={PLOT_LEFT - 4} y={PLOT_Y - 88} fontSize={8.5} fill={MUTED}>
+        τ
+      </text>
+
+      <text x={px(SY)} y={PLOT_Y + 17} textAnchor="middle" fontSize={8.5} fill={GREEN}>
+        σy = 20
+      </text>
+      <text x={px(SX)} y={PLOT_Y + 17} textAnchor="middle" fontSize={8.5} fill={BLUE}>
+        σx = 100
+      </text>
+      <text x={px(AVG)} y={PLOT_Y - 9} textAnchor="middle" fontSize={8} fill={MUTED}>
+        σavg = 60
+      </text>
+
       <text x={sigmaLine + 7} y={PLOT_Y + 30} fontSize={9} fontWeight={600} fill={ORANGE}>
         τxy = ?
       </text>
       <text x={20} y={42} fontSize={9.5} fill={MUTED}>
         znane: σx, σy i kierunek θp
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function InverseMohr({ progress }: { progress: number }) {
+function InverseMohr({ progress, part = 'all' }: { progress: number; part?: Part }) {
   const C = { x: px(AVG), y: PLOT_Y }
   const alpha = ALPHA0 * progress
   const radiusValue = A / Math.max(0.2, Math.cos(rad(alpha)))
@@ -359,16 +420,10 @@ function InverseMohr({ progress }: { progress: number }) {
   const arcMid = pointAt(C, alpha / 2, radius + 16)
   const tau = radiusValue * Math.sin(rad(alpha))
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <line x1={PLOT_LEFT - 8} y1={PLOT_Y} x2={PLOT_RIGHT + 4} y2={PLOT_Y} stroke={AXIS} strokeWidth={1.1} />
       <line x1={PLOT_LEFT - 8} y1={PLOT_Y - 82} x2={PLOT_LEFT - 8} y2={PLOT_Y + 82} stroke={AXIS} strokeWidth={1.1} />
-      <text x={PLOT_RIGHT + 7} y={PLOT_Y + 3} fontSize={8.5} fill={MUTED}>
-        σ
-      </text>
-      <text x={PLOT_LEFT - 4} y={PLOT_Y - 88} fontSize={8.5} fill={MUTED}>
-        τ
-      </text>
 
       {progress > 0.02 && (
         <line
@@ -386,10 +441,22 @@ function InverseMohr({ progress }: { progress: number }) {
       <line x1={C.x} y1={C.y} x2={Apoint.x} y2={Apoint.y} stroke={GREEN} strokeWidth={1.7} strokeDasharray="5 3" />
       <path d={arcPath(C.x, C.y, radius, 0, alpha)} fill="none" stroke={GREEN} strokeWidth={1.6} />
       <motion.circle cx={Apoint.x} cy={Apoint.y} r={5} fill={ORANGE} stroke="#fff" strokeWidth={1.4} />
+    </>
+  )
+
+  const texts = (
+    <>
+      <text x={PLOT_RIGHT + 7} y={PLOT_Y + 3} fontSize={8.5} fill={MUTED}>
+        σ
+      </text>
+      <text x={PLOT_LEFT - 4} y={PLOT_Y - 88} fontSize={8.5} fill={MUTED}>
+        τ
+      </text>
+
       <text x={Apoint.x + 8} y={Apoint.y - 5} fontSize={9} fontWeight={600} fill={ORANGE}>
         A
       </text>
-      <text x={Apoint.x + 8} y={Apoint.y + 10} fontSize={8.5} fill={ORANGE}>
+      <text x={Apoint.x + 8} y={Apoint.y + 30} fontSize={8.5} fill={ORANGE}>
         τxy = {num(tau)}
       </text>
       <text x={C.x - 8} y={C.y + 18} textAnchor="end" fontSize={8.5} fill={GREEN}>
@@ -403,18 +470,27 @@ function InverseMohr({ progress }: { progress: number }) {
       <text x={20} y={42} fontSize={9.5} fill={MUTED}>
         konstrukcja: τxy = a·tan2θp
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function MirrorElement() {
+function MirrorElement({ part = 'all' }: { part?: Part }) {
   const plus = pointAt({ x: 0, y: 0 }, THETA, 1)
   const minus = pointAt({ x: 0, y: 0 }, -THETA, 1)
   const plusEnd = { x: E.x + 96 * plus.x, y: E.y + 96 * plus.y }
   const minusEnd = { x: E.x + 96 * minus.x, y: E.y + 96 * minus.y }
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <rect
         x={E.x - HALF}
         y={E.y - HALF}
@@ -465,7 +541,11 @@ function MirrorElement() {
       />
       <path d={arcPath(E.x, E.y, 38, 0, THETA)} fill="none" stroke={BLUE} strokeWidth={1.4} />
       <path d={arcPath(E.x, E.y, 38, 0, -THETA)} fill="none" stroke={VIOLET} strokeWidth={1.4} strokeDasharray="4 3" />
+    </>
+  )
 
+  const texts = (
+    <>
       <text x={plusEnd.x + 4} y={plusEnd.y - 5} fontSize={9} fontWeight={600} fill={BLUE}>
         θp = +30°
       </text>
@@ -478,6 +558,15 @@ function MirrorElement() {
       <text x={E.x} y={250} textAnchor="middle" fontSize={9} fill={MUTED}>
         ten sam stan, przeciwne τ
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -491,6 +580,7 @@ function MohrPlot({
   showPrincipal = false,
   showArc = false,
   showMirror = false,
+  part = 'all',
 }: {
   markerAngle: number
   reveal: number
@@ -500,6 +590,7 @@ function MohrPlot({
   showPrincipal?: boolean
   showArc?: boolean
   showMirror?: boolean
+  part?: Part
 }) {
   const C = { x: px(AVG), y: PLOT_Y }
   const r = R * SCALE
@@ -512,16 +603,10 @@ function MohrPlot({
   const arc = showArc && Math.abs(ALPHA0 - markerAngle) > 1 ? arcPath(C.x, C.y, r, ALPHA0, markerAngle) : null
   const arcMid = pointAt(C, (ALPHA0 + markerAngle) / 2, r + 16)
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <line x1={PLOT_LEFT - 8} y1={PLOT_Y} x2={PLOT_RIGHT + 4} y2={PLOT_Y} stroke={AXIS} strokeWidth={1.1} />
       <line x1={PLOT_LEFT - 8} y1={PLOT_Y - 82} x2={PLOT_LEFT - 8} y2={PLOT_Y + 82} stroke={AXIS} strokeWidth={1.1} />
-      <text x={PLOT_RIGHT + 7} y={PLOT_Y + 3} fontSize={8.5} fill={MUTED}>
-        σ
-      </text>
-      <text x={PLOT_LEFT - 4} y={PLOT_Y - 88} fontSize={8.5} fill={MUTED}>
-        τ
-      </text>
 
       {showCircle && (
         <motion.circle
@@ -543,40 +628,21 @@ function MohrPlot({
         <>
           <circle cx={P1.x} cy={P1.y} r={4} fill={BLUE} />
           <circle cx={P2.x} cy={P2.y} r={4} fill={VIOLET} />
-          <text x={P1.x} y={PLOT_Y + 16} textAnchor="middle" fontSize={8.5} fill={BLUE}>
-            σ1 = 140
-          </text>
-          <text x={P2.x} y={PLOT_Y + 16} textAnchor="middle" fontSize={8.5} fill={VIOLET}>
-            σ2 = −20
-          </text>
-          <text x={C.x} y={PLOT_Y - 7} textAnchor="middle" fontSize={8} fill={MUTED}>
-            σavg = 60
-          </text>
         </>
       )}
 
       {showInitial && (
-        <>
-          <motion.circle
-            cx={A.x}
-            cy={A.y}
-            r={3.6}
-            fill={MUTED}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: reveal }}
-          />
-          <text x={A.x + 5} y={A.y - 5} fontSize={8.5} fill={MUTED}>
-            A
-          </text>
-        </>
+        <motion.circle
+          cx={A.x}
+          cy={A.y}
+          r={3.6}
+          fill={MUTED}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: reveal }}
+        />
       )}
 
       {arc && <path d={arc} fill="none" stroke={GREEN} strokeWidth={1.6} />}
-      {arc && arcLabel && (
-        <text x={arcMid.x} y={arcMid.y} textAnchor="middle" fontSize={9} fontWeight={600} fill={GREEN}>
-          {arcLabel}
-        </text>
-      )}
 
       <motion.g initial={{ opacity: 0 }} animate={{ opacity: reveal }} transition={{ duration: 0.25 }}>
         <line
@@ -595,9 +661,6 @@ function MohrPlot({
       {showMirror && (
         <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <circle cx={Aminus.x} cy={Aminus.y} r={3.6} fill={VIOLET} />
-          <text x={Aminus.x + 5} y={Aminus.y + 12} fontSize={8.5} fill={VIOLET}>
-            A′
-          </text>
           <circle cx={Mminus.x} cy={Mminus.y} r={5} fill={VIOLET} stroke="#fff" strokeWidth={1.4} />
           <line
             x1={Mminus.x}
@@ -611,6 +674,58 @@ function MohrPlot({
           />
         </motion.g>
       )}
+    </>
+  )
+
+  const texts = (
+    <>
+      <text x={PLOT_RIGHT + 7} y={PLOT_Y + 3} fontSize={8.5} fill={MUTED}>
+        σ
+      </text>
+      <text x={PLOT_LEFT - 4} y={PLOT_Y - 88} fontSize={8.5} fill={MUTED}>
+        τ
+      </text>
+
+      {showPrincipal && (
+        <>
+          <text x={P1.x} y={PLOT_Y + 16} textAnchor="middle" fontSize={8.5} fill={BLUE}>
+            σ1 = 140
+          </text>
+          <text x={P2.x} y={PLOT_Y + 16} textAnchor="middle" fontSize={8.5} fill={VIOLET}>
+            σ2 = −20
+          </text>
+          <text x={C.x} y={PLOT_Y - 7} textAnchor="middle" fontSize={8} fill={MUTED}>
+            σavg = 60
+          </text>
+        </>
+      )}
+
+      {showInitial && (
+        <text x={A.x + 5} y={A.y - 5} fontSize={8.5} fill={MUTED}>
+          A
+        </text>
+      )}
+
+      {arc && arcLabel && (
+        <text x={arcMid.x} y={arcMid.y} textAnchor="middle" fontSize={9} fontWeight={600} fill={GREEN}>
+          {arcLabel}
+        </text>
+      )}
+
+      {showMirror && (
+        <motion.text x={Aminus.x + 5} y={Aminus.y + 12} fontSize={8.5} fill={VIOLET} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          A′
+        </motion.text>
+      )}
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -634,19 +749,19 @@ export function StressStateDirectionsExample3Animation({ scene, playing, scenePr
           aria-label="Zadanie odwrotne: dany kierunek główny 30 stopni oraz naprężenia normalne. Animacja odtwarza brakujące ścinanie na kole Mohra, wartości główne i odbicie znaku."
         >
           {isGiven ? (
-            <DataElement unknown showDirection />
+            <DataElement unknown showDirection part="shapes" />
           ) : isSolve ? (
-            <DataElement shear={TX * p} showDirection />
+            <DataElement shear={TX * p} showDirection part="shapes" />
           ) : isSign ? (
-            <MirrorElement />
+            <MirrorElement part="shapes" />
           ) : (
-            <PrincipalElement angle={THETA} highlight={isCheck ? 'check' : 'principal'} />
+            <PrincipalElement angle={THETA} highlight={isCheck ? 'check' : 'principal'} part="shapes" />
           )}
 
           {isGiven ? (
-            <KnownMohr />
+            <KnownMohr part="shapes" />
           ) : isSolve ? (
-            <InverseMohr progress={p} />
+            <InverseMohr progress={p} part="shapes" />
           ) : (
             <MohrPlot
               markerAngle={isSign ? ALPHA0 : 0}
@@ -657,8 +772,39 @@ export function StressStateDirectionsExample3Animation({ scene, playing, scenePr
               showArc={isCheck || isResult}
               arcLabel={isCheck || isResult ? '2θ = 60°' : undefined}
               showMirror={isSign}
+              part="shapes"
             />
           )}
+
+          <g>
+            {isGiven ? (
+              <DataElement unknown showDirection part="texts" />
+            ) : isSolve ? (
+              <DataElement shear={TX * p} showDirection part="texts" />
+            ) : isSign ? (
+              <MirrorElement part="texts" />
+            ) : (
+              <PrincipalElement angle={THETA} highlight={isCheck ? 'check' : 'principal'} part="texts" />
+            )}
+
+            {isGiven ? (
+              <KnownMohr part="texts" />
+            ) : isSolve ? (
+              <InverseMohr progress={p} part="texts" />
+            ) : (
+              <MohrPlot
+                markerAngle={isSign ? ALPHA0 : 0}
+                reveal={isPrincipal ? 1 : isSign ? 1 : 0.9}
+                showCircle
+                showInitial={isCheck || isSign || isResult}
+                showPrincipal={isPrincipal || isCheck || isSign || isResult}
+                showArc={isCheck || isResult}
+                arcLabel={isCheck || isResult ? '2θ = 60°' : undefined}
+                showMirror={isSign}
+                part="texts"
+              />
+            )}
+          </g>
         </svg>
       </div>
     </div>

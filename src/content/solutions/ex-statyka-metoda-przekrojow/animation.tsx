@@ -91,7 +91,7 @@ function Dimension({ x1, x2, y, label }: { x1: number; x2: number; y: number; la
 
 export function MethodOfSectionsAnimation({ scene, playing, sceneProgress }: SolutionAnimationProps) {
   const metric = scene.focus?.metric ?? 'model'
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const isModel = metric === 'model'
   const isReaction = metric === 'reaction'
   const isCut = metric === 'cut' || metric === 'T' || metric === 'M'
@@ -264,7 +264,7 @@ export function MethodOfSectionsAnimation({ scene, playing, sceneProgress }: Sol
                 initial={false}
                 animate={{ opacity: metric === 'M' ? 1 : 0.45 }}
               />
-              <text x={cutX + 28} y={BEAM_Y - 28} fontSize={8.5} fill={MOMENT}>
+              <text x={cutX + 28} y={BEAM_Y - 38} fontSize={8.5} fill={MOMENT}>
                 M = 12 kN·m
               </text>
             </g>

@@ -154,7 +154,7 @@ export function RollingResistanceAnimation({ index, playing, sceneProgress }: So
               strokeWidth="3.4"
               markerEnd="url(#ex-toczenie-g)"
             />
-            <text x={CENTER.x - 8} y={CENTER.y + 96} textAnchor="end" fontSize="11" fill={WEIGHT}>
+            <text x={CENTER.x - 42} y={CENTER.y + 46} textAnchor="end" fontSize="11" fill={WEIGHT}>
               G = 2 kN
             </text>
 
@@ -167,7 +167,7 @@ export function RollingResistanceAnimation({ index, playing, sceneProgress }: So
               strokeWidth="3.2"
               markerEnd="url(#ex-toczenie-n)"
             />
-            <text x={nX + 7} y={GROUND - 66} fontSize="11" fill={NORMAL}>
+            <text x={nX + 7} y={GROUND - 84} fontSize="11" fill={NORMAL}>
               N = 2000 N
             </text>
 
@@ -176,7 +176,7 @@ export function RollingResistanceAnimation({ index, playing, sceneProgress }: So
                 <line x1={CENTER.x} y1={GROUND + 28} x2={nX} y2={GROUND + 28} strokeWidth="1.2" />
                 <line x1={CENTER.x} y1={GROUND + 23} x2={CENTER.x} y2={GROUND + 33} strokeWidth="1.2" />
                 <line x1={nX} y1={GROUND + 23} x2={nX} y2={GROUND + 33} strokeWidth="1.2" />
-                <text x={(CENTER.x + nX) / 2} y={GROUND + 42} textAnchor="middle" fontSize="10" stroke="none">
+                <text x={CENTER.x - 6} y={GROUND + 28} textAnchor="end" fontSize="10" stroke="none">
                   f = 0,005 m
                 </text>
               </g>

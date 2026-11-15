@@ -19,6 +19,8 @@ const smooth = (value: number) => {
 }
 const rad = (degrees: number) => (degrees * Math.PI) / 180
 
+type RenderMode = 'both' | 'shapes' | 'labels'
+
 const CX = 130
 const CY = 150
 const HALF = 46
@@ -80,6 +82,7 @@ function StressElement({
   labelTau,
   opacity = 1,
   showAxes = true,
+  mode = 'both',
 }: {
   cx?: number
   cy?: number
@@ -95,6 +98,7 @@ function StressElement({
   labelTau?: string
   opacity?: number
   showAxes?: boolean
+  mode?: RenderMode
 }) {
   const angleRad = rad(angle)
   const ux = Math.cos(angleRad)
@@ -121,86 +125,92 @@ function StressElement({
 
   return (
     <g opacity={opacity}>
-      <g transform={`rotate(${-angle} ${cx} ${cy})`}>
-        <rect
-          x={cx - half}
-          y={cy - half}
-          width={half * 2}
-          height={half * 2}
-          rx={2}
-          fill={FILL}
-          stroke={EDGE}
-          strokeWidth={1.4}
-        />
-        {showAxes && (
-          <g stroke={MUTED} strokeWidth={0.8} strokeDasharray="4 4" opacity={0.55}>
-            <line x1={cx - half - 8} y1={cy} x2={cx + half + 8} y2={cy} />
-            <line x1={cx} y1={cy - half - 8} x2={cx} y2={cy + half + 8} />
-          </g>
-        )}
-        {lenX > 0 && (
-          <>
-            <Arrow x1={cx + half} y1={cy} x2={cx + half + signX * lenX} y2={cy} color={BLUE} width={2} />
-            <Arrow x1={cx - half} y1={cy} x2={cx - half - signX * lenX} y2={cy} color={BLUE} width={2} />
-          </>
-        )}
-        {lenY > 0 && (
-          <>
-            <Arrow x1={cx} y1={cy - half} x2={cx} y2={cy - half - signY * lenY} color={GREEN} width={2} />
-            <Arrow x1={cx} y1={cy + half} x2={cx} y2={cy + half + signY * lenY} color={GREEN} width={2} />
-          </>
-        )}
-        {lenT > 0 && (
-          <>
-            <Arrow
-              x1={cx + half}
-              y1={cy + offset}
-              x2={cx + half}
-              y2={cy + offset - signT * lenT}
-              color={ORANGE}
-              width={1.7}
-            />
-            <Arrow
-              x1={cx - half}
-              y1={cy - offset}
-              x2={cx - half}
-              y2={cy - offset + signT * lenT}
-              color={ORANGE}
-              width={1.7}
-            />
-            <Arrow
-              x1={cx - offset}
-              y1={cy - half}
-              x2={cx - offset + signT * lenT}
-              y2={cy - half}
-              color={ORANGE}
-              width={1.7}
-            />
-            <Arrow
-              x1={cx + offset}
-              y1={cy + half}
-              x2={cx + offset - signT * lenT}
-              y2={cy + half}
-              color={ORANGE}
-              width={1.7}
-            />
-          </>
-        )}
-      </g>
-      {labelX && (
-        <text x={xLabelPos.x} y={xLabelPos.y} textAnchor={xAnchor} fontSize={10} fill={BLUE} fontWeight={600}>
-          {labelX}
-        </text>
+      {mode !== 'labels' && (
+        <g transform={`rotate(${-angle} ${cx} ${cy})`}>
+          <rect
+            x={cx - half}
+            y={cy - half}
+            width={half * 2}
+            height={half * 2}
+            rx={2}
+            fill={FILL}
+            stroke={EDGE}
+            strokeWidth={1.4}
+          />
+          {showAxes && (
+            <g stroke={MUTED} strokeWidth={0.8} strokeDasharray="4 4" opacity={0.55}>
+              <line x1={cx - half - 8} y1={cy} x2={cx + half + 8} y2={cy} />
+              <line x1={cx} y1={cy - half - 8} x2={cx} y2={cy + half + 8} />
+            </g>
+          )}
+          {lenX > 0 && (
+            <>
+              <Arrow x1={cx + half} y1={cy} x2={cx + half + signX * lenX} y2={cy} color={BLUE} width={2} />
+              <Arrow x1={cx - half} y1={cy} x2={cx - half - signX * lenX} y2={cy} color={BLUE} width={2} />
+            </>
+          )}
+          {lenY > 0 && (
+            <>
+              <Arrow x1={cx} y1={cy - half} x2={cx} y2={cy - half - signY * lenY} color={GREEN} width={2} />
+              <Arrow x1={cx} y1={cy + half} x2={cx} y2={cy + half + signY * lenY} color={GREEN} width={2} />
+            </>
+          )}
+          {lenT > 0 && (
+            <>
+              <Arrow
+                x1={cx + half}
+                y1={cy + offset}
+                x2={cx + half}
+                y2={cy + offset - signT * lenT}
+                color={ORANGE}
+                width={1.7}
+              />
+              <Arrow
+                x1={cx - half}
+                y1={cy - offset}
+                x2={cx - half}
+                y2={cy - offset + signT * lenT}
+                color={ORANGE}
+                width={1.7}
+              />
+              <Arrow
+                x1={cx - offset}
+                y1={cy - half}
+                x2={cx - offset + signT * lenT}
+                y2={cy - half}
+                color={ORANGE}
+                width={1.7}
+              />
+              <Arrow
+                x1={cx + offset}
+                y1={cy + half}
+                x2={cx + offset - signT * lenT}
+                y2={cy + half}
+                color={ORANGE}
+                width={1.7}
+              />
+            </>
+          )}
+        </g>
       )}
-      {labelY && (
-        <text x={yLabelPos.x} y={yLabelPos.y} textAnchor={yAnchor} fontSize={10} fill={GREEN} fontWeight={600}>
-          {labelY}
-        </text>
-      )}
-      {labelTau && (
-        <text x={tauLabelPos.x} y={tauLabelPos.y} textAnchor={tauAnchor} fontSize={9} fill={ORANGE}>
-          {labelTau}
-        </text>
+      {mode !== 'shapes' && (
+        <>
+          {labelX && (
+            <text x={xLabelPos.x} y={xLabelPos.y} textAnchor={xAnchor} fontSize={10} fill={BLUE} fontWeight={600}>
+              {labelX}
+            </text>
+          )}
+          {labelY && (
+            <text x={yLabelPos.x} y={yLabelPos.y} textAnchor={yAnchor} fontSize={10} fill={GREEN} fontWeight={600}>
+              {labelY}
+            </text>
+          )}
+          {labelTau && (
+            <text x={tauLabelPos.x} y={tauLabelPos.y} textAnchor={tauAnchor} fontSize={9} fill={ORANGE}>
+              {labelTau}
+            </text>
+          )}
+        </>
       )}
     </g>
   )
@@ -219,6 +229,7 @@ function MohrDiagram({
   progress,
   pointLabel,
   showPoint = true,
+  mode = 'both',
 }: {
   cx: number
   cy: number
@@ -232,6 +243,7 @@ function MohrDiagram({
   progress: number
   pointLabel?: string
   showPoint?: boolean
+  mode?: RenderMode
 }) {
   const sx = (value: number) => cx + (value - avg) * scale
   const pointX = sx(pointS)
@@ -241,54 +253,62 @@ function MohrDiagram({
 
   return (
     <g>
-      <line x1={left} y1={cy} x2={right} y2={cy} stroke={LIGHT} strokeWidth={1} />
-      <line
-        x1={cx}
-        y1={cy - radius - 20}
-        x2={cx}
-        y2={cy + radius + 20}
-        stroke={LIGHT}
-        strokeWidth={1}
-        strokeDasharray="4 4"
-      />
-      <text x={right + 4} y={cy - 6} fontSize={9} fill={MUTED}>
-        σ
-      </text>
-      <text x={cx + 5} y={cy - radius - 14} fontSize={9} fill={MUTED}>
-        τ
-      </text>
-      <motion.circle
-        cx={cx}
-        cy={cy}
-        r={radius}
-        fill="none"
-        stroke={VIOLET}
-        strokeWidth={2.2}
-        initial={{ pathLength: 0, opacity: 0.3 }}
-        animate={{ pathLength: progress, opacity: 1 }}
-        transition={{ duration: 0.18, ease: 'linear' }}
-      />
-      <circle cx={cx} cy={cy} r={2.6} fill={INK} />
-      <text x={cx + 6} y={cy + 15} fontSize={9} fill={INK}>
-        C = {avg}
-      </text>
-      <line x1={sx(s1)} y1={cy - 5} x2={sx(s1)} y2={cy + 5} stroke={BLUE} strokeWidth={1.6} />
-      <line x1={sx(s2)} y1={cy - 5} x2={sx(s2)} y2={cy + 5} stroke={ORANGE} strokeWidth={1.6} />
-      <text x={sx(s1)} y={cy + 19} textAnchor="middle" fontSize={9} fill={BLUE}>
-        σ₁ = {s1}
-      </text>
-      <text x={sx(s2)} y={cy + 19} textAnchor="middle" fontSize={9} fill={ORANGE}>
-        σ₂ = {s2}
-      </text>
-      <line x1={sx(0)} y1={cy - 4} x2={sx(0)} y2={cy + 4} stroke={MUTED} strokeWidth={1.2} />
-      <text x={sx(0)} y={cy - 9} textAnchor="middle" fontSize={8} fill={MUTED}>
-        0
-      </text>
-      {showPoint && (
+      {mode !== 'labels' && (
         <>
-          <line x1={cx} y1={cy} x2={pointX} y2={pointY} stroke={VIOLET} strokeWidth={1.2} strokeDasharray="3 3" />
-          <circle cx={pointX} cy={pointY} r={4.4} fill={VIOLET} stroke="#fff" strokeWidth={1.2} />
-          {pointLabel && (
+          <line x1={left} y1={cy} x2={right} y2={cy} stroke={LIGHT} strokeWidth={1} />
+          <line
+            x1={cx}
+            y1={cy - radius - 20}
+            x2={cx}
+            y2={cy + radius + 20}
+            stroke={LIGHT}
+            strokeWidth={1}
+            strokeDasharray="4 4"
+          />
+          <motion.circle
+            cx={cx}
+            cy={cy}
+            r={radius}
+            fill="none"
+            stroke={VIOLET}
+            strokeWidth={2.2}
+            initial={{ pathLength: 0, opacity: 0.3 }}
+            animate={{ pathLength: progress, opacity: 1 }}
+            transition={{ duration: 0.18, ease: 'linear' }}
+          />
+          <circle cx={cx} cy={cy} r={2.6} fill={INK} />
+          <line x1={sx(s1)} y1={cy - 5} x2={sx(s1)} y2={cy + 5} stroke={BLUE} strokeWidth={1.6} />
+          <line x1={sx(s2)} y1={cy - 5} x2={sx(s2)} y2={cy + 5} stroke={ORANGE} strokeWidth={1.6} />
+          <line x1={sx(0)} y1={cy - 4} x2={sx(0)} y2={cy + 4} stroke={MUTED} strokeWidth={1.2} />
+          {showPoint && (
+            <>
+              <line x1={cx} y1={cy} x2={pointX} y2={pointY} stroke={VIOLET} strokeWidth={1.2} strokeDasharray="3 3" />
+              <circle cx={pointX} cy={pointY} r={4.4} fill={VIOLET} stroke="#fff" strokeWidth={1.2} />
+            </>
+          )}
+        </>
+      )}
+      {mode !== 'shapes' && (
+        <>
+          <text x={right + 4} y={cy - 6} fontSize={9} fill={MUTED}>
+            σ
+          </text>
+          <text x={cx + 5} y={cy - radius - 14} fontSize={9} fill={MUTED}>
+            τ
+          </text>
+          <text x={cx - 6} y={cy - 10} textAnchor="end" fontSize={9} fill={INK}>
+            C = {avg}
+          </text>
+          <text x={sx(s1)} y={cy + 19} textAnchor="middle" fontSize={9} fill={BLUE}>
+            σ₁ = {s1}
+          </text>
+          <text x={sx(s2)} y={cy + 19} textAnchor="middle" fontSize={9} fill={ORANGE}>
+            σ₂ = {s2}
+          </text>
+          <text x={sx(0)} y={cy - 9} textAnchor="middle" fontSize={8} fill={MUTED}>
+            0
+          </text>
+          {showPoint && pointLabel && (
             <text x={pointX + 7} y={pointY - 7} fontSize={9} fill={VIOLET}>
               {pointLabel}
             </text>
@@ -305,22 +325,26 @@ function OrderAxis({
   scale,
   values,
   progress,
+  mode = 'both',
 }: {
   xZero: number
   y: number
   scale: number
   values: Array<{ value: number; label: string; color: string }>
   progress: number
+  mode?: RenderMode
 }) {
   const sx = (value: number) => xZero + value * scale
   const left = Math.min(...values.map((item) => sx(item.value))) - 24
   const right = Math.max(...values.map((item) => sx(item.value))) + 24
   return (
     <g>
-      <line x1={left} y1={y} x2={right} y2={y} stroke={LIGHT} strokeWidth={1} />
-      <text x={right + 5} y={y + 3} fontSize={9} fill={MUTED}>
-        σ
-      </text>
+      {mode !== 'labels' && <line x1={left} y1={y} x2={right} y2={y} stroke={LIGHT} strokeWidth={1} />}
+      {mode !== 'shapes' && (
+        <text x={right + 5} y={y + 3} fontSize={9} fill={MUTED}>
+          σ
+        </text>
+      )}
       {values.map((item, index) => {
         const x = sx(item.value)
         const labelY = y - 20 - (index % 2) * 17
@@ -331,11 +355,17 @@ function OrderAxis({
             animate={{ opacity: progress }}
             transition={{ duration: 0.3, delay: index * 0.08 }}
           >
-            <line x1={x} y1={y} x2={x} y2={labelY + 3} stroke={item.color} strokeWidth={1.1} />
-            <circle cx={x} cy={y} r={4.2} fill={item.color} />
-            <text x={x} y={labelY} textAnchor="middle" fontSize={9.5} fontWeight={600} fill={item.color}>
-              {item.label}
-            </text>
+            {mode !== 'labels' && (
+              <>
+                <line x1={x} y1={y} x2={x} y2={labelY + 3} stroke={item.color} strokeWidth={1.1} />
+                <circle cx={x} cy={y} r={4.2} fill={item.color} />
+              </>
+            )}
+            {mode !== 'shapes' && (
+              <text x={x} y={labelY} textAnchor="middle" fontSize={9.5} fontWeight={600} fill={item.color}>
+                {item.label}
+              </text>
+            )}
           </motion.g>
         )
       })}
@@ -349,12 +379,14 @@ function ShearPanel({
   scale,
   values,
   progress,
+  mode = 'both',
 }: {
   xZero: number
   y: number
   scale: number
   values: [number, number, number]
   progress: number
+  mode?: RenderMode
 }) {
   const [high, middle, low] = values
   const sx = (value: number) => xZero + value * scale
@@ -368,71 +400,95 @@ function ShearPanel({
 
   return (
     <g>
-      <line x1={left} y1={y} x2={right} y2={y} stroke={LIGHT} strokeWidth={1} />
-      {circles.map((item, index) => {
-        const center = (item.a + item.b) / 2
-        const radius = (Math.abs(item.a - item.b) / 2) * scale
-        return (
-          <motion.circle
-            key={`${item.a}-${item.b}`}
-            cx={sx(center)}
-            cy={y}
-            r={radius}
-            fill="none"
-            stroke={item.color}
-            strokeWidth={item.width}
-            strokeDasharray={item.dash}
-            initial={{ pathLength: 0, opacity: 0.25 }}
-            animate={{ pathLength: progress, opacity: 1 }}
-            transition={{ duration: 0.2, ease: 'linear', delay: index * 0.05 }}
+      {mode !== 'labels' && (
+        <>
+          <line x1={left} y1={y} x2={right} y2={y} stroke={LIGHT} strokeWidth={1} />
+          {circles.map((item, index) => {
+            const center = (item.a + item.b) / 2
+            const radius = (Math.abs(item.a - item.b) / 2) * scale
+            return (
+              <motion.circle
+                key={`${item.a}-${item.b}`}
+                cx={sx(center)}
+                cy={y}
+                r={radius}
+                fill="none"
+                stroke={item.color}
+                strokeWidth={item.width}
+                strokeDasharray={item.dash}
+                initial={{ pathLength: 0, opacity: 0.25 }}
+                animate={{ pathLength: progress, opacity: 1 }}
+                transition={{ duration: 0.2, ease: 'linear', delay: index * 0.05 }}
+              />
+            )
+          })}
+          <line
+            x1={sx((high + low) / 2)}
+            y1={y}
+            x2={sx((high + low) / 2)}
+            y2={y - ((high - low) / 2) * scale}
+            stroke={ORANGE}
+            strokeWidth={1.2}
+            strokeDasharray="3 3"
           />
-        )
-      })}
-      <line
-        x1={sx((high + low) / 2)}
-        y1={y}
-        x2={sx((high + low) / 2)}
-        y2={y - ((high - low) / 2) * scale}
-        stroke={ORANGE}
-        strokeWidth={1.2}
-        strokeDasharray="3 3"
-      />
-      <text
-        x={sx((high + low) / 2)}
-        y={y - ((high - low) / 2) * scale - 7}
-        textAnchor="middle"
-        fontSize={9.5}
-        fontWeight={600}
-        fill={ORANGE}
-      >
-        τ max = {(high - low) / 2} MPa
-      </text>
-      <text
-        x={sx((high + middle) / 2)}
-        y={y - ((high - middle) / 2) * scale + 14}
-        textAnchor="middle"
-        fontSize={9}
-        fill={BLUE}
-      >
-        R = {(high - middle) / 2} MPa
-      </text>
-      {[
-        { value: high, label: 'σI', color: BLUE },
-        { value: middle, label: 'σII', color: MUTED },
-        { value: low, label: 'σIII', color: ORANGE },
-      ].map((item, index) => {
-        const x = sx(item.value)
-        const labelY = y + 20 + (index % 2) * 15
-        return (
-          <g key={item.label}>
-            <line x1={x} y1={y} x2={x} y2={labelY - 10} stroke={item.color} strokeWidth={1.1} />
-            <circle cx={x} cy={y} r={3.6} fill={item.color} />
-            <text x={x} y={labelY} textAnchor="middle" fontSize={9} fill={item.color}>
-              {item.label} = {item.value}
-            </text>
-          </g>
-        )
-      })}
+        </>
+      )}
+      {mode !== 'shapes' && (
+        <>
+          <text
+            x={sx((high + low) / 2)}
+            y={y - ((high - low) / 2) * scale - 7}
+            textAnchor="middle"
+            fontSize={9.5}
+            fontWeight={600}
+            fill={ORANGE}
+          >
+            τ max = {(high - low) / 2} MPa
+          </text>
+          <text
+            x={sx((high + middle) / 2)}
+            y={y - ((high - middle) / 2) * scale + 14}
+            textAnchor="middle"
+            fontSize={9}
+            fill={BLUE}
+          >
+            R = {(high - middle) / 2} MPa
+          </text>
+          {[
+            { value: high, label: 'σI', color: BLUE },
+            { value: middle, label: 'σII', color: MUTED },
+            { value: low, label: 'σIII', color: ORANGE },
+          ].map((item, index) => {
+            const x = sx(item.value)
+            const labelY = y + 20 + (index % 2) * 15
+            return (
+              <g key={item.label}>
+                <text x={x} y={labelY} textAnchor="middle" fontSize={9} fill={item.color}>
+                  {item.label} = {item.value}
+                </text>
+              </g>
+            )
+          })}
+        </>
+      )}
+      {mode !== 'labels' && (
+        <>
+          {[
+            { value: high, label: 'σI', color: BLUE },
+            { value: middle, label: 'σII', color: MUTED },
+            { value: low, label: 'σIII', color: ORANGE },
+          ].map((item, index) => {
+            const x = sx(item.value)
+            const labelY = y + 20 + (index % 2) * 15
+            return (
+              <g key={item.label}>
+                <line x1={x} y1={y} x2={x} y2={labelY - 10} stroke={item.color} strokeWidth={1.1} />
+                <circle cx={x} cy={y} r={3.6} fill={item.color} />
+              </g>
+            )
+          })}
+        </>
+      )}
     </g>
   )
 }
@@ -475,6 +531,51 @@ export function PrincipalExample2Animation({ scene, playing, sceneProgress }: So
       ? 'τxy = 40 MPa'
       : undefined
 
+  const stressProps = {
+    angle,
+    sx: isRotate ? sxCurrent : metric === 'given' || metric === 'mohr' ? 90 : S1,
+    sy: isRotate ? syCurrent : metric === 'given' || metric === 'mohr' ? 30 : S2,
+    tx: isRotate ? tauCurrent : metric === 'given' || metric === 'mohr' ? 40 : 0,
+    max: 110,
+    tauMax: 40,
+    labelX: metric === 'shear' ? '' : labelX,
+    labelY: metric === 'shear' ? '' : labelY,
+    labelTau,
+    opacity: metric === 'shear' ? 0.75 : 1,
+  }
+  const mohrProps = {
+    cx: 330,
+    cy: 150,
+    scale: 0.95,
+    avg: AVG,
+    radius: 50 * 0.95,
+    pointS: 90,
+    pointT: 40,
+    s1: S1,
+    s2: S2,
+    progress: p,
+    pointLabel: 'P',
+  }
+  const rotateMohrProps = {
+    cx: 330,
+    cy: 150,
+    scale: 0.9,
+    avg: AVG,
+    radius: 50 * 0.9,
+    pointS: sxCurrent,
+    pointT: tauCurrent,
+    s1: S1,
+    s2: S2,
+    progress: 1,
+    showPoint: true,
+  }
+  const orderValues = [
+    { value: S1, label: 'σI = 110', color: BLUE },
+    { value: S2, label: 'σII = 10', color: MUTED },
+    { value: 0, label: 'σIII = 0', color: ORANGE },
+  ]
+  const shearValues: [number, number, number] = [S1, S2, 0]
+
   return (
     <div className={local('figure')}>
       <div className={local('figure-canvas')}>
@@ -483,124 +584,101 @@ export function PrincipalExample2Animation({ scene, playing, sceneProgress }: So
           role="img"
           aria-label="Element naprężenia obracany do kierunków głównych dla dwóch dodatnich naprężeń normalnych. Animacja pokazuje 110 i 10 megapaskala oraz zero jako najmniejsze naprężenie główne."
         >
-          <text x={14} y={22} fontSize={9} fill={MUTED}>
-            σx = 90 MPa · σy = 30 MPa · τxy = 40 MPa · σz = 0
-          </text>
-
-          <StressElement
-            angle={angle}
-            sx={isRotate ? sxCurrent : metric === 'given' || metric === 'mohr' ? 90 : S1}
-            sy={isRotate ? syCurrent : metric === 'given' || metric === 'mohr' ? 30 : S2}
-            tx={isRotate ? tauCurrent : metric === 'given' || metric === 'mohr' ? 40 : 0}
-            max={110}
-            tauMax={40}
-            labelX={metric === 'shear' ? '' : labelX}
-            labelY={metric === 'shear' ? '' : labelY}
-            labelTau={labelTau}
-            opacity={metric === 'shear' ? 0.75 : 1}
-          />
+          <StressElement {...stressProps} mode="shapes" />
 
           <line x1={CX} y1={CY} x2={CX + 42} y2={CY + 34} stroke={VIOLET} strokeWidth={1.4} strokeDasharray="4 3" />
-          <text x={CX + 47} y={CY + 38} fontSize={9} fill={VIOLET}>
-            z
-          </text>
-          <text x={CX + 47} y={CY + 51} fontSize={8.5} fill={MUTED}>
-            σz = 0
-          </text>
 
           {metric === 'given' && (
             <g>
               <line x1={252} y1={170} x2={438} y2={170} stroke={LIGHT} strokeWidth={1} />
               <line x1={330} y1={92} x2={330} y2={248} stroke={LIGHT} strokeWidth={1} strokeDasharray="4 4" />
-              <text x={443} y={164} fontSize={9} fill={MUTED}>
-                σ
-              </text>
-              <text x={335} y={96} fontSize={9} fill={MUTED}>
-                τ
-              </text>
               <line x1={330} y1={170} x2={378} y2={122} stroke={VIOLET} strokeWidth={1.2} strokeDasharray="3 3" />
               <circle cx={378} cy={122} r={4.6} fill={VIOLET} stroke="#fff" strokeWidth={1.2} />
-              <text x={385} y={116} fontSize={9} fill={VIOLET}>
-                P (90; 40)
-              </text>
-              <text x={270} y={216} fontSize={9} fill={MUTED}>
-                oba naprężenia normalne są dodatnie
-              </text>
             </g>
           )}
 
-          {metric === 'mohr' && (
-            <g>
-              <MohrDiagram
-                cx={330}
-                cy={150}
-                scale={0.95}
-                avg={AVG}
-                radius={50 * 0.95}
-                pointS={90}
-                pointT={40}
-                s1={S1}
-                s2={S2}
-                progress={p}
-                pointLabel="P"
-              />
-              <text x={258} y={238} fontSize={9} fill={MUTED}>
-                R = 50 MPa, a = 30 MPa
-              </text>
-            </g>
-          )}
+          {metric === 'mohr' && <MohrDiagram {...mohrProps} mode="shapes" />}
 
-          {isRotate && (
-            <g>
-              <MohrDiagram
-                cx={330}
-                cy={150}
-                scale={0.9}
-                avg={AVG}
-                radius={50 * 0.9}
-                pointS={sxCurrent}
-                pointT={tauCurrent}
-                s1={S1}
-                s2={S2}
-                progress={1}
-                showPoint
-              />
-              <text x={330} y={246} textAnchor="middle" fontSize={9} fill={MUTED}>
-                punkt dochodzi do σ₁, gdy τ = 0
-              </text>
-              <text x={CX} y={CY + 94} textAnchor="middle" fontSize={9} fill={MUTED}>
-                θp = 26,6°
-              </text>
-            </g>
-          )}
+          {isRotate && <MohrDiagram {...rotateMohrProps} mode="shapes" />}
 
           {metric === 'order' && (
-            <g>
-              <OrderAxis
-                xZero={290}
-                y={170}
-                scale={1.05}
-                values={[
-                  { value: S1, label: 'σI = 110', color: BLUE },
-                  { value: S2, label: 'σII = 10', color: MUTED },
-                  { value: 0, label: 'σIII = 0', color: ORANGE },
-                ]}
-                progress={p}
-              />
-              <text x={345} y={244} textAnchor="middle" fontSize={9} fill={MUTED}>
-                zero jest najmniejszym naprężeniem głównym
-              </text>
-            </g>
+            <OrderAxis xZero={290} y={170} scale={1.05} values={orderValues} progress={p} mode="shapes" />
           )}
 
           {metric === 'shear' && (
-            <g>
-              <ShearPanel xZero={285} y={145} scale={1.25} values={[S1, S2, 0]} progress={p} />
-              <text x={345} y={252} textAnchor="middle" fontSize={9} fill={MUTED}>
-                zero jest skrajne, więc zwiększa τ max do 55 MPa
-              </text>
-            </g>
+            <ShearPanel xZero={285} y={145} scale={1.25} values={shearValues} progress={p} mode="shapes" />
           )}
+
+          <g>
+            <text x={14} y={22} fontSize={9} fill={MUTED}>
+              σx = 90 MPa · σy = 30 MPa · τxy = 40 MPa · σz = 0
+            </text>
+
+            <StressElement {...stressProps} mode="labels" />
+
+            <text x={CX + 47} y={CY + 38} fontSize={9} fill={VIOLET}>
+              z
+            </text>
+            <text x={CX + 47} y={CY + 51} fontSize={8.5} fill={MUTED}>
+              σz = 0
+            </text>
+
+            {metric === 'given' && (
+              <g>
+                <text x={443} y={164} fontSize={9} fill={MUTED}>
+                  σ
+                </text>
+                <text x={335} y={96} fontSize={9} fill={MUTED}>
+                  τ
+                </text>
+                <text x={385} y={116} fontSize={9} fill={VIOLET}>
+                  P (90; 40)
+                </text>
+                <text x={270} y={216} fontSize={9} fill={MUTED}>
+                  oba naprężenia normalne są dodatnie
+                </text>
+              </g>
+            )}
+
+            {metric === 'mohr' && (
+              <g>
+                <MohrDiagram {...mohrProps} mode="labels" />
+                <text x={258} y={238} fontSize={9} fill={MUTED}>
+                  R = 50 MPa, a = 30 MPa
+                </text>
+              </g>
+            )}
+
+            {isRotate && (
+              <g>
+                <MohrDiagram {...rotateMohrProps} mode="labels" />
+                <text x={330} y={246} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  punkt dochodzi do σ₁, gdy τ = 0
+                </text>
+                <text x={CX} y={CY + 94} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  θp = 26,6°
+                </text>
+              </g>
+            )}
+
+            {metric === 'order' && (
+              <g>
+                <OrderAxis xZero={290} y={170} scale={1.05} values={orderValues} progress={p} mode="labels" />
+                <text x={345} y={244} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  zero jest najmniejszym naprężeniem głównym
+                </text>
+              </g>
+            )}
+
+            {metric === 'shear' && (
+              <g>
+                <ShearPanel xZero={285} y={145} scale={1.25} values={shearValues} progress={p} mode="labels" />
+                <text x={345} y={252} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  zero jest skrajne, więc zwiększa τ max do 55 MPa
+                </text>
+              </g>
+            )}
+          </g>
         </svg>
       </div>
     </div>

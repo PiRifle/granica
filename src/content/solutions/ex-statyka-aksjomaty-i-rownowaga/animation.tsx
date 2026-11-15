@@ -75,7 +75,7 @@ export function EquilibriumBeamAnimation({ index, playing, sceneProgress }: Solu
   const showAx = index >= 3
   const showResultant = index >= 4
   const showCheck = index >= 5
-  const raGrow = showResultant ? (playing && index === 4 ? 0.35 + 0.65 * smooth(sceneProgress) : 1) : 0
+  const raGrow = showResultant ? (playing && index === 4 ? 0.35 + 0.65 * smooth(sceneProgress * 4) : 1) : 0
   const raTip = {
     x: A.x - 30 * raGrow,
     y: A.y - 60 * raGrow,
@@ -119,7 +119,7 @@ export function EquilibriumBeamAnimation({ index, playing, sceneProgress }: Solu
           <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke={EDGE} strokeWidth="5" strokeLinecap="round" />
           <SupportA />
           <SupportB />
-          <text x={A.x - 18} y={A.y + 2} fontSize="10" fill={EDGE}>
+          <text x={A.x - 26} y={A.y + 32} fontSize="10" fill={EDGE}>
             A
           </text>
           <text x={B.x + 10} y={B.y + 2} fontSize="10" fill={EDGE}>
@@ -200,7 +200,7 @@ export function EquilibriumBeamAnimation({ index, playing, sceneProgress }: Solu
                 strokeWidth="2.6"
                 markerEnd="url(#ex-eq-react)"
               />
-              <text x={A.x - 15} y={A.y - 9} textAnchor="middle" fontSize="9.5" fill={REACTION}>
+              <text x={A.x - 40} y={A.y + 10} textAnchor="middle" fontSize="9.5" fill={REACTION}>
                 A_x = 3 kN
               </text>
             </motion.g>

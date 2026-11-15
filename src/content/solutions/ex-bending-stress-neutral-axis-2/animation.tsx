@@ -258,7 +258,7 @@ export function BendingStressNeutralAxis2Animation({ scene, playing, sceneProgre
                 transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 18 }}
                 style={{ transformOrigin: `${centerX}px ${naCurrentY}px` }}
               />
-              <text x={right + 12} y={naCurrentY - 7} fontSize={9} fill={NA}>
+              <text x={showStress ? profileX + profileMax + 6 : right + 12} y={naCurrentY - 7} fontSize={9} fill={NA}>
                 oś obojętna
               </text>
               <text x={centerX + (isCentroid ? -15 : 7)} y={naCurrentY + 13} fontSize={9} fill={NA}>

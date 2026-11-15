@@ -46,7 +46,7 @@ function nodeLabelOffset(id: string) {
     case 'A':
       return { x: -14, y: 18 }
     case 'B':
-      return { x: 10, y: 18 }
+      return { x: 10, y: -8 }
     case 'C':
       return { x: -14, y: -6 }
     case 'D':
@@ -113,9 +113,9 @@ export function TrussCentroidAnimation({ index, playing, sceneProgress }: Soluti
                     strokeWidth="1.8"
                   />
                   <text
-                    x={mid.x + (rod.mid.x === 4 ? 9 : rod.mid.x === 0 ? -9 : 7)}
+                    x={mid.x + (rod.mid.x === 4 ? 9 : rod.mid.x === 0 ? -9 : rod.id === 'CE' ? -18 : 10)}
                     y={mid.y + (rod.id === 'CE' ? -7 : 12)}
-                    textAnchor={rod.mid.x === 0 ? 'end' : rod.mid.x === 4 ? 'start' : 'middle'}
+                    textAnchor={rod.mid.x === 0 || rod.id === 'CE' ? 'end' : 'start'}
                     fontSize="9"
                     fontWeight="600"
                     fill={GROUP_COLORS[rod.group]}
@@ -192,10 +192,10 @@ export function TrussCentroidAnimation({ index, playing, sceneProgress }: Soluti
                   y2={at(arm.x, arm.y).y}
                 />
               ))}
-              <text x={at(2, 3.75).x + 6} y={at(2, 3.75).y + 4} fontSize="9.5" stroke="none" fill={ARM}>
+              <text x={at(2, 3.75).x + 6} y={at(2, 3.75).y - 12} fontSize="9.5" stroke="none" fill={ARM}>
                 y = 3,75 m
               </text>
-              <text x={at(2, 2.5).x + 6} y={at(2, 2.5).y + 4} fontSize="9.5" stroke="none" fill={ARM}>
+              <text x={at(2, 2.5).x + 6} y={at(2, 2.5).y + 20} fontSize="9.5" stroke="none" fill={ARM}>
                 y = 2,5 m
               </text>
               <text x="20" y={ORIGIN.y - 10} fontSize="10" stroke="none" fill={ARM}>
@@ -206,7 +206,7 @@ export function TrussCentroidAnimation({ index, playing, sceneProgress }: Soluti
 
           {showTotal && (
             <g>
-              <text x="230" y="326" textAnchor="middle" fontSize="10" fill={MUTED}>
+              <text x="230" y="320" textAnchor="middle" fontSize="10" fill={MUTED}>
                 Σ L = 2,5 + 2,5 + 4,72 + 2,5 + 4,00 + 4,72 = 20,94 m
               </text>
             </g>
@@ -237,7 +237,7 @@ export function TrussCentroidAnimation({ index, playing, sceneProgress }: Soluti
               <text x={centroidPoint.x + 16} y={centroidPoint.y + 8} fontSize="9.5" fill={CENTROID}>
                 centroid linii — w świetle między prętami
               </text>
-              <text x="230" y="326" textAnchor="middle" fontSize="10" fill={INK}>
+              <text x="230" y="334" textAnchor="middle" fontSize="10" fill={INK}>
                 x_C = Q_y / L, y_C = Q_x / L
               </text>
             </motion.g>

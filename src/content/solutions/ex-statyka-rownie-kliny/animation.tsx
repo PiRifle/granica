@@ -153,9 +153,6 @@ export function LadderFrictionAnimation({ index, playing, sceneProgress }: Solut
             stroke={INK}
             strokeWidth="1.4"
           />
-          <text x={foot.x + 58} y={foot.y - 10} fontSize="11" fill={INK}>
-            {index === 5 ? 'α maleje' : 'α = 60°'}
-          </text>
 
           {showNB && (
             <>
@@ -168,9 +165,6 @@ export function LadderFrictionAnimation({ index, playing, sceneProgress }: Solut
                 strokeWidth="3.4"
                 markerEnd="url(#ex-drabina-nb)"
               />
-              <text x={nBEnd.x - 6} y={nBEnd.y - 8} textAnchor="end" fontSize="11" fill={NORMAL}>
-                N_B = 86,6 N
-              </text>
             </>
           )}
 
@@ -185,9 +179,6 @@ export function LadderFrictionAnimation({ index, playing, sceneProgress }: Solut
                 strokeWidth="3.4"
                 markerEnd="url(#ex-drabina-na)"
               />
-              <text x={nAEnd.x - 8} y={nAEnd.y + 4} textAnchor="end" fontSize="11" fill={NORMAL}>
-                N_A = 300 N
-              </text>
             </>
           )}
 
@@ -202,9 +193,6 @@ export function LadderFrictionAnimation({ index, playing, sceneProgress }: Solut
                 strokeWidth="3.4"
                 markerEnd="url(#ex-drabina-t)"
               />
-              <text x={tEnd.x + 4} y={tEnd.y + 16} fontSize="11" fill={FRICTION}>
-                T_A = 86,6 N
-              </text>
             </>
           )}
 
@@ -217,9 +205,6 @@ export function LadderFrictionAnimation({ index, playing, sceneProgress }: Solut
             strokeWidth="3.6"
             markerEnd="url(#ex-drabina-w)"
           />
-          <text x={wEnd.x + 8} y={wEnd.y + 2} fontSize="11" fill={WEIGHT}>
-            W = 300 N
-          </text>
 
           {index >= 2 && (
             <g stroke={MUTED} strokeWidth="1.1" strokeDasharray="5 4" fill="none">
@@ -233,19 +218,7 @@ export function LadderFrictionAnimation({ index, playing, sceneProgress }: Solut
           {showGauge && (
             <g>
               <rect x="26" y="34" width="142" height="112" rx="8" fill="#f7f9fc" stroke="#dfe6f2" />
-              <text x="40" y="52" fontSize="10" fill={INK}>
-                tarcie w podłodze [N]
-              </text>
-              <text x="40" y="76" fontSize="9" fill={FRICTION}>
-                potrzebne
-              </text>
               <rect x="96" y="68" width="52" height="9" rx="4" fill={FRICTION} opacity="0.85" />
-              <text x="152" y="76" fontSize="9" fill={FRICTION}>
-                86,6
-              </text>
-              <text x="40" y="104" fontSize="9" fill={available >= 86.6 ? NORMAL : WEIGHT}>
-                dostępne
-              </text>
               <rect
                 x="96"
                 y="96"
@@ -255,12 +228,6 @@ export function LadderFrictionAnimation({ index, playing, sceneProgress }: Solut
                 fill={available >= 86.6 ? NORMAL : WEIGHT}
                 opacity="0.85"
               />
-              <text x="154" y="104" fontSize="9" fill={available >= 86.6 ? NORMAL : WEIGHT}>
-                {available}
-              </text>
-              <text x="40" y="130" fontSize="9" fill={available >= 86.6 ? NORMAL : WEIGHT}>
-                {available >= 86.6 ? 'zapas ≈ 3,4 N — stoi' : 'brakuje 11,6 N — poślizg'}
-              </text>
             </g>
           )}
 
@@ -271,36 +238,84 @@ export function LadderFrictionAnimation({ index, playing, sceneProgress }: Solut
             </g>
           )}
 
-          {index === 1 && (
-            <text x="230" y="328" textAnchor="middle" fontSize="11" fill={NORMAL}>
-              Normalna podłogi równoważy ciężar drabiny
+          <g>
+            <text x={foot.x + 58} y={foot.y - 10} fontSize="11" fill={INK}>
+              {index === 5 ? 'α maleje' : 'α = 60°'}
             </text>
-          )}
-          {index === 2 && (
-            <text x="230" y="328" textAnchor="middle" fontSize="11" fill={NORMAL}>
-              Momenty względem stopy: ciężar kontra reakcja ściany
+
+            {showNB && (
+              <text x={nBEnd.x - 6} y={nBEnd.y - 8} textAnchor="end" fontSize="11" fill={NORMAL}>
+                N_B = 86,6 N
+              </text>
+            )}
+            {showNA && (
+              <text x={nAEnd.x - 8} y={nAEnd.y + 4} textAnchor="end" fontSize="11" fill={NORMAL}>
+                N_A = 300 N
+              </text>
+            )}
+            {showT && (
+              <text x={tEnd.x + 4} y={tEnd.y + 16} fontSize="11" fill={FRICTION}>
+                T_A = 86,6 N
+              </text>
+            )}
+            <text x={wEnd.x + 8} y={wEnd.y + 2} fontSize="11" fill={WEIGHT}>
+              W = 300 N
             </text>
-          )}
-          {index === 3 && (
-            <text x="230" y="328" textAnchor="middle" fontSize="11" fill={FRICTION}>
-              Tarcie potrzebne wynika z równowagi poziomej
-            </text>
-          )}
-          {index === 4 && (
-            <text x="230" y="328" textAnchor="middle" fontSize="11" fill={NORMAL}>
-              86,6 N ≤ 90 N — drabina stoi
-            </text>
-          )}
-          {index === 5 && (
-            <text x="230" y="328" textAnchor="middle" fontSize="11" fill={WEIGHT}>
-              75 N &lt; 86,6 N — stopa odjeżdża od ściany
-            </text>
-          )}
-          {index === 0 && (
-            <text x="230" y="328" textAnchor="middle" fontSize="11" fill={MUTED}>
-              Gładka ściana daje tylko poziomą reakcję N_B
-            </text>
-          )}
+
+            {showGauge && (
+              <g>
+                <text x="40" y="52" fontSize="10" fill={INK}>
+                  tarcie w podłodze [N]
+                </text>
+                <text x="40" y="76" fontSize="9" fill={FRICTION}>
+                  potrzebne
+                </text>
+                <text x="152" y="76" fontSize="9" fill={FRICTION}>
+                  86,6
+                </text>
+                <text x="40" y="104" fontSize="9" fill={available >= 86.6 ? NORMAL : WEIGHT}>
+                  dostępne
+                </text>
+                <text x="154" y="104" fontSize="9" fill={available >= 86.6 ? NORMAL : WEIGHT}>
+                  {available}
+                </text>
+                <text x="40" y="130" fontSize="9" fill={available >= 86.6 ? NORMAL : WEIGHT}>
+                  {available >= 86.6 ? 'zapas ≈ 3,4 N — stoi' : 'brakuje 11,6 N — poślizg'}
+                </text>
+              </g>
+            )}
+
+            {index === 1 && (
+              <text x="230" y="328" textAnchor="middle" fontSize="11" fill={NORMAL}>
+                Normalna podłogi równoważy ciężar drabiny
+              </text>
+            )}
+            {index === 2 && (
+              <text x="230" y="328" textAnchor="middle" fontSize="11" fill={NORMAL}>
+                Momenty względem stopy: ciężar kontra reakcja ściany
+              </text>
+            )}
+            {index === 3 && (
+              <text x="230" y="328" textAnchor="middle" fontSize="11" fill={FRICTION}>
+                Tarcie potrzebne wynika z równowagi poziomej
+              </text>
+            )}
+            {index === 4 && (
+              <text x="230" y="328" textAnchor="middle" fontSize="11" fill={NORMAL}>
+                86,6 N ≤ 90 N — drabina stoi
+              </text>
+            )}
+            {index === 5 && (
+              <text x="230" y="328" textAnchor="middle" fontSize="11" fill={WEIGHT}>
+                75 N &lt; 86,6 N — stopa odjeżdża od ściany
+              </text>
+            )}
+            {index === 0 && (
+              <text x="230" y="328" textAnchor="middle" fontSize="11" fill={MUTED}>
+                Gładka ściana daje tylko poziomą reakcję N_B
+              </text>
+            )}
+          </g>
         </svg>
       </div>
     </div>

@@ -148,7 +148,7 @@ function Vessel({ pulse }: { pulse: number }) {
         A
       </text>
 
-      <text x={cx} y={cy + 48} textAnchor="middle" fontSize={8} fill={VIOLET} opacity={pulse > 0.3 ? 1 : 0.5}>
+      <text x={cx} y={cy + 70} textAnchor="middle" fontSize={8} fill={VIOLET} opacity={pulse > 0.3 ? 1 : 0.5}>
         ciśnienie wewnętrzne
       </text>
     </g>
@@ -400,12 +400,12 @@ function EquivalentGauge({ progress }: { progress: number }) {
           HMH {pl(HMH)}
         </text>
 
-        <line x1={xOf(S1)} y1={y - 8} x2={xOf(S1)} y2={y + 12} stroke={STRESS} strokeWidth={2} />
+        <line x1={xOf(S1)} y1={y - 8} x2={xOf(S1)} y2={y + 8} stroke={STRESS} strokeWidth={2} />
         <text x={xOf(S1)} y={y - 14} textAnchor="middle" fontSize={8} fill={STRESS}>
           σ₁ = {S1}
         </text>
 
-        <line x1={xOf(S2)} y1={y - 8} x2={xOf(S2)} y2={y + 12} stroke={EDGE} strokeWidth={1.6} strokeDasharray="3 3" />
+        <line x1={xOf(S2)} y1={y - 8} x2={xOf(S2)} y2={y + 8} stroke={EDGE} strokeWidth={1.6} strokeDasharray="3 3" />
         <text x={xOf(S2)} y={y + 30} textAnchor="middle" fontSize={8} fill={EDGE}>
           σ₂ = {S2}
         </text>
@@ -440,7 +440,7 @@ function SafetyGauge({ progress }: { progress: number }) {
 
       <line x1={x} y1={y + 14} x2={x + width} y2={y + 14} stroke={MUTED} strokeWidth={1.1} />
       <line x1={xOf(1)} y1={y - 2} x2={xOf(1)} y2={y + 28} stroke={GREEN} strokeWidth={1.6} strokeDasharray="3 3" />
-      <text x={xOf(1)} y={y - 8} textAnchor="middle" fontSize={8} fill={GREEN}>
+      <text x={xOf(1)} y={y - 24} textAnchor="middle" fontSize={8} fill={GREEN}>
         n = 1
       </text>
 

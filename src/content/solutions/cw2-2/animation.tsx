@@ -215,7 +215,7 @@ function StrainPanel({ progress }: { progress: number }) {
           </g>
         )
       })}
-      <text x={zero + 58} y={74} fontSize={8} fill={MUTED}>
+      <text x={zero + 58} y={214} fontSize={8} fill={MUTED}>
         ε_T = +0,0024
       </text>
     </motion.g>
@@ -535,7 +535,7 @@ export function RestrainedThermalBarAnimation({ scene, index, playing, sceneProg
               <text x={204} y={(JUNC0 + junction) / 2 + 12} fontSize={9} fontWeight={700} fill={COMP}>
                 ΔL₂ = −0,0586
               </text>
-              <text x={196} y={JUNC0 - 10} fontSize={8} fill={MUTED}>
+              <text x={196} y={JUNC0 - 22} fontSize={8} fill={MUTED}>
                 góra wydłuża się, dół skraca
               </text>
               <text x={196} y={BOTTOM + 30} fontSize={9} fontWeight={700} fill={STRAIN}>

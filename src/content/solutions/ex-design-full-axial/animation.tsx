@@ -97,6 +97,7 @@ function Dimension({
   color,
   size = 8.5,
   labelY,
+  labelSide = 'right',
 }: {
   x: number
   from: number
@@ -105,13 +106,20 @@ function Dimension({
   color: string
   size?: number
   labelY?: number
+  labelSide?: 'left' | 'right'
 }) {
   return (
     <g stroke={color} fill={color}>
       <line x1={x} y1={from} x2={x} y2={to} strokeWidth={1} />
       <line x1={x - 4} y1={from} x2={x + 4} y2={from} strokeWidth={1} />
       <line x1={x - 4} y1={to} x2={x + 4} y2={to} strokeWidth={1} />
-      <text x={x + 6} y={labelY ?? (from + to) / 2 + 3} fontSize={size} stroke="none">
+      <text
+        x={labelSide === 'left' ? x - 6 : x + 6}
+        y={labelY ?? (from + to) / 2 + 3}
+        textAnchor={labelSide === 'left' ? 'end' : 'start'}
+        fontSize={size}
+        stroke="none"
+      >
         {label}
       </text>
     </g>
@@ -224,9 +232,6 @@ export function DesignFullAxialAnimation({ scene, index, playing, sceneProgress 
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                   stroke={color}
                 />
-                <text x={CX} y={start + H / 2 + 4} textAnchor="middle" fontSize={12} fontWeight={700} fill={color}>
-                  {segment.id}
-                </text>
                 <text x={8} y={start + H / 2 - 2} fontSize={8.5} fill={MUTED}>
                   A{segment.id} = {segment.area} mm²
                 </text>
@@ -451,7 +456,7 @@ export function DesignFullAxialAnimation({ scene, index, playing, sceneProgress 
                       animate={{ width: requiredWidth }}
                       transition={{ duration: 0.2, ease: 'easeOut' }}
                     />
-                    <text x={areaX + requiredWidth + 4} y={y + 9} fontSize={8} fill={OK}>
+                    <text x={areaX + Math.max(actualWidth, requiredWidth) + 4} y={y + 9} fontSize={8} fill={OK}>
                       A_req = {segment.areaReq.toString().replace('.', ',')}
                     </text>
                     {active && (
@@ -541,6 +546,7 @@ export function DesignFullAxialAnimation({ scene, index, playing, sceneProgress 
                       to={deformed[3]}
                       label={`ΔL₃ = ${pl(SEGMENTS[2].deltaL * s3)} mm`}
                       color={TENSION}
+                      labelSide="left"
                     />
                   )}
                 </>
@@ -583,6 +589,20 @@ export function DesignFullAxialAnimation({ scene, index, playing, sceneProgress 
               )}
             </g>
           )}
+
+          {SEGMENTS.map((segment, segmentIndex) => (
+            <text
+              key={`segment-id-${segment.id}`}
+              x={CX}
+              y={nodes[segmentIndex] + H / 2 + 4}
+              textAnchor="middle"
+              fontSize={12}
+              fontWeight={700}
+              fill={SEGMENT_COLORS[segmentIndex % SEGMENT_COLORS.length]}
+            >
+              {segment.id}
+            </text>
+          ))}
 
           {isCheck && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>

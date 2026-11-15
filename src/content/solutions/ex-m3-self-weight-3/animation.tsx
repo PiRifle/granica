@@ -269,7 +269,7 @@ export function SelfWeightExample3Animation({ scene, index, playing, sceneProgre
               <text x={GX1 + 8} y={GY1 + 15} fontSize={8.5} fill={MUTED}>
                 L [m]
               </text>
-              <text x={GX0} y={GY0 - 14} fontSize={8.5} fontWeight={700} fill={ACCENT}>
+              <text x={GX1} y={GY0 - 14} textAnchor="end" fontSize={8.5} fontWeight={700} fill={ACCENT}>
                 σ_max [MPa]
               </text>
 

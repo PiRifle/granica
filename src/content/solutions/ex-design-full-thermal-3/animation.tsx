@@ -145,7 +145,7 @@ function MaterialPlot({
           </text>
 
           <line x1={88} y1={yOf(limit)} x2={424} y2={yOf(limit)} stroke={BAD} strokeWidth={1.4} strokeDasharray="5 4" />
-          <text x={92} y={yOf(limit) - 6} fontSize={9} fontWeight={700} fill={BAD}>
+          <text x={420} y={yOf(limit) - 24} textAnchor="end" fontSize={9} fontWeight={700} fill={BAD}>
             k_c = 160 MPa
           </text>
 

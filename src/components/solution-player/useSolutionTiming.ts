@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import type { CourseSolution } from '../../types'
-import { splitFormula } from '../../lib/mathAnimation'
+import { splitFormula, splitFormulaPresentation } from '../../lib/mathAnimation'
 import { SCENE_MS, STEP_MS } from './constants'
 
 export function useSolutionTiming(solution: CourseSolution) {
@@ -10,14 +10,14 @@ export function useSolutionTiming(solution: CourseSolution) {
   )
   const timing = useMemo(() => {
     let start = 0
-    return solution.scenes.map((_, sceneIndex) => {
-      const steps = sceneSteps[sceneIndex]
+    return solution.scenes.map((scene, sceneIndex) => {
+      const steps = splitFormulaPresentation(scene.formula ?? '').steps
       const duration = Math.max(SCENE_MS, Math.max(1, steps.length) * STEP_MS)
       const entry = { start, duration, steps }
       start += duration
       return entry
     })
-  }, [sceneSteps, solution.scenes])
+  }, [solution.scenes])
   const totalMs = timing.length > 0 ? timing[timing.length - 1].start + timing[timing.length - 1].duration : 0
   return { sceneSteps, timing, totalMs }
 }

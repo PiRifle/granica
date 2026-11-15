@@ -94,7 +94,7 @@ export function StrengthStiffnessDesign2Animation({ scene, playing, sceneProgres
           <text x={10} y={34} fontSize={9} fill={MUTED}>
             P = 18 kN · Q = 10 kN · 3 × 400 mm
           </text>
-          <text x={10} y={48} fontSize={9} fill={MUTED}>
+          <text x={10} y={46} fontSize={9} fill={MUTED}>
             σ_dop = 120 MPa · ΔL_dop = 0,40 mm
           </text>
 
@@ -102,7 +102,7 @@ export function StrengthStiffnessDesign2Animation({ scene, playing, sceneProgres
             <line x1={CX - halves[0] - 16} y1={y0} x2={CX + halves[0] + 16} y2={y0} />
             {Array.from({ length: 7 }, (_, tick) => {
               const x = CX - halves[0] - 12 + tick * ((halves[0] * 2 + 24) / 6)
-              return <line key={tick} x1={x} y1={y0} x2={x - 8} y2={y0 - 12} strokeWidth={1.3} />
+              return <line key={tick} x1={x} y1={y0} x2={x - 8} y2={y0 - 10} strokeWidth={1.3} />
             })}
           </g>
 

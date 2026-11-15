@@ -485,7 +485,7 @@ export function AxialDesignThreeForcesAnimation({ scene, index, playing, scenePr
                     />
                   )}
                   <Dimension
-                    x={222}
+                    x={292}
                     from={BOTTOM}
                     to={deformed[3]}
                     label={`ΔL = ${pl(shownTotal)} mm`}

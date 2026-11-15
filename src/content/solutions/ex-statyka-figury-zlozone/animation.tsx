@@ -43,15 +43,15 @@ const centroidPoint = { x: sx(CENTROID_X), y: sy(CENTROID_Y) }
 function areaLabelPosition(part: Part) {
   switch (part.id) {
     case 1:
-      return { dx: 0, dy: 4, anchor: 'middle' as const }
+      return { dx: 35, dy: -14, anchor: 'start' as const }
     case 2:
-      return { dx: 11, dy: 4, anchor: 'start' as const }
+      return { dx: 18, dy: -14, anchor: 'start' as const }
     case 3:
-      return { dx: -10, dy: 4, anchor: 'end' as const }
+      return { dx: -16, dy: -14, anchor: 'end' as const }
     case 4:
-      return { dx: 0, dy: -9, anchor: 'middle' as const }
+      return { dx: 30, dy: -14, anchor: 'start' as const }
     default:
-      return { dx: 0, dy: -9, anchor: 'middle' as const }
+      return { dx: 18, dy: -14, anchor: 'start' as const }
   }
 }
 
@@ -75,7 +75,7 @@ export function CompositeAreaAnimation({ index }: SolutionAnimationProps) {
           <text x="418" y={OY - 8} fontSize="11" fill={INK}>
             x
           </text>
-          <text x={OX + 8} y="28" fontSize="11" fill={INK}>
+          <text x={OX + 8} y="20" fontSize="11" fill={INK}>
             y
           </text>
           {[2, 4, 6, 8, 10, 12].map((tick) => (
@@ -143,10 +143,10 @@ export function CompositeAreaAnimation({ index }: SolutionAnimationProps) {
           {showArmsX &&
             PARTS.map((part) => (
               <g key={`arm-x-${part.id}`} stroke={ARM} strokeWidth="1.2" strokeDasharray="4 3" opacity="0.8">
-                <line x1={OX} y1={sy(part.cy)} x2={sx(part.cx)} y2={sy(part.cy)} />
+                <line x1={OX} y1={sy(part.cy)} x2={sx(part.cx) - 10} y2={sy(part.cy)} />
                 <text
                   x={sx(part.cx / 2)}
-                  y={sy(part.cy) - 5}
+                  y={sy(part.cy) - 12}
                   textAnchor="middle"
                   fontSize="8.5"
                   stroke="none"
@@ -160,7 +160,7 @@ export function CompositeAreaAnimation({ index }: SolutionAnimationProps) {
           {showArmsY &&
             PARTS.map((part) => (
               <g key={`arm-y-${part.id}`} stroke={ARM} strokeWidth="1.2" strokeDasharray="4 3" opacity="0.8">
-                <line x1={sx(part.cx)} y1={OY} x2={sx(part.cx)} y2={sy(part.cy)} />
+                <line x1={sx(part.cx)} y1={OY} x2={sx(part.cx)} y2={sy(part.cy) + 12} />
                 <text x={sx(part.cx) + 5} y={sy(part.cy / 2)} fontSize="8.5" stroke="none" fill={ARM}>
                   y{part.id} = {part.cy}
                 </text>
@@ -169,8 +169,11 @@ export function CompositeAreaAnimation({ index }: SolutionAnimationProps) {
 
           {showCheck && (
             <g fill="none" stroke={DIM} strokeWidth="1.3" strokeDasharray="6 4">
-              <rect x={sx(0)} y={sy(10)} width={12 * SCALE} height={10 * SCALE} />
-              <text x={sx(6)} y={316} textAnchor="middle" fontSize="9" stroke="none" fill={DIM}>
+              <line x1={sx(0)} y1={sy(10)} x2={sx(12)} y2={sy(10)} />
+              <line x1={sx(0)} y1={sy(0)} x2={sx(12)} y2={sy(0)} />
+              <line x1={sx(0)} y1={sy(0)} x2={sx(0)} y2={sy(10)} />
+              <line x1={sx(12)} y1={sy(0)} x2={sx(12)} y2={sy(10)} />
+              <text x={sx(6)} y={22} textAnchor="middle" fontSize="9" stroke="none" fill={DIM}>
                 12 cm
               </text>
               <text
@@ -233,7 +236,7 @@ export function CompositeAreaAnimation({ index }: SolutionAnimationProps) {
             </motion.g>
           )}
 
-          <text x="230" y="326" textAnchor="middle" fontSize="10" fill={INK}>
+          <text x="230" y="336" textAnchor="middle" fontSize="10" fill={INK}>
             {showCheck
               ? 'Centroid leży w obrysie 12 × 10 cm, choć wypada w pustce między częściami'
               : showAreas

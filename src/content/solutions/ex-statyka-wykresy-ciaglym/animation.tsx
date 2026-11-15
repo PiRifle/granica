@@ -49,32 +49,17 @@ function ArrowY({
   to,
   color,
   marker,
-  label,
-  labelX = x,
-  labelY,
-  align = 'middle',
 }: {
   x: number
   from: number
   to: number
   color: string
   marker: string
-  label: string
-  labelX?: number
-  labelY: number
-  align?: 'start' | 'middle' | 'end'
 }) {
-  return (
-    <g>
-      <line x1={x} y1={from} x2={x} y2={to} stroke={color} strokeWidth={2.3} markerEnd={`url(#${marker})`} />
-      <text x={labelX} y={labelY} textAnchor={align} fontSize={9} fill={color}>
-        {label}
-      </text>
-    </g>
-  )
+  return <line x1={x} y1={from} x2={x} y2={to} stroke={color} strokeWidth={2.3} markerEnd={`url(#${marker})`} />
 }
 
-function Support({ x, label, roller = false }: { x: number; label: string; roller?: boolean }) {
+function Support({ x, roller = false }: { x: number; roller?: boolean }) {
   return (
     <g>
       <path d={`M ${x - 10} ${BEAM_Y + 16} L ${x} ${BEAM_Y + 3} L ${x + 10} ${BEAM_Y + 16} Z`} fill={EDGE} />
@@ -84,22 +69,16 @@ function Support({ x, label, roller = false }: { x: number; label: string; rolle
           <circle cx={x + 4.5} cy={BEAM_Y + 21} r={2.8} />
         </g>
       )}
-      <text x={x} y={BEAM_Y + 38} textAnchor="middle" fontSize={10} fontWeight={600} fill={EDGE}>
-        {label}
-      </text>
     </g>
   )
 }
 
-function Dimension({ x1, x2, y, label }: { x1: number; x2: number; y: number; label: string }) {
+function Dimension({ x1, x2, y }: { x1: number; x2: number; y: number }) {
   return (
     <g stroke={MUTED} fill={MUTED}>
       <line x1={x1} y1={y} x2={x2} y2={y} strokeWidth={1} />
       <line x1={x1} y1={y - 4} x2={x1} y2={y + 4} strokeWidth={1} />
       <line x1={x2} y1={y - 4} x2={x2} y2={y + 4} strokeWidth={1} />
-      <text x={(x1 + x2) / 2} y={y - 5} textAnchor="middle" fontSize={8.5} stroke="none">
-        {label}
-      </text>
     </g>
   )
 }
@@ -125,19 +104,13 @@ function LoadTriangle() {
           />
         )
       })}
-      <text x={X1 - 4} y={BEAM_Y - 52} textAnchor="end" fontSize={9} fontWeight={600} fill={LOAD}>
-        q₀ = 6 kN/m
-      </text>
-      <text x={X0 + 5} y={BEAM_Y - 12} fontSize={8.5} fill={LOAD}>
-        q = 0
-      </text>
     </g>
   )
 }
 
 export function TriangularLoadAnimation({ scene, playing, sceneProgress }: SolutionAnimationProps) {
   const metric = scene.focus?.metric ?? 'load'
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const isLoad = metric === 'load'
   const isReaction = metric === 'reaction'
   const isT = metric === 'T'
@@ -198,41 +171,17 @@ export function TriangularLoadAnimation({ scene, playing, sceneProgress }: Solut
           </defs>
 
           <line x1={X0} y1={BEAM_Y} x2={X1} y2={BEAM_Y} stroke={EDGE} strokeWidth={5} />
-          <Support x={X0} label="A" />
-          <Support x={X1} label="B" roller />
+          <Support x={X0} />
+          <Support x={X1} roller />
           <LoadTriangle />
 
           {isReaction && (
             <g>
-              <ArrowY
-                x={xAt(4)}
-                from={34}
-                to={BEAM_Y - 9}
-                color={LOAD_DARK}
-                marker="ex-tw-result"
-                label="W = 18 kN"
-                labelY={28}
-              />
-              <ArrowY
-                x={X0 + 15}
-                from={BEAM_Y + 56}
-                to={BEAM_Y + 6}
-                color={REACT}
-                marker="ex-tw-react"
-                label="R_A = 6 kN"
-                labelY={BEAM_Y + 70}
-              />
-              <ArrowY
-                x={X1 - 15}
-                from={BEAM_Y + 56}
-                to={BEAM_Y + 6}
-                color={REACT}
-                marker="ex-tw-react"
-                label="R_B = 12 kN"
-                labelY={BEAM_Y + 70}
-              />
-              <Dimension x1={X0} x2={xAt(4)} y={BEAM_Y + 92} label="2L/3 = 4 m" />
-              <Dimension x1={X0} x2={X1} y={BEAM_Y + 116} label="L = 6 m" />
+              <ArrowY x={xAt(4)} from={34} to={BEAM_Y - 9} color={LOAD_DARK} marker="ex-tw-result" />
+              <ArrowY x={X0 + 15} from={BEAM_Y + 56} to={BEAM_Y + 6} color={REACT} marker="ex-tw-react" />
+              <ArrowY x={X1 - 15} from={BEAM_Y + 56} to={BEAM_Y + 6} color={REACT} marker="ex-tw-react" />
+              <Dimension x1={X0} x2={xAt(4)} y={BEAM_Y + 92} />
+              <Dimension x1={X0} x2={X1} y={BEAM_Y + 116} />
             </g>
           )}
 
@@ -250,36 +199,19 @@ export function TriangularLoadAnimation({ scene, playing, sceneProgress }: Solut
               <line x1={X0} y1={T_BASE} x2={X1} y2={T_BASE} stroke={MUTED} strokeWidth={1} />
               <line x1={X0} y1={M_BASE} x2={X1} y2={M_BASE} stroke={MUTED} strokeWidth={1} />
               <line x1={X0} y1={T_BASE} x2={X0} y2={M_BASE} stroke={MUTED} strokeWidth={1} />
-              <text x={X0 - 12} y={T_BASE + 4} textAnchor="end" fontSize={12} fontWeight={700} fill={T_COLOR}>
-                T
-              </text>
-              <text x={X0 - 12} y={M_BASE + 4} textAnchor="end" fontSize={12} fontWeight={700} fill={M_COLOR}>
-                M
-              </text>
             </g>
           )}
 
           {showT && (
-            <g>
-              <motion.path
-                d={tPath}
-                fill="none"
-                stroke={T_COLOR}
-                strokeWidth={2.7}
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: reveal }}
-                transition={{ duration: 0.12, ease: 'linear' }}
-              />
-              <text x={xAt(0) + 5} y={yT(6) - 7} fontSize={8.5} fill={T_COLOR}>
-                6 kN
-              </text>
-              <text x={xAt(3)} y={yT(1.5) - 8} textAnchor="middle" fontSize={8.5} fill={T_COLOR}>
-                T(3) = 1,5 kN
-              </text>
-              <text x={xAt(5.85)} y={yT(-12) + 14} textAnchor="end" fontSize={8.5} fill={T_COLOR}>
-                T(6) = −12 kN
-              </text>
-            </g>
+            <motion.path
+              d={tPath}
+              fill="none"
+              stroke={T_COLOR}
+              strokeWidth={2.7}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: reveal }}
+              transition={{ duration: 0.12, ease: 'linear' }}
+            />
           )}
 
           {showM && (
@@ -295,9 +227,6 @@ export function TriangularLoadAnimation({ scene, playing, sceneProgress }: Solut
               />
               <circle cx={X0} cy={yM(0)} r={3.4} fill={M_COLOR} />
               <circle cx={X1} cy={yM(0)} r={3.4} fill={M_COLOR} />
-              <text x={xAt(3)} y={yM(13.5) - 8} textAnchor="middle" fontSize={8.5} fill={M_COLOR}>
-                M(3) = 13,5 kN·m
-              </text>
             </g>
           )}
 
@@ -314,63 +243,141 @@ export function TriangularLoadAnimation({ scene, playing, sceneProgress }: Solut
               />
               <circle cx={xAt(xExt)} cy={yT(0)} r={4.3} fill={OK} />
               <circle cx={xAt(xExt)} cy={yM(mMax)} r={4.3} fill={OK} />
-              <text x={xAt(xExt) + 7} y={yT(0) - 6} fontSize={8.5} fill={OK}>
-                T = 0, x = 3,46 m
-              </text>
-              <text x={xAt(xExt) + 7} y={yM(mMax) - 6} fontSize={8.5} fontWeight={600} fill={OK}>
-                M_max = 13,86 kN·m
-              </text>
             </g>
           )}
 
           {isCheck && (
-            <g>
-              <line
-                x1={X1}
-                y1={yT(-12)}
-                x2={X1}
-                y2={yT(0)}
-                stroke={OK}
-                strokeWidth={1.8}
-                strokeDasharray="4 3"
-                markerEnd="url(#ex-tw-react)"
-              />
-              <text x={X1 - 8} y={yT(-6)} textAnchor="end" fontSize={8.5} fill={OK}>
-                skok +12 kN
-              </text>
-              <text x={X0 - 6} y={yM(0) + 16} textAnchor="end" fontSize={8.5} fill={OK}>
-                M(0) = 0
-              </text>
-              <text x={X1} y={yM(0) + 16} textAnchor="middle" fontSize={8.5} fill={OK}>
-                M(6) = 0
-              </text>
-              <text x={xAt(4.5)} y={T_BASE + 20} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                q liniowe → T kwadratowe → M sześcienne
-              </text>
-            </g>
+            <line
+              x1={X1}
+              y1={yT(-12)}
+              x2={X1}
+              y2={yT(0)}
+              stroke={OK}
+              strokeWidth={1.8}
+              strokeDasharray="4 3"
+              markerEnd="url(#ex-tw-react)"
+            />
           )}
 
-          {isLoad && (
-            <g>
-              <Dimension x1={X0} x2={X1} y={BEAM_Y + 84} label="L = 6 m" />
-              <text x={xAt(3)} y={BEAM_Y + 108} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                natężenie rośnie liniowo od A do B
-              </text>
-            </g>
-          )}
+          {isLoad && <Dimension x1={X0} x2={X1} y={BEAM_Y + 84} />}
 
-          <text x={X1} y={M_BASE + 26} textAnchor="end" fontSize={9} fill={MUTED}>
-            x [m]
-          </text>
-          <text x="230" y="372" textAnchor="middle" fontSize={10.5} fill={INK}>
-            {isExtremum
-              ? 'Maksimum momentu tam, gdzie parabola T przecina zero'
-              : isCheck
-                ? 'Warunki brzegowe i skok pod podporą potwierdzają wykresy'
-                : isReaction
-                  ? 'Wypadkowa trójkąta działa w 2/3 rozpiętości od wierzchołka'
-                  : 'Kształt wykresu wynika z funkcji obciążenia q(x)'}
-          </text>
+          <g>
+            <text x={X0} y={BEAM_Y + 38} textAnchor="middle" fontSize={10} fontWeight={600} fill={EDGE}>
+              A
+            </text>
+            <text x={X1} y={BEAM_Y + 38} textAnchor="middle" fontSize={10} fontWeight={600} fill={EDGE}>
+              B
+            </text>
+            <text x={X1 - 4} y={BEAM_Y - 52} textAnchor="end" fontSize={9} fontWeight={600} fill={LOAD}>
+              q₀ = 6 kN/m
+            </text>
+            <text x={X0 + 5} y={BEAM_Y - 12} fontSize={8.5} fill={LOAD}>
+              q = 0
+            </text>
+
+            {isReaction && (
+              <g>
+                <text x={xAt(4)} y={28} textAnchor="middle" fontSize={9} fill={LOAD_DARK}>
+                  W = 18 kN
+                </text>
+                <text x={X0 + 15} y={BEAM_Y + 70} textAnchor="middle" fontSize={9} fill={REACT}>
+                  R_A = 6 kN
+                </text>
+                <text x={X1 - 15} y={BEAM_Y + 70} textAnchor="middle" fontSize={9} fill={REACT}>
+                  R_B = 12 kN
+                </text>
+                <text x={(X0 + xAt(4)) / 2} y={BEAM_Y + 92 - 5} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  2L/3 = 4 m
+                </text>
+                <text x={(X0 + X1) / 2} y={BEAM_Y + 116 - 5} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  L = 6 m
+                </text>
+              </g>
+            )}
+
+            {(showT || showM) && (
+              <g>
+                <text x={X0 - 12} y={T_BASE + 4} textAnchor="end" fontSize={12} fontWeight={700} fill={T_COLOR}>
+                  T
+                </text>
+                <text x={X0 - 12} y={M_BASE + 4} textAnchor="end" fontSize={12} fontWeight={700} fill={M_COLOR}>
+                  M
+                </text>
+              </g>
+            )}
+
+            {showT && (
+              <g>
+                <text x={xAt(0) + 5} y={yT(6) - 7} fontSize={8.5} fill={T_COLOR}>
+                  6 kN
+                </text>
+                <text x={xAt(3)} y={yT(1.5) - 8} textAnchor="middle" fontSize={8.5} fill={T_COLOR}>
+                  T(3) = 1,5 kN
+                </text>
+                <text x={xAt(5.85)} y={yT(-12) + 34} textAnchor="end" fontSize={8.5} fill={T_COLOR}>
+                  T(6) = −12 kN
+                </text>
+              </g>
+            )}
+
+            {showM && (
+              <text x={xAt(3)} y={yM(13.5) - 8} textAnchor="middle" fontSize={8.5} fill={M_COLOR}>
+                M(3) = 13,5 kN·m
+              </text>
+            )}
+
+            {isExtremum && (
+              <g>
+                <text x={xAt(xExt) + 7} y={yT(0) - 6} fontSize={8.5} fill={OK}>
+                  T = 0, x = 3,46 m
+                </text>
+                <text x={xAt(xExt) + 7} y={yM(mMax) - 6} fontSize={8.5} fontWeight={600} fill={OK}>
+                  M_max = 13,86 kN·m
+                </text>
+              </g>
+            )}
+
+            {isCheck && (
+              <g>
+                <text x={X1 - 8} y={yT(-6)} textAnchor="end" fontSize={8.5} fill={OK}>
+                  skok +12 kN
+                </text>
+                <text x={X0 - 6} y={yM(0) + 30} textAnchor="end" fontSize={8.5} fill={OK}>
+                  M(0) = 0
+                </text>
+                <text x={X1} y={yM(0) + 8} textAnchor="middle" fontSize={8.5} fill={OK}>
+                  M(6) = 0
+                </text>
+                <text x={xAt(4.5)} y={T_BASE + 48} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  q liniowe → T kwadratowe → M sześcienne
+                </text>
+              </g>
+            )}
+
+            {isLoad && (
+              <g>
+                <text x={(X0 + X1) / 2} y={BEAM_Y + 84 - 5} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  L = 6 m
+                </text>
+                <text x={xAt(3)} y={BEAM_Y + 108} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  natężenie rośnie liniowo od A do B
+                </text>
+              </g>
+            )}
+
+            <text x={X1} y={M_BASE + 26} textAnchor="end" fontSize={9} fill={MUTED}>
+              x [m]
+            </text>
+            <text x="230" y="372" textAnchor="middle" fontSize={10.5} fill={INK}>
+              {isExtremum
+                ? 'Maksimum momentu tam, gdzie parabola T przecina zero'
+                : isCheck
+                  ? 'Warunki brzegowe i skok pod podporą potwierdzają wykresy'
+                  : isReaction
+                    ? 'Wypadkowa trójkąta działa w 2/3 rozpiętości od wierzchołka'
+                    : 'Kształt wykresu wynika z funkcji obciążenia q(x)'}
+            </text>
+          </g>
         </svg>
       </div>
     </div>

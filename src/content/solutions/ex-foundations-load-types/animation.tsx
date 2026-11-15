@@ -99,7 +99,13 @@ export function LoadTypesExampleAnimation({ scene, index, playing, sceneProgress
             </motion.g>
           ))}
 
-          <text x={arrowX + 12} y={top + 8} fontSize={9} fill={LOAD}>
+          <text
+            x={index === 0 ? arrowX + 12 : 138}
+            y={index === 0 ? top + 8 : top + 62}
+            textAnchor={index === 0 ? 'start' : 'end'}
+            fontSize={9}
+            fill={LOAD}
+          >
             {index === 0 ? 'ciężar własny' : 'q_g ≈ 38,5 N/m'}
           </text>
           {index === 1 && (
@@ -137,7 +143,7 @@ export function LoadTypesExampleAnimation({ scene, index, playing, sceneProgress
                 animate={{ pathLength: drawNormal }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
-              <text x={zeroX - 8} y={top - 2} textAnchor="end" fontSize={10} fontWeight={700} fill={ACCENT}>
+              <text x={zeroX - 8} y={top + 18} textAnchor="end" fontSize={10} fontWeight={700} fill={ACCENT}>
                 N(x)
               </text>
               <text x={zeroX - 6} y={bottom + 14} textAnchor="end" fontSize={9} fill={MUTED}>
@@ -171,7 +177,7 @@ export function LoadTypesExampleAnimation({ scene, index, playing, sceneProgress
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
               <circle cx={maxX} cy={top} r={3.2} fill={STRESS} />
-              <text x={zeroX - 8} y={top - 2} textAnchor="end" fontSize={10} fontWeight={700} fill={STRESS}>
+              <text x={zeroX - 8} y={top + 18} textAnchor="end" fontSize={10} fontWeight={700} fill={STRESS}>
                 σ(x)
               </text>
               <text x={zeroX - 6} y={bottom + 14} textAnchor="end" fontSize={9} fill={MUTED}>
@@ -203,7 +209,7 @@ export function LoadTypesExampleAnimation({ scene, index, playing, sceneProgress
                 strokeWidth={1.4}
               />
               <circle cx={cutX} cy={cutY} r={3.2} fill={LOAD} />
-              <text x={Math.min(cutX + 6, 438)} y={cutY - 5} fontSize={9} fill={LOAD}>
+              <text x={Math.min(cutX + 6, 438)} y={cutY + 14} fontSize={9} fill={LOAD}>
                 N(x)
               </text>
             </motion.g>

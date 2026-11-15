@@ -97,7 +97,13 @@ export function PointMassCentroidAnimation({ index, playing, sceneProgress }: So
           {[1, 2, 3].map((tick) => (
             <g key={`tick-${tick}`} stroke={AXIS} strokeWidth="1">
               <line x1={at(tick, 0).x} y1={ORIGIN.y - 4} x2={at(tick, 0).x} y2={ORIGIN.y + 4} />
-              <text x={at(tick, 0).x} y={ORIGIN.y + 17} textAnchor="middle" fontSize="9.5" fill={MUTED}>
+              <text
+                x={at(tick, 0).x + (tick === 3 ? 12 : 0)}
+                y={ORIGIN.y + 17}
+                textAnchor={tick === 3 ? 'start' : 'middle'}
+                fontSize="9.5"
+                fill={MUTED}
+              >
                 {tick} m
               </text>
             </g>
@@ -122,8 +128,9 @@ export function PointMassCentroidAnimation({ index, playing, sceneProgress }: So
               <g key={item.label}>
                 <MassMarker point={point} mass={item.mass} color={item.color} draw={draw} />
                 <text
-                  x={point.x + (itemIndex === 2 ? 20 : 12)}
+                  x={itemIndex === 0 ? point.x - 12 : point.x + (itemIndex === 2 ? 20 : 12)}
                   y={point.y - 8}
+                  textAnchor={itemIndex === 0 ? 'end' : 'start'}
                   fontSize="11"
                   fontWeight="600"
                   fill={item.color}
@@ -142,7 +149,12 @@ export function PointMassCentroidAnimation({ index, playing, sceneProgress }: So
                       markerEnd="url(#ex-srodek-masy-arrow)"
                       initial={false}
                     />
-                    <text x={point.x + 8} y={point.y + 8 + arrowLength * 0.55} fontSize="10" fill={WEIGHT}>
+                    <text
+                      x={point.x + 8}
+                      y={item.y === 0 ? ORIGIN.y + 38 : point.y + 8 + arrowLength * 0.55}
+                      fontSize="10"
+                      fill={WEIGHT}
+                    >
                       G{itemIndex + 1} = {item.weight.toFixed(2).replace('.', ',')} N
                     </text>
                   </>
@@ -153,7 +165,7 @@ export function PointMassCentroidAnimation({ index, playing, sceneProgress }: So
 
           {showMomentY && (
             <>
-              <text x={at(1.5, 0).x} y={ORIGIN.y - 7} textAnchor="middle" fontSize="10" fill={MASS_COLORS[2]}>
+              <text x={at(1.5, 0).x} y={ORIGIN.y - 27} textAnchor="middle" fontSize="10" fill={MASS_COLORS[2]}>
                 x₂ = x₃ = 3 m
               </text>
               <text x={at(1.5, 4).x} y={at(3, 4).y - 7} textAnchor="middle" fontSize="10" fill={MASS_COLORS[2]}>
@@ -192,7 +204,7 @@ export function PointMassCentroidAnimation({ index, playing, sceneProgress }: So
                 stroke={MUTED}
                 strokeWidth="1.6"
               />
-              <text x={arithmeticPoint.x + 9} y={arithmeticPoint.y + 4} fontSize="9.5" fill={MUTED}>
+              <text x={arithmeticPoint.x + 54} y={arithmeticPoint.y + 4} fontSize="9.5" fill={MUTED}>
                 średnia arytmetyczna
               </text>
               <line

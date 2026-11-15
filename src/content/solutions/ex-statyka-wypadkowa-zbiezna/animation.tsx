@@ -30,7 +30,7 @@ const sumX = point({ x: resultant.x, y: 0 })
 const sumY = point({ x: 0, y: resultant.y })
 
 export function ResultantAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const grow = playing ? Math.min(1, 0.18 + sceneProgress * 1.6) : 1
+  const grow = playing ? Math.min(1, 0.18 + sceneProgress * 2.4) : 1
   const reveal = index === 0 ? grow : 1
   const showF1Components = index >= 1
   const showOtherComponents = index >= 2
@@ -62,15 +62,6 @@ export function ResultantAnimation({ index, playing, sceneProgress }: SolutionAn
 
           <line x1="34" y1={origin.y} x2="430" y2={origin.y} stroke={AXIS} strokeWidth="1.4" />
           <line x1={origin.x} y1="24" x2={origin.x} y2="318" stroke={AXIS} strokeWidth="1.4" />
-          <text x="416" y={origin.y - 8} fontSize="12" fill={INK}>
-            x
-          </text>
-          <text x={origin.x + 8} y="38" fontSize="12" fill={INK}>
-            y
-          </text>
-          <text x={origin.x - 16} y={origin.y + 18} fontSize="12" fill={INK}>
-            O
-          </text>
 
           {showF1Components && (
             <g stroke={MUTED} strokeWidth="1.4" strokeDasharray="5 4" fill="none">
@@ -79,27 +70,12 @@ export function ResultantAnimation({ index, playing, sceneProgress }: SolutionAn
               <line x1={origin.x} y1={origin.y} x2={origin.x} y2={f1End.y} opacity="0.55" />
             </g>
           )}
-          {showF1Components && (
-            <g fontSize="10.5" fill={MUTED}>
-              <text x={(origin.x + f1End.x) / 2} y={origin.y + 15} textAnchor="middle">
-                F₁x = 4,00
-              </text>
-              <text x={f1End.x + 6} y={(origin.y + f1End.y) / 2}>
-                F₁y = 6,93
-              </text>
-            </g>
-          )}
 
           {showOtherComponents && (
             <g stroke={MUTED} strokeWidth="1.3" strokeDasharray="4 4" fill="none">
               <line x1={origin.x} y1={origin.y} x2={f3End.x} y2={origin.y} />
               <line x1={f3End.x} y1={origin.y} x2={f3End.x} y2={f3End.y} />
             </g>
-          )}
-          {showOtherComponents && (
-            <text x={f3End.x + 6} y={origin.y + 14} fontSize="10.5" fill={MUTED}>
-              F₃x = 4,33
-            </text>
           )}
 
           <motion.line
@@ -112,9 +88,6 @@ export function ResultantAnimation({ index, playing, sceneProgress }: SolutionAn
             markerEnd="url(#ex-wyp-f1)"
             opacity={baseOpacity}
           />
-          <text x={f1End.x + 6} y={f1End.y - 8} fontSize="12" fill={FORCE_1} opacity={baseOpacity}>
-            F₁ = 8 kN
-          </text>
 
           <motion.line
             x1={origin.x}
@@ -126,9 +99,6 @@ export function ResultantAnimation({ index, playing, sceneProgress }: SolutionAn
             markerEnd="url(#ex-wyp-f2)"
             opacity={baseOpacity}
           />
-          <text x={f2End.x - 4} y={f2End.y + 18} textAnchor="middle" fontSize="12" fill={FORCE_2} opacity={baseOpacity}>
-            F₂ = 6 kN
-          </text>
 
           <motion.line
             x1={origin.x}
@@ -140,25 +110,12 @@ export function ResultantAnimation({ index, playing, sceneProgress }: SolutionAn
             markerEnd="url(#ex-wyp-f3)"
             opacity={baseOpacity}
           />
-          <text x={f3End.x + 8} y={f3End.y + 14} fontSize="12" fill={FORCE_3} opacity={baseOpacity}>
-            F₃ = 5 kN
-          </text>
 
           {showSum && (
             <g stroke={RESULT} strokeWidth="1.7" fill="none" opacity="0.7">
               <line x1={origin.x} y1={origin.y} x2={sumX.x} y2={sumX.y} strokeDasharray="6 4" />
               <line x1={sumX.x} y1={origin.y} x2={sumX.x} y2={sumY.y} strokeDasharray="6 4" />
               <line x1={origin.x} y1={origin.y} x2={origin.x} y2={sumY.y} strokeDasharray="6 4" />
-            </g>
-          )}
-          {showSum && (
-            <g fontSize="10.5" fill={RESULT}>
-              <text x={sumX.x - 8} y={origin.y + 17} textAnchor="end">
-                Wx = 14,33
-              </text>
-              <text x={origin.x + 6} y={sumY.y - 5}>
-                Wy = 4,43
-              </text>
             </g>
           )}
 
@@ -175,18 +132,12 @@ export function ResultantAnimation({ index, playing, sceneProgress }: SolutionAn
                 initial={false}
                 animate={{ opacity: showResult ? 1 : 0 }}
               />
-              <text x={resultEnd.x + 8} y={resultEnd.y - 2} fontSize="13" fill={RESULT}>
-                W = 15,0 kN
-              </text>
               <path
                 d={`M ${origin.x + 46} ${origin.y} A 46 46 0 0 0 ${origin.x + 46 * Math.cos((17.2 * Math.PI) / 180)} ${origin.y - 46 * Math.sin((17.2 * Math.PI) / 180)}`}
                 fill="none"
                 stroke={RESULT}
                 strokeWidth="1.8"
               />
-              <text x={origin.x + 52} y={origin.y - 14} fontSize="10.5" fill={RESULT}>
-                17,2°
-              </text>
             </>
           )}
 
@@ -226,26 +177,99 @@ export function ResultantAnimation({ index, playing, sceneProgress }: SolutionAn
                 animate={{ opacity: 1 }}
               />
               <circle cx={resultEnd.x} cy={resultEnd.y} r="4" fill={RESULT} />
-              <text x={polygon1.x - 16} y={polygon1.y - 8} fontSize="11" fill={FORCE_1}>
-                F₁
-              </text>
-              <text x={polygon2.x + 6} y={polygon2.y - 8} fontSize="11" fill={FORCE_2}>
-                F₂
-              </text>
-              <text x={resultEnd.x - 18} y={resultEnd.y + 16} fontSize="11" fill={FORCE_3}>
-                F₃
-              </text>
-              <text x="230" y="340" textAnchor="middle" fontSize="12" fill={RESULT}>
-                Koniec wieloboku = koniec wypadkowej
-              </text>
             </g>
           )}
 
-          {!showPolygon && (
-            <text x="230" y="340" textAnchor="middle" fontSize="12" fill={INK}>
-              {showResult ? 'W = F₁ + F₂ + F₃ — suma wektorowa' : 'Rzutujemy każdą siłę na osie x i y'}
+          <g>
+            <text x="416" y={origin.y - 8} fontSize="12" fill={INK}>
+              x
             </text>
-          )}
+            <text x={origin.x + 8} y="38" fontSize="12" fill={INK}>
+              y
+            </text>
+            <text x={origin.x - 16} y={origin.y + 18} fontSize="12" fill={INK}>
+              O
+            </text>
+
+            {showF1Components && (
+              <g fontSize="10.5" fill={MUTED}>
+                <text x={(origin.x + f1End.x) / 2} y={origin.y - 8} textAnchor="middle">
+                  F₁x = 4,00
+                </text>
+                <text x={f1End.x + 6} y={(origin.y + f1End.y) / 2}>
+                  F₁y = 6,93
+                </text>
+              </g>
+            )}
+
+            {showOtherComponents && (
+              <text x={f3End.x + 6} y={origin.y - 8} fontSize="10.5" fill={MUTED}>
+                F₃x = 4,33
+              </text>
+            )}
+
+            <text x={f1End.x + 6} y={f1End.y - 8} fontSize="12" fill={FORCE_1} opacity={baseOpacity}>
+              F₁ = 8 kN
+            </text>
+            <text
+              x={f2End.x - 4}
+              y={f2End.y + 18}
+              textAnchor="middle"
+              fontSize="12"
+              fill={FORCE_2}
+              opacity={baseOpacity}
+            >
+              F₂ = 6 kN
+            </text>
+            <text x={f3End.x + 8} y={f3End.y + 14} fontSize="12" fill={FORCE_3} opacity={baseOpacity}>
+              F₃ = 5 kN
+            </text>
+
+            {showSum && (
+              <g fontSize="10.5" fill={RESULT}>
+                <text x={sumX.x} y={origin.y - 8} textAnchor="middle">
+                  Wx = 14,33
+                </text>
+                <text x={origin.x + 6} y={sumY.y - 5}>
+                  Wy = 4,43
+                </text>
+              </g>
+            )}
+
+            {showResult && (
+              <>
+                <text x={resultEnd.x + 8} y={resultEnd.y - 2} fontSize="13" fill={RESULT}>
+                  W = 15,0 kN
+                </text>
+                <text x={origin.x + 52} y={origin.y - 22} fontSize="10.5" fill={RESULT}>
+                  17,2°
+                </text>
+              </>
+            )}
+
+            {showPolygon && (
+              <g>
+                <text x={polygon1.x - 16} y={polygon1.y - 8} fontSize="11" fill={FORCE_1}>
+                  F₁
+                </text>
+                <text x={polygon2.x + 6} y={polygon2.y - 8} fontSize="11" fill={FORCE_2}>
+                  F₂
+                </text>
+                <text x={resultEnd.x - 18} y={resultEnd.y + 16} fontSize="11" fill={FORCE_3}>
+                  F₃
+                </text>
+                <text x="230" y="340" textAnchor="middle" fontSize="12" fill={RESULT}>
+                  Koniec wieloboku = koniec wypadkowej
+                </text>
+              </g>
+            )}
+
+            {!showPolygon && (
+              <text x="230" y="340" textAnchor="middle" fontSize="12" fill={INK}>
+                {showResult ? 'W = F₁ + F₂ + F₃ — suma wektorowa' : 'Rzutujemy każdą siłę na osie x i y'}
+              </text>
+            )}
+          </g>
         </svg>
       </div>
     </div>

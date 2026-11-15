@@ -178,10 +178,10 @@ export function DesignFullAxial2Animation({ scene, index, playing, sceneProgress
         >
           {support()}
 
-          <text x={8} y={20} fontSize={8.5} fill={INK}>
+          <text x={8} y={8} fontSize={8.5} fill={INK}>
             E = 200 GPa, P = 20 kN, Q = 25 kN
           </text>
-          <text x={8} y={34} fontSize={8.5} fill={MUTED}>
+          <text x={8} y={22} fontSize={8.5} fill={MUTED}>
             L₁ = 300 mm, L₂ = 500 mm
           </text>
 
@@ -205,9 +205,11 @@ export function DesignFullAxial2Animation({ scene, index, playing, sceneProgress
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                   stroke={color}
                 />
-                <text x={CX} y={start + height / 2 + 4} textAnchor="middle" fontSize={12} fontWeight={700} fill={color}>
-                  {segment.id}
-                </text>
+                {!followsElongation && (
+                  <text x={CX} y={start + height / 2 + 4} textAnchor="middle" fontSize={12} fontWeight={700} fill={color}>
+                    {segment.id}
+                  </text>
+                )}
                 <text x={8} y={start + height / 2 - 2} fontSize={8.5} fill={MUTED}>
                   A{segment.id} = {segment.area} mm²
                 </text>
@@ -218,7 +220,7 @@ export function DesignFullAxial2Animation({ scene, index, playing, sceneProgress
             )
           })}
 
-          <LoadArrow x={CX} from={TOP - 32} to={TOP - 4} opacity={isModel ? loadReveal : 1} color={SUPPORT} />
+          <LoadArrow x={CX} from={TOP - 20} to={TOP - 4} opacity={isModel ? loadReveal : 1} color={SUPPORT} />
           <motion.text
             x={CX + 7}
             y={TOP - 18}
@@ -432,6 +434,20 @@ export function DesignFullAxial2Animation({ scene, index, playing, sceneProgress
                 )
               })}
 
+              {SEGMENTS.map((segment, segmentIndex) => (
+                <text
+                  key={`deformed-${segment.id}`}
+                  x={CX}
+                  y={(deformed[segmentIndex] + deformed[segmentIndex + 1]) / 2 + 4}
+                  textAnchor="middle"
+                  fontSize={12}
+                  fontWeight={700}
+                  fill={SEGMENT_COLORS[segmentIndex % SEGMENT_COLORS.length]}
+                >
+                  {segment.id}
+                </text>
+              ))}
+
               {isElongation && (
                 <>
                   <Dimension
@@ -454,7 +470,7 @@ export function DesignFullAxial2Animation({ scene, index, playing, sceneProgress
               )}
 
               <Dimension
-                x={286}
+                x={344}
                 from={BOTTOM}
                 to={deformed[2]}
                 label={`ΔL = ${num(shownTotal, 3)} mm`}

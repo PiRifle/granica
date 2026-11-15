@@ -42,7 +42,7 @@ function HDim({ y, from, to, label, color }: { y: number; from: number; to: numb
 function DesignPlot({ sceneProgress, playing }: { sceneProgress: number; playing: boolean }) {
   const xOf = (deltaT: number) => 84 + (deltaT / 80) * 340
   const yOf = (sigma: number) => 54 + (Math.abs(sigma) / 140) * 184
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const activeT = playing ? 58.3 * smooth(clamp01(sceneProgress * 1.2)) : 58.3
   const activeSigma = activeT <= 25 ? 0 : -(activeT - 25) * 2.4
 
@@ -58,11 +58,6 @@ function DesignPlot({ sceneProgress, playing }: { sceneProgress: number; playing
           <line x1={84} y1={244} x2={430} y2={244} stroke="#c9d0d9" strokeWidth={1} />
           <line x1={84} y1={54} x2={430} y2={54} stroke={MUTED} strokeWidth={1} strokeDasharray="4 4" />
 
-          <line x1={84} y1={yOf(-80)} x2={430} y2={yOf(-80)} stroke={BAD} strokeWidth={1.3} strokeDasharray="6 4" />
-          <text x={426} y={yOf(-80) - 6} textAnchor="end" fontSize={9} fill={BAD}>
-            σ_dop = −80 MPa
-          </text>
-
           <motion.path
             d={`M ${xOf(0)} ${yOf(0)} L ${xOf(25)} ${yOf(0)} L ${xOf(80)} ${yOf(-132)}`}
             fill="none"
@@ -72,6 +67,11 @@ function DesignPlot({ sceneProgress, playing }: { sceneProgress: number; playing
             animate={{ pathLength: reveal }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
+
+          <line x1={84} y1={yOf(-80)} x2={430} y2={yOf(-80)} stroke={BAD} strokeWidth={1.3} strokeDasharray="6 4" />
+          <text x={426} y={yOf(-80) - 6} textAnchor="end" fontSize={9} fill={BAD}>
+            σ_dop = −80 MPa
+          </text>
 
           <line x1={xOf(25)} y1={yOf(0)} x2={xOf(25)} y2={244} stroke={MUTED} strokeWidth={1} strokeDasharray="3 3" />
           <circle cx={xOf(25)} cy={yOf(0)} r={3.5} fill={ACCENT} />
@@ -95,7 +95,7 @@ function DesignPlot({ sceneProgress, playing }: { sceneProgress: number; playing
           <text x={xOf(58.3)} y={258} textAnchor="middle" fontSize={8.5} fill={BAD}>
             58,3
           </text>
-          <text x={xOf(58.3) + 8} y={yOf(-80) + 4} fontSize={9} fontWeight={700} fill={BAD}>
+          <text x={xOf(58.3) + 8} y={yOf(-80) + 18} fontSize={9} fontWeight={700} fill={BAD}>
             ΔT_max
           </text>
 
@@ -398,7 +398,7 @@ export function ThermalGapDesignAnimation({ scene, index, playing, sceneProgress
 
           {isGap && ext > 0.5 && (
             <HDim
-              y={PIPE_Y + PIPE_H + 46}
+              y={PIPE_Y + PIPE_H + 64}
               from={X0 + BASE}
               to={barEnd}
               label={gapNow > 1 ? 'luz → 0' : 'ΔL = 3 mm'}
@@ -407,7 +407,7 @@ export function ThermalGapDesignAnimation({ scene, index, playing, sceneProgress
           )}
 
           {isStress && residual > 1 && (
-            <HDim y={PIPE_Y + PIPE_H + 64} from={SUPPORT_X} to={FREE_END} label="zablokowane 5,4 mm" color={BAD} />
+            <HDim y={PIPE_Y + PIPE_H + 92} from={SUPPORT_X} to={FREE_END} label="zablokowane 5,4 mm" color={BAD} />
           )}
 
           {gapNow > 1 && <HDim y={PIPE_Y + PIPE_H + 24} from={barEnd} to={SUPPORT_X} label="s = 3 mm" color={MUTED} />}
@@ -475,7 +475,7 @@ export function ThermalGapDesignAnimation({ scene, index, playing, sceneProgress
                   return (
                     <g key={value}>
                       <line x1={408} y1={y} x2={416} y2={y} stroke={MUTED} strokeWidth={1} />
-                      <text x={420} y={y + 3} fontSize={8} fill={value === -80 ? BAD : MUTED}>
+                      <text x={427} y={y + 3} fontSize={8} fill={value === -80 ? BAD : MUTED}>
                         {value === 0 ? '0' : `${value}`}
                       </text>
                     </g>

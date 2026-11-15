@@ -136,21 +136,37 @@ function Arrow({
   )
 }
 
-function Axes() {
+function AxisArrows() {
   return (
     <g>
       <Arrow x1={62} y1={264} x2={96} y2={264} amount={1} color={BLUE} width={1.4} />
+      <Arrow x1={62} y1={264} x2={62} y2={230} amount={1} color={GREEN} width={1.4} />
+      <Arrow x1={62} y1={264} x2={83} y2={248} amount={1} color={ORANGE} width={1.4} />
+    </g>
+  )
+}
+
+function AxisText() {
+  return (
+    <g>
       <text x={100} y={267} fontSize={9} fill={BLUE}>
         x
       </text>
-      <Arrow x1={62} y1={264} x2={62} y2={230} amount={1} color={GREEN} width={1.4} />
       <text x={66} y={230} fontSize={9} fill={GREEN}>
         y
       </text>
-      <Arrow x1={62} y1={264} x2={83} y2={248} amount={1} color={ORANGE} width={1.4} />
       <text x={87} y={248} fontSize={9} fill={ORANGE}>
         z
       </text>
+    </g>
+  )
+}
+
+function Axes() {
+  return (
+    <g>
+      <AxisArrows />
+      <AxisText />
     </g>
   )
 }
@@ -211,7 +227,6 @@ function StrainXScene({ p }: { p: number }) {
   const fx = 1 + EPS_X * GAIN_X * a
   return (
     <g>
-      <Header title="ODKSZTAŁCENIE W KIERUNKU x" note="deformacja pokazana poglądowo, nie w skali" />
       <Prism ghost />
       <Prism fx={fx} />
       <Arrow
@@ -223,6 +238,8 @@ function StrainXScene({ p }: { p: number }) {
         color={BLUE}
         width={2.6}
       />
+      <AxisArrows />
+      <Header title="ODKSZTAŁCENIE W KIERUNKU x" note="deformacja pokazana poglądowo, nie w skali" />
       <motion.text
         x={CX + HX * fx + 24}
         y={CY - 12}
@@ -234,10 +251,10 @@ function StrainXScene({ p }: { p: number }) {
       >
         εx = +600 με
       </motion.text>
-      <text x={CX} y={CY + HY + 38} textAnchor="middle" fontSize={9} fill={MUTED}>
+      <text x={300} y={CY + HY + 38} textAnchor="middle" fontSize={9} fill={MUTED}>
         σx = 120 MPa → εx = σx/E = 600 με
       </text>
-      <Axes />
+      <AxisText />
     </g>
   )
 }
@@ -249,9 +266,22 @@ function CouplingScene({ p }: { p: number }) {
   const fz = 1 + EPS_Z * GAIN_Z * a
   return (
     <g>
-      <Header title="EFEKT POISSONA · skurcz w y i z" note="σy i σz są zerowe, ale odkształcenia poprzeczne nie są" />
       <Prism ghost />
       <Prism fx={fx} fy={fy} fz={fz} />
+      <motion.g initial={false} animate={{ opacity: ramp(p, 0.7, 0.9) }}>
+        <Arrow x1={CX - HX * fx - 4} y1={CY} x2={CX - HX * fx - 24} y2={CY} amount={1} color={GREEN} width={2} />
+        <Arrow
+          x1={CX - 16}
+          y1={CY - HY * fy - 4}
+          x2={CX - 16}
+          y2={CY - HY * fy - 22}
+          amount={1}
+          color={GREEN}
+          width={2}
+        />
+      </motion.g>
+      <AxisArrows />
+      <Header title="EFEKT POISSONA · skurcz w y i z" note="σy i σz są zerowe, ale odkształcenia poprzeczne nie są" />
       <motion.text
         x={CX + HX * fx + 18}
         y={CY - 14}
@@ -286,22 +316,10 @@ function CouplingScene({ p }: { p: number }) {
       >
         εz = −180 με
       </motion.text>
-      <motion.g initial={false} animate={{ opacity: ramp(p, 0.7, 0.9) }}>
-        <Arrow x1={CX - HX * fx - 4} y1={CY} x2={CX - HX * fx - 24} y2={CY} amount={1} color={GREEN} width={2} />
-        <Arrow
-          x1={CX - 16}
-          y1={CY - HY * fy - 4}
-          x2={CX - 16}
-          y2={CY - HY * fy - 22}
-          amount={1}
-          color={GREEN}
-          width={2}
-        />
-      </motion.g>
-      <text x={CX} y={CY + HY + 38} textAnchor="middle" fontSize={9} fill={MUTED}>
+      <text x={300} y={CY + HY + 38} textAnchor="middle" fontSize={9} fill={MUTED}>
         εy = εz = −νσx/E = −180 με
       </text>
-      <Axes />
+      <AxisText />
     </g>
   )
 }
@@ -316,12 +334,26 @@ function CheckScene({ p }: { p: number }) {
   const actualThickness = originalThickness * (1 + EPS_Z * GAIN_Z * a)
   return (
     <g>
+      <Prism ghost />
+      <Prism fx={fx} fy={fy} fz={fz} />
+      <motion.g initial={false} animate={{ opacity: showCompare }}>
+        <rect
+          x={366}
+          y={212}
+          width={originalThickness}
+          height={34}
+          fill="none"
+          stroke={MUTED}
+          strokeWidth={1.2}
+          strokeDasharray="4 3"
+        />
+        <rect x={366} y={212} width={actualThickness} height={34} fill="#e8eefc" stroke={EDGE} strokeWidth={1.2} />
+      </motion.g>
+      <AxisArrows />
       <Header
         title="PŁASKI STAN NAPRĘŻENIA ≠ PŁASKI STAN ODKSZTAŁCENIA"
         note="εz = 0 byłoby błędem: grubość blachy rzeczywiście się zmienia"
       />
-      <Prism ghost />
-      <Prism fx={fx} fy={fy} fz={fz} />
       <motion.text
         x={CX + HX * fx + 18}
         y={CY - 8}
@@ -336,17 +368,6 @@ function CheckScene({ p }: { p: number }) {
         <text x={394} y={204} textAnchor="middle" fontSize={8.5} fontWeight={600} fill={INK}>
           grubość
         </text>
-        <rect
-          x={366}
-          y={212}
-          width={originalThickness}
-          height={34}
-          fill="none"
-          stroke={MUTED}
-          strokeWidth={1.2}
-          strokeDasharray="4 3"
-        />
-        <rect x={366} y={212} width={actualThickness} height={34} fill="#e8eefc" stroke={EDGE} strokeWidth={1.2} />
         <text x={366} y={260} fontSize={8} fill={MUTED}>
           εz = 0
         </text>
@@ -357,10 +378,10 @@ function CheckScene({ p }: { p: number }) {
           błąd 180 με
         </text>
       </motion.g>
-      <text x={CX} y={CY + HY + 38} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+      <text x={250} y={CY + HY + 38} textAnchor="middle" fontSize={8.5} fill={MUTED}>
         σz = 0 nie oznacza εz = 0
       </text>
-      <Axes />
+      <AxisText />
     </g>
   )
 }

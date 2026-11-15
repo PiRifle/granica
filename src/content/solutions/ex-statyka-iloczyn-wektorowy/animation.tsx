@@ -52,8 +52,8 @@ export function CrossProductAnimation({ index, playing, sceneProgress }: Solutio
   const showArea = index >= 3
   const showAngle = index >= 4
   const showOrder = index >= 5
-  const symbolProgress = showResult ? (playing && index === 2 ? smooth(sceneProgress) : 1) : 0
-  const areaProgress = showArea ? (playing && index === 3 ? 0.25 + 0.75 * smooth(sceneProgress) : 1) : 0
+  const symbolProgress = showResult ? (playing && index === 2 ? smooth(sceneProgress * 4) : 1) : 0
+  const areaProgress = showArea ? (playing && index === 3 ? 0.25 + 0.75 * smooth(sceneProgress * 4) : 1) : 0
   const summary = captions[Math.min(index, captions.length - 1)]
 
   return (
@@ -90,9 +90,6 @@ export function CrossProductAnimation({ index, playing, sceneProgress }: Solutio
           </defs>
 
           <rect x="46" y="40" width="382" height="234" rx="6" fill="#f7f8fa" stroke="#e1e6ee" />
-          <text x="56" y="56" fontSize="9" fill={MUTED}>
-            PŁASZCZYZNA xy PŁYTY
-          </text>
           <line x1="50" y1={O.y} x2="414" y2={O.y} stroke={AXIS} strokeWidth="1.4" />
           <line x1={O.x} y1="46" x2={O.x} y2="302" stroke={AXIS} strokeWidth="1.4" />
           <text x="402" y={O.y - 7} fontSize="11" fill={INK}>
@@ -104,6 +101,64 @@ export function CrossProductAnimation({ index, playing, sceneProgress }: Solutio
           <text x={O.x - 15} y={O.y + 17} fontSize="11" fill={INK}>
             O
           </text>
+
+          {showArea && (
+            <motion.path
+              d={`M ${O.x} ${O.y} L ${f1End.x} ${f1End.y} L ${totalEnd.x} ${totalEnd.y} L ${f2End.x} ${f2End.y} Z`}
+              fill={RESULT}
+              stroke={RESULT}
+              strokeWidth="1.4"
+              initial={false}
+              animate={{ fillOpacity: 0.16 * areaProgress, opacity: areaProgress }}
+            />
+          )}
+
+          {showArea && (
+            <g>
+              <text x={totalEnd.x - 34} y={totalEnd.y - 8} fontSize="11" fill={RESULT}>
+                pole = 7 kN²
+              </text>
+              <line
+                x1={f1End.x}
+                y1={f1End.y}
+                x2={totalEnd.x}
+                y2={totalEnd.y}
+                stroke={FORCE_2}
+                strokeWidth="1.6"
+                strokeDasharray="5 4"
+                opacity="0.7"
+              />
+              <line
+                x1={f2End.x}
+                y1={f2End.y}
+                x2={totalEnd.x}
+                y2={totalEnd.y}
+                stroke={FORCE_1}
+                strokeWidth="1.6"
+                strokeDasharray="5 4"
+                opacity="0.7"
+              />
+            </g>
+          )}
+
+          <line
+            x1={O.x}
+            y1={O.y}
+            x2={f1End.x}
+            y2={f1End.y}
+            stroke={FORCE_1}
+            strokeWidth="3.8"
+            markerEnd="url(#ex-cross-f1)"
+          />
+          <line
+            x1={O.x}
+            y1={O.y}
+            x2={f2End.x}
+            y2={f2End.y}
+            stroke={FORCE_2}
+            strokeWidth="3.8"
+            markerEnd="url(#ex-cross-f2)"
+          />
 
           {showComponents && (
             <g stroke={MUTED} strokeWidth="1.3" strokeDasharray="5 4" fill="none" opacity="0.8">
@@ -126,39 +181,9 @@ export function CrossProductAnimation({ index, playing, sceneProgress }: Solutio
             </g>
           )}
 
-          {showArea && (
-            <motion.path
-              d={`M ${O.x} ${O.y} L ${f1End.x} ${f1End.y} L ${totalEnd.x} ${totalEnd.y} L ${f2End.x} ${f2End.y} Z`}
-              fill={RESULT}
-              stroke={RESULT}
-              strokeWidth="1.4"
-              initial={false}
-              animate={{ fillOpacity: 0.16 * areaProgress, opacity: areaProgress }}
-            />
-          )}
-
-          <line
-            x1={O.x}
-            y1={O.y}
-            x2={f1End.x}
-            y2={f1End.y}
-            stroke={FORCE_1}
-            strokeWidth="3.8"
-            markerEnd="url(#ex-cross-f1)"
-          />
           <text x={f1End.x - 6} y={f1End.y - 8} textAnchor="end" fontSize="11" fill={FORCE_1}>
             F₁ = (3, 4, 0)
           </text>
-
-          <line
-            x1={O.x}
-            y1={O.y}
-            x2={f2End.x}
-            y2={f2End.y}
-            stroke={FORCE_2}
-            strokeWidth="3.8"
-            markerEnd="url(#ex-cross-f2)"
-          />
           <text x={f2End.x + 7} y={f2End.y + 5} fontSize="11" fill={FORCE_2}>
             F₂ = (4, 3, 0)
           </text>
@@ -202,34 +227,9 @@ export function CrossProductAnimation({ index, playing, sceneProgress }: Solutio
             </motion.g>
           )}
 
-          {showArea && (
-            <g>
-              <text x={totalEnd.x - 34} y={totalEnd.y - 8} fontSize="11" fill={RESULT}>
-                pole = 7 kN²
-              </text>
-              <line
-                x1={f1End.x}
-                y1={f1End.y}
-                x2={totalEnd.x}
-                y2={totalEnd.y}
-                stroke={FORCE_2}
-                strokeWidth="1.6"
-                strokeDasharray="5 4"
-                opacity="0.7"
-              />
-              <line
-                x1={f2End.x}
-                y1={f2End.y}
-                x2={totalEnd.x}
-                y2={totalEnd.y}
-                stroke={FORCE_1}
-                strokeWidth="1.6"
-                strokeDasharray="5 4"
-                opacity="0.7"
-              />
-            </g>
-          )}
-
+          <text x="88" y="74" fontSize="9" fill={MUTED}>
+            PŁASZCZYZNA xy PŁYTY
+          </text>
           <text x="230" y="332" textAnchor="middle" fontSize="12" fill={INK}>
             {summary}
           </text>

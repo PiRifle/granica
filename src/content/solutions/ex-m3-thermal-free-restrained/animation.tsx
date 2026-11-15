@@ -226,7 +226,7 @@ export function ThermalRailAnimation({ scene, index, playing, sceneProgress }: S
           )}
 
           {compressed && residual > 1 && (
-            <HDim y={BAR_Y + BAR_H + 70} from={SUPPORT_X} to={freeEnd} label="zablokowane 1,36 mm" color={COMP} />
+            <HDim y={BAR_Y + BAR_H + 82} from={SUPPORT_X} to={freeEnd} label="zablokowane 1,36 mm" color={COMP} />
           )}
 
           {gapNow > 1 && <HDim y={BAR_Y + BAR_H + 22} from={barEnd} to={SUPPORT_X} label="s = 2 mm" color={MUTED} />}
@@ -235,7 +235,14 @@ export function ThermalRailAnimation({ scene, index, playing, sceneProgress }: S
             <g stroke={SUPPORT} strokeWidth={2}>
               <line x1={SUPPORT_X - 12} y1={BAR_Y + BAR_H + 14} x2={SUPPORT_X + 12} y2={BAR_Y + BAR_H + 14} />
               <line x1={SUPPORT_X - 12} y1={BAR_Y + BAR_H + 20} x2={SUPPORT_X + 12} y2={BAR_Y + BAR_H + 20} />
-              <text x={SUPPORT_X} y={BAR_Y + BAR_H + 36} textAnchor="middle" fontSize={9} fill={MUTED} stroke="none">
+              <text
+                x={SUPPORT_X + 16}
+                y={BAR_Y + BAR_H + 26}
+                textAnchor="start"
+                fontSize={9}
+                fill={MUTED}
+                stroke="none"
+              >
                 kontakt
               </text>
             </g>

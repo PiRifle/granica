@@ -134,15 +134,15 @@ export function AxialForceDistributedAnimation({ scene, index, playing, scenePro
               <text x={cutX - 49} y={BAR_Y + 38} textAnchor="end" fontSize={10} fontWeight={700} fill={ACCENT}>
                 N(x)
               </text>
-              <line x1={X0} y1={BAR_Y + 58} x2={cutX} y2={BAR_Y + 58} stroke={MUTED} strokeWidth={1.1} />
-              <line x1={cutX} y1={BAR_Y + 58} x2={X1} y2={BAR_Y + 58} stroke={MUTED} strokeWidth={1.1} />
-              <line x1={X0} y1={BAR_Y + 53} x2={X0} y2={BAR_Y + 63} stroke={MUTED} strokeWidth={1.1} />
-              <line x1={cutX} y1={BAR_Y + 53} x2={cutX} y2={BAR_Y + 63} stroke={MUTED} strokeWidth={1.1} />
-              <line x1={X1} y1={BAR_Y + 53} x2={X1} y2={BAR_Y + 63} stroke={MUTED} strokeWidth={1.1} />
-              <text x={(X0 + cutX) / 2} y={BAR_Y + 72} textAnchor="middle" fontSize={9} fill={MUTED}>
+              <line x1={X0} y1={BAR_Y + 18} x2={cutX} y2={BAR_Y + 18} stroke={MUTED} strokeWidth={1.1} />
+              <line x1={cutX} y1={BAR_Y + 18} x2={X1} y2={BAR_Y + 18} stroke={MUTED} strokeWidth={1.1} />
+              <line x1={X0} y1={BAR_Y + 13} x2={X0} y2={BAR_Y + 23} stroke={MUTED} strokeWidth={1.1} />
+              <line x1={cutX} y1={BAR_Y + 13} x2={cutX} y2={BAR_Y + 23} stroke={MUTED} strokeWidth={1.1} />
+              <line x1={X1} y1={BAR_Y + 13} x2={X1} y2={BAR_Y + 23} stroke={MUTED} strokeWidth={1.1} />
+              <text x={(X0 + cutX) / 2} y={BAR_Y + 30} textAnchor="middle" fontSize={9} fill={MUTED}>
                 x
               </text>
-              <text x={(cutX + X1) / 2} y={BAR_Y + 72} textAnchor="middle" fontSize={9} fill={MUTED}>
+              <text x={(cutX + X1) / 2} y={BAR_Y + 30} textAnchor="middle" fontSize={9} fill={MUTED}>
                 L − x
               </text>
             </>

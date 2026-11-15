@@ -354,7 +354,7 @@ function UnevenDistribution({ progress }: { progress: number }) {
       <text x={230} y={56} textAnchor="middle" fontSize={9} fill={MUTED}>
         model obliczeniowy zakłada F/m na nit
       </text>
-      <line x1={64} y1={58} x2={396} y2={58} stroke="#d3d9e0" strokeWidth={1} strokeDasharray="4 4" />
+      <line x1={64} y1={64} x2={396} y2={64} stroke="#d3d9e0" strokeWidth={1} strokeDasharray="4 4" />
       {PINS.map((cx, index) => {
         const length = shares[index]
         const y = 72 + index * 6

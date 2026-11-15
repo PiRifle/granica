@@ -116,7 +116,7 @@ function ShearSquare({ shear, draw, crack = false }: { shear: number; draw: numb
         stroke={SHEAR}
         strokeWidth={1.6}
       />
-      <text x={bl[0] + 32} y={bl[1] - 8} fontSize={10} fontWeight={700} fill={SHEAR}>
+      <text x={bl[0] + 12} y={bl[1] - 18} fontSize={10} fontWeight={700} fill={SHEAR}>
         γ
       </text>
       <text x={EX + shear + 37} y={y0 - 16} fontSize={10} fontWeight={700} fill={SHEAR}>
@@ -256,7 +256,7 @@ function TauGammaPlot({ draw, measured = false }: { draw: number; measured?: boo
         strokeDasharray="4 4"
         opacity={0.85 * draw}
       />
-      <text x={px - 6} y={PLOT.y - 8} textAnchor="end" fontSize={8} fill={SHEAR}>
+      <text x={px + 6} y={PLOT.y - 8} textAnchor="start" fontSize={8} fill={SHEAR}>
         γ = 0,0012 rad
       </text>
 
@@ -479,10 +479,10 @@ function LimitPlot({ draw }: { draw: number }) {
       <text x={PLOT.x + 10} y={PLOT.y - PLOT.h * 0.42} fontSize={8} fill={ACCENT}>
         τ = Gγ
       </text>
-      <text x={kneeX + 8} y={kneeY + 22} fontSize={8} fill={SHEAR}>
+      <text x={kneeX + 8} y={kneeY + 40} fontSize={8} fill={SHEAR}>
         płynięcie
       </text>
-      <text x={PLOT.x} y={276} fontSize={8} fill={MUTED}>
+      <text x={PLOT.x} y={288} fontSize={8} fill={MUTED}>
         po przekroczeniu granicy plastyczności wzór przestaje obowiązywać
       </text>
     </g>

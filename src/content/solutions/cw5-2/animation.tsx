@@ -83,6 +83,7 @@ function VDimension({
   label,
   color = HOT,
   opacity = 1,
+  labelX,
 }: {
   x: number
   from: number
@@ -90,13 +91,14 @@ function VDimension({
   label: string
   color?: string
   opacity?: number
+  labelX?: number
 }) {
   return (
     <motion.g initial={false} animate={{ opacity }} transition={{ duration: 0.3 }} stroke={color} fill={color}>
       <line x1={x} y1={from} x2={x} y2={to} strokeWidth={1.1} />
       <line x1={x - 4} y1={from} x2={x + 4} y2={from} strokeWidth={1.1} />
       <line x1={x - 4} y1={to} x2={x + 4} y2={to} strokeWidth={1.1} />
-      <text x={x + 6} y={(from + to) / 2 + 3} fontSize={8.5} stroke="none">
+      <text x={labelX ?? x + 6} y={(from + to) / 2 + 3} fontSize={8.5} stroke="none">
         {label}
       </text>
     </motion.g>
@@ -275,11 +277,11 @@ export function SteinerCompositeAnimation({ scene, index, playing, sceneProgress
             <line x1={px(-0.4)} y1={py(0)} x2={px(10.4)} y2={py(0)} stroke={MUTED} strokeWidth={1.1} />
             <line x1={px(-0.4)} y1={py(0) - 4} x2={px(-0.4)} y2={py(0) + 4} stroke={MUTED} strokeWidth={1.1} />
             <line x1={px(10.4)} y1={py(0) - 4} x2={px(10.4)} y2={py(0) + 4} stroke={MUTED} strokeWidth={1.1} />
-            <text x={px(10.4) + 6} y={py(0) + 3} fontSize={9} fill={MUTED}>
+            <text x={px(10.4) + 6} y={py(0) + 10} fontSize={9} fill={MUTED}>
               x
             </text>
             <line x1={px(5)} y1={py(-0.4)} x2={px(5)} y2={py(15.2)} stroke={ACCENT} strokeWidth={1.5} />
-            <text x={px(5) + 6} y={py(15.2) + 3} fontSize={9} fill={ACCENT}>
+            <text x={px(5) + 6} y={py(15.2) + 16} fontSize={9} fill={ACCENT}>
               y
             </text>
           </motion.g>
@@ -334,7 +336,7 @@ export function SteinerCompositeAnimation({ scene, index, playing, sceneProgress
 
           {stage === 1 && (
             <>
-              <VDimension x={236} from={py(0)} to={py(TY)} label={`y_T = ${fmt(TY)}`} color={GREEN} opacity={at(1)} />
+              <VDimension x={236} from={py(0)} to={py(TY)} label={`y_T = ${fmt(TY)}`} color={GREEN} opacity={at(1)} labelX={272} />
               <VDimension x={266} from={py(0)} to={py(LY)} label={`y_L = ${fmt(LY)}`} color={HOT} opacity={at(1)} />
               <text x={px(5)} y={py(14.8) - 10} textAnchor="middle" fontSize={8.5} fill={HOT}>
                 x_L = ±{fmt(LX)} cm
@@ -427,7 +429,7 @@ export function SteinerCompositeAnimation({ scene, index, playing, sceneProgress
                 stroke={HOT}
                 strokeWidth={1.1}
               />
-              <text x={px(CX)} y={py(14.8) - 12} textAnchor="middle" fontSize={8.5} fill={HOT}>
+              <text x={px(CX)} y={py(14.8) - 10} textAnchor="middle" fontSize={8.5} fill={HOT}>
                 x_L = {fmt(LX)} cm → 0
               </text>
             </>

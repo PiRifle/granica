@@ -164,6 +164,34 @@ export function ShaftCapacityAnimation({ scene, playing, sceneProgress }: Soluti
             </text>
           )}
 
+          {safeReveal > 0.01 && (
+            <g opacity={safeReveal}>
+              <rect
+                x={xOf(T_STIFFNESS)}
+                y={104}
+                width={X1 - xOf(T_STIFFNESS)}
+                height={62}
+                fill={BAD}
+                fillOpacity={0.06}
+              />
+              <line
+                x1={xOf(T_STIFFNESS)}
+                y1={100}
+                x2={xOf(T_STIFFNESS)}
+                y2={170}
+                stroke={OK}
+                strokeWidth={1.4}
+                strokeDasharray="5 4"
+              />
+              <text x={xOf(T_STIFFNESS)} y={98} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={OK}>
+                T_max = 2,28
+              </text>
+              <text x={X1 - 4} y={161} textAnchor="end" fontSize={8.5} fill={BAD}>
+                poza zakresem
+              </text>
+            </g>
+          )}
+
           <text x={X0} y={110} fontSize={8.5} fill={STRENGTH}>
             nośność z wytrzymałości
           </text>
@@ -226,34 +254,6 @@ export function ShaftCapacityAnimation({ scene, playing, sceneProgress }: Soluti
           </text>
 
           {tNow > 0 && <circle cx={xOf(tNow)} cy={170} r={4} fill={currentColor} stroke="#fff" strokeWidth={1} />}
-
-          {safeReveal > 0.01 && (
-            <g opacity={safeReveal}>
-              <rect
-                x={xOf(T_STIFFNESS)}
-                y={104}
-                width={X1 - xOf(T_STIFFNESS)}
-                height={62}
-                fill={BAD}
-                fillOpacity={0.06}
-              />
-              <line
-                x1={xOf(T_STIFFNESS)}
-                y1={100}
-                x2={xOf(T_STIFFNESS)}
-                y2={170}
-                stroke={OK}
-                strokeWidth={1.4}
-                strokeDasharray="5 4"
-              />
-              <text x={xOf(T_STIFFNESS)} y={98} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={OK}>
-                T_max = 2,28
-              </text>
-              <text x={X1 - 4} y={165} textAnchor="end" fontSize={8.5} fill={BAD}>
-                poza zakresem
-              </text>
-            </g>
-          )}
 
           {!isCheck && (
             <text x={X0} y={214} fontSize={8.5} fill={isModel || isGeometry ? MUTED : currentColor}>

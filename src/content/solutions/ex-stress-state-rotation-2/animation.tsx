@@ -17,6 +17,8 @@ const DX = 28
 const DY = 18
 const RAD = Math.PI / 180
 
+type RenderMode = 'both' | 'shapes' | 'labels'
+
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 const smooth = (value: number) => {
   const t = clamp01(value)
@@ -37,6 +39,7 @@ function Arrow({
   labelDx = 0,
   labelDy = 0,
   labelAnchor = 'middle',
+  mode = 'both',
 }: {
   x: number
   y: number
@@ -49,6 +52,7 @@ function Arrow({
   labelDx?: number
   labelDy?: number
   labelAnchor?: 'start' | 'middle' | 'end'
+  mode?: RenderMode
 }) {
   if (length <= 1) return null
   const len = Math.min(length, 190)
@@ -61,18 +65,22 @@ function Arrow({
   const by = ty - uy * head
   return (
     <g>
-      <line x1={x} y1={y} x2={tx} y2={ty} stroke={color} strokeWidth={width} strokeLinecap="round" />
-      {len > 6 && (
-        <path
-          d={`M ${bx + px * head * 0.55} ${by + py * head * 0.55} L ${tx} ${ty} L ${bx - px * head * 0.55} ${by - py * head * 0.55}`}
-          fill="none"
-          stroke={color}
-          strokeWidth={width}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+      {mode !== 'labels' && (
+        <>
+          <line x1={x} y1={y} x2={tx} y2={ty} stroke={color} strokeWidth={width} strokeLinecap="round" />
+          {len > 6 && (
+            <path
+              d={`M ${bx + px * head * 0.55} ${by + py * head * 0.55} L ${tx} ${ty} L ${bx - px * head * 0.55} ${by - py * head * 0.55}`}
+              fill="none"
+              stroke={color}
+              strokeWidth={width}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
+        </>
       )}
-      {label && (
+      {mode !== 'shapes' && label && (
         <text
           x={tx + ux * 9 + labelDx}
           y={ty + uy * 9 + labelDy}
@@ -127,6 +135,7 @@ function MiniElement({
   mode,
   label,
   sub,
+  renderMode = 'both',
 }: {
   cx: number
   cy: number
@@ -135,6 +144,7 @@ function MiniElement({
   mode: 'shear' | 'normal'
   label: string
   sub: string
+  renderMode?: RenderMode
 }) {
   const cos = Math.cos(angle)
   const sin = Math.sin(angle)
@@ -168,6 +178,7 @@ function MiniElement({
             labelDx={9}
             labelDy={1}
             labelAnchor="start"
+            mode={renderMode}
           />
           <Arrow
             x={top[0]}
@@ -179,6 +190,7 @@ function MiniElement({
             width={2.2}
             label="τ"
             labelDy={-7}
+            mode={renderMode}
           />
         </g>
       ) : (
@@ -194,6 +206,7 @@ function MiniElement({
             label="+50"
             labelDx={8}
             labelAnchor="start"
+            mode={renderMode}
           />
           <Arrow
             x={top[0] + t[0] * 26}
@@ -207,15 +220,20 @@ function MiniElement({
             labelDx={-6}
             labelDy={-6}
             labelAnchor="end"
+            mode={renderMode}
           />
         </g>
       )}
-      <text x={cx} y={cy + half + 30} textAnchor="middle" fontSize={10} fontWeight={600} fill={INK}>
-        {label}
-      </text>
-      <text x={cx} y={cy + half + 44} textAnchor="middle" fontSize={9} fill={MUTED}>
-        {sub}
-      </text>
+      {renderMode !== 'shapes' && (
+        <>
+          <text x={cx} y={cy + half + 30} textAnchor="middle" fontSize={10} fontWeight={600} fill={INK}>
+            {label}
+          </text>
+          <text x={cx} y={cy + half + 44} textAnchor="middle" fontSize={9} fill={MUTED}>
+            {sub}
+          </text>
+        </>
+      )}
     </g>
   )
 }
@@ -255,6 +273,102 @@ export function StressRotationExample2Animation({ scene, playing, sceneProgress 
   const sigmaPoint = sigmaN * Math.sin(2 * thetaMohr)
   const tauPoint = sigmaN * Math.cos(2 * thetaMohr)
 
+  const modelArrows = [
+    {
+      x: rightFace[0] + n[0] * 11,
+      y: rightFace[1] + n[1] * 11,
+      ux: t[0],
+      uy: t[1],
+      length: stressLength(tauXY),
+      color: ORANGE,
+      width: 2.4,
+      label: 'τxy',
+      labelDx: 8,
+      labelDy: 3,
+      labelAnchor: 'start',
+    },
+    {
+      x: topFace[0] + t[0] * 11,
+      y: topFace[1] + t[1] * 11,
+      ux: n[0],
+      uy: n[1],
+      length: stressLength(tauXY),
+      color: ORANGE,
+      width: 2.4,
+      label: 'τxy',
+      labelDy: 16,
+    },
+  ] as const
+  const rotateArrows = [
+    {
+      x: rightFace[0],
+      y: rightFace[1],
+      ux: n[0],
+      uy: n[1],
+      length: stressLength(liveSigma),
+      color: BLUE,
+      width: 2.6,
+      label: 'σn(θ)',
+      labelDx: 7,
+      labelDy: -4,
+      labelAnchor: 'start',
+    },
+    {
+      x: rightFace[0] + n[0] * 12,
+      y: rightFace[1] + n[1] * 12,
+      ux: liveTau >= 0 ? t[0] : -t[0],
+      uy: liveTau >= 0 ? t[1] : -t[1],
+      length: stressLength(liveTau),
+      color: ORANGE,
+      width: 2.4,
+      label: 'τnt(θ)',
+      labelDx: 7,
+      labelDy: 8,
+      labelAnchor: 'start',
+    },
+    {
+      x: topFace[0] + (liveSigma >= 0 ? -t[0] : t[0]) * stressLength(liveSigma),
+      y: topFace[1] + (liveSigma >= 0 ? -t[1] : t[1]) * stressLength(liveSigma),
+      ux: liveSigma >= 0 ? -t[0] : t[0],
+      uy: liveSigma >= 0 ? -t[1] : t[1],
+      length: stressLength(liveSigma),
+      color: GREEN,
+      width: 2,
+      label: 'σt(θ)',
+      labelDx: -5,
+      labelDy: -5,
+      labelAnchor: 'end',
+    },
+  ] as const
+  const componentArrows = [
+    {
+      x: rightFace[0],
+      y: rightFace[1],
+      ux: n[0],
+      uy: n[1],
+      length: stressLength(sigmaN) * amp,
+      color: BLUE,
+      width: 2.8,
+      label: 'σn = +50',
+      labelDx: 7,
+      labelDy: -4,
+      labelAnchor: 'start',
+    },
+    {
+      x: topFace[0] + t[0] * stressLength(Math.abs(sigmaT)) * amp,
+      y: topFace[1] + t[1] * stressLength(Math.abs(sigmaT)) * amp,
+      ux: -t[0],
+      uy: -t[1],
+      length: stressLength(Math.abs(sigmaT)) * amp,
+      color: GREEN,
+      width: 2.8,
+      label: 'σt = −50',
+      labelDx: -7,
+      labelDy: -6,
+      labelAnchor: 'end',
+    },
+  ] as const
+
   return (
     <div className={local('figure')}>
       <div className={local('figure-canvas')}>
@@ -277,13 +391,6 @@ export function StressRotationExample2Animation({ scene, playing, sceneProgress 
             </marker>
           </defs>
 
-          <text x={14} y={22} fontSize={9.5} fill={MUTED}>
-            σx = σy = 0 · τxy = 50 MPa
-          </text>
-          <text x={14} y={38} fontSize={9.5} fill={VIOLET} fontWeight={600}>
-            θ = 45°
-          </text>
-
           {showCube && <Cube opacity={showComponents ? 0.45 : 1} />}
 
           {showCube && (metric === 'rotate' || metric === 'components') && (
@@ -297,134 +404,51 @@ export function StressRotationExample2Animation({ scene, playing, sceneProgress 
                 strokeWidth={2}
                 strokeDasharray="7 5"
               />
-              <Arrow x={CX} y={CY} ux={n[0]} uy={n[1]} length={62} color={VIOLET} label="n" />
-              <Arrow x={CX} y={CY} ux={t[0]} uy={t[1]} length={62} color={VIOLET} label="t" labelDx={2} labelDy={8} />
+              <Arrow x={CX} y={CY} ux={n[0]} uy={n[1]} length={62} color={VIOLET} label="n" mode="shapes" />
+              <Arrow
+                x={CX}
+                y={CY}
+                ux={t[0]}
+                uy={t[1]}
+                length={62}
+                color={VIOLET}
+                label="t"
+                labelDx={2}
+                labelDy={-12}
+                mode="shapes"
+              />
               {metric === 'rotate' && (
-                <g>
-                  <path
-                    d={`M ${CX + 38} ${CY} A 38 38 0 0 0 ${arcEnd[0]} ${arcEnd[1]}`}
-                    fill="none"
-                    stroke={VIOLET}
-                    strokeWidth={1.5}
-                  />
-                  <text x={CX + 45} y={CY - 18} fontSize={10} fontWeight={600} fill={VIOLET}>
-                    θ
-                  </text>
-                </g>
+                <path
+                  d={`M ${CX + 38} ${CY} A 38 38 0 0 0 ${arcEnd[0]} ${arcEnd[1]}`}
+                  fill="none"
+                  stroke={VIOLET}
+                  strokeWidth={1.5}
+                />
               )}
             </g>
           )}
 
           {metric === 'model' && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
-              <Arrow
-                x={rightFace[0] + n[0] * 11}
-                y={rightFace[1] + n[1] * 11}
-                ux={t[0]}
-                uy={t[1]}
-                length={stressLength(tauXY)}
-                color={ORANGE}
-                width={2.4}
-                label="τxy"
-                labelDx={8}
-                labelDy={3}
-                labelAnchor="start"
-              />
-              <Arrow
-                x={topFace[0] + t[0] * 11}
-                y={topFace[1] + t[1] * 11}
-                ux={n[0]}
-                uy={n[1]}
-                length={stressLength(tauXY)}
-                color={ORANGE}
-                width={2.4}
-                label="τxy"
-                labelDy={-8}
-              />
-              <text x={rightFace[0] + 8} y={rightFace[1] + 18} fontSize={9} fill={MUTED}>
-                σx = 0
-              </text>
-              <text x={topFace[0] - 10} y={topFace[1] - 8} textAnchor="end" fontSize={9} fill={MUTED}>
-                σy = 0
-              </text>
+              {modelArrows.map((arrow, index) => (
+                <Arrow key={index} {...arrow} mode="shapes" />
+              ))}
             </motion.g>
           )}
 
           {metric === 'rotate' && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-              <Arrow
-                x={rightFace[0]}
-                y={rightFace[1]}
-                ux={n[0]}
-                uy={n[1]}
-                length={stressLength(liveSigma)}
-                color={BLUE}
-                width={2.6}
-                label="σn(θ)"
-                labelDx={7}
-                labelDy={-4}
-                labelAnchor="start"
-              />
-              <Arrow
-                x={rightFace[0] + n[0] * 12}
-                y={rightFace[1] + n[1] * 12}
-                ux={liveTau >= 0 ? t[0] : -t[0]}
-                uy={liveTau >= 0 ? t[1] : -t[1]}
-                length={stressLength(liveTau)}
-                color={ORANGE}
-                width={2.4}
-                label="τnt(θ)"
-                labelDx={7}
-                labelDy={8}
-                labelAnchor="start"
-              />
-              <Arrow
-                x={topFace[0] + (liveSigma >= 0 ? -t[0] : t[0]) * stressLength(liveSigma)}
-                y={topFace[1] + (liveSigma >= 0 ? -t[1] : t[1]) * stressLength(liveSigma)}
-                ux={liveSigma >= 0 ? -t[0] : t[0]}
-                uy={liveSigma >= 0 ? -t[1] : t[1]}
-                length={stressLength(liveSigma)}
-                color={GREEN}
-                width={2}
-                label="σt(θ)"
-                labelDx={-5}
-                labelDy={-5}
-                labelAnchor="end"
-              />
+              {rotateArrows.map((arrow, index) => (
+                <Arrow key={index} {...arrow} mode="shapes" />
+              ))}
             </motion.g>
           )}
 
           {showComponents && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
-              <Arrow
-                x={rightFace[0]}
-                y={rightFace[1]}
-                ux={n[0]}
-                uy={n[1]}
-                length={stressLength(sigmaN) * amp}
-                color={BLUE}
-                width={2.8}
-                label="σn = +50"
-                labelDx={7}
-                labelDy={-4}
-                labelAnchor="start"
-              />
-              <Arrow
-                x={topFace[0] + t[0] * stressLength(Math.abs(sigmaT)) * amp}
-                y={topFace[1] + t[1] * stressLength(Math.abs(sigmaT)) * amp}
-                ux={-t[0]}
-                uy={-t[1]}
-                length={stressLength(Math.abs(sigmaT)) * amp}
-                color={GREEN}
-                width={2.8}
-                label="σt = −50"
-                labelDx={-7}
-                labelDy={-6}
-                labelAnchor="end"
-              />
-              <text x={CX + 12} y={CY + 6} fontSize={9.5} fill={ORANGE} fontWeight={600}>
-                τnt = 0
-              </text>
+              {componentArrows.map((arrow, index) => (
+                <Arrow key={index} {...arrow} mode="shapes" />
+              ))}
             </motion.g>
           )}
 
@@ -448,17 +472,8 @@ export function StressRotationExample2Animation({ scene, playing, sceneProgress 
                 strokeWidth={1}
                 markerEnd="url(#ssr2-axis)"
               />
-              <text x={mohrCx + mohrR + 38} y={mohrCy + 4} fontSize={9} fill={MUTED}>
-                σ
-              </text>
-              <text x={mohrCx + 6} y={mohrCy - mohrR - 30} fontSize={9} fill={MUTED}>
-                τ
-              </text>
               <circle cx={mohrCx} cy={mohrCy} r={mohrR} fill="none" stroke={VIOLET} strokeWidth={1.8} />
               <circle cx={mohrCx} cy={mohrCy} r={2.5} fill={MUTED} />
-              <text x={mohrCx - 6} y={mohrCy + 15} textAnchor="end" fontSize={8.5} fill={MUTED}>
-                C = 0
-              </text>
               <line
                 x1={mohrCx}
                 y1={mohrCy}
@@ -469,12 +484,6 @@ export function StressRotationExample2Animation({ scene, playing, sceneProgress 
               />
               <circle cx={mohrCx} cy={mohrCy - mohrR} r={4} fill={BLUE} fillOpacity={0.4} />
               <circle cx={mohrCx + mohrR} cy={mohrCy} r={4} fill={GREEN} fillOpacity={0.4} />
-              <text x={mohrCx + 6} y={mohrCy - mohrR - 8} fontSize={8.5} fill={BLUE}>
-                θ = 0: (0, 50)
-              </text>
-              <text x={mohrCx + mohrR + 4} y={mohrCy - 8} fontSize={8.5} fill={GREEN}>
-                θ = 45°: (50, 0)
-              </text>
               <motion.circle
                 cx={mohrCx + sigmaPoint * mohrScale}
                 cy={mohrCy - tauPoint * mohrScale}
@@ -484,15 +493,21 @@ export function StressRotationExample2Animation({ scene, playing, sceneProgress 
                 animate={{ cx: mohrCx + sigmaPoint * mohrScale, cy: mohrCy - tauPoint * mohrScale }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
-              <text x={mohrCx - 4} y={mohrCy + mohrR + 22} textAnchor="middle" fontSize={9} fill={MUTED}>
-                R = 50 MPa
-              </text>
             </motion.g>
           )}
 
           {isCheck && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-              <MiniElement cx={140} cy={132} half={32} angle={0} mode="shear" label="θ = 0°" sub="tylko ścinanie" />
+              <MiniElement
+                cx={140}
+                cy={132}
+                half={32}
+                angle={0}
+                mode="shear"
+                label="θ = 0°"
+                sub="tylko ścinanie"
+                renderMode="shapes"
+              />
               <MiniElement
                 cx={345}
                 cy={132}
@@ -501,13 +516,127 @@ export function StressRotationExample2Animation({ scene, playing, sceneProgress 
                 mode="normal"
                 label="θ = 45°"
                 sub="rozciąganie i ściskanie"
+                renderMode="shapes"
               />
               <line x1={235} y1={92} x2={250} y2={162} stroke={VIOLET} strokeWidth={1.4} strokeDasharray="5 4" />
-              <text x={240} y={78} textAnchor="middle" fontSize={9} fill={VIOLET}>
-                ten sam stan
-              </text>
             </motion.g>
           )}
+
+          <g>
+            <text x={14} y={22} fontSize={9.5} fill={MUTED}>
+              σx = σy = 0 · τxy = 50 MPa
+            </text>
+            <text x={14} y={38} fontSize={9.5} fill={VIOLET} fontWeight={600}>
+              θ = 45°
+            </text>
+
+            {showCube && (metric === 'rotate' || metric === 'components') && (
+              <g>
+                <Arrow x={CX} y={CY} ux={n[0]} uy={n[1]} length={62} color={VIOLET} label="n" mode="labels" />
+                <Arrow
+                  x={CX}
+                  y={CY}
+                  ux={t[0]}
+                  uy={t[1]}
+                  length={62}
+                  color={VIOLET}
+                  label="t"
+                  labelDx={2}
+                  labelDy={-12}
+                  mode="labels"
+                />
+                {metric === 'rotate' && (
+                  <text x={CX + 45} y={CY - 18} fontSize={10} fontWeight={600} fill={VIOLET}>
+                    θ
+                  </text>
+                )}
+              </g>
+            )}
+
+            {metric === 'model' && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+                {modelArrows.map((arrow, index) => (
+                  <Arrow key={index} {...arrow} mode="labels" />
+                ))}
+                <text x={rightFace[0] + 8} y={rightFace[1] + 18} fontSize={9} fill={MUTED}>
+                  σx = 0
+                </text>
+                <text x={topFace[0] - 10} y={topFace[1] - 8} textAnchor="end" fontSize={9} fill={MUTED}>
+                  σy = 0
+                </text>
+              </motion.g>
+            )}
+
+            {metric === 'rotate' && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
+                {rotateArrows.map((arrow, index) => (
+                  <Arrow key={index} {...arrow} mode="labels" />
+                ))}
+              </motion.g>
+            )}
+
+            {showComponents && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+                {componentArrows.map((arrow, index) => (
+                  <Arrow key={index} {...arrow} mode="labels" />
+                ))}
+                <text x={CX + 12} y={CY + 6} fontSize={9.5} fill={ORANGE} fontWeight={600}>
+                  τnt = 0
+                </text>
+              </motion.g>
+            )}
+
+            {isMohr && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+                <text x={mohrCx + mohrR + 38} y={mohrCy + 4} fontSize={9} fill={MUTED}>
+                  σ
+                </text>
+                <text x={mohrCx + 6} y={mohrCy - mohrR - 30} fontSize={9} fill={MUTED}>
+                  τ
+                </text>
+                <text x={mohrCx - 6} y={mohrCy + 15} textAnchor="end" fontSize={8.5} fill={MUTED}>
+                  C = 0
+                </text>
+                <text x={mohrCx + 6} y={mohrCy - mohrR - 8} fontSize={8.5} fill={BLUE}>
+                  θ = 0: (0, 50)
+                </text>
+                <text x={mohrCx + mohrR + 4} y={mohrCy - 8} fontSize={8.5} fill={GREEN}>
+                  θ = 45°: (50, 0)
+                </text>
+                <text x={mohrCx - 4} y={mohrCy + mohrR + 22} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  R = 50 MPa
+                </text>
+              </motion.g>
+            )}
+
+            {isCheck && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+                <MiniElement
+                  cx={140}
+                  cy={132}
+                  half={32}
+                  angle={0}
+                  mode="shear"
+                  label="θ = 0°"
+                  sub="tylko ścinanie"
+                  renderMode="labels"
+                />
+                <MiniElement
+                  cx={345}
+                  cy={132}
+                  half={32}
+                  angle={45 * RAD}
+                  mode="normal"
+                  label="θ = 45°"
+                  sub="rozciąganie i ściskanie"
+                  renderMode="labels"
+                />
+                <text x={240} y={78} textAnchor="middle" fontSize={9} fill={VIOLET}>
+                  ten sam stan
+                </text>
+              </motion.g>
+            )}
+          </g>
         </svg>
       </div>
     </div>

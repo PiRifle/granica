@@ -111,7 +111,7 @@ function StressElement({
       <text x={cx + half + lenX + 8} y={cy + 4} fontSize={9.5} fill={BLUE} fontWeight={600}>
         {labelX}
       </text>
-      <text x={cx} y={cy - half - lenY - 7} textAnchor="middle" fontSize={9.5} fill={GREEN} fontWeight={600}>
+      <text x={cx} y={cy - half - lenY - 4} textAnchor="middle" fontSize={9.5} fill={GREEN} fontWeight={600}>
         {labelY}
       </text>
     </g>
@@ -227,15 +227,15 @@ function PrincipalAxis({ metric, p }: { metric: string; p: number }) {
           <Span
             x1={x2}
             x2={x1}
-            y={172}
+            y={204}
             color={RED}
             amount={wrongAmount}
             width={2}
             dashed
             label="pominięte zero → 125 MPa"
-            labelY={186}
+            labelY={228}
           />
-          <text x={(x1 + x2) / 2} y={166} textAnchor="middle" fontSize={10} fill={RED} fontWeight={700}>
+          <text x={(x1 + x2) / 2} y={198} textAnchor="middle" fontSize={10} fill={RED} fontWeight={700}>
             ×
           </text>
         </motion.g>
@@ -346,7 +346,7 @@ export function CriteriaComparison2Animation({ scene, playing, sceneProgress }: 
 
           <PrincipalAxis metric={metric} p={p} />
 
-          <text x={12} y={212} fontSize={9.5} fill={INK} fontWeight={600}>
+          <text x={12} y={198} fontSize={9.5} fill={INK} fontWeight={600}>
             {isCheck
               ? 'kontrola zapasu n = Rₑ / σred'
               : isState || isOrder
@@ -385,7 +385,7 @@ export function CriteriaComparison2Animation({ scene, playing, sceneProgress }: 
                 <g>
                   <line x1={trescaX} y1={y} x2={trescaX} y2={276} stroke={ORANGE} strokeWidth={1.4} />
                   <circle cx={trescaX} cy={280} r={4.6} fill={ORANGE} />
-                  <text x={trescaX} y={296} textAnchor="middle" fontSize={8.5} fill={ORANGE} fontWeight={600}>
+                  <text x={trescaX} y={292} textAnchor="middle" fontSize={8.5} fill={ORANGE} fontWeight={600}>
                     {`Tresca ${fmt(trescaValue, 2)}`}
                   </text>
                 </g>
@@ -434,7 +434,7 @@ export function CriteriaComparison2Animation({ scene, playing, sceneProgress }: 
                   <text x={nHmhX} y={214} textAnchor="middle" fontSize={8.5} fill={BLUE} fontWeight={600}>
                     {`HMH n ${fmt(nHmhValue, 2)}`}
                   </text>
-                  <text x={52} y={306} fontSize={8.5} fill={ORANGE} fontWeight={600}>
+                  <text x={52} y={314} fontSize={8.5} fill={ORANGE} fontWeight={600}>
                     mniejszy zapas → decyduje Tresca
                   </text>
                 </g>

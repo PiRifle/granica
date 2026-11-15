@@ -20,7 +20,7 @@ const G_END = { x: C.x, y: 316 }
 const SUM_END = { x: C.x, y: 132 }
 
 export function InclineEquilibriumAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 1.6) : 1
+  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 2.4) : 1
   const mainOpacity = index === 5 ? 0.18 : 1
   const showReactions = index >= 1
   const showVertical = index >= 2
@@ -87,7 +87,7 @@ export function InclineEquilibriumAnimation({ index, playing, sceneProgress }: S
               />
             )}
             {showReactions && (
-              <text x={N1_END.x - 8} y={N1_END.y - 8} textAnchor="end" fontSize="12" fill={NORMAL}>
+              <text x={N1_END.x - 8} y={N1_END.y + 8} textAnchor="end" fontSize="12" fill={NORMAL}>
                 N₁ = 115,5 N
               </text>
             )}
@@ -106,7 +106,7 @@ export function InclineEquilibriumAnimation({ index, playing, sceneProgress }: S
               />
             )}
             {showReactions && (
-              <text x={C.x - R + 4} y={C.y + 18} fontSize="11" fill={WALL}>
+              <text x={C.x - R - 6} y={C.y - 10} textAnchor="end" fontSize="11" fill={WALL}>
                 N₂
               </text>
             )}
@@ -163,7 +163,7 @@ export function InclineEquilibriumAnimation({ index, playing, sceneProgress }: S
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 />
-                <text x={C.x + 8} y={SUM_END.y - 6} fontSize="10.5" fill={NORMAL}>
+                <text x={C.x + 44} y={SUM_END.y - 6} fontSize="10.5" fill={NORMAL}>
                   N₁ + N₂ równoważy G
                 </text>
               </>
@@ -214,7 +214,7 @@ export function InclineEquilibriumAnimation({ index, playing, sceneProgress }: S
               <text x="156" y="100" textAnchor="middle" fontSize="12" fill={WALL}>
                 N₂ = 57,7 N
               </text>
-              <text x="230" y="330" textAnchor="middle" fontSize="12" fill={INK}>
+              <text x="230" y="344" textAnchor="middle" fontSize="12" fill={INK}>
                 Trójkąt sił zamyka się — układ jest w równowadze
               </text>
             </g>

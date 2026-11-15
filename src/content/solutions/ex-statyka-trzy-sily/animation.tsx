@@ -30,7 +30,7 @@ const AY_END = { x: A.x, y: A.y - 4 * R_SCALE }
 const RA_END = { x: A.x - 1.1547 * R_SCALE, y: A.y - 4 * R_SCALE }
 
 export function ThreeForcesAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 1.6) : 1
+  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 2.4) : 1
   const showMoment = index >= 1
   const showCable = index >= 1
   const showComponents = index >= 3
@@ -93,6 +93,34 @@ export function ThreeForcesAnimation({ index, playing, sceneProgress }: Solution
           <circle cx={A.x} cy={A.y} r="4" fill={EDGE} />
           <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke={EDGE} strokeWidth="6" strokeLinecap="round" />
           <line x1={B.x} y1={B.y} x2={D.x} y2={D.y} stroke={CABLE} strokeWidth="2.4" />
+
+          {showMoment && (
+            <g stroke={MOMENT} strokeWidth="1.4" strokeDasharray="6 4" fill="none">
+              <line x1={A.x} y1={A.y} x2={FOOT.x} y2={FOOT.y} />
+              <line x1={B.x} y1={B.y} x2={FOOT.x} y2={FOOT.y} />
+            </g>
+          )}
+          {showConcurrency && (
+            <g stroke={MUTED} strokeWidth="1.3" strokeDasharray="6 4" fill="none">
+              <line x1={P.x} y1={P.y} x2={E.x} y2={E.y} />
+              <line x1={B.x} y1={B.y} x2={E.x} y2={E.y} />
+              <line x1={A.x} y1={A.y} x2={E.x} y2={E.y} />
+            </g>
+          )}
+          {showCable && (
+            <motion.line
+              x1={B.x}
+              y1={B.y}
+              x2={B.x + (S_END.x - B.x) * cableLength}
+              y2={B.y + (S_END.y - B.y) * cableLength}
+              stroke={CABLE}
+              strokeWidth="3.8"
+              markerEnd="url(#ex-3s-cable)"
+              initial={false}
+              animate={{ opacity: showCable ? 1 : 0 }}
+            />
+          )}
+
           <text x={D.x + 6} y={D.y - 4} fontSize="11" fill={CABLE}>
             D
           </text>
@@ -133,10 +161,6 @@ export function ThreeForcesAnimation({ index, playing, sceneProgress }: Solution
 
           {showMoment && (
             <>
-              <g stroke={MOMENT} strokeWidth="1.4" strokeDasharray="6 4" fill="none">
-                <line x1={A.x} y1={A.y} x2={FOOT.x} y2={FOOT.y} />
-                <line x1={B.x} y1={B.y} x2={FOOT.x} y2={FOOT.y} />
-              </g>
               <circle cx={A.x} cy={A.y} r="12" fill="none" stroke={MOMENT} strokeWidth="1.6" />
               <path
                 d={`M ${A.x + 12} ${A.y} A 12 12 0 0 1 ${A.x + 6} ${A.y + 10}`}
@@ -144,7 +168,7 @@ export function ThreeForcesAnimation({ index, playing, sceneProgress }: Solution
                 stroke={MOMENT}
                 strokeWidth="1.6"
               />
-              <text x={(A.x + FOOT.x) / 2 - 26} y={(A.y + FOOT.y) / 2 + 4} fontSize="10.5" fill={MOMENT}>
+              <text x={(A.x + FOOT.x) / 2 - 54} y={(A.y + FOOT.y) / 2 + 27} fontSize="10.5" fill={MOMENT}>
                 l sin60° = 2,60 m
               </text>
               <path
@@ -156,19 +180,6 @@ export function ThreeForcesAnimation({ index, playing, sceneProgress }: Solution
             </>
           )}
 
-          {showCable && (
-            <motion.line
-              x1={B.x}
-              y1={B.y}
-              x2={B.x + (S_END.x - B.x) * cableLength}
-              y2={B.y + (S_END.y - B.y) * cableLength}
-              stroke={CABLE}
-              strokeWidth="3.8"
-              markerEnd="url(#ex-3s-cable)"
-              initial={false}
-              animate={{ opacity: showCable ? 1 : 0 }}
-            />
-          )}
           {showCable && (
             <text x={S_END.x + 6} y={S_END.y - 4} fontSize="12" fill={CABLE}>
               S = 2,31 kN
@@ -199,10 +210,10 @@ export function ThreeForcesAnimation({ index, playing, sceneProgress }: Solution
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               />
-              <text x={AX_END.x + 20} y={A.y + 18} textAnchor="start" fontSize="10.5" fill={REACTION}>
+              <text x={A.x - 72} y={A.y + 18} textAnchor="start" fontSize="10.5" fill={REACTION}>
                 Ax = 1,15 kN
               </text>
-              <text x={A.x + 8} y={AY_END.y + 2} fontSize="10.5" fill={REACTION}>
+              <text x={A.x + 8} y={AY_END.y + 22} fontSize="10.5" fill={REACTION}>
                 Ay = 4,00 kN
               </text>
             </>
@@ -238,11 +249,6 @@ export function ThreeForcesAnimation({ index, playing, sceneProgress }: Solution
 
           {showConcurrency && (
             <>
-              <g stroke={MUTED} strokeWidth="1.3" strokeDasharray="6 4" fill="none">
-                <line x1={P.x} y1={P.y} x2={E.x} y2={E.y} />
-                <line x1={B.x} y1={B.y} x2={E.x} y2={E.y} />
-                <line x1={A.x} y1={A.y} x2={E.x} y2={E.y} />
-              </g>
               <circle cx={E.x} cy={E.y} r="4" fill={MOMENT} />
               <text x={E.x + 10} y={E.y + 6} fontSize="12" fill={MOMENT}>
                 E = (1; −3,46) m

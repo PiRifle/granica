@@ -34,11 +34,11 @@ const quadraticTangent = (t: number, sag: number) => {
   return [dx, dy] as const
 }
 
-function Support({ x, y, label }: { x: number; y: number; label: string }) {
+function Support({ x, y, label, labelDx = 0 }: { x: number; y: number; label: string; labelDx?: number }) {
   return (
     <g>
       <path d={`M ${x - 10} ${y + 16} L ${x} ${y + 2} L ${x + 10} ${y + 16} Z`} fill={EDGE} />
-      <text x={x} y={y + 30} textAnchor="middle" fontSize={9} fill={EDGE}>
+      <text x={x + labelDx} y={y + 30} textAnchor="middle" fontSize={9} fill={EDGE}>
         {label}
       </text>
     </g>
@@ -141,8 +141,8 @@ export function PureBendingExample1Animation({ scene, playing, sceneProgress }: 
           {isModel && (
             <g>
               <line x1={X0} y1={BEAM_Y} x2={X1} y2={BEAM_Y} stroke={EDGE} strokeWidth={5} strokeLinecap="round" />
-              <Support x={X0} y={BEAM_Y} label="A" />
-              <Support x={X1} y={BEAM_Y} label="B" />
+              <Support x={X0} y={BEAM_Y} label="A" labelDx={-14} />
+              <Support x={X1} y={BEAM_Y} label="B" labelDx={14} />
               <LoadArrow x={xAt(0.25)} top={62} tip={BEAM_Y - 4} label="P = 12 kN" />
               <LoadArrow x={xAt(0.75)} top={62} tip={BEAM_Y - 4} label="P = 12 kN" />
               <Dimension x1={X0} x2={X1} y={160} label="L = 4 m" />
@@ -183,7 +183,7 @@ export function PureBendingExample1Animation({ scene, playing, sceneProgress }: 
               />
               <text
                 x={(xAt(0.25) + xAt(0.75)) / 2}
-                y={128}
+                y={116}
                 textAnchor="middle"
                 fontSize={10}
                 fontWeight={600}
@@ -191,7 +191,7 @@ export function PureBendingExample1Animation({ scene, playing, sceneProgress }: 
               >
                 czyste zginanie
               </text>
-              <text x={(xAt(0.25) + xAt(0.75)) / 2} y={144} textAnchor="middle" fontSize={9} fill={MUTED}>
+              <text x={(xAt(0.25) + xAt(0.75)) / 2} y={132} textAnchor="middle" fontSize={9} fill={MUTED}>
                 T = 0, M = const
               </text>
 

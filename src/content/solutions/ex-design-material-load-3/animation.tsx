@@ -328,7 +328,7 @@ export function MaterialLoad3Animation({ scene, playing, sceneProgress }: Soluti
               {[0, 1, 2].map((tick) => (
                 <g key={tick}>
                   <line x1={factorX(tick)} y1={150} x2={factorX(tick)} y2={158} stroke={MUTED} strokeWidth={1} />
-                  <text x={factorX(tick)} y={168} textAnchor="middle" fontSize={7.5} fill={MUTED}>
+                  <text x={factorX(tick)} y={174} textAnchor="middle" fontSize={7.5} fill={MUTED}>
                     {tick}
                   </text>
                 </g>

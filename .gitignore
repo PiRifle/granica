@@ -5,3 +5,6 @@ dist/
 *.tsbuildinfo
 .tmp/
 .playwright-mcp/
+playwright-report/
+test-results/
+.vitest/

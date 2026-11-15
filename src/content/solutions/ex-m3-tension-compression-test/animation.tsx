@@ -291,7 +291,7 @@ export function TensileTestExample1Animation({ scene, index, playing, sceneProgr
           <text x={CHART.x0 - 6} y={CHART.yTop - 2} textAnchor="end" fontSize={8.5} fill={MUTED}>
             σ [MPa]
           </text>
-          <text x={CHART.x1} y={CHART.y0 - 6} textAnchor="end" fontSize={8.5} fill={MUTED}>
+          <text x={CHART.x1} y={CHART.y0 + 26} textAnchor="end" fontSize={8.5} fill={MUTED}>
             ε [‰]
           </text>
 
@@ -370,7 +370,7 @@ export function TensileTestExample1Animation({ scene, index, playing, sceneProgr
               <text x={xFor(0.4)} y={yFor(0) - 5} textAnchor="middle" fontSize={8} fill={OK}>
                 Δε
               </text>
-              <text x={xFor(0.85) + 4} y={yFor(88)} fontSize={8} fill={OK}>
+              <text x={xFor(0.85) + 14} y={yFor(88)} fontSize={8} fill={OK}>
                 Δσ
               </text>
               <text x={xFor(0.52)} y={yFor(126)} fontSize={9} fontWeight={700} fill={OK}>

@@ -224,7 +224,7 @@ function ShaftView({
             strokeWidth={1.3}
             strokeDasharray="3 3"
           />
-          <text x={arcMid.x + 5} y={arcMid.y - 4} fontSize={9} fontWeight={600} fill={LOAD}>
+          <text x={arcMid.x + 8} y={arcMid.y - 14} fontSize={9} fontWeight={600} fill={LOAD}>
             {config.labels.phi}
           </text>
         </motion.g>

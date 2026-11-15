@@ -109,9 +109,6 @@ function Triangle({
         y
       </text>
       <circle cx={CX} cy={CENTROID_Y} r={3.6} fill={INK} />
-      <text x={CX + 7} y={CENTROID_Y - 7} fontSize={10} fill={INK}>
-        C
-      </text>
       {showDimensions && (
         <g stroke={STROKE} fill={STROKE}>
           <line x1={CX - HALF} y1={264} x2={CX + HALF} y2={264} strokeWidth={1.1} />
@@ -374,6 +371,9 @@ export function TriangleSecondMomentAnimation({ scene, index, playing, sceneProg
               </text>
             </g>
           )}
+          <text x={CX + 7} y={CENTROID_Y - 7} fontSize={10} fill={INK}>
+            C
+          </text>
         </svg>
       </div>
     </div>

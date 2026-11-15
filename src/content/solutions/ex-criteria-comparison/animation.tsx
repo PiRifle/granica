@@ -417,7 +417,7 @@ export function CriteriaComparison1Animation({ scene, playing, sceneProgress }: 
                 <g>
                   <line x1={trescaX} y1={y} x2={trescaX} y2={276} stroke={ORANGE} strokeWidth={1.4} />
                   <circle cx={trescaX} cy={280} r={4.6} fill={ORANGE} />
-                  <text x={trescaX} y={296} textAnchor="middle" fontSize={8.5} fill={ORANGE} fontWeight={600}>
+                  <text x={trescaX} y={292} textAnchor="middle" fontSize={8.5} fill={ORANGE} fontWeight={600}>
                     {`Tresca ${fmt(trescaValue, 2)}`}
                   </text>
                 </g>

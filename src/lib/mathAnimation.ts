@@ -113,6 +113,30 @@ function normalizeStep(step: string): string {
     .trim()
 }
 
+function isValueBinding(step: string): boolean {
+  if (/\\(?:le|ge|leq|geq|approx|Rightarrow|to)\b|[<>]/.test(step)) return false
+  const equals = topLevelEquals(step)
+  if (equals.length !== 1) return false
+  const left = step.slice(0, equals[0]).trim()
+  const right = step.slice(equals[0] + 1).trim()
+  if (!/^[+-]?\d/.test(right)) return false
+  const rightWithoutText = right.replace(/\\(?:text|mathrm|mathbf|mathit)\{[^{}]*\}/g, '')
+  const rightWithoutCommands = rightWithoutText.replace(/\\[a-zA-Z]+/g, '')
+  if (/[a-zA-Z]/.test(rightWithoutCommands)) return false
+  if (/\\(?:sum|frac|sqrt|int|lim|begin)\b|[+\-*/()]/.test(left)) return false
+  return left.length > 0
+}
+
+export function splitFormulaPresentation(formula: string): { values: string[]; steps: string[] } {
+  const values: string[] = []
+  const steps: string[] = []
+  for (const step of splitFormula(formula)) {
+    if (isValueBinding(step)) values.push(step)
+    else steps.push(step)
+  }
+  return { values, steps }
+}
+
 export function splitFormula(formula: string): string[] {
   const chunks: string[] = []
   let current = ''

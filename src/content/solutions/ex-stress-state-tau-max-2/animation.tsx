@@ -31,18 +31,12 @@ const smooth = (value: number) => {
 const xOf = (sigma: number) => X0 + (sigma - DOMAIN_MIN) * SCALE
 const yOf = (tau: number) => CY - tau * SCALE
 
-function Axes({ ticks }: { ticks: Array<{ value: number; label: string }> }) {
+function AxesShapes({ ticks }: { ticks: Array<{ value: number; label: string }> }) {
   return (
     <g>
       <line x1={X0 - 16} y1={CY} x2={X1 + 12} y2={CY} stroke={MUTED} strokeWidth={1.2} />
       <line x1={X1} y1={CY} x2={X1 + 20} y2={CY} stroke={MUTED} strokeWidth={1.2} markerEnd={`url(#${ARROW_MUTED})`} />
-      <text x={X1 + 20} y={CY + 15} textAnchor="end" fontSize={9} fill={MUTED}>
-        σ [MPa]
-      </text>
       <line x1={xOf(0)} y1={CY + 96} x2={xOf(0)} y2={CY - 128} stroke={MUTED} strokeWidth={1.1} opacity={0.55} />
-      <text x={xOf(0) + 7} y={CY - 124} fontSize={9} fill={MUTED}>
-        τ [MPa]
-      </text>
       <line
         x1={xOf(0)}
         y1={CY - 114}
@@ -53,12 +47,33 @@ function Axes({ ticks }: { ticks: Array<{ value: number; label: string }> }) {
         markerEnd={`url(#${ARROW_MUTED})`}
       />
       {ticks.map((tick) => (
-        <g key={`${tick.value}-${tick.label}`}>
-          <line x1={xOf(tick.value)} y1={CY - 4} x2={xOf(tick.value)} y2={CY + 4} stroke={MUTED} strokeWidth={1} />
-          <text x={xOf(tick.value)} y={CY + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-            {tick.label}
-          </text>
-        </g>
+        <line
+          key={`${tick.value}-${tick.label}`}
+          x1={xOf(tick.value)}
+          y1={CY - 4}
+          x2={xOf(tick.value)}
+          y2={CY + 4}
+          stroke={MUTED}
+          strokeWidth={1}
+        />
+      ))}
+    </g>
+  )
+}
+
+function AxesTexts({ ticks }: { ticks: Array<{ value: number; label: string }> }) {
+  return (
+    <g>
+      <text x={X1 + 20} y={CY + 15} textAnchor="end" fontSize={9} fill={MUTED}>
+        σ [MPa]
+      </text>
+      <text x={xOf(0) + 7} y={CY - 124} fontSize={9} fill={MUTED}>
+        τ [MPa]
+      </text>
+      {ticks.map((tick) => (
+        <text key={`${tick.value}-${tick.label}`} x={xOf(tick.value)} y={CY + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+          {tick.label}
+        </text>
       ))}
     </g>
   )
@@ -143,10 +158,25 @@ function Radius({
         animate={{ scale: draw > 0.72 ? 1 : 0 }}
         transition={{ type: 'spring', stiffness: 280, damping: 18 }}
       />
-      <text x={labelX} y={labelY} fontSize={9.5} fontWeight={700} fill={color}>
-        {label}
-      </text>
     </g>
+  )
+}
+
+function RadiusLabel({
+  color,
+  label,
+  labelX,
+  labelY,
+}: {
+  color: string
+  label: string
+  labelX: number
+  labelY: number
+}) {
+  return (
+    <text x={labelX} y={labelY} fontSize={9.5} fontWeight={700} fill={color}>
+      {label}
+    </text>
   )
 }
 
@@ -272,6 +302,24 @@ function StressElement({
         markerEnd={`url(#${ARROW_SHEAR})`}
       />
 
+      <g stroke={MUTED} strokeWidth={1.5} fill="none">
+        <line x1={356} y1={212} x2={396} y2={212} markerEnd={`url(#${ARROW_MUTED})`} />
+        <line x1={356} y1={212} x2={356} y2={172} markerEnd={`url(#${ARROW_MUTED})`} />
+        <line x1={356} y1={212} x2={386} y2={182} markerEnd={`url(#${ARROW_MUTED})`} />
+      </g>
+    </g>
+  )
+}
+
+function StressElementTexts({ labelX, labelY, labelTau }: { labelX: string; labelY: string; labelTau: string }) {
+  const x0 = 94
+  const y0 = 106
+  const side = 116
+  const x1 = x0 + side
+  const cxm = x0 + side / 2
+  const cym = y0 + side / 2
+  return (
+    <g>
       <text x={x1 + 52} y={cym + 3} fontSize={10} fontWeight={700} fill={ACCENT}>
         {labelX}
       </text>
@@ -281,12 +329,6 @@ function StressElement({
       <text x={x1 + 22} y={y0 - 20} fontSize={9.5} fontWeight={700} fill={SHEAR}>
         {labelTau}
       </text>
-
-      <g stroke={MUTED} strokeWidth={1.5} fill="none">
-        <line x1={356} y1={212} x2={396} y2={212} markerEnd={`url(#${ARROW_MUTED})`} />
-        <line x1={356} y1={212} x2={356} y2={172} markerEnd={`url(#${ARROW_MUTED})`} />
-        <line x1={356} y1={212} x2={386} y2={182} markerEnd={`url(#${ARROW_MUTED})`} />
-      </g>
       <text x={401} y={216} fontSize={9} fill={MUTED}>
         x
       </text>
@@ -364,6 +406,18 @@ function PrincipalPlaneElement({ draw }: { draw: number }) {
         transition={{ duration: 0.7, ease: 'easeInOut' }}
       />
       <path d={`M ${cx} ${cy - 20} A 20 20 0 0 1 ${cx + 20} ${cy}`} fill="none" stroke={OK} strokeWidth={1.5} />
+      <circle cx={cx} cy={cy} r={3.2} fill={MUTED} />
+    </g>
+  )
+}
+
+function PrincipalPlaneTexts() {
+  const cx = 146
+  const cy = 168
+  const half = 60
+  const right = cx + half
+  return (
+    <g>
       <text x={cx + 24} y={cy - 22} fontSize={9} fontWeight={700} fill={OK}>
         45°
       </text>
@@ -376,7 +430,6 @@ function PrincipalPlaneElement({ draw }: { draw: number }) {
       <text x={cx - 56} y={cy + 76} fontSize={9} fill={ACCENT}>
         σ_III = −112,43
       </text>
-      <circle cx={cx} cy={cy} r={3.2} fill={MUTED} />
       <text x={cx + 9} y={cy + 16} fontSize={8.5} fill={MUTED}>
         σ_II = −27,57
       </text>
@@ -399,6 +452,16 @@ export function TauMaxExample2Animation({ scene, playing, sceneProgress }: Solut
   const iRadius = 42.43
   const absCenter = -56.21
   const absRadius = 56.21
+  const axesTicks =
+    metric === 'circle' || metric === 'absolute'
+      ? [{ value: -70, label: '−70' }]
+      : metric === 'result'
+        ? []
+        : [
+            { value: -112.43, label: '−112,4' },
+            { value: -70, label: '−70' },
+            { value: -27.57, label: '−27,6' },
+          ]
 
   return (
     <div className={local('figure')}>
@@ -456,60 +519,17 @@ export function TauMaxExample2Animation({ scene, playing, sceneProgress }: Solut
           </defs>
 
           {metric === 'data' ? (
-            <g>
-              <text x={16} y={24} fontSize={10.5} fontWeight={700} fill={INK}>
-                ściskanie ze ścinaniem
-              </text>
-              <text x={16} y={39} fontSize={8.5} fill={MUTED}>
-                σ_x = −40 MPa · σ_y = −100 MPa · τ_xy = 30 MPa
-              </text>
-              <StressElement
-                draw={draw}
-                sx={-40}
-                sy={-100}
-                labelX="σ_x = −40 MPa"
-                labelY="σ_y = −100 MPa"
-                labelTau="τ_xy = 30 MPa"
-              />
-              <text x={16} y={282} fontSize={8.5} fill={MUTED}>
-                Obie ścianki normalne są ściskane, a dodatkowo działają naprężenia styczne.
-              </text>
-            </g>
+            <StressElement
+              draw={draw}
+              sx={-40}
+              sy={-100}
+              labelX="σ_x = −40 MPa"
+              labelY="σ_y = −100 MPa"
+              labelTau="τ_xy = 30 MPa"
+            />
           ) : null}
 
-          {metric !== 'data' ? (
-            <g>
-              <text x={16} y={22} fontSize={10.5} fontWeight={700} fill={INK}>
-                {metric === 'circle'
-                  ? 'koło Mohra dla dwóch naprężeń ściskających'
-                  : metric === 'inplane'
-                    ? 'płaskie maksimum ścinania'
-                    : metric === 'absolute'
-                      ? 'trzy koła Mohra'
-                      : metric === 'directions'
-                        ? 'płaszczyzna absolutnego maksimum'
-                        : 'płaskie i absolutne maksimum'}
-              </text>
-              <text x={16} y={37} fontSize={8.5} fill={MUTED}>
-                σ_x = −40 · σ_y = −100 · τ_xy = 30 · σ_z = 0 MPa
-              </text>
-              {metric !== 'directions' ? (
-                <Axes
-                  ticks={
-                    metric === 'circle' || metric === 'absolute'
-                      ? [{ value: -70, label: '−70' }]
-                      : metric === 'result'
-                        ? []
-                        : [
-                            { value: -112.43, label: '−112,4' },
-                            { value: -70, label: '−70' },
-                            { value: -27.57, label: '−27,6' },
-                          ]
-                  }
-                />
-              ) : null}
-            </g>
-          ) : null}
+          {metric !== 'data' && metric !== 'directions' ? <AxesShapes ticks={axesTicks} /> : null}
 
           {metric === 'circle' ? (
             <g>
@@ -524,24 +544,9 @@ export function TauMaxExample2Animation({ scene, playing, sceneProgress }: Solut
                 labelY={yOf(iRadius) + 4}
               />
               <circle cx={xOf(iCenter)} cy={CY} r={3.4} fill={INK} />
-              <text x={xOf(iCenter)} y={CY + 32} textAnchor="middle" fontSize={9} fill={INK}>
-                C = −70
-              </text>
               <circle cx={xOf(-27.57)} cy={CY} r={3.4} fill={ACCENT} />
               <circle cx={xOf(-112.43)} cy={CY} r={3.4} fill={ACCENT} />
               <circle cx={xOf(0)} cy={CY} r={3.4} fill={SHEAR} />
-              <text x={xOf(-27.57)} y={CY - 12} textAnchor="middle" fontSize={9} fontWeight={700} fill={ACCENT}>
-                −27,57
-              </text>
-              <text x={xOf(-112.43)} y={CY - 12} textAnchor="middle" fontSize={9} fontWeight={700} fill={ACCENT}>
-                −112,43
-              </text>
-              <text x={xOf(0)} y={CY + 32} textAnchor="middle" fontSize={9} fontWeight={700} fill={SHEAR}>
-                0
-              </text>
-              <text x={16} y={282} fontSize={8.5} fill={SHEAR}>
-                Zero leży na prawo od przedziału −112,43…−27,57 MPa.
-              </text>
             </g>
           ) : null}
 
@@ -564,15 +569,6 @@ export function TauMaxExample2Animation({ scene, playing, sceneProgress }: Solut
                 stroke={OK}
                 strokeWidth={1.6}
               />
-              <text x={xOf(iCenter) + 42} y={CY - 34} fontSize={8.5} fill={OK}>
-                2θ = 90°
-              </text>
-              <text x={16} y={282} fontSize={8.5} fill={MUTED}>
-                W materiale płaszczyzna τ_max leży pod kątem 45° do kierunku głównego.
-              </text>
-              <text x={xOf(iCenter) + 8} y={248} fontSize={9} fontWeight={700} fill={OK}>
-                θ_s = θ_p ± 45°
-              </text>
             </g>
           ) : null}
 
@@ -593,29 +589,10 @@ export function TauMaxExample2Animation({ scene, playing, sceneProgress }: Solut
               <circle cx={xOf(0)} cy={CY} r={3.4} fill={SHEAR} />
               <circle cx={xOf(-27.57)} cy={CY} r={3.4} fill={ACCENT} />
               <circle cx={xOf(-112.43)} cy={CY} r={3.4} fill={ACCENT} />
-              <text x={xOf(0)} y={CY - 12} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={SHEAR}>
-                0
-              </text>
-              <text x={xOf(-27.57)} y={CY - 12} textAnchor="middle" fontSize={9} fill={ACCENT}>
-                −27,57
-              </text>
-              <text x={xOf(-112.43)} y={CY - 12} textAnchor="middle" fontSize={9} fill={ACCENT}>
-                −112,43
-              </text>
-              <text x={xOf(absCenter)} y={CY + 32} textAnchor="middle" fontSize={9} fill={MUTED}>
-                C = −56,21
-              </text>
-              <text x={16} y={282} fontSize={8.5} fill={SHEAR}>
-                Największa różnica to 0 − (−112,43) = 112,43 MPa.
-              </text>
             </g>
           ) : null}
 
-          {metric === 'directions' ? (
-            <g>
-              <PrincipalPlaneElement draw={draw} />
-            </g>
-          ) : null}
+          {metric === 'directions' ? <PrincipalPlaneElement draw={draw} /> : null}
 
           {metric === 'result' ? (
             <g>
@@ -630,32 +607,144 @@ export function TauMaxExample2Animation({ scene, playing, sceneProgress }: Solut
                 labelX={xOf(absCenter) + 8}
                 labelY={yOf(absRadius) + 16}
               />
-              <text x={xOf(absCenter) + 8} y={yOf(absRadius) + 28} fontSize={8.5} fill={SHEAR}>
-                +13,79 MPa
-              </text>
               <circle cx={xOf(-112.43)} cy={CY} r={3.6} fill={ACCENT} />
               <circle cx={xOf(-27.57)} cy={CY} r={3.2} fill={MOHR} />
               <circle cx={xOf(0)} cy={CY} r={3.2} fill={SHEAR} />
-              <text x={xOf(-112.43)} y={CY + 32} textAnchor="middle" fontSize={8.5} fill={ACCENT}>
-                −112,43
-              </text>
-              <text x={xOf(-27.57)} y={CY + 32} textAnchor="middle" fontSize={8.5} fill={MOHR}>
-                −27,57
-              </text>
-              <text x={xOf(0)} y={CY + 32} textAnchor="middle" fontSize={8.5} fill={SHEAR}>
-                0
-              </text>
-              <text x={208} y={252} fontSize={9} fill={MUTED}>
-                R = 42,43 MPa · τ_abs = 56,21 MPa
-              </text>
-              <text x={208} y={267} fontSize={9} fontWeight={700} fill={SHEAR}>
-                różnica 13,79 MPa, czyli 32,5%
-              </text>
-              <text x={16} y={282} fontSize={8.5} fill={MUTED}>
-                Wspólny koniec −112,43; zero wydłuża średnicę koła absolutnego.
-              </text>
             </g>
           ) : null}
+
+          <g>
+            {metric === 'data' ? (
+              <g>
+                <text x={16} y={24} fontSize={10.5} fontWeight={700} fill={INK}>
+                  ściskanie ze ścinaniem
+                </text>
+                <text x={16} y={39} fontSize={8.5} fill={MUTED}>
+                  σ_x = −40 MPa · σ_y = −100 MPa · τ_xy = 30 MPa
+                </text>
+                <StressElementTexts labelX="σ_x = −40 MPa" labelY="σ_y = −100 MPa" labelTau="τ_xy = 30 MPa" />
+                <text x={16} y={282} fontSize={8.5} fill={MUTED}>
+                  Obie ścianki normalne są ściskane, a dodatkowo działają naprężenia styczne.
+                </text>
+              </g>
+            ) : null}
+
+            {metric !== 'data' ? (
+              <g>
+                <text x={16} y={22} fontSize={10.5} fontWeight={700} fill={INK}>
+                  {metric === 'circle'
+                    ? 'koło Mohra dla dwóch naprężeń ściskających'
+                    : metric === 'inplane'
+                      ? 'płaskie maksimum ścinania'
+                      : metric === 'absolute'
+                        ? 'trzy koła Mohra'
+                        : metric === 'directions'
+                          ? 'płaszczyzna absolutnego maksimum'
+                          : 'płaskie i absolutne maksimum'}
+                </text>
+                <text x={16} y={37} fontSize={8.5} fill={MUTED}>
+                  σ_x = −40 · σ_y = −100 · τ_xy = 30 · σ_z = 0 MPa
+                </text>
+                {metric !== 'directions' ? <AxesTexts ticks={axesTicks} /> : null}
+              </g>
+            ) : null}
+
+            {metric === 'circle' ? (
+              <g>
+                <RadiusLabel color={MOHR} label="R = 42,43 MPa" labelX={xOf(iCenter) + 8} labelY={yOf(iRadius) + 4} />
+                <text x={xOf(iCenter)} y={CY + 32} textAnchor="middle" fontSize={9} fill={INK}>
+                  C = −70
+                </text>
+                <text x={xOf(-27.57)} y={CY - 12} textAnchor="middle" fontSize={9} fontWeight={700} fill={ACCENT}>
+                  −27,57
+                </text>
+                <text x={xOf(-112.43)} y={CY - 12} textAnchor="middle" fontSize={9} fontWeight={700} fill={ACCENT}>
+                  −112,43
+                </text>
+                <text x={xOf(0)} y={CY + 32} textAnchor="middle" fontSize={9} fontWeight={700} fill={SHEAR}>
+                  0
+                </text>
+                <text x={16} y={282} fontSize={8.5} fill={SHEAR}>
+                  Zero leży na prawo od przedziału −112,43…−27,57 MPa.
+                </text>
+              </g>
+            ) : null}
+
+            {metric === 'inplane' ? (
+              <g>
+                <RadiusLabel
+                  color={SHEAR}
+                  label="τ_max^(xy) = R = 42,43 MPa"
+                  labelX={xOf(iCenter) + 8}
+                  labelY={yOf(iRadius) + 4}
+                />
+                <text x={xOf(iCenter) + 42} y={CY - 34} fontSize={8.5} fill={OK}>
+                  2θ = 90°
+                </text>
+                <text x={16} y={282} fontSize={8.5} fill={MUTED}>
+                  W materiale płaszczyzna τ_max leży pod kątem 45° do kierunku głównego.
+                </text>
+                <text x={xOf(iCenter) + 8} y={248} fontSize={9} fontWeight={700} fill={OK}>
+                  θ_s = θ_p ± 45°
+                </text>
+              </g>
+            ) : null}
+
+            {metric === 'absolute' ? (
+              <g>
+                <RadiusLabel color={SHEAR} label="R_I,III = 56,21 MPa" labelX={xOf(absCenter) + 9} labelY={yOf(absRadius) + 4} />
+                <text x={xOf(0)} y={CY - 12} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={SHEAR}>
+                  0
+                </text>
+                <text x={xOf(-27.57)} y={CY - 12} textAnchor="middle" fontSize={9} fill={ACCENT}>
+                  −27,57
+                </text>
+                <text x={xOf(-112.43)} y={CY - 12} textAnchor="middle" fontSize={9} fill={ACCENT}>
+                  −112,43
+                </text>
+                <text x={xOf(absCenter)} y={CY + 32} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  C = −56,21
+                </text>
+                <text x={16} y={282} fontSize={8.5} fill={SHEAR}>
+                  Największa różnica to 0 − (−112,43) = 112,43 MPa.
+                </text>
+              </g>
+            ) : null}
+
+            {metric === 'directions' ? <PrincipalPlaneTexts /> : null}
+
+            {metric === 'result' ? (
+              <g>
+                <RadiusLabel
+                  color={SHEAR}
+                  label="τ_abs = 56,21"
+                  labelX={xOf(absCenter) + 8}
+                  labelY={yOf(absRadius) + 16}
+                />
+                <text x={xOf(absCenter) + 8} y={yOf(absRadius) + 28} fontSize={8.5} fill={SHEAR}>
+                  +13,79 MPa
+                </text>
+                <text x={xOf(-112.43)} y={CY + 32} textAnchor="middle" fontSize={8.5} fill={ACCENT}>
+                  −112,43
+                </text>
+                <text x={xOf(-27.57)} y={CY + 32} textAnchor="middle" fontSize={8.5} fill={MOHR}>
+                  −27,57
+                </text>
+                <text x={xOf(0)} y={CY + 32} textAnchor="middle" fontSize={8.5} fill={SHEAR}>
+                  0
+                </text>
+                <text x={208} y={252} fontSize={9} fill={MUTED}>
+                  R = 42,43 MPa · τ_abs = 56,21 MPa
+                </text>
+                <text x={208} y={267} fontSize={9} fontWeight={700} fill={SHEAR}>
+                  różnica 13,79 MPa, czyli 32,5%
+                </text>
+                <text x={16} y={282} fontSize={8.5} fill={MUTED}>
+                  Wspólny koniec −112,43; zero wydłuża średnicę koła absolutnego.
+                </text>
+              </g>
+            ) : null}
+          </g>
         </svg>
       </div>
     </div>

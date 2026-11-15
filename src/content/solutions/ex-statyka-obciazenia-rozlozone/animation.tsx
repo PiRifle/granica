@@ -30,7 +30,7 @@ const Q2_X = X0 + 4 * S
 const Q_X = X0 + 3.5 * S
 
 export function DistributedLoadAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const showSplit = index >= 1
   const showResultant = index >= 2
   const showB = index >= 3
@@ -187,10 +187,10 @@ export function DistributedLoadAnimation({ index, playing, sceneProgress }: Solu
             opacity="0.7"
           />
           <circle cx={X1} cy={BEAM_Y + 17} r="6" fill="none" stroke={INK} strokeWidth="1.5" opacity="0.7" />
-          <text x={X0} y={BEAM_Y + 36} textAnchor="middle" fontSize="9" fill={INK}>
+          <text x={X0 - 10} y={BEAM_Y + 36} textAnchor="end" fontSize="9" fill={INK}>
             A
           </text>
-          <text x={X1} y={BEAM_Y + 36} textAnchor="middle" fontSize="9" fill={INK}>
+          <text x={X1 + 10} y={BEAM_Y + 36} fontSize="9" fill={INK}>
             B
           </text>
 

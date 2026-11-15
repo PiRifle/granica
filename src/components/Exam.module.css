@@ -80,6 +80,55 @@
   letter-spacing: -0.035em;
   margin: 12px 0 22px;
 }
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.answer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink, #2a3542);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+.answer:hover {
+  border-color: var(--accent);
+}
+.answer-selected {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+}
+.answer-letter {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: #526070;
+  background: #fff;
+}
+.answer-selected .answer-letter {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 .exam-nav {
   display: flex;
   align-items: center;

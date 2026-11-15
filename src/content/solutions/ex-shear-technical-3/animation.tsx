@@ -237,10 +237,10 @@ export function ShearTechnicalExample3Animation({ scene, playing, sceneProgress 
                 strokeWidth={1}
                 strokeDasharray="3 3"
               />
-              <text x={250} y={96} fontSize={9} fill={PLANE}>
+              <text x={250} y={64} fontSize={9} fill={PLANE}>
                 płaszczyzna ścinania
               </text>
-              <text x={250} y={108} fontSize={9} fill={MUTED}>
+              <text x={250} y={76} fontSize={9} fill={MUTED}>
                 A_s = A, n = 1
               </text>
             </g>
@@ -316,7 +316,7 @@ export function ShearTechnicalExample3Animation({ scene, playing, sceneProgress 
                 />
                 <text
                   x={panelCx}
-                  y={panelCy + radius + 16}
+                  y={panelCy + radius + 12}
                   textAnchor="middle"
                   fontSize={9}
                   fill={isSelect || isCheck ? OK : MUTED}
@@ -393,7 +393,7 @@ export function ShearTechnicalExample3Animation({ scene, playing, sceneProgress 
                 })}
                 <text
                   x={panelCx}
-                  y={panelCy + radius + 34}
+                  y={panelCy + radius + (isCheck ? 28 : 34)}
                   textAnchor="middle"
                   fontSize={10}
                   fontWeight={700}
@@ -444,7 +444,7 @@ export function ShearTechnicalExample3Animation({ scene, playing, sceneProgress 
               <text x={allowableX} y={gaugeY + 18} textAnchor="middle" fontSize={8} fill={PLANE}>
                 80
               </text>
-              <text x={gaugeX1} y={gaugeY + 18} textAnchor="end" fontSize={8} fill={MUTED}>
+              <text x={gaugeX1} y={gaugeY + 30} textAnchor="end" fontSize={8} fill={MUTED}>
                 τ (MPa)
               </text>
               <text x={gaugeX0} y={gaugeY - 16} fontSize={9} fontWeight={700} fill={OK}>

@@ -88,7 +88,7 @@ export function CompositeStaticMomentsAnimation({ scene, index, playing, scenePr
   const metric = scene.focus?.metric ?? 'model'
   const metricIndex = METRICS.indexOf(metric as Metric)
   const stage = metricIndex >= 0 ? metricIndex : Math.min(index, METRICS.length - 1)
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 3) : 1
 
   const addedY = stage >= 3 ? Math.min(PARTS.length, Math.floor(reveal * PARTS.length + 0.0001)) : 0
   const addedX = stage >= 4 ? Math.min(PARTS.length, Math.floor(reveal * PARTS.length + 0.0001)) : 0
@@ -230,71 +230,11 @@ export function CompositeStaticMomentsAnimation({ scene, index, playing, scenePr
             </text>
           </g>
 
-          {stage >= 1 && (
-            <g>
-              {PARTS.map((part, partIndex) => {
-                const labelOpacity = stage <= 2 ? 1 : 0.42
-                const lineTo = part.areaAnchor === 'start' ? part.areaLabelX - 4 : part.areaLabelX
-                return (
-                  <motion.g
-                    key={`label-${part.id}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: labelOpacity }}
-                    transition={{ delay: 0.18 + partIndex * 0.14, duration: 0.4 }}
-                    style={{ transformOrigin: `${px(part.cx)}px ${py(part.cy)}px` }}
-                  >
-                    <motion.circle
-                      cx={px(part.cx)}
-                      cy={py(part.cy)}
-                      r={5}
-                      fill={part.color}
-                      stroke="#fff"
-                      strokeWidth={1.2}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.2 + partIndex * 0.14, type: 'spring', stiffness: 260, damping: 18 }}
-                    />
-                    <text
-                      x={px(part.cx)}
-                      y={py(part.cy) + 2.6}
-                      textAnchor="middle"
-                      fontSize={6.5}
-                      fontWeight={700}
-                      fill="#fff"
-                    >
-                      {partIndex + 1}
-                    </text>
-                    <line
-                      x1={px(part.cx)}
-                      y1={py(part.cy)}
-                      x2={lineTo}
-                      y2={part.areaLabelY - 3}
-                      stroke={part.color}
-                      strokeWidth={0.9}
-                      strokeDasharray="2 2"
-                    />
-                    <text
-                      x={part.areaLabelX}
-                      y={part.areaLabelY}
-                      textAnchor={part.areaAnchor}
-                      fontSize={9}
-                      fontWeight={600}
-                      fill={part.color}
-                    >
-                      {part.areaLabel}
-                    </text>
-                  </motion.g>
-                )
-              })}
-            </g>
-          )}
-
           {stage >= 2 && (
             <g opacity={stage <= 4 ? 1 : 0.45}>
               {PARTS.map((part, partIndex) => {
                 const armReveal = clamp((reveal - partIndex * 0.18) / 0.55)
                 const armX = px(part.cx) + (partIndex - (PARTS.length - 1) / 2) * 8
-                const armColor = part.color
                 return (
                   <g key={`arm-${part.id}`}>
                     <motion.line
@@ -302,7 +242,7 @@ export function CompositeStaticMomentsAnimation({ scene, index, playing, scenePr
                       y1={py(0)}
                       x2={armX}
                       y2={py(part.cy)}
-                      stroke={armColor}
+                      stroke={part.color}
                       strokeWidth={1.3}
                       strokeDasharray="4 3"
                       initial={{ pathLength: 0 }}
@@ -314,26 +254,13 @@ export function CompositeStaticMomentsAnimation({ scene, index, playing, scenePr
                       y1={py(part.cy)}
                       x2={armX}
                       y2={py(part.cy)}
-                      stroke={armColor}
+                      stroke={part.color}
                       strokeWidth={1.3}
                       strokeDasharray="4 3"
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: armReveal }}
                       transition={{ duration: 0.12, ease: 'linear' }}
                     />
-                    <text x={armX + 5} y={(py(0) + py(part.cy)) / 2 + 3} fontSize={9} fontWeight={600} fill={armColor}>
-                      {partIndex === 0 ? 'y₁' : 'y₂'}
-                    </text>
-                    <text
-                      x={(px(0) + armX) / 2}
-                      y={py(part.cy) - 5}
-                      textAnchor="middle"
-                      fontSize={9}
-                      fontWeight={600}
-                      fill={armColor}
-                    >
-                      {partIndex === 0 ? 'x₁' : 'x₂'}
-                    </text>
                   </g>
                 )
               })}
@@ -409,6 +336,103 @@ export function CompositeStaticMomentsAnimation({ scene, index, playing, scenePr
               >
                 {final ? 'xC = 60 mm' : 'Σ Aᵢ xᵢ'}
               </motion.text>
+            </g>
+          )}
+
+          {stage >= 1 && (
+            <g>
+              {PARTS.map((part, partIndex) => {
+                const labelOpacity = stage <= 2 ? 1 : 0.42
+                const lineTo = part.areaAnchor === 'start' ? part.areaLabelX - 4 : part.areaLabelX
+                const fromX = px(part.cx)
+                const fromY = py(part.cy)
+                const toX = lineTo
+                const toY = part.areaLabelY - 3
+                const length = Math.hypot(toX - fromX, toY - fromY) || 1
+                const startX = fromX + ((toX - fromX) / length) * 8
+                const startY = fromY + ((toY - fromY) / length) * 8
+                return (
+                  <motion.g
+                    key={`label-${part.id}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: labelOpacity }}
+                    transition={{ delay: 0.18 + partIndex * 0.14, duration: 0.4 }}
+                    style={{ transformOrigin: `${px(part.cx)}px ${py(part.cy)}px` }}
+                  >
+                    <motion.circle
+                      cx={px(part.cx)}
+                      cy={py(part.cy)}
+                      r={5}
+                      fill={part.color}
+                      stroke="#fff"
+                      strokeWidth={1.2}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.2 + partIndex * 0.14, type: 'spring', stiffness: 260, damping: 18 }}
+                    />
+                    <text
+                      x={px(part.cx)}
+                      y={py(part.cy) + 2.6}
+                      textAnchor="middle"
+                      fontSize={6.5}
+                      fontWeight={700}
+                      fill="#fff"
+                    >
+                      {partIndex + 1}
+                    </text>
+                    <line
+                      x1={startX}
+                      y1={startY}
+                      x2={toX}
+                      y2={toY}
+                      stroke={part.color}
+                      strokeWidth={0.9}
+                      strokeDasharray="2 2"
+                    />
+                    <text
+                      x={part.areaLabelX}
+                      y={part.areaLabelY}
+                      textAnchor={part.areaAnchor}
+                      fontSize={9}
+                      fontWeight={600}
+                      fill={part.color}
+                    >
+                      {part.areaLabel}
+                    </text>
+                  </motion.g>
+                )
+              })}
+            </g>
+          )}
+
+          {stage >= 2 && (
+            <g opacity={stage <= 4 ? 1 : 0.45}>
+              {PARTS.map((part, partIndex) => {
+                const armX = px(part.cx) + (partIndex - (PARTS.length - 1) / 2) * 8
+                return (
+                  <g key={`arm-label-${part.id}`}>
+                    <text
+                      x={armX + 5}
+                      y={(py(0) + py(part.cy)) / 2 + 3}
+                      fontSize={9}
+                      fontWeight={600}
+                      fill={part.color}
+                    >
+                      {partIndex === 0 ? 'y₁' : 'y₂'}
+                    </text>
+                    <text
+                      x={(px(0) + armX) / 2}
+                      y={py(part.cy) - 5}
+                      textAnchor="middle"
+                      fontSize={9}
+                      fontWeight={600}
+                      fill={part.color}
+                    >
+                      {partIndex === 0 ? 'x₁' : 'x₂'}
+                    </text>
+                  </g>
+                )
+              })}
             </g>
           )}
 

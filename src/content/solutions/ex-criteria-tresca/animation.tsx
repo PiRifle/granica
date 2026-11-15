@@ -112,7 +112,7 @@ function PrincipalElement({
       <Arrow x1={cx} y1={y0} x2={cx} y2={y0 - len2} color={GREEN} width={2.2} opacity={dimS2} />
       <Arrow x1={cx} y1={y1} x2={cx} y2={y1 + len2} color={GREEN} width={2.2} opacity={dimS2} />
 
-      <text x={x1 + len1 + 3} y={cy + 3} fontSize={8.5} fontWeight={700} fill={BLUE}>
+      <text x={x1 + len1 + 3} y={cy - 14} textAnchor="end" fontSize={8.5} fontWeight={700} fill={BLUE}>
         σ₁ = 120
       </text>
       <text x={cx + 4} y={y0 - len2 - 4} fontSize={8.5} fontWeight={700} fill={GREEN} opacity={dimS2}>
@@ -121,9 +121,6 @@ function PrincipalElement({
 
       <line x1={cx - 14} y1={cy + 14} x2={cx + 14} y2={cy - 14} stroke={MUTED} strokeWidth={1} strokeDasharray="2 2" />
       <circle cx={cx} cy={cy} r={2.6} fill={INK} />
-      <text x={cx + 18} y={cy + 4} fontSize={8} fill={MUTED}>
-        σ₃ = 0
-      </text>
 
       {showShearPlane && (
         <motion.g initial={{ opacity: 0 }} animate={{ opacity: draw > 0.55 ? 1 : 0 }} transition={{ duration: 0.3 }}>
@@ -148,6 +145,9 @@ function PrincipalElement({
 
       <text x={x0} y={showShearPlane ? 242 : 232} fontSize={8} fill={MUTED}>
         σ₃ działa prostopadle do płaszczyzny
+      </text>
+      <text x={cx + 18} y={cy + 4} fontSize={8} fill={MUTED}>
+        σ₃ = 0
       </text>
     </g>
   )
@@ -174,7 +174,7 @@ function OrderedAxis({ progress }: { progress: number }) {
       </text>
       <line x1={x0} y1={y} x2={x1} y2={y} stroke={MUTED} strokeWidth={1.1} />
       <Arrow x1={x1 - 8} y1={y} x2={x1 + 8} y2={y} color={MUTED} width={1} />
-      <text x={x1 + 8} y={y + 14} textAnchor="end" fontSize={8} fill={MUTED}>
+      <text x={x1 + 8} y={y + 28} textAnchor="end" fontSize={8} fill={MUTED}>
         σ [MPa]
       </text>
       {[0, 30, 60, 90, 120].map((tick) => (
@@ -309,17 +309,6 @@ function MohrScene({ metric, draw }: { metric: string; draw: number }) {
 
   return (
     <g>
-      <text x={MOHR_X0} y={78} fontSize={10} fontWeight={700} fill={INK}>
-        {metric === 'circles'
-          ? 'trzy koła Mohra'
-          : metric === 'maxshear'
-            ? 'promień największego koła'
-            : 'średnica największego koła'}
-      </text>
-      <text x={MOHR_X0} y={93} fontSize={8.5} fill={MUTED}>
-        pary (1,2), (2,3) i (3,1)
-      </text>
-      <MohrAxes />
       <MohrCircle
         center={(S1 + S2) / 2}
         radius={(S1 - S2) / 2}
@@ -346,6 +335,7 @@ function MohrScene({ metric, draw }: { metric: string; draw: number }) {
         width={2.7}
         opacity={1}
       />
+      <MohrAxes />
       <StressMarkers metric={metric} />
 
       {metric === 'circles' && (
@@ -368,7 +358,7 @@ function MohrScene({ metric, draw }: { metric: string; draw: number }) {
       {metric === 'maxshear' && (
         <motion.g initial={{ opacity: 0 }} animate={{ opacity: draw > 0.55 ? 1 : 0 }} transition={{ duration: 0.3 }}>
           <circle cx={mx(60)} cy={MOHR_Y} r={3.4} fill={INK} />
-          <text x={mx(60) - 4} y={MOHR_Y + 32} textAnchor="end" fontSize={8.5} fill={INK}>
+          <text x={mx(60) - 4} y={MOHR_Y - 12} textAnchor="end" fontSize={8.5} fill={INK}>
             C = 60
           </text>
           <line
@@ -409,6 +399,17 @@ function MohrScene({ metric, draw }: { metric: string; draw: number }) {
           </text>
         </motion.g>
       )}
+
+      <text x={MOHR_X0} y={78} fontSize={10} fontWeight={700} fill={INK}>
+        {metric === 'circles'
+          ? 'trzy koła Mohra'
+          : metric === 'maxshear'
+            ? 'promień największego koła'
+            : 'średnica największego koła'}
+      </text>
+      <text x={MOHR_X0} y={93} fontSize={8.5} fill={MUTED}>
+        pary (1,2), (2,3) i (3,1)
+      </text>
     </g>
   )
 }

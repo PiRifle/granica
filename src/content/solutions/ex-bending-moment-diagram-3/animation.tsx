@@ -73,7 +73,7 @@ export function BendingMomentExample3Animation({ scene, index, playing, scenePro
 
   const leftDraw = index === 2 ? smooth(progress / 0.52) : 1
   const rightDraw = index === 2 ? smooth((progress - 0.38) / 0.62) : 1
-  const scanMeters = index === 2 ? lerp(0, LENGTH, smooth(progress / 0.85)) : index >= 3 ? P_AT : null
+  const scanMeters = index === 2 ? lerp(0, LENGTH - 0.35, smooth(progress / 0.85)) : index >= 3 ? P_AT : null
   const showMax = index >= 3
 
   return (
@@ -124,7 +124,7 @@ export function BendingMomentExample3Animation({ scene, index, playing, scenePro
             <line x1={X0} y1={BEAM_Y + 102} x2={X1} y2={BEAM_Y + 102} />
             <line x1={X0} y1={BEAM_Y + 97} x2={X0} y2={BEAM_Y + 107} />
             <line x1={X1} y1={BEAM_Y + 97} x2={X1} y2={BEAM_Y + 107} />
-            <text x={(X0 + X1) / 2} y={BEAM_Y + 115} textAnchor="middle" fontSize={8.5} fill={MUTED} stroke="none">
+            <text x={(X0 + X1) / 2 + 42} y={BEAM_Y + 115} textAnchor="middle" fontSize={8.5} fill={MUTED} stroke="none">
               L = 6 m
             </text>
           </g>

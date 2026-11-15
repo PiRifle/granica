@@ -358,7 +358,7 @@ export function ShearTwistAngle2Animation({ scene, index, playing, sceneProgress
                     strokeWidth={1.2}
                     strokeDasharray="3 3"
                   />
-                  <text x={baselineX} y={GY - 16} textAnchor="middle" fontSize={8} fill={MUTED}>
+                  <text x={baselineX} y={GY - 26} textAnchor="middle" fontSize={8} fill={MUTED}>
                     ∅35: 0,947°
                   </text>
                 </>

@@ -45,10 +45,22 @@ function Beam({ p, reactions = false }: { p: number; reactions?: boolean }) {
       />
       <path d={`M${X0 - 10} ${BEAM_Y + 16} L${X0} ${BEAM_Y + 2} L${X0 + 10} ${BEAM_Y + 16} Z`} fill={EDGE} />
       <path d={`M${X1 - 10} ${BEAM_Y + 16} L${X1} ${BEAM_Y + 2} L${X1 + 10} ${BEAM_Y + 16} Z`} fill={EDGE} />
-      <text x={X0} y={BEAM_Y + 30} textAnchor="middle" fontSize={9} fill={EDGE}>
+      <text
+        x={reactions ? X0 - 12 : X0}
+        y={BEAM_Y + 30}
+        textAnchor={reactions ? 'end' : 'middle'}
+        fontSize={9}
+        fill={EDGE}
+      >
         A
       </text>
-      <text x={X1} y={BEAM_Y + 30} textAnchor="middle" fontSize={9} fill={EDGE}>
+      <text
+        x={reactions ? X1 + 12 : X1}
+        y={BEAM_Y + 30}
+        textAnchor={reactions ? 'start' : 'middle'}
+        fontSize={9}
+        fill={EDGE}
+      >
         B
       </text>
 
@@ -176,7 +188,7 @@ export function DesignReviewExam3Animation({ scene, playing, sceneProgress }: So
                 reakcje i siła tnąca · R_A = R_B = 3 kN
               </text>
               <Beam p={1} reactions />
-              <text x={MID} y={BEAM_Y + 92} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              <text x={MID} y={BEAM_Y + 190} textAnchor="middle" fontSize={8.5} fill={MUTED}>
                 T = R_A = 3 kN po lewej stronie siły
               </text>
 
@@ -488,12 +500,12 @@ export function DesignReviewExam3Animation({ scene, playing, sceneProgress }: So
               {[0, 20, 40, 60, 70].map((value) => (
                 <g key={value}>
                   <line x1={safety(value)} y1={192} x2={safety(value)} y2={200} stroke="#c9d0d9" strokeWidth={1} />
-                  <text x={safety(value)} y={212} textAnchor="middle" fontSize={8} fill={MUTED}>
+                  <text x={safety(value)} y={218} textAnchor="middle" fontSize={8} fill={MUTED}>
                     {value}
                   </text>
                 </g>
               ))}
-              <text x={safetyX1} y={228} textAnchor="end" fontSize={8.5} fill={MUTED}>
+              <text x={safetyX1} y={238} textAnchor="end" fontSize={8.5} fill={MUTED}>
                 d [mm]
               </text>
 

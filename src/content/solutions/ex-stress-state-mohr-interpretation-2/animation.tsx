@@ -76,22 +76,53 @@ function HotSpot({ x, y, playing }: { x: number; y: number; playing: boolean }) 
   )
 }
 
-function CompareBars({ progress }: { progress: number }) {
+function CompareBars({ progress, textOnly = false }: { progress: number; textOnly?: boolean }) {
   const track = 200
   const perRe = track / 1.6
   const nomW = (SIGMA_NOM / RE) * perRe
   const locW = (SIGMA_MAX / RE) * perRe
   const boundary = perRe
 
+  if (textOnly) {
+    return (
+      <g>
+        <text x={250} y={72} fontSize={9.5} fontWeight={700} fill={INK}>
+          wykorzystanie granicy R_e = 235 MPa
+        </text>
+
+        <text x={250} y={100} fontSize={8.5} fill={GREEN}>
+          nominalnie: 120 MPa
+        </text>
+        <text x={250 + nomW + 7} y={118} fontSize={8.5} fill={GREEN}>
+          0,51 R_e
+        </text>
+
+        <text x={250} y={144} fontSize={8.5} fill={BAD}>
+          lokalnie przy otworze: 360 MPa
+        </text>
+        <text x={450} y={146} textAnchor="end" fontSize={8.5} fill={BAD}>
+          1,53 R_e
+        </text>
+
+        <text x={250 + boundary} y={90} textAnchor="middle" fontSize={8} fill={EDGE}>
+          R_e
+        </text>
+
+        <text x={250} y={210} fontSize={9.5} fill={GREEN}>
+          n_nom = 235/120 ≈ {pl(N_NOM)}
+        </text>
+        <text x={250} y={228} fontSize={9.5} fill={BAD}>
+          n_lok = 235/360 ≈ {pl(N_LOC)}
+        </text>
+        <text x={250} y={250} fontSize={8.5} fill={BAD}>
+          nominalny zapas nie opisuje strefy karbu
+        </text>
+      </g>
+    )
+  }
+
   return (
     <g>
-      <text x={250} y={72} fontSize={9.5} fontWeight={700} fill={INK}>
-        wykorzystanie granicy R_e = 235 MPa
-      </text>
-
-      <text x={250} y={100} fontSize={8.5} fill={GREEN}>
-        nominalnie: 120 MPa
-      </text>
       <rect x={250} y={106} width={track} height={15} rx={7.5} fill="#edf1f5" />
       <motion.rect
         x={250}
@@ -106,13 +137,6 @@ function CompareBars({ progress }: { progress: number }) {
         animate={{ width: nomW * progress }}
         transition={{ duration: 0.12, ease: 'linear' }}
       />
-      <text x={250 + nomW + 7} y={118} fontSize={8.5} fill={GREEN}>
-        0,51 R_e
-      </text>
-
-      <text x={250} y={144} fontSize={8.5} fill={BAD}>
-        lokalnie przy otworze: 360 MPa
-      </text>
       <rect x={250} y={150} width={track} height={15} rx={7.5} fill="#edf1f5" />
       <motion.rect
         x={250}
@@ -127,10 +151,6 @@ function CompareBars({ progress }: { progress: number }) {
         animate={{ width: Math.min(track, locW * progress) }}
         transition={{ duration: 0.12, ease: 'linear' }}
       />
-      <text x={450} y={146} textAnchor="end" fontSize={8.5} fill={BAD}>
-        1,53 R_e
-      </text>
-
       <line
         x1={250 + boundary}
         y1={96}
@@ -140,38 +160,48 @@ function CompareBars({ progress }: { progress: number }) {
         strokeWidth={1.3}
         strokeDasharray="5 4"
       />
-      <text x={250 + boundary} y={90} textAnchor="middle" fontSize={8} fill={EDGE}>
-        R_e
-      </text>
-
       <line x1={250} y1={190} x2={450} y2={190} stroke="#dde3ea" strokeWidth={1} />
-      <text x={250} y={210} fontSize={9.5} fill={GREEN}>
-        n_nom = 235/120 ≈ {pl(N_NOM)}
-      </text>
-      <text x={250} y={228} fontSize={9.5} fill={BAD}>
-        n_lok = 235/360 ≈ {pl(N_LOC)}
-      </text>
-      <text x={250} y={250} fontSize={8.5} fill={BAD}>
-        nominalny zapas nie opisuje strefy karbu
-      </text>
     </g>
   )
 }
 
-function LocalSafety({ progress }: { progress: number }) {
+function LocalSafety({ progress, textOnly = false }: { progress: number; textOnly?: boolean }) {
   const track = 200
   const maxN = 2.5
   const marker = 250 + (Math.min(N_LOC, maxN) / maxN) * track
   const boundary = 250 + (1 / maxN) * track
 
+  if (textOnly) {
+    return (
+      <g>
+        <text x={250} y={78} fontSize={9.5} fontWeight={700} fill={INK}>
+          lokalna ocena wytężenia
+        </text>
+        <text x={250} y={100} fontSize={11} fontWeight={700} fill={BAD}>
+          n_lok = 235/360 ≈ {pl(N_LOC)}
+        </text>
+        <text x={boundary} y={118} textAnchor="middle" fontSize={8} fill={EDGE}>
+          n = 1
+        </text>
+
+        <text x={250} y={176} fontSize={8.5} fill={BAD}>
+          lokalne uplastycznienie przy otworze
+        </text>
+        <text x={250} y={194} fontSize={8.5} fill={MUTED}>
+          przy obciążeniu cyklicznym inicjuje pęknięcie
+        </text>
+        <text x={250} y={212} fontSize={8.5} fill={MUTED}>
+          zmęczeniowe, mimo nominalnego zapasu
+        </text>
+        <text x={250} y={248} fontSize={8.5} fill={INK}>
+          decyduje geometria i koncentracja naprężeń
+        </text>
+      </g>
+    )
+  }
+
   return (
     <g>
-      <text x={250} y={78} fontSize={9.5} fontWeight={700} fill={INK}>
-        lokalna ocena wytężenia
-      </text>
-      <text x={250} y={112} fontSize={11} fontWeight={700} fill={BAD}>
-        n_lok = 235/360 ≈ {pl(N_LOC)}
-      </text>
       <rect x={250} y={130} width={track} height={16} rx={8} fill="#edf1f5" />
       <motion.rect
         x={250}
@@ -187,9 +217,6 @@ function LocalSafety({ progress }: { progress: number }) {
         transition={{ duration: 0.12, ease: 'linear' }}
       />
       <line x1={boundary} y1={124} x2={boundary} y2={152} stroke={EDGE} strokeWidth={1.3} strokeDasharray="5 4" />
-      <text x={boundary} y={118} textAnchor="middle" fontSize={8} fill={EDGE}>
-        n = 1
-      </text>
       <motion.circle
         cx={marker}
         cy={138}
@@ -198,24 +225,10 @@ function LocalSafety({ progress }: { progress: number }) {
         animate={{ opacity: progress > 0.55 ? 1 : 0.35 }}
         transition={{ duration: 0.2 }}
       />
-
-      <text x={250} y={176} fontSize={8.5} fill={BAD}>
-        lokalne uplastycznienie przy otworze
-      </text>
-      <text x={250} y={194} fontSize={8.5} fill={MUTED}>
-        przy obciążeniu cyklicznym inicjuje pęknięcie
-      </text>
-      <text x={250} y={212} fontSize={8.5} fill={MUTED}>
-        zmęczeniowe, mimo nominalnego zapasu
-      </text>
       <line x1={250} y1={228} x2={450} y2={228} stroke="#dde3ea" strokeWidth={1} />
-      <text x={250} y={248} fontSize={8.5} fill={INK}>
-        decyduje geometria i koncentracja naprężeń
-      </text>
     </g>
   )
 }
-
 export function MohrInterpretationExample2Animation({ scene, playing, sceneProgress }: SolutionAnimationProps) {
   const metric = scene.focus?.metric ?? 'model'
   const progress = playing ? smooth(sceneProgress) : 1
@@ -273,16 +286,6 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
               <rect x={PX0} y={PY0} width={PX1 - PX0} height={PY1 - PY0} rx={4} />
             </clipPath>
           </defs>
-
-          <text x={14} y={20} fontSize={10} fontWeight={700} fill={INK}>
-            blacha z otworem · rozciąganie
-          </text>
-          <text x={14} y={34} fontSize={8.5} fill={MUTED}>
-            σ_nom = 120 MPa · R_e = 235 MPa
-          </text>
-          <text x={14} y={48} fontSize={8.5} fill={MUTED}>
-            otwór kołowy · k_t ≈ 3
-          </text>
 
           <g>
             <rect
@@ -364,9 +367,6 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
               <g>
                 <HotSpot x={HX} y={HY - HR} playing={playing} />
                 <HotSpot x={HX} y={HY + HR} playing={playing} />
-                <text x={HX + 12} y={HY - HR - 10} fontSize={8.5} fontWeight={700} fill={LOAD}>
-                  σmax = 360 MPa
-                </text>
               </g>
             )}
 
@@ -396,29 +396,17 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
                   animate={{ opacity: playing ? [0.45, 0.9, 0.45] : 0.75 }}
                   transition={{ duration: 1.5, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
                 />
-                <text x={HX + 26} y={HY - HR + 3} fontSize={8} fill={LOAD}>
-                  strefa plastyczna
-                </text>
               </g>
             )}
 
             <line x1={8} y1={HY} x2={PX0 - 2} y2={HY} stroke={LOAD} strokeWidth={2.2} markerEnd="url(#mohr2-load)" />
             <line x1={252} y1={HY} x2={PX1 + 2} y2={HY} stroke={LOAD} strokeWidth={2.2} markerEnd="url(#mohr2-load)" />
-            <text x={(PX0 + PX1) / 2} y={PY0 - 12} textAnchor="middle" fontSize={9} fill={LOAD}>
-              σ_nom = 120 MPa
-            </text>
           </g>
 
           {isModel && (
             <g>
               <line x1={246} y1={MOHR_AXIS_Y} x2={460} y2={MOHR_AXIS_Y} stroke={MUTED} strokeWidth={1} />
               <line x1={MOHS(0)} y1={56} x2={MOHS(0)} y2={254} stroke={MUTED} strokeWidth={1} />
-              <text x={458} y={MOHR_AXIS_Y - 7} textAnchor="end" fontSize={8.5} fill={MUTED}>
-                σ [MPa]
-              </text>
-              <text x={MOHS(0) + 6} y={66} fontSize={8.5} fill={MUTED}>
-                τ [MPa]
-              </text>
               <circle
                 cx={MOHS(60)}
                 cy={MOHR_AXIS_Y}
@@ -429,20 +417,11 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
                 strokeDasharray="5 4"
               />
               <circle cx={MOHS(120)} cy={MOHR_AXIS_Y} r={3} fill={EDGE} />
-              <text x={MOHS(120)} y={MOHR_AXIS_Y + 18} textAnchor="middle" fontSize={8.5} fill={EDGE}>
-                σ = 120 MPa
-              </text>
-              <text x={340} y={82} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                nominalny stan jednoosiowy
-              </text>
             </g>
           )}
 
           {isField && (
             <g>
-              <text x={250} y={56} fontSize={9} fontWeight={700} fill={INK}>
-                rozkład σ wzdłuż blachy
-              </text>
               <line x1={PLOT_X0} y1={PLOT_Y1} x2={PLOT_X1} y2={PLOT_Y1} stroke={MUTED} strokeWidth={1} />
               <line x1={PLOT_X0} y1={PLOT_Y0} x2={PLOT_X0} y2={PLOT_Y1} stroke={MUTED} strokeWidth={1} />
               <line
@@ -454,13 +433,7 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
                 strokeWidth={1}
                 strokeDasharray="5 4"
               />
-              <text x={PLOT_X0 + 4} y={nominalY - 5} fontSize={8} fill={MUTED}>
-                120 MPa
-              </text>
               <line x1={PLOT_X0} y1={reY} x2={PLOT_X1} y2={reY} stroke={GREEN} strokeWidth={1} strokeDasharray="5 4" />
-              <text x={PLOT_X1 - 2} y={reY - 5} textAnchor="end" fontSize={8} fill={GREEN}>
-                R_e = 235 MPa
-              </text>
               <motion.path
                 d={plotPath}
                 fill="none"
@@ -478,15 +451,6 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
                 animate={{ opacity: playing ? [0.55, 1, 0.55] : 1 }}
                 transition={{ duration: 1.4, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
               />
-              <text x={holeLeft - 4} y={peakY - 9} textAnchor="end" fontSize={8.5} fontWeight={700} fill={LOAD}>
-                {pl(peak, 0)} MPa
-              </text>
-              <text x={PLOT_X1} y={PLOT_Y1 + 14} textAnchor="end" fontSize={8} fill={MUTED}>
-                położenie w blasze
-              </text>
-              <text x={PLOT_X0 - 4} y={PLOT_Y0 - 2} textAnchor="end" fontSize={8} fill={MUTED}>
-                σ
-              </text>
             </g>
           )}
 
@@ -494,12 +458,6 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
             <g>
               <line x1={246} y1={MOHR_AXIS_Y} x2={460} y2={MOHR_AXIS_Y} stroke={MUTED} strokeWidth={1} />
               <line x1={MOHS(0)} y1={56} x2={MOHS(0)} y2={254} stroke={MUTED} strokeWidth={1} />
-              <text x={458} y={MOHR_AXIS_Y - 7} textAnchor="end" fontSize={8.5} fill={MUTED}>
-                σ [MPa]
-              </text>
-              <text x={MOHS(0) + 6} y={66} fontSize={8.5} fill={MUTED}>
-                τ [MPa]
-              </text>
 
               <circle
                 cx={MOHS(60)}
@@ -510,9 +468,6 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
                 strokeWidth={1.2}
                 strokeDasharray="5 4"
               />
-              <text x={MOHS(60)} y={MOHR_AXIS_Y - 42} textAnchor="middle" fontSize={8} fill={MUTED}>
-                nominalny
-              </text>
 
               <circle
                 cx={localCenter}
@@ -548,38 +503,123 @@ export function MohrInterpretationExample2Animation({ scene, playing, sceneProgr
                 stroke={EDGE}
                 strokeWidth={1.4}
               />
-              <text x={MOHS(360)} y={MOHR_AXIS_Y + 18} textAnchor="middle" fontSize={8.5} fill={EDGE}>
-                σ1 = 360
-              </text>
-              <text x={localCenter} y={MOHR_AXIS_Y - 7} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                σavg = 180
-              </text>
-              <text x={localCenter + 6} y={MOHR_AXIS_Y - localRadius + 12} fontSize={8.5} fill={LOAD}>
-                τmax = 180
-              </text>
-              <text x={MOHS(0) + 5} y={MOHR_AXIS_Y + 16} fontSize={8} fill={MUTED}>
-                σ2 = σ3 = 0
-              </text>
-              <text x={250} y={82} fontSize={8.5} fill={MUTED}>
-                lokalny stan jednoosiowy: σ1 = 360 MPa
-              </text>
             </g>
           )}
 
           {isCompare && <CompareBars progress={progress} />}
           {isDecision && <LocalSafety progress={progress} />}
 
-          <text x={466} y={292} textAnchor="end" fontSize={8} fill={MUTED}>
-            {isModel
-              ? 'model i dane'
-              : isField
-                ? 'pole naprężeń przy otworze'
-                : isCircle
-                  ? 'lokalne koło Mohra'
-                  : isCompare
-                    ? 'porównanie z R_e'
-                    : 'wniosek inżynierski'}
-          </text>
+          <g>
+            <text x={14} y={20} fontSize={10} fontWeight={700} fill={INK}>
+              blacha z otworem · rozciąganie
+            </text>
+            <text x={14} y={34} fontSize={8.5} fill={MUTED}>
+              σ_nom = 120 MPa · R_e = 235 MPa
+            </text>
+            <text x={14} y={48} fontSize={8.5} fill={MUTED}>
+              otwór kołowy · k_t ≈ 3
+            </text>
+
+            {showHotSpots && (
+              <text x={HX + 12} y={HY - HR - 10} fontSize={8.5} fontWeight={700} fill={LOAD}>
+                σmax = 360 MPa
+              </text>
+            )}
+
+            {isDecision && (
+              <text x={HX + 26} y={HY - HR + 3} fontSize={8} fill={LOAD}>
+                strefa plastyczna
+              </text>
+            )}
+
+            <text x={(PX0 + PX1) / 2} y={PY0 - 12} textAnchor="middle" fontSize={9} fill={LOAD}>
+              σ_nom = 120 MPa
+            </text>
+
+            {isModel && (
+              <g>
+                <text x={458} y={MOHR_AXIS_Y - 7} textAnchor="end" fontSize={8.5} fill={MUTED}>
+                  σ [MPa]
+                </text>
+                <text x={MOHS(0) + 6} y={66} fontSize={8.5} fill={MUTED}>
+                  τ [MPa]
+                </text>
+                <text x={MOHS(120)} y={MOHR_AXIS_Y + 18} textAnchor="middle" fontSize={8.5} fill={EDGE}>
+                  σ = 120 MPa
+                </text>
+                <text x={340} y={82} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  nominalny stan jednoosiowy
+                </text>
+              </g>
+            )}
+
+            {isField && (
+              <g>
+                <text x={250} y={56} fontSize={9} fontWeight={700} fill={INK}>
+                  rozkład σ wzdłuż blachy
+                </text>
+                <text x={PLOT_X0 + 4} y={nominalY - 5} fontSize={8} fill={MUTED}>
+                  120 MPa
+                </text>
+                <text x={PLOT_X1 - 2} y={reY - 5} textAnchor="end" fontSize={8} fill={GREEN}>
+                  R_e = 235 MPa
+                </text>
+                <text x={holeLeft - 4} y={peakY - 9} textAnchor="end" fontSize={8.5} fontWeight={700} fill={LOAD}>
+                  {pl(peak, 0)} MPa
+                </text>
+                <text x={PLOT_X1} y={PLOT_Y1 + 14} textAnchor="end" fontSize={8} fill={MUTED}>
+                  położenie w blasze
+                </text>
+                <text x={PLOT_X0 - 4} y={PLOT_Y0 - 2} textAnchor="end" fontSize={8} fill={MUTED}>
+                  σ
+                </text>
+              </g>
+            )}
+
+            {isCircle && (
+              <g>
+                <text x={458} y={MOHR_AXIS_Y - 7} textAnchor="end" fontSize={8.5} fill={MUTED}>
+                  σ [MPa]
+                </text>
+                <text x={MOHS(0) + 6} y={66} fontSize={8.5} fill={MUTED}>
+                  τ [MPa]
+                </text>
+                <text x={MOHS(60)} y={MOHR_AXIS_Y - 42} textAnchor="middle" fontSize={8} fill={MUTED}>
+                  nominalny
+                </text>
+                <text x={MOHS(360)} y={MOHR_AXIS_Y + 18} textAnchor="middle" fontSize={8.5} fill={EDGE}>
+                  σ1 = 360
+                </text>
+                <text x={localCenter} y={MOHR_AXIS_Y - 7} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  σavg = 180
+                </text>
+                <text x={localCenter + 6} y={MOHR_AXIS_Y - localRadius + 12} fontSize={8.5} fill={LOAD}>
+                  τmax = 180
+                </text>
+                <text x={MOHS(0) + 5} y={MOHR_AXIS_Y + 16} fontSize={8} fill={MUTED}>
+                  σ2 = σ3 = 0
+                </text>
+                <text x={250} y={52} fontSize={8.5} fill={MUTED}>
+                  lokalny stan jednoosiowy: σ1 = 360 MPa
+                </text>
+              </g>
+            )}
+
+            {isCompare && <CompareBars progress={progress} textOnly />}
+            {isDecision && <LocalSafety progress={progress} textOnly />}
+
+            <text x={466} y={292} textAnchor="end" fontSize={8} fill={MUTED}>
+              {isModel
+                ? 'model i dane'
+                : isField
+                  ? 'pole naprężeń przy otworze'
+                  : isCircle
+                    ? 'lokalne koło Mohra'
+                    : isCompare
+                      ? 'porównanie z R_e'
+                      : 'wniosek inżynierski'}
+            </text>
+          </g>
         </svg>
       </div>
     </div>

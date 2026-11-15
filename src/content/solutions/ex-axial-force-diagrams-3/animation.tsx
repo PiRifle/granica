@@ -170,7 +170,7 @@ export function AxialForceInverseAnimation({ scene, index, playing, sceneProgres
               <motion.text
                 key={segment}
                 x={midpoint(segment + 1)}
-                y={124}
+                y={112}
                 textAnchor="middle"
                 fontSize={9}
                 fontWeight={700}
@@ -221,7 +221,7 @@ export function AxialForceInverseAnimation({ scene, index, playing, sceneProgres
             <line
               key={boundary}
               x1={XS[boundary]}
-              y1={132}
+              y1={150}
               x2={XS[boundary]}
               y2={N_Y}
               stroke={MUTED}

@@ -381,7 +381,7 @@ export function PartialLoadAnimation({ scene, playing, sceneProgress }: Solution
               />
               <MomentArc x={cut} reverse label="M = 4,5 kN·m" labelX={cut + 8} />
               <Dimension x1={cut} x2={X1} y={BEAM_Y + 92} label="1,5 m" />
-              <text x={cut + 12} y={BEAM_Y + 68} fontSize={8.5} fill={REACT}>
+              <text x={cut + 12} y={BEAM_Y + 118} fontSize={8.5} fill={REACT}>
                 prawa część bez obciążenia
               </text>
             </g>

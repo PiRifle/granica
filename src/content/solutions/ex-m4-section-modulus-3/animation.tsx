@@ -136,8 +136,8 @@ export function SectionModulusExample3Animation({ scene, playing, sceneProgress 
                 animate={{ pathLength: 1, opacity: 1 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               />
-              <text x={singleX + singleW + 15} y={singleNA - 5} fontSize={8} fill={TENSION}>
-                oś obojętna
+              <text x={singleX + singleW + 4} y={singleNA - 7} fontSize={8} fill={TENSION}>
+                oś oboj.
               </text>
 
               <line

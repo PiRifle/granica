@@ -18,6 +18,8 @@ const DX = 28
 const DY = 18
 const RAD = Math.PI / 180
 
+type RenderMode = 'both' | 'shapes' | 'labels'
+
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 const smooth = (value: number) => {
   const t = clamp01(value)
@@ -39,6 +41,7 @@ function Arrow({
   labelDy = 0,
   labelAnchor = 'middle',
   dashed = false,
+  mode = 'both',
 }: {
   x: number
   y: number
@@ -52,6 +55,7 @@ function Arrow({
   labelDy?: number
   labelAnchor?: 'start' | 'middle' | 'end'
   dashed?: boolean
+  mode?: RenderMode
 }) {
   if (length <= 1) return null
   const len = Math.min(length, 190)
@@ -65,27 +69,31 @@ function Arrow({
 
   return (
     <g>
-      <line
-        x1={x}
-        y1={y}
-        x2={tx}
-        y2={ty}
-        stroke={color}
-        strokeWidth={width}
-        strokeLinecap="round"
-        strokeDasharray={dashed ? '5 4' : undefined}
-      />
-      {len > 6 && (
-        <path
-          d={`M ${bx + px * head * 0.55} ${by + py * head * 0.55} L ${tx} ${ty} L ${bx - px * head * 0.55} ${by - py * head * 0.55}`}
-          fill="none"
-          stroke={color}
-          strokeWidth={width}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+      {mode !== 'labels' && (
+        <>
+          <line
+            x1={x}
+            y1={y}
+            x2={tx}
+            y2={ty}
+            stroke={color}
+            strokeWidth={width}
+            strokeLinecap="round"
+            strokeDasharray={dashed ? '5 4' : undefined}
+          />
+          {len > 6 && (
+            <path
+              d={`M ${bx + px * head * 0.55} ${by + py * head * 0.55} L ${tx} ${ty} L ${bx - px * head * 0.55} ${by - py * head * 0.55}`}
+              fill="none"
+              stroke={color}
+              strokeWidth={width}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
+        </>
       )}
-      {label && (
+      {mode !== 'shapes' && label && (
         <text
           x={tx + ux * 9 + labelDx}
           y={ty + uy * 9 + labelDy}
@@ -132,7 +140,7 @@ function Cube({ opacity = 1 }: { opacity?: number }) {
   )
 }
 
-function InvariantBars({ progress }: { progress: number }) {
+function InvariantBars({ progress, mode = 'both' }: { progress: number; mode?: RenderMode }) {
   const x = 100
   const scale = 1.5
   const sigmaN = 125.98
@@ -144,73 +152,81 @@ function InvariantBars({ progress }: { progress: number }) {
 
   return (
     <g>
-      <text x={x - 8} y={269} textAnchor="end" fontSize={9} fill={MUTED}>
-        σn + σt
-      </text>
-      <rect x={x} y={260} width={total * scale} height={barHeight} fill="#eef2f8" stroke="#c9d0d9" />
-      <motion.rect
-        x={x}
-        y={260}
-        height={barHeight}
-        fill={BLUE}
-        fillOpacity={0.75}
-        initial={{ width: 0 }}
-        animate={{ width: sigmaN * scale * progress }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
-      />
-      <motion.rect
-        x={x + sigmaN * scale}
-        y={260}
-        height={barHeight}
-        fill={GREEN}
-        fillOpacity={0.75}
-        initial={{ width: 0 }}
-        animate={{ width: sigmaT * scale * progress }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
-      />
-      <text x={x + 8} y={269} fontSize={8.5} fill="#ffffff" fontWeight={600}>
-        σn
-      </text>
-      <text x={x + sigmaN * scale + 6} y={269} fontSize={8.5} fill="#ffffff" fontWeight={600}>
-        σt
-      </text>
-      <text x={x + total * scale + 8} y={269} fontSize={9} fill={INK}>
-        160 MPa
-      </text>
+      {mode !== 'labels' && (
+        <>
+          <rect x={x} y={260} width={total * scale} height={barHeight} fill="#eef2f8" stroke="#c9d0d9" />
+          <motion.rect
+            x={x}
+            y={260}
+            height={barHeight}
+            fill={BLUE}
+            fillOpacity={0.75}
+            initial={{ width: 0 }}
+            animate={{ width: sigmaN * scale * progress }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
+          />
+          <motion.rect
+            x={x + sigmaN * scale}
+            y={260}
+            height={barHeight}
+            fill={GREEN}
+            fillOpacity={0.75}
+            initial={{ width: 0 }}
+            animate={{ width: sigmaT * scale * progress }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
+          />
+          <rect x={x} y={288} width={total * scale} height={barHeight} fill="#eef2f8" stroke="#c9d0d9" />
+          <motion.rect
+            x={x}
+            y={288}
+            height={barHeight}
+            fill={BLUE}
+            fillOpacity={0.45}
+            initial={{ width: 0 }}
+            animate={{ width: sigmaX * scale * progress }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
+          />
+          <motion.rect
+            x={x + sigmaX * scale}
+            y={288}
+            height={barHeight}
+            fill={GREEN}
+            fillOpacity={0.45}
+            initial={{ width: 0 }}
+            animate={{ width: sigmaY * scale * progress }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
+          />
+        </>
+      )}
+      {mode !== 'shapes' && (
+        <>
+          <text x={x - 8} y={269} textAnchor="end" fontSize={9} fill={MUTED}>
+            σn + σt
+          </text>
+          <text x={x + 8} y={269} fontSize={8.5} fill="#ffffff" fontWeight={600}>
+            σn
+          </text>
+          <text x={x + sigmaN * scale + 6} y={269} fontSize={8.5} fill="#ffffff" fontWeight={600}>
+            σt
+          </text>
+          <text x={x + total * scale + 8} y={269} fontSize={9} fill={INK}>
+            160 MPa
+          </text>
 
-      <text x={x - 8} y={297} textAnchor="end" fontSize={9} fill={MUTED}>
-        σx + σy
-      </text>
-      <rect x={x} y={288} width={total * scale} height={barHeight} fill="#eef2f8" stroke="#c9d0d9" />
-      <motion.rect
-        x={x}
-        y={288}
-        height={barHeight}
-        fill={BLUE}
-        fillOpacity={0.45}
-        initial={{ width: 0 }}
-        animate={{ width: sigmaX * scale * progress }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
-      />
-      <motion.rect
-        x={x + sigmaX * scale}
-        y={288}
-        height={barHeight}
-        fill={GREEN}
-        fillOpacity={0.45}
-        initial={{ width: 0 }}
-        animate={{ width: sigmaY * scale * progress }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
-      />
-      <text x={x + 8} y={297} fontSize={8.5} fill={INK} fontWeight={600}>
-        σx
-      </text>
-      <text x={x + sigmaX * scale + 6} y={297} fontSize={8.5} fill={INK} fontWeight={600}>
-        σy
-      </text>
-      <text x={x + total * scale + 8} y={297} fontSize={9} fill={INK}>
-        160 MPa
-      </text>
+          <text x={x - 8} y={297} textAnchor="end" fontSize={9} fill={MUTED}>
+            σx + σy
+          </text>
+          <text x={x + 8} y={297} fontSize={8.5} fill={INK} fontWeight={600}>
+            σx
+          </text>
+          <text x={x + sigmaX * scale + 6} y={297} fontSize={8.5} fill={INK} fontWeight={600}>
+            σy
+          </text>
+          <text x={x + total * scale + 8} y={297} fontSize={9} fill={INK}>
+            160 MPa
+          </text>
+        </>
+      )}
     </g>
   )
 }
@@ -245,6 +261,139 @@ export function StressRotationExample1Animation({ scene, playing, sceneProgress 
 
   const arcEnd = [CX + 36 * cos, CY - 36 * sin] as const
 
+  const modelArrows = [
+    {
+      x: rightFace[0],
+      y: rightFace[1],
+      ux: 1,
+      uy: 0,
+      length: stressLength(sigmaX),
+      color: BLUE,
+      label: 'σx',
+      labelDy: -6,
+    },
+    {
+      x: topFace[0],
+      y: topFace[1],
+      ux: 0,
+      uy: -1,
+      length: stressLength(sigmaY),
+      color: GREEN,
+      label: 'σy',
+      labelDx: 10,
+    },
+    {
+      x: rightFace[0] + n[0] * 10,
+      y: rightFace[1] + n[1] * 10,
+      ux: t[0],
+      uy: t[1],
+      length: stressLength(tauXY),
+      color: ORANGE,
+      label: 'τxy',
+      labelDx: 8,
+      labelDy: 4,
+    },
+    {
+      x: topFace[0] + t[0] * 10,
+      y: topFace[1] + t[1] * 10,
+      ux: n[0],
+      uy: n[1],
+      length: stressLength(tauXY),
+      color: ORANGE,
+      label: 'τxy',
+      labelDy: -8,
+    },
+  ] as const
+  const rotateArrows = [
+    {
+      x: rightFace[0],
+      y: rightFace[1],
+      ux: n[0],
+      uy: n[1],
+      length: stressLength(liveSigma),
+      color: BLUE,
+      width: 2.5,
+      label: 'σn(θ)',
+      labelDx: 7,
+      labelDy: -4,
+      labelAnchor: 'start',
+    },
+    {
+      x: rightFace[0] + n[0] * 12,
+      y: rightFace[1] + n[1] * 12,
+      ux: liveTau >= 0 ? t[0] : -t[0],
+      uy: liveTau >= 0 ? t[1] : -t[1],
+      length: stressLength(liveTau),
+      color: ORANGE,
+      label: 'τnt(θ)',
+      labelDx: 7,
+      labelDy: 8,
+      labelAnchor: 'start',
+    },
+    {
+      x: topFace[0],
+      y: topFace[1],
+      ux: t[0],
+      uy: t[1],
+      length: stressLength(liveSigmaT),
+      color: GREEN,
+      width: 1.8,
+      label: 'σt(θ)',
+      labelDx: -5,
+      labelDy: -5,
+      labelAnchor: 'end',
+    },
+  ] as const
+  const componentArrows = [
+    {
+      x: rightFace[0],
+      y: rightFace[1],
+      ux: n[0],
+      uy: n[1],
+      length: stressLength(sigmaN) * amp,
+      color: BLUE,
+      width: 2.6,
+      label: 'σn',
+      labelDx: 8,
+      labelDy: -4,
+      labelAnchor: 'start',
+    },
+    {
+      x: rightFace[0] + n[0] * 12,
+      y: rightFace[1] + n[1] * 12,
+      ux: -t[0],
+      uy: -t[1],
+      length: stressLength(tauNT) * amp,
+      color: ORANGE,
+      label: 'τnt',
+      labelDx: 7,
+      labelDy: 8,
+      labelAnchor: 'start',
+    },
+    {
+      x: topFace[0],
+      y: topFace[1],
+      ux: t[0],
+      uy: t[1],
+      length: stressLength(sigmaT) * amp,
+      color: GREEN,
+      width: 2.4,
+      label: 'σt',
+      labelDx: -5,
+      labelDy: -5,
+      labelAnchor: 'end',
+    },
+    {
+      x: topFace[0] + t[0] * 12,
+      y: topFace[1] + t[1] * 12,
+      ux: n[0],
+      uy: n[1],
+      length: stressLength(tauNT) * amp,
+      color: ORANGE,
+      label: '',
+    },
+  ] as const
+
   return (
     <div className={local('figure')}>
       <div className={local('figure-canvas')}>
@@ -266,13 +415,6 @@ export function StressRotationExample1Animation({ scene, playing, sceneProgress 
               <path d="M0 0 L10 5 L0 10 Z" fill={VIOLET} />
             </marker>
           </defs>
-
-          <text x={14} y={22} fontSize={9.5} fill={MUTED}>
-            σx = 120 MPa · σy = 40 MPa · τxy = 30 MPa
-          </text>
-          <text x={14} y={38} fontSize={9.5} fill={VIOLET} fontWeight={600}>
-            θ = 30°
-          </text>
 
           <Cube opacity={showComponents || metric === 'check' ? 0.45 : 1} />
 
@@ -298,12 +440,6 @@ export function StressRotationExample1Animation({ scene, playing, sceneProgress 
                 strokeDasharray="4 3"
                 markerEnd="url(#ssr1-arc)"
               />
-              <text x={CX + 106} y={CY + 4} fontSize={9} fill={MUTED}>
-                x
-              </text>
-              <text x={CX + 5} y={CY - 106} fontSize={9} fill={MUTED}>
-                y
-              </text>
             </g>
           )}
 
@@ -318,19 +454,14 @@ export function StressRotationExample1Animation({ scene, playing, sceneProgress 
                 strokeWidth={2}
                 strokeDasharray="7 5"
               />
-              <Arrow x={CX} y={CY} ux={n[0]} uy={n[1]} length={64} color={VIOLET} width={2} label="n" />
+              <Arrow x={CX} y={CY} ux={n[0]} uy={n[1]} length={64} color={VIOLET} width={2} label="n" mode="shapes" />
               {metric === 'rotate' && (
-                <g>
-                  <path
-                    d={`M ${CX + 36} ${CY} A 36 36 0 0 0 ${arcEnd[0]} ${arcEnd[1]}`}
-                    fill="none"
-                    stroke={VIOLET}
-                    strokeWidth={1.5}
-                  />
-                  <text x={CX + 43} y={CY - 17} fontSize={10} fontWeight={600} fill={VIOLET}>
-                    θ
-                  </text>
-                </g>
+                <path
+                  d={`M ${CX + 36} ${CY} A 36 36 0 0 0 ${arcEnd[0]} ${arcEnd[1]}`}
+                  fill="none"
+                  stroke={VIOLET}
+                  strokeWidth={1.5}
+                />
               )}
               {metric !== 'rotate' && (
                 <polygon
@@ -358,90 +489,17 @@ export function StressRotationExample1Animation({ scene, playing, sceneProgress 
               animate={{ opacity: 1 }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
             >
-              <Arrow
-                x={rightFace[0]}
-                y={rightFace[1]}
-                ux={1}
-                uy={0}
-                length={stressLength(sigmaX)}
-                color={BLUE}
-                label="σx"
-                labelDy={-6}
-              />
-              <Arrow
-                x={topFace[0]}
-                y={topFace[1]}
-                ux={0}
-                uy={-1}
-                length={stressLength(sigmaY)}
-                color={GREEN}
-                label="σy"
-                labelDx={10}
-              />
-              <Arrow
-                x={rightFace[0] + n[0] * 10}
-                y={rightFace[1] + n[1] * 10}
-                ux={t[0]}
-                uy={t[1]}
-                length={stressLength(tauXY)}
-                color={ORANGE}
-                label="τxy"
-                labelDx={8}
-                labelDy={4}
-              />
-              <Arrow
-                x={topFace[0] + t[0] * 10}
-                y={topFace[1] + t[1] * 10}
-                ux={n[0]}
-                uy={n[1]}
-                length={stressLength(tauXY)}
-                color={ORANGE}
-                label="τxy"
-                labelDy={-8}
-              />
+              {modelArrows.map((arrow, index) => (
+                <Arrow key={index} {...arrow} mode="shapes" />
+              ))}
             </motion.g>
           )}
 
           {metric === 'rotate' && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-              <Arrow
-                x={rightFace[0]}
-                y={rightFace[1]}
-                ux={n[0]}
-                uy={n[1]}
-                length={stressLength(liveSigma)}
-                color={BLUE}
-                width={2.5}
-                label="σn(θ)"
-                labelDx={7}
-                labelDy={-4}
-                labelAnchor="start"
-              />
-              <Arrow
-                x={rightFace[0] + n[0] * 12}
-                y={rightFace[1] + n[1] * 12}
-                ux={liveTau >= 0 ? t[0] : -t[0]}
-                uy={liveTau >= 0 ? t[1] : -t[1]}
-                length={stressLength(liveTau)}
-                color={ORANGE}
-                label="τnt(θ)"
-                labelDx={7}
-                labelDy={8}
-                labelAnchor="start"
-              />
-              <Arrow
-                x={topFace[0]}
-                y={topFace[1]}
-                ux={t[0]}
-                uy={t[1]}
-                length={stressLength(liveSigmaT)}
-                color={GREEN}
-                width={1.8}
-                label="σt(θ)"
-                labelDx={-5}
-                labelDy={-5}
-                labelAnchor="end"
-              />
+              {rotateArrows.map((arrow, index) => (
+                <Arrow key={index} {...arrow} mode="shapes" />
+              ))}
             </motion.g>
           )}
 
@@ -451,62 +509,9 @@ export function StressRotationExample1Animation({ scene, playing, sceneProgress 
               animate={{ opacity: 1 }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
             >
-              <Arrow
-                x={rightFace[0]}
-                y={rightFace[1]}
-                ux={n[0]}
-                uy={n[1]}
-                length={stressLength(sigmaN) * amp}
-                color={BLUE}
-                width={2.6}
-                label="σn"
-                labelDx={8}
-                labelDy={-4}
-                labelAnchor="start"
-              />
-              <Arrow
-                x={rightFace[0] + n[0] * 12}
-                y={rightFace[1] + n[1] * 12}
-                ux={-t[0]}
-                uy={-t[1]}
-                length={stressLength(tauNT) * amp}
-                color={ORANGE}
-                label="τnt"
-                labelDx={7}
-                labelDy={8}
-                labelAnchor="start"
-              />
-              <Arrow
-                x={topFace[0]}
-                y={topFace[1]}
-                ux={t[0]}
-                uy={t[1]}
-                length={stressLength(sigmaT) * amp}
-                color={GREEN}
-                width={2.4}
-                label="σt"
-                labelDx={-5}
-                labelDy={-5}
-                labelAnchor="end"
-              />
-              <Arrow
-                x={topFace[0] + t[0] * 12}
-                y={topFace[1] + t[1] * 12}
-                ux={n[0]}
-                uy={n[1]}
-                length={stressLength(tauNT) * amp}
-                color={ORANGE}
-                label=""
-              />
-              <text
-                x={planeEnd[0] + 6}
-                y={planeEnd[1] + 4}
-                fontSize={8.5}
-                fill={VIOLET}
-                transform={`rotate(${-angle / RAD} ${planeEnd[0] + 6} ${planeEnd[1] + 4})`}
-              >
-                przekrój n
-              </text>
+              {componentArrows.map((arrow, index) => (
+                <Arrow key={index} {...arrow} mode="shapes" />
+              ))}
             </motion.g>
           )}
 
@@ -519,25 +524,109 @@ export function StressRotationExample1Animation({ scene, playing, sceneProgress 
                   <g key={value}>
                     <line x1={px} y1={276} x2={px} y2={288} stroke={MUTED} strokeWidth={1.2} />
                     <circle cx={px} cy={282} r={3} fill={value === 80 ? VIOLET : BLUE} />
-                    <text x={px} y={300} textAnchor="middle" fontSize={9} fill={MUTED}>
-                      {value}
-                    </text>
                   </g>
                 )
               })}
               <line x1={228} y1={276} x2={292} y2={276} stroke={ORANGE} strokeWidth={1.4} />
               <line x1={228} y1={270} x2={228} y2={282} stroke={ORANGE} strokeWidth={1.2} />
               <line x1={292} y1={270} x2={292} y2={282} stroke={ORANGE} strokeWidth={1.2} />
-              <text x={260} y={268} textAnchor="middle" fontSize={9} fill={ORANGE}>
-                a = 40 MPa
-              </text>
-              <text x={228} y={316} textAnchor="middle" fontSize={9} fill={VIOLET} fontWeight={600}>
-                σavg = 80 MPa
-              </text>
             </motion.g>
           )}
 
-          {metric === 'check' && <InvariantBars progress={p} />}
+          {metric === 'check' && <InvariantBars progress={p} mode="shapes" />}
+
+          <g>
+            <text x={14} y={22} fontSize={9.5} fill={MUTED}>
+              σx = 120 MPa · σy = 40 MPa · τxy = 30 MPa
+            </text>
+            <text x={14} y={38} fontSize={9.5} fill={VIOLET} fontWeight={600}>
+              θ = 30°
+            </text>
+
+            {(metric === 'rotate' || metric === 'decompose') && (
+              <g>
+                <text x={CX + 106} y={CY + 4} fontSize={9} fill={MUTED}>
+                  x
+                </text>
+                <text x={CX + 5} y={CY - 106} fontSize={9} fill={MUTED}>
+                  y
+                </text>
+              </g>
+            )}
+
+            {rotated && (
+              <g>
+                <Arrow x={CX} y={CY} ux={n[0]} uy={n[1]} length={64} color={VIOLET} width={2} label="n" mode="labels" />
+                {metric === 'rotate' && (
+                  <text x={CX + 43} y={CY - 17} fontSize={10} fontWeight={600} fill={VIOLET}>
+                    θ
+                  </text>
+                )}
+              </g>
+            )}
+
+            {metric === 'model' && (
+              <motion.g
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+              >
+                {modelArrows.map((arrow, index) => (
+                  <Arrow key={index} {...arrow} mode="labels" />
+                ))}
+              </motion.g>
+            )}
+
+            {metric === 'rotate' && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
+                {rotateArrows.map((arrow, index) => (
+                  <Arrow key={index} {...arrow} mode="labels" />
+                ))}
+              </motion.g>
+            )}
+
+            {showComponents && (
+              <motion.g
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+              >
+                {componentArrows.map((arrow, index) => (
+                  <Arrow key={index} {...arrow} mode="labels" />
+                ))}
+                <text
+                  x={planeEnd[0] + 6}
+                  y={planeEnd[1] + 4}
+                  fontSize={8.5}
+                  fill={VIOLET}
+                  transform={`rotate(${-angle / RAD} ${planeEnd[0] + 6} ${planeEnd[1] + 4})`}
+                >
+                  przekrój n
+                </text>
+              </motion.g>
+            )}
+
+            {metric === 'decompose' && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+                {[40, 80, 120].map((value) => {
+                  const px = 100 + value * 1.6
+                  return (
+                    <text key={value} x={px} y={300} textAnchor="middle" fontSize={9} fill={MUTED}>
+                      {value}
+                    </text>
+                  )
+                })}
+                <text x={260} y={268} textAnchor="middle" fontSize={9} fill={ORANGE}>
+                  a = 40 MPa
+                </text>
+                <text x={228} y={316} textAnchor="middle" fontSize={9} fill={VIOLET} fontWeight={600}>
+                  σavg = 80 MPa
+                </text>
+              </motion.g>
+            )}
+
+            {metric === 'check' && <InvariantBars progress={p} mode="labels" />}
+          </g>
         </svg>
       </div>
     </div>

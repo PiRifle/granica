@@ -78,7 +78,7 @@ function Axis({
         strokeDasharray={dashed ? '6 4' : undefined}
       />
       {label && (
-        <text x={AXIS_FROM - 2} y={y - 5} fontSize={9} fill={color}>
+        <text x={AXIS_TO - 2} y={y - 5} textAnchor="end" fontSize={9} fill={color}>
           {label}
         </text>
       )}
@@ -116,8 +116,8 @@ export function SteinerParallelAxis3Animation({ scene, index, playing, sceneProg
           </text>
 
           <rect x={sx(0)} y={sy(40)} width={180} height={60} fill="#f2f5fa" stroke="#7d8fa5" strokeWidth={1.4} />
-          <text x={sx(60)} y={sy(20) + 3} textAnchor="middle" fontSize={9} fill={MUTED}>
-            prostokąt 120 × 40
+          <text x={sx(0) + 4} y={sy(0) - 8} textAnchor="start" fontSize={9} fill={MUTED}>
+            prostokąt 120×40
           </text>
 
           {index !== 4 ? (

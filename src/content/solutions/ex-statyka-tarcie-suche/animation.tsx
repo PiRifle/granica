@@ -111,11 +111,14 @@ export function DryFrictionAnimation({ index, playing, sceneProgress }: Solution
               stroke="#4f6df5"
               strokeWidth="2.4"
             />
-            <text x={BOX.x + BOX.w / 2} y={BOX.y + 30} textAnchor="middle" fontSize="12" fill={INK}>
+            <text x={BOX.x + 76} y={BOX.y + 30} fontSize="12" fill={INK}>
               G = 100 N
             </text>
-            <text x={BOX.x + BOX.w / 2} y={BOX.y + 50} textAnchor="middle" fontSize="10" fill={MUTED}>
-              μs = 0,30 · μk = 0,25
+            <text x={BOX.x + 6} y={BOX.y + 30} fontSize="10" fill={MUTED}>
+              μs = 0,30
+            </text>
+            <text x={BOX.x + 6} y={BOX.y + 48} fontSize="10" fill={MUTED}>
+              μk = 0,25
             </text>
           </motion.g>
 
@@ -194,7 +197,7 @@ export function DryFrictionAnimation({ index, playing, sceneProgress }: Solution
           )}
 
           {showKinetic && index < 5 && (
-            <text x={BOX.x + 10} y={GROUND_Y - 8} fontSize="10" fill={index === 3 ? DRIVE : NORMAL}>
+            <text x={BOX.x + 10} y={BOX.y - 10} fontSize="10" fill={index === 3 ? DRIVE : NORMAL}>
               {index === 3 ? 'poślizg: tarcie spada do 25 N' : 'ruch jednostajny: P = T_k = 25 N'}
             </text>
           )}

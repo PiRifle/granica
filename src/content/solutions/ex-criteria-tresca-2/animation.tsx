@@ -104,7 +104,7 @@ function StressElement({ draw, faded = false }: { draw: number; faded?: boolean 
       <text x={x1 + lenX + 3} y={cy - 5} fontSize={8.5} fontWeight={700} fill={BLUE}>
         σ_x = 90
       </text>
-      <text x={cx + 5} y={y0 - lenY - 4} fontSize={8.5} fontWeight={700} fill={GREEN}>
+      <text x={cx - 5} y={y0 - lenY - 4} textAnchor="end" fontSize={8.5} fontWeight={700} fill={GREEN}>
         σ_y = 30
       </text>
       <text x={x1 - 2} y={y0 - 14} fontSize={8.5} fontWeight={700} fill={ORANGE}>
@@ -124,7 +124,7 @@ function AxesTriad() {
         orientacja blachy
       </text>
       <text x={MOHR_X0} y={93} fontSize={8.5} fill={MUTED}>
-        płaszczyzna xy, kierunek z jest wolny
+        płaszczyzna xy
       </text>
       <line x1={280} y1={200} x2={390} y2={200} stroke={BLUE} strokeWidth={1.4} markerEnd="url(#tresca2-arrow-blue)" />
       <line x1={280} y1={200} x2={280} y2={98} stroke={GREEN} strokeWidth={1.4} markerEnd="url(#tresca2-arrow-green)" />
@@ -167,7 +167,7 @@ function Axes({ metric }: { metric: string }) {
         σ [MPa]
       </text>
       <line x1={mx(0)} y1={MOHR_Y + 72} x2={mx(0)} y2={MOHR_Y - 118} stroke={LIGHT} strokeWidth={1} />
-      <text x={mx(0) + 5} y={MOHR_Y - 116} fontSize={8} fill={MUTED}>
+      <text x={mx(0) + 5} y={MOHR_Y - 130} fontSize={8} fill={MUTED}>
         τ
       </text>
       {[0, 30, 60, 90].map((tick) => (
@@ -265,28 +265,28 @@ function CircleScene({ metric, draw }: { metric: string; draw: number }) {
   if (metric === 'circle') {
     return (
       <g>
-        <text x={MOHR_X0} y={78} fontSize={10} fontWeight={700} fill={INK}>
-          koło Mohra w płaszczyźnie xy
-        </text>
-        <text x={MOHR_X0} y={93} fontSize={8.5} fill={MUTED}>
-          środek C i promień R
-        </text>
-        <Axes metric={metric} />
         <Circle center={C} radius={R} draw={first} color={VIOLET} width={2.5} />
         <line x1={mx(C)} y1={MOHR_Y} x2={mx(C)} y2={mY(R)} stroke={VIOLET} strokeWidth={1.8} />
+        <circle cx={mx(C)} cy={MOHR_Y} r={3.2} fill={INK} />
+        <Axes metric={metric} />
+        <PrincipalMarkers metric={metric} />
         <text x={mx(C) + 6} y={mY(R) + 15} fontSize={8.5} fontWeight={700} fill={VIOLET}>
           R = 36,06 MPa
         </text>
-        <circle cx={mx(C)} cy={MOHR_Y} r={3.2} fill={INK} />
         <text x={mx(C)} y={MOHR_Y + 32} textAnchor="middle" fontSize={8.5} fill={INK}>
           C = 60
         </text>
-        <PrincipalMarkers metric={metric} />
         <text x={mx(0)} y={MOHR_Y - 10} textAnchor="middle" fontSize={8} fill={MUTED}>
           0
         </text>
         <text x={MOHR_X0} y={252} fontSize={8.5} fill={MUTED}>
           Zero leży poza kołem xy, bo σ₂ = 23,94 MPa &gt; 0.
+        </text>
+        <text x={MOHR_X0} y={78} fontSize={10} fontWeight={700} fill={INK}>
+          koło Mohra w płaszczyźnie xy
+        </text>
+        <text x={MOHR_X0} y={93} fontSize={8.5} fill={MUTED}>
+          środek C i promień R
         </text>
       </g>
     )
@@ -294,13 +294,6 @@ function CircleScene({ metric, draw }: { metric: string; draw: number }) {
 
   return (
     <g>
-      <text x={MOHR_X0} y={78} fontSize={10} fontWeight={700} fill={INK}>
-        {metric === 'three' ? 'trzy koła Mohra' : 'największa różnica'}
-      </text>
-      <text x={MOHR_X0} y={93} fontSize={8.5} fill={MUTED}>
-        {metric === 'three' ? 'pary (1,2), (2,3) i (3,1)' : 'σ₁ − σ₃, a nie σ₁ − σ₂'}
-      </text>
-      <Axes metric={metric} />
       <Circle
         center={(S1 + S2) / 2}
         radius={(S1 - S2) / 2}
@@ -320,6 +313,7 @@ function CircleScene({ metric, draw }: { metric: string; draw: number }) {
         opacity={showThree ? 0.8 : 0.2}
       />
       <Circle center={(S1 + S3) / 2} radius={(S1 - S3) / 2} draw={third} color={ORANGE} width={2.7} opacity={1} />
+      <Axes metric={metric} />
       <PrincipalMarkers metric={metric} />
 
       {metric === 'three' && (
@@ -366,6 +360,13 @@ function CircleScene({ metric, draw }: { metric: string; draw: number }) {
           </text>
         </motion.g>
       )}
+
+      <text x={MOHR_X0} y={78} fontSize={10} fontWeight={700} fill={INK}>
+        {metric === 'three' ? 'trzy koła Mohra' : 'największa różnica'}
+      </text>
+      <text x={MOHR_X0} y={93} fontSize={8.5} fill={MUTED}>
+        {metric === 'three' ? 'pary (1,2), (2,3) i (3,1)' : 'σ₁ − σ₃, a nie σ₁ − σ₂'}
+      </text>
     </g>
   )
 }

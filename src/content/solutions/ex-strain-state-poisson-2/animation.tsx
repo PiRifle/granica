@@ -101,13 +101,6 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
             </marker>
           </defs>
 
-          <text x={14} y={18} fontSize={10.5} fontWeight={700} fill={INK}>
-            blacha: płaski stan naprężenia
-          </text>
-          <text x={14} y={33} fontSize={8.5} fill={MUTED}>
-            σ_z = 0 · ε_x = 800 με · ε_y = 400 με · ν = 0,30
-          </text>
-
           <polygon
             points={original.top}
             fill="none"
@@ -149,18 +142,6 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
             strokeWidth={2}
           />
 
-          <text x={FRONT_X + 8} y={FRONT_Y + 18} fontSize={8.5} fill={MUTED}>
-            płaszczyzna x–y
-          </text>
-          <text
-            x={FRONT_X + w + dx + 8}
-            y={FRONT_Y + dy + 14}
-            fontSize={8.5}
-            fill={showThicknessDetail ? LATERAL : MUTED}
-          >
-            grubość z
-          </text>
-
           {showStress && (
             <g stroke={LATERAL} fill={LATERAL}>
               <line
@@ -171,9 +152,6 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
                 strokeWidth={2}
                 markerEnd="url(#p2-stress)"
               />
-              <text x={midX - 42} y={bottomEdge + 14} fontSize={9} stroke="none">
-                σ_x
-              </text>
               <line
                 x1={FRONT_X - 18}
                 y1={midY - 26}
@@ -182,22 +160,6 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
                 strokeWidth={2}
                 markerEnd="url(#p2-stress)"
               />
-              <text x={FRONT_X - 24} y={midY - 32} fontSize={9} textAnchor="end" stroke="none">
-                σ_y
-              </text>
-              <text x={FRONT_X + 8} y={bottomEdge - 8} fontSize={8.5} stroke="none" fill={LATERAL}>
-                σ_z = 0 na swobodnych powierzchniach
-              </text>
-              {metric === 'check' && (
-                <>
-                  <text x={midX + 40} y={bottomEdge + 14} fontSize={8.5} stroke="none" fill={LATERAL}>
-                    202,20 MPa
-                  </text>
-                  <text x={FRONT_X - 24} y={midY + 36} fontSize={8.5} textAnchor="end" stroke="none" fill={LATERAL}>
-                    140,66 MPa
-                  </text>
-                </>
-              )}
             </g>
           )}
 
@@ -211,9 +173,6 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
                 strokeWidth={1.8}
                 markerEnd="url(#p2-strain)"
               />
-              <text x={midX - 38} y={bottomEdge + 14} fontSize={9} stroke="none">
-                ε_x = 800 με
-              </text>
               <line
                 x1={FRONT_X - 18}
                 y1={midY - 22}
@@ -222,28 +181,9 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
                 strokeWidth={1.8}
                 markerEnd="url(#p2-strain)"
               />
-              <text x={FRONT_X - 24} y={midY - 28} fontSize={9} textAnchor="end" stroke="none">
-                ε_y = 400 με
-              </text>
-              {metric === 'sum' && (
-                <text
-                  x={midX}
-                  y={bottomEdge + 38}
-                  textAnchor="middle"
-                  fontSize={9}
-                  fontWeight={700}
-                  fill={OK}
-                  stroke="none"
-                >
-                  ε_x + ε_y = 1200 με
-                </text>
-              )}
             </g>
           )}
 
-          <text x={ZOOM_X + ZOOM_W / 2} y={72} textAnchor="middle" fontSize={9} fill={MUTED}>
-            przekrój przez grubość
-          </text>
           <rect
             x={ZOOM_X}
             y={ZOOM_CY - ZOOM_H0 / 2}
@@ -293,12 +233,6 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
             stroke={MUTED}
             strokeWidth={1.1}
           />
-          <text x={ZOOM_X + ZOOM_W + 16} y={ZOOM_CY + 3} fontSize={8} fill={MUTED}>
-            z
-          </text>
-          <text x={ZOOM_X + ZOOM_W / 2} y={ZOOM_CY + ZOOM_H0 / 2 + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-            σ_z = 0
-          </text>
 
           {showThicknessDetail && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
@@ -327,21 +261,103 @@ export function PoissonExample2Animation({ scene, index, playing, sceneProgress 
                 stroke={LATERAL}
                 strokeWidth={1.1}
               />
-              <text x={ZOOM_X + ZOOM_W / 2} y={214} textAnchor="middle" fontSize={9} fontWeight={700} fill={LATERAL}>
-                {metric === 'ratio' ? 'ν/(1−ν) = 0,4286' : 'ε_z ≈ −514 με'}
-              </text>
             </motion.g>
           )}
 
-          {metric === 'check' && (
-            <text x={ZOOM_X + ZOOM_W / 2} y={230} textAnchor="middle" fontSize={8.5} fill={OK}>
-              ε_z ujemne mimo ε_x, ε_y &gt; 0
+          <g>
+            <text x={14} y={18} fontSize={10.5} fontWeight={700} fill={INK}>
+              blacha: płaski stan naprężenia
             </text>
-          )}
+            <text x={14} y={33} fontSize={8.5} fill={MUTED}>
+              σ_z = 0 · ε_x = 800 με · ε_y = 400 με · ν = 0,30
+            </text>
 
-          <text x={14} y={288} fontSize={8.5} fill={MUTED}>
-            rozciąganie w płaszczyźnie i skurcz grubości pokazano w skali poglądowej
-          </text>
+            <text x={FRONT_X + 8} y={FRONT_Y + 18} fontSize={8.5} fill={MUTED}>
+              płaszczyzna x–y
+            </text>
+            <text
+              x={FRONT_X + w + dx + 8}
+              y={FRONT_Y + dy + 14}
+              fontSize={8.5}
+              fill={showThicknessDetail ? LATERAL : MUTED}
+            >
+              grubość z
+            </text>
+
+            {showStress && (
+              <g fill={LATERAL}>
+                <text x={midX - 42} y={bottomEdge + 14} fontSize={9}>
+                  σ_x
+                </text>
+                <text x={FRONT_X - 24} y={midY - 32} fontSize={9} textAnchor="end">
+                  σ_y
+                </text>
+                <text x={FRONT_X + 8} y={bottomEdge - 8} fontSize={8.5}>
+                  σ_z = 0 na swobodnych powierzchniach
+                </text>
+                {metric === 'check' && (
+                  <>
+                    <text x={midX + 40} y={bottomEdge + 14} fontSize={8.5}>
+                      202,20 MPa
+                    </text>
+                    <text x={FRONT_X - 24} y={midY + 36} fontSize={8.5} textAnchor="end">
+                      140,66 MPa
+                    </text>
+                  </>
+                )}
+              </g>
+            )}
+
+            {showStrain && (
+              <g fill={ACCENT}>
+                <text x={midX - 38} y={bottomEdge + 14} fontSize={9}>
+                  ε_x = 800 με
+                </text>
+                <text x={FRONT_X - 24} y={midY - 28} fontSize={9} textAnchor="end">
+                  ε_y = 400 με
+                </text>
+                {metric === 'sum' && (
+                  <text x={midX} y={bottomEdge + 38} textAnchor="middle" fontSize={9} fontWeight={700} fill={OK}>
+                    ε_x + ε_y = 1200 με
+                  </text>
+                )}
+              </g>
+            )}
+
+            <text x={ZOOM_X + ZOOM_W / 2} y={72} textAnchor="middle" fontSize={9} fill={MUTED}>
+              przekrój przez grubość
+            </text>
+            <text x={ZOOM_X + ZOOM_W + 16} y={ZOOM_CY + 3} fontSize={8} fill={MUTED}>
+              z
+            </text>
+            <text
+              x={ZOOM_X + ZOOM_W / 2}
+              y={ZOOM_CY + ZOOM_H0 / 2 + 16}
+              textAnchor="middle"
+              fontSize={8.5}
+              fill={MUTED}
+            >
+              σ_z = 0
+            </text>
+
+            {showThicknessDetail && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
+                <text x={ZOOM_X + ZOOM_W / 2} y={214} textAnchor="middle" fontSize={9} fontWeight={700} fill={LATERAL}>
+                  {metric === 'ratio' ? 'ν/(1−ν) = 0,4286' : 'ε_z ≈ −514 με'}
+                </text>
+              </motion.g>
+            )}
+
+            {metric === 'check' && (
+              <text x={ZOOM_X + ZOOM_W / 2} y={230} textAnchor="middle" fontSize={8.5} fill={OK}>
+                ε_z ujemne mimo ε_x, ε_y &gt; 0
+              </text>
+            )}
+
+            <text x={14} y={288} fontSize={8.5} fill={MUTED}>
+              rozciąganie w płaszczyźnie i skurcz grubości pokazano w skali poglądowej
+            </text>
+          </g>
         </svg>
       </div>
     </div>

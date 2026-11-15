@@ -32,18 +32,12 @@ const smooth = (value: number) => {
 const xOf = (sigma: number) => X0 + (sigma - DOMAIN_MIN) * SCALE
 const yOf = (tau: number) => CY - tau * SCALE
 
-function Axes({ ticks }: { ticks: Array<{ value: number; label: string }> }) {
+function AxesShapes({ ticks }: { ticks: Array<{ value: number; label: string }> }) {
   return (
     <g>
       <line x1={X0 - 16} y1={CY} x2={X1 + 12} y2={CY} stroke={MUTED} strokeWidth={1.2} />
       <line x1={X1} y1={CY} x2={X1 + 20} y2={CY} stroke={MUTED} strokeWidth={1.2} markerEnd={`url(#${ARROW_MUTED})`} />
-      <text x={X1 + 20} y={CY + 15} textAnchor="end" fontSize={9} fill={MUTED}>
-        σ [MPa]
-      </text>
       <line x1={xOf(0)} y1={CY + 96} x2={xOf(0)} y2={CY - 96} stroke={MUTED} strokeWidth={1.1} opacity={0.55} />
-      <text x={xOf(0) + 7} y={CY - 92} fontSize={9} fill={MUTED}>
-        τ [MPa]
-      </text>
       <line
         x1={xOf(0)}
         y1={CY - 82}
@@ -54,12 +48,33 @@ function Axes({ ticks }: { ticks: Array<{ value: number; label: string }> }) {
         markerEnd={`url(#${ARROW_MUTED})`}
       />
       {ticks.map((tick) => (
-        <g key={`${tick.value}-${tick.label}`}>
-          <line x1={xOf(tick.value)} y1={CY - 4} x2={xOf(tick.value)} y2={CY + 4} stroke={MUTED} strokeWidth={1} />
-          <text x={xOf(tick.value)} y={CY + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-            {tick.label}
-          </text>
-        </g>
+        <line
+          key={`${tick.value}-${tick.label}`}
+          x1={xOf(tick.value)}
+          y1={CY - 4}
+          x2={xOf(tick.value)}
+          y2={CY + 4}
+          stroke={MUTED}
+          strokeWidth={1}
+        />
+      ))}
+    </g>
+  )
+}
+
+function AxesTexts({ ticks }: { ticks: Array<{ value: number; label: string }> }) {
+  return (
+    <g>
+      <text x={X1 + 20} y={CY + 15} textAnchor="end" fontSize={9} fill={MUTED}>
+        σ [MPa]
+      </text>
+      <text x={xOf(0) + 7} y={CY - 92} fontSize={9} fill={MUTED}>
+        τ [MPa]
+      </text>
+      {ticks.map((tick) => (
+        <text key={`${tick.value}-${tick.label}`} x={xOf(tick.value)} y={CY + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+          {tick.label}
+        </text>
       ))}
     </g>
   )
@@ -144,10 +159,25 @@ function Radius({
         animate={{ scale: draw > 0.72 ? 1 : 0 }}
         transition={{ type: 'spring', stiffness: 280, damping: 18 }}
       />
-      <text x={labelX} y={labelY} fontSize={9.5} fontWeight={700} fill={color}>
-        {label}
-      </text>
     </g>
+  )
+}
+
+function RadiusLabel({
+  color,
+  label,
+  labelX,
+  labelY,
+}: {
+  color: string
+  label: string
+  labelX: number
+  labelY: number
+}) {
+  return (
+    <text x={labelX} y={labelY} fontSize={9.5} fontWeight={700} fill={color}>
+      {label}
+    </text>
   )
 }
 
@@ -444,7 +474,7 @@ function RadiusTriangle({ draw }: { draw: number }) {
   )
 }
 
-function CompactCheckCircles({ draw }: { draw: number }) {
+function CompactCheckCircles({ draw, textOnly = false }: { draw: number; textOnly?: boolean }) {
   const miniMin = -10
   const miniMax = 130
   const miniX0 = 36
@@ -454,6 +484,28 @@ function CompactCheckCircles({ draw }: { draw: number }) {
   const mcy = 166
   const planeR = 40 * miniScale
   const absR = 60 * miniScale
+
+  if (textOnly) {
+    return (
+      <g>
+        <text x={mx(0)} y={mcy + 18} textAnchor="middle" fontSize={8} fill={SHEAR}>
+          0
+        </text>
+        <text x={mx(40)} y={mcy + 18} textAnchor="middle" fontSize={8} fill={MOHR}>
+          40
+        </text>
+        <text x={mx(120)} y={mcy + 18} textAnchor="middle" fontSize={8} fill={ACCENT}>
+          120
+        </text>
+        <text x={mx(80)} y={mcy + 31} textAnchor="middle" fontSize={8} fill={MUTED}>
+          R = 40
+        </text>
+        <text x={mx(60)} y={mcy - absR - 8} textAnchor="middle" fontSize={9} fontWeight={700} fill={SHEAR}>
+          τ_abs = 60
+        </text>
+      </g>
+    )
+  }
 
   return (
     <g>
@@ -484,26 +536,11 @@ function CompactCheckCircles({ draw }: { draw: number }) {
       <circle cx={mx(120)} cy={mcy} r={3.2} fill={ACCENT} />
       <circle cx={mx(40)} cy={mcy} r={3.2} fill={MOHR} />
       <circle cx={mx(0)} cy={mcy} r={3.2} fill={SHEAR} />
-      <text x={mx(0)} y={mcy + 18} textAnchor="middle" fontSize={8} fill={SHEAR}>
-        0
-      </text>
-      <text x={mx(40)} y={mcy + 18} textAnchor="middle" fontSize={8} fill={MOHR}>
-        40
-      </text>
-      <text x={mx(120)} y={mcy + 18} textAnchor="middle" fontSize={8} fill={ACCENT}>
-        120
-      </text>
-      <text x={mx(80)} y={mcy + 31} textAnchor="middle" fontSize={8} fill={MUTED}>
-        R = 40
-      </text>
-      <text x={mx(60)} y={mcy - absR - 8} textAnchor="middle" fontSize={9} fontWeight={700} fill={SHEAR}>
-        τ_abs = 60
-      </text>
     </g>
   )
 }
 
-function PrincipalDirection({ draw }: { draw: number }) {
+function PrincipalDirection({ draw, textOnly = false }: { draw: number; textOnly?: boolean }) {
   const cx = 348
   const cy = 160
   const half = 54
@@ -514,6 +551,31 @@ function PrincipalDirection({ draw }: { draw: number }) {
   const length = 40 * draw
   const diagonalStart = { x: cx - 42, y: cy + 42 }
   const diagonalEnd = { x: cx + 42, y: cy - 42 }
+
+  if (textOnly) {
+    return (
+      <g>
+        <text x={cx + 24} y={cy - 30} fontSize={8.5} fontWeight={700} fill={OK}>
+          45°
+        </text>
+        <text x={cx} y={cy - half - 40} textAnchor="middle" fontSize={9} fill={ACCENT}>
+          σ_I = 120 MPa
+        </text>
+        <text x={cx + 60} y={cy + 44} fontSize={8.5} fill={MUTED}>
+          σ_III = 0
+        </text>
+        <text x={cx + 7} y={cy - 10} fontSize={8} fill={MUTED}>
+          σ_II = 40
+        </text>
+        <text x={cx + 12} y={cy + 62} fontSize={8.5} fontWeight={700} fill={SHEAR}>
+          τ_abs = 60 MPa
+        </text>
+        <text x={cx - 8} y={cy + 76} textAnchor="middle" fontSize={8.5} fill={INK}>
+          σ_n = 60 MPa
+        </text>
+      </g>
+    )
+  }
 
   return (
     <g>
@@ -561,25 +623,7 @@ function PrincipalDirection({ draw }: { draw: number }) {
         transition={{ duration: 0.7, ease: 'easeInOut' }}
       />
       <path d={`M ${cx} ${cy - 18} A 18 18 0 0 1 ${cx + 18} ${cy}`} fill="none" stroke={OK} strokeWidth={1.4} />
-      <text x={cx + 21} y={cy - 20} fontSize={8.5} fontWeight={700} fill={OK}>
-        45°
-      </text>
-      <text x={cx} y={cy - half - 40} textAnchor="middle" fontSize={9} fill={ACCENT}>
-        σ_I = 120 MPa
-      </text>
-      <text x={cx + 60} y={cy + 44} fontSize={8.5} fill={MUTED}>
-        σ_III = 0
-      </text>
       <circle cx={cx} cy={cy} r={3} fill={MUTED} />
-      <text x={cx + 7} y={cy - 10} fontSize={8} fill={MUTED}>
-        σ_II = 40
-      </text>
-      <text x={cx + 12} y={cy + 62} fontSize={8.5} fontWeight={700} fill={SHEAR}>
-        τ_abs = 60 MPa
-      </text>
-      <text x={cx - 8} y={cy + 76} textAnchor="middle" fontSize={8.5} fill={INK}>
-        σ_n = 60 MPa
-      </text>
     </g>
   )
 }
@@ -589,6 +633,15 @@ export function TauMaxExample3Animation({ scene, playing, sceneProgress }: Solut
   const p = playing ? smooth(sceneProgress) : 1
   const draw = clamp01(p)
   const circleDraw = clamp01((draw - 0.08) / 0.92)
+  const axesTicks =
+    metric === 'principal'
+      ? []
+      : [
+          { value: -120, label: '−120' },
+          { value: -40, label: '−40' },
+          { value: 0, label: '0' },
+          { value: 104, label: '104' },
+        ]
 
   return (
     <div className={local('figure')}>
@@ -648,28 +701,7 @@ export function TauMaxExample3Animation({ scene, playing, sceneProgress }: Solut
           {metric === 'data' ? <ReverseElement draw={draw} /> : null}
 
           {metric !== 'data' && metric !== 'average' && metric !== 'triangle' && metric !== 'check' ? (
-            <g>
-              <text x={16} y={22} fontSize={10.5} fontWeight={700} fill={INK}>
-                {metric === 'principal'
-                  ? 'odtworzone naprężenia główne'
-                  : 'wariant ściskający jest niezgodny z pomiarem'}
-              </text>
-              <text x={16} y={37} fontSize={8.5} fill={MUTED}>
-                σ_x = 104 MPa · R = 40 MPa · τ_abs = 60 MPa
-              </text>
-              <Axes
-                ticks={
-                  metric === 'principal'
-                    ? []
-                    : [
-                        { value: -120, label: '−120' },
-                        { value: -40, label: '−40' },
-                        { value: 0, label: '0' },
-                        { value: 104, label: '104' },
-                      ]
-                }
-              />
-            </g>
+            <AxesShapes ticks={axesTicks} />
           ) : null}
 
           {metric === 'principal' ? (
@@ -689,36 +721,12 @@ export function TauMaxExample3Animation({ scene, playing, sceneProgress }: Solut
               <circle cx={xOf(40)} cy={CY} r={3.4} fill={MOHR} />
               <circle cx={xOf(120)} cy={CY} r={3.6} fill={ACCENT} />
               <circle cx={xOf(80)} cy={CY} r={3.2} fill={INK} />
-              <text x={xOf(0)} y={CY + 32} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={SHEAR}>
-                0
-              </text>
-              <text x={xOf(40)} y={CY + 32} textAnchor="middle" fontSize={9} fontWeight={700} fill={MOHR}>
-                40
-              </text>
-              <text x={xOf(120)} y={CY + 32} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={ACCENT}>
-                120
-              </text>
-              <text x={xOf(80)} y={CY - 12} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                C = 80
-              </text>
-              <text x={xOf(60)} y={CY + 50} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                C_abs = 60
-              </text>
-              <text x={16} y={282} fontSize={8.5} fill={SHEAR}>
-                Większe τ_abs niż R oznacza, że zero jest naprężeniem skrajnym.
-              </text>
             </g>
           ) : null}
 
           {metric === 'average' ? (
             <g>
-              <text x={16} y={22} fontSize={10.5} fontWeight={700} fill={INK}>
-                środek koła i odtworzenie σ_y
-              </text>
-              <text x={16} y={37} fontSize={8.5} fill={MUTED}>
-                σ_x = 104 MPa · σ_avg = 80 MPa · R = 40 MPa
-              </text>
-              <Axes ticks={[]} />
+              <AxesShapes ticks={[]} />
               <AverageState draw={draw} />
             </g>
           ) : null}
@@ -727,17 +735,8 @@ export function TauMaxExample3Animation({ scene, playing, sceneProgress }: Solut
 
           {metric === 'check' ? (
             <g>
-              <text x={16} y={22} fontSize={10.5} fontWeight={700} fill={INK}>
-                sprawdzenie i kierunek maksimum
-              </text>
-              <text x={16} y={37} fontSize={8.5} fill={MUTED}>
-                40² = 24² + 32² · τ_abs = (120 − 0)/2 = 60 MPa
-              </text>
               <CompactCheckCircles draw={circleDraw} />
               <PrincipalDirection draw={draw} />
-              <text x={16} y={282} fontSize={8.5} fill={MUTED}>
-                Płaszczyzna absolutnego maksimum leży pod 45° do σ_I i σ_III.
-              </text>
             </g>
           ) : null}
 
@@ -792,23 +791,95 @@ export function TauMaxExample3Animation({ scene, playing, sceneProgress }: Solut
                 strokeDasharray="4 3"
               />
               <circle cx={xOf(104)} cy={CY} r={4} fill={OK} />
-              <text x={xOf(104)} y={CY - 104} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={OK}>
-                σ_x = 104
-              </text>
               <line x1={xOf(-120)} y1={CY + 42} x2={xOf(-40)} y2={CY + 42} stroke={BAD} strokeWidth={1.4} />
               <line x1={xOf(-120)} y1={CY + 38} x2={xOf(-120)} y2={CY + 46} stroke={BAD} strokeWidth={1.4} />
               <line x1={xOf(-40)} y1={CY + 38} x2={xOf(-40)} y2={CY + 46} stroke={BAD} strokeWidth={1.4} />
-              <text x={(xOf(-120) + xOf(-40)) / 2} y={CY + 57} textAnchor="middle" fontSize={8.5} fill={BAD}>
-                przedział σ płaskich
-              </text>
-              <text x={xOf(104) - 8} y={CY - 74} textAnchor="end" fontSize={9} fontWeight={700} fill={OK}>
-                104 ∉ [−120, −40]
-              </text>
-              <text x={16} y={282} fontSize={8.5} fill={MUTED}>
-                Pomiar σ_x leży poza przedziałem możliwym dla wariantu ściskającego.
-              </text>
             </g>
           ) : null}
+
+          <g>
+            {metric !== 'data' && metric !== 'average' && metric !== 'triangle' && metric !== 'check' ? (
+              <g>
+                <text x={16} y={22} fontSize={10.5} fontWeight={700} fill={INK}>
+                  {metric === 'principal'
+                    ? 'odtworzone naprężenia główne'
+                    : 'wariant ściskający jest niezgodny z pomiarem'}
+                </text>
+                <text x={16} y={37} fontSize={8.5} fill={MUTED}>
+                  σ_x = 104 MPa · R = 40 MPa · τ_abs = 60 MPa
+                </text>
+                <AxesTexts ticks={axesTicks} />
+              </g>
+            ) : null}
+
+            {metric === 'principal' ? (
+              <g>
+                <RadiusLabel color={SHEAR} label="τ_abs = 60 MPa" labelX={xOf(60) + 8} labelY={yOf(60) + 4} />
+                <text x={xOf(0)} y={CY + 32} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={SHEAR}>
+                  0
+                </text>
+                <text x={xOf(40)} y={CY + 32} textAnchor="middle" fontSize={9} fontWeight={700} fill={MOHR}>
+                  40
+                </text>
+                <text x={xOf(120)} y={CY + 32} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={ACCENT}>
+                  120
+                </text>
+                <text x={xOf(80)} y={CY - 12} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  C = 80
+                </text>
+                <text x={xOf(60)} y={CY + 50} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  C_abs = 60
+                </text>
+                <text x={16} y={282} fontSize={8.5} fill={SHEAR}>
+                  Większe τ_abs niż R oznacza, że zero jest naprężeniem skrajnym.
+                </text>
+              </g>
+            ) : null}
+
+            {metric === 'average' ? (
+              <g>
+                <text x={16} y={22} fontSize={10.5} fontWeight={700} fill={INK}>
+                  środek koła i odtworzenie σ_y
+                </text>
+                <text x={16} y={37} fontSize={8.5} fill={MUTED}>
+                  σ_x = 104 MPa · σ_avg = 80 MPa · R = 40 MPa
+                </text>
+              </g>
+            ) : null}
+
+            {metric === 'check' ? (
+              <g>
+                <text x={16} y={22} fontSize={10.5} fontWeight={700} fill={INK}>
+                  sprawdzenie i kierunek maksimum
+                </text>
+                <text x={16} y={37} fontSize={8.5} fill={MUTED}>
+                  40² = 24² + 32² · τ_abs = (120 − 0)/2 = 60 MPa
+                </text>
+                <CompactCheckCircles draw={circleDraw} textOnly />
+                <PrincipalDirection draw={draw} textOnly />
+                <text x={16} y={282} fontSize={8.5} fill={MUTED}>
+                  Płaszczyzna absolutnego maksimum leży pod 45° do σ_I i σ_III.
+                </text>
+              </g>
+            ) : null}
+
+            {metric === 'reject' ? (
+              <g>
+                <text x={xOf(104)} y={CY - 104} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={OK}>
+                  σ_x = 104
+                </text>
+                <text x={(xOf(-120) + xOf(-40)) / 2} y={CY + 57} textAnchor="middle" fontSize={8.5} fill={BAD}>
+                  przedział σ płaskich
+                </text>
+                <text x={xOf(104) - 8} y={CY - 74} textAnchor="end" fontSize={9} fontWeight={700} fill={OK}>
+                  104 ∉ [−120, −40]
+                </text>
+                <text x={16} y={282} fontSize={8.5} fill={MUTED}>
+                  Pomiar σ_x leży poza przedziałem możliwym dla wariantu ściskającego.
+                </text>
+              </g>
+            ) : null}
+          </g>
         </svg>
       </div>
     </div>

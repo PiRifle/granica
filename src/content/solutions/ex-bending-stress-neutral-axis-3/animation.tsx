@@ -198,7 +198,13 @@ export function BendingStressNeutralAxis3Animation({ scene, playing, sceneProgre
               transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 18 }}
               style={{ transformOrigin: `${centerX}px ${centerY}px` }}
             />
-            <text x={right + 12} y={centerY - 7} fontSize={9} fill={NA}>
+            <text
+              x={showStress ? profileX - allowable - 4 : right + 12}
+              y={centerY - 7}
+              textAnchor={showStress ? 'end' : 'start'}
+              fontSize={9}
+              fill={NA}
+            >
               oś obojętna
             </text>
             <text x={centerX + 7} y={centerY + 13} fontSize={9} fill={NA}>

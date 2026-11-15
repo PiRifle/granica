@@ -113,10 +113,10 @@ function StressElement({ draw, faded = false }: { draw: number; faded?: boolean 
       <text x={x1 + lenX + 3} y={cy + 3} fontSize={9} fontWeight={700} fill={BLUE}>
         σ = 50 MPa
       </text>
-      <text x={x1 - 2} y={y0 - 16} fontSize={9} fontWeight={700} fill={ORANGE}>
+      <text x={x1 - 34} y={y0 - 16} fontSize={9} fontWeight={700} fill={ORANGE}>
         τ = ?
       </text>
-      <text x={x0} y={y1 + 46} fontSize={8} fill={MUTED}>
+      <text x={x0} y={y1 + 60} fontSize={8} fill={MUTED}>
         τ rośnie, aż σ_T osiągnie wartość dopuszczalną
       </text>
     </g>
@@ -133,7 +133,7 @@ function LimitGauge({ progress }: { progress: number }) {
 
   return (
     <g>
-      <text x={196} y={78} fontSize={10} fontWeight={700} fill={INK}>
+      <text x={140} y={78} fontSize={10} fontWeight={700} fill={INK}>
         granica dopuszczalna
       </text>
       <text x={196} y={93} fontSize={8.5} fill={MUTED}>
@@ -210,7 +210,7 @@ function ConditionChart({ draw }: { draw: number }) {
 
       <line x1={GX0 - 10} y1={GY0} x2={GX1 + 8} y2={GY0} stroke={MUTED} strokeWidth={1.1} />
       <line x1={GX0} y1={GY0 + 8} x2={GX0} y2={GY1 - 12} stroke={MUTED} strokeWidth={1.1} />
-      <text x={GX1 + 8} y={GY0 + 14} textAnchor="end" fontSize={8} fill={MUTED}>
+      <text x={GX1 + 8} y={GY0 + 30} textAnchor="end" fontSize={8} fill={MUTED}>
         τ [MPa]
       </text>
       <text x={GX0 + 4} y={GY1 - 4} fontSize={8} fill={MUTED}>
@@ -241,7 +241,7 @@ function ConditionChart({ draw }: { draw: number }) {
 
       <path d={curvePath(tauCurrent)} fill="none" stroke={BLUE} strokeWidth={2.8} strokeLinecap="round" />
       <circle cx={gx(tauCurrent)} cy={gy(sigmaCurrent)} r={4.5} fill={BLUE} stroke="#fff" strokeWidth={1.2} />
-      <text x={gx(tauCurrent) + 8} y={gy(sigmaCurrent) - 8} fontSize={8.5} fontWeight={700} fill={BLUE}>
+      <text x={gx(tauCurrent) + 8} y={gy(sigmaCurrent) + 14} fontSize={8.5} fontWeight={700} fill={BLUE}>
         σ_T(τ)
       </text>
 
@@ -256,7 +256,7 @@ function ConditionChart({ draw }: { draw: number }) {
         </motion.g>
       )}
 
-      <text x={GX0} y={278} fontSize={8.5} fill={MUTED}>
+      <text x={GX0} y={292} fontSize={8.5} fill={MUTED}>
         Krzywa przecina limit przy τ = 65,4 MPa; większe τ przekracza σ_T,dop.
       </text>
     </g>
@@ -272,7 +272,7 @@ function MohrAxes() {
         σ [MPa]
       </text>
       <line x1={mx(0)} y1={MY + 70} x2={mx(0)} y2={MY - 118} stroke={LIGHT} strokeWidth={1} />
-      <text x={mx(0) + 5} y={MY - 116} fontSize={8} fill={MUTED}>
+      <text x={mx(0) + 5} y={MY - 130} fontSize={8} fill={MUTED}>
         τ
       </text>
       {[-60, -30, 0, 30, 60, 90].map((tick) => (
@@ -336,13 +336,6 @@ function MohrScene({ draw }: { draw: number }) {
       <g opacity={0.5}>
         <StressElement draw={1} faded />
       </g>
-      <text x={MX0} y={78} fontSize={10} fontWeight={700} fill={INK}>
-        trzy koła przy τ = 65,4 MPa
-      </text>
-      <text x={MX0} y={93} fontSize={8.5} fill={MUTED}>
-        największe koło obejmuje σ₁ i σ₂
-      </text>
-      <MohrAxes />
 
       <Circle
         center={(S1 + S3) / 2}
@@ -363,6 +356,7 @@ function MohrScene({ draw }: { draw: number }) {
         opacity={0.55}
       />
       <Circle center={(S1 + S2) / 2} radius={TAU_MAX} draw={third} color={ORANGE} width={2.7} opacity={1} />
+      <MohrAxes />
 
       {[
         { value: S1, label: 'σ₁ = 95,02', color: BLUE },
@@ -402,6 +396,12 @@ function MohrScene({ draw }: { draw: number }) {
 
       <text x={MX0} y={270} fontSize={8.5} fill={MUTED}>
         σ_T = 2τ_max = 140 MPa, czyli dokładnie tyle, ile dopuszcza limit.
+      </text>
+      <text x={MX0} y={78} fontSize={10} fontWeight={700} fill={INK}>
+        trzy koła przy τ = 65,4 MPa
+      </text>
+      <text x={MX0} y={93} fontSize={8.5} fill={MUTED}>
+        największe koło obejmuje σ₁ i σ₂
       </text>
     </g>
   )

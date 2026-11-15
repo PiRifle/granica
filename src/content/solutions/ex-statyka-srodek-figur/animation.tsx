@@ -115,7 +115,7 @@ export function ParabolicSpandrelAnimation({ index, playing, sceneProgress }: So
             animate={{ pathLength: curveDraw }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
-          <text x={sx(52)} y={sy(f(55)) - 12} fontSize="10.5" fill={CURVE}>
+          <text x={sx(43)} y={sy(f(55)) - 12} textAnchor="end" fontSize="10.5" fill={CURVE}>
             y = 0,025x²
           </text>
 
@@ -123,10 +123,10 @@ export function ParabolicSpandrelAnimation({ index, playing, sceneProgress }: So
             <g>
               <path d={stripPath(30, 36)} fill={STRIP} fillOpacity={0.25} stroke={STRIP} strokeWidth="1.3" />
               <circle cx={sx(33)} cy={sy(f(33) / 2)} r="3.4" fill="#fff" stroke={STRIP} strokeWidth="1.8" />
-              <text x={sx(37)} y={sy(f(33) / 2) + 4} fontSize="9.5" fill={STRIP}>
+              <text x={sx(62)} y={sy(f(33) / 2) + 16} textAnchor="end" fontSize="9.5" fill={STRIP}>
                 środek paska (x; y/2)
               </text>
-              <text x={sx(37)} y={sy(f(33) / 2) + 18} fontSize="9.5" fill={STRIP}>
+              <text x={sx(62)} y={sy(f(33) / 2) + 30} textAnchor="end" fontSize="9.5" fill={STRIP}>
                 dA = y dx
               </text>
             </g>
@@ -142,7 +142,7 @@ export function ParabolicSpandrelAnimation({ index, playing, sceneProgress }: So
             <line x1={sx(0)} y1={BASE + 28} x2={sx(A)} y2={BASE + 28} strokeWidth="1" />
             <line x1={sx(0)} y1={BASE + 24} x2={sx(0)} y2={BASE + 32} strokeWidth="1" />
             <line x1={sx(A)} y1={BASE + 24} x2={sx(A)} y2={BASE + 32} strokeWidth="1" />
-            <text x={(sx(0) + sx(A)) / 2} y={BASE + 24} textAnchor="middle" fontSize="9" stroke="none">
+            <text x={(sx(0) + sx(A)) / 2 - 45} y={BASE + 24} textAnchor="middle" fontSize="9" stroke="none">
               a = 60 mm
             </text>
             <line x1={sx(A) + 20} y1={sy(0)} x2={sx(A) + 20} y2={sy(H)} strokeWidth="1" />
@@ -216,7 +216,7 @@ export function ParabolicSpandrelAnimation({ index, playing, sceneProgress }: So
               <text x={centroidPoint.x + 18} y={centroidPoint.y + 4} fontSize="12" fontWeight="700" fill={CENTROID}>
                 C = (45; 27) mm
               </text>
-              <text x="230" y="330" textAnchor="middle" fontSize="10.5" fill={INK}>
+              <text x="230" y="12" textAnchor="middle" fontSize="10.5" fill={INK}>
                 x_C = Q_y / A = 45 mm, y_C = Q_x / A = 27 mm
               </text>
             </motion.g>

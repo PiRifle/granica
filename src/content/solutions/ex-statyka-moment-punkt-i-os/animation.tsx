@@ -54,9 +54,9 @@ export function MomentPointAxisAnimation({ index, playing, sceneProgress }: Solu
   const showAxis = index >= 4
   const showCheck = index >= 5
   const componentFade = index === 3 ? 0.32 : 1
-  const mProgress = showMoment ? (playing && index === 2 ? 0.3 + 0.7 * smooth(sceneProgress) : 1) : 0
+  const mProgress = showMoment ? (playing && index === 2 ? 0.3 + 0.7 * smooth(sceneProgress * 4) : 1) : 0
   const mTip = { x: M0.x + (mEnd.x - M0.x) * mProgress, y: M0.y + (mEnd.y - M0.y) * mProgress }
-  const projectionProgress = showAxis ? (playing && index === 4 ? 0.35 + 0.65 * smooth(sceneProgress) : 1) : 0
+  const projectionProgress = showAxis ? (playing && index === 4 ? 0.35 + 0.65 * smooth(sceneProgress * 4) : 1) : 0
   const projectionTip = {
     x: O.x + (projectionEnd.x - O.x) * projectionProgress,
     y: O.y + (projectionEnd.y - O.y) * projectionProgress,
@@ -118,11 +118,11 @@ export function MomentPointAxisAnimation({ index, playing, sceneProgress }: Solu
           </text>
 
           <line x1={O.x} y1={O.y} x2={A.x} y2={A.y} stroke={R_COLOR} strokeWidth="2.4" markerEnd="url(#ex-mom-r)" />
-          <text x={(O.x + A.x) / 2 - 12} y={(O.y + A.y) / 2 + 6} fontSize="10" fill={R_COLOR}>
+          <text x={O.x - 3} y={O.y - 40} textAnchor="end" fontSize="10" fill={R_COLOR}>
             r
           </text>
           <circle cx={A.x} cy={A.y} r="3.6" fill={INK} />
-          <text x={A.x - 6} y={A.y - 8} fontSize="9.5" fill={INK}>
+          <text x={A.x + 32} y={A.y + 16} fontSize="9.5" fill={INK}>
             A(2, 3, 0)
           </text>
 
@@ -159,7 +159,7 @@ export function MomentPointAxisAnimation({ index, playing, sceneProgress }: Solu
                 strokeDasharray="6 4"
               />
               <circle cx={B.x} cy={B.y} r="3" fill={EDGE} />
-              <text x={B.x + 6} y={B.y + 14} fontSize="9.5" fill={EDGE}>
+              <text x={B.x + 40} y={B.y + 14} fontSize="9.5" fill={EDGE}>
                 B(1, 1, 0)
               </text>
               <text x={axisEnd.x + 4} y={axisEnd.y - 4} fontSize="9" fill={EDGE}>
@@ -228,10 +228,10 @@ export function MomentPointAxisAnimation({ index, playing, sceneProgress }: Solu
               <text x={mxEnd.x + 3} y={mxEnd.y - 4} fontSize="9" fill={M_X}>
                 18
               </text>
-              <text x={myEnd.x + 3} y={myEnd.y + 4} fontSize="9" fill={M_Y}>
+              <text x={M0.x - 6} y={M0.y + 30} textAnchor="end" fontSize="9" fill={M_Y}>
                 −12
               </text>
-              <text x={mzEnd.x + 4} y={mzEnd.y + 3} fontSize="9" fill={M_Z}>
+              <text x={mzEnd.x + 4} y={mzEnd.y + 36} fontSize="9" fill={M_Z}>
                 −16
               </text>
 

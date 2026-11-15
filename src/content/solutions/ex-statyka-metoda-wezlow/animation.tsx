@@ -165,7 +165,7 @@ export function NodesMethodAnimation({ index, playing, sceneProgress }: Solution
               <line x1={NODES.A.x} y1={310} x2={NODES.C.x} y2={310} strokeDasharray="4 4" />
               <line x1={NODES.A.x} y1={305} x2={NODES.A.x} y2={315} />
               <line x1={NODES.C.x} y1={305} x2={NODES.C.x} y2={315} />
-              <text x={NODES.B.x} y={326} textAnchor="middle" fontSize="11" stroke="none">
+              <text x={NODES.B.x} y={300} textAnchor="middle" fontSize="11" stroke="none">
                 2 m + 2 m
               </text>
               <line x1={NODES.F.x + 30} y1={NODES.F.y} x2={NODES.F.x + 30} y2={NODES.C.y} strokeDasharray="4 4" />
@@ -244,7 +244,7 @@ export function NodesMethodAnimation({ index, playing, sceneProgress }: Solution
             strokeWidth={3.5}
             markerEnd="url(#ex-nodes-load)"
           />
-          <text x={NODES.E.x + 8} y={NODES.E.y - 17} fontSize="11" fill={LOAD}>
+          <text x={NODES.E.x - 8} y={NODES.E.y - 24} textAnchor="end" fontSize="11" fill={LOAD}>
             P = 8 kN
           </text>
 

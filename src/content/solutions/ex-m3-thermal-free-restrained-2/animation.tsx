@@ -249,7 +249,7 @@ export function SteppedThermalRestraintAnimation({ scene, index, playing, sceneP
           {compressed && (
             <>
               <VDim x={CX + W2 + 42} from={BOTTOM} to={FREE_BOTTOM} label="0,6 mm" color={MUTED} />
-              <text x={CX - W2} y={FREE_BOTTOM + 24} fontSize={9} fill={MUTED}>
+              <text x={CX + W2 + 62} y={FREE_BOTTOM + 16} fontSize={9} fill={MUTED}>
                 swobodny koniec bez podpory
               </text>
             </>

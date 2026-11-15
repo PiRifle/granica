@@ -115,13 +115,13 @@ export function HookeStiffness2Animation({ scene, index, playing, sceneProgress 
               <text x={150} y={42} textAnchor="middle" fontSize={10.5} fontWeight={700} fill={STEEL}>
                 stal
               </text>
-              <text x={150} y={55} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              <text x={203} y={55} fontSize={8.5} fill={MUTED}>
                 E_s = 200 GPa
               </text>
               <text x={315} y={42} textAnchor="middle" fontSize={10.5} fontWeight={700} fill={ALU}>
                 aluminium
               </text>
-              <text x={315} y={55} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              <text x={368} y={55} fontSize={8.5} fill={MUTED}>
                 E_a = 70 GPa
               </text>
 
@@ -214,10 +214,10 @@ export function HookeStiffness2Animation({ scene, index, playing, sceneProgress 
               <text x={305} y={43} textAnchor="middle" fontSize={10} fontWeight={700} fill={ALU}>
                 d = 32 mm
               </text>
-              <text x={140} y={57} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              <text x={88} y={57} textAnchor="end" fontSize={8.5} fill={MUTED}>
                 A ≈ 201 mm²
               </text>
-              <text x={305} y={57} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              <text x={383} y={57} fontSize={8.5} fill={MUTED}>
                 A ≈ 804 mm²
               </text>
 

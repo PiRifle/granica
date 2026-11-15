@@ -225,10 +225,10 @@ export function ShearTechnicalExample1Animation({ scene, playing, sceneProgress 
                 strokeWidth={1}
                 strokeDasharray="3 3"
               />
-              <text x={290} y={92} fontSize={9} fontWeight={700} fill={PLANE}>
+              <text x={290} y={90} fontSize={9} fontWeight={700} fill={PLANE}>
                 płaszczyzna
               </text>
-              <text x={290} y={103} fontSize={9} fill={PLANE}>
+              <text x={290} y={104} fontSize={9} fill={PLANE}>
                 ścinania (1)
               </text>
             </g>
@@ -253,7 +253,7 @@ export function ShearTechnicalExample1Animation({ scene, playing, sceneProgress 
                   strokeDasharray="3 4"
                 />
               )}
-              <text x={panelCx} y={52} textAnchor="middle" fontSize={9} fill={isStress ? STRESS : MUTED}>
+              <text x={panelCx} y={isStress ? 40 : 52} textAnchor="middle" fontSize={9} fill={isStress ? STRESS : MUTED}>
                 {panelTitle}
               </text>
               <circle

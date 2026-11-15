@@ -37,7 +37,7 @@ export function PappusGuldinAnimation({ index, playing, sceneProgress }: Solutio
           <desc>Półkole i półokrąg obracane wokół średnicy, centroidy, objętość i powierzchnia kuli.</desc>
 
           <line x1="60" y1={CY} x2="340" y2={CY} stroke={AXIS} strokeWidth="1.6" strokeDasharray="7 4" />
-          <text x="66" y={CY + 18} fontSize="9.5" fill={MUTED}>
+          <text x="344" y={CY + 18} fontSize="9.5" fill={MUTED}>
             oś obrotu
           </text>
 
@@ -124,7 +124,7 @@ export function PappusGuldinAnimation({ index, playing, sceneProgress }: Solutio
           )}
 
           <line x1={CX} y1={CY} x2={CX} y2={CY - R} stroke={MUTED} strokeWidth="1.2" />
-          <text x={CX + 7} y={CY - 52} fontSize="9.5" fill={MUTED}>
+          <text x={CX + 12} y={CY - R - 6} fontSize="9.5" fill={MUTED}>
             r = 20 mm
           </text>
 
@@ -133,20 +133,20 @@ export function PappusGuldinAnimation({ index, playing, sceneProgress }: Solutio
               <line
                 x1={CX - 46}
                 y1={DISC_CENTROID_Y}
-                x2={CX + 46}
+                x2={CX + 96}
                 y2={DISC_CENTROID_Y}
                 stroke={CENTROID}
                 strokeWidth="1.2"
                 strokeDasharray="4 3"
               />
               <circle cx={CX} cy={DISC_CENTROID_Y} r="5" fill="#fff" stroke={CENTROID} strokeWidth="2.2" />
-              <text x={CX + 12} y={DISC_CENTROID_Y - 7} fontSize="10" fontWeight="700" fill={CENTROID}>
+              <text x={CX + 104} y={DISC_CENTROID_Y + 14} fontSize="10" fontWeight="700" fill={CENTROID}>
                 r̄ = 8,49 mm
               </text>
-              <text x={CX + 12} y={DISC_CENTROID_Y + 8} fontSize="9" fill={CENTROID}>
+              <text x={CX + 104} y={DISC_CENTROID_Y + 29} fontSize="9" fill={CENTROID}>
                 centroid półkola: 4r/3π
               </text>
-              <text x={CX + 70} y={CY + 74} fontSize="9.5" fill={DISC}>
+              <text x={CX + 104} y={CY + 62} fontSize="9.5" fill={DISC}>
                 A = 628,32 mm²
               </text>
             </motion.g>
@@ -197,17 +197,17 @@ export function PappusGuldinAnimation({ index, playing, sceneProgress }: Solutio
               <line
                 x1={CX - 46}
                 y1={ARC_CENTROID_Y}
-                x2={CX + 46}
+                x2={CX + 96}
                 y2={ARC_CENTROID_Y}
                 stroke={CENTROID}
                 strokeWidth="1.2"
                 strokeDasharray="4 3"
               />
               <circle cx={CX} cy={ARC_CENTROID_Y} r="5" fill="#fff" stroke={CENTROID} strokeWidth="2.2" />
-              <text x={CX + 12} y={ARC_CENTROID_Y - 7} fontSize="10" fontWeight="700" fill={CENTROID}>
+              <text x={CX + 104} y={ARC_CENTROID_Y + 6} fontSize="10" fontWeight="700" fill={CENTROID}>
                 r̄ = 12,73 mm
               </text>
-              <text x={CX + 12} y={ARC_CENTROID_Y + 8} fontSize="9" fill={CENTROID}>
+              <text x={CX + 104} y={ARC_CENTROID_Y + 21} fontSize="9" fill={CENTROID}>
                 centroid łuku: 2r/π
               </text>
               <text x={CX - 92} y={CY - R - 14} fontSize="9.5" fill={ARC}>

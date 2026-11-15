@@ -194,20 +194,7 @@ export function GaugeResolutionAnimation({ scene, playing, sceneProgress }: Solu
               strokeWidth={2.2}
               markerEnd="url(#resolution-load)"
             />
-            <text x={barRight - 4} y={GAUGE_CY - 26} textAnchor="end" fontSize={9} stroke="none">
-              ε = 1 µε
-            </text>
           </g>
-
-          <text x={12} y={24} fontSize={9} fill={MUTED}>
-            R₀ = 350 Ω
-          </text>
-          <text x={12} y={38} fontSize={9} fill={MUTED}>
-            GF = 2,0
-          </text>
-          <text x={12} y={52} fontSize={9} fill={MUTED}>
-            skala poglądowa
-          </text>
 
           <g stroke={MUTED} fill={MUTED}>
             <line x1={GAUGE_CX} y1={112} x2={GAUGE_CX} y2={150} strokeWidth={1.1} strokeDasharray="3 3" />
@@ -230,9 +217,6 @@ export function GaugeResolutionAnimation({ scene, playing, sceneProgress }: Solu
               />
               <circle cx={232} cy={202} r={40} fill="#ffffff" fillOpacity={0.82} stroke={ACCENT} strokeWidth={1.6} />
               <GaugeGrid cx={232} cy={202} width={54} height={16} color={HEAT} strokeWidth={1.6} />
-              <text x={232} y={238} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                powiększenie zmiany
-              </text>
             </motion.g>
           )}
 
@@ -265,12 +249,6 @@ export function GaugeResolutionAnimation({ scene, playing, sceneProgress }: Solu
               strokeLinecap="round"
             />
             <circle cx={104} cy={212} r={3} fill={showOhm ? LOAD : MUTED} />
-            <text x={104} y={272} textAnchor="middle" fontSize={9} fill={showOhm ? LOAD : MUTED}>
-              omomierz
-            </text>
-            <text x={104} y={284} textAnchor="middle" fontSize={8} fill={MUTED}>
-              0,7 mΩ to 2·10⁻⁶ R₀
-            </text>
           </motion.g>
 
           <motion.g animate={{ opacity: showBars ? 0 : showBridge ? 1 : 0.35 }} transition={{ duration: 0.3 }}>
@@ -290,19 +268,10 @@ export function GaugeResolutionAnimation({ scene, playing, sceneProgress }: Solu
               fill={GOOD}
               transition={{ duration: 0.2, ease: 'linear' }}
             />
-            <text x={414.5} y={170} textAnchor="middle" fontSize={8} fill={GOOD}>
-              V_out
-            </text>
-            <text x={346} y={268} textAnchor="middle" fontSize={9} fill={showBridge ? ACCENT : MUTED}>
-              mostek Wheatstone'a
-            </text>
           </motion.g>
 
           {showBars && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
-              <text x={104} y={184} fontSize={8.5} fill={MUTED}>
-                bezwzględna zmiana ΔR
-              </text>
               <rect x={104} y={196} width={168} height={12} rx={6} fill="#e6ebf2" />
               <motion.rect
                 x={104}
@@ -314,9 +283,6 @@ export function GaugeResolutionAnimation({ scene, playing, sceneProgress }: Solu
                 animate={{ width: 144 * progress }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               />
-              <text x={104} y={226} fontSize={9} fill={ACCENT}>
-                350 Ω → 0,7 mΩ
-              </text>
               <rect x={104} y={238} width={168} height={12} rx={6} fill="#e6ebf2" />
               <motion.rect
                 x={104}
@@ -328,14 +294,62 @@ export function GaugeResolutionAnimation({ scene, playing, sceneProgress }: Solu
                 animate={{ width: 49 * progress }}
                 transition={{ duration: 0.3, ease: 'easeOut', delay: 0.15 }}
               />
-              <text x={104} y={268} fontSize={9} fill={HEAT}>
-                120 Ω → 0,24 mΩ
-              </text>
             </motion.g>
           )}
 
           <g>
             <rect x={318} y={54} width={132} height={94} rx={10} fill={PANEL} />
+          </g>
+
+          <g>
+            <text x={barRight - 4} y={GAUGE_CY - 26} textAnchor="end" fontSize={9} fill={LOAD}>
+              ε = 1 µε
+            </text>
+            <text x={12} y={24} fontSize={9} fill={MUTED}>
+              R₀ = 350 Ω
+            </text>
+            <text x={12} y={38} fontSize={9} fill={MUTED}>
+              GF = 2,0
+            </text>
+            <text x={12} y={52} fontSize={9} fill={MUTED}>
+              skala poglądowa
+            </text>
+            {showZoom && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+                <text x={232} y={238} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  powiększenie zmiany
+                </text>
+              </motion.g>
+            )}
+            <motion.g animate={{ opacity: showBars ? 0 : showOhm ? 1 : 0.3 }} transition={{ duration: 0.3 }}>
+              <text x={104} y={272} textAnchor="middle" fontSize={9} fill={showOhm ? LOAD : MUTED}>
+                omomierz
+              </text>
+              <text x={104} y={284} textAnchor="middle" fontSize={8} fill={MUTED}>
+                0,7 mΩ to 2·10⁻⁶ R₀
+              </text>
+            </motion.g>
+            <motion.g animate={{ opacity: showBars ? 0 : showBridge ? 1 : 0.35 }} transition={{ duration: 0.3 }}>
+              <text x={414.5} y={170} textAnchor="middle" fontSize={8} fill={GOOD}>
+                V_out
+              </text>
+              <text x={346} y={268} textAnchor="middle" fontSize={9} fill={showBridge ? ACCENT : MUTED}>
+                mostek Wheatstone'a
+              </text>
+            </motion.g>
+            {showBars && (
+              <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+                <text x={104} y={184} fontSize={8.5} fill={MUTED}>
+                  bezwzględna zmiana ΔR
+                </text>
+                <text x={104} y={226} fontSize={9} fill={ACCENT}>
+                  350 Ω → 0,7 mΩ
+                </text>
+                <text x={104} y={256} fontSize={9} fill={HEAT}>
+                  120 Ω → 0,24 mΩ
+                </text>
+              </motion.g>
+            )}
             <text x={332} y={71} fontSize={7.2} letterSpacing={0.55} fill={PANEL_MUTED}>
               {reading.label}
             </text>
@@ -355,11 +369,10 @@ export function GaugeResolutionAnimation({ scene, playing, sceneProgress }: Solu
             <text x={332} y={126} fontSize={7.6} fill={PANEL_MUTED}>
               {reading.note}
             </text>
+            <text x={230} y={296} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              sygnał 1 µε jest tak mały, że wzmocnienie mostka jest konieczne
+            </text>
           </g>
-
-          <text x={230} y={296} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-            sygnał 1 µε jest tak mały, że wzmocnienie mostka jest konieczne
-          </text>
         </svg>
       </div>
     </div>

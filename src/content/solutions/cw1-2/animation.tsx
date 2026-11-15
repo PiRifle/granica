@@ -245,7 +245,7 @@ export function SteppedBarStressAnimation({ scene, playing, sceneProgress }: Sol
 
           {(isN || isStress) && activeIndex >= 0 && (
             <line
-              x1={CX - SEGMENTS[activeIndex].half - 16}
+              x1={CX - SEGMENTS[activeIndex].half - 6}
               y1={MID[activeIndex]}
               x2={CX + SEGMENTS[activeIndex].half + 2}
               y2={MID[activeIndex]}

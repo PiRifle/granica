@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-ideal-2',
@@ -10,6 +11,7 @@ export default {
     'Ciężar własny pomijamy',
   ],
   result: 'Wypadkowa P = 36 kN działa 4 m od A. Reakcje: R_B = 24 kN, R_A = 12 kN.',
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.Ideal2Animation }))),
   figure: {
     kind: 'beam',
     length: 6,

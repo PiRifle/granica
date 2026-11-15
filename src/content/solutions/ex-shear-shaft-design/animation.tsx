@@ -185,7 +185,7 @@ export function ShaftDesignAnimation({ scene, playing, sceneProgress }: Solution
                 animate={{ width: xOf(strengthBar) - X0 }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
-              <text x={xOf(strengthBar) + 4} y={123} fontSize={8.5} fill={STRENGTH}>
+              <text x={xOf(strengthBar) - 4} y={123} textAnchor="end" fontSize={8.5} fill={STRENGTH}>
                 {fmt(strengthBar)} mm
               </text>
             </>
@@ -209,7 +209,7 @@ export function ShaftDesignAnimation({ scene, playing, sceneProgress }: Solution
                 animate={{ width: xOf(stiffnessBar) - X0 }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
-              <text x={xOf(stiffnessBar) + 4} y={149} fontSize={8.5} fill={STIFFNESS}>
+              <text x={xOf(stiffnessBar) - 4} y={149} textAnchor="end" fontSize={8.5} fill={STIFFNESS}>
                 {fmt(stiffnessBar)} mm
               </text>
             </>

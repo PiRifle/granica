@@ -394,3 +394,117 @@ export function dot3(a: Vec3, b: Vec3): number {
   assertFinite(b.z, 'Składowa z')
   return a.x * b.x + a.y * b.y + a.z * b.z
 }
+
+export function solveLinearSystem(matrix: number[][], rhs: number[]): number[] {
+  const size = rhs.length
+  if (matrix.length !== size || matrix.some((row) => row.length !== size)) {
+    throw new Error('Układ równań musi być kwadratowy')
+  }
+  const augmented = matrix.map((row, index) => [...row, rhs[index]])
+  for (let column = 0; column < size; column += 1) {
+    let pivot = column
+    for (let row = column + 1; row < size; row += 1) {
+      if (Math.abs(augmented[row][column]) > Math.abs(augmented[pivot][column])) pivot = row
+    }
+    if (Math.abs(augmented[pivot][column]) < 1e-10) {
+      throw new Error(`Układ jest osobliwy w kolumnie ${column + 1}`)
+    }
+    ;[augmented[column], augmented[pivot]] = [augmented[pivot], augmented[column]]
+    const divisor = augmented[column][column]
+    for (let entry = column; entry <= size; entry += 1) augmented[column][entry] /= divisor
+    for (let row = 0; row < size; row += 1) {
+      if (row === column) continue
+      const factor = augmented[row][column]
+      for (let entry = column; entry <= size; entry += 1) {
+        augmented[row][entry] -= factor * augmented[column][entry]
+      }
+    }
+  }
+  return augmented.map((row) => row[size])
+}
+
+export interface PlanarForce {
+  at: Vec2
+  value: Vec2
+}
+
+export type PlanarUnknown =
+  | { kind: 'force'; at: Vec2; direction: Vec2 }
+  | { kind: 'couple' }
+
+export interface PlanarEquation {
+  type: 'Fx' | 'Fy' | 'M'
+  at?: Vec2
+  loadIndices?: number[]
+  coupleIndices?: number[]
+  unknownIndices?: number[]
+}
+
+function planarEquationRow(equation: PlanarEquation, loads: PlanarForce[], unknowns: PlanarUnknown[]) {
+  const selectedLoads = loads.filter((_, index) => !equation.loadIndices || equation.loadIndices.includes(index))
+  const selectedUnknowns = unknowns
+    .map((unknown, index) => ({ unknown, index }))
+    .filter(({ index }) => !equation.unknownIndices || equation.unknownIndices.includes(index))
+  const row = Array.from({ length: unknowns.length }, () => 0)
+  let rhs = 0
+  for (const { unknown, index } of selectedUnknowns) {
+    if (equation.type === 'Fx') row[index] = unknown.kind === 'force' ? unknown.direction.x : 0
+    if (equation.type === 'Fy') row[index] = unknown.kind === 'force' ? unknown.direction.y : 0
+    if (equation.type === 'M') {
+      row[index] =
+        unknown.kind === 'couple'
+          ? 1
+          : moment2D(equation.at ?? { x: 0, y: 0 }, unknown.direction, unknown.at)
+    }
+  }
+  for (const load of selectedLoads) {
+    if (equation.type === 'Fx') rhs -= load.value.x
+    if (equation.type === 'Fy') rhs -= load.value.y
+    if (equation.type === 'M') rhs -= moment2D(equation.at ?? { x: 0, y: 0 }, load.value, load.at)
+  }
+  return { row, rhs }
+}
+
+export function solvePlanarSystem(
+  loads: PlanarForce[],
+  couples: number[],
+  unknowns: PlanarUnknown[],
+  equations: PlanarEquation[],
+) {
+  const rows = equations.map((equation) => planarEquationRow(equation, loads, unknowns))
+  const rhs = rows.map((row, index) => {
+    const equation = equations[index]
+    if (equation.type !== 'M') return row.rhs
+    const selectedCouples = couples.filter(
+      (_, coupleIndex) => !equation.coupleIndices || equation.coupleIndices.includes(coupleIndex),
+    )
+    return row.rhs - selectedCouples.reduce((sum, couple) => sum + couple, 0)
+  })
+  return solveLinearSystem(rows.map((row) => row.row), rhs)
+}
+
+export function planarResiduals(
+  loads: PlanarForce[],
+  couples: number[],
+  unknowns: PlanarUnknown[],
+  values: number[],
+  at: Vec2 = { x: 0, y: 0 },
+) {
+  const allLoads = [...loads]
+  unknowns.forEach((unknown, index) => {
+    if (unknown.kind === 'force') {
+      allLoads.push({
+        at: unknown.at,
+        value: { x: unknown.direction.x * values[index], y: unknown.direction.y * values[index] },
+      })
+    }
+  })
+  const totalCouple =
+    couples.reduce((sum, couple) => sum + couple, 0) +
+    unknowns.reduce((sum, unknown, index) => sum + (unknown.kind === 'couple' ? values[index] : 0), 0)
+  return {
+    x: allLoads.reduce((sum, load) => sum + load.value.x, 0),
+    y: allLoads.reduce((sum, load) => sum + load.value.y, 0),
+    moment: totalCouple + allLoads.reduce((sum, load) => sum + moment2D(at, load.value, load.at), 0),
+  }
+}

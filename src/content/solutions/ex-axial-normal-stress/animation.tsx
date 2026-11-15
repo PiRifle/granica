@@ -258,10 +258,10 @@ export function NormalStressExample1Animation({ scene, playing, sceneProgress }:
                 strokeWidth={1.2}
                 strokeDasharray="4 3"
               />
-              <text x={panelX} y={panelBottom + 18} fontSize={10} fontWeight={700} fill={STRESS}>
+              <text x={panelX} y={panelBottom + 12} fontSize={10} fontWeight={700} fill={STRESS}>
                 σ = 200 MPa
               </text>
-              <text x={panelX} y={panelBottom + 31} fontSize={9} fill={MUTED}>
+              <text x={panelX} y={panelBottom + 25} fontSize={9} fill={MUTED}>
                 jednakowo w każdym punkcie
               </text>
             </g>
@@ -296,10 +296,10 @@ export function NormalStressExample1Animation({ scene, playing, sceneProgress }:
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
               />
-              <text x={300 + (200 / 240) * 112} y={240} textAnchor="end" fontSize={9} fill={OK}>
+              <text x={300 + (200 / 240) * 112} y={264} textAnchor="end" fontSize={9} fill={OK}>
                 200 MPa
               </text>
-              <text x={300 + (235 / 240) * 112} y={268} textAnchor="middle" fontSize={8} fill={LOAD}>
+              <text x={300 + (235 / 240) * 112} y={278} textAnchor="middle" fontSize={8} fill={LOAD}>
                 235 MPa
               </text>
               <text x={300} y={284} fontSize={9} fill={MUTED}>

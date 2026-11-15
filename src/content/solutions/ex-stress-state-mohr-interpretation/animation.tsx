@@ -174,25 +174,12 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
             </marker>
           </defs>
 
-          <text x={14} y={20} fontSize={10} fontWeight={700} fill={INK}>
-            pręt kołowy · d = 60 mm
-          </text>
-          <text x={14} y={34} fontSize={8.5} fill={MUTED}>
-            N = 30 kN · M = 1,2 kN·m
-          </text>
-          <text x={14} y={48} fontSize={8.5} fill={MUTED}>
-            T = 800 N·m · R_e = 235 MPa
-          </text>
-
           {isState ? (
             <g>
               <rect x={78} y={170} width={62} height={62} rx={4} fill={LIGHT} stroke={EDGE} strokeWidth={1.4} />
               <line x1={78} y1={201} x2={140} y2={201} stroke={MUTED} strokeWidth={0.8} strokeDasharray="3 3" />
               <line x1={109} y1={170} x2={109} y2={232} stroke={MUTED} strokeWidth={0.8} strokeDasharray="3 3" />
               <line x1={140} y1={190} x2={188} y2={190} stroke={LOAD} strokeWidth={2} markerEnd="url(#mohr1-load)" />
-              <text x={146} y={183} fontSize={9} fill={LOAD}>
-                σx = {pl(SIGMA_X)}
-              </text>
               <line
                 x1={137}
                 y1={225}
@@ -202,25 +189,13 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
                 strokeWidth={2}
                 markerEnd="url(#mohr1-violet)"
               />
-              <text x={145} y={216} fontSize={9} fill={VIOLET}>
-                τ = {pl(TAU)}
-              </text>
-              <text x={80} y={250} fontSize={8.5} fill={MUTED}>
-                σy = 0 · σz = 0
-              </text>
               <circle cx={109} cy={201} r={3} fill={INK} />
             </g>
           ) : (
             <g>
-              <text x={14} y={68} fontSize={8.5} fill={isModel ? INK : MUTED}>
-                punkt A na obwodzie przekroju
-              </text>
               <circle cx={CX} cy={CY} r={SEC_R} fill={LIGHT} stroke={EDGE} strokeWidth={1.4} />
               <line x1={CX - SEC_R} y1={CY} x2={CX + SEC_R} y2={CY} stroke={MUTED} strokeWidth={0.8} />
               <line x1={CX} y1={CY - SEC_R} x2={CX} y2={CY + SEC_R} stroke={MUTED} strokeWidth={0.8} />
-              <text x={CX} y={CY + SEC_R + 14} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                przekrój
-              </text>
               <motion.circle
                 cx={AX}
                 cy={AY}
@@ -233,9 +208,6 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
                 transition={{ duration: 1.6, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
               />
               <circle cx={AX} cy={AY} r={2.4} fill={LOAD} />
-              <text x={AX + 8} y={AY - 4} fontSize={9} fontWeight={700} fill={LOAD}>
-                A
-              </text>
             </g>
           )}
 
@@ -244,9 +216,6 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
               <rect x={95} y={78} width={36} height={70} rx={4} fill={LIGHT} stroke={EDGE} strokeWidth={1.4} />
               <line x1={CX} y1={78} x2={CX} y2={148} stroke={ACCENT} strokeWidth={0.8} strokeDasharray="3 3" />
               <line x1={CX} y1={72} x2={CX} y2={54} stroke={LOAD} strokeWidth={2.2} markerEnd="url(#mohr1-load)" />
-              <text x={CX + 8} y={64} fontSize={9} fill={LOAD}>
-                N
-              </text>
               <path
                 d="M 94 92 C 76 82, 76 108, 94 100"
                 fill="none"
@@ -254,9 +223,6 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
                 strokeWidth={1.8}
                 markerEnd="url(#mohr1-violet)"
               />
-              <text x={66} y={96} fontSize={9} fill={VIOLET}>
-                M
-              </text>
               <path
                 d="M 133 116 C 153 108, 153 138, 133 130"
                 fill="none"
@@ -264,12 +230,6 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
                 strokeWidth={1.8}
                 markerEnd="url(#mohr1-load)"
               />
-              <text x={156} y={128} fontSize={9} fill={LOAD}>
-                T
-              </text>
-              <text x={142} y={94} fontSize={8} fill={MUTED}>
-                obciążenie
-              </text>
             </g>
           )}
 
@@ -278,35 +238,21 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
               <line x1={238} y1={AXIS_Y} x2={460} y2={AXIS_Y} stroke={MUTED} strokeWidth={1} />
               <line x1={SX(0)} y1={56} x2={SX(0)} y2={252} stroke={MUTED} strokeWidth={1} />
               <line x1={SX(0) - 4} y1={AXIS_Y} x2={SX(0) + 4} y2={AXIS_Y} stroke={MUTED} strokeWidth={1} />
-              <text x={458} y={AXIS_Y - 7} textAnchor="end" fontSize={8.5} fill={MUTED}>
-                σ [MPa]
-              </text>
-              <text x={SX(0) + 6} y={66} fontSize={8.5} fill={MUTED}>
-                τ [MPa]
-              </text>
             </g>
           )}
 
           {isModel && (
-            <g>
-              <text x={354} y={116} textAnchor="middle" fontSize={9} fill={MUTED}>
-                koło Mohra
-              </text>
-              <text x={354} y={132} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                powstanie z punktu X(σx, τ)
-              </text>
-              <motion.circle
-                cx={SX(AVG)}
-                cy={AXIS_Y}
-                r={RADIUS * SCALE}
-                fill="none"
-                stroke={MUTED}
-                strokeWidth={1.2}
-                strokeDasharray="4 5"
-                animate={{ opacity: playing ? [0.18, 0.35, 0.18] : 0.28 }}
-                transition={{ duration: 1.8, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
-              />
-            </g>
+            <motion.circle
+              cx={SX(AVG)}
+              cy={AXIS_Y}
+              r={RADIUS * SCALE}
+              fill="none"
+              stroke={MUTED}
+              strokeWidth={1.2}
+              strokeDasharray="4 5"
+              animate={{ opacity: playing ? [0.18, 0.35, 0.18] : 0.28 }}
+              transition={{ duration: 1.8, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
+            />
           )}
 
           {showCircle && (
@@ -356,28 +302,13 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
                     initial={false}
                     transition={{ duration: 0.1 }}
                   />
-                  <text x={SX(SIGMA_X) + 8} y={SY(TAU) - 4} fontSize={9} fontWeight={700} fill={LOAD}>
-                    X(σx, τ)
-                  </text>
-                  <text x={SX(SIGMA_X)} y={AXIS_Y + 14} textAnchor="middle" fontSize={8.5} fill={LOAD}>
-                    σx = {pl(SIGMA_X)}
-                  </text>
-                  <text x={SX(0) + 5} y={SY(TAU) + 3} fontSize={8.5} fill={MUTED}>
-                    τ
-                  </text>
                   <circle cx={SX(SIGMA_X)} cy={SY(-TAU)} r={3} fill={ACCENT} opacity={0.6} />
-                  <text x={SX(AVG)} y={AXIS_Y - 8} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                    σavg
-                  </text>
                 </g>
               )}
 
               {isPrincipal && (
                 <g>
                   <circle cx={SX(SIGMA_X)} cy={SY(TAU)} r={3} fill={LOAD} opacity={0.7} />
-                  <text x={SX(SIGMA_X) + 6} y={SY(TAU) - 4} fontSize={8} fill={LOAD}>
-                    X
-                  </text>
                   <line
                     x1={SX(AVG)}
                     y1={AXIS_Y}
@@ -387,42 +318,21 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
                     strokeWidth={2.2}
                     markerEnd="url(#mohr1-accent)"
                   />
-                  <text x={(SX(AVG) + SX(S1)) / 2} y={AXIS_Y - 10} textAnchor="middle" fontSize={8.5} fill={ACCENT}>
-                    R = {pl(RADIUS)}
-                  </text>
                   <path
                     d={`M ${arcStartX} ${arcStartY} A ${arcR} ${arcR} 0 0 1 ${arcEndX} ${arcEndY}`}
                     fill="none"
                     stroke={VIOLET}
                     strokeWidth={1.3}
                   />
-                  <text x={arcEndX + 4} y={arcStartY - 3} fontSize={8} fill={VIOLET}>
-                    2α
-                  </text>
                   <line x1={SX(S2)} y1={AXIS_Y - 5} x2={SX(S2)} y2={AXIS_Y + 5} stroke={EDGE} strokeWidth={1.4} />
                   <line x1={SX(S1)} y1={AXIS_Y - 5} x2={SX(S1)} y2={AXIS_Y + 5} stroke={EDGE} strokeWidth={1.4} />
-                  <text x={SX(S2)} y={AXIS_Y + 18} textAnchor="middle" fontSize={8} fill={EDGE}>
-                    σ2 = {pl(S2)}
-                  </text>
-                  <text x={SX(S1)} y={AXIS_Y + 18} textAnchor="middle" fontSize={8} fill={EDGE}>
-                    σ1 = {pl(S1)}
-                  </text>
-                  <text x={SX(AVG)} y={AXIS_Y + 32} textAnchor="middle" fontSize={8} fill={MUTED}>
-                    σavg = {pl(AVG)}
-                  </text>
                 </g>
               )}
 
               {isCriteria && (
                 <g>
                   <line x1={SX(AVG)} y1={SY(RADIUS)} x2={SX(AVG)} y2={SY(-RADIUS)} stroke={LOAD} strokeWidth={2.2} />
-                  <text x={SX(AVG) + 6} y={SY(RADIUS) + 3} fontSize={8.5} fill={LOAD}>
-                    τmax = {pl(RADIUS)}
-                  </text>
                   <line x1={SX(S2)} y1={AXIS_Y + 5} x2={SX(S1)} y2={AXIS_Y + 5} stroke={LOAD} strokeWidth={2.6} />
-                  <text x={SX(AVG)} y={AXIS_Y - 6} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={LOAD}>
-                    2R = {pl(TRESCA)} MPa
-                  </text>
                   <line x1={SX(HMH)} y1={AXIS_Y - 5} x2={SX(HMH)} y2={AXIS_Y + 5} stroke={GREEN} strokeWidth={2} />
                   <motion.circle
                     cx={SX(HMH)}
@@ -432,30 +342,164 @@ export function MohrInterpretationExample1Animation({ scene, playing, sceneProgr
                     animate={{ opacity: playing ? [0.5, 1, 0.5] : 1 }}
                     transition={{ duration: 1.5, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
                   />
-                  <text x={SX(HMH)} y={AXIS_Y + 42} textAnchor="middle" fontSize={8.5} fill={GREEN}>
-                    σHMH = {pl(HMH)}
-                  </text>
-                  <text x={250} y={82} fontSize={8.5} fill={MUTED}>
-                    Treska patrzy na średnicę, HMH na energię postaciową
-                  </text>
                 </g>
               )}
             </g>
           )}
 
-          {isDecision && <SafetyBars progress={progress} />}
+          <g>
+            <text x={14} y={20} fontSize={10} fontWeight={700} fill={INK}>
+              pręt kołowy · d = 60 mm
+            </text>
+            <text x={14} y={34} fontSize={8.5} fill={MUTED}>
+              N = 30 kN · M = 1,2 kN·m
+            </text>
+            <text x={14} y={48} fontSize={8.5} fill={MUTED}>
+              T = 800 N·m · R_e = 235 MPa
+            </text>
 
-          <text x={466} y={292} textAnchor="end" fontSize={8} fill={MUTED}>
-            {isModel
-              ? 'model i dane'
-              : isState
-                ? 'odczyt σ i τ'
-                : isPrincipal
-                  ? 'punkty główne'
-                  : isCriteria
-                    ? 'ścinanie i hipotezy'
-                    : 'decyzja projektowa'}
-          </text>
+            {isState && (
+              <g>
+                <text x={146} y={183} fontSize={9} fill={LOAD}>
+                  σx = {pl(SIGMA_X)}
+                </text>
+                <text x={145} y={216} fontSize={9} fill={VIOLET}>
+                  τ = {pl(TAU)}
+                </text>
+                <text x={80} y={250} fontSize={8.5} fill={MUTED}>
+                  σy = 0 · σz = 0
+                </text>
+              </g>
+            )}
+
+            {!isState && (
+              <g>
+                <text x={14} y={72} fontSize={8.5} fill={isModel ? INK : MUTED}>
+                  punkt A na obwodzie przekroju
+                </text>
+                <text x={CX} y={CY + SEC_R + 14} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  przekrój
+                </text>
+                <text x={AX + 8} y={AY - 4} fontSize={9} fontWeight={700} fill={LOAD}>
+                  A
+                </text>
+              </g>
+            )}
+
+            {isModel && (
+              <g>
+                <text x={CX + 8} y={60} fontSize={9} fill={LOAD}>
+                  N
+                </text>
+                <text x={66} y={96} fontSize={9} fill={VIOLET}>
+                  M
+                </text>
+                <text x={156} y={128} fontSize={9} fill={LOAD}>
+                  T
+                </text>
+                <text x={142} y={94} fontSize={8} fill={MUTED}>
+                  obciążenie
+                </text>
+              </g>
+            )}
+
+            {!isDecision && (
+              <g>
+                <text x={458} y={AXIS_Y - 7} textAnchor="end" fontSize={8.5} fill={MUTED}>
+                  σ [MPa]
+                </text>
+                <text x={SX(0) + 6} y={66} fontSize={8.5} fill={MUTED}>
+                  τ [MPa]
+                </text>
+              </g>
+            )}
+
+            {isModel && (
+              <g>
+                <text x={354} y={116} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  koło Mohra
+                </text>
+                <text x={354} y={132} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  powstanie z punktu X(σx, τ)
+                </text>
+              </g>
+            )}
+
+            {showCircle && (
+              <g>
+                {isState && (
+                  <g>
+                    <text x={SX(SIGMA_X) + 8} y={SY(TAU) - 4} fontSize={9} fontWeight={700} fill={LOAD}>
+                      X(σx, τ)
+                    </text>
+                    <text x={SX(SIGMA_X)} y={AXIS_Y + 14} textAnchor="middle" fontSize={8.5} fill={LOAD}>
+                      σx = {pl(SIGMA_X)}
+                    </text>
+                    <text x={SX(0) + 5} y={SY(TAU) + 3} fontSize={8.5} fill={MUTED}>
+                      τ
+                    </text>
+                    <text x={SX(AVG)} y={AXIS_Y - 8} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                      σavg
+                    </text>
+                  </g>
+                )}
+
+                {isPrincipal && (
+                  <g>
+                    <text x={SX(SIGMA_X) + 6} y={SY(TAU) - 4} fontSize={8} fill={LOAD}>
+                      X
+                    </text>
+                    <text x={(SX(AVG) + SX(S1)) / 2} y={AXIS_Y - 4} textAnchor="middle" fontSize={8.5} fill={ACCENT}>
+                      R = {pl(RADIUS)}
+                    </text>
+                    <text x={arcEndX + 4} y={arcStartY - 5} fontSize={8} fill={VIOLET}>
+                      2α
+                    </text>
+                    <text x={SX(S2)} y={AXIS_Y + 18} textAnchor="middle" fontSize={8} fill={EDGE}>
+                      σ2 = {pl(S2)}
+                    </text>
+                    <text x={SX(S1)} y={AXIS_Y + 18} textAnchor="middle" fontSize={8} fill={EDGE}>
+                      σ1 = {pl(S1)}
+                    </text>
+                    <text x={SX(AVG)} y={AXIS_Y + 32} textAnchor="middle" fontSize={8} fill={MUTED}>
+                      σavg = {pl(AVG)}
+                    </text>
+                  </g>
+                )}
+
+                {isCriteria && (
+                  <g>
+                    <text x={SX(AVG) + 6} y={SY(RADIUS) + 3} fontSize={8.5} fill={LOAD}>
+                      τmax = {pl(RADIUS)}
+                    </text>
+                    <text x={SX(AVG)} y={AXIS_Y - 6} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={LOAD}>
+                      2R = {pl(TRESCA)} MPa
+                    </text>
+                    <text x={SX(HMH)} y={AXIS_Y + 42} textAnchor="middle" fontSize={8.5} fill={GREEN}>
+                      σHMH = {pl(HMH)}
+                    </text>
+                    <text x={250} y={82} fontSize={8.5} fill={MUTED}>
+                      Treska patrzy na średnicę, HMH na energię postaciową
+                    </text>
+                  </g>
+                )}
+              </g>
+            )}
+
+            {isDecision && <SafetyBars progress={progress} />}
+
+            <text x={466} y={292} textAnchor="end" fontSize={8} fill={MUTED}>
+              {isModel
+                ? 'model i dane'
+                : isState
+                  ? 'odczyt σ i τ'
+                  : isPrincipal
+                    ? 'punkty główne'
+                    : isCriteria
+                      ? 'ścinanie i hipotezy'
+                      : 'decyzja projektowa'}
+            </text>
+          </g>
         </svg>
       </div>
     </div>

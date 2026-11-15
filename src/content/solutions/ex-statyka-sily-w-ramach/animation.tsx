@@ -101,7 +101,7 @@ function Support({ x, y }: { x: number; y: number }) {
         />
       ))}
       <circle cx={x} cy={y} r={3.4} fill={EDGE} />
-      <text x={x - 38} y={y - 6} textAnchor="end" fontSize={10} fontWeight={600} fill={EDGE}>
+      <text x={x - 46} y={y - 6} textAnchor="end" fontSize={10} fontWeight={600} fill={EDGE}>
         A
       </text>
     </g>
@@ -144,7 +144,7 @@ function MomentArc({
 
 export function FrameForcesAnimation({ scene, playing, sceneProgress }: SolutionAnimationProps) {
   const metric = scene.focus?.metric ?? 'model'
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const isModel = metric === 'model'
   const isReaction = metric === 'reaction'
   const isBeam = metric === 'beam'
@@ -270,7 +270,7 @@ export function FrameForcesAnimation({ scene, playing, sceneProgress }: Solution
                 color={REACT}
                 marker="ex-fr-react"
                 label="A_x = 6 kN"
-                labelY={AY + 18}
+                labelY={AY + 30}
               />
               <ArrowY
                 x={AX + 5}
@@ -311,7 +311,7 @@ export function FrameForcesAnimation({ scene, playing, sceneProgress }: Solution
                 strokeWidth={1.6}
                 strokeDasharray="6 4"
               />
-              <text x={CUT_BEAM} y={BY - 40} textAnchor="middle" fontSize={8.5} fill={INTERNAL}>
+              <text x={CUT_BEAM} y={BY - 52} textAnchor="middle" fontSize={8.5} fill={INTERNAL}>
                 x = 2 m
               </text>
               <ArrowX
@@ -330,9 +330,9 @@ export function FrameForcesAnimation({ scene, playing, sceneProgress }: Solution
                 color={INTERNAL}
                 marker="ex-fr-internal"
                 label="T = 8 kN"
-                labelX={CUT_BEAM + 12}
-                labelY={BY + 48}
-                align="start"
+                labelX={CUT_BEAM - 8}
+                labelY={BY + 24}
+                align="end"
               />
               <MomentArc
                 x={CUT_BEAM}
@@ -366,7 +366,7 @@ export function FrameForcesAnimation({ scene, playing, sceneProgress }: Solution
                 strokeWidth={1.6}
                 strokeDasharray="6 4"
               />
-              <text x={AX + 36} y={CUT_COL + 4} fontSize={8.5} fill={INTERNAL}>
+              <text x={AX + 36} y={CUT_COL + 18} fontSize={8.5} fill={INTERNAL}>
                 y = 1,5 m
               </text>
               <ArrowY

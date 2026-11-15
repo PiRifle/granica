@@ -107,7 +107,7 @@ export function SupportsReactionsExample2Animation({ scene, index, sceneProgress
               />
               <line x1={xQ} y1={beamY + 2} x2={xQ} y2={beamY + 14} strokeDasharray="3 3" strokeWidth={1} />
               {index < 4 && (
-                <text x={xQ + 18} y={beamY - 72} textAnchor="middle" fontSize={9} stroke="none">
+                <text x={xQ + 10} y={beamY - 88} textAnchor="middle" fontSize={9} stroke="none">
                   Q = 7,5 kN
                 </text>
               )}
@@ -197,10 +197,10 @@ export function SupportsReactionsExample2Animation({ scene, index, sceneProgress
               animate={{ opacity: qT }}
               transition={{ duration: 0.35 }}
             >
-              <line x1={x0} y1={206} x2={xQ} y2={206} strokeWidth={1.2} />
-              <line x1={x0} y1={200} x2={x0} y2={212} strokeWidth={1.2} />
-              <line x1={xQ} y1={200} x2={xQ} y2={212} strokeWidth={1.2} />
-              <text x={(x0 + xQ) / 2} y={200} textAnchor="middle" fontSize={10} stroke="none">
+              <line x1={x0} y1={222} x2={xQ} y2={222} strokeWidth={1.2} />
+              <line x1={x0} y1={216} x2={x0} y2={228} strokeWidth={1.2} />
+              <line x1={xQ} y1={216} x2={xQ} y2={228} strokeWidth={1.2} />
+              <text x={(x0 + xQ) / 2} y={216} textAnchor="middle" fontSize={10} stroke="none">
                 x_Q = 1,25 m
               </text>
             </motion.g>

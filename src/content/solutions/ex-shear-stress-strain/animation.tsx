@@ -326,7 +326,7 @@ function TauGammaPlot({ draw, highlight = false }: { draw: number; highlight?: b
       <text x={px - 8} y={py + 9} textAnchor="end" fontSize={8} fill={MUTED}>
         γ = 7,8·10⁻⁴ rad
       </text>
-      <text x={PLOT.x + 9} y={PLOT.y - PLOT.h * 0.56} fontSize={8.5} fill={MUTED}>
+      <text x={PLOT.x + 9} y={PLOT.y - PLOT.h * 0.45} fontSize={8.5} fill={MUTED}>
         nachylenie G
       </text>
     </g>

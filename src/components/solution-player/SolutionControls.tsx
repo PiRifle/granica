@@ -23,7 +23,7 @@ export function SolutionControls({
   progress: number
 }) {
   return (
-    <div className={local('solution-controls')}>
+    <div className={local('solution-controls')} data-solution-controls>
       <div className={local('solution-buttons')}>
         <button className={local('icon-button')} type="button" onClick={playback.reset} aria-label="Od początku">
           <RotateCcw size={17} />

@@ -160,7 +160,7 @@ function AllowableGauge({ progress }: { progress: number }) {
         <text x={xOf(KR)} y={y - 30} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={GREEN}>
           k_r = {pl(KR, 1)}
         </text>
-        <line x1={xOf(RE)} y1={y - 10} x2={xOf(RE)} y2={y + 12} stroke={STRESS} strokeWidth={2} />
+        <line x1={xOf(RE)} y1={y - 10} x2={xOf(RE)} y2={y + 4} stroke={STRESS} strokeWidth={2} />
         <text x={xOf(RE)} y={y - 16} textAnchor="middle" fontSize={8} fill={STRESS}>
           R_e = {RE}
         </text>
@@ -285,7 +285,7 @@ function CurvePlot({ progress }: { progress: number }) {
       <text x={plotX + plotW + 8} y={plotY + 14} textAnchor="end" fontSize={8.5} fill={MUTED}>
         τ [MPa]
       </text>
-      <text x={plotX - 6} y={plotY + 18 - plotH - 2} textAnchor="end" fontSize={8.5} fill={MUTED}>
+      <text x={plotX - 6} y={plotY + 18 - plotH - 14} textAnchor="end" fontSize={8.5} fill={MUTED}>
         σHMH [MPa]
       </text>
 
@@ -315,10 +315,6 @@ function CurvePlot({ progress }: { progress: number }) {
         strokeWidth={1.6}
         strokeDasharray="4 4"
       />
-      <text x={plotX + plotW - 4} y={yOf(KR) - 6} textAnchor="end" fontSize={8.5} fontWeight={700} fill={GREEN}>
-        k_r = {pl(KR, 1)} MPa
-      </text>
-
       <motion.path
         d={path}
         fill="none"
@@ -328,6 +324,9 @@ function CurvePlot({ progress }: { progress: number }) {
         animate={{ pathLength: draw }}
         transition={{ duration: 0.12, ease: 'linear' }}
       />
+      <text x={plotX + 4} y={yOf(KR) - 6} fontSize={8.5} fontWeight={700} fill={GREEN}>
+        k_r = {pl(KR, 1)} MPa
+      </text>
 
       <line
         x1={xOf(TAU)}
@@ -351,7 +350,7 @@ function CurvePlot({ progress }: { progress: number }) {
       <text x={xOf(TAU) + 6} y={plotY + 10} fontSize={8.5} fontWeight={700} fill={STRESS} opacity={draw}>
         τ = {pl(TAU, 1)} MPa
       </text>
-      <text x={xOf(TAU) + 6} y={yOf(KR) - 6} fontSize={8} fill={STRESS} opacity={draw}>
+      <text x={xOf(TAU) + 6} y={yOf(KR) + 14} fontSize={8} fill={STRESS} opacity={draw}>
         σHMH = k_r
       </text>
 

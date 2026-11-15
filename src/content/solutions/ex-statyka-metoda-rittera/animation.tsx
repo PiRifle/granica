@@ -157,10 +157,10 @@ export function RitterMethodAnimation({ index, playing, sceneProgress }: Solutio
             <motion.g initial={false} animate={{ opacity: reveal }} transition={{ duration: 0.35 }}>
               <rect x={34} y={72} width={cutX - 34} height={222} fill={CUT} opacity={0.07} />
               <line x1={cutX} y1={78} x2={cutX} y2={292} stroke={CUT} strokeWidth={2.2} strokeDasharray="10 7" />
-              <text x={cutX - 8} y={90} textAnchor="end" fontSize="10" fill={CUT}>
+              <text x={cutX + 4} y={50} textAnchor="start" fontSize="10" fill={CUT}>
                 przekrój
               </text>
-              <text x={70} y={90} fontSize="10" fill={CUT}>
+              <text x={70} y={85} fontSize="10" fill={CUT}>
                 część lewa
               </text>
             </motion.g>
@@ -173,7 +173,7 @@ export function RitterMethodAnimation({ index, playing, sceneProgress }: Solutio
             <Member key={member.id} from={member.from} to={member.to} status={statusOf(member.id)} />
           ))}
 
-          {showDB && <ForceLabel x={155} y={207} text="N_DB = −1,414 kN" color={COMPRESSION} />}
+          {showDB && <ForceLabel x={275} y={207} text="N_DB = −1,414 kN" color={COMPRESSION} />}
           {showAB && <ForceLabel x={115} y={286} text="N_AB = +7,00 kN" color={TENSION} />}
           {showDE && <ForceLabel x={225} y={96} text="N_DE = −6,00 kN" color={COMPRESSION} />}
 
@@ -195,7 +195,7 @@ export function RitterMethodAnimation({ index, playing, sceneProgress }: Solutio
                 2 m
               </text>
               <circle cx={NODES.D.x} cy={NODES.D.y} r={13} stroke={ARM} strokeDasharray="3 3" />
-              <text x={NODES.D.x + 18} y={NODES.D.y - 14} fontSize="10" stroke="none" fill={ARM}>
+              <text x={NODES.D.x + 22} y={80} fontSize="10" stroke="none" fill={ARM}>
                 ΣM_D = 0
               </text>
             </motion.g>
@@ -214,7 +214,7 @@ export function RitterMethodAnimation({ index, playing, sceneProgress }: Solutio
               <line x1={NODES.B.x} y1={NODES.B.y} x2={NODES.D.x} y2={NODES.B.y} />
               <line x1={NODES.B.x} y1={NODES.B.y} x2={NODES.B.x} y2={NODES.E.y} />
               <circle cx={NODES.B.x} cy={NODES.B.y} r={12} stroke={ARM} strokeDasharray="3 3" />
-              <text x={NODES.B.x + 16} y={NODES.B.y - 16} fontSize="10" stroke="none" fill={ARM}>
+              <text x={NODES.B.x + 25} y={235} fontSize="10" stroke="none" fill={ARM}>
                 ΣM_B = 0
               </text>
             </motion.g>
@@ -258,7 +258,7 @@ export function RitterMethodAnimation({ index, playing, sceneProgress }: Solutio
             strokeWidth={3.4}
             markerEnd="url(#ex-ritter-load)"
           />
-          <text x={NODES.D.x - 7} y={NODES.D.y - 57} textAnchor="end" fontSize="10.5" fill={LOAD}>
+          <text x={NODES.D.x - 7} y={NODES.D.y - 47} textAnchor="end" fontSize="10.5" fill={LOAD}>
             P₁ = 8 kN
           </text>
           <line
@@ -270,7 +270,7 @@ export function RitterMethodAnimation({ index, playing, sceneProgress }: Solutio
             strokeWidth={3.4}
             markerEnd="url(#ex-ritter-load)"
           />
-          <text x={NODES.E.x + 7} y={NODES.E.y - 57} fontSize="10.5" fill={LOAD}>
+          <text x={NODES.E.x + 7} y={NODES.E.y - 47} fontSize="10.5" fill={LOAD}>
             P₂ = 4 kN
           </text>
 

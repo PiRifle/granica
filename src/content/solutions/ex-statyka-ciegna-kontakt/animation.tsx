@@ -22,7 +22,7 @@ const G_END = { x: C.x, y: 328 }
 const ANCHOR = { x: 350, y: C.y }
 
 export function RopeContactAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 1.6) : 1
+  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 2.4) : 1
   const mainOpacity = index === 5 ? 0.18 : 1
   const showReactions = index >= 1
   const showVertical = index >= 2
@@ -53,7 +53,7 @@ export function RopeContactAnimation({ index, playing, sceneProgress }: Solution
           <g opacity={mainOpacity}>
             <path d="M 38 332 L 442 108 L 442 342 L 38 342 Z" fill="#f4f6f9" stroke="none" />
             <line x1="38" y1="332" x2="442" y2="108" stroke={EDGE} strokeWidth="3" />
-            <text x="230" y="330" fontSize="11" fill={MUTED}>
+            <text x="128" y="314" fontSize="11" fill={MUTED}>
               α = 30°
             </text>
             <path d="M 98 311 A 34 34 0 0 1 126 298" fill="none" stroke={MUTED} strokeWidth="1.3" />
@@ -67,7 +67,7 @@ export function RopeContactAnimation({ index, playing, sceneProgress }: Solution
 
             <circle cx={C.x} cy={C.y} r={R} fill={LIGHT} stroke="#4f6df5" strokeWidth="2.5" />
             <circle cx={C.x} cy={C.y} r="3" fill={INK} />
-            <text x={C.x + 46} y={C.y - 6} fontSize="12" fill={INK}>
+            <text x={C.x + 46} y={C.y + 50} fontSize="12" fill={INK}>
               G = 200 N
             </text>
 
@@ -85,7 +85,7 @@ export function RopeContactAnimation({ index, playing, sceneProgress }: Solution
               />
             )}
             {showReactions && (
-              <text x={N_END.x - 6} y={N_END.y - 8} textAnchor="end" fontSize="12" fill={NORMAL}>
+              <text x={N_END.x - 28} y={N_END.y - 4} textAnchor="end" fontSize="12" fill={NORMAL}>
                 N = 230,9 N
               </text>
             )}
@@ -120,7 +120,7 @@ export function RopeContactAnimation({ index, playing, sceneProgress }: Solution
               initial={false}
               animate={{ opacity: 1 }}
             />
-            <text x={G_END.x + 10} y={G_END.y + 4} fontSize="12" fill={WEIGHT}>
+            <text x={G_END.x + 10} y={G_END.y - 14} fontSize="12" fill={WEIGHT}>
               G = 200 N
             </text>
 
@@ -133,7 +133,7 @@ export function RopeContactAnimation({ index, playing, sceneProgress }: Solution
             )}
             {showVertical && (
               <g fontSize="10" fill={MUTED}>
-                <text x={C.x + 5} y={(C.y + N_Y.y) / 2}>
+                <text x={C.x + 60} y={(C.y + N_Y.y) / 2}>
                   Ncos30° = 200 N
                 </text>
                 <text x={N_X.x - 4} y={C.y + 15} textAnchor="end">
@@ -149,7 +149,7 @@ export function RopeContactAnimation({ index, playing, sceneProgress }: Solution
             )}
 
             {showResult && (
-              <text x={C.x + 46} y={C.y + 18} fontSize="10.5" fill={NORMAL}>
+              <text x={C.x + 90} y={C.y + 8} fontSize="10.5" fill={NORMAL}>
                 N/G = 1,155
               </text>
             )}

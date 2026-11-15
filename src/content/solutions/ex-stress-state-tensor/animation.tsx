@@ -74,10 +74,15 @@ function Cube({ opacity = 1 }: { opacity?: number }) {
         opacity={0.4}
       />
       <circle cx={186} cy={178} r={3} fill={INK} />
-      <text x={193} y={175} fontSize={8} fill={MUTED}>
-        punkt
-      </text>
     </g>
+  )
+}
+
+function CubeText() {
+  return (
+    <text x={193} y={175} fontSize={8} fill={MUTED}>
+      punkt
+    </text>
   )
 }
 
@@ -100,17 +105,9 @@ const zeroEntries = [
   { r: 2, c: 2 },
 ]
 
-function TensorMatrix({ progress }: { progress: number }) {
+function TensorMatrixShapes({ progress }: { progress: number }) {
   return (
     <g>
-      <text x={MX + 60} y={MY - 16} textAnchor="middle" fontSize={10} fontWeight={600} fill={INK}>
-        tensor naprężenia [MPa]
-      </text>
-      {['x', 'y', 'z'].map((label, row) => (
-        <text key={label} x={MX - 18} y={MY + row * CELL + CELL / 2 + 4} textAnchor="middle" fontSize={9} fill={MUTED}>
-          {label}
-        </text>
-      ))}
       <path
         d={`M ${MX - 7} ${MY - 3} L ${MX - 14} ${MY - 3} L ${MX - 14} ${MY + 3 * CELL + 3} L ${MX - 7} ${MY + 3 * CELL + 3}`}
         fill="none"
@@ -137,6 +134,48 @@ function TensorMatrix({ progress }: { progress: number }) {
           />
         )),
       )}
+      {matrixEntries.map((entry, index) => {
+        const targetX = MX + entry.c * CELL + CELL / 2
+        const targetY = MY + entry.r * CELL + CELL / 2
+        const dx = entry.from.x - targetX
+        const dy = entry.from.y - targetY
+        const move = ramp(progress, 0.12 + index * 0.1, 0.56 + index * 0.1)
+        const appear = ramp(progress, 0.02, 0.12)
+        return (
+          <motion.g
+            key={`${entry.r}-${entry.c}`}
+            initial={false}
+            animate={{ x: dx * (1 - move), y: dy * (1 - move), opacity: appear }}
+            transition={{ duration: 0.08, ease: 'linear' }}
+          >
+            <rect
+              x={targetX - 18}
+              y={targetY - 11}
+              width={36}
+              height={22}
+              rx={5}
+              fill="#fff"
+              stroke={entry.color}
+              strokeWidth={1.6}
+            />
+          </motion.g>
+        )
+      })}
+    </g>
+  )
+}
+
+function TensorMatrixTexts({ progress }: { progress: number }) {
+  return (
+    <g>
+      <text x={MX + 60} y={MY - 16} textAnchor="middle" fontSize={10} fontWeight={600} fill={INK}>
+        tensor naprężenia [MPa]
+      </text>
+      {['x', 'y', 'z'].map((label, row) => (
+        <text key={label} x={MX - 18} y={MY + row * CELL + CELL / 2 + 4} textAnchor="middle" fontSize={9} fill={MUTED}>
+          {label}
+        </text>
+      ))}
       {zeroEntries.map(({ r, c }) => (
         <text
           key={`zero-${r}-${c}`}
@@ -164,20 +203,10 @@ function TensorMatrix({ progress }: { progress: number }) {
             animate={{ x: dx * (1 - move), y: dy * (1 - move), opacity: appear }}
             transition={{ duration: 0.08, ease: 'linear' }}
           >
-            <rect
-              x={targetX - 18}
-              y={targetY - 11}
-              width={36}
-              height={22}
-              rx={5}
-              fill="#fff"
-              stroke={entry.color}
-              strokeWidth={1.6}
-            />
-            <text x={targetX} y={targetY + 2} textAnchor="middle" fontSize={9} fontWeight={600} fill={entry.color}>
+            <text x={targetX} y={targetY - 2} textAnchor="middle" fontSize={9} fontWeight={600} fill={entry.color}>
               {entry.symbol}
             </text>
-            <text x={targetX} y={targetY + 11} textAnchor="middle" fontSize={7} fill={MUTED}>
+            <text x={targetX} y={targetY + 10} textAnchor="middle" fontSize={7} fill={MUTED}>
               {entry.value}
             </text>
           </motion.g>
@@ -187,7 +216,35 @@ function TensorMatrix({ progress }: { progress: number }) {
   )
 }
 
-function PlaneNormal({ progress }: { progress: number }) {
+function PlaneNormalShapes({ progress }: { progress: number }) {
+  const ox = 270
+  const oy = 215
+  const nx = Math.cos(Math.PI / 6)
+  const ny = Math.sin(Math.PI / 6)
+  const tipX = ox + 65 * nx
+  const tipY = oy - 65 * ny
+  const show = ramp(progress, 0.08, 0.35)
+
+  return (
+    <g>
+      <line x1={ox - 80 * ny} y1={oy - 80 * nx} x2={ox + 80 * ny} y2={oy + 80 * nx} stroke={EDGE} strokeWidth={2} />
+      <line x1={ox} y1={oy} x2={ox + 80} y2={oy} stroke={MUTED} strokeWidth={1} strokeDasharray="4 4" />
+      <path
+        d={`M ${ox + 34} ${oy} A 34 34 0 0 0 ${ox + 34 * nx} ${oy - 34 * ny}`}
+        fill="none"
+        stroke={MUTED}
+        strokeWidth={1}
+      />
+      <Arrow x1={ox} y1={oy} x2={tipX} y2={tipY} amount={show} color={BLUE} width={2.6} />
+      <motion.g initial={false} animate={{ opacity: ramp(progress, 0.36, 0.7) }}>
+        <line x1={tipX} y1={tipY} x2={tipX} y2={oy} stroke={BLUE} strokeWidth={1} strokeDasharray="3 3" />
+        <line x1={ox} y1={oy} x2={tipX} y2={oy} stroke={BLUE} strokeWidth={1} strokeDasharray="3 3" />
+      </motion.g>
+    </g>
+  )
+}
+
+function PlaneNormalTexts({ progress }: { progress: number }) {
   const ox = 270
   const oy = 215
   const nx = Math.cos(Math.PI / 6)
@@ -201,21 +258,12 @@ function PlaneNormal({ progress }: { progress: number }) {
       <text x={16} y={24} fontSize={9} fill={MUTED}>
         płaski stan naprężenia · σz = τxz = τyz = 0
       </text>
-      <line x1={ox - 80 * ny} y1={oy - 80 * nx} x2={ox + 80 * ny} y2={oy + 80 * nx} stroke={EDGE} strokeWidth={2} />
-      <line x1={ox} y1={oy} x2={ox + 80} y2={oy} stroke={MUTED} strokeWidth={1} strokeDasharray="4 4" />
       <text x={ox + 84} y={oy + 3} fontSize={9} fill={MUTED}>
         x
       </text>
-      <path
-        d={`M ${ox + 34} ${oy} A 34 34 0 0 0 ${ox + 34 * nx} ${oy - 34 * ny}`}
-        fill="none"
-        stroke={MUTED}
-        strokeWidth={1}
-      />
       <text x={ox + 38} y={oy - 12} fontSize={9} fill={MUTED}>
         30°
       </text>
-      <Arrow x1={ox} y1={oy} x2={tipX} y2={tipY} amount={show} color={BLUE} width={2.6} />
       <motion.text
         x={tipX + 6}
         y={tipY - 5}
@@ -228,8 +276,6 @@ function PlaneNormal({ progress }: { progress: number }) {
         n
       </motion.text>
       <motion.g initial={false} animate={{ opacity: ramp(progress, 0.36, 0.7) }}>
-        <line x1={tipX} y1={tipY} x2={tipX} y2={oy} stroke={BLUE} strokeWidth={1} strokeDasharray="3 3" />
-        <line x1={ox} y1={oy} x2={tipX} y2={oy} stroke={BLUE} strokeWidth={1} strokeDasharray="3 3" />
         <text x={(ox + tipX) / 2} y={oy + 13} textAnchor="middle" fontSize={8.5} fill={BLUE}>
           cos 30°
         </text>
@@ -244,7 +290,7 @@ function PlaneNormal({ progress }: { progress: number }) {
   )
 }
 
-function PlaneTraction({ progress }: { progress: number }) {
+function PlaneTractionShapes({ progress }: { progress: number }) {
   const ox = 250
   const oy = 220
   const s = 0.8
@@ -262,26 +308,11 @@ function PlaneTraction({ progress }: { progress: number }) {
 
   return (
     <g>
-      <text x={16} y={24} fontSize={9} fill={MUTED}>
-        T = σ n · rozkład na normalną i styczną
-      </text>
       <line x1={ox - 80 * ny} y1={oy - 80 * nx} x2={ox + 80 * ny} y2={oy + 80 * nx} stroke={EDGE} strokeWidth={2} />
       <Arrow x1={ox} y1={oy} x2={nX} y2={nY} amount={showNormal} color={MUTED} width={1.4} dash="4 4" />
-      <text x={nX + 4} y={nY - 4} fontSize={9} fill={MUTED}>
-        n
-      </text>
       <Arrow x1={ox} y1={oy} x2={tX} y2={tY} amount={showTraction} color={ORANGE} width={2.8} />
-      <text x={tX + 5} y={tY + 2} fontSize={9.5} fontWeight={600} fill={ORANGE}>
-        T
-      </text>
       <Arrow x1={ox} y1={oy} x2={pX} y2={pY} amount={showComponents} color={BLUE} width={2.6} />
-      <text x={(ox + pX) / 2 - 10} y={(oy + pY) / 2 - 7} fontSize={9} fontWeight={600} fill={BLUE}>
-        σn
-      </text>
       <Arrow x1={pX} y1={pY} x2={tX} y2={tY} amount={showComponents} color={VIOLET} width={2.6} />
-      <text x={tX - 2} y={tY - 8} fontSize={9} fontWeight={600} fill={VIOLET}>
-        τ
-      </text>
       <motion.g initial={false} animate={{ opacity: showComponents }}>
         <line
           x1={ox}
@@ -302,6 +333,40 @@ function PlaneTraction({ progress }: { progress: number }) {
           strokeDasharray="4 3"
         />
       </motion.g>
+    </g>
+  )
+}
+
+function PlaneTractionTexts({ progress }: { progress: number }) {
+  const ox = 250
+  const oy = 220
+  const s = 0.8
+  const nx = Math.cos(Math.PI / 6)
+  const ny = Math.sin(Math.PI / 6)
+  const pX = ox + 125.98 * nx * s
+  const pY = oy - 125.98 * ny * s
+  const tX = ox + 118.92 * s
+  const tY = oy - 45.98 * s
+  const nX = ox + 50 * nx
+  const nY = oy - 50 * ny
+
+  return (
+    <g>
+      <text x={16} y={24} fontSize={9} fill={MUTED}>
+        T = σ n · rozkład na normalną i styczną
+      </text>
+      <text x={nX + 4} y={nY - 4} fontSize={9} fill={MUTED}>
+        n
+      </text>
+      <text x={tX + 5} y={tY + 2} fontSize={9.5} fontWeight={600} fill={ORANGE}>
+        T
+      </text>
+      <text x={(ox + pX) / 2 - 10} y={(oy + pY) / 2 - 7} fontSize={9} fontWeight={600} fill={BLUE}>
+        σn
+      </text>
+      <text x={tX - 2} y={tY - 8} fontSize={9} fontWeight={600} fill={VIOLET}>
+        τ
+      </text>
       <text x={16} y={274} fontSize={9} fill={MUTED}>
         σn ≈ 125,98 MPa · τ ≈ 19,6 MPa
       </text>
@@ -381,51 +446,12 @@ export function StressTensorExample1Animation({ scene, playing, sceneProgress, i
           role="img"
           aria-label="Kostka naprężeń w punkcie: składowe sigma x, sigma y i tau xy, ich zapis w tensorze oraz trakcja na płaszczyźnie nachylonej pod kątem 30 stopni."
         >
-          {(isModel || isTensor) && (
-            <text x={16} y={24} fontSize={9} fill={MUTED}>
-              σx = 120 MPa · σy = 40 MPa · τxy = 30 MPa
-            </text>
-          )}
-
           {isModel && (
             <g>
               <Cube />
               <Arrow x1={262} y1={168} x2={322} y2={168} amount={ramp(p, 0.05, 0.38)} color={BLUE} width={2.8} />
-              <motion.text
-                x={288}
-                y={160}
-                fontSize={10}
-                fontWeight={600}
-                fill={BLUE}
-                initial={false}
-                animate={{ opacity: ramp(p, 0.22, 0.46) }}
-              >
-                σx = 120
-              </motion.text>
               <Arrow x1={280} y1={208} x2={280} y2={136} amount={ramp(p, 0.24, 0.56)} color={VIOLET} width={2.6} />
-              <motion.text
-                x={286}
-                y={132}
-                fontSize={10}
-                fontWeight={600}
-                fill={VIOLET}
-                initial={false}
-                animate={{ opacity: ramp(p, 0.4, 0.64) }}
-              >
-                τxy = 30
-              </motion.text>
               <Arrow x1={198} y1={104} x2={198} y2={54} amount={ramp(p, 0.42, 0.74)} color={GREEN} width={2.8} />
-              <motion.text
-                x={206}
-                y={58}
-                fontSize={10}
-                fontWeight={600}
-                fill={GREEN}
-                initial={false}
-                animate={{ opacity: ramp(p, 0.58, 0.82) }}
-              >
-                σy = 40
-              </motion.text>
               <motion.circle
                 cx={186}
                 cy={178}
@@ -437,42 +463,95 @@ export function StressTensorExample1Animation({ scene, playing, sceneProgress, i
                 animate={{ opacity: playing ? [0.25, pulse, 0.25] : 0.4 }}
                 transition={{ duration: 1.6, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
               />
-              <text x={20} y={274} fontSize={9} fill={MUTED}>
-                naprężenia normalne prostopadłe do ścian, styczne w płaszczyźnie ściany
-              </text>
             </g>
           )}
 
           {isTensor && (
             <g>
               <Cube opacity={0.55} />
-              <motion.g initial={false} animate={{ opacity: ramp(p, 0.04, 0.24) }}>
-                <text x={142} y={112} fontSize={9} fontWeight={600} fill={BLUE}>
-                  σx
-                </text>
-                <text x={250} y={108} fontSize={9} fontWeight={600} fill={GREEN}>
-                  σy
-                </text>
-                <text x={292} y={214} fontSize={9} fontWeight={600} fill={VIOLET}>
-                  τxy
-                </text>
-                <text x={150} y={258} fontSize={9} fill={MUTED}>
-                  τxz = τyz = σz = 0
-                </text>
-              </motion.g>
-              <TensorMatrix progress={p} />
+              <TensorMatrixShapes progress={p} />
             </g>
           )}
 
-          {isPlane && <PlaneNormal progress={p} />}
-          {isTraction && <PlaneTraction progress={p} />}
+          {isPlane && <PlaneNormalShapes progress={p} />}
+          {isTraction && <PlaneTractionShapes progress={p} />}
           {isCheck && <PlaneCheck progress={p} />}
 
-          {isTensor && (
-            <text x={20} y={274} fontSize={9} fill={MUTED}>
-              symetria: τxy = τyx, więc sześć niezależnych składowych
-            </text>
-          )}
+          <g>
+            {(isModel || isTensor) && (
+              <text x={16} y={24} fontSize={9} fill={MUTED}>
+                σx = 120 MPa · σy = 40 MPa · τxy = 30 MPa
+              </text>
+            )}
+
+            {isModel && (
+              <g>
+                <CubeText />
+                <motion.text
+                  x={288}
+                  y={160}
+                  fontSize={10}
+                  fontWeight={600}
+                  fill={BLUE}
+                  initial={false}
+                  animate={{ opacity: ramp(p, 0.22, 0.46) }}
+                >
+                  σx = 120
+                </motion.text>
+                <motion.text
+                  x={286}
+                  y={132}
+                  fontSize={10}
+                  fontWeight={600}
+                  fill={VIOLET}
+                  initial={false}
+                  animate={{ opacity: ramp(p, 0.4, 0.64) }}
+                >
+                  τxy = 30
+                </motion.text>
+                <motion.text
+                  x={206}
+                  y={58}
+                  fontSize={10}
+                  fontWeight={600}
+                  fill={GREEN}
+                  initial={false}
+                  animate={{ opacity: ramp(p, 0.58, 0.82) }}
+                >
+                  σy = 40
+                </motion.text>
+                <text x={20} y={274} fontSize={9} fill={MUTED}>
+                  naprężenia normalne prostopadłe do ścian, styczne w płaszczyźnie ściany
+                </text>
+              </g>
+            )}
+
+            {isTensor && (
+              <g>
+                <motion.g initial={false} animate={{ opacity: ramp(p, 0.04, 0.24) }}>
+                  <text x={142} y={112} fontSize={9} fontWeight={600} fill={BLUE}>
+                    σx
+                  </text>
+                  <text x={250} y={108} fontSize={9} fontWeight={600} fill={GREEN}>
+                    σy
+                  </text>
+                  <text x={292} y={214} fontSize={9} fontWeight={600} fill={VIOLET}>
+                    τxy
+                  </text>
+                  <text x={150} y={258} fontSize={9} fill={MUTED}>
+                    τxz = τyz = σz = 0
+                  </text>
+                </motion.g>
+                <TensorMatrixTexts progress={p} />
+                <text x={20} y={274} fontSize={9} fill={MUTED}>
+                  symetria: τxy = τyx, więc sześć niezależnych składowych
+                </text>
+              </g>
+            )}
+
+            {isPlane && <PlaneNormalTexts progress={p} />}
+            {isTraction && <PlaneTractionTexts progress={p} />}
+          </g>
         </svg>
       </div>
     </div>

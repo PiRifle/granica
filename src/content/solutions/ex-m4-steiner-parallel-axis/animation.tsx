@@ -83,7 +83,7 @@ function Axis({
         strokeDasharray={dashed ? '6 4' : undefined}
       />
       {label && (
-        <text x={AXIS_FROM - 2} y={y - 5} fontSize={9} fill={color} textAnchor="start">
+        <text x={AXIS_TO + 4} y={y - 5} fontSize={9} fill={color} textAnchor="end">
           {label}
         </text>
       )}
@@ -204,10 +204,10 @@ export function SteinerParallelAxisAnimation({ scene, index, playing, sceneProgr
               />
               <rect x={sx(0)} y={sy(180)} width={50} height={144} fill="#fff" stroke={LINE} strokeDasharray="4 3" />
               <rect x={sx(70)} y={sy(180)} width={50} height={144} fill="#fff" stroke={LINE} strokeDasharray="4 3" />
-              <text x={sx(25)} y={sy(100) + 3} textAnchor="middle" fontSize={8} fill={MUTED}>
+              <text x={sx(25)} y={sy(100) + 14} textAnchor="middle" fontSize={8} fill={MUTED}>
                 pustka
               </text>
-              <text x={sx(95)} y={sy(100) + 3} textAnchor="middle" fontSize={8} fill={MUTED}>
+              <text x={sx(95)} y={sy(100) + 14} textAnchor="middle" fontSize={8} fill={MUTED}>
                 pustka
               </text>
             </g>
@@ -218,13 +218,13 @@ export function SteinerParallelAxisAnimation({ scene, index, playing, sceneProgr
           <rect x={sx(0)} y={sy(200)} width={120} height={18} fill="#f2f5fa" stroke="#7d8fa5" strokeWidth={1.3} />
 
           <g fill={MUTED} fontSize={8.5}>
-            <text x={sx(60)} y={sy(10) + 3} textAnchor="middle">
+            <text x={sx(60)} y={sy(10) + 12} textAnchor="middle">
               półka
             </text>
-            <text x={sx(60)} y={sy(100) + 3} textAnchor="middle">
+            <text x={sx(60)} y={sy(100) - 9} textAnchor="middle">
               środnik
             </text>
-            <text x={sx(60)} y={sy(190) + 3} textAnchor="middle">
+            <text x={sx(60)} y={sy(190) - 13} textAnchor="middle">
               półka
             </text>
           </g>

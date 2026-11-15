@@ -268,7 +268,7 @@ function ThresholdChart({ progress }: { progress: number }) {
       />
       <line x1={crossX} y1={crossY} x2={crossX} y2={y0} stroke={MUTED} strokeWidth={1} strokeDasharray="3 3" />
       <circle cx={crossX} cy={crossY} r={3.6} fill={INK} />
-      <text x={crossX} y={y0 + 16} textAnchor="middle" fontSize={9} fontWeight={600} fill={INK}>
+      <text x={crossX} y={y0 + 11} textAnchor="middle" fontSize={9} fontWeight={600} fill={INK}>
         σ1 = 40
       </text>
       <text x={currentX + 7} y={currentY - 7} fontSize={9} fill={VIOLET}>
@@ -313,7 +313,7 @@ function ComparisonBars() {
             <text x={x} y={row.y - 14} fontSize={9.5} fontWeight={600} fill={row.color}>
               {row.label}
             </text>
-            <text x={x + width} y={row.y - 14} textAnchor="end" fontSize={9} fill={row.color}>
+            <text x={x + width + 4} y={row.y - 14} fontSize={9} fill={row.color}>
               {row.text}
             </text>
             <rect x={x} y={row.y} width={width} height={14} rx={4} fill="#eef1f6" />

@@ -318,7 +318,7 @@ export function SectionStiffnessDesign2Animation({ scene, playing, sceneProgress
                     strokeWidth={1.2}
                     strokeDasharray="4 3"
                   />
-                  <text x={SEC_X - 160 * STRESS_SCALE} y={SEC_TOP - 11} textAnchor="middle" fontSize={8} fill={OK}>
+                  <text x={SEC_X - 160 * STRESS_SCALE} y={SEC_TOP - 18} textAnchor="middle" fontSize={8} fill={OK}>
                     σ_dop
                   </text>
                   <text x={SEC_X - 91.8 * STRESS_SCALE} y={SEC_TOP - 5} textAnchor="middle" fontSize={8} fill={LOAD}>

@@ -40,7 +40,7 @@ Moduły statyki: aksjomaty i rachunek wektorowy, płaski zbieżny układ sił, p
 | Wykresy | Recharts                                           |
 | Stan    | Zustand z middleware `persist`                     |
 | Build   | Vite 8, TypeScript, vite-plugin-pwa (Workbox)      |
-| Testy   | Vitest, jsdom                                      |
+| Testy   | Vitest, jsdom, Vitest Browser Mode + Playwright    |
 | Jakość  | Prettier                                           |
 
 ## Wymagania
@@ -64,7 +64,9 @@ Aplikacja będzie dostępna pod `http://localhost:5173/`.
 | `npm run dev`              | Serwer deweloperski Vite na `0.0.0.0:5173`                      |
 | `npm run build`            | Walidacja treści, kontrola typów i build produkcyjny do `dist/` |
 | `npm run preview`          | Podgląd zbudowanej aplikacji                                    |
-| `npm test`                 | Pełny zestaw testów Vitest                                      |
+| `npm test`                 | Testy jednostkowe i wszystkie testy layoutu w Chromium          |
+| `npm run test:unit`        | Testy Vitest w jsdom                                            |
+| `npm run test:browser`     | Wszystkie sceny rozwiązań w niezależnych shardach Chromium      |
 | `npm run validate:content` | Szybka walidacja treści kursu                                   |
 | `npm run format`           | Formatowanie projektu Prettierem                                |
 | `npm run format:check`     | Sprawdzenie formatowania bez zapisu                             |
@@ -210,6 +212,54 @@ Statystyki są liczone **podczas builda** w `scripts/content-meta-plugin.ts`. Pl
 ### Debug laboratoriów
 
 Strona `/debug/labs` renderuje wszystkie laboratoria jednocześnie. **Nie trafia do builda produkcyjnego** — route, komponent i link w stopce są ogrodzone `import.meta.env.DEV`, a `LabDebug` jest ładowany dynamicznie tylko w trybie deweloperskim. Każde jest w osobnym error boundary, więc awaria jednego nie zatrzymuje pozostałych. Przycisk **Remount** resetuje pojedyncze laboratorium bez przeładowania strony. Metadane (nazwa, temat, szacowany czas) są w `src/labs/labMeta.ts`; test integralności pilnuje, żeby każdy wpis w `LabRegistry` miał metadane.
+
+### Debug rozwiązań i testy layoutu
+
+Podczas `npm run dev` strona `/debug/solutions` uruchamia workbench do oglądania i diagnozowania odtwarzaczy rozwiązań. Route jest dostępny tylko w trybie deweloperskim. Można otworzyć konkretną scenę bezpośrednim adresem:
+
+```text
+http://localhost:5173/debug/solutions?solution=cw1-1&scene=5
+```
+
+Workbench umożliwia:
+
+- wybór i filtrowanie rozwiązań, także tylko tych podpiętych do lekcji,
+- skok do sceny, odtwarzanie od startu, zmianę tempa i remount,
+- kopiowanie URL do konkretnej sceny,
+- podgląd narracji, surowej formuły, `focus.metric`, `visual` i powiązanych lekcji,
+- wychwytywanie błędów runtime w osobnej liście,
+- oznaczanie kolizji na figurze: SVG/tekst, tekst/tekst i HTML/SVG,
+- wykrywanie overflow treści prawego panelu: narracji, ustalonych wartości i przekształceń.
+
+Testy layoutu działają w prawdziwym Chromium przez Vitest Browser Mode i provider `@vitest/browser-playwright`. Nie używają jsdom ani symulowanych prostokątów do sprawdzania rzeczywistego układu. Każda scena każdego rozwiązania ma osobny test z dwiema ścisłymi asercjami: brak kolizji w lewym SVG i brak overflow w prawym panelu. **Nie ma baseline dla istniejących kolizji** — każda wykryta kolizja powoduje niezaliczenie testu i wymaga poprawy treści lub skanera.
+
+```bash
+npm test                         # jsdom + wszystkie testy Chromium
+npm run test:unit                # tylko jsdom
+npm run test:browser             # wszystkie sceny w natywnych shardach Vitest
+SOLUTION_SHARD_COUNT=8 npm run test:browser
+SOLUTION_SHARD_VERBOSE=1 npm run test:browser
+```
+
+`test:browser` używa `scripts/test-browser-shards.mjs` do uruchamiania niezależnych procesów Vitest/Chromium z natywnym `--shard=i/N`. Domyślna liczba procesów to `os.availableParallelism()`. Pliki `src/content/solution-shards/` wybierają rozwiązania dla każdego sharda, a wspólny harness znajduje się w `src/content/solution-layout.shared.tsx`.
+
+Raportowanie:
+
+- domyślnie runner pokazuje postęp `OK/FAIL` co 10 testów, a pełne raporty shardów wypisuje w osobnych sekcjach,
+- `SOLUTION_SHARD_VERBOSE=1` wypisuje każdy test na żywo z prefiksem sharda, bez powielania raportu na końcu,
+- końcowe podsumowanie agreguje wyniki, czas, shardy z błędami i shardy bez wyników,
+- maksymalnie trzy próby są wykonywane tylko dla błędów importu/iframe; nieudane asercje kolizji nie są ponawiane,
+- automatyczne screenshoty nieudanych testów są wyłączone (`screenshotFailures: false`), ponieważ concurrent testy współdzielą iframe.
+
+Na nowym środowisku zainstaluj Chromium:
+
+```bash
+npx playwright install chromium
+```
+
+Można też wskazać istniejącą binarię przez `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/ścieżka/do/chromium`.
+
+Testy lekcji w `src/content/lesson-fixtures.test.tsx` działają równolegle w obrębie modułów. Sekcje React `act()` są serializowane, a każda lekcja jest odmontowywana od razu po zapisaniu fixture.
 
 ### Biblioteka i źródła
 

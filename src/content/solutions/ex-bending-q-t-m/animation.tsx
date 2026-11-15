@@ -190,7 +190,7 @@ export function BendingQtmAnimation({ scene, index, playing, sceneProgress }: So
                 strokeWidth={1.1}
               />
               <line x1={X0 - 5} y1={T_BASE} x2={X1 + 12} y2={T_BASE} stroke="#c9d0d9" strokeWidth={1} />
-              <text x={10} y={T_BASE - 44} fontSize={10} fontWeight={700} fill={T_COLOR}>
+              <text x={10} y={T_BASE - 58} fontSize={10} fontWeight={700} fill={T_COLOR}>
                 T [kN]
               </text>
               <text x={X0 - 10} y={yT(20) + 3} textAnchor="end" fontSize={8.5} fill={MUTED}>

@@ -365,7 +365,7 @@ function Mohr({ t, principal }: { t: number; principal: boolean }) {
           ε_y
         </text>
         <circle cx={cx} cy={cy} r={2.6} fill={EDGE} />
-        <text x={cx + 5} y={cy - 6} fontSize={8.5} fill={EDGE}>
+        <text x={cx + 5} y={cy + 30} fontSize={8.5} fill={EDGE}>
           ε_sr = 600 με
         </text>
       </motion.g>
@@ -452,7 +452,7 @@ export function StrainAllowableAnimation({ scene, playing, sceneProgress }: Solu
           <text x={14} y={34} fontSize={9} fill={MUTED}>
             γ_xy = 0,0015 rad · ΔL = 0,096 mm
           </text>
-          <CoordinateAxes x={200} y={74} size={26} />
+          <CoordinateAxes x={10} y={74} size={26} />
 
           {!isMohr && (
             <g>

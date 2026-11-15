@@ -80,7 +80,7 @@ const gaugePoint = (angle: number) => {
 const gaugeLabel = (angle: number, x: number, y: number) => {
   if (angle === 0) return { x: x + 8, y: y + 2, anchor: 'start' as const }
   if (angle === 45) return { x: x + 8, y: y - 4, anchor: 'start' as const }
-  return { x: x - 8, y: y - 4, anchor: 'end' as const }
+  return { x: x + 8, y: y - 4, anchor: 'start' as const }
 }
 
 const P0 = gaugePoint(0)
@@ -221,7 +221,7 @@ export function RosetteMohrAnimation({ scene, index, playing, sceneProgress }: S
                   >
                     {gauge.angle}°
                   </text>
-                  <text x={label.x} y={label.y + 11} textAnchor={label.anchor} fontSize={8.5} fill={gauge.color}>
+                  <text x={label.x} y={label.y + 14} textAnchor={label.anchor} fontSize={8.5} fill={gauge.color}>
                     {gauge.display}
                   </text>
                 </motion.g>
@@ -243,8 +243,8 @@ export function RosetteMohrAnimation({ scene, index, playing, sceneProgress }: S
               <line
                 x1={RX}
                 y1={RY}
-                x2={polar(PHI + 90)[0]}
-                y2={polar(PHI + 90)[1]}
+                x2={polar(PHI + 90, 62)[0]}
+                y2={polar(PHI + 90, 62)[1]}
                 stroke={VIOLET}
                 strokeWidth={1.5}
                 strokeDasharray="4 4"
@@ -333,7 +333,7 @@ export function RosetteMohrAnimation({ scene, index, playing, sceneProgress }: S
           <text x={MX0 + MW + 10} y={MY - 7} textAnchor="end" fontSize={9} fill={MUTED}>
             ε
           </text>
-          <text x={xZero + 6} y={MY - 102} fontSize={9} fill={MUTED}>
+          <text x={xZero + 6} y={MY + 132} fontSize={9} fill={MUTED}>
             γ/2
           </text>
           <text x={MX0 + MW / 2} y={22} textAnchor="middle" fontSize={9} fill={MUTED}>
@@ -366,17 +366,18 @@ export function RosetteMohrAnimation({ scene, index, playing, sceneProgress }: S
 
           <motion.g initial={false} animate={{ opacity: centerP }} transition={{ duration: 0.25 }}>
             <circle cx={xC} cy={MY} r={3.6} fill={INK} />
-            <text x={xC} y={MY + 17} textAnchor="middle" fontSize={9} fill={INK}>
+            <text x={xC + 9} y={MY + 17} textAnchor="middle" fontSize={9} fill={INK}>
               C
             </text>
-            <text x={xC + 6} y={MY - 8} fontSize={8.5} fill={VIOLET}>
+            <text x={xC - 6} y={MY - 8} textAnchor="end" fontSize={8.5} fill={VIOLET}>
               R_ε
             </text>
           </motion.g>
 
           {stage === 1 && (
             <motion.g initial={false} animate={{ opacity: shearP }} transition={{ duration: 0.25 }}>
-              <line x1={P0.x} y1={P0.y} x2={P90.x} y2={P90.y} stroke={VIOLET} strokeWidth={1.6} strokeDasharray="5 4" />
+              <line x1={P0.x} y1={P0.y} x2={xC} y2={MY} stroke={VIOLET} strokeWidth={1.6} strokeDasharray="5 4" />
+              <line x1={xC} y1={MY} x2={P90.x} y2={P90.y} stroke={VIOLET} strokeWidth={1.6} strokeDasharray="5 4" />
               <line x1={P0.x} y1={P0.y} x2={P0.x} y2={MY} stroke={BLUE} strokeWidth={1} strokeDasharray="3 3" />
               <line x1={P90.x} y1={P90.y} x2={P90.x} y2={MY} stroke={GREEN} strokeWidth={1} strokeDasharray="3 3" />
               <text x={P0.x + 6} y={(P0.y + MY) / 2} fontSize={8} fill={BLUE}>
@@ -430,7 +431,7 @@ export function RosetteMohrAnimation({ scene, index, playing, sceneProgress }: S
             <text x={xOf(E2) + 4} y={MY - 9} textAnchor="middle" fontSize={9} fontWeight={600} fill={VIOLET}>
               εII
             </text>
-            <text x={xOf(E1) - 4} y={MY - 9} textAnchor="middle" fontSize={9} fontWeight={600} fill={VIOLET}>
+            <text x={xOf(E1)} y={MY + 18} textAnchor="middle" fontSize={9} fontWeight={600} fill={VIOLET}>
               εI
             </text>
           </motion.g>

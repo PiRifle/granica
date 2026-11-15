@@ -190,7 +190,7 @@ export function CombinedLoadingExample1Animation({ scene, playing, sceneProgress
               <text x={145} y={74} fontSize={10} fontWeight={600} fill={BLUE}>
                 A
               </text>
-              <text x={145} y={88} fontSize={9} fill={MUTED}>
+              <text x={145} y={110} fontSize={9} fill={MUTED}>
                 skrajne włókno
               </text>
 
@@ -242,7 +242,7 @@ export function CombinedLoadingExample1Animation({ scene, playing, sceneProgress
               <text x={profileAxis + common} y={70} textAnchor="middle" fontSize={9} fill={BLUE}>
                 σ_N
               </text>
-              <text x={profileAxis + bendingTop} y={62} textAnchor="middle" fontSize={9} fill={ORANGE}>
+              <text x={profileAxis + bendingTop} y={66} textAnchor="middle" fontSize={9} fill={ORANGE}>
                 σ_M
               </text>
               <text x={profileAxis + combinedTop} y={50} textAnchor="middle" fontSize={10} fontWeight={600} fill={INK}>

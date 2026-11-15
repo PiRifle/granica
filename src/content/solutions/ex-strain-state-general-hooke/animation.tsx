@@ -155,21 +155,37 @@ function Arrow({
   )
 }
 
-function Axes() {
+function AxisArrows() {
   return (
     <g>
       <Arrow x1={62} y1={264} x2={96} y2={264} amount={1} color={BLUE} width={1.4} />
+      <Arrow x1={62} y1={264} x2={62} y2={230} amount={1} color={GREEN} width={1.4} />
+      <Arrow x1={62} y1={264} x2={83} y2={248} amount={1} color={ORANGE} width={1.4} />
+    </g>
+  )
+}
+
+function AxisText() {
+  return (
+    <g>
       <text x={100} y={267} fontSize={9} fill={BLUE}>
         x
       </text>
-      <Arrow x1={62} y1={264} x2={62} y2={230} amount={1} color={GREEN} width={1.4} />
       <text x={66} y={230} fontSize={9} fill={GREEN}>
         y
       </text>
-      <Arrow x1={62} y1={264} x2={83} y2={248} amount={1} color={ORANGE} width={1.4} />
       <text x={87} y={248} fontSize={9} fill={ORANGE}>
         z
       </text>
+    </g>
+  )
+}
+
+function Axes() {
+  return (
+    <g>
+      <AxisArrows />
+      <AxisText />
     </g>
   )
 }
@@ -295,21 +311,8 @@ function CouplingScene({ p }: { p: number }) {
 
   return (
     <g>
-      <Header title="SPRZĘŻENIE · jedna oś zmienia trzy odkształcenia" />
       <Prism ghost fx={1} fy={1} fz={1} />
       <Prism fx={1 + ex * DEFORM} fy={1 + ey * DEFORM} fz={1 + ez * DEFORM} />
-      <motion.text
-        x={CX}
-        y={CY + HY + 38}
-        textAnchor="middle"
-        fontSize={9}
-        fontWeight={600}
-        fill={color}
-        initial={false}
-        animate={{ opacity: ramp(p, 0.04, 0.2) }}
-      >
-        {message}
-      </motion.text>
       <g opacity={phase === 'x' ? 0.95 : 0.22}>
         <Arrow
           x1={CX + HX + 3}
@@ -320,9 +323,6 @@ function CouplingScene({ p }: { p: number }) {
           color={BLUE}
           width={2.8}
         />
-        <text x={CX + HX + 48} y={CY + 3} fontSize={9} fontWeight={600} fill={BLUE}>
-          σx
-        </text>
       </g>
       <g opacity={phase === 'y' ? 0.95 : 0.22}>
         <Arrow
@@ -334,9 +334,6 @@ function CouplingScene({ p }: { p: number }) {
           color={GREEN}
           width={2.8}
         />
-        <text x={CX - 4} y={CY - HY - 44} fontSize={9} fontWeight={600} fill={GREEN}>
-          σy
-        </text>
       </g>
       <g opacity={phase === 'z' ? 0.95 : 0.22}>
         <Arrow
@@ -348,11 +345,37 @@ function CouplingScene({ p }: { p: number }) {
           color={ORANGE}
           width={2.8}
         />
+      </g>
+      <AxisArrows />
+      <Header title="SPRZĘŻENIE · jedna oś zmienia trzy odkształcenia" />
+      <motion.text
+        x={300}
+        y={CY + HY + 38}
+        textAnchor="middle"
+        fontSize={9}
+        fontWeight={600}
+        fill={color}
+        initial={false}
+        animate={{ opacity: ramp(p, 0.04, 0.2) }}
+      >
+        {message}
+      </motion.text>
+      <g opacity={phase === 'x' ? 0.95 : 0.22}>
+        <text x={CX + HX + 48} y={CY + 3} fontSize={9} fontWeight={600} fill={BLUE}>
+          σx
+        </text>
+      </g>
+      <g opacity={phase === 'y' ? 0.95 : 0.22}>
+        <text x={CX - 4} y={CY - HY - 44} fontSize={9} fontWeight={600} fill={GREEN}>
+          σy
+        </text>
+      </g>
+      <g opacity={phase === 'z' ? 0.95 : 0.22}>
         <text x={CX + 39} y={CY - HY - 12} fontSize={9} fontWeight={600} fill={ORANGE}>
           σz
         </text>
       </g>
-      <Axes />
+      <AxisText />
     </g>
   )
 }
@@ -364,12 +387,13 @@ function StrainScene({ p }: { p: number }) {
   const fz = 1 + EPS_Z * DEFORM * a
   return (
     <g>
+      <Prism ghost />
+      <Prism fx={fx} fy={fy} fz={fz} />
+      <AxisArrows />
       <Header
         title="DEFORMACJA 3D · wszystkie osie naraz"
         note="εx i εy są dodatnie, εz ujemne — element wydłuża się i jednocześnie maleje na grubości"
       />
-      <Prism ghost />
-      <Prism fx={fx} fy={fy} fz={fz} />
       <motion.text
         x={CX + HX * fx + 30}
         y={CY + HY * fy - 6}
@@ -404,10 +428,10 @@ function StrainScene({ p }: { p: number }) {
       >
         εz = −280 με
       </motion.text>
-      <text x={CX} y={CY + HY + 38} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+      <text x={300} y={CY + HY + 38} textAnchor="middle" fontSize={8.5} fill={MUTED}>
         linia przerywana: stan nieodkształcony
       </text>
-      <Axes />
+      <AxisText />
     </g>
   )
 }
@@ -432,10 +456,6 @@ function ShearScene({ p }: { p: number }) {
 
   return (
     <g>
-      <Header
-        title="ŚCINANIE · τxy wywołuje tylko γxy"
-        note="w materiale izotropowym ścinanie nie sprzęga się z odkształceniami liniowymi"
-      />
       <Prism ghost />
       <Prism shear={shear} />
       <motion.polyline
@@ -455,6 +475,11 @@ function ShearScene({ p }: { p: number }) {
         color={VIOLET}
         width={2.6}
       />
+      <AxisArrows />
+      <Header
+        title="ŚCINANIE · τxy wywołuje tylko γxy"
+        note="w materiale izotropowym ścinanie nie sprzęga się z odkształceniami liniowymi"
+      />
       <motion.text
         x={CX + HX + 9}
         y={CY + 10}
@@ -467,7 +492,7 @@ function ShearScene({ p }: { p: number }) {
         τxy = 30 MPa
       </motion.text>
       <motion.text
-        x={CX}
+        x={300}
         y={CY + HY + 38}
         textAnchor="middle"
         fontSize={9.5}
@@ -478,7 +503,7 @@ function ShearScene({ p }: { p: number }) {
       >
         γxy = 390 μrad · G = 76 923 MPa
       </motion.text>
-      <Axes />
+      <AxisText />
     </g>
   )
 }
@@ -559,7 +584,6 @@ function VolumeScene({ p }: { p: number }) {
   const grow = ramp(p, 0.52, 0.78)
   return (
     <g>
-      <Header title="KONTROLA · θ = ΔV/V₀" note="objętość rośnie, chociaż σz jest ściskające" />
       <Prism ghost />
       <Prism fx={fx} fy={fy} fz={fz} />
       <Arrow x1={CX + HX * fx + 4} y1={CY} x2={CX + HX * fx + 30} y2={CY} amount={grow} color={BLUE} width={2.2} />
@@ -573,17 +597,19 @@ function VolumeScene({ p }: { p: number }) {
         color={ORANGE}
         width={2.2}
       />
+      <AxisArrows />
+      <Header title="KONTROLA · θ = ΔV/V₀" note="objętość rośnie, chociaż σz jest ściskające" />
       <motion.g initial={false} animate={{ opacity: ramp(p, 0.3, 0.55) }}>
-        <text x={CX} y={CY + HY + 38} textAnchor="middle" fontSize={9.5} fontWeight={600} fill={INK}>
+        <text x={250} y={CY + HY + 38} textAnchor="middle" fontSize={9.5} fontWeight={600} fill={INK}>
           θ = 370 + 110 − 280 = 200 με
         </text>
       </motion.g>
       <motion.g initial={false} animate={{ opacity: ramp(p, 0.62, 0.86) }}>
-        <text x={CX} y={CY + HY + 54} textAnchor="middle" fontSize={9} fill={BLUE}>
+        <text x={390} y={CY + HY + 38} textAnchor="middle" fontSize={9} fill={BLUE}>
           ΔV/V₀ ≈ +0,02%
         </text>
       </motion.g>
-      <Axes />
+      <AxisText />
     </g>
   )
 }

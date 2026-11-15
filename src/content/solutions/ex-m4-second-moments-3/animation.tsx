@@ -70,7 +70,7 @@ function MainRectangle({
         y
       </text>
       <circle cx={CX} cy={axisY} r={3.6} fill={INK} />
-      <text x={CX + 7} y={axisY - 7} fontSize={10} fill={INK}>
+      <text x={CX + W / 2 + 3} y={axisY - 7} fontSize={10} fill={INK}>
         C
       </text>
       {showBDim && (

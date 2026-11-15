@@ -91,16 +91,16 @@ export function HookeLawExample2Animation({ scene, index, playing, sceneProgress
             N = 20 kN · A = 200 mm² · σ = 100 MPa
           </text>
 
-          <text x={STEEL_CX} y={36} textAnchor="middle" fontSize={11} fontWeight={700} fill={STEEL}>
+          <text x={STEEL_CX} y={32} textAnchor="middle" fontSize={11} fontWeight={700} fill={STEEL}>
             stal
           </text>
-          <text x={STEEL_CX} y={48} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+          <text x={STEEL_CX} y={47} textAnchor="middle" fontSize={8.5} fill={MUTED}>
             E_s = 200 GPa
           </text>
-          <text x={ALU_CX} y={36} textAnchor="middle" fontSize={11} fontWeight={700} fill={ALU}>
+          <text x={ALU_CX} y={32} textAnchor="middle" fontSize={11} fontWeight={700} fill={ALU}>
             aluminium
           </text>
-          <text x={ALU_CX} y={48} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+          <text x={ALU_CX} y={47} textAnchor="middle" fontSize={8.5} fill={MUTED}>
             E_a = 70 GPa
           </text>
 

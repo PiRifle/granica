@@ -231,7 +231,7 @@ export function MethodOfSectionsBeamAnimation({ scene, index, playing, sceneProg
               <motion.g initial={false} animate={{ opacity: showM ? 1 : 0 }}>
                 <MomentSymbol x={cutX} label={cutValue.mLabel} />
               </motion.g>
-              <text x={X0 + 8} y={BEAM_Y - 18} fontSize={8.5} fill={MUTED}>
+              <text x={X0 + 8} y={BEAM_Y - 34} fontSize={8.5} fill={MUTED}>
                 część lewa
               </text>
             </>
@@ -262,7 +262,7 @@ export function MethodOfSectionsBeamAnimation({ scene, index, playing, sceneProg
                 część prawa
               </motion.text>
               <motion.g initial={{ opacity: 0 }} animate={{ opacity: showRightCheck ? 1 : 0 }}>
-                <Dimension from={4} to={6} y={BEAM_Y + 74} label="2 m" />
+                <Dimension from={4} to={6} y={BEAM_Y + 90} label="2 m" />
               </motion.g>
               <motion.g initial={{ opacity: 0 }} animate={{ opacity: showRightMoment ? 1 : 0 }}>
                 <MomentSymbol x={cutX} label="M = +16 kN·m" />

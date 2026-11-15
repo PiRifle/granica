@@ -124,7 +124,7 @@ export function BendingQtmPointLoadAnimation({ scene, index, playing, sceneProgr
           <text x={X1} y={20} textAnchor="end" fontSize={9.5} fill={INK}>
             L = 6 m
           </text>
-          <text x={X1} y={33} textAnchor="end" fontSize={9} fill={MUTED}>
+          <text x={X0} y={18} textAnchor="start" fontSize={9} fill={MUTED}>
             q = 3 kN/m, P = 12 kN
           </text>
 
@@ -204,7 +204,7 @@ export function BendingQtmPointLoadAnimation({ scene, index, playing, sceneProgr
                 strokeWidth={1.1}
               />
               <line x1={X0 - 5} y1={T_BASE} x2={X1 + 12} y2={T_BASE} stroke="#c9d0d9" strokeWidth={1} />
-              <text x={10} y={T_BASE - 38} fontSize={10} fontWeight={700} fill={T_COLOR}>
+              <text x={10} y={T_BASE - 54} fontSize={10} fontWeight={700} fill={T_COLOR}>
                 T [kN]
               </text>
               <text x={X0 - 10} y={yT(15) + 3} textAnchor="end" fontSize={8.5} fill={MUTED}>
@@ -226,7 +226,7 @@ export function BendingQtmPointLoadAnimation({ scene, index, playing, sceneProgr
               />
 
               <motion.g initial={false} animate={{ opacity: relationReveal }}>
-                <text x={xAt(0.6) + 4} y={yT(12) - 6} fontSize={8.5} fontWeight={700} fill={T_COLOR}>
+                <text x={xAt(0.6) + 4} y={yT(15) - 8} fontSize={8.5} fontWeight={700} fill={T_COLOR}>
                   +15→+6 kN
                 </text>
                 <text x={xAt(HALF) + 7} y={(yT(6) + yT(-6)) / 2 + 4} fontSize={8.5} fill={LOAD}>

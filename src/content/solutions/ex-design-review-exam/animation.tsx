@@ -509,7 +509,7 @@ export function DesignReviewExam1Animation({ scene, playing, sceneProgress }: So
               <line
                 x1={282}
                 y1={250 - (D_MIN - 40) * 15}
-                x2={318}
+                x2={308}
                 y2={250 - (D_MIN - 40) * 15}
                 stroke={ORANGE}
                 strokeWidth={1.3}
@@ -518,7 +518,7 @@ export function DesignReviewExam1Animation({ scene, playing, sceneProgress }: So
               <line
                 x1={282}
                 y1={250 - (D - 40) * 15}
-                x2={318}
+                x2={308}
                 y2={250 - (D - 40) * 15}
                 stroke={GREEN}
                 strokeWidth={1.6}
@@ -554,7 +554,7 @@ export function DesignReviewExam1Animation({ scene, playing, sceneProgress }: So
                 σ = 89,4 MPa
               </text>
 
-              <text x={240} y={96} fontSize={9} fontWeight={600} fill={INK}>
+              <text x={240} y={84} fontSize={9} fontWeight={600} fill={INK}>
                 wykorzystanie naprężenia dopuszczalnego
               </text>
               <rect x={240} y={108} width={190} height={18} rx={9} fill="#edf1f5" />

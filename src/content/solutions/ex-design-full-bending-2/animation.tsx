@@ -175,7 +175,7 @@ function WBar({ x, y, width, draw, actual }: { x: number; y: number; width: numb
   const marker = (W_MIN / W_MAX) * width
   return (
     <g>
-      <text x={x} y={y - 26} fontSize={9} fontWeight={700} fill={INK}>
+      <text x={x} y={y - 34} fontSize={9} fontWeight={700} fill={INK}>
         {actual ? 'wskaźnik wytrzymałości po doborze' : 'wymagany wskaźnik wytrzymałości'}
       </text>
       <rect x={x} y={y - 10} width={width} height={16} rx={8} fill="#edf1f5" />
@@ -369,7 +369,7 @@ function RectSection({
         <Dimension
           x1={cx - halfWidth}
           x2={cx + halfWidth}
-          y={cy + halfHeight + 18}
+          y={cy + halfHeight + (stress ? 30 : 18)}
           label={undecided ? 'b = ?' : `b = ${pl(b, Number.isInteger(b) ? 0 : 1)} mm`}
         />
       )}
@@ -568,10 +568,10 @@ export function FullBendingDesign2Animation({ scene, playing, sceneProgress }: S
           {isDeflection && (
             <g>
               <line x1={X0} y1={96} x2={X1} y2={96} stroke="#c9d0d9" strokeWidth={1} strokeDasharray="6 5" />
+              <path d={deflectedPath} fill="none" stroke={BLUE} strokeWidth={3} strokeLinecap="round" />
               <Support x={X0} y={96} label="A" />
               <Support x={X1} y={96} label="B" />
               <LoadArrow x={xAt(A)} top={48} tip={92} label={`P = ${P} kN`} />
-              <path d={deflectedPath} fill="none" stroke={BLUE} strokeWidth={3} strokeLinecap="round" />
               <line
                 x1={X0}
                 y1={96 + limitSag}
@@ -585,7 +585,7 @@ export function FullBendingDesign2Animation({ scene, playing, sceneProgress }: S
               <text x={xAt(A) + 8} y={96 + 22} fontSize={9} fill={BLUE}>
                 f = 12,8 mm
               </text>
-              <text x={X1} y={96 + limitSag - 6} textAnchor="end" fontSize={8.5} fill={OK}>
+              <text x={X1 - 16} y={96 + limitSag - 6} textAnchor="end" fontSize={8.5} fill={OK}>
                 f_dop = 16 mm
               </text>
               <text x={230} y={176} textAnchor="middle" fontSize={9} fill={INK}>

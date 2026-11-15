@@ -28,7 +28,7 @@ const smooth = (value: number) => {
 }
 
 export function PlanarEquilibriumAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const showComponents = index >= 1
   const showB = index >= 2
   const showAx = index >= 3
@@ -100,7 +100,7 @@ export function PlanarEquilibriumAnimation({ index, playing, sceneProgress }: So
           <text x={X0} y={Y + 40} textAnchor="middle" fontSize="10" fill={INK}>
             A
           </text>
-          <text x={X1} y={Y + 40} textAnchor="middle" fontSize="10" fill={INK}>
+          <text x={X1 + 12} y={Y + 40} textAnchor="start" fontSize="10" fill={INK}>
             B
           </text>
 
@@ -113,7 +113,7 @@ export function PlanarEquilibriumAnimation({ index, playing, sceneProgress }: So
             strokeWidth="3.4"
             markerEnd="url(#ex-equilibrium-p)"
           />
-          <text x={P_END.x + 4} y={P_END.y + 12} fontSize="10" fill={LOAD}>
+          <text x={P_END.x + 4} y={P_END.y + 22} fontSize="10" fill={LOAD}>
             P = 10 kN
           </text>
           <text x={P_X - 28} y={Y - 18} fontSize="9" fill={MUTED}>
@@ -246,7 +246,7 @@ export function PlanarEquilibriumAnimation({ index, playing, sceneProgress }: So
           )}
 
           {!showCheck && (
-            <text x="230" y="306" textAnchor="middle" fontSize="9.5" fill={MUTED}>
+            <text x="230" y="317" textAnchor="middle" fontSize="9.5" fill={MUTED}>
               Trzy równania: dwa rzuty i moment względem A
             </text>
           )}

@@ -65,7 +65,7 @@ function Axis() {
   return (
     <g>
       <line x1={62} y1={CY} x2={438} y2={CY} stroke={LOAD} strokeWidth={1.3} strokeDasharray="6 4" />
-      <text x={64} y={CY - 7} fontSize={8.5} fill={LOAD}>
+      <text x={96} y={CY - 7} textAnchor="end" fontSize={8.5} fill={LOAD}>
         oś obojętna
       </text>
     </g>
@@ -361,7 +361,7 @@ export function RationalSectionShapes2Animation({ scene, playing, sceneProgress 
               >
                 c_r = 100
               </text>
-              <text x={CX + R + 15} y={CY - R - 18} fontSize={8.5} fill={INK}>
+              <text x={CX + R + 15} y={CY - R - 26} fontSize={8.5} fill={INK}>
                 W_r ≈ 343,6·10³ mm³
               </text>
             </>

@@ -16,8 +16,8 @@ export function SolutionHeader({
       <div className={local('solution-head')}>
         <div>
           <span className={local('section-kicker')}>ROZWIĄZANIE KROK PO KROKU</span>
-          <h2>{solution.title}</h2>
-          <div className={local('solution-problem')}>
+          <h2 data-solution-heading>{solution.title}</h2>
+          <div className={local('solution-problem')} data-solution-problem>
             <Suspense fallback={<p>Ładowanie treści…</p>}>
               <Body components={{}} />
             </Suspense>
@@ -27,9 +27,11 @@ export function SolutionHeader({
           <Gauge size={15} /> {solution.duration} min
         </span>
       </div>
-      <div className={local('solution-given')}>
+      <div className={local('solution-given')} data-solution-given>
         {solution.given.map((item) => (
-          <span key={item}>{item}</span>
+          <span key={item} data-solution-given-item>
+            {item}
+          </span>
         ))}
       </div>
     </>

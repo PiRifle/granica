@@ -16,8 +16,8 @@ export default {
     kind: 'beam',
     length: 2,
     supports: [
-      { at: 0, label: 'A' },
       { at: 2, label: 'B' },
+      { at: 0, label: 'A' },
     ],
     distributed: [{ from: 0, to: 2, start: 0, end: 20, label: 'q = 20 kN/m' }],
     shear: [

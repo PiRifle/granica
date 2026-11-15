@@ -1,0 +1,3 @@
+Fabryka `factory-principal-stress` rozwiązuje płaski stan naprężenia: ze składowych tensoru (`sigmaX`, `sigmaY`, `tauXY`) i naprężenia dopuszczalnego (`kg`) wyprowadza środek i promień koła Mohra, naprężenia główne, maksymalne ścinanie oraz ocenę warunku wytrzymałości. Animacja rysuje element naprężony, tensor i trzy koła Mohra na podstawie wyliczonych wartości.
+
+Wariant konfiguruje zadanie przez `task.ts` (`inputs` + metadane + sceny) i wiąże animację przez `createPrincipalStressAnimation(inputs)`. Pliki fabryczne nie wchodzą do `workedSolutions`.

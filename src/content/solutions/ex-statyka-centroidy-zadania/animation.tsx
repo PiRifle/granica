@@ -108,7 +108,7 @@ export function CircleCutoutsAnimation({ index, playing, sceneProgress }: Soluti
           <text x="18" y="156" fontSize="9" fill={CUT}>
             półkole r = 10 mm
           </text>
-          <line x1="74" y1="152" x2="204" y2="190" stroke={CUT} strokeWidth="0.9" strokeDasharray="3 3" opacity="0.7" />
+          <line x1="98" y1="162" x2="204" y2="190" stroke={CUT} strokeWidth="0.9" strokeDasharray="3 3" opacity="0.7" />
 
           <g stroke={MUTED} fill={MUTED}>
             <line x1={CX} y1={CY + 22} x2={sx(25)} y2={CY + 22} strokeWidth="1" />
@@ -125,23 +125,16 @@ export function CircleCutoutsAnimation({ index, playing, sceneProgress }: Soluti
                 A₁ = 1963,50 mm²
               </text>
               <text
-                x={RECT_CENTROID.x}
-                y={RECT_CENTROID.y + 3}
-                textAnchor="middle"
+                x={RECT_CENTROID.x + 8}
+                y={RECT_CENTROID.y + 14}
+                textAnchor="start"
                 fontSize="9.5"
                 fontWeight="700"
                 fill={CUT}
               >
                 A₂ = −150
               </text>
-              <text
-                x={HALF_CENTROID.x - 6}
-                y={HALF_CENTROID.y - 8}
-                textAnchor="end"
-                fontSize="9.5"
-                fontWeight="700"
-                fill={CUT}
-              >
+              <text x="160" y="110" textAnchor="middle" fontSize="9.5" fontWeight="700" fill={CUT}>
                 A₃ = −157,08
               </text>
             </motion.g>
@@ -197,14 +190,14 @@ export function CircleCutoutsAnimation({ index, playing, sceneProgress }: Soluti
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               />
-              <text x={RECT_CENTROID.x + 5} y={(CY + RECT_CENTROID.y) / 2} fontSize="9" fill={ARM}>
+              <text x={RECT_CENTROID.x - 6} y={(CY + RECT_CENTROID.y) / 2} textAnchor="end" fontSize="9" fill={ARM}>
                 y₂ = +5
               </text>
               <text x={HALF_CENTROID.x - 5} y={HALF_CENTROID.y - 8} textAnchor="end" fontSize="9" fill={ARM}>
                 y₃ = 0
               </text>
               <line x1={CX + 6} y1={CY} x2={CX + 6} y2={CY + 34} stroke={ARM} strokeWidth="1.2" />
-              <text x={CX + 12} y={CY + 36} fontSize="9" fill={ARM}>
+              <text x={CX + 12} y={CY + 50} fontSize="9" fill={ARM}>
                 y_C &lt; 0
               </text>
             </g>

@@ -80,7 +80,7 @@ function Support({ x, y, label, active }: { x: number; y: number; label: string;
       <path d={`M ${x - 10} ${y + 16} L ${x} ${y + 2} L ${x + 10} ${y + 16} Z`} fill={active ? BLUE : EDGE} />
       <text
         x={x}
-        y={y + 29}
+        y={y + 38}
         textAnchor="middle"
         fontSize={8.5}
         fontWeight={active ? 700 : 400}
@@ -120,7 +120,7 @@ function DistributedLoad({
         )
       })}
       <line x1={xAt(from)} y1={top} x2={xAt(to)} y2={top} strokeWidth={1.8} />
-      <text x={xAt((from + to) / 2)} y={top - 7} textAnchor="middle" fontSize={8.5} stroke="none">
+      <text x={xAt(from) + 6} y={top - 7} fontSize={8.5} stroke="none">
         q = 16 kN/m
       </text>
     </g>
@@ -154,7 +154,7 @@ function PointLoad({ x, y, opacity = 1 }: { x: number; y: number; opacity?: numb
         stroke={LOAD}
         strokeWidth={2.4}
       />
-      <text x={x - 5} y={y - 56} textAnchor="end" fontSize={8.5} fontWeight={600} fill={LOAD}>
+      <text x={x - 5} y={y - 48} textAnchor="end" fontSize={8.5} fontWeight={600} fill={LOAD}>
         P = 12 kN
       </text>
     </g>
@@ -239,10 +239,10 @@ function BeamRig({
       <line x1={X0} y1={BEAM_Y} x2={X1} y2={BEAM_Y} stroke={EDGE} strokeWidth={5} strokeLinecap="round" />
       <Support x={X0} y={BEAM_Y} label="A" active={reactions} />
       <Support x={xAt(C)} y={BEAM_Y} label="C" active={reactions} />
-      <text x={xAt(B)} y={BEAM_Y + 14} textAnchor="middle" fontSize={8.5} fontWeight={600} fill={INK}>
+      <text x={xAt(B) - 10} y={BEAM_Y + 38} textAnchor="end" fontSize={8.5} fontWeight={600} fill={INK}>
         B
       </text>
-      <text x={xAt(L)} y={BEAM_Y + 14} textAnchor="middle" fontSize={8.5} fontWeight={600} fill={INK}>
+      <text x={X1 + 8} y={BEAM_Y + 14} textAnchor="start" fontSize={8.5} fontWeight={600} fill={INK}>
         D
       </text>
       <DistributedLoad from={0} to={B} y={BEAM_Y} opacity={loadOpacity} draw={draw} />
@@ -518,7 +518,7 @@ function OverhangScene({ p }: { p: number }) {
       <Marker x={xAt(C)} y={yS(12)} text="+12" color={BLUE} dx={6} dy={-8} show={draw > 0.35 ? 1 : 0} />
       <Marker x={xAt(C)} y={yM(-6)} text="−6" color={LOAD} dx={6} dy={-8} show={draw > 0.35 ? 1 : 0} />
       <Marker x={xAt(L)} y={yM(0)} text="0" color={MUTED} dx={4} dy={-7} show={draw > 0.65 ? 1 : 0} />
-      <text x={xAt((C + L) / 2)} y={BEAM_Y + 46} textAnchor="middle" fontSize={8.5} fontWeight={600} fill={BLUE}>
+      <text x={xAt((C + L) / 2)} y={BEAM_Y + 56} textAnchor="middle" fontSize={8.5} fontWeight={600} fill={BLUE}>
         CD: T = +12 kN, M rośnie do 0
       </text>
     </g>
@@ -548,7 +548,7 @@ function MaxMomentScene({ p }: { p: number }) {
       <Marker x={xAt(B)} y={yM(-6)} text="−6" color={LOAD} dx={-4} dy={-8} show={draw > 0.55 ? 1 : 0} />
       <Marker x={xAt(C)} y={yM(-6)} text="−6" color={LOAD} dx={4} dy={-8} show={draw > 0.65 ? 1 : 0} />
       <Marker x={xAt(0.5)} y={yM(2)} text="+2" color={OK} dx={0} dy={-8} show={draw > 0.5 ? 1 : 0} />
-      <text x={X1} y={yM(-6) - 6} textAnchor="end" fontSize={9} fontWeight={700} fill={LOAD}>
+      <text x={X1} y={yM(-6) + 16} textAnchor="end" fontSize={9} fontWeight={700} fill={LOAD}>
         |M|max = 6 kNm
       </text>
     </g>

@@ -234,18 +234,12 @@ function MohrPanel({
       <text x={452} y={axisY - 6} fontSize={9} fill={MUTED}>
         σ
       </text>
-      <text x={zeroX + 5} y={78} fontSize={9} fill={MUTED}>
+      <text x={zeroX - 8} y={78} textAnchor="end" fontSize={9} fill={MUTED}>
         τ
       </text>
       <line x1={sx(0)} y1={axisY - 4} x2={sx(0)} y2={axisY + 4} stroke={MUTED} strokeWidth={1.2} />
-      <text x={sx(0)} y={axisY + 14} textAnchor="middle" fontSize={8} fill={MUTED}>
-        0
-      </text>
 
       <line x1={sx(C)} y1={axisY - 5} x2={sx(C)} y2={axisY + 5} stroke={INK} strokeWidth={1.4} />
-      <text x={sx(C) - 2} y={axisY + 16} textAnchor="middle" fontSize={9} fill={INK}>
-        C = −20
-      </text>
 
       {showLimit && (
         <g>
@@ -313,6 +307,13 @@ function MohrPanel({
           )}
         </>
       )}
+
+      <text x={sx(0)} y={axisY + 14} textAnchor="middle" fontSize={8} fill={MUTED}>
+        0
+      </text>
+      <text x={sx(C) - 2} y={axisY + 16} textAnchor="middle" fontSize={9} fill={INK}>
+        C = −20
+      </text>
 
       <circle cx={pointX} cy={pointY} r={4.2} fill={VIOLET} stroke="#fff" strokeWidth={1.2} />
       <text x={pointX + 8} y={pointY - 8} fontSize={9} fill={VIOLET}>

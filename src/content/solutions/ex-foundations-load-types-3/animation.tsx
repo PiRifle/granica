@@ -106,7 +106,7 @@ export function LoadTypesExample3Animation({ scene, index, playing, sceneProgres
             </motion.g>
           ))}
 
-          <text x={arrowX + 12} y={top + 18} fontSize={9} fill={LOAD}>
+          <text x={arrowX - 8} y={top + 18} textAnchor="end" fontSize={9} fill={LOAD}>
             ciężar własny
           </text>
           <text x={centerX} y={bottom + 18} textAnchor="middle" fontSize={10} fill={MUTED}>
@@ -185,7 +185,7 @@ export function LoadTypesExample3Animation({ scene, index, playing, sceneProgres
                 {topStressLabel}
               </text>
               {index >= 2 && index <= 3 && (
-                <text x={topX} y={top + 14} textAnchor="middle" fontSize={8.5} fill={STRESS}>
+                <text x={topX - 8} y={top + 30} textAnchor="end" fontSize={8.5} fill={STRESS}>
                   {index >= 3 ? 'σmax = σdop' : 'σmax ≤ σdop'}
                 </text>
               )}

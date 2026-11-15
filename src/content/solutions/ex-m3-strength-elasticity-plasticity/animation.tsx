@@ -309,7 +309,7 @@ export function StrengthElasticityPlasticityAnimation({ scene, playing, scenePro
                 strokeWidth={1.2}
                 opacity={0.45}
               />
-              <text x={currentX + 10} y={currentY - 9} fontSize={8.5} fontWeight={600} fill={stateColor}>
+              <text x={currentX + 10} y={currentY + 16} fontSize={8.5} fontWeight={600} fill={stateColor}>
                 {pl(displayStress, 0)} MPa
               </text>
             </motion.g>

@@ -16,7 +16,7 @@ const TIP_UP = CENTER.y - BALL - ARROW
 const TIP_DOWN = CENTER.y + BALL + ARROW
 
 export function PointMassAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 1.7) : 1
+  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 2.4) : 1
   const showWeight = index >= 1
   const showTension = index >= 2
   const showBalance = index >= 3
@@ -58,7 +58,7 @@ export function PointMassAnimation({ index, playing, sceneProgress }: SolutionAn
 
           <circle cx={CENTER.x} cy={CENTER.y} r={BALL} fill="#e8eef8" stroke="#4f6df5" strokeWidth="2.5" />
           <circle cx={CENTER.x} cy={CENTER.y} r="3" fill={INK} />
-          <text x={CENTER.x + 34} y={CENTER.y + 4} fontSize="13" fill={INK}>
+          <text x={CENTER.x + 34} y={CENTER.y - 8} fontSize="13" fill={INK}>
             m = 5 kg
           </text>
           <text x={CENTER.x + 34} y={CENTER.y + 21} fontSize="11" fill={MUTED}>

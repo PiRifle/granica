@@ -168,7 +168,7 @@ function Walls({
           <text x={left - 24} y={top + 4} textAnchor="end">
             ścianka x
           </text>
-          <text x={right + 26} y={bottom - 4}>
+          <text x={right + 50} y={bottom - 4}>
             ścianka x
           </text>
           <text x={g.back[1][0] + 20} y={g.back[3][1] - 16}>
@@ -564,7 +564,7 @@ function VolumetricScene({ p }: { p: number }) {
         const x = row.value < 0 ? zeroX - barWidth : zeroX
         return (
           <g key={row.label}>
-            <text x={250} y={row.y + 12} fontSize={9} fontWeight={600} fill={row.color}>
+            <text x={230} y={row.y + 12} fontSize={9} fontWeight={600} fill={row.color}>
               {row.label}
             </text>
             <motion.rect
@@ -592,7 +592,7 @@ function VolumetricScene({ p }: { p: number }) {
         )
       })}
       <line x1={250} y1={178} x2={438} y2={178} stroke={EDGE} strokeWidth={1} opacity={0.35} />
-      <text x={250} y={206} fontSize={9} fontWeight={700} fill={VIOLET}>
+      <text x={230} y={206} fontSize={9} fontWeight={700} fill={VIOLET}>
         θ
       </text>
       <motion.rect

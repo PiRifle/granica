@@ -259,8 +259,8 @@ export function SteppedBarsExample3Animation({ scene, playing, sceneProgress }: 
                 strokeDasharray="5 4"
               />
               <g stroke={LOAD} fill={LOAD}>
-                <line x1={X0} y1={ZERO_Y - 82} x2={X0 + 14} y2={ZERO_Y - 82} strokeWidth={1.2} strokeDasharray="5 4" />
-                <text x={X0 + 20} y={ZERO_Y - 78} fontSize={8.5} fontWeight={600} stroke="none">
+                <line x1={X1 - 14} y1={ZERO_Y - 96} x2={X1} y2={ZERO_Y - 96} strokeWidth={1.2} strokeDasharray="5 4" />
+                <text x={X1} y={ZERO_Y - 72} textAnchor="end" fontSize={8.5} fontWeight={600} stroke="none">
                   σdop = 150 MPa
                 </text>
               </g>

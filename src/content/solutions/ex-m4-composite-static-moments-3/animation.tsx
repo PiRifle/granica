@@ -44,7 +44,7 @@ export function CompositeStaticMoments3Animation({ scene, index, playing, sceneP
   const metric = scene.focus?.metric ?? 'model'
   const metricIndex = METRICS.indexOf(metric as Metric)
   const stage = metricIndex >= 0 ? metricIndex : Math.min(index, METRICS.length - 1)
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 3) : 1
 
   const holeX = stage >= 5 ? TARGET_HOLE : stage === 4 ? 100 + (TARGET_HOLE - 100) * reveal : 100
   const activeHole = stage >= 4 ? holeX : stage >= 3 ? TARGET_HOLE : 100
@@ -157,7 +157,7 @@ export function CompositeStaticMoments3Animation({ scene, index, playing, sceneP
             <text x={px(PLATE_WIDTH) + 28} y={py(0) + 4} fontSize={11} fill={MUTED}>
               x
             </text>
-            <text x={px(0) - 13} y={py(PLATE_HEIGHT) - 26} fontSize={11} fill={MUTED}>
+            <text x={px(0) + 12} y={py(PLATE_HEIGHT) - 18} fontSize={11} fill={MUTED}>
               y
             </text>
             <text x={px(0) - 9} y={py(0) + 14} fontSize={10} fill={MUTED}>
@@ -176,7 +176,7 @@ export function CompositeStaticMoments3Animation({ scene, index, playing, sceneP
               stroke={MUTED}
               strokeWidth={1}
             />
-            <text x={(px(0) + px(PLATE_WIDTH)) / 2} y={py(0) + 44} textAnchor="middle" fontSize={9} fill={MUTED}>
+            <text x={px(0) + 12} y={py(0) + 44} textAnchor="start" fontSize={9} fill={MUTED}>
               200 mm
             </text>
 
@@ -229,7 +229,14 @@ export function CompositeStaticMoments3Animation({ scene, index, playing, sceneP
             <text x={px(12)} y={py(96)} fontSize={9} fontWeight={600} fill={PLATE}>
               Ap = 24 000 mm²
             </text>
-            <text x={px(holeX) + HOLE_RADIUS * SCALE + 10} y={py(60) + 3} fontSize={9} fontWeight={600} fill={HOLE}>
+            <text
+              x={px(holeX)}
+              y={py(60) + HOLE_RADIUS * SCALE + 14}
+              textAnchor="middle"
+              fontSize={9}
+              fontWeight={600}
+              fill={HOLE}
+            >
               − Ah = 2827,43 mm²
             </text>
             <text x={px(holeX)} y={py(78)} textAnchor="middle" fontSize={15} fontWeight={700} fill={HOLE}>
@@ -243,7 +250,7 @@ export function CompositeStaticMoments3Animation({ scene, index, playing, sceneP
             transition={{ delay: 0.12, duration: 0.4 }}
           >
             <circle cx={px(100)} cy={py(60)} r={4} fill="#fff" stroke={PLATE} strokeWidth={1.6} />
-            <text x={px(100) + 7} y={py(60) - 7} fontSize={9} fontWeight={700} fill={PLATE}>
+            <text x={px(100) + 7} y={py(60) - 13} fontSize={9} fontWeight={700} fill={PLATE}>
               P
             </text>
           </motion.g>

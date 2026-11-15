@@ -222,7 +222,7 @@ export function FrictionEquilibriumAnimation({ index, playing, sceneProgress }: 
             strokeWidth="3"
             markerEnd="url(#ex-rownowaga-n)"
           />
-          <text x={nEnd.x - 6} y={nEnd.y - 6} textAnchor="end" fontSize="11" fill={NORMAL}>
+          <text x={nEnd.x - 10} y={nEnd.y + 2} textAnchor="end" fontSize="11" fill={NORMAL}>
             N = 86,6 N
           </text>
 

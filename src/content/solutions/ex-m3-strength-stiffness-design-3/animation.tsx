@@ -167,10 +167,10 @@ export function StrengthStiffnessDesign3Animation({ scene, playing, sceneProgres
                 fill={LIMIT}
                 opacity={0.08}
               />
-              <text x={X0 + 6} y={Y_TOP + 14} fontSize={7.5} fill={ACCENT}>
+              <text x={X0 + 6} y={Y_BASE - 8} fontSize={7.5} fill={ACCENT}>
                 decyduje wytrzymałość
               </text>
-              <text x={X1 - 6} y={Y_TOP + 14} textAnchor="end" fontSize={7.5} fill={LIMIT}>
+              <text x={X1 - 6} y={Y_BASE - 8} textAnchor="end" fontSize={7.5} fill={LIMIT}>
                 decyduje sztywność
               </text>
             </g>
@@ -210,7 +210,7 @@ export function StrengthStiffnessDesign3Animation({ scene, playing, sceneProgres
 
           <line x1={X0} y1={ny(N_STRENGTH)} x2={strengthX2} y2={ny(N_STRENGTH)} stroke={ACCENT} strokeWidth={2.2} />
           {strengthGrow > 0.25 && (
-            <text x={X1 - 4} y={ny(N_STRENGTH) - 6} textAnchor="end" fontSize={8.5} fontWeight={600} fill={ACCENT}>
+            <text x={X1 - 4} y={232} textAnchor="end" fontSize={8.5} fontWeight={600} fill={ACCENT}>
               Nσ = 75 kN
             </text>
           )}
@@ -226,7 +226,7 @@ export function StrengthStiffnessDesign3Animation({ scene, playing, sceneProgres
                 animate={{ pathLength: stiffnessGrow }}
                 transition={{ duration: 0.2, ease: 'linear' }}
               />
-              <text x={X1 - 4} y={ny(45) + 14} textAnchor="end" fontSize={8.5} fontWeight={600} fill={LIMIT}>
+              <text x={criticalX - 12} y={242} textAnchor="end" fontSize={8.5} fontWeight={600} fill={LIMIT}>
                 Nδ(L) = 200 000 / L
               </text>
             </>
@@ -253,7 +253,7 @@ export function StrengthStiffnessDesign3Animation({ scene, playing, sceneProgres
                 strokeDasharray="4 4"
               />
               <circle cx={criticalX} cy={criticalY} r={4} fill={LIMIT} />
-              <text x={criticalX - 8} y={criticalY - 8} textAnchor="end" fontSize={8.5} fontWeight={600} fill={LIMIT}>
+              <text x={criticalX - 8} y={criticalY - 24} textAnchor="end" fontSize={8.5} fontWeight={600} fill={LIMIT}>
                 L* = 2667 mm
               </text>
             </g>

@@ -398,7 +398,7 @@ export function SafetyFactor2Animation({ scene, playing, sceneProgress }: Soluti
                 </g>
               ))}
               <line x1={nReqX} y1={226} x2={nReqX} y2={250} stroke={LOAD} strokeWidth={1.5} strokeDasharray="4 3" />
-              <Tag x={nReqX} y={220} amount={1} color={LOAD} anchor="middle" size={7.5} weight={600}>
+              <Tag x={nReqX + 4} y={220} amount={1} color={LOAD} anchor="start" size={7.5} weight={600}>
                 n_wym
               </Tag>
               <line x1={nRzX} y1={228} x2={nRzX} y2={252} stroke={ALLOW} strokeWidth={2.2} />

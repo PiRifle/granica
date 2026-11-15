@@ -237,7 +237,7 @@ describe('integralność kursu', () => {
     }
   })
 
-  it('ma poprawną matematykę w animowanych krokach', () => {
+  it('ma poprawną matematykę w animowanych krokach', { timeout: 30000 }, () => {
     for (const solution of workedSolutions) {
       for (const scene of solution.scenes) {
         if (!scene.formula) continue

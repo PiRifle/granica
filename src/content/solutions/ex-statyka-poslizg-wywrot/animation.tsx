@@ -147,7 +147,7 @@ export function SlipTippingAnimation({ index, playing, sceneProgress }: Solution
             strokeWidth="3.5"
             markerEnd="url(#ex-wywrot-w)"
           />
-          <text x={CENTER_X + 10} y={BOX.y + 178} fontSize="11" fill={WEIGHT}>
+          <text x={CENTER_X - 10} y={BOX.y + 150} textAnchor="end" fontSize="11" fill={WEIGHT}>
             W = 400 N
           </text>
 
@@ -160,7 +160,7 @@ export function SlipTippingAnimation({ index, playing, sceneProgress }: Solution
             strokeWidth="3.2"
             markerEnd="url(#ex-wywrot-n)"
           />
-          <text x={nX + 7} y={GROUND - 60} fontSize="11" fill={NORMAL}>
+          <text x={Math.max(nX + 20, EDGE_X + 6)} y={GROUND - 60} fontSize="11" fill={NORMAL}>
             N = 400 N
           </text>
 
@@ -175,7 +175,7 @@ export function SlipTippingAnimation({ index, playing, sceneProgress }: Solution
                 strokeWidth="3.4"
                 markerEnd="url(#ex-wywrot-t)"
               />
-              <text x={tEnd - 6} y={GROUND - 14} textAnchor="end" fontSize="11" fill={FRICTION}>
+              <text x={Math.max(tEnd + 8, BOX.x - 16)} y={GROUND - 28} fontSize="11" fill={FRICTION}>
                 T = {slip ? '80' : index === 1 ? '160' : '100'} N
               </text>
             </>
@@ -237,7 +237,7 @@ export function SlipTippingAnimation({ index, playing, sceneProgress }: Solution
                 strokeWidth="1.2"
                 strokeDasharray="4 3"
               />
-              <text x={(CENTER_X + nX) / 2} y={GROUND - 22} textAnchor="middle" fontSize="10" fill={NORMAL}>
+              <text x={Math.max(nX + 14, EDGE_X + 6)} y={GROUND - 14} fontSize="10" fill={NORMAL}>
                 x = 0,30 m
               </text>
             </>

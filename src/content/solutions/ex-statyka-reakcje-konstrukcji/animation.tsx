@@ -27,7 +27,7 @@ const smooth = (value: number) => {
 }
 
 export function SupportReactionsAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const showLoads = index >= 1
   const showAx = index >= 2
   const showAy = index >= 3
@@ -107,7 +107,7 @@ export function SupportReactionsAnimation({ index, playing, sceneProgress }: Sol
           <text x={X0 - 8} y={Y - 16} textAnchor="end" fontSize="10" fill={INK}>
             A
           </text>
-          <text x={X1 + 4} y={Y - 16} fontSize="10" fill={INK}>
+          <text x={X1 + 4} y={Y + 18} fontSize="10" fill={INK}>
             B
           </text>
 
@@ -137,7 +137,7 @@ export function SupportReactionsAnimation({ index, playing, sceneProgress }: Sol
               />
             )
           })}
-          <text x={X0 + 6} y={Y - 28} fontSize="9" fill={LOAD}>
+          <text x={X0 + 6} y={Y - 34} fontSize="9" fill={LOAD}>
             q = 2 kN/m
           </text>
 

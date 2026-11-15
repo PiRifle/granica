@@ -34,7 +34,7 @@ function Axis() {
   return (
     <g>
       <line x1={42} y1={CY} x2={418} y2={CY} stroke={LOAD} strokeWidth={1.3} strokeDasharray="6 4" />
-      <text x={44} y={CY - 7} fontSize={8.5} fill={LOAD}>
+      <text x={225} y={CY - 7} textAnchor="middle" fontSize={8.5} fill={LOAD}>
         oś obojętna
       </text>
     </g>

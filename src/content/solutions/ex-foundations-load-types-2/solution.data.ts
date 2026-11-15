@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-load-types-2',
@@ -7,6 +8,7 @@ export default {
   given: ['L = 6 m', 'q = 2,4 kN/m', 'P = 18 kN'],
   result:
     'Wypadkowa ciężaru własnego wynosi 14,4 kN, a całkowite obciążenie 32,4 kN. Z symetrii R_A = R_B = 16,2 kN, a maksymalny moment w środku rozpiętości wynosi 37,8 kN·m. Oba sposoby obliczenia momentu dają ten sam wynik — to obowiązkowa kontrola poprawności.',
+  animation: lazy(() => import('./animation').then((module) => ({ default: module.LoadTypesExample2Animation }))),
   figure: {
     kind: 'beam',
     length: 6,

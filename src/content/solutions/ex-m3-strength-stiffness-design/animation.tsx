@@ -170,7 +170,7 @@ export function StrengthStiffnessDesignAnimation({ scene, playing, sceneProgress
             strokeWidth={1.2}
             strokeDasharray="6 4"
           />
-          <text x={rightEdge + 28} y={limitY + 3} fontSize={8.5} fill={LIMIT}>
+          <text x={rightEdge + 28} y={limitY - 5} fontSize={8.5} fill={LIMIT}>
             ΔL_dop = 1,2 mm
           </text>
 
@@ -198,7 +198,7 @@ export function StrengthStiffnessDesignAnimation({ scene, playing, sceneProgress
               fill="none"
               strokeWidth={2.2}
             />
-            <text x={rightEdge + 28} y={bottomY - 40} fontSize={9}>
+            <text x={rightEdge + 28} y={bottomY - 48} fontSize={9}>
               N = 60 kN
             </text>
           </g>
@@ -318,7 +318,7 @@ export function StrengthStiffnessDesignAnimation({ scene, playing, sceneProgress
           </g>
 
           {isGovern && (
-            <text x={CHART_X} y={104} fontSize={8.5} fontWeight={600} fill={OK}>
+            <text x={CHART_X} y={96} fontSize={8.5} fontWeight={600} fill={OK}>
               decyduje sztywność · d_min = 28,2 → d = 30 mm
             </text>
           )}

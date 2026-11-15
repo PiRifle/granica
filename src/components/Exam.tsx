@@ -199,7 +199,7 @@ export function Exam({ course, onBack }: { course: Course; onBack: () => void })
             {item.question.answers.map((answer, answerIndex) => (
               <button
                 key={answer}
-                className={local('answer')}
+                className={local(`answer${answers[index] === answerIndex ? ' answer-selected' : ''}`)}
                 onClick={() => setAnswers((current) => ({ ...current, [index]: answerIndex }))}
               >
                 <span className={local('answer-letter')}>{String.fromCharCode(65 + answerIndex)}</span>

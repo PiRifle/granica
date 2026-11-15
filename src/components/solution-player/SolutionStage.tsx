@@ -11,6 +11,7 @@ export function SolutionStage({
   solution,
   scene,
   index,
+  instant,
   stepIndex,
   playing,
   stepProgress,
@@ -26,6 +27,7 @@ export function SolutionStage({
   solution: CourseSolution
   scene: SolutionScene
   index: number
+  instant: boolean
   stepIndex: number
   playing: boolean
   stepProgress: number
@@ -39,22 +41,23 @@ export function SolutionStage({
   stageFloor: number
 }) {
   const Animation = solution.animation
-  const visualKey = Animation || !solution.figure ? `${solution.id}-${index}` : solution.id
+  const visualKey = solution.id
 
   return (
     <div
       ref={stageRef}
       className={local('solution-stage')}
+      data-solution-stage
       style={{ minHeight: stageFloor > 0 ? `${stageFloor}px` : undefined }}
     >
-      <div className={local('solution-visual')}>
+      <div className={local('solution-visual')} data-solution-visual>
         <AnimatePresence mode="wait">
           <motion.div
             key={visualKey}
-            initial={{ opacity: 0, scale: 0.98 }}
+            initial={instant ? false : { opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: instant ? 0 : 0.35 }}
           >
             <Suspense fallback={null}>
               {Animation ? (
@@ -85,23 +88,27 @@ export function SolutionStage({
             </Suspense>
           </motion.div>
         </AnimatePresence>
-        <span className={local('solution-scene-count')}>
+        <span className={local('solution-scene-count')} data-solution-scene-count>
           SCENA {index + 1} / {solution.scenes.length}
         </span>
       </div>
-      <div className={local('solution-copy')}>
+      <div className={local('solution-copy')} data-solution-copy>
         <AnimatePresence mode="wait">
           <motion.div
             key={`copy-${index}`}
-            initial={{ opacity: 0, y: 10 }}
+            initial={instant ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: instant ? 0 : 0.3 }}
           >
-            <span className={local('solution-scene-title')}>{scene.title}</span>
-            <p>{scene.narration}</p>
+            <span className={local('solution-scene-title')} data-solution-scene-title>
+              {scene.title}
+            </span>
+            <p data-solution-narration>{scene.narration}</p>
             {scene.formula && <MathTransform formula={scene.formula} progress={sceneProgress} />}
-            <p className={local('solution-caption')}>{scene.caption}</p>
+            <p className={local('solution-caption')} data-solution-caption>
+              {scene.caption}
+            </p>
             {scene.emphasis && <p className={local('solution-emphasis')}>{scene.emphasis}</p>}
           </motion.div>
         </AnimatePresence>

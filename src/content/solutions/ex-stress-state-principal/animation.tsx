@@ -65,22 +65,7 @@ function Arrow({
   )
 }
 
-function StressElement({
-  cx = CX,
-  cy = CY,
-  half = HALF,
-  angle,
-  sx,
-  sy,
-  tx,
-  max,
-  tauMax,
-  labelX,
-  labelY,
-  labelTau,
-  opacity = 1,
-  showAxes = true,
-}: {
+type StressElementProps = {
   cx?: number
   cy?: number
   half?: number
@@ -95,12 +80,22 @@ function StressElement({
   labelTau?: string
   opacity?: number
   showAxes?: boolean
-}) {
+}
+
+function StressElement({
+  cx = CX,
+  cy = CY,
+  half = HALF,
+  angle,
+  sx,
+  sy,
+  tx,
+  max,
+  tauMax,
+  opacity = 1,
+  showAxes = true,
+}: StressElementProps) {
   const angleRad = rad(angle)
-  const ux = Math.cos(angleRad)
-  const uy = -Math.sin(angleRad)
-  const vx = -Math.sin(angleRad)
-  const vy = -Math.cos(angleRad)
   const lenX = sx === 0 ? 0 : 6 + 34 * Math.min(1, Math.abs(sx) / Math.max(max, 1))
   const lenY = sy === 0 ? 0 : 6 + 34 * Math.min(1, Math.abs(sy) / Math.max(max, 1))
   const lenT = Math.abs(tx) < 0.5 ? 0 : 5 + 18 * Math.min(1, Math.abs(tx) / Math.max(tauMax, 1))
@@ -108,16 +103,6 @@ function StressElement({
   const signY = Math.sign(sy)
   const signT = Math.sign(tx)
   const offset = 0.34 * half
-  const world = (dx: number, dy: number) => ({
-    x: cx + ux * dx - vx * dy,
-    y: cy + uy * dx - vy * dy,
-  })
-  const xLabelPos = world(half + lenX + 12, 0)
-  const yLabelPos = world(0, -(half + lenY + 12))
-  const tauLabelPos = world(half + 12, -offset)
-  const xAnchor = ux > 0.35 ? 'start' : ux < -0.35 ? 'end' : 'middle'
-  const yAnchor = vx > 0.35 ? 'start' : vx < -0.35 ? 'end' : 'middle'
-  const tauAnchor = ux > 0.35 ? 'start' : ux < -0.35 ? 'end' : 'middle'
 
   return (
     <g opacity={opacity}>
@@ -187,6 +172,46 @@ function StressElement({
           </>
         )}
       </g>
+    </g>
+  )
+}
+
+function StressElementLabels({
+  cx = CX,
+  cy = CY,
+  half = HALF,
+  angle,
+  sx,
+  sy,
+  tx,
+  max,
+  tauMax,
+  labelX,
+  labelY,
+  labelTau,
+  opacity = 1,
+}: StressElementProps) {
+  const angleRad = rad(angle)
+  const ux = Math.cos(angleRad)
+  const uy = -Math.sin(angleRad)
+  const vx = -Math.sin(angleRad)
+  const vy = -Math.cos(angleRad)
+  const lenX = sx === 0 ? 0 : 6 + 34 * Math.min(1, Math.abs(sx) / Math.max(max, 1))
+  const lenY = sy === 0 ? 0 : 6 + 34 * Math.min(1, Math.abs(sy) / Math.max(max, 1))
+  const offset = 0.34 * half
+  const world = (dx: number, dy: number) => ({
+    x: cx + ux * dx - vx * dy,
+    y: cy + uy * dx - vy * dy,
+  })
+  const xLabelPos = world(half + lenX + 12, 0)
+  const yLabelPos = world(0, -(half + lenY + 12))
+  const tauLabelPos = world(half + 12, -offset)
+  const xAnchor = ux > 0.35 ? 'start' : ux < -0.35 ? 'end' : 'middle'
+  const yAnchor = vx > 0.35 ? 'start' : vx < -0.35 ? 'end' : 'middle'
+  const tauAnchor = ux > 0.35 ? 'start' : ux < -0.35 ? 'end' : 'middle'
+
+  return (
+    <g opacity={opacity}>
       {labelX && (
         <text x={xLabelPos.x} y={xLabelPos.y} textAnchor={xAnchor} fontSize={10} fill={BLUE} fontWeight={600}>
           {labelX}
@@ -205,7 +230,6 @@ function StressElement({
     </g>
   )
 }
-
 function MohrDiagram({
   cx,
   cy,
@@ -219,6 +243,7 @@ function MohrDiagram({
   progress,
   pointLabel,
   showPoint = true,
+  textOnly = false,
 }: {
   cx: number
   cy: number
@@ -232,12 +257,43 @@ function MohrDiagram({
   progress: number
   pointLabel?: string
   showPoint?: boolean
+  textOnly?: boolean
 }) {
   const sx = (value: number) => cx + (value - avg) * scale
   const pointX = sx(pointS)
   const pointY = cy - pointT * scale
   const left = Math.min(sx(s2), sx(0), cx - radius) - 18
   const right = Math.max(sx(s1), sx(0), cx + radius) + 18
+
+  if (textOnly) {
+    return (
+      <g>
+        <text x={right + 4} y={cy - 6} fontSize={9} fill={MUTED}>
+          σ
+        </text>
+        <text x={cx + 5} y={cy - radius - 14} fontSize={9} fill={MUTED}>
+          τ
+        </text>
+        <text x={cx - 8} y={cy + 15} fontSize={9} fill={INK}>
+          C = {avg}
+        </text>
+        <text x={sx(s1)} y={cy + 19} textAnchor="middle" fontSize={9} fill={BLUE}>
+          σ₁ = {s1}
+        </text>
+        <text x={sx(s2)} y={cy + 19} textAnchor="middle" fontSize={9} fill={ORANGE}>
+          σ₂ = {s2}
+        </text>
+        <text x={sx(0)} y={cy - 9} textAnchor="middle" fontSize={8} fill={MUTED}>
+          0
+        </text>
+        {showPoint && pointLabel && (
+          <text x={pointX + 7} y={pointY - 7} fontSize={9} fill={VIOLET}>
+            {pointLabel}
+          </text>
+        )}
+      </g>
+    )
+  }
 
   return (
     <g>
@@ -251,12 +307,6 @@ function MohrDiagram({
         strokeWidth={1}
         strokeDasharray="4 4"
       />
-      <text x={right + 4} y={cy - 6} fontSize={9} fill={MUTED}>
-        σ
-      </text>
-      <text x={cx + 5} y={cy - radius - 14} fontSize={9} fill={MUTED}>
-        τ
-      </text>
       <motion.circle
         cx={cx}
         cy={cy}
@@ -269,58 +319,64 @@ function MohrDiagram({
         transition={{ duration: 0.18, ease: 'linear' }}
       />
       <circle cx={cx} cy={cy} r={2.6} fill={INK} />
-      <text x={cx + 6} y={cy + 15} fontSize={9} fill={INK}>
-        C = {avg}
-      </text>
       <line x1={sx(s1)} y1={cy - 5} x2={sx(s1)} y2={cy + 5} stroke={BLUE} strokeWidth={1.6} />
       <line x1={sx(s2)} y1={cy - 5} x2={sx(s2)} y2={cy + 5} stroke={ORANGE} strokeWidth={1.6} />
-      <text x={sx(s1)} y={cy + 19} textAnchor="middle" fontSize={9} fill={BLUE}>
-        σ₁ = {s1}
-      </text>
-      <text x={sx(s2)} y={cy + 19} textAnchor="middle" fontSize={9} fill={ORANGE}>
-        σ₂ = {s2}
-      </text>
       <line x1={sx(0)} y1={cy - 4} x2={sx(0)} y2={cy + 4} stroke={MUTED} strokeWidth={1.2} />
-      <text x={sx(0)} y={cy - 9} textAnchor="middle" fontSize={8} fill={MUTED}>
-        0
-      </text>
       {showPoint && (
         <>
           <line x1={cx} y1={cy} x2={pointX} y2={pointY} stroke={VIOLET} strokeWidth={1.2} strokeDasharray="3 3" />
           <circle cx={pointX} cy={pointY} r={4.4} fill={VIOLET} stroke="#fff" strokeWidth={1.2} />
-          {pointLabel && (
-            <text x={pointX + 7} y={pointY - 7} fontSize={9} fill={VIOLET}>
-              {pointLabel}
-            </text>
-          )}
         </>
       )}
     </g>
   )
 }
-
 function OrderAxis({
   xZero,
   y,
   scale,
   values,
   progress,
+  textOnly = false,
 }: {
   xZero: number
   y: number
   scale: number
   values: Array<{ value: number; label: string; color: string }>
   progress: number
+  textOnly?: boolean
 }) {
   const sx = (value: number) => xZero + value * scale
   const left = Math.min(...values.map((item) => sx(item.value))) - 24
   const right = Math.max(...values.map((item) => sx(item.value))) + 24
+  if (textOnly) {
+    return (
+      <g>
+        <text x={right + 5} y={y + 3} fontSize={9} fill={MUTED}>
+          σ
+        </text>
+        {values.map((item, index) => {
+          const x = sx(item.value)
+          const labelY = y - 20 - (index % 2) * 17
+          return (
+            <motion.g
+              key={item.label}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: progress }}
+              transition={{ duration: 0.3, delay: index * 0.08 }}
+            >
+              <text x={x} y={labelY} textAnchor="middle" fontSize={9.5} fontWeight={600} fill={item.color}>
+                {item.label}
+              </text>
+            </motion.g>
+          )
+        })}
+      </g>
+    )
+  }
   return (
     <g>
       <line x1={left} y1={y} x2={right} y2={y} stroke={LIGHT} strokeWidth={1} />
-      <text x={right + 5} y={y + 3} fontSize={9} fill={MUTED}>
-        σ
-      </text>
       {values.map((item, index) => {
         const x = sx(item.value)
         const labelY = y - 20 - (index % 2) * 17
@@ -333,28 +389,26 @@ function OrderAxis({
           >
             <line x1={x} y1={y} x2={x} y2={labelY + 3} stroke={item.color} strokeWidth={1.1} />
             <circle cx={x} cy={y} r={4.2} fill={item.color} />
-            <text x={x} y={labelY} textAnchor="middle" fontSize={9.5} fontWeight={600} fill={item.color}>
-              {item.label}
-            </text>
           </motion.g>
         )
       })}
     </g>
   )
 }
-
 function ShearPanel({
   xZero,
   y,
   scale,
   values,
   progress,
+  textOnly = false,
 }: {
   xZero: number
   y: number
   scale: number
   values: [number, number, number]
   progress: number
+  textOnly?: boolean
 }) {
   const [high, middle, low] = values
   const sx = (value: number) => xZero + value * scale
@@ -365,6 +419,45 @@ function ShearPanel({
   ]
   const left = sx(low) - 20
   const right = sx(high) + 20
+
+  if (textOnly) {
+    return (
+      <g>
+        <text
+          x={sx((high + low) / 2)}
+          y={y - ((high - low) / 2) * scale - 7}
+          textAnchor="middle"
+          fontSize={9.5}
+          fontWeight={600}
+          fill={ORANGE}
+        >
+          τ max = {(high - low) / 2} MPa
+        </text>
+        <text
+          x={sx((high + middle) / 2)}
+          y={y - ((high - middle) / 2) * scale + 14}
+          textAnchor="middle"
+          fontSize={9}
+          fill={BLUE}
+        >
+          R = {(high - middle) / 2} MPa
+        </text>
+        {[
+          { value: high, label: 'σI', color: BLUE },
+          { value: middle, label: 'σII', color: MUTED },
+          { value: low, label: 'σIII', color: ORANGE },
+        ].map((item, index) => {
+          const x = sx(item.value)
+          const labelY = y + 20 + (index % 2) * 15
+          return (
+            <text key={item.label} x={x} y={labelY} textAnchor="middle" fontSize={9} fill={item.color}>
+              {item.label} = {item.value}
+            </text>
+          )
+        })}
+      </g>
+    )
+  }
 
   return (
     <g>
@@ -397,25 +490,6 @@ function ShearPanel({
         strokeWidth={1.2}
         strokeDasharray="3 3"
       />
-      <text
-        x={sx((high + low) / 2)}
-        y={y - ((high - low) / 2) * scale - 7}
-        textAnchor="middle"
-        fontSize={9.5}
-        fontWeight={600}
-        fill={ORANGE}
-      >
-        τ max = {(high - low) / 2} MPa
-      </text>
-      <text
-        x={sx((high + middle) / 2)}
-        y={y - ((high - middle) / 2) * scale + 14}
-        textAnchor="middle"
-        fontSize={9}
-        fill={BLUE}
-      >
-        R = {(high - middle) / 2} MPa
-      </text>
       {[
         { value: high, label: 'σI', color: BLUE },
         { value: middle, label: 'σII', color: MUTED },
@@ -427,16 +501,12 @@ function ShearPanel({
           <g key={item.label}>
             <line x1={x} y1={y} x2={x} y2={labelY - 10} stroke={item.color} strokeWidth={1.1} />
             <circle cx={x} cy={y} r={3.6} fill={item.color} />
-            <text x={x} y={labelY} textAnchor="middle" fontSize={9} fill={item.color}>
-              {item.label} = {item.value}
-            </text>
           </g>
         )
       })}
     </g>
   )
 }
-
 export function PrincipalExample1Animation({ scene, playing, sceneProgress }: SolutionAnimationProps) {
   const metric = scene.focus?.metric ?? 'given'
   const p = playing ? smooth(sceneProgress) : 1
@@ -483,10 +553,6 @@ export function PrincipalExample1Animation({ scene, playing, sceneProgress }: So
           role="img"
           aria-label="Element naprężenia obracany do kierunków głównych. Animacja pokazuje zanik ścinania i pojawienie się naprężeń głównych 70 i minus 30 megapaskala."
         >
-          <text x={14} y={22} fontSize={9} fill={MUTED}>
-            σx = −20 MPa · σy = 60 MPa · τxy = 30 MPa · σz = 0
-          </text>
-
           <StressElement
             angle={angle}
             sx={isRotate ? sxCurrent : metric === 'given' || metric === 'mohr' ? -20 : S1}
@@ -501,106 +567,184 @@ export function PrincipalExample1Animation({ scene, playing, sceneProgress }: So
           />
 
           <line x1={CX} y1={CY} x2={CX + 42} y2={CY + 34} stroke={VIOLET} strokeWidth={1.4} strokeDasharray="4 3" />
-          <text x={CX + 47} y={CY + 38} fontSize={9} fill={VIOLET}>
-            z
-          </text>
-          <text x={CX + 47} y={CY + 51} fontSize={8.5} fill={MUTED}>
-            σz = 0
-          </text>
 
           {metric === 'given' && (
             <g>
               <line x1={252} y1={170} x2={435} y2={170} stroke={LIGHT} strokeWidth={1} />
               <line x1={345} y1={96} x2={345} y2={244} stroke={LIGHT} strokeWidth={1} strokeDasharray="4 4" />
-              <text x={440} y={164} fontSize={9} fill={MUTED}>
-                σ
-              </text>
-              <text x={350} y={100} fontSize={9} fill={MUTED}>
-                τ
-              </text>
               <line x1={345} y1={170} x2={323} y2={137} stroke={VIOLET} strokeWidth={1.2} strokeDasharray="3 3" />
               <circle cx={323} cy={137} r={4.6} fill={VIOLET} stroke="#fff" strokeWidth={1.2} />
-              <text x={330} y={130} fontSize={9} fill={VIOLET}>
-                P (−20; 30)
-              </text>
-              <text x={270} y={216} fontSize={9} fill={MUTED}>
-                punkt stanu w płaszczyźnie σ–τ
-              </text>
             </g>
           )}
 
           {metric === 'mohr' && (
-            <g>
-              <MohrDiagram
-                cx={340}
-                cy={150}
-                scale={1.2}
-                avg={AVG}
-                radius={50 * 1.2}
-                pointS={-20}
-                pointT={30}
-                s1={S1}
-                s2={S2}
-                progress={p}
-                pointLabel="P"
-              />
-              <text x={262} y={238} fontSize={9} fill={MUTED}>
-                R = 50 MPa, a = −40 MPa
-              </text>
-            </g>
+            <MohrDiagram
+              cx={340}
+              cy={150}
+              scale={1.2}
+              avg={AVG}
+              radius={50 * 1.2}
+              pointS={-20}
+              pointT={30}
+              s1={S1}
+              s2={S2}
+              progress={p}
+              pointLabel="P"
+            />
           )}
 
           {isRotate && (
-            <g>
-              <MohrDiagram
-                cx={340}
-                cy={150}
-                scale={0.95}
-                avg={AVG}
-                radius={50 * 0.95}
-                pointS={sxCurrent}
-                pointT={tauCurrent}
-                s1={S1}
-                s2={S2}
-                progress={1}
-                showPoint
-              />
-              <text x={340} y={246} textAnchor="middle" fontSize={9} fill={MUTED}>
-                punkt przesuwa się po kole, aż τ = 0
-              </text>
-              <text x={CX} y={CY + 94} textAnchor="middle" fontSize={9} fill={MUTED}>
-                θp = 71,6°
-              </text>
-            </g>
+            <MohrDiagram
+              cx={340}
+              cy={150}
+              scale={0.95}
+              avg={AVG}
+              radius={50 * 0.95}
+              pointS={sxCurrent}
+              pointT={tauCurrent}
+              s1={S1}
+              s2={S2}
+              progress={1}
+              showPoint
+            />
           )}
 
           {metric === 'order' && (
-            <g>
-              <OrderAxis
-                xZero={338}
-                y={170}
-                scale={1.15}
-                values={[
-                  { value: S1, label: 'σI = 70', color: BLUE },
-                  { value: 0, label: 'σII = 0', color: MUTED },
-                  { value: S2, label: 'σIII = −30', color: ORANGE },
-                ]}
-                progress={p}
-              />
-              <text x={340} y={244} textAnchor="middle" fontSize={9} fill={MUTED}>
-                zero jest naprężeniem pośrednim
-              </text>
-            </g>
+            <OrderAxis
+              xZero={338}
+              y={170}
+              scale={1.15}
+              values={[
+                { value: S1, label: 'σI = 70', color: BLUE },
+                { value: 0, label: 'σII = 0', color: MUTED },
+                { value: S2, label: 'σIII = −30', color: ORANGE },
+              ]}
+              progress={p}
+            />
           )}
 
           {metric === 'shear' && (
-            <g>
-              <ShearPanel xZero={345} y={150} scale={1.05} values={[S1, 0, S2]} progress={p} />
-              <text x={345} y={252} textAnchor="middle" fontSize={9} fill={MUTED}>
-                największe koło obejmuje σIII i σI
-              </text>
-            </g>
+            <ShearPanel xZero={345} y={150} scale={1.05} values={[S1, 0, S2]} progress={p} />
           )}
+
+          <g>
+            <text x={14} y={22} fontSize={9} fill={MUTED}>
+              σx = −20 MPa · σy = 60 MPa · τxy = 30 MPa · σz = 0
+            </text>
+
+            <StressElementLabels
+              angle={angle}
+              sx={isRotate ? sxCurrent : metric === 'given' || metric === 'mohr' ? -20 : S1}
+              sy={isRotate ? syCurrent : metric === 'given' || metric === 'mohr' ? 60 : S2}
+              tx={isRotate ? tauCurrent : metric === 'given' || metric === 'mohr' ? 30 : 0}
+              max={70}
+              tauMax={30}
+              labelX={metric === 'shear' ? '' : labelX}
+              labelY={metric === 'shear' ? '' : labelY}
+              labelTau={labelTau}
+              opacity={metric === 'shear' ? 0.75 : 1}
+            />
+
+            <text x={CX + 47} y={CY + 38} fontSize={9} fill={VIOLET}>
+              z
+            </text>
+            <text x={CX + 47} y={CY + 51} fontSize={8.5} fill={MUTED}>
+              σz = 0
+            </text>
+
+            {metric === 'given' && (
+              <g>
+                <text x={440} y={164} fontSize={9} fill={MUTED}>
+                  σ
+                </text>
+                <text x={350} y={100} fontSize={9} fill={MUTED}>
+                  τ
+                </text>
+                <text x={330} y={130} fontSize={9} fill={VIOLET}>
+                  P (−20; 30)
+                </text>
+                <text x={270} y={216} fontSize={9} fill={MUTED}>
+                  punkt stanu w płaszczyźnie σ–τ
+                </text>
+              </g>
+            )}
+
+            {metric === 'mohr' && (
+              <g>
+                <MohrDiagram
+                  cx={340}
+                  cy={150}
+                  scale={1.2}
+                  avg={AVG}
+                  radius={50 * 1.2}
+                  pointS={-20}
+                  pointT={30}
+                  s1={S1}
+                  s2={S2}
+                  progress={p}
+                  pointLabel="P"
+                  textOnly
+                />
+                <text x={262} y={238} fontSize={9} fill={MUTED}>
+                  R = 50 MPa, a = −40 MPa
+                </text>
+              </g>
+            )}
+
+            {isRotate && (
+              <g>
+                <MohrDiagram
+                  cx={340}
+                  cy={150}
+                  scale={0.95}
+                  avg={AVG}
+                  radius={50 * 0.95}
+                  pointS={sxCurrent}
+                  pointT={tauCurrent}
+                  s1={S1}
+                  s2={S2}
+                  progress={1}
+                  showPoint
+                  textOnly
+                />
+                <text x={340} y={246} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  punkt przesuwa się po kole, aż τ = 0
+                </text>
+                <text x={CX} y={CY + 94} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  θp = 71,6°
+                </text>
+              </g>
+            )}
+
+            {metric === 'order' && (
+              <g>
+                <OrderAxis
+                  xZero={338}
+                  y={170}
+                  scale={1.15}
+                  values={[
+                    { value: S1, label: 'σI = 70', color: BLUE },
+                    { value: 0, label: 'σII = 0', color: MUTED },
+                    { value: S2, label: 'σIII = −30', color: ORANGE },
+                  ]}
+                  progress={p}
+                  textOnly
+                />
+                <text x={340} y={244} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  zero jest naprężeniem pośrednim
+                </text>
+              </g>
+            )}
+
+            {metric === 'shear' && (
+              <g>
+                <ShearPanel xZero={345} y={150} scale={1.05} values={[S1, 0, S2]} progress={p} textOnly />
+                <text x={345} y={252} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  największe koło obejmuje σIII i σI
+                </text>
+              </g>
+            )}
+          </g>
         </svg>
       </div>
     </div>

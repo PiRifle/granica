@@ -53,11 +53,11 @@ const shape = (x: number) => {
 const shapeMax = shape(A)
 const defY = (x: number, sag: number, base: number) => base + (shape(x) / shapeMax) * sag
 
-function Support({ x, y, label }: { x: number; y: number; label: string }) {
+function Support({ x, y, label, labelDy = 30 }: { x: number; y: number; label: string; labelDy?: number }) {
   return (
     <g>
       <path d={`M ${x - 10} ${y + 16} L ${x} ${y + 2} L ${x + 10} ${y + 16} Z`} fill={EDGE} />
-      <text x={x} y={y + 30} textAnchor="middle" fontSize={9} fill={EDGE}>
+      <text x={x} y={y + labelDy} textAnchor="middle" fontSize={9} fill={EDGE}>
         {label}
       </text>
     </g>
@@ -232,7 +232,7 @@ function CircleSection({
         <VerticalDimension x={cx - radius - 14} from={cy - shownRadius} to={cy + shownRadius} label="d = 100 mm" />
       )}
       {!dimension && showDiameter && (
-        <text x={cx} y={cy + shownRadius + 18} textAnchor="middle" fontSize={9} fill={MUTED}>
+        <text x={cx} y={cy + shownRadius + 24} textAnchor="middle" fontSize={9} fill={MUTED}>
           d = 100 mm
         </text>
       )}
@@ -459,8 +459,8 @@ export function FullBendingDesign3Animation({ scene, playing, sceneProgress }: S
           {isStiffness && (
             <g>
               <line x1={X0} y1={78} x2={X1} y2={78} stroke="#c9d0d9" strokeWidth={1} strokeDasharray="6 5" />
-              <Support x={X0} y={78} label="A" />
-              <Support x={X1} y={78} label="B" />
+              <Support x={X0} y={78} label="A" labelDy={46} />
+              <Support x={X1} y={78} label="B" labelDy={46} />
               <LoadArrow x={xAt(2)} top={30} tip={74} label="P = 9,82 kN" />
               <path d={deflectedPath(30, 78)} fill="none" stroke={BLUE} strokeWidth={3} strokeLinecap="round" />
               <line x1={X0} y1={108} x2={X1} y2={108} stroke={STIFF} strokeWidth={1.2} strokeDasharray="6 4" />
@@ -492,8 +492,8 @@ export function FullBendingDesign3Animation({ scene, playing, sceneProgress }: S
           {isCheck && (
             <g>
               <line x1={X0} y1={70} x2={X1} y2={70} stroke="#c9d0d9" strokeWidth={1} strokeDasharray="6 5" />
-              <Support x={X0} y={70} label="A" />
-              <Support x={X1} y={70} label="B" />
+              <Support x={X0} y={70} label="A" labelDy={46} />
+              <Support x={X1} y={70} label="B" labelDy={46} />
               <LoadArrow x={xAt(2)} top={22} tip={66} label="P_max = 9,82 kN" />
               <path d={deflectedPath(30, 70)} fill="none" stroke={BLUE} strokeWidth={3} strokeLinecap="round" />
               <line x1={X0} y1={100} x2={X1} y2={100} stroke={STIFF} strokeWidth={1.2} strokeDasharray="6 4" />

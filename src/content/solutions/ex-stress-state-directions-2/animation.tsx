@@ -35,6 +35,7 @@ const px = (sigma: number) => PLOT_LEFT + (sigma - S_MIN) * SCALE
 const py = (tau: number) => PLOT_Y - tau * SCALE
 
 type Pt = { x: number; y: number }
+type Part = 'all' | 'shapes' | 'texts'
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 const smooth = (value: number) => {
@@ -88,13 +89,14 @@ function Arrow({
   )
 }
 
-function DataElement() {
+function DataElement({ part = 'all' }: { part?: Part }) {
   const right = E.x + HALF
   const left = E.x - HALF
   const top = E.y - HALF
   const bottom = E.y + HALF
-  return (
-    <g>
+
+  const shapes = (
+    <>
       <rect x={left} y={top} width={2 * HALF} height={2 * HALF} rx={2} fill={FILL} stroke={EDGE} strokeWidth={1.7} />
       <line
         x1={left - 10}
@@ -116,12 +118,6 @@ function DataElement() {
         strokeDasharray="4 3"
         opacity={0.55}
       />
-      <text x={right + 12} y={E.y + 3} fontSize={8.5} fill={AXIS}>
-        x
-      </text>
-      <text x={E.x + 3} y={top - 13} fontSize={8.5} fill={AXIS}>
-        y
-      </text>
 
       <Arrow from={{ x: right + 2, y: E.y - 20 }} to={{ x: right + 32, y: E.y - 20 }} color={BLUE} />
       <Arrow from={{ x: left - 2, y: E.y + 20 }} to={{ x: left - 32, y: E.y + 20 }} color={BLUE} />
@@ -130,7 +126,17 @@ function DataElement() {
       <Arrow from={{ x: left, y: E.y - 22 }} to={{ x: left, y: E.y + 6 }} color={ORANGE} width={1.7} head={5} />
       <Arrow from={{ x: E.x - 22, y: top }} to={{ x: E.x + 6, y: top }} color={ORANGE} width={1.7} head={5} />
       <Arrow from={{ x: E.x + 22, y: bottom }} to={{ x: E.x - 6, y: bottom }} color={ORANGE} width={1.7} head={5} />
+    </>
+  )
 
+  const texts = (
+    <>
+      <text x={right + 12} y={E.y + 3} fontSize={8.5} fill={AXIS}>
+        x
+      </text>
+      <text x={E.x + 3} y={top - 13} fontSize={8.5} fill={AXIS}>
+        y
+      </text>
       <text x={right + 2} y={E.y - 26} fontSize={9} fill={BLUE}>
         σx = 80
       </text>
@@ -143,6 +149,15 @@ function DataElement() {
       <text x={18} y={26} fontSize={9} fill={MUTED}>
         składowe w MPa
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -154,7 +169,15 @@ function normalArrow(face: Pt, normal: Pt, value: number, max: number, color: st
   const tip = { x: base.x + sign * length * normal.x, y: base.y + sign * length * normal.y }
   return <Arrow from={base} to={tip} color={color} width={2.1} />
 }
-function PrincipalElement({ angle, highlight }: { angle: number; highlight: 'principal' | 'check' | 'second' }) {
+function PrincipalElement({
+  angle,
+  highlight,
+  part = 'all',
+}: {
+  angle: number
+  highlight: 'principal' | 'check' | 'second'
+  part?: Part
+}) {
   const n = pointAt({ x: 0, y: 0 }, angle, 1)
   const p = { x: -n.y, y: n.x }
   const corners = [
@@ -171,8 +194,8 @@ function PrincipalElement({ angle, highlight }: { angle: number; highlight: 'pri
   const label1 = { x: E.x + 84 * n.x + 12, y: E.y + 84 * n.y - 10 }
   const label2 = { x: E.x + 84 * p.x + 8, y: E.y + 84 * p.y - 6 }
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <line
         x1={E.x - HALF - 8}
         y1={E.y}
@@ -220,6 +243,18 @@ function PrincipalElement({ angle, highlight }: { angle: number; highlight: 'pri
       {normalArrow({ x: E.x + HALF * p.x, y: E.y + HALF * p.y }, p, S2, S1, VIOLET)}
       {normalArrow({ x: E.x - HALF * p.x, y: E.y - HALF * p.y }, { x: -p.x, y: -p.y }, S2, S1, VIOLET)}
 
+      {highlight === 'check' && (
+        <path d={arcPath(E.x, E.y, 38, 0, angle)} fill="none" stroke={BLUE} strokeWidth={1.5} />
+      )}
+
+      {highlight === 'second' && (
+        <path d={arcPath(E.x, E.y, 42, THETA, THETA + 90)} fill="none" stroke={VIOLET} strokeWidth={1.6} />
+      )}
+    </>
+  )
+
+  const texts = (
+    <>
       <text x={label1.x} y={label1.y} fontSize={9.5} fontWeight={600} fill={BLUE}>
         σ1 = 96,57
       </text>
@@ -231,27 +266,30 @@ function PrincipalElement({ angle, highlight }: { angle: number; highlight: 'pri
       </text>
 
       {highlight === 'check' && (
-        <g>
-          <path d={arcPath(E.x, E.y, 38, 0, angle)} fill="none" stroke={BLUE} strokeWidth={1.5} />
-          <text x={E.x + 50} y={E.y - 10} fontSize={9} fill={BLUE}>
-            θp1 = 22,5°
-          </text>
-        </g>
+        <text x={E.x + 50} y={E.y - 10} fontSize={9} fill={BLUE}>
+          θp1 = 22,5°
+        </text>
       )}
 
       {highlight === 'second' && (
-        <g>
-          <path d={arcPath(E.x, E.y, 42, THETA, THETA + 90)} fill="none" stroke={VIOLET} strokeWidth={1.6} />
-          <text x={E.x - 8} y={E.y - 54} fontSize={9} fill={VIOLET}>
-            θp2 = 112,5°
-          </text>
-        </g>
+        <text x={E.x - 8} y={E.y - 54} fontSize={9} fill={VIOLET}>
+          θp2 = 112,5°
+        </text>
       )}
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function SearchOverlay({ theta }: { theta: number }) {
+function SearchOverlay({ theta, part = 'all' }: { theta: number; part?: Part }) {
   const n = pointAt({ x: 0, y: 0 }, theta, 1)
   const p = { x: -n.y, y: n.x }
   const tn = -A * Math.sin(rad(2 * theta)) + TX * Math.cos(rad(2 * theta))
@@ -269,8 +307,8 @@ function SearchOverlay({ theta }: { theta: number }) {
   const mid = theta / 2
   const arcLabel = pointAt(E, mid, 48)
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <line
         x1={planeA.x}
         y1={planeA.y}
@@ -282,28 +320,30 @@ function SearchOverlay({ theta }: { theta: number }) {
         opacity={0.85}
       />
       <Arrow from={E} to={nEnd} color={VIOLET} width={2} />
+
+      <path d={arcPath(E.x, E.y, 34, 0, theta)} fill="none" stroke={BLUE} strokeWidth={1.6} />
+
+      <Arrow from={traction} to={snTip} color={BLUE} width={2.2} />
+      {tnLength > 1.4 && <Arrow from={traction} to={tnTip} color={ORANGE} width={2.2} />}
+    </>
+  )
+
+  const texts = (
+    <>
       <text x={nEnd.x + 4} y={nEnd.y - 4} fontSize={9.5} fontWeight={600} fill={VIOLET}>
         n
       </text>
-
-      <path d={arcPath(E.x, E.y, 34, 0, theta)} fill="none" stroke={BLUE} strokeWidth={1.6} />
       <text x={arcLabel.x} y={arcLabel.y} textAnchor="middle" fontSize={9.5} fill={BLUE}>
         θ
       </text>
-
-      <Arrow from={traction} to={snTip} color={BLUE} width={2.2} />
       <text x={snTip.x + 4} y={snTip.y - 4} fontSize={9} fill={BLUE}>
         σn
       </text>
       {tnLength > 1.4 && (
-        <>
-          <Arrow from={traction} to={tnTip} color={ORANGE} width={2.2} />
-          <text x={tnTip.x + 5} y={tnTip.y + 3} fontSize={9} fill={ORANGE}>
-            τnt
-          </text>
-        </>
+        <text x={tnTip.x + 5} y={tnTip.y + 3} fontSize={9} fill={ORANGE}>
+          τnt
+        </text>
       )}
-
       <text x={20} y={42} fontSize={10} fontWeight={600} fill={INK}>
         θ = {num(theta)}°
       </text>
@@ -313,11 +353,20 @@ function SearchOverlay({ theta }: { theta: number }) {
       <text x={20} y={74} fontSize={8.5} fill={MUTED}>
         obrót płaszczyzny wokół punktu
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function MaxShearElement() {
+function MaxShearElement({ part = 'all' }: { part?: Part }) {
   const n = pointAt({ x: 0, y: 0 }, THETA, 1)
   const p = { x: -n.y, y: n.x }
   const corners = [
@@ -336,8 +385,8 @@ function MaxShearElement() {
   const normalTip = { x: traction.x + 22 * nms.x, y: traction.y + 22 * nms.y }
   const normalBack = { x: E.x + 86 * nms.x, y: E.y + 86 * nms.y }
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <polygon points={points} fill={FILL} stroke={EDGE} strokeWidth={1.5} />
       <line
         x1={E.x - 88 * n.x}
@@ -368,25 +417,39 @@ function MaxShearElement() {
         strokeDasharray="7 4"
       />
       <Arrow from={E} to={normalBack} color={ORANGE} width={1.8} />
-      <text x={normalBack.x + 4} y={normalBack.y - 4} fontSize={9} fontWeight={600} fill={ORANGE}>
-        nτ
-      </text>
 
       <Arrow from={traction} to={shearTip} color={ORANGE} width={2.4} />
+      <Arrow from={traction} to={normalTip} color={BLUE} width={1.8} />
+    </>
+  )
+
+  const texts = (
+    <>
+      <text x={normalBack.x + 4} y={normalBack.y - 14} fontSize={9} fontWeight={600} fill={ORANGE}>
+        nτ
+      </text>
       <text x={shearTip.x + 5} y={shearTip.y + 10} fontSize={9} fontWeight={600} fill={ORANGE}>
         τmax = 56,57
       </text>
-      <Arrow from={traction} to={normalTip} color={BLUE} width={1.8} />
       <text x={normalTip.x + 4} y={normalTip.y - 4} fontSize={8.5} fill={BLUE}>
         σavg = 40
       </text>
 
-      <text x={E.x + 12} y={E.y - 38} fontSize={9} fill={MUTED}>
+      <text x={E.x + 12} y={E.y - 54} fontSize={9} fill={MUTED}>
         θτmax = 67,5°
       </text>
       <text x={E.x} y={270} textAnchor="middle" fontSize={9} fontWeight={600} fill={ORANGE}>
         płaszczyzna maksymalnego ścinania
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -400,6 +463,7 @@ function MohrPlot({
   showPrincipal = false,
   showArc = false,
   showMaxShear = false,
+  part = 'all',
 }: {
   markerAngle: number
   reveal: number
@@ -409,6 +473,7 @@ function MohrPlot({
   showPrincipal?: boolean
   showArc?: boolean
   showMaxShear?: boolean
+  part?: Part
 }) {
   const C = { x: px(AVG), y: PLOT_Y }
   const r = R * SCALE
@@ -419,16 +484,10 @@ function MohrPlot({
   const arc = showArc && Math.abs(ALPHA0 - markerAngle) > 1 ? arcPath(C.x, C.y, r, ALPHA0, markerAngle) : null
   const arcMid = pointAt(C, (ALPHA0 + markerAngle) / 2, r + 16)
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <line x1={PLOT_LEFT - 8} y1={PLOT_Y} x2={PLOT_RIGHT + 4} y2={PLOT_Y} stroke={AXIS} strokeWidth={1.1} />
       <line x1={PLOT_LEFT - 8} y1={PLOT_Y - 82} x2={PLOT_LEFT - 8} y2={PLOT_Y + 82} stroke={AXIS} strokeWidth={1.1} />
-      <text x={PLOT_RIGHT + 7} y={PLOT_Y + 3} fontSize={8.5} fill={MUTED}>
-        σ
-      </text>
-      <text x={PLOT_LEFT - 4} y={PLOT_Y - 88} fontSize={8.5} fill={MUTED}>
-        τ
-      </text>
 
       {showCircle && (
         <motion.circle
@@ -450,40 +509,21 @@ function MohrPlot({
         <>
           <circle cx={P1.x} cy={P1.y} r={4} fill={BLUE} />
           <circle cx={P2.x} cy={P2.y} r={4} fill={VIOLET} />
-          <text x={P1.x} y={PLOT_Y + 16} textAnchor="middle" fontSize={8.5} fill={BLUE}>
-            σ1 = 96,57
-          </text>
-          <text x={P2.x} y={PLOT_Y + 16} textAnchor="middle" fontSize={8.5} fill={VIOLET}>
-            σ2 = −16,57
-          </text>
-          <text x={C.x} y={PLOT_Y - 7} textAnchor="middle" fontSize={8} fill={MUTED}>
-            σavg = 40
-          </text>
         </>
       )}
 
       {showInitial && (
-        <>
-          <motion.circle
-            cx={A.x}
-            cy={A.y}
-            r={3.6}
-            fill={MUTED}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: reveal }}
-          />
-          <text x={A.x + 5} y={A.y - 5} fontSize={8.5} fill={MUTED}>
-            A
-          </text>
-        </>
+        <motion.circle
+          cx={A.x}
+          cy={A.y}
+          r={3.6}
+          fill={MUTED}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: reveal }}
+        />
       )}
 
       {arc && <path d={arc} fill="none" stroke={GREEN} strokeWidth={1.6} />}
-      {arc && arcLabel && (
-        <text x={arcMid.x} y={arcMid.y} textAnchor="middle" fontSize={9} fontWeight={600} fill={GREEN}>
-          {arcLabel}
-        </text>
-      )}
 
       <motion.g initial={{ opacity: 0 }} animate={{ opacity: reveal }} transition={{ duration: 0.25 }}>
         <line
@@ -503,12 +543,68 @@ function MohrPlot({
         <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <circle cx={C.x} cy={PLOT_Y - r} r={4.5} fill={ORANGE} />
           <circle cx={C.x} cy={PLOT_Y + r} r={4.5} fill={ORANGE} />
-          <text x={C.x + 8} y={PLOT_Y - r - 2} fontSize={8.5} fill={ORANGE}>
-            τmax = R
-          </text>
           <line x1={C.x} y1={C.y} x2={C.x} y2={PLOT_Y - r} stroke={ORANGE} strokeWidth={1.2} strokeDasharray="4 3" />
         </motion.g>
       )}
+    </>
+  )
+
+  const texts = (
+    <>
+      <text x={PLOT_RIGHT + 7} y={PLOT_Y + 3} fontSize={8.5} fill={MUTED}>
+        σ
+      </text>
+      <text x={PLOT_LEFT - 4} y={PLOT_Y - 88} fontSize={8.5} fill={MUTED}>
+        τ
+      </text>
+
+      {showPrincipal && (
+        <>
+          <text x={P1.x} y={PLOT_Y + 16} textAnchor="middle" fontSize={8.5} fill={BLUE}>
+            σ1 = 96,57
+          </text>
+          <text x={P2.x} y={PLOT_Y + 16} textAnchor="middle" fontSize={8.5} fill={VIOLET}>
+            σ2 = −16,57
+          </text>
+          <text x={C.x} y={PLOT_Y - 7} textAnchor="middle" fontSize={8} fill={MUTED}>
+            σavg = 40
+          </text>
+        </>
+      )}
+
+      {showInitial && (
+        <text x={A.x + 5} y={A.y - 5} fontSize={8.5} fill={MUTED}>
+          A
+        </text>
+      )}
+
+      {arc && arcLabel && (
+        <text x={arcMid.x} y={arcMid.y} textAnchor="middle" fontSize={9} fontWeight={600} fill={GREEN}>
+          {arcLabel}
+        </text>
+      )}
+
+      {showMaxShear && (
+        <motion.text
+          x={C.x + 8}
+          y={PLOT_Y - r - 2}
+          fontSize={8.5}
+          fill={ORANGE}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          τmax = R
+        </motion.text>
+      )}
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -546,15 +642,15 @@ export function StressStateDirectionsExample2Animation({ scene, playing, scenePr
         >
           {showSearch ? (
             <>
-              <DataElement />
-              <SearchOverlay theta={theta} />
+              <DataElement part="shapes" />
+              <SearchOverlay theta={theta} part="shapes" />
             </>
           ) : isMax ? (
-            <MaxShearElement />
+            <MaxShearElement part="shapes" />
           ) : isPrincipal || isCheck ? (
-            <PrincipalElement angle={THETA} highlight={isCheck ? 'check' : 'principal'} />
+            <PrincipalElement angle={THETA} highlight={isCheck ? 'check' : 'principal'} part="shapes" />
           ) : (
-            <DataElement />
+            <DataElement part="shapes" />
           )}
 
           <MohrPlot
@@ -566,7 +662,35 @@ export function StressStateDirectionsExample2Animation({ scene, playing, scenePr
             showArc={isSearch || isAngle}
             arcLabel={isAngle || (!playing && isSearch) ? `2θp = ${num(ALPHA0)}°` : undefined}
             showMaxShear={isMax}
+            part="shapes"
           />
+
+          <g>
+            {showSearch ? (
+              <>
+                <DataElement part="texts" />
+                <SearchOverlay theta={theta} part="texts" />
+              </>
+            ) : isMax ? (
+              <MaxShearElement part="texts" />
+            ) : isPrincipal || isCheck ? (
+              <PrincipalElement angle={THETA} highlight={isCheck ? 'check' : 'principal'} part="texts" />
+            ) : (
+              <DataElement part="texts" />
+            )}
+
+            <MohrPlot
+              markerAngle={markerAngle}
+              reveal={reveal}
+              showCircle={!isGiven && reveal > 0.4}
+              showInitial={isGiven || isSearch}
+              showPrincipal={isPrincipal || isCheck}
+              showArc={isSearch || isAngle}
+              arcLabel={isAngle || (!playing && isSearch) ? `2θp = ${num(ALPHA0)}°` : undefined}
+              showMaxShear={isMax}
+              part="texts"
+            />
+          </g>
         </svg>
       </div>
     </div>

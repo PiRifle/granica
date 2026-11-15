@@ -111,7 +111,7 @@ export function FrameReactionsAnimation({ index }: SolutionAnimationProps) {
           </g>
 
           <g fontSize="12" fill={INK}>
-            <text x={A.x - 24} y={A.y + 6}>
+            <text x={A.x - 30} y={A.y + 20}>
               A
             </text>
             <text x={C.x - 20} y={C.y - 8}>
@@ -145,13 +145,13 @@ export function FrameReactionsAnimation({ index }: SolutionAnimationProps) {
                 <Arrow key={i} from={{ x, y: 60 }} to={{ x, y: 88 }} color={FORCE} marker="ex-rk2-load" width={2} />
               )
             })}
-            <text x={(C.x + D.x) / 2} y="49" fontSize="11.5" textAnchor="middle" fill={FORCE}>
+            <text x={(C.x + D.x) / 2} y="38" fontSize="11.5" textAnchor="middle" fill={FORCE}>
               q = 2 kN/m
             </text>
           </motion.g>
 
           <Arrow from={C} to={{ x: C.x + 66, y: C.y }} color={FORCE} marker="ex-rk2-p" width={4} />
-          <text x={C.x + 74} y={C.y + 5} fontSize="11.5" fill={FORCE}>
+          <text x={C.x + 74} y={C.y + 12} fontSize="11.5" fill={FORCE}>
             P = 12 kN
           </text>
 
@@ -161,7 +161,7 @@ export function FrameReactionsAnimation({ index }: SolutionAnimationProps) {
               Q = 12 kN
             </text>
             <line x1={Q.x} y1={C.y} x2={Q.x} y2={C.y + 26} stroke={MUTED} strokeWidth="1" strokeDasharray="4 4" />
-            <text x={Q.x - 6} y={C.y + 40} fontSize="10.5" textAnchor="end" fill={MUTED}>
+            <text x={Q.x + 8} y={C.y + 22} fontSize="10.5" fill={MUTED}>
               3 m
             </text>
           </motion.g>
@@ -195,10 +195,10 @@ export function FrameReactionsAnimation({ index }: SolutionAnimationProps) {
 
           {showCheck && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-              <line x1={D.x} y1={D.y} x2={A.x} y2={A.y} stroke={OK} strokeWidth="1.4" strokeDasharray="5 4" />
-              <line x1={D.x} y1={D.y} x2={Q.x} y2={Q.y} stroke={OK} strokeWidth="1.4" strokeDasharray="5 4" />
+              <line x1={C.x} y1={C.y} x2={D.x} y2={D.y} stroke={OK} strokeWidth="1.4" strokeDasharray="5 4" />
+              <line x1={D.x} y1={D.y} x2={D.x} y2={A.y} stroke={OK} strokeWidth="1.4" strokeDasharray="5 4" />
               <circle cx={D.x} cy={D.y} r="9" fill="none" stroke={OK} strokeWidth="2" />
-              <text x={D.x - 30} y={D.y + 52} fontSize="10.5" fill={OK}>
+              <text x={D.x - 80} y={D.y + 52} fontSize="10.5" fill={OK}>
                 biegun D
               </text>
               <rect x="272" y="278" width="178" height="26" rx="8" fill="#eef7f1" stroke={OK} strokeWidth="1.2" />

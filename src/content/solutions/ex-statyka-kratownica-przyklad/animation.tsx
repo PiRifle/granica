@@ -51,7 +51,7 @@ const LABELS: Array<{
 }> = [
   { id: '5', x: 205, y: 85, text: 'N₅=0', reveal: 2 },
   { id: '9', x: 305, y: 85, text: 'N₉=0', reveal: 2 },
-  { id: '10', x: 298, y: 169, text: 'N₁₀=0', reveal: 2, anchor: 'end' },
+  { id: '10', x: 288, y: 150, text: 'N₁₀=0', reveal: 2, anchor: 'end' },
   { id: '12', x: 363, y: 174, text: 'N₁₂=0', reveal: 2, anchor: 'start' },
   { id: '11', x: 305, y: 269, text: 'N₁₁=+2,00', reveal: 2 },
   { id: '8', x: 263, y: 174, text: 'N₈=−4,00', reveal: 3, anchor: 'start' },
@@ -161,7 +161,7 @@ export function FullTrussExampleAnimation({ index, playing, sceneProgress }: Sol
                 fill="none"
                 stroke={MUTED}
               />
-              <text x={NODES.A.x + 36} y={NODES.A.y + 20} fontSize="10" stroke="none">
+              <text x={NODES.A.x + 36} y={NODES.A.y - 11} fontSize="10" stroke="none">
                 60°
               </text>
             </g>
@@ -171,10 +171,10 @@ export function FullTrussExampleAnimation({ index, playing, sceneProgress }: Sol
             <motion.g initial={false} animate={{ opacity: reveal }} transition={{ duration: 0.35 }}>
               <rect x={105} y={78} width={270} height={190} fill={CUT} opacity={0.06} />
               <line x1={105} y1={78} x2={105} y2={268} stroke={CUT} strokeWidth={2.2} strokeDasharray="10 7" />
-              <text x={111} y={88} fontSize="9.5" fill={CUT}>
+              <text x={165} y={70} fontSize="9.5" fill={CUT}>
                 przekrój 1–2–3
               </text>
-              <text x={300} y={88} textAnchor="middle" fontSize="9.5" fill={CUT}>
+              <text x={320} y={70} textAnchor="middle" fontSize="9.5" fill={CUT}>
                 prawa część
               </text>
             </motion.g>

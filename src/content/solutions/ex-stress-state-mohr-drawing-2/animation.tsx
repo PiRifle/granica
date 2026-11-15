@@ -45,6 +45,29 @@ function Marker({
   x,
   y,
   color,
+  reveal,
+}: {
+  x: number
+  y: number
+  color: string
+  reveal: number
+}) {
+  return (
+    <motion.g
+      initial={false}
+      animate={{ opacity: reveal, scale: reveal > 0.35 ? 1 : 0.6 }}
+      transition={{ duration: 0.2, ease: 'linear' }}
+      style={{ transformOrigin: `${x}px ${y}px` }}
+    >
+      <circle cx={x} cy={y} r={3.6} fill={color} />
+    </motion.g>
+  )
+}
+
+function MarkerLabel({
+  x,
+  y,
+  color,
   label,
   dx = 8,
   dy = 4,
@@ -59,17 +82,17 @@ function Marker({
   reveal: number
 }) {
   return (
-    <motion.g
+    <motion.text
       initial={false}
-      animate={{ opacity: reveal, scale: reveal > 0.35 ? 1 : 0.6 }}
+      animate={{ opacity: reveal }}
       transition={{ duration: 0.2, ease: 'linear' }}
-      style={{ transformOrigin: `${x}px ${y}px` }}
+      x={x + dx}
+      y={y + dy}
+      fontSize={9}
+      fill={color}
     >
-      <circle cx={x} cy={y} r={3.6} fill={color} />
-      <text x={x + dx} y={y + dy} fontSize={9} fill={color}>
-        {label}
-      </text>
-    </motion.g>
+      {label}
+    </motion.text>
   )
 }
 
@@ -109,25 +132,16 @@ function StressElement({ active }: { active: boolean }) {
       <motion.g stroke={BLUE} fill={BLUE} strokeWidth={active ? 2.2 : 1.7} animate={{ opacity: active ? 1 : 0.55 }}>
         {tensionX ? arrow(right, midY, right + 26, midY, true) : arrow(right + 26, midY, right, midY, true)}
         {tensionX ? arrow(left, midY, left - 22, midY, true) : arrow(left - 22, midY, left, midY, true)}
-        <text x={right + 30} y={midY + 3} fontSize={9} stroke="none">
-          σx
-        </text>
       </motion.g>
       <motion.g stroke={GREEN} fill={GREEN} strokeWidth={active ? 2.2 : 1.7} animate={{ opacity: active ? 1 : 0.55 }}>
         {tensionY ? arrow(midX, top, midX, top - 22, false) : arrow(midX, top - 22, midX, top, false)}
         {tensionY ? arrow(midX, bottom, midX, bottom + 20, false) : arrow(midX, bottom + 20, midX, bottom, false)}
-        <text x={midX + 5} y={top - 26} fontSize={9} stroke="none">
-          σy
-        </text>
       </motion.g>
       <motion.g stroke={ORANGE} fill={ORANGE} strokeWidth={active ? 2.2 : 1.7} animate={{ opacity: active ? 1 : 0.55 }}>
         <line x1={left + 18} y1={top} x2={right - 18} y2={top} />
         <path d={`M${right - 26} ${top - 4} L${right - 17} ${top} L${right - 26} ${top + 4}`} fill="none" />
         <line x1={right - 18} y1={bottom} x2={left + 18} y2={bottom} />
         <path d={`M${left + 26} ${bottom - 4} L${left + 17} ${bottom} L${left + 26} ${bottom + 4}`} fill="none" />
-        <text x={right - 30} y={top - 7} fontSize={9} stroke="none">
-          τxy
-        </text>
       </motion.g>
       <circle cx={midX} cy={midY} r={2} fill={EDGE} />
     </g>
@@ -206,18 +220,11 @@ export function MohrDrawingExample2Animation({ scene, playing, sceneProgress }: 
           </defs>
 
           <StressElement active={metric === 'model'} />
-          <DataPanel />
 
           <g stroke={AXIS} strokeWidth={1}>
             <line x1={150} y1={OY} x2={448} y2={OY} markerEnd="url(#mohr2-axis)" />
             <line x1={OX} y1={128} x2={OX} y2={288} markerEnd="url(#mohr2-axis)" />
           </g>
-          <text x={450} y={OY - 6} textAnchor="end" fontSize={10} fill={MUTED}>
-            σ
-          </text>
-          <text x={OX + 6} y={132} fontSize={10} fill={MUTED}>
-            τ
-          </text>
 
           <motion.path
             d={`M${xX} ${yX} L${xY} ${yY}`}
@@ -230,10 +237,10 @@ export function MohrDrawingExample2Animation({ scene, playing, sceneProgress }: 
             transition={{ duration: 0.18, ease: 'linear' }}
           />
 
-          <Marker x={xX} y={yX} color={BLUE} label="X" dx={8} dy={-6} reveal={clamp01(lineup * 2)} />
-          <Marker x={xY} y={yY} color={GREEN} label="Y" dx={-16} dy={13} reveal={clamp01(lineup * 2 - 1)} />
+          <Marker x={xX} y={yX} color={BLUE} reveal={clamp01(lineup * 2)} />
+          <Marker x={xY} y={yY} color={GREEN} reveal={clamp01(lineup * 2 - 1)} />
 
-          <Marker x={xC} y={OY} color={INK} label="C" dx={-5} dy={16} reveal={centerP} />
+          <Marker x={xC} y={OY} color={INK} reveal={centerP} />
 
           <motion.path
             d={`M${xC} ${OY} L${xX} ${yX}`}
@@ -254,23 +261,7 @@ export function MohrDrawingExample2Animation({ scene, playing, sceneProgress }: 
           >
             <line x1={xC} y1={OY} x2={xFoot} y2={OY} />
             <line x1={xFoot} y1={OY} x2={xX} y2={yX} />
-            <text x={(xC + xFoot) / 2} y={OY + 14} textAnchor="middle" fontSize={9} fill={MUTED} stroke="none">
-              |a| = 40
-            </text>
-            <text x={xFoot + 5} y={(OY + yX) / 2} fontSize={9} fill={MUTED} stroke="none">
-              τ = 30
-            </text>
           </motion.g>
-          <motion.text
-            initial={false}
-            animate={{ opacity: centerP }}
-            x={(xC + xX) / 2 - 22}
-            y={(OY + yX) / 2 - 10}
-            fontSize={9}
-            fill={VIOLET}
-          >
-            R = 50 MPa
-          </motion.text>
 
           <motion.circle
             cx={xC}
@@ -284,20 +275,12 @@ export function MohrDrawingExample2Animation({ scene, playing, sceneProgress }: 
             transition={{ duration: 0.18, ease: 'linear' }}
           />
 
-          <Marker x={x2} y={OY} color={GREEN} label="σ₂=−30" dx={-2} dy={-9} reveal={principalP} />
-          <Marker x={x1} y={OY} color={BLUE} label="σ₁=70" dx={-8} dy={-9} reveal={principalP} />
-          <text x={xC} y={OY - 8} textAnchor="middle" fontSize={9} fill={INK} opacity={principalP}>
-            C = 20 MPa
-          </text>
+          <Marker x={x2} y={OY} color={GREEN} reveal={principalP} />
+          <Marker x={x1} y={OY} color={BLUE} reveal={principalP} />
+
           <motion.g initial={false} animate={{ opacity: principalP }}>
             <line x1={xC} y1={OY} x2={xC} y2={topY} stroke={ORANGE} strokeWidth={1.3} strokeDasharray="4 3" />
             <circle cx={xC} cy={topY} r={3.2} fill={ORANGE} />
-            <text x={xC + 7} y={topY + 2} fontSize={9} fill={ORANGE}>
-              τmax = 50 MPa
-            </text>
-            <text x={xC + 7} y={topY + 14} fontSize={9} fill={MUTED}>
-              przy σ = 20 MPa
-            </text>
           </motion.g>
 
           <motion.g initial={false} animate={{ opacity: angleP }}>
@@ -320,20 +303,80 @@ export function MohrDrawingExample2Animation({ scene, playing, sceneProgress }: 
               animate={{ pathLength: angleP }}
               transition={{ duration: 0.18, ease: 'linear' }}
             />
-            <text x={xC + 8} y={OY + 32} fontSize={9} fill={ORANGE}>
-              2θp = 143,13° → θp ≈ 71,57°
-            </text>
-            <text x={xY + 8} y={yY + 26} fontSize={9} fill={MUTED}>
-              druga gałąź: −36,87° → σ₂
-            </text>
           </motion.g>
 
-          <text x={OX + 8} y={288} fontSize={8} fill={MUTED}>
-            obie osie w tej samej skali
-          </text>
-          <text x={445} y={286} textAnchor="end" fontSize={8} fill={MUTED}>
-            {metric === 'model' ? 'ujemne σx przesuwa X w lewo' : ''}
-          </text>
+          <g>
+            <DataPanel />
+            <text x={136} y={81} fontSize={9} fill={BLUE} opacity={metric === 'model' ? 1 : 0.55}>
+              σx
+            </text>
+            <text x={75} y={16} fontSize={9} fill={GREEN} opacity={metric === 'model' ? 1 : 0.55}>
+              σy
+            </text>
+            <text x={76} y={35} fontSize={9} fill={ORANGE} opacity={metric === 'model' ? 1 : 0.55}>
+              τxy
+            </text>
+
+            <text x={450} y={OY - 6} textAnchor="end" fontSize={10} fill={MUTED}>
+              σ
+            </text>
+            <text x={OX + 6} y={132} fontSize={10} fill={MUTED}>
+              τ
+            </text>
+
+            <motion.g initial={false} animate={{ opacity: centerP > 0 ? 1 : 0 }}>
+              <text x={(xC + xFoot) / 2} y={OY + 14} textAnchor="middle" fontSize={9} fill={MUTED}>
+                |a| = 40
+              </text>
+              <text x={xFoot - 6} y={(OY + yX) / 2} textAnchor="end" fontSize={9} fill={MUTED}>
+                τ = 30
+              </text>
+            </motion.g>
+            <motion.text
+              initial={false}
+              animate={{ opacity: centerP }}
+              x={(xC + xX) / 2 - 22}
+              y={(OY + yX) / 2 - 10}
+              fontSize={9}
+              fill={VIOLET}
+            >
+              R = 50 MPa
+            </motion.text>
+
+            <MarkerLabel x={xX} y={yX} color={BLUE} label="X" dx={8} dy={-6} reveal={clamp01(lineup * 2)} />
+            <MarkerLabel x={xY} y={yY} color={GREEN} label="Y" dx={-16} dy={13} reveal={clamp01(lineup * 2 - 1)} />
+            <MarkerLabel x={xC} y={OY} color={INK} label="C" dx={-5} dy={16} reveal={centerP} />
+            <MarkerLabel x={x2} y={OY} color={GREEN} label="σ₂=−30" dx={-2} dy={-9} reveal={principalP} />
+            <MarkerLabel x={x1} y={OY} color={BLUE} label="σ₁=70" dx={-8} dy={-9} reveal={principalP} />
+            <text x={xC} y={OY - 8} textAnchor="middle" fontSize={9} fill={INK} opacity={principalP}>
+              C = 20 MPa
+            </text>
+
+            <motion.g initial={false} animate={{ opacity: principalP }}>
+              <text x={xC + 7} y={topY + 2} fontSize={9} fill={ORANGE}>
+                τmax = 50 MPa
+              </text>
+              <text x={xC + 7} y={topY + 14} fontSize={9} fill={MUTED}>
+                przy σ = 20 MPa
+              </text>
+            </motion.g>
+
+            <motion.g initial={false} animate={{ opacity: angleP }}>
+              <text x={xC + 8} y={OY + 32} fontSize={9} fill={ORANGE}>
+                2θp = 143,13° → θp ≈ 71,57°
+              </text>
+              <text x={xY + 8} y={yY + 12} fontSize={9} fill={MUTED}>
+                druga gałąź: −36,87° → σ₂
+              </text>
+            </motion.g>
+
+            <text x={OX + 8} y={288} fontSize={8} fill={MUTED}>
+              obie osie w tej samej skali
+            </text>
+            <text x={445} y={286} textAnchor="end" fontSize={8} fill={MUTED}>
+              {metric === 'model' ? 'ujemne σx przesuwa X w lewo' : ''}
+            </text>
+          </g>
         </svg>
       </div>
     </div>

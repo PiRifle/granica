@@ -140,7 +140,7 @@ export function VectorAdditionAnimation({ index, playing, sceneProgress }: Solut
               <text x={sumEnd.x + 6} y={sumEnd.y + 16} fontSize="11" fill={MUTED}>
                 Rx = 17,19 kN
               </text>
-              <text x={sumY.x + 6} y={sumY.y} fontSize="11" fill={MUTED}>
+              <text x={sumY.x + 6} y={sumY.y - (showResult ? 10 : 0)} fontSize="11" fill={MUTED}>
                 Ry = 30,00 kN
               </text>
             </g>

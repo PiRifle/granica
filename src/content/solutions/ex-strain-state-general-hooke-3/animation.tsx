@@ -135,18 +135,25 @@ function Arrow({
   )
 }
 
-function Axes() {
+function AxesShapes() {
   return (
     <g>
       <Arrow x1={62} y1={264} x2={96} y2={264} amount={1} color={BLUE} width={1.4} />
+      <Arrow x1={62} y1={264} x2={62} y2={230} amount={1} color={GREEN} width={1.4} />
+      <Arrow x1={62} y1={264} x2={83} y2={248} amount={1} color={ORANGE} width={1.4} />
+    </g>
+  )
+}
+
+function AxesLabels() {
+  return (
+    <g>
       <text x={100} y={267} fontSize={9} fill={BLUE}>
         x
       </text>
-      <Arrow x1={62} y1={264} x2={62} y2={230} amount={1} color={GREEN} width={1.4} />
       <text x={66} y={230} fontSize={9} fill={GREEN}>
         y
       </text>
-      <Arrow x1={62} y1={264} x2={83} y2={248} amount={1} color={ORANGE} width={1.4} />
       <text x={87} y={248} fontSize={9} fill={ORANGE}>
         z
       </text>
@@ -177,24 +184,31 @@ function GaugeScene({ p }: { p: number }) {
   const showY = ramp(p, 0.4, 0.7)
   return (
     <g>
-      <Header title="POMIAR · tensometry wzdłuż x i y" note="tensometr mierzy odkształcenie, a nie naprężenie" />
       <Prism />
       <motion.g initial={false} animate={{ opacity: showX }}>
         <rect x={CX - 22} y={CY + HY - 16} width={44} height={8} rx={2} fill={BLUE} />
-        <text x={CX + 27} y={CY + HY - 8} fontSize={8.5} fontWeight={600} fill={BLUE}>
-          0° · εx = 500 με
-        </text>
       </motion.g>
       <motion.g initial={false} animate={{ opacity: showY }}>
         <rect x={CX - HX + 12} y={CY - 22} width={8} height={44} rx={2} fill={GREEN} />
-        <text x={CX - HX + 8} y={CY + 4} textAnchor="end" fontSize={8.5} fontWeight={600} fill={GREEN}>
-          90° · εy = −150 με
-        </text>
       </motion.g>
-      <text x={CX} y={CY + HY + 44} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-        dwa odczyty wystarczą do sprawdzenia hipotezy jednoosiowości
-      </text>
-      <Axes />
+      <AxesShapes />
+      <g>
+        <Header title="POMIAR · tensometry wzdłuż x i y" note="tensometr mierzy odkształcenie, a nie naprężenie" />
+        <motion.g initial={false} animate={{ opacity: showX }}>
+          <text x={CX + 27} y={CY + HY - 8} fontSize={8.5} fontWeight={600} fill={BLUE}>
+            0° · εx = 500 με
+          </text>
+        </motion.g>
+        <motion.g initial={false} animate={{ opacity: showY }}>
+          <text x={CX - HX + 8} y={CY + 4} textAnchor="end" fontSize={8.5} fontWeight={600} fill={GREEN}>
+            90° · εy = −150 με
+          </text>
+        </motion.g>
+        <text x={444} y={CY + HY + 44} textAnchor="end" fontSize={8.5} fill={MUTED}>
+          dwa odczyty wystarczą do sprawdzenia hipotezy jednoosiowości
+        </text>
+        <AxesLabels />
+      </g>
     </g>
   )
 }
@@ -204,7 +218,6 @@ function StressScene({ p }: { p: number }) {
   const fx = 1 + EPS_X * GAIN_X * a
   return (
     <g>
-      <Header title="ODWRÓCENIE PRAWA HOOKE’A · σx z pomiaru" note="w stanie jednoosiowym σx = E εx" />
       <Prism ghost />
       <Prism fx={fx} />
       <Arrow
@@ -216,31 +229,35 @@ function StressScene({ p }: { p: number }) {
         color={BLUE}
         width={2.8}
       />
-      <motion.text
-        x={CX + HX * fx + 53}
-        y={CY + 3}
-        fontSize={10}
-        fontWeight={600}
-        fill={BLUE}
-        initial={false}
-        animate={{ opacity: ramp(p, 0.4, 0.64) }}
-      >
-        σx = {SIGMA_X} MPa
-      </motion.text>
-      <motion.text
-        x={CX + HX * fx + 30}
-        y={CY - 14}
-        fontSize={9}
-        fill={MUTED}
-        initial={false}
-        animate={{ opacity: ramp(p, 0.54, 0.74) }}
-      >
-        εx = 500 με
-      </motion.text>
-      <text x={CX} y={CY + HY + 38} textAnchor="middle" fontSize={9} fill={MUTED}>
-        σx = E εx = 200 000 · 0,0005 = 100 MPa
-      </text>
-      <Axes />
+      <AxesShapes />
+      <g>
+        <Header title="ODWRÓCENIE PRAWA HOOKE’A · σx z pomiaru" note="w stanie jednoosiowym σx = E εx" />
+        <motion.text
+          x={CX + HX * fx + 53}
+          y={CY + 3}
+          fontSize={10}
+          fontWeight={600}
+          fill={BLUE}
+          initial={false}
+          animate={{ opacity: ramp(p, 0.4, 0.64) }}
+        >
+          σx = {SIGMA_X} MPa
+        </motion.text>
+        <motion.text
+          x={CX + HX * fx + 30}
+          y={CY - 14}
+          fontSize={9}
+          fill={MUTED}
+          initial={false}
+          animate={{ opacity: ramp(p, 0.54, 0.74) }}
+        >
+          εx = 500 με
+        </motion.text>
+        <text x={444} y={CY + HY + 38} textAnchor="end" fontSize={9} fill={MUTED}>
+          σx = E εx = 200 000 · 0,0005 = 100 MPa
+        </text>
+        <AxesLabels />
+      </g>
     </g>
   )
 }
@@ -253,41 +270,44 @@ function CouplingScene({ p }: { p: number }) {
   const showCheck = ramp(p, 0.5, 0.78)
   return (
     <g>
-      <Header title="TEST POISSONA · przewidywanie εy" note="εy = −ν εx niezależnie od tego, czy σy jest znane" />
       <Prism ghost />
       <Prism fx={fx} fy={fy} fz={fz} />
-      <motion.text
-        x={CX + HX * fx + 30}
-        y={CY - 10}
-        fontSize={9.5}
-        fontWeight={600}
-        fill={BLUE}
-        initial={false}
-        animate={{ opacity: ramp(p, 0.24, 0.46) }}
-      >
-        εx = 500 με
-      </motion.text>
-      <motion.text
-        x={CX - HX * fx - 8}
-        y={CY + 4}
-        textAnchor="end"
-        fontSize={9.5}
-        fontWeight={600}
-        fill={GREEN}
-        initial={false}
-        animate={{ opacity: ramp(p, 0.4, 0.62) }}
-      >
-        εy = −150 με
-      </motion.text>
-      <motion.g initial={false} animate={{ opacity: showCheck }}>
-        <text x={CX} y={CY + HY + 34} textAnchor="middle" fontSize={9.5} fontWeight={600} fill={GREEN}>
-          −ν εx = −0,30 · 500 = −150 με ✓
-        </text>
-        <text x={CX} y={CY + HY + 50} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-          zgodne ze zmierzonym εy
-        </text>
-      </motion.g>
-      <Axes />
+      <AxesShapes />
+      <g>
+        <Header title="TEST POISSONA · przewidywanie εy" note="εy = −ν εx niezależnie od tego, czy σy jest znane" />
+        <motion.text
+          x={CX + HX * fx + 30}
+          y={CY - 10}
+          fontSize={9.5}
+          fontWeight={600}
+          fill={BLUE}
+          initial={false}
+          animate={{ opacity: ramp(p, 0.24, 0.46) }}
+        >
+          εx = 500 με
+        </motion.text>
+        <motion.text
+          x={CX - HX * fx - 8}
+          y={CY + 4}
+          textAnchor="end"
+          fontSize={9.5}
+          fontWeight={600}
+          fill={GREEN}
+          initial={false}
+          animate={{ opacity: ramp(p, 0.4, 0.62) }}
+        >
+          εy = −150 με
+        </motion.text>
+        <motion.g initial={false} animate={{ opacity: showCheck }}>
+          <text x={444} y={CY + HY + 34} textAnchor="end" fontSize={9.5} fontWeight={600} fill={GREEN}>
+            −ν εx = −0,30 · 500 = −150 με ✓
+          </text>
+          <text x={444} y={CY + HY + 50} textAnchor="end" fontSize={8.5} fill={MUTED}>
+            zgodne ze zmierzonym εy
+          </text>
+        </motion.g>
+        <AxesLabels />
+      </g>
     </g>
   )
 }
@@ -305,7 +325,6 @@ function StrainZScene({ p }: { p: number }) {
   const backTopOriginal = original.top[2]
   return (
     <g>
-      <Header title="ODKSZTAŁCENIE GRUBOŚCI · εz" note="σz = 0, ale εz = −150 με" />
       <Prism ghost />
       <Prism fx={fx} fy={fy} fz={fz} />
       <motion.g initial={false} animate={{ opacity: ramp(p, 0.42, 0.68) }}>
@@ -319,17 +338,23 @@ function StrainZScene({ p }: { p: number }) {
           strokeWidth={1.2}
           strokeDasharray="4 3"
         />
-        <text x={backTop.x + 6} y={backTop.y - 26} fontSize={9} fontWeight={600} fill={ORANGE}>
-          εz = −150 με
-        </text>
-        <text x={backTopOriginal.x + 6} y={backTopOriginal.y - 40} fontSize={8} fill={MUTED}>
-          εz = 0
-        </text>
       </motion.g>
-      <text x={CX} y={CY + HY + 38} textAnchor="middle" fontSize={9} fill={MUTED}>
-        grubość maleje mimo zerowego naprężenia w kierunku z
-      </text>
-      <Axes />
+      <AxesShapes />
+      <g>
+        <Header title="ODKSZTAŁCENIE GRUBOŚCI · εz" note="σz = 0, ale εz = −150 με" />
+        <motion.g initial={false} animate={{ opacity: ramp(p, 0.42, 0.68) }}>
+          <text x={backTop.x + 6} y={backTop.y - 26} fontSize={9} fontWeight={600} fill={ORANGE}>
+            εz = −150 με
+          </text>
+          <text x={backTopOriginal.x + 6} y={backTopOriginal.y - 40} fontSize={8} fill={MUTED}>
+            εz = 0
+          </text>
+        </motion.g>
+        <text x={444} y={CY + HY + 38} textAnchor="end" fontSize={9} fill={MUTED}>
+          grubość maleje mimo zerowego naprężenia w kierunku z
+        </text>
+        <AxesLabels />
+      </g>
     </g>
   )
 }

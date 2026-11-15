@@ -154,7 +154,7 @@ function SectionDrawing({
               strokeWidth={active ? 2.3 : 1.2}
             />
             {showDimensions && part.id === 'g' && (
-              <text x={sx(150)} y={sy(250) + 3} textAnchor="middle" fontSize={8} fill={part.color}>
+              <text x={sx(150) + 22} y={sy(250) + 3} textAnchor="middle" fontSize={8} fill={part.color}>
                 pas górny
               </text>
             )}
@@ -164,7 +164,7 @@ function SectionDrawing({
               </text>
             )}
             {showDimensions && part.id === 'd' && (
-              <text x={sx(150)} y={sy(25) + 3} textAnchor="middle" fontSize={8} fill={part.color}>
+              <text x={sx(150) + 22} y={sy(25) + 3} textAnchor="middle" fontSize={8} fill={part.color}>
                 pas dolny
               </text>
             )}
@@ -185,7 +185,7 @@ function SectionDrawing({
           />
           {subtraction && holeRadius > 1 && (
             <>
-              <text x={sx(hole.cx)} y={sy(hole.cy) + 3} textAnchor="middle" fontSize={8} fontWeight={700} fill={HOLE}>
+              <text x={sx(hole.cx)} y={sy(hole.cy) - 16} textAnchor="middle" fontSize={8} fontWeight={700} fill={HOLE}>
                 −
               </text>
               <circle
@@ -260,7 +260,7 @@ function SectionDrawing({
           <line x1={sx(135)} y1={236} x2={sx(165)} y2={236} strokeWidth={1} />
           <line x1={sx(135)} y1={232} x2={sx(135)} y2={240} strokeWidth={1} />
           <line x1={sx(165)} y1={232} x2={sx(165)} y2={240} strokeWidth={1} />
-          <text x={sx(150)} y={230} textAnchor="middle" fontSize={7.5} stroke="none">
+          <text x={sx(150) + 22} y={230} textAnchor="middle" fontSize={7.5} stroke="none">
             c = 30
           </text>
         </g>
@@ -280,7 +280,7 @@ function SectionDrawing({
       {axisMode !== 'none' && (
         <g>
           <line x1={XC} y1={top - 10} x2={XC} y2={Y0 + 16} stroke={MUTED} strokeWidth={1} strokeDasharray="5 4" />
-          <text x={XC + 5} y={top - 14} fontSize={8.5} fontWeight={600} fill={MUTED}>
+          <text x={XC - 6} y={top - 2} textAnchor="end" fontSize={8.5} fontWeight={600} fill={MUTED}>
             y
           </text>
         </g>
@@ -484,7 +484,7 @@ function SumChart({ mode, progress }: { mode: 'Ix' | 'Iy'; progress: number }) {
       )}
       <g opacity={finalReveal}>
         <line x1={finalX} y1={94} x2={finalX} y2={130} stroke={INK} strokeWidth={1.2} strokeDasharray="4 3" />
-        <text x={finalX} y={86} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={INK}>
+        <text x={finalX} y={90} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={INK}>
           {mode === 'Ix' ? 'I_x' : 'I_y'} = {finalValue(final)} mm⁴
         </text>
       </g>
@@ -702,7 +702,7 @@ function CentroidAxis({ progress }: { progress: number }) {
       <text x={CHART_X} y={270} fontSize={8} fill={INK}>
         wynik jest średnią ważoną pól
       </text>
-      <text x={CHART_X} y={286} fontSize={7.5} fill={MUTED}>
+      <text x={CHART_X} y={305} fontSize={7.5} fill={MUTED}>
         duże pole pasa górnego przesuwa C w górę
       </text>
     </g>
@@ -868,7 +868,7 @@ export function SectionCentroidMomentsAnimation({ scene, index, playing, scenePr
               >
                 100 mm
               </text>
-              <text x={198} y={225} fontSize={7.5} fill={MUTED}>
+              <text x={198} y={245} fontSize={7.5} fill={MUTED}>
                 d = 0 dla prostokątów
               </text>
             </g>

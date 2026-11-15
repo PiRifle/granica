@@ -238,7 +238,7 @@ export function MaterialLoad2Animation({ scene, playing, sceneProgress }: Soluti
               <Tag x={REQ.x} y={64} amount={1} color={INK} weight={700} size={9.5}>
                 wymagane pole [mm²]
               </Tag>
-              <Tag x={REQ.x} y={84} amount={1} color={MUTED} size={8}>
+              <Tag x={REQ.x + 12} y={84} amount={1} color={MUTED} size={8}>
                 {`k = ${isSteel ? '156,7' : '80,0'} MPa`}
               </Tag>
 
@@ -298,7 +298,7 @@ export function MaterialLoad2Animation({ scene, playing, sceneProgress }: Soluti
 
               <line
                 x1={reqX(adoptedArea)}
-                y1={100}
+                y1={112}
                 x2={reqX(adoptedArea)}
                 y2={176}
                 stroke={adoptedColor}

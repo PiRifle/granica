@@ -137,10 +137,22 @@ export function SectionStiffnessDesign1Animation({ scene, playing, sceneProgress
             )}
             <path d={`M${X0 - 9} ${BEAM_Y + 15} L${X0} ${BEAM_Y + 2} L${X0 + 9} ${BEAM_Y + 15} Z`} fill={EDGE} />
             <path d={`M${X1 - 9} ${BEAM_Y + 15} L${X1} ${BEAM_Y + 2} L${X1 + 9} ${BEAM_Y + 15} Z`} fill={EDGE} />
-            <text x={X0} y={BEAM_Y + 28} textAnchor="middle" fontSize={9} fill={EDGE}>
+            <text
+              x={showDeflection ? X0 - 10 : X0}
+              y={BEAM_Y + 28}
+              textAnchor={showDeflection ? 'end' : 'middle'}
+              fontSize={9}
+              fill={EDGE}
+            >
               A
             </text>
-            <text x={X1} y={BEAM_Y + 28} textAnchor="middle" fontSize={9} fill={EDGE}>
+            <text
+              x={showDeflection ? X1 + 10 : X1}
+              y={BEAM_Y + 28}
+              textAnchor={showDeflection ? 'start' : 'middle'}
+              fontSize={9}
+              fill={EDGE}
+            >
               B
             </text>
 
@@ -208,7 +220,7 @@ export function SectionStiffnessDesign1Animation({ scene, playing, sceneProgress
           )}
 
           {metric === 'strength' && (
-            <text x={bx(2)} y={BEAM_Y + 64} textAnchor="middle" fontSize={9} fill={LOAD}>
+            <text x={bx(2)} y={BEAM_Y + 78} textAnchor="middle" fontSize={9} fill={LOAD}>
               M_max = 10 kN·m
             </text>
           )}
@@ -234,7 +246,13 @@ export function SectionStiffnessDesign1Animation({ scene, playing, sceneProgress
                 strokeWidth={1.2}
                 strokeDasharray="5 4"
               />
-              <text x={SEC_X + SEC_W + 16} y={SEC_NA + 3} fontSize={8} fill={LOAD}>
+              <text
+                x={showGoverning ? SEC_X - 16 : SEC_X + SEC_W + 16}
+                y={SEC_NA + 3}
+                textAnchor={showGoverning ? 'end' : 'start'}
+                fontSize={8}
+                fill={LOAD}
+              >
                 oś obojętna
               </text>
 
@@ -302,7 +320,7 @@ export function SectionStiffnessDesign1Animation({ scene, playing, sceneProgress
                     strokeWidth={1.2}
                     strokeDasharray="4 3"
                   />
-                  <text x={SEC_X - 160 * STRESS_SCALE} y={SEC_TOP - 11} textAnchor="middle" fontSize={8} fill={OK}>
+                  <text x={SEC_X - 160 * STRESS_SCALE} y={SEC_TOP - 18} textAnchor="middle" fontSize={8} fill={OK}>
                     σ_dop
                   </text>
                   <text x={SEC_X - 120 * STRESS_SCALE} y={SEC_TOP - 5} textAnchor="middle" fontSize={8} fill={LOAD}>

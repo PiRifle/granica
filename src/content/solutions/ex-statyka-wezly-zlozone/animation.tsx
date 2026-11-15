@@ -142,24 +142,24 @@ export function ComplexNodesAnimation({ index, playing, sceneProgress }: Solutio
             <g fill="none">
               <line
                 x1={NODES.A.x}
-                y1={NODES.B.y - 24}
+                y1={NODES.B.y - 167}
                 x2={NODES.C.x}
-                y2={NODES.C.y - 24}
+                y2={NODES.C.y - 167}
                 stroke={HIGHLIGHT}
                 strokeWidth={2}
                 strokeDasharray="6 5"
               />
               <rect
-                x={NODES.B.x - 26}
-                y={NODES.B.y - 34}
-                width={52}
+                x={NODES.B.x - 38}
+                y={NODES.B.y - 197}
+                width={76}
                 height={20}
                 rx={6}
                 fill="#ffffff"
                 stroke={HIGHLIGHT}
                 strokeWidth={1.5}
               />
-              <text x={NODES.B.x} y={NODES.B.y - 20} textAnchor="middle" fontSize="9.5" fill={HIGHLIGHT}>
+              <text x={NODES.B.x} y={NODES.B.y - 181} textAnchor="middle" fontSize="9.5" fill={HIGHLIGHT}>
                 węzeł złożony
               </text>
             </g>
@@ -177,10 +177,10 @@ export function ComplexNodesAnimation({ index, playing, sceneProgress }: Solutio
               <ForceLabel x={127} y={170} text="N_AD = −5,00 kN" color={COMPRESSION} />
               <ForceLabel x={293} y={170} text="N_CD = −5,00 kN" color={COMPRESSION} />
               <ForceLabel x={132} y={274} text="N_AB = +4,00 kN" color={TENSION} />
-              <ForceLabel x={288} y={274} text="N_BC = +4,00 kN" color={TENSION} />
+              <ForceLabel x={288} y={268} text="N_BC = +4,00 kN" color={TENSION} />
             </>
           )}
-          {showVertical && <ForceLabel x={224} y={181} text="N_BD = +6,00 kN" color={TENSION} />}
+          {showVertical && <ForceLabel x={224} y={196} text="N_BD = +6,00 kN" color={TENSION} />}
 
           {showReactions && (
             <motion.g initial={false} animate={{ opacity: reveal }} transition={{ duration: 0.35 }}>

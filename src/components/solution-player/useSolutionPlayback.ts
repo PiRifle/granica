@@ -1,9 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { SolutionTiming } from './useSolutionTiming'
 
-export function useSolutionPlayback(totalMs: number, timing: SolutionTiming['timing'], lastIndex: number) {
+export function useSolutionPlayback(
+  totalMs: number,
+  timing: SolutionTiming['timing'],
+  lastIndex: number,
+  initialPlaying = false,
+) {
   const [position, setPosition] = useState(0)
-  const [playing, setPlaying] = useState(false)
+  const [playing, setPlaying] = useState(initialPlaying)
   const [speed, setSpeed] = useState<number>(1)
   const [seeking, setSeeking] = useState(false)
   const [engaged, setEngaged] = useState(false)
@@ -28,18 +33,21 @@ export function useSolutionPlayback(totalMs: number, timing: SolutionTiming['tim
     }
   }, [atEnd, playing])
 
-  const seekTo = (value: number) => {
-    setEngaged(true)
-    setPosition(Math.max(0, Math.min(totalMs, value)))
-  }
+  const seekTo = useCallback(
+    (value: number) => {
+      setEngaged(true)
+      setPosition(Math.max(0, Math.min(totalMs, value)))
+    },
+    [totalMs],
+  )
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setEngaged(false)
     setPlaying(false)
     setPosition(0)
-  }
+  }, [])
 
-  const toggle = () => {
+  const toggle = useCallback(() => {
     setEngaged(true)
     if (atEnd) {
       setPosition(0)
@@ -47,14 +55,17 @@ export function useSolutionPlayback(totalMs: number, timing: SolutionTiming['tim
       return
     }
     setPlaying((value) => !value)
-  }
+  }, [atEnd])
 
-  const goToScene = (target: number) => {
-    const sceneIndex = Math.max(0, Math.min(lastIndex, target))
-    setEngaged(false)
-    setPlaying(false)
-    setPosition(timing[sceneIndex]?.start ?? 0)
-  }
+  const goToScene = useCallback(
+    (target: number) => {
+      const sceneIndex = Math.max(0, Math.min(lastIndex, target))
+      setEngaged(false)
+      setPlaying(false)
+      setPosition(timing[sceneIndex]?.start ?? 0)
+    },
+    [lastIndex, timing],
+  )
 
   return {
     position,

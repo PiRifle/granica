@@ -202,7 +202,7 @@ export function BendingShearForceExample1Animation({ scene, playing, sceneProgre
               <line
                 key={marker}
                 x1={xAt(marker)}
-                y1={BEAM_Y + 22}
+                y1={186}
                 x2={xAt(marker)}
                 y2={T_ZERO}
                 stroke={MUTED}
@@ -214,10 +214,10 @@ export function BendingShearForceExample1Animation({ scene, playing, sceneProgre
             <text x={xAt(0)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
               0
             </text>
-            <text x={xAt(LOAD_X)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            <text x={xAt(LOAD_X) + 9} y={T_ZERO + 16} textAnchor="start" fontSize={8.5} fill={MUTED}>
               2
             </text>
-            <text x={xAt(LENGTH)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            <text x={xAt(LENGTH) + 5} y={T_ZERO + 16} textAnchor="start" fontSize={8.5} fill={MUTED}>
               6
             </text>
             <text x={X1 + 22} y={T_ZERO + 4} fontSize={9} fill={MUTED}>
@@ -311,14 +311,14 @@ export function BendingShearForceExample1Animation({ scene, playing, sceneProgre
             <motion.g initial={false} animate={{ opacity: 0.55 }}>
               <line
                 x1={cutX}
-                y1={BEAM_Y + 22}
+                y1={146}
                 x2={cutX}
                 y2={T_ZERO + 10}
                 stroke={ACCENT}
                 strokeWidth={1.4}
                 strokeDasharray="5 4"
               />
-              <text x={cutX + 5} y={BEAM_Y + 18} fontSize={8.5} fontWeight={700} fill={ACCENT}>
+              <text x={cutX - 6} y={BEAM_Y + 34} textAnchor="end" fontSize={8.5} fontWeight={700} fill={ACCENT}>
                 x
               </text>
             </motion.g>

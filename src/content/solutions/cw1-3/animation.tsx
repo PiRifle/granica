@@ -269,9 +269,9 @@ export function ThreeSegmentForceAnimation({ scene, playing, sceneProgress }: So
           {(isN || isStress) && activeIndex >= 0 && (
             <line
               x1={CX - SEGMENTS[activeIndex].half - 16}
-              y1={SEGMENTS[activeIndex].mid}
+              y1={SEGMENTS[activeIndex].mid - 26}
               x2={CX + SEGMENTS[activeIndex].half + 2}
-              y2={SEGMENTS[activeIndex].mid}
+              y2={SEGMENTS[activeIndex].mid - 26}
               stroke={MUTED}
               strokeWidth={1}
               strokeDasharray="4 4"

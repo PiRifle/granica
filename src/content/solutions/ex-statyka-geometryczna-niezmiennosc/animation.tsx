@@ -146,13 +146,13 @@ export function TrussRigidityAnimation({ index, playing, sceneProgress }: Soluti
               <Node x={300} y={235} label="C" color={DANGER} />
               <Node x={160} y={235} label="D" color={DANGER} />
               <path
-                d={`M ${160 + shear / 2} ${112} A 28 28 0 0 1 ${300 - 18 + shear / 2} ${128}`}
+                d={`M ${230 + shear - 20} 118 Q ${230 + shear} 132 ${230 + shear + 20} 118`}
                 fill="none"
                 stroke={DANGER}
                 strokeWidth={1.6}
                 strokeDasharray="4 4"
               />
-              <text x={232} y={100} textAnchor="middle" fontSize="11" fill={DANGER}>
+              <text x={232} y={90} textAnchor="middle" fontSize="11" fill={DANGER}>
                 kąty się zmieniają — brak przekątnej
               </text>
               <Badge tone="bad">w=4, p=4, n=−1</Badge>
@@ -194,7 +194,7 @@ export function TrussRigidityAnimation({ index, playing, sceneProgress }: Soluti
               <Node x={310} y={240} label="B" />
               <Node x={230} y={190} label="C" />
               <Node x={230} y={105} label="D" />
-              <text x={230} y={84} textAnchor="middle" fontSize="11" fill={VALID}>
+              <text x={230} y={68} textAnchor="middle" fontSize="11" fill={VALID}>
                 czworościan: 4 węzły, 6 krawędzi
               </text>
               <Badge tone="ok">w=4, p=6, n=0</Badge>

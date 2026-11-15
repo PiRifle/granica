@@ -144,11 +144,11 @@ export function ZeroMembersAnimation({ index, playing, sceneProgress }: Solution
               <line x1={NODES.A.x} y1={310} x2={NODES.C.x} y2={310} strokeDasharray="4 4" />
               <line x1={NODES.A.x} y1={305} x2={NODES.A.x} y2={315} />
               <line x1={NODES.C.x} y1={305} x2={NODES.C.x} y2={315} />
-              <text x={NODES.B.x} y={326} textAnchor="middle" fontSize="11" stroke="none">
+              <text x={NODES.B.x} y={300} textAnchor="middle" fontSize="11" stroke="none">
                 4 m + 4 m
               </text>
-              <line x1={NODES.D.x + 34} y1={NODES.D.y} x2={NODES.D.x + 34} y2={NODES.B.y} strokeDasharray="4 4" />
-              <text x={NODES.D.x + 40} y={178} fontSize="11" stroke="none">
+              <line x1={NODES.C.x + 34} y1={NODES.D.y} x2={NODES.C.x + 34} y2={NODES.B.y} strokeDasharray="4 4" />
+              <text x={NODES.C.x + 40} y={178} fontSize="11" stroke="none">
                 4 m
               </text>
             </g>
@@ -213,7 +213,7 @@ export function ZeroMembersAnimation({ index, playing, sceneProgress }: Solution
             strokeWidth={3.5}
             markerEnd="url(#ex-zero-load)"
           />
-          <text x={NODES.D.x + 8} y={NODES.D.y - 19} fontSize="11" fill={LOAD}>
+          <text x={NODES.D.x + 8} y={NODES.D.y - 32} fontSize="11" fill={LOAD}>
             P = 12 kN
           </text>
 

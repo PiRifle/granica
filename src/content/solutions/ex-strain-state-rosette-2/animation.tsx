@@ -162,17 +162,10 @@ export function StrainRosetteExample2Animation({ scene, playing, sceneProgress }
             <line x1={RX - RR - 16} y1={RY} x2={RX + RR + 16} y2={RY} />
             <line x1={RX} y1={RY - RR - 16} x2={RX} y2={RY + RR + 16} />
           </g>
-          <text x={RX + RR + 18} y={RY - 5} fontSize={9} fill={MUTED}>
-            x
-          </text>
-          <text x={RX + 5} y={RY - RR - 18} fontSize={9} fill={MUTED}>
-            y
-          </text>
 
           {GAUGES.map((gauge, index) => {
             const [x2, y2] = polar(gauge.angle)
             const draw = gaugeDraw(index)
-            const label = gaugeLabel(gauge.angle, x2, y2)
             return (
               <g key={gauge.angle} opacity={gaugeOpacity(gauge.angle)}>
                 <motion.line
@@ -195,21 +188,6 @@ export function StrainRosetteExample2Animation({ scene, playing, sceneProgress }
                   initial={false}
                   animate={{ opacity: draw > 0.88 ? 1 : 0 }}
                 />
-                <motion.g initial={false} animate={{ opacity: draw > 0.5 ? 1 : 0 }}>
-                  <text
-                    x={label.x}
-                    y={label.y}
-                    textAnchor={label.anchor}
-                    fontSize={9}
-                    fontWeight={600}
-                    fill={gauge.color}
-                  >
-                    {gauge.angle}°
-                  </text>
-                  <text x={label.x} y={label.y + 11} textAnchor={label.anchor} fontSize={8.5} fill={gauge.color}>
-                    {gauge.display}
-                  </text>
-                </motion.g>
               </g>
             )
           })}
@@ -234,39 +212,12 @@ export function StrainRosetteExample2Animation({ scene, playing, sceneProgress }
                 strokeWidth={1.5}
                 strokeDasharray="4 4"
               />
-              <text
-                x={polar(PHI, RR + 18)[0]}
-                y={polar(PHI, RR + 18)[1] - 6}
-                textAnchor="middle"
-                fontSize={9}
-                fill={VIOLET}
-              >
-                εⅠ
-              </text>
-              <text
-                x={polar(PHI + 90, RR + 18)[0] - 6}
-                y={polar(PHI + 90, RR + 18)[1]}
-                textAnchor="end"
-                fontSize={9}
-                fill={VIOLET}
-              >
-                εⅡ
-              </text>
             </motion.g>
           )}
 
           {angleVisible && (
             <motion.g initial={false} animate={{ opacity: angleP }}>
               <path d={arcPath(0, PHI, 34)} fill="none" stroke={ORANGE} strokeWidth={2} strokeLinecap="round" />
-              <text
-                x={polar(PHI / 2, 48)[0]}
-                y={polar(PHI / 2, 48)[1] + 16}
-                textAnchor="middle"
-                fontSize={9}
-                fill={ORANGE}
-              >
-                φ = {PHI_LABEL}
-              </text>
             </motion.g>
           )}
 
@@ -274,15 +225,6 @@ export function StrainRosetteExample2Animation({ scene, playing, sceneProgress }
             <line x1={MX0} y1={MY} x2={MX0 + MW + 6} y2={MY} markerEnd="url(#rosette2-axis)" />
             <line x1={xZero} y1={MY - 112} x2={xZero} y2={MY + 112} markerEnd="url(#rosette2-axis)" />
           </g>
-          <text x={MX0 + MW + 8} y={MY - 7} textAnchor="end" fontSize={9} fill={MUTED}>
-            ε
-          </text>
-          <text x={xZero + 6} y={MY - 96} fontSize={9} fill={MUTED}>
-            γ/2
-          </text>
-          <text x={MX0 + MW / 2} y={18} textAnchor="middle" fontSize={9} fill={MUTED}>
-            koło Mohra ε–γ/2
-          </text>
 
           <motion.circle
             cx={xC}
@@ -310,16 +252,9 @@ export function StrainRosetteExample2Animation({ scene, playing, sceneProgress }
 
           <motion.g initial={false} animate={{ opacity: centerP }}>
             <circle cx={xC} cy={MY} r={3.6} fill={INK} />
-            <text x={xC} y={MY + 17} textAnchor="middle" fontSize={9} fill={INK}>
-              C
-            </text>
           </motion.g>
 
           {points.map(({ point, reveal, color, label }) => {
-            const above = point.y < MY - 8
-            const below = point.y > MY + 8
-            const labelY = above ? point.y - 7 : below ? point.y + 14 : point.y - 7
-            const showLabel = !principalVisible || label === '45°'
             return (
               <motion.g
                 key={label}
@@ -339,17 +274,6 @@ export function StrainRosetteExample2Animation({ scene, playing, sceneProgress }
                 />
                 <circle cx={point.x} cy={point.y} r={3.4} fill={color} />
                 <circle cx={point.x} cy={MY} r={2} fill={color} />
-                {showLabel && (
-                  <text
-                    x={point.x + (point.x > xC ? 6 : -6)}
-                    y={labelY}
-                    textAnchor={point.x > xC ? 'start' : 'end'}
-                    fontSize={8.5}
-                    fill={color}
-                  >
-                    {label}
-                  </text>
-                )}
               </motion.g>
             )
           })}
@@ -357,37 +281,164 @@ export function StrainRosetteExample2Animation({ scene, playing, sceneProgress }
           <motion.g initial={false} animate={{ opacity: principalP }}>
             <circle cx={xOf(E2)} cy={MY} r={3.8} fill={VIOLET} />
             <circle cx={xOf(E1)} cy={MY} r={3.8} fill={VIOLET} />
-            <text x={xOf(E2) - 6} y={MY + 16} textAnchor="end" fontSize={9} fontWeight={600} fill={VIOLET}>
-              εⅡ
-            </text>
-            <text x={xOf(E1) + 6} y={MY - 8} textAnchor="start" fontSize={9} fontWeight={600} fill={VIOLET}>
-              εⅠ
-            </text>
           </motion.g>
 
           {angleVisible && (
             <motion.g initial={false} animate={{ opacity: angleP }}>
               <path d={mohrArc(34, 2 * PHI)} fill="none" stroke={ORANGE} strokeWidth={2} strokeLinecap="round" />
-              <text x={xC + Math.cos(PHI * RAD) * 50} y={MY - Math.sin(PHI * RAD) * 50 - 4} fontSize={9} fill={ORANGE}>
-                2φ = {TWO_PHI_LABEL}
-              </text>
             </motion.g>
           )}
 
-          {stressVisible && (
-            <motion.g initial={false} animate={{ opacity: stressP }}>
-              <text x={MX0} y={276} fontSize={9} fill={MUTED}>
-                E = 200 GPa · ν = 0,30
-              </text>
-              <text x={MX0} y={290} fontSize={9} fill={VIOLET}>
-                σⅠ = {SIGMA1} · σⅡ = {SIGMA2}
+          <g>
+            <text x={RX + RR + 18} y={RY - 5} fontSize={9} fill={MUTED}>
+              x
+            </text>
+            <text x={RX + 5} y={RY - RR - 18} fontSize={9} fill={MUTED}>
+              y
+            </text>
+
+            {GAUGES.map((gauge, index) => {
+              const [x2, y2] = polar(gauge.angle)
+              const draw = gaugeDraw(index)
+              const label = gaugeLabel(gauge.angle, x2, y2)
+              return (
+                <g key={gauge.angle} opacity={gaugeOpacity(gauge.angle)}>
+                  <motion.g initial={false} animate={{ opacity: draw > 0.5 ? 1 : 0 }}>
+                    <text
+                      x={label.x}
+                      y={label.y}
+                      textAnchor={label.anchor}
+                      fontSize={9}
+                      fontWeight={600}
+                      fill={gauge.color}
+                    >
+                      {gauge.angle}°
+                    </text>
+                    <text x={label.x} y={label.y + 14} textAnchor={label.anchor} fontSize={8.5} fill={gauge.color}>
+                      {gauge.display}
+                    </text>
+                  </motion.g>
+                </g>
+              )
+            })}
+
+            {principalVisible && (
+              <motion.g initial={false} animate={{ opacity: principalP }}>
+                <text
+                  x={polar(PHI, RR + 18)[0]}
+                  y={polar(PHI, RR + 18)[1] - 6}
+                  textAnchor="middle"
+                  fontSize={9}
+                  fill={VIOLET}
+                >
+                  εⅠ
+                </text>
+                <text
+                  x={polar(PHI + 90, RR + 18)[0] - 6}
+                  y={polar(PHI + 90, RR + 18)[1]}
+                  textAnchor="end"
+                  fontSize={9}
+                  fill={VIOLET}
+                >
+                  εⅡ
+                </text>
+              </motion.g>
+            )}
+
+            {angleVisible && (
+              <motion.g initial={false} animate={{ opacity: angleP }}>
+                <text
+                  x={polar(PHI / 2, 48)[0]}
+                  y={polar(PHI / 2, 48)[1] + 16}
+                  textAnchor="middle"
+                  fontSize={9}
+                  fill={ORANGE}
+                >
+                  φ = {PHI_LABEL}
+                </text>
+              </motion.g>
+            )}
+
+            <text x={MX0 + MW + 8} y={MY + 16} textAnchor="end" fontSize={9} fill={MUTED}>
+              ε
+            </text>
+            <text x={xZero + 6} y={MY - 96} fontSize={9} fill={MUTED}>
+              γ/2
+            </text>
+            <text x={MX0 + MW / 2} y={18} textAnchor="middle" fontSize={9} fill={MUTED}>
+              koło Mohra ε–γ/2
+            </text>
+
+            <motion.g initial={false} animate={{ opacity: centerP }}>
+              <text x={xC} y={MY + 17} textAnchor="middle" fontSize={9} fill={INK}>
+                C
               </text>
             </motion.g>
-          )}
 
-          <text x={12} y={310} textAnchor="start" fontSize={8} fill={MUTED}>
-            γ = {GAMMA} μrad · ε₀ = {E0} με · ε₄₅ = {E45} με · ε₉₀ = {E90} με
-          </text>
+            {points.map(({ point, reveal, color, label }) => {
+              const above = point.y < MY - 8
+              const below = point.y > MY + 8
+              const labelY = above ? point.y - 7 : below ? point.y + 14 : point.y - 7
+              const showLabel = !principalVisible || label === '45°'
+              return (
+                <motion.g
+                  key={label}
+                  initial={false}
+                  animate={{ opacity: reveal > 0.35 ? 1 : 0 }}
+                  transition={{ duration: 0.2, ease: 'linear' }}
+                >
+                  {showLabel && (
+                    <text
+                      x={point.x + (point.x > xC ? 6 : -6)}
+                      y={labelY}
+                      textAnchor={point.x > xC ? 'start' : 'end'}
+                      fontSize={8.5}
+                      fill={color}
+                    >
+                      {label}
+                    </text>
+                  )}
+                </motion.g>
+              )
+            })}
+
+            <motion.g initial={false} animate={{ opacity: principalP }}>
+              <text x={xOf(E2) - 6} y={MY - 8} textAnchor="end" fontSize={9} fontWeight={600} fill={VIOLET}>
+                εⅡ
+              </text>
+              <text x={xOf(E1) + 6} y={MY - 8} textAnchor="start" fontSize={9} fontWeight={600} fill={VIOLET}>
+                εⅠ
+              </text>
+            </motion.g>
+
+            {angleVisible && (
+              <motion.g initial={false} animate={{ opacity: angleP }}>
+                <text
+                  x={xC + Math.cos(PHI * RAD) * 50}
+                  y={MY - Math.sin(PHI * RAD) * 50 - 4}
+                  fontSize={9}
+                  fill={ORANGE}
+                >
+                  2φ = {TWO_PHI_LABEL}
+                </text>
+              </motion.g>
+            )}
+
+            {stressVisible && (
+              <motion.g initial={false} animate={{ opacity: stressP }}>
+                <text x={MX0} y={276} fontSize={9} fill={MUTED}>
+                  E = 200 GPa · ν = 0,30
+                </text>
+                <text x={MX0} y={290} fontSize={9} fill={VIOLET}>
+                  σⅠ = {SIGMA1} · σⅡ = {SIGMA2}
+                </text>
+              </motion.g>
+            )}
+
+            <text x={12} y={310} textAnchor="start" fontSize={8} fill={MUTED}>
+              γ = {GAMMA} μrad · ε₀ = {E0} με · ε₄₅ = {E45} με · ε₉₀ = {E90} με
+            </text>
+          </g>
         </svg>
       </div>
     </div>

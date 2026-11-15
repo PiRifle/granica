@@ -35,7 +35,7 @@ const arc = (radius: number, from: number, to: number) => {
 }
 
 export function ForceCoupleAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const showValues = index >= 1
   const showSum = index >= 2
   const showBalance = index >= 3
@@ -108,7 +108,7 @@ export function ForceCoupleAnimation({ index, playing, sceneProgress }: Solution
 
           <circle cx={CX} cy={CY} r={R} fill={DISC} stroke="#9aa5b1" strokeWidth="1.5" />
           <circle cx={CX} cy={CY} r="3" fill={INK} />
-          <text x={CX} y={CY + 16} textAnchor="middle" fontSize="9" fill={MUTED}>
+          <text x={CX} y={CY + 104} textAnchor="middle" fontSize="9" fill={MUTED}>
             tarcza
           </text>
 
@@ -116,7 +116,7 @@ export function ForceCoupleAnimation({ index, playing, sceneProgress }: Solution
           <path d={arc(84, 30, 150)} fill="none" stroke={COUPLE_2} strokeWidth="2.2" markerEnd="url(#ex-couple-2)" />
           <path d={arc(58, 90, 210)} fill="none" stroke={COUPLE_3} strokeWidth="2.2" markerEnd="url(#ex-couple-3)" />
 
-          <text x="304" y="96" fontSize="10" fontWeight="700" fill={COUPLE_1}>
+          <text x="318" y="96" fontSize="10" fontWeight="700" fill={COUPLE_1}>
             para 1
           </text>
           <text x="334" y="208" fontSize="10" fontWeight="700" fill={COUPLE_2}>
@@ -128,7 +128,7 @@ export function ForceCoupleAnimation({ index, playing, sceneProgress }: Solution
 
           {showValues && (
             <g>
-              <text x="304" y="110" fontSize="9" fill={COUPLE_1}>
+              <text x="318" y="110" fontSize="9" fill={COUPLE_1}>
                 +16 N·m
               </text>
               <text x="334" y="222" fontSize="9" fill={COUPLE_2}>
@@ -167,7 +167,7 @@ export function ForceCoupleAnimation({ index, playing, sceneProgress }: Solution
           {showCouple && (
             <g>
               <circle cx={CX} cy={CY} r="46" fill="none" stroke={RESULT} strokeWidth="1" strokeDasharray="5 4" />
-              <text x={CX - 54} y={CY + 4} textAnchor="end" fontSize="9" fill={RESULT}>
+              <text x={CX - 54} y={CY - 58} textAnchor="end" fontSize="9" fill={RESULT}>
                 r = 0,25 m
               </text>
               <line

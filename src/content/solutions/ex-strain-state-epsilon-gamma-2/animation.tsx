@@ -436,7 +436,7 @@ function Mohr({ t, principal }: { t: number; principal: boolean }) {
           ε_y
         </text>
         <circle cx={cx} cy={cy} r={2.6} fill={EDGE} />
-        <text x={cx + 5} y={cy - 6} fontSize={8} fill={EDGE}>
+        <text x={cx + 5} y={cy + 30} fontSize={8} fill={EDGE}>
           ε_sr = 150 με
         </text>
       </motion.g>
@@ -524,7 +524,7 @@ export function StrainFieldAnimation({ scene, playing, sceneProgress }: Solution
           <text x={14} y={34} fontSize={9} fill={MUTED}>
             v = 0,0003x − 0,0001y
           </text>
-          <CoordinateAxes x={200} y={74} size={26} />
+          <CoordinateAxes x={10} y={74} size={26} />
 
           {!isMohr && (
             <g>
@@ -617,7 +617,7 @@ export function StrainFieldAnimation({ scene, playing, sceneProgress }: Solution
                   <text x={rightMid[0] + 8} y={rightMid[1] - 10} fontSize={9} fill={ORANGE}>
                     ε_x = 400 με
                   </text>
-                  <text x={CX - HALF - 8} y={topMid[1] - 8} textAnchor="end" fontSize={9} fill={ORANGE}>
+                  <text x={CX - HALF + 8} y={topMid[1] - 8} textAnchor="end" fontSize={9} fill={ORANGE}>
                     ε_y = −100 με
                   </text>
                   <text x={CX + 26} y={CY + 84} fontSize={9} fill={BLUE}>

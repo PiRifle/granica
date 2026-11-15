@@ -174,7 +174,13 @@ export function MethodOfSectionsInverseAnimation({ scene, index, playing, sceneP
               fill="none"
               strokeWidth={2.6}
             />
-            <text x={xAt(P_AT)} y={BEAM_Y - 52} textAnchor="middle" fontSize={10} stroke="none">
+            <text
+              x={index === 5 ? xAt(P_AT) - 10 : xAt(P_AT)}
+              y={BEAM_Y - 52}
+              textAnchor={index === 5 ? 'end' : 'middle'}
+              fontSize={10}
+              stroke="none"
+            >
               {pKnown ? 'P = 20 kN' : 'P = ?'}
             </text>
           </motion.g>
@@ -252,13 +258,13 @@ export function MethodOfSectionsInverseAnimation({ scene, index, playing, sceneP
               </motion.g>
               <motion.g initial={false} animate={{ opacity: showMaxM ? 1 : 0 }}>
                 <MomentSymbol x={cutLineX} label="M_max = 24 kN·m" />
-                <Dimension from={P_AT} to={5} y={BEAM_Y + 76} label="3 m" />
+                <Dimension from={P_AT} to={5} y={BEAM_Y + 92} label="3 m" />
               </motion.g>
             </>
           )}
 
           {(index === 2 || index === 3) && (
-            <text x={X0 + 8} y={BEAM_Y - 18} fontSize={8.5} fill={MUTED}>
+            <text x={X0 + 8} y={BEAM_Y - 34} fontSize={8.5} fill={MUTED}>
               część lewa
             </text>
           )}

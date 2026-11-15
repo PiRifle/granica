@@ -13,7 +13,7 @@ const X0 = 62
 const X1 = 438
 const LENGTH = 5
 const BEAM_Y = 62
-const T_ZERO = 246
+const T_ZERO = 236
 const T_SCALE = 4.2
 const ZERO_X = 2.5
 
@@ -43,19 +43,28 @@ function Dimension({
   y,
   label,
   amount,
+  labelOffset = 0,
 }: {
   from: number
   to: number
   y: number
   label: string
   amount: number
+  labelOffset?: number
 }) {
   return (
     <motion.g stroke={MUTED} fill="none" initial={false} animate={{ opacity: amount }} transition={{ duration: 0.25 }}>
       <line x1={xAt(from)} y1={y} x2={xAt(to)} y2={y} strokeWidth={1.1} />
       <line x1={xAt(from)} y1={y - 5} x2={xAt(from)} y2={y + 5} strokeWidth={1.1} />
       <line x1={xAt(to)} y1={y - 5} x2={xAt(to)} y2={y + 5} strokeWidth={1.1} />
-      <text x={(xAt(from) + xAt(to)) / 2} y={y + 13} textAnchor="middle" fontSize={9} fill={MUTED} stroke="none">
+      <text
+        x={(xAt(from) + xAt(to)) / 2 + labelOffset}
+        y={y + 13}
+        textAnchor="middle"
+        fontSize={9}
+        fill={MUTED}
+        stroke="none"
+      >
         {label}
       </text>
     </motion.g>
@@ -160,13 +169,13 @@ export function BendingShearForceExample2Animation({ scene, playing, sceneProgre
                 </g>
               )
             })}
-            <text x={xAt(LENGTH / 2)} y={20} textAnchor="middle" fontSize={10} stroke="none">
+            <text x={xAt(LENGTH / 2)} y={12} textAnchor="middle" fontSize={10} stroke="none">
               q = 4 kN/m
             </text>
           </motion.g>
 
           <motion.g initial={false} animate={{ opacity: isCritical ? 0.3 : 1 }} transition={{ duration: 0.3 }}>
-            <Dimension from={0} to={LENGTH} y={150} label="L = 5 m" amount={1} />
+            <Dimension from={0} to={LENGTH} y={144} label="L = 5 m" amount={1} labelOffset={-26} />
             <Dimension from={0} to={ZERO_X} y={166} label="x = 2,5 m" amount={zeroAmount} />
           </motion.g>
 
@@ -202,7 +211,7 @@ export function BendingShearForceExample2Animation({ scene, playing, sceneProgre
               <line
                 key={marker}
                 x1={xAt(marker)}
-                y1={BEAM_Y + 22}
+                y1={186}
                 x2={xAt(marker)}
                 y2={T_ZERO}
                 stroke={MUTED}
@@ -214,10 +223,10 @@ export function BendingShearForceExample2Animation({ scene, playing, sceneProgre
             <text x={xAt(0)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
               0
             </text>
-            <text x={xAt(ZERO_X)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            <text x={xAt(ZERO_X) - 6} y={T_ZERO + 16} textAnchor="end" fontSize={8.5} fill={MUTED}>
               2,5
             </text>
-            <text x={xAt(LENGTH)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            <text x={xAt(LENGTH) + 5} y={T_ZERO + 16} textAnchor="start" fontSize={8.5} fill={MUTED}>
               5
             </text>
             <text x={X1 + 22} y={T_ZERO + 4} fontSize={9} fill={MUTED}>
@@ -261,7 +270,7 @@ export function BendingShearForceExample2Animation({ scene, playing, sceneProgre
             animate={{ opacity: showT ? labelDraw(rightDraw) : 0 }}
             transition={{ duration: 0.2 }}
           >
-            <text x={xAt(LENGTH) - 6} y={tY(-10) - 6} textAnchor="end" fontSize={10} fontWeight={700} fill={ACCENT}>
+            <text x={xAt(LENGTH) - 6} y={tY(-10) + 14} textAnchor="end" fontSize={10} fontWeight={700} fill={ACCENT}>
               −10 kN
             </text>
           </motion.g>
@@ -281,7 +290,7 @@ export function BendingShearForceExample2Animation({ scene, playing, sceneProgre
               stroke={REACTION}
               strokeWidth={2.4}
             />
-            <text x={xAt(LENGTH) - 46} y={(tY(0) + tY(-10)) / 2 + 4} textAnchor="end" fontSize={8.5} fill={REACTION}>
+            <text x={xAt(LENGTH) - 58} y={tY(-10) + 14} textAnchor="end" fontSize={8.5} fill={REACTION}>
               +10 kN
             </text>
           </motion.g>
@@ -290,14 +299,14 @@ export function BendingShearForceExample2Animation({ scene, playing, sceneProgre
             <motion.g initial={false} animate={{ opacity: 0.55 }}>
               <line
                 x1={cutX}
-                y1={BEAM_Y + 22}
+                y1={146}
                 x2={cutX}
                 y2={T_ZERO + 10}
                 stroke={ACCENT}
                 strokeWidth={1.4}
                 strokeDasharray="5 4"
               />
-              <text x={cutX + 5} y={BEAM_Y + 18} fontSize={8.5} fontWeight={700} fill={ACCENT}>
+              <text x={cutX - 6} y={BEAM_Y + 34} textAnchor="end" fontSize={8.5} fontWeight={700} fill={ACCENT}>
                 x
               </text>
             </motion.g>

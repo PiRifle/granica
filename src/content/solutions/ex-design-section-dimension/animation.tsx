@@ -321,7 +321,7 @@ export function SectionDimension1Animation({ scene, playing, sceneProgress }: So
                 strokeWidth={1.4}
                 strokeDasharray="4 3"
               />
-              <text x={wAxisX(W_MIN)} y={140} textAnchor="middle" fontSize={8} fill={LOAD}>
+              <text x={wAxisX(W_MIN)} y={182} textAnchor="middle" fontSize={8} fill={LOAD}>
                 W_min
               </text>
               <text x={BAR_X} y={207} fontSize={9} fontWeight={700} fill={ACCENT}>

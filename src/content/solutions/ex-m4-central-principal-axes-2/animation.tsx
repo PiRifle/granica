@@ -86,10 +86,10 @@ export function SymmetricSectionAxesAnimation({ scene, playing, sceneProgress }:
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.08 }}
             />
-            <text x={CX} y={py(110) + 4} textAnchor="middle" fontSize={9} fill={EDGE}>
+            <text x={CX + 32} y={py(110) + 4} textAnchor="middle" fontSize={9} fill={EDGE}>
               półka
             </text>
-            <text x={CX} y={py(50) + 4} textAnchor="middle" fontSize={9} fill={EDGE}>
+            <text x={px(70) + 6} y={py(50) + 4} textAnchor="start" fontSize={9} fill={EDGE}>
               środnik
             </text>
           </motion.g>
@@ -175,7 +175,7 @@ export function SymmetricSectionAxesAnimation({ scene, playing, sceneProgress }:
               <text x={CX + AXIS_LENGTH - 2} y={CY - 10} textAnchor="end" fontSize={10} fill={INK}>
                 I_x = 5,674·10⁶ mm⁴
               </text>
-              <text x={CX + 8} y={CY - AXIS_LENGTH + 2} fontSize={10} fill={INK}>
+              <text x={CX + 8} y={CY - AXIS_LENGTH + 16} fontSize={10} fill={INK}>
                 I_y = 2,947·10⁶ mm⁴
               </text>
             </motion.g>

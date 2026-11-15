@@ -78,7 +78,7 @@ export function AxialForceDiagramAnimation({ scene, index, playing, sceneProgres
   const show3 = index >= 1
   const show2 = index >= 2
   const show1 = index >= 3
-  const cutX = activeSegment != null ? midpoint(activeSegment) : X0
+  const cutX = activeSegment != null ? midpoint(activeSegment) - 20 : X0
   const path3 = `M${XS[3]} ${N_Y} L${XS[3]} ${yN(5)} L${XS[2]} ${yN(5)}`
   const path2 = `M${XS[2]} ${yN(5)} L${XS[2]} ${yN(-5)} L${XS[1]} ${yN(-5)}`
   const path1 = `M${XS[1]} ${yN(-5)} L${XS[1]} ${yN(15)} L${XS[0]} ${yN(15)}`

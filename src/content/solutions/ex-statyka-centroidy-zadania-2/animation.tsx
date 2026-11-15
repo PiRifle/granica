@@ -92,7 +92,7 @@ export function SlotCentroidAnimation({ index }: SolutionAnimationProps) {
             <text x={CX + 7} y={CY - R - 14}>
               y
             </text>
-            <text x={CX - 14} y={CY + 18}>
+            <text x={CX - 16} y={CY - 10}>
               O
             </text>
           </g>
@@ -122,10 +122,10 @@ export function SlotCentroidAnimation({ index }: SolutionAnimationProps) {
 
           {showAreas && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-              <text x={CX + RIGHT / 2} y={CY - 22} textAnchor="middle" fontSize="10" fontWeight="700" fill={CUT}>
+              <text x={CX + RIGHT / 2} y={CY - 34} textAnchor="middle" fontSize="10" fontWeight="700" fill={CUT}>
                 200
               </text>
-              <text x={CX - 26} y={CY - 22} textAnchor="middle" fontSize="10" fontWeight="700" fill={CUT}>
+              <text x={CX - 26} y={CY - 34} textAnchor="middle" fontSize="10" fontWeight="700" fill={CUT}>
                 157,08
               </text>
               <rect x="24" y="274" width="176" height="38" rx="8" fill="#fdf2ec" stroke={RESULT} strokeWidth="1.1" />
@@ -203,7 +203,7 @@ export function SlotCentroidAnimation({ index }: SolutionAnimationProps) {
 
           {showSymmetry && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-              <text x={CX + 48} y={CY - 8} fontSize="10.5" fontWeight="700" fill={OK}>
+              <text x="18" y={CY - 8} fontSize="10.5" fontWeight="700" fill={OK}>
                 oś symetrii
               </text>
               {index === 4 && (
@@ -248,7 +248,7 @@ export function SlotCentroidAnimation({ index }: SolutionAnimationProps) {
                 x1={insetX(0)}
                 y1="244"
                 x2={insetX(0)}
-                y2="292"
+                y2="273"
                 stroke={MUTED}
                 strokeWidth="1"
                 strokeDasharray="4 3"

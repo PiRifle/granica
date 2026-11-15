@@ -168,12 +168,6 @@ export function PureBendingExample2Animation({ scene, playing, sceneProgress }: 
 
           {isForces && (
             <g>
-              <line x1={X0} y1={86} x2={X1} y2={86} stroke={EDGE} strokeWidth={5} strokeLinecap="round" />
-              <Support x={X0} y={86} label="A" />
-              <Support x={X1} y={86} label="B" />
-              <EndMoment x={X0} y={86} label="" direction={1} />
-              <EndMoment x={X1} y={86} label="" direction={-1} />
-
               <motion.rect
                 x={X0}
                 y={110}
@@ -184,6 +178,12 @@ export function PureBendingExample2Animation({ scene, playing, sceneProgress }: 
                 animate={{ opacity: 0.07 }}
                 transition={{ duration: 0.4 }}
               />
+              <line x1={X0} y1={86} x2={X1} y2={86} stroke={EDGE} strokeWidth={5} strokeLinecap="round" />
+              <Support x={X0} y={86} label="A" />
+              <Support x={X1} y={86} label="B" />
+              <EndMoment x={X0} y={86} label="" direction={1} />
+              <EndMoment x={X1} y={86} label="" direction={-1} />
+
               <text x={245} y={126} textAnchor="middle" fontSize={10} fontWeight={600} fill={GREEN}>
                 czyste zginanie na całej długości
               </text>

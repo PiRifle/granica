@@ -155,7 +155,13 @@ export function SectionDimension2Animation({ scene, playing, sceneProgress }: So
                   markerStart="url(#dsd2-dim)"
                   markerEnd="url(#dsd2-dim)"
                 />
-                <text x={(X0 + X1) / 2} y={BEAM_Y + 49} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                <text
+                  x={isShape ? X1 : (X0 + X1) / 2}
+                  y={BEAM_Y + 49}
+                  textAnchor={isShape ? 'end' : 'middle'}
+                  fontSize={8.5}
+                  fill={MUTED}
+                >
                   L = 2 m
                 </text>
               </>

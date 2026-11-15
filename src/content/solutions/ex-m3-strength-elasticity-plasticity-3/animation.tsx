@@ -213,7 +213,7 @@ export function StrengthElasticityPlasticity3Animation({ scene, playing, scenePr
             opacity={isGiven || isBrittle ? 0 : 1}
           />
           <text
-            x={X0 + 3}
+            x={isBrittle ? X0 + 64 : X0 + 3}
             y={Y_RE - 5}
             fontSize={8.5}
             fontWeight={600}
@@ -236,7 +236,7 @@ export function StrengthElasticityPlasticity3Animation({ scene, playing, scenePr
                 strokeWidth={1.2}
                 opacity={0.45}
               />
-              <text x={currentX + 10} y={currentY - 9} fontSize={8.5} fontWeight={600} fill={stateColor}>
+              <text x={currentX + 10} y={currentY + 16} fontSize={8.5} fontWeight={600} fill={stateColor}>
                 {pl(stress, 0)} MPa
               </text>
             </motion.g>

@@ -106,10 +106,10 @@ function SteppedShaft({
       <ellipse cx={left} cy={cy} rx={9} ry={r1} fill="#f5f7fc" stroke={EDGE} strokeWidth={1.3} />
       <ellipse cx={right} cy={cy} rx={9} ry={r2} fill="#dfe6f2" stroke={EDGE} strokeWidth={1.3} />
       <line x1={left + 8} y1={cy} x2={right} y2={cy} stroke={MUTED} strokeWidth={0.8} strokeDasharray="5 5" />
-      <text x={(left + step) / 2} y={cy + 4} textAnchor="middle" fontSize={9} fill={MUTED}>
+      <text x={150} y={cy + 4} textAnchor="middle" fontSize={9} fill={MUTED}>
         1
       </text>
-      <text x={(step + right) / 2} y={cy + 4} textAnchor="middle" fontSize={9} fill={MUTED}>
+      <text x={360} y={cy + 4} textAnchor="middle" fontSize={9} fill={MUTED}>
         2
       </text>
       <motion.path

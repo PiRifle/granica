@@ -224,9 +224,11 @@ export function DesignFullAxial3Animation({ scene, index, playing, sceneProgress
                   transition={{ duration: 0.3, ease: 'easeOut' }}
                   stroke={color}
                 />
-                <text x={CX} y={start + H / 2 + 4} textAnchor="middle" fontSize={12} fontWeight={700} fill={color}>
-                  {segment.id}
-                </text>
+                {!followsElongation && (
+                  <text x={CX} y={start + H / 2 + 4} textAnchor="middle" fontSize={12} fontWeight={700} fill={color}>
+                    {segment.id}
+                  </text>
+                )}
                 <text x={8} y={start + H / 2 - 2} fontSize={8.5} fill={MUTED}>
                   A{segment.id} = {segment.area} mm²
                 </text>
@@ -525,6 +527,20 @@ export function DesignFullAxial3Animation({ scene, index, playing, sceneProgress
                 )
               })}
 
+              {SEGMENTS.map((segment, segmentIndex) => (
+                <text
+                  key={`deformed-${segment.id}`}
+                  x={CX}
+                  y={(deformed[segmentIndex] + deformed[segmentIndex + 1]) / 2 + 4}
+                  textAnchor="middle"
+                  fontSize={12}
+                  fontWeight={700}
+                  fill={SEGMENT_COLORS[segmentIndex % SEGMENT_COLORS.length]}
+                >
+                  {segment.id}
+                </text>
+              ))}
+
               {isElongation && (
                 <>
                   <Dimension
@@ -556,7 +572,7 @@ export function DesignFullAxial3Animation({ scene, index, playing, sceneProgress
               )}
 
               <Dimension
-                x={300}
+                x={360}
                 from={BOTTOM}
                 to={deformed[3]}
                 label={`ΔL = ${pl(shownTotal)} mm`}

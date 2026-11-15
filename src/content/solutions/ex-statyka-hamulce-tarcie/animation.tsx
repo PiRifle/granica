@@ -153,7 +153,7 @@ export function BlockBrakeAnimation({ index, playing, sceneProgress }: SolutionA
             fill={FRICTION}
             opacity="0.85"
           />
-          <text x={BLOCK_X + 22} y={BLOCK_TOP + 12} fontSize="10" fill={FRICTION}>
+          <text x={BLOCK_X - 22} y={BLOCK_TOP + 6} textAnchor="end" fontSize="10" fill={FRICTION}>
             klocek
           </text>
 
@@ -187,7 +187,7 @@ export function BlockBrakeAnimation({ index, playing, sceneProgress }: SolutionA
                 strokeWidth="2.6"
                 markerEnd="url(#ex-hamulec-m)"
               />
-              <text x={CENTER.x - 86} y={CENTER.y - 46} fontSize="11" fill={WEIGHT}>
+              <text x={CENTER.x - 160} y={CENTER.y - 46} fontSize="11" fill={WEIGHT}>
                 M_Q = 3 kN·m
               </text>
             </>
@@ -205,8 +205,8 @@ export function BlockBrakeAnimation({ index, playing, sceneProgress }: SolutionA
                 markerEnd="url(#ex-hamulec-t)"
               />
               <text
-                x={BLOCK_X + tDir * 54}
-                y={BLOCK_BOTTOM + 4}
+                x={BLOCK_X + tDir * (reverse ? 70 : 54)}
+                y={reverse ? BLOCK_BOTTOM + 28 : BLOCK_BOTTOM + 4}
                 textAnchor={reverse ? 'end' : 'start'}
                 fontSize="11"
                 fill={FRICTION}

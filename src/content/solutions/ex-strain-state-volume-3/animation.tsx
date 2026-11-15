@@ -26,6 +26,7 @@ const P = 200
 const STRAIN = 0.0012
 
 type Point = [number, number]
+type Part = 'all' | 'shapes' | 'texts'
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 const smooth = (value: number) => {
@@ -59,15 +60,15 @@ function geometry(sx: number, sy: number, sz: number) {
   }
 }
 
-function Cube({ sx, sy, sz }: { sx: number; sy: number; sz: number }) {
+function Cube({ sx, sy, sz, part = 'all' }: { sx: number; sy: number; sz: number; part?: Part }) {
   const g = geometry(sx, sy, sz)
   const o = geometry(1, 1, 1)
   const bottom = mid(g.front[0], g.front[1])
   const left = mid(g.front[0], g.front[3])
   const depth = mid(g.front[1], g.back[1])
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <polygon points={pts(o.top)} fill="none" stroke={MUTED} strokeWidth={1} strokeDasharray="5 4" opacity={0.5} />
       <polygon points={pts(o.right)} fill="none" stroke={MUTED} strokeWidth={1} strokeDasharray="5 4" opacity={0.5} />
       <polygon points={pts(o.front)} fill="none" stroke={MUTED} strokeWidth={1} strokeDasharray="5 4" opacity={0.65} />
@@ -100,7 +101,11 @@ function Cube({ sx, sy, sz }: { sx: number; sy: number; sz: number }) {
         stroke={GREEN}
         strokeWidth={2.2}
       />
+    </>
+  )
 
+  const texts = (
+    <>
       <text x={bottom[0]} y={bottom[1] + 13} textAnchor="middle" fontSize={8.5} fontWeight={600} fill={BLUE}>
         x
       </text>
@@ -110,6 +115,15 @@ function Cube({ sx, sy, sz }: { sx: number; sy: number; sz: number }) {
       <text x={depth[0] + 6} y={depth[1] - 3} fontSize={8.5} fontWeight={600} fill={GREEN}>
         y
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -149,7 +163,19 @@ function Arrow({
   )
 }
 
-function PressureArrows({ sx, sy, sz, draw }: { sx: number; sy: number; sz: number; draw: number }) {
+function PressureArrows({
+  sx,
+  sy,
+  sz,
+  draw,
+  part = 'all',
+}: {
+  sx: number
+  sy: number
+  sz: number
+  draw: number
+  part?: Part
+}) {
   const g = geometry(sx, sy, sz)
   const left = g.front[0][0]
   const right = g.front[1][0]
@@ -160,8 +186,8 @@ function PressureArrows({ sx, sy, sz, draw }: { sx: number; sy: number; sz: numb
   const topFront = mid(g.front[3], g.front[2])
   const topBack = mid(g.back[3], g.back[2])
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <Arrow x1={left - 40} y1={yMid} x2={left - 8} y2={yMid} marker="sv3-blue" amount={draw} />
       <Arrow x1={right + 40} y1={yMid} x2={right + 8} y2={yMid} marker="sv3-blue" amount={draw} />
       <Arrow x1={xMid} y1={top - 38} x2={xMid} y2={top - 7} marker="sv3-orange" amount={draw} />
@@ -182,7 +208,11 @@ function PressureArrows({ sx, sy, sz, draw }: { sx: number; sy: number; sz: numb
         marker="sv3-green"
         amount={draw}
       />
+    </>
+  )
 
+  const texts = (
+    <>
       <text x={left - 44} y={yMid - 6} fontSize={8.5} fill={BLUE}>
         p = 200
       </text>
@@ -195,6 +225,15 @@ function PressureArrows({ sx, sy, sz, draw }: { sx: number; sy: number; sz: numb
       <text x={topBack[0] + 8} y={topBack[1] - 8} fontSize={8.5} fill={GREEN}>
         p = 200
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -234,7 +273,7 @@ function PanelTitle({ title, subtitle }: { title: string; subtitle: string }) {
   )
 }
 
-function TraceBars({ draw }: { draw: number }) {
+function TraceBars({ draw, part = 'all' }: { draw: number; part?: Part }) {
   const rows = [
     { label: 'εx', value: EPS, color: BLUE, y: 86 },
     { label: 'εy', value: EPS, color: GREEN, y: 116 },
@@ -245,40 +284,29 @@ function TraceBars({ draw }: { draw: number }) {
   const max = 0.0012
   const totalY = 190
 
-  return (
-    <g>
-      <PanelTitle title="ślad tensora" subtitle="suma trzech odkształceń normalnych" />
+  const shapes = (
+    <>
       <line x1={zeroX} y1={74} x2={zeroX} y2={214} stroke={MUTED} strokeWidth={1} opacity={0.7} />
       {rows.map((row) => {
         const width = (Math.abs(row.value) / max) * span * draw
         const x = row.value < 0 ? zeroX - width : zeroX
         return (
-          <g key={row.label}>
-            <text x={252} y={row.y + 12} fontSize={9} fontWeight={600} fill={row.color}>
-              {row.label}
-            </text>
-            <motion.rect
-              x={x}
-              y={row.y}
-              width={width}
-              height={16}
-              rx={3}
-              fill={row.color}
-              initial={false}
-              animate={{ x, width }}
-              transition={{ duration: 0.12, ease: 'linear' }}
-              opacity={0.85}
-            />
-            <text x={x - 5} y={row.y + 12} textAnchor="end" fontSize={8.5} fill={MUTED}>
-              −400 με
-            </text>
-          </g>
+          <motion.rect
+            key={row.label}
+            x={x}
+            y={row.y}
+            width={width}
+            height={16}
+            rx={3}
+            fill={row.color}
+            initial={false}
+            animate={{ x, width }}
+            transition={{ duration: 0.12, ease: 'linear' }}
+            opacity={0.85}
+          />
         )
       })}
       <line x1={252} y1={172} x2={438} y2={172} stroke={EDGE} strokeWidth={1} opacity={0.35} />
-      <text x={252} y={totalY + 12} fontSize={9} fontWeight={700} fill={VIOLET}>
-        θ
-      </text>
       <motion.rect
         x={zeroX - span * draw}
         y={totalY}
@@ -291,23 +319,54 @@ function TraceBars({ draw }: { draw: number }) {
         transition={{ duration: 0.12, ease: 'linear' }}
         opacity={0.9}
       />
-      <text x={zeroX - span - 5} y={totalY + 12} textAnchor="end" fontSize={8.5} fill={VIOLET}>
+    </>
+  )
+
+  const texts = (
+    <>
+      <PanelTitle title="ślad tensora" subtitle="suma trzech odkształceń normalnych" />
+      {rows.map((row) => {
+        const width = (Math.abs(row.value) / max) * span * draw
+        const x = row.value < 0 ? zeroX - width : zeroX
+        return (
+          <g key={row.label}>
+            <text x={252} y={row.y + 12} fontSize={9} fontWeight={600} fill={row.color}>
+              {row.label}
+            </text>
+            <text x={x - 5} y={row.y + 12} textAnchor="end" fontSize={8.5} fill={MUTED}>
+              −400 με
+            </text>
+          </g>
+        )
+      })}
+      <text x={252} y={totalY + 12} fontSize={9} fontWeight={700} fill={VIOLET}>
+        θ
+      </text>
+      <text x={zeroX - span - 5} y={totalY + 26} textAnchor="end" fontSize={8.5} fill={VIOLET}>
         −1200 με
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function VolumeGauge({ draw }: { draw: number }) {
+function VolumeGauge({ draw, part = 'all' }: { draw: number; part?: Part }) {
   const scale = 1 + THETA * VOL_EXAG * draw
   const side = 92 * scale
   const base = 92
   const cx = 344
   const cy = 144
 
-  return (
-    <g>
-      <PanelTitle title="pomiar objętości" subtitle="ΔV/V₀ = −0,0012 przy p = 200 MPa" />
+  const shapes = (
+    <>
       <rect
         x={cx - base / 2}
         y={cy - base / 2}
@@ -332,6 +391,12 @@ function VolumeGauge({ draw }: { draw: number }) {
         animate={{ width: side, height: side }}
         transition={{ duration: 0.12, ease: 'linear' }}
       />
+    </>
+  )
+
+  const texts = (
+    <>
+      <PanelTitle title="pomiar objętości" subtitle="ΔV/V₀ = −0,0012 przy p = 200 MPa" />
       <text x={cx - base / 2 - 6} y={cy - base / 2 - 5} textAnchor="end" fontSize={8.5} fill={MUTED}>
         V₀
       </text>
@@ -347,65 +412,52 @@ function VolumeGauge({ draw }: { draw: number }) {
       <text x={cx} y={cy + base / 2 + 49} textAnchor="middle" fontSize={7.5} fill={MUTED}>
         zmiana na rysunku powiększona
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function BulkPlot({ draw }: { draw: number }) {
+function BulkPlot({ draw, part = 'all' }: { draw: number; part?: Part }) {
   const plot = { x: 288, y: 208, w: 142, h: 106 }
   const strainMax = 0.0015
   const pMax = 260
   const px = plot.x + (STRAIN / strainMax) * plot.w
   const py = plot.y - (P / pMax) * plot.h
 
-  return (
-    <g>
-      <PanelTitle title="moduł ściśliwości" subtitle="nachylenie p(ΔV/V₀) jest stałe" />
+  const shapes = (
+    <>
       <line x1={plot.x} y1={plot.y} x2={plot.x + plot.w + 6} y2={plot.y} stroke={MUTED} strokeWidth={1.1} />
       <line x1={plot.x} y1={plot.y} x2={plot.x} y2={plot.y - plot.h - 6} stroke={MUTED} strokeWidth={1.1} />
       {[0, 0.5, 1, 1.5].map((tick) => (
-        <g key={`tick-${tick}`}>
-          <line
-            x1={plot.x + (tick / 1.5) * plot.w}
-            y1={plot.y}
-            x2={plot.x + (tick / 1.5) * plot.w}
-            y2={plot.y + 4}
-            stroke={MUTED}
-            strokeWidth={1}
-          />
-          <text x={plot.x + (tick / 1.5) * plot.w} y={plot.y + 14} textAnchor="middle" fontSize={7.5} fill={MUTED}>
-            {tick.toFixed(1)}
-          </text>
-        </g>
+        <line
+          key={`tick-${tick}`}
+          x1={plot.x + (tick / 1.5) * plot.w}
+          y1={plot.y}
+          x2={plot.x + (tick / 1.5) * plot.w}
+          y2={plot.y + 4}
+          stroke={MUTED}
+          strokeWidth={1}
+        />
       ))}
       {[0, 100, 200].map((tick) => (
-        <g key={`p-tick-${tick}`}>
-          <line
-            x1={plot.x - 4}
-            y1={plot.y - (tick / pMax) * plot.h}
-            x2={plot.x}
-            y2={plot.y - (tick / pMax) * plot.h}
-            stroke={MUTED}
-            strokeWidth={1}
-          />
-          <text x={plot.x - 7} y={plot.y - (tick / pMax) * plot.h + 3} textAnchor="end" fontSize={7.5} fill={MUTED}>
-            {tick}
-          </text>
-        </g>
+        <line
+          key={`p-tick-${tick}`}
+          x1={plot.x - 4}
+          y1={plot.y - (tick / pMax) * plot.h}
+          x2={plot.x}
+          y2={plot.y - (tick / pMax) * plot.h}
+          stroke={MUTED}
+          strokeWidth={1}
+        />
       ))}
-      <text x={plot.x + plot.w / 2} y={plot.y + 28} textAnchor="middle" fontSize={8} fill={MUTED}>
-        −ΔV/V₀ [10⁻³]
-      </text>
-      <text
-        x={plot.x - 24}
-        y={plot.y - plot.h / 2}
-        textAnchor="middle"
-        fontSize={8}
-        fill={MUTED}
-        transform={`rotate(-90 ${plot.x - 24} ${plot.y - plot.h / 2})`}
-      >
-        p [MPa]
-      </text>
       <motion.line
         x1={plot.x}
         y1={plot.y}
@@ -445,6 +497,49 @@ function BulkPlot({ draw }: { draw: number }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: draw > 0.55 ? 1 : 0 }}
       />
+    </>
+  )
+
+  const texts = (
+    <>
+      <PanelTitle title="moduł ściśliwości" subtitle="nachylenie p(ΔV/V₀) jest stałe" />
+      {[0, 0.5, 1, 1.5].map((tick) => (
+        <text
+          key={`tick-${tick}`}
+          x={plot.x + (tick / 1.5) * plot.w}
+          y={plot.y + 14}
+          textAnchor="middle"
+          fontSize={7.5}
+          fill={MUTED}
+        >
+          {tick.toFixed(1)}
+        </text>
+      ))}
+      {[0, 100, 200].map((tick) => (
+        <text
+          key={`p-tick-${tick}`}
+          x={plot.x - 7}
+          y={plot.y - (tick / pMax) * plot.h + 3}
+          textAnchor="end"
+          fontSize={7.5}
+          fill={MUTED}
+        >
+          {tick}
+        </text>
+      ))}
+      <text x={plot.x + plot.w / 2} y={plot.y + 28} textAnchor="middle" fontSize={8} fill={MUTED}>
+        −ΔV/V₀ [10⁻³]
+      </text>
+      <text
+        x={plot.x - 24}
+        y={plot.y - plot.h / 2}
+        textAnchor="middle"
+        fontSize={8}
+        fill={MUTED}
+        transform={`rotate(-90 ${plot.x - 24} ${plot.y - plot.h / 2})`}
+      >
+        p [MPa]
+      </text>
       <text x={px + 7} y={py - 5} fontSize={8.5} fontWeight={600} fill={VIOLET}>
         p = 200 MPa
       </text>
@@ -454,6 +549,15 @@ function BulkPlot({ draw }: { draw: number }) {
       <text x={plot.x + 58} y={plot.y - 66} fontSize={9} fontWeight={700} fill={VIOLET}>
         K
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -465,6 +569,7 @@ function MiniCube({
   label,
   value,
   tension = false,
+  part = 'all',
 }: {
   cx: number
   cy: number
@@ -472,6 +577,7 @@ function MiniCube({
   label: string
   value: string
   tension?: boolean
+  part?: Part
 }) {
   const s = 44
   const dx = 14
@@ -495,8 +601,8 @@ function MiniCube({
     [front[1][0] + dx, front[1][1] + dy],
   ] as Point[]
 
-  return (
-    <g>
+  const shapes = (
+    <>
       <polygon points={pts(top)} fill="#eef2ff" stroke={EDGE} strokeWidth={1.1} />
       <polygon points={pts(right)} fill="#e8edf8" stroke={EDGE} strokeWidth={1.1} />
       <polygon points={pts(front)} fill="#f6f8fd" stroke={EDGE} strokeWidth={1.3} />
@@ -513,23 +619,46 @@ function MiniCube({
           <line x1={cx} y1={cy + s / 2 + 20} x2={cx} y2={cy + s / 2 + 5} markerEnd="url(#sv3-mini)" />
         </g>
       )}
+    </>
+  )
+
+  const texts = (
+    <>
       <text x={cx} y={cy + s / 2 + 24} textAnchor="middle" fontSize={10} fontWeight={700} fill={color}>
         {label}
       </text>
       <text x={cx} y={cy + s / 2 + 38} textAnchor="middle" fontSize={8.5} fill={MUTED}>
         {value}
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function ModulusPair({ draw }: { draw: number }) {
-  return (
-    <g>
+function ModulusPair({ draw, part = 'all' }: { draw: number; part?: Part }) {
+  const opacity = 0.4 + 0.6 * draw
+
+  const shapes = (
+    <g opacity={opacity}>
+      <MiniCube cx={306} cy={150} color={BLUE} label="K" value="166 667 MPa" part="shapes" />
+      <MiniCube cx={396} cy={150} color={ORANGE} label="E" value="200 000 MPa" tension part="shapes" />
+    </g>
+  )
+
+  const texts = (
+    <>
       <PanelTitle title="dwie stałe materiałowe" subtitle="K opisuje objętość, E — wydłużenie" />
-      <g opacity={0.4 + 0.6 * draw}>
-        <MiniCube cx={306} cy={150} color={BLUE} label="K" value="166 667 MPa" />
-        <MiniCube cx={396} cy={150} color={ORANGE} label="E" value="200 000 MPa" tension />
+      <g opacity={opacity}>
+        <MiniCube cx={306} cy={150} color={BLUE} label="K" value="166 667 MPa" part="texts" />
+        <MiniCube cx={396} cy={150} color={ORANGE} label="E" value="200 000 MPa" tension part="texts" />
       </g>
       <text x={252} y={244} fontSize={8.5} fill={MUTED}>
         E = 3K(1 − 2ν) = 3·166 667·0,40 = 200 000 MPa
@@ -537,22 +666,24 @@ function ModulusPair({ draw }: { draw: number }) {
       <text x={252} y={260} fontSize={8} fill={OK}>
         typowa wartość dla stali
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
 
-function CheckRoutes({ draw }: { draw: number }) {
-  return (
-    <g>
-      <PanelTitle title="kontrola" subtitle="pomiar i ślad tensora" />
+function CheckRoutes({ draw, part = 'all' }: { draw: number; part?: Part }) {
+  const shapes = (
+    <>
       <line x1={278} y1={102} x2={328} y2={142} stroke={MUTED} strokeWidth={1.4} strokeDasharray="4 3" opacity={0.8} />
       <line x1={424} y1={102} x2={374} y2={142} stroke={MUTED} strokeWidth={1.4} strokeDasharray="4 3" opacity={0.8} />
-      <text x={252} y={96} fontSize={8.5} fill={BLUE}>
-        pomiar: −0,0012
-      </text>
-      <text x={438} y={96} textAnchor="end" fontSize={8.5} fill={VIOLET}>
-        3ε = −0,0012
-      </text>
       <motion.circle
         cx={352}
         cy={166}
@@ -577,12 +708,33 @@ function CheckRoutes({ draw }: { draw: number }) {
         animate={{ pathLength: draw }}
         transition={{ duration: 0.2, ease: 'linear' }}
       />
+    </>
+  )
+
+  const texts = (
+    <>
+      <PanelTitle title="kontrola" subtitle="pomiar i ślad tensora" />
+      <text x={252} y={96} fontSize={8.5} fill={BLUE}>
+        pomiar: −0,0012
+      </text>
+      <text x={438} y={96} textAnchor="end" fontSize={8.5} fill={VIOLET}>
+        3ε = −0,0012
+      </text>
       <text x={352} y={220} textAnchor="middle" fontSize={9} fontWeight={600} fill={INK}>
         ΔV/V₀ = −0,0012
       </text>
       <text x={352} y={235} textAnchor="middle" fontSize={8} fill={MUTED}>
         trzy równe odkształcenia dają ten sam wynik
       </text>
+    </>
+  )
+
+  if (part === 'shapes') return <g>{shapes}</g>
+  if (part === 'texts') return <g>{texts}</g>
+  return (
+    <g>
+      {shapes}
+      {texts}
     </g>
   )
 }
@@ -651,32 +803,43 @@ export function StrainStateVolumeExample3Animation({ scene, playing, sceneProgre
             </marker>
           </defs>
 
-          <text x={12} y={20} fontSize={10} fontWeight={700} fill={INK}>
-            pomiar dylatacji
-          </text>
-          <text x={12} y={35} fontSize={8.5} fill={MUTED}>
-            p = 200 MPa · ΔV/V₀ = −0,0012 · ν = 0,30
-          </text>
+          <Cube sx={sx} sy={sy} sz={sz} part="shapes" />
 
-          <Cube sx={sx} sy={sy} sz={sz} />
+          {metric === 'model' && <PressureArrows sx={sx} sy={sy} sz={sz} draw={draw} part="shapes" />}
+          {metric === 'model' && <VolumeGauge draw={draw} part="shapes" />}
+          {metric === 'trace' && <TraceBars draw={draw} part="shapes" />}
+          {metric === 'bulk' && <BulkPlot draw={draw} part="shapes" />}
+          {metric === 'young' && <ModulusPair draw={draw} part="shapes" />}
+          {metric === 'check' && <CheckRoutes draw={draw} part="shapes" />}
 
-          {metric === 'model' && <PressureArrows sx={sx} sy={sy} sz={sz} draw={draw} />}
-          {metric === 'model' && <VolumeGauge draw={draw} />}
-          {metric === 'strain' && <StrainLabels sx={sx} sy={sy} sz={sz} draw={draw} />}
-          {metric === 'trace' && <TraceBars draw={draw} />}
-          {metric === 'bulk' && <BulkPlot draw={draw} />}
-          {metric === 'young' && <ModulusPair draw={draw} />}
-          {metric === 'check' && <CheckRoutes draw={draw} />}
+          <g>
+            <text x={12} y={20} fontSize={10} fontWeight={700} fill={INK}>
+              pomiar dylatacji
+            </text>
+            <text x={12} y={35} fontSize={8.5} fill={MUTED}>
+              p = 200 MPa · ΔV/V₀ = −0,0012 · ν = 0,30
+            </text>
 
-          <text x={12} y={302} fontSize={8} fill={MUTED}>
-            {metric === 'model'
-              ? 'ciśnienie hydrostatyczne ściska element, a czujnik mierzy zmianę objętości'
-              : metric === 'trace'
-                ? 'trzy jednakowe odkształcenia dają potrójny ślad'
-                : metric === 'check'
-                  ? 'pomiar i suma odkształceń dają tę samą dylatację'
-                  : 'odkształcenia na rysunku są powiększone'}
-          </text>
+            <Cube sx={sx} sy={sy} sz={sz} part="texts" />
+
+            {metric === 'model' && <PressureArrows sx={sx} sy={sy} sz={sz} draw={draw} part="texts" />}
+            {metric === 'model' && <VolumeGauge draw={draw} part="texts" />}
+            {metric === 'strain' && <StrainLabels sx={sx} sy={sy} sz={sz} draw={draw} />}
+            {metric === 'trace' && <TraceBars draw={draw} part="texts" />}
+            {metric === 'bulk' && <BulkPlot draw={draw} part="texts" />}
+            {metric === 'young' && <ModulusPair draw={draw} part="texts" />}
+            {metric === 'check' && <CheckRoutes draw={draw} part="texts" />}
+
+            <text x={12} y={302} fontSize={8} fill={MUTED}>
+              {metric === 'model'
+                ? 'ciśnienie hydrostatyczne ściska element, a czujnik mierzy zmianę objętości'
+                : metric === 'trace'
+                  ? 'trzy jednakowe odkształcenia dają potrójny ślad'
+                  : metric === 'check'
+                    ? 'pomiar i suma odkształceń dają tę samą dylatację'
+                    : 'odkształcenia na rysunku są powiększone'}
+            </text>
+          </g>
         </svg>
       </div>
     </div>

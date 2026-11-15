@@ -101,13 +101,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
             </marker>
           </defs>
 
-          <text x={14} y={18} fontSize={10.5} fontWeight={700} fill={INK}>
-            pręt pod obciążeniem osiowym
-          </text>
-          <text x={14} y={33} fontSize={8.5} fill={MUTED}>
-            E = 200 GPa · ν = 0,30 · d₀ = 16 mm
-          </text>
-
           <Support />
 
           <rect
@@ -140,17 +133,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
             <line x1={CX - D0 / 2 - 26} y1={TOP} x2={CX - D0 / 2 - 26} y2={ORIGINAL_BOTTOM} />
             <line x1={CX - D0 / 2 - 31} y1={TOP} x2={CX - D0 / 2 - 21} y2={TOP} />
             <line x1={CX - D0 / 2 - 31} y1={ORIGINAL_BOTTOM} x2={CX - D0 / 2 - 21} y2={ORIGINAL_BOTTOM} />
-            <text
-              x={CX - D0 / 2 - 34}
-              y={(TOP + ORIGINAL_BOTTOM) / 2}
-              textAnchor="middle"
-              fontSize={9}
-              fill={MUTED}
-              stroke="none"
-              transform={`rotate(-90 ${CX - D0 / 2 - 34} ${(TOP + ORIGINAL_BOTTOM) / 2})`}
-            >
-              L₀
-            </text>
           </g>
 
           <motion.g
@@ -166,9 +148,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
               strokeWidth={2.4}
               markerEnd="url(#p1-load)"
             />
-            <text x={CX + 8} y={bottom + 30} fontSize={9.5} fill={LATERAL}>
-              {showStress ? 'σ_x = 180 MPa' : 'obciążenie osiowe'}
-            </text>
           </motion.g>
 
           {(metric === 'model' || showStrain) && (
@@ -192,9 +171,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
                 markerEnd="url(#p1-strain)"
                 opacity={0.75}
               />
-              <text x={CX + 7} y={TOP + 30} fontSize={9.5} fontWeight={700} fill={ACCENT} stroke="none">
-                ε_x = +900 με
-              </text>
             </g>
           )}
 
@@ -218,9 +194,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
                 strokeWidth={1.8}
                 markerEnd="url(#p1-lateral)"
               />
-              <text x={CX - D0 / 2 - 48} y={TOP + 62} fontSize={8.5} fill={LATERAL}>
-                ε_y = −270 με
-              </text>
             </g>
           )}
 
@@ -242,9 +215,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
                 strokeWidth={2}
                 markerEnd="url(#p1-lateral)"
               />
-              <text x={CX} y={TOP + 118} textAnchor="middle" fontSize={9} fill={LATERAL} stroke="none">
-                naprężenie osiowe, brak σ_y
-              </text>
             </g>
           )}
 
@@ -253,9 +223,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
             animate={{ opacity: showDiameter ? 1 : 0.72 }}
             transition={{ duration: 0.3 }}
           >
-            <text x={SECTION_X} y={SECTION_Y - SECTION_R - 14} textAnchor="middle" fontSize={9} fill={MUTED}>
-              przekrój poprzeczny (powiększony)
-            </text>
             <circle
               cx={SECTION_X}
               cy={SECTION_Y}
@@ -301,31 +268,20 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
               stroke={MUTED}
               strokeWidth={1.1}
             />
-            <text x={SECTION_X} y={SECTION_Y + SECTION_R + 27} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-              d₀ = 16 mm
-            </text>
             {showDiameter && (
-              <>
-                <line
-                  x1={SECTION_X - radius}
-                  y1={SECTION_Y - SECTION_R - 2}
-                  x2={SECTION_X + radius}
-                  y2={SECTION_Y - SECTION_R - 2}
-                  stroke={LATERAL}
-                  strokeWidth={1.2}
-                />
-                <text x={SECTION_X} y={SECTION_Y - SECTION_R - 6} textAnchor="middle" fontSize={8.5} fill={LATERAL}>
-                  {metric === 'final' ? 'd = 15,99568 mm' : 'Δd = −0,00432 mm'}
-                </text>
-              </>
+              <line
+                x1={SECTION_X - radius}
+                y1={SECTION_Y - SECTION_R - 2}
+                x2={SECTION_X + radius}
+                y2={SECTION_Y - SECTION_R - 2}
+                stroke={LATERAL}
+                strokeWidth={1.2}
+              />
             )}
           </motion.g>
 
           {(showStrain || metric === 'check') && (
             <g>
-              <text x={BAR_X} y={170} fontSize={9} fontWeight={700} fill={INK}>
-                stosunek odkształceń
-              </text>
               <rect x={BAR_X} y={178} width={BAR_MAX} height={8} rx={4} fill={MUTED} fillOpacity={0.16} />
               <motion.rect
                 x={BAR_X}
@@ -337,9 +293,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
                 animate={{ width: BAR_MAX * deform }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
-              <text x={BAR_X} y={198} fontSize={8} fill={ACCENT}>
-                ε_x = 900 με
-              </text>
               <rect x={BAR_X} y={206} width={BAR_MAX} height={8} rx={4} fill={MUTED} fillOpacity={0.16} />
               <motion.rect
                 x={BAR_X}
@@ -351,12 +304,6 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
                 animate={{ width: BAR_MAX * 0.3 * deform }}
                 transition={{ duration: 0.12, ease: 'linear' }}
               />
-              <text x={BAR_X} y={226} fontSize={8} fill={LATERAL}>
-                ε_y = −270 με
-              </text>
-              <text x={BAR_X} y={244} fontSize={9} fontWeight={700} fill={OK}>
-                ε_y / ε_x = −0,30 = −ν
-              </text>
             </g>
           )}
 
@@ -376,9 +323,93 @@ export function PoissonExample1Animation({ scene, index, playing, sceneProgress 
             />
           </motion.g>
 
-          <text x={14} y={288} fontSize={8.5} fill={MUTED}>
-            wydłużenie i skurcz średnicy pokazano w skali poglądowej; kierunki poprzeczne y i z są równoważne
-          </text>
+          <g>
+            <text x={14} y={18} fontSize={10.5} fontWeight={700} fill={INK}>
+              pręt pod obciążeniem osiowym
+            </text>
+            <text x={14} y={33} fontSize={8.5} fill={MUTED}>
+              E = 200 GPa · ν = 0,30 · d₀ = 16 mm
+            </text>
+
+            <text
+              x={CX - D0 / 2 - 34}
+              y={(TOP + ORIGINAL_BOTTOM) / 2}
+              textAnchor="middle"
+              fontSize={9}
+              fill={MUTED}
+              transform={`rotate(-90 ${CX - D0 / 2 - 34} ${(TOP + ORIGINAL_BOTTOM) / 2})`}
+            >
+              L₀
+            </text>
+
+            <motion.g
+              animate={playing ? { opacity: [0.7, 1, 0.7] } : { opacity: 1 }}
+              transition={{ duration: 1.8, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
+            >
+              <text x={CX + 8} y={bottom + 30} fontSize={9.5} fill={LATERAL}>
+                {showStress ? 'σ_x = 180 MPa' : 'obciążenie osiowe'}
+              </text>
+            </motion.g>
+
+            {(metric === 'model' || showStrain) && (
+              <text x={CX + 7} y={TOP + 30} fontSize={9.5} fontWeight={700} fill={ACCENT}>
+                ε_x = +900 με
+              </text>
+            )}
+
+            {(showStrain || metric === 'model') && (
+              <text x={CX - D0 / 2 - 48} y={TOP + 62} fontSize={8.5} fill={LATERAL}>
+                ε_y = −270 με
+              </text>
+            )}
+
+            {showStress && (
+              <g fill={LATERAL}>
+                <text x={CX} y={TOP + 118} textAnchor="middle" fontSize={9}>
+                  naprężenie osiowe, brak σ_y
+                </text>
+              </g>
+            )}
+
+            <motion.g
+              initial={{ opacity: 0 }}
+              animate={{ opacity: showDiameter ? 1 : 0.72 }}
+              transition={{ duration: 0.3 }}
+            >
+              <text x={SECTION_X} y={SECTION_Y - SECTION_R - 28} textAnchor="middle" fontSize={9} fill={MUTED}>
+                przekrój poprzeczny (powiększony)
+              </text>
+              <text x={SECTION_X} y={SECTION_Y + SECTION_R + 27} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                d₀ = 16 mm
+              </text>
+              {showDiameter && (
+                <text x={SECTION_X} y={SECTION_Y - SECTION_R - 6} textAnchor="middle" fontSize={8.5} fill={LATERAL}>
+                  {metric === 'final' ? 'd = 15,99568 mm' : 'Δd = −0,00432 mm'}
+                </text>
+              )}
+            </motion.g>
+
+            {(showStrain || metric === 'check') && (
+              <g>
+                <text x={BAR_X} y={170} fontSize={9} fontWeight={700} fill={INK}>
+                  stosunek odkształceń
+                </text>
+                <text x={BAR_X} y={198} fontSize={8} fill={ACCENT}>
+                  ε_x = 900 με
+                </text>
+                <text x={BAR_X} y={226} fontSize={8} fill={LATERAL}>
+                  ε_y = −270 με
+                </text>
+                <text x={BAR_X} y={244} fontSize={9} fontWeight={700} fill={OK}>
+                  ε_y / ε_x = −0,30 = −ν
+                </text>
+              </g>
+            )}
+
+            <text x={14} y={288} fontSize={8.5} fill={MUTED}>
+              wydłużenie i skurcz średnicy pokazano w skali poglądowej; kierunki poprzeczne y i z są równoważne
+            </text>
+          </g>
         </svg>
       </div>
     </div>

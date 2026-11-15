@@ -14,7 +14,7 @@ const X1 = 380
 const Y = 120
 const S = 100
 const WX = X0 + 1.8 * S
-const AXIS_Y = 286
+const AXIS_Y = 278
 
 const clamp01 = (value: number) => Math.max(0, Math.min(1, value))
 const smooth = (value: number) => {
@@ -23,7 +23,7 @@ const smooth = (value: number) => {
 }
 
 export function ParallelResultantAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const showSum = index >= 1
   const showMoment = index >= 2
   const showPosition = index >= 3
@@ -84,7 +84,7 @@ export function ParallelResultantAnimation({ index, playing, sceneProgress }: So
               </text>
             </g>
           ))}
-          <text x={X0 - 20} y={AXIS_Y + 16} fontSize="9" fill={MUTED}>
+          <text x="52" y={AXIS_Y - 8} fontSize="9" fill={MUTED}>
             x [m]
           </text>
 
@@ -201,13 +201,13 @@ export function ParallelResultantAnimation({ index, playing, sceneProgress }: So
           )}
 
           {showProportion && (
-            <text x="230" y="308" textAnchor="middle" fontSize="11" fill={RESULT}>
+            <text x="230" y="316" textAnchor="middle" fontSize="11" fill={RESULT}>
               AD : DB = P₂ : P₁ = 600 : 400 = 3 : 2
             </text>
           )}
 
           {!showProportion && (
-            <text x="230" y="308" textAnchor="middle" fontSize="10" fill={MUTED}>
+            <text x="230" y="316" textAnchor="middle" fontSize="10" fill={MUTED}>
               {showPosition
                 ? 'Wypadkowa leży bliżej silniejszej siły'
                 : 'Wartość i położenie wypadkowej układu równoległego'}

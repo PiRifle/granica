@@ -391,7 +391,7 @@ export function AllowableSafetyFactor3Animation({ scene, playing, sceneProgress 
 
           {showFactor && (
             <g>
-              <Tag x={250} y={286} amount={1} color={MUTED} size={8}>
+              <Tag x={250} y={278} amount={1} color={MUTED} size={8}>
                 współczynnik zapasu
               </Tag>
               <Tag x={430} y={286} amount={1} color={isOverload ? WARN : ALLOW} anchor="end" size={8} weight={600}>

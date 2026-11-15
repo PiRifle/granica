@@ -116,7 +116,7 @@ function StressGauge({ opacity }: { opacity: number }) {
         return (
           <g key={value}>
             <line x1={x - 4} y1={y} x2={x + 4} y2={y} stroke={MUTED} strokeWidth={1} />
-            <text x={x + 8} y={y + 3} fontSize={8} fill={MUTED}>
+            <text x={x + 12} y={y + 3} fontSize={8} fill={MUTED}>
               {value === 0 ? '0' : `${value}`}
             </text>
           </g>
@@ -137,14 +137,14 @@ function StressGauge({ opacity }: { opacity: number }) {
       <text x={x - 14} y={yOf(-144) + 3} textAnchor="end" fontSize={8} fill={MUTED}>
         −144
       </text>
-      <line x1={x - 12} y1={yOf(-77.3)} x2={x + 12} y2={yOf(-77.3)} stroke={COMP} strokeWidth={2.6} />
+      <line x1={x - 12} y1={yOf(-77.3)} x2={x + 8} y2={yOf(-77.3)} stroke={COMP} strokeWidth={2.6} />
       <text x={x - 14} y={yOf(-77.3) + 3} textAnchor="end" fontSize={8} fontWeight={700} fill={COMP}>
         −77,3
       </text>
-      <text x={x + 8} y={yOf(-144) + 14} fontSize={7.5} fill={MUTED}>
+      <text x={x + 8} y={yOf(-144) + 28} fontSize={7.5} fill={MUTED}>
         bez luzu
       </text>
-      <text x={x + 8} y={yOf(-77.3) + 14} fontSize={7.5} fill={COMP}>
+      <text x={x + 8} y={yOf(-77.3) + 28} fontSize={7.5} fill={COMP}>
         z luzem
       </text>
     </motion.g>
@@ -177,7 +177,7 @@ function GapDesignPlot({ progress, playing }: { progress: number; playing: boole
             animate={{ pathLength: reveal }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
-          <text x={xOf(69)} y={yOf(-166) - 8} textAnchor="end" fontSize={8.5} fill={MUTED}>
+          <text x={xOf(71)} y={yOf(-170) - 8} textAnchor="end" fontSize={8.5} fill={MUTED}>
             bez luzu
           </text>
 
@@ -190,7 +190,7 @@ function GapDesignPlot({ progress, playing }: { progress: number; playing: boole
             animate={{ pathLength: reveal }}
             transition={{ duration: 0.12, ease: 'linear' }}
           />
-          <text x={xOf(71)} y={yOf(-96)} fontSize={9} fontWeight={700} fill={ACCENT}>
+          <text x={xOf(71)} y={yOf(-77.3) + 32} fontSize={9} fontWeight={700} fill={ACCENT}>
             z luzem
           </text>
 
@@ -204,7 +204,7 @@ function GapDesignPlot({ progress, playing }: { progress: number; playing: boole
             strokeDasharray="3 3"
           />
           <circle cx={xOf(27.8)} cy={yOf(0)} r={3.5} fill={ACCENT} />
-          <text x={xOf(27.8)} y={258} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+          <text x={xOf(27.8) - 2} y={258} textAnchor="end" fontSize={8.5} fill={MUTED}>
             27,8
           </text>
           <text x={xOf(27.8) + 6} y={yOf(0) + 16} fontSize={9} fill={ACCENT}>
@@ -361,7 +361,7 @@ export function ThermalGapAnimation({ scene, index, playing, sceneProgress }: So
 
           {isGap && (
             <>
-              <HDim y={BAR_Y + BAR_H + 50} from={X0 + BASE} to={barEnd} label="ΔL = 0,5 mm" color={ACCENT} />
+              <HDim y={BAR_Y + BAR_H + 58} from={X0 + BASE} to={barEnd} label="ΔL = 0,5 mm" color={ACCENT} />
               {gapNow > 1 && <HDim y={BAR_Y + BAR_H + 22} from={barEnd} to={SUPPORT_X} label="luz → 0" color={MUTED} />}
               {gapNow <= 1 && (
                 <g stroke={SUPPORT} strokeWidth={2}>
@@ -390,7 +390,7 @@ export function ThermalGapAnimation({ scene, index, playing, sceneProgress }: So
               <text x={X0 + 10} y={BAR_Y + BAR_H + 18} fontSize={10} fontWeight={700} fill={COMP}>
                 {isStress ? 'σ = −77,3 MPa' : 'N = −30,9 kN'}
               </text>
-              <HDim y={BAR_Y + BAR_H + 42} from={SUPPORT_X} to={freeEnd} label="zablokowane 0,58 mm" color={COMP} />
+              <HDim y={BAR_Y + BAR_H + 34} from={SUPPORT_X} to={freeEnd} label="zablokowane 0,58 mm" color={COMP} />
               <StressGauge opacity={isStress ? progress : 0.35} />
             </>
           )}

@@ -395,7 +395,7 @@ function ForceSplit({ reveal }: { reveal: number }) {
       <text x={230} y={96} textAnchor="middle" fontSize={9} fill={MUTED}>
         górna płaszczyzna
       </text>
-      <text x={230} y={182} textAnchor="middle" fontSize={9} fill={MUTED}>
+      <text x={230} y={190} textAnchor="middle" fontSize={9} fill={MUTED}>
         dolna płaszczyzna
       </text>
 

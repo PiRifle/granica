@@ -623,7 +623,7 @@ function CriterionRows({ config, p }: { config: ReducedStressConfig; p: number }
 
         return (
           <g key={criterion.key}>
-            <text x={originX} y={yBase - rowH * 0.56} fontSize={8.5} fill={criterion.color}>
+            <text x={originX - 6} y={yBase - rowH * 0.56} textAnchor="end" fontSize={8.5} fill={criterion.color}>
               {criterion.label}
             </text>
             <Arrow x1={originX} y1={yBase} x2={xTip} y2={yBase} color={BLUE} amount={reveal} width={2.2} />
@@ -680,7 +680,7 @@ function DesignBoundary({ config, p }: { config: ReducedStressConfig; p: number 
       <text x={ox + radius + 26} y={oy + 4} fontSize={8.5} fill={MUTED}>
         σ
       </text>
-      <text x={ox + 5} y={oy - radius - 20} fontSize={8.5} fill={MUTED}>
+      <text x={ox - 6} y={oy - radius - 10} textAnchor="end" fontSize={8.5} fill={MUTED}>
         √3τ
       </text>
 

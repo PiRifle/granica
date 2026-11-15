@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { InlineMath } from 'react-katex'
-import { splitFormula, tokenizeFormula, type MathToken } from '../../lib/mathAnimation'
+import { splitFormulaPresentation, tokenizeFormula, type MathToken } from '../../lib/mathAnimation'
 import styles from '../SolutionPlayer.module.css'
 
 const local = (...values: Array<string | false | null | undefined>) =>
@@ -29,7 +29,7 @@ function changedTokenRatio(previous: MathToken[], current: MathToken[]) {
 }
 
 export function MathTransform({ formula, progress }: { formula: string; progress: number }) {
-  const steps = useMemo(() => splitFormula(formula), [formula])
+  const { values, steps } = useMemo(() => splitFormulaPresentation(formula), [formula])
   const active = Math.min(steps.length - 1, Math.max(0, Math.floor(progress * steps.length)))
   const stepProgress = Math.max(0, Math.min(1, progress * steps.length - active))
   const currentFormula = steps[active] ?? formula
@@ -61,82 +61,99 @@ export function MathTransform({ formula, progress }: { formula: string; progress
   )
 
   return (
-    <div className={local('solution-derivation', 'math-transform')}>
-      <div className={local('derivation-head')}>
-        <span className={local('derivation-kicker')}>PRZEKSZTAŁCENIE</span>
-        <span className={local('derivation-counter')}>
-          {active + 1} / {steps.length}
-        </span>
-      </div>
-      <div className={local('math-stage')}>
-        <AnimatePresence initial={false} mode="popLayout">
-          {contextFormula && (
+    <div className={local('math-transform')}>
+      {values.length > 0 && (
+        <div className={local('math-values')} aria-label="Ustalone wartości" data-math-values>
+          <span className={local('derivation-kicker')}>USTALONE WARTOŚCI</span>
+          <div className={local('math-value-list')}>
+            {values.map((value) => (
+              <span key={value} className={local('math-value')} data-math-value>
+                <InlineMath math={`\\displaystyle ${value}`} />
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+      {steps.length > 0 && (
+        <div className={local('solution-derivation')} data-solution-derivation>
+          <div className={local('derivation-head')}>
+            <span className={local('derivation-kicker')}>PRZEKSZTAŁCENIE</span>
+            <span className={local('derivation-counter')}>
+              {active + 1} / {steps.length}
+            </span>
+          </div>
+          <div className={local('math-stage')}>
+            <AnimatePresence initial={false} mode="popLayout">
+              {contextFormula && (
+                <motion.div
+                  key={`context-${contextFormula}`}
+                  className={local('math-context')}
+                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                  animate={{ opacity: 0.45, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <div className={local('math-tokens')}>
+                    {contextTokens.map((token) => (
+                      <span key={token.id} className={local('math-token')}>
+                        <InlineMath math={`\\displaystyle ${token.math}`} />
+                      </span>
+                    ))}
+                  </div>
+                  <span className={local('math-arrow')} aria-hidden="true">
+                    ↓
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
             <motion.div
-              key={`context-${contextFormula}`}
-              className={local('math-context')}
-              initial={{ opacity: 0, y: 10, scale: 0.98 }}
-              animate={{ opacity: 0.45, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.98 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              layout
+              className={local('math-current')}
+              data-math-current
+              style={{ fontSize: `${density}em` }}
+              transition={{ layout: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
             >
               <div className={local('math-tokens')}>
-                {contextTokens.map((token) => (
-                  <span key={token.id} className={local('math-token')}>
-                    <InlineMath math={`\\displaystyle ${token.math}`} />
-                  </span>
-                ))}
+                <AnimatePresence initial={false} mode="popLayout">
+                  {tokens.map((token) => (
+                    <motion.span
+                      key={token.id}
+                      layout
+                      className={local('math-token')}
+                      initial={{ opacity: 0, y: 18, scale: 0.65 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -16, scale: 0.65 }}
+                      transition={{
+                        layout: { type: 'spring', stiffness: 340, damping: 34, mass: 0.8 },
+                        default: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                      }}
+                    >
+                      <InlineMath math={`\\displaystyle ${token.math}`} />
+                    </motion.span>
+                  ))}
+                </AnimatePresence>
               </div>
-              <span className={local('math-arrow')} aria-hidden="true">
-                ↓
-              </span>
             </motion.div>
-          )}
-        </AnimatePresence>
-        <motion.div
-          layout
-          className={local('math-current')}
-          style={{ fontSize: `${density}em` }}
-          transition={{ layout: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
-        >
-          <div className={local('math-tokens')}>
-            <AnimatePresence initial={false} mode="popLayout">
-              {tokens.map((token) => (
-                <motion.span
-                  key={token.id}
-                  layout
-                  className={local('math-token')}
-                  initial={{ opacity: 0, y: 18, scale: 0.65 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -16, scale: 0.65 }}
-                  transition={{
-                    layout: { type: 'spring', stiffness: 340, damping: 34, mass: 0.8 },
-                    default: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-                  }}
-                >
-                  <InlineMath math={`\\displaystyle ${token.math}`} />
-                </motion.span>
-              ))}
-            </AnimatePresence>
           </div>
-        </motion.div>
-      </div>
-      <div className={local('math-steps')} aria-hidden="true">
-        {steps.map((_, stepIndex) => (
-          <span
-            key={stepIndex}
-            className={local('math-step', stepIndex < active && 'done', stepIndex === active && 'active')}
-          >
-            {stepIndex === active && (
-              <motion.span
-                className={local('math-step-fill')}
-                initial={false}
-                animate={{ scaleX: stepProgress }}
-                transition={{ duration: 0.12, ease: 'linear' }}
-              />
-            )}
-          </span>
-        ))}
-      </div>
+          <div className={local('math-steps')} aria-hidden="true">
+            {steps.map((_, stepIndex) => (
+              <span
+                key={stepIndex}
+                className={local('math-step', stepIndex < active && 'done', stepIndex === active && 'active')}
+              >
+                {stepIndex === active && (
+                  <motion.span
+                    className={local('math-step-fill')}
+                    initial={false}
+                    animate={{ scaleX: stepProgress }}
+                    transition={{ duration: 0.12, ease: 'linear' }}
+                  />
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

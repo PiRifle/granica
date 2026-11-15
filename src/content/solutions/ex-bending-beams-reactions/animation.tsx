@@ -240,7 +240,7 @@ export function BeamReactionsExample1Animation({ scene, index, playing, scenePro
           <motion.text
             initial={false}
             animate={{ opacity: qLabelReveal }}
-            x={x(2.7)}
+            x={x(1.5)}
             y={BEAM_Y - 46}
             textAnchor="middle"
             fontSize={10}

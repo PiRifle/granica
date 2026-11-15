@@ -75,7 +75,7 @@ function Axis({
         strokeDasharray={dashed ? '6 4' : undefined}
       />
       {label && (
-        <text x={AXIS_FROM - 2} y={y - 5} fontSize={9} fill={color}>
+        <text x={AXIS_TO + 4} y={y - 5} fontSize={9} fill={color} textAnchor="end">
           {label}
         </text>
       )}
@@ -187,10 +187,10 @@ export function SteinerParallelAxis2Animation({ scene, index, playing, sceneProg
           <rect x={sx(0)} y={sy(120)} width={156} height={26} fill="#f2f5fa" stroke="#7d8fa5" strokeWidth={1.3} />
 
           <g fill={MUTED} fontSize={9}>
-            <text x={sx(50) + 13} y={sy(50) + 3} textAnchor="middle">
+            <text x={sx(50) + 13} y={sy(50) - 9} textAnchor="middle">
               środnik
             </text>
-            <text x={sx(60)} y={sy(110) + 3} textAnchor="middle">
+            <text x={sx(60)} y={sy(110) - 7} textAnchor="middle">
               półka
             </text>
           </g>

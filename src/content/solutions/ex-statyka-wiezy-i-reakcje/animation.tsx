@@ -36,7 +36,7 @@ export function SupportReactionsAnimation({ index, playing, sceneProgress }: Sol
   const showRBValue = index >= 3
   const showA = index >= 4
   const showResultant = index >= 5
-  const raGrow = showResultant ? (playing ? 0.4 + 0.6 * smooth(sceneProgress) : 1) : 0
+  const raGrow = showResultant ? (playing ? 0.4 + 0.6 * smooth(sceneProgress * 4) : 1) : 0
   const raTip = { x: A.x + (raEnd.x - A.x) * raGrow, y: A.y + (raEnd.y - A.y) * raGrow }
   const summary = captions[Math.min(index, captions.length - 1)]
 
@@ -102,7 +102,7 @@ export function SupportReactionsAnimation({ index, playing, sceneProgress }: Sol
             <path d="M 355 219 L 379 205 L 360 200 Z" fill={EDGE} />
             <circle cx="355" cy="219" r="3.2" fill={EDGE} />
             <circle cx="379" cy="205" r="3.2" fill={EDGE} />
-            <text x={B.x + 10} y={B.y - 12} fontSize="10" fill={EDGE}>
+            <text x={B.x + 10} y={B.y + 20} fontSize="10" fill={EDGE}>
               B
             </text>
           </g>
@@ -166,7 +166,7 @@ export function SupportReactionsAnimation({ index, playing, sceneProgress }: Sol
               <text x={B.x - 24} y={B.y + 16} textAnchor="end" fontSize="9" fill={REACTION}>
                 R_Bx
               </text>
-              <text x={B.x + 6} y={B.y - 54} fontSize="9" fill={REACTION}>
+              <text x={B.x + 6} y={B.y - 70} fontSize="9" fill={REACTION}>
                 R_By
               </text>
               <g fill="none" stroke={REACTION} strokeWidth="1.3" opacity="0.8">
@@ -189,7 +189,7 @@ export function SupportReactionsAnimation({ index, playing, sceneProgress }: Sol
                 strokeWidth="1.5"
                 markerEnd="url(#ex-wiez-arc)"
               />
-              <text x={A.x + 34} y={A.y - 18} fontSize="9" fill={MUTED}>
+              <text x={A.x + 16} y={A.y - 38} textAnchor="middle" fontSize="9" fill={MUTED}>
                 ΣM_A
               </text>
             </g>

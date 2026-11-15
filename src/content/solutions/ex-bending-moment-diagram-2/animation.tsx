@@ -82,7 +82,7 @@ export function BendingMomentExample2Animation({ scene, index, playing, scenePro
   const shearDraw = index === 2 ? smooth(progress / 0.8) : 1
   const momentDraw = index === 3 ? smooth(progress / 0.85) : 1
   const shearScanX = lerp(0, LENGTH, shearDraw)
-  const momentScanMeters = index === 3 ? lerp(0, LENGTH, momentDraw) : index === 4 ? ZERO_AT : null
+  const momentScanMeters = index === 3 ? lerp(0, LENGTH - 0.35, momentDraw) : index === 4 ? ZERO_AT : null
   const showZero = showShear && (index >= 3 || shearDraw > 0.5)
   const showMax = index === 4
 
@@ -132,7 +132,7 @@ export function BendingMomentExample2Animation({ scene, index, playing, scenePro
             <line x1={X0} y1={BEAM_Y + 102} x2={X1} y2={BEAM_Y + 102} />
             <line x1={X0} y1={BEAM_Y + 97} x2={X0} y2={BEAM_Y + 107} />
             <line x1={X1} y1={BEAM_Y + 97} x2={X1} y2={BEAM_Y + 107} />
-            <text x={(X0 + X1) / 2} y={BEAM_Y + 115} textAnchor="middle" fontSize={8.5} fill={MUTED} stroke="none">
+            <text x={(X0 + X1) / 2 + 42} y={BEAM_Y + 115} textAnchor="middle" fontSize={8.5} fill={MUTED} stroke="none">
               L = 6 m
             </text>
           </g>
@@ -174,9 +174,9 @@ export function BendingMomentExample2Animation({ scene, index, playing, scenePro
                   />
                   <circle cx={xAt(ZERO_AT)} cy={T_BASE} r={3} fill={SHEAR} />
                   <text
-                    x={xAt(ZERO_AT)}
+                    x={xAt(ZERO_AT) + 7}
                     y={T_BASE - 7}
-                    textAnchor="middle"
+                    textAnchor="start"
                     fontSize={8.5}
                     fontWeight={700}
                     fill={SHEAR}

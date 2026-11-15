@@ -20,7 +20,7 @@ const AC_LEFT = { x: 220, y: C.y }
 const AC_RIGHT = { x: 382, y: C.y }
 
 export function TwoForceBarsAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 1.6) : 1
+  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 2.4) : 1
   const showForces = index >= 1
   const showVertical = index >= 2
   const showHorizontal = index >= 3
@@ -122,10 +122,10 @@ export function TwoForceBarsAnimation({ index, playing, sceneProgress }: Solutio
           <text x={C.x + 10} y={C.y - 8} fontSize="12" fill={INK}>
             C
           </text>
-          <text x="205" y={A.y - 9} fontSize="11" fill={barACColor}>
+          <text x={A.x + 50} y={A.y + 20} fontSize="11" fill={barACColor}>
             AC
           </text>
-          <text x="196" y="120" fontSize="11" fill={barBCColor}>
+          <text x={B.x + 50} y={B.y + 34} fontSize="11" fill={barBCColor}>
             BC
           </text>
 
@@ -200,14 +200,14 @@ export function TwoForceBarsAnimation({ index, playing, sceneProgress }: Solutio
           )}
 
           {showHorizontal && !showActual && (
-            <text x={AC_LEFT.x - 4} y={C.y + 18} textAnchor="end" fontSize="10.5" fill={TENSION}>
+            <text x={AC_LEFT.x - 4} y={C.y + 52} textAnchor="end" fontSize="10.5" fill={TENSION}>
               minus → zwrot przeciwny
             </text>
           )}
 
           {showActual && (
             <>
-              <text x={AC_RIGHT.x - 6} y={C.y + 18} textAnchor="end" fontSize="10.5" fill={COMPRESSION}>
+              <text x={AC_RIGHT.x - 6} y={C.y + 52} textAnchor="end" fontSize="10.5" fill={COMPRESSION}>
                 ściskanie — siła na węzeł w prawo
               </text>
               <text x={BC_END.x + 6} y={BC_END.y + 18} fontSize="10.5" fill={TENSION}>

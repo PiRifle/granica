@@ -278,7 +278,7 @@ export function NormalStressExample2Animation({ scene, playing, sceneProgress }:
                 x1={gaugeX(160)}
                 y1={286}
                 x2={gaugeX(160)}
-                y2={308}
+                y2={304}
                 stroke={LOAD}
                 strokeWidth={1.4}
                 strokeDasharray="3 3"

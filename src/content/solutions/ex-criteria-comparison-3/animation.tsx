@@ -174,7 +174,7 @@ function PrincipalAxis({ metric, p }: { metric: string; p: number }) {
   return (
     <g>
       <text x={left} y={46} fontSize={9} fill={MUTED} fontWeight={600}>
-        naprężenia główne przy czystym ścinaniu
+        naprężenia główne
       </text>
       <text x={right} y={46} textAnchor="end" fontSize={8.5} fill={MUTED}>
         σI = +τ, σIII = −τ
@@ -207,15 +207,15 @@ function PrincipalAxis({ metric, p }: { metric: string; p: number }) {
         amount={orangeAmount}
         width={3}
         label={isTresca ? 'σT = 2τ' : undefined}
-        labelY={181}
+        labelY={158}
       />
       <Span x1={x1} x2={x2} y={176} color={BLUE} amount={blueAmount} width={1.8} />
       <Span x1={x2} x2={x3} y={184} color={BLUE} amount={blueAmount} width={1.8} />
       <Span x1={x3} x2={x1} y={192} color={BLUE} amount={blueAmount} width={2.2} />
       {blueAmount > 0.01 && (
         <motion.text
-          x={left}
-          y={206}
+          x={12}
+          y={232}
           fontSize={8.5}
           fill={BLUE}
           initial={false}
@@ -363,10 +363,10 @@ export function CriteriaComparison3Animation({ scene, playing, sceneProgress }: 
           {isCompare && (
             <g>
               <line x1={left} y1={y} x2={right} y2={y} stroke={LIGHT} strokeWidth={1.2} />
-              <text x={left} y={y + 14} fontSize={8.5} fill={MUTED}>
+              <text x={left} y={y + 28} fontSize={8.5} fill={MUTED}>
                 {`${CMP_LO} MPa`}
               </text>
-              <text x={right} y={y + 14} textAnchor="end" fontSize={8.5} fill={MUTED}>
+              <text x={right} y={y + 28} textAnchor="end" fontSize={8.5} fill={MUTED}>
                 {`${CMP_HI} MPa`}
               </text>
               <motion.g initial={false} animate={{ opacity: smooth(p) }} transition={{ duration: 0.25 }}>

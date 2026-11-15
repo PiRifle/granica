@@ -218,9 +218,6 @@ function MohrPanel({ angle, showCircle, progress }: { angle: number; showCircle:
         τ
       </text>
       <line x1={sx(0)} y1={axisY - 4} x2={sx(0)} y2={axisY + 4} stroke={MUTED} strokeWidth={1.2} />
-      <text x={sx(0)} y={axisY - 8} textAnchor="middle" fontSize={8} fill={MUTED}>
-        0
-      </text>
 
       {showCircle && (
         <>
@@ -249,6 +246,10 @@ function MohrPanel({ angle, showCircle, progress }: { angle: number; showCircle:
           </text>
         </>
       )}
+
+      <text x={sx(0)} y={axisY - 8} textAnchor="middle" fontSize={8} fill={MUTED}>
+        0
+      </text>
 
       <circle cx={pointX} cy={pointY} r={4.2} fill={VIOLET} stroke="#fff" strokeWidth={1.2} />
       <text

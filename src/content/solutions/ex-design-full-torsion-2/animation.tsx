@@ -190,7 +190,7 @@ function Bars({
   const width = 280
   return (
     <g>
-      <text x={x0} y={208} fontSize={9} fontWeight={600} fill={INK}>
+      <text x={x0} y={198} fontSize={9} fontWeight={600} fill={INK}>
         {title}
       </text>
       {items.map((item, index) => {
@@ -252,7 +252,7 @@ function UtilBars({ p }: { p: number }) {
   ]
   return (
     <g>
-      <text x={x0} y={204} fontSize={9} fontWeight={600} fill={INK}>
+      <text x={x0} y={198} fontSize={9} fontWeight={600} fill={INK}>
         ta sama masa, ten sam moment — wykorzystanie warunków
       </text>
       {rows.map((row, index) => {

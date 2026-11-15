@@ -163,7 +163,7 @@ export function AxialStiffnessCondition3Animation({ scene, index, playing, scene
           </text>
 
           <line x1={40} y1={limitY} x2={450} y2={limitY} stroke={MUTED} strokeWidth={1.2} strokeDasharray="6 4" />
-          <text x={450} y={limitY - 6} textAnchor="end" fontSize={9} fill={MUTED}>
+          <text x={40} y={limitY - 6} fontSize={9} fill={MUTED}>
             ΔL_dop = 1,5 mm
           </text>
 

@@ -234,7 +234,7 @@ export function HookeStiffnessAnimation({ scene, index, playing, sceneProgress }
 
           {showStiffness && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: p > 0.25 ? 1 : 0 }} transition={{ duration: 0.3 }}>
-              <text x={PLOT_X} y={PLOT_Y - PLOT_H - 9} fontSize={9} fontWeight={700} fill={ACCENT}>
+              <text x={PLOT_X + 7} y={PLOT_Y - PLOT_H - 9} fontSize={9} fontWeight={700} fill={ACCENT}>
                 k = 25 MN/m
               </text>
               <line x1={PLOT_X} y1={PLOT_Y} x2={PLOT_X + PLOT_W + 12} y2={PLOT_Y} stroke={MUTED} strokeWidth={1.2} />

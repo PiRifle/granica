@@ -1,4 +1,5 @@
 import type { SolutionData } from '../../model'
+import { lazy } from 'react'
 
 export default {
   id: 'ex-foundations-supports-reactions',
@@ -7,6 +8,9 @@ export default {
   given: ['L = 5 m', 'q = 4 kN/m', 'P = 30 kN', 'a = 2 m'],
   result:
     'Reakcje wynoszą R_A = 28 kN i R_B = 22 kN, obie skierowane w górę. Suma reakcji 50 kN równoważy sumę obciążeń. Maksimum momentu wynosi 48 kN·m pod siłą P.',
+  animation: lazy(() =>
+    import('./animation').then((module) => ({ default: module.SupportsReactionsExample1Animation })),
+  ),
   figure: {
     kind: 'beam',
     length: 5,

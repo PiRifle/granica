@@ -46,7 +46,7 @@ export function DotProductAnimation({ index, playing, sceneProgress }: SolutionA
 
   const forceFade = index === 3 ? 0.4 : 1
   const workGlow = index === 1 && playing ? 0.25 + 0.55 * smooth(sceneProgress) : index === 1 ? 0.8 : 0.45
-  const angleSweep = showAngle30 ? (playing && index === 4 ? smooth(sceneProgress) : 1) : 0
+  const angleSweep = showAngle30 ? (playing && index === 4 ? smooth(sceneProgress * 4) : 1) : 0
   const summary = captions[Math.min(index, captions.length - 1)]
 
   return (
@@ -193,7 +193,7 @@ export function DotProductAnimation({ index, playing, sceneProgress }: SolutionA
                 animate={{ pathLength: angleSweep, opacity: angleSweep > 0 ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
               />
-              <text x={arcPoint(70, 76).x} y={arcPoint(70, 76).y} fontSize="11" fill={RESULT} stroke="none">
+              <text x={arcPoint(46, 75).x} y={arcPoint(46, 75).y} fontSize="11" fill={RESULT} stroke="none">
                 30°
               </text>
             </g>

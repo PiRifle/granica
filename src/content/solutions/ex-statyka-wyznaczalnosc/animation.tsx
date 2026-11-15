@@ -27,7 +27,7 @@ const smooth = (value: number) => {
 }
 
 export function DeterminacyAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const showEquations = index >= 1
   const showB = index >= 2
   const showA = index >= 3
@@ -85,12 +85,6 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
             strokeWidth="1.6"
           />
           <circle cx={X1} cy={Y + 16} r="6" fill="none" stroke={INK} strokeWidth="1.5" />
-          <text x={X0} y={Y + 40} textAnchor="middle" fontSize="10" fill={INK}>
-            A
-          </text>
-          <text x={X1} y={Y + 40} textAnchor="middle" fontSize="10" fill={INK}>
-            B
-          </text>
 
           <rect
             x={X0}
@@ -118,9 +112,6 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
               />
             )
           })}
-          <text x={X0 + 4} y={Y - 28} fontSize="9" fill={LOAD}>
-            q = 2 kN/m
-          </text>
 
           <line
             x1={Q_X}
@@ -131,9 +122,6 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
             strokeWidth="3"
             markerEnd="url(#ex-determinacy-load)"
           />
-          <text x={Q_X + 7} y={Y + 58} fontSize="10" fontWeight="700" fill={LOAD}>
-            Q = 20 kN
-          </text>
 
           <path
             d={`M ${M_X - 20} ${Y + 4} A 20 20 0 0 1 ${M_X + 4} ${Y + 24}`}
@@ -142,9 +130,6 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
             strokeWidth="2"
           />
           <path d={`M ${M_X + 4} ${Y + 24} L ${M_X - 5} ${Y + 20} L ${M_X + 2} ${Y + 12} Z`} fill={MOMENT} />
-          <text x={M_X} y={Y + 42} textAnchor="middle" fontSize="9" fill={MOMENT}>
-            M = 20 kN·m
-          </text>
 
           <line
             x1={P_X}
@@ -155,28 +140,16 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
             strokeWidth="3"
             markerEnd="url(#ex-determinacy-load)"
           />
-          <text x={P_X + 7} y={Y + 58} fontSize="10" fontWeight="700" fill={LOAD}>
-            P = 10 kN
-          </text>
 
           <line x1={H_X} y1={Y - 50} x2={H_X + 52} y2={Y - 50} stroke={HORIZONTAL} strokeWidth="3" />
           <path d={`M ${H_X + 52} ${Y - 50} L ${H_X + 44} ${Y - 56} L ${H_X + 44} ${Y - 44} Z`} fill={HORIZONTAL} />
           <line x1={H_X} y1={Y - 50} x2={H_X} y2={Y - 3} stroke={HORIZONTAL} strokeWidth="1" strokeDasharray="3 3" />
-          <text x={H_X + 54} y={Y - 54} fontSize="9" fill={HORIZONTAL}>
-            H = 6 kN
-          </text>
 
           {showEquations && (
             <g>
               <circle cx={X0} cy={Y} r="10" fill="none" stroke={REACTION} strokeWidth="1.5" />
               <circle cx={X1} cy={Y} r="10" fill="none" stroke={REACTION} strokeWidth="1.5" />
               <line x1="56" y1="116" x2="424" y2="116" stroke={MUTED} strokeWidth="1" strokeDasharray="5 4" />
-              <text x="424" y="108" textAnchor="end" fontSize="9" fill={MUTED}>
-                oś x
-              </text>
-              <text x="230" y="92" textAnchor="middle" fontSize="10" fontWeight="700" fill={REACTION}>
-                ΣM_A = 0 · ΣM_B = 0 · ΣF_x = 0
-              </text>
             </g>
           )}
 
@@ -191,9 +164,6 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
                 strokeWidth="3.2"
                 markerEnd="url(#ex-determinacy-up)"
               />
-              <text x={X1} y={Y + 70} textAnchor="middle" fontSize="10" fontWeight="700" fill={REACTION}>
-                B_y = 20 kN
-              </text>
             </motion.g>
           )}
 
@@ -208,9 +178,6 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
                 strokeWidth="3.2"
                 markerEnd="url(#ex-determinacy-up)"
               />
-              <text x={X0 - 30} y={Y + 60} textAnchor="middle" fontSize="10" fontWeight="700" fill={REACTION}>
-                A_y = 10 kN
-              </text>
             </motion.g>
           )}
 
@@ -225,18 +192,12 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
                 strokeWidth="3.2"
                 markerEnd="url(#ex-determinacy-left)"
               />
-              <text x="10" y={Y - 50} fontSize="10" fontWeight="700" fill={HORIZONTAL}>
-                A_x = 6 kN
-              </text>
             </motion.g>
           )}
 
           {showCheck && (
             <g>
               <circle cx={C_POINT.x} cy={C_POINT.y} r="4" fill={MOMENT} />
-              <text x={C_POINT.x + 8} y={C_POINT.y + 4} fontSize="9" fill={MOMENT}>
-                C(5; 3)
-              </text>
               <line
                 x1={C_POINT.x}
                 y1={C_POINT.y + 4}
@@ -253,20 +214,81 @@ export function DeterminacyAnimation({ index, playing, sceneProgress }: Solution
                 strokeWidth="2.2"
                 strokeLinecap="round"
               />
-              <text x="186" y="291" fontSize="9.5" fill={REACTION}>
-                ΣF_y = 10 + 20 − 20 − 10 = 0
-              </text>
-              <text x="186" y="306" fontSize="9.5" fill={REACTION}>
-                ΣM_C = −18 − 50 + 100 − 20 − 30 + 18 = 0
-              </text>
             </g>
           )}
 
-          {!showCheck && (
-            <text x="230" y="306" textAnchor="middle" fontSize="9.5" fill={MUTED}>
-              {showAx ? 'Trzy niewiadome i trzy niezależne równania' : 'R = 3, n = r − 3 = 0 — układ wyznaczalny'}
+          <g>
+            <text x={X0} y={Y + 40} textAnchor="middle" fontSize="10" fill={INK}>
+              A
             </text>
-          )}
+            <text x={X1} y={Y + 40} textAnchor="middle" fontSize="10" fill={INK}>
+              B
+            </text>
+            <text x={X0 + 4} y={Y - 28} fontSize="9" fill={LOAD}>
+              q = 2 kN/m
+            </text>
+            <text x={Q_X + 7} y={Y + 58} fontSize="10" fontWeight="700" fill={LOAD}>
+              Q = 20 kN
+            </text>
+            <text x={M_X} y={Y + 42} textAnchor="middle" fontSize="9" fill={MOMENT}>
+              M = 20 kN·m
+            </text>
+            <text x={P_X + 7} y={Y + 58} fontSize="10" fontWeight="700" fill={LOAD}>
+              P = 10 kN
+            </text>
+            <text x={H_X + 54} y={Y - 54} fontSize="9" fill={HORIZONTAL}>
+              H = 6 kN
+            </text>
+
+            {showEquations && (
+              <g>
+                <text x="424" y="108" textAnchor="end" fontSize="9" fill={MUTED}>
+                  oś x
+                </text>
+                <text x="230" y="92" textAnchor="middle" fontSize="10" fontWeight="700" fill={REACTION}>
+                  ΣM_A = 0 · ΣM_B = 0 · ΣF_x = 0
+                </text>
+              </g>
+            )}
+
+            {showB && (
+              <text x={X1} y={Y + 84} textAnchor="middle" fontSize="10" fontWeight="700" fill={REACTION}>
+                B_y = 20 kN
+              </text>
+            )}
+
+            {showA && (
+              <text x={X0 - 30} y={Y + 60} textAnchor="middle" fontSize="10" fontWeight="700" fill={REACTION}>
+                A_y = 10 kN
+              </text>
+            )}
+
+            {showAx && (
+              <text x="10" y={Y - 50} fontSize="10" fontWeight="700" fill={HORIZONTAL}>
+                A_x = 6 kN
+              </text>
+            )}
+
+            {showCheck && (
+              <g>
+                <text x={C_POINT.x + 8} y={C_POINT.y + 4} fontSize="9" fill={MOMENT}>
+                  C(5; 3)
+                </text>
+                <text x="186" y="291" fontSize="9.5" fill={REACTION}>
+                  ΣF_y = 10 + 20 − 20 − 10 = 0
+                </text>
+                <text x="186" y="306" fontSize="9.5" fill={REACTION}>
+                  ΣM_C = −18 − 50 + 100 − 20 − 30 + 18 = 0
+                </text>
+              </g>
+            )}
+
+            {!showCheck && (
+              <text x="230" y="306" textAnchor="middle" fontSize="9.5" fill={MUTED}>
+                {showAx ? 'Trzy niewiadome i trzy niezależne równania' : 'R = 3, n = r − 3 = 0 — układ wyznaczalny'}
+              </text>
+            )}
+          </g>
         </svg>
       </div>
     </div>

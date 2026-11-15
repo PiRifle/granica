@@ -54,7 +54,7 @@ export function ProjectionAdditionAnimation({ index, playing, sceneProgress }: S
   const showSum = index >= 3
   const showResult = index >= 4
   const showCheck = index >= 5
-  const growth = showResult ? (playing && index < 5 ? 0.45 + 0.55 * smooth(sceneProgress) : 1) : 0
+  const growth = showResult ? (playing && index < 5 ? 0.45 + 0.55 * smooth(sceneProgress * 4) : 1) : 0
   const resultTip = {
     x: origin.x + (resultEnd.x - origin.x) * growth,
     y: origin.y + (resultEnd.y - origin.y) * growth,
@@ -123,7 +123,7 @@ export function ProjectionAdditionAnimation({ index, playing, sceneProgress }: S
           <text x={origin.x + 7} y="46" fontSize="12" fill={INK}>
             y
           </text>
-          <text x={origin.x - 16} y={origin.y + 18} fontSize="12" fill={INK}>
+          <text x={origin.x + 8} y={origin.y + 18} fontSize="12" fill={INK}>
             O
           </text>
 
@@ -261,7 +261,7 @@ export function ProjectionAdditionAnimation({ index, playing, sceneProgress }: S
                     stroke={RESULT}
                     strokeWidth="1.8"
                   />
-                  <text x={origin.x + 42} y={origin.y - 12} fontSize="10" fill={RESULT}>
+                  <text x={origin.x + 80} y={origin.y + 16} fontSize="10" fill={RESULT}>
                     36,87°
                   </text>
                 </>

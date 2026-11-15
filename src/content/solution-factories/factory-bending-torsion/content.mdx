@@ -1,0 +1,3 @@
+Fabryka `factory-bending-torsion` prowadzi dobór przekroju rury w kształcie L obciążonej pionową siłą: z siły `p` i ramion `a`, `b` wyprowadza moment zginający M_g = P·b i skręcający M_s = P·a, moment zastępczy HMH M_eq = √(M_g² + 0,75·M_s²), średnicę minimalną d_min = ∛(32·M_eq/(π·k_g)) oraz sprawdzenie naprężeń σ = 32·M_g/(πd³), τ = 16·M_s/(πd³), σ_HMH = √(σ² + 3τ²) z zapasem względem k_g.
+
+Wariant konfiguruje zadanie przez `task.ts` (`inputs` + metadane + sceny); źródłowe zaokrąglenia kontrolne przekazuje opcjonalnie przez `underRadical`, `sigmaHmhText`, `marginText`. Pliki fabryczne nie wchodzą do `workedSolutions`.

@@ -174,8 +174,8 @@ export function SectionModulusExample1Animation({ scene, playing, sceneProgress 
             animate={{ pathLength: draw, opacity: 1 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
           />
-          <text x={RIGHT + 16} y={NA - 5} fontSize={8.5} fill={TENSION}>
-            oś obojętna
+          <text x={SECTION.x - 36} y={NA - 7} fontSize={8.5} fill={TENSION}>
+            oś oboj.
           </text>
 
           <motion.g initial={false} animate={{ opacity: showC ? 1 : 0 }} transition={{ duration: 0.25 }}>
@@ -208,19 +208,19 @@ export function SectionModulusExample1Animation({ scene, playing, sceneProgress 
               markerEnd="url(#m4s1-dim)"
             />
             <motion.g initial={false} animate={{ opacity: draw > 0.55 ? 1 : 0 }} transition={{ duration: 0.2 }}>
-              <text x={SECTION.x - 49} y={(SECTION.top + NA) / 2 - 3} textAnchor="end" fontSize={8.5} fill={MUTED}>
+              <text x={SECTION.x - 49} y={(SECTION.top + NA) / 2 - 6} textAnchor="end" fontSize={8.5} fill={MUTED}>
                 c_g
               </text>
-              <text x={SECTION.x - 49} y={(SECTION.top + NA) / 2 + 8} textAnchor="end" fontSize={9} fill={INK}>
+              <text x={SECTION.x - 49} y={(SECTION.top + NA) / 2 + 9} textAnchor="end" fontSize={9} fill={INK}>
                 37,27
               </text>
-              <text x={SECTION.x - 49} y={(NA + BOTTOM) / 2 - 3} textAnchor="end" fontSize={8.5} fill={MUTED}>
+              <text x={SECTION.x - 49} y={(NA + BOTTOM) / 2 - 6} textAnchor="end" fontSize={8.5} fill={MUTED}>
                 c_d
               </text>
-              <text x={SECTION.x - 49} y={(NA + BOTTOM) / 2 + 8} textAnchor="end" fontSize={9} fill={INK}>
+              <text x={SECTION.x - 49} y={(NA + BOTTOM) / 2 + 9} textAnchor="end" fontSize={9} fill={INK}>
                 82,73
               </text>
-              <text x={SECTION.x - 49} y={(NA + BOTTOM) / 2 + 19} textAnchor="end" fontSize={8} fill={MUTED}>
+              <text x={SECTION.x - 49} y={(NA + BOTTOM) / 2 + 23} textAnchor="end" fontSize={8} fill={MUTED}>
                 mm
               </text>
             </motion.g>

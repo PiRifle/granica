@@ -322,7 +322,7 @@ export function SectionStiffnessDesign3Animation({ scene, playing, sceneProgress
                   />
                   <text
                     x={SEC_X - SIGMA_ALLOW * STRESS_SCALE}
-                    y={SEC_TOP - 11}
+                    y={SEC_TOP - 18}
                     textAnchor="middle"
                     fontSize={8}
                     fill={OK}

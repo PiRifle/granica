@@ -27,7 +27,7 @@ const AY_END = { x: A.x, y: A.y - 12 * R_SCALE }
 const RA_END = { x: A.x - 12 * R_SCALE, y: A.y - 12 * R_SCALE }
 
 export function FullConcurrentTaskAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 1.6) : 1
+  const grow = playing ? Math.min(1, 0.2 + sceneProgress * 2.4) : 1
   const showMoment = index >= 1
   const showBar = index >= 1
   const showComponents = index >= 3
@@ -81,31 +81,13 @@ export function FullConcurrentTaskAnimation({ index, playing, sceneProgress }: S
           <circle cx={A.x} cy={A.y} r="4" fill={EDGE} />
           <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke={EDGE} strokeWidth="6" strokeLinecap="round" />
           <line x1={B.x} y1={B.y} x2={D.x} y2={D.y} stroke={BAR} strokeWidth="2.6" />
-          <text x={D.x + 6} y={D.y - 2} fontSize="11" fill={BAR}>
-            D
-          </text>
-          <text x={A.x + 4} y={A.y + 24} fontSize="12" fill={INK}>
-            A
-          </text>
-          <text x={B.x + 4} y={B.y + 24} fontSize="12" fill={INK}>
-            B
-          </text>
-          <text x={(B.x + D.x) / 2 + 8} y={(B.y + D.y) / 2 - 4} fontSize="10.5" fill={BAR}>
-            BD
-          </text>
 
           <line x1={A.x} y1={A.y + 30} x2={P.x} y2={A.y + 30} stroke={MUTED} strokeWidth="1" />
           <line x1={A.x} y1={A.y + 25} x2={A.x} y2={A.y + 35} stroke={MUTED} strokeWidth="1" />
           <line x1={P.x} y1={A.y + 25} x2={P.x} y2={A.y + 35} stroke={MUTED} strokeWidth="1" />
-          <text x={(A.x + P.x) / 2} y={A.y + 24} textAnchor="middle" fontSize="10" fill={MUTED}>
-            a = 1 m
-          </text>
           <line x1={A.x} y1={A.y + 52} x2={B.x} y2={A.y + 52} stroke={MUTED} strokeWidth="1" />
           <line x1={A.x} y1={A.y + 47} x2={A.x} y2={A.y + 57} stroke={MUTED} strokeWidth="1" />
           <line x1={B.x} y1={A.y + 47} x2={B.x} y2={A.y + 57} stroke={MUTED} strokeWidth="1" />
-          <text x={(A.x + B.x) / 2} y={A.y + 48} textAnchor="middle" fontSize="10" fill={MUTED}>
-            L = 2 m
-          </text>
 
           <motion.line
             x1={P.x}
@@ -118,9 +100,6 @@ export function FullConcurrentTaskAnimation({ index, playing, sceneProgress }: S
             initial={false}
             animate={{ opacity: 1 }}
           />
-          <text x={P.x + 10} y={P.y - 48} fontSize="12" fill={LOAD}>
-            P = 24 kN
-          </text>
 
           {showMoment && (
             <>
@@ -135,9 +114,6 @@ export function FullConcurrentTaskAnimation({ index, playing, sceneProgress }: S
                 stroke={MOMENT}
                 strokeWidth="1.6"
               />
-              <text x={(A.x + E.x) / 2 + 8} y={(A.y + E.y) / 2 - 6} fontSize="10.5" fill={MOMENT}>
-                L sin45° = 1,41 m
-              </text>
             </>
           )}
 
@@ -154,12 +130,6 @@ export function FullConcurrentTaskAnimation({ index, playing, sceneProgress }: S
               animate={{ opacity: showBar ? 1 : 0 }}
             />
           )}
-          {showBar && (
-            <text x={S_END.x - 4} y={S_END.y - 10} textAnchor="end" fontSize="12" fill={BAR}>
-              S = 16,97 kN
-            </text>
-          )}
-
           {showComponents && (
             <>
               <motion.line
@@ -184,12 +154,6 @@ export function FullConcurrentTaskAnimation({ index, playing, sceneProgress }: S
                 initial={{ opacity: 0 }}
                 animate={{ opacity: reactionLength }}
               />
-              <text x={AX_END.x + 20} y={A.y + 18} textAnchor="start" fontSize="10.5" fill={REACTION}>
-                Ax = 12,0 kN
-              </text>
-              <text x={A.x + 8} y={AY_END.y + 2} fontSize="10.5" fill={REACTION}>
-                Ay = 12,0 kN
-              </text>
             </>
           )}
 
@@ -206,18 +170,12 @@ export function FullConcurrentTaskAnimation({ index, playing, sceneProgress }: S
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               />
-              <text x={RA_END.x + 8} y={RA_END.y - 6} textAnchor="start" fontSize="12" fill={REACTION}>
-                RA = 16,97 kN
-              </text>
               <path
                 d={`M ${A.x - 40} ${A.y} A 40 40 0 0 1 ${A.x - 40 * Math.cos((45 * Math.PI) / 180)} ${A.y - 40 * Math.sin((45 * Math.PI) / 180)}`}
                 fill="none"
                 stroke={REACTION}
                 strokeWidth="1.6"
               />
-              <text x={A.x - 60} y={A.y - 10} fontSize="10.5" fill={REACTION}>
-                45°
-              </text>
             </>
           )}
 
@@ -229,15 +187,70 @@ export function FullConcurrentTaskAnimation({ index, playing, sceneProgress }: S
                 <line x1={A.x} y1={A.y} x2={E.x} y2={E.y} />
               </g>
               <circle cx={E.x} cy={E.y} r="4" fill={MOMENT} />
+            </>
+          )}
+
+          <text x={D.x + 6} y={D.y - 2} fontSize="11" fill={BAR}>
+            D
+          </text>
+          <text x={A.x + 4} y={A.y + 24} fontSize="12" fill={INK}>
+            A
+          </text>
+          <text x={B.x + 4} y={B.y + 24} fontSize="12" fill={INK}>
+            B
+          </text>
+          <text x={(B.x + D.x) / 2 + 8} y={(B.y + D.y) / 2 - 4} fontSize="10.5" fill={BAR}>
+            BD
+          </text>
+          <text x={(A.x + P.x) / 2} y={A.y + 24} textAnchor="middle" fontSize="10" fill={MUTED}>
+            a = 1 m
+          </text>
+          <text x={(A.x + B.x) / 2} y={A.y + 66} textAnchor="middle" fontSize="10" fill={MUTED}>
+            L = 2 m
+          </text>
+          <text x={P.x + 10} y={P.y - 48} fontSize="12" fill={LOAD}>
+            P = 24 kN
+          </text>
+          {showMoment && (
+            <text x={(A.x + E.x) / 2 + 8} y={(A.y + E.y) / 2 - 6} fontSize="10.5" fill={MOMENT}>
+              L sin45° = 1,41 m
+            </text>
+          )}
+          {showBar && (
+            <text x={S_END.x - 4} y={S_END.y - 10} textAnchor="end" fontSize="12" fill={BAR}>
+              S = 16,97 kN
+            </text>
+          )}
+          {showComponents && (
+            <g>
+              <text x={AX_END.x - 4} y={A.y + 18} textAnchor="end" fontSize="10.5" fill={REACTION}>
+                Ax = 12,0 kN
+              </text>
+              <text x={A.x + 8} y={A.y - 28} fontSize="10.5" fill={REACTION}>
+                Ay = 12,0 kN
+              </text>
+            </g>
+          )}
+          {showResultant && (
+            <g>
+              <text x={RA_END.x + 8} y={RA_END.y - 6} textAnchor="start" fontSize="12" fill={REACTION}>
+                RA = 16,97 kN
+              </text>
+              <text x={A.x - 60} y={A.y - 10} fontSize="10.5" fill={REACTION}>
+                45°
+              </text>
+            </g>
+          )}
+          {showConcurrency && (
+            <g>
               <text x={E.x + 10} y={E.y + 6} fontSize="12" fill={MOMENT}>
                 E = (1; −1) m
               </text>
               <text x="230" y="334" textAnchor="middle" fontSize="12" fill={MOMENT}>
                 Proste P, BD i AE przecinają się w E
               </text>
-            </>
+            </g>
           )}
-
           {!showConcurrency && (
             <text x="230" y="334" textAnchor="middle" fontSize="12" fill={INK}>
               {showResultant ? 'Reakcja RA symetryczna do kierunku pręta' : 'Moment względem A daje siłę w pręcie'}

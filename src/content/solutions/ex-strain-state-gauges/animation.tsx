@@ -167,24 +167,6 @@ export function StrainGaugeChainAnimation({ scene, playing, sceneProgress }: Sol
             </marker>
           </defs>
 
-          <g fontSize={9} fill={MUTED}>
-            <text x={14} y={26}>
-              R₀ = 350 Ω
-            </text>
-            <text x={14} y={40}>
-              GF = 2,10
-            </text>
-            <text x={14} y={54}>
-              ΔR = 0,147 Ω
-            </text>
-            <text x={330} y={26}>
-              stal
-            </text>
-            <text x={330} y={40}>
-              σ = Eε
-            </text>
-          </g>
-
           <g stroke={SUPPORT} strokeWidth={2} strokeLinecap="round">
             <line x1={BAR_LEFT} y1={BAR_TOP - 16} x2={BAR_LEFT} y2={BAR_BOTTOM + 16} />
             {Array.from({ length: 7 }, (_, tick) => {
@@ -242,9 +224,6 @@ export function StrainGaugeChainAnimation({ scene, playing, sceneProgress }: Sol
             <line x1={gaugeLeft} y1={140} x2={gaugeRight} y2={140} strokeWidth={1.2} />
             <line x1={gaugeLeft} y1={135} x2={gaugeLeft} y2={145} strokeWidth={1.2} />
             <line x1={gaugeRight} y1={135} x2={gaugeRight} y2={145} strokeWidth={1.2} />
-            <text x={GAUGE_CX} y={154} textAnchor="middle" fontSize={9}>
-              baza L_g
-            </text>
           </g>
 
           <motion.g
@@ -261,9 +240,6 @@ export function StrainGaugeChainAnimation({ scene, playing, sceneProgress }: Sol
               strokeWidth={2.3}
               markerEnd="url(#gauge-chain-load)"
             />
-            <text x={barRight + 12} y={GAUGE_CY - 8} fontSize={9} stroke="none">
-              N
-            </text>
           </motion.g>
 
           {isAxis && (
@@ -290,12 +266,6 @@ export function StrainGaugeChainAnimation({ scene, playing, sceneProgress }: Sol
                 strokeWidth={2.2}
                 markerEnd="url(#gauge-chain-axis)"
               />
-              <text x={GAUGE_CX + 98} y={GAUGE_CY + 4} fontSize={9} stroke="none" fontWeight={700}>
-                ε_x = 200 µε
-              </text>
-              <text x={GAUGE_CX + 5} y={GAUGE_CY - 48} fontSize={9} stroke="none">
-                ε_y = 0
-              </text>
             </motion.g>
           )}
 
@@ -331,14 +301,83 @@ export function StrainGaugeChainAnimation({ scene, playing, sceneProgress }: Sol
               <path d="M -8 -20 L -2 -17 L -2 -23 L 4 -20" stroke={LOAD} strokeWidth={2.2} />
               <circle cx={30} cy={0} r={2.5} fill={ACCENT} stroke="none" />
               <circle cx={-30} cy={0} r={2.5} fill={ACCENT} stroke="none" />
-              <text x={0} y={46} textAnchor="middle" fontSize={8.5} fill={MUTED} stroke="none">
-                mostek
-              </text>
             </motion.g>
           </g>
 
           <g>
             <rect x={150} y={176} width={296} height={86} rx={10} fill={PANEL} />
+            {isCheck && (
+              <g transform="translate(418 204)">
+                <motion.g
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.35, type: 'spring', stiffness: 240, damping: 16 }}
+                >
+                  <circle r={11} fill={GOOD} fillOpacity={0.16} stroke={GOOD} strokeWidth={1.4} />
+                  <path d="M -5 0 L -1 4 L 6 -5" fill="none" stroke={GOOD} strokeWidth={2} strokeLinecap="round" />
+                </motion.g>
+              </g>
+            )}
+          </g>
+
+          <g>
+            <g fontSize={9} fill={MUTED}>
+              <text x={14} y={26}>
+                R₀ = 350 Ω
+              </text>
+              <text x={14} y={40}>
+                GF = 2,10
+              </text>
+              <text x={14} y={54}>
+                ΔR = 0,147 Ω
+              </text>
+              <text x={330} y={26}>
+                stal
+              </text>
+              <text x={330} y={40}>
+                σ = Eε
+              </text>
+            </g>
+            <g fill={MUTED}>
+              <text x={GAUGE_CX} y={154} textAnchor="middle" fontSize={9}>
+                baza L_g
+              </text>
+            </g>
+            <motion.text
+              x={barRight + 12}
+              y={GAUGE_CY - 8}
+              fontSize={9}
+              fill={LOAD}
+              animate={{ opacity: loadPulse }}
+              transition={{ duration: 1.2, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
+            >
+              N
+            </motion.text>
+            {isAxis && (
+              <motion.g
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.35 }}
+                fill={ACCENT}
+              >
+                <text x={GAUGE_CX + 98} y={GAUGE_CY + 4} fontSize={9} fontWeight={700}>
+                  ε_x = 200 µε
+                </text>
+                <text x={GAUGE_CX + 5} y={GAUGE_CY - 48} fontSize={9}>
+                  ε_y = 0
+                </text>
+              </motion.g>
+            )}
+            <motion.g
+              animate={{ opacity: bridgeActive ? 1 : 0.45 }}
+              transition={{ duration: 0.3 }}
+            >
+              <g transform="translate(100 210)">
+                <text x={0} y={46} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  mostek
+                </text>
+              </g>
+            </motion.g>
             <text x={166} y={195} fontSize={8} letterSpacing={0.8} fill={PANEL_MUTED}>
               {reading.label}
             </text>
@@ -358,23 +397,10 @@ export function StrainGaugeChainAnimation({ scene, playing, sceneProgress }: Sol
             <text x={166} y={247} fontSize={8.5} fill={PANEL_MUTED}>
               {reading.note}
             </text>
-            {isCheck && (
-              <g transform="translate(418 204)">
-                <motion.g
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.35, type: 'spring', stiffness: 240, damping: 16 }}
-                >
-                  <circle r={11} fill={GOOD} fillOpacity={0.16} stroke={GOOD} strokeWidth={1.4} />
-                  <path d="M -5 0 L -1 4 L 6 -5" fill="none" stroke={GOOD} strokeWidth={2} strokeLinecap="round" />
-                </motion.g>
-              </g>
-            )}
+            <text x={230} y={282} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              odkształcenie → zmiana oporu → mostek → odczyt
+            </text>
           </g>
-
-          <text x={230} y={282} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-            odkształcenie → zmiana oporu → mostek → odczyt
-          </text>
         </svg>
       </div>
     </div>

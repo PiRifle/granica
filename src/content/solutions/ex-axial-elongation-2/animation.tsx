@@ -209,7 +209,7 @@ export function AxialSelfWeightAnimation({ scene, playing, sceneProgress }: Solu
                 strokeWidth={1}
                 strokeDasharray="4 4"
               />
-              <Dimension x={232} from={BOTTOM} to={bottom} label={isEnd ? 'WL/EA = 2ΔLγ' : 'ΔLγ'} color={ACCENT} />
+              <Dimension x={252} from={BOTTOM} to={bottom} label={isEnd ? 'WL/EA = 2ΔLγ' : 'ΔLγ'} color={ACCENT} />
               {isEnd && (
                 <>
                   <line

@@ -33,18 +33,30 @@ const xAt = (meters: number) => X0 + (meters / LENGTH) * (X1 - X0)
 const yM = (value: number) => M_BASE - (value / M_MAX) * M_HEIGHT
 const yT = (value: number) => T_BASE - (value / 20) * T_HEIGHT
 
-function Support({ at, label }: { at: number; label: string }) {
+function Support({ at, label, labelDx = 0 }: { at: number; label: string; labelDx?: number }) {
   return (
     <g stroke={SUPPORT} fill={SUPPORT}>
       <path d={`M${xAt(at) - 10} ${BEAM_Y + 16} L${xAt(at)} ${BEAM_Y + 2} L${xAt(at) + 10} ${BEAM_Y + 16} Z`} />
-      <text x={xAt(at)} y={BEAM_Y + 30} textAnchor="middle" fontSize={10} stroke="none">
+      <text x={xAt(at) + labelDx} y={BEAM_Y + 30} textAnchor="middle" fontSize={10} stroke="none">
         {label}
       </text>
     </g>
   )
 }
 
-function ReactionArrow({ at, offset, label, active }: { at: number; offset: number; label: string; active: boolean }) {
+function ReactionArrow({
+  at,
+  offset,
+  label,
+  active,
+  labelDx = 0,
+}: {
+  at: number
+  offset: number
+  label: string
+  active: boolean
+  labelDx?: number
+}) {
   const x = xAt(at) + offset
   return (
     <motion.g
@@ -56,7 +68,7 @@ function ReactionArrow({ at, offset, label, active }: { at: number; offset: numb
     >
       <line x1={x} y1={BEAM_Y + 52} x2={x} y2={BEAM_Y + 10} strokeWidth={2.4} />
       <path d={`M${x - 4} ${BEAM_Y + 18} L${x} ${BEAM_Y + 8} L${x + 4} ${BEAM_Y + 18}`} fill="none" strokeWidth={2.4} />
-      <text x={x} y={BEAM_Y + 64} textAnchor="middle" fontSize={8.5} stroke="none">
+      <text x={x + labelDx} y={BEAM_Y + 64} textAnchor="middle" fontSize={8.5} stroke="none">
         {label}
       </text>
     </motion.g>
@@ -121,7 +133,7 @@ export function BendingMomentExample1Animation({ scene, index, playing, scenePro
           />
 
           <Support at={0} label="A" />
-          <Support at={LENGTH} label="B" />
+          <Support at={LENGTH} label="B" labelDx={-14} />
 
           <motion.g stroke={LOAD} fill={LOAD} initial={false} animate={{ opacity: metric === 'load' ? 1 : 0.78 }}>
             <line x1={xAt(P_AT)} y1={10} x2={xAt(P_AT)} y2={BEAM_Y - 5} strokeWidth={2.6} />
@@ -141,7 +153,7 @@ export function BendingMomentExample1Animation({ scene, index, playing, scenePro
           {showReactions && (
             <>
               <ReactionArrow at={0} offset={-16} label={`R_A = ${R_A} kN`} active={metric === 'reaction'} />
-              <ReactionArrow at={LENGTH} offset={16} label={`R_B = ${R_B} kN`} active={metric === 'reaction'} />
+              <ReactionArrow at={LENGTH} offset={16} label={`R_B = ${R_B} kN`} active={metric === 'reaction'} labelDx={10} />
             </>
           )}
 
@@ -230,7 +242,7 @@ export function BendingMomentExample1Animation({ scene, index, playing, scenePro
                 strokeDasharray="3 3"
                 opacity={0.55}
               />
-              <text x={xAt(P_AT) + 6} y={T_BASE - T_HEIGHT - 6} fontSize={8.5} fill={SHEAR}>
+              <text x={xAt(P_AT) - 6} y={T_BASE - T_HEIGHT - 6} textAnchor="end" fontSize={8.5} fill={SHEAR}>
                 T zmienia znak
               </text>
             </motion.g>

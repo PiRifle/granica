@@ -47,7 +47,7 @@ const X_INTERCEPT = at(1.725, 0)
 const Y_INTERCEPT = at(0, -2.3)
 
 export function PlanarReductionAnimation({ index, playing, sceneProgress }: SolutionAnimationProps) {
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const showVector = index >= 1
   const showMoments = index >= 2
   const showMainMoment = index >= 3
@@ -109,24 +109,9 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
 
           <line x1="52" y1={OY} x2="430" y2={OY} stroke={AXIS} strokeWidth="1.3" />
           <line x1={OX} y1="46" x2={OX} y2="388" stroke={AXIS} strokeWidth="1.3" />
-          <text x="420" y={OY - 8} fontSize="11" fill={INK}>
-            x
-          </text>
-          <text x={OX + 8} y="58" fontSize="11" fill={INK}>
-            y
-          </text>
-          <text x={OX - 14} y={OY + 18} fontSize="11" fill={INK}>
-            O
-          </text>
 
           <circle cx={A.x} cy={A.y} r="4" fill={FORCE_1} />
           <circle cx={B.x} cy={B.y} r="4" fill={FORCE_2} />
-          <text x={A.x - 12} y={A.y - 8} fontSize="10" fill={FORCE_1}>
-            A
-          </text>
-          <text x={B.x + 7} y={B.y + 15} fontSize="10" fill={FORCE_2}>
-            B
-          </text>
 
           <line
             x1={A.x}
@@ -137,9 +122,6 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
             strokeWidth="3.2"
             markerEnd="url(#ex-reduction-f1)"
           />
-          <text x={F1_END.x + 6} y={F1_END.y - 7} fontSize="10" fill={FORCE_1}>
-            F₁ = 3 kN
-          </text>
 
           <line
             x1={B.x}
@@ -150,9 +132,6 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
             strokeWidth="3.2"
             markerEnd="url(#ex-reduction-f2)"
           />
-          <text x={F2_END.x + 7} y={F2_END.y + 4} fontSize="10" fill={FORCE_2}>
-            F₂ = 4 kN
-          </text>
 
           <path
             d={arc(182, 266, 20, 330, 30)}
@@ -161,9 +140,6 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
             strokeWidth="2"
             markerEnd="url(#ex-reduction-m)"
           />
-          <text x="206" y="274" fontSize="10" fill={MOMENT}>
-            M₀ = 6 kN·m
-          </text>
 
           {showVector && (
             <g>
@@ -181,19 +157,7 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
                 animate={{ opacity: reveal }}
                 transition={{ duration: 0.25 }}
               />
-              <text x={R_END.x + 8} y={R_END.y - 4} fontSize="11" fontWeight="700" fill={RESULT}>
-                R = 5 kN
-              </text>
               <path d={arc(O.x, O.y, 30, 0, -53.13)} fill="none" stroke={RESULT} strokeWidth="1.5" />
-              <text x={O.x + 38} y={O.y - 12} fontSize="9" fill={RESULT}>
-                53,1°
-              </text>
-              <text x={(O.x + F1_END.x) / 2} y={O.y + 16} textAnchor="middle" fontSize="9" fill={MUTED}>
-                R_x = 3 kN
-              </text>
-              <text x={O.x - 22} y={(O.y + F2_END.y) / 2} textAnchor="end" fontSize="9" fill={MUTED}>
-                R_y = 4 kN
-              </text>
             </g>
           )}
 
@@ -206,9 +170,6 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
                 strokeWidth="1.6"
                 markerEnd="url(#ex-reduction-f2)"
               />
-              <text x={O.x - 40} y={O.y + 44} textAnchor="end" fontSize="9" fill={FORCE_2}>
-                M₁ = −1,5
-              </text>
               <path
                 d={arc(O.x, O.y, 34, 340, 200)}
                 fill="none"
@@ -216,9 +177,6 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
                 strokeWidth="1.6"
                 markerEnd="url(#ex-reduction-r)"
               />
-              <text x={O.x + 14} y={O.y + 58} fontSize="9" fill={RESULT}>
-                M₂ = +2,4
-              </text>
               <path
                 d={arc(O.x, O.y, 42, 340, 200)}
                 fill="none"
@@ -226,9 +184,6 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
                 strokeWidth="1.6"
                 markerEnd="url(#ex-reduction-m)"
               />
-              <text x={O.x - 44} y={O.y + 82} textAnchor="end" fontSize="9" fill={MOMENT}>
-                M₀ = +6
-              </text>
             </g>
           )}
 
@@ -241,22 +196,13 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
                 strokeWidth="2.6"
                 markerEnd="url(#ex-reduction-r)"
               />
-              <text x={O.x + 24} y={O.y + 76} fontSize="10" fontWeight="700" fill={RESULT}>
-                M_O = 6,9 kN·m
-              </text>
             </g>
           )}
 
           {showLine && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
               <line x1={Y_INTERCEPT.x} y1={Y_INTERCEPT.y} x2="292" y2="190" stroke={RESULT} strokeWidth="2.6" />
-              <text x="296" y="188" fontSize="10" fontWeight="700" fill={RESULT}>
-                4x − 3y = 6,9
-              </text>
               <line x1={O.x} y1={O.y} x2={FOOT.x} y2={FOOT.y} stroke={MUTED} strokeWidth="1.5" strokeDasharray="5 4" />
-              <text x={FOOT.x - 56} y={FOOT.y + 4} fontSize="9" fill={MUTED}>
-                d = 1,38 m
-              </text>
               <circle cx={FOOT.x} cy={FOOT.y} r="3.5" fill={RESULT} />
               <line
                 x1={FOOT.x}
@@ -267,9 +213,6 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
                 strokeWidth="3.5"
                 markerEnd="url(#ex-reduction-r)"
               />
-              <text x={FOOT.x + 60} y={FOOT.y - 66} fontSize="10" fill={RESULT}>
-                5 kN
-              </text>
             </motion.g>
           )}
 
@@ -277,17 +220,102 @@ export function PlanarReductionAnimation({ index, playing, sceneProgress }: Solu
             <g>
               <circle cx={X_INTERCEPT.x} cy={X_INTERCEPT.y} r="4" fill={MOMENT} />
               <circle cx={Y_INTERCEPT.x} cy={Y_INTERCEPT.y} r="4" fill={MOMENT} />
-              <text x={X_INTERCEPT.x + 8} y={X_INTERCEPT.y + 18} fontSize="9" fill={MOMENT}>
-                x = 1,725 m
-              </text>
-              <text x={Y_INTERCEPT.x + 8} y={Y_INTERCEPT.y - 8} fontSize="9" fill={MOMENT}>
-                y = −2,3 m
-              </text>
-              <text x="230" y="392" textAnchor="middle" fontSize="10" fill={RESULT}>
-                1,725 · 4 = 6,9 kN·m — moment się zgadza
-              </text>
             </g>
           )}
+
+          <g>
+            <text x="420" y={OY - 8} fontSize="11" fill={INK}>
+              x
+            </text>
+            <text x={OX + 8} y="58" fontSize="11" fill={INK}>
+              y
+            </text>
+            <text x={OX - 14} y={OY + 18} fontSize="11" fill={INK}>
+              O
+            </text>
+            <text x={A.x - 12} y={A.y - 8} fontSize="10" fill={FORCE_1}>
+              A
+            </text>
+            <text x={B.x + 7} y={B.y + 15} fontSize="10" fill={FORCE_2}>
+              B
+            </text>
+            <text x={F1_END.x + 6} y={F1_END.y - 7} fontSize="10" fill={FORCE_1}>
+              F₁ = 3 kN
+            </text>
+            <text x={F2_END.x - 8} y={F2_END.y - 8} textAnchor="end" fontSize="10" fill={FORCE_2}>
+              F₂ = 4 kN
+            </text>
+            <text x="210" y="260" fontSize="10" fill={MOMENT}>
+              M₀ = 6 kN·m
+            </text>
+
+            {showVector && (
+              <g>
+                <text x={R_END.x + 8} y={R_END.y - 4} fontSize="11" fontWeight="700" fill={RESULT}>
+                  R = 5 kN
+                </text>
+                <text x={O.x + 22} y={O.y - 30} fontSize="9" fill={RESULT}>
+                  53,1°
+                </text>
+                <text x={(O.x + F1_END.x) / 2} y={O.y - 8} textAnchor="middle" fontSize="9" fill={MUTED}>
+                  R_x = 3 kN
+                </text>
+                <text x={O.x - 22} y={(O.y + F2_END.y) / 2} textAnchor="end" fontSize="9" fill={MUTED}>
+                  R_y = 4 kN
+                </text>
+              </g>
+            )}
+
+            {showMoments && (
+              <g>
+                <text x={O.x - 40} y={O.y + 44} textAnchor="end" fontSize="9" fill={FORCE_2}>
+                  M₁ = −1,5
+                </text>
+                <text x={O.x + 14} y={O.y + 58} fontSize="9" fill={RESULT}>
+                  M₂ = +2,4
+                </text>
+                <text x={O.x - 44} y={O.y + 82} textAnchor="end" fontSize="9" fill={MOMENT}>
+                  M₀ = +6
+                </text>
+              </g>
+            )}
+
+            {showMainMoment && (
+              <g>
+                <text x={O.x + 24} y={O.y + 76} fontSize="10" fontWeight="700" fill={RESULT}>
+                  M_O = 6,9 kN·m
+                </text>
+              </g>
+            )}
+
+            {showLine && (
+              <g>
+                <text x="296" y="188" fontSize="10" fontWeight="700" fill={RESULT}>
+                  4x − 3y = 6,9
+                </text>
+                <text x={FOOT.x - 56} y={FOOT.y - 4} fontSize="9" fill={MUTED}>
+                  d = 1,38 m
+                </text>
+                <text x={FOOT.x + 60} y={FOOT.y - 66} fontSize="10" fill={RESULT}>
+                  5 kN
+                </text>
+              </g>
+            )}
+
+            {showCheck && (
+              <g>
+                <text x={X_INTERCEPT.x + 8} y={X_INTERCEPT.y + 34} fontSize="9" fill={MOMENT}>
+                  x = 1,725 m
+                </text>
+                <text x={Y_INTERCEPT.x + 8} y={Y_INTERCEPT.y - 8} fontSize="9" fill={MOMENT}>
+                  y = −2,3 m
+                </text>
+                <text x="230" y="392" textAnchor="middle" fontSize="10" fill={RESULT}>
+                  1,725 · 4 = 6,9 kN·m — moment się zgadza
+                </text>
+              </g>
+            )}
+          </g>
         </svg>
       </div>
     </div>

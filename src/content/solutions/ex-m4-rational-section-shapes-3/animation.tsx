@@ -34,7 +34,7 @@ function Axis() {
   return (
     <g>
       <line x1={70} y1={CY} x2={430} y2={CY} stroke={LOAD} strokeWidth={1.3} strokeDasharray="6 4" />
-      <text x={72} y={CY - 7} fontSize={8.5} fill={LOAD}>
+      <text x={102} y={CY - 7} textAnchor="end" fontSize={8.5} fill={LOAD}>
         oś obojętna
       </text>
     </g>
@@ -303,7 +303,7 @@ export function RationalSectionShapes3Animation({ scene, playing, sceneProgress 
               />
               <line x1={CX - R} y1={51} x2={CX - R} y2={59} stroke={MUTED} strokeWidth={1.1} />
               <line x1={CX + R} y1={51} x2={CX + R} y2={59} stroke={MUTED} strokeWidth={1.1} />
-              <text x={CX} y={49} textAnchor="middle" fontSize={8.5} fill={INK}>
+              <text x={CX} y={52} textAnchor="middle" fontSize={8.5} fill={INK}>
                 D ≈ 126,5 mm
               </text>
               <text x={radiusEndX + 7} y={radiusEndY - 5} fontSize={8.5} fill={ACCENT}>
@@ -370,7 +370,7 @@ export function RationalSectionShapes3Animation({ scene, playing, sceneProgress 
               >
                 c = R ≈ 63,25
               </text>
-              <text x={CX + R + 18} y={CY - R - 10} fontSize={8.5} fill={INK}>
+              <text x={CX + R + 18} y={CY - R - 26} fontSize={8.5} fill={INK}>
                 W ≈ 63,2·10³ mm³
               </text>
             </>

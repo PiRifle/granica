@@ -237,9 +237,9 @@ export function AxialElongationAnimation({
           {isElongation && (
             <>
               <Dimension x={246} from={originalJunction} to={junction} label="ΔL₁" color={ACCENT} />
-              {a2 > 0.001 && <Dimension x={264} from={junction + H2} to={bottom} label="ΔL₂" color={ACCENT} />}
+              {a2 > 0.001 && <Dimension x={290} from={junction + H2} to={bottom} label="ΔL₂" color={ACCENT} />}
               {activeSegment == null && (
-                <Dimension x={282} from={originalBottom} to={bottom} label="ΔL" color={ACCENT} />
+                <Dimension x={330} from={originalBottom} to={bottom} label="ΔL" color={ACCENT} />
               )}
             </>
           )}
@@ -271,13 +271,16 @@ export function AxialElongationAnimation({
               strokeWidth={2.4}
               markerEnd="url(#ax1-load)"
             />
-            <text x={CX + W2 + 40} y={bottom + 26} fontSize={10} fill={LOAD}>
+            <text x={CX + W2 + 40} y={bottom + 10} fontSize={10} fill={LOAD}>
               N = 24 kN
             </text>
           </motion.g>
 
-          <text x={16} y={286} fontSize={9} fill={MUTED}>
-            pierwotny kształt: linia przerywana; wydłużenie pokazano w skali poglądowej
+          <text x={16} y={282} fontSize={9} fill={MUTED}>
+            pierwotny kształt: linia przerywana
+          </text>
+          <text x={16} y={294} fontSize={9} fill={MUTED}>
+            wydłużenie w skali poglądowej
           </text>
         </svg>
       </div>

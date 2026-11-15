@@ -136,7 +136,7 @@ export function InversePrincipalAxesAnimation({ scene, playing, sceneProgress }:
               <text x={CX + AXIS_LENGTH - 2} y={CY - 10} textAnchor="end" fontSize={9} fill={INK}>
                 I_x = 35·10⁶
               </text>
-              <text x={CX + 8} y={CY - AXIS_LENGTH + 2} fontSize={9} fill={INK}>
+              <text x={CX + 8} y={CY - AXIS_LENGTH + 20} fontSize={9} fill={INK}>
                 I_y = 25·10⁶
               </text>
             </g>
@@ -175,7 +175,7 @@ export function InversePrincipalAxesAnimation({ scene, playing, sceneProgress }:
                 strokeDasharray="5 4"
                 opacity={0.35}
               />
-              <text x={point(THETA_1).x + 6} y={point(THETA_1).y - 6} fontSize={9} fill={I1} opacity={0.5}>
+              <text x={point(THETA_1).x + 6} y={point(THETA_1).y - 20} fontSize={9} fill={I1} opacity={0.5}>
                 cel: I₁
               </text>
               <text x={14} y={24} fontSize={10} fill={INK}>
@@ -205,21 +205,6 @@ export function InversePrincipalAxesAnimation({ scene, playing, sceneProgress }:
                 strokeLinecap="round"
               />
               <circle cx={CX} cy={CY} r={4.5} fill={INK} />
-
-              {angle > 2 && (
-                <g>
-                  <path d={arcPath(0, angle, 46)} fill="none" stroke={ANGLE} strokeWidth={1.6} />
-                  <text
-                    x={point(angle / 2, 64).x}
-                    y={point(angle / 2, 64).y}
-                    fontSize={10}
-                    fill={ANGLE}
-                    textAnchor="middle"
-                  >
-                    θ = {angle.toFixed(1)}°
-                  </text>
-                </g>
-              )}
 
               {!principal && (
                 <g fontSize={10} fill={INK}>
@@ -286,6 +271,21 @@ export function InversePrincipalAxesAnimation({ scene, playing, sceneProgress }:
                   </text>
                   <text x={14} y={24} fontSize={9} fill={MUTED}>
                     znak I_xy wybiera kierunek obrotu
+                  </text>
+                </g>
+              )}
+
+              {angle > 2 && (
+                <g>
+                  <path d={arcPath(0, angle, 46)} fill="none" stroke={ANGLE} strokeWidth={1.6} />
+                  <text
+                    x={point(angle / 2, 64).x}
+                    y={point(angle / 2, 64).y}
+                    fontSize={10}
+                    fill={ANGLE}
+                    textAnchor="middle"
+                  >
+                    θ = {angle.toFixed(1)}°
                   </text>
                 </g>
               )}

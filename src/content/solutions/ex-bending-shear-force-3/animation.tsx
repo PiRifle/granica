@@ -149,7 +149,7 @@ export function BendingShearForceExample3Animation({ scene, playing, sceneProgre
               <text x={xAt(LOAD_X)} y={30} textAnchor="middle" fontSize={15} fontWeight={700}>
                 ?
               </text>
-              <text x={xAt(LOAD_X)} y={20} textAnchor="middle" fontSize={8}>
+              <text x={xAt(LOAD_X)} y={10} textAnchor="middle" fontSize={8}>
                 szukane P
               </text>
             </motion.g>
@@ -270,7 +270,7 @@ export function BendingShearForceExample3Animation({ scene, playing, sceneProgre
               <line
                 key={marker}
                 x1={xAt(marker)}
-                y1={BEAM_Y + 22}
+                y1={BEAM_Y + 84}
                 x2={xAt(marker)}
                 y2={T_ZERO}
                 stroke={MUTED}
@@ -282,7 +282,7 @@ export function BendingShearForceExample3Animation({ scene, playing, sceneProgre
             <text x={xAt(0)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
               0
             </text>
-            <text x={xAt(LOAD_X)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            <text x={xAt(LOAD_X) + 9} y={T_ZERO + 16} textAnchor="start" fontSize={8.5} fill={MUTED}>
               2
             </text>
             <text x={xAt(LENGTH)} y={T_ZERO + 16} textAnchor="middle" fontSize={8.5} fill={MUTED}>
@@ -356,35 +356,37 @@ export function BendingShearForceExample3Animation({ scene, playing, sceneProgre
             )}
           </motion.g>
 
-          <motion.g initial={false} animate={{ opacity: criticalDraw }} transition={{ duration: 0.2 }}>
-            <rect x={xAt(LOAD_X) - 6} y={tY(12)} width={12} height={tY(-8) - tY(12)} fill={CRITICAL} opacity={0.14} />
-            <line
-              x1={xAt(LOAD_X)}
-              y1={20}
-              x2={xAt(LOAD_X)}
-              y2={292}
-              stroke={CRITICAL}
-              strokeWidth={1.6}
-              strokeDasharray="6 4"
-            />
-            <motion.circle
-              cx={xAt(LOAD_X)}
-              cy={tY(12)}
-              fill={CRITICAL}
-              initial={false}
-              animate={playing ? { r: [4, 6.5, 4], opacity: [0.55, 1, 0.55] } : { r: 5, opacity: 1 }}
-              transition={playing ? { duration: 1.6, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.2 }}
-            />
-            <text x={xAt(LOAD_X) + 9} y={32} fontSize={9} fontWeight={700} fill={CRITICAL}>
-              przekrój krytyczny
-            </text>
-            <text x={xAt(LOAD_X) - 9} y={tY(12) + 16} textAnchor="end" fontSize={9} fontWeight={700} fill={CRITICAL}>
-              |T|max = 12 kN
-            </text>
-            <text x={xAt(LOAD_X) + 9} y={290} fontSize={8.5} fill={CRITICAL}>
-              x = 2 m
-            </text>
-          </motion.g>
+          {isCritical && (
+            <motion.g initial={false} animate={{ opacity: criticalDraw }} transition={{ duration: 0.2 }}>
+              <rect x={xAt(LOAD_X) - 6} y={tY(12)} width={12} height={tY(-8) - tY(12)} fill={CRITICAL} opacity={0.14} />
+              <line
+                x1={xAt(LOAD_X)}
+                y1={20}
+                x2={xAt(LOAD_X)}
+                y2={292}
+                stroke={CRITICAL}
+                strokeWidth={1.6}
+                strokeDasharray="6 4"
+              />
+              <motion.circle
+                cx={xAt(LOAD_X)}
+                cy={tY(12)}
+                fill={CRITICAL}
+                initial={false}
+                animate={playing ? { r: [4, 6.5, 4], opacity: [0.55, 1, 0.55] } : { r: 5, opacity: 1 }}
+                transition={playing ? { duration: 1.6, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.2 }}
+              />
+              <text x={xAt(LOAD_X) + 9} y={32} fontSize={9} fontWeight={700} fill={CRITICAL}>
+                przekrój krytyczny
+              </text>
+              <text x={xAt(LOAD_X) - 9} y={tY(12) + 16} textAnchor="end" fontSize={9} fontWeight={700} fill={CRITICAL}>
+                |T|max = 12 kN
+              </text>
+              <text x={xAt(LOAD_X) + 9} y={290} fontSize={8.5} fill={CRITICAL}>
+                x = 2 m
+              </text>
+            </motion.g>
+          )}
         </svg>
       </div>
     </div>

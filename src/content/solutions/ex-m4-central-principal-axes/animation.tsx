@@ -81,7 +81,7 @@ export function CentralPrincipalAxesAnimation({ scene, playing, sceneProgress }:
             <line x1={px(0)} y1={py(0) + 16} x2={px(120)} y2={py(0) + 16} />
             <line x1={px(0)} y1={py(0) + 10} x2={px(0)} y2={py(0) + 22} />
             <line x1={px(120)} y1={py(0) + 10} x2={px(120)} y2={py(0) + 22} />
-            <text x={(px(0) + px(120)) / 2} y={py(0) + 30} textAnchor="middle" fontSize={10} stroke="none">
+            <text x={px(120) - 4} y={py(0) + 30} textAnchor="end" fontSize={10} stroke="none">
               a = 120 mm
             </text>
             <line x1={px(0) - 16} y1={py(0)} x2={px(0) - 16} y2={py(80)} />
@@ -92,7 +92,7 @@ export function CentralPrincipalAxesAnimation({ scene, playing, sceneProgress }:
             </text>
           </g>
 
-          <text x={14} y={24} fontSize={10} fill={MUTED}>
+          <text x={14} y={286} fontSize={10} fill={MUTED}>
             A = 4800 mm²
           </text>
 
@@ -143,7 +143,7 @@ export function CentralPrincipalAxesAnimation({ scene, playing, sceneProgress }:
               <text x={CX + AXIS_LENGTH - 4} y={CY - 10} textAnchor="end" fontSize={10} fill={INK}>
                 I_x = 1,707·10⁶ mm⁴
               </text>
-              <text x={CX + 8} y={CY - AXIS_LENGTH + 2} fontSize={10} fill={INK}>
+              <text x={CX + 8} y={CY - AXIS_LENGTH + 16} fontSize={10} fill={INK}>
                 I_y = 3,840·10⁶ mm⁴
               </text>
             </motion.g>

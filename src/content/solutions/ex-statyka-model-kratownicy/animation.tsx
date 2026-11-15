@@ -123,23 +123,17 @@ export function ModelTrussAnimation({ index, playing, sceneProgress }: SolutionA
               <line x1={NODES.A.x} y1={304} x2={NODES.B.x} y2={304} strokeDasharray="4 4" />
               <line x1={NODES.A.x} y1={299} x2={NODES.A.x} y2={309} />
               <line x1={NODES.B.x} y1={299} x2={NODES.B.x} y2={309} />
-              <text x={(NODES.A.x + NODES.B.x) / 2} y={320} textAnchor="middle" fontSize="11" stroke="none">
+              <text x={(NODES.A.x + NODES.B.x) / 2} y={296} textAnchor="middle" fontSize="11" stroke="none">
                 6 m
               </text>
               <line x1={NODES.C.x + 40} y1={NODES.C.y} x2={NODES.C.x + 40} y2={NODES.A.y} strokeDasharray="4 4" />
               <line x1={NODES.C.x + 35} y1={NODES.C.y} x2={NODES.C.x + 45} y2={NODES.C.y} />
               <line x1={NODES.C.x + 35} y1={NODES.A.y} x2={NODES.C.x + 45} y2={NODES.A.y} />
-              <text x={NODES.C.x + 48} y={175} fontSize="11" stroke="none">
-                4 m
-              </text>
               <path
                 d={`M ${NODES.A.x + 42} ${NODES.A.y} A 42 42 0 0 0 ${NODES.A.x + 42 * Math.cos((45 * Math.PI) / 180)} ${NODES.A.y - 42 * Math.sin((45 * Math.PI) / 180)}`}
                 fill="none"
                 stroke={MUTED}
               />
-              <text x={NODES.A.x + 52} y={NODES.A.y - 20} fontSize="11" stroke="none">
-                θ
-              </text>
             </g>
           )}
 
@@ -149,6 +143,17 @@ export function ModelTrussAnimation({ index, playing, sceneProgress }: SolutionA
           {MEMBERS.map((member) => (
             <Member key={member.id} from={member.from} to={member.to} status={statusOf(member.id)} />
           ))}
+
+          {showGeometry && (
+            <g fill={MUTED} fontSize="11">
+              <text x={NODES.C.x + 48} y={175}>
+                4 m
+              </text>
+              <text x={NODES.A.x + 52} y={NODES.A.y - 20}>
+                θ
+              </text>
+            </g>
+          )}
 
           {showDiagonalForces && (
             <>
@@ -234,7 +239,7 @@ export function ModelTrussAnimation({ index, playing, sceneProgress }: SolutionA
             strokeWidth={3.5}
             markerEnd="url(#ex-model-load)"
           />
-          <text x={NODES.C.x + 8} y={NODES.C.y - 38} fontSize="11" fill={LOAD}>
+          <text x={NODES.C.x + 8} y={NODES.C.y - 20} fontSize="11" fill={LOAD}>
             P = 10 kN
           </text>
 

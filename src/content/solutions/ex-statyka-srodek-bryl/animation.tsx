@@ -163,7 +163,7 @@ function WireBox({
 }
 
 function AxisTriad() {
-  const origin = { x: 48, y: 300 }
+  const origin = { x: 48, y: 288 }
   return (
     <g stroke={AXIS} strokeWidth="1.2" fill="none">
       <line x1={origin.x} y1={origin.y} x2={origin.x + 30} y2={origin.y + 15} />
@@ -272,7 +272,7 @@ export function SolidCentroidAnimation({ index, playing, sceneProgress }: Soluti
                     <circle cx={item.center.x} cy={item.center.y} r="2.6" fill={ARM} />
                     <PartLabel
                       x={(item.center.x + target.x) / 2 - (item.cut ? 6 : 0)}
-                      y={(item.center.y + target.y) / 2 + (item.cut ? 11 : -5)}
+                      y={(item.center.y + target.y) / 2 + (item.cut ? 11 : -28)}
                       text={item.label}
                       color={ARM}
                       anchor={item.cut ? 'end' : 'middle'}
@@ -280,8 +280,8 @@ export function SolidCentroidAnimation({ index, playing, sceneProgress }: Soluti
                   </g>
                 )
               })}
-              <PartLabel x={312} y={186} text="Q_yz = 1 747 500 cm⁴" color={ARM} />
-              <PartLabel x={312} y={200} text="x_C = 32,66 cm" color={ARM} />
+              <PartLabel x={312} y={272} text="Q_yz = 1 747 500 cm⁴" color={ARM} />
+              <PartLabel x={312} y={286} text="x_C = 32,66 cm" color={ARM} />
             </g>
           )}
 
@@ -309,8 +309,8 @@ export function SolidCentroidAnimation({ index, playing, sceneProgress }: Soluti
                     />
                     <circle cx={item.center.x} cy={item.center.y} r="2.6" fill={ARM} />
                     <PartLabel
-                      x={(item.center.x + target.x) / 2 + (item.cut ? -6 : 4)}
-                      y={(item.center.y + target.y) / 2 + (item.cut ? 9 : 0)}
+                      x={(item.center.x + target.x) / 2 + (item.cut ? -6 : 12)}
+                      y={(item.center.y + target.y) / 2 + (item.cut ? 9 : -10)}
                       text={item.label}
                       color={ARM}
                       anchor={item.cut ? 'end' : 'start'}
@@ -318,8 +318,8 @@ export function SolidCentroidAnimation({ index, playing, sceneProgress }: Soluti
                   </g>
                 )
               })}
-              <PartLabel x={312} y={186} text="Q_zx = 952 500 cm⁴" color={ARM} />
-              <PartLabel x={312} y={200} text="y_C = 17,80 cm" color={ARM} />
+              <PartLabel x={312} y={272} text="Q_zx = 952 500 cm⁴" color={ARM} />
+              <PartLabel x={312} y={286} text="y_C = 17,80 cm" color={ARM} />
             </g>
           )}
 
@@ -348,7 +348,7 @@ export function SolidCentroidAnimation({ index, playing, sceneProgress }: Soluti
                     <circle cx={item.center.x} cy={item.center.y} r="2.6" fill={ARM} />
                     <PartLabel
                       x={item.center.x + 6}
-                      y={(item.center.y + target.y) / 2 + (item.cut ? 11 : 0)}
+                      y={(item.center.y + target.y) / 2 + (item.cut ? 11 : -8)}
                       text={item.label}
                       color={ARM}
                       anchor="start"
@@ -356,8 +356,8 @@ export function SolidCentroidAnimation({ index, playing, sceneProgress }: Soluti
                   </g>
                 )
               })}
-              <PartLabel x={312} y={186} text="Q_xy = 638 750 cm⁴" color={ARM} />
-              <PartLabel x={312} y={200} text="z_C = 11,94 cm" color={ARM} />
+              <PartLabel x={312} y={272} text="Q_xy = 638 750 cm⁴" color={ARM} />
+              <PartLabel x={312} y={286} text="z_C = 11,94 cm" color={ARM} />
             </g>
           )}
 
@@ -373,6 +373,15 @@ export function SolidCentroidAnimation({ index, playing, sceneProgress }: Soluti
                 strokeDasharray="5 3"
               />
               <line x1={baseC.x - 8} y1={baseC.y} x2={baseC.x + 8} y2={baseC.y} stroke={CENTROID} strokeWidth="1.4" />
+              <line
+                x1={baseC.x}
+                y1={baseC.y + 5}
+                x2={baseC.x}
+                y2={276}
+                stroke={CENTROID}
+                strokeWidth="1"
+                strokeDasharray="4 3"
+              />
               <motion.circle
                 cx={centerC.x}
                 cy={centerC.y}
@@ -384,15 +393,15 @@ export function SolidCentroidAnimation({ index, playing, sceneProgress }: Soluti
                 transition={{ duration: 1.4, repeat: playing ? Infinity : 0 }}
                 style={{ transformOrigin: `${centerC.x}px ${centerC.y}px` }}
               />
-              <text x={centerC.x + 14} y={centerC.y - 9} fontSize="11" fontWeight="700" fill={CENTROID}>
+              <text x={230} y={298} textAnchor="middle" fontSize="11" fontWeight="700" fill={CENTROID}>
                 C = (32,66; 17,80; 11,94) cm
               </text>
-              <text x={centerC.x + 14} y={centerC.y + 6} fontSize="9" fill={CENTROID}>
+              <text x={230} y={312} textAnchor="middle" fontSize="9" fill={CENTROID}>
                 rzut na podstawę: (32,66; 17,80) cm
               </text>
               <PartLabel
                 x={230}
-                y={316}
+                y={18}
                 text="0 ≤ x_C ≤ 70, 0 ≤ y_C ≤ 50, 0 ≤ z_C ≤ 25"
                 color={CENTROID}
                 anchor="middle"

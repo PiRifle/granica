@@ -144,8 +144,8 @@ export function PureBendingExample3Animation({ scene, playing, sceneProgress }: 
               <line x1={X0} y1={112} x2={X1} y2={112} stroke={EDGE} strokeWidth={5} strokeLinecap="round" />
               <Support x={X0} y={112} label="A" />
               <Support x={X1} y={112} label="B" />
-              <LoadArrow x={LOAD_LEFT} top={64} tip={108} label="P = 10 kN" />
-              <LoadArrow x={LOAD_RIGHT} top={64} tip={108} label="P = 10 kN" />
+              <LoadArrow x={LOAD_LEFT} top={72} tip={108} label="P = 10 kN" />
+              <LoadArrow x={LOAD_RIGHT} top={72} tip={108} label="P = 10 kN" />
               <Dimension x1={X0} x2={X1} y={166} label="L = 3 m" />
               <Dimension x1={X0} x2={LOAD_LEFT} y={150} label="a = 0,683 m" />
               <Dimension x1={LOAD_RIGHT} x2={X1} y={150} label="a = 0,683 m" />
@@ -306,8 +306,8 @@ export function PureBendingExample3Animation({ scene, playing, sceneProgress }: 
               <line x1={X0} y1={110} x2={X1} y2={110} stroke={EDGE} strokeWidth={5} strokeLinecap="round" />
               <Support x={X0} y={110} label="A" />
               <Support x={X1} y={110} label="B" />
-              <LoadArrow x={LOAD_LEFT} top={64} tip={106} label="P = 10 kN" />
-              <LoadArrow x={LOAD_RIGHT} top={64} tip={106} label="P = 10 kN" />
+              <LoadArrow x={LOAD_LEFT} top={72} tip={106} label="P = 10 kN" />
+              <LoadArrow x={LOAD_RIGHT} top={72} tip={106} label="P = 10 kN" />
               <Dimension x1={X0} x2={LOAD_LEFT} y={150} label="a = 0,683 m" />
               <Dimension x1={LOAD_RIGHT} x2={X1} y={150} label="a = 0,683 m" />
               <Dimension x1={X0} x2={X1} y={168} label="L = 3 m" />

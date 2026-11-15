@@ -250,7 +250,7 @@ export function ShearTwistAngleAnimation({ scene, index, playing, sceneProgress 
               fill="none"
               strokeWidth={2}
             />
-            <text x={X1 - 38} y={CY - R2 - 18} textAnchor="middle" fontSize={9} stroke="none">
+            <text x={X1 - 38} y={CY - R2 - 30} textAnchor="middle" fontSize={9} stroke="none">
               T
             </text>
           </g>

@@ -91,11 +91,30 @@ function Header() {
   )
 }
 
-function FiberMark({ x, y, label, color }: { x: number; y: number; label: string; color: string }) {
+function FiberMark({
+  x,
+  y,
+  label,
+  color,
+  side = 'right',
+}: {
+  x: number
+  y: number
+  label: string
+  color: string
+  side?: 'left' | 'right'
+}) {
   return (
     <g>
       <circle cx={x} cy={y} r={4} fill={color} stroke={INK} strokeWidth={0.9} />
-      <text x={x + 8} y={y + 4} fontSize={9} fontWeight={600} fill={color}>
+      <text
+        x={side === 'left' ? x - 8 : x + 8}
+        y={y + 4}
+        textAnchor={side === 'left' ? 'end' : 'start'}
+        fontSize={9}
+        fontWeight={600}
+        fill={color}
+      >
         {label}
       </text>
     </g>
@@ -178,7 +197,7 @@ export function CombinedLoadingExample2Animation({ scene, playing, sceneProgress
               <text x={370} y={282} textAnchor="middle" fontSize={9} fill={MUTED}>
                 dwa przeciwległe włókna
               </text>
-              <text x={230} y={292} textAnchor="middle" fontSize={9} fill={MUTED}>
+              <text x={230} y={296} textAnchor="middle" fontSize={9} fill={MUTED}>
                 siła osiowa ściska, zginanie rozciąga górę i ściska dół
               </text>
             </g>
@@ -205,7 +224,7 @@ export function CombinedLoadingExample2Animation({ scene, playing, sceneProgress
               <text x={profileAxis} y={244} textAnchor="middle" fontSize={9} fill={MUTED}>
                 0
               </text>
-              <text x={profileAxis - 8} y={66} textAnchor="end" fontSize={9} fill={MUTED}>
+              <text x={profileAxis - 8} y={56} textAnchor="end" fontSize={9} fill={MUTED}>
                 σ
               </text>
 
@@ -256,7 +275,7 @@ export function CombinedLoadingExample2Animation({ scene, playing, sceneProgress
               <text x={profileAxis - 7.07 * stressScale} y={70} textAnchor="middle" fontSize={9} fill={BLUE}>
                 σ_N
               </text>
-              <text x={profileAxis + 56.59 * stressScale} y={64} textAnchor="middle" fontSize={9} fill={ORANGE}>
+              <text x={profileAxis + 56.59 * stressScale} y={68} textAnchor="middle" fontSize={9} fill={ORANGE}>
                 σ_M
               </text>
               <text
@@ -289,7 +308,7 @@ export function CombinedLoadingExample2Animation({ scene, playing, sceneProgress
             <g>
               <Header />
               <circle cx={95} cy={150} r={68} fill={FILL} stroke={EDGE} strokeWidth={1.8} />
-              <FiberMark x={95} y={82} label="A" color={BLUE} />
+              <FiberMark x={95} y={82} label="A" color={BLUE} side="left" />
               <FiberMark x={95} y={218} label="B" color={RED} />
               <Arrow x1={104} y1={82} x2={104 + 30 * p} y2={82} color={VIOLET} width={2.3} />
               <Arrow x1={86} y1={218} x2={86 - 30 * p} y2={218} color={VIOLET} width={2.3} />
@@ -448,7 +467,7 @@ export function CombinedLoadingExample2Animation({ scene, playing, sceneProgress
               <text x={78} y={128} fontSize={10} fontWeight={600} fill={INK}>
                 HMH włókno B: 66,9 MPa
               </text>
-              <text x={70 + (hmhB / 235) * 330 * p + 8} y={128} fontSize={9} fill={GREEN}>
+              <text x={394} y={128} textAnchor="end" fontSize={9} fill={GREEN}>
                 n = 3,51
               </text>
 
@@ -465,7 +484,7 @@ export function CombinedLoadingExample2Animation({ scene, playing, sceneProgress
               <text x={78} y={180} fontSize={10} fontWeight={600} fill={INK}>
                 Tresca włókno B: 67,9 MPa
               </text>
-              <text x={70 + (trescaB / 235) * 330 * p + 8} y={180} fontSize={9} fill={ORANGE}>
+              <text x={394} y={180} textAnchor="end" fontSize={9} fill={ORANGE}>
                 n = 3,46
               </text>
 

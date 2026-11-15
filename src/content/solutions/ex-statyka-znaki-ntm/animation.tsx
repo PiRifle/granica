@@ -151,7 +151,7 @@ function MomentArc({
 
 export function SignConventionAnimation({ scene, playing, sceneProgress }: SolutionAnimationProps) {
   const metric = scene.focus?.metric ?? 'model'
-  const reveal = playing ? smooth(sceneProgress) : 1
+  const reveal = playing ? smooth(sceneProgress * 4) : 1
   const isModel = metric === 'model'
   const isReaction = metric === 'reaction'
   const isConvention = metric === 'convention'
@@ -343,10 +343,10 @@ export function SignConventionAnimation({ scene, playing, sceneProgress }: Solut
                 align="start"
               />
               <MomentArc x={cutMid + gap} reverse label="M" labelX={cutMid + gap + 26} />
-              <text x={cutMid - gap - 8} y={BEAM_Y + 76} textAnchor="middle" fontSize={8.5} fill={EDGE}>
+              <text x={cutMid - gap - 6} y={BEAM_Y + 76} textAnchor="end" fontSize={8.5} fill={EDGE}>
                 lewa część
               </text>
-              <text x={cutMid + gap + 8} y={BEAM_Y + 76} textAnchor="middle" fontSize={8.5} fill={EDGE}>
+              <text x={cutMid + gap + 6} y={BEAM_Y + 76} textAnchor="start" fontSize={8.5} fill={EDGE}>
                 prawa część
               </text>
             </g>
@@ -405,9 +405,9 @@ export function SignConventionAnimation({ scene, playing, sceneProgress }: Solut
                 color={INTERNAL}
                 marker="ex-zn-internal"
                 label="T = 10 kN"
-                labelX={cut7 + 8}
+                labelX={cut7 - 8}
                 labelY={BEAM_Y + 50}
-                align="start"
+                align="end"
               />
               <MomentArc x={cut7} reverse label="M = −10 kN·m" labelX={cut7 - 6} />
               <Dimension x1={cut7} x2={cX} y={BEAM_Y + 44} label="1 m" />
@@ -459,7 +459,7 @@ export function SignConventionAnimation({ scene, playing, sceneProgress }: Solut
             </g>
           )}
 
-          <text x="230" y="308" textAnchor="middle" fontSize={10.5} fill={INK}>
+          <text x="230" y={isControl ? 208 : 308} textAnchor="middle" fontSize={10.5} fill={INK}>
             {isModel
               ? 'Przewieszenie zmienia znak momentu nad podporą B'
               : isControl

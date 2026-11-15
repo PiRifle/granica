@@ -122,8 +122,8 @@ function MainSection({
             strokeDasharray="5 4"
           />
           <text
-            x={CX}
-            y={CY + 4}
+            x={CX - 30}
+            y={CY - 34}
             textAnchor="middle"
             fontSize={14}
             fontWeight={600}
@@ -136,7 +136,15 @@ function MainSection({
       )}
 
       {!showHole && (
-        <text x={CX} y={CY + 4} textAnchor="middle" fontSize={12} fontWeight={600} fill={INK} opacity={0.82}>
+        <text
+          x={CX - 30}
+          y={CY - 34}
+          textAnchor="middle"
+          fontSize={12}
+          fontWeight={600}
+          fill={INK}
+          opacity={0.82}
+        >
           ∅100
         </text>
       )}
@@ -162,7 +170,7 @@ function MainSection({
       <text x={CX + R + 34} y={CY + 4} fontSize={11} fontWeight={600} fill={xActive ? ORANGE : MUTED}>
         x
       </text>
-      <text x={CX + 6} y={CY - R - 8} fontSize={11} fontWeight={600} fill={yActive ? BLUE : MUTED}>
+      <text x={CX + 6} y={CY - R - 4} fontSize={11} fontWeight={600} fill={yActive ? BLUE : MUTED}>
         y
       </text>
 

@@ -69,11 +69,11 @@ export function AxialStiffnessConditionAnimation({ scene, index, playing, sceneP
             ΔL_dop = 1,0 mm
           </text>
 
-          <line x1={80} y1={top} x2={80} y2={baseBottom} stroke={MUTED} strokeWidth={1} strokeDasharray="4 4" />
-          <line x1={74} y1={top} x2={86} y2={top} stroke={MUTED} strokeWidth={1} />
-          <line x1={74} y1={baseBottom} x2={86} y2={baseBottom} stroke={MUTED} strokeWidth={1} />
+          <line x1={260} y1={top} x2={260} y2={baseBottom} stroke={MUTED} strokeWidth={1} strokeDasharray="4 4" />
+          <line x1={254} y1={top} x2={266} y2={top} stroke={MUTED} strokeWidth={1} />
+          <line x1={254} y1={baseBottom} x2={266} y2={baseBottom} stroke={MUTED} strokeWidth={1} />
           <text
-            transform={`translate(68 ${(top + baseBottom) / 2}) rotate(-90)`}
+            transform={`translate(248 ${(top + baseBottom) / 2}) rotate(-90)`}
             textAnchor="middle"
             fontSize={9}
             fill={MUTED}
@@ -124,7 +124,7 @@ export function AxialStiffnessConditionAnimation({ scene, index, playing, sceneP
           </text>
 
           <line x1={40} y1={limitY} x2={450} y2={limitY} stroke={MUTED} strokeWidth={1.2} strokeDasharray="6 4" />
-          <text x={450} y={limitY - 6} textAnchor="end" fontSize={9} fill={MUTED}>
+          <text x={40} y={limitY + 15} fontSize={9} fill={MUTED}>
             ΔL_dop = 1,0 mm
           </text>
 

@@ -222,7 +222,7 @@ function MohrCircle({ progress }: { progress: number }) {
         transition={{ duration: 0.12, ease: 'linear' }}
       />
       <circle cx={cx} cy={axisY} r={2.8} fill={EDGE} />
-      <text x={cx} y={axisY - 8} textAnchor="middle" fontSize={8} fill={EDGE}>
+      <text x={cx} y={axisY + 16} textAnchor="middle" fontSize={8} fill={EDGE}>
         C = {CENTER}
       </text>
 
@@ -405,7 +405,7 @@ function EquivalentGauge({ progress }: { progress: number }) {
           HMH {pl(HMH, 1)}
         </text>
 
-        <line x1={xOf(SIGMA)} y1={y - 8} x2={xOf(SIGMA)} y2={y + 12} stroke={STRESS} strokeWidth={1.8} />
+        <line x1={xOf(SIGMA)} y1={y - 8} x2={xOf(SIGMA)} y2={y + 5} stroke={STRESS} strokeWidth={1.8} />
         <text x={xOf(SIGMA)} y={y - 14} textAnchor="middle" fontSize={8} fill={STRESS}>
           σ = {SIGMA}
         </text>
@@ -448,7 +448,7 @@ function SafetyGauge({ progress }: { progress: number }) {
 
       <line x1={x} y1={y + 14} x2={x + width} y2={y + 14} stroke={MUTED} strokeWidth={1.1} />
       <line x1={xOf(1)} y1={y - 2} x2={xOf(1)} y2={y + 30} stroke={GREEN} strokeWidth={1.6} strokeDasharray="3 3" />
-      <text x={xOf(1)} y={y - 8} textAnchor="middle" fontSize={8} fill={GREEN}>
+      <text x={xOf(1)} y={y - 21} textAnchor="middle" fontSize={8} fill={GREEN}>
         n = 1
       </text>
 

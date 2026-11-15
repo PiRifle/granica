@@ -209,21 +209,8 @@ export function PoissonExample3Animation({ scene, index, playing, sceneProgress 
             </marker>
           </defs>
 
-          <text x={14} y={18} fontSize={10.5} fontWeight={700} fill={INK}>
-            wałek: limit zmiany średnicy
-          </text>
-          <text x={14} y={33} fontSize={8.5} fill={MUTED}>
-            d₀ = 10 mm · |Δd| ≤ 0,002 mm · ν = 0,30
-          </text>
-
           {isCheck ? (
             <g>
-              <text x={108} y={54} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={LATERAL}>
-                limit 2 μm
-              </text>
-              <text x={272} y={54} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={OK}>
-                limit 0,2 μm
-              </text>
               <Support cx={108} half={26} />
               <Support cx={272} half={26} />
               <Rod
@@ -250,21 +237,6 @@ export function PoissonExample3Animation({ scene, index, playing, sceneProgress 
                 showLateral
                 showStress
               />
-              <text x={108} y={236} textAnchor="middle" fontSize={8.5} fill={LATERAL}>
-                Δd = 2 μm
-              </text>
-              <text x={108} y={250} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={LATERAL}>
-                σ = 133,41 MPa
-              </text>
-              <text x={272} y={236} textAnchor="middle" fontSize={8.5} fill={OK}>
-                Δd = 0,2 μm
-              </text>
-              <text x={272} y={250} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={OK}>
-                σ = 13,34 MPa
-              </text>
-              <text x={190} y={278} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                dziesięciokrotnie mniejsza zmiana średnicy daje dziesięciokrotnie mniejsze naprężenie
-              </text>
             </g>
           ) : (
             <g>
@@ -287,17 +259,6 @@ export function PoissonExample3Animation({ scene, index, playing, sceneProgress 
                 <line x1={CX - D0 / 2 - 24} y1={TOP} x2={CX - D0 / 2 - 24} y2={ORIGINAL_BOTTOM} />
                 <line x1={CX - D0 / 2 - 29} y1={TOP} x2={CX - D0 / 2 - 19} y2={TOP} />
                 <line x1={CX - D0 / 2 - 29} y1={ORIGINAL_BOTTOM} x2={CX - D0 / 2 - 19} y2={ORIGINAL_BOTTOM} />
-                <text
-                  x={CX - D0 / 2 - 32}
-                  y={(TOP + ORIGINAL_BOTTOM) / 2}
-                  textAnchor="middle"
-                  fontSize={9}
-                  fill={MUTED}
-                  stroke="none"
-                  transform={`rotate(-90 ${CX - D0 / 2 - 32} ${(TOP + ORIGINAL_BOTTOM) / 2})`}
-                >
-                  L₀
-                </text>
               </g>
 
               <motion.g
@@ -315,40 +276,17 @@ export function PoissonExample3Animation({ scene, index, playing, sceneProgress 
                 />
               </motion.g>
 
-              {metric === 'stress' && (
-                <text x={CX + 8} y={mainBottom + 28} fontSize={9.5} fill={LATERAL}>
-                  σ = 133,41 MPa
-                </text>
-              )}
-
               {metric === 'axial' && (
-                <>
-                  <line
-                    x1={CX + 26}
-                    y1={ORIGINAL_BOTTOM}
-                    x2={CX + 26}
-                    y2={mainBottom}
-                    stroke={ACCENT}
-                    strokeWidth={1.2}
-                  />
-                  <text x={CX + 32} y={(ORIGINAL_BOTTOM + mainBottom) / 2 + 3} fontSize={8.5} fill={ACCENT}>
-                    ΔL
-                  </text>
-                  <text x={CX + 10} y={TOP + 34} fontSize={9} fontWeight={700} fill={ACCENT}>
-                    ε_osi = 667 με
-                  </text>
-                </>
+                <line
+                  x1={CX + 26}
+                  y1={ORIGINAL_BOTTOM}
+                  x2={CX + 26}
+                  y2={mainBottom}
+                  stroke={ACCENT}
+                  strokeWidth={1.2}
+                />
               )}
 
-              {metric === 'lateral' && (
-                <text x={mainLeft - 18} y={TOP + 78} textAnchor="end" fontSize={8.5} fill={LATERAL}>
-                  |ε_poprz| = 200 με
-                </text>
-              )}
-
-              <text x={SECTION_X} y={SECTION_Y - SECTION_R - 16} textAnchor="middle" fontSize={9} fill={MUTED}>
-                przekrój (powiększony)
-              </text>
               <circle
                 cx={SECTION_X}
                 cy={SECTION_Y}
@@ -387,9 +325,6 @@ export function PoissonExample3Animation({ scene, index, playing, sceneProgress 
                 stroke={MUTED}
                 strokeWidth={1.1}
               />
-              <text x={SECTION_X} y={SECTION_Y + SECTION_R + 28} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                d₀ = 10 mm
-              </text>
 
               <motion.g
                 animate={playing ? { opacity: [0.35, pulse, 0.35] } : { opacity: 0.55 }}
@@ -405,16 +340,93 @@ export function PoissonExample3Animation({ scene, index, playing, sceneProgress 
                   strokeDasharray="3 3"
                 />
               </motion.g>
-
-              <text x={SECTION_X} y={SECTION_Y + SECTION_R + 44} textAnchor="middle" fontSize={8} fill={LATERAL}>
-                strefa |Δd| ≤ 0,002 mm
-              </text>
             </g>
           )}
 
-          <text x={14} y={296} fontSize={8.5} fill={MUTED}>
-            skurcz średnicy i wydłużenie osiowe są powiększone poglądowo
-          </text>
+          <g>
+            <text x={14} y={18} fontSize={10.5} fontWeight={700} fill={INK}>
+              wałek: limit zmiany średnicy
+            </text>
+            <text x={14} y={33} fontSize={8.5} fill={MUTED}>
+              d₀ = 10 mm · |Δd| ≤ 0,002 mm · ν = 0,30
+            </text>
+
+            {isCheck ? (
+              <g>
+                <text x={108} y={54} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={LATERAL}>
+                  limit 2 μm
+                </text>
+                <text x={272} y={54} textAnchor="middle" fontSize={9.5} fontWeight={700} fill={OK}>
+                  limit 0,2 μm
+                </text>
+                <text x={108} y={236} textAnchor="middle" fontSize={8.5} fill={LATERAL}>
+                  Δd = 2 μm
+                </text>
+                <text x={108} y={250} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={LATERAL}>
+                  σ = 133,41 MPa
+                </text>
+                <text x={272} y={236} textAnchor="middle" fontSize={8.5} fill={OK}>
+                  Δd = 0,2 μm
+                </text>
+                <text x={272} y={250} textAnchor="middle" fontSize={8.5} fontWeight={700} fill={OK}>
+                  σ = 13,34 MPa
+                </text>
+                <text x={190} y={278} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  dziesięciokrotnie mniejsza zmiana średnicy daje dziesięciokrotnie mniejsze naprężenie
+                </text>
+              </g>
+            ) : (
+              <g>
+                <text
+                  x={CX - D0 / 2 - 32}
+                  y={(TOP + ORIGINAL_BOTTOM) / 2}
+                  textAnchor="middle"
+                  fontSize={9}
+                  fill={MUTED}
+                  transform={`rotate(-90 ${CX - D0 / 2 - 32} ${(TOP + ORIGINAL_BOTTOM) / 2})`}
+                >
+                  L₀
+                </text>
+
+                {metric === 'stress' && (
+                  <text x={CX + 8} y={mainBottom + 14} fontSize={9.5} fill={LATERAL}>
+                    σ = 133,41 MPa
+                  </text>
+                )}
+
+                {metric === 'axial' && (
+                  <>
+                    <text x={CX + 32} y={(ORIGINAL_BOTTOM + mainBottom) / 2 + 3} fontSize={8.5} fill={ACCENT}>
+                      ΔL
+                    </text>
+                    <text x={CX + 10} y={TOP + 34} fontSize={9} fontWeight={700} fill={ACCENT}>
+                      ε_osi = 667 με
+                    </text>
+                  </>
+                )}
+
+                {metric === 'lateral' && (
+                  <text x={mainLeft - 18} y={TOP + 78} textAnchor="end" fontSize={8.5} fill={LATERAL}>
+                    |ε_poprz| = 200 με
+                  </text>
+                )}
+
+                <text x={SECTION_X} y={SECTION_Y - SECTION_R - 16} textAnchor="middle" fontSize={9} fill={MUTED}>
+                  przekrój (powiększony)
+                </text>
+                <text x={SECTION_X} y={SECTION_Y + SECTION_R + 28} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  d₀ = 10 mm
+                </text>
+                <text x={SECTION_X} y={SECTION_Y + SECTION_R + 44} textAnchor="middle" fontSize={8} fill={LATERAL}>
+                  strefa |Δd| ≤ 0,002 mm
+                </text>
+              </g>
+            )}
+
+            <text x={14} y={296} fontSize={8.5} fill={MUTED}>
+              skurcz średnicy i wydłużenie osiowe są powiększone poglądowo
+            </text>
+          </g>
         </svg>
       </div>
     </div>

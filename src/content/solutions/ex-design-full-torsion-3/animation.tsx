@@ -244,7 +244,7 @@ function StressProfile() {
   const wallTo = sx(40)
   return (
     <g>
-      <text x={96} y={208} fontSize={9} fontWeight={600} fill={INK}>
+      <text x={96} y={196} fontSize={9} fontWeight={600} fill={INK}>
         rozkład τ w ściance rury
       </text>
       <line x1={xr0} y1={yBase} x2={xr1 + 6} y2={yBase} stroke={MUTED} strokeWidth={1} />
@@ -275,7 +275,7 @@ function StressProfile() {
       <text x={xr0 - 4} y={sy(40) + 3} textAnchor="end" fontSize={8} fill={MUTED}>
         40
       </text>
-      <text x={xr0 - 16} y={sy(40) - 6} fontSize={7.5} fill={MUTED}>
+      <text x={xr0 - 16} y={sy(40) - 14} fontSize={7.5} fill={MUTED}>
         MPa
       </text>
       <text x={xr1} y={yBase + 13} textAnchor="end" fontSize={8} fill={MUTED}>

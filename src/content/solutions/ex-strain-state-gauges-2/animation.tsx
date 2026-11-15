@@ -218,13 +218,6 @@ export function ThermalCompensationAnimation({ scene, playing, sceneProgress }: 
             <GaugeGrid cx={GAUGE_CX} cy={GAUGE_CY} width={activeWidth} height={activeHeight} color={gaugeColor} />
           </g>
 
-          <text x={GAUGE_CX} y={BEAM_TOP - 10} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-            czujnik czynny — belka bez obciążenia
-          </text>
-          <text x={BEAM_LEFT + 4} y={BEAM_BOTTOM + 20} fontSize={8.5} fill={MUTED}>
-            ΔT = 18 K
-          </text>
-
           {showReference && (
             <motion.g initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
               <rect
@@ -239,9 +232,6 @@ export function ThermalCompensationAnimation({ scene, playing, sceneProgress }: 
                 strokeWidth={1.6}
               />
               <GaugeGrid cx={GAUGE_CX} cy={REF_CY} width={activeWidth} height={activeHeight} color={HEAT} />
-              <text x={GAUGE_CX} y={REF_CY + 40} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-                czujnik odniesienia — to samo ΔT, brak odkształcenia mechanicznego
-              </text>
               <path
                 d={`M ${GAUGE_CX} ${BEAM_BOTTOM + 2} L ${GAUGE_CX} 158 L 338 158 L 338 214`}
                 fill="none"
@@ -272,21 +262,6 @@ export function ThermalCompensationAnimation({ scene, playing, sceneProgress }: 
             />
           )}
 
-          <g fill={MUTED} fontSize={9}>
-            <text x={12} y={26}>
-              R₀ = 350 Ω
-            </text>
-            <text x={12} y={40}>
-              GF = 2,10
-            </text>
-            <text x={12} y={54}>
-              E = 200 GPa
-            </text>
-            <text x={238} y={40}>
-              α_poz ≈ 11 µε/K
-            </text>
-          </g>
-
           <g transform="translate(374 214)">
             <path d="M 0 -36 L 36 0 L 0 36 L -36 0 Z" fill="none" stroke={MUTED} strokeWidth={1.5} />
             <line x1={18} y1={-18} x2={30} y2={-6} stroke={HEAT} strokeWidth={3.2} strokeLinecap="round" />
@@ -304,32 +279,10 @@ export function ThermalCompensationAnimation({ scene, playing, sceneProgress }: 
               strokeWidth={1.6}
               markerEnd={showReference ? 'url(#thermal-comp-bridge)' : undefined}
             />
-            <text x={0} y={54} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-              mostek różnicowy
-            </text>
           </g>
 
           <g>
             <rect x={300} y={54} width={148} height={100} rx={10} fill={PANEL} />
-            <text x={314} y={71} fontSize={7.5} letterSpacing={0.6} fill={PANEL_MUTED}>
-              {reading.label}
-            </text>
-            <motion.text
-              key={metric}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              x={314}
-              y={104}
-              fontSize={reading.size ?? 24}
-              fontWeight={700}
-              fill={reading.color}
-            >
-              {reading.value}
-            </motion.text>
-            <text x={314} y={124} fontSize={8} fill={PANEL_MUTED}>
-              {reading.note}
-            </text>
             {isStress && (
               <motion.path
                 initial={{ opacity: 0 }}
@@ -355,9 +308,62 @@ export function ThermalCompensationAnimation({ scene, playing, sceneProgress }: 
             )}
           </g>
 
-          <text x={230} y={286} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-            temperatura działa na oba czujniki jednakowo, więc w różnicy znika
-          </text>
+          <g>
+            <text x={GAUGE_CX} y={BEAM_TOP - 10} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              czujnik czynny — belka bez obciążenia
+            </text>
+            <text x={BEAM_LEFT + 4} y={BEAM_BOTTOM + 20} fontSize={8.5} fill={MUTED}>
+              ΔT = 18 K
+            </text>
+            {showReference && (
+              <motion.g initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                <text x={GAUGE_CX} y={REF_CY + 40} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                  czujnik odniesienia — to samo ΔT, brak odkształcenia mechanicznego
+                </text>
+              </motion.g>
+            )}
+            <g fill={MUTED} fontSize={9}>
+              <text x={12} y={26}>
+                R₀ = 350 Ω
+              </text>
+              <text x={12} y={40}>
+                GF = 2,10
+              </text>
+              <text x={12} y={54}>
+                E = 200 GPa
+              </text>
+              <text x={238} y={40}>
+                α_poz ≈ 11 µε/K
+              </text>
+            </g>
+            <g transform="translate(374 214)">
+              <text x={0} y={54} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+                mostek różnicowy
+              </text>
+            </g>
+            <text x={314} y={71} fontSize={7.5} letterSpacing={0.6} fill={PANEL_MUTED}>
+              {reading.label}
+            </text>
+            <motion.text
+              key={metric}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              x={314}
+              y={104}
+              fontSize={reading.size ?? 24}
+              fontWeight={700}
+              fill={reading.color}
+            >
+              {reading.value}
+            </motion.text>
+            <text x={314} y={124} fontSize={8} fill={PANEL_MUTED}>
+              {reading.note}
+            </text>
+            <text x={230} y={286} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+              temperatura działa na oba czujniki jednakowo, więc w różnicy znika
+            </text>
+          </g>
         </svg>
       </div>
     </div>

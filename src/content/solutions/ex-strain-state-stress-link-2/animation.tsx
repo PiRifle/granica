@@ -30,81 +30,90 @@ const smooth = (value: number) => {
   return t * t * (3 - 2 * t)
 }
 
-function ShaftLoads({ draw, playing }: { draw: number; playing: boolean }) {
+type Part = 'shapes' | 'texts'
+
+function ShaftLoads({ draw, playing, part }: { draw: number; playing: boolean; part: Part }) {
   const y = 124
   return (
     <g>
-      <rect
-        x={104}
-        y={y - 20}
-        width={272}
-        height={40}
-        rx={20}
-        fill={ACCENT}
-        fillOpacity={0.12}
-        stroke={ACCENT}
-        strokeWidth={2}
-      />
-      <ellipse cx={104} cy={y} rx={11} ry={20} fill={ACCENT} fillOpacity={0.16} stroke={ACCENT} strokeWidth={2} />
-      <ellipse cx={376} cy={y} rx={11} ry={20} fill={ACCENT} fillOpacity={0.16} stroke={ACCENT} strokeWidth={2} />
+      {part === 'shapes' ? (
+        <>
+          <rect
+            x={104}
+            y={y - 20}
+            width={272}
+            height={40}
+            rx={20}
+            fill={ACCENT}
+            fillOpacity={0.12}
+            stroke={ACCENT}
+            strokeWidth={2}
+          />
+          <ellipse cx={104} cy={y} rx={11} ry={20} fill={ACCENT} fillOpacity={0.16} stroke={ACCENT} strokeWidth={2} />
+          <ellipse cx={376} cy={y} rx={11} ry={20} fill={ACCENT} fillOpacity={0.16} stroke={ACCENT} strokeWidth={2} />
 
-      <motion.g
-        stroke={STRESS}
-        strokeWidth={2.4}
-        fill={STRESS}
-        initial={false}
-        animate={playing ? { x: [0, 4, 0] } : { x: 0 }}
-        transition={{ duration: 1.4, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
-      >
-        <line x1={88} y1={y} x2={70} y2={y} markerEnd={`url(#${MARK_STRESS})`} />
-        <line x1={392} y1={y} x2={410} y2={y} markerEnd={`url(#${MARK_STRESS})`} />
-        <text x={62} y={y - 8} textAnchor="end" fontSize={9} stroke="none">
-          N = 30 kN
-        </text>
-      </motion.g>
+          <motion.g
+            stroke={STRESS}
+            strokeWidth={2.4}
+            fill={STRESS}
+            initial={false}
+            animate={playing ? { x: [0, 4, 0] } : { x: 0 }}
+            transition={{ duration: 1.4, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
+          >
+            <line x1={88} y1={y} x2={70} y2={y} markerEnd={`url(#${MARK_STRESS})`} />
+            <line x1={392} y1={y} x2={410} y2={y} markerEnd={`url(#${MARK_STRESS})`} />
+          </motion.g>
 
-      <motion.g
-        stroke={STRESS}
-        strokeWidth={2}
-        fill="none"
-        initial={false}
-        animate={playing ? { rotate: [0, 5, 0] } : { rotate: 0 }}
-        transition={{ duration: 2.2, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
-        style={{ transformOrigin: '240px 74px' }}
-      >
-        <path d="M212 82 Q240 62 268 82" markerEnd={`url(#${MARK_STRESS})`} />
-      </motion.g>
-      <text x={240} y={58} textAnchor="middle" fontSize={9} fill={STRESS}>
-        M = 1,2 kN·m
-      </text>
+          <motion.g
+            stroke={STRESS}
+            strokeWidth={2}
+            fill="none"
+            initial={false}
+            animate={playing ? { rotate: [0, 5, 0] } : { rotate: 0 }}
+            transition={{ duration: 2.2, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
+            style={{ transformOrigin: '240px 74px' }}
+          >
+            <path d="M212 82 Q240 62 268 82" markerEnd={`url(#${MARK_STRESS})`} />
+          </motion.g>
 
-      <motion.g
-        stroke={SHEAR}
-        strokeWidth={2}
-        fill={SHEAR}
-        initial={false}
-        animate={playing ? { rotate: [0, 22, 0] } : { rotate: 0 }}
-        transition={{ duration: 2.4, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
-        style={{ transformOrigin: '376px 124px' }}
-      >
-        <path d="M386 98 A 30 34 0 1 1 386 150" fill="none" markerEnd={`url(#${MARK_SHEAR})`} />
-      </motion.g>
-      <text x={424} y={112} textAnchor="end" fontSize={9} fill={SHEAR}>
-        T = 800 N·m
-      </text>
+          <motion.g
+            stroke={SHEAR}
+            strokeWidth={2}
+            fill={SHEAR}
+            initial={false}
+            animate={playing ? { rotate: [0, 22, 0] } : { rotate: 0 }}
+            transition={{ duration: 2.4, repeat: playing ? Infinity : 0, ease: 'easeInOut' }}
+            style={{ transformOrigin: '376px 124px' }}
+          >
+            <path d="M386 98 A 30 34 0 1 1 386 150" fill="none" markerEnd={`url(#${MARK_SHEAR})`} />
+          </motion.g>
 
-      <circle cx={240} cy={y - 20} r={4} fill={STRESS} opacity={draw} />
-      <text x={250} y={y - 24} fontSize={9} fontWeight={700} fill={STRESS} opacity={draw}>
-        włókno A
-      </text>
-      <text x={240} y={y + 42} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-        przekrój kołowy d = 60 mm
-      </text>
+          <circle cx={240} cy={y - 20} r={4} fill={STRESS} opacity={draw} />
+        </>
+      ) : (
+        <>
+          <text x={62} y={y - 8} textAnchor="end" fontSize={9} fill={STRESS}>
+            N = 30 kN
+          </text>
+          <text x={240} y={58} textAnchor="middle" fontSize={9} fill={STRESS}>
+            M = 1,2 kN·m
+          </text>
+          <text x={424} y={112} textAnchor="end" fontSize={9} fill={SHEAR}>
+            T = 800 N·m
+          </text>
+          <text x={250} y={y - 24} fontSize={9} fontWeight={700} fill={STRESS} opacity={draw}>
+            włókno A
+          </text>
+          <text x={240} y={y + 42} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            przekrój kołowy d = 60 mm
+          </text>
+        </>
+      )}
     </g>
   )
 }
 
-function SectionDiagram({ draw }: { draw: number }) {
+function SectionDiagram({ draw, part }: { draw: number; part: Part }) {
   const cx = 112
   const cy = 120
   const r = 54
@@ -112,111 +121,121 @@ function SectionDiagram({ draw }: { draw: number }) {
   const rows = 7
   return (
     <g>
-      <circle cx={cx} cy={cy} r={r} fill="#f5f7fc" stroke={MUTED} strokeWidth={1.5} />
-      <line x1={cx - r} y1={cy} x2={cx + r} y2={cy} stroke={MUTED} strokeWidth={1} strokeDasharray="4 3" />
-      <text x={cx} y={cy - r - 8} textAnchor="middle" fontSize={8} fill={MUTED}>
-        przekrój A
-      </text>
-      <circle cx={cx} cy={cy - r} r={4} fill={STRESS} />
-      <text x={cx + 8} y={cy - r + 4} fontSize={8} fill={STRESS}>
-        A
-      </text>
+      {part === 'shapes' ? (
+        <>
+          <circle cx={cx} cy={cy} r={r} fill="#f5f7fc" stroke={MUTED} strokeWidth={1.5} />
+          <line x1={cx - r} y1={cy} x2={cx + r} y2={cy} stroke={MUTED} strokeWidth={1} strokeDasharray="4 3" />
+          <circle cx={cx} cy={cy - r} r={4} fill={STRESS} />
 
-      <line x1={axisX} y1={cy - r - 4} x2={axisX} y2={cy + r + 4} stroke={MUTED} strokeWidth={1.1} />
-      <text x={axisX} y={cy - r - 8} textAnchor="middle" fontSize={8} fill={MUTED}>
-        σ_M
-      </text>
-      {Array.from({ length: rows }, (_, i) => {
-        const t = i / (rows - 1)
-        const gy = cy - r * 0.8 + t * 1.6 * r
-        const value = (cy - gy) / (r * 0.8)
-        const length = 36 * Math.abs(value) * draw
-        const x2 = axisX + Math.sign(value) * length
-        return (
-          <line
-            key={i}
-            x1={axisX}
-            y1={gy}
-            x2={x2}
-            y2={gy}
-            stroke={STRESS}
-            strokeWidth={1.8}
-            markerEnd={`url(#${MARK_STRESS})`}
-            opacity={0.85}
-          />
-        )
-      })}
-      <text x={axisX} y={cy + r + 24} textAnchor="middle" fontSize={8} fill={MUTED}>
-        rozciąganie ↑ / ściskanie ↓
-      </text>
+          <line x1={axisX} y1={cy - r - 4} x2={axisX} y2={cy + r + 4} stroke={MUTED} strokeWidth={1.1} />
+          {Array.from({ length: rows }, (_, i) => {
+            const t = i / (rows - 1)
+            const gy = cy - r * 0.8 + t * 1.6 * r
+            const value = (cy - gy) / (r * 0.8)
+            const length = 36 * Math.abs(value) * draw
+            const x2 = axisX + Math.sign(value) * length
+            return (
+              <line
+                key={i}
+                x1={axisX}
+                y1={gy}
+                x2={x2}
+                y2={gy}
+                stroke={STRESS}
+                strokeWidth={1.8}
+                markerEnd={`url(#${MARK_STRESS})`}
+                opacity={0.85}
+              />
+            )
+          })}
 
-      <text x={296} y={178} fontSize={9} fontWeight={700} fill={STRESS}>
-        σ_x = 67,20 MPa
-      </text>
-      <text x={296} y={192} fontSize={9} fontWeight={700} fill={SHEAR}>
-        τ = 18,86 MPa
-      </text>
-      <text x={296} y={206} fontSize={8} fill={MUTED}>
-        σ_N 10,61 + σ_M 56,59
-      </text>
+          <g transform="translate(308 72)">
+            <rect
+              x={0}
+              y={12}
+              width={68}
+              height={68}
+              rx={4}
+              fill={STRESS}
+              fillOpacity={0.08}
+              stroke={STRESS}
+              strokeWidth={1.5}
+            />
+            <line
+              x1={-4}
+              y1={46}
+              x2={-4 - 26 * draw}
+              y2={46}
+              stroke={STRESS}
+              strokeWidth={2}
+              markerEnd={`url(#${MARK_STRESS})`}
+            />
+            <line
+              x1={72}
+              y1={46}
+              x2={72 + 26 * draw}
+              y2={46}
+              stroke={STRESS}
+              strokeWidth={2}
+              markerEnd={`url(#${MARK_STRESS})`}
+            />
+            <line
+              x1={34}
+              y1={8 - 20 * draw}
+              x2={34}
+              y2={8}
+              stroke={SHEAR}
+              strokeWidth={2}
+              markerEnd={`url(#${MARK_SHEAR})`}
+            />
+            <line
+              x1={34}
+              y1={84 + 20 * draw}
+              x2={34}
+              y2={84}
+              stroke={SHEAR}
+              strokeWidth={2}
+              markerEnd={`url(#${MARK_SHEAR})`}
+            />
+          </g>
+        </>
+      ) : (
+        <>
+          <text x={cx} y={cy - r - 8} textAnchor="middle" fontSize={8} fill={MUTED}>
+            przekrój A
+          </text>
+          <text x={cx + 8} y={cy - r + 4} fontSize={8} fill={STRESS}>
+            A
+          </text>
+          <text x={axisX} y={cy - r - 8} textAnchor="middle" fontSize={8} fill={MUTED}>
+            σ_M
+          </text>
+          <text x={axisX} y={cy + r + 24} textAnchor="middle" fontSize={8} fill={MUTED}>
+            rozciąganie ↑ / ściskanie ↓
+          </text>
 
-      <g transform="translate(308 72)">
-        <rect
-          x={0}
-          y={12}
-          width={68}
-          height={68}
-          rx={4}
-          fill={STRESS}
-          fillOpacity={0.08}
-          stroke={STRESS}
-          strokeWidth={1.5}
-        />
-        <line
-          x1={-4}
-          y1={46}
-          x2={-4 - 26 * draw}
-          y2={46}
-          stroke={STRESS}
-          strokeWidth={2}
-          markerEnd={`url(#${MARK_STRESS})`}
-        />
-        <line
-          x1={72}
-          y1={46}
-          x2={72 + 26 * draw}
-          y2={46}
-          stroke={STRESS}
-          strokeWidth={2}
-          markerEnd={`url(#${MARK_STRESS})`}
-        />
-        <line
-          x1={34}
-          y1={8 - 20 * draw}
-          x2={34}
-          y2={8}
-          stroke={SHEAR}
-          strokeWidth={2}
-          markerEnd={`url(#${MARK_SHEAR})`}
-        />
-        <line
-          x1={34}
-          y1={84 + 20 * draw}
-          x2={34}
-          y2={84}
-          stroke={SHEAR}
-          strokeWidth={2}
-          markerEnd={`url(#${MARK_SHEAR})`}
-        />
-        <text x={34} y={-14} textAnchor="middle" fontSize={8} fill={MUTED}>
-          element w punkcie A
-        </text>
-      </g>
+          <text x={296} y={178} fontSize={9} fontWeight={700} fill={STRESS}>
+            σ_x = 67,20 MPa
+          </text>
+          <text x={296} y={192} fontSize={9} fontWeight={700} fill={SHEAR}>
+            τ = 18,86 MPa
+          </text>
+          <text x={296} y={206} fontSize={8} fill={MUTED}>
+            σ_N 10,61 + σ_M 56,59
+          </text>
+
+          <g transform="translate(308 72)">
+            <text x={34} y={-14} textAnchor="middle" fontSize={8} fill={MUTED}>
+              element w punkcie A
+            </text>
+          </g>
+        </>
+      )}
     </g>
   )
 }
 
-function MeasuredStrainElement({ draw, dim = false }: { draw: number; dim?: boolean }) {
+function MeasuredStrainElement({ draw, part, dim = false }: { draw: number; part: Part; dim?: boolean }) {
   const cx = 126
   const cy = 116
   const half = 44
@@ -238,138 +257,152 @@ function MeasuredStrainElement({ draw, dim = false }: { draw: number; dim?: bool
 
   return (
     <g opacity={dim ? 0.5 : 1}>
-      <rect
-        x={cx - half}
-        y={cy - half}
-        width={2 * half}
-        height={2 * half}
-        fill="none"
-        stroke={MUTED}
-        strokeWidth={1.1}
-        strokeDasharray="4 4"
-        opacity={0.7}
-      />
-      <motion.polygon
-        points={points}
-        fill={ACCENT}
-        fillOpacity={0.13}
-        stroke={ACCENT}
-        strokeWidth={2}
-        initial={false}
-        animate={{ fillOpacity: 0.1 + 0.06 * draw }}
-      />
-      <line
-        x1={x1 + shear}
-        y1={cy}
-        x2={x1 + shear + 20 * draw}
-        y2={cy}
-        stroke={ACCENT}
-        strokeWidth={2}
-        markerEnd={`url(#${MARK_ACCENT})`}
-      />
-      <line
-        x1={x0 - shear}
-        y1={cy}
-        x2={x0 - shear - 20 * draw}
-        y2={cy}
-        stroke={ACCENT}
-        strokeWidth={2}
-        markerEnd={`url(#${MARK_ACCENT})`}
-      />
-      <line
-        x1={cx}
-        y1={y0 - 4}
-        x2={cx}
-        y2={y0 - 4 - 20 * draw}
-        stroke={ACCENT}
-        strokeWidth={2}
-        markerEnd={`url(#${MARK_ACCENT})`}
-      />
-      <line
-        x1={cx}
-        y1={y1 + 4}
-        x2={cx}
-        y2={y1 + 4 + 20 * draw}
-        stroke={ACCENT}
-        strokeWidth={2}
-        markerEnd={`url(#${MARK_ACCENT})`}
-      />
-      <text x={x1 + shear + 6} y={cy - 7} fontSize={8.5} fontWeight={700} fill={ACCENT}>
-        ε_x = {EPS_X} με
-      </text>
-      <text x={cx + 6} y={y0 - 8} fontSize={8.5} fontWeight={700} fill={ACCENT}>
-        ε_y = −100,8 με
-      </text>
-      <text x={cx} y={cy + 4} textAnchor="middle" fontSize={8} fill={MUTED}>
-        γ_xy = {GAMMA} μrad
-      </text>
+      {part === 'shapes' ? (
+        <>
+          <rect
+            x={cx - half}
+            y={cy - half}
+            width={2 * half}
+            height={2 * half}
+            fill="none"
+            stroke={MUTED}
+            strokeWidth={1.1}
+            strokeDasharray="4 4"
+            opacity={0.7}
+          />
+          <motion.polygon
+            points={points}
+            fill={ACCENT}
+            fillOpacity={0.13}
+            stroke={ACCENT}
+            strokeWidth={2}
+            initial={false}
+            animate={{ fillOpacity: 0.1 + 0.06 * draw }}
+          />
+          <line
+            x1={x1 + shear}
+            y1={cy}
+            x2={x1 + shear + 20 * draw}
+            y2={cy}
+            stroke={ACCENT}
+            strokeWidth={2}
+            markerEnd={`url(#${MARK_ACCENT})`}
+          />
+          <line
+            x1={x0 - shear}
+            y1={cy}
+            x2={x0 - shear - 20 * draw}
+            y2={cy}
+            stroke={ACCENT}
+            strokeWidth={2}
+            markerEnd={`url(#${MARK_ACCENT})`}
+          />
+          <line
+            x1={cx}
+            y1={y0 - 4}
+            x2={cx}
+            y2={y0 - 4 - 20 * draw}
+            stroke={ACCENT}
+            strokeWidth={2}
+            markerEnd={`url(#${MARK_ACCENT})`}
+          />
+          <line
+            x1={cx}
+            y1={y1 + 4}
+            x2={cx}
+            y2={y1 + 4 + 20 * draw}
+            stroke={ACCENT}
+            strokeWidth={2}
+            markerEnd={`url(#${MARK_ACCENT})`}
+          />
+        </>
+      ) : (
+        <>
+          <text x={x1 + shear + 6} y={cy - 7} fontSize={8.5} fontWeight={700} fill={ACCENT}>
+            ε_x = {EPS_X} με
+          </text>
+          <text x={cx + 6} y={y0 - 8} fontSize={8.5} fontWeight={700} fill={ACCENT}>
+            ε_y = −100,8 με
+          </text>
+          <text x={cx} y={cy + 4} textAnchor="middle" fontSize={8} fill={MUTED}>
+            γ_xy = {GAMMA} μrad
+          </text>
+        </>
+      )}
     </g>
   )
 }
 
-function PrincipalAxes({ draw }: { draw: number }) {
+function PrincipalAxes({ draw, part }: { draw: number; part: Part }) {
   const cx = 126
   const cy = 116
   const angle = (-PHI * Math.PI) / 180
   const length = 66 * draw
   return (
     <g>
-      <line
-        x1={cx - 66}
-        y1={cy}
-        x2={cx + 66}
-        y2={cy}
-        stroke={MUTED}
-        strokeWidth={1}
-        strokeDasharray="3 3"
-        opacity={0.6}
-      />
-      <line
-        x1={cx}
-        y1={cy - 66}
-        x2={cx}
-        y2={cy + 66}
-        stroke={MUTED}
-        strokeWidth={1}
-        strokeDasharray="3 3"
-        opacity={0.6}
-      />
-      <motion.line
-        x1={cx - length * Math.cos(angle)}
-        y1={cy + length * Math.sin(angle)}
-        x2={cx + length * Math.cos(angle)}
-        y2={cy - length * Math.sin(angle)}
-        stroke={SHEAR}
-        strokeWidth={2.2}
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: draw }}
-      />
-      <text
-        x={cx + length * Math.cos(angle) + 4}
-        y={cy - length * Math.sin(angle) - 4}
-        fontSize={8}
-        fontWeight={700}
-        fill={SHEAR}
-      >
-        I
-      </text>
-      <text
-        x={cx - length * Math.cos(angle) - 10}
-        y={cy + length * Math.sin(angle) + 10}
-        fontSize={8}
-        fontWeight={700}
-        fill={SHEAR}
-      >
-        II
-      </text>
-      <text x={cx} y={cy + 82} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-        φ_I = {PHI.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}°
-      </text>
+      {part === 'shapes' ? (
+        <>
+          <line
+            x1={cx - 66}
+            y1={cy}
+            x2={cx + 66}
+            y2={cy}
+            stroke={MUTED}
+            strokeWidth={1}
+            strokeDasharray="3 3"
+            opacity={0.6}
+          />
+          <line
+            x1={cx}
+            y1={cy - 66}
+            x2={cx}
+            y2={cy + 66}
+            stroke={MUTED}
+            strokeWidth={1}
+            strokeDasharray="3 3"
+            opacity={0.6}
+          />
+          <motion.line
+            x1={cx - length * Math.cos(angle)}
+            y1={cy + length * Math.sin(angle)}
+            x2={cx + length * Math.cos(angle)}
+            y2={cy - length * Math.sin(angle)}
+            stroke={SHEAR}
+            strokeWidth={2.2}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: draw }}
+          />
+        </>
+      ) : (
+        <>
+          <text
+            x={cx + length * Math.cos(angle) + 4}
+            y={cy - length * Math.sin(angle) - 4}
+            fontSize={8}
+            fontWeight={700}
+            fill={SHEAR}
+          >
+            I
+          </text>
+          <text
+            x={cx - length * Math.cos(angle) - 10}
+            y={cy + length * Math.sin(angle) + 10}
+            fontSize={8}
+            fontWeight={700}
+            fill={SHEAR}
+          >
+            II
+          </text>
+          <text x={cx} y={cy + 82} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            φ_I = {PHI.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}°
+          </text>
+        </>
+      )}
     </g>
   )
 }
 
-function RosetteGauges({ draw }: { draw: number }) {
+function RosetteGauges({ draw, part }: { draw: number; part: Part }) {
   const cx = 340
   const cy = 116
   const r = 52
@@ -380,142 +413,173 @@ function RosetteGauges({ draw }: { draw: number }) {
   ]
   return (
     <g>
-      <circle cx={cx} cy={cy} r={r + 8} fill="#f5f7fc" stroke="#d3d9e0" strokeWidth={1.2} />
-      <text x={cx} y={cy - r - 20} textAnchor="middle" fontSize={9} fontWeight={700} fill={INK}>
-        pomiar rozety
-      </text>
-      {gauges.map((gauge) => {
-        const angle = (gauge.angle * Math.PI) / 180
-        const ex = cx + Math.cos(angle) * r
-        const ey = cy - Math.sin(angle) * r
-        return (
-          <g key={gauge.label}>
-            <motion.line
-              x1={cx}
-              y1={cy}
-              x2={ex}
-              y2={ey}
-              stroke={gauge.color}
-              strokeWidth={2.2}
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: draw }}
-              transition={{ duration: 0.12, ease: 'linear' }}
-            />
-            <circle cx={ex} cy={ey} r={3} fill={gauge.color} />
-            <text
-              x={ex + (gauge.angle === 0 ? 7 : gauge.angle === 90 ? 0 : 6)}
-              y={ey + (gauge.angle === 0 ? 4 : gauge.angle === 90 ? -6 : 0)}
-              textAnchor={gauge.angle === 90 ? 'middle' : 'start'}
-              fontSize={8}
-              fill={gauge.color}
-            >
-              {gauge.label}: {gauge.value}
-            </text>
-          </g>
-        )
-      })}
-      <text x={cx} y={cy + r + 26} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-        γ_xy = 245,2 μrad
-      </text>
+      {part === 'shapes' ? (
+        <>
+          <circle cx={cx} cy={cy} r={r + 8} fill="#f5f7fc" stroke="#d3d9e0" strokeWidth={1.2} />
+          {gauges.map((gauge) => {
+            const angle = (gauge.angle * Math.PI) / 180
+            const ex = cx + Math.cos(angle) * r
+            const ey = cy - Math.sin(angle) * r
+            return (
+              <g key={gauge.label}>
+                <motion.line
+                  x1={cx}
+                  y1={cy}
+                  x2={ex}
+                  y2={ey}
+                  stroke={gauge.color}
+                  strokeWidth={2.2}
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: draw }}
+                  transition={{ duration: 0.12, ease: 'linear' }}
+                />
+                <circle cx={ex} cy={ey} r={3} fill={gauge.color} />
+              </g>
+            )
+          })}
+        </>
+      ) : (
+        <>
+          <text x={cx} y={cy - r - 20} textAnchor="middle" fontSize={9} fontWeight={700} fill={INK}>
+            pomiar rozety
+          </text>
+          {gauges.map((gauge) => {
+            const angle = (gauge.angle * Math.PI) / 180
+            const ex = cx + Math.cos(angle) * r
+            const ey = cy - Math.sin(angle) * r
+            return (
+              <text
+                key={gauge.label}
+                x={ex + (gauge.angle === 0 ? 7 : gauge.angle === 90 ? 0 : 6)}
+                y={ey + (gauge.angle === 0 ? 4 : gauge.angle === 90 ? -6 : 0)}
+                textAnchor={gauge.angle === 90 ? 'middle' : 'start'}
+                fontSize={8}
+                fill={gauge.color}
+              >
+                {gauge.label}: {gauge.value}
+              </text>
+            )
+          })}
+          <text x={cx} y={cy + r + 26} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            γ_xy = 245,2 μrad
+          </text>
+        </>
+      )}
     </g>
   )
 }
 
-function MohrCircle({ draw }: { draw: number }) {
+function MohrCircle({ draw, part }: { draw: number; part: Part }) {
   const cx = 340
   const cy = 116
   const r = 64
   return (
     <g>
-      <text x={cx} y={32} textAnchor="middle" fontSize={9} fontWeight={700} fill={SHEAR}>
-        koło Mohra odkształceń
-      </text>
-      <line x1={cx - r - 20} y1={cy} x2={cx + r + 20} y2={cy} stroke={MUTED} strokeWidth={1.1} />
-      <line x1={cx} y1={cy - r - 14} x2={cx} y2={cy + r + 14} stroke={MUTED} strokeWidth={1.1} />
-      <motion.circle
-        cx={cx}
-        cy={cy}
-        r={r}
-        fill="none"
-        stroke={SHEAR}
-        strokeWidth={2.2}
-        initial={{ pathLength: 0, opacity: 0.35 }}
-        animate={{ pathLength: draw, opacity: 1 }}
-        transition={{ duration: 0.12, ease: 'linear' }}
-      />
-      <circle cx={cx} cy={cy} r={3} fill={INK} />
-      <circle cx={cx + r} cy={cy} r={3.6} fill={STRESS} />
-      <circle cx={cx - r} cy={cy} r={3.6} fill={ACCENT} />
-      <text x={cx} y={cy - 7} textAnchor="middle" fontSize={8} fill={INK}>
-        117,6 με
-      </text>
-      <text x={cx + r} y={cy - 10} textAnchor="middle" fontSize={8} fill={STRESS}>
-        ε_I = 368,07
-      </text>
-      <text x={cx - r} y={cy - 10} textAnchor="middle" fontSize={8} fill={ACCENT}>
-        ε_II = −132,87
-      </text>
-      <text x={cx + r / 2} y={cy + 14} textAnchor="middle" fontSize={8} fill={SHEAR}>
-        R_ε = 250,47 με
-      </text>
-      <text x={cx} y={cy + r + 28} textAnchor="middle" fontSize={8.5} fill={MUTED}>
-        φ_I = 14,65°
-      </text>
+      {part === 'shapes' ? (
+        <>
+          <line x1={cx - r - 20} y1={cy} x2={cx + r + 20} y2={cy} stroke={MUTED} strokeWidth={1.1} />
+          <line x1={cx} y1={cy - r - 14} x2={cx} y2={cy + r + 14} stroke={MUTED} strokeWidth={1.1} />
+          <motion.circle
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="none"
+            stroke={SHEAR}
+            strokeWidth={2.2}
+            initial={{ pathLength: 0, opacity: 0.35 }}
+            animate={{ pathLength: draw, opacity: 1 }}
+            transition={{ duration: 0.12, ease: 'linear' }}
+          />
+          <circle cx={cx} cy={cy} r={3} fill={INK} />
+          <circle cx={cx + r} cy={cy} r={3.6} fill={STRESS} />
+          <circle cx={cx - r} cy={cy} r={3.6} fill={ACCENT} />
+        </>
+      ) : (
+        <>
+          <text x={cx} y={32} textAnchor="middle" fontSize={9} fontWeight={700} fill={SHEAR}>
+            koło Mohra odkształceń
+          </text>
+          <text x={cx} y={cy - 7} textAnchor="middle" fontSize={8} fill={INK}>
+            117,6 με
+          </text>
+          <text x={cx + r} y={cy - 10} textAnchor="middle" fontSize={8} fill={STRESS}>
+            ε_I = 368,07
+          </text>
+          <text x={cx - r} y={cy - 10} textAnchor="middle" fontSize={8} fill={ACCENT}>
+            ε_II = −132,87
+          </text>
+          <text x={cx + r / 2} y={cy + 14} textAnchor="middle" fontSize={8} fill={SHEAR}>
+            R_ε = 250,47 με
+          </text>
+          <text x={cx} y={cy + r + 28} textAnchor="middle" fontSize={8.5} fill={MUTED}>
+            φ_I = 14,65°
+          </text>
+        </>
+      )}
     </g>
   )
 }
 
-function HookeLink({ draw, playing }: { draw: number; playing: boolean }) {
+function HookeLink({ draw, playing, part }: { draw: number; playing: boolean; part: Part }) {
   const x1 = 196
   const x2 = 294
   const y = 116
   return (
     <g>
-      <motion.line
-        x1={x1}
-        y1={y}
-        x2={x2}
-        y2={y}
-        stroke={OK}
-        strokeWidth={2.4}
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: draw }}
-        transition={{ duration: 0.12, ease: 'linear' }}
-        markerEnd={`url(#${MARK_OK})`}
-      />
-      {[0, 1, 2].map((i) => (
-        <motion.circle
-          key={i}
-          cy={y}
-          r={2.6}
-          fill={OK}
-          initial={false}
-          animate={
-            playing ? { cx: [x1, x2], opacity: [0, 1, 0] } : { cx: x1 + (x2 - x1) * ((i + 1) / 4), opacity: 0.85 }
-          }
-          transition={
-            playing ? { duration: 1.3, repeat: Infinity, delay: i * 0.32, ease: 'linear' } : { duration: 0.2 }
-          }
-          style={{ display: draw > 0.2 ? 'inline' : 'none' }}
-        />
-      ))}
-      <text x={(x1 + x2) / 2} y={84} textAnchor="middle" fontSize={9} fontWeight={700} fill={OK}>
-        prawo Hooke’a
-      </text>
-      <text x={(x1 + x2) / 2} y={97} textAnchor="middle" fontSize={8} fill={MUTED}>
-        ε → σ
-      </text>
-      <text x={(x1 + x2) / 2} y={142} textAnchor="middle" fontSize={8} fill={INK}>
-        E/(1−ν²) = 219 780 MPa
-      </text>
-      <text x={(x1 + x2) / 2} y={155} textAnchor="middle" fontSize={8} fill={MUTED}>
-        E = 200 GPa, ν = 0,30
-      </text>
+      {part === 'shapes' ? (
+        <>
+          <motion.line
+            x1={x1}
+            y1={y}
+            x2={x2}
+            y2={y}
+            stroke={OK}
+            strokeWidth={2.4}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: draw }}
+            transition={{ duration: 0.12, ease: 'linear' }}
+            markerEnd={`url(#${MARK_OK})`}
+          />
+          {[0, 1, 2].map((i) => (
+            <motion.circle
+              key={i}
+              cy={y}
+              r={2.6}
+              fill={OK}
+              initial={false}
+              animate={
+                playing
+                  ? { cx: [x1, x2], opacity: [0, 1, 0] }
+                  : { cx: x1 + (x2 - x1) * ((i + 1) / 4), opacity: 0.85 }
+              }
+              transition={
+                playing ? { duration: 1.3, repeat: Infinity, delay: i * 0.32, ease: 'linear' } : { duration: 0.2 }
+              }
+              style={{ display: draw > 0.2 ? 'inline' : 'none' }}
+            />
+          ))}
+        </>
+      ) : (
+        <>
+          <text x={(x1 + x2) / 2} y={84} textAnchor="middle" fontSize={9} fontWeight={700} fill={OK}>
+            prawo Hooke’a
+          </text>
+          <text x={(x1 + x2) / 2} y={97} textAnchor="middle" fontSize={8} fill={MUTED}>
+            ε → σ
+          </text>
+          <text x={(x1 + x2) / 2} y={142} textAnchor="middle" fontSize={8} fill={INK}>
+            E/(1−ν²) = 219 780 MPa
+          </text>
+          <text x={(x1 + x2) / 2} y={155} textAnchor="middle" fontSize={8} fill={MUTED}>
+            E = 200 GPa, ν = 0,30
+          </text>
+        </>
+      )}
     </g>
   )
 }
 
-function StressElement({ draw }: { draw: number }) {
+function StressElement({ draw, part }: { draw: number; part: Part }) {
   const cx = 356
   const cy = 116
   const half = 42
@@ -524,112 +588,128 @@ function StressElement({ draw }: { draw: number }) {
   const sy = Math.abs(SIGMA_II) * scale * draw
   return (
     <g>
-      <rect
-        x={cx - half}
-        y={cy - half}
-        width={2 * half}
-        height={2 * half}
-        rx={4}
-        fill={STRESS}
-        fillOpacity={0.1}
-        stroke={STRESS}
-        strokeWidth={2}
-      />
-      <line
-        x1={cx + half + 4}
-        y1={cy}
-        x2={cx + half + 4 + sx}
-        y2={cy}
-        stroke={STRESS}
-        strokeWidth={2.2}
-        markerEnd={`url(#${MARK_STRESS})`}
-      />
-      <line
-        x1={cx - half - 4}
-        y1={cy}
-        x2={cx - half - 4 - sx}
-        y2={cy}
-        stroke={STRESS}
-        strokeWidth={2.2}
-        markerEnd={`url(#${MARK_STRESS})`}
-      />
-      <line
-        x1={cx}
-        y1={cy - half - 4 - sy}
-        x2={cx}
-        y2={cy - half - 4}
-        stroke={STRESS}
-        strokeWidth={2.2}
-        markerEnd={`url(#${MARK_STRESS})`}
-      />
-      <line
-        x1={cx}
-        y1={cy + half + 4 + sy}
-        x2={cx}
-        y2={cy + half + 4}
-        stroke={STRESS}
-        strokeWidth={2.2}
-        markerEnd={`url(#${MARK_STRESS})`}
-      />
-      <text x={cx - half - 6} y={cy - 8} textAnchor="end" fontSize={9} fontWeight={700} fill={STRESS}>
-        σ_I = 72,13 MPa
-      </text>
-      <text x={cx + 6} y={cy - half - 10} fontSize={9} fontWeight={700} fill={STRESS}>
-        σ_II = −4,93 MPa
-      </text>
-      <text x={cx} y={cy + 4} textAnchor="middle" fontSize={8} fill={MUTED}>
-        naprężenie
-      </text>
+      {part === 'shapes' ? (
+        <>
+          <rect
+            x={cx - half}
+            y={cy - half}
+            width={2 * half}
+            height={2 * half}
+            rx={4}
+            fill={STRESS}
+            fillOpacity={0.1}
+            stroke={STRESS}
+            strokeWidth={2}
+          />
+          <line
+            x1={cx + half + 4}
+            y1={cy}
+            x2={cx + half + 4 + sx}
+            y2={cy}
+            stroke={STRESS}
+            strokeWidth={2.2}
+            markerEnd={`url(#${MARK_STRESS})`}
+          />
+          <line
+            x1={cx - half - 4}
+            y1={cy}
+            x2={cx - half - 4 - sx}
+            y2={cy}
+            stroke={STRESS}
+            strokeWidth={2.2}
+            markerEnd={`url(#${MARK_STRESS})`}
+          />
+          <line
+            x1={cx}
+            y1={cy - half - 4 - sy}
+            x2={cx}
+            y2={cy - half - 4}
+            stroke={STRESS}
+            strokeWidth={2.2}
+            markerEnd={`url(#${MARK_STRESS})`}
+          />
+          <line
+            x1={cx}
+            y1={cy + half + 4 + sy}
+            x2={cx}
+            y2={cy + half + 4}
+            stroke={STRESS}
+            strokeWidth={2.2}
+            markerEnd={`url(#${MARK_STRESS})`}
+          />
+        </>
+      ) : (
+        <>
+          <text x={cx + half - 2} y={cy - 8} textAnchor="end" fontSize={9} fontWeight={700} fill={STRESS}>
+            σ_I = 72,13 MPa
+          </text>
+          <text x={cx + 6} y={cy - half - 10} fontSize={9} fontWeight={700} fill={STRESS}>
+            σ_II = −4,93 MPa
+          </text>
+          <text x={cx} y={cy + 4} textAnchor="middle" fontSize={8} fill={MUTED}>
+            naprężenie
+          </text>
+        </>
+      )}
     </g>
   )
 }
 
-function CheckGauge({ progress }: { progress: number }) {
+function CheckGauge({ progress, part }: { progress: number; part: Part }) {
   const x = 72
   const y = 238
   const w = 316
   const xOf = (value: number) => x + (value / RE) * w
   return (
     <g>
-      <text x={x} y={y - 30} fontSize={8.5} fontWeight={700} fill={INK}>
-        naprężenia zredukowane względem R_e
-      </text>
-      <line x1={x} y1={y} x2={x + w} y2={y} stroke={MUTED} strokeWidth={1.1} />
-      <line x1={xOf(RE)} y1={y - 12} x2={xOf(RE)} y2={y + 12} stroke={OK} strokeWidth={1.6} strokeDasharray="3 3" />
-      <text x={xOf(RE)} y={y - 16} textAnchor="end" fontSize={8} fill={OK}>
-        R_e = 235 MPa
-      </text>
-      <motion.rect
-        x={x}
-        y={y - 5}
-        height={10}
-        rx={3}
-        fill={ACCENT}
-        fillOpacity={0.35}
-        initial={false}
-        animate={{ width: (xOf(HMH) - x) * progress }}
-        transition={{ duration: 0.12, ease: 'linear' }}
-      />
-      <motion.g initial={false} animate={{ opacity: progress }} transition={{ duration: 0.15 }}>
-        <line x1={xOf(HMH)} y1={y - 12} x2={xOf(HMH)} y2={y + 4} stroke={ACCENT} strokeWidth={2.2} />
-        <circle cx={xOf(HMH)} cy={y - 12} r={3} fill={ACCENT} />
-        <text x={xOf(HMH) - 4} y={y - 17} textAnchor="end" fontSize={8} fontWeight={700} fill={ACCENT}>
-          HMH 74,72
-        </text>
-        <line x1={xOf(TRESCA)} y1={y + 4} x2={xOf(TRESCA)} y2={y + 16} stroke={STRESS} strokeWidth={2.2} />
-        <circle cx={xOf(TRESCA)} cy={y + 16} r={3} fill={STRESS} />
-        <text x={xOf(TRESCA) + 4} y={y + 27} fontSize={8} fontWeight={700} fill={STRESS}>
-          Tresca 77,06
-        </text>
-      </motion.g>
-      <text x={x} y={y + 16} fontSize={8} fill={MUTED}>
-        0
-      </text>
-      <motion.g initial={false} animate={{ opacity: progress }}>
-        <text x={x + w / 2} y={y + 44} textAnchor="middle" fontSize={9} fontWeight={700} fill={OK}>
-          n_HMH = 3,15 · n_T = 3,05 &gt; 1
-        </text>
-      </motion.g>
+      {part === 'shapes' ? (
+        <>
+          <line x1={x} y1={y} x2={x + w} y2={y} stroke={MUTED} strokeWidth={1.1} />
+          <line x1={xOf(RE)} y1={y - 12} x2={xOf(RE)} y2={y + 12} stroke={OK} strokeWidth={1.6} strokeDasharray="3 3" />
+          <motion.rect
+            x={x}
+            y={y - 5}
+            height={10}
+            rx={3}
+            fill={ACCENT}
+            fillOpacity={0.35}
+            initial={false}
+            animate={{ width: (xOf(HMH) - x) * progress }}
+            transition={{ duration: 0.12, ease: 'linear' }}
+          />
+          <motion.g initial={false} animate={{ opacity: progress }} transition={{ duration: 0.15 }}>
+            <line x1={xOf(HMH)} y1={y - 12} x2={xOf(HMH)} y2={y + 4} stroke={ACCENT} strokeWidth={2.2} />
+            <circle cx={xOf(HMH)} cy={y - 12} r={3} fill={ACCENT} />
+            <line x1={xOf(TRESCA)} y1={y + 4} x2={xOf(TRESCA)} y2={y + 16} stroke={STRESS} strokeWidth={2.2} />
+            <circle cx={xOf(TRESCA)} cy={y + 16} r={3} fill={STRESS} />
+          </motion.g>
+        </>
+      ) : (
+        <>
+          <text x={x} y={y - 30} fontSize={8.5} fontWeight={700} fill={INK}>
+            naprężenia zredukowane względem R_e
+          </text>
+          <text x={xOf(RE)} y={y - 16} textAnchor="end" fontSize={8} fill={OK}>
+            R_e = 235 MPa
+          </text>
+          <motion.g initial={false} animate={{ opacity: progress }} transition={{ duration: 0.15 }}>
+            <text x={xOf(HMH) - 4} y={y - 17} textAnchor="end" fontSize={8} fontWeight={700} fill={ACCENT}>
+              HMH 74,72
+            </text>
+            <text x={xOf(TRESCA) + 6} y={y + 18} textAnchor="start" fontSize={8} fontWeight={700} fill={STRESS}>
+              Tresca 77,06
+            </text>
+          </motion.g>
+          <text x={x} y={y + 16} fontSize={8} fill={MUTED}>
+            0
+          </text>
+          <motion.g initial={false} animate={{ opacity: progress }}>
+            <text x={x + w / 2} y={y + 38} textAnchor="middle" fontSize={9} fontWeight={700} fill={OK}>
+              n_HMH = 3,15 · n_T = 3,05 &gt; 1
+            </text>
+          </motion.g>
+        </>
+      )}
     </g>
   )
 }
@@ -716,39 +796,66 @@ export function StrainStressLinkExample2Animation({ scene, playing, sceneProgres
             </marker>
           </defs>
 
-          <text x={16} y={22} fontSize={10} fontWeight={600} fill={INK}>
-            obciążenie złożone: N + M + T
-          </text>
-          <text x={16} y={38} fontSize={8.5} fill={MUTED}>
-            d = 60 mm · N = 30 kN · M = 1,2 kN·m · T = 800 N·m · R_e = 235 MPa
-          </text>
+          {showLoads ? <ShaftLoads draw={draw} playing={playing} part="shapes" /> : null}
+          {showSection ? <SectionDiagram draw={draw} part="shapes" /> : null}
 
-          {showLoads ? <ShaftLoads draw={draw} playing={playing} /> : null}
-          {showSection ? <SectionDiagram draw={draw} /> : null}
-
-          {(showStrain || showPrincipal) && <MeasuredStrainElement draw={draw} dim={showPrincipal} />}
-          {showStrain ? <RosetteGauges draw={gaugeDraw} /> : null}
+          {(showStrain || showPrincipal) && <MeasuredStrainElement draw={draw} dim={showPrincipal} part="shapes" />}
+          {showStrain ? <RosetteGauges draw={gaugeDraw} part="shapes" /> : null}
           {showPrincipal ? (
             <>
-              <PrincipalAxes draw={draw} />
-              <MohrCircle draw={gaugeDraw} />
+              <PrincipalAxes draw={draw} part="shapes" />
+              <MohrCircle draw={gaugeDraw} part="shapes" />
             </>
           ) : null}
 
           {showStress ? (
             <>
-              <MeasuredStrainElement draw={draw} />
-              <PrincipalAxes draw={draw} />
-              <HookeLink draw={linkDraw} playing={playing} />
-              <StressElement draw={draw} />
+              <MeasuredStrainElement draw={draw} part="shapes" />
+              <PrincipalAxes draw={draw} part="shapes" />
+              <HookeLink draw={linkDraw} playing={playing} part="shapes" />
+              <StressElement draw={draw} part="shapes" />
             </>
           ) : null}
 
-          {showCheck ? <CheckGauge progress={gaugeDraw} /> : null}
+          {showCheck ? <CheckGauge progress={gaugeDraw} part="shapes" /> : null}
 
-          <text x={16} y={288} fontSize={8.5} fill={metric === 'check' ? OK : MUTED}>
-            {note}
-          </text>
+          <g>
+            <text x={16} y={22} fontSize={10} fontWeight={600} fill={INK}>
+              obciążenie złożone: N + M + T
+            </text>
+            <text x={16} y={38} fontSize={8.5} fill={MUTED}>
+              d = 60 mm · N = 30 kN · M = 1,2 kN·m · T = 800 N·m · R_e = 235 MPa
+            </text>
+
+            {showLoads ? <ShaftLoads draw={draw} playing={playing} part="texts" /> : null}
+            {showSection ? <SectionDiagram draw={draw} part="texts" /> : null}
+
+            {(showStrain || showPrincipal) && (
+              <MeasuredStrainElement draw={draw} dim={showPrincipal} part="texts" />
+            )}
+            {showStrain ? <RosetteGauges draw={gaugeDraw} part="texts" /> : null}
+            {showPrincipal ? (
+              <>
+                <PrincipalAxes draw={draw} part="texts" />
+                <MohrCircle draw={gaugeDraw} part="texts" />
+              </>
+            ) : null}
+
+            {showStress ? (
+              <>
+                <MeasuredStrainElement draw={draw} part="texts" />
+                <PrincipalAxes draw={draw} part="texts" />
+                <HookeLink draw={linkDraw} playing={playing} part="texts" />
+                <StressElement draw={draw} part="texts" />
+              </>
+            ) : null}
+
+            {showCheck ? <CheckGauge progress={gaugeDraw} part="texts" /> : null}
+
+            <text x={16} y={288} fontSize={8.5} fill={metric === 'check' ? OK : MUTED}>
+              {note}
+            </text>
+          </g>
         </svg>
       </div>
     </div>
